@@ -1,0 +1,7 @@
+.DS_Store
+*~
+public
+deploy
+.*.swp
+node_modules
+*.log
