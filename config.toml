@@ -1,0 +1,3 @@
+baseURL = "http://docs.influxdata.com/"
+languageCode = "en-us"
+title = "InfluxDB Documentation"
