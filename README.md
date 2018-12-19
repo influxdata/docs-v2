@@ -8,6 +8,12 @@ accessible at [docs.influxdata.com](https://docs.influxdata.com).
 Hugo is the static site generator used to build the InfluxData documentation.
 [Download and install Hugo](https://gohugo.io/getting-started/installing/) to run the docs locally.
 
+### Install NodeJS
+
+```sh
+npm i -g postcss-cli autoprefixer
+```
+
 ### Fork and clone the docs repository
 [Fork this repository](https://help.github.com/articles/fork-a-repo/) and [clone it](https://help.github.com/articles/cloning-a-repository/) to your local machine.
 

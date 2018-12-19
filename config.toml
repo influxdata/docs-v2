@@ -1,3 +1,10 @@
 baseURL = "http://docs.influxdata.com/"
 languageCode = "en-us"
 title = "InfluxDB Documentation"
+
+# Git history information for lastMod-type functionality
+enableGitInfo = true
+
+# Syntax Highlighting
+pygmentsCodefences = true
+pygmentsUseClasses = true
