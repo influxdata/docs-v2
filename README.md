@@ -8,7 +8,10 @@ accessible at [docs.influxdata.com](https://docs.influxdata.com).
 Hugo is the static site generator used to build the InfluxData documentation.
 [Download and install Hugo](https://gohugo.io/getting-started/installing/) to run the docs locally.
 
-### Install NodeJS
+### Install NodeJS & Asset Pipeline Tools
+This project uses tools built in NodeJS to build and process stylesheets and javascript.
+In order for the asset pipeline to work, [install NodeJS](https://nodejs.org/en/download/)
+and run the following to install the necessary tools:
 
 ```sh
 npm i -g postcss-cli autoprefixer
