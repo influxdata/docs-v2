@@ -13,6 +13,13 @@ menu:
 * Lists all orgs user belongs to
 * User can filter list by organization name
 
+**To create an organization**:
+
+1. Click **+ Create Organization**
+2. Enter a name for your organization.
+3. Click **Create**.
+
+
 ## Sub pages:
 
 ### Organization (/organizations/orgnamehere)
