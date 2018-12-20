@@ -1,0 +1,49 @@
+.topnav {
+  padding: .75em;
+
+  &--left {
+
+  }
+  &--right {
+
+  }
+
+  .influx-home {
+    font-family: 'icomoon';
+    font-size: 2.1em;
+    color: $topnav-logo;
+    text-decoration: none;
+    vertical-align: middle;
+
+    &:hover {
+      color: $topnav-logo-hover;
+    }
+
+    .icon-influx-logotype {
+      margin-left: -.8rem;
+    }
+  }
+
+  .divider {
+    height: 100%; border-left: 1px solid rgba($topnav-logo, .5);
+    margin-right: 1rem;
+  }
+
+  .docs-home {
+    display: inline-block;
+    vertical-align: text-top;
+    font-family: 'Klavika-Light';
+    font-size: 1.25rem;
+    color: $topnav-logo;
+    text-decoration: none;
+
+    &:hover {
+      color: $topnav-logo-hover;
+    }
+  }
+
+
+
+
+
+}

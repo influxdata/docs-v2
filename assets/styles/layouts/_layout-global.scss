@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Klavika-Light';
+    src: url(../fonts/KlavikaLight-ItalicTF.otf);
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Klavika-Bold';
+    src: url(../fonts/KlavikaBoldBoldItalic.otf);
+    font-weight: 700;
+    font-style: italic;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: Roboto, sans-serif;
+  background: $body-bg;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+  transition: all .2s;
+}

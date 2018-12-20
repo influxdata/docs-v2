@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="{{ if .Description }}{{ .Description }}. {{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{{ if .Params.seotitle }} {{ .Params.seotitle }} {{ else if .Title }} {{ .Title }} {{ end }} | InfluxData Documentation</title>
-    {{ partial "nested/stylesheets.html"}}
+    <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxData Documentation</title>
+
+    {{ partial "header/stylesheets.html"}}
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
   </head>
   <body>
+    {{ partial "topnav.html" }}

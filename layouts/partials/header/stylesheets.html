@@ -2,7 +2,7 @@
 {{ $cssOptionsLight := (dict "targetPath" "light-theme.css" "compressed" "nested" "enableSourceMap" true) }}
 {{ $PostCSSOptions := (dict "use" "autoprefixer" "noMap" false) }}
 
-{{ $stylesDark := resources.Get "styles/styles-dark.scss" | toCSS $cssOptionsDark | postCSS $PostCSSOptions | minify | fingerprint }}
+{{ $stylesDark := resources.Get "styles/styles-default.scss" | toCSS $cssOptionsDark | postCSS $PostCSSOptions | minify | fingerprint }}
 <link rel="stylesheet" title="dark-theme" href="{{ $stylesDark.Permalink }}">
 
 {{ $stylesLight := resources.Get "styles/styles-light.scss" | toCSS $cssOptionsLight | postCSS $PostCSSOptions | minify | fingerprint }}
