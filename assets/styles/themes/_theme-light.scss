@@ -19,7 +19,16 @@ $body-bg: $g18-cloud;
 // TopNav Colors
 $topnav-link: $g3-castle;
 $topnav-link-hover: $b-ocean;
-$version-selector-top: $b-pool !default;
-$version-selector-bottom: $gr-viridian !default;
+$version-selector-top: $b-pool;
+$version-selector-bottom: $gr-viridian;
 $theme-switch-light: none;
 $theme-switch-dark: inline-block;
+
+// Sidebar
+$search-border: $g15-platinum;
+$search-highlight: $b-pool;
+
+// Article Content
+$article-bg: $g20-white;
+$article-heading: $g5-pepper;
+$article-text: $g7-graphite;

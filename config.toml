@@ -8,3 +8,8 @@ enableGitInfo = true
 # Syntax Highlighting
 pygmentsCodefences = true
 pygmentsUseClasses = true
+
+[menu]
+  [[menu.versions]]
+    name = "v1.x"
+    url = "https://docs.influxdata.com"

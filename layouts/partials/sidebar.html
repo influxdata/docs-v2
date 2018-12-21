@@ -1,0 +1,17 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+<div class="sidebar">
+  <div class="sidebar--search">
+    <input  class="sidebar--search-field"
+            id="algolia-search-input"
+            type="text"
+            accesskey="s"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            dir="auto"
+            placeholder="Search {{ $currentVersion }}">
+
+  </div>
+  <p>Hello World</p>
+</div>

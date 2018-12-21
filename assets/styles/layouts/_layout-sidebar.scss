@@ -1,0 +1,44 @@
+.sidebar {
+  display: block;
+  flex-grow: 1;
+  padding: 0 1em 1em 1em;
+  max-width: 25%;
+
+  &--search {
+    position: relative;
+    &:after {
+      content: '\e905';
+      display: block;
+      font-family: 'icomoon';
+      position: absolute;
+      top: .15rem;
+      right: .25rem;
+      color: $article-text;
+      font-size: 1.75rem;
+    }
+
+    input {
+      background: $article-bg;
+      border-radius: $border-radius;
+      border: 1px solid $search-border;
+      padding: .5em;
+      width: 100%;
+      color: $article-text;
+      transition-property: border, box-shadow;
+      transition-duration: .2s;
+      &:focus {
+        outline: none;
+        border: 1px solid $search-highlight;
+        box-shadow: 0px 0px 7px rgba($search-highlight, .65);
+        border-radius: $border-radius;
+      }
+      &::placeholder {
+        font-family: 'Roboto';
+        font-weight: 500;
+        color: rgba($article-text, .35);
+      }
+    }
+
+
+  }
+}
