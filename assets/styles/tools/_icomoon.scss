@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?qtz244');
-  src:  url('fonts/icomoon.eot?qtz244#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?qtz244') format('truetype'),
-    url('fonts/icomoon.woff?qtz244') format('woff'),
-    url('fonts/icomoon.svg?qtz244#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?kl9kq');
+  src:  url('fonts/icomoon.eot?kl9kq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?kl9kq') format('truetype'),
+    url('fonts/icomoon.woff?kl9kq') format('woff'),
+    url('fonts/icomoon.svg?kl9kq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-moon1:before {
+  content: "\e904";
+}
+.icon-sun1:before {
+  content: "\e906";
+}
+.icon-search:before {
+  content: "\e905";
+}
 .icon-influx-logo:before {
   content: "\e900";
 }

@@ -1,0 +1,6 @@
+{{ $jquery := resources.Get "js/jquery-3.3.1.min.js" }}
+{{ $cookies := resources.Get "js/js.cookie.js" }}
+{{ $themes := resources.Get "js/docs-themes.js" }}
+{{ $headerjs := slice $jquery $cookies $themes | resources.Concat "js/header.bundle.js" }}
+
+<script type="text/javascript" src="{{ $headerjs.Permalink }}" ></script>

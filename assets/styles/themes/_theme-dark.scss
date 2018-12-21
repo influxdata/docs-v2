@@ -12,8 +12,15 @@
 // General Styles
 // --------------------------------------------------
 
+@import "tools/color-palette";
+
 $body-bg: $g1-raven !default;
+$border-radius: 3px !default;
 
 // TopNav Colors
-$topnav-logo: $g20-white !default;
-$topnav-logo-hover: $b-ocean !default;
+$topnav-link: $g20-white !default;
+$topnav-link-hover: $b-pool !default;
+$version-selector-top: $b-ocean !default;
+$version-selector-bottom: $p-star !default;
+$theme-switch-light: inline-block !default;
+$theme-switch-dark: none !default;

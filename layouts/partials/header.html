@@ -10,6 +10,10 @@
     {{ partial "header/stylesheets.html"}}
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+
+    {{ partial "header/javascript.html"}}
+
+    <meta name="Copyright" content="InfluxData Inc." />
   </head>
   <body>
-    {{ partial "topnav.html" }}
+    {{ partial "topnav.html" . }}

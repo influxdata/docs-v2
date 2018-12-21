@@ -9,5 +9,17 @@
 
 */
 
+@import "tools/color-palette";
+
 // General Styles
 // --------------------------------------------------
+
+$body-bg: $g18-cloud;
+
+// TopNav Colors
+$topnav-link: $g3-castle;
+$topnav-link-hover: $b-ocean;
+$version-selector-top: $b-pool !default;
+$version-selector-bottom: $gr-viridian !default;
+$theme-switch-light: none;
+$theme-switch-dark: inline-block;

@@ -8,7 +8,17 @@
     <a class="docs-home" href="/">Docs</a>
   </div>
   <div class="topnav--right">
-    <div class="version-selector"></div>
-    <div class="theme-selector"></div>
+    <div class="version-selector">
+      {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+      <p class="selected">{{ $currentVersion }}</p>
+      <ul class="version-list">
+        {{ range .Site.Menus.versions.ByName.Reverse }}
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+    </div>
+
+    <button class="theme-switcher" id="theme-switch-light" onclick="switch_style('light-theme');return false;"><span class="icon-sun1"></span></button>
+    <button class="theme-switcher" id="theme-switch-dark" onclick="switch_style('dark-theme');return false;"><span class="icon-moon1"></span></button>
+
   </div>
 </div>

@@ -1,8 +1,11 @@
 {{ partial "header.html" . }}
-{{ partial "sidebar.html" . }}
 
-<h1>{{ .Title }}</h1>
-
-{{ .Content }}
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+  <div class="article">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </div>
+</div>
 
 {{ partial "footer.html" . }}
