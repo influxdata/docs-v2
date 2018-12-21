@@ -3,8 +3,10 @@
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
   <div class="article">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
+    <div class="article--content">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+    </div>
   </div>
 </div>
 

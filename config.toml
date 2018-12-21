@@ -13,3 +13,6 @@ pygmentsUseClasses = true
   [[menu.versions]]
     name = "v1.x"
     url = "https://docs.influxdata.com"
+
+[blackfriday]
+  hrefTargetBlank = true

@@ -2,4 +2,140 @@
   flex-grow: 3;
   background: $article-bg;
   border-radius: $border-radius 0 0 0;
+  padding: 2rem 4rem 3rem;
+}
+
+.article--content{
+  max-width: 700px;
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-heading;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+  h1 {
+    font-family: $klavika;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 2.65rem;
+    margin-bottom: 1em;
+  }
+  h2 {
+    font-size: 2rem;
+    margin: -1.5rem 0 .5rem;
+    padding-top: 1.75rem;
+  }
+  h3 {
+    font-size: 1.65rem;
+    margin: -1.5rem 0 .5rem;
+    padding-top: 1.75rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+    font-style: italic;
+    margin: -1.5rem 0 .5rem;
+    padding-top: 1.75rem;
+  }
+  h5 {
+    font-size: 1rem;
+    margin: -1.5rem 0 .25rem;
+    padding-top: 1.75rem;
+  }
+  h6 {
+    font-size: 1rem;
+    font-style: italic;
+    margin: -1.5rem 0 .25rem;
+    padding-top: 1.75rem;
+  }
+
+  p,li {
+    color: $article-text;
+    line-height: 1.5rem;
+  }
+
+  p {
+    margin: 0 0 1.5em;
+  }
+
+  a {
+    color: $article-link;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      color: $article-link-hover;
+    }
+    code {
+      font-weight: normal;
+      transition: color .2s;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        border-style: solid;
+        border-width: 0 .4rem .4rem 0;
+        border-color: transparent rgba($article-code, .35) transparent transparent;
+        transition: border .2s;
+      }
+      &:hover {
+        color: $article-code-hover;
+        &:after {
+          border-color: transparent $article-code-hover transparent transparent;
+        }
+      }
+    }
+  }
+
+  // Lists
+
+  ol, ul {
+    padding-left: 1.6rem;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+  list-style: none;
+  counter-reset: item;
+    li {
+      position: relative;
+      counter-increment: item;
+      &:before {
+        content: counter(item) ". ";
+        position: absolute;
+        left: -1.6em;
+        color: $article-bold;
+        font-weight: bold;
+      }
+    }
+  }
+
+  li {
+    margin: .2rem 0;
+  }
+
+  // Code
+
+  code,pre {
+    background: $article-code-bg;
+    font-family: 'Inconsolata', monospace;
+  }
+
+  code {
+    padding: .15rem .45rem .25rem;
+    border-radius: $border-radius;
+    color: $article-code;
+  }
+
+  pre {
+    margin: 2rem 0 3rem;
+    padding: 1.5em;
+    border-radius: $border-radius;
+    overflow: scroll;
+  }
 }

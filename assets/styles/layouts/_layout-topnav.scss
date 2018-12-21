@@ -28,7 +28,9 @@
   .docs-home {
     display: inline-block;
     vertical-align: text-top;
-    font-family: 'Klavika-Light';
+    font-family: $klavika;
+    font-style: italic;
+    font-weight: 300;
     font-size: 1.2rem;
     color: $topnav-link;
     text-decoration: none;
