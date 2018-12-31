@@ -119,7 +119,7 @@
     margin: .2rem 0;
   }
 
-  // Code
+  //////////////////////////////////// Code ////////////////////////////////////
 
   code,pre {
     background: $article-code-bg;
@@ -187,20 +187,22 @@
     }
   }
 
-  //////////////////////// Blockquotes, Notes, Warnings ////////////////////////
+  ////////////////// Blockquotes, Notes, Warnings, & Messages //////////////////
 
   blockquote,
   .note,
-  .warn {
+  .warn,
+  #enterprise-msg {
     padding: 1.65rem 2rem .1rem 2rem;
     margin: 1rem 0 2rem;
     border-width: 0 0 0 4px;
-    border-style: solid
+    border-style: solid;
+    border-radius: 0 $border-radius $border-radius 0;
   }
 
   blockquote {
     border-color: rgba($article-text, .25);
-    p {
+    p, li {
       font-size: 1.15rem;
       font-style: italic;
       color: rgba($article-text, .5);
@@ -213,7 +215,7 @@
     h1,h2,h3,h4,h5,h6 {
       color: $article-note-heading;
     }
-    p {
+    p, li {
       color: $article-note-text;
     }
     a {
@@ -227,6 +229,9 @@
           border-color: transparent $article-note-link-hover transparent transparent;
         }
       }
+    }
+    ol li:before {
+      color: $article-note-text;
     }
     code, pre{
       color: $article-note-code;
@@ -250,7 +255,7 @@
     h1,h2,h3,h4,h5,h6 {
       color: $article-warn-heading;
     }
-    p {
+    p, li {
       color: $article-warn-text;
     }
     a {
@@ -265,6 +270,9 @@
         }
       }
     }
+    ol li:before {
+      color: $article-warn-text;
+    }
     code, pre{
       color: $article-warn-code;
       background: $article-warn-code-bg;
@@ -277,6 +285,57 @@
       }
       tr:nth-child(even) td {
         background: $article-warn-table-row-alt;
+      }
+    }
+  }
+
+  ///////////////////////////////// Enterprise /////////////////////////////////
+  #enterprise-msg {
+    border-color: $article-enterprise-base;
+    background: rgba($article-enterprise-base, .15);
+    font-style: italic;
+    display: flex;
+    p {
+      color: $article-enterprise-text;
+    }
+    a {
+      color: $article-enterprise-link;
+      &:hover {
+        color: $article-enterprise-link-hover;
+      }
+    }
+    div:first-child { margin-right: 1.25rem; }
+  }
+
+  .enterprise-flag {
+    padding: .2rem .4rem;
+    background: $article-enterprise-base;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: bold;
+    color: $g20-white;
+    border-radius: $border-radius;
+    vertical-align: text-bottom;
+    &:before {
+      content: "E";
+    }
+  }
+
+  .enterprise {
+    position: relative;
+    padding: 0 0 .01rem 2rem;
+    margin-left: -2rem;
+    border-left: 2px solid $article-enterprise-base;
+
+    .enterprise-flag {
+      position: absolute;
+      top: -.15rem;
+      left: -.68rem;
+      transform: scale(.8);
+      transition: all .2s;
+      &:hover {
+        transform: scale(1);
+        color: $g20-white;
       }
     }
   }

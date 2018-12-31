@@ -56,7 +56,7 @@ $article-table-header-right: $b-sapphire !default;
 $article-table-shadow: #191a1b !default;
 $article-table-row-alt: $g2-kevlar !default;
 
-// Article Notes & Warnings
+// Article Notes, Warnings, & Messages
 $article-note-base: $gr-viridian !default;
 $article-note-heading: $g20-white !default;
 $article-note-text: $gr-viridian !default;
@@ -78,3 +78,8 @@ $article-warn-code-bg: #292024 !default;
 $article-warn-table-header: $o-dreamsicle !default;
 $article-warn-table-row-alt: #2b252b !default;
 $article-warn-table-shadow: #191a1b !default;
+
+$article-enterprise-base: $p-star !default;
+$article-enterprise-text: $p-potassium !default;
+$article-enterprise-link: $p-moonstone !default;
+$article-enterprise-link-hover: $g20-white !default;

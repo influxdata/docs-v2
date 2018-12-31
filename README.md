@@ -74,6 +74,8 @@ menu:
     parent: # Specifies a parent group and nests navigation items
     weight: # Determines sort order.
 draft: # If true, will not render page on build
+enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
+enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
 ```
 
 #### Title usage
@@ -95,7 +97,7 @@ Use only h2-h6 headings in markdown content.
 h1 headings act as the page title and are populated automatically from the `title` frontmatter.
 h2-h6 headings act as section headings.
 
-### Notes & Warnings
+### Notes and warnings
 Shortcodes are available for formatting notes and warnings in each article:
 
 ```md
@@ -106,4 +108,33 @@ Insert note markdown content here.
 {{% warn %}}
 Insert warning markdown content here.
 {{% /warn %}}
+```
+
+### Enterprise Content
+Many articles are unique to InfluxDB enterprise or at least contain some information specific to InfluxDB Enterprise.
+There are frontmatter and an enterprise shortcode that help to properly identify this content.
+
+#### All content is Enterprise-specific
+If all content in an article is Enterprise-specific, set the `enterprise_all` frontmatter to `true`.
+
+```yaml
+enterprise_all: true
+```
+
+This will display a message at the top of page indicating that the things discussed are unique to InfluxDB Enterprise.
+
+#### Only some content is Enterprise-specific
+If only some content in the article is enterprise specific, set the `enterprise_some` frontmatter to `true`.
+
+```yaml
+enterprise_some: true
+```
+
+This will display a message at the top of page indicating some things are unique to InfluxDB Enterprise.
+To format Enterprise-specific content, wrap it in the `{{% enterprise %}}` shortcode:
+
+```md
+{{% enterprise %}}
+Insert enterprise-specific markdown content here.
+{{% /enterprise %}}
 ```

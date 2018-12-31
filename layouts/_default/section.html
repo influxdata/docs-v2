@@ -5,6 +5,7 @@
   <div class="article">
     <div class="article--content">
       <h1>{{ .Title }}</h1>
+      {{ partial "article/enterprise.html" . }}
       {{ .Content }}
     </div>
   </div>

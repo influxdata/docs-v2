@@ -65,7 +65,7 @@ $article-note-code: #147572;
 $article-note-code-bg: #d6f7ec;
 $article-note-table-header: $gr-viridian;
 $article-note-table-row-alt: #d6f5e9;
-$article-note-table-shadow: #8cb7ab !default;
+$article-note-table-shadow: #8cb7ab;
 
 $article-warn-base: $o-dreamsicle;
 $article-warn-heading: $o-fire;
@@ -76,4 +76,9 @@ $article-warn-code: #f52f75;
 $article-warn-code-bg: #ffebeb;
 $article-warn-table-header: $o-dreamsicle;
 $article-warn-table-row-alt: #ffe6df;
-$article-warn-table-shadow: #b98a7d !default;
+$article-warn-table-shadow: #b98a7d;
+
+$article-enterprise-base: $p-comet;
+$article-enterprise-text: $p-star;
+$article-enterprise-link: $p-star;
+$article-enterprise-link-hover: $b-ocean;
