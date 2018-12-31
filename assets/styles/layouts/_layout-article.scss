@@ -12,6 +12,9 @@
     a {
       color: inherit !important;
       text-decoration: none;
+      code:after {
+        border: none;
+      }
     }
   }
   h1 {
@@ -34,24 +37,24 @@
   h4 {
     font-size: 1.25rem;
     font-style: italic;
-    margin: -1.5rem 0 .5rem;
+    margin: -1.25rem 0 .5rem;
     padding-top: 1.75rem;
   }
   h5 {
     font-size: 1rem;
-    margin: -1.5rem 0 .25rem;
+    margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
   }
   h6 {
     font-size: 1rem;
     font-style: italic;
-    margin: -1.5rem 0 .25rem;
+    margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
   }
 
   p,li {
     color: $article-text;
-    line-height: 1.5rem;
+    line-height: 1.6rem;
   }
 
   p {
@@ -97,6 +100,9 @@
 
   ul {
     list-style-type: disc;
+    li:before{
+      content: "" !important;
+    }
   }
 
   ol {
@@ -112,11 +118,19 @@
         color: $article-bold;
         font-weight: bold;
       }
+      ul {
+        counter-reset: item;
+      }
     }
   }
 
+  & > ol,
+  & > ul {
+    margin: 1rem 0 1.5rem 0;
+  }
+
   li {
-    margin: .2rem 0;
+    margin: .25rem 0;
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
@@ -247,6 +261,10 @@
         background: $article-note-table-row-alt;
       }
     }
+    blockquote {
+      border-color: rgba($article-note-text, .25);
+      p { color: rgba($article-note-text, .6); }
+    }
   }
 
   .warn {
@@ -286,6 +304,10 @@
       tr:nth-child(even) td {
         background: $article-warn-table-row-alt;
       }
+    }
+    blockquote {
+      border-color: rgba($article-warn-text, .25);
+      p { color: rgba($article-warn-text, .6); }
     }
   }
 
