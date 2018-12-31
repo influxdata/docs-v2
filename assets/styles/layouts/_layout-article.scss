@@ -10,7 +10,7 @@
   h1,h2,h3,h4,h5,h6 {
     color: $article-heading;
     a {
-      color: inherit;
+      color: inherit !important;
       text-decoration: none;
     }
   }
@@ -89,7 +89,7 @@
     }
   }
 
-  // Lists
+  //////////////////////////////////// Lists ////////////////////////////////////
 
   ol, ul {
     padding-left: 1.6rem;
@@ -137,5 +137,49 @@
     padding: 1.5em;
     border-radius: $border-radius;
     overflow: scroll;
+  }
+
+  //////////////////////////////////// Tables ////////////////////////////////////
+
+  table {
+    margin: 1rem 0 3rem;
+    border-spacing: 0;
+    color: $article-text;
+    max-width: 100%;
+    overflow: scroll;
+    box-shadow: 1px 3px 15px $article-table-shadow;
+    border-radius: ($border-radius * 1.5);
+
+    th, td {
+      padding: .85rem 1.25rem;
+    }
+    thead {
+      background: linear-gradient(to right, $article-table-header-left, $article-table-header-right);
+      background-attachment: fixed;
+    }
+
+    th  {
+      color: $g20-white;
+      &:first-child {
+        border-radius: ($border-radius * 1.5) 0 0 0;
+      }
+      &:last-child {
+        border-radius: 0 ($border-radius * 1.5) 0 0;
+      }
+    }
+
+    tr{
+      &:nth-child(even) {
+        background: $article-table-row-alt;
+      }
+      &:last-child {
+        td {
+          &:first-child { border-radius: 0 0 0 ($border-radius * 1.5); }
+          &:last-child { border-radius: 0 0 ($border-radius * 1.5) 0; }
+        }
+
+      }
+    }
+
   }
 }
