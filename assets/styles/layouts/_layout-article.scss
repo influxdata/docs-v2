@@ -168,6 +168,11 @@
       }
     }
 
+    td {
+      font-size: .95rem;
+      line-height: 1.5em;
+    }
+
     tr{
       &:nth-child(even) {
         background: $article-table-row-alt;
@@ -180,6 +185,100 @@
 
       }
     }
-
   }
+
+  //////////////////////// Blockquotes, Notes, Warnings ////////////////////////
+
+  blockquote,
+  .note,
+  .warn {
+    padding: 1.65rem 2rem .1rem 2rem;
+    margin: 1rem 0 2rem;
+    border-width: 0 0 0 4px;
+    border-style: solid
+  }
+
+  blockquote {
+    border-color: rgba($article-text, .25);
+    p {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: rgba($article-text, .5);
+    }
+  }
+
+  .note {
+    border-color: $article-note-base;
+    background: rgba($article-note-base, .08);
+    h1,h2,h3,h4,h5,h6 {
+      color: $article-note-heading;
+    }
+    p {
+      color: $article-note-text;
+    }
+    a {
+      color: $article-note-link;
+      code:after {
+        border-color: transparent rgba($article-note-code, .35) transparent transparent;
+      }
+      &:hover {
+        color: $article-note-link-hover;
+        code:after {
+          border-color: transparent $article-note-link-hover transparent transparent;
+        }
+      }
+    }
+    code, pre{
+      color: $article-note-code;
+      background: $article-note-code-bg;
+    }
+    table{
+      color: $article-note-text;
+      box-shadow: 1px 3px 15px $article-note-table-shadow;
+      thead{
+        background: $article-note-table-header;
+      }
+      tr:nth-child(even) td {
+        background: $article-note-table-row-alt;
+      }
+    }
+  }
+
+  .warn {
+    border-color: $article-warn-base;
+    background: rgba($article-warn-base, .08);
+    h1,h2,h3,h4,h5,h6 {
+      color: $article-warn-heading;
+    }
+    p {
+      color: $article-warn-text;
+    }
+    a {
+      color: $article-warn-link;
+      code:after {
+        border-color: transparent rgba($article-warn-code, .35) transparent transparent;
+      }
+      &:hover {
+        color: $article-warn-link-hover;
+        code:after {
+          border-color: transparent $article-warn-link-hover transparent transparent;
+        }
+      }
+    }
+    code, pre{
+      color: $article-warn-code;
+      background: $article-warn-code-bg;
+    }
+    table{
+      color: $article-warn-text;
+      box-shadow: 1px 3px 15px $article-warn-table-shadow;
+      thead{
+        background: $article-warn-table-header;
+      }
+      tr:nth-child(even) td {
+        background: $article-warn-table-row-alt;
+      }
+    }
+  }
+
 }

@@ -94,3 +94,16 @@ It should be short and assume the context of its parent if it has one.
 Use only h2-h6 headings in markdown content.
 h1 headings act as the page title and are populated automatically from the `title` frontmatter.
 h2-h6 headings act as section headings.
+
+### Notes & Warnings
+Shortcodes are available for formatting notes and warnings in each article:
+
+```md
+{{% note %}}
+Insert note markdown content here.
+{{% /note %}}
+
+{{% warn %}}
+Insert warning markdown content here.
+{{% /warn %}}
+```

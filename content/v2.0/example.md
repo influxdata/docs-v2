@@ -133,40 +133,45 @@ Etiam tristique nisi et tristique auctor.
 > Etiam tristique nisi et tristique auctor.
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
->
-> ## h2 This is a header2
-> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-> Etiam tristique nisi et tristique auctor.
->
-> ### h3 This is a header3
-> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-> Etiam tristique nisi et tristique auctor.
->
-> #### h4 This is a header4
-> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-> Etiam tristique nisi et tristique auctor.
->
-> ##### h5 This is a header5
-> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-> Etiam tristique nisi et tristique auctor.
->
-> ###### h6 This is a header6
-> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-> Etiam tristique nisi et tristique auctor.
->
-> #### Inline Styles
-> This is an [inline link](#). This is `inline code`.
-> This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
->
-> ```js
+
+{{% note %}}
+This is a basic note.
+{{% /note %}}
+
+{{% note %}}
+## h2 This is a header2
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+### h3 This is a header3
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+#### h4 This is a header4
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+##### h5 This is a header5
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+###### h6 This is a header6
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+#### Inline Styles
+This is an [inline link](#). This is `inline code`.
+This is an [`inline code link`](#) .
+This is **bold**. This is _italic_.
+
+```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"telegraf/autogen")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
->
-> ###### This is a table in a blockquote
+
+###### This is a table in a blockquote
 | Column 1 | Column 2 | Column 3 | Column 4 |
 | -------- | -------- | -------- | -------- |
 | Row 1.1  | Row 1.2  | Row 1.3  | Row 1.4  |
@@ -174,9 +179,14 @@ cpu = from(bucket:"telegraf/autogen")
 | Row 3.1  | Row 3.2  | Row 3.3  | Row 3.4  |
 | Row 4.1  | Row 4.2  | Row 4.3  | Row 4.4  |
 
+{{% /note %}}
 
-<dt>
+{{% warn %}}
+This is a basic warning.
+{{% /warn %}}
 
+
+{{% warn %}}
 This is a multiple paragraph blockquote with internal elements.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -227,4 +237,4 @@ cpu = from(bucket:"telegraf/autogen")
 | Row 3.1  | Row 3.2  | Row 3.3  | Row 3.4  |
 | Row 4.1  | Row 4.2  | Row 4.3  | Row 4.4  |
 
-</dt>
+{{% /warn %}}
