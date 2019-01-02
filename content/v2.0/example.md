@@ -350,3 +350,55 @@ cpu = from(bucket:"telegraf/autogen")
 | Row 4.1  | Row 4.2  | Row 4.3  | Row 4.4  |
 
 {{% /warn %}}
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[tab 1.1](#)
+[tab 1.2](#)
+[tab 1.3](#)
+[tab 1.4](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+This is tab 1.1 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 1.2 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 1.3 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 1.4 content.
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[tab 2.1](#)
+[tab 2.2](#)
+[tab 2.3](#)
+[tab 2.4](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+This is tab 2.1 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 2.2 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 2.3 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is tab 2.4 content.
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}

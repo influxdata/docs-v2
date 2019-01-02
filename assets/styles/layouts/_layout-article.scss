@@ -362,4 +362,49 @@
     }
   }
 
+  /////////////////////////////// Tabbed Content ///////////////////////////////
+
+  .tabs-wrapper{
+    margin: 2rem 0 .5rem;
+  }
+  .tabs p {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tabs a {
+    flex-grow: 1;
+    margin: 2px;
+    font-size: 0.875rem;
+    color: $article-tab-text;
+    padding: .35rem .75rem;
+    display: inline-block;
+    text-align: center;
+    border-radius: $border-radius;
+    background-color: $article-tab-bg;
+    transition: background-color .2s, color .2s;
+
+    &:hover {
+      color: $article-tab-active-text;
+      background: $article-tab-active-bg;
+    }
+    &.is-active {
+      color: $article-tab-active-text;
+      background: $article-tab-active-bg;
+    }
+  }
+
+  .tab-content {
+    padding: 1.5rem 0;
+    width: 100%;
+
+    & > * {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+  }
+
+  .tab-content:not(:first-of-type) {
+    display: none;
+  }
+
 }

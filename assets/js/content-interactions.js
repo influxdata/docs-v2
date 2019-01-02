@@ -1,20 +1,53 @@
-// Make headers linkable
+///////////////////////////// Make headers linkable /////////////////////////////
+
 $("h2,h3,h4,h5,h6").each(function() {
   var link = "<a href=\"#" + $(this).attr("id") + "\"></a>"
   $(this).wrapInner( link );
   })
 
-// Smooth Scroll
-var topBuffer = 0;
-  $('a[href^="#"]').on('click',function (e) {
-    e.preventDefault();
+///////////////////////////////// Smooth Scroll /////////////////////////////////
 
-    var target = this.hash;
-    var $target = $(target);
+$('a[href^="#"]:not(.tabs p a)').on('click',function (e) {
+  e.preventDefault();
 
-    $('html, body').stop().animate({
-      'scrollTop': ($target.offset().top - topBuffer)
-    }, 400, 'swing', function () {
-      window.location.hash = target;
-    });
+  var target = this.hash;
+  var $target = $(target);
+
+  $('html, body').stop().animate({
+    'scrollTop': ($target.offset().top)
+  }, 400, 'swing', function () {
+    window.location.hash = target;
   });
+});
+
+//////////////////////////////// Tabbed Content ////////////////////////////////
+
+$(function() {
+	const container = '.tabs-wrapper'
+	const tab = '.tabs p a';
+	const content = '.tab-content';
+
+	// Add the active class to the first tab in each tab group,
+	// in case it wasn't already set in the markup.
+	$(container).each(function () {
+		$(tab, this).removeClass('is-active');
+		$(tab + ':first', this).addClass('is-active');
+	});
+
+	$(tab).on('click', function(e) {
+		e.preventDefault();
+
+		// Make sure the tab being clicked is marked as active, and make the rest inactive.
+		$(this).addClass('is-active').siblings().removeClass('is-active');
+
+		// Render the correct tab content based on the position of the tab being clicked.
+		const activeIndex = $(tab).index(this);
+		$(content).each(function(i) {
+			if (i === activeIndex) {
+				$(this).show();
+				$(this).siblings(content).hide();
+			}
+		});
+		console.log(activeIndex);
+	});
+});

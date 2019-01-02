@@ -138,3 +138,50 @@ To format Enterprise-specific content, wrap it in the `{{% enterprise %}}` short
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
 ```
+
+### Tabbed Content
+Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
+Ther following three must be used:
+
+`{{< tabs-wrapper >}}`  
+This shortcode creates a wrapper or container for the tabbed content.
+All UI interactions are limited to the scope of each container.
+If you have more than one "group" of tabbed content in a page, each needs its own `tabs-wrapper`.
+This shortcode must be closed with `{{< /tabs-wrapper >}}`.
+
+**Note**: The `<` and `>` characters used in this shortcode indicate that the contents should be processed as HTML.
+
+`{{% tabs %}}`  
+This shortcode creates a container for buttons that control the display of tabbed content.
+It should contain simple markdown links with anonymous anchors (`#`).
+The link text is used as the button text.
+This shortcode must be closed with `{{% /tabs %}}`.
+
+**Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
+
+`{{% tab-content %}}`  
+This shortcode creates a container for a content block.
+Each content block in the tab group needs to be wrapped in this shortcode.
+This shortcode must be closed with `{{% /tab-content %}}`.
+
+**Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
+
+#### Example tabbed content group
+```md
+{{< tabs-wrapper >}}
+
+{{% tabs %}}
+[Button text for tab 1](#)
+[Button text for tab 2](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+Markdown content for tab 1.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+Markdown content for tab 2.
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
+```
