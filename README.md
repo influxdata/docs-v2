@@ -162,6 +162,7 @@ This shortcode must be closed with `{{% /tabs %}}`.
 `{{% tab-content %}}`  
 This shortcode creates a container for a content block.
 Each content block in the tab group needs to be wrapped in this shortcode.
+**The number of `tab-content` blocks must match the number of links provided in the `tabs` shortcode**
 This shortcode must be closed with `{{% /tab-content %}}`.
 
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
