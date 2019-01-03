@@ -170,3 +170,53 @@ pre[class*="language-"] {
 	.w  		/* Text.Whitespace */
 					{ font-style: italic }
 }
+
+.note {
+	.highlight  {
+		color: $article-note-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-note-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-note-code-accent1; }
+		.gi
+			{ background-color: $article-note-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-note-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-note-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-note-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-note-code-accent5 }
+		.gp,.o
+			{ color: $article-note-code-accent6	}
+		.ss
+			{ color: $article-note-code-accent7 }
+	}
+}
+
+.warn {
+	.highlight  {
+		color: $article-warn-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-warn-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-warn-code-accent1; }
+		.gi
+			{ background-color: $article-warn-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-warn-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-warn-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-warn-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-warn-code-accent5 }
+		.gp,.o
+			{ color: $article-warn-code-accent6	}
+		.ss
+			{ color: $article-warn-code-accent7 }
+	}
+}

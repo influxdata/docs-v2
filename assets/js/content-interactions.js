@@ -7,7 +7,7 @@ $("h2,h3,h4,h5,h6").each(function() {
 
 ///////////////////////////////// Smooth Scroll /////////////////////////////////
 
-$('.article a[href^="#"]:not(.tabs p a)').on('click',function (e) {
+$('.article a[href^="#"]:not(.tabs p a, .code-tabs p a)').on('click',function (e) {
   e.preventDefault();
 
   var target = this.hash;
@@ -30,10 +30,7 @@ $(".children-toggle").click(function(e) {
 
 //////////////////////////////// Tabbed Content ////////////////////////////////
 
-$(function() {
-	const container = '.tabs-wrapper'
-	const tab = '.tabs p a';
-	const content = '.tab-content';
+function tabbedContent(container, tab, content) {
 
 	// Add the active class to the first tab in each tab group,
 	// in case it wasn't already set in the markup.
@@ -57,4 +54,7 @@ $(function() {
 			}
 		});
 	});
-});
+}
+
+tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
+tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');

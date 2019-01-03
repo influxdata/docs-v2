@@ -1,8 +1,9 @@
+{{ $enterpriseLink := "#"}}
 {{ if ( $.Params.enterprise_all ) }}
   <div id="enterprise-msg">
     <p>
       The features and functionality discussed on this page are unique to the Enterprise edition of InfluxDB.
-      <a href="#">Learn more about InfluxDB Enterprise</a>.
+      <a href="{{ $enterpriseLink }}" target="_blank">Learn more about InfluxDB Enterprise</a>.
     </p>
   </div>
 {{ else if ( $.Params.enterprise_some ) }}
@@ -13,7 +14,7 @@
     <div>
       <p>
         This page includes features and functionality unique to the Enterprise edition of InfluxDB.
-        <a href="#">Learn more about InfluxDB Enterprise</a>.
+        <a href="{{ $enterpriseLink }}" target="_blank">Learn more about InfluxDB Enterprise</a>.
       </p>
     </div>
   </div>
