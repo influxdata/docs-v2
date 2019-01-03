@@ -22,12 +22,10 @@ $('.article a[href^="#"]:not(.tabs p a)').on('click',function (e) {
 
 ///////////////////////////// Left Nav Interactions /////////////////////////////
 
-$(document).ready( function() {
-	$(".children-toggle").click(function(e) {
-		e.preventDefault()
-		$(this).toggleClass('open');
-		$(this).siblings('.children').toggleClass('open');
-	})
+$(".children-toggle").click(function(e) {
+	e.preventDefault()
+	$(this).toggleClass('open');
+	$(this).siblings('.children').toggleClass('open');
 })
 
 //////////////////////////////// Tabbed Content ////////////////////////////////

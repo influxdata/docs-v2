@@ -45,6 +45,10 @@ WHERE time > now() - 15m
 ### h3 This is a header3
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
+![Test image](http://docs.influxdata.com/img/chronograf/v1.7/alerts-conditions.png)
+
+{{< img-hd src="/img/test-image-2.png" alt="Test Image" />}}
+
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 {{% /enterprise %}}
 
@@ -178,6 +182,8 @@ Etiam tristique nisi et tristique auctor.
 Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 Etiam tristique nisi et tristique auctor.
 
+{{< img-hd src="/img/test-image-2.png" alt="Test Image" />}}
+
 #### h4 This is a header4
 Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 Etiam tristique nisi et tristique auctor.
@@ -284,6 +290,8 @@ Etiam tristique nisi et tristique auctor.
 ## h2 This is a header2
 Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 Etiam tristique nisi et tristique auctor.
+
+{{< img-hd src="/img/test-image-2.png" alt="Test Image" />}}
 
 ### h3 This is a header3
 Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.

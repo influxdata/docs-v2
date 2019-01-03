@@ -225,3 +225,19 @@ WHERE time > now() - 15m
 
 {{< /code-tabs-wrapper >}}
 ~~~
+
+### High-resolution images
+In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
+Because of this, the actual pixel dimension is 2x larger than it needs to be and is rendered 2x bigger than it should be.
+The following shortcode automatically sets a fixed width on the image using half of its actual pixel dimension.
+This preserves the detail of the image and renders it at a size where there should be little to no "blur"
+cause by browser image resizing.
+
+```html
+{{< img-hd src="/path/to/image" alt="Alternate title" />}}
+```
+
+###### Notes
+- This should only be used on screenshots takes from high-resolution screens.
+- Image widths are limited to the width of the article content container and will scale accordingly,
+  even with the `width` explicitly set.

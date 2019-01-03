@@ -6,7 +6,7 @@
 }
 
 .article--content{
-  max-width: 700px;
+  max-width: 760px;
   h1,h2,h3,h4,h5,h6 {
     color: $article-heading;
     a {
@@ -92,6 +92,12 @@
     }
   }
 
+  img {
+    max-width: 100%;
+    border-radius: ($border-radius * 1.5);
+    box-shadow: 1px 3px 10px $article-shadow;
+  }
+
   //////////////////////////////////// Lists ////////////////////////////////////
 
   ol, ul {
@@ -162,7 +168,7 @@
     color: $article-text;
     max-width: 100%;
     overflow: scroll;
-    box-shadow: 1px 3px 15px $article-table-shadow;
+    box-shadow: 1px 3px 10px $article-shadow;
     border-radius: ($border-radius * 1.5);
 
     th, td {
@@ -252,9 +258,12 @@
       color: $article-note-code;
       background: $article-note-code-bg;
     }
+    img {
+      box-shadow: 1px 3px 10px $article-note-shadow;
+    }
     table{
       color: $article-note-text;
-      box-shadow: 1px 3px 15px $article-note-table-shadow;
+      box-shadow: 1px 3px 10px $article-note-shadow;
       thead{
         background: $article-note-table-header;
       }
@@ -296,9 +305,12 @@
       color: $article-warn-code;
       background: $article-warn-code-bg;
     }
+    img {
+      box-shadow: 1px 3px 10px $article-warn-shadow;
+    }
     table{
       color: $article-warn-text;
-      box-shadow: 1px 3px 15px $article-warn-table-shadow;
+      box-shadow: 1px 3px 10px $article-warn-shadow;
       thead{
         background: $article-warn-table-header;
       }
