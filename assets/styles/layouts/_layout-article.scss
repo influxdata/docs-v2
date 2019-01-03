@@ -377,9 +377,14 @@
 
   /////////////////////////////// Tabbed Content ///////////////////////////////
 
-  .tabs-wrapper, .code-tabs-wrapper{
+  .tabs-wrapper {
     margin: 2.5rem 0 .5rem;
   }
+
+  .code-tabs-wrapper {
+    margin: 1.5rem 0 .5rem;
+  }
+
   .tabs, .code-tabs {
     p {
       display: flex;
@@ -431,6 +436,7 @@
         display: block;
       }
       a {
+        padding: .1rem .75rem;
         margin: 0;
         border-radius: $border-radius $border-radius 0 0;
         display: inline-block;

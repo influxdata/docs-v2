@@ -9,10 +9,12 @@ enableGitInfo = true
 pygmentsCodefences = true
 pygmentsUseClasses = true
 
+# Markdown rendering options
+[blackfriday]
+hrefTargetBlank = true
+
+# Menu items without actual pages
 [menu]
   [[menu.versions]]
     name = "v1.x"
     url = "https://docs.influxdata.com"
-
-[blackfriday]
-  hrefTargetBlank = true
