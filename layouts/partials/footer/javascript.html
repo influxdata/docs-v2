@@ -2,4 +2,4 @@
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $footerjs := slice $versionSelector $contentInteractions | resources.Concat "js/footer.bundle.js" }}
 
-<script type="text/javascript" src="{{ $footerjs.Permalink }}" ></script>
+<script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>

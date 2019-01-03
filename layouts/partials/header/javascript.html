@@ -3,5 +3,5 @@
 {{ $themes := resources.Get "js/docs-themes.js" }}
 {{ $headerjs := slice $jquery $cookies $themes | resources.Concat "js/header.bundle.js" }}
 
-<script type="text/javascript" src="{{ $headerjs.Permalink }}" ></script>
+<script type="text/javascript" src="{{ $headerjs.RelPermalink }}" ></script>
 <script type="text/javascript">set_style_from_cookie();</script>

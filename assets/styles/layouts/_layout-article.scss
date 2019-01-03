@@ -163,11 +163,12 @@
   //////////////////////////////////// Tables ////////////////////////////////////
 
   table {
+    display: inline-block;
     margin: 1rem 0 3rem;
     border-spacing: 0;
     color: $article-text;
     max-width: 100%;
-    overflow: scroll;
+    overflow-x: auto;
     box-shadow: 1px 3px 10px $article-shadow;
     border-radius: ($border-radius * 1.5);
 
@@ -460,5 +461,41 @@
       }
     }
   }
+}
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .article {
+    padding: 1.5rem 1.5rem 3rem;
+
+    h1 { margin: .35rem 0 2rem; font-size: 2.4rem; }
+    h2 { font-size: 1.9rem; }
+    h3 { font-size: 1.55rem; }
+    h4 { font-size: 1.3rem; }
+
+    pre {
+      padding: 1.2em;
+    }
+
+    blockquote,
+    .note,
+    .warn,
+    #enterprise-msg {
+      padding: 1.35rem 1.25rem .1rem 1.25rem;
+      margin: .5rem 0 1rem;
+    }
+
+    .enterprise {
+      padding: 0 0 .01rem .85rem;
+      margin-left: -.85rem;
+
+      .enterprise-flag {
+        left: -.25rem;
+      }
+    }
+
+  }
 }

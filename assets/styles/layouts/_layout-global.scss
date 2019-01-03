@@ -11,7 +11,7 @@
     font-style: italic;
 }
 
-$klavika: 'Klavika-Light', 'Titillium Web', 'Roboto', sans-serif; 
+$klavika: 'Klavika-Light', 'Titillium Web', 'Roboto', sans-serif;
 
 html {
   height: 100%;
@@ -34,4 +34,14 @@ a {
 .page-wrapper {
   display: flex;
   flex-grow: 1;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(medium) {
+  .page-wrapper {
+    flex-direction: column;
+  }
 }

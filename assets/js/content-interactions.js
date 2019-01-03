@@ -28,6 +28,14 @@ $(".children-toggle").click(function(e) {
 	$(this).siblings('.children').toggleClass('open');
 })
 
+//////////////////////////// Mobile Contents Toggle ////////////////////////////
+
+$('#contents-toggle-btn').click(function(e) {
+  e.preventDefault();
+  $(this).toggleClass('open');
+  $('#nav-tree').toggleClass('open');
+})
+
 //////////////////////////////// Tabbed Content ////////////////////////////////
 
 function tabbedContent(container, tab, content) {

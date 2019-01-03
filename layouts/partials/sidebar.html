@@ -14,6 +14,11 @@
             placeholder="Search {{ $currentVersion }}">
   </div>
 
+  <div class="contents-toggle">
+    <p>Contents</p>
+    <a id="contents-toggle-btn" href="#"></a>
+  </div>
+
   <ul id="nav-tree">
 
   {{ $menuID := replaceRE "[.]" "_" $currentVersion }}

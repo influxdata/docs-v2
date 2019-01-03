@@ -104,10 +104,13 @@
     font-size: 1.8rem;
     color: rgba($topnav-link, .5);
     background: none;
-    height: 0;
+    height: 30px;
+    width: 30px;
     margin-top: 2px;
     border: none;
     transition: color .2s;
+    appearance: none;
+    overflow: visible;
     &:focus {
       outline: none;
     }
@@ -118,9 +121,12 @@
     &#theme-switch-dark { display: $theme-switch-dark; }
     &#theme-switch-light { display: $theme-switch-light; }
   }
+}
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-
-
-
+@include media(small) {
+  .icon-influx-logotype { display: none; }
 }

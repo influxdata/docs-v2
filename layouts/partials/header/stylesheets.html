@@ -3,7 +3,7 @@
 {{ $PostCSSOptions := (dict "use" "autoprefixer" "noMap" false) }}
 
 {{ $stylesDark := resources.Get "styles/styles-default.scss" | toCSS $cssOptionsDark | postCSS $PostCSSOptions | fingerprint }}
-<link rel="stylesheet" title="dark-theme" type="text/css" href="{{ $stylesDark.Permalink }}">
+<link rel="stylesheet" title="dark-theme" type="text/css" href="{{ $stylesDark.RelPermalink }}">
 
 {{ $stylesLight := resources.Get "styles/styles-light.scss" | toCSS $cssOptionsLight | postCSS $PostCSSOptions | fingerprint }}
-<link rel="alternate stylesheet" title="light-theme" type="text/css" href="{{ $stylesLight.Permalink }}">
+<link rel="alternate stylesheet" title="light-theme" type="text/css" href="{{ $stylesLight.RelPermalink }}">

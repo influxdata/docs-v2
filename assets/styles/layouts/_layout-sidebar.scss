@@ -1,7 +1,7 @@
 .sidebar {
   display: block;
   flex-grow: 1;
-  padding: 0 1em 1em 1em;
+  padding: 0 1em;
   max-width: 25%;
 
   &--search {
@@ -20,7 +20,7 @@
     input {
       background: $article-bg;
       border-radius: $border-radius;
-      border: 1px solid $search-border;
+      border: 1px solid $sidebar-search-border;
       padding: .5em 2.15rem .5rem .5rem;
       width: 100%;
       color: $article-text;
@@ -28,8 +28,8 @@
       transition-duration: .2s;
       &:focus {
         outline: none;
-        border: 1px solid $search-highlight;
-        box-shadow: 0px 0px 7px rgba($search-highlight, .65);
+        border: 1px solid $sidebar-search-highlight;
+        box-shadow: 0px 0px 7px rgba($sidebar-search-highlight, .65);
         border-radius: $border-radius;
       }
       &::placeholder {
@@ -40,9 +40,60 @@
     }
   }
 
+  .contents-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin: .25rem 0;
+    color: $sidebar-contents;
+    font-weight: bold;
+    font-style: italic;
+
+    p { margin: .65rem 0 .65rem .25rem; }
+
+    #contents-toggle-btn {
+      margin-top: .2rem;
+      height: 26px;
+      width: 26px;
+      display: inline-block;
+      position: relative;
+
+      &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 13px;
+        right: 5px;
+        width: 16px;
+        height: 2px;
+        border-radius: 1px;
+        background: $sidebar-contents;
+        transition: all .3s;
+      }
+
+      &:before {
+        transform: rotate(0deg);
+      }
+      &:after {
+        transform: rotate(90deg)
+      }
+
+      &:hover {
+        &:before, &:after {
+          background: $sidebar-contents-hover;
+        }
+      }
+
+      &.open {
+        &:before { transform: rotate(180deg); }
+        &:after { transform: rotate(180deg); }
+      }
+    }
+  }
+
   #nav-tree {
     list-style: none;
     padding-left: 1.5rem;
+    margin-bottom: 1rem;
 
     ul {
       list-style: none;
@@ -138,5 +189,35 @@
         &:after { transform: rotate(180deg); }
       }
     }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(medium) {
+  .sidebar {
+    max-width: 100%;
+
+    #nav-tree {
+      max-height: 0;
+      overflow: hidden;
+      margin: 0;
+      transition: max-height .2s ease-out;
+
+      &.open {
+        max-height: 2000px;
+        transition: max-height .2s ease-out;
+        overflow: auto;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+@include media(large_min) {
+  .sidebar .contents-toggle {
+    display: none;
   }
 }
