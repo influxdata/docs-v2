@@ -151,6 +151,7 @@
     padding: 1.5em;
     border-radius: $border-radius;
     overflow: scroll;
+    code { padding: 0; }
   }
 
   //////////////////////////////////// Tables ////////////////////////////////////
@@ -405,6 +406,38 @@
 
   .tab-content:not(:first-of-type) {
     display: none;
+  }
+
+  .tabs-wrapper.code {
+    .tabs {
+       p {
+         margin: 0;
+         text-align: right;
+         display: block;
+       }
+       a {
+         margin: 0;
+         border-radius: $border-radius $border-radius 0 0;
+         display: inline-block;
+         background: $article-tab-code-bg;
+         color: $article-tab-code-text;
+         &:hover {
+           background: $article-tab-code-bg-hover;
+           color: $article-tab-code-text-hover;
+         }
+         &.is-active {
+           background-color: $article-code-bg;
+           color: $article-tab-code-active-text;
+         }
+       }
+    }
+    .tab-content {
+      padding: 0;
+      pre {
+        margin: 0 0 3rem;
+        border-radius: $border-radius 0 $border-radius $border-radius;
+      }
+    }
   }
 
 }

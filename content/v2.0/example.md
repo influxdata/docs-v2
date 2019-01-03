@@ -16,6 +16,31 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Flux](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```js
+data = from(bucket: "telegraf/autogen")
+  |> range(start: -15m)
+  |> filter(fn: (r) =>
+    r._measurement == "mem" AND
+    r._field == "used_percent"
+  )
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT "used_percent"
+FROM "telegraf"."autogen"."mem"
+WHERE time > now() - 15m
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 {{% enterprise %}}
 ### h3 This is a header3
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.

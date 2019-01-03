@@ -186,3 +186,42 @@ Markdown content for tab 2.
 
 {{< /tabs-wrapper >}}
 ```
+
+#### Tabbed code blocks
+Shortcodes are also available for tabbed code blocks primarily used to give users
+the option to choose between different languages and syntax.
+The shortcode structure is the same as above, but the shortcode names are different:
+
+`{{< code-tabs-wrapper >}}`  
+`{{% code-tabs %}}`  
+`{{% code-tab-content %}}`
+
+~~~md
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[Flux](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```js
+data = from(bucket: "telegraf/autogen")
+  |> range(start: -15m)
+  |> filter(fn: (r) =>
+    r._measurement == "mem" AND
+    r._field == "used_percent"
+  )
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```sql
+SELECT "used_percent"
+FROM "telegraf"."autogen"."mem"
+WHERE time > now() - 15m
+```
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
+~~~
