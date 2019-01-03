@@ -7,7 +7,7 @@ $("h2,h3,h4,h5,h6").each(function() {
 
 ///////////////////////////////// Smooth Scroll /////////////////////////////////
 
-$('a[href^="#"]:not(.tabs p a)').on('click',function (e) {
+$('.article a[href^="#"]:not(.tabs p a)').on('click',function (e) {
   e.preventDefault();
 
   var target = this.hash;
@@ -19,6 +19,16 @@ $('a[href^="#"]:not(.tabs p a)').on('click',function (e) {
     window.location.hash = target;
   });
 });
+
+///////////////////////////// Left Nav Interactions /////////////////////////////
+
+$(document).ready( function() {
+	$(".children-toggle").click(function(e) {
+		e.preventDefault()
+		$(this).toggleClass('open');
+		$(this).siblings('.children').toggleClass('open');
+	})
+})
 
 //////////////////////////////// Tabbed Content ////////////////////////////////
 
@@ -48,6 +58,5 @@ $(function() {
 				$(this).siblings(content).hide();
 			}
 		});
-		console.log(activeIndex);
 	});
 });
