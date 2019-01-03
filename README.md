@@ -239,5 +239,6 @@ cause by browser image resizing.
 
 ###### Notes
 - This should only be used on screenshots takes from high-resolution screens.
+- The `src` should be relative to the `static` directory.
 - Image widths are limited to the width of the article content container and will scale accordingly,
   even with the `width` explicitly set.
