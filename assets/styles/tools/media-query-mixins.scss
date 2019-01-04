@@ -3,10 +3,10 @@
     @media (max-width: 600px) { @content ; }
   }
   @else if $size == medium {
-    @media (max-width: 980px) { @content ; }
+    @media (max-width: 800px) { @content ; }
   }
   @else if $size == large_min {
-    @media (min-width: 981px) { @content ; }
+    @media (min-width: 801px) { @content ; }
   }
   @else if $size == large {
     @media (max-width: 1280px) { @content ; }

@@ -2,7 +2,7 @@
   display: block;
   flex-grow: 1;
   padding: 0 1em;
-  max-width: 25%;
+  width: 25%;
 
   &--search {
     position: relative;
@@ -61,7 +61,7 @@
       display: block;
       position: relative;
       margin-top: .65rem;
-      background: $sidebar-contents;
+      background: rgba($topnav-link, .5);
       width: $line-width;
       height: $line-height;
       transition: all .3s;
@@ -74,7 +74,7 @@
         width: $line-width;
         height: $line-height;
         border-radius: 1px;
-        background: $sidebar-contents;
+        background: rgba($topnav-link, .5);
         transform: rotate(0deg);
         transition: all .3s;
       }
@@ -89,10 +89,10 @@
 
     &:hover {
       .toggle-hamburger {
-        background: $sidebar-contents-hover;
+        background: rgba($topnav-link, 1);
 
         &:before, &:after {
-          background: $sidebar-contents-hover;
+          background: rgba($topnav-link, 1);
         }
       }
     }
@@ -214,7 +214,7 @@
 
 @include media(medium) {
   .sidebar {
-    max-width: 100%;
+    width: 100%;
 
     #nav-tree {
       height: 0;
@@ -233,5 +233,11 @@
 @include media(large_min) {
   .sidebar #contents-toggle-btn {
     display: none;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .sidebar {
+    width: 30%;
   }
 }
