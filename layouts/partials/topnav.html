@@ -5,12 +5,16 @@
       <span class="icon-influx-logotype"></span>
     </a>
     <span class="divider"></span>
-    <a class="docs-home" href="/">Docs</a>
+    <a class="docs-home" href="/{{ $.Site.Data.versions.latest_version }}">Docs</a>
   </div>
   <div class="topnav--right">
     <div class="version-selector">
       {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
-      <p class="selected">{{ $currentVersion }}</p>
+      {{ if eq $currentVersion nil }}
+        <p class="selected">Select Version</p>
+      {{ else }}
+        <p class="selected">{{ $currentVersion }}</p>
+      {{ end }}
       <ul class="version-list">
         {{ range .Site.Menus.versions.ByName.Reverse }}
           <li><a href="{{ .URL }}">{{ .Name }}</a></li>

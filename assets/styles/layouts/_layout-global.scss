@@ -36,6 +36,34 @@ a {
   flex-grow: 1;
 }
 
+///  Styles for the placeholder homepage only viewalbe with running locally ///
+.home-placeholder {
+  max-width: 400px;
+  margin: 20vh auto 0;
+  color: $article-text;
+  text-align:center;
+  font-style:italic;
+
+  .welcome {
+    text-align:center;
+    font-weight: bold;
+    color: $article-heading;
+    font-size: 1.1rem;
+  }
+  p {
+    margin-top: 1rem;
+    line-height: 1.25rem;
+  }
+  a {
+    color: $article-link;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      color: $article-link-hover;
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
