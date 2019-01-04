@@ -6,6 +6,7 @@
 
   &--search {
     position: relative;
+    flex-grow: 1;
     &:after {
       content: '\e905';
       display: block;
@@ -40,54 +41,69 @@
     }
   }
 
-  .contents-toggle {
+  .search-nav-toggle {
     display: flex;
-    justify-content: space-between;
-    margin: .25rem 0;
-    color: $sidebar-contents;
-    font-weight: bold;
-    font-style: italic;
+    width: 100%;
+    margin-bottom: .7rem;
+  }
 
-    p { margin: .65rem 0 .65rem .25rem; }
+  #contents-toggle-btn {
+    display: block;
+    margin: .35rem .05rem .25rem 1.2rem;
+    width: 20px;
+    height: 20px;
 
-    #contents-toggle-btn {
-      margin-top: .2rem;
-      height: 26px;
-      width: 26px;
-      display: inline-block;
+    .toggle-hamburger {
+
+      $line-height: 2px;
+      $line-width: 20px;
+
+      display: block;
       position: relative;
+      margin-top: .65rem;
+      background: $sidebar-contents;
+      width: $line-width;
+      height: $line-height;
+      transition: all .3s;
+      transform: rotate(0deg);
 
       &:before, &:after {
         content: "";
         display: block;
         position: absolute;
-        top: 13px;
-        right: 5px;
-        width: 16px;
-        height: 2px;
+        width: $line-width;
+        height: $line-height;
         border-radius: 1px;
         background: $sidebar-contents;
+        transform: rotate(0deg);
         transition: all .3s;
       }
 
       &:before {
-        transform: rotate(0deg);
+        top: -6px;
       }
       &:after {
-        transform: rotate(90deg)
+        top: 6px;
       }
+    }
 
-      &:hover {
+    &:hover {
+      .toggle-hamburger {
+        background: $sidebar-contents-hover;
+
         &:before, &:after {
           background: $sidebar-contents-hover;
         }
       }
-
-      &.open {
-        &:before { transform: rotate(180deg); }
-        &:after { transform: rotate(180deg); }
-      }
     }
+
+    &.open .toggle-hamburger {
+      background: $body-bg;
+      transform: rotate(90deg);
+      &:before { transform: rotate(-135deg); top: 0; }
+      &:after { transform: rotate(-45deg); top: 0; }
+    }
+
   }
 
   #nav-tree {
@@ -201,14 +217,12 @@
     max-width: 100%;
 
     #nav-tree {
-      max-height: 0;
+      height: 0;
       overflow: hidden;
       margin: 0;
-      transition: max-height .2s ease-out;
 
       &.open {
-        max-height: 2000px;
-        transition: max-height .2s ease-out;
+        height: auto;
         overflow: auto;
         margin-bottom: 2rem;
       }
@@ -217,7 +231,7 @@
 }
 
 @include media(large_min) {
-  .sidebar .contents-toggle {
+  .sidebar #contents-toggle-btn {
     display: none;
   }
 }

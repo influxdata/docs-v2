@@ -1,22 +1,22 @@
 {{ $currentPage := . }}
 {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
 <aside class="sidebar">
-  <div class="sidebar--search">
-    <input  class="sidebar--search-field"
-            id="algolia-search-input"
-            type="text"
-            accesskey="s"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            dir="auto"
-            placeholder="Search {{ $currentVersion }}">
-  </div>
-
-  <div class="contents-toggle">
-    <p>Contents</p>
-    <a id="contents-toggle-btn" href="#"></a>
+  <div class="search-nav-toggle">
+    <div class="sidebar--search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder="Search {{ $currentVersion }}">
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
   </div>
 
   <ul id="nav-tree">
