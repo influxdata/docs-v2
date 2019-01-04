@@ -242,3 +242,14 @@ cause by browser image resizing.
 - The `src` should be relative to the `static` directory.
 - Image widths are limited to the width of the article content container and will scale accordingly,
   even with the `width` explicitly set.
+
+### Truncated content blocks
+In some cases, it may be appropriate to shorten or truncate blocks of content.
+Use cases include long examples of output data or tall images.
+The following shortcode truncates blocks of content and allows users to opt into
+to seeing the full content block.
+
+```md
+{{% truncate %}}
+Truncated markdown content here.
+{{% /truncate %}}

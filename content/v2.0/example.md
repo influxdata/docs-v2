@@ -466,3 +466,33 @@ This is tab 2.4 content.
 {{% /tab-content %}}
 
 {{< /tabs-wrapper >}}
+
+{{% truncate %}}
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+This is truncated content.  
+{{% /truncate %}}

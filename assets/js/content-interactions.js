@@ -7,7 +7,13 @@ $("h2,h3,h4,h5,h6").each(function() {
 
 ///////////////////////////////// Smooth Scroll /////////////////////////////////
 
-$('.article a[href^="#"]:not(.tabs p a, .code-tabs p a)').on('click',function (e) {
+var elementWhiteList = [
+  ".tabs p a",
+  ".code-tabs p a",
+  ".truncate-toggle"
+]
+
+$('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
   e.preventDefault();
 
   var target = this.hash;
@@ -66,3 +72,10 @@ function tabbedContent(container, tab, content) {
 
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
 tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
+
+/////////////////////////////// Truncate Content ///////////////////////////////
+
+$(".truncate-toggle").click(function(e) {
+	e.preventDefault()
+	$(this).closest('.truncate').toggleClass('closed');
+})
