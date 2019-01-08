@@ -38,7 +38,8 @@ a {
 
 ///  Styles for the placeholder homepage only viewalbe with running locally ///
 .home-placeholder {
-  max-width: 400px;
+  max-width: 480px;
+  padding: 0 1.5rem;
   margin: 20vh auto 0;
   color: $article-text;
   text-align:center;

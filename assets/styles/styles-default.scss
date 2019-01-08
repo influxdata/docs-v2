@@ -2,7 +2,8 @@
 
 // Import Tools
 @import "tools/icomoon";
-@import "tools/media-query-mixins.scss";
+@import "tools/media-queries.scss";
+@import "tools/mixins.scss";
 
 // Import default dark theme
 @import "themes/theme-dark.scss";

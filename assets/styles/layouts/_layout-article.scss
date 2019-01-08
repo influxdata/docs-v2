@@ -155,9 +155,10 @@
 
   pre {
     margin: 2rem 0 3rem;
-    padding: 1.5em;
+    padding: 1.5rem 1.5rem 1.25rem;
     border-radius: $border-radius;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
     code { padding: 0; }
   }
 
@@ -169,7 +170,8 @@
     border-spacing: 0;
     color: $article-text;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
     box-shadow: 1px 3px 10px $article-shadow;
     border-radius: ($border-radius * 1.5);
 
@@ -327,6 +329,7 @@
   }
 
   ///////////////////////////////// Enterprise /////////////////////////////////
+
   #enterprise-msg {
     border-color: $article-enterprise-base;
     background: rgba($article-enterprise-base, .15);
@@ -516,6 +519,16 @@
     }
 	}
 
+  ///////////////////////////////// Scroll Bars //////////////////////////////////
+  pre {
+    @include scrollbar($article-code-bg, $article-code-scrollbar);
+  }
+  .note pre {
+    @include scrollbar($article-note-code-bg, $article-note-code-scrollbar);
+  }
+  .warn pre {
+    @include scrollbar($article-warn-code-bg, $article-warn-code-scrollbar);
+  }
 }
 
 
