@@ -94,6 +94,17 @@
       }
       &:last-child {
         border-radius: 0 0 $border-radius $border-radius;
+        position: relative;
+      }
+      &.legacy {
+        position: relative;
+        &:after {
+          content: "\e911";
+          font-family: "icomoon";
+          position: absolute;
+          opacity: .4;
+          margin-left: .25rem;
+        }
       }
     }
   }

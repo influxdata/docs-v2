@@ -17,7 +17,7 @@
       {{ end }}
       <ul class="version-list">
         {{ range .Site.Menus.versions.ByName.Reverse }}
-          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+          <li><a href="{{ .URL }}" {{if in .Name "1.x" }}class="legacy" target="_blank"{{ end }}>{{ .Name }}</a></li>
         {{ end }}
     </div>
     <button class="theme-switcher" id="theme-switch-light" onclick="switch_style('light-theme');return false;"><span class="icon-sun1"></span></button>
