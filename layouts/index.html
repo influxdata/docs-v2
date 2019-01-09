@@ -1,6 +1,14 @@
-{{ partial "header.html" }}
+{{ partial "header.html" . }}
 
-<p><em>This is a placeholder for the future InfluxDB v2.0 homepage.</em></p>
-<p><a href="/v2.0/">v2.0 director</a></p>
+<div class="home-placeholder">
+  <p class="welcome">
+    Welcome to the InfluxDB v2.x documentation
+  </p>
+  <p>
+    This page is never actually shown on the live docs since visiting the docs domain will redirect to the latest version.
+    Select your desired version from the dropdown above or go straight to the
+    <a href="/{{ $.Site.Data.versions.latest_version }}">latest version</a>.
+  </p>
+</div>
 
-{{ partial "footer.html"}}
+{{ partial "footer.html" . }}

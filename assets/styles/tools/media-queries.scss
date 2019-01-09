@@ -1,0 +1,24 @@
+$small-max: 600px;
+$medium-min: ($small-max + 1);
+$medium-max: 800px;
+$large-min: ($medium-max + 1);
+$large-max: 1280px;
+$xlarge-min: 1290px;
+
+@mixin media($size) {
+  @if $size == small {
+    @media (max-width: $small-max) { @content ; }
+  }
+  @else if $size == medium {
+    @media (max-width: $medium-max) { @content ; }
+  }
+  @else if $size == large_min {
+    @media (min-width: $large-min) { @content ; }
+  }
+  @else if $size == large {
+    @media (max-width: $large-max) { @content ; }
+  }
+  @else if $size == xlarge {
+    @media (min-width: $xlarge-min) { @content ; }
+  }
+}

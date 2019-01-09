@@ -3,7 +3,7 @@ title: Using tasks
 description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
-    name: Example post
+    name: Using tasks
     weight: 1
 ---
 
@@ -11,7 +11,7 @@ menu:
 * Enable the **Show Inactive** option to include inactive tasks on the list.
 * Enter text in the **Filter tasks by name** field to search for tasks by name.
 * Select an organization from the **All Organizations** dropdown to filter the list by organization.
-* Click on the heading of any column to sort by that field. 
+* Click on the heading of any column to sort by that field.
 
 **To import a task**:
 1. Click the Tasks (calendar) icon in the left navigation menu.

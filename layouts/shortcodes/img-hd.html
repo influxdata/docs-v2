@@ -1,0 +1,7 @@
+{{ .Inner }}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" }}
+{{ with (imageConfig ( print "/static" $src )) }}
+  {{ $imageWidth := div .Width 2 }}
+  <img src='{{ $src }}' alt='{{ $alt }}' width='{{ $imageWidth }}' />
+{{ end }}

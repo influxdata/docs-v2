@@ -1,0 +1,124 @@
+/*
+
+	DARK THEME
+	____________________________________________________________
+
+	Notes:
+	- This file is interchangeable with themes/theme-light.scss
+	- Only contains color variables
+
+*/
+
+// General Styles
+// --------------------------------------------------
+
+@import "tools/color-palette";
+
+$body-bg: $g1-raven !default;
+$border-radius: 3px !default;
+
+// TopNav Colors
+$topnav-link: $g20-white !default;
+$topnav-link-hover: $b-pool !default;
+$version-selector-top: $b-ocean !default;
+$version-selector-bottom: $p-star !default;
+$theme-switch-light: inline-block !default;
+$theme-switch-dark: none !default;
+
+// Sidebar
+$sidebar-search-border: $g5-pepper !default;
+$sidebar-search-highlight: $b-pool !default;
+
+// Article Content
+$article-bg: $g3-castle !default;
+$article-heading: $g19-ghost !default;
+$article-text: $g14-chromium !default;
+$article-bold: $g19-ghost !default;
+$article-link: $b-pool !default;
+$article-link-hover: $g20-white !default;
+$article-shadow: #191a1b !default;
+$article-note-shadow: #191a1b !default;
+$article-warn-shadow: #191a1b !default;
+
+// Article Code
+$article-code: $p-potassium !default;
+$article-code-bg: $g1-raven !default;
+$article-code-accent1: $g9-mountain !default;
+$article-code-accent2: $b-pool !default;
+$article-code-accent3: $gr-viridian !default;
+$article-code-accent4: $o-ruby !default;
+$article-code-accent5: #ff6db0 !default;
+$article-code-accent6: $b-pool !default;
+$article-code-accent7: #e90 !default;
+$article-code-select: $b-pool !default;
+$article-code-hover: $g20-white !default;
+$article-code-scrollbar: $g7-graphite !default;
+
+// Article Tables
+$article-table-header-left: $p-planet !default;
+$article-table-header-right: $b-sapphire !default;
+$article-table-row-alt: $g2-kevlar !default;
+
+// Article Notes, Warnings, & Messages
+$article-note-base: $gr-viridian !default;
+$article-note-heading: $g20-white !default;
+$article-note-text: $gr-viridian !default;
+$article-note-link: $gr-rainforest !default;
+$article-note-link-hover: $g20-white !default;
+$article-note-table-header: $gr-viridian !default;
+$article-note-table-row-alt: #21272d !default;
+$article-note-code: #75d2f1 !default;
+$article-note-code-bg: #20272b !default;
+$article-note-code-accent1: #567375 !default;
+$article-note-code-accent2: $b-pool !default;
+$article-note-code-accent3: $gr-viridian !default;
+$article-note-code-accent4: $o-ruby !default;
+$article-note-code-accent5: #ff6db0 !default;
+$article-note-code-accent6: $b-pool !default;
+$article-note-code-accent7: #e90 !default;
+$article-note-code-scrollbar: $gr-grass !default;
+
+$article-warn-base: $o-dreamsicle !default;
+$article-warn-heading: $g20-white !default;
+$article-warn-text: $o-dreamsicle !default;
+$article-warn-link: $o-tungsten !default;
+$article-warn-link-hover: $g20-white !default;
+$article-warn-table-header: $o-dreamsicle !default;
+$article-warn-table-row-alt: #2b252b !default;
+$article-warn-code: #ec6e6e !default;
+$article-warn-code-bg: #292024 !default;
+$article-warn-code-accent1: #844c4c !default;
+$article-warn-code-accent2: $b-pool !default;
+$article-warn-code-accent3: $gr-viridian !default;
+$article-warn-code-accent4: $o-ruby !default;
+$article-warn-code-accent5: #ffb4fb !default;
+$article-warn-code-accent6: $b-pool !default;
+$article-warn-code-accent7: #e90 !default;
+$article-warn-code-scrollbar: #5f3535 !default;
+
+$article-enterprise-base: $p-star !default;
+$article-enterprise-text: $p-potassium !default;
+$article-enterprise-link: $p-moonstone !default;
+$article-enterprise-link-hover: $g20-white !default;
+
+// Article Tabs for tabbed content
+$article-tab-text: $g12-forge !default;
+$article-tab-bg: $g4-onyx !default;
+$article-tab-active-text: $g20-white !default;
+$article-tab-active-bg: $b-ocean !default;
+
+$article-tab-code-text: $g9-mountain !default;
+$article-tab-code-bg: $g5-pepper !default;
+$article-tab-code-text-hover: $g20-white !default;
+$article-tab-code-bg-hover: $b-ocean !default;
+$article-tab-code-active-text: $g20-white !default;
+
+// Left Navigation
+$nav-category: $b-ocean !default;
+$nav-category-hover: $g20-white !default;
+$nav-item: $g16-pearl !default;
+$nav-item-hover: $b-ocean !default;
+$nav-border: $g5-pepper !default;
+$nav-toggle: $g16-pearl !default;
+$nav-toggle-hover: $g16-pearl !default;
+$nav-toggle-bg-hover: $b-ocean !default;

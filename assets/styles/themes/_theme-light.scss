@@ -1,0 +1,123 @@
+/*
+
+	LIGHT THEME
+	____________________________________________________________
+
+	Notes:
+	- This file is interchangeable with themes/theme-dark.scss
+	- Only contains color variables
+
+*/
+
+@import "tools/color-palette";
+
+// General Styles
+// --------------------------------------------------
+
+$body-bg: $g18-cloud;
+
+// TopNav Colors
+$topnav-link: $g5-pepper;
+$topnav-link-hover: $b-ocean;
+$version-selector-top: $b-pool;
+$version-selector-bottom: $gr-viridian;
+$theme-switch-light: none;
+$theme-switch-dark: inline-block;
+
+// Sidebar
+$sidebar-search-border: $g15-platinum;
+$sidebar-search-highlight: $b-pool;
+
+// Article Content
+$article-bg: $g20-white;
+$article-heading: $g7-graphite;
+$article-text: $g8-storm;
+$article-bold: $g8-storm;
+$article-link: $b-ocean;
+$article-link-hover: $gr-viridian;
+$article-shadow: #c8cdd0;
+$article-note-shadow: #8cb7ab;
+$article-warn-shadow: #b98a7d;
+
+// Article Code
+$article-code: $p-star;
+$article-code-bg: $p-violettecreme;
+$article-code-accent1: $p-potassium;
+$article-code-accent2: $b-ocean;
+$article-code-accent3: #008e7c;
+$article-code-accent4: $o-ruby;
+$article-code-accent5: #e24bbb;
+$article-code-accent6: $b-ocean;
+$article-code-accent7: #e90;
+$article-code-select:  $b-pool;
+$article-code-hover: $b-sapphire;
+$article-code-scrollbar: $p-potassium;
+
+// Article Tables
+$article-table-header-left: $b-pool;
+$article-table-header-right: $gr-honeydew;
+$article-table-row-alt: $g18-cloud;
+
+// Article Notes & Warnings
+$article-note-base: $gr-rainforest;
+$article-note-heading: $gr-emerald;
+$article-note-text: $gr-emerald;
+$article-note-link: rgba($gr-emerald, .75);
+$article-note-link-hover: $b-pool;
+$article-note-table-header: $gr-viridian;
+$article-note-table-row-alt: #d6f5e9;
+$article-note-code: #0A6f75;
+$article-note-code-bg: #d6f7ec;
+$article-note-code-accent1: #6abba0;
+$article-note-code-accent2: #0084d6;
+$article-note-code-accent3: #5d52d6;
+$article-note-code-accent4: $o-ruby;
+$article-note-code-accent5: #e24bbb;
+$article-note-code-accent6: #0084d6;
+$article-note-code-accent7: #e90;
+$article-note-code-scrollbar: #87DABE;
+
+$article-warn-base: $o-dreamsicle;
+$article-warn-heading: $o-fire;
+$article-warn-text: $o-curacao;
+$article-warn-link: rgba($o-curacao, .75);
+$article-warn-link-hover: $b-sapphire;
+$article-warn-table-header: $o-dreamsicle;
+$article-warn-table-row-alt: #ffe6df;
+$article-warn-code: #d0154e;
+$article-warn-code-bg: #ffebeb;
+$article-warn-code-accent1: #fd99b8;
+$article-warn-code-accent2: #357ae8;
+$article-warn-code-accent3: #6c59cc;
+$article-warn-code-accent4: $o-ruby;
+$article-warn-code-accent5: #6a0a6f;
+$article-warn-code-accent6: #357ae8;
+$article-warn-code-accent7: #e90;
+$article-warn-code-scrollbar: #FFB1B1;
+
+$article-enterprise-base: $p-comet;
+$article-enterprise-text: $p-star;
+$article-enterprise-link: $p-star;
+$article-enterprise-link-hover: $b-ocean;
+
+// Article Tabs for tabbed content
+$article-tab-text: $g8-storm;
+$article-tab-bg: $g18-cloud;
+$article-tab-active-text: $g20-white;
+$article-tab-active-bg: $b-pool;
+
+$article-tab-code-text: $p-potassium;
+$article-tab-code-bg: $g20-white;
+$article-tab-code-text-hover: $g20-white;
+$article-tab-code-bg-hover: $p-comet;
+$article-tab-code-active-text: $p-star;
+
+// Left Navigation
+$nav-category: $b-ocean;
+$nav-category-hover: $gr-viridian;
+$nav-item: $g9-mountain;
+$nav-item-hover: $gr-viridian;
+$nav-border: $g14-chromium;
+$nav-toggle: $g9-mountain;
+$nav-toggle-hover: $g20-white;
+$nav-toggle-bg-hover: $b-ocean;

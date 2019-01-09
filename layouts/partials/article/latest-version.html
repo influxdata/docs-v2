@@ -1,0 +1,11 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
+{{ $latestVersion := $.Site.Data.versions.latest_version }}
+{{ $latestVersionURL := replaceRE "[^/]+.*?[0]" $latestVersion .RelPermalink }}
+{{ if not (eq $currentVersion $latestVersion) }}
+  <div class="warn">
+    <p>
+      This page documents an earlier version of InfluxDB.
+      View the latest version of this page in the <a href="{{ $latestVersionURL }}">InfluxDB {{ $latestVersion }}</a> documentation.
+    </p>
+  </div>
+{{ end }}

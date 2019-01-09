@@ -1,0 +1,26 @@
+<div class="topnav">
+  <div class="topnav--left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData">
+      <span class="icon-influx-logo"></span>
+      <span class="icon-influx-logotype"></span>
+    </a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/{{ $.Site.Data.versions.latest_version }}">Docs</a>
+  </div>
+  <div class="topnav--right">
+    <div class="version-selector">
+      {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+      {{ if eq $currentVersion nil }}
+        <p class="selected">Select Version</p>
+      {{ else }}
+        <p class="selected">{{ $currentVersion }}</p>
+      {{ end }}
+      <ul class="version-list">
+        {{ range .Site.Menus.versions.ByName.Reverse }}
+          <li><a href="{{ .URL }}" {{if in .Name "1.x" }}class="legacy" target="_blank"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+    </div>
+    <button class="theme-switcher" id="theme-switch-light" onclick="switch_style('light-theme');return false;"><span class="icon-sun1"></span></button>
+    <button class="theme-switcher" id="theme-switch-dark" onclick="switch_style('dark-theme');return false;"><span class="icon-moon1"></span></button>
+  </div>
+</div>

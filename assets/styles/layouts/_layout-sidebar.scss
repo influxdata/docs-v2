@@ -1,0 +1,243 @@
+.sidebar {
+  display: block;
+  flex-grow: 1;
+  padding: 0 1em;
+  width: 25%;
+
+  &--search {
+    position: relative;
+    flex-grow: 1;
+    &:after {
+      content: '\e905';
+      display: block;
+      font-family: 'icomoon';
+      position: absolute;
+      top: .15rem;
+      right: .25rem;
+      color: $article-text;
+      font-size: 1.75rem;
+    }
+
+    input {
+      background: $article-bg;
+      border-radius: $border-radius;
+      border: 1px solid $sidebar-search-border;
+      padding: .5em 2.15rem .5rem .5rem;
+      width: 100%;
+      color: $article-text;
+      transition-property: border, box-shadow;
+      transition-duration: .2s;
+      &:focus {
+        outline: none;
+        border: 1px solid $sidebar-search-highlight;
+        box-shadow: 0px 0px 7px rgba($sidebar-search-highlight, .65);
+        border-radius: $border-radius;
+      }
+      &::placeholder {
+        font-family: 'Roboto';
+        font-weight: 500;
+        color: rgba($article-text, .35);
+      }
+    }
+  }
+
+  .search-nav-toggle {
+    display: flex;
+    width: 100%;
+    margin-bottom: .7rem;
+  }
+
+  #contents-toggle-btn {
+    display: block;
+    margin: .35rem .05rem .25rem 1.2rem;
+    width: 20px;
+    height: 20px;
+
+    .toggle-hamburger {
+
+      $line-height: 2px;
+      $line-width: 20px;
+
+      display: block;
+      position: relative;
+      margin-top: .65rem;
+      background: rgba($topnav-link, .5);
+      width: $line-width;
+      height: $line-height;
+      transition: all .3s;
+      transform: rotate(0deg);
+
+      &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: $line-width;
+        height: $line-height;
+        border-radius: 1px;
+        background: rgba($topnav-link, .5);
+        transform: rotate(0deg);
+        transition: all .3s;
+      }
+
+      &:before {
+        top: -6px;
+      }
+      &:after {
+        top: 6px;
+      }
+    }
+
+    &:hover {
+      .toggle-hamburger {
+        background: rgba($topnav-link, 1);
+
+        &:before, &:after {
+          background: rgba($topnav-link, 1);
+        }
+      }
+    }
+
+    &.open .toggle-hamburger {
+      background: $body-bg;
+      transform: rotate(90deg);
+      &:before { transform: rotate(-135deg); top: 0; }
+      &:after { transform: rotate(-45deg); top: 0; }
+    }
+
+  }
+
+  #nav-tree {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+
+    ul {
+      list-style: none;
+      padding-left: 2rem;
+      border-left: 2px solid $nav-border;
+    }
+
+    li {
+      margin-top: .5rem;
+      position: relative;
+      &:before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        top: .45em;
+        left: -1em;
+        display: block;
+        position: absolute;
+        background: $nav-border;
+      }
+      ul {
+        margin-left: -.95em;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .nav-category > a {
+      color: $nav-category;
+      font-size: 1.1rem;
+      &:hover {
+        color: $nav-category-hover;
+      }
+    }
+    .nav-item > a {
+      color: $nav-item;
+      &:hover {
+        color: $nav-item-hover;
+      }
+    }
+
+    .children {
+      height: 0;
+      overflow: hidden;
+      &.open {
+        height: auto;
+      }
+    }
+
+    .children-toggle {
+      width: 1rem;
+      height: 1rem;
+      position: absolute;
+      top: .05rem;
+      left: -1.4rem;
+      display: block;
+      background: $nav-border;
+      border-radius: 50%;
+
+      &:before, &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        background: $nav-toggle;
+        transition: all .3s;
+      }
+      &:before {
+        top: 4px;
+        left: 7px;
+        height: 8px;
+        width: 2px;
+      }
+      &:after {
+        top: 7px;
+        left: 4px;
+        height: 2px;
+        width: 8px;
+      }
+
+      &:hover {
+        background: $nav-toggle-bg-hover;
+        &:before,
+        &:after {
+          background: $nav-toggle-hover;
+        }
+      }
+
+      &.open {
+        &:before { transform: rotate(90deg); }
+        &:after { transform: rotate(180deg); }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(medium) {
+  .sidebar {
+    width: 100%;
+
+    #nav-tree {
+      height: 0;
+      overflow: hidden;
+      margin: 0;
+
+      &.open {
+        height: auto;
+        overflow: auto;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+@include media(large_min) {
+  .sidebar #contents-toggle-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .sidebar {
+    width: 30%;
+  }
+}

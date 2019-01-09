@@ -1,0 +1,17 @@
+// InfluxData Docs Default Theme (Dark)
+
+// Import Tools
+@import "tools/icomoon";
+@import "tools/media-queries.scss";
+@import "tools/mixins.scss";
+
+// Import default dark theme
+@import "themes/theme-dark.scss";
+
+// Import Layout Styles
+@import "normalize/import-now",
+        "layouts/layout-global",
+        "layouts/layout-topnav",
+        "layouts/layout-sidebar",
+        "layouts/layout-article",
+        "layouts/syntax-highlighting";
