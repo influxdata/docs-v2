@@ -2,13 +2,9 @@
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
-  <div class="article">
-    <article class="article--content">
-      <h1>{{ .Title }}</h1>
-      {{ partial "article/latest-version.html" . }}
-      {{ partial "article/enterprise.html" . }}
-      {{ .Content }}
-    </article>
+  <div class="content-wrapper">
+    {{ partial "article.html" . }}
+    <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>
 
