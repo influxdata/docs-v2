@@ -7,6 +7,8 @@ menu:
     weight: 1
 ---
 
+Everything is scoped by organization. Tasks are owned by an organization. The organization has access to read/write endpoints. Organizations have "owners" and "members".
+
 # Create Organization
     * Appears in upper right for users with permissions
 * This one looks like there’s significant difference between the mockups and the outline—ask
