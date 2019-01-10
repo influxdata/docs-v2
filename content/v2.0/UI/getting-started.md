@@ -7,6 +7,11 @@ menu:
     weight: 1
 ---
 
+## Buckets
+
+Buckets are a new data storage concept for InfluxDB. A bucket is a named location where data is stored that has a retention policy. It’s similar to an InfluxDB v1.x “database,” but is a combination of both a database and a retention policy. When using multiple retention policies, each retention policy is treated as is its own bucket.
+
+
 ## Onboarding (/setup)
 
 * Set up your initial admin user.
