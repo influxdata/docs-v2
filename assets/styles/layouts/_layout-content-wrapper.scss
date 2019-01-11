@@ -1,6 +1,7 @@
 .content-wrapper {
   flex-grow: 1;
   width: 75%;
+  position: relative;
   border-radius: $border-radius 0 0 $border-radius;
 
   .copyright {

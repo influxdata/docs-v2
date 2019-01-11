@@ -3,9 +3,6 @@
   padding: .75rem .75rem .65rem;
   justify-content: space-between;
 
-  &--left {  }
-  &--right {  }
-
   .influx-home {
     font-family: 'icomoon';
     font-size: 1.9rem;
@@ -51,6 +48,7 @@
     border-radius: $border-radius;
     overflow: hidden;
     cursor: pointer;
+    transition: right .2s;
 
     .selected {
       padding: 0 1.5rem 0 .75rem;
@@ -109,7 +107,7 @@
     }
   }
 
-  .theme-switcher {
+  .theme-switcher, #search-btn {
     display: inline-block;
     padding: 0;
     font-size: 1.8rem;
@@ -119,7 +117,7 @@
     width: 30px;
     margin-top: 2px;
     border: none;
-    transition: color .2s;
+    transition: color .2s, opacity .2s;
     appearance: none;
     overflow: visible;
     &:focus {

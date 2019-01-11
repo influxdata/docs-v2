@@ -1,5 +1,6 @@
 .sidebar {
   display: block;
+  position: relative;
   flex-grow: 1;
   padding: 0 1em;
   width: 25%;
@@ -41,7 +42,7 @@
     }
   }
 
-  .search-nav-toggle {
+  .search-and-nav-toggle {
     display: flex;
     width: 100%;
     margin-bottom: .7rem;
