@@ -1,0 +1,15 @@
+// Default state of having the sidebar open.
+
+.sidebar {
+  transition: all .2s;
+  .search-and-nav-toggle,
+  #nav-tree {
+    opacity: 1;
+    transition: all .3s;
+    transition-delay: .1s;
+  }
+}
+
+#search-btn {
+  opacity: 0;
+}
