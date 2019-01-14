@@ -1,0 +1,61 @@
+// Sets CSS overides for when the sidebar is closed
+
+.sidebar {
+  width: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: all .4s;
+
+  .search-and-nav-toggle,
+  #nav-tree,
+  .sidebar-toggle {
+    white-space: nowrap;
+    opacity: 0;
+    transition: all .1s;
+  }
+}
+
+.content-wrapper {
+  width: 100%;
+  .sidebar-toggle{
+    display: block;
+  }
+}
+
+.topnav {
+  #search-btn {
+    opacity: 1;
+  }
+  .version-selector {
+    right: 5.5rem;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@import "tools/media-queries";
+
+@include media(medium) {
+  .sidebar {
+    width: 100%;
+    overflow: auto;
+    padding: 0 1rem;
+  }
+  .search-and-nav-toggle, #nav-tree {
+    opacity: 1 !important;
+    white-space: normal;
+  }
+  .topnav {
+    #search-btn {
+      opacity: 0;
+    }
+    .version-selector {
+      right: 3.5rem;
+    }
+  }
+  .content-wrapper .sidebar-toggle {
+    display: none;
+  }
+}

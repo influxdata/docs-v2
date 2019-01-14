@@ -1,9 +1,7 @@
 .article {
-  flex-grow: 1;
   background: $article-bg;
-  border-radius: $border-radius 0 0 0;
+  border-radius: $border-radius 0 0 $border-radius;
   padding: 2rem 4rem 3rem;
-  width: 75%;
 }
 
 .article--content{
@@ -23,7 +21,7 @@
     font-weight: 300;
     font-style: italic;
     font-size: 2.65rem;
-    margin-bottom: 1em;
+    margin: .4em 0 1em;
   }
   h2 {
     font-size: 2rem;
@@ -570,15 +568,5 @@
       }
     }
 
-  }
-}
-
-@include media(medium) {
-  .article { width: 100%; }
-}
-
-@media (min-width: 801px) and (max-width: 1200px) {
-  .article {
-    width: 70%;
   }
 }

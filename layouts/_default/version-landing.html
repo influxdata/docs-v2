@@ -4,6 +4,15 @@
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">
     <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
+    
+    <div class="cards">
+      <div class="full">
+        <h1>{{ $.Page.Title }}</h1>
+        <a class="btn" href="get-started">Get Started</a>
+
+      </div>
+    </div>
+
     {{ partial "article.html" . }}
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>

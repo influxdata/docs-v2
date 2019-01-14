@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ppkm5');
-  src:  url('fonts/icomoon.eot?ppkm5#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ppkm5') format('truetype'),
-    url('fonts/icomoon.woff?ppkm5') format('woff'),
-    url('fonts/icomoon.svg?ppkm5#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?o2njz5');
+  src:  url('fonts/icomoon.eot?o2njz5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?o2njz5') format('truetype'),
+    url('fonts/icomoon.woff?o2njz5') format('woff'),
+    url('fonts/icomoon.svg?o2njz5#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -66,8 +66,23 @@
 .icon-check:before {
   content: "\e912";
 }
+.icon-chevron-down:before {
+  content: "\e917";
+}
+.icon-chevron-left:before {
+  content: "\e918";
+}
+.icon-chevron-right:before {
+  content: "\e919";
+}
+.icon-chevron-up:before {
+  content: "\e91a";
+}
 .icon-heart1:before {
   content: "\e913";
+}
+.icon-menu:before {
+  content: "\e91b";
 }
 .icon-settings:before {
   content: "\e914";
