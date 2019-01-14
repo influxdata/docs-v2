@@ -7,6 +7,8 @@ menu:
     weight: 1
 ---
 
+Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
+
 ## Creating dashboards
 
 **To create a dashboard**:
@@ -40,11 +42,20 @@ You can also send data to your dashboard directly from the Data Explorer. For de
  3. Click **Confirm** to continue deleting your dashboard.
 
 **To clone a dashboard**:
-1. Hover over the dashbaord name in the list of dashboard to show options.
-2. Click **Clone**.
+* Hover over the dashbaord name in the list of dashboard to show options.
+* Click **Clone**.
 <<SCREEENSHOT>>
-3. The cloned dashboard opens.
+ The cloned dashboard opens.
 
 
 ## Importing and exporting dashboards
-å
+
+**To import a dashboard**:
+1. From the **Dashboards** tab, click **Import** in the upper right.
+2. Drag a file into the **Import Dashboard** window or click to manually select one.
+<<SCREENSHOT>>
+3. Click **Upload Dashboard**.
+
+**To export a dashboard**:
+* Hover over the dashboard name in the list of dashboards to show options.
+* Click **Export** to download the JSON file.
