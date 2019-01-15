@@ -7,7 +7,9 @@ menu:
     weight: 1
 ---
 
-Everything is scoped by organization. Tasks are owned by an organization. The organization has access to read/write endpoints. Organizations have "owners" and "members".
+Everything is scoped by/contained within organization--dashboards, tasks, buckets, users, !!collectors and scrapers!!.
+
+
 
 # Create Organization
     * Appears in upper right for users with permissions
@@ -24,15 +26,18 @@ Everything is scoped by organization. Tasks are owned by an organization. The or
 
 **To manage an organization's members**:
 
+Organizations have "owners" and "members".
+
 1. Click the **Organizations** tab in the navigation bar.
 2. Click on the name of an organization. All of the organization's members appear in the **Members** tab.
 3. Select a member from the list or search to filter the list.
 4. ?? Edit members, remove members, invite users to be a member
 
-A bucket is a named location where data is stored that has a retention policy. It’s similar to an InfluxDB v1.x “database,” but is a combination of both a database and a retention policy. When using multiple retention policies, each retention policy is treated as is its own bucket.
-
 
 **To manage an organization's buckets**:
+
+A bucket is a named location where data is stored that has a retention policy. It’s similar to an InfluxDB v1.x “database,” but is a combination of both a database and a retention policy. Each bucket can only have one retention policy.
+
 
 1. Click the **Organizations** tab in the navigation bar.
 2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
@@ -55,11 +60,8 @@ A bucket is a named location where data is stored that has a retention policy. I
 For details on editing dashboards, see <<link to dashboards section>>
 
 
-#### Dashboards (/organizations/orgnamehere/dashboards)
-  * User can see all dashboards owned by this org
-
 #### Tasks (/organizations/orgnamehere/tasks)
-  * User can see all dashboards owned by this org
+  * User can see all tasks owned by this org
 
 #### Options (/organizations/orgnamehere/options) mockup says settings
   * Only owners can see this tab

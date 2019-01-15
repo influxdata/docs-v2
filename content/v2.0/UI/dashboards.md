@@ -9,6 +9,13 @@ menu:
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
 
+Variable names changed--instead of dashboard time, it's time range start/time range end (double-check).
+Window interval replaces interval
+Save as somewhere--same as send to dashboard
+Also save as dashboard/save as tasks
+Multiple tabs, hide/show tabs, rename tabs
+
+
 ## Creating dashboards
 
 **To create a dashboard**:
@@ -46,16 +53,3 @@ You can also send data to your dashboard directly from the Data Explorer. For de
 * Click **Clone**.
 <<SCREEENSHOT>>
  The cloned dashboard opens.
-
-
-## Importing and exporting dashboards
-
-**To import a dashboard**:
-1. From the **Dashboards** tab, click **Import** in the upper right.
-2. Drag a file into the **Import Dashboard** window or click to manually select one.
-<<SCREENSHOT>>
-3. Click **Upload Dashboard**.
-
-**To export a dashboard**:
-* Hover over the dashboard name in the list of dashboards to show options.
-* Click **Export** to download the JSON file.

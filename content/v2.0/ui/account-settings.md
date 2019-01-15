@@ -7,4 +7,6 @@ menu:
     weight: 1
 ---
 
-Account settings, tokens
+1. Click the ?? icon in the navigation bar.
+2. Review your settings on the **Settings** tab.
+3. To edit your settings, click **Edit About Me** 
