@@ -7,6 +7,7 @@ menu:
     weight: 1
 ---
 
+
 **To filter the list of tasks**:
 * Enable the **Show Inactive** option to include inactive tasks on the list.
 * Enter text in the **Filter tasks by name** field to search for tasks by name.
@@ -30,15 +31,3 @@ menu:
   * **Retry Attempts**: The number of times the task should retry !!!
 3. In the right panel, enter your task script.
 4. Click **Save**.
-
-* User can see all tasks they have access to
-* User can filter list by task name, owner, or date modified
-* User can delete tasks with confirmation
-* Click name of task to edit
-
-
-## Task (/organizations/taskname/taskID)
-
-* Only show Flux script in Text Editor
-* Updated task options should be handled from options panel in UI
-* Click to edit task name in page header
