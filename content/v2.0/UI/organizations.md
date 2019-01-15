@@ -17,25 +17,43 @@ Everything is scoped by organization. Tasks are owned by an organization. The or
 
 **To create an organization**:
 
-1. Click **+ Create Organization**
+1. Click the **Organizations** tab in the navigation bar.
+2. Click **+ Create Organization**
 2. Enter a name for your organization.
 3. Click **Create**.
 
+**To manage an organization's members**:
 
-## Sub pages:
+1. Click the **Organizations** tab in the navigation bar.
+2. Click on the name of an organization. All of the organization's members appear in the **Members** tab.
+3. Select a member from the list or search to filter the list.
+4. ?? Edit members, remove members, invite users to be a member
 
-### Organization (/organizations/orgnamehere)
+A bucket is a named location where data is stored that has a retention policy. It’s similar to an InfluxDB v1.x “database,” but is a combination of both a database and a retention policy. When using multiple retention policies, each retention policy is treated as is its own bucket.
 
-#### Members (/organizations/orgnamehere/members)
-  * List all users who belong to this org
-  * Label users as either “Member” or “Owner”
-  * Owners can remove members from org
-  * Owners can invite users to be a member
 
-#### Buckets (/organizations/orgnamehere/buckets)
-  * Members can see the buckets owned by this org
-            * Owners can CRUD buckets
-            * Owners can configure data sources tied to each bucket
+**To manage an organization's buckets**:
+
+1. Click the **Organizations** tab in the navigation bar.
+2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
+3. To create a bucket, click **+Create** in the upper right.
+  * Enter a name for your bucket in the **Name** field.
+  * In the **How often to clear data?** field:
+    * Select **Never** to retain data forever.
+    * Select **Periodically** to define a specific retention policy.
+4. To update a bucket's name or retention policy, click the name of the bucket from the list.
+5. Click **Update** to save.
+6. ??Configure data sources tied to each bucket, delete bucket
+
+
+**To view an organization's dashboards**:
+
+1. Click the **Organizations** tab in the navigation bar.
+2. Click on the name of an organization, then select the **Dashboards** tab. All of the organization's dashboards appear.
+3. Click on the name of the dashboard to view it.
+
+For details on editing dashboards, see <<link to dashboards section>>
+
 
 #### Dashboards (/organizations/orgnamehere/dashboards)
   * User can see all dashboards owned by this org
