@@ -9,37 +9,94 @@ menu:
     weight: 5
 ---
 
-### name
-I think it might even be optional
-if you dont specify one i think we just put in some default name.
+Task options define specific information about the task and are specified in your
+Flux script or in the InfluxDB user interface (UI).
+The following task options are available:
+
+- [name](#name)
+- [every](#every)
+- [cron](#cron)
+- [offset](#offset)
+- [concurrency](#concurrency)
+- [retry](#retry)
+
+{{% note %}}
+`every` and `cron` are mutually exclusive, but at least one is required.
+{{% /note %}}
+
+## name
+The name of the task.
+If no name is specified, the generated task ID is used.
 
 _**Data type:** String_
 
-### every
-Defines the interval at which the task will run.
+```js
+options task = {
+  // ...
+  name: "taskName",
+}
+```
+
+## every
+The interval at which the task runs.
 
 _**Data type:** Duration_
 
-_Cannot be used with `cron`_
+```js
+options task = {
+  every: 1h,
+}
+```
 
-### cron
-- The cron schedule.
-- Based on system time.
+## cron
+The cron schedule on which the task runs. Cron execution is based on system time.
+
 _**Data type:** String_
 
-_Cannot be used with `every`_
+```js
+options task = {
+  cron: "0 * * * *",
+}
+```
 
-### offset
-is so you can allow for data to come in off scheduler. so if you want a task to run on the hour `cron: "0 * * * *"` but your data might come in 10 min late you could say `offset: 15m`
+## offset
+Delays the execution of the task but preserves the original time range.
+For example, if a task is to run on the hour, a `10m` offset will delay it to 10
+minutes after the hour, but all time ranges defined in the task are relative to
+the specified execution time.
+A common use case is to allow late data to come in before executing the task.
 
 _**Data type:** Duration_
 
-### concurrency
-how many concurrent runs of a task can happen at once.. say your schedule is `every: 1s` but it takes 10 sec to complete. you can set a concurrency that will allow that to happen and not just queue up.
+```js
+options task = {
+  // ...
+  offset: "0 * * * *",
+}
+```
+
+## concurrency
+The number task executions that can run concurrently.
+If the concurrency limit is reached, all subsequent executions of the task are be queued
+until other running task executions complete.
 
 _**Data type:** Integer_
 
-### retry
-The number of times to retry before we assume failure.
+```js
+options task = {
+  // ...
+  concurrency: 2,
+}
+```
+
+## retry
+The number of times to retry the task before it is considered as having failed.
 
 _**Data type:** Integer_
+
+```js
+options task = {
+  // ...
+  retry: 2,
+}
+```
