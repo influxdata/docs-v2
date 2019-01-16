@@ -6,14 +6,14 @@ menu:
     name: Using tasks
     weight: 1
 ---
-Scheduled flux query. Main use case is replacement for continuous queries, add info about CQs.
+A task is a scheduled Flux query. Main use case is replacement for continuous queries, add info about CQs.
 
 **To filter the list of tasks**:
 
-* Enable the **Show Inactive** option to include inactive tasks on the list.
-* Enter text in the **Filter tasks by name** field to search for tasks by name.
-* Select an organization from the **All Organizations** dropdown to filter the list by organization.
-* Click on the heading of any column to sort by that field.
+1. Enable the **Show Inactive** option to include inactive tasks on the list.
+2. Enter text in the **Filter tasks by name** field to search for tasks by name.
+3. Select an organization from the **All Organizations** dropdown to filter the list by organization.
+4. Click on the heading of any column to sort by that field.
 
 **To import a task**:
 

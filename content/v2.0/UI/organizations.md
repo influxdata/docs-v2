@@ -9,14 +9,6 @@ menu:
 
 Everything is scoped by/contained within organization--dashboards, tasks, buckets, users, !!collectors and scrapers!!.
 
-
-
-# Create Organization
-    * Appears in upper right for users with permissions
-* This one looks like there’s significant difference between the mockups and the outline—ask
-* Lists all orgs user belongs to
-* User can filter list by organization name
-
 **To create an organization**:
 
 1. Click the **Organizations** tab in the navigation bar.
