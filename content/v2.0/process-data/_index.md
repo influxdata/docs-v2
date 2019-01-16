@@ -9,7 +9,7 @@ menu:
 ---
 
 InfluxDB's _**task engine**_ is designed for processing and analyzing data.
-Tasks are user defined Flux scripts that take a stream of input data, modify or
+Tasks are user-defined Flux scripts that take a stream of input data, modify or
 analyze it in some way, then perform an action all on a specified schedule.
 Examples include data downsampling, anomaly detection _(Coming)_, alerting _(Coming)_, etc.
 
