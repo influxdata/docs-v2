@@ -6,6 +6,9 @@ menu:
     name: Managing labels
     weight: 1
 ---
+Labels are !!!.
 
-1. Click the **Labels** icon in the navigation bar.
-2. Review the list of labels or 
+**To view labels**:
+
+* Click the **Configuration** icon in the navigation bar.
+* Review the list of labels or enter a search to filter the list of labels.

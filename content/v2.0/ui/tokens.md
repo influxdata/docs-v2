@@ -6,7 +6,17 @@ menu:
     name: Managing tokens
     weight: 1
 ---
+**To view tokens**:
 
 1. Click the ?? icon in the navigation bar.
-2. Review your settings on the **Tokens** tab.
-3. To edit your settings, click **Edit About Me**
+2. In the right panel labeled **My Settings**, click **Tokens**. All of your account's tokens appear.
+3. Click on a token name from the list to view the token and a summary of access permissions.
+<<SCREENSHOT>>
+
+**To copy a token**:
+
+* From the token detail view, click **Copy**.
+
+**To delete a token**:
+
+* Hover over the name of a token in the list, then click **Delete**.
