@@ -1,0 +1,160 @@
+###############################################################################
+### AWS Cloudformation Template
+### InfluxData Documentation Website Hosting and Deployment
+###############################################################################
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Cloudformation template to stand up the AWS resources for hosting the
+  InfluxData documentation static website created using Hugo. Cloudfront
+  distribution is used to cache requests to an S3 bucket configured as a static
+  website. A Lambda@Edge function rewrites requests with paths ending in
+  index.html and requests to old v1 docs endpoints, which reside in a second
+  bucket. Finally, a lambda is used to generate new versions of the docs using
+  the GitHub source based on event and webhook triggers.
+  
+###############################################################################
+Parameters:
+###############################################################################
+
+  AcmCertificateArn:
+    Type: String
+    Description: >
+      The ARN of the SSL certificate to use for the CloudFront distribution.
+
+  DomainName:
+    Type: String
+    Description: The website domain name.
+    Default: dev.docs.influxdata.com
+
+###############################################################################
+Outputs:
+###############################################################################
+
+  DocsProdBucketArn:
+    Description: The ARN of the S3 bucket hosting the static content.
+    Value: !GetAtt DocsBucket.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-bucket-arn
+
+###############################################################################
+Resources:
+###############################################################################
+
+  DocsCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref DomainName
+        DefaultCacheBehavior:
+          Compress: true
+          ForwardedValues:
+            QueryString: false
+          TargetOriginId: the-s3-bucket
+          ViewerProtocolPolicy: redirect-to-https
+          LambdaFunctionAssociations:
+            - EventType: origin-request
+              LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCachingMinTTL: 300
+            ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - DomainName:
+              !Join [ "", [ !Ref DocsBucket, ".s3.amazonaws.com" ] ]
+            Id: the-s3-bucket
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !Join [ "", [ "origin-access-identity/cloudfront/", !Ref DocsCloudFrontOriginAccessIdentity ] ]
+        PriceClass: PriceClass_200
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsCloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub 'CloudFront Origin Access Identity for ${DomainName}'
+
+  DocsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration: 
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsProdBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DocsBucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsBucket, "/*" ] ]
+            Principal:
+              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  DocsOriginRequestRewriteLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: >
+        Lambda function performing request URI rewriting.
+      Code:
+        ZipFile: |
+          const path = require('path');
+          exports.handler = async (event) => {
+            const request = event.Records[0].cf.request;
+
+            // Rewrite path to add index.html
+            if (!path.extname(request.uri)) {
+              request.uri = request.uri.replace(/\/?$/, '\/index.html');
+            }
+
+            return request;
+          };
+      Handler: index.handler
+      MemorySize: 128
+      Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
+      Runtime: nodejs8.10
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsOriginRequestRewriteLambdaVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref DocsOriginRequestRewriteLambda
+      Description: !Sub "URL rewriting for ${DomainName}"
+
+  DocsOriginRequestRewriteLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - edgelambda.amazonaws.com
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
