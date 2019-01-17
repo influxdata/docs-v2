@@ -25,8 +25,7 @@ The following task options are available:
 {{% /note %}}
 
 ## name
-The name of the task.
-If no name is specified, the generated task ID is used.
+The name of the task. _**Required**_.
 
 _**Data type:** String_
 

@@ -15,6 +15,10 @@ menu:
 - Some type of aggregation
 - and a `to` statement
 
+- You can't write data into the same bucket you're reading from
+- A two buckets
+- `to()` requires a bucket AND org
+
 
 ```js
 option task = {
@@ -30,8 +34,7 @@ downsampleHourly = (table=<-) =>
   table
     |> aggregateWindow(fn: mean, every: 1h)
     |> set(key: "_measurement", value: "cpu_1h" )
-    |> to(bucket: "telegraf_downsampled")
+    |> to(bucket: "telegraf_downsampled", org: "my-org")
 
 downsampleHourly(data)
-
 ```

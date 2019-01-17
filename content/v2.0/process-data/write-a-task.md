@@ -104,8 +104,12 @@ The example below uses Flux's [`to()` function](#) to send the transformed data 
 
 ```js
 // ...
-|> to(bucket: "telegraf_downsampled")
+|> to(bucket: "telegraf_downsampled", org: "my-org")
 ```
+
+{{% note %}}
+You cannot write to the same bucket you are reading from.
+{{% /note %}}
 
 ## Full example task script
 Below is the full example task script that combines all of the components described above:
