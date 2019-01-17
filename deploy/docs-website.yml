@@ -11,7 +11,7 @@ Description: >
   index.html and requests to old v1 docs endpoints, which reside in a second
   bucket. Finally, a lambda is used to generate new versions of the docs using
   the GitHub source based on event and webhook triggers.
-  
+
 ###############################################################################
 Parameters:
 ###############################################################################
@@ -32,7 +32,7 @@ Outputs:
 
   DocsProdBucketArn:
     Description: The ARN of the S3 bucket hosting the static content.
-    Value: !GetAtt DocsBucket.Arn
+    Value: !GetAtt DocsV2Bucket.Arn
     Export:
       Name: !Sub ${AWS::StackName}-bucket-arn
 
@@ -50,7 +50,7 @@ Resources:
           Compress: true
           ForwardedValues:
             QueryString: false
-          TargetOriginId: the-s3-bucket
+          TargetOriginId: !Ref DocsV2Bucket
           ViewerProtocolPolicy: redirect-to-https
           LambdaFunctionAssociations:
             - EventType: origin-request
@@ -65,8 +65,14 @@ Resources:
         HttpVersion: http2
         Origins:
           - DomainName:
-              !Join [ "", [ !Ref DocsBucket, ".s3.amazonaws.com" ] ]
-            Id: the-s3-bucket
+              !Join [ "", [ !Ref DocsV2Bucket, ".s3.amazonaws.com" ] ]
+            Id: !Ref DocsV2Bucket
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !Join [ "", [ "origin-access-identity/cloudfront/", !Ref DocsCloudFrontOriginAccessIdentity ] ]
+          - DomainName:
+              !Join [ "", [ !Ref DocsV1Bucket, ".s3.amazonaws.com" ] ]
+            Id: !Ref DocsV1Bucket
             S3OriginConfig:
               OriginAccessIdentity:
                 !Join [ "", [ "origin-access-identity/cloudfront/", !Ref DocsCloudFrontOriginAccessIdentity ] ]
@@ -85,11 +91,11 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Sub 'CloudFront Origin Access Identity for ${DomainName}'
 
-  DocsBucket:
+  DocsV2Bucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketEncryption:
-        ServerSideEncryptionConfiguration: 
+        ServerSideEncryptionConfiguration:
           -
             ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
@@ -97,17 +103,43 @@ Resources:
         - Key: Domain
           Value: !Ref DomainName
 
-  DocsProdBucketPolicy:
+  DocsV2BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref DocsBucket
+      Bucket: !Ref DocsV2Bucket
       PolicyDocument:
         Statement:
           -
             Action:
               - s3:GetObject
             Effect: Allow
-            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsBucket, "/*" ] ]
+            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsV2Bucket, "/*" ] ]
+            Principal:
+              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  DocsV1Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsV1BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref Docs1Bucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsV1Bucket, "/*" ] ]
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
 
