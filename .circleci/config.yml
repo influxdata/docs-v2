@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:latest
+      - image: circleci/nodejs:latest
         environment:
           HUGO_VERSION: "0.53"
           S3DEPLOY_VERSION: "2.3.0"
@@ -23,7 +23,7 @@ jobs:
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NPM dependencies
-          command: ./deploy/ci-install-node.sh
+          command: npm i -g postcss-cli autoprefixer
       - save_cache:
           key: install-v1-{{ checksum ".circleci/config.yml" }}
           paths:
