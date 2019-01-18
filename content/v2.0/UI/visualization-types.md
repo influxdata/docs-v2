@@ -6,7 +6,7 @@ menu:
     name: Visualization types
     weight: 1
 ---
-Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/latest/querying-data) .
+Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the <<link to data explorer article>>.
 
 [Visualization Type selector](/img/chronograf/chrono-viz-types-selector.png)
 
@@ -20,18 +20,20 @@ Each of the available visualization types and available user controls are descri
 * [Bar Graph](#bar-graph)
 * [Gauge](#gauge)
 * [Table](#table)
-* [Note](#note)
 
 For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/chronograf/v1.7/guides/annotations/).
 
+### Graphs
 
-### Line Graph
+There are several types of graphs you can create.
+
+#### Line Graph
 
 The **Line Graph** view displays a time series in a line graph.
 
 ![Line Graph selector](/img/chronograf/chrono-viz-line-graph-selector.png)
 
-#### Line Graph Controls
+##### Line Graph Controls
 
 ![Line Graph Controls](/img/chronograf/chrono-viz-line-graph-controls.png)
 
@@ -50,18 +52,18 @@ Use the **Line Graph Controls** to specify the following:
 * **Static Legend**: Toggle between **Show** and **Hide**.
 
 
-#### Line Graph example
+##### Line Graph example
 
 ![Line Graph example](/img/chronograf/chrono-viz-line-graph-example.png)
 
 
-### Stacked Graph
+#### Stacked Graph
 
 The **Stacked Graph** view displays multiple time series bars as segments stacked on top of each other.
 
 ![Stacked Graph selector](/img/chronograf/chrono-viz-stacked-graph-selector.png)
 
-#### Stacked Graph Controls
+##### Stacked Graph Controls
 
 ![Stacked Graph Controls](/img/chronograf/chrono-viz-stacked-graph-controls.png)
 
@@ -80,18 +82,18 @@ Use the **Stacked Graph Controls** to specify the following:
 * **Static Legend**: Toggle between **Show** and **Hide**.
 
 
-#### Stacked Graph example
+##### Stacked Graph example
 
 ![Stacked Graph example](/img/chronograf/chrono-viz-stacked-graph-example.png)
 
 
-### Step-Plot Graph
+### Step Graph
 
 The **Step-Plot Graph** view displays a time series in a staircase graph.
 
 ![Step-Plot Graph selector](/img/chronograf/chrono-viz-step-plot-graph-selector.png)
 
-#### Step-Plot Graph Controls
+#### Step Graph Controls
 
 ![Step-Plot Graph Controls](/img/chronograf/chrono-viz-step-plot-graph-controls.png)
 
@@ -255,21 +257,3 @@ Use the **Table Controls** to specify the following:
 #### Table view example
 
 ![Table example](/img/chronograf/chrono-viz-table-example.png)
-
-### Note
-
-The **Note** panel displays Markdown-formatted text with your graph.
-
-![Note selector](/img/chronograf/chrono-viz-note-selector.png)
-
-#### Note Controls
-
-![Note Controls](/img/chronograf/chrono-viz-note-controls.png)
-
-Enter your text in the **Add a Note** panel, using Markdown to format the text.
-
-Enable the **Display note in cell when query returns no results** option to display the note text in the cell instead of `No Results`.
-
-#### Note view example
-
-![Note example](/img/chronograf/chrono-viz-note-example.png)
