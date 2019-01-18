@@ -1,0 +1,62 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:latest
+        environment:
+          HUGO_VERSION: "0.53"
+          S3DEPLOY_VERSION: "2.3.0"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - install-v1-{{ checksum ".circleci/config.yml" }}
+            - install-v1-
+      - run:
+          name: Make bin folder
+          command: mkdir -p $HOME/bin
+      - run:
+          name: Install Hugo
+          command: ./deploy/ci-install-hugo.sh
+      - run:
+          name: Install s3deploy
+          command: ./deploy/ci-install-s3deploy.sh
+      - save_cache:
+          key: install-v1-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - /home/circleci/bin
+      - run:
+          name: Hugo Build
+          command: $HOME/bin/hugo -v --destination workspace/public
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - public
+
+  deploy:
+    docker:
+      - image: circleci/golang:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - install-v1-{{ checksum ".circleci/config.yml" }}
+            - install-v1-
+      - attach_workspace:
+          at: workspace
+      - run:
+          name: Deploy to S3
+          command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - ga-cf-templates
