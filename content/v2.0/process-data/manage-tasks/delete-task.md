@@ -15,7 +15,13 @@ menu:
 
 
 ## Delete a task with the `influx` CLI
+Use the `influx task delete` command to delete a task.
+It requires a task ID, which is available in the output of `influx task find`.
 
 ```sh
-influx task delete -i task-id
+# Pattern
+influx task delete -i <task-id>
+
+# Example
+influx task delete -i 0343698431c35000
 ```

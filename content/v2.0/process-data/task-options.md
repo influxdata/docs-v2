@@ -31,8 +31,8 @@ _**Data type:** String_
 
 ```js
 options task = {
-  // ...
   name: "taskName",
+  // ...
 }
 ```
 
@@ -43,17 +43,21 @@ _**Data type:** Duration_
 
 ```js
 options task = {
+  // ...
   every: 1h,
 }
 ```
 
 ## cron
-The cron schedule on which the task runs. Cron execution is based on system time.
+The [cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
+defines the schedule on which the task runs.
+Cron scheduling is based on system time.
 
 _**Data type:** String_
 
 ```js
 options task = {
+  // ...
   cron: "0 * * * *",
 }
 ```
@@ -63,7 +67,7 @@ Delays the execution of the task but preserves the original time range.
 For example, if a task is to run on the hour, a `10m` offset will delay it to 10
 minutes after the hour, but all time ranges defined in the task are relative to
 the specified execution time.
-A common use case is to allow late data to come in before executing the task.
+A common use case is offsetting execution to account for data that may arrive late.
 
 _**Data type:** Duration_
 
@@ -75,9 +79,9 @@ options task = {
 ```
 
 ## concurrency
-The number task executions that can run concurrently.
-If the concurrency limit is reached, all subsequent executions of the task are be queued
-until other running task executions complete.
+The number task of executions that can run concurrently.
+If the concurrency limit is reached, all subsequent executions are queued until
+other running task executions complete.
 
 _**Data type:** Integer_
 

@@ -15,7 +15,23 @@ menu:
 
 
 ## Update a task with the `influx` CLI
+Use the `influx task update` command to update or change the status of an existing tasks.
+It requires a task ID which is available in the output of `influx task find`.
 
+###### Update a task's Flux script
 ```sh
-influx task update -i task-id --status task-status
+# Pattern
+influx task update -i <task-id> @/path/to/updated-task-script
+
+# Example
+influx task update -i 0343698431c35000 @/tasks/cq-mean-1h.flux
+```
+
+###### Update the status of a task
+```sh
+# Pattern
+influx task update -i <task-id> --status < active | inactive >
+
+# Example
+influx task update -i 0343698431c35000 --status inactive
 ```

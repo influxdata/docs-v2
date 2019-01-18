@@ -46,15 +46,15 @@ _See [Task configuration options](/v2.0/process-data/task-options) for detailed 
 about each option._
 
 {{% note %}}
-**When creating a task in the InfluxDB user interface (UI)**, task options are not required
-in your Flux script. They are defined in UI while creating the task.
+If creating a task in the InfluxDB user interface (UI), task options are defined
+in form fields when creating the task.
 {{% /note %}}
 
 ## Define a data source
 Define a data source using Flux's [`from()` function](#) or any other [Flux input functions](#).
 
 For convenience, consider creating a variable that includes the sourced data with
-the required `range()` and any relevant filters.
+the required time range and any relevant filters.
 
 ```js
 data = from(bucket: "telegraf/default")

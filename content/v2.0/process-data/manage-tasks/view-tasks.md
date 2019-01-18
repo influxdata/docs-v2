@@ -15,7 +15,11 @@ menu:
 
 
 ## View tasks with the `influx` CLI
+Use the `influx task find` command to return a list of created tasks.
 
 ```sh
-influx task find -i task-id -n user-id --limit=100 --org-id=organization-id
+influx task find
 ```
+
+_Other filtering options such as filtering by organization or user, or limiting the number of tasks returned are available.
+See the [`influx task find` documentation](#) for information about other available flags._

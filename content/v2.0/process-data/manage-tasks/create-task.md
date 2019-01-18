@@ -24,12 +24,16 @@ It accepts either a file path or raw Flux.
 
 ###### Create a task using a file
 ```sh
-influx task create --org=org-name @/path/to/task-script.flux
+# Pattern
+influx task create --org <org-name> @</path/to/task-script>
+
+# Example
+influx task create --org my-org @/tasks/cq-mean-1h.flux
 ```
 
 ###### Create a task using raw Flux
 ```sh
-influx task create --org=org-name - # <return> to open stdin pipe
+influx task create --org my-org - # <return> to open stdin pipe
 
 options task = {
   name: "task-name",
