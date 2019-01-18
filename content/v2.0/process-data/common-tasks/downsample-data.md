@@ -1,5 +1,5 @@
 ---
-title: Downsample data
+title: Downsample data with InfluxDB
 seotitle: Downsample data in an InfluxDB task
 description: placeholder
 menu:
@@ -9,9 +9,12 @@ menu:
     weight: 4
 ---
 
+- Talk about Continuous Queries
+
 **Requirements:**
 
-- Data source
+- A "source" bucket
+- A "destination" bucket
 - Some type of aggregation
 - and a `to` statement
 
@@ -30,8 +33,8 @@ data = from(bucket: "telegraf")
   |> range(start: -task.every * 2)
   |> filter(fn: (r) => r._measurement == "cpu")
 
-downsampleHourly = (table=<-) =>
-  table
+downsampleHourly = (tables=<-) =>
+  tables
     |> aggregateWindow(fn: mean, every: 1h)
     |> set(key: "_measurement", value: "cpu_1h" )
     |> to(bucket: "telegraf_downsampled", org: "my-org")

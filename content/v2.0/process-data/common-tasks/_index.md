@@ -10,3 +10,11 @@ menu:
 ---
 
 The following articles walk through common task use cases.
+
+{{% note %}}
+This list will continue to grow.
+If you have suggestions, please [create an issue](https://github.com/influxdata/docs-v2/issues/new)
+on the InfluxData documentation repository on Github.
+{{% /note %}}
+
+[Downsample Data with InfluxDB](/v2.0/process-data/common-tasks/downsample-data)
