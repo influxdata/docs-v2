@@ -3,7 +3,7 @@ This is the repository contains the InfluxDB v2.x documentation that will be
 accessible at [docs.influxdata.com](https://docs.influxdata.com).
 
 ## Contributing
-We welcome and encourage community contributions to the InfluxData See our [Contribution guidelines](blob/master/CONTRIBUTING.md) for information
+We welcome and encourage community contributions to the InfluxData See our [Contribution guidelines](CONTRIBUTING.md) for information
 about contributing to the InfluxData documentation.
 
 ## Run the docs locally
