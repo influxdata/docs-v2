@@ -132,7 +132,7 @@ Resources:
   DocsV1BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref Docs1Bucket
+      Bucket: !Ref DocsV1Bucket
       PolicyDocument:
         Statement:
           -
