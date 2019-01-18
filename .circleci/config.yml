@@ -59,4 +59,4 @@ workflows:
           filters:
             branches:
               only:
-                - ga-cf-templates
+                - master
