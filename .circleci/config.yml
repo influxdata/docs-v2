@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/nodejs:latest
+      - image: circleci/node:latest
         environment:
           HUGO_VERSION: "0.53"
           S3DEPLOY_VERSION: "2.3.0"
