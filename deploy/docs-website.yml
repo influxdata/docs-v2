@@ -156,7 +156,7 @@ Resources:
             removeTrailingSlash: false,
           };
 
-          const regexSuffixless = /\/[^/.]+$/; // e.g. "/some/page" but not "/", "/some/" or "/some.jpg"
+          const regexSuffixless = /\/[a-z0-9]+([0-9\.]+)?$/; // e.g. "/some/page" but not "/", "/some/" or "/some.jpg"
           const regexTrailingSlash = /.+\/$/; // e.g. "/some/" or "/some/page/" but not root "/"
 
           exports.handler = function handler(event, context, callback) {
@@ -170,7 +170,7 @@ Resources:
               callback(null, request);
               return;
             }
-            
+
             // Append "index.html" to origin request
             if (appendToDirs && uri.match(regexTrailingSlash)) {
               request.uri = uri + appendToDirs;

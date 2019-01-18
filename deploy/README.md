@@ -6,7 +6,7 @@ Use the following command to deploy a CloudFormation stack using the template in
 aws cloudformation deploy \
     --template-file docs-website.yml \
     --stack-name="${STACK_NAME}" \
-    --capabilities CAPABILITY_IAM /
+    --capabilities CAPABILITY_IAM \
     --no-execute-changeset \
     --parameter-overrides \
         AcmCertificateArn="${ACM_ARN}" \
