@@ -23,7 +23,7 @@ jobs:
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NPM dependencies
-          command: npm i -g postcss-cli autoprefixer
+          command: ./deploy/ci-install-node.sh
       - save_cache:
           key: install-v1-{{ checksum ".circleci/config.yml" }}
           paths:
