@@ -41,6 +41,8 @@ The interval at which the task runs.
 
 _**Data type:** Duration_
 
+_**Note:** In the InfluxDB UI, the **Interval** field sets this option_.
+
 ```js
 options task = {
   // ...
