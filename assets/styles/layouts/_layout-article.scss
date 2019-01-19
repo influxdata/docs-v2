@@ -16,6 +16,10 @@
       }
     }
   }
+  h2,h3,h4,h5,h6 {
+    & + .highlight pre { margin-top: .5rem; }
+    & + .code-tabs-wrapper { margin-top: 0; }
+  }
   h1 {
     font-family: $klavika;
     font-weight: 300;
@@ -67,34 +71,24 @@
     &:hover {
       color: $article-link-hover;
     }
-    code {
-      font-weight: normal;
-      transition: color .2s;
-      position: relative;
-      &:after {
-        content: "";
-        position: absolute;
-        display: block;
-        top: 0;
-        right: 0;
-        border-style: solid;
-        border-width: 0 .4rem .4rem 0;
-        border-color: transparent rgba($article-code, .35) transparent transparent;
-        transition: border .2s;
-      }
-      &:hover {
-        color: $article-code-hover;
-        &:after {
-          border-color: transparent $article-code-hover transparent transparent;
-        }
-      }
-    }
+  }
+
+  strong {
+    color: $article-bold;
   }
 
   img {
     max-width: 100%;
+    margin-bottom: 2rem;
     border-radius: ($border-radius * 1.5);
     box-shadow: 1px 3px 10px $article-shadow;
+  }
+
+  hr {
+    border-width: 1px 0 0;
+    border-color: $article-hr;
+    border-style: solid;
+    margin: 1.85rem 0 1.75rem;
   }
 
   //////////////////////////////////// Lists ////////////////////////////////////
@@ -107,6 +101,7 @@
     list-style-type: disc;
     li:before{
       content: "" !important;
+      display: none;
     }
   }
 
@@ -136,6 +131,7 @@
 
   li {
     margin: .25rem 0;
+    p:only-child { margin-bottom: 0; }
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
@@ -145,15 +141,46 @@
     font-family: 'Inconsolata', monospace;
   }
 
-  code {
+  p code {
     padding: .15rem .45rem .25rem;
     border-radius: $border-radius;
     color: $article-code;
+    white-space: nowrap;
+    font-style: normal;
   }
 
+  a {
+    code {
+      font-weight: normal;
+      transition: color .2s;
+      position: relative;
+      color: $article-code-link;
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        border-style: solid;
+        border-width: 0 .4rem .4rem 0;
+        border-color: transparent rgba($article-code-link, .35) transparent transparent;
+        transition: border .2s;
+      }
+    }
+    &:hover {
+      code {
+        color: $article-code-link-hover;
+        &:after {
+          border-color: transparent $article-link-hover transparent transparent;
+        }
+      }
+    }
+  }
+
+
   pre {
-    margin: 2rem 0 3rem;
-    padding: 1.5rem 1.5rem 1.25rem;
+    margin: 2rem 0 2.25rem;
+    padding: 1.75rem 1.75rem 1.25rem;
     border-radius: $border-radius;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -548,7 +575,7 @@
     h4 { font-size: 1.3rem; }
 
     pre {
-      padding: 1.2em;
+      padding: 1.2em 1.2em .75rem;
     }
 
     blockquote,
