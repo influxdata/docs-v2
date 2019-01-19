@@ -1,0 +1,34 @@
+{{ partial "header.html" . }}
+
+<div class="error-page">
+    <div class="error-content">
+      <div class="error-code">
+        <div class="error-code-border">
+          <h1>404</h1>
+        </div>
+      </div>
+      <div class="wayfinding">
+        <a class="btn back" href="javascript:history.back()">Back</a>
+        <a class="btn version">InfluxDB</a>
+      </div>
+    	<p>Whoops! Looks like this page doesn't exist. If a link brought you here, <a href="https://github.com/influxdata/docs-v2/issues/new" target="_blank">let us know</a>. We'd like to fix it.</p>
+    </div>
+</div>
+
+<script>
+  function getProjectVersion(urlPath) {
+    if (/v[0-9][.][0-9]*/.test(urlPath)) { return urlPath.match(/v[0-9][.][0-9]*/)[0] }
+    else { return undefined  }
+  }
+
+  var path = window.location.pathname
+  var projectVersion = getProjectVersion(path)
+
+  if ( projectVersion != undefined ) {
+    $('.btn.version').append(' ' + projectVersion).attr('href', '/' + projectVersion + '/');
+  } else {
+    $('.btn.version').hide()
+  }
+</script>
+
+{{ partial "footer.html" . }}
