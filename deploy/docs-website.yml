@@ -49,7 +49,7 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    Description: The 
+    Description: The CDN for both V1 and V2 docs.
     Properties:
       DistributionConfig:
         Aliases:
@@ -118,9 +118,9 @@ Resources:
       PolicyDocument:
         Statement:
           -
+            Effect: Allow
             Action:
               - s3:GetObject
-            Effect: Allow
             Resource: !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
@@ -143,10 +143,9 @@ Resources:
       Bucket: !Ref DocsV1Bucket
       PolicyDocument:
         Statement:
-          -
+          - Effect: Allow
             Action:
               - s3:GetObject
-            Effect: Allow
             Resource: !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
@@ -227,12 +226,11 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Effect: Allow
+            Action: sts:AssumeRole
             Principal:
               Service:
                 - edgelambda.amazonaws.com
                 - lambda.amazonaws.com
-            Action:
-              - sts:AssumeRole
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 
@@ -240,29 +238,30 @@ Resources:
     Type: AWS::IAM::User
     Properties:
       Policies:
-        PolicyDocument:
-          Version: 2012-10-17
-          Statement:
-            - Effect: Allow
-              Action: 
-                - s3:ListBucket
-                - s3:GetBucketLocation
-              Resource:
-                - !Sub "arn:aws:s3:::${DocsV2Bucket}"
-                - !Sub "arn:aws:s3:::${DocsV1Bucket}"
-            - Effect: Allow
-              Action:
-                - s3:PutObject
-                - s3:PutObjectAcl
-                - s3:DeleteObject
-              Resource:
-                - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
-                - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
-            - Effect: Allow
-              Action:
-                - cloudfront:GetDistribution
-                - cloudfront:CreateInvalidation
-              Resource: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DocsCloudFrontDistribution}" 
+        - PolicyName: giveaccesstoupdatedocsbuckets
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Sub "arn:aws:s3:::${DocsV2Bucket}"
+                  - !Sub "arn:aws:s3:::${DocsV1Bucket}"
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
+                  - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+              - Effect: Allow
+                Action:
+                  - cloudfront:GetDistribution
+                  - cloudfront:CreateInvalidation
+                Resource: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DocsCloudFrontDistribution}"
 
   DocsCircleCIDeployAccessKey:
     Type: AWS::IAM::AccessKey
