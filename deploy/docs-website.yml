@@ -19,11 +19,12 @@ Parameters:
   AcmCertificateArn:
     Type: String
     Description: >
-      The ARN of the SSL certificate to use for the CloudFront distribution.
+      The ARN of the SSL certificate to use for the CloudFront
+      distribution.
 
   DomainName:
     Type: String
-    Description: The website domain name.
+    Description: The docs website domain name.
     Default: dev.docs.influxdata.com
 
 ###############################################################################
@@ -33,8 +34,14 @@ Outputs:
   DocsProdBucketArn:
     Description: The ARN of the S3 bucket hosting the static content.
     Value: !GetAtt DocsV2Bucket.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-bucket-arn
+
+  DocsCircleCIDeployAccessKeyId:
+    Description: The access key ID for CircleCI deployment to S3.
+    Value: !Ref DocsCircleCIDeployAccessKey
+
+  DocsCircleCIDeploySecretAccessKey:
+    Description: The secret access key for CircleCI deployment to S3.
+    Value: !GetAtt DocsCircleCIDeployAccessKey.SecretAccessKey
 
 ###############################################################################
 Resources:
@@ -42,6 +49,7 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
+    Description: The 
     Properties:
       DistributionConfig:
         Aliases:
@@ -65,17 +73,17 @@ Resources:
         HttpVersion: http2
         Origins:
           - DomainName:
-              !Join [ "", [ !Ref DocsV2Bucket, ".s3.amazonaws.com" ] ]
+              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
             Id: !Ref DocsV2Bucket
             S3OriginConfig:
               OriginAccessIdentity:
-                !Join [ "", [ "origin-access-identity/cloudfront/", !Ref DocsCloudFrontOriginAccessIdentity ] ]
+                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
           - DomainName:
-              !Join [ "", [ !Ref DocsV1Bucket, ".s3.amazonaws.com" ] ]
+              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
             Id: !Ref DocsV1Bucket
             S3OriginConfig:
               OriginAccessIdentity:
-                !Join [ "", [ "origin-access-identity/cloudfront/", !Ref DocsCloudFrontOriginAccessIdentity ] ]
+                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
         PriceClass: PriceClass_100
         ViewerCertificate:
           AcmCertificateArn: !Ref AcmCertificateArn
@@ -113,7 +121,7 @@ Resources:
             Action:
               - s3:GetObject
             Effect: Allow
-            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsV2Bucket, "/*" ] ]
+            Resource: !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
 
@@ -139,15 +147,14 @@ Resources:
             Action:
               - s3:GetObject
             Effect: Allow
-            Resource: !Join [ "", [ "arn:aws:s3:::", !Ref DocsV1Bucket, "/*" ] ]
+            Resource: !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
 
   DocsOriginRequestRewriteLambda:
     Type: AWS::Lambda::Function
     Properties:
-      Description: >
-        Lambda function performing request URI rewriting.
+      Description: Lambda function performing request URI rewriting.
       Code:
         ZipFile: |
           const config = {
@@ -228,3 +235,36 @@ Resources:
               - sts:AssumeRole
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  DocsCircleCIDeployUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action: 
+                - s3:ListBucket
+                - s3:GetBucketLocation
+              Resource:
+                - !Sub "arn:aws:s3:::${DocsV2Bucket}"
+                - !Sub "arn:aws:s3:::${DocsV1Bucket}"
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:PutObjectAcl
+                - s3:DeleteObject
+              Resource:
+                - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
+                - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+            - Effect: Allow
+              Action:
+                - cloudfront:GetDistribution
+                - cloudfront:CreateInvalidation
+              Resource: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DocsCloudFrontDistribution}" 
+
+  DocsCircleCIDeployAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref DocsCircleCIDeployUser
