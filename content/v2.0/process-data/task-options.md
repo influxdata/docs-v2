@@ -1,7 +1,9 @@
 ---
 title: Task configuration options
 seotitle: InfluxDB task configuration options
-description: placeholder
+description: >
+  Task options define specific information about a task such as its name,
+  the schedule on which it runs, execution delays, and others.
 menu:
   v2_0:
     name: Task options
