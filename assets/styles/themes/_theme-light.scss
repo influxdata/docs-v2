@@ -25,8 +25,9 @@ $theme-switch-light: none;
 $theme-switch-dark: inline-block;
 
 // Sidebar
-$sidebar-search-border: $g15-platinum;
-$sidebar-search-highlight: $b-pool;
+$sidebar-search-bg: $g20-white;
+$sidebar-search-shadow: $g14-chromium;
+$sidebar-search-highlight: $b-ocean;
 
 // Article Content
 $article-bg: $g20-white;
@@ -36,6 +37,7 @@ $article-bold: $g8-storm;
 $article-link: $b-ocean;
 $article-link-hover: $gr-viridian;
 $article-shadow: #c8cdd0;
+$article-hr: $g15-platinum;
 $article-note-shadow: #8cb7ab;
 $article-warn-shadow: #b98a7d;
 
@@ -50,7 +52,8 @@ $article-code-accent5: #e24bbb;
 $article-code-accent6: $b-ocean;
 $article-code-accent7: #e90;
 $article-code-select:  $b-pool;
-$article-code-hover: $b-sapphire;
+$article-code-link: $b-sapphire;
+$article-code-link-hover: $gr-emerald;
 $article-code-scrollbar: $p-potassium;
 
 // Article Tables
@@ -115,9 +118,9 @@ $article-tab-code-active-text: $p-star;
 // Left Navigation
 $nav-category: $b-ocean;
 $nav-category-hover: $gr-viridian;
-$nav-item: $g9-mountain;
-$nav-item-hover: $gr-viridian;
+$nav-item: $g10-wolf;
+$nav-item-hover: $b-ocean;
 $nav-border: $g14-chromium;
-$nav-toggle: $g9-mountain;
+$nav-toggle: $g20-white;
 $nav-toggle-hover: $g20-white;
 $nav-toggle-bg-hover: $b-ocean;

@@ -20,24 +20,25 @@
     }
 
     input {
-      background: $article-bg;
+      background: $sidebar-search-bg;
       border-radius: $border-radius;
-      border: 1px solid $sidebar-search-border;
+      border: 1px solid $sidebar-search-bg;
       padding: .5em 2.15rem .5rem .5rem;
       width: 100%;
       color: $article-text;
       transition-property: border, box-shadow;
       transition-duration: .2s;
+      box-shadow: 2px 2px 6px $sidebar-search-shadow;
       &:focus {
         outline: none;
-        border: 1px solid $sidebar-search-highlight;
-        box-shadow: 0px 0px 7px rgba($sidebar-search-highlight, .65);
+        border-color: $sidebar-search-highlight;
+        box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
         border-radius: $border-radius;
       }
       &::placeholder {
         font-family: 'Roboto';
         font-weight: 500;
-        color: rgba($article-text, .35);
+        color: rgba($article-text, .45);
       }
     }
   }
