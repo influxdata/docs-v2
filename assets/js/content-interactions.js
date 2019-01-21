@@ -1,6 +1,10 @@
 ///////////////////////////// Make headers linkable /////////////////////////////
 
-$("h2,h3,h4,h5,h6").each(function() {
+$(".article--content h2, \
+   .article--content h3, \
+   .article--content h4, \
+   .article--content h5, \
+   .article--content h6" ).each(function() {
   var link = "<a href=\"#" + $(this).attr("id") + "\"></a>"
   $(this).wrapInner( link );
   })
