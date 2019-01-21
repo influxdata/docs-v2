@@ -26,16 +26,18 @@ $theme-switch-light: inline-block !default;
 $theme-switch-dark: none !default;
 
 // Sidebar
-$sidebar-search-border: $g5-pepper !default;
+$sidebar-search-bg: $g3-castle !default;
+$sidebar-search-shadow: #0F0F10 !default;
 $sidebar-search-highlight: $b-pool !default;
 
 // Article Content
 $article-bg: $g3-castle !default;
 $article-heading: $g19-ghost !default;
 $article-text: $g14-chromium !default;
-$article-bold: $g19-ghost !default;
-$article-link: $b-pool !default;
+$article-bold: $g18-cloud !default;
+$article-link: #2aa3ff !default;
 $article-link-hover: $g20-white !default;
+$article-hr: $g6-smoke !default;
 $article-shadow: #191a1b !default;
 $article-note-shadow: #191a1b !default;
 $article-warn-shadow: #191a1b !default;
@@ -51,7 +53,8 @@ $article-code-accent5: #ff6db0 !default;
 $article-code-accent6: $b-pool !default;
 $article-code-accent7: #e90 !default;
 $article-code-select: $b-pool !default;
-$article-code-hover: $g20-white !default;
+$article-code-link: #2aa3ff !default;
+$article-code-link-hover: $g20-white !default;
 $article-code-scrollbar: $g7-graphite !default;
 
 // Article Tables
@@ -122,3 +125,9 @@ $nav-border: $g5-pepper !default;
 $nav-toggle: $g16-pearl !default;
 $nav-toggle-hover: $g16-pearl !default;
 $nav-toggle-bg-hover: $b-ocean !default;
+
+// Error Page Colors
+$error-page-btn: $b-ocean !default;
+$error-page-btn-text: $g20-white !default;
+$error-page-btn-hover: $g20-white !default;
+$error-page-btn-hover-text: $b-ocean !default;

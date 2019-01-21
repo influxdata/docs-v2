@@ -1,0 +1,269 @@
+###############################################################################
+### AWS Cloudformation Template
+### InfluxData Documentation Website Hosting and Deployment
+###############################################################################
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Cloudformation template to stand up the AWS resources for hosting the
+  InfluxData documentation static website created using Hugo. Cloudfront
+  distribution is used to cache requests to an S3 bucket configured as a static
+  website. A Lambda@Edge function rewrites requests with paths ending in
+  index.html and requests to old v1 docs endpoints, which reside in a second
+  bucket. Finally, a lambda is used to generate new versions of the docs using
+  the GitHub source based on event and webhook triggers.
+
+###############################################################################
+Parameters:
+###############################################################################
+
+  AcmCertificateArn:
+    Type: String
+    Description: >
+      The ARN of the SSL certificate to use for the CloudFront
+      distribution.
+
+  DomainName:
+    Type: String
+    Description: The docs website domain name.
+    Default: dev.docs.influxdata.com
+
+###############################################################################
+Outputs:
+###############################################################################
+
+  DocsProdBucketArn:
+    Description: The ARN of the S3 bucket hosting the static content.
+    Value: !GetAtt DocsV2Bucket.Arn
+
+  DocsCircleCIDeployAccessKeyId:
+    Description: The access key ID for CircleCI deployment to S3.
+    Value: !Ref DocsCircleCIDeployAccessKey
+
+  DocsCircleCIDeploySecretAccessKey:
+    Description: The secret access key for CircleCI deployment to S3.
+    Value: !GetAtt DocsCircleCIDeployAccessKey.SecretAccessKey
+
+###############################################################################
+Resources:
+###############################################################################
+
+  DocsCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Description: The CDN for both V1 and V2 docs.
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref DomainName
+        DefaultCacheBehavior:
+          Compress: true
+          ForwardedValues:
+            QueryString: false
+          TargetOriginId: !Ref DocsV2Bucket
+          ViewerProtocolPolicy: redirect-to-https
+          LambdaFunctionAssociations:
+            - EventType: origin-request
+              LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCachingMinTTL: 300
+            ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - DomainName:
+              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
+            Id: !Ref DocsV2Bucket
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
+          - DomainName:
+              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
+            Id: !Ref DocsV1Bucket
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsCloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub 'CloudFront Origin Access Identity for ${DomainName}'
+
+  DocsV2Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsV2BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DocsV2Bucket
+      PolicyDocument:
+        Statement:
+          -
+            Effect: Allow
+            Action:
+              - s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
+            Principal:
+              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  DocsV1Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsV1BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DocsV1Bucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+            Principal:
+              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  DocsOriginRequestRewriteLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Lambda function performing request URI rewriting.
+      Code:
+        ZipFile: |
+          const config = {
+            suffix: '.html',
+            appendToDirs: 'index.html',
+            removeTrailingSlash: false,
+          };
+
+          const regexSuffixless = /\/[a-z0-9]+([0-9\.]+)?$/; // e.g. "/some/page" but not "/", "/some/" or "/some.jpg"
+          const regexTrailingSlash = /.+\/$/; // e.g. "/some/" or "/some/page/" but not root "/"
+
+          exports.handler = function handler(event, context, callback) {
+            const { request } = event.Records[0].cf;
+            const { uri } = request;
+            const { suffix, appendToDirs, removeTrailingSlash } = config;
+
+            // Append ".html" to origin request
+            if (suffix && uri.match(regexSuffixless)) {
+              request.uri = uri + suffix;
+              callback(null, request);
+              return;
+            }
+
+            // Append "index.html" to origin request
+            if (appendToDirs && uri.match(regexTrailingSlash)) {
+              request.uri = uri + appendToDirs;
+              callback(null, request);
+              return;
+            }
+
+            // Redirect (301) non-root requests ending in "/" to URI without trailing slash
+            if (removeTrailingSlash && uri.match(/.+\/$/)) {
+              const response = {
+                // body: '',
+                // bodyEncoding: 'text',
+                headers: {
+                  'location': [{
+                    key: 'Location',
+                    value: uri.slice(0, -1)
+                  }]
+                },
+                status: '301',
+                statusDescription: 'Moved Permanently'
+              };
+              callback(null, response);
+              return;
+            }
+
+            // If nothing matches, return request unchanged
+            callback(null, request);
+          };
+      Handler: index.handler
+      MemorySize: 128
+      Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
+      Runtime: nodejs8.10
+      Tags:
+        - Key: Domain
+          Value: !Ref DomainName
+
+  DocsOriginRequestRewriteLambdaVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref DocsOriginRequestRewriteLambda
+      Description: !Sub "URL rewriting for ${DomainName}"
+
+  DocsOriginRequestRewriteLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service:
+                - edgelambda.amazonaws.com
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  DocsCircleCIDeployUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName: giveaccesstoupdatedocsbuckets
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Sub "arn:aws:s3:::${DocsV2Bucket}"
+                  - !Sub "arn:aws:s3:::${DocsV1Bucket}"
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
+                  - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+              - Effect: Allow
+                Action:
+                  - cloudfront:GetDistribution
+                  - cloudfront:CreateInvalidation
+                Resource: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DocsCloudFrontDistribution}"
+
+  DocsCircleCIDeployAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref DocsCircleCIDeployUser
