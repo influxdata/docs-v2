@@ -17,7 +17,7 @@ it in some way, then store the modified data in a new bucket or perform other ac
 This article walks through writing a basic InfluxDB task that downsamples
 data and stores it in a new bucket.
 
-## Components of a Task
+## Components of a task
 Every InfluxDB task needs the following four components.
 Their form and order can vary, but the are all essential parts of a task.
 
