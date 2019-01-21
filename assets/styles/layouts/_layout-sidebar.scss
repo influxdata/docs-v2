@@ -207,6 +207,17 @@
         &:after { transform: rotate(180deg); }
       }
     }
+
+    // Reference title styles
+    h4 {
+      margin: 2rem 0 0 -1rem;
+      color: rgba($article-heading, .8);
+      font-style: italic;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .85rem;
+      letter-spacing: .08rem;
+    }
   }
 }
 
