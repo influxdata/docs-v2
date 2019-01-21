@@ -1,6 +1,8 @@
 ---
-title: Influx repl command
-description: placeholder
+title: influx repl – Enter an interactive REPL
+description: >
+  The 'influx repl' command opens and interactive read-eval-print-loop (REPL)
+  from which you can run Flux commands.
 menu:
   v2_0_ref:
     name: influx repl
@@ -8,7 +10,8 @@ menu:
     weight: 1
 ---
 
-Interactive REPL (read-eval-print-loop)
+The `influx repl` command opens and interactive read-eval-print-loop (REPL)
+from which you can run Flux commands.
 
 ## Usage
 ```
@@ -18,7 +21,7 @@ influx repl [flags]
 ## Flags
 | Flag           | Description                     | Input type |
 |:----           |:-----------                     |:----------:|
-| `-h`, `--help` | Help for the repl command       |            |
+| `-h`, `--help` | Help for the `repl` command     |            |
 | `-o`, `--org`  | The name of the organization    | string     |
 | `--org-id`     | The ID of organization to query | string     |
 

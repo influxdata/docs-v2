@@ -1,27 +1,26 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx user find
+description: The 'influx user find' lists and searches for users in InfluxDB.
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx user find
+    parent: influx user
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+The `influx user find` command lists and searches for users in InfluxDB.
 
 ## Usage
 ```
-influx setup [flags]
+influx user find [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description     | Input type  |
+|:----           |:-----------     |:----------: |
+| `-h`, `--help` | Help for `find` |             |
+| `-i`, `--id`   | The user ID     | string      |
+| `-n`, `--name` | The user name   | string      |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

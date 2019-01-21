@@ -1,27 +1,32 @@
 ---
-title: influx setup – Run the initial Influx DB setup
+title: influx task run
 description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+  The 'influx task run' command and its subcommand 'find' output information
+  related to runs of a task.
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx task run
+    parent: influx task
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+The `influx task run` command and its subcommand `find` output information related to runs of a task.
 
 ## Usage
 ```
-influx setup [flags]
+influx task run [flags]
+influx task run [command]
 ```
 
+## Subcommands
+| Subcommand | Description          |
+|:---------- |:-----------          |
+| find       | Find runs for a task |
+
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description    |
+|:----           |:-----------    |
+| `-h`, `--help` | Help for `run` |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

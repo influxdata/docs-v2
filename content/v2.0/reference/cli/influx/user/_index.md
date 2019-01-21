@@ -1,6 +1,6 @@
 ---
-title: Influx user management commands
-description: placeholder
+title: influx user – User management commands
+description: The 'influx user' command and its subcommands manage user information in InfluxDB.
 menu:
   v2_0_ref:
     name: influx user
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-User management commands
+The `influx user` command and its subcommands manage user information in InfluxDB.
 
 ## Usage
 ```
@@ -17,12 +17,12 @@ influx user [command]
 ```
 
 ## Subcommands
-| Subcommand | Description |
-|:---------- |:----------- |
-| create     | Create user |
-| delete     | Delete user |
-| find       | Find user   |
-| update     | Update user |
+| Subcommand                                       | Description |
+|:----------                                       |:----------- |
+| [create](/v2.0/reference/cli/influx/user/create) | Create user |
+| [delete](/v2.0/reference/cli/influx/user/delete) | Delete user |
+| [find](/v2.0/reference/cli/influx/user/find)     | Find user   |
+| [update](/v2.0/reference/cli/influx/user/update) | Update user |
 
 ## Flags
 | Flag           | Description                 |

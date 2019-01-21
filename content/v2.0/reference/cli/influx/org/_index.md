@@ -1,6 +1,6 @@
 ---
-title: Influx organization management commands
-description: placeholder
+title: influx org – Organization management commands
+description: The 'influx org' command and its subcommands manage organization information in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Organization management commands
+The `influx org` command and its subcommands manage organization information in InfluxDB.
 
 ## Usage
 ```
@@ -20,18 +20,18 @@ influx org [command]
 `org`, `organization`
 
 ## Subcommands
-| Subcommand | Description                      |
-|:---------- |:-----------                      |
-| create     | Create organization              |
-| delete     | Delete organization              |
-| find       | Find organizations               |
-| members    | Organization membership commands |
-| update     | Update organization              |
+| Subcommand                                        | Description                      |
+|:----------                                        |:-----------                      |
+| [create](/v2.0/reference/cli/influx/org/create)   | Create organization              |
+| [delete](/v2.0/reference/cli/influx/org/delete)   | Delete organization              |
+| [find](/v2.0/reference/cli/influx/org/find)       | Find organizations               |
+| [members](/v2.0/reference/cli/influx/org/members) | Organization membership commands |
+| [update](/v2.0/reference/cli/influx/org/update)   | Update organization              |
 
 ## Flags
-| Flag           | Description              |
-|:----           |:-----------              |
-| `-h`, `--help` | Help for the org command |
+| Flag           | Description                |
+|:----           |:-----------                |
+| `-h`, `--help` | Help for the `org` command |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

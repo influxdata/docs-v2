@@ -1,27 +1,25 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx task delete
+description: placeholder
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx task delete
+    parent: influx task
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+Delete task
 
 ## Usage
 ```
-influx setup [flags]
+influx task delete [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description            | Input type  |
+|:----           |:-----------            |:----------: |
+| `-h`, `--help` | Help for `delete`      |             |
+| `-i`, `--id`   | Task id **(Required)** | string      |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

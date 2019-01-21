@@ -1,27 +1,26 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx task retry
+description: placeholder
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx task retry
+    parent: influx task
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+retry a run
 
 ## Usage
 ```
-influx setup [flags]
+influx task retry [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag              | Description            | Input type  |
+|:----              |:-----------            |:----------: |
+| `-h`, `--help`    | Help for `retry`       |             |
+| `-r`, `--run-id`  | Run id **(Required)**  | string      |
+| `-i`, `--task-id` | Task id **(Required)** | string      |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

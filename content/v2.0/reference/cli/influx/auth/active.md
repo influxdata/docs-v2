@@ -1,27 +1,25 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx auth active
+description: placeholder
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx auth active
+    parent: influx auth
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+Active authorization
 
 ## Usage
 ```
-influx setup [flags]
+influx auth active [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description                         | Input type |
+|:----           |:-----------                         |:----------:|
+| `-h`, `--help` | Help for the `active` command       |            |
+| `-i`, `--id`   | The authorization ID **(Required)** | string     |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

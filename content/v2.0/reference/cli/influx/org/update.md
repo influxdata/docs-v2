@@ -1,27 +1,26 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx org update
+description: placeholder
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx org update
+    parent: influx org
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+Update organization
 
 ## Usage
 ```
-influx setup [flags]
+influx org update [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description                        | Input type  |
+|:----           |:-----------                        |:----------: |
+| `-h`, `--help` | Help for `update`                  |             |
+| `-i`, `--id`   | The organization ID **(Required)** | string      |
+| `-n`, `--name` | The organization name              | string      |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

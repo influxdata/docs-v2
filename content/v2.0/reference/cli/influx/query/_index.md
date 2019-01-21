@@ -1,6 +1,8 @@
 ---
-title: Influx query command
-description: placeholder
+title: influx query – Execute queries from the influx CLI
+description: >
+  The 'influx query' command executes a literal Flux query provided as a string
+  or a literal Flux query contained in a file by specifying the file prefixed with an '@' sign.
 menu:
   v2_0_ref:
     name: influx query
@@ -8,8 +10,8 @@ menu:
     weight: 1
 ---
 
-Execute a literal Flux query provided as a string,
-or execute a literal Flux query contained in a file by specifying the file prefixed with an @ sign.
+The `influx query` command executes a literal Flux query provided as a string
+or a literal Flux query contained in a file by specifying the file prefixed with an `@` sign.
 
 ## Usage
 ```

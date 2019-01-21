@@ -1,6 +1,6 @@
 ---
-title: Influx bucket management commands
-description: placeholder
+title: influx bucket – Bucket management commands
+description: The 'influx bucket' command and its subcommands manage buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Bucket management commands
+The `influx bucket` command and its subcommands manage buckets in InfluxDB.
 
 ## Usage
 ```
@@ -17,17 +17,17 @@ influx bucket [command]
 ```
 
 ## Subcommands
-| Subcommand | Description   |
-|:---------- |:-----------   |
-| create     | Create bucket |
-| delete     | Delete bucket |
-| find       | Find buckets  |
-| update     | Update bucket |
+| Subcommand                                         | Description   |
+|:----------                                         |:-----------   |
+| [create](/v2.0/reference/cli/influx/bucket/create) | Create bucket |
+| [delete](/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
+| [find](/v2.0/reference/cli/influx/bucket/find)     | Find buckets  |
+| [update](/v2.0/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags
-| Flag           | Description                 |
-|:----           |:-----------                 |
-| `-h`, `--help` | Help for the bucket command |
+| Flag           | Description                   |
+|:----           |:-----------                   |
+| `-h`, `--help` | Help for the `bucket` command |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

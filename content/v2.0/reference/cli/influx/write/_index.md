@@ -1,6 +1,8 @@
 ---
-title: Influx write command
-description: placeholder
+title: influx write – Write data to InfluxDB using the CLI
+description: >
+  The 'influx write' command writes line protocol to InfluxDB either via a single
+  line of line protocol, or a via a file containing line protocol.
 menu:
   v2_0_ref:
     name: influx write
@@ -8,8 +10,8 @@ menu:
     weight: 1
 ---
 
-Write a single line of line protocol to InfluxDB,
-or add an entire file specified with an @ prefix.
+The `influx write` writes a single line of line protocol to InfluxDB,
+or adds an entire file specified with an `@` prefix.
 
 ## Usage
 ```

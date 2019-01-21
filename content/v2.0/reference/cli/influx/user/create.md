@@ -1,27 +1,25 @@
 ---
-title: influx setup – Run the initial Influx DB setup
-description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
-  creating a default user, organization, and bucket.
+title: influx user create
+description: The 'influx user create' command creates a user in InfluxDB.
 menu:
   v2_0_ref:
-    name: influx setup
-    parent: influx
+    name: influx user create
+    parent: influx user
     weight: 1
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
-creating a default user, organization, and bucket.
+The `influx user create` command creates a user in InfluxDB.
 
 ## Usage
 ```
-influx setup [flags]
+influx user create [flags]
 ```
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
-| `-h`, `--help` | Help for the `setup` command |
+| Flag           | Description                  | Input type  |
+|:----           |:-----------                  |:----------: |
+| `-h`, `--help` | Help for `create`            |             |
+| `-n`, `--name` | The user name **(Required)** | string      |
 
 ## Global Flags
 | Global flag     | Description                                                | Input type |

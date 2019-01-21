@@ -1,6 +1,6 @@
 ---
-title: Influx task management commands
-description: placeholder
+title: influx task – Task management commands
+description: The 'influx task' command and its subcommands manage tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Task management commands
+The `influx task` command and its subcommands manage tasks in InfluxDB.
 
 ### Usage
 ```
@@ -17,15 +17,15 @@ influx task [command]
 ```
 
 ### Subcommands
-| Subcommand | Description          |
-|:---------- |:-----------          |
-| create     | Create task          |
-| delete     | Delete task          |
-| find       | Find tasks           |
-| log        | Log related commands |
-| retry      | retry a run          |
-| run        | Run related commands |
-| update     | Update task          |
+| Subcommand                                       | Description          |
+|:----------                                       |:-----------          |
+| [create](/v2.0/reference/cli/influx/task/create) | Create task          |
+| [delete](/v2.0/reference/cli/influx/task/delete) | Delete task          |
+| [find](/v2.0/reference/cli/influx/task/find)     | Find tasks           |
+| [log](/v2.0/reference/cli/influx/task/log)       | Log related commands |
+| [retry](/v2.0/reference/cli/influx/task/retry)   | retry a run          |
+| [run](/v2.0/reference/cli/influx/task/run)       | Run related commands |
+| [update](/v2.0/reference/cli/influx/task/update) | Update task          |
 
 ### Flags
 | Flag           | Description                 |
