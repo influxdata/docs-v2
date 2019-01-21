@@ -139,14 +139,17 @@
   code,pre {
     background: $article-code-bg;
     font-family: 'Inconsolata', monospace;
+    color: $article-code;
   }
 
-  p code {
-    padding: .15rem .45rem .25rem;
-    border-radius: $border-radius;
-    color: $article-code;
-    white-space: nowrap;
-    font-style: normal;
+  p, li, table{
+    code {
+      padding: .15rem .45rem .25rem;
+      border-radius: $border-radius;
+      color: $article-code;
+      white-space: nowrap;
+      font-style: normal;
+    }
   }
 
   a {
