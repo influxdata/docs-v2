@@ -1,6 +1,6 @@
 ---
 title: influx bucket create
-description: placeholder
+description: The 'influx bucket create' command creates a new bucket in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket create
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Create bucket
+The `influx bucket create` command creates a new bucket in InfluxDB.
 
 ## Usage
 ```

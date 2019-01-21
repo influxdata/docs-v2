@@ -1,6 +1,6 @@
 ---
 title: influx auth active
-description: placeholder
+description: The 'influx auth active' command activates an authorization.
 menu:
   v2_0_ref:
     name: influx auth active
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Active authorization
+The `influx auth active` command activates an authorization in InfluxDB.
 
 ## Usage
 ```

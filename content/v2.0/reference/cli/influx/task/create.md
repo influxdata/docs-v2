@@ -1,6 +1,6 @@
 ---
 title: influx task create
-description: placeholder
+description: The 'influx task create' command creates a new task in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task create
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Create task
+The `influx task create` command creates a new task in InfluxDB.
 
 ## Usage
 ```

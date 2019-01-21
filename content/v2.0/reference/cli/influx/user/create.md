@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-The `influx user create` command creates a user in InfluxDB.
+The `influx user create` command creates a new user in InfluxDB.
 
 ## Usage
 ```

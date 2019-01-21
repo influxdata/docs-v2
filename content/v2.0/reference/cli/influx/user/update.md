@@ -9,7 +9,7 @@ menu:
     weight: 1
 ---
 
-The `influx user update` command updates information related to a user such as their user name.
+The `influx user update` command updates information related to a user in InfluxDB.
 
 ## Usage
 ```

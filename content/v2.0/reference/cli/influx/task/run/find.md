@@ -1,6 +1,6 @@
 ---
 title: influx task run find
-description: placeholder
+description: The 'influx task run find' command outputs information related to runs of a task.
 menu:
   v2_0_ref:
     name: influx task run find
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-The `influx task run find` command outputs information related runs of a task.
+The `influx task run find` command outputs information related to runs of a task.
 
 ## Usage
 ```

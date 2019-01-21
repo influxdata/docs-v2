@@ -1,6 +1,6 @@
 ---
 title: influx org update
-description: placeholder
+description: The 'influx org update' command updates information related to organizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org update
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Update organization
+The `influx org update` command updates information related to organizations in InfluxDB.
 
 ## Usage
 ```

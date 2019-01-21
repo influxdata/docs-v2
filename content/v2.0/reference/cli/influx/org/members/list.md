@@ -1,6 +1,6 @@
 ---
 title: influx org members list
-description: placeholder
+description: The 'influx org members list' command lists members within an organization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org members list
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-List organization members
+The `influx org members list` command lists members within an organization in InfluxDB.
 
 ## Usage
 ```

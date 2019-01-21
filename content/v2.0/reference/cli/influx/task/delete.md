@@ -1,6 +1,6 @@
 ---
 title: influx task delete
-description: placeholder
+description: The 'influx task delete' command deletes a task in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task delete
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Delete task
+The `influx task delete` command deletes a task in InfluxDB.
 
 ## Usage
 ```

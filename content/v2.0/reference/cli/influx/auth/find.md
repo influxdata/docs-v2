@@ -1,6 +1,6 @@
 ---
 title: influx auth find
-description: placeholder
+description: The 'influx auth find' command lists and searches authorizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth find
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Find authorization
+The `influx auth find` command lists and searches authorizations in InfluxDB.
 
 ## Usage
 ```

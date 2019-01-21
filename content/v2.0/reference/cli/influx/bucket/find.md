@@ -1,6 +1,6 @@
 ---
 title: influx bucket find
-description: placeholder
+description: The 'influx bucket find' command lists and searches for buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket find
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Find buckets
+The `influx bucket find` command lists and searches for buckets in InfluxDB.
 
 ## Usage
 ```

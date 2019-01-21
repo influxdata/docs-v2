@@ -1,6 +1,6 @@
 ---
 title: influx task find
-description: placeholder
+description: The 'influx task find' command lists and searches for tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task find
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Find tasks
+The `influx task find` command lists and searches for tasks in InfluxDB.
 
 ## Usage
 ```

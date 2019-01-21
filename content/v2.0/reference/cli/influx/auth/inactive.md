@@ -1,6 +1,6 @@
 ---
 title: influx auth inactive
-description: placeholder
+description: The 'influx auth inactive' inactivates an authorization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth inactive
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Inactive authorization
+The `influx auth inactive` inactivates an authorization in InfluxDB.
 
 ## Usage
 ```

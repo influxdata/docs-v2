@@ -1,6 +1,6 @@
 ---
 title: influx bucket update
-description: placeholder
+description: The 'influx bucket update' command updates information associated with buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket update
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Update bucket
+The `influx bucket update` command updates information associated with buckets in InfluxDB.
 
 ## Usage
 ```

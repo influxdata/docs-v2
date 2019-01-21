@@ -1,6 +1,6 @@
 ---
 title: influx org create
-description: placeholder
+description: The 'influx org create' creates a new organization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org create
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Create organization
+The `influx org create` creates a new organization in InfluxDB.
 
 ## Usage
 ```

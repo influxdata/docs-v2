@@ -1,6 +1,6 @@
 ---
 title: influx task retry
-description: placeholder
+description: The 'influx task retry' command retries to run a task in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task retry
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-retry a run
+The `influx task retry` command retries to run a task in InfluxDB.
 
 ## Usage
 ```

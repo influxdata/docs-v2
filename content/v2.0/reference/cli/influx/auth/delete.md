@@ -1,6 +1,6 @@
 ---
 title: influx auth delete
-description: placeholder
+description: The 'influx auth delete' command deletes an authorization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth delete
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Delete authorization
+The `influx auth delete` command deletes an authorization in InfluxDB.
 
 ## Usage
 ```

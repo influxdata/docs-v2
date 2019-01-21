@@ -1,6 +1,6 @@
 ---
 title: influx org find
-description: placeholder
+description: The 'influx org find' lists and searches for organizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org find
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Find organizations
+The `influx org find` lists and searches for organizations in InfluxDB.
 
 ## Usage
 ```

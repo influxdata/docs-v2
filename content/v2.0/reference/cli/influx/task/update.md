@@ -1,6 +1,6 @@
 ---
 title: influx task update
-description: placeholder
+description: The 'influx task update' command updates information related to tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task update
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-Update task
+The `influx task update` command updates information related to tasks in InfluxDB.
 
 ## Usage
 ```

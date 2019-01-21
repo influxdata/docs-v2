@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-The `influx user delete` command deletes a specified user.
+The `influx user delete` command deletes a specified user in InfluxDB.
 
 ## Usage
 ```
