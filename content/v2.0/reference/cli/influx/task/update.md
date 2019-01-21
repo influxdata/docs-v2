@@ -22,7 +22,7 @@ influx task update [flags]
 | `-i`, `--id`   | Task ID **(Required)** | string      |
 | `--status`     | Update task status     | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

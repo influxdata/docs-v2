@@ -26,7 +26,7 @@ influx task run find [flags]
 | `--run-id`    | Run ID                      | string      |
 | `--task-id`   | Task ID **(Required)**      | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

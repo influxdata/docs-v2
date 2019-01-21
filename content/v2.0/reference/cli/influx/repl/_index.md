@@ -25,7 +25,7 @@ influx repl [flags]
 | `-o`, `--org`  | The name of the organization    | string     |
 | `--org-id`     | The ID of organization to query | string     |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

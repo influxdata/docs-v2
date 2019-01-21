@@ -22,7 +22,7 @@ influx task create [query literal or @/path/to/query.flux] [flags]
 | `--org`        | Organization name                         | string      |
 | `--org-id`     | ID of the organization that owns the task | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

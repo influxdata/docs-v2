@@ -23,7 +23,7 @@ influx auth find [flags]
 | `-u`, `--user` | The user                    | string      |
 | `--user-id`    | The user ID                 | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

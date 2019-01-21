@@ -21,7 +21,7 @@ influx user create [flags]
 | `-h`, `--help` | Help for `create`            |             |
 | `-n`, `--name` | The user name **(Required)** | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

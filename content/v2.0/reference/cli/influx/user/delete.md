@@ -21,7 +21,7 @@ influx user delete [flags]
 | `-h`, `--help` | Help for `delete`          |             |
 | `-i`, `--id`   | The user ID **(Required)** | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

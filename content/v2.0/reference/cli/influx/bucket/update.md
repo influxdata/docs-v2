@@ -23,7 +23,7 @@ influx bucket update [flags]
 | `-n`, `--name`      | New bucket name                       | string      |
 | `-r`, `--retention` | New duration data will live in bucket | duration    |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

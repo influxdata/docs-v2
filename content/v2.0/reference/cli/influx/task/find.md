@@ -24,7 +24,7 @@ influx task find [flags]
 | `--org-id`        | Task organization ID                        | string      |
 | `-n`, `--user-id` | Task owner ID                               | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

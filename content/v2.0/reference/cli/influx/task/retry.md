@@ -22,7 +22,7 @@ influx task retry [flags]
 | `-r`, `--run-id`  | Run id **(Required)**  | string      |
 | `-i`, `--task-id` | Task id **(Required)** | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

@@ -23,7 +23,7 @@ influx org members remove [flags]
 | `-o`, `--member` | The member ID         | string      |
 | `-n`, `--name`   | The organization name | string      |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

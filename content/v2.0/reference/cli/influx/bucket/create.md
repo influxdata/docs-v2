@@ -24,7 +24,7 @@ influx bucket create [flags]
 | `--org-id`          | The ID of the organization that owns the bucket  | string      |
 | `-r`, `--retention` | Duration in nanoseconds data will live in bucket | duration    |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

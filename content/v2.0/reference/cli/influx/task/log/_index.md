@@ -26,7 +26,7 @@ influx task log [command]
 |:----           |:-----------    |
 | `-h`, `--help` | Help for `log` |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |

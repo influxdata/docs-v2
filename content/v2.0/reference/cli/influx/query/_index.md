@@ -24,7 +24,7 @@ influx query [query literal or @/path/to/query.flux] [flags]
 | `-h`, `--help` | Help for the query command |            |
 | `--org-id`     | The organization ID        | string     |
 
-## Global Flags
+## Global flags
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
