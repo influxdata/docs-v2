@@ -14,4 +14,4 @@ InfluxDB provides command line tools designed to aid in managing and working
 with InfluxDB from the command line.
 The following command line interfaces (CLIs) are available:
 
-[influx](/v2.0/reference/cli/influx)
+{{[influx](/v2.0/reference/cli/influx)}}

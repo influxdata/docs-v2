@@ -241,6 +241,15 @@ Truncated markdown content here.
 {{% /truncate %}}
 ```
 
+### Generate a list of children articles
+Section landing pages often contain just a list of articles with links and descriptions for each.
+This can be cumbersome to maintain as content is added.
+To automate the listing of articles in a section, use the `{{< children >}}` shortcode.
+
+```md
+{{< children >}}
+```
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
