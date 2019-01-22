@@ -97,5 +97,84 @@
       {{ end }}
     </li>
   {{end}}
+
+  <!-- Reference Section -->
+  {{ $refMenuID := print (replaceRE "[.]" "_" $currentVersion) "_ref" }}
+  <h4 class="reference">Reference</h4>
+
+  {{ range (index .Site.Menus $refMenuID) }}
+    <!-- Nested Reference Navigation -->
+    <li class="nav-category {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+      {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+      <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ if .HasChildren }}
+        <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+        {{ range .Children }}
+          <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+            {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+            {{ if .HasChildren }}
+              <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+              {{ range .Children }}
+                <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+                  {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                  <a href="{{ .URL }}">{{ .Name }}</a>
+                  {{ if .HasChildren }}
+                    <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                    {{ range .Children }}
+                      <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+                        {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                        <a href="{{ .URL }}">{{ .Name }}</a>
+                        {{ if .HasChildren }}
+                          <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                          {{ range .Children }}
+                            <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+                              {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                              <a href="{{ .URL }}">{{ .Name }}</a>
+                              {{ if .HasChildren }}
+                                <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                                {{ range .Children }}
+                                  <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+                                    {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                    <a href="{{ .URL }}">{{ .Name }}</a>
+
+                                    <!-- Begin nested block -->
+                                    {{ if .HasChildren }}
+                                      <ul class="children {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                                      {{ range .Children }}
+                                        <li class="nav-item {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}active{{end}}">
+                                          {{ if .HasChildren }}<a href="#" class="children-toggle {{ if .HasChildren }}parent{{ end }} {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                          <a href="{{ .URL }}">{{ .Name }}</a>
+                                          <!-- To add more nested layers, copy the nested block and paste it here -->
+                                        </li>
+                                      {{ end }}
+                                      </ul>
+                                    {{ end }}
+                                    <!-- End nested block -->
+
+                                  </li>
+                                {{ end }}
+                                </ul>
+                              {{ end }}
+                            </li>
+                          {{ end }}
+                          </ul>
+                        {{ end }}
+                      </li>
+                    {{ end }}
+                    </ul>
+                  {{ end }}
+                </li>
+              {{ end }}
+              </ul>
+            {{ end }}
+          </li>
+        {{ end }}
+        </ul>
+      {{ end }}
+    </li>
+  {{end}}
+
+
   </ul>
 </aside>
