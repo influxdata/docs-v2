@@ -1,11 +1,12 @@
 ---
 title: Create custom Flux functions
+seotitle: Create custom Flux functions
 description: Create your own custom Flux functions to transform and manipulate data.
 menu:
-  v2_0_ref:
-    name: Custom functions
-    parent: Flux functions
-    weight: 6
+  v2_0:
+    name: Create custom functions
+    parent: How-to guides
+    weight: 8
 ---
 
 Flux's functional syntax allows for custom functions.

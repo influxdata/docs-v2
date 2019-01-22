@@ -23,7 +23,3 @@ Transformation functions transform or shape your data in specific ways.
 
 ## [Miscellaneous functions](/v2.0/reference/flux/functions/misc)
 Functions that serve miscellaneous purposes when writing Flux scripts.
-
-## [Custom functions](/v2.0/reference/flux/functions/custom-functions)
-Flux's functional syntax allows for custom functions.
-This guide walks through the basics of creating your own function.

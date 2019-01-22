@@ -34,7 +34,7 @@ from(bucket:"example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/v2.0/reference/flux/functions/custom-functions) in your Flux queries.
+You can also [create custom functions](/v2.0/query-data/flux/guides/custom-functions) in your Flux queries.
 _Functions are covered in detail in the [Flux functions](/v2.0/reference/flux/functions) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.

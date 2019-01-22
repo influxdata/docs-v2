@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Regular expressions
     parent: How-to guides
-    weight: 7
+    weight: 9
 ---
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.
