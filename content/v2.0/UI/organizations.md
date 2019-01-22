@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Managing organizations
     weight: 1
+    parent: Placeholder parent
 ---
 
 Everything is scoped by/contained within organization--dashboards, tasks, buckets, users, !!collectors and scrapers!!.

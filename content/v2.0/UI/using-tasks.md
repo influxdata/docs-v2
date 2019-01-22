@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Using tasks
     weight: 1
+    parent: Placeholder parent
 ---
 A task is a scheduled Flux query. Main use case is replacement for continuous queries, add info about CQs.
 

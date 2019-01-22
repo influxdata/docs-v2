@@ -567,6 +567,30 @@
     }
 	}
 
+  /////////////////////////////////// Buttons //////////////////////////////////
+
+  a.btn {
+    display: inline-block;
+    margin: .5rem 0 1rem;
+    padding: .5rem 1rem;
+    background: $article-btn;
+    color: $article-btn-text;
+    border-radius: $border-radius;
+    font-size: .95rem;
+
+    &:hover {
+      background: $article-btn-hover;
+      color: $article-btn-text-hover;
+    }
+
+    &.download:before {
+      content: "\e91c";
+      font-family: "icomoon";
+      margin-right: .5rem;
+    }
+
+  }
+
   //////////////////////////////// Scroll Bars /////////////////////////////////
 
   pre   { @include scrollbar($article-code-bg, $article-code-scrollbar); }
@@ -591,17 +615,11 @@
     .btn {
       display: flex;
       max-width: 49%;
-      color: $article-btn-text;
-      background: $article-btn;
-      border-radius: $border-radius;
       text-align: center;
       align-items: center;
-      &:hover {
-        background: $article-btn-hover;
-      }
 
       &.prev{
-        margin-right: auto;
+        margin: 0 auto 0 0;
         padding: .75rem 1.25rem .75rem .75rem;
         &:before {
           content: "\e90a";
@@ -611,7 +629,7 @@
         }
       }
       &.next {
-        margin-left: auto;
+        margin: 0 0 0 auto;
         padding: .75rem .75rem .75rem 1.25rem;
         &:after {
           content: "\e90c";

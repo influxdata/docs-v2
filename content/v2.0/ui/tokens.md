@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Managing tokens
     weight: 1
+    parent: Placeholder parent
 ---
 **To view tokens**:
 

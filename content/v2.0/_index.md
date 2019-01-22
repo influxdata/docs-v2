@@ -6,9 +6,6 @@ layout: version-landing
 menu:
   versions:
     name: v2.0
-  v2_0:
-    name: Introduction
-    weight: 1
 ---
 
 _This placeholder content for the landing page for v2.0._

@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Managing dashboards
     weight: 1
+    parent: Placeholder parent
 ---
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
