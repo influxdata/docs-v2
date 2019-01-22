@@ -10,8 +10,8 @@ menu:
 ---
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.
-With Flux, regular expressions are primarily used for evaluation logic in operations such as filtering rows,
-dropping and keeping columns, state detection, etc.
+With Flux, regular expressions are primarily used for evaluation logic in predicate functions for things
+such as filtering rows, dropping and keeping columns, state detection, etc.
 This guide shows how to use regular expressions in your Flux scripts.
 
 ## Go regular expression syntax
@@ -71,7 +71,7 @@ The following example drops columns whose names do not being with `_`.
 from(bucket: "telegraf/autogen")
   |> range(start: -15m)
   |> filter(fn: (r) => r._measurement == "mem")
-  |> drop(fn: (col) => col !~ /_.*/)
+  |> drop(fn: (column) => column !~ /_.*/)
 ```
 
 ## Helpful links

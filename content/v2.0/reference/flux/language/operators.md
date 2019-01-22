@@ -4,7 +4,7 @@ description: Flux supports many types of operators including arithmetic operator
 menu:
   v2_0_ref:
     name: Operators
-    parent: Flux language specification
+    parent: Flux specification
     weight: 130
 ---
 

@@ -3,7 +3,7 @@ title: Options
 description: placeholder
 menu:
   v2_0_ref:
-    parent: Flux language specification
+    parent: Flux specification
     name: Options
     weight: 110
 ---

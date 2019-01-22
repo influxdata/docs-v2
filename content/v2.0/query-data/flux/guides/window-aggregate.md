@@ -16,9 +16,11 @@ or "windowing" data, then aggregating windowed values into a new value.
 This guide walks through windowing and aggregating data with Flux and demonstrates
 how data is shaped in the process.
 
-> The following example is an in-depth walk through of the steps required to window and aggregate data.
-> The [`aggregateWindow()` function](#summing-up) performs these operations for you, but understanding
-> how data is shaped in the process helps to successfully create your desired output.
+{{% note %}}
+The following example is an in-depth walk-through of the steps required to window and aggregate data.
+The [`aggregateWindow()` function](#summing-up) performs these operations for you, but understanding
+how data is shaped in the process helps to successfully create your desired output.
+{{% /note %}}
 
 ## Data set
 For the purposes of this guide, define a variable that represents your base data set.
@@ -34,10 +36,12 @@ dataSet = from(bucket: "telegraf/autogen")
   |> drop(columns: ["host"])
 ```
 
-> This example drops the `host` column from the returned data since the memory data
-> is only tracked for a single host and it simplifies the output tables.
-> Dropping the `host` column is column is optional and not recommended if monitoring memory
-> on multiple hosts.
+{{% note %}}
+This example drops the `host` column from the returned data since the memory data
+is only tracked for a single host and it simplifies the output tables.
+Dropping the `host` column is column is optional and not recommended if monitoring memory
+on multiple hosts.
+{{% /note %}}
 
 `dataSet` can now be used to represent your base data, which will look similar to the following:
 
@@ -81,9 +85,12 @@ Table: keys: [_start, _stop, _field, _measurement]
 {{% /truncate %}}
 
 ## Windowing data
-Use the [`window()` function](/v2.0/reference/flux/functions/transformations/window) to group your data based on time bounds.
-The most common parameter passed with the `window()` is `every` which defines the duration of time between windows.
-Other parameters are available, but for this example, window the base data set into one minute windows.
+Use the [`window()` function](/v2.0/reference/flux/functions/transformations/window)
+to group your data based on time bounds.
+The most common parameter passed with the `window()` is `every` which
+defines the duration of time between windows.
+Other parameters are available, but for this example, window the base data
+set into one minute windows.
 
 ```js
 dataSet
@@ -157,9 +164,9 @@ Table: keys: [_start, _stop, _field, _measurement]
 ```
 {{% /truncate %}}
 
-When visualized in [Chronograf](/chronograf/latest/), each window table is displayed in a different color.
+When visualized in the InfluxDB UI, each window table is displayed in a different color.
 
-![Windowed data](/img/flux/simple-windowed-data.png)
+![Windowed data](/img/simple-windowed-data.png)
 
 ## Aggregate data
 [Aggregate functions](/v2.0/reference/flux/functions/transformations/aggregates) take the values
@@ -221,7 +228,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 Because each data point is contained in its own table, when visualized,
 they appear as single, unconnected points.
 
-![Aggregated windowed data](/img/flux/simple-windowed-aggregate-data.png)
+![Aggregated windowed data](/img/simple-windowed-aggregate-data.png)
 
 ### Recreate the time column
 **Notice the `_time` column is not in the [aggregated output tables](#mean-output-tables).**
@@ -232,7 +239,7 @@ Also notice the `_start` and `_stop` columns still exist.
 These represent the lower and upper bounds of the time window.
 
 Many Flux functions rely on the `_time` column.
-To further process your data after an aggregate function, you need to add `_time` back in.
+To further process your data after an aggregate function, you need to re-add `_time`.
 Use the [`duplicate()` function](/v2.0/reference/flux/functions/transformations/duplicate) to
 duplicate either the `_start` or `_stop` column as a new `_time` column.
 
@@ -295,8 +302,10 @@ dataSet
   |> window(every: inf)
 ```
 
->  Windowing requires a `_time` column which is why it's necessary to
-> [recreate the `_time` column](#recreate-the-time-column) after an aggregation.
+{{% note %}}
+Windowing requires a `_time` column which is why it's necessary to
+[recreate the `_time` column](#recreate-the-time-column) after an aggregation.
+{{% /note %}}
 
 ###### Unwindowed output table
 ```
@@ -313,7 +322,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 
 With the aggregate values in a single table, data points in the visualization are connected.
 
-![Unwindowed aggregate data](/img/flux/simple-unwindowed-data.png)
+![Unwindowed aggregate data](/img/simple-unwindowed-data.png)
 
 ## Summing up
 You have now created a Flux query that windows and aggregates data.

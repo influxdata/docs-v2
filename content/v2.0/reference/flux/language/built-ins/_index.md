@@ -6,7 +6,7 @@ description: >
 menu:
   v2_0_ref:
     name: Built-ins
-    parent: Flux language specification
+    parent: Flux specification
     weight: 80
 ---
 

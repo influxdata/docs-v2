@@ -3,7 +3,7 @@ title: Expressions
 description: An expression specifies the computation of a value by applying the operators and functions to operands.
 menu:
   v2_0_ref:
-    parent: Flux language specification
+    parent: Flux specification
     name: Expressions
     weight: 40
 ---

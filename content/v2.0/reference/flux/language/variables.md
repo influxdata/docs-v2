@@ -3,7 +3,7 @@ title: Variables
 description: Flux variables hold values. A variable can only hold values defined by its type.
 menu:
   v2_0_ref:
-    parent: Flux language specification
+    parent: Flux specification
     name: Variables
     weight: 120
 ---

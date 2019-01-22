@@ -4,7 +4,7 @@ description: Flux employs a basic data model built from basic data types. The da
 menu:
   v2_0_ref:
     name: Data model
-    parent: Flux language specification
+    parent: Flux specification
     weight: 1
 ---
 

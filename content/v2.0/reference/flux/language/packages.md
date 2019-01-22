@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/language/programs
 menu:
   v2_0_ref:
-    parent: Flux language specification
+    parent: Flux specification
     name: Packages
     weight: 70
 ---

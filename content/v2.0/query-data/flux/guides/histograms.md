@@ -18,7 +18,7 @@ The [`histogram()` function](/v2.0/reference/flux/functions/transformations/hist
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
-In the histogram output, a column is added (le) that represents the upper bounds of of each bin.
+In the histogram output, a column is added (`le`) that represents the upper bounds of of each bin.
 Bin counts are cumulative.
 
 ```js
@@ -31,12 +31,14 @@ from(bucket:"telegraf/autogen")
   |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
 ```
 
-> Values output by the `histogram` function represent points of data aggregated over time.
-> Since values do not represent single points in time, there is no `_time` column in the output table.
+{{% note %}}
+Values output by the `histogram` function represent points of data aggregated over time.
+Since values do not represent single points in time, there is no `_time` column in the output table.
+{{% /note %}}
 
 ## Bin helper functions
 Flux provides two helper functions for generating histogram bins.
-Each generates and outputs an array of floats designed to be used in the `histogram()` function's `bins` parameter.
+Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
 The [`linearBins()` function](/v2.0/reference/flux/functions/misc/linearbins) generates a list of linearly separated floats.

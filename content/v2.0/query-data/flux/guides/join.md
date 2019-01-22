@@ -10,12 +10,12 @@ menu:
 ---
 
 The [`join()` function](/v2.0/reference/flux/functions/transformations/join) merges two or more
-input streams whose values are equal on a set of common columns into a single output stream.
+input streams, whose values are equal on a set of common columns, into a single output stream.
 Flux allows you to join on any columns common between two data streams and opens the door
 for operations such as cross-measurement joins and math across measurements.
 
 To illustrate a join operation, use data captured by Telegraf and and stored in
-InfluxDB with a default TICK stack installation - memory usage and processes.
+InfluxDB - memory usage and processes.
 
 In this guide, we'll join two data streams, one representing memory usage and the other representing the
 total number of running processes, then calculate the average memory usage per running process.
@@ -142,7 +142,7 @@ In the example below, `mem` is the alias for `memUsed` and `proc` is the alias f
 
 ##### `on`
 An array of strings defining the columns on which the tables will be joined.
-_**Both tables must have all columns defined in this list.**_
+_**Both tables must have all columns specified in this list.**_
 
 ```js
 join(
@@ -203,9 +203,11 @@ Notice the output table includes the following columns:
 These represent the columns with values unique to the two input tables.
 
 ## Calculate and create a new table
-With the two streams of data joined into a single table, use the [`map()` function](/v2.0/reference/flux/functions/transformations/map)
-to build a new table by mapping the existing `_time` column to a new `_time` column and dividing `_value_mem` by `_value_proc`
-and mapping it to a new `_value` column.
+With the two streams of data joined into a single table, use the
+[`map()` function](/v2.0/reference/flux/functions/transformations/map)
+to build a new table by mapping the existing `_time` column to a new `_time`
+column and dividing `_value_mem` by `_value_proc` and mapping it to a
+new `_value` column.
 
 ```js
 join(tables: {mem:memUsed, proc:procTotal}, on: ["_time", "_stop", "_start", "host"])

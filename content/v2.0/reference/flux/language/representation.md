@@ -3,7 +3,7 @@ title: Representation
 description: Source code is encoded in UTF-8. The text need not be canonicalized.
 menu:
   v2_0_ref:
-    parent: Flux language specification
+    parent: Flux specification
     name: Representation
     weight: 80
 ---

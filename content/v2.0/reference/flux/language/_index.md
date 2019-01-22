@@ -5,7 +5,7 @@ description: >
   which is designed for querying, analyzing, and acting on data.
 menu:
   v2_0_ref:
-    name: Flux language specification
+    name: Flux specification
     parent: Flux query language
     weight: 5
 ---
