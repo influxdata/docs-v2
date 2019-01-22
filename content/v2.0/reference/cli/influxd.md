@@ -1,13 +1,15 @@
 ---
 title: influxd - InfluxDB daemon
 seotitle: influxd - InfluxDB daemon
-description: placeholder
+description: The influxd daemon starts and runs all the processes necessary for InfluxDB to function.
 menu:
   v2_0_ref:
     name: influxd
     parent: Command line tools
     weight: 2
 ---
+
+The `influxd` daemon starts and runs all the processes necessary for InfluxDB to function.
 
 ## Usage
 ```

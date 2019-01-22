@@ -20,3 +20,7 @@ Place the `influx` and `influxd` executables in your system `$PATH`.
 
 ### Networking ports
 By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
+
+<div class="page-nav-btns">
+  <a class="btn next" href="/v2.0/get-started/setup/">Setup InfluxDB</a>
+</div>
