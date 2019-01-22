@@ -166,7 +166,7 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Windowing and aggregating data](/v2.0/reference/flux/guides/windowing-aggregating) guide._
+view the [Windowing and aggregating data](/v2.0/reference/flux/guides/window-aggregate) guide._
 
 ---
 

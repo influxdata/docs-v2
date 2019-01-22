@@ -51,7 +51,7 @@ are unique to each row.
 
 ## Tools for working with Flux
 
-You have multiple [options for writing and running Flux queries](/v2.0/reference/flux/guides/executing-queries),
+You have multiple [options for writing and running Flux queries](/v2.0/reference/flux/guides/execute-queries),
 but as you're getting started, we recommend using the following:
 
 ### 1. Data Explorer
