@@ -4,6 +4,7 @@ description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
     name: Visualization types
+    parent: Visualize data
     weight: 1
 ---
 Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the <<link to data explorer article>>.

@@ -1,9 +1,10 @@
 ---
-title: Managing labels
+title: Manage labels in InfluxDB
 description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
-    name: Managing labels
+    name: Manage labels
+    parent: Visualize data
     weight: 1
 ---
 Labels are !!!.

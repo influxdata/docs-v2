@@ -1,9 +1,10 @@
 ---
-title: Managing dashboards
+title: Manage InfluxDB dashboards
 description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
-    name: Managing dashboards
+    name: Manage dashboards
+    parent: Visualize data
     weight: 1
 ---
 
@@ -16,7 +17,7 @@ Also save as dashboard/save as tasks
 Multiple tabs, hide/show tabs, rename tabs
 
 
-## Creating dashboards
+## Create a dashboard
 
 **To create a dashboard**:
 
@@ -40,7 +41,7 @@ You can also send data to your dashboard directly from the Data Explorer. For de
 4. Click **Save**.
 
 
-## Modifying dashboards
+## Modify a dashboard
 
  **To delete a dashboard**:
  1. Hover over the dashboard name in the list of dashboards to show options.

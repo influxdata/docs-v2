@@ -1,9 +1,10 @@
 ---
-title: Managing sources
+title: Manage sources
 description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
-    name: Managing sources
+    name: Manage sources
+    parent: Visualize data
     weight: 1
 ---
 

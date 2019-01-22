@@ -1,9 +1,10 @@
 ---
-title: Exploring metrics
+title: Explore metrics with InfluxDB
 description:
 menu:
   v2_0:
-    name: Exploring metrics
+    name: Explore metrics
+    parent: Visualize data
     weight: 1
 ---
 
