@@ -1,6 +1,6 @@
 ---
 title: fill() function
-description: The fill() function filters data based on conditions defined in a predicate function (fn).
+description: The fill() function replaces all null values in an input stream and replace them with a non-null value.
 menu:
   v2_0_ref:
     name: fill
@@ -8,7 +8,7 @@ menu:
     weight: 1
 ---
 
-The `filter()` function replaces all null values in an input stream and replace them with a non-null value.
+The `fill()` function replaces all null values in an input stream and replace them with a non-null value.
 The output stream is the same as the input stream with all null values replaced in the specified column.
 
 _**Function type:** Transformation_  
