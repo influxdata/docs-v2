@@ -65,7 +65,9 @@ Chronograf supports many different [visualization types](/chronograf/latest/guid
 ### Step 5: Save your cell
 Click **Save** (the green checkmark icon) to save your cell.
 
-> ***Note:*** if you navigate away from this page without clicking Save, your work will not be saved.
+{{% note %}}
+If you navigate away from this page without clicking Save, your work will not be saved.
+{{% /note %}}
 
 ### Step 6: Configure your dashboard
 
@@ -79,8 +81,9 @@ Click **Save** (the green checkmark icon) to save your cell.
 * **Pan** over your cell data by pressing the shift key and clicking and dragging your mouse over the graph
 * **Reset** your cell by double-clicking your mouse in the cell window
 
-> Note:
+{{% note %}}
 These tips only apply to the line, stacked, step-plot, and line+stat [visualization types](/chronograf/latest/guides/visualization-types/).
+{{% /note %}}
 
 #### Configure dashboard-wide settings:
 * You can change the dashboard's *auto-refresh interval* at the top of the page - the default interval selected is **Every 15 seconds**.

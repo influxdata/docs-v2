@@ -37,7 +37,9 @@ _**Data type:** Boolean | Integer | UInteger | Float | String | Time | Duration_
 ### usePrevious
 When `true`, assigns the value set in the previous non-null row.
 
-> Cannot be used with `value`.
+{{% note %}}
+Cannot be used with `value`.
+{{% /note %}}
 
 _**Data type:** Boolean | Integer | UInteger | Float | String | Time | Duration_
 

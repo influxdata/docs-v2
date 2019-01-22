@@ -248,7 +248,9 @@ Use the **Table Controls** to specify the following:
   - Change the order of the column by dragging to the desired position.
 * **Thresholds**
 
-> **Note:** Threshold settings apply to any cells with values, except when they appear in the first column and **Lock First Column** is enabled.
+{{% note %}}
+Threshold settings apply to any cells with values, except when they appear in the first column and **Lock First Column** is enabled.
+{{% /note %}}
 
   - **Add Threshold** (button): Click to add a threshold.
   - **Base Color**: Select a base, or background, color from the selection list.

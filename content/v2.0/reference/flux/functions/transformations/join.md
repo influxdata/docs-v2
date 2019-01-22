@@ -48,7 +48,9 @@ The map of streams to be joined. <span style="color:#FF8564; font-weight:700;">R
 
 _**Data type:** Object_
 
-> `join()` currently only supports two input streams.
+{{% note %}}
+`join()` currently only supports two input streams.
+{{% /note %}}
 
 ### on
 The list of columns on which to join. <span style="color:#FF8564; font-weight:700;">Required</span>.

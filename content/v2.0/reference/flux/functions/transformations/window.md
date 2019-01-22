@@ -74,7 +74,9 @@ _**Data type:** Function_
 intervals(every:1d, period:8h, offset:9h)
 ```
 
-> When `intervals` is used, `every`, `period`, and `start` cannot be used or need to be set to 0.
+{{% note %}}
+When `intervals` is used, `every`, `period`, and `start` cannot be used or need to be set to 0.
+{{% /note %}}
 
 ### timeColumn
 The column containing time.
