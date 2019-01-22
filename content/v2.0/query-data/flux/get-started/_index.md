@@ -83,5 +83,6 @@ influx repl --org org-name
 ```
 
 <div class="page-nav-btns">
+  <a class="btn prev" href="/v2.0/query-data/flux/">Introduction to Flux</a>
   <a class="btn next" href="/v2.0/query-data/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>
 </div>

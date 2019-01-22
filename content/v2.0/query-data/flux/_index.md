@@ -34,4 +34,6 @@ from(bucket:"example-bucket")
 ## Get started with Flux
 The best way to familiarize yourself with Flux is to walk through creating a simple Flux query.
 
-[Get Started with Flux](/v2.0/query-data/flux/get-started)
+<div class="page-nav-btns">
+  <a class="btn next" href="/v2.0/query-data/flux/get-started">Get Started with Flux</a>
+</div>
