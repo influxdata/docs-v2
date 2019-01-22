@@ -20,14 +20,14 @@ The basic structure for defining functions in Flux is as follows:
 functionName = (functionParameters) => functionOperations
 ```
 
-##### `functionName`
+##### functionName
 The name used to call the function in your Flux script.  
 
-##### `functionParameters`
+##### functionParameters
 A comma-separated list of parameters passed into the function and used in its operations.
 [Parameter defaults](#define-parameter-defaults) can be defined for each.  
 
-##### `functionOperations`
+##### functionOperations
 Operations and functions that manipulate the input into the desired output.
 
 #### Basic function examples
@@ -52,14 +52,14 @@ multiply = (x, y) => x * y
 30
 ```
 
-## Functions that manipulate pipe-forwarded data
-Most Flux functions manipulate data pipe-forwarded into the function.
-In order for a custom function to process pipe-forwarded data, one of the function
+## Functions that manipulate piped-forward data
+Most Flux functions manipulate data piped-forward into the function.
+In order for a custom function to process piped-forward data, one of the function
 parameters must capture the input tables using the `<-` pipe-receive expression.
 
 In the example below, the `tables` parameter is assigned to the `<-` expression,
-which represents all data pipe-forwarded into the function.
-`tables` is then pipe-forwarded into other operations in the function definition.
+which represents all data piped-forward into the function.
+`tables` is then piped-forward into other operations in the function definition.
 
 ```js
 functionName = (tables=<-) => tables |> functionOperations
@@ -70,7 +70,8 @@ functionName = (tables=<-) => tables |> functionOperations
 ###### Multiply row values by x
 The example below defines a `multByX` function that multiplies the `_value` column
 of each row in the input table by the `x` parameter.
-It uses the [`map()` function](/v2.0/reference/flux/functions/transformations/map) to modify each `_value`.
+It uses the [`map()` function](/v2.0/reference/flux/functions/transformations/map)
+to modify each `_value`.
 
 ```js
 // Function definition
@@ -89,8 +90,8 @@ from(bucket: "telegraf/autogen")
 ```
 
 ## Define parameter defaults
-To define parameters with default values, use the `=` assignment operator to assign
-a default in your function definition:
+Use the `=` assignment operator to assign a default value to function parameters
+in your function definition:
 
 ```js
 functionName = (param1=defaultValue1, param2=defaultValue2) => functionOperation
@@ -103,8 +104,10 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 ###### Get the winner or the "winner"
 The example below defines a `getWinner` function that returns the record with the highest
 or lowest `_value` (winner versus "winner") depending on the `noSarcasm` parameter which defaults to `true`.
-It uses the [`sort()` function](/v2.0/reference/flux/functions/transformations/sort) to sort records in either descending or ascending order.
-It then uses the [`limit()` function](/v2.0/reference/flux/functions/transformations/limit) to return the first record from the sorted table.
+It uses the [`sort()` function](/v2.0/reference/flux/functions/transformations/sort)
+to sort records in either descending or ascending order.
+It then uses the [`limit()` function](/v2.0/reference/flux/functions/transformations/limit)
+to return the first record from the sorted table.
 
 ```js
 // Function definition

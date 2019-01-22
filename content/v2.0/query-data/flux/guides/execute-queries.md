@@ -48,17 +48,18 @@ data = from(bucket: "example-bucket") |> range(start: -10m) # ...
 ```
 
 ## InfluxDB API
-Flux can be used to query InfluxDB through InfluxDB's `/api/v2/query` endpoint.
+Query InfluxDB through the `/api/v2/query` endpoint.
 Queried data is returned in annotated CSV format.
 
 In your request, set the following:
 
+- `Authorization` header to `Token ` + your authentication token.
 - `accept` header to `application/csv`
 - `content-type` header to `application/vnd.flux`
 
 This allows you to POST the Flux query in plain text and receive the annotated CSV response.
 
-Below is an example `curl` command that queries InfluxDB using Flux:
+Below is an example `curl` command that queries InfluxDB:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -68,18 +69,20 @@ Below is an example `curl` command that queries InfluxDB using Flux:
 
 {{% code-tab-content %}}
 ```bash
-curl localhost:8086/api/v2/query -XPOST -sS \
+curl http://localhost:9999/api/v2/query -XPOST -sS \
+-H 'Authorization: Token YOURAUTHTOKEN' \
 -H 'accept:application/csv' \
 -H 'content-type:application/vnd.flux' \
--d 'from(bucket:"telegraf")
-      |> range(start:-5m)
-      |> filter(fn:(r) => r._measurement == "cpu")'
+-d 'from(bucket:“test”)
+      |> range(start:-1000h)
+      |> group(columns:[“_measurement”], mode:“by”)
+      |> sum()'
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```bash
-curl localhost:8086/api/v2/query -XPOST -sS -H 'accept:application/csv' -H 'content-type:application/vnd.flux' -d 'from(bucket:"telegraf") |> range(start:-5m) |> filter(fn:(r) => r._measurement == "cpu")'
+curl http://localhost:9999/api/v2/query -XPOST -sS -H 'Authorization: Token TOKENSTRINGHERE' -H 'accept:application/csv' -H 'content-type:application/vnd.flux' -d 'from(bucket:“test”) |> range(start:-1000h) |> group(columns:[“_measurement”], mode:“by”) |> sum()'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

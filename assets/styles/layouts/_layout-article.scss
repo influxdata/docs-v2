@@ -141,12 +141,14 @@
     font-family: 'Inconsolata', monospace;
   }
 
-  p code {
-    padding: .15rem .45rem .25rem;
-    border-radius: $border-radius;
-    color: $article-code;
-    white-space: nowrap;
-    font-style: normal;
+  p,li,table,h2,h3,h4,h5,h6 {
+    code {
+      padding: .15rem .45rem .25rem;
+      border-radius: $border-radius;
+      color: $article-code;
+      white-space: nowrap;
+      font-style: normal;
+    }
   }
 
   a {
