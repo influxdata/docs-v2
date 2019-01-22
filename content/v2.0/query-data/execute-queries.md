@@ -1,15 +1,15 @@
 ---
-title: Execute Flux queries
-seotitle: Different ways to execute Flux queries
-description: There are multiple ways to execute Flux queries include the InfluxDB user interface, CLI, and API.
+title: Execute queries
+seotitle: Different ways to query InfluxDB
+description: There are multiple ways to query data from InfluxDB including the the InfluxDB UI, CLI, and API.
 menu:
   v2_0:
-    name: Execute Flux queries
-    parent: How-to guides
-    weight: 1
+    name: Execute queries
+    parent: Query data
+    weight: 2
 ---
 
-There are multiple ways to execute Flux queries with InfluxDB and Chronograf v1.7+.
+There are multiple ways to execute queries with InfluxDB.
 This guide covers the different options:
 
 1. [Data Explorer](#data-explorer)
@@ -18,7 +18,7 @@ This guide covers the different options:
 5. [InfluxDB API](#influxdb-api)
 
 ## Data Explorer
-Flux queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
+Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 
 ![Data Explorer with Flux](/img/flux-data-explorer.png)
 
@@ -31,10 +31,10 @@ influx repl --org org-name
 ```
 
 ## Influx query command
-You can pass Flux queries to the [`influx query` command](/v2.0/reference/cli/influx/query)
+You can pass queries to the [`influx query` command](/v2.0/reference/cli/influx/query)
 as either a file or raw Flux via stdin.
 
-###### Run a Flux query from a file
+###### Run a query from a file
 ```bash
 influx query @/path/to/query.flux
 ```

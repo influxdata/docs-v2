@@ -4,7 +4,7 @@ seotitle: How to use regular expressions in Flux
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
 menu:
   v2_0:
-    name: Regular expressions
+    name: Use regular expressions
     parent: How-to guides
     weight: 9
 ---

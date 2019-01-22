@@ -4,7 +4,7 @@ description: An introduction to the basic elements of the Flux syntax with real-
 menu:
   v2_0:
     name: Syntax basics
-    parent: get-started
+    parent: Get started with Flux
     weight: 3
 ---
 
@@ -106,7 +106,7 @@ data |> someFunction() |> anotherFunction()
 
 ## Real-world application of basic syntax
 This likely seems familiar if you've already been through through the other
-[getting started guides](/v2.0/query-data/flux/get-started).
+[getting started guides](/v2.0/query-data/get-started).
 Flux's syntax is inspired by Javascript and other functional scripting languages.
 As you begin to apply these basic principles in real-world use cases such as creating data stream variables,
 custom functions, etc., the power of Flux and its ability to query and process data will become apparent.
@@ -183,7 +183,7 @@ topN = (tables=<-, n) => tables |> sort(desc: true) |> limit(n: n)
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_More information about creating custom functions is available in the [Custom functions](/v2.0/query-data/flux/guides/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/v2.0/query-data/guides/custom-functions) documentation._
 
 Using the `cpuUsageUser` data stream variable defined above, find the top five data
 points with the custom `topN` function and yield the results.
@@ -213,5 +213,5 @@ cpuUsageUser |> topN(n:5) |> yield()
 This query will return the five data points with the highest user CPU usage over the last hour.
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/flux/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>

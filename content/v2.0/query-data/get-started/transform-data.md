@@ -4,11 +4,11 @@ description: Learn the basics of using Flux to transform data queried from Influ
 menu:
   v2_0:
     name: Transform your data
-    parent: get-started
+    parent: Get started with Flux
     weight: 2
 ---
 
-When [querying data from InfluxDB](/v2.0/query-data/flux/get-started/query-influxdb),
+When [querying data from InfluxDB](/v2.0/query-data/get-started/query-influxdb),
 you often need to transform that data in some way.
 Common examples are aggregating data into averages, downsampling data, etc.
 
@@ -19,7 +19,7 @@ averages the `_value`s in each window, and outputs the averages as a new table.
 It's important to understand how the "shape" of your data changes through each of these operations.
 
 ## Query data
-Use the query built in the previous [Query data from InfluxDB](/v2.0/query-data/flux/get-started/query-influxdb)
+Use the query built in the previous [Query data from InfluxDB](/v2.0/query-data/get-started/query-influxdb)
 guide, but update the range to pull data from the last hour:
 
 ```js
@@ -34,7 +34,7 @@ from(bucket:"example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/v2.0/query-data/flux/guides/custom-functions) in your Flux queries.
+You can also [create custom functions](/v2.0/query-data/guides/custom-functions) in your Flux queries.
 _Functions are covered in detail in the [Flux functions](/v2.0/reference/flux/functions) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
@@ -166,11 +166,11 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Windowing and aggregating data](/v2.0/reference/flux/guides/window-aggregate) guide._
+view the [Window and aggregate data](/v2.0/query-data/guides/window-aggregate) guide._
 
 ---
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/flux/get-started/query-influxdb/">Query InfluxDB</a>
-  <a class="btn next" href="/v2.0/query-data/flux/get-started/syntax-basics/">Syntax basics</a>
+  <a class="btn prev" href="/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB</a>
+  <a class="btn next" href="/v2.0/query-data/get-started/syntax-basics/">Syntax basics</a>
 </div>

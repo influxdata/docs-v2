@@ -4,7 +4,7 @@ description: Learn the basics of using Flux to query data from InfluxDB.
 menu:
   v2_0:
     name: Query InfluxDB
-    parent: get-started
+    parent: Get started with Flux
     weight: 1
 ---
 
@@ -47,7 +47,9 @@ from(bucket:"example-bucket")
   |> range(start: -1h, stop: -10m)
 ```
 
-> Relative ranges are relative to "now."
+{{% note %}}
+Relative ranges are relative to "now."
+{{% /note %}}
 
 ###### Example absolute time range
 ```js
@@ -123,6 +125,6 @@ You have now queried data from InfluxDB using Flux.
 This is a barebones query that can be transformed in other ways.
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/flux/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/v2.0/query-data/flux/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/v2.0/query-data/get-started/">Get started with Flux</a>
+  <a class="btn next" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>
