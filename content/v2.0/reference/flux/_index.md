@@ -1,12 +1,13 @@
 ---
 title: Flux query language
-description: placeholder
+description: Reference articles for Flux functions and the Flux language specification.
 menu:
   v2_0_ref:
     name: Flux query language
     weight: 2
 ---
 
-[Flux functions](/v2.0/reference/flux/functions/)
+The following articles are meant as a reference for Flux functions and the
+Flux language specification.
 
-[Flux language specification](/v2.0/reference/flux/language/)
+{{< children >}}

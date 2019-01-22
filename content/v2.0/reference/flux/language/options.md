@@ -1,6 +1,8 @@
 ---
 title: Options
-description: placeholder
+description: >
+  A Flux option represents a storage location for any value of a specified type.
+  Options are mutable. An option can hold different values during its lifetime.
 menu:
   v2_0_ref:
     parent: Flux specification
