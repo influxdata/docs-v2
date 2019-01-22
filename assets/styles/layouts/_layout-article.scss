@@ -544,7 +544,7 @@
     }
 	}
 
-  ///////////////////////////////// Scroll Bars //////////////////////////////////
+  //////////////////////////////// Scroll Bars /////////////////////////////////
 
   pre   { @include scrollbar($article-code-bg, $article-code-scrollbar); }
   table { @include scrollbar($article-table-row-alt, $article-code-scrollbar);}
@@ -556,6 +556,48 @@
   .warn {
     pre   { @include scrollbar($article-warn-code-bg, $article-warn-code-scrollbar); }
     table { @include scrollbar($article-warn-table-row-alt, $article-warn-code-scrollbar); }
+  }
+
+  ////////////////////////// Guides Pagination Buttons /////////////////////////
+
+  .page-nav-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0 1rem;
+
+    .btn {
+      display: flex;
+      max-width: 49%;
+      color: $article-btn-text;
+      background: $article-btn;
+      border-radius: $border-radius;
+      text-align: center;
+      align-items: center;
+      &:hover {
+        background: $article-btn-hover;
+      }
+
+      &.prev{
+        margin-right: auto;
+        padding: .75rem 1.25rem .75rem .75rem;
+        &:before {
+          content: "\e90a";
+          font-family: "icomoon";
+          margin-right: .5rem;
+          vertical-align: middle;
+        }
+      }
+      &.next {
+        margin-left: auto;
+        padding: .75rem .75rem .75rem 1.25rem;
+        &:after {
+          content: "\e90c";
+          font-family: "icomoon";
+          margin-left: .5rem;
+          vertical-align: middle;
+        }
+      }
+    }
   }
 }
 
