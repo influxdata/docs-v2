@@ -12,7 +12,7 @@ When [querying data from InfluxDB](/v2.0/query-data/flux/get-started/query-influ
 you often need to transform that data in some way.
 Common examples are aggregating data into averages, downsampling data, etc.
 
-This guide demonstrates using [Flux functions](/flux/v0.12/functions) to transform your data.
+This guide demonstrates using [Flux functions](/v2.0/reference/flux/functions) to transform your data.
 It walks through creating a Flux script that partitions data into windows of time,
 averages the `_value`s in each window, and outputs the averages as a new table.
 
@@ -34,14 +34,14 @@ from(bucket:"example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/flux/v0.12/functions/custom-functions) in your Flux queries.
-_Functions are covered in detail in the [Flux functions](/flux/v0.12/functions) documentation._
+You can also [create custom functions](/v2.0/reference/flux/functions/custom-functions) in your Flux queries.
+_Functions are covered in detail in the [Flux functions](/v2.0/reference/flux/functions) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
 Aggregate functions take a set of `_value`s in a table, aggregate them, and transform
 them into a new value.
 
-This example uses the [`mean()` function](/flux/v0.12/functions/transformations/aggregates/mean)
+This example uses the [`mean()` function](/v2.0/reference/flux/functions/transformations/aggregates/mean)
 to average values within each time window.
 
 {{% note %}}
@@ -51,7 +51,7 @@ It's just good to understand the steps in the process.
 {{% /note %}}
 
 ## Window your data
-Flux's [`window()` function](/flux/v0.12/functions/transformations/window) partitions records based on a time value.
+Flux's [`window()` function](/v2.0/reference/flux/functions/transformations/window) partitions records based on a time value.
 Use the `every` parameter to define a duration of each window.
 
 For this example, window data in five minute intervals (`5m`).
@@ -74,7 +74,7 @@ When visualized, each table is assigned a unique color.
 
 ## Aggregate windowed data
 Flux aggregate functions take the `_value`s in each table and aggregate them in some way.
-Use the [`mean()` function](/flux/v0.12/functions/transformations/aggregates/mean) to average the `_value`s of each table.
+Use the [`mean()` function](/v2.0/reference/flux/functions/transformations/aggregates/mean) to average the `_value`s of each table.
 
 ```js
 from(bucket:"example-bucket")
@@ -100,7 +100,7 @@ Aggregate functions don't infer what time should be used for the aggregate value
 Therefore the `_time` column is dropped.
 
 A `_time` column is required in the [next operation](#unwindow-aggregate-tables).
-To add one, use the [`duplicate()` function](/flux/v0.12/functions/transformations/duplicate)
+To add one, use the [`duplicate()` function](/v2.0/reference/flux/functions/transformations/duplicate)
 to duplicate the `_stop` column as the `_time` column for each windowed table.
 
 ```js
@@ -145,7 +145,7 @@ process helps to understand how data changes "shape" as it is passed through eac
 
 Flux provides (and allows you to create) "helper" functions that abstract many of these steps.
 The same operation performed in this guide can be accomplished using the
-[`aggregateWindow()` function](/flux/v0.12/functions/transformations/aggregates/aggregatewindow).
+[`aggregateWindow()` function](/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow).
 
 ```js
 from(bucket:"example-bucket")
@@ -166,7 +166,7 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Windowing and aggregating data](/flux/v0.12/guides/windowing-aggregating) guide._
+view the [Windowing and aggregating data](/v2.0/reference/flux/guides/windowing-aggregating) guide._
 
 ---
 

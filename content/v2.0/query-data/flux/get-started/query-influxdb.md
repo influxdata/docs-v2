@@ -17,8 +17,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](#) function defines an InfluxDB data source.
-It requires a [`bucket`](#) parameter.
+Flux's [`from()`](/v2.0/reference/flux/functions/inputs/from) function defines an InfluxDB data source.
+It requires a [`bucket`](/v2.0/reference/flux/functions/inputs/from#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -30,11 +30,11 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/flux/v0.12/functions/transformations/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/functions/transformations/range)
 function, which specifies a time range for your query.
 It accepts two properties: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/flux/v0.12/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/flux/v0.12/language/lexical-elements#date-and-time-literals).
+Ranges can be **relative** using negative [durations](/v2.0/reference/flux/language/lexical-elements#duration-literals)
+or **absolute** using [timestamps](/v2.0/reference/flux/language/lexical-elements#date-and-time-literals).
 
 ###### Example relative time ranges
 ```js

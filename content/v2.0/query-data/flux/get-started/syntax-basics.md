@@ -183,7 +183,7 @@ topN = (tables=<-, n) => tables |> sort(desc: true) |> limit(n: n)
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_More information about creating custom functions is available in the [Custom functions](/flux/v0.12/functions/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/v2.0/reference/flux/functions/custom-functions) documentation._
 
 Using the `cpuUsageUser` data stream variable defined above, find the top five data
 points with the custom `topN` function and yield the results.
