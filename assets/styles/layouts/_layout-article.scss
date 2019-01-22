@@ -239,6 +239,26 @@
     }
   }
 
+  ///////////////////////// Landing Page Article Links /////////////////////////
+
+  .children-links {
+    h2,h3,h4 {
+      margin-top: -.5rem;
+
+      a a:after {
+        content: "\e919";
+        font-family: "icomoon";
+        color: rgba($article-heading, .35);
+        vertical-align: bottom;
+        transition: color .2s;
+        margin-left: .4rem;
+      }
+      a:hover {
+        &:after { color: $article-link; }
+      }
+    }
+  }
+
   ////////////////// Blockquotes, Notes, Warnings, & Messages //////////////////
 
   blockquote,
