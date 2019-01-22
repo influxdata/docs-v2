@@ -1,7 +1,9 @@
 ---
 title: Install InfluxDB v2.0
 seotitle: Download and install InfluxDB v2.0
-description: placeholder
+description: >
+  Visit the InfluxData downloads page to download InfluxDB v2.0.
+  Add the influx and influxd binaries to your system $PATH.
 menu:
   v2_0:
     name: Install InfluxDB
