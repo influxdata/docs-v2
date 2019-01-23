@@ -1,7 +1,7 @@
 ---
 title: Remove a member
 seotitle: Remove a member from an organization in InfluxDB
-description: placeholder
+description: Remove a member from an organization.
 menu:
   v2_0:
     name: Remove a member

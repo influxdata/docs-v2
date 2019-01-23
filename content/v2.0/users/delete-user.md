@@ -1,7 +1,7 @@
 ---
 title: Delete a user
 seotitle: Delete a user from InfluxDB
-description: placeholder
+description: Delete a user.
 menu:
   v2_0:
     name: Delete a user

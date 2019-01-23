@@ -1,7 +1,7 @@
 ---
 title: Update a bucket
 seotitle: Update a bucket in InfluxDB
-description: placeholder
+description: Update a bucket's name or retention policy.
 menu:
   v2_0:
     name: Update a bucket

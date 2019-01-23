@@ -1,7 +1,7 @@
 ---
 title: View users
 seotitle: View users in InfluxDB
-description: placeholder
+description: Review a list of users.
 menu:
   v2_0:
     name: View users

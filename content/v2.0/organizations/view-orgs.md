@@ -1,7 +1,7 @@
 ---
 title: View organizations
 seotitle: View organizations in InfluxDB
-description: placeholder
+description: Review a list of organizations.
 menu:
   v2_0:
     name: View organizations

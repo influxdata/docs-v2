@@ -1,7 +1,7 @@
 ---
 title: Create a bucket
 seotitle: Create a bucket in InfluxDB
-description: placeholder
+description: Create buckets to store time series data.
 menu:
   v2_0:
     name: Create a bucket

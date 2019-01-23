@@ -1,7 +1,7 @@
 ---
 title: View members
 seotitle: View members of an organization in InfluxDB
-description: placeholder
+description: Review a lit of members for an organization.
 menu:
   v2_0:
     name: View members

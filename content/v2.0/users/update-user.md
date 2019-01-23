@@ -1,7 +1,7 @@
 ---
 title: Update a user
 seotitle: Update a user in InfluxDB
-description: placeholder
+description: Update a user.
 menu:
   v2_0:
     name: Update a user

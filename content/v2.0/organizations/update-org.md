@@ -1,7 +1,7 @@
 ---
 title: Update an organization
 seotitle: Update an organization in InfluxDB
-description: placeholder
+description: Update an organization's name and assets.
 menu:
   v2_0:
     name: Update an organization
@@ -20,7 +20,7 @@ to update an organization.
 
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.
-4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs. 
+4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs.
 
 ## Update an organization using the influx CLI
 

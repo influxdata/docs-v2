@@ -1,7 +1,7 @@
 ---
 title: Add a member
 seotitle: Add a member to an organization in InfluxDB
-description: placeholder
+description: Add a member to an organization.
 menu:
   v2_0:
     name: Add a member

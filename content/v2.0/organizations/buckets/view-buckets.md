@@ -1,7 +1,7 @@
 ---
 title: View buckets
 seotitle: View buckets in InfluxDB
-description: placeholder
+description: View a list of all the buckets for an organization.
 menu:
   v2_0:
     name: View buckets
