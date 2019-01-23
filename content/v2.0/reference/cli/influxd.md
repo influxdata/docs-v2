@@ -25,7 +25,6 @@ influxd [flags]
 | `-h`, `--help`         | Help for `influxd`                                                   |            |
 | `--http-bind-address`  | Bind address for the REST HTTP API (default `:9999`)                 | string     |
 | `--log-level`          | Supported log levels are debug, info, and error (default `info`)     | string     |
-| `--nats-path`          | Path to NATS queue for scraping tasks (default `~/.influxdbv2/nats`) | string     |
 | `--reporting-disabled` | Disable sending telemetry data to https://telemetry.influxdata.com   |            |
 | `--protos-path`        | Path to protos on the filesystem (default `~/.influxdbv2/protos`)    | string     |
 | `--secret-store`       | Data store for secrets (bolt or vault) (default `bolt`)              | string     |

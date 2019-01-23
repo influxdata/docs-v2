@@ -130,6 +130,10 @@
     &#theme-switch-dark { display: $theme-switch-dark; }
     &#theme-switch-light { display: $theme-switch-light; }
   }
+
+  #search-btn {
+    opacity: 0;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

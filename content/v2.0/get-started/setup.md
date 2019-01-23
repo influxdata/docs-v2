@@ -24,6 +24,20 @@ influxd
 _See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
+{{% note %}}
+#### InfluxDB "phone-home"
+By default, InfluxDB sends telemetry data back to InfluxData.
+The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
+information about what data is collected and how it is used.
+
+Top opt-out of sending telemetry data back to InfluxData, include the
+`--reporting-disabled` flag when starting `influxd`.
+
+```bash
+influxd --reporting-disabled
+```
+{{% /note %}}
+
 
 ## Set up InfluxDB through the UI
 
