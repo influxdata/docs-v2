@@ -1,7 +1,7 @@
 ---
 title: Create an organization
 seotitle: Create an organization in InfluxDB
-description: placeholder
+description: Create an organization in InfluxDB.
 menu:
   v2_0:
     name: Create an organization

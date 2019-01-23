@@ -1,7 +1,7 @@
 ---
 title: Delete an organization
 seotitle: Delete an organization from InfluxDB
-description: placeholder
+description: Delete an existing organization.
 menu:
   v2_0:
     name: Delete an organization

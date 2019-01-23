@@ -1,7 +1,7 @@
 ---
 title: Create a user
 seotitle: Create a user in InfluxDB
-description: placeholder
+description: Create a user.
 menu:
   v2_0:
     name: Create a user

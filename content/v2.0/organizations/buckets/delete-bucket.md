@@ -1,7 +1,7 @@
 ---
 title: Delete a bucket
 seotitle: Delete a bucket from InfluxDB
-description: placeholder
+description: Delete a bucket and its data.
 menu:
   v2_0:
     name: Delete a bucket

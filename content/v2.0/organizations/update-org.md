@@ -1,7 +1,7 @@
 ---
 title: Update an organization
 seotitle: Update an organization in InfluxDB
-description: placeholder
+description: Update an organization's name and assets.
 menu:
   v2_0:
     name: Update an organization
