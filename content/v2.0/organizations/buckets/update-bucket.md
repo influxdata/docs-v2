@@ -19,8 +19,8 @@ to update a bucket.
     {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
 
 2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
-
-_Complete content coming soon_
+3. To update a bucket's name or retention policy, click the name of the bucket from the list.
+4. Click **Update** to save.
 
 ## Update a bucket using the influx CLI
 

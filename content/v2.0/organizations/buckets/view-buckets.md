@@ -16,8 +16,7 @@ menu:
     {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
 
 2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
-
-_Complete content coming soon_
+3. Click on a bucket to view details.=
 
 ## View buckets using the influx CLI
 
