@@ -23,8 +23,6 @@ Click the **Tasks** icon in the left navigation to view the lists of tasks.
 3. Select an organization from the **All Organizations** dropdown to filter the list by organization.
 4. Click on the heading of any column to sort by that field.
 
-{{< img-hd src="/img/tasks-list.png" alt="View and filter tasks" />}}
-
 ## View tasks with the influx CLI
 Use the `influx task find` command to return a list of created tasks.
 

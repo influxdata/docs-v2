@@ -28,8 +28,8 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 1. Click the **Data Explorer** icon in the sidebar.
 2. Use the Flux builder in the bottom panel to select a bucket and filters such as measurement, field or tag.
-   Alternatively, click **Switch to Script Editor** to manually edit the query.
-   To switch back to the query builder, click **Switch to Query Builder**.
+   Alternatively, click **Script Editor** to manually edit the query.
+   To switch back to the query builder, click **Query Builder**.
 3. Use the **Functions** list to review the available Flux functions.
    Click on a function from the list to add it to your query.
 4. Click **Submit** to run your query. You can then preview your graph in the above pane.
