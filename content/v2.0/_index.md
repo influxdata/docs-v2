@@ -19,8 +19,7 @@ If your use case involves time series data, InfluxDB is purpose-built to handle 
 {{% note %}}
 This is an alpha release of InfluxDB v2.0.
 Feedback and bug reports are welcome and encouraged both for InfluxDB and this documentation.
-Issue tracking is managed through Github.
+These are currently tracked in the InfluxData Community.
 
-[Submit an InfluxDB issue](https://github.com/influxdata/influxdb/issues/new)  
-[Submit a documentation issue](https://github.com/influxdata/docs-v2/issues/new)
+[Submit feedback](https://community.influxdata.com/c/influxdb2)
 {{% /note %}}
