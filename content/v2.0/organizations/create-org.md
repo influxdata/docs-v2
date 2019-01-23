@@ -1,7 +1,7 @@
 ---
 title: Create an organization
 seotitle: Create an organization in InfluxDB
-description: Create an organization in InfluxDB.
+description: Create an organization in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Create an organization
@@ -22,7 +22,7 @@ _Complete content coming soon_
 
 ## Create an organization using the influx CLI
 
-Use the the [`influx org create` command](/v2.0/reference/cli/influx/org/create)
+Use the [`influx org create` command](/v2.0/reference/cli/influx/org/create)
 to create a new organization. A new organization requires the following:
 
 - A name for the organization

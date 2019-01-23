@@ -1,7 +1,7 @@
 ---
 title: Create a bucket
 seotitle: Create a bucket in InfluxDB
-description: Create buckets to store time series data.
+description: Create buckets to store time series data in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Create a bucket
@@ -28,7 +28,7 @@ to create a bucket.
 
 ## Create a bucket using the influx CLI
 
-Use the the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
+Use the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
 to create a new bucket. A bucket requires the following:
 
 - A name

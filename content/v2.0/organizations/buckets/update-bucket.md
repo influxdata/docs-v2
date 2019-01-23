@@ -1,7 +1,7 @@
 ---
 title: Update a bucket
 seotitle: Update a bucket in InfluxDB
-description: Update a bucket's name or retention policy.
+description: Update a bucket's name or retention policy in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Update a bucket
@@ -24,7 +24,7 @@ to update a bucket.
 
 ## Update a bucket using the influx CLI
 
-Use the the [`influx bucket update` command](/v2.0/reference/cli/influx/bucket/update)
+Use the [`influx bucket update` command](/v2.0/reference/cli/influx/bucket/update)
 to update a bucket. Updating a bucket requires the following:
 
 - The bucket ID _(provided in the output of `influx bucket find`)_

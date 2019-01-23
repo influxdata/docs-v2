@@ -1,8 +1,7 @@
 ---
-title: Manage organizations in InfluxDB
-description: >
-  How to manage organizations, workspaces for groups of users.
-  All dashboards, tasks, buckets, members, etc., belong to an organization.
+title: Manage organizations
+seotitle: Manage organizations in InfluxDB
+description: Manage organizations in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Manage organizations

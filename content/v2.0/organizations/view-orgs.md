@@ -1,7 +1,7 @@
 ---
 title: View organizations
 seotitle: View organizations in InfluxDB
-description: Review a list of organizations.
+description: Review a list of organizations in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: View organizations
@@ -23,7 +23,7 @@ The list of organizations appears.
 
 ## View organizations using the influx CLI
 
-Use the the [`influx org find` command](/v2.0/reference/cli/influx/org/find)
+Use the [`influx org find` command](/v2.0/reference/cli/influx/org/find)
 to view organizations.
 
 ```sh

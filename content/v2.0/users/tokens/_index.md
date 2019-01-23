@@ -1,35 +1,17 @@
 ---
-title: Manage tokens in InfluxDB
-description: placeholder
+title: Manage tokens
+seotitle: Manage tokens in InfluxDB
+description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Manage tokens
     parent: Manage users
-    weight: 2
+    weight: 5
 ---
 
-**To view tokens**:
+InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
+Every user has a unique token.
 
-1. Click the ?? icon in the navigation bar.
-2. In the right panel labeled **My Settings**, click **Tokens**. All of your account's tokens appear.
-3. Click on a token name from the list to view the token and a summary of access permissions.
-<<SCREENSHOT>>
+The following articles provide information about managing authentication tokens.
 
-**To copy a token**:
-
-* From the token detail view, click **Copy**.
-
-**To delete a token**:
-
-* Hover over the name of a token in the list, then click **Delete**.
-
-
-#### Tokens (/tokens)
-
-* Table with Description, Last Used, and Organization columns
-    * Click on token name in Description column for Edit Token overlay
-        * Unlikely that user will use it, mostly in case of emergency
-    * Click on org name in Organization column to open organization page
-* Generate token upper right
-    * Opens generate token overlay (tgo!)
-    * Also very unlikely that user will manually generate a token
+{{< children >}}

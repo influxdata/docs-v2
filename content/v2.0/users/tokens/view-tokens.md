@@ -1,7 +1,7 @@
 ---
 title: View tokens
 seotitle: View authentication tokens in InfluxDB
-description: View authentication tokens.
+description: View authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: View tokens
@@ -20,4 +20,13 @@ to view tokens.
 
 ## View tokens using the influx CLI
 
-_Complete content coming soon_
+Use the [`influx auth find` command](/v2.0/reference/cli/influx/auth/find)
+to view tokens.
+
+```sh
+influx auth find
+```
+
+Filtering options such as filtering by authorization ID, username, or user ID are available.
+See the [`influx auth find` documentation](/v2.0/reference/cli/influx/auth/find)
+for information about other available flags.

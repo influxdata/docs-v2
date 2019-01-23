@@ -1,7 +1,7 @@
 ---
 title: Update an organization
 seotitle: Update an organization in InfluxDB
-description: Update an organization's name and assets.
+description: Update an organization's name and assets in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Update an organization
@@ -24,7 +24,7 @@ to update an organization.
 
 ## Update an organization using the influx CLI
 
-Use the the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
+Use the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
 to update an organization. Updating an organization requires the following:
 
 - The org ID _(provided in the output of `influx org find`)_

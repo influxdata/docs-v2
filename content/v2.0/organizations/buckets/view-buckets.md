@@ -1,7 +1,7 @@
 ---
 title: View buckets
 seotitle: View buckets in InfluxDB
-description: View a list of all the buckets for an organization.
+description: View a list of all the buckets for an organization in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: View buckets
@@ -20,7 +20,7 @@ menu:
 
 ## View buckets using the influx CLI
 
-Use the the [`influx bucket find` command](/v2.0/reference/cli/influx/bucket/find)
+Use the [`influx bucket find` command](/v2.0/reference/cli/influx/bucket/find)
 to view a buckets in an organization. Viewing bucket requires the following:
 
 

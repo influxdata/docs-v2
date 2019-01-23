@@ -23,7 +23,7 @@ to view members of an organization.
 
 ## View members of organization using the influx CLI
 
-Use the the [`influx org members list` command](/v2.0/reference/cli/influx/org/members/list)
+Use the [`influx org members list` command](/v2.0/reference/cli/influx/org/members/list)
 to list members of an organization. Listing an organization's members requires the following:
 
 - The name or ID of the organization

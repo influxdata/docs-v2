@@ -25,7 +25,7 @@ _Complete content coming soon_
 
 ## Add a member to an organization using the influx CLI
 
-Use the the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add)
+Use the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add)
 to add a user to an organization. Adding a user requires the following:
 
 _Complete content coming soon_

@@ -1,9 +1,7 @@
 ---
 title: Manage buckets
 seotitle: Manage buckets in InfluxDB
-description: >
-  How to manage buckets in InfluxDB.
-  A bucket is a named location where time series data is stored with a retention policy.
+description: Manage buckets in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Manage buckets

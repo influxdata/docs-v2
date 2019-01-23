@@ -1,29 +1,17 @@
 ---
-title: Manage users in InfluxDB
-description: placeholder
+title: Manage users
+seotitle: Manage users in InfluxDB
+description: Manage users in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Manage users
     weight: 12
 ---
 
-Users are granted access to InfluxDB, however, in order to access any data,
-a user must be added as a member of an organization.
+Users are those with access to InfluxDB.
+In order to access any data, a user must be [added as a member](/v2.0/organizations/members/add) of an organization.
+All users have unique authentication tokens with specific permissions used to grant them access to data within InfluxDB.
 
-Every user is given an authentication token.
+The following articles walk through managing users.
 
-1. Click the ?? icon in the navigation bar.
-2. Review your settings on the **Settings** tab.
-3. To edit your settings, click **Edit About Me**
-
-#### Account settings (/my-account)
-
-* About Me:
-    * Username
-    * Email address
-* Preferences
-    * Timezone
-    * Theme
-* For both, Edit Changes then Save Changes
-
-[Manage tokens](/v2.0/users/tokens)
+{{< children >}}

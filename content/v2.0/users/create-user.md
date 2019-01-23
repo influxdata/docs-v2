@@ -1,7 +1,7 @@
 ---
 title: Create a user
 seotitle: Create a user in InfluxDB
-description: Create a user.
+description: Create a user in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Create a user
@@ -18,7 +18,7 @@ _Complete content coming soon_
 
 ## Create a user using the influx CLI
 
-Use the the [`influx user create` command](/v2.0/reference/cli/influx/create/create)
+Use the [`influx user create` command](/v2.0/reference/cli/influx/create/create)
 to create a new user. A new user requires the following:
 
 - A username
