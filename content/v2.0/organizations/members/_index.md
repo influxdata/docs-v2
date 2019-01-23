@@ -5,7 +5,7 @@ menu:
   v2_0:
     name: Manage members
     parent: Manage organizations
-    weight: 2
+    weight: 6
 ---
 
 **To manage an organization's members**:

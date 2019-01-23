@@ -1,5 +1,5 @@
 ---
-title: View tasks in InfluxDB
+title: View tasks
 seotitle: View created tasks that process data in InfluxDB
 description: >
   How to view all created data processing tasks using the InfluxDB user interface
