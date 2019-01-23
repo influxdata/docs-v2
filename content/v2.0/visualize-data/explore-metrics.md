@@ -6,6 +6,7 @@ menu:
     name: Explore metrics
     parent: Visualize data
     weight: 1
+    parent: Placeholder parent
 ---
 
 Explore and visualize your data in the **Data Explorer**. The user interface allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/latest/guides/visualization-types/) for your query.
