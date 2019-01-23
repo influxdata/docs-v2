@@ -49,7 +49,6 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    Description: The CDN for both V1 and V2 docs.
     Properties:
       DistributionConfig:
         Aliases:
@@ -63,7 +62,7 @@ Resources:
           LambdaFunctionAssociations:
             - EventType: origin-request
               LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
-        DefaultRootObject: index.html
+        DefaultRootObject: ''
         CustomErrorResponses:
           - ErrorCachingMinTTL: 300
             ErrorCode: 403
@@ -73,12 +72,12 @@ Resources:
         HttpVersion: http2
         Origins:
           - Id: !Ref DocsV2Bucket
-            DomainName: $GetAtt DocsV2Bucket.WebsiteURL
+            DomainName: !Join [ "", [ !Ref DocsV2Bucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
           - Id: !Ref DocsV1Bucket
-            DomainName: $GetAtt DocsV1Bucket.WebsiteURL
+            DomainName: !Join [ "", [ !Ref DocsV1Bucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -152,34 +151,51 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Description: Lambda function performing request URI rewriting.
-      Environment:
-        Variables:
-          - ORIGIN_V1: !GetAtt DocsV1Bucket.WebsiteURL
       Code:
         ZipFile: >
           'use strict';
 
-          exports.handler = function handler(event, context, callback) => {
+          exports.handler = (event, context, callback) => {
             const { request } = event.Records[0].cf;
             const { uri, headers, origin } = request;
-            const lastChar = uri.Slice(-1);
             const extension = uri.substr(uri.lastIndexOf('.') + 1);
 
-            const validExtensions = ['html', 'css', 'js', 'xml', 'png', 'svg', 'otf', 'eot', 'ttf', 'woff'];
+            const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.svg', '.otf', '.eot', '.ttf', '.woff'];
             const indexPath = 'index.html';
 
-            // Append "index.html" to origin request
-            if (lastChar == '/') {
+            // If path ends with '/', then append 'index.html', otherwise redirect to a
+            // path with '/' or ignore if the path ends with a valid file extension.
+            if (uri.endsWith('/')) {
               request.uri = uri + indexPath;
-            } else if (!validExtensions.includes(extension)) {
-              request.uri = uri + '/' + indexPath;
+            } else if (uri.endsWith('/index.html')) {
+              callback(null, {
+                  status: '302',
+                  statusDescription: 'Found',
+                  headers: {
+                    location: [{
+                      key: 'Location',
+                      value: uri.substr(0, uri.length - indexPath.length),
+                    }],
+                  }
+                });
+            } else if (validExtensions.filter((ext) => uri.endsWith(ext)) == 0) {
+              callback(null, {
+                  status: '302',
+                  statusDescription: 'Found',
+                  headers: {
+                    location: [{
+                      key: 'Location',
+                      value: uri + '/',
+                    }],
+                  }
+                });
             }
 
             const pathsV1 = ['/influxdb', '/telegraf', '/chronograf', '/kapacitor', '/enterprise_influxdb', '/enterprise_kapacitor'];
             const originV1 = process.env.ORIGIN_V1;
 
             // Send to v1 origin if start of path matches 
-            if (pathsV1.filter((path) => path.startsWith(request.uri)) > 0) {
+            if (pathsV1.filter((path) => uri.startsWith(path)) > 0) {
               headers['host'] = [{key: 'host', value: originV1}];
               origin.s3.domainName = originV1;
             }
