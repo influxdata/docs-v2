@@ -6,3 +6,8 @@ menu:
     name: Visualize data
     weight: 4
 ---
+
+The InfluxDB user interface provides tools for building custom dashboards to visualize your data.
+The following articles outline ways to customize and manage dashboards.
+
+{{< children >}}
