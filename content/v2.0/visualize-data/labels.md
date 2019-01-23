@@ -37,5 +37,5 @@ To manage labels, click the **Configuration** icon in the navigation bar and sel
    icon that appears to the right of the name.
    The **Manage Labels** overlay will appear.
 3. Type the name of the label you would like to add to filter the list of available labels.
-   Click the labels you would like to add.
+   Click the label you would like to add. More than one label can be added.
 4. Click **Save Changes**.
