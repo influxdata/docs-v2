@@ -128,12 +128,12 @@ Top opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -it -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha --reporting-disabled
+docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha --reporting-disabled
 ```
 {{% /note %}}
 
 ### Console into the InfluxDB Container (Optional)
-To use the `influx` command line interface console into the `influxdb` Docker container:
+To use the `influx` command line interface, console into the `influxdb` Docker container:
 
 ```bash
 docker exec -it influxdb /bin/bash
@@ -160,7 +160,7 @@ the `influx` command line interface (CLI).
 {{% tab-content %}}
 ### Set up InfluxDB through the UI
 
-1. With `influxd` running, visit [localhost:9999](http://localhost:9999).
+1. With InfluxDB running, visit [localhost:9999](http://localhost:9999).
 2. Click **Get Started**
 
 #### Set up your initial user
