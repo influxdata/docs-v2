@@ -72,15 +72,13 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName:
-              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV2Bucket
+          - Id: !Ref DocsV2Bucket
+            DomainName: $GetAtt DocsV2Bucket.WebsiteURL
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
-          - DomainName:
-              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV1Bucket
+          - Id: !Ref DocsV1Bucket
+            DomainName: $GetAtt DocsV1Bucket.WebsiteURL
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -154,6 +152,9 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Description: Lambda function performing request URI rewriting.
+      Environment:
+        Variables:
+          - ORIGIN_V1: !GetAtt DocsV1Bucket.WebsiteURL
       Code:
         ZipFile: |
           'use strict';
