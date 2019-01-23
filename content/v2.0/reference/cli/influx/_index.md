@@ -1,6 +1,6 @@
 ---
-title: influx CLI
-seotitle: "'influx' command line client"
+title: influx - InfluxDB command line interface
+seotitle: influx - InfluxDB command line interface
 description: >
   The influx CLI includes commands to manage many aspects of InfluxDB,
   including buckets, organizations, users, tasks, etc.
@@ -8,10 +8,10 @@ menu:
   v2_0_ref:
     name: influx
     parent: Command line tools
-    wieght: 1
+    weight: 1
 ---
 
-The `influx` CLI includes commands to manage many aspects of InfluxDB,
+The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,
 including buckets, organizations, users, tasks, etc.
 
 ## Usage

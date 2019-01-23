@@ -3,9 +3,15 @@ title: Manage tokens in InfluxDB
 description: placeholder
 menu:
   v2_0:
+<<<<<<< HEAD:content/v2.0/users/tokens/_index.md
     name: Manage tokens
     parent: Manage users
     weight: 2
+=======
+    name: Managing tokens
+    weight: 1
+    parent: Placeholder parent
+>>>>>>> master:content/v2.0/ui/tokens.md
 ---
 
 **To view tokens**:
