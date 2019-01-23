@@ -84,3 +84,10 @@ $(".truncate-toggle").click(function(e) {
 	e.preventDefault()
 	$(this).closest('.truncate').toggleClass('closed');
 })
+
+//////////////////// Replace Missing Images with Placeholder ///////////////////
+
+$(".article--content img").on("error", function() {
+  $(this).attr("src", "/img/coming-soon.svg");
+  $(this).attr("style", "max-width:500px;");
+});

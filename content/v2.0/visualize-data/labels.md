@@ -1,6 +1,8 @@
 ---
 title: Manage labels in the InfluxDB UI
-description: This is just an example post to show the format of new 2.0 posts
+description: >
+  Labels are a way to add visual metadata to dashboards, tasks, and other items
+  in the InfluxDB UI. View and manage labels in the InfluxDB user interface.
 menu:
   v2_0:
     name: Manage labels

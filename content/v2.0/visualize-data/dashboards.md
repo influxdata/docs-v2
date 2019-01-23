@@ -1,6 +1,6 @@
 ---
 title: Manage InfluxDB dashboards
-description: This is just an example post to show the format of new 2.0 posts
+description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
 menu:
   v2_0:
     name: Manage dashboards

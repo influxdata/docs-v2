@@ -1,6 +1,9 @@
 ---
 title: Explore metrics with InfluxDB
-description:
+description: >
+  Explore and visualize your data in InfluxDB's Data Explorer.
+  The InfluxDB user interface (UI) allows you to move seamlessly between using the
+  Flux builder and manually editing the query.
 menu:
   v2_0:
     name: Explore metrics
@@ -8,7 +11,10 @@ menu:
     weight: 1
 ---
 
-Explore and visualize your data in the **Data Explorer**. The user interface (UI) allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/v2.0/visualize-data/visualization-types/) for your query.
+Explore and visualize your data in the **Data Explorer**.
+The InfluxDB user interface (UI) allows you to move seamlessly between using the
+Flux builder or templates and manually editing the query.
+Choose between [visualization types](/v2.0/visualize-data/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Data Explorer** icon in the navigation bar:
 
