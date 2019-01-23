@@ -1,15 +1,20 @@
 ---
 title: Visualization types
-description: This is just an example post to show the format of new 2.0 posts
+description: >
+  InfluxDB dashboards support mulitple visualization types including line graphs,
+  gauges, tables, and more.
 menu:
   v2_0:
     name: Visualization types
+    parent: Visualize data
     weight: 1
-    parent: Placeholder parent
 ---
-Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the <<link to data explorer article>>.
 
-[Visualization Type selector](/img/chronograf/chrono-viz-types-selector.png)
+The InfluxDB's user interface's (UI) dashboard views support the following visualization types,
+which can be selected in the **Visualization Type** selection view of the
+[Data Explorer](/v2.0/visualize-data/explore-metrices).
+
+[Visualization Type selector](/img/chrono-viz-types-selector.png)
 
 Each of the available visualization types and available user controls are described below.
 
@@ -22,7 +27,7 @@ Each of the available visualization types and available user controls are descri
 * [Gauge](#gauge)
 * [Table](#table)
 
-For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/chronograf/v1.7/guides/annotations/).
+For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/v1.7/guides/annotations/).
 
 ### Graphs
 
@@ -32,11 +37,11 @@ There are several types of graphs you can create.
 
 The **Line Graph** view displays a time series in a line graph.
 
-![Line Graph selector](/img/chronograf/chrono-viz-line-graph-selector.png)
+![Line Graph selector](/img/chrono-viz-line-graph-selector.png)
 
 ##### Line Graph Controls
 
-![Line Graph Controls](/img/chronograf/chrono-viz-line-graph-controls.png)
+![Line Graph Controls](/img/chrono-viz-line-graph-controls.png)
 
 Use the **Line Graph Controls** to specify the following:
 
@@ -55,18 +60,18 @@ Use the **Line Graph Controls** to specify the following:
 
 ##### Line Graph example
 
-![Line Graph example](/img/chronograf/chrono-viz-line-graph-example.png)
+![Line Graph example](/img/chrono-viz-line-graph-example.png)
 
 
 #### Stacked Graph
 
 The **Stacked Graph** view displays multiple time series bars as segments stacked on top of each other.
 
-![Stacked Graph selector](/img/chronograf/chrono-viz-stacked-graph-selector.png)
+![Stacked Graph selector](/img/chrono-viz-stacked-graph-selector.png)
 
 ##### Stacked Graph Controls
 
-![Stacked Graph Controls](/img/chronograf/chrono-viz-stacked-graph-controls.png)
+![Stacked Graph Controls](/img/chrono-viz-stacked-graph-controls.png)
 
 Use the **Stacked Graph Controls** to specify the following:
 
@@ -85,18 +90,18 @@ Use the **Stacked Graph Controls** to specify the following:
 
 ##### Stacked Graph example
 
-![Stacked Graph example](/img/chronograf/chrono-viz-stacked-graph-example.png)
+![Stacked Graph example](/img/chrono-viz-stacked-graph-example.png)
 
 
 ### Step Graph
 
 The **Step-Plot Graph** view displays a time series in a staircase graph.
 
-![Step-Plot Graph selector](/img/chronograf/chrono-viz-step-plot-graph-selector.png)
+![Step-Plot Graph selector](/img/chrono-viz-step-plot-graph-selector.png)
 
 #### Step Graph Controls
 
-![Step-Plot Graph Controls](/img/chronograf/chrono-viz-step-plot-graph-controls.png)
+![Step-Plot Graph Controls](/img/chrono-viz-step-plot-graph-controls.png)
 
 Use the **Step-Plot Graph Controls** to specify the following:
 
@@ -113,7 +118,7 @@ Use the **Step-Plot Graph Controls** to specify the following:
 
 #### Step-Plot Graph example
 
-![Step-Plot Graph example](/img/chronograf/chrono-viz-step-plot-graph-example.png)
+![Step-Plot Graph example](/img/chrono-viz-step-plot-graph-example.png)
 
 
 ### Bar Graph
@@ -122,11 +127,11 @@ The **Bar Graph** view displays the specified time series using a bar chart.
 
 To select this view, click the Bar Graph selector icon.
 
-![Bar Graph selector](/img/chronograf/chrono-viz-bar-graph-selector.png)
+![Bar Graph selector](/img/chrono-viz-bar-graph-selector.png)
 
 #### Bar Graph Controls
 
-![Bar Graph Controls](/img/chronograf/chrono-viz-bar-graph-controls.png)
+![Bar Graph Controls](/img/chrono-viz-bar-graph-controls.png)
 
 Use the **Bar Graph Controls** to specify the following:
 
@@ -143,7 +148,7 @@ Use the **Bar Graph Controls** to specify the following:
 
 #### Bar Graph example
 
-![Bar Graph example](/img/chronograf/chrono-viz-bar-graph-example.png)
+![Bar Graph example](/img/chrono-viz-bar-graph-example.png)
 
 
 ### Line Graph + Single Stat
@@ -152,11 +157,11 @@ The **Line Graph + Single Stat** view displays the specified time series in a li
 
 To select this view, click the **Line Graph + Single Stat** view option.
 
-![Line Graph + Single Stat selector](/img/chronograf/chrono-viz-line-graph-single-stat-selector.png)
+![Line Graph + Single Stat selector](/img/chrono-viz-line-graph-single-stat-selector.png)
 
 #### Line Graph + Single Stat Controls
 
-![Line Graph + Single Stat Controls](/img/chronograf/chrono-viz-line-graph-single-stat-controls.png)
+![Line Graph + Single Stat Controls](/img/chrono-viz-line-graph-single-stat-controls.png)
 
 Use the **Line Graph + Single Stat Controls** to specify the following:
 
@@ -173,13 +178,13 @@ Use the **Line Graph + Single Stat Controls** to specify the following:
 
 #### Line Graph + Single Stat example
 
-![Line Graph + Single Stat example](/img/chronograf/chrono-viz-line-graph-single-stat-example.png)
+![Line Graph + Single Stat example](/img/chrono-viz-line-graph-single-stat-example.png)
 
 ### Single Stat
 
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
 
-![Single Stat view](/img/chronograf/chrono-viz-single-stat-selector.png)
+![Single Stat view](/img/chrono-viz-single-stat-selector.png)
 
 If a cell's query includes a [`GROUP BY` tag](/influxdb/latest/query_language/data_exploration/#group-by-tags) clause, Chronograf sorts the different [series](/influxdb/latest/concepts/glossary/#series) lexicographically and shows the most recent [field value](/influxdb/latest/concepts/glossary/#field-value) associated with the first series.
 For example, if a query groups by the `name` [tag key](/influxdb/latest/concepts/glossary/#tag-key) and `name` has two [tag values](/influxdb/latest/concepts/glossary/#tag-value) (`chronelda` and `chronz`), Chronograf shows the most recent field value associated with the `chronelda` series.
@@ -205,11 +210,11 @@ The **Gauge** view displays the single value most recent value for a time series
 
 To select this view, click the Gauge selector icon.
 
-![Gauge selector](/img/chronograf/chrono-viz-gauge-selector.png)
+![Gauge selector](/img/chrono-viz-gauge-selector.png)
 
 #### Gauge Controls
 
-![Gauge Controls](/img/chronograf/chrono-viz-gauge-controls.png)
+![Gauge Controls](/img/chrono-viz-gauge-controls.png)
 
 Use the **Gauge Controls** to specify the following:
 
@@ -223,17 +228,17 @@ Use the **Gauge Controls** to specify the following:
 
 #### Gauge example
 
-![Gauge example](/img/chronograf/chrono-viz-gauge-example.png)
+![Gauge example](/img/chrono-viz-gauge-example.png)
 
 ### Table
 
 The **Table** panel displays the results of queries in a tabular view, which is sometimes easier to analyze than graph views of data.
 
-![Table selector](/img/chronograf/chrono-viz-table-selector.png)
+![Table selector](/img/chrono-viz-table-selector.png)
 
 #### Table Controls
 
-![Table Controls](/img/chronograf/chrono-viz-table-controls.png)
+![Table Controls](/img/chrono-viz-table-controls.png)
 
 Use the **Table Controls** to specify the following:
 
@@ -259,4 +264,4 @@ Threshold settings apply to any cells with values, except when they appear in th
 
 #### Table view example
 
-![Table example](/img/chronograf/chrono-viz-table-example.png)
+![Table example](/img/chrono-viz-table-example.png)
