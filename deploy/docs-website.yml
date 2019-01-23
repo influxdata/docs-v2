@@ -49,21 +49,82 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    Description: The CDN for both V1 and V2 docs.
     Properties:
       DistributionConfig:
         Aliases:
           - !Ref DomainName
         DefaultCacheBehavior:
+          TargetOriginId: !Ref DocsV2Bucket
+          ViewerProtocolPolicy: redirect-to-https
+          DefaultTTL: 2592000
           Compress: true
           ForwardedValues:
             QueryString: false
-          TargetOriginId: !Ref DocsV2Bucket
-          ViewerProtocolPolicy: redirect-to-https
           LambdaFunctionAssociations:
             - EventType: origin-request
               LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
-        DefaultRootObject: index.html
+        CacheBehaviors:
+          - PathPattern: '/influxdb/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+          - PathPattern: '/telegraf/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+          - PathPattern: '/chronograf/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+          - PathPattern: '/kapacitor/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+          - PathPattern: '/enterprise_influxdb/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+          - PathPattern: '/enterprise_kapacitor/*'
+            TargetOriginId: !Ref DocsV1Bucket
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 2592000
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+            LambdaFunctionAssociations:
+              - EventType: origin-request
+                LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
+        DefaultRootObject: '/'
         CustomErrorResponses:
           - ErrorCachingMinTTL: 300
             ErrorCode: 403
@@ -72,15 +133,13 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName:
-              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV2Bucket
+          - Id: !Ref DocsV2Bucket
+            DomainName: !Join [ "", [ !Ref DocsV2Bucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
-          - DomainName:
-              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV1Bucket
+          - Id: !Ref DocsV1Bucket
+            DomainName: !Join [ "", [ !Ref DocsV1Bucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -222,7 +281,7 @@ Resources:
       Handler: index.handler
       MemorySize: 128
       Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       Tags:
         - Key: Domain
           Value: !Ref DomainName
