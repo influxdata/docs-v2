@@ -24,7 +24,6 @@ to create a bucket.
 5. Select **How often to clear data?**:  
     Select **Never** to retain data forever.  
     Select **Periodically** to define a specific retention policy.
-4. To update a bucket's name or retention policy, click the name of the bucket from the list.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI
