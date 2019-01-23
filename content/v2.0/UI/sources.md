@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Managing sources
     weight: 1
+    parent: Placeholder parent
 ---
 
 
