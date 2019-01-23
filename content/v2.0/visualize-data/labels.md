@@ -6,7 +6,6 @@ menu:
     name: Manage labels
     parent: Visualize data
     weight: 1
-    parent: Placeholder parent
 ---
 Labels are !!!.
 

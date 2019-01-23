@@ -6,8 +6,8 @@ menu:
     name: Visualization types
     parent: Visualize data
     weight: 1
-    parent: Placeholder parent
 ---
+
 Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the <<link to data explorer article>>.
 
 [Visualization Type selector](/img/chronograf/chrono-viz-types-selector.png)
