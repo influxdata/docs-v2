@@ -1,7 +1,7 @@
 ---
 title: Visualization types
 description: >
-  InfluxDB dashboards support mulitple visualization types including line graphs,
+  InfluxDB dashboards support multiple visualization types including line graphs,
   gauges, tables, and more.
 menu:
   v2_0:
@@ -27,7 +27,6 @@ Each of the available visualization types and available user controls are descri
 * [Gauge](#gauge)
 * [Table](#table)
 
-For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/v1.7/guides/annotations/).
 
 ### Graphs
 
