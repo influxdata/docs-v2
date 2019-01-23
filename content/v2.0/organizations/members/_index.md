@@ -1,5 +1,6 @@
 ---
-title: Manage members of an organization in InfluxDB
+title: Manage members of an organization
+seotitle: Manage members of an organization in InfluxDB
 description: placeholder
 menu:
   v2_0:

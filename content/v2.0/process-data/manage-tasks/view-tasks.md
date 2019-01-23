@@ -32,6 +32,6 @@ influx task find
 
 #### Filter tasks using the CLI
 Other filtering options such as filtering by organization or user,
-or limiting the number of tasks returned are available.
+or limiting the number of tasks returned, are available.
 See the [`influx task find` documentation](/v2.0/reference/cli/influx/task/find)
 for information about other available flags.

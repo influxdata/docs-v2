@@ -28,6 +28,7 @@ to create a bucket.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI
+
 Use the the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
 to create a new bucket. A bucket requires the following:
 

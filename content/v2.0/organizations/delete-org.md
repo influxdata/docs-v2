@@ -22,4 +22,15 @@ _Complete content coming soon_
 
 ## Delete an organization using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx org delete` command](/v2.0/reference/cli/influx/org/delete)
+to delete an organization. Deleting a organization requires the following:
+
+- The organization ID _(provided in the output of `influx org find`)_
+
+```sh
+# Pattern
+influx org delete -i <org-id>
+
+# Example
+influx org delete -i 034ad714fdd6f000
+```

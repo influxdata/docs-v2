@@ -7,6 +7,7 @@ menu:
     name: Remove a member
     parent: Manage members
     weight: 3
+draft: true
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
@@ -23,5 +24,8 @@ to remove a member from an organization.
 _Complete content coming soon_
 
 ## Remove a member from an organization using the influx CLI
+
+Use the the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add)
+to remove a member from an organization. Removing a member requires the following:
 
 _Complete content coming soon_

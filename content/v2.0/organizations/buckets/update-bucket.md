@@ -24,4 +24,26 @@ _Complete content coming soon_
 
 ## Update a bucket using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx bucket update` command](/v2.0/reference/cli/influx/bucket/update)
+to update a bucket. Updating a bucket requires the following:
+
+- The bucket ID _(provided in the output of `influx bucket find`)_
+- The name or ID of the organization to which the bucket belongs
+
+##### Update the name of a bucket
+```sh
+# Pattern
+influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
+
+# Example
+influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
+```
+
+##### Update a bucket's retention policy
+```sh
+# Pattern
+influx bucket update -i <bucket-id> -o <org-name> -r <retention period in nanoseconds>
+
+# Example
+influx bucket update -i 034ad714fdd6f000 -o my-org -r 1209600000000000
+```
