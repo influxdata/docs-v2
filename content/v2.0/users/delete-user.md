@@ -14,7 +14,9 @@ to create a user.
 
 ## Delete a user from the InfluxDB UI
 
-_Complete content coming soon_
+{{% note %}}
+While in alpha, users cannot be deleted from the InfluxDB UI.
+{{% /note %}}
 
 ## Delete a user using the influx CLI
 
