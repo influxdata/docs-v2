@@ -1,11 +1,13 @@
 ---
-title: Managing account settings
-description: This is just an example post to show the format of new 2.0 posts
+title: Manage tokens in InfluxDB
+description: placeholder
 menu:
   v2_0:
-    name: Managing tokens
-    weight: 1
+    name: Manage tokens
+    parent: Manage users
+    weight: 2
 ---
+
 **To view tokens**:
 
 1. Click the ?? icon in the navigation bar.
