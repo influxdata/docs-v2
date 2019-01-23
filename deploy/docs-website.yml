@@ -72,15 +72,13 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName:
-              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV2Bucket
+          - Id: !Ref DocsV2Bucket
+            DomainName: $GetAtt DocsV2Bucket.WebsiteURL
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
-          - DomainName:
-              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV1Bucket
+          - Id: !Ref DocsV1Bucket
+            DomainName: $GetAtt DocsV1Bucket.WebsiteURL
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -154,52 +152,36 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Description: Lambda function performing request URI rewriting.
+      Environment:
+        Variables:
+          - ORIGIN_V1: !GetAtt DocsV1Bucket.WebsiteURL
       Code:
-        ZipFile: |
-          const config = {
-            suffix: '.html',
-            appendToDirs: 'index.html',
-            removeTrailingSlash: false,
-          };
+        ZipFile: >
+          'use strict';
 
-          const regexSuffixless = /\/[a-z0-9]+([0-9\.]+)?$/; // e.g. "/some/page" but not "/", "/some/" or "/some.jpg"
-          const regexTrailingSlash = /.+\/$/; // e.g. "/some/" or "/some/page/" but not root "/"
-
-          exports.handler = function handler(event, context, callback) {
+          exports.handler = function handler(event, context, callback) => {
             const { request } = event.Records[0].cf;
-            const { uri } = request;
-            const { suffix, appendToDirs, removeTrailingSlash } = config;
+            const { uri, headers, origin } = request;
+            const lastChar = uri.Slice(-1);
+            const extension = uri.substr(uri.lastIndexOf('.') + 1);
 
-            // Append ".html" to origin request
-            if (suffix && uri.match(regexSuffixless)) {
-              request.uri = uri + suffix;
-              callback(null, request);
-              return;
-            }
+            const validExtensions = ['html', 'css', 'js', 'xml', 'png', 'svg', 'otf', 'eot', 'ttf', 'woff'];
+            const indexPath = 'index.html';
 
             // Append "index.html" to origin request
-            if (appendToDirs && uri.match(regexTrailingSlash)) {
-              request.uri = uri + appendToDirs;
-              callback(null, request);
-              return;
+            if (lastChar == '/') {
+              request.uri = uri + indexPath;
+            } else if (!validExtensions.includes(extension)) {
+              request.uri = uri + '/' + indexPath;
             }
 
-            // Redirect (301) non-root requests ending in "/" to URI without trailing slash
-            if (removeTrailingSlash && uri.match(/.+\/$/)) {
-              const response = {
-                // body: '',
-                // bodyEncoding: 'text',
-                headers: {
-                  'location': [{
-                    key: 'Location',
-                    value: uri.slice(0, -1)
-                  }]
-                },
-                status: '301',
-                statusDescription: 'Moved Permanently'
-              };
-              callback(null, response);
-              return;
+            const pathsV1 = ['/influxdb', '/telegraf', '/chronograf', '/kapacitor', '/enterprise_influxdb', '/enterprise_kapacitor'];
+            const originV1 = process.env.ORIGIN_V1;
+
+            // Send to v1 origin if start of path matches 
+            if (pathsV1.filter((path) => path.startsWith(request.uri)) > 0) {
+              headers['host'] = [{key: 'host', value: originV1}];
+              origin.s3.domainName = originV1;
             }
 
             // If nothing matches, return request unchanged
