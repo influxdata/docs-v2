@@ -17,8 +17,8 @@ to create an organization.
 1. Click the **Organizations** tab in the navigation bar.
 
     {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
-
-_Complete content coming soon_
+The list of organizations appears.
+* Hover over an organization's name and click **Delete**.
 
 ## Delete an organization using the influx CLI
 
