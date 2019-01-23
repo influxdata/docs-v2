@@ -1,12 +1,17 @@
+  {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
   <!-- Docsearch JS -->
   <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
   <script>
   docsearch({
-    apiKey: '25626fae796133dc1e734c6bcaaeac3c',
-    indexName: 'docsearch',
+    apiKey: 'ba4435a9d456ac0d954cc276206eac06',
+    appId: 'WHM9UWMP6M',
+    indexName: 'influxdata',
     inputSelector: '#algolia-search-input',
     // Set debug to true if you want to inspect the dropdown
-    debug: true
+    debug: true,
+    algoliaOptions: {
+    'facetFilters': ["version:{{ $currentVersion }}"]
+  },
   });
   </script>
 
