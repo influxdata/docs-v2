@@ -18,4 +18,15 @@ _Complete content coming soon_
 
 ## Create a user using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx user create` command](/v2.0/reference/cli/influx/create/create)
+to create a new user. A new user requires the following:
+
+- A username
+
+```sh
+# Pattern
+influx user create -n <username>
+
+# Example
+influx user create -n johndoe
+```

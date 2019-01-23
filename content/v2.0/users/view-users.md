@@ -18,4 +18,13 @@ _Complete content coming soon_
 
 ## View users using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx user find` command](/v2.0/reference/cli/influx/user/find)
+to view users.
+
+```sh
+influx user find
+```
+
+Filtering options such as filtering by username or ID are available.
+See the [`influx user find` documentation](/v2.0/reference/cli/influx/user/find)
+for information about other available flags.

@@ -20,12 +20,12 @@ to update an organization.
 
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.
-4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs. 
+4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs.
 
 ## Update an organization using the influx CLI
 
 Use the the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
-to update an organization. Updating a organization requires the following:
+to update an organization. Updating an organization requires the following:
 
 - The org ID _(provided in the output of `influx org find`)_
 

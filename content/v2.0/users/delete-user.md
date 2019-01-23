@@ -18,4 +18,15 @@ _Complete content coming soon_
 
 ## Delete a user using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx user delete` command](/v2.0/reference/cli/influx/user/delete)
+to delete a user. Deleting a user requires the following:
+
+- The user ID _(provided in the output of `influx user find`)_
+
+```sh
+# Pattern
+influx user delete -i <user-id>
+
+# Example
+influx user delete -i 034ad714fdd6f000
+```

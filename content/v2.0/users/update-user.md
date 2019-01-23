@@ -18,4 +18,16 @@ _Complete content coming soon_
 
 ## Update a user using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx user update` command](/v2.0/reference/cli/influx/user/update)
+to update a user. Updating a user requires the following:
+
+- The user ID _(provided in the output of `influx user find`)_
+
+##### Update the name of a user
+```sh
+# Pattern
+influx user update -i <user-id> -n <new-username>
+
+# Example
+influx user update -i 034ad714fdd6f000 -n janedoe
+```
