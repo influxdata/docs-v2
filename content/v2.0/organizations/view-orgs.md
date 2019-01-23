@@ -23,4 +23,13 @@ The list of organizations appears.
 
 ## View organizations using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx org find` command](/v2.0/reference/cli/influx/org/find)
+to view organizations.
+
+```sh
+influx org find
+```
+
+Filtering options such as filtering by name or ID are available.
+See the [`influx org find` documentation](/v2.0/reference/cli/influx/org/find)
+for information about other available flags.

@@ -20,4 +20,14 @@ menu:
 
 ## View buckets using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx bucket find` command](/v2.0/reference/cli/influx/bucket/find)
+to view a buckets in an organization. Viewing bucket requires the following:
+
+
+```sh
+influx bucket find
+```
+
+Other filtering options such as filtering by organization, name, or ID are available.
+See the [`influx bucket find` documentation](/v2.0/reference/cli/influx/bucket/find)
+for information about other available flags.

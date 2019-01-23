@@ -22,4 +22,15 @@ _Complete content coming soon_
 
 ## Create an organization using the influx CLI
 
-_Complete content coming soon_
+Use the the [`influx org create` command](/v2.0/reference/cli/influx/org/create)
+to create a new organization. A new organization requires the following:
+
+- A name for the organization
+
+```sh
+# Pattern
+influx org create -n <org-name>
+
+# Example
+influx org create -n my-org
+```
