@@ -139,14 +139,17 @@
   code,pre {
     background: $article-code-bg;
     font-family: 'Inconsolata', monospace;
+    color: $article-code;
   }
 
-  p code {
-    padding: .15rem .45rem .25rem;
-    border-radius: $border-radius;
-    color: $article-code;
-    white-space: nowrap;
-    font-style: normal;
+  p,li,table,h2,h3,h4,h5,h6 {
+    code {
+      padding: .15rem .45rem .25rem;
+      border-radius: $border-radius;
+      color: $article-code;
+      white-space: nowrap;
+      font-style: normal;
+    }
   }
 
   a {
@@ -233,6 +236,26 @@
           &:last-child { border-radius: 0 0 ($border-radius * 1.5) 0; }
         }
 
+      }
+    }
+  }
+
+  ///////////////////////// Landing Page Article Links /////////////////////////
+
+  .children-links {
+    h2,h3,h4 {
+      margin-top: -.5rem;
+
+      a a:after {
+        content: "\e919";
+        font-family: "icomoon";
+        color: rgba($article-heading, .35);
+        vertical-align: bottom;
+        transition: color .2s;
+        margin-left: .4rem;
+      }
+      a:hover {
+        &:after { color: $article-link; }
       }
     }
   }
@@ -544,7 +567,31 @@
     }
 	}
 
-  ///////////////////////////////// Scroll Bars //////////////////////////////////
+  /////////////////////////////////// Buttons //////////////////////////////////
+
+  a.btn {
+    display: inline-block;
+    margin: .5rem 0 1rem;
+    padding: .5rem 1rem;
+    background: $article-btn;
+    color: $article-btn-text;
+    border-radius: $border-radius;
+    font-size: .95rem;
+
+    &:hover {
+      background: $article-btn-hover;
+      color: $article-btn-text-hover;
+    }
+
+    &.download:before {
+      content: "\e91c";
+      font-family: "icomoon";
+      margin-right: .5rem;
+    }
+
+  }
+
+  //////////////////////////////// Scroll Bars /////////////////////////////////
 
   pre   { @include scrollbar($article-code-bg, $article-code-scrollbar); }
   table { @include scrollbar($article-table-row-alt, $article-code-scrollbar);}
@@ -556,6 +603,42 @@
   .warn {
     pre   { @include scrollbar($article-warn-code-bg, $article-warn-code-scrollbar); }
     table { @include scrollbar($article-warn-table-row-alt, $article-warn-code-scrollbar); }
+  }
+
+  ////////////////////////// Guides Pagination Buttons /////////////////////////
+
+  .page-nav-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0 1rem;
+
+    .btn {
+      display: flex;
+      max-width: 49%;
+      text-align: center;
+      align-items: center;
+
+      &.prev{
+        margin: 0 auto 0 0;
+        padding: .75rem 1.25rem .75rem .75rem;
+        &:before {
+          content: "\e90a";
+          font-family: "icomoon";
+          margin-right: .5rem;
+          vertical-align: middle;
+        }
+      }
+      &.next {
+        margin: 0 0 0 auto;
+        padding: .75rem .75rem .75rem 1.25rem;
+        &:after {
+          content: "\e90c";
+          font-family: "icomoon";
+          margin-left: .5rem;
+          vertical-align: middle;
+        }
+      }
+    }
   }
 }
 

@@ -1,6 +1,10 @@
 ///////////////////////////// Make headers linkable /////////////////////////////
 
-$("h2,h3,h4,h5,h6").each(function() {
+$(".article--content h2, \
+   .article--content h3, \
+   .article--content h4, \
+   .article--content h5, \
+   .article--content h6" ).each(function() {
   var link = "<a href=\"#" + $(this).attr("id") + "\"></a>"
   $(this).wrapInner( link );
   })
@@ -10,7 +14,8 @@ $("h2,h3,h4,h5,h6").each(function() {
 var elementWhiteList = [
   ".tabs p a",
   ".code-tabs p a",
-  ".truncate-toggle"
+  ".truncate-toggle",
+  ".children-links a"
 ]
 
 $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
@@ -79,3 +84,10 @@ $(".truncate-toggle").click(function(e) {
 	e.preventDefault()
 	$(this).closest('.truncate').toggleClass('closed');
 })
+
+//////////////////// Replace Missing Images with Placeholder ///////////////////
+
+$(".article--content img").on("error", function() {
+  $(this).attr("src", "/img/coming-soon.svg");
+  $(this).attr("style", "max-width:500px;");
+});

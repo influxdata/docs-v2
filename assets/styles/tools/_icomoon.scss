@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?o2njz5');
-  src:  url('fonts/icomoon.eot?o2njz5#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?o2njz5') format('truetype'),
-    url('fonts/icomoon.woff?o2njz5') format('woff'),
-    url('fonts/icomoon.svg?o2njz5#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?rws1o3');
+  src:  url('fonts/icomoon.eot?rws1o3#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rws1o3') format('truetype'),
+    url('fonts/icomoon.woff?rws1o3') format('woff'),
+    url('fonts/icomoon.svg?rws1o3#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -78,11 +78,20 @@
 .icon-chevron-up:before {
   content: "\e91a";
 }
+.icon-download:before {
+  content: "\e91c";
+}
 .icon-heart1:before {
   content: "\e913";
 }
 .icon-menu:before {
   content: "\e91b";
+}
+.icon-minus:before {
+  content: "\e91d";
+}
+.icon-plus:before {
+  content: "\e91e";
 }
 .icon-settings:before {
   content: "\e914";
@@ -113,12 +122,6 @@
 }
 .icon-map2:before {
   content: "\e94c";
-}
-.icon-download:before {
-  content: "\e960";
-}
-.icon-upload:before {
-  content: "\e961";
 }
 .icon-cog:before {
   content: "\e994";

@@ -116,6 +116,12 @@ $article-tab-code-text-hover: $g20-white !default;
 $article-tab-code-bg-hover: $b-ocean !default;
 $article-tab-code-active-text: $g20-white !default;
 
+// Article page buttons
+$article-btn: $b-ocean !default;
+$article-btn-text: $g20-white !default;
+$article-btn-hover: $b-pool !default;
+$article-btn-text-hover: $g20-white !default;
+
 // Left Navigation
 $nav-category: $b-ocean !default;
 $nav-category-hover: $g20-white !default;
@@ -131,3 +137,10 @@ $error-page-btn: $b-ocean !default;
 $error-page-btn-text: $g20-white !default;
 $error-page-btn-hover: $g20-white !default;
 $error-page-btn-hover-text: $b-ocean !default;
+
+// Landing Page colors
+$landing-lg-gradient-left: $b-ocean !default;
+$landing-lg-gradient-right: $b-pool !default;
+$landing-sm-gradient-left: $p-planet !default;
+$landing-sm-gradient-right: $p-star !default;
+$landing-sm-gradient-overlay: $p-shadow !default;

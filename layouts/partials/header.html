@@ -1,3 +1,4 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +7,7 @@
     <meta name="description" content="{{ if .Description }}{{ .Description }}. {{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxData Documentation</title>
+    <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxData {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
 
     {{ partial "header/stylesheets.html"}}
 

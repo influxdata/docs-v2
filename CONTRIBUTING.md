@@ -240,3 +240,35 @@ to seeing the full content block.
 Truncated markdown content here.
 {{% /truncate %}}
 ```
+
+### Generate a list of children articles
+Section landing pages often contain just a list of articles with links and descriptions for each.
+This can be cumbersome to maintain as content is added.
+To automate the listing of articles in a section, use the `{{< children >}}` shortcode.
+
+```md
+{{< children >}}
+```
+
+### Reference content
+The InfluxDB documentation is "task-based," meaning content primarily focuses on
+what a user is **doing**, not what they are **using**.
+However, there is a need to document tools and other things that don't necessarily
+fit in the task-based style.
+This is referred to as "reference content."
+
+Reference content is styled just as the rest of the InfluxDB documentation.
+The only difference is the `menu` reference in the page's frontmatter.
+When defining the menu for reference content, use the following pattern:
+
+```yaml
+# Pattern
+menu:
+  v<major-version-number>_<minor-version-number>_ref:
+    # ...
+
+# Example
+menu:
+  v2_0_ref:
+    # ...
+```
