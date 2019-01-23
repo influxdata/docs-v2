@@ -1,13 +1,16 @@
 ---
 title: Manage organizations in InfluxDB
-description: placeholder
+description: >
+  How to manage organizations, workspaces for groups of users.
+  All dashboards, tasks, buckets, members, etc., belong to an organization.
 menu:
   v2_0:
     name: Manage organizations
     weight: 10
 ---
 
-Everything is scoped by/contained within organization--dashboards, tasks, buckets, users, !!collectors and scrapers!!.
+An **organization** is a workspace for a group of users.
+All dashboards, tasks, buckets, members, etc., belong to an organization.
 
 **To create an organization**:
 
