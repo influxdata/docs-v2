@@ -14,7 +14,9 @@ to view users.
 
 ## View users in the InfluxDB UI
 
-_Complete content coming soon_
+{{% note %}}
+While in alpha, there is no list of users in the InfluxDB UI.
+{{% /note %}}
 
 ## View users using the influx CLI
 
