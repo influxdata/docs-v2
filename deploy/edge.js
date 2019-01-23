@@ -10,7 +10,18 @@ exports.handler = (event, context, callback) => {
 
   // If path ends with '/', then append 'index.html', otherwise redirect to a
   // path with '/' or ignore if the path ends with a valid file extension.
-  if (uri.endsWith('/')) {
+  if (uri == '/') {
+    callback(null, {
+        status: '302',
+        statusDescription: 'Found',
+        headers: {
+          location: [{
+            key: 'Location',
+            value: uri + 'v2.0/',
+          }],
+        }
+      });
+  } else if (uri.endsWith('/')) {
     request.uri = uri + indexPath;
   } else if (uri.endsWith('/index.html')) {
     callback(null, {
