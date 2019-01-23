@@ -1,15 +1,15 @@
 ---
-title: Managing sources
-description: This is just an example post to show the format of new 2.0 posts
+title: Manage sources
+description: InfluxDB offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
 menu:
   v2_0:
-    name: Managing sources
+    name: Manage sources
+    parent: Visualize data
     weight: 1
-    parent: Placeholder parent
 ---
 
 
-Chronograf offers a complete dashboard solution for visualizing your data and monitoring your infrastructure:
+InfluxDB offers a complete dashboard solution for visualizing your data and monitoring your infrastructure:
 
 * View [pre-created dashboards](/chronograf/latest/guides/using-precreated-dashboards) from the Host List page. Dashboards are available depending on which Telegraf input plugins you have enabled. These pre-created dashboards cannot be cloned or edited.
 * Create custom dashboards from scratch by building queries in the Data Explorer, as described [below](#build-a-dashboard).

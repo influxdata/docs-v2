@@ -26,7 +26,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task from the Data Explorer
 1. Click on the **Data Explorer** icon in the left navigation menu.
 
-    {{< img-hd src="/img/data-explorer-icon.png" alt="Data Explorer Icon" />}}
+    {{< img-hd src="/img/data-explorer-icon.png" title="Data Explorer Icon" />}}
 
 2. Building a query and click **Save As** in the upper right.
 3. Select the **Task** option.
@@ -34,12 +34,12 @@ The InfluxDB UI provides multiple ways to create a task:
    for detailed information about each option.
 5. Click **Save as Task**.
 
-{{< img-hd src="/img/data-explorer-save-as-task.png" alt="Add a task from the Data Explorer"/>}}
+{{< img-hd src="/img/data-explorer-save-as-task.png" title="Add a task from the Data Explorer"/>}}
 
 ### Create a task in the Task UI
 1. Click on the **Tasks** icon in the left navigation menu.
 
-    {{< img-hd src="/img/tasks-icon.png" alt="Tasks Icon" />}}
+    {{< img-hd src="/img/tasks-icon.png" title="Tasks Icon" />}}
 
 2. Click **+ Create Task** in the upper right.
 3. In the left panel, specify the task options.
@@ -47,15 +47,13 @@ The InfluxDB UI provides multiple ways to create a task:
 4. In the right panel, enter your task script.
 5. Click **Save** in the upper right.
 
-{{< img-hd src="/img/tasks-create-edit.png" alt="Create a task" />}}
+{{< img-hd src="/img/tasks-create-edit.png" title="Create a task" />}}
 
 ### Import a task
 1. Click on the **Tasks** icon in the left navigation menu.
 2. Click **Import** in the upper right.
 3. Drag and drop or select a file to upload.
 4. Click **Upload Task**.
-
-{{< img-hd src="/img/tasks-import-task.png" alt="Import a task" />}}
 
 ## Create a task using the influx CLI
 Use `influx task create` command to create a new task.

@@ -4,11 +4,30 @@
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">
     <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
-    
+
     <div class="cards">
-      <div class="full">
-        <h1>{{ $.Page.Title }}</h1>
+      <div class="card full" id="get-started">
+        {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+        <h1>InfluxDB {{ $currentVersion }} Documentation</h1>
         <a class="btn" href="get-started">Get Started</a>
+      </div>
+      <div class="group">
+
+        <a class="card quarter" href="collect-data">
+          <h3>Collect Data</h3>
+        </a>
+
+        <a class="card quarter"href="query-data">
+          <h3>Query Data</h3>
+        </a>
+
+        <a class="card quarter" href="visualize-data">
+          <h3>Visualize Data</h3>
+        </a>
+
+        <a class="card quarter" href="process-data">
+          <h3>Process Data</h3>
+        </a>
 
       </div>
     </div>

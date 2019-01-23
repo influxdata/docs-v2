@@ -1,5 +1,6 @@
 {{ $versionSelector := resources.Get "js/version-selector.js" }}
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions | resources.Concat "js/footer.bundle.js" }}
+{{ $searchInteractions := resources.Get "js/search-interactions.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions | resources.Concat "js/footer.bundle.js" }}
 
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>
