@@ -18,7 +18,9 @@ to update an organization.
 
     {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
 
-_Complete content coming soon_
+2. Click on the organization you want to update in the list.
+3. To update the organization's name, select the **Options** tab.
+4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs. 
 
 ## Update an organization using the influx CLI
 

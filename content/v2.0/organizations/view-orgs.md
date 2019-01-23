@@ -14,11 +14,12 @@ to view organizations.
 
 ## View organizations in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+* Click the **Organizations** tab in the navigation bar.
 
     {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
 
-_Complete content coming soon_
+The list of organizations appears.
+
 
 ## View organizations using the influx CLI
 
