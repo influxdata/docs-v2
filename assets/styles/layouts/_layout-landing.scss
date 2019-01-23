@@ -1,0 +1,101 @@
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .group {
+    display: flex;
+    background: linear-gradient(127deg, $landing-sm-gradient-left, $landing-sm-gradient-right);
+    flex-wrap: wrap;
+  }
+
+  .card {
+    text-align: center;
+
+    &.full {
+      width: 100%;
+      padding: 5rem 2rem;
+    }
+
+    &.quarter {
+      flex-grow: 2;
+      margin: 1px;
+      padding: 2rem;
+      background: rgba($landing-sm-gradient-overlay, .5);
+      transition: background-color .4s;
+      &:hover {
+        background: rgba($landing-sm-gradient-overlay, 0);
+      }
+    }
+
+    h1,h2,h3,h4 {
+      font-family: $klavika;
+      font-weight: 300;
+      font-style: italic;
+      text-align: center;
+      color: $g20-white;
+    }
+
+    h1 {
+      margin: 0 0 1.25rem;
+      font-size: 2.25rem;
+    }
+
+    h3 { font-size: 1.35rem;}
+
+    &#get-started {
+      background: linear-gradient(127deg, $landing-lg-gradient-left, $landing-lg-gradient-right );
+      text-align: center;
+
+      .btn {
+        display: inline-block;
+        padding: .85rem 1.5rem;
+        color: $g20-white;
+        font-weight: bold;
+        background: rgba($g20-white, .1);
+        border: 2px solid rgba($g20-white, .5);
+        border-radius: $border-radius;
+        transition: background-color .2s, color .2s;
+
+        &:hover {
+          background: $g20-white;
+          color: $b-pool;
+        }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+@include media(large) {
+  .cards {
+    .card {
+      &.full { padding: 3.5rem;}
+      &.quarter { width: 48%; }
+    }
+  }
+}
+
+@include media(small) {
+  .cards {
+    .group { flex-direction: column; }
+    .card{
+      &.full { padding: 2.5rem;}
+      &.quarter {
+        width: 100%;
+        max-width: 100%;
+        padding: 1.25rem;
+      }
+      h1 { font-size: 2rem; }
+    }
+  }
+}
