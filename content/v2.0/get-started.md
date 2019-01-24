@@ -25,12 +25,24 @@ Download InfluxDB v2.0 alpha for macOS.
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.1_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
 
 ### Place the executables in your $PATH
-Unzip the download package and place the `influx` and `influxd` executables in your system `$PATH`.
+Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
+
+_**Note:** The following commands are examples. Adjust the file paths to your own needs._
 
 ```sh
-# Example
-cp ~/Downloads/influxdb_2.0.0-alpha.1_darwin_amd64/{influx,influxd} /usr/local/bin/
+# Unpackage contents to the current working directory
+gunzip -c ~/Downloads/influxdb_2.0.0-alpha.1_darwin_amd64.tar.gz | tar xopf -
+
+# Copy the influx and influxd binary to your $PATH
+sudo cp influxdb_2.0.0-alpha.1_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
+
+{{% note %}}
+Both InfluxDB 1.x and 2.x include `influx` and `influxd` binaries.
+If InfluxDB 1.x binaries are already in your `$PATH`, run the 2.0 binaries in place
+or rename them before putting them in your `$PATH`.
+If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
+{{% /note %}}
 
 ### Networking ports
 By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
@@ -71,12 +83,24 @@ Download InfluxDB v2.0 alpha package appropriate for your chipset.
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.1_linux_arm64.tar.gz" download >InfluxDB v2.0 alpha (arm)</a>
 
 ### Place the executables in your $PATH
-Unzip the download package and place the `influx` and `influxd` executables in your system `$PATH`.
+Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
+
+_**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
 
 ```sh
-# Example
-cp /path/to/{influx,influxd} /usr/local/bin/
+# Unpackage contents to the current working directory
+tar xvzf path/to/influxdb_2.0.0-alpha.1_linux_amd64.tar.gz
+
+# Copy the influx and influxd binary to your $PATH
+sudo cp influxdb_2.0.0-alpha.1_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
+
+{{% note %}}
+Both InfluxDB 1.x and 2.x include `influx` and `influxd` binaries.
+If InfluxDB 1.x binaries are already in your `$PATH`, run the 2.0 binaries in place
+or rename them before putting them in your `$PATH`.
+If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
+{{% /note %}}
 
 ### Networking ports
 By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
