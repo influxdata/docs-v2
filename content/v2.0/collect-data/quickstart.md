@@ -1,6 +1,6 @@
 ---
-title: Quick start to collecting system metrics from InfluxDB 2.0 OSS
-seotitle: Quick start to collecting data from InfluxDB 2.0 OSS
+title: Quick start to collecting system metrics from InfluxDB 2.0
+seotitle: Quick start to collecting data from InfluxDB 2.0
 description: >
   Use the InfluxDB 2.0 user interface to quickly configure Telegraf plugins and start monitoring system statistics.
 menu:
@@ -10,8 +10,7 @@ menu:
     weight: 1
 ---
 
-Follow the steps described here to quickly configure Telegraf plugins and to
-start collecting system metrics from your InfluxDB 2.0 OSS instance.
+Follow the steps described here to quickly configure Telegraf plugins and to start collecting system metrics from your InfluxDB 2.0 OSS instance.
 
 
 ## Configure a connection for available Telegraf plugins
@@ -66,3 +65,5 @@ You have now created a dashboard with one cell displaying a system measurement b
 data collected using the Telegraf plugins and connection that you configured. You can
 continue to explore the new time series data being collected in your bucket by creating
 new cells and trying out different visualizations and cell displays.
+
+For more information on creating InfluxDB 2.0 dashboards, see [Visualize data with InfluxDB](http://v2.dpcs.influxdata.com/v2.0/visualize-data/).
