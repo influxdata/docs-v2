@@ -9,4 +9,10 @@ menu:
     weight: 2
 ---
 
-_More information about collecting data with InfluxDB v2.0 is coming shortly._
+**Note: More guides appearing shortly!**
+
+The following guides will give you a taste of how you can use the InfluxDB user
+interface (UI) to collect data into InfluxDB 2.0 buckets and display the data
+in dashboards.
+
+{{< children >}}
