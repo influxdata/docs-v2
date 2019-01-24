@@ -33,6 +33,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 3. Use the **Functions** list to review the available Flux functions.
    Click on a function from the list to add it to your query.
 4. Click **Submit** to run your query. You can then preview your graph in the above pane.
+5. To work on multiple queries at once, click the **+** to add another tab.
 
 ## Visualize your query
 To visualize your query:
