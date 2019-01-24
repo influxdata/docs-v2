@@ -49,7 +49,7 @@ jobs:
           at: workspace
       - run:
           name: Deploy to S3
-          command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION
+          command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION -distribution-id=$CF_DISTRIBUTION_ID
 
 workflows:
   version: 2
