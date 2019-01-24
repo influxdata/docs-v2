@@ -17,9 +17,9 @@ influx task log [command]
 ```
 
 ## Subcommands
-| Subcommand | Description        |
-|:---------- |:-----------        |
-| find       | Find logs for task |
+| Subcommand                                       | Description        |
+|:----------                                       |:-----------        |
+| [find](/v2.0/reference/cli/influx/task/log/find) | Find logs for task |
 
 ## Flags
 | Flag           | Description    |
