@@ -1,41 +1,44 @@
 'use strict';
 
+const path = require('path');
+const originV1 = process.env.ORIGIN_V1;
+
 exports.handler = (event, context, callback) => {
   const { request } = event.Records[0].cf;
-  const { uri, headers, origin } = request;
-  const extension = uri.substr(uri.lastIndexOf('.') + 1);
-
-  const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.svg', '.otf', '.eot', '.ttf', '.woff'];
+  const { uri } = request;
+  const parsedPath = path.parse(uri);
+  
   const indexPath = 'index.html';
-  const defaultPath = '/v2.0/'
+  const validExtension = {
+    'html': true,
+    'css': true,
+    'js': true,
+    'xml': true,
+    'png': true,
+    'svg': true,
+  };
 
-  // If path ends with '/', then append 'index.html', otherwise redirect to a
-  // path with '/' or ignore if the path ends with a valid file extension.
-  if ((uri == '/') || (uri.length < defaultPath.length)) {
+  // Do not alter any requests with a valid file extension.
+  if (!validExtension[parsedPath.ext]) {
+    callback(null, request);
+  }
+
+  // Redirect root path to v2 docs.
+  if (uri == '/') {
     callback(null, {
         status: '302',
         statusDescription: 'Found',
         headers: {
           location: [{
             key: 'Location',
-            value: defaultPath,
+            value: '/v2.0/',
           }],
         }
       });
-  } else if (uri.endsWith('/')) {
-    request.uri = uri + indexPath;
-  } else if (uri.endsWith('/index.html')) {
-    callback(null, {
-        status: '302',
-        statusDescription: 'Found',
-        headers: {
-          location: [{
-            key: 'Location',
-            value: uri.substr(0, uri.length - indexPath.length),
-          }],
-        }
-      });
-  } else if (validExtensions.filter((ext) => uri.endsWith(ext)) == 0) {
+  }
+
+  // Redirect to slash path.
+  if (!uri.endsWith('/')) {
     callback(null, {
         status: '302',
         statusDescription: 'Found',
@@ -48,15 +51,7 @@ exports.handler = (event, context, callback) => {
       });
   }
 
-  const pathsV1 = ['/influxdb', '/telegraf', '/chronograf', '/kapacitor', '/enterprise_influxdb', '/enterprise_kapacitor'];
-  const originV1 = process.env.ORIGIN_V1;
-
-  // Send to v1 origin if start of path matches 
-  if (pathsV1.filter((path) => uri.startsWith(path)) > 0) {
-    headers['host'] = [{key: 'host', value: originV1}];
-    origin.s3.domainName = originV1;
-  }
-
-  // If nothing matches, return request unchanged
+  // Return page if it's a valid clean URI that ends with a slash.
+  request.uri = uri + indexPath;
   callback(null, request);
 };
