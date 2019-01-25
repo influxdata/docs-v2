@@ -239,7 +239,7 @@ Resources:
     Properties:
       Policies:
         - PolicyName: giveaccesstoupdatedocsbuckets
-          PolicyDocument: 
+          PolicyDocument:
             Version: 2012-10-17
             Statement:
               - Effect: Allow
@@ -261,7 +261,7 @@ Resources:
                 Action:
                   - cloudfront:GetDistribution
                   - cloudfront:CreateInvalidation
-                Resource: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DocsCloudFrontDistribution}"
+                Resource: "*"
 
   DocsCircleCIDeployAccessKey:
     Type: AWS::IAM::AccessKey
