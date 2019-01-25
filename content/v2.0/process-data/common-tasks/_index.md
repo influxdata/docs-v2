@@ -17,6 +17,6 @@ The following articles walk through common task use cases.
 
 {{% note %}}
 This list will continue to grow.
-If you have suggestions, please [create an issue](https://github.com/influxdata/docs-v2/issues/new)
+If you have suggestions, please [Submit it to the InfluxData Community](https://community.influxdata.com/c/influxdb2)
 on the InfluxData documentation repository on Github.
 {{% /note %}}
