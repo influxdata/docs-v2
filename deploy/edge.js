@@ -7,17 +7,18 @@ exports.handler = (event, context, callback) => {
 
   const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.svg', '.otf', '.eot', '.ttf', '.woff'];
   const indexPath = 'index.html';
+  const defaultPath = '/v2.0/'
 
   // If path ends with '/', then append 'index.html', otherwise redirect to a
   // path with '/' or ignore if the path ends with a valid file extension.
-  if (uri == '/') {
+  if ((uri == '/') || (uri.length < defaultPath.length)) {
     callback(null, {
         status: '302',
         statusDescription: 'Found',
         headers: {
           location: [{
             key: 'Location',
-            value: uri + 'v2.0/',
+            value: defaultPath,
           }],
         }
       });
