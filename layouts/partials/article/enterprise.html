@@ -1,13 +1,13 @@
 {{ $enterpriseLink := "#"}}
 {{ if ( $.Params.enterprise_all ) }}
-  <div id="enterprise-msg">
+  <div class="enterprise-msg">
     <p>
       The features and functionality discussed on this page are unique to the Enterprise edition of InfluxDB.
       <a href="{{ $enterpriseLink }}" target="_blank">Learn more about InfluxDB Enterprise</a>.
     </p>
   </div>
 {{ else if ( $.Params.enterprise_some ) }}
-  <div id="enterprise-msg">
+  <div class="enterprise-msg">
     <div>
       <span class="enterprise-flag"></span>
     </div>

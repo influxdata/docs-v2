@@ -225,11 +225,3 @@ You are ready to [collect data](/v2.0/collect-data).
 {{% /tab-content %}}
 <!------------------------------- END UI Setup -------------------------------->
 {{< /tabs-wrapper >}}
-
-{{% note %}}
-### Bug Reports and Feedback
-Thank you for being willing to help test InfluxDB v2.0 alpha!
-Feedback and bug reports are welcome and encouraged both for InfluxDB and this documentation.
-
-[Submit feedback in the InfluxData Community](https://community.influxdata.com/c/influxdb2)
-{{% /note %}}
