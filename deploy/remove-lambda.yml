@@ -1,0 +1,23 @@
+###############################################################################
+### AWS Cloudformation Template
+### InfluxData Documentation Website Hosting and Deployment
+###############################################################################
+AWSTemplateFormatVersion: 2010-09-09
+###############################################################################
+Resources:
+###############################################################################
+  DocsOriginRequestRewriteLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: test1-DocsOriginRequestRewriteLambdaRole-10RT8O6PQO2ZE
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service:
+                - edgelambda.amazonaws.com
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
