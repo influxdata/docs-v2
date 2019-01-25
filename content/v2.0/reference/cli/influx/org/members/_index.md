@@ -17,11 +17,11 @@ influx org members [command]
 ```
 
 ## Subcommands
-| Subcommand | Description                |
-|:---------- |:-----------                |
-| add        | Add organization member    |
-| list       | List organization members  |
-| remove     | Remove organization member |
+| Subcommand                                              | Description                |
+|:----------                                              |:-----------                |
+| [add](/v2.0/reference/cli/influx/org/members/add)       | Add organization member    |
+| [list](/v2.0/reference/cli/influx/org/members/list)     | List organization members  |
+| [remove](/v2.0/reference/cli/influx/org/members/remove) | Remove organization member |
 
 ## Flags
 | Flag           | Description        |

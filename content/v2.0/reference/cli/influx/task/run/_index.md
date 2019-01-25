@@ -19,9 +19,9 @@ influx task run [command]
 ```
 
 ## Subcommands
-| Subcommand | Description          |
-|:---------- |:-----------          |
-| find       | Find runs for a task |
+| Subcommand                                       | Description          |
+|:----------                                       |:-----------          |
+| [find](/v2.0/reference/cli/influx/task/run/find) | Find runs for a task |
 
 ## Flags
 | Flag           | Description    |
