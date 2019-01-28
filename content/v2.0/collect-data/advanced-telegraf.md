@@ -1,27 +1,23 @@
 ---
-title: Configure Telegraf to collect data into InfluxDB 2.0 OSS
-seotitle: Configure Telegraf to collect data into InfluxDB 2.0 OSS
+title: Create a Telegraf configuration to collect system metrics
+seotitle: Create a Telegraf configuration to collect system metrics
 description: >
-  Configure a Telegraf plugin to start collecting data from InfluxDB 2.0 OSS
+  Create a Telegraf configuration to collect system metrics
 menu:
   v2_0:
-    name: Configure Telegraf to collect data
+    name : Create a Telegraf configuration to collect system metrics
     parent: Collect data
     weight: 2
 ---
 
-
-
 >**Note:**
 
-* Telegraf 1.9.x is required to use the https:// option with Telegraf.
-* Currently, not all plugins are supported.
-* If you are already have a Telegraf agent running, you can use v. 1.8 or later and add the InfluxDB v2 output plugin to "dual land" data into your existing InfluxDB 1.x and InfluxDB 2.0 instances.
+* Telegraf 1.9.2 or later must be used
+* Telegraf 1.9.x is required to use the `https://` option.
+* All plugins are not currently supported. Check back for additional plugin support!
+* If you have a Telegraf agent (v. 1.8 or later) running, you can enable the InfluxDB v2 output plugin to "dual land" data using both your existing InfluxDB 1.x and InfluxDB 2.0 instances.
 
-Follow the steps described here to quickly configure Telegraf plugins and to start collecting system metrics from your InfluxDB 2.0 OSS instance.
-
-
-## Configure a connection for available Telegraf plugins
+## Configure a Telegraf connection to use the System Telegraf plugins
 
 Follow the steps below to configure your Telegraf plugins and connection for
 collecting system statistics.
@@ -30,13 +26,12 @@ collecting system statistics.
    The login screen for the UI (user interface) appears.
 2. Log in using your username and password. The **Getting started with InfluxDB 2.0** screen appears.
 3. Click **Configure a Data Collector**. A new dialog appears with the **Telegraf** selected.
-4. Click **Create Configuration**. The **Data Loading** page appears.
+4. Click **Create Configuration**. The **Data Loading** page appears with the heading **Select Telegraf Plugins to add to your bucket**.
 5. Select your predefined **Bucket**, click the **System** option, and then
    click **Continue**. A page with **Plugins to Configure** appears.
 6. Review the list of **Plugins to Configure**. Click **Continue** repeatedly to cycle through
-   information on each of the plugins and then continue to the next step. Alternatively, click
-   **Skip to Verify** to proceed to the next step.
-7. On the **Listen for Telegraf Data** page, follow the steps to install Telegraf,
+   information on each of the System plugins and then continue to the next step. Alternatively, click **Skip to Verify** to immediately proceed to the next step.
+7. On the **Listen for Telegraf Data** page, follow the three listed steps to install Telegraf,
    configure your API Token, and start Telegraf on your local instance.
 8. Verify that you correctly completed these steps by clicking **Listen for Data** (if you don't
    see this, scroll down the internal frame). A "Connection Found!" message appears.
