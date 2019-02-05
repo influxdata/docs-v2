@@ -1,11 +1,11 @@
 ---
-title: Use a scraper to collect InfluxDB 2.0 metrics
-seotitle: Use a scraper to collect InfluxDB 2.0 metrics
+title: Scrape data using the /metrics endpoint
+seotitle: Scrape data using the /metrics endpoint
 description: >
-  Use a scraper defined in the InfluxDB 2.0 UI to collect system statistics into a bucket.
+  Scrape data into an InfluxDB bucket.
 menu:
   v2_0:
-    name: Use a scraper to collect InfluxDB 2.0 metrics
+    name: Scrape data using the /metrics endpoint
     parent: Collect data
     weight: 1
 ---

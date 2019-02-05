@@ -1,11 +1,11 @@
 ---
-title: Create a Telegraf configuration to collect system metrics
+title: Collect metrics using Telegraf
 seotitle: Create a Telegraf configuration to collect system metrics
 description: >
   Create a Telegraf configuration to collect system metrics
 menu:
   v2_0:
-    name : Create a Telegraf configuration to collect system metrics
+    name : Collect metrics using Telegraf
     parent: Collect data
     weight: 2
 ---
