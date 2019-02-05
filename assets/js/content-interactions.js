@@ -15,7 +15,8 @@ var elementWhiteList = [
   ".tabs p a",
   ".code-tabs p a",
   ".truncate-toggle",
-  ".children-links a"
+  ".children-links a",
+  ".list-links a"
 ]
 
 $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
