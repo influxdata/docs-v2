@@ -2,7 +2,7 @@
 title: Scrape data using the /metrics endpoint
 seotitle: Scrape data using the /metrics endpoint
 description: >
-  Configure a scraper to collect data into an InfluxDB bucket.
+  Use the InfluxDB UI to configure a scraper with a /metrics endpoint for collecting metrics from InfluxDB instances or third-party systems.
 menu:
   v2_0:
     name: Scrape data using the /metrics endpoint
@@ -17,7 +17,7 @@ To quickly create a scraper in InfluxDB 2.0, you can use the InfluxDB 2.0 user i
 
 ## Use the InfluxDB UI to configure a scraper for data collection
 
-Follow the steps below to configure an InfluxDB scraper for collecting metrics into a bucket.
+Follow the steps below to configure an InfluxDB scraper that uses an `/metrics` HTTP endpoint for collecting metrics and loading the scraped data into a bucket.
 
 1. Open a web browser to your InfluxDB 2.0 instance
    ([localhost:9999](http://localhost:9999)). The login screen for the UI (user interface) appears.
