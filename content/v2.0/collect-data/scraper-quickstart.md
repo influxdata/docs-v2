@@ -6,7 +6,7 @@ description: >
   Use Quick Start to create a scraper to collect InfluxDB metrics into a bucket.
 menu:
   v2_0:
-    name: Quick start to data collection
+    name: Quick start
     parent: Collect data
 ---
 
@@ -14,23 +14,22 @@ menu:
 >
 >If you missed the change to select Quick Start or you want to learn how to configure a scraper yourself, see [Scrape data using the /metrics endpoint](influxdb/v2.0/collect-data/scraper-endpoint/).
 
-## Use **Quick Start** to collect InfluxDB metrics
+## Use Quick Start to collect InfluxDB metrics
 
 When you start InfluxDB 2.0 for the first time, you are guided to configure a user, an organization, and a bucket (see [Set up InfluxDB](/v2.0/get-started/#setup-influxdb)). After completing the setup, the next page displays "Let's start collecting data!" and three options.
 
 On this page, click **Quick Start**.
-The following message appears in a popup alert:
+The following message briefly appears in a pop-up alert:
 
-`The InfluxDB Scraper has been configured for http://localhost:9999/metrics.`
+"The InfluxDB Scraper has been configured for http://localhost:9999/metrics."
 
 Behind the scenes, here's what happened:
 
 1. InfluxDB 2.0 configured a scraper named "InfluxDB Scraper."
 
   * The target URL points to the `/metrics` HTTP endpoint of your
-  local InfluxDB instance: http://localhost:9999/metrics. The `/metrics` HTTP endpoint monitors your InfluxDB instance, collects metrics from it, and provides the data in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
-  * The bucket configured to collect the scraped data is the initial
-  bucket that you named previously in [Set up InfluxDB](/v2.0/get-started/#setup-influxdb).
+  local InfluxDB instance: `http://localhost:9999/metrics`. The `/metrics` HTTP endpoint monitors your InfluxDB instance, collects metrics from it, and provides the data in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
+  * InfluxDB stores the scraped data in the default bucket created in [the initial setup procedure](/v2.0/get-started/#setup-influxdb).
 
 2. The InfluxDB Scraper immediately started collecting InfluxDB data and
    writing it into your bucket.
@@ -39,12 +38,14 @@ To see a sample of the data being collected in Prometheus format, you can use on
 
 * In a web browser, open the InfluxDB Scraper URL (http://localhost:9999/metrics).
 
-* In a terminal window, run the following cURL command: `curl  http://localhost:9999/metrics`.
-
+* In a terminal window, run the following cURL command:
+```
+curl  http://localhost:9999/metrics`.
+```
 
 ## Next steps
 
-Now that you have a bucket of data ready for exploration, you can:
+Now that you have data ready for exploration, you can:
 
 * **Query data.** To get started querying the data stored in InfluxDB buckets using the InfluxDB user interface (UI) and the `influx` command line interface (CLI), see [Query data in InfluxDB](/v2.0/query-data).
 

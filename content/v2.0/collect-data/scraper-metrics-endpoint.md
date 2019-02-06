@@ -1,24 +1,23 @@
 ---
-title: Scrape data using the /metrics endpoint
+title: Create a scraper
 weight: 102
-seotitle: Scrape data using the /metrics endpoint
+seotitle: Create a scraper
 description: >
-  Use the InfluxDB UI to configure a scraper with a /metrics endpoint for collecting metrics from InfluxDB instances or third-party systems.
+  Use the InfluxDB UI to configure a scraper for collecting metrics from InfluxDB instances or third-party systems.
 menu:
   v2_0:
-    name: Scrape data using the /metrics endpoint
+    name: Create a scraper
     parent: Collect data
 ---
 
-An InfluxDB scraper collects data from specified targets at regular intervals and then writes the scraped data to a bucket. Scrapers can capture hardware and OS metrics from third-party systems or even from InfluxDB instances. In InfluxDB 2.0, the metrics are scraped from
-`/metrics` HTTP endpoints, in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/), which is supported by InfluxDB.
+An InfluxDB scraper collects data from specified targets at regular intervals and then writes the scraped data to a bucket. Scrapers can collect data from available data sources as long as the data is in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/), which is supported by InfluxDB.
 
-To quickly create a scraper in InfluxDB 2.0, you can use the InfluxDB 2.0 user interface (UI) to specify the target URL and the bucket to store the data. The scraped data is collected in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/) and then transformed to match the InfluxDB data structure in the buckets.
+To quickly create a scraper in InfluxDB 2.0, you can use the InfluxDB 2.0 user interface (UI) to specify the target URL and the bucket to store the data. The scraped data is collected in the Prometheus data format and then transformed to match the InfluxDB data structure in the buckets.
 
-## Use the InfluxDB UI to configure a scraper for data collection
+## Use the InfluxDB UI to create a scraper
 
-Follow the steps below to configure an InfluxDB scraper that uses an
-`/metrics` HTTP endpoint for collecting metrics and loading the scraped data into a bucket.
+Follow the steps below to configure an InfluxDB scraper. The steps below use the InfluxDB
+`/metrics` HTTP endpoint as an example. This endpoint provides InfluxDB-specific metrics in the Prometheus data format.
 
 1. Open a web browser to access the InfluxDB 2.0 user interface
    ([localhost:9999](http://localhost:9999)). The **Getting started with InfluxDB 2.0** screen appears.
@@ -33,7 +32,7 @@ The new scraper is now collecting data into the InfluxDB bucket you specified.
 
 ## Next steps
 
-Now that you have a bucket of data ready for exploration, you can:
+Now that you have data ready to be explored, you can:
 
 * **Query data.** To get started querying the data stored in InfluxDB buckets using the InfluxDB user interface (UI) and the `influx` command line interface (CLI), see [Query data in InfluxDB](/v2.0/query-data).
 
