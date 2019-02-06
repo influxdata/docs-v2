@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Add a member
     parent: Manage members
-weight: 1
+weight: 201
 draft: true
 ---
 

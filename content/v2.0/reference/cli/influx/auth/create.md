@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth create
     parent: influx auth
-weight: 1
+weight: 201
 ---
 
 The `influx auth create` creates an authorization in InfluxDB.

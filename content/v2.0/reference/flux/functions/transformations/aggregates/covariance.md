@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: covariance
     parent: Aggregates
-weight: 1
+weight: 401
 ---
 
 The `covariance()` function computes the covariance between two columns.

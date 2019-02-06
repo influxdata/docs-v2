@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: assertEquals
     parent: Tests
-weight: 1
+weight: 301
 ---
 
 The `assertEquals()` function tests whether two streams have identical data.

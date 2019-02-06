@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: columns
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `columns()` function lists the column labels of input tables.

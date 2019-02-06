@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: cov
     parent: Aggregates
-weight: 1
+weight: 401
 ---
 
 The `cov()` function computes the covariance between two streams by first joining the streams,

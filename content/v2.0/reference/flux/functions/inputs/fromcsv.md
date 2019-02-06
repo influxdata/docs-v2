@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: fromCSV
     parent: Inputs
-weight: 1
+weight: 301
 ---
 
 The `fromCSV()` function retrieves data from a comma-separated value (CSV) data source.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task find
     parent: influx task
-weight: 1
+weight: 201
 ---
 
 The `influx task find` command lists and searches for tasks in InfluxDB.

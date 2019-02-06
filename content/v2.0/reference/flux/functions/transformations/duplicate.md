@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: duplicate
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `duplicate()` function duplicates a specified column in a table.

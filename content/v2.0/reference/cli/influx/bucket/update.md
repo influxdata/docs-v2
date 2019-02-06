@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx bucket update
     parent: influx bucket
-weight: 1
+weight: 201
 ---
 
 The `influx bucket update` command updates information associated with buckets in InfluxDB.

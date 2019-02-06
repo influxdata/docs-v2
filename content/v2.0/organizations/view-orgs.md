@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: View organizations
     parent: Manage organizations
-weight: 2
+weight: 102
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

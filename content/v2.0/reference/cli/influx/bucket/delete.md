@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx bucket delete
     parent: influx bucket
-weight: 1
+weight: 201
 ---
 
 The `influx bucket delete` command deletes a bucket from InfluxDB and all the data it contains.

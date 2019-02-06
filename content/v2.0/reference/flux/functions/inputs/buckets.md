@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: buckets
     parent: Inputs
-weight: 1
+weight: 301
 ---
 
 The `buckets()` function returns a list of buckets in the organization.

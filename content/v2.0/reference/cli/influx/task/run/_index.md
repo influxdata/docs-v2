@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: influx task run
     parent: influx task
-weight: 1
+weight: 201
 ---
 
 The `influx task run` command and its subcommand `find` output information related to runs of a task.

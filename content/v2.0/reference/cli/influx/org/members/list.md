@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx org members list
     parent: influx org members
-weight: 1
+weight: 301
 ---
 
 The `influx org members list` command lists members within an organization in InfluxDB.

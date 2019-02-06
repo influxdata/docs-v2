@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: from
     parent: Inputs
-weight: 1
+weight: 301
 ---
 
 The `from()` function retrieves data from an InfluxDB data source.

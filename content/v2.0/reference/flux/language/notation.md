@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Notation
-weight: 60
+weight: 206
 ---
 
 The syntax of the language is specified using [Extended Backus-Naur Form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form):

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux functions
     name: Inputs
-weight: 1
+weight: 201
 ---
 
 Flux input functions define sources of data or display information about data sources.

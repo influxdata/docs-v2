@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: Time constants
     parent: Built-ins
-weight: 80
+weight: 301
 ---
 
 {{% note %}}

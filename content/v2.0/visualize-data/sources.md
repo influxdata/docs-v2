@@ -5,7 +5,7 @@ menu:
   v2_0:
     name: Manage sources
     parent: Visualize data
-weight: 1
+weight: 101
 ---
 
 Like dashboards and buckets, data sources are scoped by organization. When you first access the user interface, you'll be prompted to add a data source. You can also do so anytime using the steps below.

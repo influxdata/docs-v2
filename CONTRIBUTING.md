@@ -78,6 +78,15 @@ Search engines use this in search results (not the page's h1) and therefore it s
 The `name` attribute under the `menu` frontmatter determines the text used in each page's link in the site navigation.
 It should be short and assume the context of its parent if it has one.
 
+#### Page Weights
+To ensure pages are sorted both by weight and their depth in the directory
+structure, pages should be weighted in "levels."
+All top level pages are weighted 1-99.
+The next level is 101-199.
+Then 201-299 and so on.
+
+_**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
+
 ### Article headings
 Use only h2-h6 headings in markdown content.
 h1 headings act as the page title and are populated automatically from the `title` frontmatter.

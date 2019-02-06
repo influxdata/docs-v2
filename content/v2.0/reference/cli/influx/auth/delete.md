@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth delete
     parent: influx auth
-weight: 1
+weight: 201
 ---
 
 The `influx auth delete` command deletes an authorization in InfluxDB.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: limit
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `limit()` function limits the number of records in output tables to a fixed number ([`n`](#n)).

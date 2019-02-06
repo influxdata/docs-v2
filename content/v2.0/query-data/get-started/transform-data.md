@@ -5,7 +5,7 @@ menu:
   v2_0:
     name: Transform data
     parent: Get started with Flux
-weight: 2
+weight: 202
 ---
 
 When [querying data from InfluxDB](/v2.0/query-data/get-started/query-influxdb),

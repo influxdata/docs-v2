@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Transformations
     name: Aggregates
-weight: 1
+weight: 301
 ---
 
 Flux aggregate functions take values from an input table and aggregate them in some way.

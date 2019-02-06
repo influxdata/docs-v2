@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Downsample data
     parent: Common tasks
-weight: 4
+weight: 201
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce

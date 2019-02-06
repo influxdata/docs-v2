@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: window
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `window()` function groups records based on a time value.

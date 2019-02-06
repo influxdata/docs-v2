@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Delete a bucket
     parent: Manage buckets
-weight: 3
+weight: 203
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

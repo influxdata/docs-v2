@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: drop
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `drop()` function removes specified columns from a table.

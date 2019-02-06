@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: first
     parent: Selectors
-weight: 1
+weight: 401
 ---
 
 The `first()` function selects the first non-null record from an input table.

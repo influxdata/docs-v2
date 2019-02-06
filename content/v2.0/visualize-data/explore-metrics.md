@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Explore metrics
     parent: Visualize data
-weight: 1
+weight: 101
 ---
 
 Explore and visualize your data in the **Data Explorer**.

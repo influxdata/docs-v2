@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Update a user
     parent: Manage users
-weight: 3
+weight: 103
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

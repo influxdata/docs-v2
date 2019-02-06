@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: unique
     parent: Selectors
-weight: 1
+weight: 401
 ---
 
 The `unique()` function returns all records containing unique values in a specified column.

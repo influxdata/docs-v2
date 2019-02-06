@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: last
     parent: Selectors
-weight: 1
+weight: 401
 ---
 
 The `last()` function selects the last non-null record from an input table.

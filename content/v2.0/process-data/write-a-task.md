@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Write a task
     parent: Process data
-weight: 1
+weight: 101
 ---
 
 InfluxDB tasks are scheduled Flux scripts that take a stream of input data, modify or analyze

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: filter
     parent: Transformations
-weight: 1
+weight: 301
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).

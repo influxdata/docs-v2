@@ -7,7 +7,7 @@ menu:
   v2_0:
     name: Manage labels
     parent: Visualize data
-weight: 1
+weight: 101
 ---
 
 Labels are a way to add visual metadata to dashboards, tasks, and other items in the InfluxDB UI.

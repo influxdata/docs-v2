@@ -7,7 +7,7 @@ menu:
   v2_0:
     name: Visualization types
     parent: Visualize data
-weight: 1
+weight: 101
 ---
 
 The InfluxDB's user interface's (UI) dashboard views support the following visualization types,

@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: influxd
     parent: Command line tools
-weight: 2
+weight: 102
 ---
 
 The `influxd` daemon starts and runs all the processes necessary for InfluxDB to function.

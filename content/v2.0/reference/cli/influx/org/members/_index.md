@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx org members
     parent: influx org
-weight: 1
+weight: 201
 ---
 
 The `influx org members` command and its subcommands manage organization members in InfluxDB.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx user create
     parent: influx user
-weight: 1
+weight: 201
 ---
 
 The `influx user create` command creates a new user in InfluxDB.
