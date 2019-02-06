@@ -1,5 +1,6 @@
 ---
 title: Scrape data using the /metrics endpoint
+weight: 102
 seotitle: Scrape data using the /metrics endpoint
 description: >
   Use the InfluxDB UI to configure a scraper with a /metrics endpoint for collecting metrics from InfluxDB instances or third-party systems.
@@ -7,7 +8,6 @@ menu:
   v2_0:
     name: Scrape data using the /metrics endpoint
     parent: Collect data
-    weight: 1
 ---
 
 An InfluxDB scraper collects data from specified targets at regular intervals and then writes the scraped data to a bucket. Scrapers can capture hardware and OS metrics from third-party systems or even from InfluxDB instances. In InfluxDB 2.0, the metrics are scraped from

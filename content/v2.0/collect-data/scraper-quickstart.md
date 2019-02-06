@@ -1,5 +1,6 @@
 ---
 title: Quick start to data collection
+weight: 101
 seotitle: Quick start to data collection
 description: >
   Use Quick Start to create a scraper to collect InfluxDB metrics into a bucket.
@@ -7,7 +8,6 @@ menu:
   v2_0:
     name: Quick start to data collection
     parent: Collect data
-    weight: 1
 ---
 
 >**Note:** The steps below are available on a page that appears after you complete the initial configuration described in [Set up InfluxDB](/v2.0/get-started/#setup-influxdb). After clicking one of the three options, the page is no longer available.

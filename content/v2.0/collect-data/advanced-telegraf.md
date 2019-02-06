@@ -1,5 +1,6 @@
 ---
 title: Create a Telegraf configuration
+weight: 103
 seotitle: Create a Telegraf configuration
 description: >
   Use the InfluxDB UI to create Telegraf configurations for collecting metrics data.
@@ -7,7 +8,7 @@ menu:
   v2_0:
     name : Create a Telegraf configuration
     parent: Collect data
-    weight: 2
+
 ---
 
 {{% note %}}
