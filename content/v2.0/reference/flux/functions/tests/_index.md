@@ -5,10 +5,10 @@ menu:
   v2_0_ref:
     name: Tests
     parent: Flux functions
-    weight: 5
+weight: 205
 ---
 
 Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.
 The following testing functions are available:
 
-{{< function-list category="Tests" menu="v2_0_ref" >}}
+{{< children type="functions" >}}

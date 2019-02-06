@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Variables
-    weight: 120
+weight: 214
 ---
 
 A **variable** represents a storage location for a single value.

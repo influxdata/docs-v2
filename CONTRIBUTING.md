@@ -58,7 +58,7 @@ menu:
   v2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
-    weight: # Determines sort order.
+weight: # Determines sort order in both the nav tree and in article lists.
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
@@ -77,6 +77,15 @@ Search engines use this in search results (not the page's h1) and therefore it s
 ##### `menu > name`
 The `name` attribute under the `menu` frontmatter determines the text used in each page's link in the site navigation.
 It should be short and assume the context of its parent if it has one.
+
+#### Page Weights
+To ensure pages are sorted both by weight and their depth in the directory
+structure, pages should be weighted in "levels."
+All top level pages are weighted 1-99.
+The next level is 101-199.
+Then 201-299 and so on.
+
+_**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
 
 ### Article headings
 Use only h2-h6 headings in markdown content.
@@ -248,6 +257,23 @@ To automate the listing of articles in a section, use the `{{< children >}}` sho
 
 ```md
 {{< children >}}
+```
+
+The children shortcode can also be used to list only "section" articles (those with their own children),
+or only "page" articles (those with no children) using the `show` argument:
+
+```md
+{{< children show="sections" >}}
+<!-- OR -->
+{{< children show="pages" >}}
+```
+
+_By default, it displays both sections and pages._
+
+There is also a special use-case designed for listing Flux functions using the `type` argument:
+
+```md
+{{< children type="functions" >}}
 ```
 
 ### Reference content

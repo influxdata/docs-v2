@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: influxFieldsAsCols
     parent: Transformations
-    weight: 1
+weight: 301
 ---
 
 The `influxFieldsAsCols()` function is a special application of the `pivot()` function that

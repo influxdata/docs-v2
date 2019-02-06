@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: derivative
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `derivative()` function computes the rate of change per [`unit`](#unit) of time between subsequent non-null records.

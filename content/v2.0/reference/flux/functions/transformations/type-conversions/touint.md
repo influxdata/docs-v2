@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toUInt
     parent: Type conversions
-    weight: 1
+weight: 401
 ---
 
 The `toUInt()` function converts a value to an UInteger.

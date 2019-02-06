@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: stddev
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `stddev()` function computes the standard deviation of non-null records in specified columns.

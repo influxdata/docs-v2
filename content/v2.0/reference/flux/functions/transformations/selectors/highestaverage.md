@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: highestAverage
     parent: Selectors
-    weight: 1
+weight: 401
 ---
 
 The `highestAverage()` function returns the top `n` records from all groups using the average of each group.

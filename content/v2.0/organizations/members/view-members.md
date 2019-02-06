@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: View members
     parent: Manage members
-    weight: 2
+weight: 202
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Transformations
     name: Selectors
-    weight: 1
+weight: 301
 ---
 
 Flux selector functions return one or more records based on function logic.
@@ -13,7 +13,7 @@ The output table is different than the input table, but individual row values ar
 
 The following selector functions are available:
 
-{{< function-list category="Selectors" menu="v2_0_ref" >}}
+{{< children type="functions" >}}
 
 
 ### Selectors and aggregates

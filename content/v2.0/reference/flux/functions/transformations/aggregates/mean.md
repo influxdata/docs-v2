@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: mean
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.

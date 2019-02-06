@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: shift
     parent: Transformations
-    weight: 1
+weight: 301
 ---
 
 The `shift()` function adds a fixed duration to time columns.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Types
-    weight: 110
+weight: 213
 ---
 
 {{% note %}}
