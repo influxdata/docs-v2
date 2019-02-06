@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: count
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `count()` function outputs the number of records in each aggregated column.

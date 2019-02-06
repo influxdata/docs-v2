@@ -4,7 +4,7 @@ description: This is just an example post to show the format of new 2.0 posts
 menu:
   v2_0:
     name: Example post
-    weight: 1
+weight: 1
 #enterprise_all: true
 enterprise_some: true
 draft: true

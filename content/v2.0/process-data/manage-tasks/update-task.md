@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Update a task
     parent: Manage tasks
-    weight: 3
+weight: 203
 ---
 
 ## Update a task in the InfluxDB UI

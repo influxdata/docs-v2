@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: yield
     parent: Outputs
-    weight: 1
+weight: 301
 ---
 
 The `yield()` function indicates the input tables received should be delivered as a result of the query.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: sum
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `sum()` function computes the sum of non-null records in specified columns.

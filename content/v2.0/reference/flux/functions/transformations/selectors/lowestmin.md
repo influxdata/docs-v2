@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: lowestMin
     parent: Selectors
-    weight: 1
+weight: 401
 ---
 
 The `lowestMin()` function returns the bottom `n` records from all groups using the minimum of each group.

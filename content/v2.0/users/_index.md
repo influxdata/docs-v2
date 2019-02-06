@@ -5,7 +5,7 @@ description: Manage users in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   v2_0:
     name: Manage users
-    weight: 12
+weight: 12
 ---
 
 Users are those with access to InfluxDB.

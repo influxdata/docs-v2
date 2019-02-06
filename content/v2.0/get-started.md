@@ -4,7 +4,7 @@ description: Download, install, and setup InfluxDB, creating a default organizat
 menu:
   v2_0:
     name: Get started
-    weight: 1
+weight: 1
 ---
 
 Get started with InfluxDB v2.0 by downloading InfluxDB, installing the necessary

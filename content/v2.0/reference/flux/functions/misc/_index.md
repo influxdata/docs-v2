@@ -5,11 +5,11 @@ menu:
   v2_0_ref:
     parent: Flux functions
     name: Miscellaneous
-    weight: 5
+weight: 205
 ---
 
 Flux functions primarily retrieve, shape and transform, then output data, however
 there are functions available that serve other purposes.
 The following functions are are available but don't fit within other function categories:
 
-{{< function-list category="Miscellaneous" menu="v2_0_ref" >}}
+{{< children type="functions" >}}

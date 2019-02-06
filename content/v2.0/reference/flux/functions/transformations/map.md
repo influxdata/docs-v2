@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: map
     parent: Transformations
-    weight: 1
+weight: 301
 ---
 
 The `map()` function applies a function to each record in the input tables.

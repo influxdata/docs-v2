@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Group data
     parent: How-to guides
-    weight: 3
+weight: 203
 ---
 
 With Flux, you can group data by any column in your queried data set.

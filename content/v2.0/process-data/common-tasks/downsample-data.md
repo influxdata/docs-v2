@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Downsample data
     parent: Common tasks
-    weight: 4
+weight: 201
 v2.0/tags: [tasks]
 ---
 

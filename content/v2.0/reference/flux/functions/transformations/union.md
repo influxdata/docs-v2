@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: union
     parent: Transformations
-    weight: 1
+weight: 301
 ---
 
 The `union()` function concatenates two or more input streams into a single output stream.

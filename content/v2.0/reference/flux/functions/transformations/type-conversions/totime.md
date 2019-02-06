@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toTime
     parent: Type conversions
-    weight: 1
+weight: 401
 ---
 
 The `toTime()` function converts a value to a time.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task update
     parent: influx task
-    weight: 1
+weight: 201
 ---
 
 The `influx task update` command updates information related to tasks in InfluxDB.

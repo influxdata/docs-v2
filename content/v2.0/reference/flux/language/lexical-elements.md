@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Lexical elements
-    weight: 50
+weight: 205
 ---
 
 {{% note %}}

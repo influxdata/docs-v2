@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Expressions
-    weight: 40
+weight: 204
 ---
 
 An _expression_ specifies the computation of a value by applying the operators and functions to operands.

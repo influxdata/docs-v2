@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toDuration
     parent: Type conversions
-    weight: 1
+weight: 401
 ---
 
 The `toDuration()` function converts a value to a duration.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: histogramQuantile
     parent: Aggregates
-    weight: 1
+weight: 401
 ---
 
 The `histogramQuantile()` function approximates a quantile given a histogram that

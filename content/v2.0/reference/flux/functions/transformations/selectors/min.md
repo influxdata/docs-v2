@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: min
     parent: Selectors
-    weight: 1
+weight: 401
 ---
 
 The `min()` function selects record with the lowest `_value` from the input table.

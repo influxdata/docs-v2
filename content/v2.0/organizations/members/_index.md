@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Manage members
     parent: Manage organizations
-    weight: 6
+weight: 106
 ---
 
 A **member** is a user that belongs to an organization.

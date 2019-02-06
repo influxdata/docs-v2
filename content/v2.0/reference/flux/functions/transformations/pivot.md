@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: pivot
     parent: Transformations
-    weight: 1
+weight: 301
 ---
 
 The `pivot()` function collects values stored vertically (column-wise) in a table

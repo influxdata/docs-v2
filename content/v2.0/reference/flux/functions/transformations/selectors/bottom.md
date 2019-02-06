@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: bottom
     parent: Selectors
-    weight: 1
+weight: 401
 ---
 
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
