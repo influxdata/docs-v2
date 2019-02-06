@@ -2,7 +2,7 @@
 title: Create a Telegraf configuration
 seotitle: Create a Telegraf configuration
 description: >
-  Use the InfluxDB UI to create Telegraf configurations for collecting metrics data
+  Use the InfluxDB UI to create Telegraf configurations for collecting metrics data.
 menu:
   v2_0:
     name : Create a Telegraf configuration
@@ -10,12 +10,12 @@ menu:
     weight: 2
 ---
 
->**Note:**
-
+{{% note %}}
 * Telegraf 1.9.2 or later must be used
 * Telegraf 1.9.x is required to use the `https://` option.
 * All Telegraf plugins are supported, but only a subset are configurable using the InfluxDB UI.
 * If you have a Telegraf agent (v. 1.8 or later) running, you can enable the InfluxDB v2 output plugin to "dual land" data using both your existing InfluxDB 1.x and InfluxDB 2.0 instances.
+{{% /note %}}
 
 ## Create a Telegraf configuration
 
