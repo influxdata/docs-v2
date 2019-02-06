@@ -250,6 +250,23 @@ To automate the listing of articles in a section, use the `{{< children >}}` sho
 {{< children >}}
 ```
 
+The children shortcode can also be used to list only "section" articles (those with their own children),
+or only "page" articles (those with no children) using the `show` argument:
+
+```md
+{{< children show="sections" >}}
+<!-- OR -->
+{{< children show="pages" >}}
+```
+
+_By default, it displays both sections and pages._
+
+There is also a special use-case designed for listing Flux functions using the `type` argument:
+
+```md
+{{< children type="functions" >}}
+```
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
