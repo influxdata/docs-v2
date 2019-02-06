@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Options
-    weight: 110
+weight: 110
 ---
 
 {{% note %}}

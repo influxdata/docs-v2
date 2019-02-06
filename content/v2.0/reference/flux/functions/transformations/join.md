@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: join
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `join()` function merges two or more input streams whose values are equal on

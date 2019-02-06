@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: influx
     parent: Command line tools
-    weight: 1
+weight: 1
 ---
 
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,

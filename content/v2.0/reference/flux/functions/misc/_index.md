@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux functions
     name: Miscellaneous
-    weight: 5
+weight: 5
 ---
 
 Flux functions primarily retrieve, shape and transform, then output data, however

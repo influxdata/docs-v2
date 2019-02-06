@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: top
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `top()` function sorts a table by columns and keeps only the top `n` records.

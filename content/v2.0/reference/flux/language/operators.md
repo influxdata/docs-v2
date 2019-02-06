@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: Operators
     parent: Flux specification
-    weight: 130
+weight: 130
 ---
 
 Flux includes the following types of operators:

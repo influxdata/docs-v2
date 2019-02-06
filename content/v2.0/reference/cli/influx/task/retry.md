@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task retry
     parent: influx task
-    weight: 1
+weight: 1
 ---
 
 The `influx task retry` command retries to run a task in InfluxDB.

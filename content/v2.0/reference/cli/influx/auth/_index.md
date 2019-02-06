@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth
     parent: influx
-    weight: 1
+weight: 1
 ---
 
 The `influx auth` command and its subcommands manage authorizations in InfluxDB.

@@ -10,7 +10,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Packages
-    weight: 70
+weight: 70
 ---
 
 {{% note %}}

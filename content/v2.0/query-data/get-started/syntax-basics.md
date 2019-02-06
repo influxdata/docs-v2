@@ -5,7 +5,7 @@ menu:
   v2_0:
     name: Syntax basics
     parent: Get started with Flux
-    weight: 3
+weight: 3
 ---
 
 

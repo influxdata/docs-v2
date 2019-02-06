@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: pearsonr
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `pearsonr()` function computes the Pearson R correlation coefficient between two streams

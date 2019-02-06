@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: integral
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.

@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Create a token
     parent: Manage tokens
-    weight: 1
+weight: 1
 draft: true
 ---
 

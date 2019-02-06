@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: distinct
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `distinct()` function returns the unique values for a given column.

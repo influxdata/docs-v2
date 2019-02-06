@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Sort and limit data
     parent: How-to guides
-    weight: 6
+weight: 6
 ---
 
 The [`sort()`function](/v2.0/reference/flux/functions/transformations/sort)

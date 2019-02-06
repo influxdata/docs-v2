@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Create a bucket
     parent: Manage buckets
-    weight: 1
+weight: 1
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: difference
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `difference()` function computes the difference between subsequent records.  

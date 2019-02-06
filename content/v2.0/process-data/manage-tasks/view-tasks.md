@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: View tasks
     parent: Manage tasks
-    weight: 2
+weight: 2
 ---
 
 ## View tasks in the InfluxDB UI

@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Task options
     parent: Process data
-    weight: 5
+weight: 5
 ---
 
 Task options define specific information about the task and are specified in your

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Statements
-    weight: 100
+weight: 100
 ---
 
 {{% note %}}

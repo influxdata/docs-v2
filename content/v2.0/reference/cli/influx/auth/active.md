@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth active
     parent: influx auth
-    weight: 1
+weight: 1
 ---
 
 The `influx auth active` command activates an authorization in InfluxDB.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: highestMax
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `highestMax()` function returns the top `n` records from all groups using the maximum of each group.

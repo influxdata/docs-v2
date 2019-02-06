@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Create a task
     parent: Manage tasks
-    weight: 1
+weight: 1
 ---
 
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Assignment and scope
-    weight: 20
+weight: 20
 ---
 
 {{% note %}}

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: systemTime
     parent: Miscellaneous
-    weight: 1
+weight: 1
 ---
 
 The `systemTime()` function returns the current system time.

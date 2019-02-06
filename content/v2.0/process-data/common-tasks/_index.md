@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Common tasks
     parent: Process data
-    weight: 4
+weight: 4
 ---
 
 The following articles walk through common task use cases.

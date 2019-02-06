@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx org find
     parent: influx org
-    weight: 1
+weight: 1
 ---
 
 The `influx org find` lists and searches for organizations in InfluxDB.

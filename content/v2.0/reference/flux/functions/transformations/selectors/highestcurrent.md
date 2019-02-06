@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: highestCurrent
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `highestCurrent()` function returns the top `n` records from all groups using the last value of each group.

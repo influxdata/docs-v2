@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: aggregateWindow
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `aggregateWindow()` function applies an aggregate function to fixed windows of time.

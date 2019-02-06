@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: median
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `median()` function is a special application of the [`percentile()` function](/v2.0/reference/flux/functions/transformations/aggregates/percentile)

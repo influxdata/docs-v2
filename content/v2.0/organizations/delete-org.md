@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Delete an organization
     parent: Manage organizations
-    weight: 4
+weight: 4
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

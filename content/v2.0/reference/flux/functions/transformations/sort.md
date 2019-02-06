@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: sort
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `sort()` function orders the records within each table.

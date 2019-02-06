@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: to
     parent: Outputs
-    weight: 1
+weight: 1
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.

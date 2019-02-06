@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: influx write
     parent: influx
-    weight: 1
+weight: 1
 ---
 
 The `influx write` writes a single line of line protocol to InfluxDB,

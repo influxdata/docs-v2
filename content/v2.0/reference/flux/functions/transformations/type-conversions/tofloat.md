@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toFloat
     parent: Type conversions
-    weight: 1
+weight: 1
 ---
 
 The `toFloat()` function converts a value to a float.

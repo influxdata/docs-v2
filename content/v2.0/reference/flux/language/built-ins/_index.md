@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: Built-ins
     parent: Flux specification
-    weight: 80
+weight: 80
 ---
 
 Flux contains many preassigned values.

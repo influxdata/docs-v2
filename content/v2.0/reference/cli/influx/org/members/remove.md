@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx org members remove
     parent: influx org members
-    weight: 1
+weight: 1
 ---
 
 The `influx org members remove` command removes a member from an organization in InfluxDB.

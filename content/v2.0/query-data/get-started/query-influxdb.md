@@ -5,7 +5,7 @@ menu:
   v2_0:
     name: Query InfluxDB
     parent: Get started with Flux
-    weight: 1
+weight: 1
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.

@@ -58,7 +58,7 @@ menu:
   v2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
-    weight: # Determines sort order.
+weight: # Determines sort order in both the nav tree and in article lists.
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise

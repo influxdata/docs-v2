@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: max
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `max()` function selects record with the highest `_value` from the input table.

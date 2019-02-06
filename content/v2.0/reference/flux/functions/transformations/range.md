@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: range
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `range()` function filters records based on time bounds.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task log find
     parent: influx task log
-    weight: 1
+weight: 1
 ---
 
 The `influx task log find` command outputs log information related to a task.

@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: keys
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `keys()` function outputs the group key of input tables.

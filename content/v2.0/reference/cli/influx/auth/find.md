@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth find
     parent: influx auth
-    weight: 1
+weight: 1
 ---
 
 The `influx auth find` command lists and searches authorizations in InfluxDB.

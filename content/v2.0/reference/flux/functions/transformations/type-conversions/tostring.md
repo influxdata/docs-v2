@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toString
     parent: Type conversions
-    weight: 1
+weight: 1
 ---
 
 The `toString()` function converts a value to a string.

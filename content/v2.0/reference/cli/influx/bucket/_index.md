@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx bucket
     parent: influx
-    weight: 1
+weight: 1
 ---
 
 The `influx bucket` command and its subcommands manage buckets in InfluxDB.

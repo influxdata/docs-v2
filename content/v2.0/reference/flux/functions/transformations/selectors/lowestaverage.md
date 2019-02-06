@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: lowestAverage
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `lowestAverage()` function returns the bottom `n` records from all groups using the average of each group.

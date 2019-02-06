@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: lowestCurrent
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `lowestCurrent()` function returns the bottom `n` records from all groups using the last value of each group.

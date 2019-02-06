@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: View buckets
     parent: Manage buckets
-    weight: 2
+weight: 2
 ---
 
 ## View buckets in the InfluxDB UI

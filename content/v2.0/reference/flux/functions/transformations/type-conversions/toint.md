@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toInt
     parent: Type conversions
-    weight: 1
+weight: 1
 ---
 
 The `toInt()` function converts a value to an integer.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: sample
     parent: Selectors
-    weight: 1
+weight: 1
 ---
 
 The `sample()` function selects a subset of the records from the input table.

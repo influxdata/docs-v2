@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Side effects
-    weight: 90
+weight: 90
 ---
 
 Side effects can occur in one of two ways.

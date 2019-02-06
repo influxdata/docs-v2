@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Transformations
     name: Selectors
-    weight: 1
+weight: 1
 ---
 
 Flux selector functions return one or more records based on function logic.

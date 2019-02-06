@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Window and aggregate data
     parent: How-to guides
-    weight: 2
+weight: 2
 ---
 
 A common operation performed with time series data is grouping data into windows of time,

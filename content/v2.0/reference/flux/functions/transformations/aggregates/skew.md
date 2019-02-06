@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: skew
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `skew()` function outputs the skew of non-null records as a float.

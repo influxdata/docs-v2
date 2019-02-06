@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx org create
     parent: influx org
-    weight: 1
+weight: 1
 ---
 
 The `influx org create` creates a new organization in InfluxDB.

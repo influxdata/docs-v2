@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: percentile
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `percentile()` function returns records from an input table with `_value`s that fall within

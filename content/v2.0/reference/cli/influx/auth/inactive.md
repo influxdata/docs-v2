@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx auth inactive
     parent: influx auth
-    weight: 1
+weight: 1
 ---
 
 The `influx auth inactive` inactivates an authorization in InfluxDB.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: toBool
     parent: Type conversions
-    weight: 1
+weight: 1
 ---
 
 The `toBool()` function converts a value to a boolean.

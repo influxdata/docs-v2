@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: spread
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `spread()` function outputs the difference between the minimum and maximum values in each specified column.

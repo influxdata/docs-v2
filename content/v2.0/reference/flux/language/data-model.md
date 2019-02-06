@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: Data model
     parent: Flux specification
-    weight: 1
+weight: 1
 ---
 
 {{% note %}}

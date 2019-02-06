@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: keep
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `keep()` function returns a table containing only the specified columns, ignoring all others.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task delete
     parent: influx task
-    weight: 1
+weight: 1
 ---
 
 The `influx task delete` command deletes a task in InfluxDB.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: increase
     parent: Aggregates
-    weight: 1
+weight: 1
 ---
 
 The `increase()` function calculates the total non-negative difference between values in a table.

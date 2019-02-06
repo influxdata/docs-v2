@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: linearBins
     parent: Miscellaneous
-    weight: 1
+weight: 1
 ---
 
 The `linearBins()` function generates a list of linearly separated floats.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux functions
     name: Outputs
-    weight: 2
+weight: 2
 ---
 
 Flux output functions yield results or send data to a specified output destination.

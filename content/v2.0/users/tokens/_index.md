@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Manage tokens
     parent: Manage users
-    weight: 5
+weight: 5
 ---
 
 InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: rename
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `rename()` function renames specified columns in a table.

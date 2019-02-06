@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     parent: Flux specification
     name: Blocks
-    weight: 30
+weight: 30
 ---
 
 A _block_ is a possibly empty sequence of statements within matching braces (`{}`).

@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: keyValues
     parent: Transformations
-    weight: 1
+weight: 1
 ---
 
 The `keyValues()` function returns a table with the input table's group key plus two columns,
