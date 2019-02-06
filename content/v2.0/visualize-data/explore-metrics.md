@@ -38,7 +38,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
   * Click on the name of the query in the tab to rename it.
 
 ## Visualize your query
-To visualize your query:
+Select from available [visualization types](/v2.0/visualize-data/visualization-types/) or enable the **View Raw Data** option to view all of your query's results.
 
 1. Select a visualization type from the dropdown menu in the upper-left.
 
