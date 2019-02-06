@@ -17,10 +17,11 @@ To quickly create a scraper in InfluxDB 2.0, you can use the InfluxDB 2.0 user i
 
 ## Use the InfluxDB UI to configure a scraper for data collection
 
-Follow the steps below to configure an InfluxDB scraper that uses an `/metrics` HTTP endpoint for collecting metrics and loading the scraped data into a bucket.
+Follow the steps below to configure an InfluxDB scraper that uses an
+`/metrics` HTTP endpoint for collecting metrics and loading the scraped data into a bucket.
 
-1. Open a web browser to your InfluxDB 2.0 instance
-   ([localhost:9999](http://localhost:9999)). The login screen for the UI (user interface) appears.
+1. Open a web browser to access the InfluxDB 2.0 user interface
+   ([localhost:9999](http://localhost:9999)). The login screen appears.
 2. Log in using your username and password. The **Getting started with   InfluxDB 2.0** screen appears.
 3. In the navigation bar on the left, click **Organizations** and then click the name of your organization. The **Organization** page appears for the selected organization.
 4. Click the **Scrapers** tab. A listing of any existing scrapers appears, listing the **URL** and the **BUCKET** name.
