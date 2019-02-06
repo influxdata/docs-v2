@@ -10,9 +10,11 @@ menu:
     parent: Collect data
 ---
 
->**Note:** The steps below are available on a page that appears after you complete the initial configuration described in [Set up InfluxDB](/v2.0/get-started/#setup-influxdb). After clicking one of the three options, the page is no longer available.
+{{% note %}}
+The steps below are available on a page that appears after you complete the initial configuration described in [Set up InfluxDB](/v2.0/get-started/#setup-influxdb). After clicking one of the three options, the page is no longer available.
 >
 >If you missed the change to select Quick Start or you want to learn how to configure a scraper yourself, see [Scrape data using the /metrics endpoint](influxdb/v2.0/collect-data/scraper-endpoint/).
+{{% note %}}
 
 ## Use Quick Start to collect InfluxDB metrics
 
@@ -40,7 +42,7 @@ To see a sample of the data being collected in Prometheus format, you can use on
 
 * In a terminal window, run the following cURL command:
 ```
-curl  http://localhost:9999/metrics`.
+curl  http://localhost:9999/metrics
 ```
 
 ## Next steps
