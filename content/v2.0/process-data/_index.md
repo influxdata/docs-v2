@@ -23,7 +23,4 @@ The following articles explain how to configure and build tasks using the Influx
 and via raw Flux scripts with the `influx` command line interface (CLI).
 They also provide examples of commonly used tasks.
 
-[Write a task](/v2.0/process-data/write-a-task)  
-[Manage Tasks](/v2.0/process-data/manage-tasks)  
-[Common Tasks](/v2.0/process-data/common-tasks)  
-[Task Options](/v2.0/process-data/task-options)
+{{< children >}}

@@ -10,4 +10,4 @@ menu:
 
 The following guides walk through common query uses cases.
 
-{{% children %}}
+{{< children >}}

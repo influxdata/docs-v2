@@ -1,5 +1,15 @@
-{{ $pages := union .Page.Pages .Page.Sections }}
 {{ $type :=  .Get "type" | default "articles" }}
+{{ $show := .Get "show" | default "all" }}
+
+{{ if eq $show "all" }}
+	{{ .Scratch.Set "pages" (union .Page.Pages .Page.Sections) }}
+{{ else if (eq $show "sections") }}
+	{{ .Scratch.Set "pages" .Page.Sections }}
+{{ else if (eq $show "pages") }}
+	{{ .Scratch.Set "pages" .Page.Pages }}
+{{ end }}
+
+{{ $pages := .Scratch.Get "pages" }}
 
 <div class="children-links">
 {{ if eq $type "articles" }}
