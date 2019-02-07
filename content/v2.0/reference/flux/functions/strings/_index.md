@@ -8,4 +8,11 @@ menu:
 weight: 203
 ---
 
-Placeholder
+String functions provide tools for manipulating strings in flux.
+To use them, import the `strings` package:
+
+```js
+import "strings"
+```
+
+{{< children type="functions" show="pages" >}}
