@@ -52,7 +52,7 @@ jobs:
           command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION -distribution-id=$CF_DISTRIBUTION_ID
       - run:
           name: Post in Slack
-          command: export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n%b%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \"The InfluxDB v2 docs successfully deployed\! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
+          command: > export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n%b%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \"The InfluxDB v2 docs successfully deployed\! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
           when: on_success
 
 workflows:
