@@ -1,45 +1,45 @@
 ---
-title: assertEquals() function
-description: The assertEquals() function tests whether two streams have identical data.
+title: testing.assertEquals() function
+description: The testing.assertEquals() function tests whether two streams have identical data.
 aliases:
   - /v2.0/reference/flux/functions/tests/assertequals
 menu:
   v2_0_ref:
-    name: assertEquals
-    parent: built-in-tests
-weight: 401
+    name: testing.assertEquals
+    parent: Testing
+weight: 301
 ---
 
-The `assertEquals()` function tests whether two streams have identical data.
+The `testing.assertEquals()` function tests whether two streams have identical data.
 If equal, the function outputs the tested data stream unchanged.
 If unequal, the function outputs an error.
 
-_**Function type:** Test_  
-
 ```js
-assertEquals(
+import "testing"
+
+testing.assertEquals(
   name: "streamEquality",
   got: got,
   want: want
 )
 ```
 
-_The `assertEquals()` function can be used to perform in-line tests in a query._
+_The `testing.assertEquals()` function can be used to perform in-line tests in a query._
 
 ## Parameters
 
-## name
+### name
 Unique name given to the assertion.
 
 _**Data type:** String_
 
-## got
+### got
 The stream containing data to test.
-Defaults to data piped-forward from another function (`<-`).
+Defaults to piped-forward data (`<-`).
 
 _**Data type:** Object_
 
-## want
+### want
 The stream that contains the expected data to test against.
 
 _**Data type:** Object_
@@ -49,21 +49,25 @@ _**Data type:** Object_
 
 ##### Assert of separate streams
 ```js
+import "testing"
+
 want = from(bucket: "backup-telegraf/autogen")
   |> range(start: -5m)
 
 got = from(bucket: "telegraf/autogen")
   |> range(start: -5m)
 
-assertEquals(got: got, want: want)
+testing.assertEquals(got: got, want: want)
 ```
 
 ##### Inline assertion
 ```js
+import "testing"
+
 want = from(bucket: "backup-telegraf/autogen")
   |> range(start: -5m)
 
 from(bucket: "telegraf/autogen")
   |> range(start: -5m)
-  |> assertEquals(want: want)
+  |> testing.assertEquals(want: want)
 ```
