@@ -11,7 +11,7 @@ menu:
 weight: 206
 ---
 
-The [`sort()`function](/v2.0/reference/flux/functions/transformations/sort)
+The [`sort()`function](/v2.0/reference/flux/functions/built-in/transformations/sort)
 orders the records within each table.
 The following example orders system uptime first by region, then host, then value.
 
@@ -25,7 +25,7 @@ from(bucket:"telegraf/autogen")
   |> sort(columns:["region", "host", "_value"])
 ```
 
-The [`limit()` function](/v2.0/reference/flux/functions/transformations/limit)
+The [`limit()` function](/v2.0/reference/flux/functions/built-in/transformations/limit)
 limits the number of records in output tables to a fixed number, `n`.
 The following example shows up to 10 records from the past hour.
 
@@ -51,6 +51,6 @@ from(bucket:"telegraf/autogen")
 ```
 
 You now have created a Flux query that sorts and limits data.
-Flux also provides the [`top()`](/v2.0/reference/flux/functions/transformations/selectors/top)
-and [`bottom()`](/v2.0/reference/flux/functions/transformations/selectors/bottom)
+Flux also provides the [`top()`](/v2.0/reference/flux/functions/built-in/transformations/selectors/top)
+and [`bottom()`](/v2.0/reference/flux/functions/built-in/transformations/selectors/bottom)
 functions to perform both of these functions at the same time.

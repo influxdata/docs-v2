@@ -24,7 +24,7 @@ _The `testing.assertEmpty()` function can be used to perform in-line tests in a 
 ## Examples
 
 #### Check if there is a difference between streams
-This example uses the [`diff()` function](/flux/v0.x/functions/tests/diff)
+This example uses the [`testing.diff()` function](/v2.0/reference/flux/functions/testing/diff)
 which outputs the diff for the two streams.
 The `.testing.assertEmpty()` function checks to see if the diff is empty.
 
@@ -36,6 +36,6 @@ got = from(bucket: "telegraf/autogen")
 want = from(bucket: "backup_telegraf/autogen")
   |> range(start: -15m)
 got
-  |> diff(want: want)
+  |> testing.diff(want: want)
   |> testing.assertEmpty()
 ```

@@ -12,7 +12,7 @@ weight: 101
 
 The InfluxDB's user interface's (UI) dashboard views support the following visualization types,
 which can be selected in the **Visualization Type** selection view of the
-[Data Explorer](/v2.0/visualize-data/explore-metrices).
+[Data Explorer](/v2.0/visualize-data/explore-metrics).
 
 [Visualization Type selector](/img/chrono-viz-types-selector.png)
 
@@ -20,7 +20,7 @@ Each of the available visualization types and available user controls are descri
 
 * [Line Graph](#line-graph)
 * [Stacked Graph](#stacked-graph)
-* [Step-Plot Graph](#step-plot-graph)
+* [Step Graph](#step-graph)
 * [Single Stat](#single-stat)
 * [Line Graph + Single Stat](#line-graph-single-stat)
 * [Bar Graph](#bar-graph)

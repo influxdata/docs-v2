@@ -28,7 +28,7 @@ Any output table will have the following properties:
 - It will not have a `_time` column.
 
 ### aggregateWindow helper function
-The [`aggregateWindow()` function](/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow)
+The [`aggregateWindow()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow)
 does most of the work needed when aggregating data.
 It windows and aggregates the data, then combines windowed tables into a single output table.
 

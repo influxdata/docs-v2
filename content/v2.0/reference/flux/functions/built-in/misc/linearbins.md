@@ -12,7 +12,7 @@ weight: 401
 
 The `linearBins()` function generates a list of linearly separated floats.
 It is a helper function meant to generate bin bounds for the
-[`histogram()` function](/v2.0/reference/flux/functions/transformations/histogram).
+[`histogram()` function](/v2.0/reference/flux/functions/built-in/transformations/histogram).
 
 _**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_
