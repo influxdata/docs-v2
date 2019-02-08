@@ -19,7 +19,7 @@ The set of intervals includes all intervals that intersect with the initial rang
 
 {{% note %}}
 The `intervals()` function is designed to be used with the intervals parameter
-of the [`window()` function](/v2.0/reference/flux/functions/transformations/window).
+of the [`window()` function](/v2.0/reference/flux/functions/built-in/transformations/window).
 {{% /note %}}
 
 By default the end boundary of an interval will align with the Unix epoch (zero time)

@@ -14,7 +14,7 @@ Histograms provide valuable insight into the distribution of your data.
 This guide walks through using Flux's `histogram()` function to transform your data into a **cumulative histogram**.
 
 ## histgram() function
-The [`histogram()` function](/v2.0/reference/flux/functions/transformations/histogram) approximates the
+The [`histogram()` function](/v2.0/reference/flux/functions/built-in/transformations/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -41,7 +41,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/v2.0/reference/flux/functions/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/v2.0/reference/flux/functions/built-in/misc/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -50,7 +50,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/v2.0/reference/flux/functions/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/v2.0/reference/flux/functions/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)

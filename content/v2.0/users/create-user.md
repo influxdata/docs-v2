@@ -20,7 +20,7 @@ While in alpha, additional users cannot be created in the InfluxDB UI.
 
 ## Create a user using the influx CLI
 
-Use the [`influx user create` command](/v2.0/reference/cli/influx/create/create)
+Use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
 to create a new user. A new user requires the following:
 
 - A username
