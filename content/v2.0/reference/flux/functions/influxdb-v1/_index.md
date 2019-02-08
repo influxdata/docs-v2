@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v1 Flux functions
+title: Flux InfluxDB v1 functions
 description: placeholder
 menu:
   v2_0_ref:

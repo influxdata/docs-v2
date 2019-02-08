@@ -1,5 +1,5 @@
 ---
-title: Built-in Flux functions
+title: Flux built-in functions
 description: placeholder
 menu:
   v2_0_ref:
