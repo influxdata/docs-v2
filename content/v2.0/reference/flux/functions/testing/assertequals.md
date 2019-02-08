@@ -12,7 +12,7 @@ weight: 301
 
 The `testing.assertEquals()` function tests whether two streams have identical data.
 If equal, the function outputs the tested data stream unchanged.
-If unequal, the function outputs an error.
+If unequal, the function returns an error.
 
 ```js
 import "testing"

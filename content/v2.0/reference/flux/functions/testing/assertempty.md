@@ -9,7 +9,7 @@ menu:
 ---
 
 The `testing.assertEmpty()` function tests if an input stream is empty.
-If not empty, the function outputs an error.
+If not empty, the function returns an error.
 
 _**Function type:** Test_  
 
