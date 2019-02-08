@@ -1,5 +1,5 @@
 ---
-title: Flux String functions
+title: Flux string functions
 description: placeholder
 menu:
   v2_0_ref:
