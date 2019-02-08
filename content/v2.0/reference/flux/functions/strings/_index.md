@@ -1,5 +1,5 @@
 ---
-title: String Flux functions
+title: Flux string functions
 description: >
   String functions provide tools for manipulating strings in Flux.
   To use them, import the "strings" package:
