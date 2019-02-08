@@ -188,7 +188,10 @@
     border-radius: $border-radius;
     overflow-x: scroll;
     overflow-y: hidden;
-    code { padding: 0; }
+    code {
+      padding: 0;
+      line-height: 1.4rem;
+    }
   }
 
   //////////////////////////////////// Tables ////////////////////////////////////
