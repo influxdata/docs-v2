@@ -1,6 +1,8 @@
 ---
 title: String Flux functions
-description: placeholder
+description: >
+  String functions provide tools for manipulating strings in Flux.
+  To use them, import the "strings" package:
 menu:
   v2_0_ref:
     name: Strings
@@ -8,7 +10,7 @@ menu:
 weight: 203
 ---
 
-String functions provide tools for manipulating strings in flux.
+String functions provide tools for manipulating strings in Flux.
 To use them, import the `strings` package:
 
 ```js

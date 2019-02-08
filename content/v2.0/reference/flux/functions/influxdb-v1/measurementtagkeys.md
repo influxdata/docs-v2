@@ -39,3 +39,6 @@ measurementTagKeys = (bucket, measurement) =>
     bucket: bucket,
     predicate: (r) => r._measurement == measurement)
 ```
+
+_**Used functions:**
+[tagKeys()](/v2.0/reference/flux/functions/influxdb-v1/tagkeys)_

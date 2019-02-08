@@ -29,3 +29,6 @@ _**Data type:** String_
 measurements = (bucket) =>
   tagValues(bucket: bucket, tag: "_measurement")
 ```
+
+_**Used functions:**
+[tagValues()](/v2.0/reference/flux/functions/influxdb-v1/tagvalues)_

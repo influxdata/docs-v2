@@ -71,3 +71,11 @@ tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
     |> distinct(column: tag)
     |> keep(columns: ["_value"])
 ```
+
+_**Used functions:**
+[from](/v2.0/reference/flux/functions/built-in/inputs/from/),
+[range](/v2.0/reference/flux/functions/built-in/transformations/range/),
+[filter](/v2.0/reference/flux/functions/built-in/transformations/filter/),
+[group](/v2.0/reference/flux/functions/built-in/transformations/group/),
+[distinct](/v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/),
+[keep](/v2.0/reference/flux/functions/built-in/transformations/keep/)_

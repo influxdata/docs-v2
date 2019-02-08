@@ -43,3 +43,6 @@ fieldsAsCols = (tables=<-) =>
       valueColumn: "_value"
     )
 ```
+
+_**Used functions:**
+[pivot()](/v2.0/reference/flux/functions/built-in/transformations/pivot)_
