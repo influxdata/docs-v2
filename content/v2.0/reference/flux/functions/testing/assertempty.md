@@ -1,0 +1,41 @@
+---
+title: testing.assertEmpty() function
+description: The testing.assertEmpty() function tests if an input stream is empty.
+menu:
+  v2_0_ref:
+    name: testing.assertEmpty
+    parent: Testing
+    weight: 301
+---
+
+The `testing.assertEmpty()` function tests if an input stream is empty.
+If not empty, the function outputs an error.
+
+_**Function type:** Test_  
+
+```js
+import "testing"
+
+testing.assertEmpty()
+```
+
+_The `testing.assertEmpty()` function can be used to perform in-line tests in a query._
+
+## Examples
+
+#### Check if there is a difference between streams
+This example uses the [`diff()` function](/flux/v0.x/functions/tests/diff)
+which outputs the diff for the two streams.
+The `.testing.assertEmpty()` function checks to see if the diff is empty.
+
+```js
+import "testing"
+
+got = from(bucket: "telegraf/autogen")
+  |> range(start: -15m)
+want = from(bucket: "backup_telegraf/autogen")
+  |> range(start: -15m)
+got
+  |> diff(want: want)
+  |> testing.assertEmpty()
+```
