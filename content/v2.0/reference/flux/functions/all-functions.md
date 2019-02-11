@@ -8,4 +8,6 @@ menu:
 weight: 299
 ---
 
+This list below contains all documented Flux functions:
+
 {{< list-all-functions >}}
