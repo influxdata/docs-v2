@@ -27,7 +27,7 @@
 
 	<ul>
 	{{ range $pages.ByWeight }}
-		{{ $title := replaceRE `\(\)\ function` "" .Title }}
+		{{ $title := replaceRE `\ function` "" .Title }}
 		<li><a href="{{ .RelPermalink }}">{{ $title }}</a></li>
 	{{ end }}
 	<ul>
