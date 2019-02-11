@@ -1,0 +1,7 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.URL) 0) }}
+{{ $menuID := print (replaceRE `\.` "_" $currentVersion) "_ref" }}
+{{ $functionsPath := print "/" $currentVersion "/reference/flux/functions" }}
+
+{{ $currentVersion}}
+{{ $menuID }}
+{{ $functionsPath }}
