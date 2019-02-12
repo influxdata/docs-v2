@@ -135,6 +135,23 @@
       ul {
         margin-left: -.95em;
       }
+
+      &.active {
+        &:before {
+          background: $nav-active;
+        }
+        & > a {
+          color: $nav-active;
+          &:hover { color: $nav-active; }
+        }
+        & > .children-toggle {
+          background: $nav-active;
+          &:before, &:after { background: $body-bg; }
+        }
+        ul {
+          border-left: 2px solid $nav-active;
+        }
+      }
     }
 
     a {
