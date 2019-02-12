@@ -133,7 +133,8 @@
         background: $nav-border;
       }
       ul {
-        margin-left: -.95em;
+        margin: -.25em 0 0 -.95em;
+        padding-top: .25em;
       }
 
       &.active {
@@ -148,7 +149,7 @@
           background: $nav-active;
           &:before, &:after { background: $body-bg; }
         }
-        ul {
+        & > ul {
           border-left: 2px solid $nav-active;
         }
       }
