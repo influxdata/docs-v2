@@ -1,6 +1,6 @@
 ---
-title: Flux aggregate functions
-description: Flux aggregate functions take values from an input table and aggregate them in some way.
+title: Flux built-in aggregate functions
+description: Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates
 menu:
@@ -11,7 +11,7 @@ menu:
 weight: 401
 ---
 
-Flux aggregate functions take values from an input table and aggregate them in some way.
+Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
 The output table contains is a single row with the aggregated value.
 
 Aggregate operations output a table for every input table they receive.
