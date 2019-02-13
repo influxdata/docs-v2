@@ -4,6 +4,7 @@ seotitle: How to sort and limit data with Flux
 description: >
   This guide walks through sorting and limiting data with Flux and outlines how
   it shapes your data in the process.
+v2.0/tags: [sort, limit]
 menu:
   v2_0:
     name: Sort and limit data
