@@ -2,6 +2,7 @@
 title: Flux how-to guides
 description: Helpful guides that walk through both common and complex tasks and use cases for Flux.
 weight: 103
+v2.0/tags: [flux]
 menu:
   v2_0:
     name: How-to guides

@@ -1,6 +1,7 @@
 ---
 title: Flux syntax basics
 description: An introduction to the basic elements of the Flux syntax with real-world application examples.
+v2.0/tags: [flux, syntax]
 menu:
   v2_0:
     name: Syntax basics
