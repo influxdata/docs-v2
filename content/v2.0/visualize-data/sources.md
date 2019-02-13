@@ -1,6 +1,7 @@
 ---
 title: Manage sources
 description: InfluxDB offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
+v2.0/tags: [sources]
 menu:
   v2_0:
     name: Manage sources

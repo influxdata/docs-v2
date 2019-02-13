@@ -4,6 +4,7 @@ description: >
   Get started with Flux, InfluxData's functional data scripting language.
   This step-by-step guide through the basics of writing a Flux query.
 weight: 101
+v2.0/tags: [query, flux]
 menu:
   v2_0:
     name: Get started with Flux

@@ -1,6 +1,7 @@
 ---
 title: Flux transformation functions
 description: Flux transformation functions transform and shape your data in specific ways.
+v2.0/tags: [transformations]
 menu:
   v2_0_ref:
     parent: Flux functions

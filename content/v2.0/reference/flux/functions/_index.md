@@ -1,6 +1,7 @@
 ---
 title: Flux functions
 description: Flux functions allows you to retrieve, transform, process, and output data easily.
+v2.0/tags: [flux]
 menu:
   v2_0_ref:
     name: Flux functions

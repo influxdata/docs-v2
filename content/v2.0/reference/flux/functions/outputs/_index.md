@@ -1,6 +1,7 @@
 ---
 title: Flux output functions
 description: Flux output functions yield results or send data to a specified output destination.
+v2.0/tags: [outputs]
 menu:
   v2_0_ref:
     parent: Flux functions

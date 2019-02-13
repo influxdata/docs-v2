@@ -1,6 +1,7 @@
 ---
 title: Flux input functions
 description: Flux input functions define sources of data or or display information about data sources.
+v2.0/tags: [inputs]
 menu:
   v2_0_ref:
     parent: Flux functions

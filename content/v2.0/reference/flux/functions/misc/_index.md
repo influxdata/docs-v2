@@ -1,6 +1,7 @@
 ---
 title: Flux miscellaneous functions
 description: Flux provides miscellaneous functions that serve purposes other than retrieving, transforming, or outputting data.
+v2.0/tags: [miscellaneous]
 menu:
   v2_0_ref:
     parent: Flux functions
