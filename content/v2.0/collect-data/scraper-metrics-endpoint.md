@@ -4,6 +4,7 @@ weight: 102
 seotitle: Create a scraper
 description: >
   Use the InfluxDB UI to configure a scraper for collecting metrics from InfluxDB instances or third-party systems.
+v2.0/tags: [scraper]
 menu:
   v2_0:
     name: Create a scraper
