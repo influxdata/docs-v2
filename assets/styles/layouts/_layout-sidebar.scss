@@ -133,8 +133,14 @@
         background: $nav-border;
       }
       ul {
-        margin: -.25em 0 0 -.95em;
-        padding-top: .25em;
+        margin-left: -.95em;
+        li:before {
+          top: .4em;
+        }
+        &.open {
+          margin-top: -.25em;
+          padding-top: .25em;
+        }
       }
 
       &.active {
