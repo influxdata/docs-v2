@@ -37,7 +37,7 @@ _**Data type:** Array of Booleans | Integers | UIntegers | Floats | Strings | Ti
 ```js
 fields = ["load1", "load5", "load15"]
 
-from(bucket)
+from(bucket: "example-bucket")
   |> range(start:start, stop: stop)
   |> filter(fn: (r) =>
       r._measurement == "system" and
