@@ -107,6 +107,8 @@ _**Data type:** String_
 Specifies whether empty tables should be created.
 Defaults to `false`.
 
+_**Data type:** Boolean_
+
 ## Examples
 
 #### Window data into 10 minute intervals
