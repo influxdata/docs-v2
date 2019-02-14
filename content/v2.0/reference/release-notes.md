@@ -7,6 +7,24 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.3 [2019-02-14]
+
+### Features
+- Add the ability to name a scraper target.
+- Display scraper name as the first and only updatable column in scrapers list.
+- Add the ability to view runs for a task.
+- Display last completed run for tasks list.
+- Add the ability to view the logs for a specific task run.
+
+### Bug Fixes
+- Update the inline edit for resource names to guard for empty strings.
+- Prevent a new template dashboard from being created on every Telegraf config update.
+- Fix overlapping buttons in Telegraf verify data step.
+
+### UI Improvements
+- Move the download Telegraf config button to view config overlay.
+- Combine permissions for user by type.
+
 ## v2.0.0-alpha.2 [2019-02-07]
 
 ### Features
