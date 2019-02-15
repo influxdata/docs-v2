@@ -7,7 +7,7 @@ menu:
     weight: 1
 ---
 
-## v2.0.0-alpha.3 [2019-02-14]
+## v2.0.0-alpha.3 [2019-02-15]
 
 ### Features
 - Add the ability to name a scraper target.
