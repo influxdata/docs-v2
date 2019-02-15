@@ -86,7 +86,7 @@ A named type can be created using a type assignment statement.
 A named type is equivalent to the type it describes and may be used interchangeably.
 
 ```js
-TypeAssignement   = "type" identifier "=" TypeExpression
+TypeAssignment    = "type" identifier "=" TypeExpression
 TypeExpression    = identifier
                   | TypeParameter
                   | ObjectType

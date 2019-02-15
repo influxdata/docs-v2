@@ -1,6 +1,6 @@
 ---
-title: Flux transformation functions
-description: Flux transformation functions transform and shape your data in specific ways.
+title: Flux built-in transformation functions
+description: Flux's built-in transformation functions transform and shape your data in specific ways.
 aliases:
   - /v2.0/reference/flux/functions/transformations
 menu:
@@ -11,7 +11,7 @@ menu:
 weight: 303
 ---
 
-Flux transformation functions transform or shape your data in specific ways.
+Flux's built-in transformation functions transform or shape your data in specific ways.
 There are different types of transformations categorized below:
 
 {{< children show="sections" >}}

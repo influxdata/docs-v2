@@ -1,6 +1,6 @@
 ---
-title: Flux selector functions
-description: Flux selector functions return one or more records based on function logic.
+title: Flux built-in selector functions
+description: Flux's built-in selector functions return one or more records based on function logic.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors
 menu:
@@ -11,7 +11,7 @@ menu:
 weight: 401
 ---
 
-Flux selector functions return one or more records based on function logic.
+Flux's built-in selector functions return one or more records based on function logic.
 The output table is different than the input table, but individual row values are not.
 
 The following selector functions are available:

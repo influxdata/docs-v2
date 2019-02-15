@@ -12,7 +12,7 @@ weight: 401
 
 The `stateCount()` function computes the number of consecutive records in a given state.
 The state is defined via the function `fn`.
-For each consecutive point that evaluates as `true`, the state count will be incremented.
+For each consecutive point that evaluates as `true`, the state count is incremented.
 When a point evaluates as `false`, the state count is reset.
 The state count is added as an additional column to each record.
 
