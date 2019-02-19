@@ -63,7 +63,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting `influxd`.
 
 ```bash
@@ -77,7 +77,7 @@ influxd --reporting-disabled
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 ### Download and install InfluxDB v2.0 alpha
-Download InfluxDB v2.0 alpha package appropriate for your chipset.
+Download the InfluxDB v2.0 alpha package appropriate for your chipset.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.3_linux_amd64.tar.gz" download >InfluxDB v2.0 alpha (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.3_linux_arm64.tar.gz" download >InfluxDB v2.0 alpha (arm)</a>
@@ -121,7 +121,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting `influxd`.
 
 ```bash
@@ -148,7 +148,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
