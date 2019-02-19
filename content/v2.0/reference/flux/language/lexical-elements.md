@@ -60,14 +60,12 @@ longIdentifierName
 The following keywords are reserved and may not be used as identifiers:
 
 ```
-and    import  not  return   option
+and    import  not  return   option   test
 empty  in      or   package  builtin
 ```
 
 {{% note %}}
 To be implemented: [IMPL#256](https://github.com/influxdata/platform/issues/256) Add in and empty operator support.
-
-To be implemented: [IMPL#334](https://github.com/influxdata/platform/issues/334) Add "import" support  
 {{% /note %}}
 
 

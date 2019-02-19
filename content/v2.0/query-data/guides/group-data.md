@@ -29,7 +29,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/v2.0/reference/flux/functions/transformations/group) defines the
+Flux's [`group()` function](/v2.0/reference/flux/functions/built-in/transformations/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

@@ -52,8 +52,8 @@ in form fields when creating the task.
 {{% /note %}}
 
 ## Define a data source
-Define a data source using Flux's [`from()` function](/v2.0/reference/flux/functions/inputs/from/)
-or any other [Flux input functions](/v2.0/reference/flux/functions/inputs/).
+Define a data source using Flux's [`from()` function](/v2.0/reference/flux/functions/built-in/inputs/from/)
+or any other [Flux input functions](/v2.0/reference/flux/functions/built-in/inputs/).
 
 For convenience, consider creating a variable that includes the sourced data with
 the required time range and any relevant filters.
@@ -86,7 +86,7 @@ specific use case.
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
 It then windows the data into 5 minute intervals and calculates the average of each
-window using the [`aggregateWindow()` function](/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow/).
+window using the [`aggregateWindow()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/).
 
 ```js
 data
@@ -102,7 +102,7 @@ _See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commo
 In the vast majority of task use cases, once data is transformed, it needs to sent and stored somewhere.
 This could be a separate bucket with a different retention policy, another measurement, or even an alert endpoint _(Coming)_.
 
-The example below uses Flux's [`to()` function](/v2.0/reference/flux/functions/outputs/to)
+The example below uses Flux's [`to()` function](/v2.0/reference/flux/functions/built-in/outputs/to)
 to send the transformed data to another bucket:
 
 ```js

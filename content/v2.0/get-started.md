@@ -22,7 +22,7 @@ executables, and running the the initial setup process.
 ### Download and install InfluxDB v2.0 alpha
 Download InfluxDB v2.0 alpha for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.1_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
 
 ### Place the executables in your $PATH
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
@@ -31,10 +31,10 @@ _**Note:** The following commands are examples. Adjust the file paths to your ow
 
 ```sh
 # Unpackage contents to the current working directory
-gunzip -c ~/Downloads/influxdb_2.0.0-alpha.1_darwin_amd64.tar.gz | tar xopf -
+gunzip -c ~/Downloads/influxdb_2.0.0-alpha.3_darwin_amd64.tar.gz | tar xopf -
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.1_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-alpha.3_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -63,7 +63,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting `influxd`.
 
 ```bash
@@ -77,10 +77,10 @@ influxd --reporting-disabled
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 ### Download and install InfluxDB v2.0 alpha
-Download InfluxDB v2.0 alpha package appropriate for your chipset.
+Download the InfluxDB v2.0 alpha package appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.1_linux_amd64.tar.gz" download >InfluxDB v2.0 alpha (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.1_linux_arm64.tar.gz" download >InfluxDB v2.0 alpha (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.3_linux_amd64.tar.gz" download >InfluxDB v2.0 alpha (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.3_linux_arm64.tar.gz" download >InfluxDB v2.0 alpha (arm)</a>
 
 ### Place the executables in your $PATH
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
@@ -89,10 +89,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-alpha.1_linux_amd64.tar.gz
+tar xvzf path/to/influxdb_2.0.0-alpha.3_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.1_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-alpha.3_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -121,7 +121,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting `influxd`.
 
 ```bash
@@ -148,7 +148,7 @@ By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
 
-Top opt-out of sending telemetry data back to InfluxData, include the
+To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash

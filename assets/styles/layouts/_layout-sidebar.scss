@@ -134,6 +134,30 @@
       }
       ul {
         margin-left: -.95em;
+        li:before {
+          top: .4em;
+        }
+        &.open {
+          margin-top: -.25em;
+          padding-top: .25em;
+        }
+      }
+
+      &.active {
+        &:before {
+          background: $nav-active;
+        }
+        & > a {
+          color: $nav-active;
+          &:hover { color: $nav-active; }
+        }
+        & > .children-toggle {
+          background: $nav-active;
+          &:before, &:after { background: $body-bg; }
+        }
+        & > ul {
+          border-left: 2px solid $nav-active;
+        }
       }
     }
 

@@ -13,7 +13,7 @@ menu:
 {{% note %}}
 The steps below are available on a page that appears after you complete the initial configuration described in [Set up InfluxDB](/v2.0/get-started/#setup-influxdb). After clicking one of the three options, the page is no longer available.
 
-If you missed the change to select Quick Start or you want to learn how to configure a scraper yourself, see [Scrape data using the /metrics endpoint](influxdb/v2.0/collect-data/scraper-endpoint/).
+If you missed the change to select Quick Start or you want to learn how to configure a scraper yourself, see [Scrape data using the /metrics endpoint](/v2.0/collect-data/scraper-metrics-endpoint/).
 {{% /note %}}
 
 ## Use Quick Start to collect InfluxDB metrics
