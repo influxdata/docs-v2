@@ -51,7 +51,7 @@ Every documentation page includes frontmatter which specifies information about 
 Frontmatter populates variables in page templates and the site's navigation menu.
 
 ```yaml
-title: # Title of the page used in the the page's h1
+title: # Title of the page used in the page's h1
 seotitle: # Page title used in the html <head> title and used in search engine results
 description: # Page description displayed in search engine results
 menu:
