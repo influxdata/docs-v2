@@ -6,6 +6,7 @@ menu:
     name: v1.measurements
     parent: InfluxDB v1
 weight: 301
+v2.0/tags: [measurements]
 ---
 
 The `v1.measurements()` function returns a list of measurements in a specific bucket.

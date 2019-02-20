@@ -9,6 +9,7 @@ menu:
     name: Window and aggregate data
     parent: How-to guides
 weight: 202
+v2.0/tags: [flux, aggregates]
 ---
 
 A common operation performed with time series data is grouping data into windows of time,

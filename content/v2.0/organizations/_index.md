@@ -6,6 +6,7 @@ menu:
   v2_0:
     name: Manage organizations
 weight: 10
+v2.0/tags: [organizations]
 ---
 
 An **organization** is a workspace for a group of users.

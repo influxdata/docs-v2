@@ -246,7 +246,7 @@
 
   ///////////////////////// Landing Page Article Links /////////////////////////
 
-  .children-links {
+  .children-links, .list-links {
     h2,h3,h4 {
       margin-top: -.5rem;
 
@@ -643,6 +643,24 @@
           vertical-align: middle;
         }
       }
+    }
+  }
+
+  //////////////////////////////////// Tags ////////////////////////////////////
+
+  .tags {
+    border-top: 1px solid $article-hr;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+
+    .tag {
+      background: $body-bg;
+      margin: .12rem 0;
+      padding: .35rem .6rem;
+      font-style: italic;
+      font-weight: bold;
+      color: rgba($article-text, .65);
+      font-size: .8rem;
     }
   }
 }

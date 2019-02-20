@@ -6,6 +6,7 @@ menu:
     name: influx user
     parent: influx
 weight: 101
+v2.0/tags: [users]
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.

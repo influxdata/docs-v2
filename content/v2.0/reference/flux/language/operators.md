@@ -6,6 +6,7 @@ menu:
     name: Operators
     parent: Flux specification
 weight: 215
+v2.0/tags: [operators]
 ---
 
 Flux includes the following types of operators:

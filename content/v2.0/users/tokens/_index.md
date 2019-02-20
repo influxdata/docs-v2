@@ -2,6 +2,7 @@
 title: Manage tokens
 seotitle: Manage tokens in InfluxDB
 description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
+v2.0/tags: [tokens, authentication]
 menu:
   v2_0:
     name: Manage tokens

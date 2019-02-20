@@ -6,6 +6,7 @@ menu:
     name: influx auth
     parent: influx
 weight: 101
+v2.0/tags: [authentication]
 ---
 
 The `influx auth` command and its subcommands manage authorizations in InfluxDB.

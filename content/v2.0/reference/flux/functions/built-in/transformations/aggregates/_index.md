@@ -9,6 +9,7 @@ menu:
     name: Aggregates
     identifier: built-in-aggregates
 weight: 401
+v2.0/tags: [aggregates, built-in, functions]
 ---
 
 Flux's built-in aggregate functions take values from an input table and aggregate them in some way.

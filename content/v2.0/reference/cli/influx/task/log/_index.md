@@ -6,6 +6,7 @@ menu:
     name: influx task log
     parent: influx task
 weight: 201
+v2.0/tags: [logs]
 ---
 
 The `influx task log` command and its subcommand `find` output log information related to a task.

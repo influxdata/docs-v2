@@ -4,6 +4,7 @@ seotitle: Write an InfluxDB task that processes data
 description: >
   How to write an InfluxDB task that processes data in some way, then performs an action
   such as storing the modified data in a new bucket or sending an alert.
+v2.0/tags: [tasks]
 menu:
   v2_0:
     name: Write a task

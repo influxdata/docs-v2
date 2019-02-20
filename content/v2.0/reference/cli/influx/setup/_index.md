@@ -8,6 +8,7 @@ menu:
     name: influx setup
     parent: influx
 weight: 101
+v2.0/tags: [get-started]
 ---
 
 The `influx setup` command walks through the initial InfluxDB setup process,

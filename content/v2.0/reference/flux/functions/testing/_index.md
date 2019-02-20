@@ -7,6 +7,7 @@ menu:
     name: Testing
     parent: Flux functions
 weight: 204
+v2.0/tags: [testing, functions]
 ---
 
 Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.

@@ -8,6 +8,7 @@ menu:
     name: Strings
     parent: Flux functions
 weight: 203
+v2.0/tags: [strings, functions]
 ---
 
 String functions provide tools for manipulating strings in Flux.
