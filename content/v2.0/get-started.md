@@ -9,7 +9,7 @@ v2.0/tags: [get-started, install]
 ---
 
 Get started with InfluxDB v2.0 by downloading InfluxDB, installing the necessary
-executables, and running the the initial setup process.
+executables, and running the initial setup process.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
