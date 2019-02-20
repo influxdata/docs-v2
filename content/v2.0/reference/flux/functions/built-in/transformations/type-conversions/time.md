@@ -1,6 +1,6 @@
 ---
 title: time() function
-description: The time() function converts a value to a time.
+description: The time() function converts a single value to a time.
 menu:
   v2_0_ref:
     name: time

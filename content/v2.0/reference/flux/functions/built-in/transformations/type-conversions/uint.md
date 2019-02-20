@@ -1,6 +1,6 @@
 ---
 title: uint() function
-description: The uint() function converts a value to an uinteger.
+description: The uint() function converts a single value to an uinteger.
 menu:
   v2_0_ref:
     name: uint

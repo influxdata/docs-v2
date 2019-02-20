@@ -1,6 +1,6 @@
 ---
 title: string() function
-description: The string() function converts a value to a string.
+description: The string() function converts a single value to a string.
 menu:
   v2_0_ref:
     name: string
