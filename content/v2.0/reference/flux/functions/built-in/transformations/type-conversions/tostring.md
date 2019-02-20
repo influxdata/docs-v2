@@ -1,6 +1,6 @@
 ---
 title: toString() function
-description: The toString() function converts a value to a string.
+description: The toString() function converts all values in the "_value" column to strings.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tostring
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toString()` function converts a value to a string.
+The `toString()` function converts all values in the `_value` column to a strings.
 
 _**Function type:** Type conversion_  
 _**Output data type:** String_
@@ -35,3 +35,7 @@ toString = (tables=<-) =>
   tables
     |> map(fn:(r) => string(v: r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
+[string()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/string)_

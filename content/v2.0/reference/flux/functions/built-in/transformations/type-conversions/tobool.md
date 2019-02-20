@@ -1,6 +1,6 @@
 ---
 title: toBool() function
-description: The toBool() function converts a value to a boolean.
+description: The toBool() function converts all values in the "_value" column to booleans.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tobool
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toBool()` function converts a value to a boolean.
+The `toBool()` function converts all values in the `_value` column to booleans.
 
 _**Function type:** Type conversion_  
 _**Output data type:** Boolean_
@@ -35,3 +35,7 @@ toBool = (tables=<-) =>
   tables
     |> map(fn:(r) => bool(v: r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map), 
+[bool()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bool)_

@@ -1,6 +1,6 @@
 ---
 title: toDuration() function
-description: The toDuration() function converts a value to a duration.
+description: The toDuration() function converts all values in the "_value" column to durations.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toduration
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toDuration()` function converts a value to a duration.
+The `toDuration()` function converts all values in the `_value` column to durations.
 
 _**Function type:** Type conversion_  
 _**Output data type:** Duration_
@@ -35,3 +35,7 @@ toDuration = (tables=<-) =>
   tables
     |> map(fn:(r) => duration(v: r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
+[duration()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/duration)_

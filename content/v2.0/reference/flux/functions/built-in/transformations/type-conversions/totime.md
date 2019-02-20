@@ -1,6 +1,6 @@
 ---
 title: toTime() function
-description: The toTime() function converts a value to a time.
+description: The toTime() function converts all values in the "_value" column to times.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/totime
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toTime()` function converts a value to a time.
+The `toTime()` function converts all values in the `_value` column to times.
 
 _**Function type:** Type conversion_  
 _**Output data type:** Time_
@@ -35,3 +35,7 @@ toTime = (tables=<-) =>
   tables
     |> map(fn:(r) => time(v:r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
+[time()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/time)_

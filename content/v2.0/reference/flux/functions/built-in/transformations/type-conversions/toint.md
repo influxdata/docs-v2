@@ -1,6 +1,6 @@
 ---
 title: toInt() function
-description: The toInt() function converts a value to an integer.
+description: The toInt() function converts all values in the "_value" column to integers.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toint
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toInt()` function converts a value to an integer.
+The `toInt()` function converts all values in the `_value` column to integers.
 
 _**Function type:** Type conversion_  
 _**Output data type:** Integer_
@@ -35,3 +35,7 @@ toInt = (tables=<-) =>
   tables
     |> map(fn:(r) => int(v: r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
+[int()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/int)_
