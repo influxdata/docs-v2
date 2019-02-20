@@ -1,7 +1,7 @@
 ---
 title: Transform data with Flux
 description: Learn the basics of using Flux to transform data queried from InfluxDB.
-v2.0/tags: [flux, transform]
+v2.0/tags: [flux, transform, query]
 menu:
   v2_0:
     name: Transform data

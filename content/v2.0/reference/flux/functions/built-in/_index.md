@@ -8,7 +8,7 @@ menu:
     name: Built-in
     parent: Flux functions
 weight: 201
-v2.0/tags: [built-in]
+v2.0/tags: [built-in, functions]
 ---
 
 Built-in functions provide a necessary foundation for working with data using Flux.

@@ -2,7 +2,6 @@
 title: View buckets
 seotitle: View buckets in InfluxDB
 description: View a list of all the buckets for an organization in InfluxDB using the InfluxDB UI or the influx CLI.
-v2.0/tags: [members]
 menu:
   v2_0:
     name: View buckets

@@ -5,6 +5,7 @@ menu:
   v2_0:
     name: Get started
 weight: 1
+v2.0/tags: [get-started, install]
 ---
 
 Get started with InfluxDB v2.0 by downloading InfluxDB, installing the necessary

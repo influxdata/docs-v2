@@ -6,6 +6,7 @@ menu:
     name: influx task
     parent: influx
 weight: 101
+v2.0/tags: [tasks]
 ---
 
 The `influx task` command and its subcommands manage tasks in InfluxDB.

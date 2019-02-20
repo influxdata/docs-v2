@@ -6,6 +6,7 @@ menu:
     name: influx bucket
     parent: influx
 weight: 101
+v2.0/tags: [buckets]
 ---
 
 The `influx bucket` command and its subcommands manage buckets in InfluxDB.

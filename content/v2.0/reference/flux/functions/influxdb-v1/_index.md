@@ -9,6 +9,7 @@ menu:
     name: InfluxDB v1
     parent: Flux functions
 weight: 202
+v2.0/tags: [functions, influxdb-v1]
 ---
 
 InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x

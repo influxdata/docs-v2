@@ -7,6 +7,7 @@ menu:
     name: Manage buckets
     parent: Manage organizations
 weight: 105
+v2.0/tags: [buckets]
 ---
 
 A **bucket** is a named location where time series data is stored.

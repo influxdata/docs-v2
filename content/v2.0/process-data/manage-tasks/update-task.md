@@ -4,7 +4,6 @@ seotitle: Update a task for processing data in InfluxDB
 description: >
   How to update a task that processes data in InfluxDB using the InfluxDB user
   interface or the 'influx' command line interface.
-v2.0/tags: [tasks]
 menu:
   v2_0:
     name: Update a task

@@ -6,6 +6,7 @@ menu:
     name: influx org members
     parent: influx org
 weight: 201
+v2.0/tags: [members, organizations]
 ---
 
 The `influx org members` command and its subcommands manage organization members in InfluxDB.

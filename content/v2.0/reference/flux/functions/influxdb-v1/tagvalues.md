@@ -6,6 +6,7 @@ menu:
     name: v1.tagValues
     parent: InfluxDB v1
 weight: 301
+v2.0/tags: [tags]
 ---
 
 The `v1.tagValues()` function returns a list unique values for a given tag.

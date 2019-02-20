@@ -7,6 +7,7 @@ menu:
     name: Manage members
     parent: Manage organizations
 weight: 106
+v2.0/tags: [members]
 ---
 
 A **member** is a user that belongs to an organization.
