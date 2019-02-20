@@ -9,216 +9,154 @@ menu:
     parent: Visualize data
     weight: 1
 ---
-
 The InfluxDB's user interface's (UI) dashboard views support the following visualization types,
 which can be selected in the **Visualization Type** selection view of the
 [Data Explorer](/v2.0/visualize-data/explore-metrices).
 
-[Visualization Type selector](/img/chrono-viz-types-selector.png)
-
 Each of the available visualization types and available user controls are described below.
 
-* [Line Graph](#line-graph)
-* [Stacked Graph](#stacked-graph)
-* [Step-Plot Graph](#step-plot-graph)
+* [Graph](#graph)
+* [Graph + Single Stat](#graph-single-stat)
+* [Histogram](#histogram)
 * [Single Stat](#single-stat)
-* [Line Graph + Single Stat](#line-graph-single-stat)
-* [Bar Graph](#bar-graph)
 * [Gauge](#gauge)
 * [Table](#table)
 
-
-### Graphs
+### Graph
 
 There are several types of graphs you can create.
 
-#### Line Graph
+To create a graph, select the **Graph** option from the visualization dropdown in the upper right.
 
-The **Line Graph** view displays a time series in a line graph.
+#### Graph Controls
 
-![Line Graph selector](/img/chrono-viz-line-graph-selector.png)
-
-##### Line Graph Controls
-
-![Line Graph Controls](/img/chrono-viz-line-graph-controls.png)
-
-Use the **Line Graph Controls** to specify the following:
-
+* **Geometry**: Select from the following options:
+  - **Line**: Display a time series in a line graph.
+  - **Stacked**: Display multiple time series bars as segments stacked on top of each other.
+  - **Step**: Display a time series in a staircase graph.
+  - **Bar**: Display the specified time series using a bar chart.
+* **Line Colors**: Select a color scheme to use for your graph.
 * **Title**: y-axis title. Enter title, if using a custom title.
-  - **auto**: Enable or disable auto-setting.
 * **Min**: Minimum y-axis value.
-  - **auto**: Enable or disable auto-setting.
+  - **Auto** or **Custom**: Enable or disable auto-setting.
 * **Max**: Maximum y-axis value.  
-  - **auto**: Enable or disable auto-setting.
+  - **Auto** or **Custom**: Enable or disable auto-setting.
 * **Y-Value's Prefix**: Prefix to be added to y-value.
 * **Y-Value's Suffix**: Suffix to be added to y-value.
-* **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
+* **Y-Value's Format**: Select between **K/M/B** (Thousand/Million/Billion), **K/M/G** (Kilo/Mega/Giga), or **Raw**.
 * **Scale**: Toggle between **Linear** and **Logarithmic**.
-* **Static Legend**: Toggle between **Show** and **Hide**.
-
 
 ##### Line Graph example
 
 ![Line Graph example](/img/chrono-viz-line-graph-example.png)
 
-
-#### Stacked Graph
-
-The **Stacked Graph** view displays multiple time series bars as segments stacked on top of each other.
-
-![Stacked Graph selector](/img/chrono-viz-stacked-graph-selector.png)
-
-##### Stacked Graph Controls
-
-![Stacked Graph Controls](/img/chrono-viz-stacked-graph-controls.png)
-
-Use the **Stacked Graph Controls** to specify the following:
-
-* **Title**: y-axis title. Enter title, if using a custom title.
-  - **auto**: Enable or disable auto-setting.
-* **Min**: Minimum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Max**: Maximum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Y-Value's Prefix**: Prefix to be added to y-value.
-* **Y-Value's Suffix**: Suffix to be added to y-value.
-* **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
-* **Scale**: Toggle between **Linear** and **Logarithmic**.
-* **Static Legend**: Toggle between **Show** and **Hide**.
-
-
 ##### Stacked Graph example
 
 ![Stacked Graph example](/img/chrono-viz-stacked-graph-example.png)
-
-
-### Step Graph
-
-The **Step-Plot Graph** view displays a time series in a staircase graph.
-
-![Step-Plot Graph selector](/img/chrono-viz-step-plot-graph-selector.png)
-
-#### Step Graph Controls
-
-![Step-Plot Graph Controls](/img/chrono-viz-step-plot-graph-controls.png)
-
-Use the **Step-Plot Graph Controls** to specify the following:
-
-* **Title**: y-axis title. Enter title, if using a custom title.
-  - **auto**: Enable or disable auto-setting.
-* **Min**: Minimum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Max**: Maximum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Y-Value's Prefix**: Prefix to be added to y-value.
-* **Y-Value's Suffix**: Suffix to be added to y-value.
-* **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
-* **Scale**: Toggle between **Linear** and **Logarithmic**.
 
 #### Step-Plot Graph example
 
 ![Step-Plot Graph example](/img/chrono-viz-step-plot-graph-example.png)
 
-
-### Bar Graph
-
-The **Bar Graph** view displays the specified time series using a bar chart.
-
-To select this view, click the Bar Graph selector icon.
-
-![Bar Graph selector](/img/chrono-viz-bar-graph-selector.png)
-
-#### Bar Graph Controls
-
-![Bar Graph Controls](/img/chrono-viz-bar-graph-controls.png)
-
-Use the **Bar Graph Controls** to specify the following:
-
-* **Title**: y-axis title. Enter title, if using a custom title.
-  - **auto**: Enable or disable auto-setting.
-* **Min**: Minimum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Max**: Maximum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Y-Value's Prefix**: Prefix to be added to y-value.
-* **Y-Value's Suffix**: Suffix to be added to y-value.
-* **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
-* **Scale**: Toggle between **Linear** and **Logarithmic**.
-
-#### Bar Graph example
+##### Bar Graph example
 
 ![Bar Graph example](/img/chrono-viz-bar-graph-example.png)
 
+### Graph + Single Stat
 
-### Line Graph + Single Stat
+The **Graph + Single Stat** view displays the specified time series in a line graph and overlays the single most recent value as a large numeric value.
 
-The **Line Graph + Single Stat** view displays the specified time series in a line graph and overlays the single most recent value as a large numeric value.
+To select this view, select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
 
-To select this view, click the **Line Graph + Single Stat** view option.
+#### Graph + Single Stat Controls
 
-![Line Graph + Single Stat selector](/img/chrono-viz-line-graph-single-stat-selector.png)
 
-#### Line Graph + Single Stat Controls
+* **Line Colors**: Select the a color scheme to use for your graph.
 
-![Line Graph + Single Stat Controls](/img/chrono-viz-line-graph-single-stat-controls.png)
+* **Left Y Axis** section:
+  * **Title**: y-axis title. Enter title, if using a custom title.
+  * **Min**: Minimum y-axis value.
+    - **Auto** or **Custom**: Enable or disable auto-setting.
+  * **Max**: Maximum y-axis value.  
+    - **Auto** or **Custom**: Enable or disable auto-setting.
+  * **Y-Value's Prefix**: Prefix to be added to y-value.
+  * **Y-Value's Suffix**: Suffix to be added to y-value.
+  * **Y-Value's Format**: Select between **K/M/B** (Thousand/Million/Billion), **K/M/G** (Kilo/Mega/Giga), or **Raw**.
+  * **Scale**: Toggle between **Linear** and **Logarithmic**.
 
-Use the **Line Graph + Single Stat Controls** to specify the following:
+* **Customize Single-Stat** section:  
+  * **Prefix**: Prefix to be added to the single stat.
+  * **Suffix**: Suffix to be added to the single stat.
+  * **Decimal Places**: The number of decimal places to display for the single stat.
+    - **Auto** or **Custom**: Enable or disable auto-setting.
 
-* **Title**: y-axis title. Enter title, if using a custom title.
-  - **auto**: Enable or disable auto-setting.
-* **Min**: Minimum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Max**: Maximum y-axis value.
-  - **auto**: Enable or disable auto-setting.
-* **Y-Value's Prefix**: Prefix to be added to y-value.
-* **Y-Value's Suffix**: Suffix to be added to y-value.
-* **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
-* **Scale**: Toggle between **Linear** and **Logarithmic**.
+* **Colorized Thresholds** section:
+  * **Base Color**: Select a base, or background, color from the selection list.
+  * **Add a Threshold**: Change the color of the single stat based on the current value.
+    *  **Value is**: Enter the value at which the single stat should appear in the selected color. Choose a color from the dropdown menu next to the value.
+  * **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds. Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
-#### Line Graph + Single Stat example
+#### Graph + Single Stat example
 
 ![Line Graph + Single Stat example](/img/chrono-viz-line-graph-single-stat-example.png)
+
+### Histogram
+
+A histogram is XYZ.
+
+#### Histogram Controls
+
+* **Data** section:
+  * **Column**:
+  * **Group By**:
+* **Options** section:
+  * **Color Scheme**: Select a color scheme to use for your graph.
+  * **Positioning**:
+  * **Bins**:
+    * **Auto** or **Custom**: Enable or disable auto-setting.
+
+#### Histogram example
+
+![Histogram example](!! img !!!)
 
 ### Single Stat
 
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
 
-![Single Stat view](/img/chrono-viz-single-stat-selector.png)
-
+To select this view, select the **Single Stat** option from the visualization dropdown in the upper right.
 
 #### Single Stat Controls
 
-Use the **Single Stat Controls** panel to specify one or more thresholds:
+* **Customize Single-Stat** section:  
+  * **Prefix**: Prefix to be added to the single stat.
+  * **Suffix**: Suffix to be added to the single stat.
+  * **Decimal Places**: The number of decimal places to display for the single stat.
+    - **Auto** or **Custom**: Enable or disable auto-setting.
 
-* **Add Threshold**: Button to add a new threshold.
-* **Base Color**: Select a base, or background, color from the selection list.
-  * Color options: Ruby, Fire, Curacao, Tiger, Pineapple, Thunder, Honeydew, Rainforest, Viridian, Ocean, Pool, Laser (default), Planet, Star, Comet, Pepper, Graphite, White, and Castle.
-* **Prefix**: Prefix. For example, `%`, `MPH`, etc.
-* **Suffix**: Suffix.  For example, `%`, `MPH`, etc.
-* Threshold Coloring: Toggle between **Background** and **Text**
-
+* **Colorized Thresholds** section:
+  * **Base Color**: Select a base, or background, color from the selection list.
+  * **Add a Threshold**: Change the color of the single stat based on the current value.
+    *  **Value is**: Enter the value at which the single stat should appear in the selected color. Choose a color from the dropdown menu next to the value.
+  * **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds. Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
 ### Gauge
 
 The **Gauge** view displays the single value most recent value for a time series in a gauge view.
 
-To select this view, click the Gauge selector icon.
-
-![Gauge selector](/img/chrono-viz-gauge-selector.png)
+To select this view, select the **Gauge** option from the visualization dropdown in the upper right.
 
 #### Gauge Controls
 
-![Gauge Controls](/img/chrono-viz-gauge-controls.png)
+* **Customize Gauge** section:  
+  * **Prefix**: Prefix to be added to the gauge.
+  * **Suffix**: Suffix to be added to the gauge.
+  * **Decimal Places**: The number of decimal places to display for the the gauge.
+    - **Auto** or **Custom**: Enable or disable auto-setting.
 
-Use the **Gauge Controls** to specify the following:
-
-* **Add Threshold**: Click button to add a threshold.
-* **Min**: Minimum value for the threshold.
-  - Select color to display. Selection list options include: Laser (default), Ruby, Fire, Curacao, Tiger, Pineapple, Thunder, and Honeydew.
-* **Max**: Maximum value for the threshold.
-  - Select color to display. Selection list options include: Laser (default), Ruby, Fire, Curacao, Tiger, Pineapple, Thunder, and Honeydew.
-* **Prefix**: Prefix. For example, `%`, `MPH`, etc.
-* **Suffix**: Suffix.  For example, `%`, `MPH`, etc.
+* **Colorized Thresholds** section:
+  * **Base Color**: Select a base, or background, color from the selection list.
+  * **Add a Threshold**: Change the color of the gauge based on the current value.
+    *  **Value is**: Enter the value at which the gauge should appear in the selected color. Choose a color from the dropdown menu next to the value.
 
 #### Gauge example
 
@@ -226,35 +164,32 @@ Use the **Gauge Controls** to specify the following:
 
 ### Table
 
-The **Table** panel displays the results of queries in a tabular view, which is sometimes easier to analyze than graph views of data.
+The **Table** option displays the results of queries in a tabular view, which is sometimes easier to analyze than graph views of data.
 
-![Table selector](/img/chrono-viz-table-selector.png)
+To select this view, select the **Table** option from the visualization dropdown in the upper right.
 
 #### Table Controls
 
-![Table Controls](/img/chrono-viz-table-controls.png)
+* **Customize Table** section:
+  * **Default Sort Field**: Select the default sort field. Default is **time**.
+  * **Time Format**: Select the time format.
+      - Options include: `MM/DD/YYYY HH:mm:ss` (default), `MM/DD/YYYY HH:mm:ss.SSS`, `YYYY-MM-DD HH:mm:ss`, `HH:mm:ss`, `HH:mm:ss.SSS`, `MMMM D, YYYY HH:mm:ss`, `dddd, MMMM D, YYYY HH:mm:ss`, or `Custom`.
+      * **Default Sort Field**: Select the default sort field. Default is **time**.
+  * **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
+    - **Auto** or **Custom**: Enable or disable auto-setting.
 
-Use the **Table Controls** to specify the following:
+* **Column Settings** section:
+  * **First Column**: Toggle to **Fixed** to lock the first column so that the listings are always visible. Threshold settings do not apply in the first column when locked.
+  * **Table Columns**:
+    - Enter a new name to rename any of the columns.
+    - Click the eye icon next to a column to hide it.
+    - [additional]: Enter name for each additional column.
+    - Change the order of the columns by dragging to the desired position.
 
-* **Default Sort Field**: Select the default sort field. Default is **time**.
-* **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
-* **Time Axis**: Select **Vertical** or **Horizontal**.
-* **Time Format**: Select the time format.
-    - Options include: `MM/DD/YYYY HH:mm:ss` (default), `MM/DD/YYYY HH:mm:ss.SSS`, `YYYY-MM-DD HH:mm:ss`, `HH:mm:ss`, `HH:mm:ss.SSS`, `MMMM D, YYYY HH:mm:ss`, `dddd, MMMM D, YYYY HH:mm:ss`, or `Custom`.
-* **Lock First Column**: Lock the first column so that the listings are always visible. Threshold settings do not apply in the first column when locked.
-* **Customize Field**:
-  - **time**: Enter a new name to rename.
-  - [additional]: Enter name for each additional column.
-  - Change the order of the column by dragging to the desired position.
-* **Thresholds**
-
-{{% note %}}
-Threshold settings apply to any cells with values, except when they appear in the first column and **Lock First Column** is enabled.
-{{% /note %}}
-
-  - **Add Threshold** (button): Click to add a threshold.
-  - **Base Color**: Select a base, or background, color from the selection list.
-    * Color options: Ruby, Fire, Curacao, Tiger, Pineapple, Thunder, Honeydew, Rainforest, Viridian, Ocean, Pool, Laser (default), Planet, Star, Comet, Pepper, Graphite, White, and Castle.
+* **Colorized Thresholds** section:
+  * **Base Color**: Select a base, or background, color from the selection list.
+  * **Add a Threshold**: Change the color of the table based on the current value.
+    *  **Value is**: Enter the value at which the table should appear in the selected color. Choose a color from the dropdown menu next to the value.
 
 #### Table view example
 
