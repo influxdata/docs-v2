@@ -7,7 +7,7 @@ menu:
     weight: 1
 ---
 
-## v2.0.0-alpha.4 [unreleased]
+## v2.0.0-alpha.4 [2019-02-21]
 
 ### Features
 - Add the ability to run a task manually from tasks page.
@@ -15,6 +15,7 @@ menu:
 - Display the version information on the login page.
 - Add the ability to update a Variable's name and query.
 - Add labels to cloned dashboard.
+- Flux v0.20.
 
 ### Bug Fixes
 - Update the bucket retention policy to update the time in seconds.
