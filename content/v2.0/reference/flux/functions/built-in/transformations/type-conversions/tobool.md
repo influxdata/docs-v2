@@ -19,6 +19,12 @@ _**Output data type:** Boolean_
 toBool()
 ```
 
+{{% note %}}
+To convert values in a column other than `_value`, define a custom function
+patterned after the [function definition](#function-definition),
+but replace the column in the `bool()` function with your desired column.
+{{% /note %}}
+
 ## Examples
 ```js
 from(bucket: "telegraf")
@@ -37,5 +43,5 @@ toBool = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/functions/built-in/transformations/map), 
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
 [bool()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bool)_

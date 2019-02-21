@@ -19,6 +19,12 @@ _**Output data type:** String_
 toString()
 ```
 
+{{% note %}}
+To convert values in a column other than `_value`, define a custom function
+patterned after the [function definition](#function-definition),
+but replace the column in the `string()` function with your desired column.
+{{% /note %}}
+
 ## Examples
 ```js
 from(bucket: "telegraf")

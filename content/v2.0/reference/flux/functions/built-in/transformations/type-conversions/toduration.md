@@ -19,6 +19,12 @@ _**Output data type:** Duration_
 toDuration()
 ```
 
+{{% note %}}
+To convert values in a column other than `_value`, define a custom function
+patterned after the [function definition](#function-definition),
+but replace the column in the `duration()` function with your desired column.
+{{% /note %}}
+
 ## Examples
 ```js
 from(bucket: "telegraf")
