@@ -1,6 +1,6 @@
 ---
 title: toUInt() function
-description: The toUInt() function converts a value to an uinteger.
+description: The toUInt() function converts all values in the "_value" column to UIntegers.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/touint
 menu:
@@ -10,7 +10,7 @@ menu:
 weight: 501
 ---
 
-The `toUInt()` function converts a value to an UInteger.
+The `toUInt()` function converts all values in the `_value` column to UIntegers.
 
 _**Function type:** Type conversion_  
 _**Output data type:** UInteger_
@@ -18,6 +18,12 @@ _**Output data type:** UInteger_
 ```js
 toUInt()
 ```
+
+{{% note %}}
+To convert values in a column other than `_value`, define a custom function
+patterned after the [function definition](#function-definition),
+but replace the column in the `uint()` function with your desired column.
+{{% /note %}}
 
 ## Examples
 ```js
@@ -35,3 +41,7 @@ toUInt = (tables=<-) =>
   tables
     |> map(fn:(r) => uint(v:r._value))
 ```
+
+_**Used functions:**
+[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
+[uint()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/uint)_

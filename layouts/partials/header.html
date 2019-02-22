@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
     <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxDB {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
 
+    {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i|Titillium+Web:300i,700i|Inconsolata:400,700" rel="stylesheet">
