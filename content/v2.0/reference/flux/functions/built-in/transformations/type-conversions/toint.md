@@ -1,6 +1,6 @@
 ---
 title: toInt() function
-description: The toInt() function converts all values in the "_value" column to integers.
+description: The `toInt()` function converts all values in the `_value` column to integers.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toint
 menu:

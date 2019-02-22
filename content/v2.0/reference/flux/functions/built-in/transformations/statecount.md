@@ -1,6 +1,6 @@
 ---
 title: stateCount() function
-description: The stateCount() function computes the number of consecutive records in a given state.
+description: The `stateCount()` function computes the number of consecutive records in a given state.
 aliases:
   - /v2.0/reference/flux/functions/transformations/statecount
 menu:

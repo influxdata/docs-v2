@@ -1,6 +1,6 @@
 ---
 title: fill() function
-description: The fill() function replaces all null values in an input stream and replace them with a non-null value.
+description: The `fill()` function replaces all null values in an input stream and replace them with a non-null value.
 aliases:
   - /v2.0/reference/flux/functions/transformations/fill
 menu:

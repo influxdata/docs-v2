@@ -1,6 +1,6 @@
 ---
 title: keep() function
-description: The keep() function returns a table containing only the specified columns.
+description: The `keep()` function returns a table containing only the specified columns.
 aliases:
   - /v2.0/reference/flux/functions/transformations/keep
 menu:

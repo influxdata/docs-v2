@@ -1,6 +1,6 @@
 ---
 title: lowestMin() function
-description: The lowestMin() function returns the bottom 'n' records from all groups using the minimum of each group.
+description: The `lowestMin()` function returns the bottom `n` records from all groups using the minimum of each group.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestmin
 menu:

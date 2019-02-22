@@ -1,6 +1,6 @@
 ---
 title: rename() function
-description: The rename() function renames specified columns in a table.
+description: The `rename()` function renames specified columns in a table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/rename
 menu:

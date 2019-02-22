@@ -1,6 +1,6 @@
 ---
 title: toDuration() function
-description: The toDuration() function converts all values in the "_value" column to durations.
+description: The `toDuration()` function converts all values in the `_value` column to durations.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toduration
 menu:

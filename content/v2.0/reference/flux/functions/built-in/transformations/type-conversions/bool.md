@@ -1,6 +1,6 @@
 ---
 title: bool() function
-description: The bool() function converts a single value to a boolean.
+description: The `bool()` function converts a single value to a boolean.
 menu:
   v2_0_ref:
     name: bool

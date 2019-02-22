@@ -1,6 +1,6 @@
 ---
 title: drop() function
-description: The drop() function removes specified columns from a table.
+description: The `drop()` function removes specified columns from a table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/drop
 menu:

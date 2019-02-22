@@ -1,6 +1,6 @@
 ---
 title: toUInt() function
-description: The toUInt() function converts all values in the "_value" column to UIntegers.
+description: The `toUInt()` function converts all values in the `_value` column to UIntegers.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/touint
 menu:

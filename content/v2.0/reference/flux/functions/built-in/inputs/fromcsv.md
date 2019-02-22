@@ -1,6 +1,6 @@
 ---
 title: fromCSV() function
-description: The fromCSV() function retrieves data from a CSV data source.
+description: The `fromCSV()` function retrieves data from a CSV data source.
 aliases:
   - /v2.0/reference/flux/functions/inputs/fromcsv
 menu:

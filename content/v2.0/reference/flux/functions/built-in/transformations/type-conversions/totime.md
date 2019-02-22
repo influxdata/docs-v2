@@ -1,6 +1,6 @@
 ---
 title: toTime() function
-description: The toTime() function converts all values in the "_value" column to times.
+description: The `toTime()` function converts all values in the `_value` column to times.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/totime
 menu:

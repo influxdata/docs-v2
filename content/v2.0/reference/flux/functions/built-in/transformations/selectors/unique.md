@@ -1,6 +1,6 @@
 ---
 title: unique() function
-description: The unique() function returns all records containing unique values in a specified column.
+description: The `unique()` function returns all records containing unique values in a specified column.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/unique
 menu:

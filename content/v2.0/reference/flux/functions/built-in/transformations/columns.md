@@ -1,7 +1,7 @@
 ---
 title: columns() function
 description: >
-  The columns() function lists the column labels of input tables.
+  The `columns()` function lists the column labels of input tables.
   For each input table, it outputs a table with the same group key columns,
   plus a new column containing the labels of the input table's columns.  
 aliases:

@@ -1,6 +1,6 @@
 ---
 title: toFloat() function
-description: The toFloat() function converts all values in the "_value" column to floats.
+description: The `toFloat()` function converts all values in the `_value` column to floats.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tofloat
 menu:
