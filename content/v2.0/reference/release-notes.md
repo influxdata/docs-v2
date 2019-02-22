@@ -17,14 +17,14 @@ menu:
 - Add labels to cloned dashboard.
 - Add ability filter resources by label name.
 - Add ability to create or add labels to a resource from labels editor.
-- Update to Flux v0.20
+- Update to Flux v0.20.
 
 ### Bug Fixes
 - Update the bucket retention policy to update the time in seconds.
 
 ### UI Improvements
 - Update the preview in the label overlays to be shorter.
-- Add notifications to scrapers page for created/deleted/updated scrapers .
+- Add notifications to scrapers page for created/deleted/updated scrapers.
 - Add notifications to buckets page for created/deleted/updated buckets.
 - Update the admin page to display error for password length.
 
