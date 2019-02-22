@@ -1,6 +1,6 @@
 ---
 title: count() function
-description: The count() function outputs the number of non-null records in each aggregated column.
+description: The `count()` function outputs the number of non-null records in each aggregated column.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/count
 menu:

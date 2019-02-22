@@ -1,6 +1,6 @@
 ---
 title: sort() function
-description: The sort() function orders the records within each table.
+description: The `sort()` function orders the records within each table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/sort
 menu:

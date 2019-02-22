@@ -1,6 +1,6 @@
 ---
 title: lowestCurrent() function
-description: The lowestCurrent() function returns the bottom 'n' records from all groups using the last value of each group.
+description: The `lowestCurrent()` function returns the bottom `n` records from all groups using the last value of each group.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
 menu:

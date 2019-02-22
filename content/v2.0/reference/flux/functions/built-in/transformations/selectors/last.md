@@ -1,6 +1,6 @@
 ---
 title: last() function
-description: The last() function selects the last non-null record from an input table.
+description: The `last()` function selects the last non-null record from an input table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/last
 menu:

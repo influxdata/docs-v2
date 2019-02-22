@@ -1,6 +1,6 @@
 ---
 title: range() function
-description: The range() function filters records based on time bounds.
+description: The `range()` function filters records based on time bounds.
 aliases:
   - /v2.0/reference/flux/functions/transformations/range
 menu:

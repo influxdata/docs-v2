@@ -1,6 +1,6 @@
 ---
 title: from() function
-description: The from() function retrieves data from an InfluxDB data source.
+description: The `from()` function retrieves data from an InfluxDB data source.
 aliases:
   - /v2.0/reference/flux/functions/inputs/from
 menu:

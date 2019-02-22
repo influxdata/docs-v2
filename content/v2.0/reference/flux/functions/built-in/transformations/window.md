@@ -1,6 +1,6 @@
 ---
 title: window() function
-description: The window() function groups records based on a time value.
+description: The `window()` function groups records based on a time value.
 aliases:
   - /v2.0/reference/flux/functions/transformations/window
 menu:

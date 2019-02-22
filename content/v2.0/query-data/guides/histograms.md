@@ -1,7 +1,7 @@
 ---
 title: Create histograms with Flux
 seotitle: How to create histograms with Flux
-description: This guide walks through using the histogram() function to create cumulative histograms with Flux.
+description: This guide walks through using the `histogram()` function to create cumulative histograms with Flux.
 v2.0/tags: [histogram]
 menu:
   v2_0:

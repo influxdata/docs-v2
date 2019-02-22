@@ -1,6 +1,6 @@
 ---
 title: set() function
-description: The set() function assigns a static value to each record in the input table.
+description: The `set()` function assigns a static value to each record in the input table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/set
 menu:

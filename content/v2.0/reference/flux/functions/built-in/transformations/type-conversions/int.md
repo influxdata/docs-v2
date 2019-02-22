@@ -1,6 +1,6 @@
 ---
 title: int() function
-description: The int() function converts a single value to an integer.
+description: The `int()` function converts a single value to an integer.
 menu:
   v2_0_ref:
     name: int

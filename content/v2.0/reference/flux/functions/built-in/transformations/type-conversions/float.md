@@ -1,6 +1,6 @@
 ---
 title: float() function
-description: The float() function converts a single value to a float.
+description: The `float()` function converts a single value to a float.
 menu:
   v2_0_ref:
     name: float

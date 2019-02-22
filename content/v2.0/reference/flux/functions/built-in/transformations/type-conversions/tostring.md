@@ -1,6 +1,6 @@
 ---
 title: toString() function
-description: The toString() function converts all values in the "_value" column to strings.
+description: The `toString()` function converts all values in the `_value` column to strings.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tostring
 menu:

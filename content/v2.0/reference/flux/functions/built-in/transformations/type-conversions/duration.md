@@ -1,6 +1,6 @@
 ---
 title: duration() function
-description: The duration() function converts a single value to a duration.
+description: The `duration()` function converts a single value to a duration.
 menu:
   v2_0_ref:
     name: duration

@@ -1,6 +1,6 @@
 ---
 title: highestAverage() function
-description: The highestAverage() function returns the top 'n' records from all groups using the average of each group.
+description: The `highestAverage()` function returns the top `n` records from all groups using the average of each group.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestaverage
 menu:

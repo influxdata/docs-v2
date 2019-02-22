@@ -1,6 +1,6 @@
 ---
 title: linearBins() function
-description: The linearBins() function generates a list of linearly separated floats.
+description: The `linearBins()` function generates a list of linearly separated floats.
 aliases:
   - /v2.0/reference/flux/functions/misc/linearbins
 menu:

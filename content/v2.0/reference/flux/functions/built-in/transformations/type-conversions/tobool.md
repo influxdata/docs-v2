@@ -1,6 +1,6 @@
 ---
 title: toBool() function
-description: The toBool() function converts all values in the "_value" column to booleans.
+description: The `toBool()` function converts all values in the `_value` column to booleans.
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tobool
 menu:

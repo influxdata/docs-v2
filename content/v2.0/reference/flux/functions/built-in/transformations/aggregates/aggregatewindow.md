@@ -1,6 +1,6 @@
 ---
 title: aggregateWindow() function
-description: The aggregateWindow() function applies an aggregate function to fixed windows of time.
+description: The `aggregateWindow()` function applies an aggregate function to fixed windows of time.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow
 menu:

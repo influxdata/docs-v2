@@ -1,6 +1,6 @@
 ---
 title: to() function
-description: The to() function writes data to an InfluxDB v2.0 bucket.
+description: The `to()` function writes data to an InfluxDB v2.0 bucket.
 aliases:
   - /v2.0/reference/flux/functions/outputs/to
 menu:
