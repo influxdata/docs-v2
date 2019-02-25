@@ -26,9 +26,11 @@ Each of the available visualization types and available user controls are descri
 
 There are several types of graphs you can create.
 
-To create a graph, select the **Graph** option from the visualization dropdown in the upper right.
+To select this view, select the **Graph** option from the visualization dropdown in the upper right.
 
 #### Graph Controls
+
+To view **Graph** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
 
 * **Geometry**: Select from the following options:
   - **Line**: Display a time series in a line graph.
@@ -70,6 +72,7 @@ To select this view, select the **Graph + Single Stat** option from the visualiz
 
 #### Graph + Single Stat Controls
 
+To view **Graph + Single Stat** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
 
 * **Line Colors**: Select the a color scheme to use for your graph.
 
@@ -102,22 +105,26 @@ To select this view, select the **Graph + Single Stat** option from the visualiz
 
 ### Histogram
 
-A histogram is XYZ.
+A histogram is a way to view the distribution of data. Unlike column charts, histograms have no time axis. The y-axis is dedicated to count, and the x-axis is divided into bins.
+
+To select this view, select the **Histogram** option from the visualization dropdown in the upper right.
 
 #### Histogram Controls
 
+To view **Histogram** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+
 * **Data** section:
-  * **Column**:
-  * **Group By**:
+  * **Column**: The column to select data from.
+  * **Group By**: The tags to sort by.
 * **Options** section:
   * **Color Scheme**: Select a color scheme to use for your graph.
-  * **Positioning**:
-  * **Bins**:
+  * **Positioning**: Select (**Stacked**) to display data stacked on top of each other for each bin, or select
+  * **Bins**: Enter a number of bins to divide data into or select Auto to automatically calculate the number of bins.
     * **Auto** or **Custom**: Enable or disable auto-setting.
 
 #### Histogram example
 
-![Histogram example](!! img !!!)
+![Histogram example](/img/histogram_example.png)
 
 ### Single Stat
 
@@ -126,6 +133,8 @@ The **Single Stat** view displays the most recent value of the specified time se
 To select this view, select the **Single Stat** option from the visualization dropdown in the upper right.
 
 #### Single Stat Controls
+
+To view **Single Stat** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
 
 * **Customize Single-Stat** section:  
   * **Prefix**: Prefix to be added to the single stat.
@@ -146,6 +155,8 @@ The **Gauge** view displays the single value most recent value for a time series
 To select this view, select the **Gauge** option from the visualization dropdown in the upper right.
 
 #### Gauge Controls
+
+To view **Gauge** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
 
 * **Customize Gauge** section:  
   * **Prefix**: Prefix to be added to the gauge.
@@ -169,6 +180,8 @@ The **Table** option displays the results of queries in a tabular view, which is
 To select this view, select the **Table** option from the visualization dropdown in the upper right.
 
 #### Table Controls
+
+To view **Table** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
 
 * **Customize Table** section:
   * **Default Sort Field**: Select the default sort field. Default is **time**.
