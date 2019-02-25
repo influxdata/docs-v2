@@ -4,6 +4,7 @@ seotitle: Manage data processing tasks in InfluxDB
 description: >
   InfluxDB provides options for managing the creation, reading, updating, and deletion
   of tasks using both the 'influx' CLI and the InfluxDB UI.
+v2.0/tags: [tasks]
 menu:
   v2_0:
     name: Manage tasks

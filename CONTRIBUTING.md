@@ -51,7 +51,7 @@ Every documentation page includes frontmatter which specifies information about 
 Frontmatter populates variables in page templates and the site's navigation menu.
 
 ```yaml
-title: # Title of the page used in the the page's h1
+title: # Title of the page used in the page's h1
 seotitle: # Page title used in the html <head> title and used in search engine results
 description: # Page description displayed in search engine results
 menu:
@@ -62,6 +62,7 @@ weight: # Determines sort order in both the nav tree and in article lists.
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
+v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
 ```
 
 #### Title usage
@@ -298,3 +299,56 @@ menu:
   v2_0_ref:
     # ...
 ```
+
+## New Versions of InfluxDB
+Version bumps occur regularly in the documentation.
+Each minor version has its own directory with unique content.
+Patch versions within a minor version are updated in place.
+
+To add a new minor version, go through the steps below.
+_This example assumes v2.0 is the most recent version and v2.1 is the new version._
+
+1. Ensure your `master` branch is up to date:
+   ```sh
+   git checkout master
+   git pull
+   ```
+
+2. Create a new branch for the new minor version:
+   ```sh
+   git checkout -b influxdb-2.1
+   ```
+
+3. Duplicate the most recent version's content directory:
+   ```sh
+   # From the root of the project
+   cp content/v2.0 content/v2.1
+   ```
+
+4. Find and replace all instances of the old version number with the new version
+   **(only within the new version directory)**.
+   Be sure to find and replace both the following forms of the version number:
+   ```
+   v2.0 -> v2.1
+   v2_0 -> v2_1
+   ```
+
+5. Add the new version tag taxonomy to the `config.toml` in the root of the project.
+   ```toml
+   [taxonomies]
+     "v2.0/tag" = "v2.0/tags"
+     "v2.1/tag" = "v2.1/tags"
+   ```
+
+6. Update the `latest_version` in `data/version.yaml`:
+   ```yaml
+   latest_version: v2.1
+   ```
+
+7. Commit the changes and push the new branch to Github.
+
+
+These changes lay the foundation for the new version.
+All other changes specific to the new version should be merged into this branch.
+Once the necessary changes are in place and the new version is released,
+merge the new branch into `master`.

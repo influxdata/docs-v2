@@ -1,6 +1,6 @@
 ---
 title: contains() function
-description: The contains() function tests whether a value is a member of a set.
+description: The `contains()` function tests whether a value is a member of a set.
 menu:
   v2_0_ref:
     name: contains

@@ -9,6 +9,9 @@ enableGitInfo = true
 pygmentsCodefences = true
 pygmentsUseClasses = true
 
+# Preserve case in article tags
+preserveTaxonomyNames = true
+
 # Markdown rendering options
 [blackfriday]
 hrefTargetBlank = true
@@ -18,3 +21,6 @@ hrefTargetBlank = true
   [[menu.versions]]
     name = "v1.x"
     url = "https://docs.influxdata.com"
+
+[taxonomies]
+  "v2.0/tag" = "v2.0/tags"

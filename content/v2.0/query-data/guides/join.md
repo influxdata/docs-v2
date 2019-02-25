@@ -2,6 +2,7 @@
 title: Join data with Flux
 seotitle: How to join data with Flux
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
+v2.0/tags: [join, flux]
 menu:
   v2_0:
     name: Join data

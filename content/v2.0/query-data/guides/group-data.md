@@ -4,6 +4,7 @@ seotitle: How to group data with Flux
 description: >
   This guide walks through grouping data with Flux by providing examples and
   illustrating how data is shaped throughout the process.
+v2.0/tags: [group]
 menu:
   v2_0:
     name: Group data

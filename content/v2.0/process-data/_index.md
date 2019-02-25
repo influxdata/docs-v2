@@ -8,6 +8,7 @@ menu:
   v2_0:
     name: Process data
 weight: 5
+v2.0/tags: [tasks]
 ---
 
 InfluxDB's _**task engine**_ is designed for processing and analyzing data.

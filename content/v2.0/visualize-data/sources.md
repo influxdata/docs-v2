@@ -1,6 +1,7 @@
 ---
 title: Manage sources
 description: InfluxDB offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
+v2.0/tags: [sources]
 menu:
   v2_0:
     name: Manage sources
@@ -12,6 +13,7 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 
 
 **To add data to a bucket**:
+
 1. Click in the **Organizations** icon in the navigation bar.
 2. Select the **Buckets** tab.
 3. Next to the name of a bucket, click **Add Data**.
@@ -20,7 +22,8 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 6. Follow the prompts add your data source.
 
 **To manage Telegraf configurations**:
-1. 1. Click in the **Organizations** icon in the navigation bar.
+
+1. Click in the **Organizations** icon in the navigation bar.
 2. Select the **Telegraf** tab. A list of existing Telegraf configurations appears.
 3. To add a new Telegraf configuration:
   * Click **Create Configuration** in the upper right.

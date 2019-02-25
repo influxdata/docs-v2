@@ -1,6 +1,6 @@
 ---
 title: skew() function
-description: The skew() function outputs the skew of non-null records as a float.
+description: The `skew()` function outputs the skew of non-null records as a float.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/skew
 menu:

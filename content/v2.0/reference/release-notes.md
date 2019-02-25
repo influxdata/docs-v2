@@ -7,6 +7,45 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.4 [2019-02-21]
+
+### Features
+- Add the ability to run a task manually from tasks page.
+- Add the ability to select a custom time range in explorer and dashboard.
+- Display the version information on the login page.
+- Add the ability to update a variable's name and query.
+- Add labels to cloned dashboard.
+- Add ability filter resources by label name.
+- Add ability to create or add labels to a resource from labels editor.
+- Update to Flux v0.20.
+
+### Bug Fixes
+- Update the bucket retention policy to update the time in seconds.
+
+### UI Improvements
+- Update the preview in the label overlays to be shorter.
+- Add notifications to scrapers page for created/deleted/updated scrapers.
+- Add notifications to buckets page for created/deleted/updated buckets.
+- Update the admin page to display error for password length.
+
+## v2.0.0-alpha.3 [2019-02-15]
+
+### Features
+- Add the ability to name a scraper target.
+- Display scraper name as the first and only updatable column in scrapers list.
+- Add the ability to view runs for a task.
+- Display last completed run for tasks list.
+- Add the ability to view the logs for a specific task run.
+
+### Bug Fixes
+- Update the inline edit for resource names to guard for empty strings.
+- Prevent a new template dashboard from being created on every Telegraf config update.
+- Fix overlapping buttons in Telegraf verify data step.
+
+### UI Improvements
+- Move the download Telegraf config button to view config overlay.
+- Combine permissions for user by type.
+
 ## v2.0.0-alpha.2 [2019-02-07]
 
 ### Features

@@ -8,6 +8,7 @@ menu:
     name: influx query
     parent: influx
 weight: 101
+v2.0/tags: [query]
 ---
 
 The `influx query` command executes a literal Flux query provided as a string

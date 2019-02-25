@@ -2,6 +2,7 @@
 title: Use regular expressions in Flux
 seotitle: How to use regular expressions in Flux
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
+v2.0/tags: [regex]
 menu:
   v2_0:
     name: Use regular expressions

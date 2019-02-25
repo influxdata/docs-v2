@@ -6,6 +6,7 @@ menu:
     name: v1.tagKeys
     parent: InfluxDB v1
 weight: 301
+v2.0/tags: [tags]
 ---
 
 The `v1.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).

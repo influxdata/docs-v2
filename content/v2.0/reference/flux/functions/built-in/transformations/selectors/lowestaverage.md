@@ -1,6 +1,6 @@
 ---
 title: lowestAverage() function
-description: The lowestAverage() function returns the bottom 'n' records from all groups using the average of each group.
+description: The `lowestAverage()` function returns the bottom `n` records from all groups using the average of each group.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestaverage
 menu:
