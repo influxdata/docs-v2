@@ -1,11 +1,12 @@
 ---
 title: Manage InfluxDB dashboards
 description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
+v2.0/tags: [dashboards]
 menu:
   v2_0:
     name: Manage dashboards
     parent: Visualize data
-    weight: 1
+weight: 101
 ---
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
@@ -30,11 +31,11 @@ Multiple tabs, hide/show tabs, rename tabs
 #### Add data to your dashboard
 
 1. From your dashboard, click **Add Cell** in the upper right. The Data Explorer overlay opens.
-2. Create a query in the Data Explorer following the instructions in [Exlpore metrics](/v2.0/visualize-data/explore-metrics).
+2. Create a query in the Data Explorer following the instructions in [Explore metrics](/v2.0/visualize-data/explore-metrics).
 3. Enter a name for your cell in the upper left.
 4. Click the checkmark icon to save the cell to your dashboard.
 
-You can also send data to your dashboard directly from the Data Explorer. For details, see <<link to data explorer article>>.
+You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/v2.0/visualize-data/explore-metrics).
 
 #### Add a note to your dashboard
 1. From your dashboard, click **Add Note** in the upper right.

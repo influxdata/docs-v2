@@ -1,7 +1,28 @@
 {{ partial "header.html" . }}
 
-<h1>{{ .Title }}</h1>
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
 
-{{ .Content }}
+    <div class="article">
+      <article class="article--content">
+        <h1>Related to "{{ .Title }}"</h1>
+        <div class="list-links">
+
+          {{ range .Pages }}
+            <h3><a href="{{.RelPermalink}}">{{ .Title }}</a></h3>
+            {{ if .Description }}
+              <p>{{ .Description }}</p>
+            {{ end }}
+          {{ end }}
+
+        </div>
+      </article>
+    </div>
+
+    <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
+  </div>
+</div>
 
 {{ partial "footer.html" . }}

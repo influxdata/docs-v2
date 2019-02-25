@@ -5,7 +5,8 @@ menu:
   v2_0_ref:
     name: influx org
     parent: influx
-    weight: 1
+weight: 101
+v2.0/tags: [organizations]
 ---
 
 The `influx org` command and its subcommands manage organization information in InfluxDB.

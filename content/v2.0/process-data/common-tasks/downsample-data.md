@@ -8,7 +8,8 @@ menu:
   v2_0:
     name: Downsample data
     parent: Common tasks
-    weight: 4
+weight: 201
+v2.0/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce
@@ -31,7 +32,7 @@ A separate bucket where aggregated, downsampled data is stored.
 To downsample data, it must be aggregated in some way.
 What specific method of aggregation you use depends on your specific use case,
 but examples include mean, median, top, bottom, etc.
-View [Flux's aggregate functions](/v2.0/reference/flux/functions/transformations/aggregates/)
+View [Flux's aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/)
 for more information and ideas.
 
 ## Create a destination bucket
@@ -46,7 +47,7 @@ The example task script below is a very basic form of data downsampling that doe
 1. Defines a task named "cq-mem-data-1w" that runs once a week.
 2. Defines a `data` variable that represents all data from the last 2 weeks in the
    `mem` measurement of the `system-data` bucket.
-3. Uses the [`aggregateWindow()` function](/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow/)
+3. Uses the [`aggregateWindow()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/)
    to window the data into 1 hour intervals and calculate the average of each interval.
 4. Stores the aggregated data in the `system-data-downsampled` bucket under the
    `my-org` organization.

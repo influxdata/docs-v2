@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: influx user update
     parent: influx user
-    weight: 1
+weight: 201
 ---
 
 The `influx user update` command updates information related to a user in InfluxDB.

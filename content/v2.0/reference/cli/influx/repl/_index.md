@@ -7,7 +7,8 @@ menu:
   v2_0_ref:
     name: influx repl
     parent: influx
-    weight: 1
+weight: 101
+v2.0/tags: [query]
 ---
 
 The `influx repl` command opens and interactive read-eval-print-loop (REPL)

@@ -8,7 +8,8 @@ menu:
   v2_0:
     name: Task options
     parent: Process data
-    weight: 5
+weight: 105
+v2.0/tags: [tasks, flux]
 ---
 
 Task options define specific information about the task and are specified in your

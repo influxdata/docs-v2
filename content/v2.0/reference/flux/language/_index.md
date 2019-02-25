@@ -7,7 +7,8 @@ menu:
   v2_0_ref:
     name: Flux specification
     parent: Flux query language
-    weight: 5
+weight: 102
+v2.0/tags: [flux]
 ---
 
 The following document specifies the Flux language and query execution.

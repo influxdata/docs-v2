@@ -188,7 +188,10 @@
     border-radius: $border-radius;
     overflow-x: scroll;
     overflow-y: hidden;
-    code { padding: 0; }
+    code {
+      padding: 0;
+      line-height: 1.4rem;
+    }
   }
 
   //////////////////////////////////// Tables ////////////////////////////////////
@@ -243,7 +246,7 @@
 
   ///////////////////////// Landing Page Article Links /////////////////////////
 
-  .children-links {
+  .children-links, .list-links {
     h2,h3,h4 {
       margin-top: -.5rem;
 
@@ -266,12 +269,13 @@
   blockquote,
   .note,
   .warn,
-  #enterprise-msg {
+  .enterprise-msg {
     padding: 1.65rem 2rem .1rem 2rem;
     margin: 1rem 0 2rem;
     border-width: 0 0 0 4px;
     border-style: solid;
     border-radius: 0 $border-radius $border-radius 0;
+    font-size: .95rem;
   }
 
   blockquote {
@@ -379,7 +383,7 @@
 
   ///////////////////////////////// Enterprise /////////////////////////////////
 
-  #enterprise-msg {
+  .enterprise-msg {
     border-color: $article-enterprise-base;
     background: rgba($article-enterprise-base, .15);
     font-style: italic;
@@ -639,6 +643,24 @@
           vertical-align: middle;
         }
       }
+    }
+  }
+
+  //////////////////////////////////// Tags ////////////////////////////////////
+
+  .tags {
+    border-top: 1px solid $article-hr;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+
+    .tag {
+      background: $body-bg;
+      margin: .12rem 0;
+      padding: .35rem .6rem;
+      font-style: italic;
+      font-weight: bold;
+      color: rgba($article-text, .65);
+      font-size: .8rem;
     }
   }
 }

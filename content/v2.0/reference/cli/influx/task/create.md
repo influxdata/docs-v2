@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx task create
     parent: influx task
-    weight: 1
+weight: 201
 ---
 
 The `influx task create` command creates a new task in InfluxDB.

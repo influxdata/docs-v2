@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx bucket find
     parent: influx bucket
-    weight: 1
+weight: 201
 ---
 
 The `influx bucket find` command lists and searches for buckets in InfluxDB.

@@ -5,7 +5,8 @@ menu:
   v2_0_ref:
     name: influx user
     parent: influx
-    weight: 1
+weight: 101
+v2.0/tags: [users]
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.

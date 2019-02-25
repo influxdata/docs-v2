@@ -4,19 +4,19 @@ seotitle: Common data processing tasks performed with with InfluxDB
 description: >
   InfluxDB Tasks process data on specified schedules.
   This collection of articles walks through common use cases for InfluxDB tasks.
+v2.0/tags: [tasks]
 menu:
   v2_0:
     name: Common tasks
     parent: Process data
-    weight: 4
+weight: 104
 ---
 
 The following articles walk through common task use cases.
 
-[Downsample Data with InfluxDB](/v2.0/process-data/common-tasks/downsample-data)
+{{< children >}}
 
 {{% note %}}
 This list will continue to grow.
-If you have suggestions, please [create an issue](https://github.com/influxdata/docs-v2/issues/new)
-on the InfluxData documentation repository on Github.
+If you have suggestions, please [submit them to the InfluxData Community](https://community.influxdata.com/c/influxdb2).
 {{% /note %}}

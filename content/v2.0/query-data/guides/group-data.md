@@ -4,11 +4,12 @@ seotitle: How to group data with Flux
 description: >
   This guide walks through grouping data with Flux by providing examples and
   illustrating how data is shaped throughout the process.
+v2.0/tags: [group]
 menu:
   v2_0:
     name: Group data
     parent: How-to guides
-    weight: 3
+weight: 203
 ---
 
 With Flux, you can group data by any column in your queried data set.
@@ -28,7 +29,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/v2.0/reference/flux/functions/transformations/group) defines the
+Flux's [`group()` function](/v2.0/reference/flux/functions/built-in/transformations/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

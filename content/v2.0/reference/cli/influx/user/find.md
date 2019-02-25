@@ -5,7 +5,7 @@ menu:
   v2_0_ref:
     name: influx user find
     parent: influx user
-    weight: 1
+weight: 201
 ---
 
 The `influx user find` command lists and searches for users in InfluxDB.

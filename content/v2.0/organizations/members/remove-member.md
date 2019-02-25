@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Remove a member
     parent: Manage members
-    weight: 3
+weight: 203
 draft: true
 ---
 

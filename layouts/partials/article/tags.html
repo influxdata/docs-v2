@@ -1,0 +1,12 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
+{{ $tagSet := print $currentVersion "/tags" }}
+{{ if isset .Params $tagSet }}
+  <div class="tags">
+    {{ range .Param $tagSet }}
+      {{ $name := . }}
+      {{ with $.Site.GetPage (printf "/%s/%s" $tagSet ($name | urlize)) }}
+        <a class="tag btn" href="{{ .RelPermalink }}">{{ $name }}</a>
+      {{ end }}
+    {{ end }}
+  </div>
+{{ end }}
