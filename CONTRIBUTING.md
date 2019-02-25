@@ -299,6 +299,8 @@ menu:
   v2_0_ref:
     # ...
 ```
+### Image naming conventions
+Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version. 
 
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
