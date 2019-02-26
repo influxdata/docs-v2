@@ -1,7 +1,9 @@
 ---
 title: Create scrapable endpoints
 seotitle: Create scrapable endpoints for InfluxDB
-description: placeholder
+description: >
+  InfluxDB scrapers can collect data from any HTTP/S-accessible endpoint, provided the returned data is in the Prometheus data format.
+  This article provides information about and links to tools that output Prometheus-formatted metrics.
 menu:
   v2_0:
     parent: Scrape data
