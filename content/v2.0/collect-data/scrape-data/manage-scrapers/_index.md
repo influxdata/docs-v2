@@ -7,6 +7,7 @@ menu:
     name: Manage scrapers
     parent: Scrape data
 weight: 201
+v2.0/tags: [scraper]
 ---
 
 The following articles walk through managing InfluxDB scrapers:

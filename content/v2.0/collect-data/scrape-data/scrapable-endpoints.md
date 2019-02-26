@@ -36,4 +36,4 @@ Application metrics are output to an HTTP/S endpoint from which they can be scra
 
 ##### Helpful links
 [Instrumenting a Go application for Prometheus](https://prometheus.io/docs/guides/go-application/)  
-[Write Prometheus client libraries](https://prometheus.io/docs/instrumenting/writing_clientlibs/)  
+[Writing Prometheus client libraries](https://prometheus.io/docs/instrumenting/writing_clientlibs/)  
