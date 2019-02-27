@@ -1,0 +1,17 @@
+{{ $icon :=  .Get 0 | default "nav-admin" }}
+
+{{ if eq $icon "nav-admin" }}
+<span class="icon-ui-influx-icon"></span>
+{{ else if eq $icon "nav-data-explorer" }}
+<span class="icon-ui-data-explorer"></span>
+{{ else if eq $icon "nav-dashboards" }}
+<span class="icon-ui-dashboards"></span>
+{{ else if eq $icon "nav-tasks" }}
+<span class="icon-ui-calendar"></span>
+{{ else if or (eq $icon "nav-organizations") (eq $icon "nav-orgs") }}
+<span class="icon-ui-organizations"></span>
+{{ else if or (eq $icon "nav-configuration") (eq $icon "nav-config") }}
+<span class="icon-ui-wrench"></span>
+{{ else if eq $icon "add-cell" }}
+<span class="icon-ui-add-cell" style="font-size:.9rem"></span>
+{{ end }}
