@@ -56,9 +56,10 @@ Queried data is returned in annotated CSV format.
 
 In your request, set the following:
 
+- Your organization via the `org` or `orgID` URL parameters.
 - `Authorization` header to `Token ` + your authentication token.
-- `accept` header to `application/csv`
-- `content-type` header to `application/vnd.flux`
+- `accept` header to `application/csv`.
+- `content-type` header to `application/vnd.flux`.
 
 This allows you to POST the Flux query in plain text and receive the annotated CSV response.
 
@@ -72,7 +73,7 @@ Below is an example `curl` command that queries InfluxDB:
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query -XPOST -sS \
+curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
 -H 'Authorization: Token YOURAUTHTOKEN' \
 -H 'accept:application/csv' \
 -H 'content-type:application/vnd.flux' \
@@ -85,7 +86,7 @@ curl http://localhost:9999/api/v2/query -XPOST -sS \
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query -XPOST -sS -H 'Authorization: Token TOKENSTRINGHERE' -H 'accept:application/csv' -H 'content-type:application/vnd.flux' -d 'from(bucket:“test”) |> range(start:-1000h) |> group(columns:[“_measurement”], mode:“by”) |> sum()'
+curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS -H 'Authorization: Token TOKENSTRINGHERE' -H 'accept:application/csv' -H 'content-type:application/vnd.flux' -d 'from(bucket:“test”) |> range(start:-1000h) |> group(columns:[“_measurement”], mode:“by”) |> sum()'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
