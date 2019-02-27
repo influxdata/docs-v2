@@ -1,0 +1,51 @@
+{{ $icon :=  .Get 0 | default "nav-admin" }}
+
+{{ if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") }}
+<span class="inline icon-ui-influx-icon middle"></span>
+{{ else if or (eq $icon "nav-data-explorer") (eq $icon "data-explorer") (eq $icon "graph") }}
+<span class="inline icon-ui-data-explorer middle large"></span>
+{{ else if or (eq $icon "nav-dashboards") (eq $icon "dashboard") (eq $icon "dashboards") }}
+<span class="inline icon-ui-dashboards middle"></span>
+{{ else if or (eq $icon "nav-tasks") (eq $icon "calendar") (eq $icon "tasks") }}
+<span class="inline icon-ui-calendar"></span>
+{{ else if or (eq $icon "nav-organizations") (eq $icon "nav-orgs") (eq $icon "orgs") (eq $icon "org") }}
+<span class="inline icon-ui-organizations middle"></span>
+{{ else if or (eq $icon "nav-configuration") (eq $icon "nav-config") (eq $icon "wrench") }}
+<span class="inline icon-ui-wrench middle large"></span>
+{{ else if eq $icon "add-cell" }}
+<span class="inline icon-ui-add-cell small"></span>
+{{ else if eq $icon "alert" }}
+<span class="inline icon-ui-alert middle"></span>
+{{ else if or (eq $icon "checkmark") (eq $icon "check") }}
+<span class="inline icon-ui-checkmark middle"></span>
+{{ else if or (eq $icon "gear") (eq $icon "cog") (eq $icon "settings") (eq $icon "config") }}
+<span class="inline icon-ui-cog-thick middle small"></span>
+{{ else if eq $icon "download" }}
+<span class="inline icon-ui-download middle"></span>
+{{ else if or (eq $icon "duplicate") (eq $icon "copy") (eq $icon "clone") }}
+<span class="inline icon-ui-duplicate middle small"></span>
+{{ else if or (eq $icon "export") (eq $icon "save-as") }}
+<span class="inline icon-ui-export middle small"></span>
+{{ else if or (eq $icon "expand") (eq $icon "fullscreen") }}
+<span class="inline icon-ui-fullscreen middle large"></span>
+{{ else if eq $icon "note" }}
+<span class="inline icon-ui-note middle small"></span>
+{{ else if or (eq $icon "note") }}
+<span class="inline icon-ui-note middle small"></span>
+{{ else if eq $icon "pause" }}
+<span class="inline icon-ui-pause middle"></span>
+{{ else if or (eq $icon "pencil") (eq $icon "edit") }}
+<span class="inline icon-ui-pencil middle small"></span>
+{{ else if eq $icon "play" }}
+<span class="inline icon-ui-play middle small"></span>
+{{ else if eq $icon "plus" }}
+<span class="inline icon-ui-plus middle xsmall"></span>
+{{ else if or (eq $icon "refresh") (eq $icon "replay") }}
+<span class="inline icon-ui-refresh middle small"></span>
+{{ else if or (eq $icon "remove") (eq $icon "x") }}
+<span class="inline icon-ui-remove middle small"></span>
+{{ else if eq $icon "search" }}
+<span class="inline icon-ui-search middle small"></span>
+{{ else if eq $icon "triangle" }}
+<span class="inline icon-ui-triangle middle"></span>
+{{ end }}

@@ -1,0 +1,7 @@
+// Helper styles for inline icons used with the "icon" shortcode
+.article--content .inline {
+  &.middle:before { vertical-align: middle; }
+  &.xsmall:before { font-size: .8rem; }
+  &.small:before { font-size: .9rem; }
+  &.large:before { font-size: 1.1rem; }
+}
