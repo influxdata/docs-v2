@@ -1,0 +1,43 @@
+// Helper styles for inline icons used with the "icon" shortcode
+.article--content {
+  .inline {
+    &.middle:before { vertical-align: middle; }
+    &.xsmall:before { font-size: .8rem; }
+    &.small:before { font-size: .9rem; }
+    &.large:before { font-size: 1.1rem; }
+
+    &.add-btn-round {
+      font-family: "icomoon";
+      color:#fff;
+      background:#22adf6;
+      border-radius:50%;
+      margin:0 .25rem;
+      display: inline-block;
+      vertical-align: text-top;
+      font-size: .7rem;
+      width: 20px;
+      height: 20px;
+      padding-left: .28rem;
+      line-height: 1.35rem;
+    }
+  }
+
+  .nav-icon {
+    background: linear-gradient(to right, #50ABEF, #9195f7);
+    display: inline-block;
+    padding: .85rem 1rem;
+    border-radius: 0 5px 5px 0;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+
+    .icon {
+      font-size: 1.35rem;
+      vertical-align: middle;
+      margin-right: 1.25rem;
+    }
+
+    strong {
+      color: $g20-white;
+    }
+  }
+}

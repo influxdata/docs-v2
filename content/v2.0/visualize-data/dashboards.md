@@ -11,14 +11,6 @@ weight: 101
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
 
-{{< img-hd src="/img/dashboards-icon.png" title="Dashboard icon" />}}
-
-Variable names changed--instead of dashboard time, it's time range start/time range end (double-check).
-Window interval replaces interval
-Save as somewhere--same as send to dashboard
-Also save as dashboard/save as tasks
-Multiple tabs, hide/show tabs, rename tabs
-
 
 ## Create a dashboard
 

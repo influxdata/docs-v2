@@ -18,7 +18,7 @@ Choose between [visualization types](/v2.0/visualize-data/visualization-types/) 
 
 To open the **Data Explorer**, click the **Data Explorer** icon in the navigation bar:
 
-{{< img-hd src="/img/data-explorer-icon.png" title="Data Explorer icon" />}}
+{{< nav-icon "data-explorer" >}}
 
 ## Explore data with Flux
 

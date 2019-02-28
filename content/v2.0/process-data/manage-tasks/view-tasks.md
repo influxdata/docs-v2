@@ -14,7 +14,7 @@ weight: 202
 ## View tasks in the InfluxDB UI
 Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
-{{< img-hd src="/img/tasks-icon.png" alt="Tasks Icon" />}}
+{{< nav-icon "tasks" >}}
 
 ### Filter the list of tasks
 

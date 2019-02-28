@@ -33,14 +33,14 @@ Separating each sentence with a new line makes it easy to parse diffs with the h
 
 **Diff without semantic linefeeds:**
 ``` diff
--Data are taking off. Those data are time series. You need a database that specializes in time series. You should check out InfluxDB.
-+Data are taking off. Those data are time series. You need a database that specializes in time series. You need InfluxDB.
+-Data is taking off. This data is time series. You need a database that specializes in time series. You should check out InfluxDB.
++Data is taking off. This data is time series. You need a database that specializes in time series. You need InfluxDB.
 ```
 
 **Diff with semantic linefeeds:**
 ``` diff
-Data are taking off.
-Those data are time series.
+Data is taking off.
+This data is time series.
 You need a database that specializes in time series.
 -You should check out InfluxDB.
 +You need InfluxDB.
@@ -277,6 +277,81 @@ There is also a special use-case designed for listing Flux functions using the `
 {{< children type="functions" >}}
 ```
 
+### Inline icons
+The `icon` shortcode allows you to inject icons in paragraph text.
+It's meant to clarify references to specific elements in the InfluxDB user interface.
+
+```
+{{< icon "icon-name" >}}
+```
+
+Below is a list of available icons (some are aliases):
+
+- add-cell
+- add-label
+- alert
+- calendar
+- checkmark
+- clone
+- cog
+- config
+- copy
+- dashboard
+- dashboards
+- data-explorer
+- download
+- duplicate
+- edit
+- expand
+- export
+- fullscreen
+- gear
+- graph
+- influx
+- influx-icon
+- nav-admin
+- nav-config
+- nav-configuration
+- nav-dashboards
+- nav-data-explorer
+- nav-organizations
+- nav-orgs
+- nav-tasks
+- note
+- org
+- orgs
+- pause
+- pencil
+- play
+- plus
+- refresh
+- remove
+- replay
+- save-as
+- search
+- settings
+- tasks
+- triangle
+- wrench
+- x
+
+### InfluxDB UI left navigation icons
+In many cases, documentation references an item in the left nav of the InfluxDB UI.
+To provide a visual example of the the navigation item using the `nav-icon` shortcode.
+
+```
+{{< nav-icon "Tasks" >}}
+```
+
+The following case insensitive values are supported:
+
+- admin
+- data explorer, data-explorer
+- dashboards
+- tasks
+- organizations, orgs
+- configuration, config
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
@@ -299,6 +374,8 @@ menu:
   v2_0_ref:
     # ...
 ```
+### Image naming conventions
+Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
 
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.

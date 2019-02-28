@@ -16,7 +16,7 @@ to view members of an organization.
 
 * Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
 * Click on the name of an organization, then select the **Members** tab. The list of organization members appears.
 
