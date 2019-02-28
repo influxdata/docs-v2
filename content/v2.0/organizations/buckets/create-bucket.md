@@ -16,7 +16,7 @@ to create a bucket.
 
 1. Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
 2. Click on the name of an organization, then select the **Buckets** tab.
 3. Click **+ Create Bucket** in the upper right.

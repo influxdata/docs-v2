@@ -51,21 +51,17 @@
     transition: right .2s;
 
     .selected {
-      padding: 0 1.5rem 0 .75rem;
+      padding: 0 1.75rem 0 .75rem;
       line-height: 0;
     }
 
     &:after {
-      content: '';
+      content: '\e917';
+      font-family: 'icomoon';
       position: absolute;
-      top: .75rem;
-      right: .5rem;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 7px 5px 0 5px;
-      border-color: $g20-white transparent transparent transparent;
-      transition: all .4s;
+      top: .45rem;
+      right: .4rem;
+      transition: all .3s;
     }
 
     &.open {

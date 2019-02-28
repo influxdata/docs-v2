@@ -16,7 +16,7 @@ to create an organization.
 
 1. Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
 _Complete content coming soon_
 

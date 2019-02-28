@@ -14,7 +14,7 @@ weight: 204
 ## Delete a task in the InfluxDB UI
 1. Click the **Tasks** icon in the left navigation menu.
 
-    {{< img-hd src="/img/tasks-icon.png" alt="Tasks Icon" />}}
+    {{< nav-icon "tasks" >}}
 
 2. In the list of tasks, hover over the task you would like to delete.
 3. Click **Delete** on the far right.

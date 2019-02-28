@@ -26,7 +26,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task from the Data Explorer
 1. Click on the **Data Explorer** icon in the left navigation menu.
 
-    {{< img-hd src="/img/data-explorer-icon.png" title="Data Explorer Icon" />}}
+    {{< nav-icon "data-explorer" >}}
 
 2. Building a query and click **Save As** in the upper right.
 3. Select the **Task** option.
@@ -39,7 +39,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task in the Task UI
 1. Click on the **Tasks** icon in the left navigation menu.
 
-    {{< img-hd src="/img/tasks-icon.png" title="Tasks Icon" />}}
+    {{< nav-icon "tasks" >}}
 
 2. Click **+ Create Task** in the upper right.
 3. In the left panel, specify the task options.

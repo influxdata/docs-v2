@@ -14,7 +14,7 @@ weight: 203
 ## Update a task in the InfluxDB UI
 To view your tasks, click the **Tasks** icon in the left navigation menu.
 
-{{< img-hd src="/img/tasks-icon.png" alt="Tasks Icon" />}}
+{{< nav-icon "tasks" >}}
 
 #### Update a task's Flux script
 1. In the list of tasks, click the **Name** of the task you would like to update.
