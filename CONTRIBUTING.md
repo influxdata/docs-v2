@@ -277,6 +277,35 @@ There is also a special use-case designed for listing Flux functions using the `
 {{< children type="functions" >}}
 ```
 
+### Inline icons
+The `icon` shortcode allows you to inject icons in paragraph text.
+It's meant to clarify references to specific elements in the InfluxDB user interface.
+
+```
+{{< icon "icon-name" >}}
+```
+
+Below is a list of available icons (some are aliases):
+
+```
+add-cell         fullscreen           pause
+alert            gear                 pencil
+calendar         graph                play
+checkmark        influx               plus
+clone            influx-icon          refresh
+cog              nav-admin            remove
+config           nav-config           replay
+copy             nav-configuration    save-as
+dashboard        nav-dashboards       search
+dashboards       nav-data-explorer    settings
+data-explorer    nav-organizations    tasks
+download         nav-orgs             triangle
+duplicate        nav-tasks            wrench
+edit             note                 x
+expand           org
+export           orgs
+```
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
@@ -300,7 +329,7 @@ menu:
     # ...
 ```
 ### Image naming conventions
-Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version. 
+Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
 
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.

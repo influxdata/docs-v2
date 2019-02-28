@@ -35,9 +35,7 @@ To manage labels, click the **Configuration** icon in the navigation bar and sel
 
 ### Add labels to dashboards and tasks
 1. In the list view of dashboards or tasks, hover over the item to which you would like to add a label.
-2. Click the
-   <span class="icon-plus" style="color:#fff;background:#22adf6;border-radius:50%;padding:.07rem .1rem;margin:0 .25rem;display: inline-block;width: 20px;height: 20px;"></span>
-   icon that appears to the right of the name.
+2. Click the {{< icon "add-label" >}} icon that appears to the right of the name.
    The **Manage Labels** overlay will appear.
 3. Type the name of the label you would like to add to filter the list of available labels.
    Click the label you would like to add. More than one label can be added.

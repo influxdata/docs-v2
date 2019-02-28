@@ -30,8 +30,6 @@
 <span class="inline icon-ui-fullscreen middle large"></span>
 {{ else if eq $icon "note" }}
 <span class="inline icon-ui-note middle small"></span>
-{{ else if or (eq $icon "note") }}
-<span class="inline icon-ui-note middle small"></span>
 {{ else if eq $icon "pause" }}
 <span class="inline icon-ui-pause middle"></span>
 {{ else if or (eq $icon "pencil") (eq $icon "edit") }}
@@ -48,4 +46,6 @@
 <span class="inline icon-ui-search middle small"></span>
 {{ else if eq $icon "triangle" }}
 <span class="inline icon-ui-triangle middle"></span>
+{{ else if eq $icon "add-label" }}
+<span class="inline add-btn-round">&#59696;</span>
 {{ end }}
