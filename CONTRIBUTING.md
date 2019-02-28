@@ -287,24 +287,53 @@ It's meant to clarify references to specific elements in the InfluxDB user inter
 
 Below is a list of available icons (some are aliases):
 
-```
-add-cell         fullscreen           pause
-alert            gear                 pencil
-calendar         graph                play
-checkmark        influx               plus
-clone            influx-icon          refresh
-cog              nav-admin            remove
-config           nav-config           replay
-copy             nav-configuration    save-as
-dashboard        nav-dashboards       search
-dashboards       nav-data-explorer    settings
-data-explorer    nav-organizations    tasks
-download         nav-orgs             triangle
-duplicate        nav-tasks            wrench
-edit             note                 x
-expand           org
-export           orgs
-```
+- add-cell
+- add-label
+- alert
+- calendar
+- checkmark
+- clone
+- cog
+- config
+- copy
+- dashboard
+- dashboards
+- data-explorer
+- download
+- duplicate
+- edit
+- expand
+- export
+- fullscreen
+- gear
+- graph
+- influx
+- influx-icon
+- nav-admin
+- nav-config
+- nav-configuration
+- nav-dashboards
+- nav-data-explorer
+- nav-organizations
+- nav-orgs
+- nav-tasks
+- note
+- org
+- orgs
+- pause
+- pencil
+- play
+- plus
+- refresh
+- remove
+- replay
+- save-as
+- search
+- settings
+- tasks
+- triangle
+- wrench
+- x
 
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
