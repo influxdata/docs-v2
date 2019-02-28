@@ -16,7 +16,7 @@ to update an organization.
 
 1. Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.

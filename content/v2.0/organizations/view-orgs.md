@@ -16,9 +16,9 @@ to view organizations.
 
 * Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
-The list of organizations appears.
+    The list of organizations appears.
 
 
 ## View organizations using the influx CLI

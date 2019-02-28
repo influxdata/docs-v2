@@ -13,7 +13,7 @@ weight: 202
 
 1. Click the **Organizations** tab in the navigation bar.
 
-    {{< img-hd src="/img/organizations-icon.png" title="Organizations icon" />}}
+    {{< nav-icon "orgs" >}}
 
 2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
 3. Click on a bucket to view details.=
