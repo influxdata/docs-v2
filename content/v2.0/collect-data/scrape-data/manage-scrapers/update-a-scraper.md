@@ -18,7 +18,7 @@ To modify either, [create a new scraper](/v2.0/collect-data/scrape-data/manage-s
 ## Update a scraper in the InfluxDB UI
 1. Click **Organizations** in the left navigation menu.
 
-    {{< img-hd src="/img/organizations-icon.png" />}}
+    {{< nav-icon "orgs" >}}
 
 2. In the list of organizations, click the name of your organization.
 3. Click the **Scrapers** tab. A listing of any existing scrapers appears with the

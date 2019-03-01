@@ -1,7 +1,7 @@
 ---
 title: Scrape data
 seotitle: Scrape data using InfluxDB scrapers
-weight: 102
+weight: 103
 description: >
   Scrape data from InfluxDB instances or remote endpoints using InfluxDB scrapers.
   Create a scraper in the InfluxDB UI to collect metrics from a specified target.

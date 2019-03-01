@@ -13,7 +13,7 @@ Create a new scraper in the InfluxDB user interface (UI).
 ## Create a scraper in the InfluxDB UI
 1. Click **Organizations** in the left navigation menu.
 
-    {{< img-hd src="/img/organizations-icon.png" />}}
+    {{< nav-icon "orgs" >}}
 
 2. In the list of organizations, click the name of your organization.
 3. Click the **Scrapers** tab.
