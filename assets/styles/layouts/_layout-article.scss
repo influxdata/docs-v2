@@ -267,6 +267,7 @@
   ////////////////// Blockquotes, Notes, Warnings, & Messages //////////////////
 
   blockquote,
+  .feedback,
   .note,
   .warn,
   .enterprise-msg {
@@ -379,6 +380,11 @@
       border-color: rgba($article-warn-text, .25);
       p { color: rgba($article-warn-text, .6); }
     }
+  }
+
+  .feedback {
+    border-color: rgba($article-note-base, .75);
+    background: rgba($article-text, .05);
   }
 
   ///////////////////////////////// Enterprise /////////////////////////////////
