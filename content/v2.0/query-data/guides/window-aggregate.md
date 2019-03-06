@@ -1,6 +1,6 @@
 ---
 title: Window and aggregate data with Flux
-seotitle: How to window and aggregate data with Flux
+seotitle: Window and aggregate data in InfluxDB with Flux
 description: >
   This guide walks through windowing and aggregating data with Flux and outlines
   how it shapes your data in the process.

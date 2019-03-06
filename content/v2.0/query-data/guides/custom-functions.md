@@ -1,6 +1,5 @@
 ---
 title: Create custom Flux functions
-seotitle: Create custom Flux functions
 description: Create your own custom Flux functions to transform and manipulate data.
 v2.0/tags: [functions, custom, flux]
 menu:

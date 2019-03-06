@@ -1,6 +1,5 @@
 ---
-title: Group data with Flux
-seotitle: How to group data with Flux
+title: Group data in InfluxDB with Flux
 description: >
   This guide walks through grouping data with Flux by providing examples and
   illustrating how data is shaped throughout the process.
