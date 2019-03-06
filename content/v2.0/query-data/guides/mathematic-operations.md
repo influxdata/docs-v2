@@ -28,7 +28,7 @@ to "map" over data and transform values using mathematic operations.
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See the <a href="/v2.0/reference/cli/influx/repl">Flux read-eval-print-loop (REPL)</a> documentation.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/v2.0/reference/cli/influx/repl">Flux read-eval-print-loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type
