@@ -23,7 +23,9 @@ Follow the steps below to configure an InfluxDB scraper. The steps below use the
 1. Open a web browser to access the InfluxDB 2.0 user interface
    ([localhost:9999](http://localhost:9999)). The **Getting started with InfluxDB 2.0** screen appears.
 2. In the navigation bar on the left, click **Organizations**.
- {{< nav-icon "orgs" >}}
+
+  {{< nav-icon "orgs" >}}
+  
 3. Click the name of your organization. The **Organization** page appears for the selected organization.
 4. Click the **Scrapers** tab. A listing of any existing scrapers appears, listing the **URL** and the **BUCKET** name.
 5. Click **Create Scraper**. The **Data Loading** page appears with **Add Scraper Target** options to define a scraper.
