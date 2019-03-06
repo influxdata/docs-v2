@@ -27,13 +27,16 @@ analyzing, and acting on time series data.
 See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Flux.
 
 1. Click the **Data Explorer** icon in the sidebar.
+
+  {{< nav-icon "data-explorer" >}}
+
 2. Use the Flux builder in the bottom panel to select a bucket and filters such as measurement, field or tag.
    Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 3. Use the **Functions** list to review the available Flux functions.
    Click on a function from the list to add it to your query.
 4. Click **Submit** to run your query. You can then preview your graph in the above pane.
-5. To work on multiple queries at once, click the **+** to add another tab.
+5. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
   * Click the eye icon on a tab to hide or show a query's visualization.
   * Click on the name of the query in the tab to rename it.
 
