@@ -1,7 +1,7 @@
 ---
 title: Transform data with mathematic operations
 seotitle: Transform data with mathematic operations in Flux
-description: This guide walks through using Flux to transform data with mathematic operations.
+description: This guide describes how to use Flux to transform data with mathematic operations.
 v2.0/tags: [math, flux]
 menu:
   v2_0:
@@ -12,10 +12,10 @@ weight: 209
 
 [Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,
 supports mathematic expressions in data transformations.
-This article walks through using [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operator)
-to map over input data and transform values using mathematic operations.
+This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operator)
+to "map" over data and transform values using mathematic operations.
 
-##### Basic mathematic operation examples
+##### Basic mathematic operations
 ```js
 // Examples executed using the Flux REPL
 > 9 + 9
@@ -31,18 +31,18 @@ to map over input data and transform values using mathematic operations.
 <p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See the <a href="/v2.0/reference/cli/influx/repl">Flux read-eval-print-loop (REPL)</a> documentation.</p>
 
 {{% note %}}
-#### Operands must be of the same type
-Operands in Flux mathematic operations must be of the same data type.
+#### Operands must be the same type
+Operands in Flux mathematic operations must be the same data type.
 For example, integers cannot be used in operations with floats.
-Doing so will result in an error similar to:
+Otherwise, you will get an error similar to:
 
 ```
 Error: type error: float != int
 ```
 
-This can be solved with [type-conversion functions](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/)
-or by formatting hard-coded operands differently.
-The output type is determined by the operand type.
+To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/)
+or manually format operands.
+The operand data type determines the output data type.
 For example:
 
 ```js
@@ -59,8 +59,8 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux’s functional syntax lets you [create custom functions](/v2.0/query-data/guides/custom-functions).
-The examples below illustrate custom function definitions that use mathematic operations to transform input data.
+Flux’s lets you [create custom functions](/v2.0/query-data/guides/custom-functions) that use mathematic operations.
+View the examples below.
 
 ###### Custom multiplication function
 ```js
@@ -75,23 +75,25 @@ multiply(x: 10, y: 12)
 percent = (sample, total) => (sample / total) * 100.0
 
 percent(sample: 20.0, total: 80.0)
-// Returns 25
+// Returns 25.0
 ```
 
 ### Transform values in a data stream
-The examples above illustrate transforming single values with mathematic operations,
-but it is more common to transform multiple values within an input stream.
-To do this, your custom function must [handle piped-forward data](/v2.0/query-data/guides/custom-functions/#functions-that-manipulate-piped-forward-data)"
-and iterate over each row using the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map).
+To transform multiple values in an input stream, your function needs to:
 
-The example `multiplyByX()` function below includes a `tables` parameter that represents the input data
-stream (`<-`) and a required `x` parameter which is the number by which values in the `_value` column are multiplied.
-It uses the `map()` function to iterate over each row in the input stream,
-defines the `_time` column of the output stream using the value of the `_time` column in the input stream,
-and transforms the value of the `_value` column by multiplying it by `x`.
+- [Handle piped-forward data](/v2.0/query-data/guides/custom-functions/#functions-that-manipulate-piped-forward-data).
+- Use the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map) to iterate over each row.
+
+The example `multiplyByX()` function below includes:
+
+- A `tables` parameter that represents the input data stream (`<-`).
+- An `x` parameter which is the number by which values in the `_value` column are multiplied.
+- A `map()` function that iterates over each row in the input stream.
+  It uses the `_time` value of the input stream to define the `_time` value in the output stream.
+  It also multiples the `_value` column by `x`.
 
 ```js
-mutliplyByX = (x, tables=<-) =>
+multiplyByX = (x, tables=<-) =>
   tables
     |> map(fn: (r) => ({
         _time: r._time,
@@ -107,8 +109,8 @@ data
 
 ### Convert bytes to gigabytes
 The following Flux query calculates the amount of active memory in gigabytes (GB).
-The `active` field in the `mem` measurement is recorded in bytes.
-To calculate GBs, divide it by 1,073,741,824.
+To convert active memory from bytes to gigabytes (GB), divide the `active` field
+in the `mem` measurement by 1,073,741,824.
 
 The `map()` function iterates over each row in the piped-forward data and defines
 a new `_value` by dividing the original `_value` by 1073741824.
@@ -159,8 +161,7 @@ bytesToGB = (tables=<-) =>
 ```
 
 ### Calculate a percentage
-Calculate percentages using simple division operations.
-Multiply the result by 100 for a true percentage.
+To calculate a percentage, use simple division, then multiply the result by 100.
 
 {{% note %}}
 Operands in percentage calculations should always be floats.
