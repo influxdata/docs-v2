@@ -1,0 +1,6 @@
+{{ $text := .Get "text" }}
+{{ $color := .Get "color" | default "green" }}
+
+<div class="ui-message {{ $color }}">
+ <strong>{{ $text }}</strong>
+</div>

@@ -29,7 +29,7 @@ It stores the scraped metrics in the bucket created during the [initial setup pr
 
 The following message briefly appears in the UI:
 
-{{< img-hd src="/img/2-0-quickstart-confirmation.png" />}}
+{{< ui-message text="The InfluxDB scraper has been configured for http://localhost:9999/metrics" >}}
 
 {{% note %}}
 Quick Start is available only in the last step of the setup process.
