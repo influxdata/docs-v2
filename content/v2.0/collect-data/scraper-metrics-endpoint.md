@@ -22,12 +22,14 @@ Follow the steps below to configure an InfluxDB scraper. The steps below use the
 
 1. Open a web browser to access the InfluxDB 2.0 user interface
    ([localhost:9999](http://localhost:9999)). The **Getting started with InfluxDB 2.0** screen appears.
-2. In the navigation bar on the left, click **Organizations** and then click the name of your organization. The **Organization** page appears for the selected organization.
-3. Click the **Scrapers** tab. A listing of any existing scrapers appears, listing the **URL** and the **BUCKET** name.
-4. Click **Create Scraper**. The **Data Loading** page appears with **Add Scraper Target** options to define a scraper.
-5. From the **Bucket** listing, select the bucket for collecting the data.
-6. Enter the **Target URL** to use for the Prometheus `/metrics` HTTP endpoint. The default URL value is `http://localhost:9999/metrics`.
-7. Click **Finish**. Your new scraper appears in the scraper listing, displaying the values you specified for the **URL** and the **BUCKET**.
+2. In the navigation bar on the left, click **Organizations**.
+ {{< nav-icon "orgs" >}}
+3. Click the name of your organization. The **Organization** page appears for the selected organization.
+4. Click the **Scrapers** tab. A listing of any existing scrapers appears, listing the **URL** and the **BUCKET** name.
+5. Click **Create Scraper**. The **Data Loading** page appears with **Add Scraper Target** options to define a scraper.
+6. From the **Bucket** listing, select the bucket for collecting the data.
+7. Enter the **Target URL** to use for the Prometheus `/metrics` HTTP endpoint. The default URL value is `http://localhost:9999/metrics`.
+8. Click **Finish**. Your new scraper appears in the scraper listing, displaying the values you specified for the **URL** and the **BUCKET**.
 
 The new scraper is now collecting data into the InfluxDB bucket you specified.
 

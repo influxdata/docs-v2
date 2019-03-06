@@ -25,7 +25,9 @@ Follow the steps below to use the InfluxDB UI to create a Telegraf configuration
 1. Open a web browser to access the InfluxDB 2.0 user interface
    ([localhost:9999](http://localhost:9999)). The **Getting started with InfluxDB 2.0** screen appears.
 2. To access the **Telegraf Configurations** page, use either of the following two paths:
-    * Click **Organizations** in the navigation bar on the far left of the page, click on an organization, and then click the **Telegraf** tab.
+    * Click **Organizations** in the navigation bar on the far left of the page.  
+    {{< nav-icon "orgs" >}}
+    * Click on an organization, and then click the **Telegraf** tab.
     * Click **Configure a Data Collector** and then select the **Telegraf** tab.
 3. Click **Create Configuration**. The **Data Loading** page appears with the heading "Select Telegraf Plugins to add to your bucket."
 4. Select your predefined **Bucket**, select one or more of the available options (**System**, **Docker**, **Kubernetes**, **NGINX**, or **Redis**), and then click **Continue**. A page with **Plugins to Configure** appears.

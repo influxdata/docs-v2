@@ -15,6 +15,9 @@ to view tokens.
 ## View tokens in the InfluxDB UI
 
 1. Click the **Influx** icon in the navigation bar.
+
+    {{< nav-icon "admin" >}}
+
 2. In the right panel labeled **My Settings**, click **Tokens**. All of your account's tokens appear.
 3. Click on a token name from the list to view the token and a summary of access permissions.
 

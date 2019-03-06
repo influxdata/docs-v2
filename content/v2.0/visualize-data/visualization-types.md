@@ -31,7 +31,7 @@ To select this view, select the **Graph** option from the visualization dropdown
 
 #### Graph Controls
 
-To view **Graph** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Graph** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Geometry**: Select from the following options:
   - **Line**: Display a time series in a line graph.
@@ -73,7 +73,7 @@ To select this view, select the **Graph + Single Stat** option from the visualiz
 
 #### Graph + Single Stat Controls
 
-To view **Graph + Single Stat** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Graph + Single Stat** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Line Colors**: Select the a color scheme to use for your graph.
 
@@ -112,7 +112,7 @@ To select this view, select the **Histogram** option from the visualization drop
 
 #### Histogram Controls
 
-To view **Histogram** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Histogram** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Data** section:
   * **Column**: The column to select data from.
@@ -135,7 +135,7 @@ To select this view, select the **Single Stat** option from the visualization dr
 
 #### Single Stat Controls
 
-To view **Single Stat** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Single Stat** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Customize Single-Stat** section:  
   * **Prefix**: Prefix to be added to the single stat.
@@ -157,7 +157,7 @@ To select this view, select the **Gauge** option from the visualization dropdown
 
 #### Gauge Controls
 
-To view **Gauge** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Gauge** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Customize Gauge** section:  
   * **Prefix**: Prefix to be added to the gauge.
@@ -182,7 +182,7 @@ To select this view, select the **Table** option from the visualization dropdown
 
 #### Table Controls
 
-To view **Table** controls, click the settings (gear) icon next to the visualization dropdown in the upper right.
+To view **Table** controls, click the settings icon ({{< icon "gear" >}}) next to the visualization dropdown in the upper right.
 
 * **Customize Table** section:
   * **Default Sort Field**: Select the default sort field. Default is **time**.
