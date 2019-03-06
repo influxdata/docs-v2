@@ -59,7 +59,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux’s lets you [create custom functions](/v2.0/query-data/guides/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/v2.0/query-data/guides/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
