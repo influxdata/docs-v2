@@ -108,7 +108,6 @@ data
 ## Examples
 
 ### Convert bytes to gigabytes
-The following Flux query calculates the amount of active memory in gigabytes (GB).
 To convert active memory from bytes to gigabytes (GB), divide the `active` field
 in the `mem` measurement by 1,073,741,824.
 
