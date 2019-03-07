@@ -1,6 +1,6 @@
 ---
 title: Sort and limit data with Flux
-seotitle: How to sort and limit data with Flux
+seotitle: Sort and limit data in InfluxDB with Flux
 description: >
   This guide walks through sorting and limiting data with Flux and outlines how
   it shapes your data in the process.

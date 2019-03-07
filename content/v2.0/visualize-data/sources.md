@@ -15,6 +15,9 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 **To add data to a bucket**:
 
 1. Click in the **Organizations** icon in the navigation bar.
+
+    {{< nav-icon "orgs" >}}
+
 2. Select the **Buckets** tab.
 3. Next to the name of a bucket, click **Add Data**.
 4. Select **Streaming**, **Line Protocol**, or **Scraping** from the data source options.
@@ -24,6 +27,9 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 **To manage Telegraf configurations**:
 
 1. Click in the **Organizations** icon in the navigation bar.
+
+    {{< nav-icon "orgs" >}}
+
 2. Select the **Telegraf** tab. A list of existing Telegraf configurations appears.
 3. To add a new Telegraf configuration:
   * Click **Create Configuration** in the upper right.
