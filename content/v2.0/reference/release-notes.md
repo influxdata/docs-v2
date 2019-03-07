@@ -6,7 +6,28 @@ menu:
     name: Release notes
     weight: 1
 ---
-## v2.0.0-alpha.6 [2019-03-??]
+## v2.0.0-alpha.6 [2019-03-08]
+
+This release includes a breaking change to the format that TSM and index data are stored on disk. Any existing local data will not be queryable once InfluxDB is upgraded to this release. Prior to installing this release we recommend all storage-engine data is removed from your local InfluxDB 2.x installation; this can be achieved without losing any of your other InfluxDB 2.x data (settings, etc). To remove only local storage data, run the following in a terminal.
+
+On most Linux systems:
+
+```
+# Replace <username> with your actual username.
+
+$ rm -r /home/<username>/.influxdbv2/engine
+````
+
+On macOS:
+
+```
+# Replace <username> with your actual username.
+
+$ rm -r /Users/<username>/.influxdbv2/engine
+```
+
+Once completed, v2.0.0-alpha.5 can be started.
+
 
 ### Features
 - Add labels to cloned tasks.
