@@ -10,16 +10,15 @@ menu:
 weight: 301
 ---
 
-The InfluxDB user interface UI allows you to view information related to a Telegraf
-configurations created in the UI:
+View Telegraf configuration information in the InfluxDB user interface (UI):
 
 1. Click **Organizations** in the left navigation menu.
 
     {{< nav-icon "orgs" >}}
 
-2. Click on the **Name** of the organization that owns the configuration you want to delete.
+2. Click the **Name** of the organization that owns the configuration you want to delete.
 3. Click the **Telegraf** tab.
-4. Hover over a configuration for to display view options.
+4. Hover over a configuration to view options.
 
     {{< img-hd src="/img/2-0-telegraf-config-view.png" />}}
 
@@ -28,7 +27,6 @@ configurations created in the UI:
 To view the actual `telegraf.conf` associated with the configuration, click **View**.
 
 ### View the setup details
-To view the setup instructions shown when first creating the Telegraf configuration,
-click **Setup Details**.
-These include the commands for adding your InfluxDB authentication token as an environment
+To view the setup instructions, click **Setup Details**.
+Setup details include commands for adding your InfluxDB authentication token as an environment
 variable and starting Telegraf with the specific configuration.

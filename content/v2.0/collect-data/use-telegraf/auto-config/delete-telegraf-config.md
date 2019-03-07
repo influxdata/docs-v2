@@ -8,20 +8,20 @@ menu:
 weight: 303
 ---
 
-To delete a Telegraf configuration created in the InfluxDB UI:
+To delete a Telegraf configuration:
 
 1. Click **Organizations** in the left navigation menu.
 
     {{< nav-icon "orgs" >}}
 
-2. Click on the **Name** of the organization that owns the configuration you want to delete.
+2. Click the **Name** of the organization that owns the configuration you want to delete.
 3. Click the **Telegraf** tab.
-4. Hover over the configuration you would like to delete and click **Delete** on the far right.
+4. Hover over the configuration you want to delete and click **Delete** on the far right.
 5. Click **Confirm**.
 
     {{< img-hd src="/img/2-0-telegraf-config-delete.png" />}}
 
 {{% note %}}
-Deleting a Telegraf configuration will not affect _**running**_ Telegraf agents.
-However, if an agents stops, it will need a new configuration with which to start.
+Deleting a Telegraf configuration does not affect _**running**_ Telegraf agents.
+However, if an agents stops, it needs a new configuration to start.
 {{% /note %}}

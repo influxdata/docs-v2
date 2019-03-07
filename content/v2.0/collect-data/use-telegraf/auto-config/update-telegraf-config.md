@@ -8,7 +8,8 @@ menu:
 weight: 302
 ---
 
-The InfluxDB user interface (UI) allows you to update the **name** or **description** of a Telegraf configuration created in the UI.
+The InfluxDB user interface (UI) allows you to update the **name** or **description**
+of a Telegraf configuration created in the UI.
 
 {{% note %}}
 You cannot modify the actual Telegraf settings associated with a configuration.
@@ -22,8 +23,8 @@ To modify Telegraf settings, [create a new Telegraf configuration](/v2.0/collect
 
 2. Click on the **Name** of the organization that owns the configuration you want to delete.
 3. Click the **Telegraf** tab.
-4. Hover over the configuration you would like to edit and click the **{{< icon "pencil" >}} icon**
-   that appears next to the name or description.
-5. Update the name or description, then click out of the editable field.
+4. Hover over the configuration you want to edit and click **{{< icon "pencil" >}}**
+   to update the name or description.
+5. Press Return or click out of the editable field to save your changes.
 
     {{< img-hd src="/img/2-0-telegraf-config-update.png" />}}

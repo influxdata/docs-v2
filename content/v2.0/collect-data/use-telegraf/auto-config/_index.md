@@ -56,7 +56,7 @@ for using Telegraf with InfluxDB v2.0._
 
 ### Configure your API token as an environment variable
 Requests to the InfluxDB v2.0 API must include an authentication token.
-Tokens represent given sets of permissions and grant access to your InfluxDB v2.0 instance.
+A token identifies specific permissions to the InfluxDB instance.
 
 Define the `INFLUX_TOKEN` environment variable using your token.
 _For information about viewing tokens, see [View tokens](/v2.0/users/tokens/view-tokens/)._
@@ -67,16 +67,15 @@ export INFLUX_TOKEN=YourAuthenticationToken
 
 ### Start the Telegraf service
 Start the Telegraf service using the `-config` flag to specify the URL of your generated configuration file.
-Telegraf will pull the configuration file from the InfluxDB API and start using the configured settings.
+Telegraf starts using the Telegraf configuration pulled from InfluxDB API.
 
-_The exact command, including the URL, is provided in the **Setup Details** for the configuration._
+_See the configuration **Setup Details** for the exact command._
 
 ```sh
 telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
 ```
 
 ## Manage Telegraf configurations
-Telegraf configurations created through the InfluxDB UI can be viewed and managed
-through the UI as well.
+Create, view, and manage Telegraf configurations in the InfluxDB UI.
 
 {{< children >}}
