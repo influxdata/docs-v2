@@ -40,6 +40,6 @@ that scrapes data from the `/metrics` endpoint.
 ## Next steps
 Now with data to explore, you can:
 
-- [Query data in InfluxDB](/v2.0/query-data).
-- [Process data with InfluxDB tasks](/v2.0/process-data).
-- [Visualize data with the InfluxDB UI](/v2.0/visualize-data).
+- [Query data in InfluxDB](/v2.0/query-data)
+- [Process data with InfluxDB tasks](/v2.0/process-data)
+- [Visualize data with the InfluxDB UI](/v2.0/visualize-data)

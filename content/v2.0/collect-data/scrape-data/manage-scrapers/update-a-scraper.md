@@ -21,8 +21,7 @@ To modify either, [create a new scraper](/v2.0/collect-data/scrape-data/manage-s
     {{< nav-icon "orgs" >}}
 
 2. In the list of organizations, click the name of your organization.
-3. Click the **Scrapers** tab. A listing of any existing scrapers appears with the
-   **Name**, **URL**, and **BUCKET** for each scraper.
-4. Hover over the scraper you would like to update and click the edit icon (pencil)
-   that appears next to the scrape name.
-5. Enter a new name for the scraper. Hit return or click out of the name field to save the change.
+3. Click the **Scrapers** tab. A list of existing scrapers appears.
+4. Hover over the scraper you would like to update and click the **{{< icon "pencil" >}}**
+   that appears next to the scraper name.
+5. Enter a new name for the scraper. Press Return or click out of the name field to save the change.

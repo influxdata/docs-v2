@@ -16,7 +16,7 @@ menu:
 
 InfluxDB scrapers collect data from specified targets at regular intervals,
 then write the scraped data to an InfluxDB bucket.
-Scrapers can collect data from any HTTP/S-accessible endpoints that provide data
+Scrapers can collect data from any HTTP(S)-accessible endpoint that provides data
 in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 The following articles provide information about creating and managing InfluxDB data scrapers:
