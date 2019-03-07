@@ -51,6 +51,9 @@ The InfluxDB UI provides multiple ways to create a task:
 
 ### Import a task
 1. Click on the **Tasks** icon in the left navigation menu.
+
+    {{< nav-icon "tasks" >}}
+    
 2. Click **Import** in the upper right.
 3. Drag and drop or select a file to upload.
 4. Click **Upload Task**.

@@ -1,6 +1,6 @@
 ---
 title: v1.tagValues() function
-description: placeholder
+description: The `v1.tagValues()` function returns a list unique values for a given tag.
 menu:
   v2_0_ref:
     name: v1.tagValues
@@ -11,7 +11,6 @@ v2.0/tags: [tags]
 
 The `v1.tagValues()` function returns a list unique values for a given tag.
 The return value is always a single table with a single column, `_value`.
-
 
 ```js
 import "influxdata/influxdb/v1"

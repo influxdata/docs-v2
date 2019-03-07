@@ -6,6 +6,22 @@ menu:
     name: Release notes
     weight: 1
 ---
+## v2.0.0-alpha.6 [2019-03-??]
+
+### Features
+- Add labels to cloned tasks.
+- Add ability to filter resources by clicking a label.
+
+### Bug Fixes
+- Prevent clipping of code snippets in Firefox.
+- Prevent clipping of cell edit menus in dashboards.
+
+### UI Improvements
+- Make code snippet copy functionality easier to use.
+- Always show live preview in note cell editor.
+- Redesign scraper creation workflow.
+- Show warning in Telegraf and scraper lists when user has no buckets.
+
 
 ## v2.0.0-alpha.4 [2019-02-21]
 
