@@ -12,10 +12,8 @@ The InfluxDB user interface (UI) allows you to update the **name** or **descript
 of a Telegraf configuration created in the UI.
 
 {{% note %}}
-You cannot modify the actual Telegraf settings associated with a configuration.
-To modify Telegraf settings, [create a new Telegraf configuration](/v2.0/collect-data/use-telegraf/auto-config).
+You cannot modify Telegraf settings in existing Telegraf configurations through the UI.
 {{% /note %}}
-
 
 1. Click **Organizations** in the left navigation menu.
 

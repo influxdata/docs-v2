@@ -1,46 +1,44 @@
 .article--content {
   .ui-message {
-    max-width: 350px;
+    display: flex;
+    align-items: center;
+    width: 375px;
     margin: 1rem 0 2rem;
-    padding: .85rem 2.75rem;
-    font-size: .85rem;
+    padding: .85rem 0;
+    font-size: .9rem;
     border-radius: 5px;
-    position: relative;
     color: $g20-white;
 
-    &:before {
+    .icon, .close {
+      width: 13%;
+      text-align: center;
       font-family: 'icomoon';
-      display: block;
-      position: absolute;
-      left: 14px;
-      top: 17px;
       font-size: 1.1rem;
     }
 
-    &:after {
+    .close:after {
       content: "\e932";
-      font-family: 'icomoon';
-      display: block;
-      position: absolute;
-      right: 14px;
-      top: 18px;
-      font-size: 1.1rem;
       opacity: .25;
+    }
+
+    .text {
+      width: 74%;
+      font-weight: 600;
     }
 
     &.green {
       background: linear-gradient(to right, #4dd7a1, #21adf5);
-      &:before { content: "\e922"; }
+      .icon:before { content: "\e922"; }
     }
 
     &.blue {
       background: linear-gradient(to right, #22adf6, #4591ed);
-      &:before { content: "\e935"; }
+      .icon:before { content: "\e935"; }
     }
 
     &.red {
       background: linear-gradient(to right, #e8695c, #7669e8);
-      &:before { content: "\e920"; }
+      .icon:before { content: "\e920"; }
     }
 
 
