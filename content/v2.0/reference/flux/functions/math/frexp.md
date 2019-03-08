@@ -15,10 +15,14 @@ The `math.frexp()` function breaks `f` into a normalized fraction and an integra
 It returns `frac` and `exp` satisfying `f == frac × 2**exp`, with the absolute value
 of `frac` in the interval `[½, 1)`.
 
+_**Output data type:** Object_
+
 ```js
 import "math"
 
-math.frexp(f: 22.3)
+math.frexp(f: 22.0)
+
+// Returns {frac: 0.6875, exp: 5}
 ```
 
 ## Parameters
@@ -30,7 +34,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-math.frexp(f: ±0)   // Returns ±0, 0
-math.frexp(f: ±Inf) // Returns ±Inf, 0
-math.frexp(f: NaN)  // Returns NaN, 0
+math.frexp(f: ±0)   // Returns {frac: ±0, exp: 0}
+math.frexp(f: ±Inf) // Returns {frac: ±Inf, exp: 0}
+math.frexp(f: NaN)  // Returns {frac: NaN, exp: 0}
 ```

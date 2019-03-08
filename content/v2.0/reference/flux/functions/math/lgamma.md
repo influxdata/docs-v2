@@ -10,10 +10,14 @@ weight: 301
 
 The `math.lgamma()` function returns the natural logarithm and sign (-1 or +1) of `math.gamma(x:x)`.
 
+_**Output data format:** Object_
+
 ```js
 import "math"
 
 math.lgamma(x: 3.14)
+
+// Returns {lgamma: 0.8261387047770286, sign: 1}
 ```
 
 ## Parameters

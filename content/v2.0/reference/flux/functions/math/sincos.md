@@ -10,10 +10,14 @@ weight: 301
 
 The `math.sincos()` function returns the values of `math.sin(x:x)` and `math.cos(x:x)`.
 
+_**Output data format:** Object_
+
 ```js
 import "math"
 
 math.sincos(x: 1.23)
+
+// Returns {sin: 0.9424888019316975, cos: 0.3342377271245026}
 ```
 
 ## Parameters
@@ -25,7 +29,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-math.sincos(x: ±0)   // Returns ±0, 1
-math.sincos(x: ±Inf) // Returns NaN, NaN
-math.sincos(x: NaN)  // Returns NaN, NaN
+math.sincos(x: ±0)   // Returns {sin: ±0, cos: 1}
+math.sincos(x: ±Inf) // Returns {sin: NaN, cos: NaN}
+math.sincos(x: NaN)  // Returns {sin: NaN, cos:  NaN}
 ```

@@ -13,10 +13,14 @@ weight: 301
 The `math.modf()` function returns integer and fractional floating-point numbers that sum to `f`.
 Both values have the same sign as `f`.
 
+_**Output data format:** Object_
+
 ```js
 import "math"
 
 math.modf(x: 3.14)
+
+// Returns {int: 3, frac: 0.14000000000000012}
 ```
 
 ## Parameters
@@ -28,6 +32,6 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-math.modf(x: ±Inf) // Returns int: ±Inf, frac: NaN
-math.modf(x: NaN)  // Returns int: NaN, frac: NaN
+math.modf(x: ±Inf) // Returns {int: ±Inf, frac: NaN}
+math.modf(x: NaN)  // Returns {int: NaN, frac: NaN}
 ```
