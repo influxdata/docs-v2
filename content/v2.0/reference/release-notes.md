@@ -6,27 +6,24 @@ menu:
     name: Release notes
     weight: 1
 ---
-## v2.0.0-alpha.6 [2019-03-08]
 
-This release includes a breaking change to the format that TSM and index data are stored on disk. Any existing local data will not be queryable once InfluxDB is upgraded to this release. Prior to installing this release we recommend all storage-engine data is removed from your local InfluxDB 2.x installation; this can be achieved without losing any of your other InfluxDB 2.x data (settings, etc). To remove only local storage data, run the following in a terminal.
+## v2.0.0-alpha.5 [2019-03-08]
 
-On most Linux systems:
+{{% warn %}}
+This release includes a breaking change to the format in which Time-Structured Merge Tree (TSM) and index data are stored on disk.
+_**Existing local data will not be queryable after upgrading to this release.**_
 
-```
-# Replace <username> with your actual username.
+Prior to installing this release, remove all storage-engine data from your local InfluxDB 2.x installation.
+To remove only TSM and index data and preserve all other other InfluxDB 2.x data (organizations, buckets, settings, etc),
+run the following command.
 
-$ rm -r /home/<username>/.influxdbv2/engine
-````
-
-On macOS:
-
-```
-# Replace <username> with your actual username.
-
-$ rm -r /Users/<username>/.influxdbv2/engine
+###### Linux and macOS
+```sh
+rm -r ~/.influxdbv2/engine
 ```
 
-Once completed, v2.0.0-alpha.5 can be started.
+Once completed, InfluxDB v2.0.0-alpha.5 can be started.
+{{% /warn %}}
 
 
 ### Features
