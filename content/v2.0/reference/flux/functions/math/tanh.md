@@ -1,6 +1,6 @@
 ---
 title: math.tanh() function
-description: The math.tanh() function functionDescription
+description: The math.tanh() function returns the hyperbolic tangent of `x`.
 menu:
   v2_0_ref:
     name: math.tanh
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.tanh()` function functionDescription
+The `math.tanh()` function returns the hyperbolic tangent of `x`.
 
 ```js
 import "math"
 
-math.tanh( EXAMPLE )
+math.tanh(x: 0.0)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.tanh(x: ±0)   // Returns ±0
+math.tanh(x: ±Inf) // Returns ±1
+math.tanh(x: NaN)  // Returns NaN
 ```

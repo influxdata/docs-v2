@@ -1,6 +1,6 @@
 ---
 title: math.sinh() function
-description: The math.sinh() function functionDescription
+description: The math.sinh() function returns the hyperbolic sine of `x`.
 menu:
   v2_0_ref:
     name: math.sinh
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.sinh()` function functionDescription
+The `math.sinh()` function returns the hyperbolic sine of `x`.
 
 ```js
 import "math"
 
-math.sinh( EXAMPLE )
+math.sinh(x: 1.23)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.sinh(x: ±0)   // Returns ±0
+math.sinh(x: ±Inf) // Returns ±Inf
+math.sinh(x: NaN)  // Returns NaN
 ```

@@ -1,6 +1,8 @@
 ---
 title: math.modf() function
-description: The math.modf() function functionDescription
+description: >
+  The math.modf() function returns integer and fractional floating-point numbers that sum to `f`.
+  Both values have the same sign as `f`.
 menu:
   v2_0_ref:
     name: math.modf
@@ -8,12 +10,13 @@ menu:
 weight: 301
 ---
 
-The `math.modf()` function functionDescription
+The `math.modf()` function returns integer and fractional floating-point numbers that sum to `f`.
+Both values have the same sign as `f`.
 
 ```js
 import "math"
 
-math.modf( EXAMPLE )
+math.modf(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +28,6 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.modf(x: ±Inf) // Returns int: ±Inf, frac: NaN
+math.modf(x: NaN)  // Returns int: NaN, frac: NaN
 ```

@@ -1,6 +1,6 @@
 ---
 title: math.log() function
-description: The math.log() function functionDescription
+description: The math.log() function returns the natural logarithm of `x`.
 menu:
   v2_0_ref:
     name: math.log
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.log()` function functionDescription
+The `math.log()` function returns the natural logarithm of `x`.
 
 ```js
 import "math"
 
-math.log( EXAMPLE )
+math.log(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,8 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.log(x: +Inf) // Returns +Inf
+math.log(x: 0)    // Returns -Inf
+math.log(x: <0)   // Returns NaN
+math.log(x: NaN)  // Returns NaN
 ```

@@ -1,6 +1,6 @@
 ---
 title: math.log10() function
-description: The math.log10() function functionDescription
+description: The math.log10() function returns the decimal logarithm of `x`.
 menu:
   v2_0_ref:
     name: math.log10
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.log10()` function functionDescription
+The `math.log10()` function returns the decimal logarithm of `x`.
 
 ```js
 import "math"
 
-math.log10( EXAMPLE )
+math.log10(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,8 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.log10(x: +Inf) // Returns +Inf
+math.log10(x: 0)    // Returns -Inf
+math.log10(x: <0)   // Returns NaN
+math.log10(x: NaN)  // Returns NaN
 ```

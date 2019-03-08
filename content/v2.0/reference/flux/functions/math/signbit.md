@@ -1,6 +1,6 @@
 ---
 title: math.signbit() function
-description: The math.signbit() function functionDescription
+description: The math.signbit() function reports whether `x` is negative or negative zero.
 menu:
   v2_0_ref:
     name: math.signbit
@@ -8,12 +8,14 @@ menu:
 weight: 301
 ---
 
-The `math.signbit()` function functionDescription
+The `math.signbit()` function reports whether `x` is negative or negative zero.
+
+_**Output data type:** Boolean_
 
 ```js
 import "math"
 
-math.signbit( EXAMPLE )
+math.signbit(x: -1.2)
 ```
 
 ## Parameters
@@ -22,8 +24,3 @@ math.signbit( EXAMPLE )
 The value used in the operation.
 
 _**Data type:** Float_
-
-## Special cases
-```js
-
-```

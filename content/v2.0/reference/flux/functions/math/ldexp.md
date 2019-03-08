@@ -1,6 +1,6 @@
 ---
 title: math.ldexp() function
-description: The math.ldexp() function functionDescription
+description: The math.ldexp() function is the inverse of `math.frexp()`. It returns `frac × 2**exp`.
 menu:
   v2_0_ref:
     name: math.ldexp
@@ -8,22 +8,30 @@ menu:
 weight: 301
 ---
 
-The `math.ldexp()` function functionDescription
+The `math.ldexp()` function is the inverse of [`math.frexp()`](/v2.0/reference/flux/functions/math/frexp).
+It returns `frac × 2**exp`.
 
 ```js
 import "math"
 
-math.ldexp( EXAMPLE )
+math.ldexp(frac: 0.5, exp: 6)
 ```
 
 ## Parameters
 
-### x
-The value used in the operation.
+### frac
+The fraction used in the operation.
 
 _**Data type:** Float_
 
+### exp
+The exponent used in the operation.
+
+_**Data type:** Integer_
+
 ## Special cases
 ```js
-
+math.ldexp(frac: ±0, exp:exp)   // Returns ±0
+math.ldexp(frac: ±Inf, exp:exp) // Returns ±Inf
+math.ldexp(frac: NaN, exp:exp)  // Returns NaN
 ```

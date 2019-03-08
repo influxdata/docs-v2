@@ -1,6 +1,6 @@
 ---
 title: math.nextafter() function
-description: The math.nextafter() function functionDescription
+description: The math.nextafter() function returns the next representable float value after `x` towards `y`.
 menu:
   v2_0_ref:
     name: math.nextafter
@@ -8,22 +8,29 @@ menu:
 weight: 301
 ---
 
-The `math.nextafter()` function functionDescription
+The `math.nextafter()` function returns the next representable float value after `x` towards `y`.
 
 ```js
 import "math"
 
-math.nextafter( EXAMPLE )
+math.nextafter(x: 1.23, y: 4.56)
 ```
 
 ## Parameters
 
 ### x
-The value used in the operation.
+The X value used in the operation.
+
+_**Data type:** Float_
+
+### y
+The Y value used in the operation.
 
 _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.nextafter(x:x, y:x)    // Returns x
+math.nextafter(x: NaN, y:y) // Returns NaN
+math.nextafter(x:x, y:NaN)  // Returns NaN
 ```

@@ -1,6 +1,6 @@
 ---
 title: math.m_min() function
-description: The math.m_min() function functionDescription
+description: The math.m_min() function returns the smaller of `x` or `y`.
 menu:
   v2_0_ref:
     name: math.m_min
@@ -8,22 +8,32 @@ menu:
 weight: 301
 ---
 
-The `math.m_min()` function functionDescription
+The `math.m_min()` function returns the smaller of `x` or `y`.
 
 ```js
 import "math"
 
-math.m_min( EXAMPLE )
+math.m_min(x: 1.23, y: 4.56)
 ```
 
 ## Parameters
 
 ### x
-The value used in the operation.
+The X value used in the operation.
+
+_**Data type:** Float_
+
+### y
+The Y value used in the operation.
 
 _**Data type:** Float_
 
 ## Special cases
 ```js
-
+Min(x:x, y: -Inf) // Returns -Inf
+Min(x: -Inf, y:y) // Returns -Inf
+Min(x:x, y: NaN)  // Returns NaN
+Min(x: NaN, y:y)  // Returns NaN
+Min(x: -0, y: ±0) // Returns -0
+Min(x: ±0, y: -0) // Returns -0
 ```

@@ -1,6 +1,6 @@
 ---
 title: math.NaN() function
-description: The math.NaN() function functionDescription
+description: The math.NaN() function returns an IEEE 754 “not-a-number” value.
 menu:
   v2_0_ref:
     name: math.NaN
@@ -8,26 +8,10 @@ menu:
 weight: 301
 ---
 
-The `math.NaN()` function functionDescription
+The `math.NaN()` function returns an IEEE 754 “not-a-number” value.
 
 ```js
 import "math"
 
-math.NaN( EXAMPLE )
-```
-
-## Parameters
-
-### x
-The value used in the operation.
-_**Data type:** Float_
-
-### x
-The value used in the operation.
-
-_**Data type:** Float_
-
-## Special cases
-```js
-
+math.NaN()
 ```

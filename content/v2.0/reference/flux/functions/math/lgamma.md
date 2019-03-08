@@ -1,6 +1,6 @@
 ---
 title: math.lgamma() function
-description: The math.lgamma() function functionDescription
+description: The math.lgamma() function returns the natural logarithm and sign (-1 or +1) of `math.gamma(x:x)`.
 menu:
   v2_0_ref:
     name: math.lgamma
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.lgamma()` function functionDescription
+The `math.lgamma()` function returns the natural logarithm and sign (-1 or +1) of `math.gamma(x:x)`.
 
 ```js
 import "math"
 
-math.lgamma( EXAMPLE )
+math.lgamma(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,9 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.lgamma(x: +Inf)     // Returns +Inf
+math.lgamma(x: 0)        // Returns +Inf
+math.lgamma(x: -integer) // Returns +Inf
+math.lgamma(x: -Inf)     // Returns -Inf
+math.lgamma(x: NaN)      // Returns NaN
 ```

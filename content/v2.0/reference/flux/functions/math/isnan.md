@@ -1,6 +1,6 @@
 ---
 title: math.isNaN() function
-description: The math.isNaN() function functionDescription
+description: The math.isNaN() function reports whether `f` is an IEEE 754 “not-a-number” value.
 menu:
   v2_0_ref:
     name: math.isNaN
@@ -8,18 +8,20 @@ menu:
 weight: 301
 ---
 
-The `math.isNaN()` function functionDescription
+The `math.isNaN()` function reports whether `f` is an IEEE 754 “not-a-number” value.
+
+_**Output data type:** Boolean_
 
 ```js
 import "math"
 
-math.isNaN( EXAMPLE )
+math.isNaN(f: 12.345)
 ```
 
 ## Parameters
 
-### x
-The value used in the operation.
+### f
+The value used in the evaluation.
 
 _**Data type:** Float_
 

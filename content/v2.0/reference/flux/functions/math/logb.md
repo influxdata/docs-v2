@@ -1,6 +1,6 @@
 ---
 title: math.logb() function
-description: The math.logb() function functionDescription
+description: The math.logb() function returns the binary exponent of `x`.
 menu:
   v2_0_ref:
     name: math.logb
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.logb()` function functionDescription
+The `math.logb()` function returns the binary exponent of `x`.
 
 ```js
 import "math"
 
-math.logb( EXAMPLE )
+math.logb(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.logb(x: ±Inf) // Returns +Inf
+math.logb(x: 0)    // Returns -Inf
+math.logb(x: NaN)  // Returns NaN
 ```

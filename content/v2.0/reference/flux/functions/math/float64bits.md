@@ -10,7 +10,7 @@ weight: 301
 
 The `math.float64bits()` function returns the IEEE 754 binary representation of `f`, with the sign bit of `f` and the result in the same bit position.
 
-_**Output data type: UInteger**_
+_**Output data type:** UInteger_
 
 ```js
 import "math"

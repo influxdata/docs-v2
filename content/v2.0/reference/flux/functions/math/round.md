@@ -1,6 +1,6 @@
 ---
 title: math.round() function
-description: The math.round() function functionDescription
+description: The math.round() function returns the nearest integer, rounding half away from zero.
 menu:
   v2_0_ref:
     name: math.round
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.round()` function functionDescription
+The `math.round()` function returns the nearest integer, rounding half away from zero.
 
 ```js
 import "math"
 
-math.round( EXAMPLE )
+math.round(x: 2.12)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.round(x: ±0)   // Returns ±0
+math.round(x: ±Inf) // Returns ±Inf
+math.round(x: NaN)  // Returns NaN
 ```

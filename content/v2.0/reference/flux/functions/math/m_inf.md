@@ -1,6 +1,8 @@
 ---
 title: math.m_inf() function
-description: The math.m_inf() function functionDescription
+description: The math.m_inf() function returns positive infinity if `sign >= 0`, negative infinity if `sign < 0`.
+
+
 menu:
   v2_0_ref:
     name: math.m_inf
@@ -8,22 +10,19 @@ menu:
 weight: 301
 ---
 
-The `math.m_inf()` function functionDescription
+The `math.m_inf()` function returns positive infinity if `sign >= 0`, negative infinity if `sign < 0`.
+
+_**Output data type:** Float_
 
 ```js
 import "math"
 
-math.m_inf( EXAMPLE )
+math.m_inf(sign: 1)
 ```
 
 ## Parameters
 
-### x
-The value used in the operation.
+### sign
+The sign value used in the operation.
 
-_**Data type:** Float_
-
-## Special cases
-```js
-
-```
+_**Data type:** Integer_

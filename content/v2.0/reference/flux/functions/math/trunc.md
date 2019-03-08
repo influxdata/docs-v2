@@ -1,6 +1,6 @@
 ---
 title: math.trunc() function
-description: The math.trunc() function functionDescription
+description: The math.trunc() function returns the integer value of `x`.
 menu:
   v2_0_ref:
     name: math.trunc
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.trunc()` function functionDescription
+The `math.trunc()` function returns the integer value of `x`.
 
 ```js
 import "math"
 
-math.trunc( EXAMPLE )
+math.trunc(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.trunc(x: ±0)   // Returns ±0
+math.trunc(x: ±Inf) // Returns ±Inf
+math.trunc(x: NaN)  // Returns NaN
 ```

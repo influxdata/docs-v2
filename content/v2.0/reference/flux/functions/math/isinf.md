@@ -1,6 +1,6 @@
 ---
 title: math.isInf() function
-description: The math.isInf() function functionDescription
+description: The math.isInf() function reports whether `f` is an infinity, according to `sign`.
 menu:
   v2_0_ref:
     name: math.isInf
@@ -8,22 +8,28 @@ menu:
 weight: 301
 ---
 
-The `math.isInf()` function functionDescription
+The `math.isInf()` function reports whether `f` is an infinity, according to sign.
+
+_**Output data type:** Boolean_
+
+- If `sign > 0`, `math.isInf` reports whether `f` is positive infinity.
+- If `sign < 0`, `math.isInf` reports whether `f` is negative infinity.
+- If `sign == 0`, `math.isInf` reports whether `f` is either infinity.
 
 ```js
 import "math"
 
-math.isInf( EXAMPLE )
+math.isInf(f: 2.12, sign: 3)
 ```
 
 ## Parameters
 
-### x
-The value used in the operation.
+### f
+The value used in the evaluation.
 
 _**Data type:** Float_
 
-## Special cases
-```js
+### sign
+The sign used in the evaluation.
 
-```
+_**Data type:** Integer_

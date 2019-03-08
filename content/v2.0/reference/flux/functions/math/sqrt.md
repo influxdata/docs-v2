@@ -1,6 +1,6 @@
 ---
 title: math.sqrt() function
-description: The math.sqrt() function functionDescription
+description: The math.sqrt() function returns the square root of `x`.
 menu:
   v2_0_ref:
     name: math.sqrt
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.sqrt()` function functionDescription
+The `math.sqrt()` function returns the square root of `x`.
 
 ```js
 import "math"
 
-math.sqrt( EXAMPLE )
+math.sqrt(x: 4.0)
 ```
 
 ## Parameters
@@ -25,5 +25,8 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.sqrt(x: +Inf) // Returns +Inf
+math.sqrt(x: ±0)   // Returns ±0
+math.sqrt(x: <0)   // Returns NaN
+math.sqrt(x: NaN)  // Returns NaN
 ```

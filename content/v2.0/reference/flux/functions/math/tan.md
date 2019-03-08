@@ -1,6 +1,6 @@
 ---
 title: math.tan() function
-description: The math.tan() function functionDescription
+description: The math.tan() function returns the tangent of the radian argument `x`.
 menu:
   v2_0_ref:
     name: math.tan
@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-The `math.tan()` function functionDescription
+The `math.tan()` function returns the tangent of the radian argument `x`.
 
 ```js
 import "math"
 
-math.tan( EXAMPLE )
+math.tan(x: 3.14)
 ```
 
 ## Parameters
@@ -25,5 +25,7 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.tan(x: ±0)   // Returns ±0
+math.tan(x: ±Inf) // Returns NaN
+math.tan(x: NaN)  // Returns NaN
 ```

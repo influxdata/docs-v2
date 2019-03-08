@@ -1,6 +1,8 @@
 ---
 title: math.log1p() function
-description: The math.log1p() function functionDescription
+description: >
+  The math.log1p() function returns the natural logarithm of 1 plus its argument `x`.
+  It is more accurate than `math.log(x: 1 + x)` when `x` is near zero.
 menu:
   v2_0_ref:
     name: math.log1p
@@ -8,12 +10,13 @@ menu:
 weight: 301
 ---
 
-The `math.log1p()` function functionDescription
+The `math.log1p()` function returns the natural logarithm of 1 plus its argument `x`.
+It is more accurate than `math.log(x: 1 + x)` when `x` is near zero.
 
 ```js
 import "math"
 
-math.log1p( EXAMPLE )
+math.log1p(x: 0.56)
 ```
 
 ## Parameters
@@ -25,5 +28,9 @@ _**Data type:** Float_
 
 ## Special cases
 ```js
-
+math.log1p(x: +Inf) // Returns +Inf
+math.log1p(x: ±0)   // Returns ±0
+math.log1p(x: -1)   // Returns -Inf
+math.log1p(x: <-1)  // Returns NaN
+math.log1p(x: NaN)  // Returns NaN
 ```

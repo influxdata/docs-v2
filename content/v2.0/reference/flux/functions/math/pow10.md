@@ -1,6 +1,6 @@
 ---
 title: math.pow10() function
-description: The math.pow10() function functionDescription
+description: The math.pow10() function returns `10**n`, the base-10 exponential of `n`.
 menu:
   v2_0_ref:
     name: math.pow10
@@ -8,22 +8,23 @@ menu:
 weight: 301
 ---
 
-The `math.pow10()` function functionDescription
+The `math.pow10()` function returns `10**n`, the base-10 exponential of `n`.
 
 ```js
 import "math"
 
-math.pow10( EXAMPLE )
+math.pow10(n: 3)
 ```
 
 ## Parameters
 
-### x
+### n
 The value used in the operation.
 
-_**Data type:** Float_
+_**Data type:** Integer_
 
 ## Special cases
 ```js
-
+math.pow10(n: <-323) // Returns 0
+math.pow10(n: >308)  // Returns +Inf
 ```
