@@ -11,7 +11,7 @@ weight: 105
 ---
 
 InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
-Every user has a unique token.
+A token identifies InfluxDB permissions.
 
 The following articles provide information about managing authentication tokens.
 

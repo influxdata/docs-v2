@@ -132,7 +132,9 @@
 
   li {
     margin: .25rem 0;
-    p:only-child { margin-bottom: 0; }
+    &:not(:last-child) {
+      > p:only-child{ margin-bottom: 0; }
+    }
   }
 
   //////////////////////////////////// Code ////////////////////////////////////

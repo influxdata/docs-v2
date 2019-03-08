@@ -7,6 +7,41 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.5 [2019-03-08]
+
+{{% warn %}}
+This release includes a breaking change to the format in which Time-Structured Merge Tree (TSM) and index data are stored on disk.
+_**Existing local data will not be queryable after upgrading to this release.**_
+
+Prior to installing this release, remove all storage-engine data from your local InfluxDB 2.x installation.
+To remove only TSM and index data and preserve all other other InfluxDB 2.x data (organizations, buckets, settings, etc),
+run the following command.
+
+###### Linux and macOS
+```sh
+rm -r ~/.influxdbv2/engine
+```
+
+Once completed, InfluxDB v2.0.0-alpha.5 can be started.
+{{% /warn %}}
+
+
+### Features
+- Add labels to cloned tasks.
+- Add ability to filter resources by clicking a label.
+- Update to Flux v0.21.4
+
+### Bug Fixes
+- Prevent clipping of code snippets in Firefox.
+- Prevent clipping of cell edit menus in dashboards.
+
+### UI Improvements
+- Make code snippet copy functionality easier to use.
+- Always show live preview in note cell editor.
+- Redesign scraper creation workflow.
+- Show warning in Telegraf and scraper lists when user has no buckets.
+
+
 ## v2.0.0-alpha.4 [2019-02-21]
 
 ### Features
