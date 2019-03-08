@@ -29,6 +29,7 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 ### Features
 - Add labels to cloned tasks.
 - Add ability to filter resources by clicking a label.
+- Update to Flux v0.21.4
 
 ### Bug Fixes
 - Prevent clipping of code snippets in Firefox.
