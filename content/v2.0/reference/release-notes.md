@@ -29,7 +29,10 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 ### Features
 - Add labels to cloned tasks.
 - Add ability to filter resources by clicking a label.
-- Update to Flux v0.21.4
+- Add ability to add a member to org.
+- Improve representation of TSM tagsets on disk.
+- Add ability to remove a member from org.
+- Update to Flux v0.21.4.
 
 ### Bug Fixes
 - Prevent clipping of code snippets in Firefox.
@@ -40,6 +43,7 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 - Always show live preview in note cell editor.
 - Redesign scraper creation workflow.
 - Show warning in Telegraf and scraper lists when user has no buckets.
+- Streamline label addition, removal, and creation from the dashboards list.
 
 
 ## v2.0.0-alpha.4 [2019-02-21]
