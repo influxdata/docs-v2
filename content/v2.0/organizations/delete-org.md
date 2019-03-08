@@ -14,13 +14,13 @@ to create an organization.
 
 ## Delete an organization in the InfluxDB UI
 
-* Click the **Organizations** tab in the navigation bar.
+1. Click the **Organizations** tab in the navigation bar.
 
     {{< nav-icon "orgs" >}}
 
-  The list of organizations appears.
+    The list of organizations appears.
 
-* Hover over an organization's name and click **Delete**.
+2. Hover over an organization's name, click **Delete**, and then **Confirm**.
 
 ## Delete an organization using the influx CLI
 
