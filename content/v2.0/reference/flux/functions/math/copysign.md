@@ -1,0 +1,29 @@
+---
+title: math.copysign() function
+description: The math.copysign() function returns a value with the magnitude of `x` and the sign of `y`.
+menu:
+  v2_0_ref:
+    name: math.copysign
+    parent: Math
+weight: 301
+---
+
+The `math.copysign()` function returns a value with the magnitude of `x` and the sign of `y`.
+
+```js
+import "math"
+
+math.copysign(x: 1.0, y: 2.0)
+```
+
+## Parameters
+
+### x
+The magnitude used in the operation.
+
+_**Data type:** Float_
+
+### y
+The sign used in the operation.
+
+_**Data type:** Float_

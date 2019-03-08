@@ -1,0 +1,31 @@
+---
+title: math.erfc() function
+description: The math.erfc() function returns the complementary error function of `x`.
+menu:
+  v2_0_ref:
+    name: math.erfc
+    parent: Math
+weight: 301
+---
+
+The `math.erfc()` function returns the complementary error function of `x`.
+
+```js
+import "math"
+
+math.erfc(x: 22.6)
+```
+
+## Parameters
+
+### x
+The value used in the operation.
+
+_**Data type:** Float_
+
+## Special cases
+```js
+math.erfc(+Inf) // Returns 0
+math.erfc(-Inf) // Returns 2
+math.erfc(NaN)  // Returns NaN
+```

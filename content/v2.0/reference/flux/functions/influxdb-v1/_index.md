@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: InfluxDB v1
     parent: Flux functions
-weight: 202
+weight: 203
 v2.0/tags: [functions, influxdb-v1]
 ---
 

@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: Strings
     parent: Flux functions
-weight: 203
+weight: 204
 v2.0/tags: [strings, functions]
 ---
 

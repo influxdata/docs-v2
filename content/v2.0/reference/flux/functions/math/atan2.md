@@ -1,0 +1,51 @@
+---
+title: math.atan2() function
+description: The math.atan2() function returns the arc tangent of `y`/`x`, using the signs of the two to determine the quadrant of the return value.
+menu:
+  v2_0_ref:
+    name: math.atan2
+    parent: Math
+weight: 301
+---
+
+The `math.atan2()` function returns the arc tangent of `y`/`x`, using the signs
+of the two to determine the quadrant of the return value.
+
+```js
+import "math"
+
+math.atan2(y: 1.22, x: 3.14)
+```
+
+## Parameters
+
+### y
+The Y coordinate used in the operation.
+
+_**Data type:** Float_
+
+### x
+The X coordinate used in the operation.
+
+_**Data type:** Float_
+
+## Special cases
+```js
+math.atan2(y:y, x:NaN)        // Returns NaN
+math.atan2(y: NaN, x:x)       // Returns NaN
+math.atan2(y: +0, x: >=0)     // Returns +0
+math.atan2(y: -0, x: >=0)     // Returns -0
+math.atan2(y: +0, x: <=-0)    // Returns +Pi
+math.atan2(y: -0, x: <=-0)    // Returns -Pi
+math.atan2(y: >0, x: 0)       // Returns +Pi/2
+math.atan2(y: <0, x: 0)       // Returns -Pi/2
+math.atan2(y: +Inf, x: +Inf)  // Returns +Pi/4
+math.atan2(y: -Inf, x: +Inf)  // Returns -Pi/4
+math.atan2(y: +Inf, x: -Inf)  // Returns 3Pi/4
+math.atan2(y: -Inf, x: -Inf)  // Returns -3Pi/4
+math.atan2(y:y, x: +Inf)      // Returns 0
+math.atan2(y: >0, x: -Inf)    // Returns +Pi
+math.atan2(y: <0, x: -Inf)    // Returns -Pi
+math.atan2(y: +Inf, x:x)      // Returns +Pi/2
+math.atan2(y: -Inf, x:x)      // Returns -Pi/2
+```
