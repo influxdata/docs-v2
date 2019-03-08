@@ -19,7 +19,7 @@ to create a bucket.
     {{< nav-icon "orgs" >}}
 
 2. Click on the name of an organization, then select the **Buckets** tab.
-3. Click **+ Create Bucket** in the upper right.
+3. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
 4. Enter a **Name** for the bucket.
 5. Select **How often to clear data?**:  
     Select **Never** to retain data forever.  

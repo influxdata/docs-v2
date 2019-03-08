@@ -18,7 +18,8 @@ to create an organization.
 
     {{< nav-icon "orgs" >}}
 
-_Complete content coming soon_
+2. Click **{{< icon "plus" >}} Create Organization**.
+3. Enter a **Name** for the organization and click **Create**.
 
 ## Create an organization using the influx CLI
 
