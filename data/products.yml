@@ -4,4 +4,5 @@ enterprise:
 
 cloud:
   name: "InfluxCloud 2.0 Beta"
+  shortname: "InfluxCloud"
   link: "https://www.influxdata.com/influxcloud2beta/"

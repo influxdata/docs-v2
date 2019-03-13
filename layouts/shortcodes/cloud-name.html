@@ -1,1 +1,7 @@
-{{ .Site.Data.products.cloud.name }}
+{{ $length := .Get 0 | default "long" }}
+
+{{ if eq $length "long" }}
+  {{ .Site.Data.products.cloud.name }}
+{{ else if eq $length "short" }}
+  {{ .Site.Data.products.cloud.shortname }}
+{{ end }}
