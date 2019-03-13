@@ -148,7 +148,7 @@ This is content that references {{< enterprise-name >}}.
 The product name is stored in `data/products.yml`
 
 ### InfluxCloud Content
-Many articles are unique to InfluxCloud or at least contain some information specific to InfluxCloud.
+Some articles are unique to InfluxCloud or at least contain some information specific to InfluxCloud.
 There are frontmatter options and an cloud shortcode that help to properly identify this content.
 
 #### All content is cloud-specific
