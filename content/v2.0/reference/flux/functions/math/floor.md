@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.floor(x: 1.22)
+
+// Returns 1.0
 ```
 
 ## Parameters

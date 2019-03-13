@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.round(x: 2.12)
+
+// Returns 2.0
 ```
 
 ## Parameters

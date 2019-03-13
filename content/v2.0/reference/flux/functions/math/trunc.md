@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.trunc(x: 3.14)
+
+// Returns 3.0
 ```
 
 ## Parameters

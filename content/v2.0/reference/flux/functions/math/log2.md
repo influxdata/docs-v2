@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.log2(x: 3.14)
+
+// Returns 1.6507645591169022
 ```
 
 ## Parameters

@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.ceil(x: 3.14)
+
+// Returns 4.0
 ```
 
 ## Parameters

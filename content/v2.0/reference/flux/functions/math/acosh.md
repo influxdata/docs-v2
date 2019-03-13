@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.acosh(x: 1.22)
+
+// Returns 0.6517292837263385
 ```
 
 ## Parameters

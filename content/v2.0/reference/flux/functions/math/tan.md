@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.tan(x: 3.14)
+
+// Returns -0.001592654936407223
 ```
 
 ## Parameters

@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.cosh(x: 1.22)
+
+// Returns 1.8412089502726743
 ```
 
 ## Parameters

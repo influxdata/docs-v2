@@ -19,6 +19,8 @@ _**Output data type:** Float_
 import "math"
 
 math.hypot(p: 2.0, q: 5.0)
+
+// Returns 5.385164807134505
 ```
 
 ## Parameters

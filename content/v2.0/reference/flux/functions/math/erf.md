@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.erf(x: 22.6)
+
+// Returns 1.0
 ```
 
 ## Parameters

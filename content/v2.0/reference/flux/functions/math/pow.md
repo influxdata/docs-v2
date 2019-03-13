@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.pow(x: 2.0, y: 3.0)
+
+// Returns 8.0
 ```
 
 ## Parameters

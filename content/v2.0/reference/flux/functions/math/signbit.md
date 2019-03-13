@@ -16,6 +16,8 @@ _**Output data type:** Boolean_
 import "math"
 
 math.signbit(x: -1.2)
+
+// Returns true
 ```
 
 ## Parameters

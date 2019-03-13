@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.asin(x: 0.22)
+
+// Returns 0.22181447049679442
 ```
 
 ## Parameters

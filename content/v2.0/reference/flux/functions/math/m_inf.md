@@ -18,6 +18,8 @@ _**Output data type:** Float_
 import "math"
 
 math.m_inf(sign: 1)
+
+// Returns +Inf
 ```
 
 ## Parameters

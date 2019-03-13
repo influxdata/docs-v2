@@ -16,6 +16,8 @@ _**Output data type:** UInteger_
 import "math"
 
 math.float64bits(f: 1234.56)
+
+// Returns 4653144467747100426
 ```
 
 ## Parameters

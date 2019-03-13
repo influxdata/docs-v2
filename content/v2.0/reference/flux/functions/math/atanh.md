@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.atanh(x: 0.22)
+
+// Returns 0.22365610902183242
 ```
 
 ## Parameters

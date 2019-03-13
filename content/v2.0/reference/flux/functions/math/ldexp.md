@@ -17,6 +17,8 @@ _**Output data type:** Float_
 import "math"
 
 math.ldexp(frac: 0.5, exp: 6)
+
+// Returns 32.0
 ```
 
 ## Parameters

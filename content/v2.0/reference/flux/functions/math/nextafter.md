@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.nextafter(x: 1.23, y: 4.56)
+
+// Returns 1.2300000000000002
 ```
 
 ## Parameters

@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.dim(x: 12.2, y: 8.1)
+
+// Returns 4.1
 ```
 
 ## Parameters

@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.sinh(x: 1.23)
+
+// Returns 1.564468479304407
 ```
 
 ## Parameters

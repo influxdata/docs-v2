@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.jn(n: 2, x: 1.23)
+
+// Returns 0.16636938378681407
 ```
 
 ## Parameters

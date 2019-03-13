@@ -16,6 +16,8 @@ _**Output data type:** Boolean_
 import "math"
 
 math.isNaN(f: 12.345)
+
+// Returns false
 ```
 
 ## Parameters

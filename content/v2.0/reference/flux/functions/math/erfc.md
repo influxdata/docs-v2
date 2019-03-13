@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.erfc(x: 22.6)
+
+// Returns 3.7726189138490583e-224
 ```
 
 ## Parameters

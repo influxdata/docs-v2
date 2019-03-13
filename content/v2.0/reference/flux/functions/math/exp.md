@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.exp(x: 21.0)
+
+// Returns 1.3188157344832146e+09
 ```
 
 ## Parameters

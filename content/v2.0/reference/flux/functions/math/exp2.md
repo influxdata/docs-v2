@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.exp2(x: 21.0)
+
+// Returns 2.097152e+06
 ```
 
 ## Parameters

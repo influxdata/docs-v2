@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.logb(x: 3.14)
+
+// Returns 1.0
 ```
 
 ## Parameters

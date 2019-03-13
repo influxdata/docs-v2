@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.pow10(n: 3)
+
+// Returns 1000
 ```
 
 ## Parameters

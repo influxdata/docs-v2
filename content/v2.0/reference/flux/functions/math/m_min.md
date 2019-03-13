@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.m_min(x: 1.23, y: 4.56)
+
+// Returns 1.23
 ```
 
 ## Parameters

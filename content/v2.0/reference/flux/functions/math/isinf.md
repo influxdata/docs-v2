@@ -20,6 +20,8 @@ _**Output data type:** Boolean_
 import "math"
 
 math.isInf(f: 2.12, sign: 3)
+
+// Returns false
 ```
 
 ## Parameters

@@ -17,6 +17,8 @@ _**Output data type:** Float_
 import "math"
 
 math.atan2(y: 1.22, x: 3.14)
+
+// Returns 0.3705838802763881
 ```
 
 ## Parameters

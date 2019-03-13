@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.yn(n: 3, x: 3.14)
+
+// Returns -0.4866506930335083
 ```
 
 ## Parameters

@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.m_max(x: 1.23, y: 4.56)
+
+// Returns 4.56
 ```
 
 ## Parameters

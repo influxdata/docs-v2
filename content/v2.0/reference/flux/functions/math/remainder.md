@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.remainder(x: 21.0, y: 4.0)
+
+// Returns 1.0
 ```
 
 ## Parameters

@@ -19,6 +19,8 @@ _**Output data type:** Float_
 import "math"
 
 math.log1p(x: 0.56)
+
+// Returns 0.44468582126144574
 ```
 
 ## Parameters

@@ -15,7 +15,9 @@ _**Output data type:** Integer_
 ```js
 import "math"
 
-math.ilogb(x: 1.23)
+math.ilogb(x: 123.45)
+
+// Returns  6.0
 ```
 
 ## Parameters

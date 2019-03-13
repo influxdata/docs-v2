@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.sqrt(x: 4.0)
+
+// Returns 2.0
 ```
 
 ## Parameters

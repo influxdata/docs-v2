@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.cos(x: 3.14)
+
+// Returns -0.9999987317275396
 ```
 
 ## Parameters

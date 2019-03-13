@@ -16,6 +16,10 @@ _**Output data type:** Float_
 import "math"
 
 math.roundtoeven(x: 3.14)
+// Returns 3.0
+
+math.roundtoeven(x: 3.5)
+// Returns 4.0
 ```
 
 ## Parameters

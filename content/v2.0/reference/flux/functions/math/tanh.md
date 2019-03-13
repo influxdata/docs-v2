@@ -15,7 +15,9 @@ _**Output data type:** Float_
 ```js
 import "math"
 
-math.tanh(x: 0.0)
+math.tanh(x: 1.23)
+
+// Returns 0.8425793256589296
 ```
 
 ## Parameters

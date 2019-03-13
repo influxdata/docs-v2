@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.gamma(x: 2.12)
+
+// Returns 1.056821007887572
 ```
 
 ## Parameters

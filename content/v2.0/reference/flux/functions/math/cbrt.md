@@ -15,7 +15,9 @@ _**Output data type:** Float_
 ```js
 import "math"
 
-math.cbrt(x: 1728)
+math.cbrt(x: 1728.0)
+
+// Returns 12.0
 ```
 
 ## Parameters

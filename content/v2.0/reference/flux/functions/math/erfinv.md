@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.erfinv(x: 0.22)
+
+// Returns 0.19750838337227364
 ```
 
 ## Parameters

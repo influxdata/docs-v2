@@ -18,7 +18,9 @@ _**Output data type:** Float_
 ```js
 import "math"
 
-math.expm1( EXAMPLE )
+math.expm1(x: 1.22)
+
+// Returns 2.3871877336213343
 ```
 
 ## Parameters

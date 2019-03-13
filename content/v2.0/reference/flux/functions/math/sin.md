@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.sin(x: 3.14)
+
+// Returns 0.0015926529164868282
 ```
 
 ## Parameters

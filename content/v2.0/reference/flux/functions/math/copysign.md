@@ -16,6 +16,8 @@ _**Output data type:** Float_
 import "math"
 
 math.copysign(x: 1.0, y: 2.0)
+
+// Returns 1.0
 ```
 
 ## Parameters

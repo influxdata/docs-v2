@@ -15,7 +15,9 @@ _**Output data type:** Float_
 ```js
 import "math"
 
-math.atan( EXAMPLE )
+math.atan(x: 3.14)
+
+// Returns 1.262480664599468
 ```
 
 ## Parameters
