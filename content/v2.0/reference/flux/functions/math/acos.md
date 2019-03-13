@@ -1,6 +1,6 @@
 ---
 title: math.acos() function
-description: The math.acos() function returns the arccosine, in radians, of `x`.
+description: The math.acos() function returns the arccosine of `x` in radians.
 menu:
   v2_0_ref:
     name: math.acos
@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `math.acos()` function returns the arccosine, in radians, of `x`.
+The `math.acos()` function returns the arccosine of `x` in radians.
 
 _**Output data type:** Float_
 
@@ -23,7 +23,6 @@ math.acos(x: 0.22)
 ## Parameters
 
 ### x
-The value used in the operation.
 `x` should be greater than -1 and less than 1.
 Otherwise, the operation will return `NaN`.
 

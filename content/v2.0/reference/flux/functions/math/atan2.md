@@ -1,6 +1,8 @@
 ---
 title: math.atan2() function
-description: The math.atan2() function returns the arc tangent of `y`/`x`, using the signs of the two to determine the quadrant of the return value.
+description: >
+  The math.atan2() function returns the arc tangent of `y`/`x`, using the signs of
+  the parameters to determine the quadrant of the return value.
 menu:
   v2_0_ref:
     name: math.atan2
@@ -24,12 +26,12 @@ math.atan2(y: 1.22, x: 3.14)
 ## Parameters
 
 ### y
-The Y coordinate used in the operation.
+The y coordinate used in the operation.
 
 _**Data type:** Float_
 
 ### x
-The X coordinate used in the operation.
+The x coordinate used in the operation.
 
 _**Data type:** Float_
 

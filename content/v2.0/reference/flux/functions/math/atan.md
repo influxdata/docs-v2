@@ -1,6 +1,6 @@
 ---
 title: math.atan() function
-description: The math.atan() function returns the arctangent, in radians, of `x`.
+description: The math.atan() function returns the arctangent of `x` in radians.
 menu:
   v2_0_ref:
     name: math.atan
@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `math.atan()` function returns the arctangent, in radians, of `x`.
+The `math.atan()` function returns the arctangent of `x` in radians.
 
 _**Output data type:** Float_
 

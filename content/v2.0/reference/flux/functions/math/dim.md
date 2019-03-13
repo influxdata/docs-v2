@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `math.dim()` function returns the maximum of `x`-`y` or 0.
+The `math.dim()` function returns the maximum of `x - y` or 0.
 
 _**Output data type:** Float_
 

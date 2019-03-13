@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `math.hypot()` function returns the square root  of `p*p + q*q`,
-taking care to avoid unnecessary overflow and underflow.
+taking care to avoid overflow and underflow.
 
 _**Output data type:** Float_
 
@@ -26,12 +26,12 @@ math.hypot(p: 2.0, q: 5.0)
 ## Parameters
 
 ### p
-The P value used in the operation.
+The p value used in the operation.
 
 _**Data type:** Float_
 
 ### q
-The Q value used in the operation.
+The q value used in the operation.
 
 _**Data type:** Float_
 

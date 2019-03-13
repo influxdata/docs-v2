@@ -23,7 +23,6 @@ math.acosh(x: 1.22)
 ## Parameters
 
 ### x
-The value used in the operation.
 `x` should be greater than 1.
 If less than 1, the operation will return `NaN`.
 

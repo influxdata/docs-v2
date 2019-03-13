@@ -1,6 +1,6 @@
 ---
 title: math.asin() function
-description: The math.asin() function returns the arcsine, in radians, of `x`.
+description: The math.asin() function returns the arcsine of `x` in radians.
 menu:
   v2_0_ref:
     name: math.asin
@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `math.asin()` function returns the arcsine, in radians, of `x`.
+The `math.asin()` function returns the arcsine of `x` in radians.
 
 _**Output data type:** Float_
 
@@ -25,7 +25,7 @@ math.asin(x: 0.22)
 ### x
 The value used in the operation.
 `x` should be greater than -1 and less than 1.
-Otherwise, the operation will return `NaN`.
+Otherwise, the function will return `NaN`.
 
 _**Data type:** Float_
 
