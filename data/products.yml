@@ -1,0 +1,7 @@
+enterprise:
+  name: "InfluxDB 2.0 Enterprise"
+  link: "#"
+
+cloud:
+  name: "InfluxCloud 2.0 Beta"
+  link: "https://www.influxdata.com/influxcloud2beta/"

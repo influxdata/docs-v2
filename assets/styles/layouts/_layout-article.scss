@@ -272,7 +272,8 @@
   .feedback,
   .note,
   .warn,
-  .enterprise-msg {
+  .enterprise-msg,
+  .cloud-msg {
     padding: 1.65rem 2rem .1rem 2rem;
     margin: 1rem 0 2rem;
     border-width: 0 0 0 4px;
@@ -391,44 +392,67 @@
 
   ///////////////////////////////// Enterprise /////////////////////////////////
 
-  .enterprise-msg {
-    border-color: $article-enterprise-base;
-    background: rgba($article-enterprise-base, .15);
-    font-style: italic;
-    display: flex;
-    p {
-      color: $article-enterprise-text;
-    }
-    a {
-      color: $article-enterprise-link;
-      &:hover {
-        color: $article-enterprise-link-hover;
-      }
-    }
-    div:first-child { margin-right: 1.25rem; }
-  }
+  .enterprise, .cloud {
+    position: relative;
+    padding: 0 0 .01rem 2rem;
+    margin-left: -2rem;
 
-  .enterprise-flag {
-    padding: .2rem .4rem;
-    background: $article-enterprise-base;
-    font-size: .75rem;
-    font-style: normal;
-    font-weight: bold;
-    color: $g20-white;
-    border-radius: $border-radius;
-    vertical-align: text-bottom;
-    &:before {
-      content: "E";
+    &-msg {
+      font-style: italic;
+      display: flex;
+      div:first-child { margin-right: 1.25rem; }
+    }
+    &-flag {
+      padding: .2rem .4rem;
+      font-size: .75rem;
+      font-style: normal;
+      font-weight: bold;
+      color: $g20-white;
+      border-radius: $border-radius;
+      vertical-align: text-bottom;
     }
   }
 
   .enterprise {
-    position: relative;
-    padding: 0 0 .01rem 2rem;
-    margin-left: -2rem;
     border-left: 2px solid $article-enterprise-base;
+    &-msg {
+      border-color: $article-enterprise-base;
+      background: rgba($article-enterprise-base, .15);
+      p { color: $article-enterprise-text; }
+      a {
+        color: $article-enterprise-link;
+        &:hover { color: $article-enterprise-link-hover; }
+      }
+    }
+    &-flag {
+      background: $article-enterprise-base;
+      &:before {
+        content: "E";
+      }
+    }
+  }
 
-    .enterprise-flag {
+  .cloud {
+    border-left: 2px solid $article-cloud-base;
+    &-msg {
+      border-color: $article-cloud-base;
+      background: rgba($article-cloud-base, .15);
+      p { color: $article-cloud-text; }
+      a {
+        color: $article-cloud-link;
+        &:hover { color: $article-cloud-link-hover; }
+      }
+    }
+    &-flag {
+      background: $article-cloud-base;
+      &:before {
+        content: "C";
+      }
+    }
+  }
+
+  .enterprise, .cloud {
+    .enterprise-flag, .cloud-flag {
       position: absolute;
       top: -.15rem;
       left: -.68rem;
@@ -695,16 +719,17 @@
     blockquote,
     .note,
     .warn,
-    #enterprise-msg {
+    .enterprise-msg,
+    .cloud-msg {
       padding: 1.35rem 1.25rem .1rem 1.25rem;
       margin: .5rem 0 1rem;
     }
 
-    .enterprise {
+    .enterprise, .cloud {
       padding: 0 0 .01rem .85rem;
       margin-left: -.85rem;
 
-      .enterprise-flag {
+      .enterprise-flag, .cloud-flag {
         left: -.25rem;
       }
     }
