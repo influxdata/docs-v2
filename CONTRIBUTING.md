@@ -152,13 +152,17 @@ Some articles are unique to InfluxCloud or at least contain some information spe
 There are frontmatter options and an cloud shortcode that help to properly identify this content.
 
 #### All content is cloud-specific
-If all content in an article is cloud-specific, set the `cloud_all` frontmatter to `true`.
+If all content in an article is cloud-specific, set the menu in the frontmatter to `v2_0_cloud`
+(change the version number for the specific version of InfluxCloud).
 
 ```yaml
-cloud_all: true
+menu:
+  v2_0_cloud:
+    name: Menu item name
+    # ...
 ```
 
-This will display a message at the top of page indicating that the things discussed are unique to InfluxCloud.
+The pages `parent` depends on where it fits in the hierarchy of the cloud documentation.
 
 #### Only some content is cloud-specific
 If only some content in the article is cloud-specific, set the `cloud_some` frontmatter to `true`.
