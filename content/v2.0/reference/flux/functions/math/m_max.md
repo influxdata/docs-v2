@@ -10,6 +10,8 @@ weight: 301
 
 The `math.m_max()` function returns the larger of `x` or `y`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

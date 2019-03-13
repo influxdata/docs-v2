@@ -10,6 +10,8 @@ weight: 301
 
 The `math.remainder()` function returns the IEEE 754 floating-point remainder of `x / y`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.asin()` function returns the arcsine, in radians, of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

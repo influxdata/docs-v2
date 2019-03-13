@@ -10,6 +10,8 @@ weight: 301
 
 The `math.pow10()` function returns `10**n`, the base-10 exponential of `n`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

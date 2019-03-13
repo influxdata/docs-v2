@@ -13,6 +13,8 @@ weight: 301
 The `math.mod()` function returns the floating-point remainder of `x`/`y`.
 The magnitude of the result is less than `y` and its sign agrees with that of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

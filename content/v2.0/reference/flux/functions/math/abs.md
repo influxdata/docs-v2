@@ -10,10 +10,14 @@ weight: 301
 
 The `math.abs()` function returns the absolute value of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 
 math.abs(x: -1.22)
+
+// Returns 1.22
 ```
 
 ## Parameters

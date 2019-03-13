@@ -10,6 +10,8 @@ weight: 301
 
 The `math.asinh()` function returns the inverse hyperbolic sine of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

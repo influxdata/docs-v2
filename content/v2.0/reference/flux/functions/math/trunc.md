@@ -10,6 +10,8 @@ weight: 301
 
 The `math.trunc()` function returns the integer value of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

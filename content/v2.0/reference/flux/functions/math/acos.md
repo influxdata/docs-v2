@@ -10,10 +10,14 @@ weight: 301
 
 The `math.acos()` function returns the arccosine, in radians, of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 
 math.acos(x: 0.22)
+
+// Returns 1.3489818562981022
 ```
 
 ## Parameters

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.gamma()` function returns the Gamma function of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

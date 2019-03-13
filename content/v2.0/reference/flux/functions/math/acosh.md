@@ -10,6 +10,8 @@ weight: 301
 
 The `math.acosh()` function returns the inverse hyperbolic cosine of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.nextafter()` function returns the next representable float value after `x` towards `y`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

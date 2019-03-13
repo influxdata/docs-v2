@@ -10,6 +10,8 @@ weight: 301
 
 The `math.ceil()` function returns the least integer value greater than or equal to `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

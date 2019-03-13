@@ -11,6 +11,8 @@ weight: 301
 The `math.atan2()` function returns the arc tangent of `y`/`x`, using the signs
 of the two to determine the quadrant of the return value.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

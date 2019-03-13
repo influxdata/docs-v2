@@ -10,6 +10,8 @@ weight: 301
 
 The `math.jn()` function returns the order-n Bessel function of the first kind.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

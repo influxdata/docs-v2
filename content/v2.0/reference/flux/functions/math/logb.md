@@ -10,6 +10,8 @@ weight: 301
 
 The `math.logb()` function returns the binary exponent of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

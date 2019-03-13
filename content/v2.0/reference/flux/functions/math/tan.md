@@ -10,6 +10,8 @@ weight: 301
 
 The `math.tan()` function returns the tangent of the radian argument `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

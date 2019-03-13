@@ -10,6 +10,8 @@ weight: 301
 
 The `math.sqrt()` function returns the square root of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

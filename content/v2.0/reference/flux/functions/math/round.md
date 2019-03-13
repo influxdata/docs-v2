@@ -10,6 +10,8 @@ weight: 301
 
 The `math.round()` function returns the nearest integer, rounding half away from zero.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

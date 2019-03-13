@@ -11,6 +11,8 @@ weight: 301
 The `math.ldexp()` function is the inverse of [`math.frexp()`](/v2.0/reference/flux/functions/math/frexp).
 It returns `frac × 2**exp`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

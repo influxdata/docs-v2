@@ -10,6 +10,8 @@ weight: 301
 
 The `math.pow()` function returns `x**y`, the base-x exponential of y.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

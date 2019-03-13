@@ -10,6 +10,8 @@ weight: 301
 
 The `math.log10()` function returns the decimal logarithm of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

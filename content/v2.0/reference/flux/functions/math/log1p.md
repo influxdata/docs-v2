@@ -13,6 +13,8 @@ weight: 301
 The `math.log1p()` function returns the natural logarithm of 1 plus its argument `x`.
 It is more accurate than `math.log(x: 1 + x)` when `x` is near zero.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

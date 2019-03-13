@@ -10,6 +10,8 @@ weight: 301
 
 The `math.exp()` function returns `e**x`, the base-e exponential of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

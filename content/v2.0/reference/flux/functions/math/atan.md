@@ -10,6 +10,8 @@ weight: 301
 
 The `math.atan()` function returns the arctangent, in radians, of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

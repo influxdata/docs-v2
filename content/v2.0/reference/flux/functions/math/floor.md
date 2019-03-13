@@ -10,6 +10,8 @@ weight: 301
 
 The `math.floor()` function returns the greatest integer value less than or equal to `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.exp2()` function returns `2**x`, the base-2 exponential of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

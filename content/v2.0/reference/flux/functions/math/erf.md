@@ -10,6 +10,8 @@ weight: 301
 
 The `math.erf()` function returns the error function of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

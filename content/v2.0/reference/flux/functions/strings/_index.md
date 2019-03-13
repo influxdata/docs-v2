@@ -1,8 +1,8 @@
 ---
 title: Flux strings package
 description: >
-  The Flux string package provides functions for manipulating strings in Flux.
-  To use them, import the `strings` package.
+  The Flux string package provides functions to manipulate UTF-8 encoded strings.
+  Import the `strings` package.
 menu:
   v2_0_ref:
     name: Strings
@@ -11,8 +11,8 @@ weight: 204
 v2.0/tags: [strings, functions, package]
 ---
 
-String functions provide tools for manipulating strings in Flux.
-To use them, import the `strings` package:
+The Flux string package provides functions to manipulate UTF-8 encoded strings.
+Import the `strings` package:
 
 ```js
 import "strings"

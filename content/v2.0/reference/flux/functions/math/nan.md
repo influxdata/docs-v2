@@ -10,6 +10,8 @@ weight: 301
 
 The `math.NaN()` function returns an IEEE 754 “not-a-number” value.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.tanh()` function returns the hyperbolic tangent of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

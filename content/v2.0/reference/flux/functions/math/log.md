@@ -10,6 +10,8 @@ weight: 301
 
 The `math.log()` function returns the natural logarithm of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

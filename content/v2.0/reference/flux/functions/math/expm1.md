@@ -13,6 +13,8 @@ weight: 301
 The `math.expm1()` function returns `e**x - 1`, the base-e exponential of `x` minus 1.
 It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

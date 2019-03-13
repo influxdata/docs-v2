@@ -10,6 +10,8 @@ weight: 301
 
 The `math.yn()` function returns the order-n Bessel function of the second kind.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

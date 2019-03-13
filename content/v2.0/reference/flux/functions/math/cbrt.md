@@ -10,6 +10,8 @@ weight: 301
 
 The `math.cbrt()` function returns the cube root of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

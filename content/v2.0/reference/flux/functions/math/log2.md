@@ -10,6 +10,8 @@ weight: 301
 
 The `math.log2()` function returns the binary logarithm of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

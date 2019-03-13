@@ -10,6 +10,8 @@ weight: 301
 
 The `math.erfinv()` function returns the inverse error function of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

@@ -10,6 +10,8 @@ weight: 301
 
 The `math.erfcinv()` function returns the inverse of `math.erfc()`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

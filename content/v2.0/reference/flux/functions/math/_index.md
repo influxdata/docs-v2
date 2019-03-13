@@ -1,8 +1,8 @@
 ---
 title: Flux math package
 description: >
-  The Flux math package provides constants and functions for performing mathematical operations in Flux.
-  To use them, import the `math` package.
+  The Flux math package provides basic constants and mathematical functions.
+  Import the `math` package.
 menu:
   v2_0_ref:
     name: Math
@@ -11,8 +11,8 @@ weight: 202
 v2.0/tags: [math, functions]
 ---
 
-The Flux math package provides constants and functions for performing mathematical operations in Flux.
-To use them, import the `math` package.
+The Flux math package provides basic constants and mathematical functions.
+Import the `math` package.
 
 ```js
 import "math"

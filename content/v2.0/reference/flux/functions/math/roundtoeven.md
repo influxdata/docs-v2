@@ -10,6 +10,8 @@ weight: 301
 
 The `math.roundtoeven()` function returns the nearest integer, rounding ties to even.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

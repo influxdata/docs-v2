@@ -1,8 +1,8 @@
 ---
 title: Flux testing package
 description: >
-  The Flux testing package includes functions that test piped-forward data in specific ways.
-  To use them, import the `testing` package.
+  The Flux testing package provides functions that test piped-forward data in specific ways.
+  Import the `testing` package.
 menu:
   v2_0_ref:
     name: Testing
@@ -12,7 +12,7 @@ v2.0/tags: [testing, functions, package]
 ---
 
 Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.
-To use them, import the `testing` package:
+Import the `testing` package:
 
 ```js
 import "testing"

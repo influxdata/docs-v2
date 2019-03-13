@@ -10,6 +10,8 @@ weight: 301
 
 The `math.cosh()` function returns the hyperbolic cosine of `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

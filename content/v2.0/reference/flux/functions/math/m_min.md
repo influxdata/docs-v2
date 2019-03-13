@@ -10,6 +10,8 @@ weight: 301
 
 The `math.m_min()` function returns the smaller of `x` or `y`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 

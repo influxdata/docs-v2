@@ -10,6 +10,8 @@ weight: 301
 
 The `math.cos()` function returns the cosine of the radian argument `x`.
 
+_**Output data type:** Float_
+
 ```js
 import "math"
 
