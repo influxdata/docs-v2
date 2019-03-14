@@ -15,8 +15,7 @@ The `timeShift()` function adds a fixed duration to time columns.
 The output table schema is the same as the input table.
 If the time is `null`, the time will continue to be `null`.
 
-_**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Function type:** Transformation_
 
 ```js
 timeShift(duration: 10h, columns: ["_start", "_stop", "_time"])
