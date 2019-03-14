@@ -65,7 +65,7 @@ empty  in      or   package  builtin
 ```
 
 {{% note %}}
-To be implemented: [IMPL#256](https://github.com/influxdata/platform/issues/256) Add in and empty operator support.
+[IMPL#256](https://github.com/influxdata/platform/issues/256) Add in and empty operator support.
 {{% /note %}}
 
 
@@ -93,7 +93,7 @@ The following coercion rules apply to numeric literals:
 * An error will occur if the coerced type cannot represent the literal value.
 
 {{% note %}}
-To be implemented: [IMPL#255](https://github.com/influxdata/platform/issues/255) Allow numeric literal coercion.
+[IMPL#255](https://github.com/influxdata/platform/issues/255) Allow numeric literal coercion.
 {{% /note %}}
 
 ### Integer literals
@@ -138,7 +138,7 @@ decimals  = decimal_digit { decimal_digit } .
 ```
 
 {{% note %}}
-To be implemented: [IMPL#254](https://github.com/influxdata/platform/issues/254) Parse float literals.
+[IMPL#254](https://github.com/influxdata/platform/issues/254) Parse float literals.
 {{% /note %}}
 
 ### Duration literals
@@ -217,7 +217,7 @@ When months are added to a date times and the resulting date is past the end of 
 ```
 
 {{% note %}}
-To be implemented: [IMPL#657](https://github.com/influxdata/platform/issues/657) Implement Duration vectors.
+[IMPL#657](https://github.com/influxdata/platform/issues/657) Implement Duration vectors.
 {{% /note %}}
 
 ## Date and time literals
@@ -254,7 +254,7 @@ time_offset       = "Z" | ("+" | "-" ) hour ":" minute .
 ```
 
 {{% note %}}
-To be implemented: [IMPL#152](https://github.com/influxdata/flux/issues/152) Implement shorthand time literals.
+[IMPL#152](https://github.com/influxdata/flux/issues/152) Implement shorthand time literals.
 {{% /note %}}
 
 ### String literals
@@ -287,7 +287,7 @@ StringExpression = "{" Expression "}" .
 {{% note %}}
 To be added: TODO: With string interpolation `string_lit` is not longer a lexical token as part of a literal, but an entire expression in and of itself.
 
-To be implemented: [IMPL#252](https://github.com/influxdata/platform/issues/252) Parse string literals.
+[IMPL#252](https://github.com/influxdata/platform/issues/252) Parse string literals.
 {{% /note %}}
 
 ##### Examples of string literals
@@ -309,7 +309,7 @@ A function `printf` exists to allow more precise control over formatting of vari
 To include the literal curly brackets within a string they must be escaped.
 
 {{% note %}}
-To be implemented: [IMPL#248](https://github.com/influxdata/platform/issues/248) Add printf function.
+[IMPL#248](https://github.com/influxdata/platform/issues/248) Add printf function.
 {{% /note %}}
 
 ##### Example: Interpolation
@@ -323,7 +323,7 @@ n = 42
 ```
 
 {{% note %}}
-To be implemented: [IMPL#251](https://github.com/influxdata/platform/issues/251) Add string interpolation support
+[IMPL#251](https://github.com/influxdata/platform/issues/251) Add string interpolation support
 {{% /note %}}
 
 ### Regular expression literals

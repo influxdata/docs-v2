@@ -42,7 +42,7 @@ When a file does not declare a package clause, all identifiers in that
 file will belong to the special `main` package.
 
 {{% note %}}
-To be implemented: [IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
+[IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
 {{% /note %}}
 
 ### Package main
