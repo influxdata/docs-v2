@@ -69,7 +69,7 @@ export INFLUX_TOKEN=YourAuthenticationToken
 Start the Telegraf service using the `-config` flag to specify the URL of your generated configuration file.
 Telegraf starts using the Telegraf configuration pulled from InfluxDB API.
 
-_See the configuration **Setup Details** for the exact command._
+_See the configuration **Setup Instructions** for the exact command._
 
 ```sh
 telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
