@@ -4,7 +4,7 @@ description: View the full library of documented Flux functions.
 menu:
   v2_0_ref:
     name: View all functions
-    parent: Flux packages and functions
+    parent: Flux functions
 weight: 299
 ---
 
