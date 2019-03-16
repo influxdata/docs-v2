@@ -7,6 +7,41 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.6 [2019-03-15]
+
+### Release Notes
+
+{{% warn %}}
+We have updated the way we do predefined dashboards to [include Templates](https://github.com/influxdata/influxdb/pull/12532)
+in this release which will cause existing Organizations to not have a System
+dashboard created when they build a new Telegraf configuration.
+In order to get this functionality, remove your existing data and start from scratch.
+
+_**This will remove all data from your InfluxDB v2.0 instance including time series data.**_
+
+###### Linux and macOS
+```sh
+rm ~/.influxdbv2/influxd.bolt
+```
+
+Once completed, `v2.0.0-alpha.6` can be started.
+{{% /warn %}}
+
+### Features
+- Add ability to import a dashboard.
+- Add ability to import a dashboard from organization view.
+- Add ability to export a dashboard and a task.
+- Add `run` subcommand to `influxd` binary. This is also the default when no subcommand is specified.
+- Add ability to save a query as a variable from the Data Explorer.
+- Add System template on onboarding.
+
+### Bug Fixes
+- Stop scrollbars from covering text in Flux editor.
+
+### UI Improvements
+- Fine tune keyboard interactions for managing labels from a resource card.
+
+
 ## v2.0.0-alpha.5 [2019-03-08]
 
 {{% warn %}}

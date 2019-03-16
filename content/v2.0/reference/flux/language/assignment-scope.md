@@ -33,7 +33,7 @@ The package name does not appear in any scope.
 Its purpose is to identify the files belonging to the same package and to specify the default package name for import declarations.
 
 {{% note %}}
-To be implemented: [IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
+[IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
 {{% /note %}}
 
 ## Variable assignment

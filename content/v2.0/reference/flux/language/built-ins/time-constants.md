@@ -30,7 +30,7 @@ Saturday  = 6
 ```
 
 {{% note %}}
-To be implemented: [IMPL#153](https://github.com/influxdata/flux/issues/153) Add Days of the Week constants
+[IMPL#153](https://github.com/influxdata/flux/issues/153) Add Days of the Week constants
 {{% /note %}}
 
 ## Months of the year
@@ -52,5 +52,5 @@ December  = 12
 ```
 
 {{% note %}}
-To be implemented: [IMPL#154](https://github.com/influxdata/flux/issues/154) Add Months of the Year constants
+[IMPL#154](https://github.com/influxdata/flux/issues/154) Add Months of the Year constants
 {{% /note %}}
