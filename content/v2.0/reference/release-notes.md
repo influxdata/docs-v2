@@ -13,21 +13,19 @@ menu:
 
 {{% warn %}}
 We have updated the way we do predefined dashboards to [include Templates](https://github.com/influxdata/influxdb/pull/12532)
-in this release which causes existing organizations to not have a System dashboard created when they build a new Telegraf configuration.
-_**Remove your bolt db and go through initial setup process again.
-This will delete your tokens, dashboards, tasks, and other non-time series data**_,
-but will not impact you existing time series data.
-Provide a new token to anything writing data into the system.
+in this release which will cause existing Organizations to not have a System
+dashboard created when they build a new Telegraf configuration.
+In order to get this functionality, remove your existing data and start from scratch.
+
+_**This will remove all data from your InfluxDB v2.0 instance including time series data.**_
 
 ###### Linux and macOS
 ```sh
 rm ~/.influxdbv2/influxd.bolt
 ```
 
-Once completed, InfluxDB v2.0.0-alpha.5 can be started.
-{{% /warn %}}
-
 Once completed, `v2.0.0-alpha.6` can be started.
+{{% /warn %}}
 
 ### Features
 - Add ability to import a dashboard.
