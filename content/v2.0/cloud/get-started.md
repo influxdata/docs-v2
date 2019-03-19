@@ -18,7 +18,7 @@ The InfluxDB v2.0 alpha documentation linked to in this article also applies to 
 ## Sign up
 
 {{% note %}}
-Early access to {{< cloud-name >}} is limited. You can apply for access [here](https://www.influxdata.com/influxcloud2beta/).
+Early access to {{< cloud-name >}} is limited. Apply for access [here](https://www.influxdata.com/influxcloud2beta/).
 {{% /note %}}
 
 Sign up for the InfluxCloud 2.0 Beta with the link provided in the invite email.
@@ -29,7 +29,7 @@ Sign up for the InfluxCloud 2.0 Beta with the link provided in the invite email.
 4. Select the Region and click Next to create your default organization and bucket.
 
   {{% cloud-msg %}}
-  InfluxCloud 2.0 Beta will be restricted to one region only: us-west-2.
+  InfluxCloud 2.0 Beta is restricted to the us-west-2 region.
   {{% /cloud-msg %}}
 
 5. Once your organization and bucket are created, the usage page opens.
@@ -40,15 +40,11 @@ Sign up for the InfluxCloud 2.0 Beta with the link provided in the invite email.
 
 ## Log in
 
-Browse to [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aws.cloud2.influxdata.com) and use the credentials created above to log in.
+Log in at [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
 
 ## Collect data
 
 Use Telegraf to collect and write data to {{< cloud-name >}}. Create Telegraf configurations automatically in the UI or manually configure Telegraf.
-
-  {{% cloud-msg %}}
-  Scrapers are not available in {{< cloud-name >}}.
-  {{% /cloud-msg %}}
 
 For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/auto-config/#create-a-telegraf-configuration) and [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/manual-config/).
 
