@@ -176,7 +176,7 @@ To format cloud-specific content, wrap it in the `{{% cloud %}}` shortcode:
 
 ```md
 {{% cloud %}}
-Insert enterprise-specific markdown content here.
+Insert Cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
