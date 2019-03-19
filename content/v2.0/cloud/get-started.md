@@ -2,7 +2,6 @@
 title: Get started with InfluxCloud 2.0 Beta
 description: >
   Sign up for and get started with InfluxCloud 2.0 Beta.
-cloud_all: true
 weight: 1
 menu:
   v2_0_cloud:
