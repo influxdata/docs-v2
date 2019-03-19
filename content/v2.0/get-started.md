@@ -8,6 +8,10 @@ weight: 1
 v2.0/tags: [get-started, install]
 ---
 
+{{% cloud-msg %}}
+This article describes how to get started with InfluxDB OSS. To get started with {{< cloud-name "short" >}}, see [Get Started with InfluxCloud 2.0 Beta](/v2.0/cloud/get-started/).
+{{% /cloud-msg %}}
+
 Get started with InfluxDB v2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
 
@@ -169,7 +173,7 @@ docker exec -it influxdb /bin/bash
 
 {{< /tabs-wrapper >}}
 
-## Setup InfluxDB
+## Set up InfluxDB
 The initial setup process for InfluxDB walks through creating a default organization,
 user, and bucket.
 The setup process is available in both the InfluxDB user interface (UI) and in
