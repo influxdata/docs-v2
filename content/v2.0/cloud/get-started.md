@@ -9,29 +9,30 @@ menu:
     name: Get started with InfluxCloud
 ---
 
-## Sign up
+## Sign up and log in
 
-## Log in
+It is very easy to get started with InfluxCloud 2.0 Beta by simply signing up using the link provided in the InfluxCloud v2.0 Beta Invite email.
 
-## Collect
+Signup for InfluxCloud 2.0
+Look for an email invite from support@influxdata.com with the subject line You've been invited to beta InfluxCloud 2.0.
 
-## Query
+Click on                        button to begin the sign up process.
 
-## Visualize
+Provide an email id, password and follow the prompts to sign up for a Free Tier.
 
+Select the Region and click Next, to create your default organization and bucket in the selected region.
+       [Note: InfluxCloud 2.0 Beta will be restricted to 1 region only: us-west-2]
 
-
-
-### Overview tab
-
-* Usage This Week graphs: shows Reads, Writes, and Storage. Gives you a concise visibility into the workload and how that relates to billing. Shows a warning when you hit particular rate limits.
-* Can drill down further in the graph below.
+Once the user’s organization and bucket are created, you will be taken to the usage page.
+       [Note: Currently this is just a mock page with no true usage information shown. This capability will be available soon.].
 
 
-### Billing tab
+Browse to https://us-west-2-1.aws.cloud2.influxdata.com and use the credentials you set up upon sign up to login to InfluxCloud UI.
 
-* Shows your tier and included capacity (writes, reads, storage).
-* Everyone starts on the free tier.
-* Options to upgrade to Pay As You Go or Subscription model below.
-  * Pay as You Go: Presented with billing summary. You can select a credit block. When your account balance drops below a certain level, the credit block is automatically added.
-  * Subscription: Presented with Subscription calculator, calculates subscription cost based on Write Units, Read Units, and Storage Units, as well as monthly/yearly.
+## Collect, query, visualize
+
+
+## Known Issues
+
+
+## Provide feedback
