@@ -5,10 +5,14 @@
     {{ partial "header/google-analytics.html" }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    {{ if in .RelPermalink "/cloud/"}}
+      <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }}{{ end }}{{ .Site.Data.products.cloud.name }} Documentation</title>
+    {{ else }}
+      <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxDB {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
+    {{ end }}
     <meta name="description" content="{{ if .Description }}{{ .Description | markdownify | plainify }}{{else}}{{ .Summary | markdownify | plainify }}{{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
-    <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxDB {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
 
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}

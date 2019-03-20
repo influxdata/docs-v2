@@ -1,20 +1,19 @@
-{{ $enterpriseLink := "#"}}
+{{ $enterpriseName := .Site.Data.products.enterprise.name }}
+{{ $enterpriseLink := .Site.Data.products.enterprise.link }}
 {{ if ( $.Params.enterprise_all ) }}
-  <div class="enterprise-msg">
+  <div class="enterprise-msg"  id="enterprise-msg">
     <p>
-      The features and functionality discussed on this page are unique to the Enterprise edition of InfluxDB.
-      <a href="{{ $enterpriseLink }}" target="_blank">Learn more about InfluxDB Enterprise</a>.
+      The features and functionality discussed on this page are unique to <a href="{{ $enterpriseLink }}" target="_blank">{{ $enterpriseName }}</a>.
     </p>
   </div>
 {{ else if ( $.Params.enterprise_some ) }}
-  <div class="enterprise-msg">
+  <div class="enterprise-msg" id="enterprise-msg">
     <div>
       <span class="enterprise-flag"></span>
     </div>
     <div>
       <p>
-        This page includes features and functionality unique to the Enterprise edition of InfluxDB.
-        <a href="{{ $enterpriseLink }}" target="_blank">Learn more about InfluxDB Enterprise</a>.
+        This page includes features and functionality unique to <a href="{{ $enterpriseLink }}" target="_blank">{{ $enterpriseName }}</a>.
       </p>
     </div>
   </div>

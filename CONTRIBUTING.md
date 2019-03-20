@@ -62,6 +62,8 @@ weight: # Determines sort order in both the nav tree and in article lists.
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
+cloud_all: # If true, specifies the doc as a whole is specific to InfluxCloud
+cloud_some: # If true, specifies the doc includes some content specific to InfluxCloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
 ```
 
@@ -134,6 +136,59 @@ To format Enterprise-specific content, wrap it in the `{{% enterprise %}}` short
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
 ```
+
+#### Enterprise name
+The name used to refer to InfluxData's enterprise offering is subject to change.
+To facilitate easy updates in the future, use the `enterprise-name` shortcode when referencing the enterprise product.
+
+```
+This is content that references {{< enterprise-name >}}.
+```
+
+The product name is stored in `data/products.yml`
+
+### InfluxCloud Content
+Some articles are unique to InfluxCloud or at least contain some information specific to InfluxCloud.
+There are frontmatter options and an cloud shortcode that help to properly identify this content.
+
+#### All content is cloud-specific
+If all content in an article is cloud-specific, set the menu in the frontmatter to `v2_0_cloud`
+(change the version number for the specific version of InfluxCloud).
+
+```yaml
+menu:
+  v2_0_cloud:
+    name: Menu item name
+    # ...
+```
+
+The pages `parent` depends on where it fits in the hierarchy of the cloud documentation.
+
+#### Only some content is cloud-specific
+If only some content in the article is cloud-specific, set the `cloud_some` frontmatter to `true`.
+
+```yaml
+cloud_some: true
+```
+
+This will display a message at the top of page indicating some things are unique to InfluxCloud.
+To format cloud-specific content, wrap it in the `{{% cloud %}}` shortcode:
+
+```md
+{{% cloud %}}
+Insert Cloud-specific markdown content here.
+{{% /cloud %}}
+```
+
+#### InfluxCloud name
+The name used to refer to InfluxData's cloud offering is subject to change.
+To facilitate easy updates in the future, use the `cloud-name` short-code when referencing the cloud product.
+
+```
+This is content that references {{< cloud-name >}}.
+```
+
+The product name is stored in `data/products.yml`
 
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
