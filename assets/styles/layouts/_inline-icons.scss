@@ -1,7 +1,7 @@
 // Helper styles for inline icons used with the "icon" shortcode
 .article--content {
   .inline {
-    margin: 0 .2rem;
+    margin: 0 .15rem;
     &.middle:before { vertical-align: middle; }
     &.xsmall:before { font-size: .8rem; }
     &.small:before { font-size: .9rem; }
@@ -10,7 +10,7 @@
     &.add-btn-round {
       font-family: "icomoon";
       color:#fff;
-      background:#22adf6;
+      background:#7a65f2;
       border-radius:50%;
       margin:0 .25rem;
       display: inline-block;

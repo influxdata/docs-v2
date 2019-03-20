@@ -14,7 +14,7 @@ weight: 101
 Labels are a way to add visual metadata to dashboards, tasks, and other items in the InfluxDB UI.
 To manage labels, click the **Configuration** icon in the navigation bar and select **Labels**.
 
-{{< img-hd src="/img/labels-nav-link.png" title="Labels configuration" />}}
+{{< img-hd src="/img/2-0-labels-nav-link.png" title="Labels configuration" />}}
 
 #### Create a label
 1. Click **+ Create Label**.

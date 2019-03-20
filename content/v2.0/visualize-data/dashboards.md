@@ -45,10 +45,10 @@ You can also send data to your dashboard directly from the Data Explorer. For de
 2. Click **Delete**.    
 3. Click **Confirm** to continue deleting your dashboard.
 
-    ![Delete a dashboard](/img/dashboard-delete.png)
+    ![Delete a dashboard](/img/2-0-dashboard-delete.png)
 
 #### Clone a dashboard
 1. Hover over the dashbaord name in the list of dashboard to show options.
 2. Click **Clone**. The cloned dashboard opens.
 
-    ![Clone a dashboard](/img/dashboard-clone.png)
+    ![Clone a dashboard](/img/2-0-dashboard-clone.png)
