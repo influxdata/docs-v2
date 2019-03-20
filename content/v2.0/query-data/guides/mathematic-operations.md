@@ -12,7 +12,7 @@ weight: 209
 
 [Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,
 supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operator)
+This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 ##### Basic mathematic operations
