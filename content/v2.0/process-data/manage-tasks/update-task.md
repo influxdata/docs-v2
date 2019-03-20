@@ -22,7 +22,7 @@ To view your tasks, click the **Tasks** icon in the left navigation menu.
 3. In the right panel, modify the task script.
 4. Click **Save** in the upper right.
 
-{{< img-hd src="/img/tasks-create-edit.png" alt="Update a task" />}}
+{{< img-hd src="/img/2-0-tasks-create-edit.png" alt="Update a task" />}}
 
 #### Update the status of a task
 In the list of tasks, click the toggle in the **Active** column of the task you

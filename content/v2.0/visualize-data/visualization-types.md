@@ -51,19 +51,19 @@ To view **Graph** controls, click the settings icon ({{< icon "gear" >}}) next t
 
 ##### Line Graph example
 
-![Line Graph example](/img/chrono-viz-line-graph-example.png)
+{{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
 
 ##### Stacked Graph example
 
-![Stacked Graph example](/img/chrono-viz-stacked-graph-example.png)
+{{< img-hd src="/img/2-0-visualizations-stacked-graph-example.png" alt="Stacked Graph example" />}}
 
 #### Step-Plot Graph example
 
-![Step-Plot Graph example](/img/chrono-viz-step-plot-graph-example.png)
+{{< img-hd src="/img/2-0-visualizations-step-plot-graph-example.png" alt="Step-Plot Graph example" />}}
 
 ##### Bar Graph example
 
-![Bar Graph example](/img/chrono-viz-bar-graph-example.png)
+{{< img-hd src="/img/2-0-visualizations-bar-graph-example.png" alt="Bar Graph example" />}}
 
 ### Graph + Single Stat
 
@@ -102,7 +102,7 @@ To view **Graph + Single Stat** controls, click the settings icon ({{< icon "gea
 
 #### Graph + Single Stat example
 
-![Line Graph + Single Stat example](/img/chrono-viz-line-graph-single-stat-example.png)
+{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example.png" alt="Line Graph + Single Stat example" />}}
 
 ### Histogram
 
@@ -125,7 +125,7 @@ To view **Histogram** controls, click the settings icon ({{< icon "gear" >}}) ne
 
 #### Histogram example
 
-![Histogram example](/img/histogram_example.png)
+{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
 ### Single Stat
 
@@ -172,7 +172,7 @@ To view **Gauge** controls, click the settings icon ({{< icon "gear" >}}) next t
 
 #### Gauge example
 
-![Gauge example](/img/chrono-viz-gauge-example.png)
+{{< img-hd src="/img/2-0-visualizations-gauge-example.png" alt="Gauge example" />}}
 
 ### Table
 
@@ -207,4 +207,4 @@ To view **Table** controls, click the settings icon ({{< icon "gear" >}}) next t
 
 #### Table view example
 
-![Table example](/img/chrono-viz-table-example.png)
+{{< img-hd src="/img/2-0-visualizations-table-example.png" alt="Table example" />}}
