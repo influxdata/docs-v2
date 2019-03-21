@@ -35,11 +35,19 @@ _**Data type:** Function_
 ###### fn syntax
 ```js
 // Pattern
-fn: (r, accumulator) => ({ newColumnName: r.column + accumulator.identityKey })
+fn: (r, accumulator) => ({ identityKey: r.column + accumulator.identityKey })
 
 // Example
-fn: (r, accumulator) => ({ valueSum: r._value + accumulator.sum })
+fn: (r, accumulator) => ({ sum: r._value + accumulator.sum })
 ```
+
+{{% note %}}
+#### Matching output object keys and types
+The output object from `fn` must have the same key names and value types as the `identity`.
+After operating on a record, the output object is given back to `fn` as the input accumulator.
+If the output object keys and value types do not match the `identity` keys and value types,
+it will return a type error.
+{{% /note %}}
 
 #### r
 Object representing each row or record.
@@ -93,8 +101,8 @@ from(bucket:"example-bucket")
     |> range(start:-12h)
     |> reduce(
         fn: (r, accumulator) => ({
-          valueSum: r._value + accumulator.sum,
-          valueCount: accumulator.count + 1.0
+          sum: r._value + accumulator.sum,
+          count: accumulator.count + 1.0
         }),
         identity: {sum: 0.0, count: 0.0}
     )
@@ -110,7 +118,7 @@ from(bucket:"example-bucket")
     |> range(start:-12h)
     |> reduce(
         fn: (r, accumulator) => ({
-            valueProduct: r._value * accumulator.prod
+            prod: r._value * accumulator.prod
         }),
         identity: {prod: 1.0}        
     )
