@@ -99,6 +99,83 @@
     </li>
   {{end}}
 
+  <!-- Cloud Section -->
+  {{ $refMenuID := print (replaceRE "[.]" "_" $currentVersion) "_cloud" }}
+  <h4 class="reference">{{ .Site.Data.products.cloud.shortname }}</h4>
+
+  {{ range (index .Site.Menus $refMenuID) }}
+    <!-- Nested Reference Navigation -->
+    <li class="nav-category {{ if eq $currentPage.URL .URL }}active{{end}}">
+      {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+      <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ if .HasChildren }}
+        <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+        {{ range .Children }}
+          <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+            {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+            {{ if .HasChildren }}
+              <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+              {{ range .Children }}
+                <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+                  {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                  <a href="{{ .URL }}">{{ .Name }}</a>
+                  {{ if .HasChildren }}
+                    <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                    {{ range .Children }}
+                      <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+                        {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                        <a href="{{ .URL }}">{{ .Name }}</a>
+                        {{ if .HasChildren }}
+                          <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                          {{ range .Children }}
+                            <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+                              {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                              <a href="{{ .URL }}">{{ .Name }}</a>
+                              {{ if .HasChildren }}
+                                <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                                {{ range .Children }}
+                                  <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+                                    {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                    <a href="{{ .URL }}">{{ .Name }}</a>
+
+                                    <!-- Begin nested block -->
+                                    {{ if .HasChildren }}
+                                      <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+                                      {{ range .Children }}
+                                        <li class="nav-item {{ if eq $currentPage.URL .URL }}active{{end}}">
+                                          {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                          <a href="{{ .URL }}">{{ .Name }}</a>
+                                          <!-- To add more nested layers, copy the nested block and paste it here -->
+                                        </li>
+                                      {{ end }}
+                                      </ul>
+                                    {{ end }}
+                                    <!-- End nested block -->
+
+                                  </li>
+                                {{ end }}
+                                </ul>
+                              {{ end }}
+                            </li>
+                          {{ end }}
+                          </ul>
+                        {{ end }}
+                      </li>
+                    {{ end }}
+                    </ul>
+                  {{ end }}
+                </li>
+              {{ end }}
+              </ul>
+            {{ end }}
+          </li>
+        {{ end }}
+        </ul>
+      {{ end }}
+    </li>
+  {{end}}
+
   <!-- Reference Section -->
   {{ $refMenuID := print (replaceRE "[.]" "_" $currentVersion) "_ref" }}
   <h4 class="reference">Reference</h4>

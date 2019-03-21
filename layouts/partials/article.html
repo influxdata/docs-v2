@@ -3,8 +3,14 @@
     <h1>{{ .Title }}</h1>
     {{ partial "article/latest-version.html" . }}
     {{ partial "article/enterprise.html" . }}
+    {{ partial "article/cloud.html" . }}
     {{ .Content }}
     {{ partial "article/tags.html" . }}
-    {{ partial "article/_alpha-feedback.html"}}
+    
+    {{ if in .RelPermalink "/cloud/"}}
+      {{ partial "article/_cloud-feedback.html"}}
+    {{ else }}
+      {{ partial "article/_alpha-feedback.html"}}
+    {{ end }}
   </article>
 </div>

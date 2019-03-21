@@ -7,7 +7,9 @@ menu:
 weight: 1
 #enterprise_all: true
 enterprise_some: true
-#draft: true
+cloud_all: true
+#cloud_some: true
+draft: true
 "v2.0/tags": [influxdb]
 ---
 
@@ -77,6 +79,7 @@ There is a horizontal rule above and below this line.
 
 ---
 
+{{% cloud %}}
 #### Inline Styles
 This is an [inline link](#). This is `inline code`.
 This is an [`inline code link`](#).
@@ -160,7 +163,7 @@ avg_cpu
   |> yield()
 //
 ```
-
+{{% /cloud %}}
 
 {{% enterprise %}}
 ###### This is a table
