@@ -1,14 +1,17 @@
 ---
 title: reduce() function
-description: The `reduce()` function aggregates records in each table according to the reducer, `fn`.
+description: >
+  The `reduce()` function aggregates records in each table according to the reducer,
+  `fn`, providing a way to create custom table aggregations.
 menu:
   v2_0_ref:
     name: reduce
-    parent: built-in-transformations
-weight: 401
+    parent: built-in-aggregates
+weight: 501
 ---
 
-The `reduce()` function aggregates records in each table according to the reducer, `fn`.
+The `reduce()` function aggregates records in each table according to the reducer,
+`fn`, providing a way to create custom table aggregations.
 The output for each table is the group key of the table with columns corresponding
 to each field in the reducer object.
 
