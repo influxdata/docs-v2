@@ -43,7 +43,7 @@ fn: (r, accumulator) => ({ sum: r._value + accumulator.sum })
 
 {{% note %}}
 #### Matching output object keys and types
-The output object from `fn` must have the same key names and value types as the `identity`.
+The output object from `fn` must have the same key names and value types as the [`identity`](#identity).
 After operating on a record, the output object is given back to `fn` as the input accumulator.
 If the output object keys and value types do not match the `identity` keys and value types,
 it will return a type error.
@@ -65,7 +65,7 @@ _**Data type:** Object_
 ###### identity object syntax
 ```js
 // Pattern
-identity: {key1: value1, key2: value2}
+identity: {identityKey1: value1, identityKey2: value2}
 
 // Example
 identity: {sum: 0.0, count: 0.0}
