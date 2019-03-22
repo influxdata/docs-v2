@@ -11,13 +11,9 @@ weight: 501
 ---
 
 The `reduce()` function aggregates records in each table according to the reducer,
-`fn`, providing a way to create custom table aggregations.
+`fn`, providing a way to create custom aggregations.
 The output for each table is the group key of the table with columns corresponding
 to each field in the reducer object.
-
-If the reducer record contains a column with the same name as a group key column,
-the group key column's value is overwritten and the resulting record is regrouped
-into the appropriate table.
 
 _**Function type:** Transformation_
 
@@ -27,6 +23,10 @@ reduce(
   identity: {sum: 0.0}
 )
 ```
+
+If the reducer record contains a column with the same name as a group key column,
+the group key column's value is overwritten and the resulting record is regrouped
+into the appropriate table.
 
 ## Parameters
 
