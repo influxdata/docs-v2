@@ -1,8 +1,7 @@
 {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
-{{ $latestVersion := $.Site.Data.versions.latest_version }}
-{{ $latestPath := replaceRE "[^/]+.*?[0]" $latestVersion .RelPermalink }}
-{{ $canonicalURL := print (replaceRE `\/$` "" .Site.BaseURL) (replaceRE "[^/]+.*?[0]" $latestVersion .RelPermalink) }}
+{{ $stableVersion := $.Site.Data.versions.stable_version }}
+{{ $canonicalURL := print (replaceRE `\/$` "" .Site.BaseURL) (replaceRE "[^/]+.*?[0]" $stableVersion .RelPermalink) }}
 
-{{ if not (eq $currentVersion $latestVersion) }}
+{{ if not (eq $currentVersion $stableVersion) }}
   <link rel="canonical" href="{{ $canonicalURL }}" />
 {{ end }}

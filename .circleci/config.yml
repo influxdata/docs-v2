@@ -30,7 +30,7 @@ jobs:
             - /home/circleci/bin
       - run:
           name: Hugo Build
-          command: $HOME/bin/hugo -v --destination workspace/public
+          command: $HOME/bin/hugo -v --minify --destination workspace/public
       - persist_to_workspace:
           root: workspace
           paths:
