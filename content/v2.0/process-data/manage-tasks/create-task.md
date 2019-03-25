@@ -53,10 +53,19 @@ The InfluxDB UI provides multiple ways to create a task:
 1. Click on the **Tasks** icon in the left navigation menu.
 
     {{< nav-icon "tasks" >}}
-    
-2. Click **Import** in the upper right.
+
+2. Click **+ Create Task** in the upper right.
+3. Select **Import Task**.
 3. Drag and drop or select a file to upload.
-4. Click **Upload Task**.
+4. Click **Import JSON as Task**.
+
+### Clone a task
+1. Click on the **Tasks** icon in the left navigation menu.
+
+    {{< nav-icon "tasks" >}}
+
+2. Hover over the task you would like to clone and click the **{{< icon "duplicate" >}}** that appears.
+4. Click **Clone**.
 
 ## Create a task using the influx CLI
 Use `influx task create` command to create a new task.
