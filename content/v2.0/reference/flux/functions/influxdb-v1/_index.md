@@ -1,5 +1,6 @@
 ---
 title: Flux InfluxDB v1 functions
+list_title: InfluxDB v1 functions
 description: >
   InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x
   database or structured using the InfluxDB v1 data structure.

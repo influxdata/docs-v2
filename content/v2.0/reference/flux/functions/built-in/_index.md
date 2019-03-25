@@ -1,5 +1,6 @@
 ---
 title: Flux built-in functions
+list_title: Built-in functions
 description: >
   Built-in functions provide a necessary foundation for working with data using Flux.
   They do not require an import statement and are usable without any extra setup.

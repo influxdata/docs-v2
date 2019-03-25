@@ -1,5 +1,6 @@
 ---
 title: Flux built-in miscellaneous functions
+list_title: Built-in miscellaneous functions
 description: >
   Flux provides built-in miscellaneous functions that serve purposes other than
   retrieving, transforming, or outputting data.

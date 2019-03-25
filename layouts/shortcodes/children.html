@@ -15,7 +15,7 @@
 {{ if eq $type "articles" }}
 
 	{{ range $pages.ByWeight }}
-		<h3><a href="{{ .RelPermalink }}" >{{ .Title }}</a></h3>
+		<h3><a href="{{ .RelPermalink }}" >{{ if .Params.list_title }}{{ .Params.list_title }}{{ else }}{{ .Title }}{{ end }}</a></h3>
 		<p>
 			{{- if .Description }}{{- .Description | markdownify -}}
 			{{ else }}{{- .Summary | markdownify -}}
@@ -28,7 +28,7 @@
 	<ul>
 	{{ range $pages.ByWeight }}
 		{{ $title := replaceRE `\ function` "" .Title }}
-		<li><a href="{{ .RelPermalink }}">{{ $title }}</a></li>
+		<li><a href="{{ .RelPermalink }}">{{ if .Params.list_title }}{{ .Params.list_title }}{{ else }}{{ $title }}{{ end }}</a></li>
 	{{ end }}
 	<ul>
 
