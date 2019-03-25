@@ -1,5 +1,6 @@
 ---
 title: Flux math package
+list_title: Math package
 description: >
   The Flux math package provides basic constants and mathematical functions.
   Import the `math` package.

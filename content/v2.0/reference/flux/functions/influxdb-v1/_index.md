@@ -1,5 +1,6 @@
 ---
 title: Flux InfluxDB v1 package
+list_title: InfluxDB v1 package
 description: >
   The Flux InfluxDB v1 package provides functions for managing data from an InfluxDB v1.x
   database or structured using the InfluxDB v1 data structure.

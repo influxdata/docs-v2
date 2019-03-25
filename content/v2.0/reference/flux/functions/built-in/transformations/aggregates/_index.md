@@ -1,5 +1,6 @@
 ---
 title: Flux built-in aggregate functions
+list_title: Built-in aggregate functions
 description: Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates

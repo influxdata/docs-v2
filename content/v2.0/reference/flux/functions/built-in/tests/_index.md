@@ -1,5 +1,6 @@
 ---
 title: Flux built-in testing functions
+list_title: Built-in testing functions
 description: Flux's built-in testing functions test various aspects of piped-forward data.
 menu:
   v2_0_ref:

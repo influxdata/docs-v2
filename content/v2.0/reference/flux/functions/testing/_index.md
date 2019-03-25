@@ -1,5 +1,6 @@
 ---
 title: Flux testing package
+list_title: Testing package
 description: >
   The Flux testing package provides functions that test piped-forward data in specific ways.
   Import the `testing` package.
