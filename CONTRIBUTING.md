@@ -53,6 +53,7 @@ Frontmatter populates variables in page templates and the site's navigation menu
 ```yaml
 title: # Title of the page used in the page's h1
 seotitle: # Page title used in the html <head> title and used in search engine results
+list_title: # Title used in article lists generated using the {{< children >}} shortcode
 description: # Page description displayed in search engine results
 menu:
   v2_0:
@@ -76,6 +77,10 @@ It shouldn't be overly long, but should set the context for users coming from ou
 ##### `seotitle`
 The `seotitle` frontmatter populates each page's HTML `title` attribute.
 Search engines use this in search results (not the page's h1) and therefore it should be keyword optimized.
+
+##### `list_title`
+The `list_title` frontmatter determines an article title when in a list generated
+by the [`{{< children >}}` shortcode](#generate-a-list-of-children-articles).
 
 ##### `menu > name`
 The `name` attribute under the `menu` frontmatter determines the text used in each page's link in the site navigation.

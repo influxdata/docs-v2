@@ -1,7 +1,8 @@
 ---
 title: Use Telegraf to collect data
-weight: 102
 seotitle: Use Telegraf to collect and write data
+list_title: Use Telegraf
+weight: 102
 description: >
   Use Telegraf to collect and write data to InfluxDB v2.0.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.

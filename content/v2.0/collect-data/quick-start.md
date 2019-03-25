@@ -1,5 +1,6 @@
 ---
 title: Quick start to data collection
+list_title: Quick start
 description: >
   Use "Quick Start" in the initial InfluxDB setup process to create a scraper
   that collects InfluxDB metrics from the InfluxDB `/metrics` endpoint.
