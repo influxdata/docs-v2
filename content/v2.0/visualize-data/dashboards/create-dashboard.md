@@ -1,16 +1,16 @@
 ---
-title: Manage InfluxDB dashboards
-description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
+title: Create a dashboard
+seotitle: Create an InfluxDB dashboard
+description: >
+  Create a new dashboard or import an existing dashboard in the
+  InfluxDB user interface (UI).
 v2.0/tags: [dashboards]
 menu:
   v2_0:
-    name: Manage dashboards
-    parent: Visualize data
-weight: 101
+    name: Create a dashboard
+    parent: Manage dashboards
+weight: 201
 ---
-
-Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
-
 
 ## Create a dashboard
 
@@ -22,6 +22,14 @@ Create, edit, and manage dashboards from the **Dashboards** tab in the left navi
 
 2. Click the **+Create Dashboard** button in the upper right.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
+
+## Clone a dashboard
+1. Hover over the dashbaord name in the list of dashboard to show options.
+2. Click **Clone**. The cloned dashboard opens.
+
+    ![Clone a dashboard](/img/2-0-dashboard-clone.png)
+
+<!-- ## Import a dashboard -->
 
 #### Add data to your dashboard
 
@@ -36,19 +44,3 @@ You can also send data to your dashboard directly from the Data Explorer. For de
 2. Enter your note in the window that appears. You can use Markdown syntax to format your note.
 3. To preview your Markdown formatting, click the **Preview** option.
 4. Click **Save**.
-
-
-## Modify a dashboard
-
-#### Delete a dashboard
-1. Hover over the dashboard name in the list of dashboards to show options.
-2. Click **Delete**.    
-3. Click **Confirm** to continue deleting your dashboard.
-
-    ![Delete a dashboard](/img/2-0-dashboard-delete.png)
-
-#### Clone a dashboard
-1. Hover over the dashbaord name in the list of dashboard to show options.
-2. Click **Clone**. The cloned dashboard opens.
-
-    ![Clone a dashboard](/img/2-0-dashboard-clone.png)
