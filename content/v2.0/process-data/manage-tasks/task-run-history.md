@@ -1,8 +1,7 @@
 ---
 title: View task run history and logs
 description: >
-  View task run histories and logs using the InfluxDB user interface or the
-  `influx` command line interface.
+  View task run histories and logs using the InfluxDB UI or the `influx` CLI.
 menu:
   v2_0:
     name: View run history
@@ -10,13 +9,12 @@ menu:
 weight: 203
 ---
 
-Each time an InfluxDB task runs, it creates a "run" record in the task's run history.
-Logs associated with each run provide relevant timestamps, messages,
-and the final state of the run attempt.
+When an InfluxDB task runs, a "run" record is created in the task's history.
+Logs associated with each run provide relevant log messages, timestamps,
+and the exit status of the run attempt.
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to view task run histories and associated logs.
-
 
 ## View a task's run history in the InfluxDB UI
 
@@ -24,7 +22,7 @@ to view task run histories and associated logs.
 
     {{< nav-icon "tasks" >}}
 
-2. Hover over the task you would like to run and click the **{{< icon "gear" >}}** icon.
+2. Hover over the task you want to run and click the **{{< icon "gear" >}}** icon.
 3. Select **View Task Runs**.
 
 ### View task run logs

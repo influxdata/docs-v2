@@ -2,8 +2,7 @@
 title: Delete a task
 seotitle: Delete a task for processing data in InfluxDB
 description: >
-  Delete a task from InfluxDB using the InfluxDB user interface or using the
-  `influx` command line interface.
+  Delete a task from InfluxDB using the InfluxDB UI or the `influx` CLI.
 menu:
   v2_0:
     name: Delete a task

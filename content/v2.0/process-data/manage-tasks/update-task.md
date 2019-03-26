@@ -2,8 +2,7 @@
 title: Update a task
 seotitle: Update a task for processing data in InfluxDB
 description: >
-  Update a data processing task in InfluxDB using the InfluxDB user interface or
-  the `influx` command line interface.
+  Update a data processing task in InfluxDB using the InfluxDB UI or the `influx` CLI.
 menu:
   v2_0:
     name: Update a task
