@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: Flux packages and functions
     parent: Flux query language
-weight: 101
+weight: 102
 ---
 
 Flux's functional syntax allows you to retrieve, transform, process, and output data easily.
