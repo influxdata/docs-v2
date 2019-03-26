@@ -2,8 +2,8 @@
 title: View tasks
 seotitle: View created tasks that process data in InfluxDB
 description: >
-  How to view all created data processing tasks using the InfluxDB user interface
-  or the 'influx' command line interface.
+  View existing data processing tasks using the InfluxDB user interface or the
+  `influx` command line interface.
 menu:
   v2_0:
     name: View tasks
