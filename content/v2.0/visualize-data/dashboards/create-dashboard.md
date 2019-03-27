@@ -32,8 +32,9 @@ weight: 201
 2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
 3. In the window that appears:
   * Select **Upload File** to drag-and-drop or select a file.
-  * Select **Paste JSON** to paste in JSON, then click **Import JSON as Dashboard**.
-4.
+  * Select **Paste JSON** to paste in JSON.
+4. Select an organization from the **Destination Organization** dropdown.
+5. Click **Import JSON as Dashboard**.
 
 ## Clone a dashboard
 
