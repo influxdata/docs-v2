@@ -43,10 +43,10 @@ $vertical-offset: -14px;
   background-color: $body-bg;
   border-radius: 0 $border-radius $border-radius 0;
   &:before, &:after {
-    content: url('data:image/svg+xml;charset=UTF-8,
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10 10" xml:space="preserve">
-      <path fill="'+$body-bg+'" d="M0,10h10V0C10,5.52,5.52,10,0,10z"/>
-      </svg>');
+    content: url("data:image/svg+xml;charset=UTF-8,
+      <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 10 10' xml:space='preserve'>
+      <path fill='"+rgba($body-bg, .9999)+"' d='M0,10h10V0C10,5.52,5.52,10,0,10z'/>
+      </svg>");
     left: 0;
   }
   &:before { transform: rotateY(180deg); }
@@ -63,10 +63,10 @@ $vertical-offset: -14px;
   background-color: $article-bg;
   border-radius: $border-radius 0 0 $border-radius;
   &:before, &:after {
-    content: url('data:image/svg+xml;charset=UTF-8,
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10 10" xml:space="preserve">
-      <path fill="'+$article-bg+'" d="M0,10h10V0C10,5.52,5.52,10,0,10z"/>
-      </svg>');
+    content: url("data:image/svg+xml;charset=UTF-8,
+      <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 10 10' xml:space='preserve'>
+      <path fill='"+rgba($article-bg, .9999)+"' d='M0,10h10V0C10,5.52,5.52,10,0,10z'/>
+      </svg>");
     right: 0;
   }
   & > a {
