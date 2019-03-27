@@ -63,8 +63,8 @@ weight: # Determines sort order in both the nav tree and in article lists.
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
-cloud_all: # If true, specifies the doc as a whole is specific to InfluxCloud
-cloud_some: # If true, specifies the doc includes some content specific to InfluxCloud
+cloud_all: # If true, specifies the doc as a whole is specific to InfluxDB Cloud
+cloud_some: # If true, specifies the doc includes some content specific to InfluxDB Cloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
 ```
 
@@ -144,21 +144,35 @@ Insert enterprise-specific markdown content here.
 
 #### Enterprise name
 The name used to refer to InfluxData's enterprise offering is subject to change.
-To facilitate easy updates in the future, use the `enterprise-name` shortcode when referencing the enterprise product.
+To facilitate easy updates in the future, use the `enterprise-name` shortcode
+when referencing the enterprise product.
+This shortcode accepts a `"short"` parameter which uses the "short-name".
 
 ```
 This is content that references {{< enterprise-name >}}.
+This is content that references {{< enterprise-name "short" >}}.
 ```
 
-The product name is stored in `data/products.yml`
+Product names are stored in `data/products.yml`.
 
-### InfluxCloud Content
-Some articles are unique to InfluxCloud or at least contain some information specific to InfluxCloud.
+#### Enterprise link
+References to InfluxDB Enterprise are often accompanied with a link to a page where
+visitors can get more information about the Enterprise offering.
+This link is subject to change.
+Use the `enterprise-link` shortcode when including links to more information about
+InfluxDB Enterprise.
+
+```
+Find more info [here][{{< enterprise-link >}}]
+```
+
+### InfluxDB Cloud Content
+Some articles are unique to InfluxDB Cloud or at least contain some information specific to InfluxDB Cloud.
 There are frontmatter options and an cloud shortcode that help to properly identify this content.
 
 #### All content is cloud-specific
 If all content in an article is cloud-specific, set the menu in the frontmatter to `v2_0_cloud`
-(change the version number for the specific version of InfluxCloud).
+(change the version number for the specific version of InfluxDB Cloud).
 
 ```yaml
 menu:
@@ -176,7 +190,7 @@ If only some content in the article is cloud-specific, set the `cloud_some` fron
 cloud_some: true
 ```
 
-This will display a message at the top of page indicating some things are unique to InfluxCloud.
+This will display a message at the top of page indicating some things are unique to InfluxDB Cloud.
 To format cloud-specific content, wrap it in the `{{% cloud %}}` shortcode:
 
 ```md
@@ -185,15 +199,29 @@ Insert Cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
-#### InfluxCloud name
+#### InfluxDB Cloud name
 The name used to refer to InfluxData's cloud offering is subject to change.
-To facilitate easy updates in the future, use the `cloud-name` short-code when referencing the cloud product.
+To facilitate easy updates in the future, use the `cloud-name` short-code when
+referencing the cloud product.
+This shortcode accepts a `"short"` parameter which uses the "short-name".
 
 ```
 This is content that references {{< cloud-name >}}.
+This is content that references {{< cloud-name "short" >}}.
 ```
 
-The product name is stored in `data/products.yml`
+Product names are stored in `data/products.yml`.
+
+#### InfluxDB Cloud link
+References to InfluxDB Cloud are often accompanied with a link to a page where
+visitors can get more information.
+This link is subject to change.
+Use the `cloud-link` shortcode when including links to more information about
+InfluxDB Cloud.
+
+```
+Find more info [here][{{< cloud-link >}}]
+```
 
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).

@@ -1,11 +1,11 @@
 ---
-title: Get started with InfluxCloud 2.0 Beta
+title: Get started with InfluxDB Cloud 2 Beta
 description: >
-  Sign up for and get started with InfluxCloud 2.0 Beta.
+  Sign up for and get started with InfluxDB Cloud 2 Beta.
 weight: 1
 menu:
   v2_0_cloud:
-    name: Get started with InfluxCloud
+    name: Get started with InfluxDB Cloud
 
 ---
 {{< cloud-name >}} is a fully managed and hosted version of the InfluxDB 2.x API. To get started, complete the tasks below.
@@ -17,18 +17,18 @@ The InfluxDB v2.0 alpha documentation linked to in this article also applies to 
 ## Sign up
 
 {{% note %}}
-Early access to {{< cloud-name >}} is limited. Apply for access [here](https://www.influxdata.com/influxcloud2beta/).
+Early access to {{< cloud-name >}} is limited. Apply for access [here]({{< cloud-link >}}).
 {{% /note %}}
 
-Sign up for the InfluxCloud 2.0 Beta with the link provided in the invite email.
+Sign up for the {{< cloud-name >}} with the link provided in the invite email.
 
-1. Look for an email invite from support@influxdata.com with the subject line **You've been invited to beta InfluxCloud 2.0.**
+1. Look for an email invite from support@influxdata.com with the subject line **You've been invited to beta {{< cloud-name >}}.**
 2. Click **Accept Invite** to begin the sign up process.
 3. Provide an email id, password and follow the prompts to sign up for a Free Tier.
 4. Select the Region and click Next to create your default organization and bucket.
 
   {{% cloud-msg %}}
-  InfluxCloud 2.0 Beta is restricted to the us-west-2 region.
+  {{< cloud-name >}} is restricted to the us-west-2 region.
   {{% /cloud-msg %}}
 
 5. Once your organization and bucket are created, the usage page opens.
@@ -49,7 +49,7 @@ For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.c
 
 ## Query and visualize data
 
-Once you've set up InfluxCloud to collect data with Telegraf, you can do the following:
+Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you can do the following:
 
 * Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
 * Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
