@@ -8,9 +8,9 @@
     {{ partial "article/tags.html" . }}
 
     {{ if in .RelPermalink "/cloud/"}}
-      {{ partial "article/_cloud-feedback.html"}}
+      {{ partial "article/_cloud-feedback.html" . }}
     {{ else }}
-      {{ partial "article/_alpha-feedback.html"}}
+      {{ partial "article/_alpha-feedback.html" . }}
     {{ end }}
   </article>
 </div>
