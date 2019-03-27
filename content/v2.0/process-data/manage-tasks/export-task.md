@@ -1,15 +1,15 @@
 ---
 title: Export a task
 seotitle: Export an InfluxDB task
-description: How to export a data processing task from InfluxDB using the InfluxDB user interface.
+description: Export a data processing task from InfluxDB using the InfluxDB UI.
 menu:
   v2_0:
     name: Export a task
     parent: Manage tasks
-weight: 204
+weight: 205
 ---
 
-InfluxDB allows you to export tasks from the InfluxDB user interface (UI).
+InfluxDB lets you export tasks from the InfluxDB user interface (UI).
 Tasks are exported as downloadable JSON files.
 
 To export a task:
