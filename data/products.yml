@@ -1,5 +1,6 @@
 enterprise:
-  name: "InfluxDB 2.0 Enterprise"
+  name: "InfluxDB Enterprise 2"
+  shortname: "InfluxDB Enterprise"
   link: "#"
 
 cloud:

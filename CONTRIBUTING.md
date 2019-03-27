@@ -144,13 +144,27 @@ Insert enterprise-specific markdown content here.
 
 #### Enterprise name
 The name used to refer to InfluxData's enterprise offering is subject to change.
-To facilitate easy updates in the future, use the `enterprise-name` shortcode when referencing the enterprise product.
+To facilitate easy updates in the future, use the `enterprise-name` shortcode
+when referencing the enterprise product.
+This shortcode accepts a `"short"` parameter which uses the "short-name".
 
 ```
 This is content that references {{< enterprise-name >}}.
+This is content that references {{< enterprise-name "short" >}}.
 ```
 
-The product name is stored in `data/products.yml`
+Product names are stored in `data/products.yml`.
+
+#### Enterprise link
+References to InfluxDB Enterprise are often accompanied with a link to a page where
+visitors can get more information about the Enterprise offering.
+This link is subject to change.
+Use the `enterprise-link` shortcode when including links to more information about
+InfluxDB Enterprise.
+
+```
+Find more info [here][{{< enterprise-link >}}]
+```
 
 ### InfluxDB Cloud Content
 Some articles are unique to InfluxDB Cloud or at least contain some information specific to InfluxDB Cloud.
@@ -187,13 +201,27 @@ Insert Cloud-specific markdown content here.
 
 #### InfluxDB Cloud name
 The name used to refer to InfluxData's cloud offering is subject to change.
-To facilitate easy updates in the future, use the `cloud-name` short-code when referencing the cloud product.
+To facilitate easy updates in the future, use the `cloud-name` short-code when
+referencing the cloud product.
+This shortcode accepts a `"short"` parameter which uses the "short-name".
 
 ```
 This is content that references {{< cloud-name >}}.
+This is content that references {{< cloud-name "short" >}}.
 ```
 
-The product name is stored in `data/products.yml`
+Product names are stored in `data/products.yml`.
+
+#### InfluxDB Cloud link
+References to InfluxDB Cloud are often accompanied with a link to a page where
+visitors can get more information.
+This link is subject to change.
+Use the `cloud-link` shortcode when including links to more information about
+InfluxDB Cloud.
+
+```
+Find more info [here][{{< cloud-link >}}]
+```
 
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
