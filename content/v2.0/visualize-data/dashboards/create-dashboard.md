@@ -14,16 +14,29 @@ weight: 201
 
 ## Create a dashboard
 
-**To create a dashboard**:
+**To create a new dashboard**:
 
 1. Click the **Dashboards** icon in the navigation bar.
 
   {{< nav-icon "dashboards" >}}
 
-2. Click the **+Create Dashboard** button in the upper right.
+2. Click the **+Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
+**To import an existing dashboard**:
+
+1. Click the **Dashboards** icon in the navigation bar.
+
+  {{< nav-icon "dashboards" >}}
+
+2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
+3. In the window that appears:
+  * Select **Upload File** to drag-and-drop or select a file.
+  * Select **Paste JSON** to paste in JSON, then click **Import JSON as Dashboard**.
+4.
+
 ## Clone a dashboard
+
 1. Hover over the dashbaord name in the list of dashboard to show options.
 2. Click **Clone**. The cloned dashboard opens.
 

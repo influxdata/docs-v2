@@ -10,3 +10,7 @@ menu:
     parent: Manage dashboards
 weight: 203
 ---
+
+InfluxDB lets you export dashboards from the InfluxDB user interface (UI).
+
+## Export a dashboard
