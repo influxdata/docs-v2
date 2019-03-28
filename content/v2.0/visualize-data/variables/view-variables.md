@@ -1,13 +1,15 @@
 ---
 title: View variables
 seotitle: View dashboard variables
-description: s
+description: View dashboard variables in the InfluxDB user interface.
 menu:
   v2_0:
     parent: Use and manage variables
 weight: 203
 "v2.0/tags": [variables]
 ---
+
+View a list of dashboard variables in the InfluxDB user interface (UI) from an organization or from the Data Explorer.
 
 ## View variables in the organization
 

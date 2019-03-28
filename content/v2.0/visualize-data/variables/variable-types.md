@@ -1,7 +1,7 @@
 ---
 title: Variable types
 seotitle: Dashboard variable types
-description:
+description: Overview of the types of dashboard variables available in InfluxDB
 menu:
   v2_0:
     parent: Use and manage variables

@@ -1,13 +1,15 @@
 ---
 title: Export a variable
 seotitle: Export a dashboard variable
-description:
+description: Export a dashboard variable in the InfluxDB user interface.
 menu:
   v2_0:
     parent: Use and manage variables
 weight: 204
 "v2.0/tags": [variables]
 ---
+Export dashboard variables from the InfluxDB user interface (UI).
+Variables are exported as downloadable JSON files.
 
 ### Export a variable
 
