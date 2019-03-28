@@ -38,12 +38,11 @@ weight: 201
 
 ## Clone a dashboard
 
-1. Hover over the dashbaord name in the list of dashboard to show options.
+1. Hover over the dashboard name in the list of dashboard to show options.
 2. Click **Clone**. The cloned dashboard opens.
 
     ![Clone a dashboard](/img/2-0-dashboard-clone.png)
 
-<!-- ## Import a dashboard -->
 
 #### Add data to your dashboard
 
