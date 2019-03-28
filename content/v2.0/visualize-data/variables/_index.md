@@ -28,12 +28,12 @@ from(bucket: v.bucket)
   |> aggregateWindow(every: v.windowPeriod, fn: mean)
 ```
 
-## Manage custom variables
-As you build queries, In the Cell Editor and Data explorer, available variables are listed in the variables tab.
-Must use the script builder. Click on a variable to input into your script.
-Hover over the variable in the variables tab to select a value for the current query.
+When building Flux queries for dashboard cells, view available dashboard variables
+in the **Variables** tab next to the Functions tab.
 
-{{< children >}}
+{{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
+
+Click on a variable name to add it to your query and select a value from the **Value** dropdown.
 
 ## Predefined dashboard variables
 The InfluxDB provides the following predefined dashboard variables:
@@ -61,3 +61,8 @@ in data aggregation operations.
 
 The value of this variable is calculated by dividing the total time within the displayed
 time range by the dashboard refresh interval (defined by the **Refresh** dropdown).
+
+## Custom dashboard variables
+Create, manage, and use custom dashboard variables in the InfluxDB user interface (UI).
+
+{{< children >}}

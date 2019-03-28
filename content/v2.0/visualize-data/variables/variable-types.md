@@ -17,10 +17,19 @@ Variable types determine how the list of possible values is populated.
 
 ## Query
 Variable values are populated using the results of a Flux query.
+All values in the `_value` column are possible values for the variable.
+
+##### Variable query example
+```js
+// List all buckets
+buckets()
+	|> rename(columns: {"name": "_value"})
+  |> keep(columns: ["_value"])
+```
+
+_For examples of dashboard variable queries, see [Common variable queries](/v2.0/visualize-data/variables/common-variables)._
 
 
-
-{{% note %}}
 #### Important things to note about variable queries
 - The variable will only use values from the `_value` column.
   If the data you’re looking for is in a column other than `_value`, use the
@@ -30,6 +39,4 @@ Variable values are populated using the results of a Flux query.
 - The variable will only use the first table in the output stream.
   Use the [`group()` function](/v2.0/reference/flux/functions/built-in/transformations/group)
   to group everything into a single table.
-- Flux doesn’t let you have unbound queries so you have to have a timeframe on a query (range function). want to keep your range fairly limited.
 - Do not use any [predefined dashboard variables](/v2.0/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
-{{% /note %}}

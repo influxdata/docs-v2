@@ -11,6 +11,8 @@ weight: 201
 
 Create dashboard variables in the Data Explorer, from the Organization page, or import a variable.
 
+_For information about variable types, see [Variable types](/v2.0/visualize-data/variables/variable-types/)._
+
 ### Create a variable in the Data Explorer
 
 1. Click the **Data Explorer** icon in the sidebar.
