@@ -45,7 +45,7 @@ Variables are scoped by organization.
 
   {{< nav-icon "orgs" >}}
 
-2. Select an organizatio from the list.
+2. Select an organization from the list.
 3. Select the **Variables** tab.
 4. Click **+Create Variable**.
 5. Enter a name for your variable.
@@ -76,7 +76,13 @@ Variables are scoped by organization.
 
 2. Select an organization from the list.
 3. Select the **Variables** tab.
-4.
+4. Hover over a variable in the list, then click the gear icon ({{< icon "gear" >}}) and select **Export**.
+3. Review the JSON in the window that appears.
+4. Select one of the following options:
+  * **Download JSON**: Download the dashboard as a JSON file.
+  * **Save as template**: Save the JSON as a dashboard template.
+  * **Copy to Clipboard**: Copy the JSON to your clipboard.
+
 
 
 
@@ -93,6 +99,7 @@ Variables are scoped by organization.
 6. Click **Submit**.
 
 ### Delete a variable
+
 1. Click in the **Organizations** icon in the navigation bar.
 
   {{< nav-icon "orgs" >}}
