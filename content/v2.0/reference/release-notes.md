@@ -7,6 +7,41 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.7 [2019-03-28]
+
+### Features
+
+* Insert Flux function near cursor in Flux Editor.
+* Enable the use of variables in the Data Explorer and Cell Editor Overlay.
+* Add a variable control bar to dashboards to select values for variables.
+* Add ability to add variable to script from the side menu.
+* Use time range for meta queries in Data Explorer and Cell Editor Overlay.
+* Fix screen tearing bug in raw data view.
+* Add copy to clipboard button to export overlays.
+* Enable copying error messages to the clipboard from dashboard cells.
+* Add the ability to update token's status in token list.
+* Allow variables to be re-ordered within control bar on a dashboard.
+* Add the ability to delete a template.
+* Save user preference for variable control bar visibility and default to visible.
+* Add the ability to clone a template
+* Add the ability to import a variable.
+
+### Bug Fixes
+
+* Fix mismatch in bucket row and header.
+* Allows user to edit note on cell.
+* Fix empty state styles in scrapers in org view.
+* Fix bucket creation error when changing rentention rules types.
+* Fix task creation error when switching schedule types.
+* Fix hidden horizontal scrollbars in flux raw data view.
+* Fix screen tearing bug in raw data View.
+* Fix routing loop.
+
+### UI Improvements
+* Move bucket selection in the query builder to the first card in the list.
+* Ensure editor is automatically focused in Note Editor.
+* Add ability to edit a template's name.
+
 ## v2.0.0-alpha.6 [2019-03-15]
 
 ### Release Notes
