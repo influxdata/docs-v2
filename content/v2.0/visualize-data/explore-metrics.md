@@ -45,7 +45,7 @@ Select from available [visualization types](/v2.0/visualize-data/visualization-t
 
 1. Select a visualization type from the dropdown menu in the upper-left.
 
-    {{< img-hd src="/img/visualization-dropdown.png" title="Visualization dropdown" />}}
+    {{< img-hd src="/img/2-0-visualization-dropdown.png" title="Visualization dropdown" />}}
 
 2. Select the **Visualization** tab at the bottom of the **Data Explorer**.
    For details about all of the available visualization options, see
