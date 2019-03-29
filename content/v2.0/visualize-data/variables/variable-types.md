@@ -13,11 +13,10 @@ weight: 207
 In the current version of InfluxDB v2.0 alpha, only [query-populated variables](#query) are available.
 {{% /note %}}
 
-Variable types determine how the list of possible values is populated.
+Variable types determine how a variable's list of possible values is populated.
 
 ## Query
-Variable values are populated using the results of a Flux query.
-All values in the `_value` column are possible values for the variable.
+Variable values are populated using the `_value` column of a Flux query.
 
 ##### Variable query example
 ```js
