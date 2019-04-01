@@ -26,4 +26,4 @@ The following functions can be used as both selectors or aggregates, but they ar
 categorized as aggregate functions in this documentation:
 
 - [median](/v2.0/reference/flux/functions/built-in/transformations/aggregates/median)
-- [percentile](/v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile)
+- [quantile](/v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile)
