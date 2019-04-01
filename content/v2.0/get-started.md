@@ -203,6 +203,20 @@ the `influx` command line interface (CLI).
 InfluxDB is now initialized with a primary user, organization, and bucket.
 You are ready to [collect data](/v2.0/collect-data).
 
+{{% note %}}
+#### Using the influx CLI after setting up InfluxDB through the UI
+To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI,
+use one of the following methods to provide your [authentication token](/v2.0/users/tokens/) to the CLI:
+
+1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
+2. Set the `INFLUX_TOKEN` environment variable using your token.
+3. Store your token in `~/.influxdbv2/credentials`.
+   _The content of the `credentials` file should be only your token._
+
+_See [View tokens](/v2.0/users/tokens/view-tokens/) for information about
+retrieving authentication tokens._
+{{% /note %}}
+
 {{% /tab-content %}}
 <!-------------------------------- END UI Setup ------------------------------->
 
