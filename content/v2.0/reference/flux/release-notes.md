@@ -9,11 +9,11 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.23.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.24.0**.
 Any newer versions of Flux will not be available until the next InfluxDB release._
 {{% /note %}}
 
-## v0.23.0 [2019-04-01]
+## v0.24.0 [2019-04-01]
 
 ### Breaking changes
 - Rename `percentile()` function to `quantile()`.
