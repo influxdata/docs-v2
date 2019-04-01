@@ -12,9 +12,7 @@ weight: 204
 InfluxDB allows you to export tasks from the InfluxDB user interface (UI).
 Tasks are exported as downloadable JSON files.
 
-To export a task:
-
-## Delete a task in the InfluxDB UI
+## Export a task in the InfluxDB UI
 1. Click the **Tasks** icon in the left navigation menu.
 
     {{< nav-icon "tasks" >}}

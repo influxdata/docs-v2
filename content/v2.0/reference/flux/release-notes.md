@@ -9,9 +9,18 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.23.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.24.0**.
 Any newer versions of Flux will not be available until the next InfluxDB release._
 {{% /note %}}
+
+## v0.24.0 [2019-04-01]
+
+### Breaking changes
+- Rename `percentile()` function to `quantile()`.
+
+### Bug fixes
+- Handle when a non-call expression is parsed as the pipe destination.
+- Add error message to Compile methods for empty Spec.
 
 ## v0.23.0 [2019-03-26]
 
