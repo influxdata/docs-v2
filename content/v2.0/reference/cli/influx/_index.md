@@ -24,9 +24,14 @@ influx [command]
 {{% note %}}
 #### Store your InfluxDB authentication token
 To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/)
-with each `influx` command, store your token using one of the following methods:
+with each `influx` command, use one of the following methods to store your token:
 
 1.  Set the `INFLUX_TOKEN` environment variable using your token.
+
+    ```bash
+    export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
+    ```
+
 2.  Store your token in `~/.influxdbv2/credentials`.
     _The content of the `credentials` file should be only your token._
 
