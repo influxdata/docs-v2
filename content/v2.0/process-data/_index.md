@@ -15,7 +15,7 @@ Process and analyze your data with tasks in the InfluxDB _**task engine**. Use t
 to input a data stream and then analyze, modify, and act on the data accordingly.
 
 Discover how to configure and build tasks using the InfluxDB user interface (UI) and the `influx` command line interface (CLI). 
-You'll find examples of data downsampling, anomaly_(Coming)_, alerting _(Coming)_, and other common tasks.
+Find examples of data downsampling, anomaly detection_(Coming)_, alerting _(Coming)_, and other common tasks.
 
 {{% note %}}
 Tasks replace InfluxDB v1.x's continuous queries.
