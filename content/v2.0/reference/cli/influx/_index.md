@@ -22,14 +22,16 @@ influx [command]
 ```
 
 {{% note %}}
-#### Using the influx CLI after setting up InfluxDB through the UI
-To use the `influx` CLI after setting up InfluxDB through the UI, use one of the following
-methods to provide your [authentication token](/v2.0/users/tokens/) to the CLI:
+#### Store your InfluxDB authentication token
+To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/)
+with each `influx` command, store your token using one of the following methods:
 
-1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
-2. Set the `INFLUX_TOKEN` environment variable using your token.
-3. Store your token in `~/.influxdbv2/credentials`.
-   _The content of the `credentials` file should be only your token._
+1.  Set the `INFLUX_TOKEN` environment variable using your token.
+2.  Store your token in `~/.influxdbv2/credentials`.
+    _The content of the `credentials` file should be only your token._
+
+    _**Note:** If you [set up InfluxDB using the CLI](/v2.0/reference/cli/influx/setup),
+    InfluxDB stores your token in the credentials files automatically._
 
 _See [View tokens](/v2.0/users/tokens/view-tokens/) for information about
 retrieving authentication tokens._
