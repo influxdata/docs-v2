@@ -13,8 +13,9 @@ weight: 201
 The `influxd generate` command generates time series data direct to disk using a schema defined in a TOML file.
 
 {{% note %}}
+{{% note %}}
 #### Important notes
-- The `influxd` server cannot not be running when using the `generate` tool.
+- `influxd generate` cannot run while the `influxd` server is running.
   It modifies the index and Time-Structured Merge Tree (TSM) data.
 - This tool is intended for development and testing purposes only and
   **should not** be run on a production server.
