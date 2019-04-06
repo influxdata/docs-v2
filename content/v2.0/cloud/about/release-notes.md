@@ -29,6 +29,11 @@ menu:
 
 ### Bug Fixes
 
+* Logout works in Cloud 2.0 UI.
+* Single sign-on works between https://cloud2.influxdata.com and https://us-west-2- 1.aws.cloud2.influxdata.com.
+* Able to copy error message from UI.
+* Able to change a task from every to cron.
+* Able to create a new bucket when switching between periodically and never (retention options).
 * Fix mismatch in bucket row and header.
 * Allows user to edit note on cell.
 * Fix empty state styles in scrapers in org view.
