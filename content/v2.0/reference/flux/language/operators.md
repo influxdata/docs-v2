@@ -20,6 +20,10 @@ Flux includes the following types of operators:
 - [Literal constructors](#literal-constructors)
 - [Miscellaneous operators](#miscellaneous-operators)
 
+_Also see:_
+
+- [Operator precedence](#operator-precedence)
+
 ## Arithmetic operators
 Arithmetic operators take two numerical values (either literals or variables) and
 perform a calculation that returns a single numerical value.
@@ -114,9 +118,28 @@ Literal constructors define fixed values.
 | `""`     | String       |
 
 ## Miscellaneous operators
-| Operator | Description         | Example                     |
-|:--------:|:-----------         | -------                     |
-| `( )`    | Logical grouping    | `r._value / (r._value * 2)` |
-| `,`      | Sequence delimiter  | `item1, item2, item3`       |
-| `:`      | Key-value separator | `{name: "Bob"}`             |
-| `.`      | Dot reference       | `r._measurement`            |
+| Operator | Description                   | Example                     |
+|:--------:|:-----------                   | -------                     |
+| `( )`    | Logical grouping              | `r._value / (r._value * 2)` |
+| `,`      | Sequence delimiter            | `item1, item2, item3`       |
+| `:`      | Key-value separator           | `{name: "Bob"}`             |
+| `.`      | Member access / dot reference | `r._measurement`            |
+
+## Operator precedence
+The table below outlines operator precedence.
+Operators with a lower number have higher precedence.
+
+|Precedence | Operator  | Description                |
+|:--------- |:--------: |:-----------                |
+| 1         | `a()`     | Function call              |
+|           | `a[]`     | Member or index access     |
+|           | `.`       | Member access              |
+| 2         | `*` `/`   | Multiplication and division|
+| 3         | `+` `-`   | Addition and subtraction   |
+| 4         | `==` `!=` | Comparison operators       |
+|           | `<` `<=`  |                            |
+|           | `>` `>=`  |                            |
+|           | `=~` `!~` |                            |
+| 5         | `not`     | Unary logical expression   |
+| 6         | `and`     | Logical AND                |
+| 7         | `or`      | Logical OR                 |
