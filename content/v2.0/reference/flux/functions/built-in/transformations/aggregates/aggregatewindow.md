@@ -18,7 +18,7 @@ _**Function type:** Aggregate_
 aggregateWindow(
   every: 1m,
   fn: mean,
-  columns: ["_value"],
+  column: "_value",
   timeColumn: "_stop",
   timeDst: "_time",
   createEmpty: true
@@ -26,7 +26,7 @@ aggregateWindow(
 ```
 
 As data is windowed into separate tables and aggregated, the `_time` column is dropped from each group key.
-This helper copies the timestamp from a remaining column into the `_time` column.
+This function copies the timestamp from a remaining column into the `_time` column.
 View the [function definition](#function-definition).
 
 ## Parameters
@@ -41,11 +41,11 @@ The aggregate function used in the operation.
 
 _**Data type:** Function_
 
-### columns
-List of columns on which to operate.
-Defaults to `["_value"]`.
+### column
+The column on which to operate.
+Defaults to `"_value"`.
 
-_**Data type:** Array of strings_
+_**Data type:** String_
 
 ### timeColumn
 The time column from which time is copied for the aggregate record.
@@ -93,16 +93,16 @@ from(bucket: "telegraf/autogen")
     r._field == "used_percent")
   |> aggregateWindow(
     every: 5m,
-    fn: (columns, tables=<-) => tables |> quantile(q: 0.99, columns:columns)
+    fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
   )
 ```
 
 ## Function definition
 ```js
-aggregateWindow = (every, fn, columns=["_value"], timeColumn="_stop", timeDst="_time", tables=<-) =>
+aggregateWindow = (every, fn, column="_value", timeColumn="_stop", timeDst="_time", tables=<-) =>
 	tables
 		|> window(every:every)
-		|> fn(columns:columns)
+		|> fn(column:column)
 		|> duplicate(column:timeColumn, as:timeDst)
 		|> window(every:inf, timeColumn:timeDst)
 ```
