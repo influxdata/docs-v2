@@ -13,7 +13,7 @@
           {{ range .Pages }}
             <h3><a href="{{.RelPermalink}}">{{ .Title }}</a></h3>
             {{ if .Description }}
-              <p>{{ .Description }}</p>
+              <p>{{ .Description  | markdownify }}</p>
             {{ end }}
           {{ end }}
 
