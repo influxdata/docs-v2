@@ -21,15 +21,15 @@ _**Function type:** Aggregate_
 _**Output data type:** Integer or Float (inherited from input column type)_
 
 ```js
-spread(columns: ["_value"])
+spread(column: "_value")
 ```
 
 ## Parameters
 
-### columns
-Specifies a list of columns on which to operate. Defaults to `["_value"]`.
+### column
+The column on which to operate. Defaults to `"_value"`.
 
-_**Data type:** Array of strings_
+_**Data type:** String_
 
 ## Examples
 ```js

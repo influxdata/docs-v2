@@ -41,7 +41,7 @@ When set to `true`, if a value is less than the previous value, it is assumed th
 _**Data type:** Boolean_
 
 ### column
-The column on which to compute the derivative.
+The column to use to compute the derivative.
 Defaults to `"_value"`.
 
 _**Data type:** String_

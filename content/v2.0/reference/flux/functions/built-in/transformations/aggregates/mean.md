@@ -22,7 +22,7 @@ mean(column: "_value")
 ## Parameters
 
 ### column
-The column on which to compute the mean.
+The column to use to compute the mean.
 Defaults to `"_value"`.
 
 _**Data type:** String_

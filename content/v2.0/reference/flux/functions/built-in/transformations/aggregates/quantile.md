@@ -36,7 +36,7 @@ value that represents the specified quantile.
 ## Parameters
 
 ### column
-The column on which to compute the quantile.
+The column to use to compute the quantile.
 Defaults to `"_value"`.
 
 _**Data type:** String_
