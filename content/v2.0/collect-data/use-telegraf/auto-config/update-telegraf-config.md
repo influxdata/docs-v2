@@ -15,14 +15,13 @@ of a Telegraf configuration created in the UI.
 You cannot modify Telegraf settings in existing Telegraf configurations through the UI.
 {{% /note %}}
 
-1. Click **Organizations** in the left navigation menu.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click on the **Name** of the organization that owns the configuration you want to delete.
-3. Click the **Telegraf** tab.
-4. Hover over the configuration you want to edit and click **{{< icon "pencil" >}}**
+2. Click the **Telegraf** tab.
+3. Hover over the configuration you want to edit and click **{{< icon "pencil" >}}**
    to update the name or description.
-5. Press Return or click out of the editable field to save your changes.
+4. Press Return or click out of the editable field to save your changes.
 
     {{< img-hd src="/img/2-0-telegraf-config-update.png" />}}

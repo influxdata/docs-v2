@@ -15,8 +15,8 @@ weight: 202
 
     {{< nav-icon "orgs" >}}
 
-2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
-3. Click on a bucket to view details.=
+2. Select the **Buckets** tab. 
+3. Click on a bucket to view details.
 
 ## View buckets using the influx CLI
 
