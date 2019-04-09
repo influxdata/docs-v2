@@ -92,6 +92,7 @@ from(bucket: "telegraf/autogen")
     r._measurement == "mem" and
     r._field == "used_percent")
   |> aggregateWindow(
+    column: "_value",
     every: 5m,
     fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
   )
