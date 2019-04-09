@@ -14,9 +14,9 @@ to update an organization.
 
 ## Update an organization in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Configuration** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "config" >}}
 
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.
