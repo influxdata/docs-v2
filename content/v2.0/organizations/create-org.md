@@ -18,12 +18,12 @@ You cannot currently create additional organizations in {{< cloud-name >}}. Only
 
 ## Create an organization in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Admin** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "admin" >}}
 
-2. Click **{{< icon "plus" >}} Create Organization**.
-3. Enter a **Name** for the organization and click **Create**.
+2. Select **Create Organization**.
+3. In the window that appears, enter a name for the organization and associated bucket and click **Create**.
 
 ## Create an organization using the influx CLI
 

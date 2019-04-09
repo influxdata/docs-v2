@@ -14,9 +14,9 @@ to create an organization.
 
 ## Delete an organization in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1.  Click the **Admin** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "admin" >}}
 
     The list of organizations appears.
 
