@@ -14,11 +14,11 @@ to update a bucket.
 
 ## Update a bucket in the InfluxDB UI
 
-1. 1. Click the **Settings** tab in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Buckets** tab. 
+2. Select the **Buckets** tab.
 3. To update a bucket's name or retention policy, click the name of the bucket from the list.
 4. Click **Update** to save.
 

@@ -18,7 +18,6 @@ to view members of an organization.
 
     {{< nav-icon "settings" >}}
 
-
 * Click on the name of an organization, then select the **Members** tab. The list of organization members appears.
 
 
