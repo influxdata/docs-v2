@@ -14,9 +14,15 @@
 {{ else if or (eq $navIcon "organizations") (eq $navIcon "orgs") }}
   {{ .Scratch.Set "icon" "organizations" }}
   {{ .Scratch.Set "title" "Organizations" }}
-{{ else if or (eq $navIcon "configuration") (eq $navIcon "config") }}
-  {{ .Scratch.Set "icon" "wrench" }}
-  {{ .Scratch.Set "title" "Configuration" }}
+{{ else if eq $navIcon "settings" }}
+  {{ .Scratch.Set "icon" "wrench-2" }}
+  {{ .Scratch.Set "title" "Settings" }}
+{{ else if or (eq $navIcon "feedback") }}
+  {{ .Scratch.Set "icon" "nav-chat" }}
+  {{ .Scratch.Set "title" "Feedback" }}
+{{ else if or (eq $navIcon "cloud") }}
+  {{ .Scratch.Set "icon" "cloud" }}
+  {{ .Scratch.Set "title" "Cloud" }}
 {{ end }}
 
 {{ $icon := .Scratch.Get "icon" }}
