@@ -15,9 +15,9 @@ The `influxd generate` command generates time series data direct to disk using a
 {{% note %}}
 #### Important notes
 - `influxd generate` cannot run while the `influxd` server is running.
-  It modifies the index and Time-Structured Merge Tree (TSM) data.
-- This tool is intended for development and testing purposes only and
-  **should not** be run on a production server.
+  The `generate` command modifies index and Time-Structured Merge Tree (TSM) data.
+- Use `influxd generate` for **development and testing purposes only**.
+  Do not run it on a production server.
 {{% /note %}}
 
 ## Usage

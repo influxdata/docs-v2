@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `influxd generate help-schema` command outputs an example TOML schema to stdout that includes
-documentation describing the available options. _See [example output](#example-output) below_.
+descriptions of available options. _See [example output](#example-output) below_.
 Use custom TOML schema files to generate sample data sets with
 [`influxd generate`](/v2.0/reference/cli/influxd/generate).
 
@@ -121,7 +121,7 @@ tags = [
 #   Specifies the precision (rounding) for generated timestamps.
 #
 #   If the precision results in fewer than "count" intervals for the
-#   given time range the number of values will be reduced.
+#   given time range, the number of values will be reduced.
 #
 #   Example:
 #      count = 1000, start = 0s, end = 100s, time-precison = s
@@ -139,7 +139,7 @@ tags = [
 #   Specifies the delta between generated timestamps.
 #
 #   If the delta results in fewer than "count" intervals for the
-#   given time range the number of values will be reduced.
+#   given time range, the number of values will be reduced.
 #
 #   Example:
 #      count = 100, start = 0s, end = 100s, time-interval = 10s

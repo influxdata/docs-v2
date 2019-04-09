@@ -16,9 +16,9 @@ reasonable defaults and command line interface (CLI) [flags](#flags).
 {{% note %}}
 #### Important notes
 - `influxd generate simple` cannot run while the `influxd` server is running.
-  It modifies the index and Time-Structured Merge Tree (TSM) data.
-- This tool is intended for development and testing purposes only and
-  **should not** be run on a production server.
+  The `generate` command modifies index and Time-Structured Merge Tree (TSM) data.
+- Use `influxd generate simple` for **development and testing purposes only**.
+  Do not run it on a production server.
 {{% /note %}}
 
 ## Usage

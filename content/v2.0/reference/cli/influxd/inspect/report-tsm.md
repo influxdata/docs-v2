@@ -3,7 +3,7 @@ title: influxd inspect report-tsm
 description: >
   The `influxd inspect report-tsm` command analyzes Time-Structured Merge Tree (TSM)
   files within a storage engine directory and reports the cardinality within the files
-  as well as the time range that the point data covers.
+  and the time range the data covers.
 v2.0/tags: [tsm, cardinality, inspect]
 menu:
   v2_0_ref:
@@ -13,7 +13,7 @@ weight: 301
 
 The `influxd inspect report-tsm` command analyzes Time-Structured Merge Tree (TSM)
 files within a storage engine directory and reports the cardinality within the files
-as well as the time range that the point data covers.
+and the time range the data covers.
 
 This command only interrogates the index within each file.
 It does not read any block data.
@@ -29,11 +29,11 @@ influxd inspect report-tsm [flags]
 ## Output details
 `influxd inspect report-tsm` outputs the following for each file:
 
-- The full filename.
+- The full file name.
 - The series cardinality within the file.
 - The number of series first encountered within the file.
 - The minimum and maximum timestamp associated with TSM data in the file.
-- The time taken to load the TSM index and apply any tombstones.
+- The time to load the TSM index and apply any tombstones.
 
 The summary section then outputs the total time range and series cardinality for
 the file set. Depending on the `--detailed` flag, series cardinality is segmented
