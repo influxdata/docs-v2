@@ -379,8 +379,10 @@ Below is a list of available icons (some are aliases):
 - add-label
 - alert
 - calendar
+- chat
 - checkmark
 - clone
+- cloud
 - cog
 - config
 - copy
@@ -392,6 +394,7 @@ Below is a list of available icons (some are aliases):
 - edit
 - expand
 - export
+- feedback
 - fullscreen
 - gear
 - graph
