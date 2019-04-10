@@ -1,4 +1,4 @@
-{{ $icon :=  .Get 0 | default "nav-admin" }}
+{{ $icon :=  .Get 0 | default "influx" }}
 
 {{ if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") }}
 <span class="inline icon-ui-influx-icon middle"></span>
