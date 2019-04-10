@@ -1,7 +1,7 @@
-{{ $navIcon := lower (.Get 0) | default "admin" }}
-{{ if eq $navIcon "admin" }}
+{{ $navIcon := lower (.Get 0) | default "influx" }}
+{{ if or (eq $navIcon "admin") (eq $navIcon "influx") }}
   {{ .Scratch.Set "icon" "influx-icon" }}
-  {{ .Scratch.Set "title" "admin" }}
+  {{ .Scratch.Set "title" "username (org-name)" }}
 {{ else if or (eq $navIcon "data-explorer") (eq $navIcon "data explorer") }}
   {{ .Scratch.Set "icon" "data-explorer" }}
   {{ .Scratch.Set "title" "Data Explorer" }}
