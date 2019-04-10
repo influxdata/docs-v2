@@ -17,7 +17,7 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-  {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" >}}
 
 2. Click **Script Editor** on the lower right.
 3. Build the query for your variable using the [Table visualization type](v2.0/visualize-data/visualization-types/#table) or enable the **View Raw Data** option.
@@ -30,8 +30,7 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 
 1. Click the **Settings** icon in the navigation bar.
 
-  {{< nav-icon "settings" >}}
-
+    {{< nav-icon "settings" >}}
 
 2. Select the **Variables** tab.
 3. Click **+Create Variable**.
@@ -43,7 +42,7 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 
 1. Click the **Organizations** icon in the navigation bar.
 
-  {{< nav-icon "orgs" >}}
+    {{< nav-icon "orgs" >}}
 
 2. Select an organization from the list.
 3. Select the **Variables** tab.
