@@ -8,7 +8,7 @@ menu:
     name: Release notes
 ---
 
-## v2.0 [2019-04-05]
+## 2019-04-05
 
 ### Features
 
