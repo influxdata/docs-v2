@@ -14,7 +14,7 @@ to update an organization.
 
 ## Update an organization in the InfluxDB UI
 
-1. Click the **Configuration** tab in the navigation bar.
+1. Click the **Influx** icon in the navigation bar.
 
     {{< nav-icon "config" >}}
 

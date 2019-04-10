@@ -18,7 +18,7 @@ You cannot currently create additional organizations in {{< cloud-name >}}. Only
 
 ## Create an organization in the InfluxDB UI
 
-1. Click the **Admin** tab in the navigation bar.
+1. Click the **Influx** icon in the navigation bar.
 
     {{< nav-icon "admin" >}}
 
