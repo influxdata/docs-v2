@@ -10,7 +10,7 @@ weight: 104
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to create an organization.
+to delete an organization.
 
 ## Delete an organization in the InfluxDB UI
 

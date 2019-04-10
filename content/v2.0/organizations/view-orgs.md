@@ -14,7 +14,7 @@ to view organizations.
 
 ## View organizations in the InfluxDB UI
 
-*  Click the **Admin** tab in the navigation bar.
+*  Click the **Influx** icon in the navigation bar.
 
     {{< nav-icon "admin" >}}
 

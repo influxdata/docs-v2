@@ -16,7 +16,7 @@ to update an organization.
 
 1. Click the **Influx** icon in the navigation bar.
 
-    {{< nav-icon "config" >}}
+    {{< nav-icon "admin" >}}
 
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.
