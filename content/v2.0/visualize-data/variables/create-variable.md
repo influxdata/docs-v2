@@ -26,18 +26,18 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 6. Enter a name for your variable in the **Name** field.
 7. Click **Create**.
 
-### Create a variable in the Organizations page
+### Create a variable in the configuration page
 
-1. Click the **Organizations** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
-  {{< nav-icon "orgs" >}}
+  {{< nav-icon "settings" >}}
 
-2. Select an organization from the list.
-3. Select the **Variables** tab.
-4. Click **+Create Variable**.
-5. Enter a name for your variable.
-6. Enter your variable.
-7. Click **Create**.
+
+2. Select the **Variables** tab.
+3. Click **+Create Variable**.
+4. Enter a name for your variable.
+5. Enter your variable.
+6. Click **Create**.
 
 ## Import a variable
 
