@@ -7,7 +7,7 @@ menu:
     name: Create a token
     parent: Manage tokens
 weight: 201
-#draft: true
+draft: true
 ---
 
 Create authentication tokens using the InfluxDB user interface (UI) or the `influx`
