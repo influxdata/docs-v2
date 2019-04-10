@@ -31,7 +31,7 @@ menu:
 * Fix mismatch in bucket row and header.
 * Allows user to edit note on cell.
 * Fix empty state styles in scrapers in org view.
-* Fix bucket creation error when changing rentention rules types.
+* Fix bucket creation error when changing retention rules types.
 * Fix task creation error when switching schedule types.
 * Fix hidden horizontal scrollbars in flux raw data view.
 * Fix screen tearing bug in raw data View.
