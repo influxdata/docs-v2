@@ -50,7 +50,9 @@
 <span class="inline icon-ui-triangle middle"></span>
 {{ else if eq $icon "cloud" }}
 <span class="inline icon-ui-cloud large"></span>
-{{ else if or (eq $icon "feedback") (eq $icon "chat") (eq $icon "bubble") }}
+{{ else if eq $icon "feedback" }}
+<span class="inline icon-ui-nav-chat large"></span>
+{{ else if eq $icon "chat" }}
 <span class="inline icon-ui-chat large"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>

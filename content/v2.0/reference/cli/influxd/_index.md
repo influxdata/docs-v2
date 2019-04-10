@@ -1,6 +1,5 @@
 ---
 title: influxd - InfluxDB daemon
-seotitle: influxd - InfluxDB daemon
 description: The influxd daemon starts and runs all the processes necessary for InfluxDB to function.
 v2.0/tags: [influxd, cli]
 menu:
@@ -21,9 +20,11 @@ influxd [command]
 
 ## Commands
 
-| Command                                | Description                        |
-|:-------                                |:-----------                        |
-| [run](/v2.0/reference/cli/influxd/run) | Start the influxd server (default) |
+| Command                                          | Description                                       |
+|:-------                                          |:-----------                                       |
+| [generate](/v2.0/reference/cli/influxd/generate) | Generate time series data sets using TOML schema. |
+| [inspect](/v2.0/reference/cli/influxd/inspect)   | Inspect on-disk database data.                    |
+| [run](/v2.0/reference/cli/influxd/run)           | Start the influxd server _**(default)**_          |
 
 ## Flags
 
