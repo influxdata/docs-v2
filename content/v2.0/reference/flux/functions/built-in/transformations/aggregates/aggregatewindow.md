@@ -37,9 +37,13 @@ The duration of windows.
 _**Data type:** Duration_
 
 ### fn
-The aggregate function used in the operation.
+The [aggregate function](/v2.0/reference/flux/functions/built-in/transformations/aggregates) used in the operation.
 
 _**Data type:** Function_
+
+{{% note %}}
+Only aggregate functions with a `column` parameter (singular) work with `aggregateWindow()`.
+{{% /note %}}
 
 ### column
 The column on which to operate.
