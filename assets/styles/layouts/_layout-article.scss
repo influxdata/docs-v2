@@ -280,6 +280,10 @@
     border-style: solid;
     border-radius: 0 $border-radius $border-radius 0;
     font-size: .95rem;
+
+    ul,ol { 
+      &:last-child { margin-bottom: 1.85rem; }
+    }
   }
 
   blockquote {

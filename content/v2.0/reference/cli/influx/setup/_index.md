@@ -1,5 +1,5 @@
 ---
-title: influx setup – Run the initial Influx DB setup
+title: influx setup – Run the initial InfluxDB setup
 description: >
   The 'influx setup' command walks through the initial InfluxDB setup process,
   creating a default user, organization, and bucket.

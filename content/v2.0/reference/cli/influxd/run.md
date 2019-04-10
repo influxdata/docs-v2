@@ -4,7 +4,6 @@ description: The `influxd run` command is the default `influxd` command and star
 v2.0/tags: [influxd, cli]
 menu:
   v2_0_ref:
-    name: run
     parent: influxd
 weight: 201
 ---
