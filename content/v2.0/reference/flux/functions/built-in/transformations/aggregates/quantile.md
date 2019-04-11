@@ -72,7 +72,7 @@ _**Data type:** Float_
 
 ## Examples
 
-###### Percentile as an aggregate
+###### Quantile as an aggregate
 ```js
 from(bucket: "telegraf/autogen")
 	|> range(start: -5m)
@@ -86,7 +86,7 @@ from(bucket: "telegraf/autogen")
   )
 ```
 
-###### Percentile as a selector
+###### Quantile as a selector
 ```js
 from(bucket: "telegraf/autogen")
 	|> range(start: -5m)
