@@ -10,3 +10,11 @@ menu:
 weight: 201
 
 ---
+
+## Create a template
+
+1. Click the **Settings** icon in the left navigation.
+
+    {{nav-icon "settings"}}
+
+## Import a template
