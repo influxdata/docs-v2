@@ -4,7 +4,7 @@ description: The strings.trimSpace() function removes leading and trailing space
 menu:
   v2_0_ref:
     name: strings.trimSpace
-    parent: Strings
+    parent: String
 weight: 301
 ---
 

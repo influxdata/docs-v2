@@ -4,7 +4,7 @@ description: The strings.toUpper() function converts a string to upper case.
 menu:
   v2_0_ref:
     name: strings.toUpper
-    parent: Strings
+    parent: String
 weight: 301
 ---
 

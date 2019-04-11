@@ -4,7 +4,7 @@ description: The strings.title() function converts a string to title case.
 menu:
   v2_0_ref:
     name: strings.title
-    parent: Strings
+    parent: String
 weight: 301
 ---
 
