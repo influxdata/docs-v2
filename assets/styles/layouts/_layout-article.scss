@@ -281,7 +281,7 @@
     border-radius: 0 $border-radius $border-radius 0;
     font-size: .95rem;
 
-    ul,ol { 
+    ul,ol {
       &:last-child { margin-bottom: 1.85rem; }
     }
   }
@@ -445,6 +445,10 @@
       a {
         color: $article-cloud-link;
         &:hover { color: $article-cloud-link-hover; }
+      }
+      code, pre {
+        color: $article-cloud-code;
+        background: $article-cloud-code-bg;
       }
     }
     &-flag {
