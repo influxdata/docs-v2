@@ -30,7 +30,8 @@ weight: 201
   {{< nav-icon "dashboards" >}}
 
 2. Click the **+Create Dashboard** menu in the upper right and select **From a Template**.
-3. In the window that appears, select a template. 
+3. In the window that appears, select a template and review the template's variables and cells.
+4. Click **Create Dashboard**.
 
 **To import an existing dashboard**:
 
