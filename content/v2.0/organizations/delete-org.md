@@ -9,9 +9,10 @@ menu:
 weight: 104
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
+Use the `influx` command line interface (CLI)
 to delete an organization.
 
+<!--
 ## Delete an organization in the InfluxDB UI
 
 1.  Click the **Influx** icon in the navigation bar.
@@ -21,6 +22,7 @@ to delete an organization.
   The list of organizations appears.
 
 2. Hover over an organization's name, click **Delete**, and then **Confirm**.
+-->
 
 ## Delete an organization using the influx CLI
 

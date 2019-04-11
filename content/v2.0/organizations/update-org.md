@@ -9,9 +9,9 @@ menu:
 weight: 103
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to update an organization.
+Use the `influx` command line interface (CLI) to update an organization.
 
+<!---
 ## Update an organization in the InfluxDB UI
 
 1. Click the **Influx** icon in the navigation bar.
@@ -21,7 +21,7 @@ to update an organization.
 2. Click on the organization you want to update in the list.
 3. To update the organization's name, select the **Options** tab.
 4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs.
-
+-->
 ## Update an organization using the influx CLI
 
 Use the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
