@@ -4,7 +4,7 @@ description: The strings.toLower() function converts a string to lower case.
 menu:
   v2_0_ref:
     name: strings.toLower
-    parent: String
+    parent: Strings
 weight: 301
 ---
 

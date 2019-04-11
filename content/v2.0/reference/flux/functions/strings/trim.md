@@ -6,7 +6,7 @@ description: >
 menu:
   v2_0_ref:
     name: strings.trim
-    parent: String
+    parent: Strings
 weight: 301
 ---
 

@@ -1,12 +1,12 @@
 ---
-title: Flux string package
-list_title: String package
+title: Flux strings package
+list_title: Strings package
 description: >
-  The Flux string package provides functions to manipulate UTF-8 encoded strings.
+  The Flux strings package provides functions to manipulate UTF-8 encoded strings.
   Import the `strings` package.
 menu:
   v2_0_ref:
-    name: String
+    name: Strings
     parent: Flux packages and functions
 weight: 204
 v2.0/tags: [strings, functions, package]
