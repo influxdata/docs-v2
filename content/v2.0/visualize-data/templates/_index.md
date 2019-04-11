@@ -9,6 +9,6 @@ menu:
 weight: 101
 ---
 
-Create, edit, and manage templates
+Templates are a way to create and share dashboards across organizations without starting from scratch.
 
 {{< children >}}

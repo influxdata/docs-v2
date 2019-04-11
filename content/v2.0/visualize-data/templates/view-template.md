@@ -10,3 +10,11 @@ menu:
 weight: 202
 
 ---
+To view templates in the InfluxDB UI:
+
+1. Click the **Settings** icon in the left navigation.
+
+    {{< nav-icon "settings" >}}
+
+2. Select the **Templates** tab. The list of templates appears.
+3. Click on the name of a template to view its JSON.
