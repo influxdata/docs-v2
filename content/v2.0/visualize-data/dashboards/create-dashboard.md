@@ -23,6 +23,15 @@ weight: 201
 2. Click the **+Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
+**To create a dashboard from a template**:
+
+1. Click the **Dashboards** icon in the navigation bar.
+
+  {{< nav-icon "dashboards" >}}
+
+2. Click the **+Create Dashboard** menu in the upper right and select **From a Template**.
+3. In the window that appears, select a template. 
+
 **To import an existing dashboard**:
 
 1. Click the **Dashboards** icon in the navigation bar.
