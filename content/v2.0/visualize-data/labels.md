@@ -37,8 +37,8 @@ To manage labels:
 1. In the label list view, hover over the label you would like to delete.
 2. Click **Delete** in the far right of the label row.
 
-### Add labels to dashboards and tasks
-1. In the list view of dashboards or tasks, hover over the item to which you would like to add a label.
+### Add labels to dashboard items
+1. In the list view of dashboards, tasks, or other assets, hover over the item to which you would like to add a label.
 2. Click the {{< icon "add-label" >}} icon that appears below the name.
    The **Add Labels** overlay will appear.
 3. Type the name of the label you would like to add to filter the list of available labels.
