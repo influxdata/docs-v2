@@ -15,9 +15,9 @@ to add a member to an organization.
 
 ## Add a member to an organization in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
 2. Click on the name of an organization, then select the **Members** tab.
 

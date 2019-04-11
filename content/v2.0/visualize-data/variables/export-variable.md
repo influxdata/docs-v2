@@ -13,15 +13,14 @@ Variables are exported as downloadable JSON files.
 
 ### Export a variable
 
-1. Click the **Organizations** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
-  {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Select an organization from the list.
-3. Select the **Variables** tab.
-4. Hover over a variable in the list, then click the gear icon ({{< icon "gear" >}}) and select **Export**.
-3. Review the JSON in the window that appears.
-4. Select one of the following options:
+2. Select the **Variables** tab.
+3. Hover over a variable in the list, then click the gear icon ({{< icon "gear" >}}) and select **Export**.
+4. Review the JSON in the window that appears.
+5. Select one of the following options:
   * **Download JSON**: Download the dashboard as a JSON file.
   * **Save as template**: Save the JSON as a dashboard template.
   * **Copy to Clipboard**: Copy the JSON to your clipboard.

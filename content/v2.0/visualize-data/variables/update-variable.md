@@ -13,12 +13,11 @@ Update an existing dashboard variable's name or JSON content in the InfluxDB use
 
 ### Update a variable
 
-1. Click the **Organizations** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
-  {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Select an organization from the list.  
-3. Select the **Variables** tab.
-4. Click on a variable's name from the list.
-5. Update the variable's name and query.
-6. Click **Submit**.
+2. Select the **Variables** tab.
+3. Click on a variable's name from the list.
+4. Update the variable's name and query.
+5. Click **Submit**.

@@ -12,10 +12,9 @@ Delete an existing variable in the InfluxDB user interface (UI).
 
 ### Delete a variable
 
-1. Click in the **Organizations** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
-  {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Select an organization from the list.
-3. Select the **Variables** tab.
-4. Hover over a variable and click the trash can icon.
+2. Select the **Variables** tab.
+3. Hover over a variable and click the trash can icon.

@@ -14,11 +14,11 @@ to create a bucket.
 
 ## Create a bucket in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click on the name of an organization, then select the **Buckets** tab.
+2. Select the **Buckets** tab.
 3. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
 4. Enter a **Name** for the bucket.
 5. Select **How often to clear data?**:  
