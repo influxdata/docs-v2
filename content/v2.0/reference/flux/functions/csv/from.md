@@ -28,6 +28,10 @@ csv.from(file: "/path/to/data-file.csv")
 csv.from(csv: csvData)
 ```
 
+{{% cloud-msg %}}
+`csv.from()` is not available in {{< cloud-name "short" >}}.
+{{% /cloud-msg %}}
+
 ## Parameters
 
 ### file
