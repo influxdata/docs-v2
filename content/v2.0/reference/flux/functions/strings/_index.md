@@ -6,7 +6,7 @@ description: >
   Import the `strings` package.
 menu:
   v2_0_ref:
-    name: Strings
+    name: String
     parent: Flux packages and functions
 weight: 204
 v2.0/tags: [strings, functions, package]
