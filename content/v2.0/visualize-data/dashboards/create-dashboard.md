@@ -23,18 +23,48 @@ weight: 201
 2. Click the **+Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
+
+**To create a dashboard from a template in the templates UI**:
+
+1. Click the **Settings** icon in the left navigation.
+
+    {{< nav-icon "settings" >}}
+
+2. Select the **Templates** tab.
+3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
+
 **To import an existing dashboard**:
 
 1. Click the **Dashboards** icon in the navigation bar.
 
-  {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" >}}
 
 2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
 3. In the window that appears:
   * Select **Upload File** to drag-and-drop or select a file.
   * Select **Paste JSON** to paste in JSON.
-4. Select an organization from the **Destination Organization** dropdown.
-5. Click **Import JSON as Dashboard**.
+4. Click **Import JSON as Dashboard**.
+
+## Create dashboards with templates
+
+**To create a dashboard from a template in the dashboards page**:
+
+1. Click the **Dashboards** icon in the navigation bar.
+
+    {{< nav-icon "dashboards" >}}
+
+2. Click the **+Create Dashboard** menu in the upper right and select **From a Template**.
+3. In the window that appears, select a template and review the template's variables and cells.
+4. Click **Create Dashboard**.
+
+**To create a dashboard from a template in the templates UI**:
+
+1. Click the **Settings** icon in the left navigation.
+
+    {{< nav-icon "settings" >}}
+
+2. Select the **Templates** tab.
+3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
 
 ## Clone a dashboard
 
