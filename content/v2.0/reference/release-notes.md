@@ -7,6 +7,25 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.8 [2019-04-11]
+
+### Features
+
+- Add the ability to edit token's description.
+- Add the option to create a dashboard from a template.
+- Add the ability to add labels on variables.
+- Add switch organizations dropdown to home navigation menu item.
+- Add create org to side nav.
+
+### Bug Fixes
+
+- Update shift to timeShift in Flux functions sidebar.
+
+### UI Improvements
+- Update cursor to grab when hovering draggable areas.
+- Sync note editor text and preview scrolling.
+- Add the ability to create a bucket when creating an organization.
+
 ## v2.0.0-alpha.7 [2019-03-28]
 
 ### Features
@@ -23,7 +42,7 @@ menu:
 * Allow variables to be re-ordered within control bar on a dashboard.
 * Add the ability to delete a template.
 * Save user preference for variable control bar visibility and default to visible.
-* Add the ability to clone a template
+* Add the ability to clone a template.
 * Add the ability to import a variable.
 
 ### Bug Fixes
