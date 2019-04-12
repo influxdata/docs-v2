@@ -8,7 +8,7 @@ v2.0/tags: [cli]
 menu:
   v2_0_ref:
     name: Command line tools
-weight: 2
+weight: 3
 ---
 
 InfluxDB provides command line tools designed to aid in managing and working
