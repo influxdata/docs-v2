@@ -16,6 +16,7 @@ menu:
 - Add the ability to add labels on variables.
 - Add switch organizations dropdown to home navigation menu item.
 - Add create org to side nav.
+- Update to Flux v0.25.0.
 
 ### Bug Fixes
 
