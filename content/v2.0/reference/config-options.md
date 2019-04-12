@@ -7,19 +7,19 @@ menu:
     weight: 2
 ---
 
-Configure InfluxDB using configuration flags available with the [`influxd` daemon](/v2.0/reference/cli/influxd).
-The following configuration options are available:
+To configure InfluxDB, use the following configuration flags when starting the
+[`influxd` service](/v2.0/reference/cli/influxd):
 
-- [assets-path](#assets-path)
-- [bolt-path](#bolt-path)
-- [e2e-testing](#e2e-testing)
-- [engine-path](#engine-path)
-- [http-bind-address](#http-bind-address)
-- [log-level](#log-level)
-- [reporting-disabled](#reporting-disabled)
-- [secret-store](#secret-store)
-- [store](#store)
-- [tracing-type](#tracing-type)
+- [--assets-path](#assets-path)
+- [--bolt-path](#bolt-path)
+- [--e2e-testing](#e2e-testing)
+- [--engine-path](#engine-path)
+- [--http-bind-address](#http-bind-address)
+- [--log-level](#log-level)
+- [--reporting-disabled](#reporting-disabled)
+- [--secret-store](#secret-store)
+- [--store](#store)
+- [--tracing-type](#tracing-type)
 
 ```sh
 influxd \
@@ -39,7 +39,7 @@ influxd \
 
 ## --assets-path
 Overrides the default InfluxDB user interface (UI) assets by serving assets from a specific directory.
-_This is typically only used internally at InfluxData when working on the InfluxDB UI._
+_Typically, InfluxData internal use only._
 
 ```sh
 influxd --assets-path=/path/to/custom/assets-dir
@@ -50,8 +50,8 @@ influxd --assets-path=/path/to/custom/assets-dir
 ## --bolt-path
 Defines the path to the [BoltDB](https://github.com/boltdb/bolt) database.
 BoltDB is a key value store written in Go.
-InfluxDB uses BoltDB to store non-time-series data such as organization and
-user information, UI data, REST resources, etc.
+InfluxDB uses BoltDB to store data including organization and
+user information, UI data, REST resources, and other key value data.
 
 **Default:** `~/.influxdbv2/influxd.bolt`  
 
@@ -63,7 +63,7 @@ influxd --bolt-path=~/.influxdbv2/influxd.bolt
 
 ## --e2e-testing
 Adds a `/debug/flush` endpoint to the InfluxDB HTTP API to clear stores.
-InfluxData uses this for end-to-end testing.
+InfluxData uses this endpoint in end-to-end testing.
 
 ```sh
 influxd --e2e-testing
@@ -85,7 +85,7 @@ influxd --engine-path=~/.influxdbv2/engine
 
 ## --http-bind-address
 Defines the bind address for the InfluxDB HTTP API.
-Customize the URL and port of the InfluxDB API and UI.
+Customize the URL and port for the InfluxDB API and UI.
 
 **Default:** `:9999`  
 
@@ -97,7 +97,7 @@ influxd --http-bind-address=:9999
 
 ## --log-level
 Defines the log output level.
-InfluxDB emits log entries with severity levels greater than or equal to the level specified.
+InfluxDB outputs log entries with severity levels greater than or equal to the level specified.
 
 **Options:** `debug`, `info`, `error`  
 **Default:** `info`  
@@ -136,14 +136,14 @@ influxd --secret-store=bolt
 ## --store
 Specifies the data store for REST resources.
 
-{{% note %}}
-Do not use `memory` in production environments.
-It is meant only for transient environments, such as testing environments, where
-data persistence does not matter.
-{{% /note %}}
-
 **Options:** `bolt`, `memory`  
 **Default:** `bolt`  
+
+{{% note %}}
+`memory` is meant for transient environments, such as testing environments, where
+data persistence does not matter.
+InfluxData does not recommend using `memory` in production.
+{{% /note %}}
 
 ```sh
 influxd --store=bolt
