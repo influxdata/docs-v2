@@ -7,7 +7,7 @@ menu:
     weight: 2
 ---
 
-To configure InfluxDB, use the following configuration flags when starting the
+To configure InfluxDB, use the following configuration options when starting the
 [`influxd` service](/v2.0/reference/cli/influxd):
 
 - [--assets-path](#assets-path)
@@ -38,8 +38,8 @@ influxd \
 ---
 
 ## --assets-path
-Overrides the default InfluxDB user interface (UI) assets by serving assets from a specific directory.
 _Typically, InfluxData internal use only._
+Overrides the default InfluxDB user interface (UI) assets by serving assets from the specified directory.
 
 ```sh
 influxd --assets-path=/path/to/custom/assets-dir
