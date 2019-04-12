@@ -1,6 +1,8 @@
 ---
 title: InfluxDB configuration options
-description:
+description: >
+  Configure InfluxDB when starting the `influxd` service.
+  This article outlines the different configuration options available.
 menu:
   v2_0_ref:
     name: Configuration options
