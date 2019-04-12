@@ -9,9 +9,32 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.23.0**.
-Any newer versions of Flux will not be available until the next InfluxDB release._
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.25.0**.
+Though newer versions of Flux may be available, they will not be included with
+InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.25.0 [2019-04-08]
+
+## Breaking changes
+- Fix logical operators (`and`, `or`) precedence.
+
+## Bug fixes
+- Omit space between unary operator and operand.
+- Format AST preserving operator precedence.
+
+---
+
+## v0.24.0 [2019-04-01]
+
+### Breaking changes
+- Rename `percentile()` function to `quantile()`.
+
+### Bug fixes
+- Handle when a non-call expression is parsed as the pipe destination.
+- Add error message to Compile methods for empty Spec.
+
+---
 
 ## v0.23.0 [2019-03-26]
 

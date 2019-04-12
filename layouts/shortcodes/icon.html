@@ -1,4 +1,4 @@
-{{ $icon :=  .Get 0 | default "nav-admin" }}
+{{ $icon :=  .Get 0 | default "influx" }}
 
 {{ if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") }}
 <span class="inline icon-ui-influx-icon middle"></span>
@@ -11,7 +11,7 @@
 {{ else if or (eq $icon "nav-organizations") (eq $icon "nav-orgs") (eq $icon "orgs") (eq $icon "org") }}
 <span class="inline icon-ui-organizations middle"></span>
 {{ else if or (eq $icon "nav-configuration") (eq $icon "nav-config") (eq $icon "wrench") }}
-<span class="inline icon-ui-wrench middle large"></span>
+<span class="inline icon-ui-wrench-2 middle large"></span>
 {{ else if eq $icon "add-cell" }}
 <span class="inline icon-ui-add-cell small"></span>
 {{ else if eq $icon "alert" }}
@@ -48,6 +48,12 @@
 <span class="inline icon-ui-trash small"></span>
 {{ else if eq $icon "triangle" }}
 <span class="inline icon-ui-triangle middle"></span>
+{{ else if eq $icon "cloud" }}
+<span class="inline icon-ui-cloud large"></span>
+{{ else if eq $icon "feedback" }}
+<span class="inline icon-ui-nav-chat large"></span>
+{{ else if eq $icon "chat" }}
+<span class="inline icon-ui-chat large"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>
 {{ end }}

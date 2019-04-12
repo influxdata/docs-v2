@@ -11,12 +11,12 @@ weight: 202
 
 ## View buckets in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click on the name of an organization, then select the **Buckets** tab. All of the organization's buckets appear.
-3. Click on a bucket to view details.=
+2. Select the **Buckets** tab.
+3. Click on a bucket to view details.
 
 ## View buckets using the influx CLI
 
