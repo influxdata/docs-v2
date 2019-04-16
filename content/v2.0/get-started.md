@@ -213,7 +213,7 @@ use one of the following methods to provide your [authentication token](/v2.0/us
 3. Store your token in `~/.influxdbv2/credentials`.
    _The content of the `credentials` file should be only your token._
 
-_See [View tokens](/v2.0/users/tokens/view-tokens/) for information about
+_See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
 retrieving authentication tokens._
 {{% /note %}}
 

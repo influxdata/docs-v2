@@ -10,8 +10,8 @@ weight: 11
 ---
 
 Users are those with access to InfluxDB.
-In order to access any data, a user must be added as a member of an organization.
-All users have unique authentication tokens with specific permissions used to grant them access to data within InfluxDB.
+To grant a user permission to access data, add them as a [member of an organization](/v2.0/organizations/members/)
+and provide them with an [authentication token](/v2.0/security/tokens/).
 
 The following articles walk through managing users.
 
