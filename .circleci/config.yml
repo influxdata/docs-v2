@@ -4,8 +4,8 @@ jobs:
     docker:
       - image: circleci/node:latest
         environment:
-          HUGO_VERSION: "0.53"
-          S3DEPLOY_VERSION: "2.3.0"
+          HUGO_VERSION: "0.55"
+          S3DEPLOY_VERSION: "2.3.2"
     steps:
       - checkout
       - restore_cache:

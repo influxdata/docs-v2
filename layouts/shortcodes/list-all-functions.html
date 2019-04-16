@@ -1,4 +1,4 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.URL) 0) }}
+{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
 {{ $functionsPath := print "/" $currentVersion "/reference/flux/functions" }}
 
 <ul>
@@ -6,7 +6,7 @@
   {{ if in .Title "() function"  }}
     {{ $title := replaceRE `\ function` "" .Title }}
     <li>
-      <a href="{{ .URL }}">{{ $title }}</a>
+      <a href="{{ .RelPermalink }}">{{ $title }}</a>
     </li>
   {{ end }}
 {{ end }}
