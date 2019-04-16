@@ -6,7 +6,7 @@ v2.0/tags: [users, authentication]
 menu:
   v2_0:
     name: Manage users
-weight: 12
+weight: 11
 ---
 
 Users are those with access to InfluxDB.
