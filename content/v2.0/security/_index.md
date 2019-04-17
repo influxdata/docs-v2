@@ -4,7 +4,7 @@ description: placeholder
 weight: 12
 menu:
   v2_0:
-    name: Security & Authorization
+    name: Security & authorization
 ---
 
 placeholder
