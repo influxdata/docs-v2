@@ -33,3 +33,26 @@ influx org find
 Filtering options such as filtering by name or ID are available.
 See the [`influx org find` documentation](/v2.0/reference/cli/influx/org/find)
 for information about other available flags.
+
+## View your organization ID
+Use the InfluxDB UI or `influx` CLI to see your organization ID.
+
+### Organization ID in the UI
+Your organization ID is in the InfluxDB UI URL after logging in.
+
+```sh
+# Pattern
+http://localhost:9999/orgs/<org-id>
+
+# Example
+http://localhost:9999/orgs/03a2bbf46249a000
+```
+
+### Organization ID in the CLI
+View your organization ID in the output [`influx org find`](#view-organizations-using-the-influx-cli).
+
+```sh
+ID			           Name
+03a2bbf46249a000	 org-1
+03ace3a859669000	 org-2
+```

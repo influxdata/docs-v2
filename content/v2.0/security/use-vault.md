@@ -59,8 +59,8 @@ influxd --secret-store vault
 With Vault and InfluxDB servers running, use the InfluxDB API to test Vault:
 
 {{% note %}}
-Replace `<org-id>` with your [organization ID](#) and `<influxdb-authorization-token>`
-with your [InfluxDB authentication token](/v2.0/security/tokens/).
+Replace `<org-id>` with your [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)
+and `<influxdb-authorization-token>` with your [InfluxDB authentication token](/v2.0/security/tokens/).
 {{% /note %}}
 
 ##### Retrieve an organization's secrets
