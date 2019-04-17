@@ -10,8 +10,7 @@ weight: 102
 
 [Vault](https://www.vaultproject.io/) secures, stores, and tightly controls access
 to tokens, passwords, certificates, and other sensitive secrets.
-InfluxDB provides a built-in Vault integration that lets you store sensitive
-InfluxDB secrets in Vault.
+InfluxDB provides a built-in Vault integration that lets you store sensitive secrets in Vault.
 
 {{% note %}}
 When not using Vault, secrets are Base64-encoded and stored in the InfluxDB embedded key value store,
