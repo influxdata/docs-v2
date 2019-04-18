@@ -18,7 +18,7 @@ Include your authentication token as an `Authorization` header in each request.
 ```sh
 curl --request GET \
   --url http://localhost:9999/api/v2/ \
-  --header 'Authorization: Token yoUrAuThenicAtionTokEn=='
+  --header 'Authorization: Token YOURAUTHTOKEN'
 ```
 
 ## View Influx v2 API Documentation
