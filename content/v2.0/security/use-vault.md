@@ -18,7 +18,7 @@ When not using Vault, secrets are Base64-encoded and stored in the InfluxDB embe
 {{% /note %}}
 
 ## Start a Vault server
-Start a Vault server and ensure InfluxDB has network access to it.
+Start a Vault server and ensure InfluxDB has network (HTTP) access to the server.
 The following links provide information about running Vault in both development and production:
 
 - [Install Vault](https://learn.hashicorp.com/vault/getting-started/install)
