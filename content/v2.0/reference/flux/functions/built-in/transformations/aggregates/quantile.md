@@ -20,7 +20,7 @@ _**Output data type:** Float or Object_
 
 ```js
 quantile(
-  columns: ["_value"],
+  column: "_value",
   q: 0.99,
   method: "estimate_tdigest",
   compression: 1000.0
@@ -35,11 +35,11 @@ value that represents the specified quantile.
 
 ## Parameters
 
-### columns
-A list of columns on which to compute the quantile.
-Defaults to `["_value"]`.
+### column
+The column to use to compute the quantile.
+Defaults to `"_value"`.
 
-_**Data type:** Array of strings_
+_**Data type:** String_
 
 ### q
 A value between 0 and 1 indicating the desired quantile.
@@ -72,7 +72,7 @@ _**Data type:** Float_
 
 ## Examples
 
-###### Percentile as an aggregate
+###### Quantile as an aggregate
 ```js
 from(bucket: "telegraf/autogen")
 	|> range(start: -5m)
@@ -86,7 +86,7 @@ from(bucket: "telegraf/autogen")
   )
 ```
 
-###### Percentile as a selector
+###### Quantile as a selector
 ```js
 from(bucket: "telegraf/autogen")
 	|> range(start: -5m)

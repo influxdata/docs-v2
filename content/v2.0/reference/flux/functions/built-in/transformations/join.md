@@ -46,7 +46,7 @@ The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
 ## Parameters
 
 ### tables
-The map of streams to be joined. <span style="color:#FF8564; font-weight:700;">Required</span>.
+The map of streams to be joined. <span class="required">Required</span>
 
 _**Data type:** Object_
 
@@ -55,7 +55,7 @@ _**Data type:** Object_
 {{% /note %}}
 
 ### on
-The list of columns on which to join. <span style="color:#FF8564; font-weight:700;">Required</span>.
+The list of columns on which to join. <span class="required">Required</span>
 
 _**Data type:** Array of strings_
 
