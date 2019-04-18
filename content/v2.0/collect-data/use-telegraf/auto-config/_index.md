@@ -55,7 +55,7 @@ for using Telegraf with InfluxDB v2.0._
 ## Start Telegraf
 
 ### Configure your API token as an environment variable
-Requests to the InfluxDB v2.0 API must include an authentication token.
+Requests to the [InfluxDB v2 API](/v2.0/reference/api/) must include an authentication token.
 A token identifies specific permissions to the InfluxDB instance.
 
 Define the `INFLUX_TOKEN` environment variable using your token.

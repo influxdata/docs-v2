@@ -51,6 +51,8 @@ data = from(bucket: "example-bucket") |> range(start: -10m) # ...
 ```
 
 ## InfluxDB API
+The [InfluxDB v2 API](/v2.0/reference/api) provides a programmatic
+interface for all interactions with InfluxDB.
 Query InfluxDB through the `/api/v2/query` endpoint.
 Queried data is returned in annotated CSV format.
 
@@ -61,7 +63,7 @@ In your request, set the following:
 - `accept` header to `application/csv`.
 - `content-type` header to `application/vnd.flux`.
 
-This allows you to POST the Flux query in plain text and receive the annotated CSV response.
+This lets you POST the Flux query in plain text and receive the annotated CSV response.
 
 Below is an example `curl` command that queries InfluxDB:
 

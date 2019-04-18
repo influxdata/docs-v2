@@ -50,7 +50,8 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 ### Networking ports
-By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
+By default, InfluxDB uses TCP port `9999` for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ## Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
@@ -108,7 +109,8 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 ### Networking ports
-By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
+By default, InfluxDB uses TCP port `9999` for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ## Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
@@ -141,7 +143,8 @@ influxd --reporting-disabled
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0 alpha
 Use `docker run` to download and run the InfluxDB v2.0 alpha Docker image.
-Expose port `9999`, which InfluxDB uses for client-server communication over its HTTP API.
+Expose port `9999`, which InfluxDB uses for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ```sh
 docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha
