@@ -1,5 +1,5 @@
 ---
-title: Store InfluxDB secrets in Vault
+title: Store secrets in Vault
 description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 v2.0/tags: [tokens, security]
 menu:
@@ -18,7 +18,7 @@ When not using Vault, secrets are Base64-encoded and stored in the InfluxDB embe
 {{% /note %}}
 
 ## Start a Vault server
-Start a Vault server and ensure InfluxDB has network (HTTP) access to the server.
+Start a Vault server and ensure InfluxDB has network access to the server.
 The following links provide information about running Vault in both development and production:
 
 - [Install Vault](https://learn.hashicorp.com/vault/getting-started/install)

@@ -8,7 +8,7 @@ weight: 12
 menu:
   v2_0:
     name: Security & authorization
-v2.0/tags: [security, auth]
+v2.0/tags: [security, authentication]
 ---
 
 Security, access control, and sensitive secret handling are incredibly important
