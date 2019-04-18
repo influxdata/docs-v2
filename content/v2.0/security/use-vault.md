@@ -59,14 +59,14 @@ With Vault and InfluxDB servers running, use the InfluxDB API to test Vault:
 
 {{% note %}}
 Replace `<org-id>` with your [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)
-and `<influxdb-authorization-token>` with your [InfluxDB authentication token](/v2.0/security/tokens/).
+and `YOURAUTHTOKEN` with your [InfluxDB authentication token](/v2.0/security/tokens/).
 {{% /note %}}
 
 ##### Retrieve an organization's secrets
 ```sh
 curl --request GET \
   --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token <influxdb-authorization-token>'
+  --header 'authorization: Token YOURAUTHTOKEN'
 
 # should return
 #  {
@@ -82,7 +82,7 @@ curl --request GET \
 ```sh
 curl --request PATCH \
   --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token <influxdb-authorization-token>' \
+  --header 'authorization: Token YOURAUTHTOKEN' \
   --header 'content-type: application/json' \
   --data '{
 	"foo": "bar",
@@ -96,7 +96,7 @@ curl --request PATCH \
 ```bash
 curl --request GET \
   --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token <influxdb-authorization-token>'
+  --header 'authorization: Token YOURAUTHTOKEN'
 
 # should return
 #  {
