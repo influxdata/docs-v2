@@ -38,7 +38,7 @@ _By default, InfluxDB runs on port `9999`._
 
 ##### token
 Your InfluxDB v2.0 authorization token.
-For information about viewing tokens, see [View tokens](/v2.0/users/tokens/view-tokens/).
+For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/).
 
 {{% note %}}
 #### Avoid storing tokens in plain text

@@ -2,6 +2,8 @@
 title: Delete a token
 seotitle: Delete an authentication token from InfluxDB
 description: Delete an authentication token from InfluxDB using the InfluxDB UI or the `influx` CLI.
+aliases:
+  - /v2.0/users/tokens/delete-token
 menu:
   v2_0:
     name: Delete a token

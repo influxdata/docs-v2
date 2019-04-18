@@ -59,7 +59,7 @@ Requests to the InfluxDB v2.0 API must include an authentication token.
 A token identifies specific permissions to the InfluxDB instance.
 
 Define the `INFLUX_TOKEN` environment variable using your token.
-_For information about viewing tokens, see [View tokens](/v2.0/users/tokens/view-tokens/)._
+_For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/)._
 
 ```sh
 export INFLUX_TOKEN=YourAuthenticationToken
