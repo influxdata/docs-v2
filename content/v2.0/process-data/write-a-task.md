@@ -62,7 +62,7 @@ the required time range and any relevant filters.
 data = from(bucket: "telegraf/default")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r.host == "myHost"
   )
 ```
@@ -111,7 +111,10 @@ to send the transformed data to another bucket:
 ```
 
 {{% note %}}
-You cannot write to the same bucket you are reading from.
+#### Important notes
+- You cannot write to the same bucket you are reading from.
+- In order to write data into InfluxDB, you must have `_time`, `_measurement`,
+  `_field`, and `_value` columns.
 {{% /note %}}
 
 ## Full example task script
@@ -132,7 +135,7 @@ option task = {
 data = from(bucket: "telegraf/default")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r.host == "myHost"
   )
 

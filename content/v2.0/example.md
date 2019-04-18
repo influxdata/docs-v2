@@ -33,7 +33,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 data = from(bucket: "telegraf/autogen")
   |> range(start: -15m)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r._field == "used_percent"
   )
 ```
@@ -442,7 +442,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 data = from(bucket: "telegraf/autogen")
   |> range(start: -15m)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r._field == "used_percent"
   )
 ```

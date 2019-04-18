@@ -11,6 +11,7 @@ weight: 501
 ---
 
 The `unique()` function returns all records containing unique values in a specified column.
+Group keys, record columns, and values are **not** modified.
 
 _**Function type:** Selector_  
 _**Output data type:** Object_

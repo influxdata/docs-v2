@@ -293,7 +293,7 @@ The shortcode structure is the same as above, but the shortcode names are differ
 data = from(bucket: "telegraf/autogen")
   |> range(start: -15m)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r._field == "used_percent"
   )
 ```
