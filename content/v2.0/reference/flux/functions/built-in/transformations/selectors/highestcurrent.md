@@ -1,6 +1,6 @@
 ---
 title: highestCurrent() function
-description: The `highestCurrent()` function returns the top `n` records from all groups using the last value of each group.
+description: The `highestCurrent()` function selects the last record of each table in the input stream and returns the top `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestcurrent
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `highestCurrent()` function returns the top `n` records from all groups using the last value of each group.
+The `highestCurrent()` function selects the last record of each table in the input stream and returns the top `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 

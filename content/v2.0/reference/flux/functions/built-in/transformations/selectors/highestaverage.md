@@ -1,6 +1,6 @@
 ---
 title: highestAverage() function
-description: The `highestAverage()` function returns the top `n` records from all groups using the average of each group.
+description: The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestaverage
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `highestAverage()` function returns the top `n` records from all groups using the average of each group.
+The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 

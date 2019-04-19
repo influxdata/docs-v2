@@ -1,6 +1,6 @@
 ---
 title: lowestMin() function
-description: The `lowestMin()` function returns the bottom `n` records from all groups using the minimum of each group.
+description: The `lowestMin()` function selects the minimum record from each table in the input stream and returns the lowest `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestmin
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `lowestMin()` function returns the bottom `n` records from all groups using the minimum of each group.
+The `lowestMin()` function selects the minimum record from each table in the input stream and returns the lowest `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 

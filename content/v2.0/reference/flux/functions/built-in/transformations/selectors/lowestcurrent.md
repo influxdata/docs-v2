@@ -1,6 +1,6 @@
 ---
 title: lowestCurrent() function
-description: The `lowestCurrent()` function returns the bottom `n` records from all groups using the last value of each group.
+description: The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `lowestCurrent()` function returns the bottom `n` records from all groups using the last value of each group.
+The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 

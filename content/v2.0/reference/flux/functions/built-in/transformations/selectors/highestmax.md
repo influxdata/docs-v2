@@ -1,6 +1,6 @@
 ---
 title: highestMax() function
-description: The `highestMax()` function returns the top `n` records from all groups using the maximum of each group.
+description: The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestmax
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `highestMax()` function returns the top `n` records from all groups using the maximum of each group.
+The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 

@@ -1,6 +1,6 @@
 ---
 title: lowestAverage() function
-description: The `lowestAverage()` function returns the bottom `n` records from all groups using the average of each group.
+description: The `lowestAverage()` function calculates the average of each table in the input stream returns the lowest `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestaverage
 menu:
@@ -10,7 +10,8 @@ menu:
 weight: 501
 ---
 
-The `lowestAverage()` function returns the bottom `n` records from all groups using the average of each group.
+The `lowestAverage()` function calculates the average of each table in the input stream returns the lowest `n` records.
+It outputs a single aggregated table containing `n` records.
 
 _**Function type:** Selector, Aggregate_
 
