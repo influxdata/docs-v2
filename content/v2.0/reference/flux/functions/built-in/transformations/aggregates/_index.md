@@ -14,10 +14,10 @@ v2.0/tags: [aggregates, built-in, functions]
 ---
 
 Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
-The output table contains is a single row with the aggregated value.
+The output table contains a single row with the aggregated value.
 
 Aggregate operations output a table for every input table they receive.
-A column to aggregate must be provided to the operation.
+You must provide a column to aggregate.
 Any output table will have the following properties:
 
 - It always contains a single record.
