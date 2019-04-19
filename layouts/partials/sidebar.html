@@ -24,9 +24,11 @@
 
   <ul id="nav-tree">
 
-  {{ $menuID := replaceRE "[.]" "_" $currentVersion }}
+  {{ $baseMenu := (index .Site.Menus (replaceRE "[.]" "_" $currentVersion)) }}
+  {{ $cloudMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_cloud")) }}
+  {{ $refMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_ref")) }}
 
-  {{ range (index .Site.Menus $menuID) }}
+  {{ range $baseMenu }}
     <!-- Nested Navigation -->
     <li class="nav-category {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
@@ -103,7 +105,7 @@
   {{ $refMenuID := print (replaceRE "[.]" "_" $currentVersion) "_cloud" }}
   <h4 class="reference">{{ .Site.Data.products.cloud.shortname }}</h4>
 
-  {{ range (index .Site.Menus $refMenuID) }}
+  {{ range $cloudMenu }}
     <!-- Nested Reference Navigation -->
     <li class="nav-category {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
@@ -180,7 +182,7 @@
   {{ $refMenuID := print (replaceRE "[.]" "_" $currentVersion) "_ref" }}
   <h4 class="reference">Reference</h4>
 
-  {{ range (index .Site.Menus $refMenuID) }}
+  {{ range $refMenu }}
     <!-- Nested Reference Navigation -->
     <li class="nav-category {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
