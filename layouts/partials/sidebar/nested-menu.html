@@ -1,0 +1,74 @@
+{{ $page := .page }}
+{{ $menu := .menu }}
+
+{{ range $menu }}
+  <li class="nav-category {{ if eq $page.RelPermalink .URL }}active{{end}}">
+    {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+    <a href="{{ .URL }}">{{ .Name }}</a>
+    {{ if .HasChildren }}
+      <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+      {{ range .Children }}
+        <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+          {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+          <a href="{{ .URL }}">{{ .Name }}</a>
+          {{ if .HasChildren }}
+            <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+            {{ range .Children }}
+              <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+                {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                <a href="{{ .URL }}">{{ .Name }}</a>
+                {{ if .HasChildren }}
+                  <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+                  {{ range .Children }}
+                    <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+                      {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                      <a href="{{ .URL }}">{{ .Name }}</a>
+                      {{ if .HasChildren }}
+                        <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+                        {{ range .Children }}
+                          <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+                            {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                            <a href="{{ .URL }}">{{ .Name }}</a>
+                            {{ if .HasChildren }}
+                              <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+                              {{ range .Children }}
+                                <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+                                  {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                  <a href="{{ .URL }}">{{ .Name }}</a>
+
+                                  <!-- Begin nested block -->
+                                  {{ if .HasChildren }}
+                                    <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
+                                    {{ range .Children }}
+                                      <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
+                                        {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+                                        <a href="{{ .URL }}">{{ .Name }}</a>
+                                        <!-- To add more nested layers, copy the nested block and paste it here -->
+                                      </li>
+                                    {{ end }}
+                                    </ul>
+                                  {{ end }}
+                                  <!-- End nested block -->
+
+                                </li>
+                              {{ end }}
+                              </ul>
+                            {{ end }}
+                          </li>
+                        {{ end }}
+                        </ul>
+                      {{ end }}
+                    </li>
+                  {{ end }}
+                  </ul>
+                {{ end }}
+              </li>
+            {{ end }}
+            </ul>
+          {{ end }}
+        </li>
+      {{ end }}
+      </ul>
+    {{ end }}
+  </li>
+{{ end }}
