@@ -61,6 +61,7 @@ tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
     |> filter(fn: predicate)
     |> keys()
     |> keep(columns: ["_value"])
+    |> distinct()
 ```
 
 _**Used functions:**
