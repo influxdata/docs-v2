@@ -19,7 +19,7 @@ aggregateWindow(
   every: 1m,
   fn: mean,
   column: "_value",
-  timeColumn: "_stop",
+  timeSrc: "_stop",
   timeDst: "_time",
   createEmpty: true
 )
@@ -51,7 +51,7 @@ Defaults to `"_value"`.
 
 _**Data type:** String_
 
-### timeColumn
+### timeSrc
 The time column from which time is copied for the aggregate record.
 Defaults to `"_stop"`.
 
@@ -104,11 +104,11 @@ from(bucket: "telegraf/autogen")
 
 ## Function definition
 ```js
-aggregateWindow = (every, fn, column="_value", timeColumn="_stop", timeDst="_time", tables=<-) =>
+aggregateWindow = (every, fn, column="_value", timeSrc="_stop", timeDst="_time", tables=<-) =>
 	tables
 		|> window(every:every)
 		|> fn(column:column)
-		|> duplicate(column:timeColumn, as:timeDst)
+		|> duplicate(column:timeSrc, as:timeDst)
 		|> window(every:inf, timeColumn:timeDst)
 ```
 
