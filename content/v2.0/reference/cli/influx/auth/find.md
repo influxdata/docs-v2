@@ -20,8 +20,8 @@ influx auth find [flags]
 |:----           |:-----------                 |:----------: |
 | `-h`, `--help` | Help for the `find` command |             |
 | `-i`, `--id`   | The authorization ID        | string      |
-| `-o`, '--org'  | The organization            | string      |
-| '--org-id'     | The organization ID         | string      |
+| `-o`, `--org`  | The organization            | string      |
+| `--org-id`     | The organization ID         | string      |
 | `-u`, `--user` | The user                    | string      |
 | `--user-id`    | The user ID                 | string      |
 
