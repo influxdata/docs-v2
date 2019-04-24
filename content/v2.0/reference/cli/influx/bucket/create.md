@@ -20,7 +20,6 @@ influx bucket create [flags]
 |:----                |:-----------                                      |:----------: |
 | `-h`, `--help`      | Help for the `create` command                    |             |
 | `-n`, `--name`      | Name of bucket that will be created              | string      |
-| `-o`, `--org`       | Name of the organization that owns the bucket    | string      |
 | `--org-id`          | The ID of the organization that owns the bucket  | string      |
 | `-r`, `--retention` | Duration in nanoseconds data will live in bucket | duration    |
 
