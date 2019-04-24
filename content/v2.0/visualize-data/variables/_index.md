@@ -17,7 +17,7 @@ making it easy to interact with your dashboard cells and explore your data.
 Variables are scoped by organization.
 
 ## Use dashboard variables
-Both [predefined dashboard variables](#predefined-dashboard-variables) and [custom dashboard variables](#manage-custom-variables)
+Both [predefined dashboard variables](#predefined-dashboard-variables) and [custom dashboard variables](#custom-dashboard-variables)
 are stored in a `v` object associated with each dashboard.
 Reference each variable using dot-notation (e.g. `v.variableName`).
 
