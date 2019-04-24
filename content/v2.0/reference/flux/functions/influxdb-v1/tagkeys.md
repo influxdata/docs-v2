@@ -69,4 +69,5 @@ _**Used functions:**
 [range](/v2.0/reference/flux/functions/built-in/transformations/range/),
 [filter](/v2.0/reference/flux/functions/built-in/transformations/filter/),
 [keys](/v2.0/reference/flux/functions/built-in/transformations/keys/),
-[keep](/v2.0/reference/flux/functions/built-in/transformations/keep/)_
+[keep](/v2.0/reference/flux/functions/built-in/transformations/keep/),
+[distinct](/v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/)_
