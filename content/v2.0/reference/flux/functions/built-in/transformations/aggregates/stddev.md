@@ -31,7 +31,7 @@ Defaults to `"_value"`.
 _**Data type:** String_
 
 ### mode
-The standard deviation mode.
+The standard deviation mode or type of standard deviation to calculate.
 Defaults to `"sample"`.
 
 _**Data type:** String_
