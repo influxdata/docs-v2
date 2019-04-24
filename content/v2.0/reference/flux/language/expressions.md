@@ -162,7 +162,7 @@ In either case, only the branch taken is evaluated and only side effects associa
 ConditionalExpression = "if" Expression "then" Expression "else" Expression .
 ```
 
-Example:
+##### Conditional expression example
 ```js
 color = if code == 0 then "green" else if code == 1 then "yellow" else "red"
 ```
