@@ -9,10 +9,24 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.25.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.27.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.27.0 [2019-04-22]
+
+### Features
+- Add `trimSuffix` and `trimPrefix` functions to the strings package.
+- Add support for conditional expressions to compiler.
+- Add conditional expression handling to interpreter.
+
+### Bug fixes
+- Enforce memory and concurrency limits in controller.
+- Format conditional expression.
+- `tagKeys` should include a call to `distinct`.
+
+---
 
 ## v0.26.0 [2019-04-18]
 
