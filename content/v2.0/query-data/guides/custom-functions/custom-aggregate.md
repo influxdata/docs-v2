@@ -135,6 +135,9 @@ it is dropped from the output table.
 {{% /note %}}
 
 ## Custom aggregate function examples
+The following examples apply the principles outlined in [Creating custom functions](/v2.0/query-data/guides/custom-functions)
+to create custom aggregate functions using the `reduce()` function.
+
 
 ### Custom averaging function
 This example illustrates how to create a custom aggregate function that averages values in a table.
