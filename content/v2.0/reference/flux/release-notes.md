@@ -9,10 +9,21 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.27.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.28.0 [2019-04-24]
+
+### Features
+- Allow choosing sample/population mode in `stddev()`.
+
+### Bug fixes
+- Fix `reduce()` so it resets the reduce value to the neutral element value for each new group key
+  and reports an error when two reducers write to the same destination group key.
+
+---
 
 ## v0.27.0 [2019-04-22]
 
