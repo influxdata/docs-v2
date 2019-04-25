@@ -9,16 +9,15 @@ menu:
 weight: 301
 ---
 
-Flux provides a number of built-in [aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/)
-that aggregate data in specific ways.
-However, these built-in functions may not meet your specific needs.
-The [`reduce()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/)
-function provides a way to create custom aggregate functions in Flux.
+To aggregate your data, use the Flux
+[built-in aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/)
+or create custom aggregate functions using the
+[`reduce()`function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/).
 
 ## Aggregate function characteristics
 Aggregate functions all have the same basic characteristics:
 
-- They operate on individual input tables and aggregate a table's records into a single record.
+- They operate on individual input tables and transform all records into a single record.
 - The output table has the same group key as the input table.
 
 ## How reduce() works
@@ -135,14 +134,15 @@ it is dropped from the output table.
 {{% /note %}}
 
 ## Custom aggregate function examples
-The following examples apply the principles outlined in [Creating custom functions](/v2.0/query-data/guides/custom-functions)
-to create custom aggregate functions using the `reduce()` function.
-
+To create custom aggregate functions, use principles outlined in
+[Creating custom functions](/v2.0/query-data/guides/custom-functions)
+and the `reduce()` function.
 
 ### Custom averaging function
 This example illustrates how to create a custom aggregate function that averages values in a table.
-However, the built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/tranformations/aggregates/mean/)
-does the same thing and is much more performant.
+_This is meant for demonstration purposes only.
+The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/tranformations/aggregates/mean/)
+does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
