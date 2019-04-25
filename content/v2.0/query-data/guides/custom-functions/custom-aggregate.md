@@ -136,10 +136,10 @@ it is dropped from the output table.
 ## Custom aggregate function examples
 To create custom aggregate functions, use principles outlined in
 [Creating custom functions](/v2.0/query-data/guides/custom-functions)
-and the `reduce()` function.
+and the `reduce()` function to aggregate rows in each input table.
 
 ### Custom averaging function
-This example illustrates how to create a custom aggregate function that averages values in a table.
+This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
 The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/tranformations/aggregates/mean/)
 does the same thing and is much more performant._
