@@ -9,19 +9,28 @@ menu:
 weight: 103
 ---
 
-Use the `influx` command line interface (CLI) to update an organization.
+Use the `influx` command line interface (CLI) or the InfluxDB user interface (UI) to update an organization.
 
-<!---
+Note that updating an organization's name will affect any assets that reference the organization by name, including the following:
+- Queries
+- Dashboards
+- Tasks
+- Telegraf configurations
+- Client libraries
+
+If you change an organization name, be sure to update the organization in the above places as well.
+
 ## Update an organization in the InfluxDB UI
 
-1. Click the **Influx** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "admin" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click on the organization you want to update in the list.
-3. To update the organization's name, select the **Options** tab.
-4. To manage the organization's members, buckets, dashboards, and tasks, click on the corresponding tabs.
--->
+2. Click the **Org Profile** tab.
+3. Click **Rename**.
+4. In the window that appears, enter a new name for your organization.
+5. Click **Save**.
+
 ## Update an organization using the influx CLI
 
 Use the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
