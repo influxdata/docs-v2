@@ -205,11 +205,11 @@ average = (tables=<-, outputField="average") =>
 {{< /code-tabs-wrapper >}}
 
 ### Aggregate multiple columns
-Built-in aggregate functions only operated on one column.
-To aggregate multiple columns at once, use the `reduce()` function to create a custom aggregate function.
+Built-in aggregate functions only operate on one column.
+Use the `reduce()` function to create a custom aggregate function that aggregates multiple columns.
 
-The following function expects input tables to have `c1_value` and `c2_value` columns
-and generates the average for each.
+The following function expects input tables to have `c1_value` and `c2_value`
+columns and generates an average for each.
 
 ```js
 multiAvg = (tables=<-) =>
