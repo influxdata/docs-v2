@@ -23,18 +23,23 @@ Aggregate functions all have the same basic characteristics:
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
 the [`fn` parameter](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/#fn).
-The function maps keys to specific values using two objects specified by the
-following parameters:
+The `fn` function maps keys to specific values using two [objects](/v2.0/query-data/get-started/syntax-basics/#objects)
+specified by the following parameters:
 
 | Parameter     | Description                                                              |
 |:---------:    |:-----------                                                              |
 | `r`           | An object that represents the row or record.                             |
 | `accumulator` | An object that contains values used in each row's aggregate calculation. |
 
+{{% note %}}
 The `reduce()` function's [`identity` parameter](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/#identity)
 defines the initial `accumulator` object.
+{{% /note %}}
 
-##### Example reduce() function
+### Example reduce() function
+The following example `reduce()` function produces a sum and product of all values
+in an input table.
+
 ```js
 |> reduce(fn: (r, accumulator) => ({
     sum: r._value + accumulator.sum,
@@ -44,23 +49,8 @@ defines the initial `accumulator` object.
 )
 ```
 
-After processing a row, `reduce()` produces an output object and uses it as the
-`accumulator` object when processing the next row.
+To illustrate how this function works, take this simplified table for example:
 
-{{% note %}}
-Because `reduce()` uses the output object as the accumulator when processing the next row,
-keys mapped in the `reduce()` function must match the `identity` object's keys.
-{{% /note %}}
-
-This cycle repeats until `reduce()` processes all records in the table.
-When it processes the last record, it outputs a table containing a single record
-with columns for each mapped key.
-
-### Reduce process example
-The example `reduce()` function [above](#example-reduce-function), which produces
-a sum and product of all values in a table, would work as follows:
-
-##### Sample table
 ```txt
                   _time   _value
 -----------------------  -------
@@ -71,66 +61,80 @@ a sum and product of all values in a table, would work as follows:
 2019-04-23T16:11:29.00Z      3.8
 ```
 
-#### Processing the first row
-`reduce()` uses the row data to define `r` and the `identity` object to define `accumulator`.
+###### Input objects
+The `fn` function uses the data in the first row to define the `r` object.
+It defines the `accumulator` object using the `identity` parameter.
 
+```js
+r           = { _time: 2019-04-23T16:10:49.00Z, _value: 1.6 }
+accumulator = { sum  : 0.0, product : 1.0 }
 ```
-Input Objects
--------------
-r: { _time: 2019-04-23T16:10:49.00Z, _value: 1.6 }
-accumulator: { sum: 0.0, product: 1.0 }
 
-Mappings
---------
+###### Key mappings
+It then uses the `r` and `accumulator` objects to populate values in the key mappings:
+```js
+// sum: r._value + accumulator.sum
 sum: 1.6 + 0.0
-product: 1.6 * 1.0
 
-Output Object
--------------
+// product: r._value * accumulator.product
+product: 1.6 * 1.0
+```
+
+###### Output object
+This produces an output object with the following key value pairs:
+
+```js
 { sum: 1.6, product: 1.6 }
 ```
 
-#### Processing the second row
-`reduce()` uses the output object from the first row as the `accumulator` object
-when processing the second row:
+The function then processes the next row using this **output object** as the `accumulator`.
 
-```
-Input Objects
--------------
-r: { _time: 2019-04-23T16:10:59.00Z, _value: 2.3 }
-accumulator: { sum: 1.6, product: 1.6 }
+{{% note %}}
+Because `reduce()` uses the output object as the `accumulator` when processing the next row,
+keys mapped in the `fn` function must match keys in the `identity` and `accumulator` objects.
+{{% /note %}}
 
-Mappings
---------
+###### Processing the next row
+```js
+// Input objects for the second row
+r           = { _time: 2019-04-23T16:10:59.00Z, _value: 2.3 }
+accumulator = { sum  : 1.6, product : 1.6 }
+
+// Key mappings for the second row
 sum: 2.3 + 1.6
 product: 2.3 * 1.6
 
-Output Object
--------------
+// Output object of the second row
 { sum: 3.9, product: 3.68 }
 ```
 
-#### Processing all other rows
-The cycle continues until all other rows are processed.
-Using the [sample table](#sample-table), the final output object would be:
+It then uses the new output object as the `accumulator` for the next row.
+This cycle continues until all rows in the table are processed.
 
-##### Final output object
-```txt
+##### Final output object and table
+After all records in the table are processed, `reduce()` uses the final output object
+to create a transformed table with one row and columns for each mapped key.
+
+```js
+// Final output object
 { sum: 9.6, product: 11.74656 }
-```
 
-And the output table would look like:
-
-##### Output table
-```txt
+// Output table
  sum    product
 ----  ---------
  9.6   11.74656
 ```
 
 {{% note %}}
-Because `_time` is not part of the group key and is not mapped in the `reduce()` function,
-it is dropped from the output table.
+#### What happened to the \_time column?
+The `reduce()` function only keeps columns that are:
+
+1. Are part of the input table's [group key](/v2.0/query-data/get-started/#group-keys).
+2. Explicitly mapped in the `fn` function.
+
+It drops all other columns.
+Because `_time` is not part of the group key and is not mapped in the `fn` function,
+it isn't included in the output table.
 {{% /note %}}
 
 ## Custom aggregate function examples
@@ -138,7 +142,7 @@ To create custom aggregate functions, use principles outlined in
 [Creating custom functions](/v2.0/query-data/guides/custom-functions)
 and the `reduce()` function to aggregate rows in each input table.
 
-### Custom averaging function
+### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
 The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/tranformations/aggregates/mean/)
@@ -171,12 +175,12 @@ average = (tables=<-, outputField="average") =>
         avg:   accumulator.sum / accumulator.count
       })
     )
-    // Drop the sum and count columns since they are no longer needed
+    // Drop the sum and the count columns since they are no longer needed
     |> drop(columns: ["sum", "count"])
-    // Set the _field column of the output table to whatever
-    // is provided in the outputField parameter
+    // Set the _field column of the output table to to the value
+    // provided in the outputField parameter
     |> set(key: "_field", value: outputField)
-    // Rename to avg column to _value
+    // Rename avg column to _value
     |> rename(columns: {avg: "_value"})
 ```
 {{% /code-tab-content %}}
@@ -206,7 +210,7 @@ average = (tables=<-, outputField="average") =>
 
 ### Aggregate multiple columns
 Built-in aggregate functions only operate on one column.
-Use the `reduce()` function to create a custom aggregate function that aggregates multiple columns.
+Use `reduce()` to create a custom aggregate function that aggregates multiple columns.
 
 The following function expects input tables to have `c1_value` and `c2_value`
 columns and generates an average for each.
@@ -233,8 +237,8 @@ multiAvg = (tables=<-) =>
 ```
 
 ### Aggregate gross and net profit
-This example aggregates gross and net profit.
-It expects `profit` and `expenses` columns in the input tables.
+Use `reduce()` to create a function that aggregates gross and net profit.
+This example expects `profit` and `expenses` columns in the input tables.
 
 ```js
 profitSummary = (tables=<-) =>
