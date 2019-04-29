@@ -18,7 +18,7 @@ Tasks are exported as downloadable JSON files.
     {{< nav-icon "tasks" >}}
 
 2. In the list of tasks, hover over the task you would like to export and click
-   the **{{< icon "gear" >}}** that appears.
+   the **{{< icon "gear" >}}** icon that appears.
 3. Select **Export**.
 4. There are multiple options for downloading or saving the task export file:
     - Click **Download JSON** to download the exported JSON file.

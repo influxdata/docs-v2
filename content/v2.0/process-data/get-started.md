@@ -1,13 +1,15 @@
 ---
-title: Write an InfluxDB task
-seotitle: Write an InfluxDB task that processes data
+title: Get started with InfluxDB tasks
+list_title: Get started with tasks
 description: >
-  How to write an InfluxDB task that processes data in some way, then performs an action
+  Learn the basics of writing an InfluxDB task that processes data and then performs an action
   such as storing the modified data in a new bucket or sending an alert.
+aliases:
+  - /v2.0/process-data/write-a-task/
 v2.0/tags: [tasks]
 menu:
   v2_0:
-    name: Write a task
+    name: Get started with tasks
     parent: Process data
 weight: 101
 ---

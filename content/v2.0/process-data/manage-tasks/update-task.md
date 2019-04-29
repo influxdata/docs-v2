@@ -3,7 +3,7 @@ title: Update a task
 seotitle: Update a task for processing data in InfluxDB
 description: >
   How to update a task that processes data in InfluxDB using the InfluxDB user
-  interface or the 'influx' command line interface.
+  interface or the `influx` command line interface.
 menu:
   v2_0:
     name: Update a task
@@ -25,8 +25,8 @@ To view your tasks, click the **Tasks** icon in the left navigation menu.
 {{< img-hd src="/img/2-0-tasks-create-edit.png" alt="Update a task" />}}
 
 #### Update the status of a task
-In the list of tasks, click the toggle in the **Active** column of the task you
-would like to activate or inactivate.
+In the list of tasks, click the {{< icon "toggle" >}} toggle to the left of the
+task you would like to activate or inactivate.
 
 
 ## Update a task with the influx CLI

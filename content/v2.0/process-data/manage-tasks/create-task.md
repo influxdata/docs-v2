@@ -3,7 +3,7 @@ title: Create a task
 seotitle: Create a task for processing data in InfluxDB
 description: >
   How to create a task that processes data in InfluxDB using the InfluxDB user
-  interface or the 'influx' command line interface.
+  interface or the `influx` command line interface.
 menu:
   v2_0:
     name: Create a task
@@ -14,7 +14,7 @@ weight: 201
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)
 and the `influx` command line interface (CLI).
 
-_This article assumes you have already [written a task](/v2.0/process-data/write-a-task)._
+_This article assumes you have already [written a task](/v2.0/process-data/get-started)._
 
 ## Create a task in the InfluxDB UI
 The InfluxDB UI provides multiple ways to create a task:
@@ -22,6 +22,8 @@ The InfluxDB UI provides multiple ways to create a task:
 - [Create a task from the Data Explorer](#create-a-task-from-the-data-explorer)
 - [Create a task in the Task UI](#create-a-task-in-the-task-ui)
 - [Import a task](#import-a-task)
+- [Create a task from a template](#create-a-task-from-a-template)
+- [Clone a task](#clone-a-task)
 
 ### Create a task from the Data Explorer
 1. Click on the **Data Explorer** icon in the left navigation menu.
@@ -41,11 +43,12 @@ The InfluxDB UI provides multiple ways to create a task:
 
     {{< nav-icon "tasks" >}}
 
-2. Click **+ Create Task** in the upper right.
-3. In the left panel, specify the task options.
+2. Click **{{< icon "plus" >}} Create Task** in the upper right.
+3. Select **New Task**.
+4. In the left panel, specify the task options.
    See [Task options](/v2.0/process-data/task-options)for detailed information about each option.
-4. In the right panel, enter your task script.
-5. Click **Save** in the upper right.
+5. In the right panel, enter your task script.
+6. Click **Save** in the upper right.
 
 {{< img-hd src="/img/2-0-tasks-create-edit.png" title="Create a task" />}}
 
@@ -56,8 +59,19 @@ The InfluxDB UI provides multiple ways to create a task:
 
 2. Click **+ Create Task** in the upper right.
 3. Select **Import Task**.
-3. Drag and drop or select a file to upload.
-4. Click **Import JSON as Task**.
+4. Upload a JSON task file by either dragging and dropping it in the specified area
+   or click the area to select a file to upload. Select the **JSON** option to paste
+   in raw task JSON.
+5. Click **Import JSON as Task**.
+
+### Create a task from a template
+1. Click on the **Settings** icon in the left navigation menu.
+
+    {{< nav-icon "Settings" >}}
+
+2. Select **Templates**.
+3. Hover over the template to use to create the task and click **Create**.
+
 
 ### Clone a task
 1. Click on the **Tasks** icon in the left navigation menu.
