@@ -3,6 +3,7 @@
   .inline {
     margin: 0 .15rem;
     &.middle:before { vertical-align: middle; }
+    &.top:before { vertical-align: text-top; }
     &.xsmall:before { font-size: .8rem; }
     &.small:before { font-size: .9rem; }
     &.large:before { font-size: 1.1rem; }
