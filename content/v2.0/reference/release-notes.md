@@ -7,6 +7,26 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.9 [2019-05-??]
+
+NOTE: This will remove all tasks from your InfluxDB v2.0 instance.
+
+### Features
+- Set autorefresh of dashboard to pause if absolute time range is selected
+- Switch task back end to a more modular and flexible system
+- Add org profile tab with ability to edit organization name
+- Add org name to dahboard page title
+- Add cautioning to bucket renaming
+- Add option to generate all access token in tokens tab
+- Add option to generate read/write token in tokens tab
+
+### Bug Fixes
+- Fixed scroll clipping found in label editing flow
+- Prevent overlapping text and dot in time range dropdown
+- Updated link in notes cell to a more useful site
+- Show error message when adding line protocol
+- Update UI Flux function documentation
+
 ## v2.0.0-alpha.8 [2019-04-12]
 
 ### Features
