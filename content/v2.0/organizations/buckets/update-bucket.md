@@ -8,9 +8,17 @@ menu:
     parent: Manage buckets
 weight: 202
 ---
+Use the `influx` command line interface (CLI) or the InfluxDB user interface (UI) to update a bucket.
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to update a bucket.
+Note that updating an bucket's name will affect any assets that reference the bucket by name, including the following:
+- Queries
+- Dashboards
+- Tasks
+- Telegraf configurations
+- Client libraries
+
+If you change a bucket name, be sure to update the bucket in the above places as well.
+
 
 ## Update a bucket in the InfluxDB UI
 
