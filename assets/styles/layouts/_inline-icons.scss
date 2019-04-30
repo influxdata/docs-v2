@@ -21,6 +21,28 @@
       padding-left: .28rem;
       line-height: 1.25rem;
     }
+
+    &.ui-toggle {
+      display: inline-block;
+      position: relative;
+      width: 34px;
+      height: 22px;
+      background: #1C1C21;
+      border: 2px solid #383846;
+      border-radius: .7rem;
+      vertical-align: text-bottom;
+
+      .circle {
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        height: 12px;
+        width: 12px;
+        background: #22ADF6;
+        top: 3px;
+        right: 3px;
+      }
+    }
   }
 
   .nav-icon {
