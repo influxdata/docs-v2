@@ -19,5 +19,5 @@ Update an existing dashboard variable's name or JSON content in the InfluxDB use
 
 2. Select the **Variables** tab.
 3. Click on a variable's name from the list.
-4. Update the variable's name and query.
+4. Update the variable's name, type, and associated information.
 5. Click **Submit**.

@@ -15,6 +15,11 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 
 ### Create a variable in the Data Explorer
 
+{{% note %}}
+Only [Query variables](/v2.0/visualize-data/variables/variable-types/#query)
+can be created from the Data Explorer.
+{{% /note %}}
+
 1. Click the **Data Explorer** icon in the sidebar.
 
     {{< nav-icon "data-explorer" >}}
@@ -35,8 +40,9 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 2. Select the **Variables** tab.
 3. Click **+Create Variable**.
 4. Enter a name for your variable.
-5. Enter your variable.
-6. Click **Create**.
+5. Select your [variable type](/v2.0/visualize-data/variables/variable-types/).
+6. Enter the appropriate variable information.
+7. Click **Create**.
 
 ## Import a variable
 

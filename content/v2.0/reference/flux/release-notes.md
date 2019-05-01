@@ -9,10 +9,24 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.28.2 [2019-04-26]
+
+### Bug fixes
+- Preallocate data when constructing a new string array.
+
+---
+
+## v0.28.1 [2019-04-25]
+
+### Bug fixes
+- Make executor respect memory limit from caller.
+
+---
 
 ## v0.28.0 [2019-04-24]
 

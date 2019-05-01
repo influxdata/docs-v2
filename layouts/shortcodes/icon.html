@@ -45,7 +45,7 @@
 {{ else if eq $icon "search" }}
 <span class="inline icon-ui-search middle small"></span>
 {{ else if or (eq $icon "trash") (eq $icon "trashcan") (eq $icon "delete") }}
-<span class="inline icon-ui-trash small"></span>
+<span class="inline icon-ui-trash top small"></span>
 {{ else if eq $icon "triangle" }}
 <span class="inline icon-ui-triangle middle"></span>
 {{ else if eq $icon "cloud" }}
@@ -56,4 +56,6 @@
 <span class="inline icon-ui-chat large"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>
+{{ else if eq $icon "toggle" }}
+<span class="inline ui-toggle"><span class="circle"></span></span>
 {{ end }}
