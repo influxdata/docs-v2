@@ -19,7 +19,7 @@ NOTE: This will remove all tasks from your InfluxDB v2.0 instance.
 - Add cautioning to bucket renaming.
 - Add option to generate all access token in tokens tab.
 - Add option to generate read/write token in tokens tab.
- - Add new Local Metrics Dashboard template that is created during Quick Start.
+- Add new Local Metrics Dashboard template that is created during Quick Start.
 
 ### Bug Fixes
 - Fixed scroll clipping found in label editing flow.
@@ -27,6 +27,13 @@ NOTE: This will remove all tasks from your InfluxDB v2.0 instance.
 - Updated link in notes cell to a more useful site.
 - Show error message when adding line protocol.
 - Update UI Flux function documentation.
+- Update System template to support math with floats.
+- Fix the window function documentation.
+- Fix typo in the range Flux function example.
+- Update the systemTime function to use system.time.
+
+### UI Improvements
+- Add general polish and empty states to Create Dashboard from Template overlay.
 
 ## v2.0.0-alpha.8 [2019-04-12]
 
