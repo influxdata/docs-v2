@@ -21,6 +21,27 @@ influx [flags]
 influx [command]
 ```
 
+{{% note %}}
+#### Store your InfluxDB authentication token
+To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/)
+with each `influx` command, use one of the following methods to store your token:
+
+1.  Set the `INFLUX_TOKEN` environment variable using your token.
+
+    ```bash
+    export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
+    ```
+
+2.  Store your token in `~/.influxdbv2/credentials`.
+    _The content of the `credentials` file should be only your token._
+
+    _**Note:** If you [set up InfluxDB using the CLI](/v2.0/reference/cli/influx/setup),
+    InfluxDB stores your token in the credentials files automatically._
+
+_See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
+retrieving authentication tokens._
+{{% /note %}}
+
 ## Commands
 | Command                                     | Description                                          |
 |:-------                                     |:-----------                                          |
@@ -28,6 +49,7 @@ influx [command]
 | [bucket](/v2.0/reference/cli/influx/bucket) | Bucket management commands                           |
 | [help](/v2.0/reference/cli/influx/help)     | Help about any command                               |
 | [org](/v2.0/reference/cli/influx/org)       | Organization management commands                     |
+| [ping](/v2.0/reference/cli/influx/ping)     | Check the InfluxDB `/health` endpoint                |
 | [query](/v2.0/reference/cli/influx/query)   | Execute a Flux query                                 |
 | [repl](/v2.0/reference/cli/influx/repl)     | Interactive REPL (read-eval-print-loop)              |
 | [setup](/v2.0/reference/cli/influx/setup)   | Create default username, password, org, bucket, etc. |

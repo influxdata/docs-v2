@@ -14,11 +14,11 @@ to delete a bucket.
 
 ## Delete a bucket in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click on the name of an organization, then select the **Buckets** tab.
+2. Select the **Buckets** tab.
 3. Hover over the bucket you would like to delete.
 4. Click **Delete** and **Confirm** to delete the bucket.
 

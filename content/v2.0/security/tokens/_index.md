@@ -1,17 +1,19 @@
 ---
-title: Manage tokens
-seotitle: Manage tokens in InfluxDB
+title: Manage authentication tokens
+seotitle: Manage authentication tokens in InfluxDB
 description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
-v2.0/tags: [tokens, authentication]
+aliases:
+  - /v2.0/users/tokens
+v2.0/tags: [tokens, authentication, security]
 menu:
   v2_0:
     name: Manage tokens
-    parent: Manage users
-weight: 105
+    parent: Security & authorization
+weight: 101
 ---
 
 InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
-A token identifies InfluxDB permissions.
+A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
 The following articles provide information about managing authentication tokens.
 

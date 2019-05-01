@@ -1,13 +1,15 @@
 ---
-title: Write an InfluxDB task
-seotitle: Write an InfluxDB task that processes data
+title: Get started with InfluxDB tasks
+list_title: Get started with tasks
 description: >
-  How to write an InfluxDB task that processes data in some way, then performs an action
+  Learn the basics of writing an InfluxDB task that processes data, and then performs an action,
   such as storing the modified data in a new bucket or sending an alert.
+aliases:
+  - /v2.0/process-data/write-a-task/
 v2.0/tags: [tasks]
 menu:
   v2_0:
-    name: Write a task
+    name: Get started with tasks
     parent: Process data
 weight: 101
 ---
@@ -62,7 +64,7 @@ the required time range and any relevant filters.
 data = from(bucket: "telegraf/default")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r.host == "myHost"
   )
 ```
@@ -111,7 +113,10 @@ to send the transformed data to another bucket:
 ```
 
 {{% note %}}
-You cannot write to the same bucket you are reading from.
+#### Important notes
+- You cannot write to the same bucket you are reading from.
+- In order to write data into InfluxDB, you must have `_time`, `_measurement`,
+  `_field`, and `_value` columns.
 {{% /note %}}
 
 ## Full example task script
@@ -132,7 +137,7 @@ option task = {
 data = from(bucket: "telegraf/default")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
-    r._measurement == "mem" AND
+    r._measurement == "mem" and
     r.host == "myHost"
   )
 

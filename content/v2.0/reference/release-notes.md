@@ -7,6 +7,97 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.9 [2019-05-01]
+
+
+{{% warn %}}
+**This will remove all tasks from your InfluxDB v2.0 instance.**
+
+Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+{{% /warn %}}
+
+### Features
+- Set autorefresh of dashboard to pause if absolute time range is selected.
+- Switch task back end to a more modular and flexible system.
+- Add org profile tab with ability to edit organization name.
+- Add org name to dashboard page title.
+- Add cautioning to bucket renaming.
+- Add option to generate all access token in tokens tab.
+- Add option to generate read/write token in tokens tab.
+- Add new Local Metrics Dashboard template that is created during Quick Start.
+
+### Bug Fixes
+- Fixed scroll clipping found in label editing flow.
+- Prevent overlapping text and dot in time range dropdown.
+- Updated link in notes cell to a more useful site.
+- Show error message when adding line protocol.
+- Update UI Flux function documentation.
+- Update System template to support math with floats.
+- Fix the `window` function documentation.
+- Fix typo in the `range` Flux function example.
+- Update the `systemTime` function to use `system.time`.
+
+### UI Improvements
+- Add general polish and empty states to Create Dashboard from Template overlay.
+
+---
+
+## v2.0.0-alpha.8 [2019-04-12]
+
+### Features
+- Add the ability to edit token's description.
+- Add the option to create a dashboard from a template.
+- Add the ability to add labels on variables.
+- Add switch organizations dropdown to home navigation menu item.
+- Add create org to side nav.
+- Add "Getting Started with Flux" template.
+- Update to Flux v0.25.0.
+
+### Bug Fixes
+- Update shift to timeShift in Flux functions sidebar.
+
+### UI Improvements
+- Update cursor to grab when hovering draggable areas.
+- Sync note editor text and preview scrolling.
+- Add the ability to create a bucket when creating an organization.
+
+---
+
+## v2.0.0-alpha.7 [2019-03-28]
+
+### Features
+- Insert Flux function near cursor in Flux Editor.
+- Enable the use of variables in the Data Explorer and Cell Editor Overlay.
+- Add a variable control bar to dashboards to select values for variables.
+- Add ability to add variable to script from the side menu.
+- Use time range for meta queries in Data Explorer and Cell Editor Overlay.
+- Fix screen tearing bug in raw data view.
+- Add copy to clipboard button to export overlays.
+- Enable copying error messages to the clipboard from dashboard cells.
+- Add the ability to update token's status in token list.
+- Allow variables to be re-ordered within control bar on a dashboard.
+- Add the ability to delete a template.
+- Save user preference for variable control bar visibility and default to visible.
+- Add the ability to clone a template.
+- Add the ability to import a variable.
+
+### Bug Fixes
+- Fix mismatch in bucket row and header.
+- Allows user to edit note on cell.
+- Fix empty state styles in scrapers in org view.
+- Fix bucket creation error when changing retention rules types.
+- Fix task creation error when switching schedule types.
+- Fix hidden horizontal scrollbars in flux raw data view.
+- Fix screen tearing bug in raw data View.
+- Fix routing loop.
+
+### UI Improvements
+- Move bucket selection in the query builder to the first card in the list.
+- Ensure editor is automatically focused in Note Editor.
+- Add ability to edit a template's name.
+
+---
+
 ## v2.0.0-alpha.6 [2019-03-15]
 
 ### Release Notes
@@ -41,6 +132,7 @@ Once completed, `v2.0.0-alpha.6` can be started.
 ### UI Improvements
 - Fine tune keyboard interactions for managing labels from a resource card.
 
+---
 
 ## v2.0.0-alpha.5 [2019-03-08]
 
@@ -59,7 +151,6 @@ rm -r ~/.influxdbv2/engine
 
 Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 {{% /warn %}}
-
 
 ### Features
 - Add labels to cloned tasks.
@@ -80,6 +171,7 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 - Show warning in Telegraf and scraper lists when user has no buckets.
 - Streamline label addition, removal, and creation from the dashboards list.
 
+---
 
 ## v2.0.0-alpha.4 [2019-02-21]
 
@@ -102,6 +194,8 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 - Add notifications to buckets page for created/deleted/updated buckets.
 - Update the admin page to display error for password length.
 
+---
+
 ## v2.0.0-alpha.3 [2019-02-15]
 
 ### Features
@@ -119,6 +213,8 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 ### UI Improvements
 - Move the download Telegraf config button to view config overlay.
 - Combine permissions for user by type.
+
+---
 
 ## v2.0.0-alpha.2 [2019-02-07]
 
@@ -141,6 +237,8 @@ Once completed, InfluxDB v2.0.0-alpha.5 can be started.
 - Show checkbox on "Save As" button in data explorer.
 - Make collectors plugins side bar visible in only the configure step.
 - Swap retention policies on Create bucket page.
+
+---
 
 ## v2.0.0-alpha.1 [2019-01-23]
 

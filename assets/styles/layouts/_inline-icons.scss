@@ -3,6 +3,7 @@
   .inline {
     margin: 0 .15rem;
     &.middle:before { vertical-align: middle; }
+    &.top:before { vertical-align: text-top; }
     &.xsmall:before { font-size: .8rem; }
     &.small:before { font-size: .9rem; }
     &.large:before { font-size: 1.1rem; }
@@ -19,7 +20,29 @@
       width: 20px;
       height: 20px;
       padding-left: .28rem;
-      line-height: 1.35rem;
+      line-height: 1.25rem;
+    }
+
+    &.ui-toggle {
+      display: inline-block;
+      position: relative;
+      width: 34px;
+      height: 22px;
+      background: #1C1C21;
+      border: 2px solid #383846;
+      border-radius: .7rem;
+      vertical-align: text-bottom;
+
+      .circle {
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        height: 12px;
+        width: 12px;
+        background: #22ADF6;
+        top: 3px;
+        right: 3px;
+      }
     }
   }
 

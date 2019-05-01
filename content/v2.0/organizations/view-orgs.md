@@ -14,11 +14,11 @@ to view organizations.
 
 ## View organizations in the InfluxDB UI
 
-1. Click the **Organizations** tab in the navigation bar.
+*  Click the **Influx** icon in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "admin" >}}
 
-    The list of organizations appears.
+* Select **Switch Organizations**. The list of organizations appears.
 
 
 ## View organizations using the influx CLI
@@ -33,3 +33,25 @@ influx org find
 Filtering options such as filtering by name or ID are available.
 See the [`influx org find` documentation](/v2.0/reference/cli/influx/org/find)
 for information about other available flags.
+
+## View your organization ID
+Use the InfluxDB UI or `influx` CLI to view your organization ID.
+
+### Organization ID in the UI
+After logging in to the InfluxDB UI, your organization ID appears in the URL.
+
+<pre class="highlight">
+http://localhost:9999/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
+</pre>
+
+
+### Organization ID in the CLI
+Use [`influx org find`](#view-organizations-using-the-influx-cli) to view your organization ID.
+
+```sh
+> influx org find
+
+ID                  Name
+03a2bbf46249a000    org-1
+03ace3a859669000    org-2
+```

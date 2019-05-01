@@ -17,10 +17,10 @@ Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
 ### Filter the list of tasks
 
-1. Enable the **Show Inactive** option to include inactive tasks in the list.
-2. Enter text in the **Filter tasks by name** field to search for tasks by name.
-3. Select an organization from the **All Organizations** dropdown to filter the list by organization.
-4. Click on the heading of any column to sort by that field.
+1. Click the **Show Inactive** {{< icon "toggle" >}} toggle to include or exclude
+   inactive tasks in the list.
+2. Enter text in the **Filter tasks** field to search for tasks by name or label.
+3. Click on the heading of any column to sort by that field.
 
 ## View tasks with the influx CLI
 Use the `influx task find` command to return a list of created tasks.

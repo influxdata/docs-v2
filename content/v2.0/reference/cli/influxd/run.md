@@ -4,7 +4,6 @@ description: The `influxd run` command is the default `influxd` command and star
 v2.0/tags: [influxd, cli]
 menu:
   v2_0_ref:
-    name: run
     parent: influxd
 weight: 201
 ---
@@ -38,7 +37,6 @@ influxd run
 | `-h`, `--help`         | Help for `run`                                                                     |            |
 | `--http-bind-address`  | Bind address for the REST HTTP API (default `:9999`)                                   | string     |
 | `--log-level`          | Supported log levels are debug, info, and error (default `info`)                       | string     |
-| `--protos-path`        | Path to protos on the filesystem (default `~/.influxdbv2/protos`)                      | string     |
 | `--reporting-disabled` | Disable sending telemetry data to https://telemetry.influxdata.com                     |            |
 | `--secret-store`       | Data store for secrets (bolt or vault) (default `bolt`)                                | string     |
 | `--store`              | Data store for REST resources (bolt or memory) (default `bolt`)                        | string     |

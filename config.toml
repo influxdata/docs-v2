@@ -15,6 +15,7 @@ preserveTaxonomyNames = true
 # Markdown rendering options
 [blackfriday]
 hrefTargetBlank = true
+smartDashes = false
 
 # Menu items without actual pages
 [menu]

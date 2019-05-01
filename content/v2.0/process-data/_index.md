@@ -11,17 +11,16 @@ weight: 5
 v2.0/tags: [tasks]
 ---
 
-InfluxDB's _**task engine**_ is designed for processing and analyzing data.
-A task is a scheduled Flux query that take a stream of input data, modify or
-analyze it in some way, then perform an action.
-Examples include data downsampling, anomaly detection _(Coming)_, alerting _(Coming)_, etc.
+Process and analyze your data with tasks in the InfluxDB **task engine**. Use tasks (scheduled Flux queries)
+to input a data stream and then analyze, modify, and act on the data accordingly.
+
+Discover how to create and manage tasks using the InfluxDB user interface (UI)
+and the `influx` command line interface (CLI).
+Find examples of data downsampling, anomaly detection _(Coming)_, alerting
+_(Coming)_, and other common tasks.
 
 {{% note %}}
-Tasks are a replacement for InfluxDB v1.x's continuous queries.
+Tasks replace InfluxDB v1.x continuous queries.
 {{% /note %}}
-
-The following articles explain how to configure and build tasks using the InfluxDB user interface (UI)
-and via raw Flux scripts with the `influx` command line interface (CLI).
-They also provide examples of commonly used tasks.
 
 {{< children >}}

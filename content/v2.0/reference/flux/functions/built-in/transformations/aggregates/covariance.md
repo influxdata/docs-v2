@@ -22,13 +22,9 @@ covariance(columns: ["column_x", "column_y"], pearsonr: false, valueDst: "_value
 ## Parameters
 
 ### columns
-A list of columns on which to operate.
+A list of **two columns** on which to operate. <span class="required">Required</span>
 
 _**Data type:** Array of strings_
-
-{{% note %}}
-Exactly two columns must be provided to the `columns` property.
-{{% /note %}}
 
 ### pearsonr
 Indicates whether the result should be normalized to be the Pearson R coefficient.

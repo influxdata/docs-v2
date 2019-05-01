@@ -8,6 +8,7 @@ menu:
     name: Update a dashboard
     parent: Manage dashboards
 weight: 202
+draft: true
 ---
 
 **Notes:**

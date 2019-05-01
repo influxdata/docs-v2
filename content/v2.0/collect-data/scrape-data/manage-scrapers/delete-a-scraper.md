@@ -11,12 +11,11 @@ weight: 303
 Delete a scraper from the InfluxDB user interface (UI).
 
 ## Delete a scraper from the InfluxDB UI
-1. Click **Organizations** in the left navigation menu.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. In the list of organizations, click the name of your organization.
-3. Click the **Scrapers** tab. A listing of any existing scrapers appears with the
+2. Click the **Scrapers** tab. A listing of any existing scrapers appears with the
    **Name**, **URL**, and **BUCKET** for each scraper.
-4. Hover over the scraper you want to delete and click **Delete**.
-5. Click **Confirm**.
+3. Hover over the scraper you want to delete and click **Delete**.
+4. Click **Confirm**.

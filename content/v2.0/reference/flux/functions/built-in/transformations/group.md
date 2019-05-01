@@ -12,6 +12,7 @@ weight: 401
 
 The `group()` function groups records based on their values for specific columns.
 It produces tables with new group keys based on provided properties.
+Specify an empty array of columns to ungroup data or merge all input tables into a single output table.
 
 _**Function type:** Transformation_
 
@@ -69,8 +70,9 @@ from(bucket: "telegraf/autogen")
   |> group(columns: ["_time"], mode: "except")
 ```
 
-###### Remove all grouping
+###### Ungroup data
 ```js
+// Merge all tables into a single table
 from(bucket: "telegraf/autogen")
   |> range(start: -30m)
   |> group()

@@ -21,6 +21,7 @@ influx task find [flags]
 | `-h`, `--help`    | Help for `find`                             |             |
 | `-i`, `--id`      | Task ID                                     | string      |
 | `--limit`         | The number of tasks to find (default `100`) | integer     |
+| `--org`           | Task organization name                      | string      |
 | `--org-id`        | Task organization ID                        | string      |
 | `-n`, `--user-id` | Task owner ID                               | string      |
 

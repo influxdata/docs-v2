@@ -12,16 +12,11 @@ weight: 301
 
 View Telegraf configuration information in the InfluxDB user interface (UI):
 
-1. Click **Organizations** in the left navigation menu.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Click the **Name** of the organization that owns the configuration you want to delete.
-3. Click the **Telegraf** tab.
-4. Hover over a configuration to view options.
-
-    {{< img-hd src="/img/2-0-telegraf-config-view.png" />}}
-
+2. Click the **Telegraf** tab.
 
 ### View and download the telegraf.conf
 To view the actual `telegraf.conf` associated with the configuration,

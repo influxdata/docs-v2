@@ -1,6 +1,5 @@
 ---
 title: influxd - InfluxDB daemon
-seotitle: influxd - InfluxDB daemon
 description: The influxd daemon starts and runs all the processes necessary for InfluxDB to function.
 v2.0/tags: [influxd, cli]
 menu:
@@ -21,9 +20,11 @@ influxd [command]
 
 ## Commands
 
-| Command                                | Description                        |
-|:-------                                |:-----------                        |
-| [run](/v2.0/reference/cli/influxd/run) | Start the influxd server (default) |
+| Command                                          | Description                                       |
+|:-------                                          |:-----------                                       |
+| [generate](/v2.0/reference/cli/influxd/generate) | Generate time series data sets using TOML schema. |
+| [inspect](/v2.0/reference/cli/influxd/inspect)   | Inspect on-disk database data.                    |
+| [run](/v2.0/reference/cli/influxd/run)           | Start the influxd server _**(default)**_          |
 
 ## Flags
 
@@ -36,7 +37,6 @@ influxd [command]
 | `-h`, `--help`         | Help for `influxd`                                                                     |            |
 | `--http-bind-address`  | Bind address for the REST HTTP API (default `:9999`)                                   | string     |
 | `--log-level`          | Supported log levels are debug, info, and error (default `info`)                       | string     |
-| `--protos-path`        | Path to protos on the filesystem (default `~/.influxdbv2/protos`)                      | string     |
 | `--reporting-disabled` | Disable sending telemetry data to https://telemetry.influxdata.com                     |            |
 | `--secret-store`       | Data store for secrets (bolt or vault) (default `bolt`)                                | string     |
 | `--store`              | Data store for REST resources (bolt or memory) (default `bolt`)                        | string     |

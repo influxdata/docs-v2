@@ -11,6 +11,7 @@ weight: 501
 ---
 
 The `distinct()` function returns the unique values for a given column.
+The `_value` of each output record is set to the distinct value in the specified column.
 `null` is considered its own distinct value if it is present.
 
 _**Function type:** Selector_  

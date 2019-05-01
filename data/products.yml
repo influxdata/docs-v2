@@ -1,8 +1,9 @@
 enterprise:
-  name: "InfluxDB 2.0 Enterprise"
+  name: "InfluxDB Enterprise 2"
+  shortname: "InfluxDB Enterprise"
   link: "#"
 
 cloud:
-  name: "InfluxCloud 2.0 Beta"
-  shortname: "InfluxCloud"
+  name: "InfluxDB Cloud 2 Beta"
+  shortname: "InfluxDB Cloud"
   link: "https://www.influxdata.com/influxcloud2beta/"

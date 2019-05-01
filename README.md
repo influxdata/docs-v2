@@ -1,10 +1,8 @@
-# InfluxDB v2.0 Documentation
-This is the repository contains the InfluxDB v2.x documentation that will be
-accessible at [docs.influxdata.com](https://docs.influxdata.com).
+# InfluxDB 2.0 Documentation
+This repository contains the InfluxDB 2.x documentation published at [docs.influxdata.com](https://docs.influxdata.com).
 
 ## Contributing
-We welcome and encourage community contributions to the InfluxData See our [Contribution guidelines](CONTRIBUTING.md) for information
-about contributing to the InfluxData documentation.
+We welcome and encourage community contributions. For information about contributing to the InfluxData documentation, see [Contribution guidelines](CONTRIBUTING.md).
 
 ## Run the docs locally
 The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site

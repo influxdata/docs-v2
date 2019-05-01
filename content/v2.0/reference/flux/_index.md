@@ -5,7 +5,7 @@ v2.0/tags: [flux]
 menu:
   v2_0_ref:
     name: Flux query language
-weight: 3
+weight: 4
 ---
 
 The following articles are meant as a reference for Flux functions and the

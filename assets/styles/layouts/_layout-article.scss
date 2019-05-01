@@ -135,6 +135,7 @@
     &:not(:last-child) {
       > p:only-child{ margin-bottom: 0; }
     }
+    ul,ol { margin: -.5rem 0 1rem;}
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
@@ -280,6 +281,10 @@
     border-style: solid;
     border-radius: 0 $border-radius $border-radius 0;
     font-size: .95rem;
+
+    ul,ol {
+      &:last-child { margin-bottom: 1.85rem; }
+    }
   }
 
   blockquote {
@@ -441,6 +446,10 @@
       a {
         color: $article-cloud-link;
         &:hover { color: $article-cloud-link-hover; }
+      }
+      code, pre {
+        color: $article-cloud-code;
+        background: $article-cloud-code-bg;
       }
     }
     &-flag {
@@ -694,6 +703,14 @@
       color: rgba($article-text, .65);
       font-size: .8rem;
     }
+  }
+
+  //////////////////////////////// Miscellaneous ///////////////////////////////
+
+  .required {
+    color:#FF8564;
+    font-weight:700;
+    font-style: italic;
   }
 }
 
