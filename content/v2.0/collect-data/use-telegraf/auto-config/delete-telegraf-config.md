@@ -15,8 +15,8 @@ To delete a Telegraf configuration:
     {{< nav-icon "settings" >}}
 
 2. Click the **Telegraf** tab.
-3. Hover over the configuration you want to delete and click **Delete** on the far right.
-4. Click **Confirm**.
+3. Hover over the configuration you want to delete, click the **{{< icon "trash" >}}**
+   icon, and **Delete**.
 
     {{< img-hd src="/img/2-0-telegraf-config-delete.png" />}}
 

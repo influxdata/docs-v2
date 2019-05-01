@@ -9,10 +9,87 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.25.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.3**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.28.3 [2019-05-01]
+
+### Bug fixes
+
+- Fix request results labels to count runtime errors.
+- An error when joining could result in two calls to finish.
+
+---
+
+## v0.28.2 [2019-04-26]
+
+### Bug fixes
+- Preallocate data when constructing a new string array.
+
+---
+
+## v0.28.1 [2019-04-25]
+
+### Bug fixes
+- Make executor respect memory limit from caller.
+
+---
+
+## v0.28.0 [2019-04-24]
+
+### Features
+- Allow choosing sample/population mode in `stddev()`.
+
+### Bug fixes
+- Fix `reduce()` so it resets the reduce value to the neutral element value for each new group key
+  and reports an error when two reducers write to the same destination group key.
+
+---
+
+## v0.27.0 [2019-04-22]
+
+### Features
+- Add `trimSuffix` and `trimPrefix` functions to the strings package.
+- Add support for conditional expressions to compiler.
+- Add conditional expression handling to interpreter.
+
+### Bug fixes
+- Enforce memory and concurrency limits in controller.
+- Format conditional expression.
+- `tagKeys` should include a call to `distinct`.
+
+---
+
+## v0.26.0 [2019-04-18]
+
+### Breaking changes
+- Aggregates now accept only a `column` parameter. `columns` not used.
+
+### Features
+- Add handling for conditional expressions to type inference.
+- Add `if`/`then`/`else` syntax to Flux parser.
+- Added a WalkIR function that external programs can use to traverse an opSpec structure.
+- Add planner options to compile options.
+- Add example on how to use Flux as a library.
+- `duplicate()` will now overwrite a column if the as label already exists.
+
+#### Bug fixes
+- Format right child with good parentheses.
+- Make staticcheck pass.
+- Rename `json` tag so go vet passes.
+- The controller pump could reference a nil pointer.
+- Create a DependenciesAwareProgram so controller can assign dependencies.
+- Make `Program.Start` start execution synchronously.
+- Read the metadata channel in a separate goroutine.
+- Remove dead code in controller so `staticcheck` passes.
+- Allow Flux unit tests to pass.
+- Require a Github token to perform a release.
+- Change example name to make go vet pass.
+- Make `csv.from` return decode error.
+
+---
 
 ## v0.25.0 [2019-04-08]
 

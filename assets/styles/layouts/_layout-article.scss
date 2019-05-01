@@ -135,6 +135,7 @@
     &:not(:last-child) {
       > p:only-child{ margin-bottom: 0; }
     }
+    ul,ol { margin: -.5rem 0 1rem;}
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
@@ -702,6 +703,14 @@
       color: rgba($article-text, .65);
       font-size: .8rem;
     }
+  }
+
+  //////////////////////////////// Miscellaneous ///////////////////////////////
+
+  .required {
+    color:#FF8564;
+    font-weight:700;
+    font-style: italic;
   }
 }
 

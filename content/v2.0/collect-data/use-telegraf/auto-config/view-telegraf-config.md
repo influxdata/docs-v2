@@ -17,10 +17,6 @@ View Telegraf configuration information in the InfluxDB user interface (UI):
     {{< nav-icon "settings" >}}
 
 2. Click the **Telegraf** tab.
-3. Hover over a configuration to view options.
-
-    {{< img-hd src="/img/2-0-telegraf-config-view.png" />}}
-
 
 ### View and download the telegraf.conf
 To view the actual `telegraf.conf` associated with the configuration,

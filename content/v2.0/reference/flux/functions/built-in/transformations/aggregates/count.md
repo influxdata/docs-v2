@@ -1,6 +1,6 @@
 ---
 title: count() function
-description: The `count()` function outputs the number of non-null records in each aggregated column.
+description: The `count()` function outputs the number of non-null records in a column.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/count
 menu:
@@ -10,23 +10,23 @@ menu:
 weight: 501
 ---
 
-The `count()` function outputs the number of records in each aggregated column.
+The `count()` function outputs the number of records in a column.
 It counts both null and non-null records.
 
 _**Function type:** Aggregate_  
 _**Output data type:** Integer_
 
 ```js
-count(columns: ["_value"])
+count(column: "_value")
 ```
 
 ## Parameters
 
-### columns
-A list of columns on which to operate
-Defaults to `["_value"]`.
+### column
+The column on which to operate.
+Defaults to `"_value"`.
 
-_**Data type: Array of strings**_
+_**Data type: String**_
 
 ## Examples
 ```js
@@ -38,7 +38,7 @@ from(bucket: "telegraf/autogen")
 ```js
 from(bucket: "telegraf/autogen")
   |> range(start: -5m)
-  |> count(columns: ["_value"])
+  |> count(column: "_value")
 ```
 
 <hr style="margin-top:4rem"/>

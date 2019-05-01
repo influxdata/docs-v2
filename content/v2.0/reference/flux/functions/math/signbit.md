@@ -23,6 +23,6 @@ math.signbit(x: -1.2)
 ## Parameters
 
 ### x
-The value used in the operation.
+The value used in the evaluation.
 
 _**Data type:** Float_

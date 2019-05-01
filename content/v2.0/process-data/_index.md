@@ -11,14 +11,16 @@ weight: 5
 v2.0/tags: [tasks]
 ---
 
-Process and analyze your data with tasks in the InfluxDB _**task engine**. Use tasks (scheduled Flux queries)
+Process and analyze your data with tasks in the InfluxDB **task engine**. Use tasks (scheduled Flux queries)
 to input a data stream and then analyze, modify, and act on the data accordingly.
 
-Discover how to configure and build tasks using the InfluxDB user interface (UI) and the `influx` command line interface (CLI). 
-Find examples of data downsampling, anomaly detection_(Coming)_, alerting _(Coming)_, and other common tasks.
+Discover how to create and manage tasks using the InfluxDB user interface (UI)
+and the `influx` command line interface (CLI).
+Find examples of data downsampling, anomaly detection _(Coming)_, alerting
+_(Coming)_, and other common tasks.
 
 {{% note %}}
-Tasks replace InfluxDB v1.x's continuous queries.
+Tasks replace InfluxDB v1.x continuous queries.
 {{% /note %}}
 
 {{< children >}}

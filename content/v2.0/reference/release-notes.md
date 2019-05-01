@@ -7,6 +7,41 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.9 [2019-05-01]
+
+
+{{% warn %}}
+**This will remove all tasks from your InfluxDB v2.0 instance.**
+
+Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+{{% /warn %}}
+
+### Features
+- Set autorefresh of dashboard to pause if absolute time range is selected.
+- Switch task back end to a more modular and flexible system.
+- Add org profile tab with ability to edit organization name.
+- Add org name to dashboard page title.
+- Add cautioning to bucket renaming.
+- Add option to generate all access token in tokens tab.
+- Add option to generate read/write token in tokens tab.
+- Add new Local Metrics Dashboard template that is created during Quick Start.
+
+### Bug Fixes
+- Fixed scroll clipping found in label editing flow.
+- Prevent overlapping text and dot in time range dropdown.
+- Updated link in notes cell to a more useful site.
+- Show error message when adding line protocol.
+- Update UI Flux function documentation.
+- Update System template to support math with floats.
+- Fix the `window` function documentation.
+- Fix typo in the `range` Flux function example.
+- Update the `systemTime` function to use `system.time`.
+
+### UI Improvements
+- Add general polish and empty states to Create Dashboard from Template overlay.
+
+---
+
 ## v2.0.0-alpha.8 [2019-04-12]
 
 ### Features

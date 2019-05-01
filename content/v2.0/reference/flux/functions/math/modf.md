@@ -18,20 +18,20 @@ _**Output data format:** Object_
 ```js
 import "math"
 
-math.modf(x: 3.14)
+math.modf(f: 3.14)
 
 // Returns {int: 3, frac: 0.14000000000000012}
 ```
 
 ## Parameters
 
-### x
+### f
 The value used in the operation.
 
 _**Data type:** Float_
 
 ## Special cases
 ```js
-math.modf(x: ±Inf) // Returns {int: ±Inf, frac: NaN}
-math.modf(x: NaN)  // Returns {int: NaN, frac: NaN}
+math.modf(f: ±Inf) // Returns {int: ±Inf, frac: NaN}
+math.modf(f: NaN)  // Returns {int: NaN, frac: NaN}
 ```

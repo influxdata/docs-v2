@@ -27,7 +27,7 @@ The numerator used in the operation.
 
 _**Data type:** Float_
 
-### x
+### y
 The denominator used in the operation.
 
 _**Data type:** Float_

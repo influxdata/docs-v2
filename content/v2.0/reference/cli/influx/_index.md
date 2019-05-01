@@ -49,6 +49,7 @@ retrieving authentication tokens._
 | [bucket](/v2.0/reference/cli/influx/bucket) | Bucket management commands                           |
 | [help](/v2.0/reference/cli/influx/help)     | Help about any command                               |
 | [org](/v2.0/reference/cli/influx/org)       | Organization management commands                     |
+| [ping](/v2.0/reference/cli/influx/ping)     | Check the InfluxDB `/health` endpoint                |
 | [query](/v2.0/reference/cli/influx/query)   | Execute a Flux query                                 |
 | [repl](/v2.0/reference/cli/influx/repl)     | Interactive REPL (read-eval-print-loop)              |
 | [setup](/v2.0/reference/cli/influx/setup)   | Create default username, password, org, bucket, etc. |
