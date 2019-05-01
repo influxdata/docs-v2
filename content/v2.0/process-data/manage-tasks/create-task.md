@@ -2,8 +2,7 @@
 title: Create a task
 seotitle: Create a task for processing data in InfluxDB
 description: >
-  How to create a task that processes data in InfluxDB using the InfluxDB user
-  interface or the `influx` command line interface.
+  Create a data processing task in InfluxDB using the InfluxDB UI or the `influx` CLI.
 menu:
   v2_0:
     name: Create a task
@@ -64,7 +63,7 @@ The InfluxDB UI provides multiple ways to create a task:
 3. Select **Import Task**.
 4. Upload a JSON task file using one of the following options:
     - Drag and drop a JSON task file in the specified area.
-    - Click to upload and the area to select the JSON task from from your file manager. 
+    - Click to upload and the area to select the JSON task from from your file manager.
     - Select the **JSON** option and paste in raw task JSON.
 5. Click **Import JSON as Task**.
 
