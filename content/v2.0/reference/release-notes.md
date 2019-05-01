@@ -13,7 +13,7 @@ menu:
 {{% warn %}}
 **This will remove all tasks from your InfluxDB v2.0 instance.**
 
-Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/) After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
 {{% /warn %}}
 
 ### Features
