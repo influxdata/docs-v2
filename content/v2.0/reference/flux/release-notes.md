@@ -9,10 +9,19 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.2**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.3**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.28.3 [2019-05-01]
+
+### Bug fixes
+
+- Fix request results labels to count runtime errors.
+- An error when joining could result in two calls to finish.
+
+---
 
 ## v0.28.2 [2019-04-26]
 
