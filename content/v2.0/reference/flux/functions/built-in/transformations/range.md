@@ -20,7 +20,7 @@ _**Function type:** Transformation_
 _**Output data type:* Object_
 
 ```js
-range(start: -15m, stop: now)
+range(start: -15m, stop: now())
 ```
 
 ## Parameters
@@ -45,7 +45,7 @@ _**Data type:** Duration or Timestamp_
 
 {{% note %}}
 Flux only honors [RFC3339 timestamps](/v2.0/reference/flux/language/types#timestamp-format)
-and ignores dates and times provided in other formats. 
+and ignores dates and times provided in other formats.
 {{% /note %}}
 
 ## Examples

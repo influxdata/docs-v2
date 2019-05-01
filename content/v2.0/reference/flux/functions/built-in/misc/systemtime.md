@@ -21,5 +21,5 @@ systemTime()
 
 ## Examples
 ```js
-offsetTime = (offset) => systemTime() |> shift(shift: offset)
+offsetTime = (offset) => systemTime() |> timeShift(duration: offset)
 ```
