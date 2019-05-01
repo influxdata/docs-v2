@@ -29,17 +29,22 @@ Download InfluxDB v2.0 alpha for macOS.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.9_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
 
-### Place the executables in your $PATH
-Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
+### Unpackage the InfluxDB binaries
+Unpackage the downloaded archive.
 
 _**Note:** The following commands are examples. Adjust the file paths to your own needs._
 
 ```sh
 # Unpackage contents to the current working directory
-gunzip -c ~/Downloads/influxdb_2.0.0-alpha.9_darwin_amd64.tar.gz | tar xopf -
+gunzip -c ~/Downloads/influxdb_2.0.0-alpha.8_darwin_amd64.tar.gz | tar xopf -
+```
 
-# Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.9_darwin_amd64/{influx,influxd} /usr/local/bin/
+If you choose, you can place `influx` and `influxd` in your `$PATH`.
+You can also prefix the executables with `./` to run then in place.
+
+```sh
+# (Optional) Copy the influx and influxd binary to your $PATH
+sudo cp influxdb_2.0.0-alpha.8_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -50,7 +55,8 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 ### Networking ports
-By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
+By default, InfluxDB uses TCP port `9999` for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ## Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
@@ -108,7 +114,8 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 ### Networking ports
-By default, InfluxDB uses TCP port `9999` for client-server communication over InfluxDB’s HTTP API.
+By default, InfluxDB uses TCP port `9999` for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ## Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
@@ -141,7 +148,8 @@ influxd --reporting-disabled
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0 alpha
 Use `docker run` to download and run the InfluxDB v2.0 alpha Docker image.
-Expose port `9999`, which InfluxDB uses for client-server communication over its HTTP API.
+Expose port `9999`, which InfluxDB uses for client-server communication over
+the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ```sh
 docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha
@@ -213,7 +221,7 @@ use one of the following methods to provide your [authentication token](/v2.0/us
 3. Store your token in `~/.influxdbv2/credentials`.
    _The content of the `credentials` file should be only your token._
 
-_See [View tokens](/v2.0/users/tokens/view-tokens/) for information about
+_See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
 retrieving authentication tokens._
 {{% /note %}}
 

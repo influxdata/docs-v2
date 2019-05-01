@@ -12,8 +12,7 @@ weight: 401
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
 
-_**Function type:** Output_  
-_**Output data type:** Object_
+_**Function type:** Output_
 
 ```js
 to(
@@ -38,6 +37,18 @@ to(
   fieldFn: (r) => ({ [r._field]: r._value })
 )
 ```
+
+{{% note %}}
+### Output data requirements
+The `to()` function converts output data into line protocol and writes it to InfluxDB.
+Line protocol requires each record to have a timestamp, a measurement, a field, and a value.
+All output data must include the following columns:
+
+- `_time`
+- `_measurement`
+- `_field`
+- `_value`
+{{% /note %}}
 
 ## Parameters
 {{% note %}}

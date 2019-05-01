@@ -26,7 +26,7 @@ can be created from the Data Explorer.
     {{< nav-icon "data-explorer" >}}
 
 2. Click **Script Editor** on the lower right.
-3. Build the query for your variable using the [Table visualization type](v2.0/visualize-data/visualization-types/#table) or enable the **View Raw Data** option.
+3. Build the query for your variable using the [Table visualization type](/v2.0/visualize-data/visualization-types/#table) or enable the **View Raw Data** option.
 4. Click **Save As** in the upper right.
 5. In the window that appears, select **Variable**.
 6. Enter a name for your variable in the **Name** field.

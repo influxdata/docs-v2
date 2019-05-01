@@ -8,7 +8,8 @@ menu:
     name: Get started with InfluxDB Cloud
 
 ---
-{{< cloud-name >}} is a fully managed and hosted version of the InfluxDB 2.x API. To get started, complete the tasks below.
+{{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB v2 API](/v2.0/reference/api/).
+To get started, complete the tasks below.
 
 {{% cloud-msg %}}
 The InfluxDB v2.0 alpha documentation linked to in this article also applies to {{< cloud-name "short" >}} unless otherwise specified.
