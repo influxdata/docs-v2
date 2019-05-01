@@ -15,20 +15,33 @@ Note that updating an bucket's name will affect any assets that reference the bu
 - Dashboards
 - Tasks
 - Telegraf configurations
-- Client libraries
+- Templates
 
 If you change a bucket name, be sure to update the bucket in the above places as well.
 
 
-## Update a bucket in the InfluxDB UI
+## Update a bucket's name in the InfluxDB UI
 
 1. Click the **Settings** tab in the navigation bar.
 
     {{< nav-icon "settings" >}}
 
 2. Select the **Buckets** tab.
-3. To update a bucket's name or retention policy, click the name of the bucket from the list.
-4. Click **Update** to save.
+3. Hover over the name of the bucket you want to rename in the list.
+4. Click **Rename**.
+5. Review the information in the window that appears and click **I understand, let's rename my bucket**.
+6. Update the bucket's name and click **Change Bucket Name**. 
+
+## Update a bucket's retention policy in the InfluxDB UI
+
+1. Click the **Settings** tab in the navigation bar.
+
+    {{< nav-icon "settings" >}}
+
+2. Select the **Buckets** tab.
+3. Click the name of the bucket you want to update from the list.
+4. In the window that appears, edit the bucket's retention policy.
+5. Click **Save Changes**.
 
 ## Update a bucket using the influx CLI
 
