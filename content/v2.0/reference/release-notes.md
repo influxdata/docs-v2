@@ -9,7 +9,12 @@ menu:
 
 ## v2.0.0-alpha.9 [2019-05-01]
 
-NOTE: This will remove all tasks from your InfluxDB v2.0 instance.
+
+{{% warn %}}
+This will remove all tasks from your InfluxDB v2.0 instance.
+
+Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/) After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+{{% /warn %}}
 
 ### Features
 - Set autorefresh of dashboard to pause if absolute time range is selected.
