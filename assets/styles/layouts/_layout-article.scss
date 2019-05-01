@@ -135,6 +135,7 @@
     &:not(:last-child) {
       > p:only-child{ margin-bottom: 0; }
     }
+    ul,ol { margin: -.5rem 0 1rem;}
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
