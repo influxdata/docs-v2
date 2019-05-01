@@ -20,7 +20,12 @@ command line interface (CLI).
     {{< nav-icon "settings" >}}
 
 2. Click **Tokens**.
-3. _Full instructions coming soon._
+3. Click the **+ Generate** dropdown in the upper right and select a token type (**Read/Write Token** or **All Access Token**).
+4. In the window that appears, enter a description for your token in the **Description** field.
+5. If you're generating a read/write token:
+    - Search for and select buckets to read from in the **Read** pane.
+    - Search for and select buckets to write from in the **Write** pane.
+5. Click **Save**.
 
 ## Create a token using the influx CLI
 
