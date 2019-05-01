@@ -1,8 +1,6 @@
 ---
 title: now() function
 description: The `now()` function returns the current time (GMT).
-aliases:
-  - /v2.0/reference/flux/functions/misc/systemtime
 menu:
   v2_0_ref:
     name: now
