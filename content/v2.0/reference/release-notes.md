@@ -11,7 +11,7 @@ menu:
 
 
 {{% warn %}}
-This will remove all tasks from your InfluxDB v2.0 instance.
+**This will remove** all tasks from your InfluxDB v2.0 instance.
 
 Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/) After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
 {{% /warn %}}
@@ -33,12 +33,14 @@ Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/ex
 - Show error message when adding line protocol.
 - Update UI Flux function documentation.
 - Update System template to support math with floats.
-- Fix the window function documentation.
-- Fix typo in the range Flux function example.
-- Update the systemTime function to use system.time.
+- Fix the `window` function documentation.
+- Fix typo in the `range` Flux function example.
+- Update the `systemTime` function to use `system.time`.
 
 ### UI Improvements
 - Add general polish and empty states to Create Dashboard from Template overlay.
+
+---
 
 ## v2.0.0-alpha.8 [2019-04-12]
 
