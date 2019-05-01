@@ -40,7 +40,7 @@ gunzip -c ~/Downloads/influxdb_2.0.0-alpha.8_darwin_amd64.tar.gz | tar xopf -
 ```
 
 If you choose, you can place `influx` and `influxd` in your `$PATH`.
-_You can also prefix the executables with `./` to run then in place._
+You can also prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
