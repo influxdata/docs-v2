@@ -11,11 +11,12 @@ weight: 202
 Use the `influx` command line interface (CLI) or the InfluxDB user interface (UI) to update a bucket.
 
 Note that updating an bucket's name will affect any assets that reference the bucket by name, including the following:
-- Queries
-- Dashboards
-- Tasks
-- Telegraf configurations
-- Templates
+
+  - Queries
+  - Dashboards
+  - Tasks
+  - Telegraf configurations
+  - Templates
 
 If you change a bucket name, be sure to update the bucket in the above places as well.
 
