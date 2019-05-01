@@ -4,7 +4,7 @@ seotitle: Query using conditional logic in Flux
 description: >
   This guide describes how to use Flux conditional expressions, such as `if`,
   `else`, and `then`, to query and transform data.
-v2.0/tags: [math, flux]
+v2.0/tags: [conditionals, flux]
 menu:
   v2_0:
     name: Query using conditionals
