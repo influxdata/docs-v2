@@ -12,35 +12,51 @@ menu:
 To get started, complete the tasks below.
 
 {{% cloud-msg %}}
-The InfluxDB v2.0 alpha documentation linked to in this article also applies to {{< cloud-name "short" >}} unless otherwise specified.
+InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 {{% /cloud-msg %}}
+<!--I'm reading 3 options: only applies to v2.0 alpha doc, only applies to cloud doc, applies to both. Is our plan to specify when the v2.0 alpha docs do not apply to the cloud? Statement above may be interpreted that way.-->
 
 ## Sign up
 
-{{% note %}}
-Early access to {{< cloud-name >}} is limited. Apply for access [here]({{< cloud-link >}}).
-{{% /note %}}
+1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email and password, and then click **Sign up**.
 
-Sign up for the {{< cloud-name >}} with the link provided in the invite email.
+2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click the **verify your email** link.<!--Balaji, did you add an issue for removing the repeated verbiage in email? I updated 'verify your email link' per our discussion earlier.-->
 
-1. Look for an email invite from support@influxdata.com with the subject line **You've been invited to beta {{< cloud-name >}}.**
-2. Click **Accept Invite** to begin the sign up process.
-3. Provide an email id, password and follow the prompts to sign up for a Free Tier.
-4. Select the Region and click Next to create your default organization and bucket.
+3. To sign up for the Free tier, follow the prompts on the Welcome to InfluxDB Cloud 2.0 page:
+<!--I like the marketing aspect of "sign up for Free tier" but it begs the question--do we have another option to sign up for right now? May be better to drop? Another option, add "The Welcome to InfluxDB Cloud 2.0 page is displayed." at the end of Step 2, and then renumber steps a-c >> 3-5. -->
 
-  {{% cloud-msg %}}
-  {{< cloud-name >}} is restricted to the us-west-2 region.
-  {{% /cloud-msg %}}
+    a. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **here** link under Regions. 
 
-5. Once your organization and bucket are created, the usage page opens.
+    <!--Think first sentence in step 3a should be a note, but had formatting issues.-->
 
-  {{% note %}}
-  Currently, this page is just a mockup with no real data. This capability will be available soon.
-  {{% /note %}}
+    b. Click the **View InfluxDB Cloud 2.0 Beta Agreement** button, and then select **I agree to InfluxDB Cloud 2.0 Beta Agreement**.
+    
+    c. Click **Continue**. 
+    
+    InfluxDB Cloud 2.0 opens with a default organization and bucket created from your email local-part.
+
+<!--
+
+Nora, Balaji,
+
+I'm adding an issue to update verbiage in the UI. Please let me know if you have tweaks to the following UI changes:
+
+"Choose a Region to Get Started" >> "Choose a region"
+
+"Please provide feedback here" >> "Let us know"
+
+"View and Agree to InfluxDB Cloud 2.0 Beta Agreement to continue." >> 
+"View and accept the beta agreement to continue."
+
+"View InfluxDB Cloud 20 Beta Agreement" >> "View beta agreement"
+
+"I agree to InfluxDB Cloud 2.0 Beta Agreement" >> "Accept beta agreement"
+
+-->  
 
 ## Log in
 
-Log in at [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
+Log in to [InfluxDB Cloud 2.0](https://quartz.a.influxcloud.net/beta/login) using the credentials created above.
 
 ## Collect data
 
