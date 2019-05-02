@@ -6,4 +6,4 @@ enterprise:
 cloud:
   name: "InfluxDB Cloud 2 Beta"
   shortname: "InfluxDB Cloud"
-  link: "https://quartz.a.influxcloud.net/beta/signup"
+  link: "https://cloud2.influxdata.com/beta/signup"
