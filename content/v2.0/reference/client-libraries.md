@@ -18,5 +18,5 @@ These client libraries are in active development and may not be feature-complete
 This list will continue to grow as more client libraries are released.
 {{% /note %}}
 
-- [JavaScript/Node.js](https://github.com/influxdata/influxdb-client-js)
 - [Go](https://github.com/influxdata/influxdb-client-go)
+- [JavaScript/Node.js](https://github.com/influxdata/influxdb-client-js)
