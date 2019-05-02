@@ -56,7 +56,7 @@ I'm adding an issue to update verbiage in the UI. Please let me know if you have
 
 ## Log in
 
-Log in to [InfluxDB Cloud 2.0](https://quartz.a.influxcloud.net/beta/login) using the credentials created above.
+Log in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
 
 ## Collect data
 
