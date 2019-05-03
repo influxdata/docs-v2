@@ -14,8 +14,8 @@ v2.0/tags: [write, line protocol]
 
 InfluxDB provides multiple ways to write and collect time series data
 by using [Line Protocol](/v2.0/reference/line-protocol), Telegraf, data scrapers,
-the InfluxDB v2 API, `influx` command line interface (CLI), and the InfluxDB
-user interface (UI).
+the InfluxDB v2 API, `influx` command line interface (CLI), the InfluxDB
+user interface (UI), and client libraries.
 
 - [Write requirements](#write-requirements)
 - [Write data using the InfluxDB v2 API](#write-data-using-the-influxdb-v2-api)
@@ -46,7 +46,7 @@ InfluxDB accepts the following precisions:
 - `s` - Seconds
 
 ### Authentication token
-All requests to the InfluxDB API require an [authentication token](http://localhost:1313/v2.0/security/tokens/).
+All InfluxDB write interactions require an [authentication token](http://localhost:1313/v2.0/security/tokens/).
 
 ### Line protocol
 Line Protocol InfluxDB's text-based format for writing data points.
@@ -119,8 +119,8 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 2. Select the **Buckets** tab.
 3. Hover over the bucket into which you want to write data and click **{{< icon "plus" >}} Add Data**.
 4. Select **Line Protocol**.
-   _You can also [use Telegraf](/v2.0/collect-data/use-telegraf/) or
-   [scrape data](/v2.0/collect-data/scrape-data/)._
+   _You can also [use Telegraf](/v2.0/write-data/use-telegraf/) or
+   [scrape data](/v2.0/write-data/scrape-data/)._
 5. Select **Upload File** or **Enter Manually**.
 
     - **Upload File:**
@@ -140,3 +140,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 ## Other ways to write data to InfluxDB
 
 {{< children >}}
+
+### InfluxDB client libraries
+InfluxDB provides language-specific client libraries that integrate with the InfluxDB v2 API.
+See [Client libraries reference](/v2.0/reference/client-libraries/) for more information.

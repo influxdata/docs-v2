@@ -24,7 +24,7 @@ After [setting up InfluxDB v2.0](/v2.0/get-started/#set-up-influxdb),
 the "Let's start collecting data!" page displays options for collecting data.
 Click **Quick Start**.
 
-InfluxDB creates and configures a new [scraper](/v2.0/collect-data/scrape-data/).
+InfluxDB creates and configures a new [scraper](/v2.0/write-data/scrape-data/).
 The target URL points to the `/metrics` HTTP endpoint of your local InfluxDB instance (e.g. `http://localhost:9999/metrics`),
 which outputs internal InfluxDB metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 It stores the scraped metrics in the bucket created during the [initial setup process](/v2.0/get-started/#set-up-influxdb).
@@ -35,7 +35,7 @@ The following message briefly appears in the UI:
 
 {{% note %}}
 Quick Start is available only in the last step of the setup process.
-If you missed the Quick Start option, you can [manually create a scraper](/v2.0/collect-data/scrape-data)
+If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/scrape-data)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
 
