@@ -145,7 +145,7 @@ and the `reduce()` function to aggregate rows in each input table.
 ### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
-The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/tranformations/aggregates/mean/)
+The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/)
 does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}
