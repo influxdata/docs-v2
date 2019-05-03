@@ -2,24 +2,26 @@
 title: Write data to InfluxDB
 list_title: Write data
 description: >
-  Write time series data to InfluxDB using Line Protocol and the InfluxDB v2 API,
-  the `influx` CLI, or the InfluxDB UI.
-weight: 104
+  InfluxDB provides multiple ways to write and collect time series data
+  by using Line Protocol, Telegraf, data scrapers, the InfluxDB v2 API, `influx` CLI,
+  and the InfluxDB UI.
+weight: 2
 menu:
   v2_0:
     name: Write data
-    parent: Collect data
 v2.0/tags: [write, line protocol]
 ---
 
-Write time series data to InfluxDB using [Line Protocol](/v2.0/reference/line-protocol)
-and the InfluxDB v2 API, the `influx` command line interface (CLI), or the InfluxDB
+InfluxDB provides multiple ways to write and collect time series data
+by using [Line Protocol](/v2.0/reference/line-protocol), Telegraf, data scrapers,
+the InfluxDB v2 API, `influx` command line interface (CLI), and the InfluxDB
 user interface (UI).
 
 - [Write requirements](#write-requirements)
 - [Write data using the InfluxDB v2 API](#write-data-using-the-influxdb-v2-api)
 - [Write data using the influx CLI](#write-data-using-the-influx-cli)
 - [Write data in the InfluxDB UI](#write-data-in-the-influxdb-ui)
+- [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb)
 
 ## Write requirements
 InfluxDB requires the following to write data.
@@ -134,3 +136,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 8. Click **Previous** to return to the previous dialog and add more data or correct
    errors in the Line Protocol.
 9. Click **Finish** to close the window.
+
+## Other ways to write data to InfluxDB
+
+{{< children >}}

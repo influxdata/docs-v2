@@ -4,6 +4,8 @@ seotitle: View a Telegraf configuration in the InfluxDB UI
 description: >
   View the `telegraf.conf` and setup instructions associated with a Telegraf configuration
   created in the InfluxDB UI.
+aliases:
+  - /v2.0/collect-data/use-telegraf/auto-config/view-telegraf-config
 menu:
   v2_0:
     parent: Automatically configure Telegraf

@@ -6,10 +6,11 @@ description: >
   that collects InfluxDB metrics from the InfluxDB `/metrics` endpoint.
 aliases:
   - /v2.0/collect-data/scraper-quickstart
+  - /v2.0/collect-data/quick-start
 menu:
   v2_0:
     name: Quick start
-    parent: Collect data
+    parent: Write data
 weight: 101
 ---
 

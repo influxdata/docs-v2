@@ -2,6 +2,8 @@
 title: Delete a scraper
 seotitle: Delete an InfluxDB scraper
 description: Delete an InfluxDB scraper in the InfluxDB user interface.
+aliases:
+  - /v2.0/collect-data/scrape-data/manage-scrapers/delete-a-scraper
 menu:
   v2_0:
     parent: Manage scrapers

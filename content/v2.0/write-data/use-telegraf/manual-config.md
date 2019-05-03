@@ -4,6 +4,8 @@ seotitle: Manually configure Telegraf for InfluxDB v2.0
 description: >
   Manually configure Telegraf to write to InfluxDB v2.0 using the Telegraf `influxdb_v2`
   output plugin, and then start Telegraf using the custom configuration.
+aliases:
+  - /v2.0/collect-data/use-telegraf/manual-config
 menu:
   v2_0:
     parent: Use Telegraf
@@ -16,7 +18,7 @@ This article describes how to enable the `influxdb_v2` output plugin,
 and then start Telegraf using the custom configuration file.
 
 {{% note %}}
-_View the [requirements](/v2.0/collect-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
