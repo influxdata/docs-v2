@@ -1,7 +1,7 @@
 ---
-title: Get started with InfluxDB Cloud 2 Beta
+title: Get started with InfluxDB Cloud 2.0 Beta
 description: >
-  Sign up for and get started with InfluxDB Cloud 2 Beta.
+  Sign up for and get started with InfluxDB Cloud 2.0 Beta.
 weight: 1
 menu:
   v2_0_cloud:
@@ -14,26 +14,18 @@ To get started, complete the tasks below.
 {{% cloud-msg %}}
 InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 {{% /cloud-msg %}}
-<!--I'm reading 3 options: only applies to v2.0 alpha doc, only applies to cloud doc, applies to both. Is our plan to specify when the v2.0 alpha docs do not apply to the cloud? Statement above may be interpreted that way.-->
 
 ## Sign up
 
-1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email and password, and then click **Sign up**.
+1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email and password, and then click **Sign Up**.
 
-2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click the **verify your email** link.<!--Balaji, did you add an issue for removing the repeated verbiage in email? I updated 'verify your email link' per our discussion earlier.-->
+2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
-3. To sign up for the Free tier, follow the prompts on the Welcome to InfluxDB Cloud 2.0 page:
-<!--I like the marketing aspect of "sign up for Free tier" but it begs the question--do we have another option to sign up for right now? May be better to drop? Another option, add "The Welcome to InfluxDB Cloud 2.0 page is displayed." at the end of Step 2, and then renumber steps a-c >> 3-5. -->
+3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions. 
 
-    a. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions. 
-
-    <!--Think first sentence in step 3a should be a note, but had formatting issues.-->
-
-    b. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
+3. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
     
-    c. Click **Continue**. 
-    
-    InfluxDB Cloud 2.0 opens with a default organization and bucket created from your email local-part.
+4. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization and bucket (created from your email local-part).
 
 ## Log in
 
@@ -52,8 +44,19 @@ Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you
 * Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
 * Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
 
+## Monitor usage
+
+Once you've set up {{< cloud-name "short" >}} to collect data, monitor your data usage, including:
+
+- Writes: Total bytes ingested in the past 24 hours.
+- Reads: Total bytes sent out for response to queries in the past 24 hours.
+- Total Query Duration: Sum of time spent processing all queries in the past 24 hours.
+- Storage: Average disk usage every hour, over the past 24 hrs.
+
+* Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
+* Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+
 {{% note %}}
 #### Known issues and disabled features
 _See [Known issues](/v2.0/cloud/about/known-issues/) for information regarding all known issues in InfluxDB Cloud._
 {{% /note %}}
-      
