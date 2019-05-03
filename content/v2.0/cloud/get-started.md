@@ -41,8 +41,10 @@ For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.c
 
 Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you can do the following:
 
-* Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
-* Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
+- Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
+- Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
 
 ## Monitor usage
 
@@ -52,9 +54,6 @@ Once you've set up {{< cloud-name "short" >}} to collect data, monitor your data
 - Reads: Total bytes sent out for response to queries in the past 24 hours.
 - Total Query Duration: Sum of time spent processing all queries in the past 24 hours.
 - Storage: Average disk usage every hour, over the past 24 hrs.
-
-* Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
-* Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
 
 {{% note %}}
 #### Known issues and disabled features
