@@ -1,8 +1,10 @@
 ---
 title: Write data to InfluxDB
+list_title: Write data
 description: >
-  placeholder
-weight: 100
+  Write time series data to InfluxDB using Line Protocol and the InfluxDB v2 API,
+  the `influx` CLI, or the InfluxDB UI.
+weight: 104
 menu:
   v2_0:
     name: Write data
