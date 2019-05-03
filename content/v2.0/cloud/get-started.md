@@ -51,7 +51,7 @@ Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you
 Once you've set up {{< cloud-name "short" >}} to collect data, monitor your data usage, including:
 
 - Writes: Total bytes ingested in the past 24 hours.
-- Reads: Total bytes sent out for response to queries in the past 24 hours.
+- Reads: Total bytes sent out for responses to queries in the past 24 hours.
 - Total Query Duration: Sum of time spent processing all queries in the past 24 hours.
 - Storage: Average disk usage every hour, over the past 24 hrs.
 
