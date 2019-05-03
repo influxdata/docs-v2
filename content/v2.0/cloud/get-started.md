@@ -1,7 +1,7 @@
 ---
-title: Get started with InfluxDB Cloud 2 Beta
+title: Get started with InfluxDB Cloud 2.0 Beta
 description: >
-  Sign up for and get started with InfluxDB Cloud 2 Beta.
+  Sign up for and get started with InfluxDB Cloud 2.0 Beta.
 weight: 1
 menu:
   v2_0_cloud:
@@ -12,35 +12,24 @@ menu:
 To get started, complete the tasks below.
 
 {{% cloud-msg %}}
-The InfluxDB v2.0 alpha documentation linked to in this article also applies to {{< cloud-name "short" >}} unless otherwise specified.
+InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 {{% /cloud-msg %}}
 
 ## Sign up
 
-{{% note %}}
-Early access to {{< cloud-name >}} is limited. Apply for access [here]({{< cloud-link >}}).
-{{% /note %}}
+1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email and password, and then click **Sign Up**.
 
-Sign up for the {{< cloud-name >}} with the link provided in the invite email.
+2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
-1. Look for an email invite from support@influxdata.com with the subject line **You've been invited to beta {{< cloud-name >}}.**
-2. Click **Accept Invite** to begin the sign up process.
-3. Provide an email id, password and follow the prompts to sign up for a Free Tier.
-4. Select the Region and click Next to create your default organization and bucket.
+3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions. 
 
-  {{% cloud-msg %}}
-  {{< cloud-name >}} is restricted to the us-west-2 region.
-  {{% /cloud-msg %}}
-
-5. Once your organization and bucket are created, the usage page opens.
-
-  {{% note %}}
-  Currently, this page is just a mockup with no real data. This capability will be available soon.
-  {{% /note %}}
+3. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
+    
+4. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization and bucket (created from your email local-part).
 
 ## Log in
 
-Log in at [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
+Log in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
 
 ## Collect data
 
@@ -52,8 +41,19 @@ For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.c
 
 Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you can do the following:
 
-* Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
-* Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
+- Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
+- Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+
+## Monitor usage
+
+Once you've set up {{< cloud-name "short" >}} to collect data, monitor your data usage, including:
+
+- Writes: Total bytes ingested in the past 24 hours.
+- Reads: Total bytes sent out for responses to queries in the past 24 hours.
+- Total Query Duration: Sum of time spent processing all queries in the past 24 hours.
+- Storage: Average disk usage every hour, over the past 24 hrs.
 
 {{% note %}}
 #### Known issues and disabled features
