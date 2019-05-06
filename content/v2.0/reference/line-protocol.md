@@ -1,8 +1,8 @@
 ---
 title: Line protocol reference
 description: >
-  Line Protocol is a text based format for writing data points to InfluxDB.
-  It provides InfluxDB the measurement, tag set, field set, and timestamp of a data point.
+  InfluxDB uses Line Protocol to write data points.
+  It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 menu:
   v2_0_ref:
     name: Line protocol
@@ -10,12 +10,12 @@ weight: 6
 v2.0/tags: [write, line protocol]
 ---
 
-Line Protocol is a text based format for writing data points to InfluxDB.
-It provides InfluxDB the measurement, tag set, field set, and timestamp of a data point.
+InfluxDB uses Line Protocol to write data points.
+It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 
 - [Elements of Line Protocol](#elements-of-line-protocol)
 - [Data types and format](#data-types-and-format)
-- [Quoting](#quoting)
+- [Quotes](#quotes)
 - [Special characters](#special-characters)
 - [Comments](#comments)
 - [Naming restrictions](#naming-restrictions)
@@ -49,7 +49,7 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 <span class="required">Required</span> –
 The measurement name.
 InfluxDB accepts one measurement per point.
-_Measurement names are case sensitive and are subject to [naming restrictions](#naming-restrictions)._
+_Measurement names are case-sensitive and subject to [naming restrictions](#naming-restrictions)._
 
 _**Data type:** [String](#string)_
 
@@ -59,7 +59,7 @@ _**Optional**_ –
 All tag key-value pairs for the point.
 Key-value relationships are denoted with the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
-_Tag keys and values are case sensitive.
+_Tag keys and tag values are case-sensitive.
 Tag keys are subject to [naming restrictions](#naming-restrictions)._
 
 _**Key data type:** [String](#string)_  
@@ -71,7 +71,7 @@ _See [naming restrictions](#naming-restrictions)_
 <span class="required">Required</span> –
 All field key-value pairs for the point.
 Points must have at least one field.
-_Field keys and string values are case sensitive.
+_Field keys and string values are case-sensitive.
 Field keys are subject to [naming restrictions](#naming-restrictions)._
 
 _**Key data type:** [String](#string)_  
@@ -80,7 +80,7 @@ _**Value data type:** [Float](#float) | [Integer](#integer) | [String](#string) 
 _See [naming restrictions](#naming-restrictions)_
 
 {{% note %}}
-_Always double quote string field values. More on quoting [below](#quoting)._
+_Always double quote string field values. More on quotes [below](#quotes)._
 
 ```sh
 measurementName fieldKey="field string value" 1556813561098000000
@@ -96,14 +96,14 @@ If no timestamp is provided, InfluxDB uses the system time (UTC) of its host mac
 _**Data type:** [Unix timestamp](#unix-timestamp)_  
 
 {{% note %}}
-_InfluxDB expects a nanosecond precision timestamp, but you can specify
-alternative precisions with the [InfluxDB API](#)._
+_Use the default nanosecond precision timestamp or specify an alternative precision
+when [writing the data](/v2.0/write-data/)._
 {{% /note %}}
 
 ### Whitespace
-Whitespace in line protocol determines how InfluxDB interprets the point data.
-InfluxDB uses the **first unescaped space** to delimit the measurement and the tag set from the field set.
-It uses the **second unescaped space** to delimit the field set from the timestamp.
+Whitespace in line protocol determines how InfluxDB interprets the data point.
+The **first unescaped space** delimits the measurement and the tag set from the field set.
+The **second unescaped space** delimits the field set from the timestamp.
 
 ```
 measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
@@ -111,14 +111,12 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
                            1st space             2nd space
 ```
 
-
 ## Data types and format
 
 ### Float
 IEEE-754 64-bit floating-point numbers.
-This is the default numerical type.
-_InfluxDB supports field values specified in scientific notation._
-Examples: `1`, `1.0`, `1.e+78`, `1.E+78`.
+Default numerical type.
+_InfluxDB supports scientific notation in float field values._
 
 ##### Float field value examples
 ```js
@@ -129,8 +127,7 @@ myMeasurement fieldKey=-1.234456e+78
 
 ### Integer
 Signed 64-bit integers.
-Specify an integer with a trailing `i` on the number.
-Example: `12i`.
+Trailing `i` on the number specifies an integer.
 
 | Minimum integer         | Maximum integer        |
 | ---------------         | ---------------        |
@@ -188,9 +185,8 @@ Unix nanosecond timestamp.
 myMeasurementName fieldKey="fieldValue" 1556813561098000000
 ```
 
-## Quoting
-Line Protocol supports single and double quotes in specific contexts.
-The table below provides quote usage recommendations for each element of Line Protocol.
+## Quotes
+Line Protocol supports single and double quotes as described in the following table:
 
 | Element     | Double quotes                           | Single quotes                           |
 | :------     | :------------:                          |:-------------:                          |
@@ -206,8 +202,8 @@ measurement names, tag keys, tag values, and field keys, but interprets them as
 part of the name, key, or value._
 
 ## Special Characters
-Line Protocol supports the use of special characters in [string elements](#syntax).
-Escape the following special characters with a backslash (`\`) when used in specific contexts:
+Line Protocol supports special characters in [string elements](#string).
+In the following contexts, it requires escaping certain characters with a backslash (`\`):
 
 | Element     | Escape characters         |
 |:-------     |:-----------------         |
