@@ -1,6 +1,6 @@
 .article {
   background: $article-bg;
-  border-radius: $border-radius 0 0 $border-radius;
+  border-radius: $radius 0 0 $radius;
   padding: 2rem 4rem 3rem;
 }
 
@@ -81,7 +81,7 @@
   img {
     max-width: 100%;
     margin-bottom: 2rem;
-    border-radius: ($border-radius * 1.5);
+    border-radius: ($radius * 1.5);
     box-shadow: 1px 3px 10px $article-shadow;
   }
 
@@ -149,7 +149,7 @@
   p,li,table,h2,h3,h4,h5,h6 {
     code {
       padding: .15rem .45rem .25rem;
-      border-radius: $border-radius;
+      border-radius: $radius;
       color: $article-code;
       white-space: nowrap;
       font-style: normal;
@@ -188,7 +188,7 @@
   pre {
     margin: 2rem 0 2.25rem;
     padding: 1.75rem 1.75rem 1.25rem;
-    border-radius: $border-radius;
+    border-radius: $radius;
     overflow-x: scroll;
     overflow-y: hidden;
     code {
@@ -208,7 +208,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     box-shadow: 1px 3px 10px $article-shadow;
-    border-radius: ($border-radius * 1.5);
+    border-radius: ($radius * 1.5);
 
     th, td {
       padding: .85rem 1.25rem;
@@ -221,10 +221,10 @@
     th  {
       color: $g20-white;
       &:first-child {
-        border-radius: ($border-radius * 1.5) 0 0 0;
+        border-radius: ($radius * 1.5) 0 0 0;
       }
       &:last-child {
-        border-radius: 0 ($border-radius * 1.5) 0 0;
+        border-radius: 0 ($radius * 1.5) 0 0;
       }
     }
 
@@ -239,8 +239,8 @@
       }
       &:last-child {
         td {
-          &:first-child { border-radius: 0 0 0 ($border-radius * 1.5); }
-          &:last-child { border-radius: 0 0 ($border-radius * 1.5) 0; }
+          &:first-child { border-radius: 0 0 0 ($radius * 1.5); }
+          &:last-child { border-radius: 0 0 ($radius * 1.5) 0; }
         }
 
       }
@@ -279,7 +279,7 @@
     margin: 1rem 0 2rem;
     border-width: 0 0 0 4px;
     border-style: solid;
-    border-radius: 0 $border-radius $border-radius 0;
+    border-radius: 0 $radius $radius 0;
     font-size: .95rem;
 
     ul,ol {
@@ -413,7 +413,7 @@
       font-style: normal;
       font-weight: bold;
       color: $g20-white;
-      border-radius: $border-radius;
+      border-radius: $radius;
       vertical-align: text-bottom;
     }
   }
@@ -497,7 +497,7 @@
       padding: .35rem .75rem;
       display: inline-block;
       text-align: center;
-      border-radius: $border-radius;
+      border-radius: $radius;
       background-color: $article-tab-bg;
       transition: background-color .2s, color .2s;
 
@@ -537,7 +537,7 @@
       a {
         padding: .1rem .75rem;
         margin: 0;
-        border-radius: $border-radius $border-radius 0 0;
+        border-radius: $radius $radius 0 0;
         display: inline-block;
         background: $article-tab-code-bg;
         color: $article-tab-code-text;
@@ -555,7 +555,7 @@
       padding: 0;
       pre {
         margin: 0 0 3rem;
-        border-radius: $border-radius 0 $border-radius $border-radius;
+        border-radius: $radius 0 $radius $radius;
       }
     }
   }
@@ -584,7 +584,7 @@
   		text-align: center;
   		font-size: .75rem;
   		text-transform: uppercase;
-  		border-radius: $border-radius;
+  		border-radius: $radius;
   		transition: color .2s;
   		&:before{
   			content: "Show Less";
@@ -621,7 +621,7 @@
     padding: .5rem 1rem;
     background: $article-btn;
     color: $article-btn-text;
-    border-radius: $border-radius;
+    border-radius: $radius;
     font-size: .95rem;
 
     &:hover {

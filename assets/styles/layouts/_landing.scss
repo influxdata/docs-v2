@@ -59,7 +59,7 @@
         font-weight: bold;
         background: rgba($g20-white, .1);
         border: 2px solid rgba($g20-white, .5);
-        border-radius: $border-radius;
+        border-radius: $radius;
         transition: background-color .2s, color .2s;
 
         &:hover {

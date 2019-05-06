@@ -41,7 +41,7 @@ $vertical-offset: -14px;
   width: 35px;
   left: 0;
   background-color: $body-bg;
-  border-radius: 0 $border-radius $border-radius 0;
+  border-radius: 0 $radius $radius 0;
   &:before, &:after {
     content: url("data:image/svg+xml;charset=UTF-8,
       <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 10 10' xml:space='preserve'>
@@ -61,7 +61,7 @@ $vertical-offset: -14px;
   width: 30px;
   right: 0;
   background-color: $article-bg;
-  border-radius: $border-radius 0 0 $border-radius;
+  border-radius: $radius 0 0 $radius;
   &:before, &:after {
     content: url("data:image/svg+xml;charset=UTF-8,
       <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 10 10' xml:space='preserve'>

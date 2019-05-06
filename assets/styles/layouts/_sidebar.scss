@@ -21,7 +21,7 @@
 
     input {
       background: $sidebar-search-bg;
-      border-radius: $border-radius;
+      border-radius: $radius;
       border: 1px solid $sidebar-search-bg;
       padding: .5em 2.15rem .5rem .5rem;
       width: 100%;
@@ -33,7 +33,7 @@
         outline: none;
         border-color: $sidebar-search-highlight;
         box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
-        border-radius: $border-radius;
+        border-radius: $radius;
       }
       &::placeholder {
         font-family: 'Roboto';

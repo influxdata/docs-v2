@@ -14,141 +14,142 @@
 // General Styles
 // --------------------------------------------------
 
-$body-bg: $g18-cloud;
+$body-bg: $g18-cloud !default;
+$radius: 3px !default;
 
 // TopNav Colors
-$topnav-link: $g5-pepper;
-$topnav-link-hover: $b-ocean;
-$version-selector-top: $b-pool;
-$version-selector-bottom: $gr-viridian;
-$theme-switch-light: none;
-$theme-switch-dark: inline-block;
+$topnav-link: $g5-pepper !default;
+$topnav-link-hover: $b-ocean !default;
+$version-selector-top: $b-pool !default;
+$version-selector-bottom: $gr-viridian !default;
+$theme-switch-light: none !default;
+$theme-switch-dark: inline-block !default;
 
 // Sidebar
-$sidebar-search-bg: $g20-white;
-$sidebar-search-shadow: $g14-chromium;
-$sidebar-search-highlight: $b-ocean;
+$sidebar-search-bg: $g20-white !default;
+$sidebar-search-shadow: $g14-chromium !default;
+$sidebar-search-highlight: $b-ocean !default;
 
 // Article Content
-$article-bg: $g20-white;
-$article-heading: $g7-graphite;
-$article-heading-alt: $g7-graphite;
-$article-text: $g8-storm;
-$article-bold: $g8-storm;
-$article-link: $b-ocean;
-$article-link-hover: $gr-viridian;
-$article-shadow: #c8cdd0;
-$article-hr: $g15-platinum;
-$article-note-shadow: #8cb7ab;
-$article-warn-shadow: #b98a7d;
+$article-bg: $g20-white !default;
+$article-heading: $g7-graphite !default;
+$article-heading-alt: $g7-graphite !default;
+$article-text: $g8-storm !default;
+$article-bold: $g8-storm !default;
+$article-link: $b-ocean !default;
+$article-link-hover: $gr-viridian !default;
+$article-shadow: #c8cdd0 !default;
+$article-hr: $g15-platinum !default;
+$article-note-shadow: #8cb7ab !default;
+$article-warn-shadow: #b98a7d !default;
 
 // Article Code
-$article-code: $p-star;
-$article-code-bg: $p-violettecreme;
-$article-code-accent1: $p-potassium;
-$article-code-accent2: $b-ocean;
-$article-code-accent3: #008e7c;
-$article-code-accent4: $o-ruby;
-$article-code-accent5: #e24bbb;
-$article-code-accent6: $b-ocean;
-$article-code-accent7: #e90;
-$article-code-select:  $b-pool;
-$article-code-link: $b-sapphire;
-$article-code-link-hover: $gr-emerald;
-$article-code-scrollbar: $p-potassium;
+$article-code: $p-star !default;
+$article-code-bg: $p-violettecreme !default;
+$article-code-accent1: $p-potassium !default;
+$article-code-accent2: $b-ocean !default;
+$article-code-accent3: #008e7c !default;
+$article-code-accent4: $o-ruby !default;
+$article-code-accent5: #e24bbb !default;
+$article-code-accent6: $b-ocean !default;
+$article-code-accent7: #e90 !default;
+$article-code-select:  $b-pool !default;
+$article-code-link: $b-sapphire !default;
+$article-code-link-hover: $gr-emerald !default;
+$article-code-scrollbar: $p-potassium !default;
 
 // Article Tables
-$article-table-header-left: $b-pool;
-$article-table-header-right: $gr-honeydew;
-$article-table-row-alt: $g18-cloud;
+$article-table-header-left: $b-pool !default;
+$article-table-header-right: $gr-honeydew !default;
+$article-table-row-alt: $g18-cloud !default;
 
 // Article Notes & Warnings
-$article-note-base: $gr-rainforest;
-$article-note-heading: $gr-emerald;
-$article-note-text: $gr-emerald;
-$article-note-link: rgba($gr-emerald, .75);
-$article-note-link-hover: $b-pool;
-$article-note-table-header: $gr-viridian;
-$article-note-table-row-alt: #d6f5e9;
-$article-note-code: #0A6f75;
-$article-note-code-bg: #d6f7ec;
-$article-note-code-accent1: #6abba0;
-$article-note-code-accent2: #0084d6;
-$article-note-code-accent3: #5d52d6;
-$article-note-code-accent4: $o-ruby;
-$article-note-code-accent5: #e24bbb;
-$article-note-code-accent6: #0084d6;
-$article-note-code-accent7: #e90;
-$article-note-code-scrollbar: #87DABE;
+$article-note-base: $gr-rainforest !default;
+$article-note-heading: $gr-emerald !default;
+$article-note-text: $gr-emerald !default;
+$article-note-link: rgba($gr-emerald, .75) !default;
+$article-note-link-hover: $b-pool !default;
+$article-note-table-header: $gr-viridian !default;
+$article-note-table-row-alt: #d6f5e9 !default;
+$article-note-code: #0A6f75 !default;
+$article-note-code-bg: #d6f7ec !default;
+$article-note-code-accent1: #6abba0 !default;
+$article-note-code-accent2: #0084d6 !default;
+$article-note-code-accent3: #5d52d6 !default;
+$article-note-code-accent4: $o-ruby !default;
+$article-note-code-accent5: #e24bbb !default;
+$article-note-code-accent6: #0084d6 !default;
+$article-note-code-accent7: #e90 !default;
+$article-note-code-scrollbar: #87DABE !default;
 
-$article-warn-base: $o-dreamsicle;
-$article-warn-heading: $o-fire;
-$article-warn-text: $o-curacao;
-$article-warn-link: rgba($o-curacao, .75);
-$article-warn-link-hover: $b-sapphire;
-$article-warn-table-header: $o-dreamsicle;
-$article-warn-table-row-alt: #ffe6df;
-$article-warn-code: #d0154e;
-$article-warn-code-bg: #ffebeb;
-$article-warn-code-accent1: #fd99b8;
-$article-warn-code-accent2: #357ae8;
-$article-warn-code-accent3: #6c59cc;
-$article-warn-code-accent4: $o-ruby;
-$article-warn-code-accent5: #6a0a6f;
-$article-warn-code-accent6: #357ae8;
-$article-warn-code-accent7: #e90;
-$article-warn-code-scrollbar: #FFB1B1;
+$article-warn-base: $o-dreamsicle !default;
+$article-warn-heading: $o-fire !default;
+$article-warn-text: $o-curacao !default;
+$article-warn-link: rgba($o-curacao, .75) !default;
+$article-warn-link-hover: $b-sapphire !default;
+$article-warn-table-header: $o-dreamsicle !default;
+$article-warn-table-row-alt: #ffe6df !default;
+$article-warn-code: #d0154e !default;
+$article-warn-code-bg: #ffebeb !default;
+$article-warn-code-accent1: #fd99b8 !default;
+$article-warn-code-accent2: #357ae8 !default;
+$article-warn-code-accent3: #6c59cc !default;
+$article-warn-code-accent4: $o-ruby !default;
+$article-warn-code-accent5: #6a0a6f !default;
+$article-warn-code-accent6: #357ae8 !default;
+$article-warn-code-accent7: #e90 !default;
+$article-warn-code-scrollbar: #FFB1B1 !default;
 
-$article-enterprise-base: $p-comet;
-$article-enterprise-text: $p-star;
-$article-enterprise-link: $p-star;
-$article-enterprise-link-hover: $b-ocean;
+$article-enterprise-base: $p-comet !default;
+$article-enterprise-text: $p-star !default;
+$article-enterprise-link: $p-star !default;
+$article-enterprise-link-hover: $b-ocean !default;
 
-$article-cloud-base: $b-laser;
-$article-cloud-text: $b-ocean;
-$article-cloud-link: $b-ocean;
-$article-cloud-link-hover: $gr-canopy;
-$article-cloud-code: $b-sapphire;
-$article-cloud-code-bg: rgba($b-pool, .25);
+$article-cloud-base: $b-laser !default;
+$article-cloud-text: $b-ocean !default;
+$article-cloud-link: $b-ocean !default;
+$article-cloud-link-hover: $gr-canopy !default;
+$article-cloud-code: $b-sapphire !default;
+$article-cloud-code-bg: rgba($b-pool, .25) !default;
 
 // Article Tabs for tabbed content
-$article-tab-text: $g8-storm;
-$article-tab-bg: $g18-cloud;
-$article-tab-active-text: $g20-white;
-$article-tab-active-bg: $b-pool;
+$article-tab-text: $g8-storm !default;
+$article-tab-bg: $g18-cloud !default;
+$article-tab-active-text: $g20-white !default;
+$article-tab-active-bg: $b-pool !default;
 
-$article-tab-code-text: $p-potassium;
-$article-tab-code-bg: $g20-white;
-$article-tab-code-text-hover: $g20-white;
-$article-tab-code-bg-hover: $p-comet;
-$article-tab-code-active-text: $p-star;
+$article-tab-code-text: $p-potassium !default;
+$article-tab-code-bg: $g20-white !default;
+$article-tab-code-text-hover: $g20-white !default;
+$article-tab-code-bg-hover: $p-comet !default;
+$article-tab-code-active-text: $p-star !default;
 
 // Article page buttons
-$article-btn: $b-pool;
-$article-btn-text: $g20-white;
-$article-btn-hover: $b-ocean;
-$article-btn-text-hover: $g20-white;
+$article-btn: $b-pool !default;
+$article-btn-text: $g20-white !default;
+$article-btn-hover: $b-ocean !default;
+$article-btn-text-hover: $g20-white !default;
 
 // Left Navigation
-$nav-category: $b-ocean;
-$nav-category-hover: $gr-viridian;
-$nav-item: $g10-wolf;
-$nav-item-hover: $b-ocean;
-$nav-border: $g14-chromium;
-$nav-toggle: $g20-white;
-$nav-toggle-hover: $g20-white;
-$nav-toggle-bg-hover: $b-ocean;
-$nav-active: $gr-canopy;
+$nav-category: $b-ocean !default;
+$nav-category-hover: $gr-viridian !default;
+$nav-item: $g10-wolf !default;
+$nav-item-hover: $b-ocean !default;
+$nav-border: $g14-chromium !default;
+$nav-toggle: $g20-white !default;
+$nav-toggle-hover: $g20-white !default;
+$nav-toggle-bg-hover: $b-ocean !default;
+$nav-active: $gr-canopy !default;
 
 // Error Page Colors
-$error-page-btn: $b-ocean;
-$error-page-btn-text: $g20-white;
-$error-page-btn-hover: $b-pool;
-$error-page-btn-hover-text: $g20-white;
+$error-page-btn: $b-ocean !default;
+$error-page-btn-text: $g20-white !default;
+$error-page-btn-hover: $b-pool !default;
+$error-page-btn-hover-text: $g20-white !default;
 
 // Landing Page colors
-$landing-lg-gradient-left: $b-ocean;
-$landing-lg-gradient-right: $b-pool;
-$landing-sm-gradient-left: $p-star;
-$landing-sm-gradient-right: $p-comet;
-$landing-sm-gradient-overlay: $p-planet;
+$landing-lg-gradient-left: $b-ocean !default;
+$landing-lg-gradient-right: $b-pool !default;
+$landing-sm-gradient-left: $p-star !default;
+$landing-sm-gradient-right: $p-comet !default;
+$landing-sm-gradient-overlay: $p-planet !default;
