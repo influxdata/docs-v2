@@ -3,9 +3,9 @@ title: InfluxDB Cloud release notes
 description: Important changes and notes introduced in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
-v2_0_cloud:
-parent: About InfluxDB Cloud
-name: Release notes
+  v2_0_cloud:
+    parent: About InfluxDB Cloud
+    name: Release notes
 ---
 
 ## 2019-05-06 _Public Beta_

@@ -1,12 +1,11 @@
 ---
 title: Get started with InfluxDB Cloud 2.0 Beta
 description: >
-Sign up for and get started with InfluxDB Cloud 2.0 Beta.
+  Sign up for and get started with InfluxDB Cloud 2.0 Beta.
 weight: 1
 menu:
-v2_0_cloud:
-name: Get started with InfluxDB Cloud
-
+  v2_0_cloud:
+    name: Get started with InfluxDB Cloud
 ---
 {{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB 2.0].
 To get started, complete the tasks below.
@@ -23,8 +22,9 @@ InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless o
 
 3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions.
 
-4. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
-5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization and bucket (created from your email local-part).
+4. Review the terms of the beta agreement, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**.
+
+5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization (created from your email) and bucket (created from your email local-part).
 
 ## Log in
 

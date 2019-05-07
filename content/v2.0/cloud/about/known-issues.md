@@ -3,9 +3,9 @@ title: Known issues in InfluxDB Cloud
 description: Information related to known issues in InfluxDB Cloud 2.
 weight: 102
 menu:
-v2_0_cloud:
-name: Known issues
-parent: About InfluxDB Cloud
+  v2_0_cloud:
+    name: Known issues
+    parent: About InfluxDB Cloud
 ---
 
 The following issues currently exist in {{< cloud-name >}}:
