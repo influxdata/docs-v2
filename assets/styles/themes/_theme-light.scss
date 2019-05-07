@@ -15,13 +15,15 @@
 // --------------------------------------------------
 
 $body-bg: $g18-cloud !default;
+$body-gradient-top: $g19-ghost !default;
+$body-gradient-bottom: $g17-whisper !default;
 $radius: 3px !default;
 
 // TopNav Colors
-$topnav-link: $g5-pepper !default;
-$topnav-link-hover: $b-ocean !default;
+$topnav-link: $g7-graphite !default;
+$topnav-link-hover: $b-pool !default;
 $version-selector-top: $b-pool !default;
-$version-selector-bottom: $gr-viridian !default;
+$version-selector-bottom: $p-comet !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
 
@@ -29,6 +31,7 @@ $theme-switch-dark: inline-block !default;
 $sidebar-search-bg: $g20-white !default;
 $sidebar-search-shadow: $g14-chromium !default;
 $sidebar-search-highlight: $b-ocean !default;
+$sidebar-search-text: $g8-storm !default;
 
 // Article Content
 $article-bg: $g20-white !default;
@@ -131,14 +134,14 @@ $article-btn-hover: $b-ocean !default;
 $article-btn-text-hover: $g20-white !default;
 
 // Left Navigation
-$nav-category: $b-ocean !default;
+$nav-category: $b-pool !default;
 $nav-category-hover: $gr-viridian !default;
 $nav-item: $g10-wolf !default;
-$nav-item-hover: $b-ocean !default;
+$nav-item-hover: $b-pool !default;
 $nav-border: $g14-chromium !default;
 $nav-toggle: $g20-white !default;
 $nav-toggle-hover: $g20-white !default;
-$nav-toggle-bg-hover: $b-ocean !default;
+$nav-toggle-bg-hover: $b-pool !default;
 $nav-active: $gr-canopy !default;
 
 // Error Page Colors

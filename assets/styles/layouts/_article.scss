@@ -21,9 +21,7 @@
     & + .code-tabs-wrapper { margin-top: 0; }
   }
   h1 {
-    font-family: $klavika;
-    font-weight: 300;
-    font-style: italic;
+    font-weight: normal;
     font-size: 2.65rem;
     margin: .4em 0 1em;
   }
@@ -142,7 +140,7 @@
 
   code,pre {
     background: $article-code-bg;
-    font-family: 'Inconsolata', monospace;
+    font-family: $roboto-mono;
     color: $article-code;
   }
 
@@ -493,6 +491,7 @@
       flex-grow: 1;
       margin: 2px;
       font-size: 0.875rem;
+      font-weight: $medium;
       color: $article-tab-text;
       padding: .35rem .75rem;
       display: inline-block;

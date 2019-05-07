@@ -14,24 +14,27 @@
 
 @import "tools/color-palette";
 
-$body-bg: $g1-raven;
+$body-bg: $cp-deepnight;
+$body-gradient-top: rgba($wp-magenta, .15);
+$body-gradient-bottom: $cp-deepnight;
 
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
-$version-selector-top: $b-ocean;
-$version-selector-bottom: $p-star;
+$version-selector-top: $b-pool;
+$version-selector-bottom: $wp-seance;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
 // Sidebar
-$sidebar-search-bg: $g3-castle;
-$sidebar-search-shadow: #0F0F10;
+$sidebar-search-bg: $wp-violet;
+$sidebar-search-shadow: #0f001d;
 $sidebar-search-highlight: $b-pool;
+$sidebar-search-text: $g20-white;
 
 // Article Content
-$article-bg: $g3-castle;
-$article-heading: $g19-ghost;
+$article-bg: $wp-violet;
+$article-heading: $g20-white;
 $article-heading-alt: $g19-ghost;
 $article-text: $g14-chromium;
 $article-bold: $g18-cloud;
@@ -44,7 +47,7 @@ $article-warn-shadow: #191a1b;
 
 // Article Code
 $article-code: $p-potassium;
-$article-code-bg: $g1-raven;
+$article-code-bg: $cp-deepnight;
 $article-code-accent1: $g9-mountain;
 $article-code-accent2: $b-pool;
 $article-code-accent3: $gr-viridian;
@@ -113,12 +116,12 @@ $article-cloud-code-bg: $b-abyss;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g12-forge;
-$article-tab-bg: $g4-onyx;
+$article-tab-bg: rgba($cp-deepnight, .6);
 $article-tab-active-text: $g20-white;
 $article-tab-active-bg: $b-ocean;
 
 $article-tab-code-text: $g9-mountain;
-$article-tab-code-bg: $g5-pepper;
+$article-tab-code-bg: rgba($cp-deepnight, .4);
 $article-tab-code-text-hover: $g20-white;
 $article-tab-code-bg-hover: $b-ocean;
 $article-tab-code-active-text: $g20-white;
@@ -130,15 +133,15 @@ $article-btn-hover: $b-pool;
 $article-btn-text-hover: $g20-white;
 
 // Left Navigation
-$nav-category: $b-ocean;
+$nav-category: $b-pool;
 $nav-category-hover: $g20-white;
 $nav-item: $g16-pearl;
-$nav-item-hover: $b-ocean;
-$nav-border: $g5-pepper;
+$nav-item-hover: $b-pool;
+$nav-border: $wp-seance;
 $nav-toggle: $g16-pearl;
 $nav-toggle-hover: $g16-pearl;
-$nav-toggle-bg-hover: $b-ocean;
-$nav-active: $gr-rainforest;
+$nav-toggle-bg-hover: $b-pool;
+$nav-active: $c-neon;
 
 // Error Page Colors
 $error-page-btn: $b-ocean;

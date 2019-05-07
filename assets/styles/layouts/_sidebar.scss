@@ -20,6 +20,8 @@
     }
 
     input {
+      font-family: $rubik;
+        font-weight: $medium;
       background: $sidebar-search-bg;
       border-radius: $radius;
       border: 1px solid $sidebar-search-bg;
@@ -36,8 +38,6 @@
         border-radius: $radius;
       }
       &::placeholder {
-        font-family: 'Roboto';
-        font-weight: 500;
         color: rgba($article-text, .45);
       }
     }
@@ -163,7 +163,7 @@
 
     a {
       text-decoration: none;
-      font-weight: 600;
+      font-weight: $medium;
       display: inline-block;
     }
     .nav-category > a {

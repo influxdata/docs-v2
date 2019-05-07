@@ -1,5 +1,62 @@
 // Influx Color Palette
 
+// Primary Brand Colors
+$p-deep:          #1F0A23;
+$b-pool:          #22ADF6;
+$c-neon:          #D6F622;
+$p-comet:         #9394FF;
+
+// Oranges (Dark to Light)
+$o-basalt:        #2F1F29;
+$o-ember:         #6F3943;
+$o-ruby:          #BF3D5E;
+$o-fire:          #DC4E58;
+$o-curacao:       #F95F53;
+$o-dreamsicle:    #FF8564;
+$o-tungsten:      #FFB6A0;
+$o-marmelade:     #FFDCCF;
+$o-orangecream:   #EADAD8;
+$o-flan:          #FFF7F4;
+
+// Blues (Dark to Light)
+$b-abyss:         #182838;
+$cp-deepnightsea:       #32547F;
+$b-sapphire:      #326BBA;
+$b-ocean:         #4591ED;
+// $b-pool
+$b-laser:         #00C9FF;
+$b-hydrogen:      #6BDFFF;
+$b-neutrino:      #BEF0FF;
+$b-snow:          #C9E0ED;
+$b-yeti:          #F0FCFF;
+
+// Purples (Dark to Light)
+$p-shadow:        #1F2039;
+$p-void:          #311F94;
+$p-purplerain:    #484281;
+$p-planet:        #513CC6;
+$p-star:          #7A65F2;
+// $p-comet
+$p-potassium:     #B1B6FF;
+$p-moonstone:     #C9D0FF;
+$p-quartz:        #D6D5ED;
+$p-violettecreme: #EDF0FF;
+
+// Greens (Dark to Light)
+$gr-gypsy:        #152B2D;
+$gr-grass:        #2B6058;
+$gr-emerald:      #108174;
+$gr-viridian:     #32B08C;
+$gr-canopy:       #20B76F;
+$gr-rainforest:   #4ED8A0;
+$gr-honeydew:     #7CE490;
+$gr-krypton:      #A5F3B4;
+$gr-wasabi:       #C6FFD0;
+$gr-forestfog:    #CFE6E1;
+$gr-mint:         #F2FFF4;
+
+// --------------------------------------------------
+
 // Greys (Dark to Light)
 $g0-obsidian:     #0F0E15;
 $g1-raven:        #1C1C21;
@@ -21,53 +78,28 @@ $g16-pearl:       #E7E8EB;
 $g17-whisper:     #EEEFF2;
 $g18-cloud:       #F2F2F5;
 $g19-ghost:       #FAFAFC;
-$g20-white:       #ffffff;
+$g20-white:       #FFFFFF; // Brand color
 
-// Oranges (Dark to Light)
-$o-basalt:        #2F1F29;
-$o-ember:         #6F3943;
-$o-ruby:          #BF3D5E;
-$o-fire:          #DC4E58;
-$o-curacao:       #F95F53;
-$o-dreamsicle:    #FF8564;
-$o-tungsten:      #FFB6A0;
-$o-marmelade:     #FFDCCF;
-$o-orangecream:   #EADAD8;
-$o-flan:          #FFF7F4;
+// Cool Purples
+$cp-deepnight:    #13002d; // Brand color
+$cp-valhalla:     #27153F;
+$cp-martinique:   #3A2B50;
+$cp-wine:         #4E4062;
+$cp-smokey:       #625573;
+$cp-rum:          #756A85;
+$cp-mobster:      #898096;
+$cp-amethyst:     #9D95A7;
+$cp-pearl:        #B0AAB9;
+$cp-greysuit:     #C4BFCA;
+$cp-mischka:      #D8D4DC;
+$cp-athens:       #EBEAED;
 
-// Blues (Dark to Light)
-$b-abyss:         #182838;
-$b-deepsea:       #32547F;
-$b-sapphire:      #326BBA;
-$b-ocean:         #4591ED;
-$b-pool:          #22ADF6;
-$b-laser:         #00C9FF;
-$b-hydrogen:      #6BDFFF;
-$b-neutrino:      #BEF0FF;
-$b-snow:          #C9E0ED;
-$b-yeti:          #F0FCFF;
-
-// Purples (Dark to Light)
-$p-shadow:        #1F2039;
-$p-void:          #311F94;
-$p-purplerain:    #484281;
-$p-planet:        #513CC6;
-$p-star:          #7A65F2;
-$p-comet:         #9394FF;
-$p-potassium:     #B1B6FF;
-$p-moonstone:     #C9D0FF;
-$p-quartz:        #D6D5ED;
-$p-violettecreme: #EDF0FF;
-
-// Greens (Dark to Light)
-$gr-gypsy:        #152B2D;
-$gr-grass:        #2B6058;
-$gr-emerald:      #108174;
-$gr-viridian:     #32B08C;
-$gr-canopy:       #20B76F;
-$gr-rainforest:   #4ED8A0;
-$gr-honeydew:     #7CE490;
-$gr-krypton:      #A5F3B4;
-$gr-wasabi:       #C6FFD0;
-$gr-forestfog:    #CFE6E1;
-$gr-mint:         #F2FFF4;
+// Warm Purples - Magenta
+$wp-telopea:      #23043E;
+$wp-violet:       #32094E;
+$wp-jagger:       #420D5F;
+$wp-jango:        #521170;
+$wp-seance:       #611581;
+$wp-trance:       #801EA2;
+$wp-heart:        #A026C4;
+$wp-magenta:      #BF2FE5; // Brand color

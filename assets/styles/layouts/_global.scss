@@ -1,26 +1,23 @@
-@font-face {
-    font-family: 'Klavika-Light';
-    src: url(../fonts/KlavikaLight-ItalicTF.otf);
-    font-weight: 200;
-    font-style: italic;
-}
-@font-face {
-    font-family: 'Klavika-Bold';
-    src: url(../fonts/KlavikaBoldBoldItalic.otf);
-    font-weight: 700;
-    font-style: italic;
-}
+$rubik: 'Rubik', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$roboto-mono: 'Roboto Mono', monospace;
 
-$klavika: 'Klavika-Light', 'Titillium Web', 'Roboto', sans-serif;
+// Font weights
+$medium: 500;
+$bold: 700;
+
 
 html {
   height: 100%;
+  background: $body-bg;
 }
 
 body {
   min-height: 100%;
-  font-family: Roboto, sans-serif;
-  background: $body-bg;
+  font-family: 'Rubik', sans-serif;
+  background: radial-gradient(circle at 100% 0%, $body-gradient-top 0%, $body-gradient-bottom) 30%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

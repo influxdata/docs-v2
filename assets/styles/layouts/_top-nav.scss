@@ -19,16 +19,15 @@
 
   .divider {
     height: 100%; border-left: 1px solid rgba($topnav-link, .5);
-    margin: 0 1rem 0 .9rem;
+    margin: 0 1rem 0 .65rem;
   }
 
   .docs-home {
     display: inline-block;
     vertical-align: text-top;
-    font-family: $klavika;
     font-style: italic;
-    font-weight: 300;
-    font-size: 1.2rem;
+    font-weight: $medium;
+    font-size: 1.1rem;
     color: $topnav-link;
     text-decoration: none;
     &:hover {
@@ -44,7 +43,7 @@
     color: $g20-white;
     height: 2rem;
     background: $version-selector-top;
-    font-weight: 700;
+    font-weight: $medium;
     border-radius: $radius;
     overflow: hidden;
     cursor: pointer;
@@ -111,7 +110,6 @@
     background: none;
     height: 30px;
     width: 30px;
-    margin-top: 2px;
     border: none;
     transition: color .2s, opacity .2s;
     appearance: none;
