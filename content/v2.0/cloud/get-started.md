@@ -56,9 +56,9 @@ When using Telegraf, the API, CLI, or client libraries to interact with your {{<
 instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
 For example:
 
-<pre class="highlight">
+```
 https<nolink>://us-west-2-1.aws.cloud2.influxdata.com
-</pre>
+```
 {{% /note %}}
 
 ## Query and visualize data
