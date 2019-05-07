@@ -24,6 +24,25 @@ _**Output data type:** Object_
 map(fn: (r) => r._value * r._value), mergeKey: true)
 ```
 
+{{% note %}}
+#### Dropped columns
+`map()` drops any columns that:
+
+1. Are not part of the input table's group key
+2. Are not explicitly mapped in the `map()` function.
+
+This often results in the `_time` column being dropped.
+To preserve the `_time` column, include it in your column mapping.
+
+```js
+map(fn: (r) => ({
+    _time: r._time,
+    ...
+  })
+)
+```
+{{% /note %}}
+
 ## Parameters
 
 ### fn
