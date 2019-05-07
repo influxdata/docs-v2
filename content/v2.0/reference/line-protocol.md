@@ -1,7 +1,7 @@
 ---
 title: Line protocol reference
 description: >
-  InfluxDB uses Line Protocol to write data points.
+  InfluxDB uses line protocol to write data points.
   It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 menu:
   v2_0_ref:
@@ -10,10 +10,10 @@ weight: 6
 v2.0/tags: [write, line protocol]
 ---
 
-InfluxDB uses Line Protocol to write data points.
+InfluxDB uses line protocol to write data points.
 It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 
-- [Elements of Line Protocol](#elements-of-line-protocol)
+- [Elements of line protocol](#elements-of-line-protocol)
 - [Data types and format](#data-types-and-format)
 - [Quotes](#quotes)
 - [Special characters](#special-characters)
@@ -30,13 +30,13 @@ myMeasurement,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
 Lines separated by the newline character `\n` represent a single point
-in InfluxDB. Line Protocol is whitespace sensitive.
+in InfluxDB. Line protocol is whitespace sensitive.
 
 {{% note %}}
 Line protocol does not support the newline character `\n` in tag or field values.
 {{% /note %}}
 
-## Elements of Line Protocol
+## Elements of line protocol
 
 ```
 measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
@@ -97,7 +97,7 @@ _**Data type:** [Unix timestamp](#unix-timestamp)_
 
 {{% note %}}
 _Use the default nanosecond precision timestamp or specify an alternative precision
-when [writing the data](/v2.0/write-data/)._
+when [writing the data](/v2.0/write-data/#precision)._
 {{% /note %}}
 
 ### Whitespace
@@ -186,7 +186,7 @@ myMeasurementName fieldKey="fieldValue" 1556813561098000000
 ```
 
 ## Quotes
-Line Protocol supports single and double quotes as described in the following table:
+Line protocol supports single and double quotes as described in the following table:
 
 | Element     | Double quotes                           | Single quotes                           |
 | :------     | :------------:                          |:-------------:                          |
@@ -202,7 +202,7 @@ measurement names, tag keys, tag values, and field keys, but interprets them as
 part of the name, key, or value._
 
 ## Special Characters
-Line Protocol supports special characters in [string elements](#string).
+Line protocol supports special characters in [string elements](#string).
 In the following contexts, it requires escaping certain characters with a backslash (`\`):
 
 | Element     | Escape characters         |
@@ -215,7 +215,7 @@ In the following contexts, it requires escaping certain characters with a backsl
 
 You do not need to escape other special characters.
 
-##### Examples of special characters in Line Protocol
+##### Examples of special characters in line protocol
 ```sh
 # Measurement name with spaces
 my\ Measurement fieldKey="string value"
@@ -231,7 +231,7 @@ myMeasurement,tagKey=🍭 fieldKey="Launch 🚀" 1556813561098000000
 ```
 
 ### Escaping backslashes
-Line Protocol supports both literal backslashes and backslashes as an escape character.
+Line protocol supports both literal backslashes and backslashes as an escape character.
 With two contiguous backslashes, the first is interpreted as an escape character.
 For example:
 
@@ -259,6 +259,6 @@ The `_` namespace is reserved for InfluxDB system use.
 
 ## Duplicate points
 A point is uniquely identified by the measurement name, tag set, and timestamp.
-If you submit Line Protocol with the same measurement, tag set, and timestamp,
+If you submit line protocol with the same measurement, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
