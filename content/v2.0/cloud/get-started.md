@@ -6,9 +6,8 @@ weight: 1
 menu:
   v2_0_cloud:
     name: Get started with InfluxDB Cloud
-
 ---
-{{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB v2 API](/v2.0/reference/api/).
+{{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB 2.0].
 To get started, complete the tasks below.
 
 {{% cloud-msg %}}
@@ -21,11 +20,11 @@ InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless o
 
 2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
-3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions. 
+3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions.
 
-3. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
-    
-4. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization and bucket (created from your email local-part).
+4. Review the terms of the beta agreement, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**.
+
+5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization (created from your email) and bucket (created from your email local-part).
 
 ## Log in
 
@@ -44,16 +43,28 @@ Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you
 - Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
 - Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
 
-## Monitor usage
+## View data usage
 
-Once you've set up {{< cloud-name "short" >}} to collect data, monitor your data usage, including:
+Once you've set up {{< cloud-name "short" >}} to collect data, view your data usage, including:
 
-- Writes: Total bytes ingested in the past 24 hours.
-- Reads: Total bytes sent out for responses to queries in the past 24 hours.
-- Total Query Duration: Sum of time spent processing all queries in the past 24 hours.
-- Storage: Average disk usage every hour, over the past 24 hrs.
+- Writes: Total kilobytes ingested.
+- Reads: Total kilobytes sent out for responses to queries.
+- Total Query Duration: Sum of time spent processing queries in seconds.
+- Storage: Average disk usage in gigabytes.
+
+You'll see sparkline data over the past 4 hours and a single value that shows usage in the last 5 minutes. To view your data, click **Usage** in the left navigation menu.
+
+{{< img-hd src="/img/2-0-cloud-usage.png" />}}
+
+## Review rate limits
+
+To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free tier users. During beta, you can check out our Paid tier for free.
+
+To upgrade to Paid tier for free, discuss use cases, or increase rate limits, reach out to <a href="mailto:cloudbeta@influxdata.com?subject={{ $cloudName }} Feedback">cloudbeta@influxdata.com</a>.
 
 {{% note %}}
 #### Known issues and disabled features
 _See [Known issues](/v2.0/cloud/about/known-issues/) for information regarding all known issues in InfluxDB Cloud._
 {{% /note %}}
+
+
