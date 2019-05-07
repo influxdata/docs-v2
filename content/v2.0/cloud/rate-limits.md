@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Cloud rate limits
+title: InfluxDB Cloud 2.0 rate limits
 description: Rate limits for Free tier users optimize InfluxDB Cloud 2.0 services.
 weight: 2
 menu:
