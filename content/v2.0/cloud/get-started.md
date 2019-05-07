@@ -8,7 +8,7 @@ menu:
     name: Get started with InfluxDB Cloud
 
 ---
-{{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB v2 API](/v2.0/reference/api/).
+{{< cloud-name >}} is a fully managed and hosted version of **InfluxDB v2.0**.
 To get started, complete the tasks below.
 
 {{% cloud-msg %}}
@@ -21,10 +21,10 @@ InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless o
 
 2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud), and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
-3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions. 
+3. Currently, {{< cloud-name >}} us-west-2 region is the only region available. To suggest regions to add, click the **Let us know** link under Regions.
 
 3. Click **View cloud beta agreement** to review the terms, and then select **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**. (You must open the agreement before you can accept the terms.)
-    
+
 4. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization and bucket (created from your email local-part).
 
 ## Log in
