@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0:
     name: Query data
-weight: 2
+weight: 3
 v2.0/tags: [query, flux]
 ---
 

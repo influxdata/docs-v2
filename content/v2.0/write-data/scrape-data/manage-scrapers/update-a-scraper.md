@@ -2,6 +2,8 @@
 title: Update a scraper
 seotitle: Update an InfluxDB scraper
 description: Update an InfluxDB scraper that collects data from InfluxDB or a remote endpoint.
+aliases:
+  - /v2.0/collect-data/scrape-data/manage-scrapers/update-a-scraper
 menu:
   v2_0:
     parent: Manage scrapers
@@ -12,7 +14,7 @@ Update a scraper in the InfluxDB user interface (UI).
 
 {{% note %}}
 Scraper **Target URLs** and **BUCKETS** can not be updated.
-To modify either, [create a new scraper](/v2.0/collect-data/scrape-data/manage-scrapers/create-a-scraper).
+To modify either, [create a new scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper).
 {{% /note %}}
 
 ## Update a scraper in the InfluxDB UI

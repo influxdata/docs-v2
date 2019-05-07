@@ -2,6 +2,8 @@
 title: Delete a Telegraf configuration
 seotitle: Delete a Telegraf configuration from the InfluxDB UI
 description: Delete a Telegraf configuration created in the InfluxDB UI.
+aliases:
+  - /v2.0/collect-data/use-telegraf/auto-config/delete-telegraf-config
 menu:
   v2_0:
     parent: Automatically configure Telegraf
