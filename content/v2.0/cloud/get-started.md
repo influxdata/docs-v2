@@ -50,6 +50,17 @@ and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manu
 For information about using the InfluxDB API, CLI, and client libraries to write data,
 see [Write data to InfluxDB](/v2.0/write-data/).
 
+{{% note %}}
+#### InfluxDB Cloud instance endpoint
+When using Telegraf, the API, CLI, or client libraries to interact with your {{< cloud-name "short" >}}
+instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
+For example:
+
+```
+https://us-west-2-1.aws.cloud2.influxdata.com
+```
+{{% /note %}}
+
 ## Query and visualize data
 Once you've set up {{< cloud-name "short" >}} to collect data, you can do the following:
 
