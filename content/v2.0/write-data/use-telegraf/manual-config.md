@@ -38,6 +38,12 @@ The following settings are required:
 An array of URLs for your InfluxDB v2.0 instances.
 _By default, InfluxDB runs on port `9999`._
 
+{{% cloud-msg %}}
+To write data to an {{< cloud-name "short" >}} instance, use the URL of your {{< cloud-name "short" >}}
+user interface (UI).
+For example: <code>https:<nolink>//us-west-2-1.aws.cloud2.influxdata.com</code>
+{{% /cloud-msg %}}
+
 ##### token
 Your InfluxDB v2.0 authorization token.
 For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/).
@@ -62,6 +68,12 @@ The name of the organization that owns the target bucket.
 The name of the bucket to write data to.
 
 #### Example influxdb_v2 configuration
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[InfluxDB OSS](#)
+[{{< cloud-name "short" >}}](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```toml
 # ...
 
@@ -73,6 +85,21 @@ The name of the bucket to write data to.
 
 # ...
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+# ...
+
+[[outputs.influxdb_v2]]
+  urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
+  token = "$INFLUX_TOKEN"
+  organization = "example-org"
+  bucket = "example-bucket"
+
+# ...
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% note %}}
 ##### Write to InfluxDB v1.x and v2.0
