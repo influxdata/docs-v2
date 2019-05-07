@@ -6,6 +6,8 @@ description: >
   returns data in the Prometheus data format.
   This article provides links to information about the Prometheus data format
   and tools that generate Prometheus-formatted metrics.
+aliases:
+  - /v2.0/collect-data/scrape-data/scrapable-endpoints
 menu:
   v2_0:
     parent: Scrape data

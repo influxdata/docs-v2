@@ -2,6 +2,8 @@
 title: Update a Telegraf configuration
 seotitle: Update Telegraf configurations in the InfluxDB UI
 description: Update the name and description of a Telegraf configuration created in the InfluxDB UI.
+aliases:
+  - /v2.0/collect-data/use-telegraf/auto-config/update-telegraf-config
 menu:
   v2_0:
     parent: Automatically configure Telegraf

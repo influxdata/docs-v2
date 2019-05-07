@@ -46,7 +46,7 @@ Log in at [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aw
 
 Use Telegraf to collect and write data to {{< cloud-name >}}. Create Telegraf configurations automatically in the UI or manually configure Telegraf.
 
-For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/auto-config/#create-a-telegraf-configuration) and [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/manual-config/).
+For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration) and [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/manual-config/).
 
 ## Query and visualize data
 

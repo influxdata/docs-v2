@@ -7,11 +7,12 @@ description: >
   Create a scraper in the InfluxDB UI to collect metrics from a specified target.
 aliases:
   - /v2.0/collect-data/scraper-metrics-endpoint
+  - /v2.0/collect-data/scrape-data
 v2.0/tags: [scraper]
 menu:
   v2_0:
     name: Scrape data
-    parent: Collect data
+    parent: Write data
 ---
 
 InfluxDB scrapers collect data from specified targets at regular intervals,
