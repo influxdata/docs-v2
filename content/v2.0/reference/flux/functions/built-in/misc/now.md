@@ -1,6 +1,6 @@
 ---
 title: now() function
-description: The `now()` function returns the current time (GMT).
+description: The `now()` function returns the current time (UTC).
 menu:
   v2_0_ref:
     name: now
@@ -8,7 +8,7 @@ menu:
 weight: 401
 ---
 
-The `now()` function returns the current time (GMT).
+The `now()` function returns the current time (UTC).
 
 _**Function type:** Date/Time_  
 _**Output data type:** Time_

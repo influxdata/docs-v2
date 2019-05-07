@@ -29,7 +29,7 @@ Conditional expressions are most useful in the following contexts:
 - When using functions that operate on a single row at a time (
   [`filter()`](/v2.0/reference/flux/functions/built-in/transformations/filter/),
   [`map()`](/v2.0/reference/flux/functions/built-in/transformations/map/),
-  [`reduce()`](/v2.0/reference/flux/functions/built-in/transformations/aggregations/reduce) ).
+  [`reduce()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce) ).
 
 ## Examples
 
