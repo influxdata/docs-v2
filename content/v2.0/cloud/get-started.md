@@ -57,7 +57,7 @@ instance, extract the "host" or "endpoint" of your instance from your {{< cloud-
 For example:
 
 ```
-https<nolink>://us-west-2-1.aws.cloud2.influxdata.com
+https://us-west-2-1.aws.cloud2.influxdata.com
 ```
 {{% /note %}}
 
