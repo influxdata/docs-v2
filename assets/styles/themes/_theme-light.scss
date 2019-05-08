@@ -23,7 +23,7 @@ $radius: 3px !default;
 $topnav-link: $g7-graphite !default;
 $topnav-link-hover: $b-pool !default;
 $version-selector-top: $b-pool !default;
-$version-selector-bottom: $p-comet !default;
+$version-selector-bottom: $cp-comet !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
 
@@ -103,7 +103,7 @@ $article-warn-code-accent6: #357ae8 !default;
 $article-warn-code-accent7: #e90 !default;
 $article-warn-code-scrollbar: #FFB1B1 !default;
 
-$article-enterprise-base: $p-comet !default;
+$article-enterprise-base: $cp-comet !default;
 $article-enterprise-text: $p-star !default;
 $article-enterprise-link: $p-star !default;
 $article-enterprise-link-hover: $b-ocean !default;
@@ -124,7 +124,7 @@ $article-tab-active-bg: $b-pool !default;
 $article-tab-code-text: $p-potassium !default;
 $article-tab-code-bg: $g20-white !default;
 $article-tab-code-text-hover: $g20-white !default;
-$article-tab-code-bg-hover: $p-comet !default;
+$article-tab-code-bg-hover: $cp-comet !default;
 $article-tab-code-active-text: $p-star !default;
 
 // Article page buttons
@@ -154,5 +154,5 @@ $error-page-btn-hover-text: $g20-white !default;
 $landing-lg-gradient-left: $b-ocean !default;
 $landing-lg-gradient-right: $b-pool !default;
 $landing-sm-gradient-left: $p-star !default;
-$landing-sm-gradient-right: $p-comet !default;
+$landing-sm-gradient-right: $cp-comet !default;
 $landing-sm-gradient-overlay: $p-planet !default;

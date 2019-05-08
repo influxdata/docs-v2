@@ -14,41 +14,41 @@
 
 @import "tools/color-palette";
 
-$body-bg: $cp-deepnight;
-$body-gradient-top: rgba($wp-magenta, .15);
-$body-gradient-bottom: $cp-deepnight;
+$body-bg: $np-deepnight;
+$body-gradient-top: rgba($m-magenta, .2);
+$body-gradient-bottom: $np-deepnight;
 
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
 $version-selector-top: $b-pool;
-$version-selector-bottom: $wp-seance;
+$version-selector-bottom: $cp-victoria;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
 // Sidebar
-$sidebar-search-bg: $wp-violet;
-$sidebar-search-shadow: #0f001d;
+$sidebar-search-bg: $np-deepnight;
+$sidebar-search-shadow: rgba($m-magenta, .05);
 $sidebar-search-highlight: $b-pool;
 $sidebar-search-text: $g20-white;
 
 // Article Content
-$article-bg: $wp-violet;
+$article-bg: $wp-violentdark;
 $article-heading: $g20-white;
 $article-heading-alt: $g19-ghost;
-$article-text: $g14-chromium;
+$article-text: $np-mischka;
 $article-bold: $g18-cloud;
 $article-link: #2aa3ff;
 $article-link-hover: $g20-white;
-$article-hr: $g6-smoke;
-$article-shadow: #191a1b;
+$article-hr: $wp-seance;
+$article-shadow: $np-deepnight;
 $article-note-shadow: #191a1b;
 $article-warn-shadow: #191a1b;
 
 // Article Code
-$article-code: $p-potassium;
-$article-code-bg: $cp-deepnight;
-$article-code-accent1: $g9-mountain;
+$article-code: $cp-munchkin;
+$article-code-bg: $np-deepnight;
+$article-code-accent1: $np-smokey;
 $article-code-accent2: $b-pool;
 $article-code-accent3: $gr-viridian;
 $article-code-accent4: $o-ruby;
@@ -58,12 +58,12 @@ $article-code-accent7: #e90;
 $article-code-select: $b-pool;
 $article-code-link: #2aa3ff;
 $article-code-link-hover: $g20-white;
-$article-code-scrollbar: $g7-graphite;
+$article-code-scrollbar: $np-martinique;
 
 // Article Tables
 $article-table-header-left: $p-planet;
 $article-table-header-right: $b-sapphire;
-$article-table-row-alt: $g2-kevlar;
+$article-table-row-alt: rgba($wp-jagger, .75);
 
 // Article Notes, Warnings, & Messages
 $article-note-base: $gr-viridian;
@@ -116,12 +116,12 @@ $article-cloud-code-bg: $b-abyss;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g12-forge;
-$article-tab-bg: rgba($cp-deepnight, .6);
+$article-tab-bg: rgba($np-deepnight, .6);
 $article-tab-active-text: $g20-white;
 $article-tab-active-bg: $b-ocean;
 
 $article-tab-code-text: $g9-mountain;
-$article-tab-code-bg: rgba($cp-deepnight, .4);
+$article-tab-code-bg: rgba($np-deepnight, .4);
 $article-tab-code-text-hover: $g20-white;
 $article-tab-code-bg-hover: $b-ocean;
 $article-tab-code-active-text: $g20-white;
@@ -137,11 +137,11 @@ $nav-category: $b-pool;
 $nav-category-hover: $g20-white;
 $nav-item: $g16-pearl;
 $nav-item-hover: $b-pool;
-$nav-border: $wp-seance;
+$nav-border: $wp-jango;
 $nav-toggle: $g16-pearl;
 $nav-toggle-hover: $g16-pearl;
 $nav-toggle-bg-hover: $b-pool;
-$nav-active: $c-neon;
+$nav-active: $ch-chartreuse;
 
 // Error Page Colors
 $error-page-btn: $b-ocean;

@@ -10,6 +10,7 @@
     color: $article-heading;
     a {
       color: inherit !important;
+      font-weight: inherit !important;
       text-decoration: none;
       code:after {
         border: none;
@@ -32,6 +33,7 @@
   }
   h3 {
     font-size: 1.65rem;
+    font-weight: $medium;
     margin: -1rem 0 .5rem;
     padding-top: 1.75rem;
     color: $article-heading-alt;
@@ -39,6 +41,7 @@
   h4 {
     font-size: 1.25rem;
     font-style: italic;
+    font-weight: $medium;
     margin: -1.25rem 0 .5rem;
     padding-top: 1.75rem;
   }
@@ -65,7 +68,7 @@
 
   a {
     color: $article-link;
-    font-weight: bold;
+    font-weight: $medium;
     text-decoration: none;
     &:hover {
       color: $article-link-hover;
@@ -131,9 +134,12 @@
   li {
     margin: .25rem 0;
     &:not(:last-child) {
-      > p:only-child{ margin-bottom: 0; }
+      > p:only-child { margin-bottom: 0; }
     }
-    ul,ol { margin: -.5rem 0 1rem;}
+    p + ul,
+    p + ol {
+      margin: -.9rem 0 .5rem;
+    }
   }
 
   //////////////////////////////////// Code ////////////////////////////////////
@@ -150,6 +156,7 @@
       border-radius: $radius;
       color: $article-code;
       white-space: nowrap;
+      font-size: .95rem;
       font-style: normal;
     }
   }

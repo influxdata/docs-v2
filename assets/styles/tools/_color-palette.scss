@@ -2,9 +2,6 @@
 
 // Primary Brand Colors
 $p-deep:          #1F0A23;
-$b-pool:          #22ADF6;
-$c-neon:          #D6F622;
-$p-comet:         #9394FF;
 
 // Oranges (Dark to Light)
 $o-basalt:        #2F1F29;
@@ -20,11 +17,8 @@ $o-flan:          #FFF7F4;
 
 // Blues (Dark to Light)
 $b-abyss:         #182838;
-$cp-deepnightsea:       #32547F;
 $b-sapphire:      #326BBA;
 $b-ocean:         #4591ED;
-// $b-pool
-$b-laser:         #00C9FF;
 $b-hydrogen:      #6BDFFF;
 $b-neutrino:      #BEF0FF;
 $b-snow:          #C9E0ED;
@@ -36,7 +30,7 @@ $p-void:          #311F94;
 $p-purplerain:    #484281;
 $p-planet:        #513CC6;
 $p-star:          #7A65F2;
-// $p-comet
+
 $p-potassium:     #B1B6FF;
 $p-moonstone:     #C9D0FF;
 $p-quartz:        #D6D5ED;
@@ -80,26 +74,71 @@ $g18-cloud:       #F2F2F5;
 $g19-ghost:       #FAFAFC;
 $g20-white:       #FFFFFF; // Brand color
 
-// Cool Purples
-$cp-deepnight:    #13002d; // Brand color
-$cp-valhalla:     #27153F;
-$cp-martinique:   #3A2B50;
-$cp-wine:         #4E4062;
-$cp-smokey:       #625573;
-$cp-rum:          #756A85;
-$cp-mobster:      #898096;
-$cp-amethyst:     #9D95A7;
-$cp-pearl:        #B0AAB9;
-$cp-greysuit:     #C4BFCA;
-$cp-mischka:      #D8D4DC;
-$cp-athens:       #EBEAED;
+// Neutral Purples
+$np-deepnight:    #13002d; // Brand color
+$np-valhalla:     #27153F;
+$np-martinique:   #3A2B50;
+$np-wine:         #4E4062;
+$np-smokey:       #625573;
+$np-rum:          #756A85;
+$np-mobster:      #898096;
+$np-amethyst:     #9D95A7;
+$np-pearl:        #B0AAB9;
+$np-greysuit:     #C4BFCA;
+$np-mischka:      #D8D4DC;
+$np-athens:       #EBEAED;
 
-// Warm Purples - Magenta
+// Warm Purples - Magentas
 $wp-telopea:      #23043E;
+$wp-violentdark:  #2d0749;
 $wp-violet:       #32094E;
 $wp-jagger:       #420D5F;
 $wp-jango:        #521170;
 $wp-seance:       #611581;
 $wp-trance:       #801EA2;
 $wp-heart:        #A026C4;
-$wp-magenta:      #BF2FE5; // Brand color
+$m-magenta:       #BF2FE5; // Brand color
+$m-lavander:      #CA52E9;
+$m-heliotrope:    #D474EE;
+$m-perfume:       #DF97F2;
+$m-pinkmist:      #EABAF6;
+$m-selago:        #F4DCFB;
+
+// Cool Purples
+$cp-jakarta:      #322368;
+$cp-minsk:        #423681;
+$cp-victoria:     #52499A;
+$cp-blueviolet:   #625CB3;
+$cp-marguerite:   #736ECD;
+$cp-purple:       #8381E6;
+$cp-comet:        #9394ff; // Brand color
+$cp-melrose:      #A5A6FF;
+$cp-munchkin:     #B7B8FF;
+$cp-periwinkle:   #C9CAFF;
+$cp-coolfog:      #DBDBFF;
+$cp-titan:        #EDEDFF;
+
+// Chartreuses
+$ch-olive:        #3B440A;
+$ch-saratoga:     #55620E;
+$ch-olivetone:    #6F7F12;
+$ch-trendy:       #899D16;
+$ch-citron:       #A2BB1A;
+$ch-keylime:      #BCD81E;
+$ch-chartreuse:   #D6F622; // Brand color
+$ch-canary:       #E4F96C;
+$ch-primrose:     #F1FCB5;
+
+// Blues
+$b-tiber:         #0A3044;
+$b-deepsea:       #0E4562;
+$b-chathams:      #125A7F;
+$b-matisse:       #166F9D;
+$b-eastern:       #1A83BB;
+$b-curious:       #1E98D8;
+$b-pool:          #22ADF6; // Brand color
+$b-laser:         #47BBF8;
+$b-malibu:        #6CC8F9;
+$b-horizon:       #91D6FB;
+$b-fleur:         #B5E4FC;
+$b-hawkeye:       #DAF1FD;

@@ -27,7 +27,7 @@
       border: 1px solid $sidebar-search-bg;
       padding: .5em 2.15rem .5rem .5rem;
       width: 100%;
-      color: $article-text;
+      color: $sidebar-search-text;
       transition-property: border, box-shadow;
       transition-duration: .2s;
       box-shadow: 2px 2px 6px $sidebar-search-shadow;
@@ -38,7 +38,9 @@
         border-radius: $radius;
       }
       &::placeholder {
-        color: rgba($article-text, .45);
+        color: rgba($sidebar-search-text, .45);
+        font-weight: normal;
+        font-style: italic;
       }
     }
   }
@@ -235,7 +237,7 @@
     // Reference title styles
     h4 {
       margin: 2rem 0 0 -1rem;
-      color: rgba($article-heading, .8);
+      color: rgba($article-heading, .7);
       font-style: italic;
       font-weight: 700;
       text-transform: uppercase;
