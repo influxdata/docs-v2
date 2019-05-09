@@ -1,13 +1,13 @@
 {{ $cloudName := .Site.Data.products.cloud.name }}
 {{ $cloudLink := .Site.Data.products.cloud.link }}
 {{ if ( $.Params.cloud_all ) }}
-  <div class="cloud-msg" id="cloud-msg">
+  <div class="cloud-msg block" id="cloud-msg">
     <p>
       The features and functionality discussed on this page are unique to <a href="{{ $cloudLink }}" target="_blank">{{ $cloudName }}</a>.
     </p>
   </div>
 {{ else if ( $.Params.cloud_some ) }}
-  <div class="cloud-msg" id="cloud-msg">
+  <div class="cloud-msg flex" id="cloud-msg">
     <div>
       <span class="cloud-flag"></span>
     </div>

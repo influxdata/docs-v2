@@ -1,0 +1,46 @@
+.warn {
+  border-color: $article-warn-base;
+  background: rgba($article-warn-base, .08);
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-warn-heading;
+  }
+  p, li {
+    color: $article-warn-text;
+  }
+  a {
+    color: $article-warn-link;
+    code:after {
+      border-color: transparent rgba($article-warn-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-warn-link-hover;
+      code:after {
+        border-color: transparent $article-warn-link-hover transparent transparent;
+      }
+    }
+  }
+  ol li:before {
+    color: $article-warn-text;
+  }
+  code, pre{
+    color: $article-warn-code;
+    background: $article-warn-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-warn-shadow;
+  }
+  table{
+    color: $article-warn-text;
+    box-shadow: 1px 3px 10px $article-warn-shadow;
+    thead{
+      background: $article-warn-table-header;
+    }
+    tr:nth-child(even) td {
+      background: $article-warn-table-row-alt;
+    }
+  }
+  blockquote {
+    border-color: rgba($article-warn-text, .25);
+    p { color: rgba($article-warn-text, .6); }
+  }
+}

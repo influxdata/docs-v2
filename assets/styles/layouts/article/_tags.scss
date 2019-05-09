@@ -1,0 +1,17 @@
+//////////////////////////////////// Tags ////////////////////////////////////
+
+.tags {
+  border-top: 1px solid $article-hr;
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+
+  .tag {
+    background: $body-bg;
+    margin: .12rem 0;
+    padding: .35rem .6rem;
+    font-style: italic;
+    font-weight: $medium;
+    color: rgba($article-text, .75);
+    font-size: .8rem;
+  }
+}

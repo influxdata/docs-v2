@@ -1,0 +1,24 @@
+////////////////// Blockquotes, Notes, Warnings, & Messages //////////////////
+
+blockquote,
+.block, {
+  padding: 1.65rem 2rem .1rem 2rem;
+  margin: 1rem 0 2rem;
+  border-width: 0 0 0 4px;
+  border-style: solid;
+  border-radius: 0 $radius $radius 0;
+  font-size: .95rem;
+
+  ul,ol {
+    &:last-child { margin-bottom: 1.85rem; }
+  }
+}
+
+blockquote {
+  border-color: rgba($article-text, .25);
+  p, li {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba($article-text, .5);
+  }
+}

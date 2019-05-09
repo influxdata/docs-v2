@@ -303,16 +303,16 @@ This is **bold**. This is _italic_.
 // This is a code block inside of a blockquote
 cpu = from(bucket:"telegraf/autogen")
   |> range(start:-30m)
-  |> filter(fn:(r) => r._measurement == "cpu")
+  |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
 
 ###### This is a table in a blockquote
-| Column 1 | Column 2 | Column 3 | Column 4 |
-| -------- | -------- | -------- | -------- |
-| Row 1.1  | Row 1.2  | Row 1.3  | Row 1.4  |
-| Row 2.1  | Row 2.2  | Row 2.3  | Row 2.4  |
-| Row 3.1  | Row 3.2  | Row 3.3  | Row 3.4  |
-| Row 4.1  | Row 4.2  | Row 4.3  | Row 4.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
 {{% /note %}}
 
@@ -416,18 +416,126 @@ This is **bold**. This is _italic_.
 // This is a code block inside of a blockquote
 cpu = from(bucket:"telegraf/autogen")
   |> range(start:-30m)
-  |> filter(fn:(r) => r._measurement == "cpu")
+  |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
 
 ###### This is a table in a blockquote
-| Column 1 | Column 2 | Column 3 | Column 4 |
-| -------- | -------- | -------- | -------- |
-| Row 1.1  | Row 1.2  | Row 1.3  | Row 1.4  |
-| Row 2.1  | Row 2.2  | Row 2.3  | Row 2.4  |
-| Row 3.1  | Row 3.2  | Row 3.3  | Row 3.4  |
-| Row 4.1  | Row 4.2  | Row 4.3  | Row 4.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
 {{% /warn %}}
+
+{{% cloud-msg %}}
+This is a multiple paragraph blockquote with internal elements.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+## h2 This is a header2
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+{{< img-hd src="/img/test-image-2.png" alt="Test Image" />}}
+
+### h3 This is a header3
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+#### h4 This is a header4
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+##### h5 This is a header5
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+###### h6 This is a header6
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+
+> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+> Etiam tristique nisi et tristique auctor.
+> Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+> Etiam tristique nisi et tristique auctor.
+
+#### Inline Styles
+This is an [inline link](#). This is `inline code`.
+This is an [`inline code link`](#) .
+This is **bold**. This is _italic_.
+
+- Unordered list line-item 1
+- Unordered list line-item 2
+  - Unordered list line-item 2.1
+  - Unordered list line-item 2.2
+  - Unordered list line-item 2.3
+- Unordered list line-item 3
+-   Unordered list line-item with multiple paragraphs.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+-   Unordered list line-item with multiple paragraphs.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+1.  Unordered list line-item 1
+2.  Unordered list line-item 2
+  1.  Unordered list line-item 2.1
+  2.  Unordered list line-item 2.2
+  3.  Unordered list line-item 2.3
+3.  Unordered list line-item 3
+4.  Unordered list line-item with multiple paragraphs.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+5.  Unordered list line-item with multiple paragraphs.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+    Etiam tristique nisi et tristique auctor.
+
+```js
+// This is a code block inside of a blockquote
+cpu = from(bucket:"telegraf/autogen")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
+```
+
+###### This is a table in a blockquote
+| Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
+
+{{% /cloud-msg %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

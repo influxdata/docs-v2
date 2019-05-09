@@ -43,8 +43,6 @@ $article-link: $b-ocean !default;
 $article-link-hover: $gr-viridian !default;
 $article-shadow: #c8cdd0 !default;
 $article-hr: $g15-platinum !default;
-$article-note-shadow: #8cb7ab !default;
-$article-warn-shadow: #b98a7d !default;
 
 // Article Code
 $article-code: $p-star !default;
@@ -74,6 +72,7 @@ $article-note-link: rgba($gr-emerald, .75) !default;
 $article-note-link-hover: $b-pool !default;
 $article-note-table-header: $gr-viridian !default;
 $article-note-table-row-alt: #d6f5e9 !default;
+$article-note-shadow: #8cb7ab !default;
 $article-note-code: #0A6f75 !default;
 $article-note-code-bg: #d6f7ec !default;
 $article-note-code-accent1: #6abba0 !default;
@@ -92,6 +91,7 @@ $article-warn-link: rgba($o-curacao, .75) !default;
 $article-warn-link-hover: $b-sapphire !default;
 $article-warn-table-header: $o-dreamsicle !default;
 $article-warn-table-row-alt: #ffe6df !default;
+$article-warn-shadow: #b98a7d !default;
 $article-warn-code: #d0154e !default;
 $article-warn-code-bg: #ffebeb !default;
 $article-warn-code-accent1: #fd99b8 !default;
@@ -103,17 +103,29 @@ $article-warn-code-accent6: #357ae8 !default;
 $article-warn-code-accent7: #e90 !default;
 $article-warn-code-scrollbar: #FFB1B1 !default;
 
+$article-cloud-base: $b-laser !default;
+$article-cloud-heading: $gr-emerald !default;
+$article-cloud-text: $b-ocean !default;
+$article-cloud-link: $b-ocean !default;
+$article-cloud-link-hover: $gr-canopy !default;
+$article-cloud-table-header: $gr-viridian !default;
+$article-cloud-table-row-alt: #d6f5e9 !default;
+$article-cloud-shadow: #b98a7d !default;
+$article-cloud-code: $b-sapphire !default;
+$article-cloud-code-bg: rgba($b-pool, .25) !default;
+$article-cloud-code-accent1: #6abba0 !default;
+$article-cloud-code-accent2: #0084d6 !default;
+$article-cloud-code-accent3: #5d52d6 !default;
+$article-cloud-code-accent4: $o-ruby !default;
+$article-cloud-code-accent5: #e24bbb !default;
+$article-cloud-code-accent6: #0084d6 !default;
+$article-cloud-code-accent7: #e90 !default;
+$article-cloud-code-scrollbar: #87DABE !default;
+
 $article-enterprise-base: $cp-comet !default;
 $article-enterprise-text: $p-star !default;
 $article-enterprise-link: $p-star !default;
 $article-enterprise-link-hover: $b-ocean !default;
-
-$article-cloud-base: $b-laser !default;
-$article-cloud-text: $b-ocean !default;
-$article-cloud-link: $b-ocean !default;
-$article-cloud-link-hover: $gr-canopy !default;
-$article-cloud-code: $b-sapphire !default;
-$article-cloud-code-bg: rgba($b-pool, .25) !default;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g8-storm !default;
