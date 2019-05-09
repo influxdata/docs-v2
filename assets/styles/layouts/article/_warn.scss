@@ -7,6 +7,9 @@
   p, li {
     color: $article-warn-text;
   }
+  strong {
+    color: inherit;
+  }
   a {
     color: $article-warn-link;
     code:after {

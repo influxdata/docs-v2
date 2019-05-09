@@ -37,6 +37,9 @@
   p,li {
     color: $article-cloud-text;
   }
+  strong {
+    color: inherit;
+  }
   a {
     color: $article-cloud-link;
     code:after {

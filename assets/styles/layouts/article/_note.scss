@@ -7,6 +7,9 @@
   p, li {
     color: $article-note-text;
   }
+  strong {
+    color: inherit;
+  }
   a {
     color: $article-note-link;
     code:after {

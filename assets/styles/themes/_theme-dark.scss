@@ -26,11 +26,22 @@ $version-selector-bottom: $cp-victoria;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
-// Sidebar
+// Search
 $sidebar-search-bg: $np-deepnight;
 $sidebar-search-shadow: rgba($m-magenta, .05);
 $sidebar-search-highlight: $b-pool;
 $sidebar-search-text: $g20-white;
+
+// Left Navigation
+$nav-category: $b-pool;
+$nav-category-hover: $g20-white;
+$nav-item: $g16-pearl;
+$nav-item-hover: $b-pool;
+$nav-border: $wp-jango;
+$nav-toggle: $g16-pearl;
+$nav-toggle-hover: $g16-pearl;
+$nav-toggle-bg-hover: $b-pool;
+$nav-active: $ch-chartreuse;
 
 // Article Content
 $article-bg: $wp-violentdark;
@@ -61,7 +72,8 @@ $article-code-scrollbar: $np-martinique;
 // Article Tables
 $article-table-header-left: $wp-violet;
 $article-table-header-right: $b-curious;
-$article-table-row-alt: rgba($wp-jagger, .75);
+$article-table-row-alt: #3C0C59;
+$article-table-scrollbar: $np-deepnight;
 
 // Article Notes, Warnings, & Messages
 $article-note-base: $gr-viridian;
@@ -70,7 +82,8 @@ $article-note-text: $gr-viridian;
 $article-note-link: $gr-rainforest;
 $article-note-link-hover: $g20-white;
 $article-note-table-header: $gr-viridian;
-$article-note-table-row-alt: rgba($gr-viridian, .15);
+$article-note-table-row-alt: #3B2862;
+$article-note-table-scrollbar: $np-deepnight;
 $article-note-shadow: $np-deepnight;
 $article-note-code: $cp-comet;
 $article-note-code-bg: $wp-telopea;
@@ -89,7 +102,8 @@ $article-warn-text: $o-dreamsicle;
 $article-warn-link: $o-tungsten;
 $article-warn-link-hover: $g20-white;
 $article-warn-table-header: rgba($o-dreamsicle, .9);
-$article-warn-table-row-alt: rgba($o-dreamsicle, .1);
+$article-warn-table-row-alt: #531B5B;
+$article-warn-table-scrollbar: $wp-telopea;
 $article-warn-shadow: $np-deepnight;
 $article-warn-code: #ec6e6e;
 $article-warn-code-bg: $wp-telopea;
@@ -108,7 +122,8 @@ $article-cloud-text: $b-hawkeye;
 $article-cloud-link: $b-hawkeye;
 $article-cloud-link-hover: $g20-white;
 $article-cloud-table-header: $b-pool;
-$article-cloud-table-row-alt: rgba($b-pool, .15);
+$article-cloud-table-row-alt: #382876;
+$article-cloud-table-scrollbar: $np-deepnight;
 $article-cloud-shadow: $np-deepnight;
 $article-cloud-code: $b-laser;
 $article-cloud-code-bg: $wp-telopea;
@@ -144,25 +159,14 @@ $article-btn-text: $g20-white;
 $article-btn-hover: $b-pool;
 $article-btn-text-hover: $g20-white;
 
-// Left Navigation
-$nav-category: $b-pool;
-$nav-category-hover: $g20-white;
-$nav-item: $g16-pearl;
-$nav-item-hover: $b-pool;
-$nav-border: $wp-jango;
-$nav-toggle: $g16-pearl;
-$nav-toggle-hover: $g16-pearl;
-$nav-toggle-bg-hover: $b-pool;
-$nav-active: $ch-chartreuse;
-
 // Error Page Colors
-$error-page-btn: $b-ocean;
+$error-page-btn: $b-dodger;
 $error-page-btn-text: $g20-white;
 $error-page-btn-hover: $g20-white;
-$error-page-btn-hover-text: $b-ocean;
+$error-page-btn-hover-text: $b-dodger;
 
 // Landing Page colors
-$landing-lg-gradient-left: $b-ocean;
+$landing-lg-gradient-left: $b-dodger;
 $landing-lg-gradient-right: $b-pool;
 $landing-sm-gradient-left: $p-planet;
 $landing-sm-gradient-right: $p-star;
