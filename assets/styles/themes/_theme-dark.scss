@@ -22,7 +22,7 @@ $body-gradient-bottom: $np-deepnight;
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
 $version-selector-top: $b-pool;
-$version-selector-bottom: $cp-victoria;
+$version-selector-bottom: $cp-comet;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
@@ -118,7 +118,7 @@ $article-warn-code-scrollbar: #561e4d;
 
 $article-cloud-base: $b-pool;
 $article-cloud-heading: $g20-white;
-$article-cloud-text: $b-hawkeye;
+$article-cloud-text: $b-fleur;
 $article-cloud-link: $b-hawkeye;
 $article-cloud-link-hover: $g20-white;
 $article-cloud-table-header: $b-pool;
@@ -136,9 +136,9 @@ $article-cloud-code-accent6: $b-pool;
 $article-cloud-code-accent7: #e90;
 $article-cloud-code-scrollbar: $cp-jakarta;
 
-$article-enterprise-base: $p-star;
-$article-enterprise-text: $p-potassium;
-$article-enterprise-link: $p-moonstone;
+$article-enterprise-base: $cp-purple;
+$article-enterprise-text: $cp-periwinkle;
+$article-enterprise-link: $cp-coolfog;
 $article-enterprise-link-hover: $g20-white;
 
 // Article Tabs for tabbed content
@@ -168,6 +168,6 @@ $error-page-btn-hover-text: $b-dodger;
 // Landing Page colors
 $landing-lg-gradient-left: $b-dodger;
 $landing-lg-gradient-right: $b-pool;
-$landing-sm-gradient-left: $p-planet;
-$landing-sm-gradient-right: $p-star;
-$landing-sm-gradient-overlay: $p-shadow;
+$landing-sm-gradient-left: $cp-victoria;
+$landing-sm-gradient-right: $cp-marguerite;
+$landing-sm-gradient-overlay: $cp-jakarta;

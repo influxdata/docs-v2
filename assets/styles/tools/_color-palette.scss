@@ -1,45 +1,5 @@
 // Influx Color Palette
 
-// Primary Brand Colors
-$p-deep:          #1F0A23;
-
-// Oranges (Dark to Light)
-$o-basalt:        #2F1F29;
-$o-ember:         #6F3943;
-$o-ruby:          #BF3D5E;
-$o-fire:          #DC4E58;
-$o-curacao:       #F95F53;
-$o-dreamsicle:    #FF8564;
-$o-tungsten:      #FFB6A0;
-$o-marmelade:     #FFDCCF;
-$o-orangecream:   #EADAD8;
-$o-flan:          #FFF7F4;
-
-// Blues (Dark to Light)
-$b-abyss:         #182838;
-$b-sapphire:      #326BBA;
-
-$b-hydrogen:      #6BDFFF;
-$b-neutrino:      #BEF0FF;
-$b-snow:          #C9E0ED;
-$b-yeti:          #F0FCFF;
-
-// Purples (Dark to Light)
-$p-shadow:        #1F2039;
-$p-void:          #311F94;
-$p-purplerain:    #484281;
-$p-planet:        #513CC6;
-$p-star:          #7A65F2;
-
-$p-potassium:     #B1B6FF;
-$p-moonstone:     #C9D0FF;
-$p-quartz:        #D6D5ED;
-$p-violettecreme: #EDF0FF;
-
-
-
-// --------------------------------------------------
-
 // Greys (Dark to Light)
 $g0-obsidian:     #0F0E15;
 $g1-raven:        #1C1C21;
@@ -62,20 +22,6 @@ $g17-whisper:     #EEEFF2;
 $g18-cloud:       #F2F2F5;
 $g19-ghost:       #FAFAFC;
 $g20-white:       #FFFFFF; // Brand color
-
-// Neutral Purples
-$np-deepnight:    #13002d; // Brand color
-$np-valhalla:     #27153F;
-$np-martinique:   #3A2B50;
-$np-wine:         #4E4062;
-$np-smokey:       #625573;
-$np-rum:          #756A85;
-$np-mobster:      #898096;
-$np-amethyst:     #9D95A7;
-$np-pearl:        #B0AAB9;
-$np-greysuit:     #C4BFCA;
-$np-mischka:      #D8D4DC;
-$np-athens:       #EBEAED;
 
 // Warm Purples - Magentas
 $wp-telopea:      #23043E;
@@ -107,16 +53,19 @@ $cp-periwinkle:   #C9CAFF;
 $cp-coolfog:      #DBDBFF;
 $cp-titan:        #EDEDFF;
 
-// Chartreuses
-$ch-olive:        #3B440A;
-$ch-saratoga:     #55620E;
-$ch-olivetone:    #6F7F12;
-$ch-trendy:       #899D16;
-$ch-citron:       #A2BB1A;
-$ch-keylime:      #BCD81E;
-$ch-chartreuse:   #D6F622; // Brand color
-$ch-canary:       #E4F96C;
-$ch-primrose:     #F1FCB5;
+// Neutral Purples
+$np-deepnight:    #13002d; // Brand color
+$np-valhalla:     #27153F;
+$np-martinique:   #3A2B50;
+$np-wine:         #4E4062;
+$np-smokey:       #625573;
+$np-rum:          #756A85;
+$np-mobster:      #898096;
+$np-amethyst:     #9D95A7;
+$np-pearl:        #B0AAB9;
+$np-greysuit:     #C4BFCA;
+$np-mischka:      #D8D4DC;
+$np-athens:       #EBEAED;
 
 // Blues
 $b-tiber:         #0A3044;
@@ -132,7 +81,17 @@ $b-malibu:        #6CC8F9;
 $b-horizon:       #91D6FB;
 $b-fleur:         #B5E4FC;
 $b-hawkeye:       #DAF1FD;
-$b-polar:         #F3F9FC;
+
+// Chartreuses
+$ch-olive:        #3B440A;
+$ch-saratoga:     #55620E;
+$ch-olivetone:    #6F7F12;
+$ch-trendy:       #899D16;
+$ch-citron:       #A2BB1A;
+$ch-keylime:      #BCD81E;
+$ch-chartreuse:   #D6F622; // Brand color
+$ch-canary:       #E4F96C;
+$ch-primrose:     #F1FCB5;
 
 // Greens
 $gr-gypsy:        #152B2D;
@@ -146,3 +105,15 @@ $gr-krypton:      #A5F3B4;
 $gr-wasabi:       #C6FFD0;
 $gr-forestfog:    #CFE6E1;
 $gr-mint:         #F2FFF4;
+
+// Oranges
+$o-basalt:        #2F1F29;
+$o-ember:         #6F3943;
+$o-ruby:          #BF3D5E;
+$o-fire:          #DC4E58;
+$o-curacao:       #F95F53;
+$o-dreamsicle:    #FF8564;
+$o-tungsten:      #FFB6A0;
+$o-marmelade:     #FFDCCF;
+$o-orangecream:   #EADAD8;
+$o-flan:          #FFF7F4;

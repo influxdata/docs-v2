@@ -4,27 +4,30 @@
   margin-left: -2rem;
   border-left: 2px solid $article-cloud-base;
 
-  &-flag {
-    padding: .2rem .4rem;
-    font-size: .75rem;
-    font-style: normal;
-    font-weight: bold;
-    color: $g20-white;
-    border-radius: $radius;
-    vertical-align: text-bottom;
-    background: $article-cloud-base;
-    position: absolute;
-    top: -.15rem;
-    left: -.68rem;
-    transform: scale(.8);
-    transition: all .2s;
+  .cloud-flag {
     &:hover {
       transform: scale(1);
       color: $g20-white;
     }
-    &:before {
-      content: "C";
-    }
+  }
+}
+
+.cloud-flag {
+  padding: .2rem .4rem;
+  font-size: .75rem;
+  font-style: normal;
+  font-weight: bold;
+  color: $g20-white;
+  border-radius: $radius;
+  vertical-align: text-bottom;
+  background: $article-cloud-base;
+  position: absolute;
+  top: -.15rem;
+  left: -.68rem;
+  transform: scale(.8);
+  transition: all .2s;
+  &:before {
+    content: "C";
   }
 }
 
@@ -85,5 +88,20 @@
       margin: .25rem 2rem 0 0;
     }
   }
+}
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .cloud-msg .cloud-flag { margin-left: .5rem }
+  .cloud {
+    padding: 0 0 .01rem .85rem;
+    margin-left: -.85rem;
+
+    .cloud-flag {
+      left: -.25rem;
+    }
+  }
 }
