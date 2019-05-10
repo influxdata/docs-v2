@@ -8,10 +8,11 @@ description: >
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
   - /v2.0/collect-data/advanced-telegraf
+  - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
     name : Use Telegraf
-    parent: Collect data
+    parent: Write data
 
 ---
 

@@ -4,6 +4,8 @@ seotitle: Automatically configure Telegraf for InfluxDB v2.0
 description: >
   Use the InfluxDB UI to automatically generate a Telegraf configuration,
   then start Telegraf using the generated configuration file.
+aliases:
+  - /v2.0/collect-data/use-telegraf/auto-config
 menu:
   v2_0:
     parent: Use Telegraf
@@ -16,7 +18,7 @@ This article describes how to create a Telegraf configuration in the InfluxDB UI
 start Telegraf using the generated configuration file.
 
 {{% note %}}
-_View the [requirements](/v2.0/collect-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
@@ -35,7 +37,7 @@ for using Telegraf with InfluxDB v2.0._
    (e.g. **System**, **Docker**, **Kubernetes**, **NGINX**, or **Redis**), and click **Continue**.
    {{% note %}}
    All Telegraf plugins are supported, but only a subset are configurable using the InfluxDB UI.
-   To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/collect-data/use-telegraf/manual-config).
+   To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config).
    {{% /note %}}
 8. Review the list of **Plugins to Configure** for configuration requirements.
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
