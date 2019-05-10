@@ -9,7 +9,7 @@ enterprise_all: true
 #enterprise_some: true
 #cloud_all: true
 cloud_some: true
-#draft: true
+draft: true
 "v2.0/tags": [influxdb]
 ---
 

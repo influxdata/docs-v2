@@ -25,7 +25,7 @@
     &.quarter {
       flex-grow: 2;
       margin: 1px;
-      padding: 2rem;
+      padding: 1.5rem;
       background: rgba($landing-sm-gradient-overlay, .5);
       transition: background-color .4s;
       &:hover {
@@ -35,7 +35,6 @@
 
     h1,h2,h3,h4 {
       font-weight: 300;
-      font-style: italic;
       text-align: center;
       color: $g20-white;
     }
@@ -45,7 +44,7 @@
       font-size: 2.25rem;
     }
 
-    h3 { font-size: 1.35rem;}
+    h3 { font-size: 1.25rem;}
 
     &#get-started {
       background: linear-gradient(127deg, $landing-lg-gradient-left, $landing-lg-gradient-right );
