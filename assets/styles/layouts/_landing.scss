@@ -2,20 +2,34 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(55deg, $landing-lg-gradient-left, $landing-lg-gradient-right );
 
   a {
     text-decoration: none;
     color: inherit;
   }
 
+  #landing-hive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    path, ellipse {
+      fill: $landing-artwork-color;
+    }
+  }
+
   .group {
     display: flex;
-    background: linear-gradient(127deg, $landing-sm-gradient-left, $landing-sm-gradient-right);
+
     flex-wrap: wrap;
   }
 
   .card {
     text-align: center;
+    z-index: 1;
 
     &.full {
       width: 100%;
@@ -26,10 +40,10 @@
       flex-grow: 2;
       margin: 1px;
       padding: 1.5rem;
-      background: rgba($landing-sm-gradient-overlay, .5);
+      background: rgba($landing-sm-gradient-overlay, .65);
       transition: background-color .4s;
       &:hover {
-        background: rgba($landing-sm-gradient-overlay, 0);
+        background: rgba($landing-sm-gradient-overlay, .9);
       }
     }
 
@@ -42,12 +56,12 @@
     h1 {
       margin: 0 0 1.25rem;
       font-size: 2.25rem;
+      z-index: 1;
     }
 
     h3 { font-size: 1.25rem;}
 
     &#get-started {
-      background: linear-gradient(127deg, $landing-lg-gradient-left, $landing-lg-gradient-right );
       text-align: center;
 
       .btn {
@@ -55,7 +69,7 @@
         padding: .85rem 1.5rem;
         color: $g20-white;
         font-weight: bold;
-        background: rgba($g20-white, .1);
+        background: rgba($g20-white, .25);
         border: 2px solid rgba($g20-white, .5);
         border-radius: $radius;
         transition: background-color .2s, color .2s;
