@@ -220,3 +220,28 @@ pre[class*="language-"] {
 			{ color: $article-warn-code-accent7 }
 	}
 }
+
+.cloud-msg {
+	.highlight  {
+		color: $article-cloud-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-cloud-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-cloud-code-accent1; }
+		.gi
+			{ background-color: $article-cloud-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-cloud-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-cloud-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-cloud-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-cloud-code-accent5 }
+		.gp,.o
+			{ color: $article-cloud-code-accent6	}
+		.ss
+			{ color: $article-cloud-code-accent7 }
+	}
+}

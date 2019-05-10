@@ -1,0 +1,17 @@
+//////////////////////////////// Scroll Bars /////////////////////////////////
+
+pre   { @include scrollbar($article-code-bg, $article-code-scrollbar); }
+table { @include scrollbar($article-table-row-alt, $article-table-scrollbar);}
+
+.note {
+  pre   { @include scrollbar($article-note-code-bg, $article-note-code-scrollbar); }
+  table { @include scrollbar($article-note-table-row-alt, $article-note-table-scrollbar); }
+}
+.warn {
+  pre   { @include scrollbar($article-warn-code-bg, $article-warn-code-scrollbar); }
+  table { @include scrollbar($article-warn-table-row-alt, $article-warn-table-scrollbar); }
+}
+.cloud-msg {
+  pre   { @include scrollbar($article-cloud-code-bg, $article-cloud-code-scrollbar); }
+  table { @include scrollbar($article-cloud-table-row-alt, $article-cloud-table-scrollbar); }
+}

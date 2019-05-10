@@ -1,0 +1,141 @@
+.article {
+  background: $article-bg;
+  border-radius: $radius 0 0 $radius;
+  padding: 2rem 4rem 3rem;
+}
+
+.article--content{
+  max-width: 760px;
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-heading;
+    a {
+      color: inherit !important;
+      font-weight: inherit !important;
+      text-decoration: none;
+      code:after {
+        border: none;
+      }
+    }
+  }
+  h2,h3,h4,h5,h6 {
+    & + .highlight pre { margin-top: .5rem; }
+    & + .code-tabs-wrapper { margin-top: 0; }
+  }
+  h1 {
+    font-weight: normal;
+    font-size: 2.65rem;
+    margin: .4em 0 1em;
+  }
+  h2 {
+    font-size: 2rem;
+    margin: -.25rem 0 .5rem;
+    padding-top: 1.75rem;
+    font-weight: $medium;
+    color: $article-heading-alt;
+  }
+  h3 {
+    font-size: 1.65rem;
+    font-weight: $medium;
+    margin: -1rem 0 .5rem;
+    padding-top: 1.75rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: $medium;
+    margin: -1.25rem 0 .5rem;
+    padding-top: 1.75rem;
+    color: $article-heading-alt;
+  }
+  h5 {
+    font-size: 1rem;
+    margin: -1.25rem 0 .25rem;
+    padding-top: 1.75rem;
+  }
+  h6 {
+    font-size: 1rem;
+    font-style: italic;
+    margin: -1.25rem 0 .25rem;
+    padding-top: 1.75rem;
+  }
+
+  p,li {
+    color: $article-text;
+    line-height: 1.6rem;
+  }
+
+  p {
+    margin: 0 0 1.5em;
+  }
+
+  a {
+    color: $article-link;
+    font-weight: $medium;
+    text-decoration: none;
+    &:hover {
+      color: $article-link-hover;
+    }
+  }
+
+  strong {
+    color: $article-bold;
+  }
+
+  img {
+    max-width: 100%;
+    margin-bottom: 2rem;
+    border-radius: ($radius * 1.5);
+    box-shadow: 1px 3px 10px $article-shadow;
+  }
+
+  hr {
+    border-width: 1px 0 0;
+    border-color: $article-hr;
+    border-style: solid;
+    margin: 1.85rem 0 1.75rem;
+  }
+
+
+  @import "article/blocks",
+          "article/buttons",
+          "article/children",
+          "article/code",
+          "article/cloud",
+          "article/enterprise",
+          "article/feedback",
+          "article/lists",
+          "article/note",
+          "article/pagination-btns",
+          "article/scrollbars",
+          "article/tabbed-content",
+          "article/tables",
+          "article/tags",
+          "article/truncate",
+          "article/warn";
+
+
+
+  //////////////////////////////// Miscellaneous ///////////////////////////////
+
+  .required {
+    color:#FF8564;
+    font-weight:700;
+    font-style: italic;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .article {
+    padding: 1.5rem 1.5rem 3rem;
+
+    h1 { margin: .35rem 0 2rem; font-size: 2.4rem; }
+    h2 { font-size: 1.9rem; }
+    h3 { font-size: 1.55rem; }
+    h4 { font-size: 1.3rem; }
+
+  }
+}

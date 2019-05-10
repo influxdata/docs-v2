@@ -1,0 +1,48 @@
+//////////////////////////////////// Lists ////////////////////////////////////
+
+ol, ul {
+  padding-left: 1.6rem;
+}
+
+ul {
+  list-style-type: disc;
+  li:before{
+    content: "" !important;
+    display: none;
+  }
+}
+
+ol {
+list-style: none;
+counter-reset: item;
+  li {
+    position: relative;
+    counter-increment: item;
+    &:before {
+      content: counter(item) ". ";
+      position: absolute;
+      left: -1.6em;
+      color: $article-bold;
+      font-weight: bold;
+    }
+    ul {
+      counter-reset: item;
+    }
+  }
+}
+
+& > ol,
+& > ul {
+  margin: 1rem 0 1.5rem 0;
+}
+
+li {
+  margin: .25rem 0;
+  &:not(:last-child) {
+    > p:only-child { margin-bottom: 0; }
+  }
+  p + ul,
+  p + ol {
+    margin: -.9rem 0 .5rem;
+  }
+}

@@ -20,12 +20,14 @@
     }
 
     input {
+      font-family: $rubik;
+        font-weight: $medium;
       background: $sidebar-search-bg;
-      border-radius: $border-radius;
+      border-radius: $radius;
       border: 1px solid $sidebar-search-bg;
       padding: .5em 2.15rem .5rem .5rem;
       width: 100%;
-      color: $article-text;
+      color: $sidebar-search-text;
       transition-property: border, box-shadow;
       transition-duration: .2s;
       box-shadow: 2px 2px 6px $sidebar-search-shadow;
@@ -33,12 +35,12 @@
         outline: none;
         border-color: $sidebar-search-highlight;
         box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
-        border-radius: $border-radius;
+        border-radius: $radius;
       }
       &::placeholder {
-        font-family: 'Roboto';
-        font-weight: 500;
-        color: rgba($article-text, .45);
+        color: rgba($sidebar-search-text, .45);
+        font-weight: normal;
+        font-style: italic;
       }
     }
   }
@@ -133,7 +135,7 @@
         background: $nav-border;
       }
       ul {
-        margin-left: -.95em;
+        margin-left: -.96em;
         li:before {
           top: .4em;
         }
@@ -163,7 +165,7 @@
 
     a {
       text-decoration: none;
-      font-weight: 600;
+      font-weight: $medium;
       display: inline-block;
     }
     .nav-category > a {
@@ -235,7 +237,7 @@
     // Reference title styles
     h4 {
       margin: 2rem 0 0 -1rem;
-      color: rgba($article-heading, .8);
+      color: rgba($article-heading-alt, .6);
       font-style: italic;
       font-weight: 700;
       text-transform: uppercase;

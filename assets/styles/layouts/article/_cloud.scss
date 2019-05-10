@@ -1,0 +1,107 @@
+.cloud {
+  position: relative;
+  padding: 0 0 .01rem 2rem;
+  margin-left: -2rem;
+  border-left: 2px solid $article-cloud-base;
+
+  .cloud-flag {
+    &:hover {
+      transform: scale(1);
+      color: $g20-white;
+    }
+  }
+}
+
+.cloud-flag {
+  padding: .2rem .4rem;
+  font-size: .75rem;
+  font-style: normal;
+  font-weight: bold;
+  color: $g20-white;
+  border-radius: $radius;
+  vertical-align: text-bottom;
+  background: $article-cloud-base;
+  position: absolute;
+  top: -.15rem;
+  left: -.68rem;
+  transform: scale(.8);
+  transition: all .2s;
+  &:before {
+    content: "C";
+  }
+}
+
+.cloud-msg {
+  border-color: $article-cloud-base;
+  background: rgba($article-cloud-base, .12);
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-cloud-heading;
+  }
+  p,li {
+    color: $article-cloud-text;
+  }
+  strong {
+    color: inherit;
+  }
+  a {
+    color: $article-cloud-link;
+    code:after {
+      border-color: transparent rgba($article-cloud-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-cloud-link-hover;
+      code:after {
+        border-color: transparent $article-cloud-link-hover transparent transparent;
+      }
+    }
+  }
+  ol li:before {
+    color: $article-cloud-text;
+  }
+  code, pre{
+    color: $article-cloud-code;
+    background: $article-cloud-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-cloud-shadow;
+  }
+  table{
+    color: $article-cloud-text;
+    box-shadow: 1px 3px 10px $article-cloud-shadow;
+    thead{
+      background: $article-cloud-table-header;
+    }
+    tr:nth-child(even) td {
+      background: $article-cloud-table-row-alt;
+    }
+  }
+  blockquote {
+    border-color: rgba($article-cloud-text, .25);
+    p { color: rgba($article-cloud-text, .6); }
+  }
+
+  &.flex {
+    font-style: italic;
+    display: flex;
+    div:first-child {
+      position: relative;
+      margin: .25rem 2rem 0 0;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .cloud-msg .cloud-flag { margin-left: .5rem }
+  .cloud {
+    padding: 0 0 .01rem .85rem;
+    margin-left: -.85rem;
+
+    .cloud-flag {
+      left: -.25rem;
+    }
+  }
+}
