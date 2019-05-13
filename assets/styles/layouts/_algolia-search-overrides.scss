@@ -5,10 +5,10 @@
   .ds-dropdown-menu {
     width: 74vw;
     max-width: 800px;
-    background: $article-bg;
+    background: $sidebar-search-bg;
 
     [class^=ds-dataset-] {
-      background-color: $article-bg;
+      background-color: $sidebar-search-bg;
       border: none;
       box-shadow: 2px 2px 10px $sidebar-search-shadow;
       transition: background-color .2s;
@@ -24,7 +24,7 @@
 
   /* Main category (eg. Getting Started) */
   .algolia-docsearch-suggestion {
-    background: $article-bg;
+    background: $sidebar-search-bg;
 
     &--category-header {
       color: $article-heading;

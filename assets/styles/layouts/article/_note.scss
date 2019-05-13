@@ -1,0 +1,49 @@
+.note {
+  border-color: $article-note-base;
+  background: rgba($article-note-base, .12);
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-note-heading;
+  }
+  p, li {
+    color: $article-note-text;
+  }
+  strong {
+    color: inherit;
+  }
+  a {
+    color: $article-note-link;
+    code:after {
+      border-color: transparent rgba($article-note-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-note-link-hover;
+      code:after {
+        border-color: transparent $article-note-link-hover transparent transparent;
+      }
+    }
+  }
+  ol li:before {
+    color: $article-note-text;
+  }
+  code, pre{
+    color: $article-note-code;
+    background: $article-note-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-note-shadow;
+  }
+  table{
+    color: $article-note-text;
+    box-shadow: 1px 3px 10px $article-note-shadow;
+    thead{
+      background: $article-note-table-header;
+    }
+    tr:nth-child(even) td {
+      background: $article-note-table-row-alt;
+    }
+  }
+  blockquote {
+    border-color: rgba($article-note-text, .25);
+    p { color: rgba($article-note-text, .6); }
+  }
+}

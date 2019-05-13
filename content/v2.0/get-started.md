@@ -209,7 +209,7 @@ the `influx` command line interface (CLI).
 5. Click **Continue**.
 
 InfluxDB is now initialized with a primary user, organization, and bucket.
-You are ready to [collect data](/v2.0/collect-data).
+You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
 #### Using the influx CLI after setting up InfluxDB through the UI
@@ -247,7 +247,7 @@ influx setup
 7. Confirm the details for your primary user, organization, and bucket.
 
 InfluxDB is now initialized with a primary user, organization, and bucket.
-You are ready to [collect data](/v2.0/collect-data).
+You are ready to [write or collect data](/v2.0/write-data).
 
 {{% /tab-content %}}
 <!------------------------------- END UI Setup -------------------------------->

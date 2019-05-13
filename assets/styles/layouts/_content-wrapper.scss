@@ -1,0 +1,31 @@
+.content-wrapper {
+  flex-grow: 1;
+  width: 75%;
+  position: relative;
+  border-radius: $radius 0 0 $radius;
+  overflow: hidden;
+
+  .copyright {
+    padding: .5rem 1rem .5rem .5rem;
+    text-align: right;
+    font-size: .9rem;
+    color: rgba($article-text, .5);
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(medium) {
+  .content-wrapper {
+    width: 100%;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .content-wrapper {
+    width: 70%;
+  }
+}

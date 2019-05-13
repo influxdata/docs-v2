@@ -14,141 +14,160 @@
 // General Styles
 // --------------------------------------------------
 
-$body-bg: $g18-cloud;
+$body-bg: $g18-cloud !default;
+$body-gradient-top: $g19-ghost !default;
+$body-gradient-bottom: $g17-whisper !default;
+$radius: 3px !default;
 
 // TopNav Colors
-$topnav-link: $g5-pepper;
-$topnav-link-hover: $b-ocean;
-$version-selector-top: $b-pool;
-$version-selector-bottom: $gr-viridian;
-$theme-switch-light: none;
-$theme-switch-dark: inline-block;
+$topnav-link: $g8-storm !default;
+$topnav-link-hover: $b-dodger !default;
+$version-selector-top: $b-pool !default;
+$version-selector-bottom: $cp-comet !default;
+$theme-switch-light: none !default;
+$theme-switch-dark: inline-block !default;
 
-// Sidebar
-$sidebar-search-bg: $g20-white;
-$sidebar-search-shadow: $g14-chromium;
-$sidebar-search-highlight: $b-ocean;
-
-// Article Content
-$article-bg: $g20-white;
-$article-heading: $g7-graphite;
-$article-heading-alt: $g7-graphite;
-$article-text: $g8-storm;
-$article-bold: $g8-storm;
-$article-link: $b-ocean;
-$article-link-hover: $gr-viridian;
-$article-shadow: #c8cdd0;
-$article-hr: $g15-platinum;
-$article-note-shadow: #8cb7ab;
-$article-warn-shadow: #b98a7d;
-
-// Article Code
-$article-code: $p-star;
-$article-code-bg: $p-violettecreme;
-$article-code-accent1: $p-potassium;
-$article-code-accent2: $b-ocean;
-$article-code-accent3: #008e7c;
-$article-code-accent4: $o-ruby;
-$article-code-accent5: #e24bbb;
-$article-code-accent6: $b-ocean;
-$article-code-accent7: #e90;
-$article-code-select:  $b-pool;
-$article-code-link: $b-sapphire;
-$article-code-link-hover: $gr-emerald;
-$article-code-scrollbar: $p-potassium;
-
-// Article Tables
-$article-table-header-left: $b-pool;
-$article-table-header-right: $gr-honeydew;
-$article-table-row-alt: $g18-cloud;
-
-// Article Notes & Warnings
-$article-note-base: $gr-rainforest;
-$article-note-heading: $gr-emerald;
-$article-note-text: $gr-emerald;
-$article-note-link: rgba($gr-emerald, .75);
-$article-note-link-hover: $b-pool;
-$article-note-table-header: $gr-viridian;
-$article-note-table-row-alt: #d6f5e9;
-$article-note-code: #0A6f75;
-$article-note-code-bg: #d6f7ec;
-$article-note-code-accent1: #6abba0;
-$article-note-code-accent2: #0084d6;
-$article-note-code-accent3: #5d52d6;
-$article-note-code-accent4: $o-ruby;
-$article-note-code-accent5: #e24bbb;
-$article-note-code-accent6: #0084d6;
-$article-note-code-accent7: #e90;
-$article-note-code-scrollbar: #87DABE;
-
-$article-warn-base: $o-dreamsicle;
-$article-warn-heading: $o-fire;
-$article-warn-text: $o-curacao;
-$article-warn-link: rgba($o-curacao, .75);
-$article-warn-link-hover: $b-sapphire;
-$article-warn-table-header: $o-dreamsicle;
-$article-warn-table-row-alt: #ffe6df;
-$article-warn-code: #d0154e;
-$article-warn-code-bg: #ffebeb;
-$article-warn-code-accent1: #fd99b8;
-$article-warn-code-accent2: #357ae8;
-$article-warn-code-accent3: #6c59cc;
-$article-warn-code-accent4: $o-ruby;
-$article-warn-code-accent5: #6a0a6f;
-$article-warn-code-accent6: #357ae8;
-$article-warn-code-accent7: #e90;
-$article-warn-code-scrollbar: #FFB1B1;
-
-$article-enterprise-base: $p-comet;
-$article-enterprise-text: $p-star;
-$article-enterprise-link: $p-star;
-$article-enterprise-link-hover: $b-ocean;
-
-$article-cloud-base: $b-laser;
-$article-cloud-text: $b-ocean;
-$article-cloud-link: $b-ocean;
-$article-cloud-link-hover: $gr-canopy;
-$article-cloud-code: $b-sapphire;
-$article-cloud-code-bg: rgba($b-pool, .25);
-
-// Article Tabs for tabbed content
-$article-tab-text: $g8-storm;
-$article-tab-bg: $g18-cloud;
-$article-tab-active-text: $g20-white;
-$article-tab-active-bg: $b-pool;
-
-$article-tab-code-text: $p-potassium;
-$article-tab-code-bg: $g20-white;
-$article-tab-code-text-hover: $g20-white;
-$article-tab-code-bg-hover: $p-comet;
-$article-tab-code-active-text: $p-star;
-
-// Article page buttons
-$article-btn: $b-pool;
-$article-btn-text: $g20-white;
-$article-btn-hover: $b-ocean;
-$article-btn-text-hover: $g20-white;
+// Search
+$sidebar-search-bg: $g20-white !default;
+$sidebar-search-shadow: $g14-chromium !default;
+$sidebar-search-highlight: $b-dodger !default;
+$sidebar-search-text: $g8-storm !default;
 
 // Left Navigation
-$nav-category: $b-ocean;
-$nav-category-hover: $gr-viridian;
-$nav-item: $g10-wolf;
-$nav-item-hover: $b-ocean;
-$nav-border: $g14-chromium;
-$nav-toggle: $g20-white;
-$nav-toggle-hover: $g20-white;
-$nav-toggle-bg-hover: $b-ocean;
-$nav-active: $gr-canopy;
+$nav-category: $b-dodger !default;
+$nav-category-hover: $cp-purple !default;
+$nav-item: $np-rum !default;
+$nav-item-hover: $cp-purple !default;
+$nav-border: $g14-chromium !default;
+$nav-toggle: $g20-white !default;
+$nav-toggle-hover: $g20-white !default;
+$nav-toggle-bg-hover: $cp-comet !default;
+$nav-active: $m-magenta !default;
+
+// Article Content
+$article-bg: $g20-white !default;
+$article-heading: $cp-purple !default;
+$article-heading-alt: $g7-graphite !default;
+$article-text: $g8-storm !default;
+$article-bold: $g8-storm !default;
+$article-link: $b-dodger !default;
+$article-link-hover: $cp-purple !default;
+$article-shadow: #c8cdd0 !default;
+$article-hr: $g15-platinum !default;
+
+// Article Code
+$article-code: $cp-marguerite !default;
+$article-code-bg: $cp-titan !default;
+$article-code-accent1: $cp-melrose !default;
+$article-code-accent2: $b-dodger !default;
+$article-code-accent3: #12A290 !default;
+$article-code-accent4: $o-ruby !default;
+$article-code-accent5: #e24bbb !default;
+$article-code-accent6: $b-dodger !default;
+$article-code-accent7: #e90 !default;
+$article-code-select:  $b-pool !default;
+$article-code-link: $cp-marguerite !default;
+$article-code-link-hover: $cp-marguerite !default;
+$article-code-scrollbar: $cp-periwinkle !default;
+
+// Article Tables
+$article-table-header-left: $cp-marguerite !default;
+$article-table-header-right: $b-laser !default;
+$article-table-row-alt: #F6F7F8 !default;
+$article-table-scrollbar: $g14-chromium !default;
+
+// Article Notes & Warnings
+$article-note-base: $gr-rainforest !default;
+$article-note-heading: $gr-emerald !default;
+$article-note-text: $gr-emerald !default;
+$article-note-link: $gr-emerald !default;
+$article-note-link-hover: $cp-purple !default;
+$article-note-table-header: $gr-viridian !default;
+$article-note-table-row-alt: #d6f5e9 !default;
+$article-note-table-scrollbar: #87DABE !default;
+$article-note-shadow: #8CB7AB !default;
+$article-note-code: #0A6F75 !default;
+$article-note-code-bg: #BDF3DA !default;
+$article-note-code-accent1: #6abba0 !default;
+$article-note-code-accent2: #0084d6 !default;
+$article-note-code-accent3: #5d52d6 !default;
+$article-note-code-accent4: $o-ruby !default;
+$article-note-code-accent5: #e24bbb !default;
+$article-note-code-accent6: #0084d6 !default;
+$article-note-code-accent7: #e90 !default;
+$article-note-code-scrollbar: #87DABE !default;
+
+$article-warn-base: $o-dreamsicle !default;
+$article-warn-heading: $o-fire !default;
+$article-warn-text: $o-curacao !default;
+$article-warn-link: $o-curacao !default;
+$article-warn-link-hover: $cp-purple !default;
+$article-warn-table-header: $o-dreamsicle !default;
+$article-warn-table-row-alt: #ffe6df !default;
+$article-warn-table-scrollbar: #FFB1B1 !default;
+$article-warn-shadow: #b98a7d !default;
+$article-warn-code: #d0154e !default;
+$article-warn-code-bg: #FFDDDC !default;
+$article-warn-code-accent1: #fd99b8 !default;
+$article-warn-code-accent2: #357ae8 !default;
+$article-warn-code-accent3: #6c59cc !default;
+$article-warn-code-accent4: $o-ruby !default;
+$article-warn-code-accent5: #6a0a6f !default;
+$article-warn-code-accent6: #357ae8 !default;
+$article-warn-code-accent7: #e90 !default;
+$article-warn-code-scrollbar: #FFB1B1 !default;
+
+$article-cloud-base: $b-laser !default;
+$article-cloud-heading: $b-eastern !default;
+$article-cloud-text: $b-curious !default;
+$article-cloud-link: $b-curious !default;
+$article-cloud-link-hover: $cp-purple !default;
+$article-cloud-table-header: $b-curious !default;
+$article-cloud-table-row-alt: $b-hawkeye !default;
+$article-cloud-table-scrollbar: $b-malibu !default;
+$article-cloud-shadow: #6EB8E4 !default;
+$article-cloud-code: $b-matisse !default;
+$article-cloud-code-bg: $b-fleur !default;
+$article-cloud-code-accent1: #3CAAE2 !default;
+$article-cloud-code-accent2: $cp-blueviolet !default;
+$article-cloud-code-accent3: #048E66 !default;
+$article-cloud-code-accent4: $o-ruby !default;
+$article-cloud-code-accent5: #e24bbb !default;
+$article-cloud-code-accent6: #0084d6 !default;
+$article-cloud-code-accent7: #e90 !default;
+$article-cloud-code-scrollbar: $b-malibu !default;
+
+$article-enterprise-base: $cp-comet !default;
+$article-enterprise-text: $cp-purple !default;
+$article-enterprise-link: $cp-purple !default;
+$article-enterprise-link-hover: $b-dodger !default;
+
+// Article Tabs for tabbed content
+$article-tab-text: $g8-storm !default;
+$article-tab-bg: $g18-cloud !default;
+$article-tab-active-text: $g20-white !default;
+$article-tab-active-bg: $b-pool !default;
+
+$article-tab-code-text: $cp-munchkin !default;
+$article-tab-code-bg: $g20-white !default;
+$article-tab-code-text-hover: $g20-white !default;
+$article-tab-code-bg-hover: $cp-comet !default;
+$article-tab-code-active-text: $cp-marguerite !default;
+
+// Article page buttons
+$article-btn: $b-pool !default;
+$article-btn-text: $g20-white !default;
+$article-btn-hover: $b-dodger !default;
+$article-btn-text-hover: $g20-white !default;
 
 // Error Page Colors
-$error-page-btn: $b-ocean;
-$error-page-btn-text: $g20-white;
-$error-page-btn-hover: $b-pool;
-$error-page-btn-hover-text: $g20-white;
+$error-page-btn: $b-dodger !default;
+$error-page-btn-text: $g20-white !default;
+$error-page-btn-hover: $b-pool !default;
+$error-page-btn-hover-text: $g20-white !default;
 
 // Landing Page colors
-$landing-lg-gradient-left: $b-ocean;
-$landing-lg-gradient-right: $b-pool;
-$landing-sm-gradient-left: $p-star;
-$landing-sm-gradient-right: $p-comet;
-$landing-sm-gradient-overlay: $p-planet;
+$landing-lg-gradient-left: $cp-marguerite !default;
+$landing-lg-gradient-right: $b-pool !default;
+$landing-sm-gradient-overlay: $cp-blueviolet !default;
+$landing-artwork-color: rgba($g20-white, .15) !default;

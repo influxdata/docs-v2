@@ -1,59 +1,91 @@
 ---
-title: Get started with InfluxDB Cloud 2 Beta
+title: Get started with InfluxDB Cloud 2.0 Beta
 description: >
-  Sign up for and get started with InfluxDB Cloud 2 Beta.
+  Sign up for and get started with InfluxDB Cloud 2.0 Beta.
 weight: 1
 menu:
   v2_0_cloud:
     name: Get started with InfluxDB Cloud
-
 ---
-{{< cloud-name >}} is a fully managed and hosted version of the [InfluxDB v2 API](/v2.0/reference/api/).
+{{< cloud-name >}} is a fully managed and hosted version of the InfluxDB 2.0.
 To get started, complete the tasks below.
 
 {{% cloud-msg %}}
-The InfluxDB v2.0 alpha documentation linked to in this article also applies to {{< cloud-name "short" >}} unless otherwise specified.
+InfluxDB v2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 {{% /cloud-msg %}}
 
 ## Sign up
 
-{{% note %}}
-Early access to {{< cloud-name >}} is limited. Apply for access [here]({{< cloud-link >}}).
-{{% /note %}}
+1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email and password,
+   and then click **Sign Up**.
 
-Sign up for the {{< cloud-name >}} with the link provided in the invite email.
+2. Open email from cloudbeta@influxdata.com (subject: Please verify your email for InfluxDB Cloud),
+   and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
-1. Look for an email invite from support@influxdata.com with the subject line **You've been invited to beta {{< cloud-name >}}.**
-2. Click **Accept Invite** to begin the sign up process.
-3. Provide an email id, password and follow the prompts to sign up for a Free Tier.
-4. Select the Region and click Next to create your default organization and bucket.
+3. Currently, {{< cloud-name >}} us-west-2 region is the only region available.
+   To suggest regions to add, click the **Let us know** link under Regions.
 
-  {{% cloud-msg %}}
-  {{< cloud-name >}} is restricted to the us-west-2 region.
-  {{% /cloud-msg %}}
+4. Review the terms of the beta agreement, and then select
+   **I viewed and agree to InfluxDB Cloud 2.0 Beta Agreement**.
 
-5. Once your organization and bucket are created, the usage page opens.
-
-  {{% note %}}
-  Currently, this page is just a mockup with no real data. This capability will be available soon.
-  {{% /note %}}
+5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization
+   (created from your email) and bucket (created from your email local-part).
 
 ## Log in
+Log in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
 
-Log in at [https://us-west-2-1.aws.cloud2.influxdata.com](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
+## Collect and write data
+Collect and write data to InfluxDB using Telegraf, the InfluxDB v2 API, `influx`
+command line interface (CLI), the InfluxDB user interface (UI), or client libraries.
 
-## Collect data
+### Use Telegraf
+Use Telegraf to quickly write data to {{< cloud-name >}}.
+Create new Telegraf configurations automatically in the UI or manually update an
+existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
 
-Use Telegraf to collect and write data to {{< cloud-name >}}. Create Telegraf configurations automatically in the UI or manually configure Telegraf.
+For details, see [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)
+and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manual-config/).
 
-For details, see [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/auto-config/#create-a-telegraf-configuration) and [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/collect-data/use-telegraf/manual-config/).
+### API, CLI, and client libraries
+For information about using the InfluxDB API, CLI, and client libraries to write data,
+see [Write data to InfluxDB](/v2.0/write-data/).
+
+{{% note %}}
+#### InfluxDB Cloud instance endpoint
+When using Telegraf, the API, CLI, or client libraries to interact with your {{< cloud-name "short" >}}
+instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
+For example:
+
+```
+https://us-west-2-1.aws.cloud2.influxdata.com
+```
+{{% /note %}}
 
 ## Query and visualize data
+Once you've set up {{< cloud-name "short" >}} to collect data, you can do the following:
 
-Once you've set up {{< cloud-name "short" >}} to collect data with Telegraf, you can do the following:
+- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](/v2.0/query-data/).
+- Build custom dashboards to visualize your data. See [Visualize data](/v2.0/visualize-data/).
 
-* Query data using Flux, the UI, and the `influx` command line interface. See [Query data](https://v2.docs.influxdata.com/v2.0/query-data/).
-* Build custom dashboards to visualize your data. See [Visualize data](https://v2.docs.influxdata.com/v2.0/visualize-data/).
+## View data usage
+Once you've set up {{< cloud-name "short" >}} to collect data, view your data usage, including:
+
+- **Writes:** Total kilobytes ingested.
+- **Reads:** Total kilobytes sent out for responses to queries.
+- **Total Query Duration:** Sum of time spent processing queries in seconds.
+- **Storage:** Average disk usage in gigabytes.
+
+You'll see sparkline data over the past 4 hours and a single value that shows usage in the last 5 minutes.
+To view your data, click **Usage** in the left navigation menu.
+
+{{< img-hd src="/img/2-0-cloud-usage.png" />}}
+
+## Review rate limits
+To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free tier users.
+During beta, you can check out our Paid tier for free.
+
+To upgrade to Paid tier for free, discuss use cases, or increase rate limits,
+reach out to <a href="mailto:cloudbeta@influxdata.com?subject={{< cloud-name >}} Feedback">cloudbeta@influxdata.com</a>.
 
 {{% note %}}
 #### Known issues and disabled features
