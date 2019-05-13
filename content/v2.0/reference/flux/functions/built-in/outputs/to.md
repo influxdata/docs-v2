@@ -18,8 +18,6 @@ _**Function type:** Output_
 to(
   bucket: "my-bucket",
   org: "my-org",
-  host: "http://example.com:8086",
-  token: "xxxxxx",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
   fieldFn: (r) => ({ [r._field]: r._value })
@@ -30,8 +28,6 @@ to(
 to(
   bucketID: "1234567890",
   orgID: "0987654321",
-  host: "http://example.com:8086",
-  token: "xxxxxx",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
   fieldFn: (r) => ({ [r._field]: r._value })
@@ -83,7 +79,7 @@ Mutually exclusive with `org`.
 
 _**Data type:** String_
 
-### host
+<!-- ### host
 The remote InfluxDB host to which to write.
 _If specified, a `token` is required._
 
@@ -93,7 +89,7 @@ _**Data type:** String_
 The authorization token to use when writing to a remote host.
 _Required when a `host` is specified._
 
-_**Data type:** String_
+_**Data type:** String_ -->
 
 ### timeColumn
 The time column of the output.
