@@ -1,9 +1,10 @@
 ---
 title: Flux stream and table functions
-listtitle: Stream and table functions
+list_title: Stream and table functions
 seotitle: Flux built-in stream and table functions
 description: >
-  placeholder
+  Use stream and table functions to extract a table from a stream of tables and access its
+  columns and records.
 weight: 401
 menu:
   v2_0_ref:
@@ -13,7 +14,7 @@ v2.0/tags: [transformations, built-in, functions, stream, table]
 ---
 
 Use stream and table functions to extract a table from a stream of tables and access its
-columns and records.  
+columns and records.
 
 ##### Example stream and table functions
 ```js
