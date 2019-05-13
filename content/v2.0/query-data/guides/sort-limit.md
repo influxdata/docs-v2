@@ -17,7 +17,7 @@ orders the records within each table.
 The following example orders system uptime first by region, then host, then value.
 
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   |> filter(fn: (r) =>
     r._measurement == "system" and
@@ -31,7 +31,7 @@ limits the number of records in output tables to a fixed number, `n`.
 The following example shows up to 10 records from the past hour.
 
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-1h)
   |> limit(n:10)
 ```
@@ -41,7 +41,7 @@ The example below returns the 10 top system uptime values sorted first by
 region, then host, then value.
 
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   |> filter(fn: (r) =>
     r._measurement == "system" and

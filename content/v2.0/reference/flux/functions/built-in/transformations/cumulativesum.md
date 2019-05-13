@@ -30,7 +30,7 @@ _**Data type:** Array of strings_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "disk" and

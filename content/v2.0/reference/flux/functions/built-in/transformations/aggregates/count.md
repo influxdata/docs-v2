@@ -30,13 +30,13 @@ _**Data type: String**_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> count()
 ```
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> count(column: "_value")
 ```

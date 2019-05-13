@@ -39,14 +39,14 @@ _**Data type:** Array of strings_
 
 ## Examples
 ```js
-stream1 = from(bucket:"telegraf/autogen")
+stream1 = from(bucket:"example-bucket")
   |> range(start:-15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used"
   )
 
-stream2 = from(bucket:"telegraf/autogen")
+stream2 = from(bucket:"example-bucket")
   |> range(start:-15m)
   |> filter(fn: (r) => r
     ._measurement == "mem" and

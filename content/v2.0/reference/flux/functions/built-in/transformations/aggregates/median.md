@@ -67,7 +67,7 @@ _**Data type:** Float_
 
 ###### Median as an aggregate
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent"
@@ -79,7 +79,7 @@ from(bucket: "telegraf/autogen")
 
 ###### Median as a selector
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent"

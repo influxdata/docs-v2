@@ -52,21 +52,21 @@ and ignores dates and times provided in other formats.
 
 ###### Time range relative to now
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   // ...
 ```
 
 ###### Relative time range
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h, stop: -15m)
   // ...
 ```
 
 ###### Absolute time range
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
   // ...
 ```

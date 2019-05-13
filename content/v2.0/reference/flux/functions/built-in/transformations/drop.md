@@ -45,14 +45,14 @@ _**Data type:** Function_
 
 ##### Drop a list of columns
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start: -5m)
 	|> drop(columns: ["host", "_measurement"])
 ```
 
 ##### Drop columns matching a predicate
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> drop(fn: (column) => column =~ /usage*/)
 ```

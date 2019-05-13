@@ -35,14 +35,14 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> keys(column: "keys")
 ```
 
 ##### Return every possible key in a single table
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
     |> range(start: -30m)
     |> keys()
     |> keep(columns: ["_value"])

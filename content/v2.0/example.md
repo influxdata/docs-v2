@@ -30,7 +30,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```js
-data = from(bucket: "telegraf/autogen")
+data = from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -150,7 +150,7 @@ This is **bold**. This is _italic_.
 
 ```js
 // This is a code block
-cpu = from(bucket:"telegraf/autogen")
+cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
   |> filter(fn:(r) => r._measurement == "cpu") |> filter(fn:(r) => r._measurement == "cpu") |> filter(fn:(r) => r._measurement == "cpu")
@@ -166,7 +166,7 @@ avg_cpu
 ###### Here's a codeblock with a title
 ```js
 // This is a code block
-cpu = from(bucket:"telegraf/autogen")
+cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 
@@ -301,7 +301,7 @@ This is **bold**. This is _italic_.
 
 ```js
 // This is a code block inside of a blockquote
-cpu = from(bucket:"telegraf/autogen")
+cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
@@ -414,7 +414,7 @@ This is **bold**. This is _italic_.
 
 ```js
 // This is a code block inside of a blockquote
-cpu = from(bucket:"telegraf/autogen")
+cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
@@ -522,7 +522,7 @@ This is **bold**. This is _italic_.
 
 ```js
 // This is a code block inside of a blockquote
-cpu = from(bucket:"telegraf/autogen")
+cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
@@ -561,7 +561,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 
 {{% code-tab-content %}}
 ```js
-data = from(bucket: "telegraf/autogen")
+data = from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

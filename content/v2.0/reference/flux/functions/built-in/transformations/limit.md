@@ -37,7 +37,7 @@ _**Data type:** Integer_
 
 ## Examples
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-1h)
   |> limit(n:10, offset: 1)
 ```

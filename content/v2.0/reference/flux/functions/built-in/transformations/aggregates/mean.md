@@ -29,7 +29,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent")

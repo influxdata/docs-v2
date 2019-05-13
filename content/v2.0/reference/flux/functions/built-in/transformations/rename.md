@@ -46,14 +46,14 @@ _**Data type:** Function_
 
 ##### Rename a single column
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
     |> range(start: -5m)
     |> rename(columns: {host: "server"})
 ```
 
 ##### Rename all columns using a function
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
     |> range(start: -5m)
     |> rename(fn: (column) => column + "_new")
 ```

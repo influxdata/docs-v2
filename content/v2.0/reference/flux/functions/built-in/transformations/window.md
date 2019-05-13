@@ -113,7 +113,7 @@ _**Data type:** Boolean_
 
 #### Window data into 10 minute intervals
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   |> window(every:10m)
   // ...
@@ -122,7 +122,7 @@ from(bucket:"telegraf/autogen")
 #### Window data using intervals function
 The following windows data into 8 hour intervals starting at 9AM every day.
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   |> window(intervals: intervals(every:1d, period:8h, offset:9h))
 ```

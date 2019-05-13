@@ -43,7 +43,7 @@ _**Data type:** Boolean_
 
 ## Examples
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-12h)
   |> filter(fn: (r) =>
     r._measurement == "system" and

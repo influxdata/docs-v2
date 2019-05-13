@@ -80,7 +80,7 @@ multByX = (tables=<-, x) =>
     |> map(fn: (r) => r._value * x)
 
 // Function usage
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -118,7 +118,7 @@ getWinner = (tables=<-, noSarcasm:true) =>
 
 // Function usage
 // Get the winner
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -127,7 +127,7 @@ from(bucket: "telegraf/autogen")
   |> getWinner()
 
 // Get the "winner"
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

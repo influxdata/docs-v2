@@ -35,7 +35,7 @@ Objects evaluated in `fn` functions are represented by `r`, short for "record" o
 
 ## Examples
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and

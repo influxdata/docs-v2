@@ -39,7 +39,7 @@ If the `as` column already exists, this function will overwrite the existing val
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start:-5m)
 	|> filter(fn: (r) => r._measurement == "cpu")
 	|> duplicate(column: "host", as: "server")

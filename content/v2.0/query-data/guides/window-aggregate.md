@@ -28,7 +28,7 @@ For the purposes of this guide, define a variable that represents your base data
 The following example queries the memory usage of the host machine.
 
 ```js
-dataSet = from(bucket: "telegraf/autogen")
+dataSet = from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

@@ -48,9 +48,9 @@ _**Data type:** Object_
 ```js
 import "testing"
 
-want = from(bucket: "backup-telegraf/autogen")
+want = from(bucket: "backup-example-bucket")
   |> range(start: -5m)
-got = from(bucket: "telegraf/autogen")
+got = from(bucket: "example-bucket")
   |> range(start: -5m)
 testing.diff(got: got, want: want)
 ```
@@ -59,8 +59,8 @@ testing.diff(got: got, want: want)
 ```js
 import "testing"
 
-want = from(bucket: "backup-telegraf/autogen") |> range(start: -5m)
-from(bucket: "telegraf/autogen")
+want = from(bucket: "backup-example-bucket") |> range(start: -5m)
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> testing.diff(want: want)
 ```

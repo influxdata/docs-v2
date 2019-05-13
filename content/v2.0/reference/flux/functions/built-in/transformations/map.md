@@ -67,7 +67,7 @@ _**Data type:** Boolean_
 
 ###### Square the value of each record
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
     r._field == "usage_system" and
@@ -79,7 +79,7 @@ from(bucket:"telegraf/autogen")
 
 ###### Create a new table with new format
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
     |> filter(fn: (r) =>
       r._measurement == "cpu" and
       r._field == "usage_system"

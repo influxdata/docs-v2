@@ -51,10 +51,10 @@ _**Data type:** Object_
 ```js
 import "testing"
 
-want = from(bucket: "backup-telegraf/autogen")
+want = from(bucket: "backup-example-bucket")
   |> range(start: -5m)
 
-got = from(bucket: "telegraf/autogen")
+got = from(bucket: "example-bucket")
   |> range(start: -5m)
 
 testing.assertEquals(got: got, want: want)
@@ -64,10 +64,10 @@ testing.assertEquals(got: got, want: want)
 ```js
 import "testing"
 
-want = from(bucket: "backup-telegraf/autogen")
+want = from(bucket: "backup-example-bucket")
   |> range(start: -5m)
 
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> testing.assertEquals(want: want)
 ```

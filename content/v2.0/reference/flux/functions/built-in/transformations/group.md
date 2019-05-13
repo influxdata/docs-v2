@@ -58,14 +58,14 @@ Groups records by all columns **except** those defined in the [`columns`](#colum
 
 ###### Group by host and measurement
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> group(columns: ["host", "_measurement"])
 ```
 
 ###### Group by everything except time
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> group(columns: ["_time"], mode: "except")
 ```
@@ -73,7 +73,7 @@ from(bucket: "telegraf/autogen")
 ###### Ungroup data
 ```js
 // Merge all tables into a single table
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> group()
 ```

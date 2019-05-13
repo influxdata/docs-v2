@@ -74,7 +74,7 @@ _**Data type:** Float_
 
 ###### Quantile as an aggregate
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start: -5m)
 	|> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -88,7 +88,7 @@ from(bucket: "telegraf/autogen")
 
 ###### Quantile as a selector
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start: -5m)
 	|> filter(fn: (r) =>
     r._measurement == "cpu" and
