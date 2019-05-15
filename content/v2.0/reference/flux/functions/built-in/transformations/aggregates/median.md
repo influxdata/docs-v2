@@ -21,7 +21,11 @@ _**Output data type:** Object_
 
 
 ```js
-median(method: "estimate_tdigest", compression: 0.0)
+median(
+  column: "_value",
+  method: "estimate_tdigest",
+  compression: 0.0
+)
 ```
 
 When using the `estimate_tdigest` or `exact_mean` methods, it outputs non-null
@@ -39,8 +43,15 @@ You can convert your value column to a float column using the [`toFloat()` funct
 
 ## Parameters
 
+### column
+The column to use to compute the median.
+Defaults to `"_value"`.
+
+_**Data type:** String_
+
 ### method
-Defines the method of computation. Defaults to `"estimate_tdigest"`.
+Defines the method of computation.
+Defaults to `"estimate_tdigest"`.
 
 _**Data type:** String_
 
