@@ -59,13 +59,16 @@ menu:
   v2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
-weight: # Determines sort order in both the nav tree and in article lists.
+weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
 cloud_all: # If true, specifies the doc as a whole is specific to InfluxDB Cloud
 cloud_some: # If true, specifies the doc includes some content specific to InfluxDB Cloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
+related: # Creates links to specific internal and external content at the bottom of the page
+  - /path/to/related/article
+  - https://external-link.com, This is an external link
 ```
 
 #### Title usage
@@ -309,6 +312,20 @@ WHERE time > now() - 15m
 
 {{< /code-tabs-wrapper >}}
 ~~~
+
+### Related content
+Use the `related` frontmatter to include links to specific articles at the bottom of an article.
+
+- If the page exists inside of this documentation, just include the path to the page.
+  It will automatically detect the title of the page.
+- If the page exists outside of this documentation, include the full URL and a title for the link.
+  The link and title must be in that order and must be separated by a comma and a space.
+
+```yaml
+related:
+  - /v2.0/write-data/quick-start
+  - https://influxdata.com, This is an external link
+```
 
 ### High-resolution images
 In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
