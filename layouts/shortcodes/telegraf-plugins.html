@@ -1,0 +1,12 @@
+{{ $type := .Get "type" }}
+
+{{ range (index .Site.Data.telegraf_plugins $type ) }}
+  {{ $pluginTags := delimit .tags ", " }}
+  <div class="plugin-card" data-tags="{{ $pluginTags }}">
+    <h3>{{ .name }}</h3>
+    <p><strong>Plugin ID:</strong> <code>{{ .id }}</code></p>
+    <p><strong>Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }}{{ end }}</strong></p>
+    <p>{{ .description | markdownify }}</p>
+    <a class="btn" href="{{ .link }}" target="_blank"><span class="icon-github"></span> View docs</a>
+  </div>
+{{ end }}

@@ -1,0 +1,9 @@
+output:
+  - name: Plugin name
+    id: plugin-id
+    description: >
+      This is a multi-line description that gets parsed as `markdown`.
+    link: https://github.com/influxdata/telegraf
+    introduced: 1.10.0
+    deprecated: 1.10.1
+    tags: [tag1, tag2, tag3]
