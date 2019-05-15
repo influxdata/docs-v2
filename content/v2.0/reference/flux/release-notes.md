@@ -20,7 +20,11 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Make `on` a required parameter to `join()`.
 
 ### Features
-- Add stream table index functions.
+- Add stream table index functions (
+  [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/),
+  [`getRecord()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/),
+  [`getColumn()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/)
+  ).
 - Construct invalid binary expressions when given multiple expressions.
 
 ### Bug fixes
