@@ -436,7 +436,7 @@ input:
       The `http_listener` input plugin was renamed to [`influxdb_listener`](#influxdb_listener).
       The new name better describes the intended use of the plugin as a InfluxDB relay.
       For general purpose transfer of metrics in any format via HTTP, use [`http_listener_v2`](#http_listener_v2)instead.
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http_listener/README.md
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/influxdb_listener/README.md
     introduced: 1.1.0
     deprecated: 1.9.0
     tags: [placeholder]
@@ -1519,19 +1519,308 @@ input:
     tags: [placeholder]
 
 output:
-  - name: Plugin name
-    id: plugin-id
+  - name: Amazon CloudWatch
+    id: cloudwatch
     description: |
-      This is a multi-line description that gets parsed as `markdown`.
-    link: https://github.com/influxdata/telegraf
-    introduced: 1.10.0
-    deprecated: 1.10.1
-    tags: [tag1, tag2, tag3]
+      The Amazon CloudWatch output plugin send metrics to Amazon CloudWatch.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cloudwatch/README.md
+    introduced: 0.10.1
+    tags: [placeholder]
 
-  - name: Plugin2
-    id: plugin-2
+  - name: Amazon Kinesis
+    id: kinesis
     description: |
-      This is plugin 2.
-    link: https://github.com/influxdata/telegraf
+      The Amazon Kinesis output plugin is an experimental plugin that is still
+      in the early stages of development. It will batch up all of the points into
+      one `PUT` request to Kinesis. This should save the number of API requests
+      by a considerable level.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/kinesis/README.md
+    introduced: 0.2.5
+    tags: [placeholder]
+
+  - name: Amon
+    id: amon
+    description: |
+      The Amon output plugin writes metrics to an [Amon server](https://github.com/amonapp/amon).
+      For details on the Amon Agent, see [Monitoring Agent](https://docs.amon.cx/agent/)
+      and requires a `apikey` and `amoninstance` URL.
+
+      If the point value being sent cannot be converted to a float64 value, the metric is skipped.
+
+      Metrics are grouped by converting any `_` characters to `.` in the Point Name.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/amon/README.md
+    introduced: 0.2.1
+    tags: [placeholder]
+
+  - name: AMQP
+    id: amqp
+    description: |
+      The AMQP output plugin writes to an AMQP 0-9-1 exchange, a prominent implementation
+      of the Advanced Message Queuing Protocol (AMQP) protocol being [RabbitMQ](https://www.rabbitmq.com/).
+
+      Metrics are written to a topic exchange using `tag`, defined in configuration
+      file as `RoutingTag`, as a routing key.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/amqp/README.md
+    introduced: 0.1.9
+    tags: [placeholder]
+
+  - name: Apache Kafka
+    id: kafka
+    description: |
+      The Apache Kafka output plugin writes to a [Kafka Broker](http://kafka.apache.org/07/quickstart.html)
+      acting a Kafka Producer.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/kafka/README.md
+    introduced: 0.1.7
+    tags: [placeholder]
+
+  - name: CrateDB
+    id: cratedb
+    description: |
+      The CrateDB output plugin writes to [CrateDB](https://crate.io/), a real-time SQL database for
+      machine data and IoT, using its [PostgreSQL protocol](https://crate.io/docs/crate/reference/protocols/postgres.html).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cratedb/README.md
+    introduced: 1.5.0
+    tags: [placeholder]
+
+  - name: Datadog
+    id: datadog
+    description: |
+      The Datadog output plugin writes to the [Datadog Metrics API](http://docs.datadoghq.com/api/#metrics)
+      and requires an `apikey` which can be obtained [here](https://app.datadoghq.com/account/settings#api)
+      for the account.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/datadog/README.md
+    introduced: 0.1.6
+    tags: [placeholder]
+
+  - name: Discard
+    id: discard
+    description: |
+      The Discard output plugin simply drops all metrics that are sent to it.
+      It is only meant to be used for testing purposes.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/discard/README.md
+    introduced: 1.2.0
+    tags: [placeholder]
+
+  - name: Elasticsearch
+    id: elasticsearch
+    description: |
+      The Elasticsearch output plugin writes to Elasticsearch via HTTP using
+      [Elastic](http://olivere.github.io/elastic/). Currently it only supports
+      Elasticsearch 5.x series.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/elasticsearch/README.md
+    introduced: 0.1.5
+    tags: [placeholder]
+
+  - name: File
+    id: file
+    description: |
+      The File output plugin writes Telegraf metrics to files.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/file/README.md
+    introduced: 0.10.3
+    tags: [placeholder]
+
+  - name: Google Cloud PubSub
+    id: cloud_pubsub
+    description: |
+      The Google PubSub output plugin publishes metrics to a [Google Cloud PubSub](https://cloud.google.com/pubsub)
+      topic as one of the supported [output data formats](/telegraf/data_formats/output).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cloud_pubsub/README.md
     introduced: 1.10.0
-    tags: [tag1, tag2, tag3]
+    tags: [placeholder]
+
+  - name: Graphite
+    id: graphite
+    description: |
+      The Graphite output plugin writes to [Graphite](http://graphite.readthedocs.org/en/latest/index.html) via raw TCP.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/graphite/README.md
+    introduced: 0.10.1
+    tags: [placeholder]
+
+  - name: Graylog
+    id: graylog
+    description: |
+      The  Graylog output plugin writes to a Graylog instance using the `gelf` format.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/graylog/README.md
+    introduced: 1.0.0
+    tags: [placeholder]
+
+  - name: HTTP
+    id: http
+    description: |
+      The HTTP output plugin sends metrics in a HTTP message encoded using one of the output data formats.
+      For `data_formats` that support batching, metrics are sent in batch format.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/http/README.md
+    introduced: 1.7.0
+    tags: [placeholder]
+
+  - name: InfluxDB v1.x
+    id: influxdb
+    description: |
+      The InfluxDB v1.x output plugin writes to InfluxDB using HTTP or UDP.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/influxdb/README.md
+    introduced: 0.1.1
+    tags: [placeholder]
+
+  - name: InfluxDB v2
+    id: influxdb_v2
+    description: |
+      The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.0](https://github.com/influxdata/influxdb).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/influxdb_v2/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: Instrumental
+    id: instrumental
+    description: |
+      The Instrumental output plugin writes to the [Instrumental Collector API](https://instrumentalapp.com/docs/tcp-collector)
+      and requires a Project-specific API token.
+
+      Instrumental accepts stats in a format very close to Graphite, with the only
+      difference being that the type of stat (gauge, increment) is the first token,
+      separated from the metric itself by whitespace. The increment type is only used
+      if the metric comes in as a counter through `[[inputs.statsd]]`.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/instrumental/README.md
+    introduced: 0.13.1
+    tags: [placeholder]
+
+  - name: Librato
+    id: librato
+    description: |
+      The Librato output plugin writes to the [Librato Metrics API](http://dev.librato.com/v1/metrics#metrics)
+      and requires an `api_user` and `api_token` which can be obtained
+      [here](https://metrics.librato.com/account/api_tokens) for the account.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/librato/README.md
+    introduced: 0.2.0
+    tags: [placeholder]
+
+  - name: Microsoft Azure Application Insights
+    id: application_insights
+    description: |
+      The Microsoft Azure Application Insights output plugin writes Telegraf metrics to
+      [Application Insights (Microsoft Azure)](https://azure.microsoft.com/en-us/services/application-insights/).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/application_insights/README.md
+    introduced: 1.7.0
+    tags: [placeholder]
+
+  - name: Microsoft Azure Monitor
+    id: azure_monitor
+    description: |
+      > The Azure Monitor custom metrics service is currently in preview and not
+      > available in a subset of Azure regions.
+
+      The Microsoft Azure Monitor output plugin sends custom metrics to
+      [Microsoft Azure Monitor](https://azure.microsoft.com/en-us/services/monitor/).
+      Azure Monitor has a metric resolution of one minute. To handle this in Telegraf,
+      the Azure Monitor output plugin automatically aggregates metrics into one minute buckets,
+      which are then sent to Azure Monitor on every flush interval.
+
+      For a Microsoft blog posting on using Telegraf with Microsoft Azure Monitor,
+      see [Collect custom metrics for a Linux VM with the InfluxData Telegraf Agent](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/metrics-store-custom-linux-telegraf).
+
+      The metrics from each input plugin will be written to a separate Azure Monitor namespace,
+      prefixed with `Telegraf/` by default. The field name for each metric is written
+      as the Azure Monitor metric name. All field values are written as a summarized set
+      that includes `min`, `max`, `sum`, and `count`. Tags are written as a dimension
+      on each Azure Monitor metric.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/azure_monitor/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: MQTT Producer
+    id: mqtt
+    description: |
+      The MQTT Producer output plugin writes to the MQTT server using
+      [supported output data formats](/telegraf/v1.8/data_formats/output/).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/mqtt/README.md
+    introduced: 0.2.0
+    tags: [placeholder]
+
+  - name: NATS Output
+    id: nats
+    description: |
+      The NATS Output output plugin writes to a (list of) specified NATS instance(s).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/nats/README.md
+    introduced: 1.1.0
+    tags: [placeholder]
+
+  - name: NSQ
+    id: nsq
+    description: |
+      The NSQ output plugin writes to a specified NSQD instance, usually local to the producer.
+      It requires a server name and a topic name.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/nsq/README.md
+    introduced: 0.2.1
+    tags: [placeholder]
+
+  - name: OpenTSDB
+    id: opentsdb
+    description: |
+      The OpenTSDB output plugin writes to an OpenTSDB instance using either the telnet or HTTP mode.
+
+      Using the HTTP API is the recommended way of writing metrics since OpenTSDB 2.0.
+      To use HTTP mode, set `useHttp` to true in config. You can also control how many
+      metrics are sent in each HTTP request by setting `batchSize` in config.
+      See the [OpenTSDB documentation](http://opentsdb.net/docs/build/html/api_http/put.html) for details.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/opentsdb/README.md
+    introduced: 0.1.9
+    tags: [placeholder]
+
+  - name: Prometheus Client
+    id: prometheus_client
+    description: |
+      The Prometheus Client output plugin starts a [Prometheus](https://prometheus.io/) Client,
+      it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/prometheus_client/README.md
+    introduced: 0.2.1
+    tags: [placeholder]
+
+  - name: Riemann
+    id: riemann
+    description: |
+      The Riemann output plugin writes to [Riemann](http://riemann.io/) using TCP or UDP.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/riemann/README.md
+    introduced: 1.3.0
+    tags: [placeholder]
+
+  - name: Riemann Legacy
+    id: riemann_legacy
+    description: |
+      The Riemann Legacy output plugin will be deprecated in a future release,
+      see [#1878](https://github.com/influxdata/telegraf/issues/1878) for more details & discussion.
+    link: https://github.com/influxdata/telegraf/tree/release-1.10/plugins/outputs/riemann_legacy
+    introduced: 0.2.3
+    deprecated: 1.3.0
+    tags: [placeholder]
+
+  - name: Socket Writer
+    id: socket_writer
+    description: |
+      The Socket Writer output plugin writes to a UDP, TCP, or UNIX socket.
+      It can output data in any of the [supported output formats](https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/socket_writer/README.md
+    introduced: 1.3.0
+    tags: [placeholder]
+
+  - name: Stackdriver
+    id: stackdriver
+    description: |
+      The Stackdriver output plugin writes to the [Google Cloud Stackdriver API](https://cloud.google.com/monitoring/api/v3/)
+      and requires [Google Cloud authentication](https://cloud.google.com/docs/authentication/getting-started)
+      with Google Cloud using either a service account or user credentials.
+      For details on pricing, see the [Stackdriver documentation](https://cloud.google.com/stackdriver/pricing).
+
+      Requires `project` to specify where Stackdriver metrics will be delivered to.
+
+      Metrics are grouped by the `namespace` variable and metric key, for example
+      `custom.googleapis.com/telegraf/system/load5`.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/stackdriver/README.md
+    introduced: 1.9.0
+    tags: [placeholder]
+
+  - name: Wavefront
+    id: wavefront
+    description: |
+      The Wavefront output plugin writes to a Wavefront proxy, in Wavefront data format over TCP.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/wavefront/README.md
+    introduced: 1.5.0
+    tags: [placeholder]
