@@ -1,5 +1,11 @@
 telegraf_version: 1.10.0
 
+##############   %%%%%%  %%  %%  %%%%%   %%  %%  %%%%%%   %%%%    ##############
+##############     %%    %%% %%  %%  %%  %%  %%    %%    %%       ##############
+##############     %%    %% %%%  %%%%%   %%  %%    %%     %%%%    ##############
+##############     %%    %%  %%  %%      %%  %%    %%        %%   ##############
+##############   %%%%%%  %%  %%  %%       %%%%     %%     %%%%    ##############
+
 input:
   - name: ActiveMQ
     id: activemq
@@ -134,10 +140,12 @@ input:
   - name: Cassandra
     id: cassandra
     description: |
-      _Deprecated in Telegraf 1.7.0._
+      *Deprecated in Telegraf 1.7.0 in favor of the [jolokia2](#jolokia2_agent) input plugin.
+      See [example Jolokia2/Cassandra configurations](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/jolokia2/examples/cassandra.conf).*
 
       The Cassandra input plugin collects Cassandra 3 / JVM metrics exposed as MBean
-      attributes through the jolokia REST endpoint. All metrics are collected for each server configured.
+      attributes through the jolokia REST endpoint.
+      All metrics are collected for each server configured.
     link: https://github.com/influxdata/telegraf/tree/release-1.6/plugins/inputs/cassandra
     introduced: 0.12.1
     deprecated: 1.7.0
@@ -412,7 +420,7 @@ input:
     id: http
     description: |
       The HTTP input plugin collects metrics from one or more HTTP (or HTTPS) endpoints.
-      The endpoint should have metrics formatted in one of the [supported input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/.
+      The endpoint should have metrics formatted in one of the [supported input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
       Each data format has its own unique set of configuration options which can be added to the input configuration.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http/README.md
     introduced: 1.6.0
@@ -445,7 +453,7 @@ input:
     id: http_listener_v2
     description: |
       The HTTP Listener v2 input plugin listens for messages sent via HTTP POST.
-      Messages are expected in the [InfluxDB Line Protocol input data format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx
+      Messages are expected in the [InfluxDB Line Protocol input data format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx)
       ONLY (other [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest//data_formats/input/) are not supported).
       This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB v2110 HTTP API.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http_listener_v2/README.md
@@ -640,7 +648,7 @@ input:
     id: kinesis_consumer
     description: |
       The Kinesis Consumer input plugin reads from a Kinesis data stream and creates
-      metrics using one of the supported [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input.
+      metrics using one of the supported [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kinesis_consumer/README.md
     introduced: 1.10.0
     tags: [placeholder]
@@ -805,7 +813,7 @@ input:
     id: mqtt_consumer
     description: |
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
-      Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/.
+      Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mqtt_consumer/README.md
     introduced: 0.10.3
     tags: [placeholder]
@@ -836,7 +844,7 @@ input:
     id: nats_consumer
     description: |
       The NATS Consumer input plugin reads from specified NATS subjects and adds messages to InfluxDB.
-      Messages are expected in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/.
+      Messages are expected in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
       A Queue Group is used when subscribing to subjects so multiple instances of Telegraf
       can read from a NATS cluster in parallel.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nats_consumer/README.md
@@ -1252,7 +1260,7 @@ input:
     description: |
       The Socket Listener input plugin listens for messages from streaming (TCP, UNIX)
       or datagram (UDP, unixgram) protocols. Messages are expected in the
-      [Telegraf Input Data Formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/.
+      [Telegraf Input Data Formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/socket_listener/README.md
     introduced: 1.3.0
     tags: [placeholder]
@@ -1517,6 +1525,13 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zookeeper/README.md
     introduced: 0.2.0
     tags: [placeholder]
+
+
+##########    %%%%   %%  %%  %%%%%%  %%%%%   %%  %%  %%%%%%   %%%%    ##########
+##########   %%  %%  %%  %%    %%    %%  %%  %%  %%    %%    %%       ##########
+##########   %%  %%  %%  %%    %%    %%%%%   %%  %%    %%     %%%%    ##########
+##########   %%  %%  %%  %%    %%    %%      %%  %%    %%        %%   ##########
+##########    %%%%    %%%%     %%    %%       %%%%     %%     %%%%    ##########
 
 output:
   - name: Amazon CloudWatch
@@ -1823,4 +1838,202 @@ output:
       The Wavefront output plugin writes to a Wavefront proxy, in Wavefront data format over TCP.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/wavefront/README.md
     introduced: 1.5.0
+    tags: [placeholder]
+
+
+#    %%%%    %%%%    %%%%   %%%%%   %%%%%%   %%%%    %%%%   %%%%%%   %%%%   %%%%%    %%%%    #
+#   %%  %%  %%      %%      %%  %%  %%      %%      %%  %%    %%    %%  %%  %%  %%  %%       #
+#   %%%%%%  %% %%%  %% %%%  %%%%%   %%%%    %% %%%  %%%%%%    %%    %%  %%  %%%%%    %%%%    #
+#   %%  %%  %%  %%  %%  %%  %%  %%  %%      %%  %%  %%  %%    %%    %%  %%  %%  %%      %%   #
+#   %%  %%   %%%%    %%%%   %%  %%  %%%%%%   %%%%   %%  %%    %%     %%%%   %%  %%   %%%%    #
+
+aggregator:
+  - name: BasicStats
+    id: basicstats
+    description: |
+      The BasicStats aggregator plugin gives `count`, `max`, `min`, `mean`, `s2`(variance),
+      and `stdev` for a set of values, emitting the aggregate every period seconds.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/basicstats/README.md
+    introduced: 1.5.0
+    tags: [placeholder]
+
+  - name: Histogram
+    id: histogram
+    description: |
+      The Histogram aggregator plugin creates histograms containing the counts of
+      field values within a range.
+
+      Values added to a bucket are also added to the larger buckets in the distribution.
+      This creates a [cumulative histogram](https://upload.wikimedia.org/wikipedia/commons/5/53/Cumulative_vs_normal_histogram.svg).
+
+      Like other Telegraf aggregator plugins, the metric is emitted every period seconds.
+      Bucket counts, however, are not reset between periods and will be non-strictly
+      increasing while Telegraf is running.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/histogram/README.md
+    introduced: 1.4.0
+    tags: [placeholder]
+
+  - name: MinMax
+    id: minmax
+    description: |
+      The MinMax aggregator plugin aggregates `min` and `max` values of each field it sees,
+      emitting the aggregrate every period seconds.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/minmax/README.md
+    introduced: 1.1.0
+    tags: [placeholder]
+
+  - name: ValueCounter
+    id: valuecounter
+    description: |
+      The ValueCounter aggregator plugin counts the occurrence of values in fields
+      and emits the counter once every 'period' seconds.
+
+      A use case for the ValueCounter aggregator plugin is when you are processing
+      an HTTP access log with the [Logparser input plugin](#logparser) and want to
+      count the HTTP status codes.
+
+      The fields which will be counted must be configured with the fields configuration directive.
+      When no fields are provided, the plugin will not count any fields.
+      The results are emitted in fields, formatted as `originalfieldname_fieldvalue = count`.
+
+      ValueCounter only works on fields of the type `int`, `bool`, or `string`.
+      Float fields are being dropped to prevent the creating of too many fields.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/valuecounter/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+
+#   %%%%%   %%%%%    %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%%%%    %%%%    #
+#   %%  %%  %%  %%  %%  %%  %%  %%  %%     %%     %%      %%  %%  %%  %%  %%       #
+#   %%%%%   %%%%%   %%  %%  %%      %%%%    %%%%   %%%%   %%  %%  %%%%%    %%%%    #
+#   %%      %%  %%  %%  %%  %%  %%  %%         %%     %%  %%  %%  %%  %%      %%   #
+#   %%      %%  %%   %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%  %%   %%%%    #
+
+processor:
+  - name: Converter
+    id: converter
+    description: |
+      The Converter processor plugin is used to change the type of tag or field values.
+      In addition to changing field types, it can convert between fields and tags.
+      Values that cannot be converted are dropped.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/converter/README.md
+    introduced: 1.7.0
+    tags: [placeholder]
+
+  - name: Enum
+    id: enum
+    description: |
+      The Enum processor plugin allows the configuration of value mappings for metric fields.
+      The main use case for this is to rewrite status codes such as `red`, `amber`, and `green`
+      by numeric values such as `0`, `1`, `2`. The plugin supports string and bool types for the field values.
+      Multiple Fields can be configured with separate value mappings for each field.
+      Default mapping values can be configured to be used for all values, which are
+      not contained in the value_mappings.
+      The processor supports explicit configuration of a destination field.
+      By default the source field is overwritten.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/enum/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: Override
+    id: override
+    description: |
+      The Override processor plugin allows overriding all modifications that are supported
+      by input plugins and aggregator plugins:
+
+      - `name_override`
+      - `name_prefix`
+      - `name_suffix`
+      - tags
+
+      All metrics passing through this processor will be modified accordingly.
+      Select the metrics to modify using the standard measurement filtering options.
+
+      Values of `name_override`, `name_prefix`, `name_suffix`, and already present
+      tags with conflicting keys will be overwritten. Absent tags will be created.
+
+      Use case of this plugin encompass ensuring certain tags or naming conventions
+      are adhered to irrespective of input plugin configurations, e.g., by `taginclude`.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/override/README.md
+    introduced: 1.6.0
+    tags: [placeholder]
+
+  - name: Parser
+    id: parser
+    description: |
+      The Parser processor plugin parses defined fields containing the specified data
+      format and creates new metrics based on the contents of the field.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/parser/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: Printer
+    id: printer
+    description: |
+      The Printer processor plugin simply prints every metric passing through it.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/printer/README.md
+    introduced: 1.1.0
+    tags: [placeholder]
+
+  - name: Regex
+    id: regex
+    description: |
+      The Regex processor plugin transforms  tag and field values using a regular expression (regex) pattern.
+      If `result_key `parameter is present, it can produce new tags and fields from existing ones.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/regex/README.md
+    introduced: 1.7.0
+    tags: [placeholder]
+
+  - name: Rename
+    id: rename
+    description: |
+      The Rename processor plugin renames InfluxDB measurements, fields, and tags.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/rename/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: Strings
+    id: strings
+    description: |
+      The Strings processor plugin maps certain Go string functions onto InfluxDB
+      measurement, tag, and field values. Values can be modified in place or stored
+      in another key.
+
+      Implemented functions are:
+
+      - `lowercase`
+      - `uppercase`
+      - `trim`
+      - `trim_left`
+      - `trim_right`
+      - `trim_prefix`
+      - `trim_suffix`
+
+      Note that in this implementation these are processed in the order that they appear above.
+      You can specify the `measurement`, `tag` or `field` that you want processed in each
+      section and optionally a `dest` if you want the result stored in a new tag or field.
+      You can specify lots of transformations on data with a single strings processor.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/strings/README.md
+    introduced: 1.8.0
+    tags: [placeholder]
+
+  - name: TopK
+    id: topk
+    description: |
+      The TopK processor plugin is a filter designed to get the top series over a period of time.
+      It can be tweaked to do its top `K` computation over a period of time, so spikes
+      can be smoothed out.
+
+      This processor goes through the following steps when processing a batch of metrics:
+
+      1. Groups metrics in buckets using their tags and name as key.
+      2. Aggregates each of the selected fields for each bucket by the selected aggregation function (sum, mean, etc.).
+      3. Orders the buckets by one of the generated aggregations, returns all metrics in the top `K` buckets, then reorders the buckets by the next of the generated aggregations, returns all metrics in the top `K` buckets, etc, etc, etc, until it runs out of fields.
+
+      The plugin makes sure not to duplicate metrics.
+
+      Note that depending on the amount of metrics on each computed bucket, more
+      than `K` metrics may be returned.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/topk/README.md
+    introduced: 1.7.0
     tags: [placeholder]
