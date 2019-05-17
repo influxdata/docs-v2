@@ -1,0 +1,15 @@
+filters:
+  - category: Plugin type
+    values:
+      - Input
+      - Output
+      - Aggregator
+      - Processor
+  - category: Operating system
+    values:
+      - Linux
+      - macOS
+      - Windows
+  - category: Placeholder
+    values:
+      - Placeholder

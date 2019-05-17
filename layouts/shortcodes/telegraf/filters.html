@@ -1,0 +1,15 @@
+<div id="plugin-filters">
+
+  {{ range .Site.Data.telegraf_plugin_filters.filters }}
+  <div class="filter-category">
+    <h5>{{ .category }}</h5>
+    {{ range .values }}
+      <label for="{{ lower . }}" data-count="(0)">
+        <input type="checkbox" id="{{ lower . }}" name="{{ lower . }}">
+        {{ . }}
+      </label>
+    {{ end }}
+  </div>
+  {{ end }}
+
+</div>

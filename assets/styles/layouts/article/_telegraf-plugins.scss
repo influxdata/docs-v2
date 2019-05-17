@@ -82,6 +82,37 @@
   }
 }
 
+//////////////////////////////// Plugin Filters ////////////////////////////////
+
+#plugin-filters {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .filter-category {
+    flex-grow: 1;
+    max-width: 33%;
+  }
+
+  input[type='checkbox'] {
+    margin: .1rem .3rem 0 0;
+    padding: 0;
+    vertical-align: top;
+  }
+  label {
+    display: block;
+    margin: .5rem 0;
+    color: $article-text;
+
+    &:after {
+      content: attr(data-count);
+      margin-left: .25rem;
+      font-size: .85rem;
+      opacity: .5;
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

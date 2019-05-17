@@ -1,8 +1,8 @@
 {{ $type := .Get "type" }}
 
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
-  {{ $pluginTags := delimit .tags ", " }}
-  <div class="plugin-card" id="{{ .id }}" data-tags="{{ $type }}, {{ $pluginTags }}">
+  {{ $pluginTags := delimit .tags " " }}
+  <div class="plugin-card visible" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }}">
     <div class="info">
       <h3 id="{{ .id }}">{{ .name }}</h3>
       <p class="meta">
