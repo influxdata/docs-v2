@@ -28,11 +28,11 @@ $("#plugin-filters input").click(function() {
   // Actions for filter select
   if ( $(this).is(':checked') ) {
     $.each( tagArray, function( index, value ) {
-      $(".plugin-card.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()
+      $(".plugin-card.visible:not([data-tags~='" + value + "'])").removeClass('visible').fadeOut()
     })
   } else {
     $.each( restoreArray, function( index, value ) {
-      $(".plugin-card:not(.visible)[data-tags~='" + value + "']").addClass('visible').show()
+      $(".plugin-card:not(.visible)[data-tags~='" + value + "']").addClass('visible').fadeIn()
     })
     $.each( tagArray, function( index, value ) {
       $(".plugin-card.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()

@@ -10,6 +10,9 @@ filters:
       - Linux
       - macOS
       - Windows
+  - category: Recently added
+    values:
+      - New
   - category: Placeholder
     values:
       - Placeholder

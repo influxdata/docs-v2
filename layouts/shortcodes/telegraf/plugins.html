@@ -1,8 +1,10 @@
 {{ $type := .Get "type" }}
+{{ $telegrafVersion := replaceRE `\.[^.]*$` "" .Site.Data.versions.telegraf_version }}
 
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}
-  <div class="plugin-card visible" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }}">
+  {{ $minorVer := replaceRE `\.[^.]*$` "" .introduced }}
+  <div class="plugin-card visible{{ if eq $minorVer $telegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $telegrafVersion }}new{{ end }}">
     <div class="info">
       <h3 id="{{ .id }}">{{ .name }}</h3>
       <p class="meta">
