@@ -20,6 +20,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--log-level](#log-level)
 - [--reporting-disabled](#reporting-disabled)
 - [--secret-store](#secret-store)
+- [--session-length](#session-length)
+- [--session-renew-disabled](#session-renew-disabled)
 - [--store](#store)
 - [--tracing-type](#tracing-type)
 
@@ -33,6 +35,8 @@ influxd \
   --log-level=info \
   --reporting-disabled \
   --secret-store=bolt \
+  --session-length=60 \
+  --session-renew-disabled \
   --store=bolt \
   --tracing-type=log
 ```
@@ -131,6 +135,29 @@ or in [Vault](https://www.vaultproject.io/).
 
 ```sh
 influxd --secret-store=bolt
+```
+
+---
+
+## --session-length
+Specifies the Time to Live (TTL) **in minutes** for newly created user sessions.
+
+**Default:** `60`
+
+```sh
+influxd --session-length=60
+```
+
+---
+
+## --session-renew-disabled
+Disables automatically extending a user's session TTL on each request.
+By default, every request sets the session's expiration time to five minutes from now.
+When disabled, sessions expire after the specified [session length](#session-length)
+and the user is redirected to the login page, even if recently active.
+
+```sh
+influxd --session-renew-disabled
 ```
 
 ---
