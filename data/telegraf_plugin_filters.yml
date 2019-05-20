@@ -10,9 +10,7 @@ filters:
       - Linux
       - macOS
       - Windows
-  - category: Recently added
+  - category: Status
     values:
       - New
-  - category: Placeholder
-    values:
-      - Placeholder
+      - Deprecated

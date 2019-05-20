@@ -95,30 +95,66 @@
 
 #plugin-filters {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+  align-items: flex-start;
 
   .filter-category {
-    flex: 1 1 0;
-    max-width: 33%;
-    margin: 0 1.25rem 1.25rem 0 ;
+    flex: 1 1 150px;
+    margin: 0 1.25rem 1.25rem 0;
   }
 
-  input[type='checkbox'] {
-    margin: .1rem .3rem 0 0;
-    padding: 0;
-    vertical-align: top;
-  }
   label {
     display: block;
-    margin: .5rem 0;
+    margin: .55rem 0;
     color: $article-text;
+    position: relative;
 
     &:after {
       content: attr(data-count);
       margin-left: .25rem;
       font-size: .85rem;
       opacity: .5;
+    }
+  }
+
+  .checkbox {
+    display: inline-block;
+    height: 1.15em;
+    width: 1.15em;
+    background: rgba($article-text, .05);
+    margin-right: .3rem;
+    vertical-align: text-top;
+    border-radius: $radius;
+    cursor: pointer;
+    border: 1.5px solid rgba($article-text, .2);
+    user-select: none;
+  }
+
+  input[type='checkbox'] {
+    margin-right: -1.1rem ;
+    padding: 0;
+    vertical-align: top;
+    opacity: 0;
+    cursor: pointer;
+
+    & + .checkbox:after {
+      content: "";
+      display: block;
+      position: absolute;
+      height: .5rem;
+      width: .5rem;
+      border-radius: 50%;
+      background: $article-link;
+      top: .35rem;
+      left: .32rem;
+      opacity: 0;
+      transform: scale(2);
+      transition: all .2s;
+    }
+
+    &:checked + .checkbox:after {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }

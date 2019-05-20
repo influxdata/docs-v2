@@ -6,6 +6,7 @@
     {{ range .values }}
       <label for="{{ lower . }}" data-count="(0)">
         <input type="checkbox" id="{{ lower . }}" name="{{ lower . }}">
+        <span class="checkbox"></span>
         {{ . }}
       </label>
     {{ end }}

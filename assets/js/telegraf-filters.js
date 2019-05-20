@@ -6,7 +6,13 @@ function countTag(tag) {
 function getFilterCounts() {
   $('#plugin-filters label').each(function() {
     var tagName = $('input', this).attr('name');
-    $(this).attr('data-count', '(' + countTag(tagName) + ')');
+    var tagCount = countTag(tagName);
+    $(this).attr('data-count', '(' + tagCount + ')');
+    if (tagCount <= 0) {
+      $(this).fadeTo(200, 0.25);
+    } else {
+      $(this).fadeTo(400, 1.0);
+    }
   })
 }
 
