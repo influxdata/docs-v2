@@ -16,12 +16,13 @@ which can be selected in the **Visualization Type** selection view of the
 Each of the available visualization types and available user controls are described below.
 
 
-* [Graph](#graph)
-* [Graph + Single Stat](#graph-single-stat)
-* [Histogram](#histogram)
-* [Single Stat](#single-stat)
-* [Gauge](#gauge)
-* [Table](#table)
+- [Graph](#graph)
+- [Graph + Single Stat](#graph-single-stat)
+- [Heatmap](#heatmap)
+- [Histogram](#histogram)
+- [Single Stat](#single-stat)
+- [Gauge](#gauge)
+- [Table](#table)
 
 ### Graph
 
@@ -29,6 +30,8 @@ There are several types of graphs you can create.
 
 To select this view, select the **Graph** option from the visualization dropdown
 in the upper right.
+
+{{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
 
 #### Graph controls
 
@@ -54,17 +57,21 @@ to the visualization dropdown in the upper right.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 
-##### Line Graph example
+##### Graph with linear interpolation
 
 {{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
+
+##### Graph with smooth interpolation
+
+{{< img-hd src="/img/2-0-visualizations-line-graph-smooth-example.png" alt="Step-Plot Graph example" />}}
+
+##### Graph with step interpolation
+
+{{< img-hd src="/img/2-0-visualizations-line-graph-step-example.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Stacked Graph example
 
 {{< img-hd src="/img/2-0-visualizations-stacked-graph-example.png" alt="Stacked Graph example" />}} -->
-
-#### Step-Plot Graph example
-
-{{< img-hd src="/img/2-0-visualizations-step-plot-graph-example.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Bar Graph example
 
@@ -74,6 +81,8 @@ to the visualization dropdown in the upper right.
 
 The **Graph + Single Stat** view displays the specified time series in a line graph
 and overlays the single most recent value as a large numeric value.
+
+{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example.png" alt="Line Graph + Single Stat example" />}}
 
 To select this view, select the **Graph + Single Stat** option from the visualization
 dropdown in the upper right.
@@ -110,14 +119,54 @@ next to the visualization dropdown in the upper right.
 - **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
-#### Graph + Single Stat example
+### Heatmap
 
-{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example.png" alt="Line Graph + Single Stat example" />}}
+A **Heatmap** displays the distribution of data on an x and y axes where color
+represents different concentrations of data points.
+
+{{< img-hd src="/img/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
+
+To select this view, select the **Heatmap** option from the visualization dropdown in the upper right.
+
+#### Heatmap Controls
+
+To view **Heatmap** controls, click the settings icon ({{< icon "gear" >}})
+next to the visualization dropdown in the upper right.
+
+###### Data
+- **X Column**: Select the column to use for the x-axis.
+- **Y Column**: Select the column to use for the y-axis.
+
+###### Options
+- **Color Scheme**: Select a color scheme to use for your heatmap.
+- **Bin Size**: Specify the size of each bin. Default is 10.
+
+###### X Axis
+- **X Axis Label**: Label for the x-axis.
+- **X Tick Prefix**: Prefix to be added to x-value.
+- **X Tick Suffix**: Suffix to be added to x-value.
+- **X Axis Domain**: The x-axis value range.
+  - **Auto**: Automatically determine the value range based on values in the data set.
+  - **Custom**: Manually specify the value range of the x-axis.
+      - **Min**: Minimum x-axis value.
+      - **Max**: Maximum x-axis value.
+
+###### Y Axis
+- **Y Axis Label**: Label for the y-axis.
+- **Y Tick Prefix**: Prefix to be added to y-value.
+- **Y Tick Suffix**: Suffix to be added to y-value.
+- **Y Axis Domain**: The y-axis value range.
+  - **Auto**: Automatically determine the value range based on values in the data set.
+  - **Custom**: Manually specify the value range of the y-axis.
+      - **Min**: Minimum y-axis value.
+      - **Max**: Maximum y-axis value.
 
 ### Histogram
 
 A histogram is a way to view the distribution of data. Unlike column charts, histograms have no time axis.
 The y-axis is dedicated to count, and the x-axis is divided into bins.
+
+{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
 To select this view, select the **Histogram** option from the visualization dropdown in the upper right.
 
@@ -146,13 +195,11 @@ to the visualization dropdown in the upper right.
       - **Min**: Minimum x-axis value.
       - **Max**: Maximum x-axis value.
 
-#### Histogram example
-
-{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
-
 ### Single Stat
 
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
+
+{{< img-hd src="/img/2-0-visualizations-single-stat-example.png" alt="Single stat example" />}}
 
 To select this view, select the **Single Stat** option from the visualization dropdown in the upper right.
 
@@ -178,6 +225,8 @@ next to the visualization dropdown in the upper right.
 
 The **Gauge** view displays the single value most recent value for a time series in a gauge view.
 
+{{< img-hd src="/img/2-0-visualizations-gauge-example.png" alt="Gauge example" />}}
+
 To select this view, select the **Gauge** option from the visualization dropdown in the upper right.
 
 #### Gauge Controls
@@ -196,13 +245,11 @@ the visualization dropdown in the upper right.
   - **Value is**: Enter the value at which the gauge should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
 
-#### Gauge example
-
-{{< img-hd src="/img/2-0-visualizations-gauge-example.png" alt="Gauge example" />}}
-
 ### Table
 
 The **Table** option displays the results of queries in a tabular view, which is sometimes easier to analyze than graph views of data.
+
+{{< img-hd src="/img/2-0-visualizations-table-example.png" alt="Table example" />}}
 
 To select this view, select the **Table** option from the visualization dropdown in the upper right.
 
@@ -237,7 +284,3 @@ To view **Table** controls, click the settings icon ({{< icon "gear" >}}) next t
 - **Add a Threshold**: Change the color of the table based on the current value.
   - **Value is**: Enter the value at which the table should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
-
-#### Table view example
-
-{{< img-hd src="/img/2-0-visualizations-table-example.png" alt="Table example" />}}
