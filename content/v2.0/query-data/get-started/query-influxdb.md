@@ -7,6 +7,11 @@ menu:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201
+related:
+  - /v2.0/query-data/guides/
+  - /v2.0/reference/flux/functions/built-in/inputs/from
+  - /v2.0/reference/flux/functions/built-in/transformations/range
+  - /v2.0/reference/flux/functions/built-in/transformations/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.

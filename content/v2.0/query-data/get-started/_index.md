@@ -9,6 +9,9 @@ menu:
   v2_0:
     name: Get started with Flux
     parent: Query data
+related:
+  - /v2.0/reference/flux/
+  - /v2.0/reference/flux/functions/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,
