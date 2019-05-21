@@ -36,7 +36,7 @@ _**Note:** The following commands are examples. Adjust the file paths to your ow
 
 ```sh
 # Unpackage contents to the current working directory
-gunzip -c ~/Downloads/influxdb_2.0.0-alpha.8_darwin_amd64.tar.gz | tar xopf -
+gunzip -c ~/Downloads/influxdb_2.0.0-alpha.9_darwin_amd64.tar.gz | tar xopf -
 ```
 
 If you choose, you can place `influx` and `influxd` in your `$PATH`.
@@ -44,7 +44,7 @@ You can also prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.8_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-alpha.9_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
