@@ -7,6 +7,8 @@ menu:
     name: Syntax basics
     parent: Get started with Flux
 weight: 203
+related:
+  - /v2.0/reference/flux/language/types/
 ---
 
 

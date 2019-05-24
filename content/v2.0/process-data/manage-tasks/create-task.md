@@ -8,6 +8,8 @@ menu:
     name: Create a task
     parent: Manage tasks
 weight: 201
+related:
+  - /v2.0/reference/cli/influx/task/create
 ---
 
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)

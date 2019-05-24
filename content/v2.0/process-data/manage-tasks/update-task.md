@@ -8,6 +8,8 @@ menu:
     name: Update a task
     parent: Manage tasks
 weight: 204
+related:
+  - /v2.0/reference/cli/influx/task/update
 ---
 
 ## Update a task in the InfluxDB UI

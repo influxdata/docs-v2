@@ -7,6 +7,9 @@ menu:
     name: Transform data
     parent: Get started with Flux
 weight: 202
+related:
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow
+  - /v2.0/reference/flux/functions/built-in/transformations/window
 ---
 
 When [querying data from InfluxDB](/v2.0/query-data/get-started/query-influxdb),
