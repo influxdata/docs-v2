@@ -9,10 +9,21 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.30.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.31.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.31.0 [2019-05-28]
+
+### Breaking changes
+- Copy the table when a table is used multiple times.
+
+### Features
+- Support for dynamic queries.
+
+### Bug fixes
+- Copy the table when a table is used multiple times.
 
 ## v0.30.0 [2019-05-16]
 
