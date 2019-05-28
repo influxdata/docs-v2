@@ -12,7 +12,7 @@ input:
       using the ActiveMQ Console API.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/activemq/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Aerospike
     id: aerospike
@@ -21,7 +21,7 @@ input:
       and  statistics for all configured namespaces.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/aerospike/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, databases]
 
   - name: Amazon CloudWatch Statistics
     id: cloudwatch

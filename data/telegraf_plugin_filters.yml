@@ -5,6 +5,14 @@ filters:
       - Output
       - Aggregator
       - Processor
+  - category: Plugin category
+    values:
+      - System
+      - Application
+      - Network
+      - Messaging
+      - Databases
+      - Containers
   - category: Operating system
     values:
       - Linux
