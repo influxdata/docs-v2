@@ -112,7 +112,7 @@ next to the visualization dropdown in the upper right.
   - **Auto** or **Custom**: Enable or disable auto-setting.
 
 ###### Colorized Thresholds
-- **Base Color**: Select a base, or background, color from the selection list.
+- **Base Color**: Select a base or background color from the selection list.
 - **Add a Threshold**: Change the color of the single stat based on the current value.
   - **Value is**: Enter the value at which the single stat should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
@@ -214,7 +214,7 @@ next to the visualization dropdown in the upper right.
     - **Auto** or **Custom**: Enable or disable auto-setting.
 
 ###### Colorized Thresholds
-- **Base Color**: Select a base, or background, color from the selection list.
+- **Base Color**: Select a base or background color from the selection list.
 - **Add a Threshold**: Change the color of the single stat based on the current value.
   - **Value is**: Enter the value at which the single stat should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
@@ -240,7 +240,7 @@ the visualization dropdown in the upper right.
   - **Auto** or **Custom**: Enable or disable auto-setting.
 
 ###### Colorized Thresholds
-- **Base Color**: Select a base, or background, color from the selection list.
+- **Base Color**: Select a base or background color from the selection list.
 - **Add a Threshold**: Change the color of the gauge based on the current value.
   - **Value is**: Enter the value at which the gauge should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
@@ -282,7 +282,7 @@ the visualization dropdown in the upper right.
   - Change the order of the columns by dragging to the desired position.
 
 ###### Colorized Thresholds
-- **Base Color**: Select a base, or background, color from the selection list.
+- **Base Color**: Select a base or background color from the selection list.
 - **Add a Threshold**: Change the color of the table based on the current value.
   - **Value is**: Enter the value at which the table should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
