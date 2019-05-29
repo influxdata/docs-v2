@@ -27,6 +27,9 @@ To view your tasks, click the **Tasks** icon in the left navigation menu.
 In the list of tasks, click the {{< icon "toggle" >}} toggle to the left of the
 task you want to activate or inactivate.
 
+#### Update a task's description
+1. In the list of tasks, click the task you want to update.
+
 ## Update a task with the influx CLI
 Use the `influx task update` command to update or change the status of an existing task.
 
