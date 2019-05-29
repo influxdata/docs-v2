@@ -7,12 +7,17 @@ filters:
       - Processor
   - category: Plugin category
     values:
-      - System
-      - Application
-      - Network
-      - Messaging
-      - Databases
+      - Applications
+      - Build_deploy
+      - Cloud
       - Containers
+      - Data_stores
+      - Logging
+      - Messaging
+      - Networking
+      - Sensors
+      - Systems
+      - Web
   - category: Operating system
     values:
       - Linux
