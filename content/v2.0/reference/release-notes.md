@@ -12,7 +12,7 @@ menu:
 ### Features
 - Add heatmap visualization type
 - Add scatter graph visualization type
-- Add description field to Tasks
+- Add description field to tasks
 - Add CLI arguments for configuring session length and renewal
 - Add smooth interpolation option to line graphs
 
@@ -20,7 +20,7 @@ menu:
 - Removed hardcoded bucket for Getting Started with Flux dashboard
 - Ensure map type variables allow for selecting values
 - Generate more idiomatic Flux in query builder
-- Expand tab key presses to 2 spaces in the Flux editor
+- Expand tab key presses to two spaces in the Flux editor
 - Prevent dragging of Variable dropdowns when dragging a scrollbar inside the dropdown
 - Improve single stat computation
 - Fix crash when opening histogram settings with no data
