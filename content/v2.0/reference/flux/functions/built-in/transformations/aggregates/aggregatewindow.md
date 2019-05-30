@@ -84,7 +84,7 @@ from(bucket: "example-bucket")
     fn: mean
   )
 ```
-####### Specifying parameters of the aggregate function
+###### Specifying parameters of the aggregate function
 To use `aggregateWindow()` aggregate functions that don't provide defaults for required parameters,
 for the `fn` parameter, define an anonymous function with `columns` and `tables` parameters
 that pipe-forwards tables into the aggregate function with all required parameters defined:

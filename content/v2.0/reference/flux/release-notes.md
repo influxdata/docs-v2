@@ -9,15 +9,10 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.31.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.31.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
-
-## v0.31.1 [2019-05-29]
-
-### Bug fixes
-- Do not call done after calling the function.
 
 ## v0.31.0 [2019-05-28]
 
