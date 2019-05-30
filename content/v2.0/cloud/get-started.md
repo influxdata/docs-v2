@@ -7,6 +7,7 @@ menu:
   v2_0_cloud:
     name: Get started with InfluxDB Cloud
 ---
+
 {{< cloud-name >}} is a fully managed and hosted version of the InfluxDB 2.0.
 To get started, complete the tasks below.
 

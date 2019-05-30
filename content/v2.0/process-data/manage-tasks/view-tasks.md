@@ -8,6 +8,8 @@ menu:
     name: View tasks
     parent: Manage tasks
 weight: 202
+related:
+  - /v2.0/reference/cli/influx/task/find
 ---
 
 ## View tasks in the InfluxDB UI

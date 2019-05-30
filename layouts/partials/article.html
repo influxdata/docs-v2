@@ -5,6 +5,7 @@
     {{ partial "article/enterprise.html" . }}
     {{ partial "article/cloud.html" . }}
     {{ .Content }}
+    {{ partial "article/related.html" . }}
     {{ partial "article/tags.html" . }}
 
     {{ if in .RelPermalink "/cloud/"}}

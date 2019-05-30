@@ -1,0 +1,15 @@
+.related {
+  border-top: 1px solid $article-hr;
+  padding-top: 1.5rem;
+
+  h4 { font-size: 1.15rem; }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+  }
+  li {
+    margin: .5rem 0;
+    line-height: 1.25rem;
+  }
+}

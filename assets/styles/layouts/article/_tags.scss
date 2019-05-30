@@ -2,8 +2,8 @@
 
 .tags {
   border-top: 1px solid $article-hr;
-  padding-top: 1.5rem;
-  margin-top: 2rem;
+  padding-top: 1.75rem;
+  margin: 2rem 0 1rem;
 
   .tag {
     background: $body-bg;
@@ -14,4 +14,10 @@
     color: rgba($article-text, .75);
     font-size: .8rem;
   }
+}
+
+.related + .tags {
+  border: none;
+  padding-top: 0;
+  margin: 1.5rem 0 1rem;
 }
