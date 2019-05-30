@@ -293,7 +293,7 @@ The shortcode structure is the same as above, but the shortcode names are differ
 
 {{% code-tab-content %}}
 ```js
-data = from(bucket: "telegraf/autogen")
+data = from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

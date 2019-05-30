@@ -53,7 +53,7 @@ _**Data type:** Function_
 
 ##### Get key values from explicitly defined columns
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> keyValues(keyColumns: ["usage_idle", "usage_user"])
@@ -61,7 +61,7 @@ from(bucket: "telegraf/autogen")
 
 ##### Get key values from columns matching a regular expression
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))

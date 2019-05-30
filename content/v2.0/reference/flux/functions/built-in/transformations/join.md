@@ -72,7 +72,7 @@ _**Data type:** String_
 - `full`
 
 {{% note %}}
-The `on` parameter and the cross method are mutually exclusive.
+The `on` parameter and the `cross` method are mutually exclusive.
 {{% /note %}}
 
 ## Examples
@@ -116,14 +116,14 @@ The output will be:
 
 #### Cross-measurement join
 ```js
-data_1 = from(bucket:"telegraf/autogen")
+data_1 = from(bucket:"example-bucket")
   |> range(start:-15m)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
     r._field == "usage_system"
   )
 
-data_2 = from(bucket:"telegraf/autogen")
+data_2 = from(bucket:"example-bucket")
   |> range(start:-15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

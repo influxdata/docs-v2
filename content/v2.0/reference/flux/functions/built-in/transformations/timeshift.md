@@ -39,14 +39,14 @@ _**Data type:** Array of strings_
 
 ###### Shift forward in time
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start: -5m)
 	|> timeShift(duration: 12h)
 ```
 
 ###### Shift backward in time
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 	|> range(start: -5m)
 	|> timeShift(duration: -12h)
 ```

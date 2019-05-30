@@ -35,14 +35,14 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> columns(column: "labels")
 ```
 
 ##### Get every possible column label in a single table
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -30m)
   |> columns()
   |> keep(columns: ["_value"])

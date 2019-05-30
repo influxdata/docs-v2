@@ -46,13 +46,13 @@ _**Data type:** Boolean_
 ## Examples
 
 ```js
-table1 = from(bucket: "telegraf/autogen")
+table1 = from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "measurement_1"
   )
 
-table2 = from(bucket: "telegraf/autogen")
+table2 = from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "measurement_2"

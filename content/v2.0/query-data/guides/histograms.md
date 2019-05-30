@@ -22,7 +22,7 @@ In the histogram output, a column is added (`le`) that represents the upper boun
 Bin counts are cumulative.
 
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -62,7 +62,7 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
 
 ### Generating a histogram with linear bins
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -107,7 +107,7 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 
 ### Generating a histogram with logarithmic bins
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

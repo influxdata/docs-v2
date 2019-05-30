@@ -30,7 +30,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from("telegraf/autogen")
+from("example-bucket")
  |> range(start: -15m)
  |> filter(fn: (r) => r._measurement == "syslog")
  |> unique(column: "message")

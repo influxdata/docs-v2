@@ -43,7 +43,7 @@ The following example filters records by the `cpu` tag.
 It only keeps records for which the `cpu` is either `cpu0`, `cpu1`, or `cpu2`.
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -56,7 +56,7 @@ from(bucket: "telegraf/autogen")
 The following example excludes records that do not have `_percent` in a field key.
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -68,7 +68,7 @@ from(bucket: "telegraf/autogen")
 The following example drops columns whose names do not being with `_`.
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -15m)
   |> filter(fn: (r) => r._measurement == "mem")
   |> drop(fn: (column) => column !~ /_.*/)

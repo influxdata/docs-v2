@@ -19,7 +19,7 @@ _**Function type:** Input_
 _**Output data type:** Object_
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 
 // OR
 
@@ -40,7 +40,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
 ```
 ```js
 from(bucketID: "0261d8287f4d6000")

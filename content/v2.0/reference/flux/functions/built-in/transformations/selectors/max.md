@@ -29,7 +29,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start:-1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and

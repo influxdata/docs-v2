@@ -36,7 +36,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -5m)
   |> yield(name: "1")
 ```

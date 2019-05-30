@@ -33,7 +33,7 @@ _**Data type:** Strings_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -24h)
   |> filter(fn: (r) =>
     r._measurement == "system" and

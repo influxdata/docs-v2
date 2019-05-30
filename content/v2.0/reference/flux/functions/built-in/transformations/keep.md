@@ -44,14 +44,14 @@ _**Data type:** Function_
 
 ##### Keep a list of columns
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
     |> range(start: -5m)
     |> keep(columns: ["_time", "_value"])
 ```
 
 ##### Keep all columns matching a predicate
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
     |> range(start: -5m)
     |> keep(fn: (column) => column =~ /inodes*/)
 ```

@@ -35,6 +35,6 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> set(key: "host", value: "prod-node-1")
 ```

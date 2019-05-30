@@ -26,7 +26,7 @@ v1.fieldsAsCols()
 ```js
 import "influxdata/influxdb/v1"
 
-from(bucket:"telegraf/autogen")
+from(bucket:"example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> v1.fieldsAsCols()

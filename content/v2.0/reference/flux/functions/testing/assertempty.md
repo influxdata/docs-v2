@@ -31,9 +31,9 @@ The `.testing.assertEmpty()` function checks to see if the diff is empty.
 ```js
 import "testing"
 
-got = from(bucket: "telegraf/autogen")
+got = from(bucket: "example-bucket")
   |> range(start: -15m)
-want = from(bucket: "backup_telegraf/autogen")
+want = from(bucket: "backup_example-bucket")
   |> range(start: -15m)
 got
   |> testing.diff(want: want)

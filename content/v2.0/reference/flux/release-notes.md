@@ -9,10 +9,53 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.28.3**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.31.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.31.0 [2019-05-28]
+
+### Breaking changes
+- Copy the table when a table is used multiple times.
+
+### Features
+- Support for dynamic queries.
+
+### Bug fixes
+- Copy the table when a table is used multiple times.
+
+## v0.30.0 [2019-05-16]
+
+### Features
+- Support for dynamic queries.
+
+---
+
+## v0.29.0 [2019-05-15]
+
+### Breaking changes
+- Make `on` a required parameter to `join()`.
+
+### Features
+- Add stream table index functions (
+  [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/),
+  [`getRecord()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/),
+  [`getColumn()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/)
+  ).
+- Construct invalid binary expressions when given multiple expressions.
+
+### Bug fixes
+- Properly use RefCount to reference count tables.
+- Remove the race condition within the `(*Query).Done` method.
+- Fix table functions test.
+- Add `column` parameter to `median()`.
+- Modify `median` to work with `aggregateWindow()`.
+- `pivot()` now uses the correct column type when filling nulls.
+- Add error handling for property list.
+- Return the error from the context in the executor.
+
+---
 
 ## v0.28.3 [2019-05-01]
 

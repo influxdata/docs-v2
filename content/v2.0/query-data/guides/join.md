@@ -31,7 +31,7 @@ This returns the amount of memory (in bytes) used.
 
 ###### memUsed stream definition
 ```js
-memUsed = from(bucket: "telegraf/autogen")
+memUsed = from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -85,7 +85,7 @@ This returns the number of running processes.
 
 ###### procTotal stream definition
 ```js
-procTotal = from(bucket: "telegraf/autogen")
+procTotal = from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) =>
     r._measurement == "processes" and

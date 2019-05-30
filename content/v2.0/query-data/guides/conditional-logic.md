@@ -155,7 +155,7 @@ data = from(bucket: "example-bucket")
 ```js
 threshold = 65.0
 
-data = from(bucket: "example-bucket")
+from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
   // Aggregate data into 5 minute windows using a custom reduce() function

@@ -74,7 +74,7 @@ _**Data type:** Boolean_
 
 ###### Using an aggregate function with default parameters
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: 1h)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -84,13 +84,13 @@ from(bucket: "telegraf/autogen")
     fn: mean
   )
 ```
-####### Specifying parameters of the aggregate function
+###### Specifying parameters of the aggregate function
 To use `aggregateWindow()` aggregate functions that don't provide defaults for required parameters,
 for the `fn` parameter, define an anonymous function with `columns` and `tables` parameters
 that pipe-forwards tables into the aggregate function with all required parameters defined:
 
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: 1h)
   |> filter(fn: (r) =>
     r._measurement == "mem" and

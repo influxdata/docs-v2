@@ -54,7 +54,7 @@ Possible values include `by` and `except`.
 
 ## Example grouping operations
 To illustrate how grouping works, define a `dataSet` variable that queries System
-CPU usage from the `telegraf/autogen` bucket.
+CPU usage from the `example-bucket` bucket.
 Filter the `cpu` tag so it only returns results for each numbered CPU core.
 
 ### Data set
@@ -62,7 +62,7 @@ CPU used by system operations for all numbered CPU cores.
 It uses a regular expression to filter only numbered cores.
 
 ```js
-dataSet = from(bucket: "telegraf/autogen")
+dataSet = from(bucket: "example-bucket")
   |> range(start: -2m)
   |> filter(fn: (r) =>
     r._field == "usage_system" and

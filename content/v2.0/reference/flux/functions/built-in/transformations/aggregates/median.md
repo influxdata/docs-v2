@@ -21,7 +21,11 @@ _**Output data type:** Object_
 
 
 ```js
-median(method: "estimate_tdigest", compression: 0.0)
+median(
+  column: "_value",
+  method: "estimate_tdigest",
+  compression: 0.0
+)
 ```
 
 When using the `estimate_tdigest` or `exact_mean` methods, it outputs non-null
@@ -39,8 +43,15 @@ You can convert your value column to a float column using the [`toFloat()` funct
 
 ## Parameters
 
+### column
+The column to use to compute the median.
+Defaults to `"_value"`.
+
+_**Data type:** String_
+
 ### method
-Defines the method of computation. Defaults to `"estimate_tdigest"`.
+Defines the method of computation.
+Defaults to `"estimate_tdigest"`.
 
 _**Data type:** String_
 
@@ -67,7 +78,7 @@ _**Data type:** Float_
 
 ###### Median as an aggregate
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent"
@@ -79,7 +90,7 @@ from(bucket: "telegraf/autogen")
 
 ###### Median as a selector
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent"

@@ -50,7 +50,7 @@ _**Data type:** Boolean_
 
 ##### Fill null values with a specified non-null value
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -61,7 +61,7 @@ from(bucket: "telegraf/autogen")
 
 ##### Fill null values with the previous non-null value
 ```js
-from(bucket: "telegraf/autogen")
+from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
