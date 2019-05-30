@@ -23,6 +23,7 @@ Each of the available visualization types and available user controls are descri
 - [Single Stat](#single-stat)
 - [Gauge](#gauge)
 - [Table](#table)
+- [Scatter](#scatter)
 
 ### Graph
 
