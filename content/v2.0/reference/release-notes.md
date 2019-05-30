@@ -7,6 +7,30 @@ menu:
     weight: 1
 ---
 
+## v2.0.0-alpha.10 [2019-05-30]
+
+### Features
+- Add heatmap visualization type.
+- Add scatterplot graph visualization type.
+- Add description field to tasks.
+- Add CLI arguments for configuring session length and renewal.
+- Add smooth interpolation option to line graphs.
+
+### Bug Fixes
+- Removed hardcoded bucket for Getting Started with Flux dashboard.
+- Ensure map type variables allow for selecting values.
+- Generate more idiomatic Flux in query builder.
+- Expand tab key presses to two spaces in the Flux editor.
+- Prevent dragging of variable dropdowns when dragging a scrollbar inside the dropdown.
+- Improve single stat computation.
+- Fix crash when opening histogram settings with no data.
+
+### UI Improvements
+- Render checkboxes in query builder tag selection lists.
+- Fix jumbled card text in Telegraf configuration wizard.
+- Change scrapers in scrapers list to be resource cards.
+- Export and download resource with formatted resource name with no spaces.
+
 ## v2.0.0-alpha.9 [2019-05-01]
 
 
