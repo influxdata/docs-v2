@@ -7,7 +7,7 @@ menu:
     weight: 1
 ---
 
-## v2.0.0-alpha.10.1 [2019-05-30]
+## v2.0.0-alpha.11 [2019-05-31]
 
 ## Bug Fixes
 - Correctly check if columnKeys include xColumn in heatmap.
