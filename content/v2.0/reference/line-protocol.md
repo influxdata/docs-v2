@@ -39,10 +39,10 @@ Line protocol does not support the newline character `\n` in tag or field values
 ## Elements of line protocol
 
 ```
-measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400
---------------- --------------- --------------------- ----------------
-       |               |                  |                   |
-  Measurement       Tag set           Field set           Timestamp
+measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
+--------------- --------------- --------------------- -------------------
+       |               |                  |                    |
+  Measurement       Tag set           Field set            Timestamp
 ```
 
 ### Measurement
