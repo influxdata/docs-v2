@@ -2,19 +2,19 @@
 title: Handle duplicate data points
 seotitle: Handle duplicate data points when writing to InfluxDB
 description: >
-  placeholder
+  InfluxDB identifies unique data points by their measurement, tag set, and timestamp.
+  This article discusses methods for preserving data from two points with a common
+  measurement, tag set, and timestamp but a different field set.
 weight: 202
 menu:
   v2_0:
     name: Handle duplicate points
     parent: write-best-practices
+v2.0/tags: [best practices, write]
 ---
 
-<!-- Intro here -->
-
-## Identifying unique data points
-Data points are written to InfluxDB using [Line protocol](/v2.0/reference/line-protocol).
-InfluxDB identifies unique data points by their measurement name, tag set, and timestamp.
+InfluxDB identifies unique data points by their measurement, tag set, and timestamp
+(each a part of [Line protocol](/v2.0/reference/line-protocol) used to write data to InfluxDB).
 
 ```txt
 web,host=host2,region=us_west firstByte=15.0 1559260800000000000
@@ -39,12 +39,6 @@ web,host=host2,region=us_west firstByte=15.0 1559260800000000000
 
 After you submit the new point, InfluxDB overwrites `firstByte` with the new field
 value and leaves the field `dnsLookup` alone:
-
-{{% note %}}
-The output of examples queries in this article has been modified to clearly show
-the different approaches to handling duplicate data.
-The
-{{% /note %}}
 
 ```sh
 from(bucket: "example-bucket")
@@ -120,3 +114,8 @@ Table: keys: [_measurement, host, region]
 2019-05-31T00:00:00.000000000Z           web  host2  us_west         24          7
 2019-05-31T00:00:00.000000001Z           web  host2  us_west         15
 ```
+
+{{% note %}}
+The output of examples queries in this article has been modified to clearly show
+the different approaches and results for handling duplicate data.
+{{% /note %}}
