@@ -24,9 +24,9 @@ Measurement   Tag set                             Timestamp
 ```
 
 ## How InfluxDB handles duplicate points
-If a new point has the same measurement name, tag set, and timestamp as an
-existing point, InfluxDB creates a union of the old and new field sets.
-For any matching field keys, InfluxDB uses the field value of the new data point.
+For points that have the same measurement name, tag set, and timestamp,
+InfluxDB creates a union of the old and new field sets.
+For any matching field keys, InfluxDB uses the field value of the new point.
 For example:
 
 ```sh
@@ -52,17 +52,15 @@ Table: keys: [_measurement, host, region]
 ```
 
 ## Preserve duplicate points
-In some cases, you may want to preserve both old and new values.
-There are two strategies for preserving duplicate field keys in data points that share a measurement, tag set, and timestamp:
+To preserve both old and new field keys in duplicate points, use one of the following strategies:
 
 - [Add an arbitrary tag](#add-an-arbitrary-tag)
 - [Increment the timestamp](#increment-the-timestamp)
 
 ### Add an arbitrary tag
-Introduce an arbitrary tag to duplicate points to enforce the uniqueness of each point.
-Because the tag sets are different, InfluxDB treats them as unique points.
+Add an arbitrary tag with unique values so InfluxDB reads the duplicate points as unique.
 
-The following example introduces an arbitrary `uniq` tag to each data point:
+For example, add a uniq tag to each data point:
 
 ```sh
 # Old point
