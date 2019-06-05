@@ -235,7 +235,7 @@ Line protocol supports both literal backslashes and backslashes as an escape cha
 With two contiguous backslashes, the first is interpreted as an escape character.
 For example:
 
-| Backslashes | Intepreted as |
+| Backslashes | Interpreted as |
 |:-----------:|:-------------:|
 | `\`         | `\`           |
 | `\\`        | `\`           |
