@@ -12,11 +12,11 @@ filters:
       - Cloud
       - Containers
       - Data_stores
+      - IoT
       - Logging
       - Messaging
       - Networking
-      - Sensors
-      - Services
+      - Servers
       - Systems
       - Web
   - category: Operating system
