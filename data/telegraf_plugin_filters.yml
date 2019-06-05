@@ -16,6 +16,7 @@ filters:
       - Messaging
       - Networking
       - Sensors
+      - Services
       - Systems
       - Web
   - category: Operating system
