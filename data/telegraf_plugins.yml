@@ -21,7 +21,7 @@ input:
       and  statistics for all configured namespaces.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/aerospike/README.md
     introduced: 0.2.0
-    tags: [linux, macos, windows, databases]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
@@ -29,7 +29,16 @@ input:
       The Amazon CloudWatch Statistics input plugin pulls metric statistics from Amazon CloudWatch.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/cloudwatch/README.md
     introduced: 0.12.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
+
+  - name: Amazon Kinesis Consumer
+    id: kinesis_consumer
+    description: |
+      The Amazon Kinesis Consumer input plugin reads from a Kinesis data stream and creates
+      metrics using one of the supported [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kinesis_consumer/README.md
+    introduced: 1.10.0
+    tags: [linux, macos, windows, cloud, messaging]
 
   - name: AMQP Consumer
     id: amqp_consumer
@@ -39,7 +48,16 @@ input:
       being RabbitMQ.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/amqp_consumer/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
+
+  - name: Apache Aurora
+    id: aurora
+    description: |
+      The Aurora input plugin gathers metrics from [Apache Aurora](https://aurora.apache.org/) schedulers.
+      For monitoring recommendations, see [Monitoring your Aurora cluster](https://aurora.apache.org/documentation/latest/operations/monitoring/).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/aurora/README.md
+    introduced: 1.7.0
+    tags: [linux, macos, windows, applications, containers]
 
   - name: Apache HTTP Server
     id: apache
@@ -55,7 +73,7 @@ input:
         [module documentation](https://httpd.apache.org/docs/2.4/mod/mod_status.html#enable).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/apache/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: Apache Kafka Consumer
     id: kafka_consumer
@@ -67,15 +85,25 @@ input:
       from the same topic in parallel.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kafka_consumer/README.md
     introduced: 0.2.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
+
+  - name: Apache Mesos
+    id: mesos
+    description: |
+      The Apache Mesos input plugin gathers metrics from Mesos. For more information, please check the
+      [Mesos Observability Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mesos/README.md
+    introduced: 0.10.3
+    tags: [linux, macos, windows, containers]
+
 
   - name: Apache Solr
     id: solr
     description: |
-      The Apache Solr (`solr`) input plugin collects stats using the MBean Request Handler.
+      The Apache Solr input plugin collects stats using the MBean Request Handler.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/solr/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Apache Tomcat
     id: tomcat
@@ -87,16 +115,28 @@ input:
       for details on these statistics.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/tomcat/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
-  - name: Aurora
-    id: aurora
+  - name: Apache Zipkin
+    id: zipkin
     description: |
-      The Aurora input plugin gathers metrics from [Apache Aurora](https://aurora.apache.org/) schedulers.
-      For monitoring recommendations, see [Monitoring your Aurora cluster](https://aurora.apache.org/documentation/latest/operations/monitoring/).
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/aurora/README.md
-    introduced: 1.7.0
-    tags: [linux, macos]
+      The Apache Zipkin input plugin implements the Zipkin HTTP server to gather trace
+      and timing data needed to troubleshoot latency problems in microservice architectures.
+
+      > This plugin is experimental. Its data schema may be subject to change based on
+      > its main usage cases and the evolution of the OpenTracing standard.
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zipkin/README.md
+    introduced: 1.4.0
+    tags: [linux, macos, windows, networking]
+
+  - name: Apache Zookeeper
+    id: zookeeper
+    description: |
+      The Apache Zookeeper input plugin collects variables output from the `mntr`
+      command [Zookeeper Admin](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html).
+    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zookeeper/README.md
+    introduced: 0.2.0
+    tags: [linux, macos, windows, build-deploy]
 
   - name: Bcache
     id: bcache
@@ -104,7 +144,7 @@ input:
       The Bcache input plugin gets bcache statistics from the `stats_total` directory and `dirty_data` file.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/bcache/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Beanstalkd
     id: beanstalkd
@@ -113,7 +153,7 @@ input:
       (reported by `stats` and `stats-tube` commands respectively).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/beanstalkd/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Bond
     id: bond
@@ -123,7 +163,7 @@ input:
       The plugin collects these metrics from `/proc/net/bonding/*` files.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/bond/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Burrow
     id: burrow
@@ -133,7 +173,7 @@ input:
       [HTTP Endpoint](https://github.com/linkedin/Burrow/wiki/HTTP-Endpoint).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/burrow/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Cassandra
     id: cassandra
@@ -147,7 +187,7 @@ input:
     link: https://github.com/influxdata/telegraf/tree/release-1.6/plugins/inputs/cassandra
     introduced: 0.12.1
     deprecated: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Ceph Storage
     id: ceph
@@ -155,7 +195,7 @@ input:
       The Ceph Storage input plugin collects performance metrics from the MON and OSD nodes in a Ceph storage cluster.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ceph/README.md
     introduced: 0.13.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: CGroup
     id: cgroup
@@ -163,7 +203,7 @@ input:
       The CGroup input plugin captures specific statistics per cgroup.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/cgroup/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Chrony
     id: chrony
@@ -171,7 +211,7 @@ input:
       The Chrony input plugin gets standard chrony metrics, requires chronyc executable.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/chrony/README.md
     introduced: 0.13.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, systems]
 
   - name: Conntrack
     id: conntrack
@@ -187,7 +227,7 @@ input:
       with the prefix normalized to `ip_`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/conntrack/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Consul
     id: consul
@@ -197,7 +237,7 @@ input:
       It will not report the telemetry but Consul can report those stats already using StatsD protocol, if needed.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/consul/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy, containers]
 
   - name: Couchbase
     id: couchbase
@@ -205,7 +245,7 @@ input:
       The Couchbase input plugin reads per-node and per-bucket metrics from Couchbase.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/couchbase/README.md
     introduced: 0.12.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: CouchDB
     id: couchdb
@@ -213,7 +253,7 @@ input:
       The CouchDB input plugin gathers metrics of CouchDB using `_stats` endpoint.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/couchdb/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: CPU
     id: cpu
@@ -221,7 +261,7 @@ input:
       The CPU input plugin gathers metrics about cpu usage.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/cpu/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Disk
     id: disk
@@ -229,7 +269,7 @@ input:
       The Disk input plugin gathers metrics about disk usage by mount point.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/disk/README.md
     introduced: 0.1.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: DiskIO
     id: diskio
@@ -237,7 +277,7 @@ input:
       The DiskIO input plugin gathers metrics about disk IO by device.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/diskio/README.md
     introduced: 0.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Disque
     id: disque
@@ -245,7 +285,7 @@ input:
       The Disque input plugin gathers metrics from one or more [Disque](https://github.com/antirez/disque) servers.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/disque
     introduced: 0.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: DMCache
     id: dmcache
@@ -253,16 +293,16 @@ input:
       The DMCache input plugin provides a native collection for dmsetup-based statistics for dm-cache.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/dmcache/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: DNS Query
     id: dns_query
     description: |
-      The DNS Query (`dns_query`) input plugin gathers DNS query times in milliseconds -
+      The DNS Query input plugin gathers DNS query times in milliseconds -
       like [Dig](https://en.wikipedia.org/wiki/Dig_(command)).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/dns_query/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Docker
     id: docker
@@ -272,7 +312,7 @@ input:
       to gather stats from the [Engine API](https://docs.docker.com/engine/api/v1.20/) library documentation.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/docker/README.md
     introduced: 0.1.9
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy, containers]
 
   - name: Dovecot
     id: dovecot
@@ -281,7 +321,7 @@ input:
       For more information, see the [Dovecot documentation](http://wiki2.dovecot.org/Statistics).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/dovecot/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, web]
 
   - name: Elasticsearch
     id: elasticsearch
@@ -291,7 +331,7 @@ input:
       or [cluster-stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-stats.html) metrics.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/elasticsearch/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Exec
     id: exec
@@ -301,16 +341,16 @@ input:
       Each Telegraf metric includes the measurement name, tags, fields, and timestamp.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/exec/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Fail2ban
     id: fail2ban
     description: |
-      The Fail2ban input plugin gathers the count of failed and banned ip addresses
+      The Fail2ban input plugin gathers the count of failed and banned IP addresses
       using [fail2ban](https://www.fail2ban.org/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/fail2ban/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, security]
 
   - name: Fibaro
     id: fibaro
@@ -319,7 +359,7 @@ input:
       Those values could be true (`1`) or false (`0`) for switches, percentage for dimmers, temperature, etc.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/fibaro/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: File
     id: file
@@ -335,7 +375,7 @@ input:
       > use the [Multifile input plugin](#multifile).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/file/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Filecount
     id: filecount
@@ -343,7 +383,7 @@ input:
       The Filecount input plugin counts files in directories that match certain criteria.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/filecount/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Filestat
     id: filestat
@@ -351,16 +391,16 @@ input:
       The Filestat input plugin gathers metrics about file existence, size, and other stats.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/filestat/README.md
     introduced: 0.13.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Fluentd
     id: fluentd
     description: |
-      The Fluentd input plugin gathers metrics from plugin endpoint provided by in_monitor plugin.
+      The Fluentd input plugin gathers Fluentd server metrics from plugin endpoint provided by in_monitor plugin.
       This plugin understands data provided by `/api/plugin.json` resource (`/api/config.json` is not covered).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/fluentd/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers]
 
   - name: Google Cloud PubSub
     id: cloud_pubsub
@@ -370,7 +410,7 @@ input:
       using one of the supported [input data formats](https://github.com/influxdata/telegraf/blob/release-1.10/docs/DATA_FORMATS_INPUT.md).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/cloud_pubsub/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud, messaging]
 
   - name: Google Cloud PubSub Push
     id: cloud_pubsub_push
@@ -383,7 +423,7 @@ input:
       HTTPS/TLS so this plugin must be behind a valid proxy or must be configured to use TLS.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/cloud_pubsub_push/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud, messaging]
 
   - name: Graylog
     id: graylog
@@ -395,7 +435,7 @@ input:
       - namespace (e.g., `http://[graylog-server-ip]:12900/system/metrics/namespace/{namespace}`)
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/graylog/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, logging]
 
   - name: HAproxy
     id: haproxy
@@ -404,7 +444,7 @@ input:
       It can do so by using CSV generated by HAproxy status page or from admin sockets.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/haproxy/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, web]
 
   - name: Hddtemp
     id: hddtemp
@@ -412,7 +452,7 @@ input:
       The Hddtemp input plugin reads data from `hddtemp` daemons.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/hddtemp/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: HTTP
     id: http
@@ -422,7 +462,7 @@ input:
       Each data format has its own unique set of configuration options which can be added to the input configuration.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http/README.md
     introduced: 1.6.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: HTTP JSON
     id: httpjson
@@ -434,7 +474,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/httpjson/README.md
     introduced: 0.1.6
     deprecated: 1.6.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: HTTP Listener
     id: http_listener
@@ -445,7 +485,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/influxdb_listener/README.md
     introduced: 1.1.0
     deprecated: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: HTTP Listener v2
     id: http_listener_v2
@@ -456,7 +496,7 @@ input:
       This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB v2110 HTTP API.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http_listener_v2/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: HTTP Response
     id: http_response
@@ -466,16 +506,16 @@ input:
       and `result_type`. Tags for measurements include `server` and `method`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/http_response/README.md
     introduced: 0.12.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
-  - name: Icinga2
+  - name: Icinga 2
     id: icinga2
     description: |
-      The Icinga2 input plugin gather status on running services and hosts using
-      the [Icinga2 Remote API](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api).
+      The Icinga 2 input plugin gather status on running services and hosts using
+      the [Icinga 2 API](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/icinga2
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, servers, systems]
 
   - name: InfluxDB v1.x
     id: influxdb
@@ -487,7 +527,7 @@ input:
       [Read more about this approach here](https://www.influxdata.com/blog/influxdb-debugvars-endpoint/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/influxdb/README.md
     introduced: 0.2.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: InfluxDB Listener
     id: influxdb_listener
@@ -510,7 +550,7 @@ input:
       submits data to InfluxDB determines the destination database.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/influxdb_listener/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Interrupts
     id: interrupts
@@ -519,7 +559,7 @@ input:
       (from `/proc/interrupts`) and `soft_interrupts` (from `/proc/softirqs`).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/interrupts/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: IPMI Sensor
     id: ipmi_sensor
@@ -528,7 +568,7 @@ input:
       sensor statistics using the `ipmitool` utility.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ipmi_sensor/README.md
     introduced: 0.12.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: Ipset
     id: ipset
@@ -537,7 +577,7 @@ input:
       It uses the output of the command `ipset save`. Ipsets created without the `counters` option are ignored.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ipset/README.md
     introduced: 1.6.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, security, systems]
 
   - name: IPtables
     id: iptables
@@ -546,7 +586,7 @@ input:
       a set of table and chain from the Linux iptables firewall.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/iptables/README.md
     introduced: 1.1.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: IPVS
     id: ipvs
@@ -555,7 +595,7 @@ input:
       gather metrics about IPVS virtual and real servers.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ipvs/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Jenkins
     id: jenkins
@@ -567,7 +607,7 @@ input:
       API to retrieve all the information needed.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/jenkins/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy]
 
   - name: Jolokia
     id: jolokia
@@ -576,7 +616,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/jolokia/README.md
     introduced: 0.2.1
     deprecated: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Jolokia2 Agent
     id: jolokia2_agent
@@ -586,7 +626,7 @@ input:
       [JSON-over-HTTP protocol](https://jolokia.org/reference/html/protocol.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/jolokia2/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Jolokia2 Proxy
     id: jolokia2_proxy
@@ -596,7 +636,7 @@ input:
       [Jolokia](https://jolokia.org/) [JSON-over-HTTP protocol](https://jolokia.org/reference/html/protocol.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/jolokia2/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: JTI OpenConfig Telemetry
     id: jti_openconfig_telemetry
@@ -607,7 +647,7 @@ input:
       and [Junos Telemetry Interface (JTI)](https://www.juniper.net/documentation/en_US/junos/topics/concept/junos-telemetry-interface-oveview.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/jti_openconfig_telemetry/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: Kapacitor
     id: kapacitor
@@ -615,7 +655,7 @@ input:
       The Kapacitor input plugin will collect metrics from the given Kapacitor instances.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kapacitor/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Kernel
     id: kernel
@@ -623,7 +663,7 @@ input:
       The Kernel input plugin gathers kernel statistics from `/proc/stat`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kernel/README.md
     introduced: 0.11.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Kernel VMStat
     id: kernel_vmstat
@@ -631,7 +671,7 @@ input:
       The Kernel VMStat input plugin gathers kernel statistics from `/proc/vmstat`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kernel_vmstat/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Kibana
     id: kibana
@@ -640,16 +680,7 @@ input:
       status of Kibana and some useful metrics.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kibana/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
-
-  - name: Kinesis Consumer
-    id: kinesis_consumer
-    description: |
-      The Kinesis Consumer input plugin reads from a Kinesis data stream and creates
-      metrics using one of the supported [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input).
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kinesis_consumer/README.md
-    introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Kubernetes
     id: kubernetes
@@ -664,7 +695,7 @@ input:
       Therefore, you should configure this plugin to talk to its locally running kubelet.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kubernetes/README.md
     introduced: 1.1.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy, containers]
 
   - name: Kubernetes Inventory
     id: kube_inventory
@@ -682,7 +713,7 @@ input:
 
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/kube_inventory/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy, containers]
 
   - name: LeoFS
     id: leofs
@@ -692,7 +723,7 @@ input:
       in the [LeoFS documentation](https://leo-project.net/leofs/docs/) for more information.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/leofs/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems, data-stores]
 
   - name: Linux Sysctl FS
     id: linux_sysctl_fs
@@ -701,7 +732,7 @@ input:
       The documentation on these fields can be found [here](https://www.kernel.org/doc/Documentation/sysctl/fs.txt).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/linux_sysctl_fs/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Logparser
     id: logparser
@@ -711,7 +742,7 @@ input:
       from log files, which also supports regular expression (regex) patterns.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/logparser/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, logging]
 
   - name: Lustre2
     id: lustre2
@@ -721,7 +752,7 @@ input:
       The Lustre2 input plugin collects statistics and tags the data with the `jobid`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/lustre2
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Mailchimp
     id: mailchimp
@@ -729,7 +760,7 @@ input:
       The Mailchimp input plugin gathers metrics from the `/3.0/reports` MailChimp API.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mailchimp
     introduced: 0.2.4
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud, web]
 
   - name: Mcrouter
     id: mcrouter
@@ -741,7 +772,7 @@ input:
       handles almost 5 billion requests per second at peak.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mcrouter/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Mem
     id: mem
@@ -751,7 +782,7 @@ input:
       see [Linux ate my ram](https://www.linuxatemyram.com/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mem/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Memcached
     id: memcached
@@ -759,16 +790,7 @@ input:
       The Memcached input plugin gathers statistics data from a Memcached server.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/memcached/README.md
     introduced: 0.1.2
-    tags: [linux, macos]
-
-  - name: Mesos
-    id: mesos
-    description: |
-      The Mesos input plugin gathers metrics from Mesos. For more information, please check the
-      [Mesos Observability Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mesos/README.md
-    introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Mesosphere DC/OS
     id: dcos
@@ -777,7 +799,7 @@ input:
       [metrics component](https://docs.mesosphere.com/1.10/metrics/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/dcos/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, containers]
 
   - name: Microsoft SQL Server
     id: sqlserver
@@ -787,7 +809,7 @@ input:
       Recorded metrics are lightweight and use Dynamic Management Views supplied by SQL Server.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/sqlserver/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Minecraft
     id: minecraft
@@ -796,7 +818,7 @@ input:
       a scoreboard on a Minecraft server.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/minecraft/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, gaming]
 
   - name: MongoDB
     id: mongodb
@@ -805,7 +827,7 @@ input:
       few more and create a single measurement containing values.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mongodb/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: MQTT Consumer
     id: mqtt_consumer
@@ -814,7 +836,7 @@ input:
       Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mqtt_consumer/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Multifile
     id: multifile
@@ -828,7 +850,7 @@ input:
       > use the [file input plugin](#file).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/multifile/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: MySQL
     id: mysql
@@ -836,7 +858,7 @@ input:
       The MySQL input plugin gathers the statistics data from MySQL servers.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/mysql/README.md
     introduced: 0.1.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: NATS Consumer
     id: nats_consumer
@@ -847,7 +869,7 @@ input:
       can read from a NATS cluster in parallel.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nats_consumer/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: NATS Server Monitoring
     id: nats
@@ -856,7 +878,7 @@ input:
       [NATS Server monitoring server](https://www.nats.io/documentation/server/gnatsd-monitoring/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nats/README.md
     introduced: 1.6.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Neptune Apex
     id: neptune_apex
@@ -868,7 +890,7 @@ input:
       in the `telegraf.conf` configuration file.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/neptune_apex/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: Net
     id: net
@@ -876,7 +898,7 @@ input:
       The Net input plugin gathers metrics about network interface usage (Linux only).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/net/NET_README.md
     introduced: 0.1.1
-    tags: [linux, macos]
+    tags: [linux, macos, networking]
 
   - name: Netstat
     id: netstat
@@ -885,7 +907,7 @@ input:
       and sockets counts by using `lsof`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/net/NETSTAT_README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, systems]
 
   - name: Network Response
     id: net_response
@@ -894,7 +916,7 @@ input:
       It can also check response text.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/net_response/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: NGINX
     id: nginx
@@ -902,7 +924,7 @@ input:
       The NGINX input plugin reads NGINX basic status information (`ngx_http_stub_status_module`).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nginx/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: NGINX VTS
     id: nginx_vts
@@ -916,7 +938,7 @@ input:
       [NGINX VTS module documentation](https://github.com/vozlt/nginx-module-vts#synopsis).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nginx_vts/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: NGINX Plus
     id: nginx_plus
@@ -929,7 +951,7 @@ input:
       [status module documentation](http://nginx.org/en/docs/http/ngx_http_status_module.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nginx_plus/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: NGINX Plus API
     id: nginx_plus_api
@@ -937,7 +959,7 @@ input:
       The NGINX Plus API input plugin gathers advanced status information for NGINX Plus servers.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nginx_plus_api/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: NGINX Upstream Check
     id: nginx_upstream_check
@@ -954,7 +976,7 @@ input:
       in JSON format and parsed by this input.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nginx_plus_api/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: NSQ
     id: nsq
@@ -962,7 +984,7 @@ input:
       The NSQ input plugin collects metrics from NSQD API endpoints.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nsq
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: NSQ Consumer
     id: nsq_consumer
@@ -971,7 +993,7 @@ input:
       This plugin allows a message to be in any of the supported data_format types.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nsq_consumer/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Nstat
     id: nstat
@@ -980,7 +1002,7 @@ input:
       `/proc/net/snmp`, and `/proc/net/snmp6` files.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nstat/README.md
     introduced: 0.13.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, systems]
 
   - name: NTPq
     id: ntpq
@@ -988,7 +1010,7 @@ input:
       The NTPq input plugin gets standard NTP query metrics, requires ntpq executable.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ntpq/README.md
     introduced: 0.11.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, systems]
 
   - name: NVIDIA SMI
     id: nvidia_smi
@@ -998,7 +1020,7 @@ input:
       binary to pull GPU stats including memory and GPU usage, temp and other.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/nvidia_smi/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: OpenLDAP
     id: openldap
@@ -1006,7 +1028,7 @@ input:
       The OpenLDAP input plugin gathers metrics from OpenLDAP's `cn=Monitor` backend.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/openldap/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: OpenSMTPD
     id: opensmtpd
@@ -1015,7 +1037,7 @@ input:
       a free implementation of the server-side SMTP protocol.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/opensmtpd/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: PF
     id: pf
@@ -1026,7 +1048,7 @@ input:
       to the table. The pf plugin retrieves this information by invoking the `pfstat` command.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/pf/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, security]
 
   - name: PgBouncer
     id: pgbouncer
@@ -1035,7 +1057,7 @@ input:
       For information about the metrics, see the [PgBouncer documentation](https://pgbouncer.github.io/usage.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/pgbouncer/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Phfusion Passenger
     id: passenger
@@ -1044,7 +1066,7 @@ input:
       their command line utility `passenger-status`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/passenger/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, web]
 
   - name: PHP FPM
     id: phpfpm
@@ -1052,7 +1074,7 @@ input:
       The PHP FPM input plugin gets phpfpm statistics using either HTTP status page or fpm socket.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/phpfpm/README.md
     introduced: 0.1.10
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: Ping
     id: ping
@@ -1061,7 +1083,7 @@ input:
       and other packet statistics.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/ping/README.md
     introduced: 0.1.8
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Postfix
     id: postfix
@@ -1073,7 +1095,7 @@ input:
       size (bytes used by items), and age (age of oldest item in seconds).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/postfix/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, services, web]
 
   - name: PostgreSQL
     id: postgresql
@@ -1084,7 +1106,7 @@ input:
       The metrics recorded depend on your version of PostgreSQL.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/postgresql/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: PostgreSQL Extensible
     id: postgresql_extensible
@@ -1093,7 +1115,7 @@ input:
       It has been designed to parse SQL queries in the plugin section of `telegraf.conf` files.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/postgresql_extensible
     introduced: 0.12.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: PowerDNS
     id: powerdns
@@ -1101,7 +1123,7 @@ input:
       The PowerDNS input plugin gathers metrics about PowerDNS using UNIX sockets.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/powerdns/README.md
     introduced: 0.10.2
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, web]
 
   - name: Processes
     id: processes
@@ -1112,7 +1134,7 @@ input:
       it requires access to execute `ps`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/processes/README.md
     introduced: 0.11.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Procstat
     id: procstat
@@ -1132,7 +1154,7 @@ input:
       On the other hand, if an executable is used an "exe" tag will be generated.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/procstat/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Prometheus Format
     id: prometheus
@@ -1141,7 +1163,7 @@ input:
       servers exposing metrics in Prometheus format.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/prometheus/README.md
     introduced: 0.2.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Puppet Agent
     id: puppetagent
@@ -1151,7 +1173,7 @@ input:
       [Puppet Monitoring: How to Monitor the Success or Failure of Puppet Runs](https://puppet.com/blog/puppet-monitoring-how-to-monitor-success-or-failure-of-puppet-runs)
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/puppetagent
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, build-deploy]
 
   - name: RabbitMQ
     id: rabbitmq
@@ -1160,7 +1182,7 @@ input:
       [Management Plugin](https://www.rabbitmq.com/management.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/rabbitmq/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Raindrops Middleware
     id: raindrops
@@ -1170,7 +1192,7 @@ input:
       URI and adds the statistics to InfluxDB.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/raindrops/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: Redis
     id: redis
@@ -1183,7 +1205,7 @@ input:
       and the elapsed time since the last RDB save (`rdb_last_save_time_elapsed`).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/redis/README.md
     introduced: 0.1.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: RethinkDB
     id: rethinkdb
@@ -1192,7 +1214,7 @@ input:
       username, password authorization, and Handshake protocol v1.0.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/rethinkdb
     introduced: 0.1.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Riak
     id: riak
@@ -1200,7 +1222,7 @@ input:
       The Riak input plugin gathers metrics from one or more Riak instances.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/riak/README.md
     introduced: 0.10.4
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Salesforce
     id: salesforce
@@ -1210,7 +1232,7 @@ input:
       It fetches its data from the limits endpoint of the Salesforce REST API.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/salesforce/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, cloud]
 
   - name: Sensors
     id: sensors
@@ -1219,7 +1241,7 @@ input:
       executable from the `lm-sensor` package.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/sensors/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: SMART
     id: smart
@@ -1233,7 +1255,7 @@ input:
       See [smartmontools](https://www.smartmontools.org/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/smart/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: SNMP
     id: snmp
@@ -1241,7 +1263,7 @@ input:
       The SNMP input plugin gathers metrics from SNMP agents.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/snmp/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: SNMP Legacy
     id: snmp_legacy
@@ -1251,7 +1273,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/snmp_legacy/README.md
     introduced: 0.10.1
     deprecated: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Socket Listener
     id: socket_listener
@@ -1261,7 +1283,7 @@ input:
       [Telegraf Input Data Formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/socket_listener/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Stackdriver
     id: stackdriver
@@ -1273,7 +1295,7 @@ input:
       > You may incur costs.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/stackdriver/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
 
   - name: StatsD
     id: statsd
@@ -1284,7 +1306,7 @@ input:
       [etsy statsd](https://github.com/etsy/statsd/blob/master/docs/metric_types.md) implementation.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/statsd/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Swap
     id: swap
@@ -1297,7 +1319,7 @@ input:
 
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/swap/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, systems]
 
   - name: Syslog
     id: syslog
@@ -1307,7 +1329,7 @@ input:
       Syslog messages should be formatted according to [RFC 5424](https://tools.ietf.org/html/rfc5424).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/syslog/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, logging, systems]
 
   - name: Sysstat
     id: sysstat
@@ -1317,7 +1339,7 @@ input:
       binary data file with the `sadf` utility.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/sysstat
     introduced: 0.12.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: System
     id: system
@@ -1326,7 +1348,7 @@ input:
       number of users logged in. It is basically equivalent to the UNIX `uptime` command.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/system/README.md
     introduced: 0.1.6
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Tail
     id: tail
@@ -1334,7 +1356,7 @@ input:
       The Tail input plugin "tails" a log file and parses each log message.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/tail/README.md
     introduced: 1.1.2
-    tags: [linux, macos]
+    tags: [linux, macos, windows, logging]
 
   - name: TCP Listener
     id: tcp_listener
@@ -1343,7 +1365,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/tcp_listener/README.md
     introduced: 0.11.0
     deprecated: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, web]
 
   - name: Teamspeak 3
     id: teamspeak
@@ -1352,7 +1374,7 @@ input:
       the Teamspeak server to collect statistics of one or more virtual servers.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/teamspeak/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, gaming]
 
   - name: Telegraf v1.x
     id: internal
@@ -1361,7 +1383,7 @@ input:
       Note that some metrics are aggregates across all instances of one type of plugin.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/internal/README.md
     introduced: 1.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Temp
     id: temp
@@ -1369,7 +1391,7 @@ input:
       The Temp input plugin collects temperature data from sensors.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/temp/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, iot]
 
   - name: Tengine Web Server
     id: tengine
@@ -1379,7 +1401,7 @@ input:
       [Reqstat module](http://tengine.taobao.org/document/http_reqstat.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/tengine/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: Trig
     id: trig
@@ -1387,7 +1409,7 @@ input:
       The Trig input plugin inserts sine and cosine waves for demonstration purposes.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/trig
     introduced: 0.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Twemproxy
     id: twemproxy
@@ -1397,7 +1419,7 @@ input:
       (Redis/Memcached) statistics.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/twemproxy
     introduced: 0.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, servers, web]
 
   - name: UDP Listener
     id: udp_listener
@@ -1406,7 +1428,7 @@ input:
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/udp_listener/README.md
     introduced: 0.11.0
     deprecated: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Unbound
     id: unbound
@@ -1415,7 +1437,7 @@ input:
       a validating, recursive, and caching DNS resolver.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/unbound/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Varnish
     id: varnish
@@ -1423,7 +1445,7 @@ input:
       The Varnish input plugin gathers stats from [Varnish HTTP Cache](https://varnish-cache.org/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/varnish/README.md
     introduced: 0.13.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: VMware vSphere
     id: vsphere
@@ -1434,7 +1456,7 @@ input:
       [Common vSphere Performance Metrics](https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/vsphere/METRICS.md).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/vsphere/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, containers]
 
   - name: Webhooks
     id: webhooks
@@ -1454,7 +1476,7 @@ input:
       [adding a new webhook](https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/webhooks#adding-new-webhooks-plugin).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/webhooks/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, web]
 
   - name: Windows Performance Counters
     id: win_perf_counters
@@ -1463,7 +1485,7 @@ input:
       Windows operating sytem. **Windows only**.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/win_perf_counters/README.md
     introduced: 0.10.2
-    tags: [linux, macos, windows]
+    tags: [windows, systems]
 
   - name: Windows Services
     id: win_services
@@ -1471,7 +1493,7 @@ input:
       The Windows Services input plugin reports Windows services info. **Windows only**.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/win_services/README.md
     introduced: 1.4.0
-    tags: [linux, macos, windows]
+    tags: [windows, servers, systems]
 
   - name: Wireless
     id: wireless
@@ -1480,7 +1502,7 @@ input:
       reading the `/proc/net/wireless` file. **This plugin currently supports Linux only**.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/wireless/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, networking]
 
   - name: X.509 Certificate
     id: x509_cert
@@ -1489,7 +1511,7 @@ input:
       accessible using the local file or network connection.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/x509_cert/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: ZFS
     id: zfs
@@ -1501,28 +1523,7 @@ input:
       It gets ZFS statistics from `/proc/spl/kstat/zfs` on Linux and from `sysctl` and `zpool` on FreeBSD.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zfs/README.md
     introduced: 0.2.1
-    tags: [linux, macos]
-
-  - name: Zipkin
-    id: zipkin
-    description: |
-      The Zipkin input plugin implements the Zipkin HTTP server to gather trace
-      and timing data needed to troubleshoot latency problems in microservice architectures.
-
-      > This plugin is experimental. Its data schema may be subject to change based on
-      > its main usage cases and the evolution of the OpenTracing standard.
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zipkin/README.md
-    introduced: 1.4.0
-    tags: [linux, macos]
-
-  - name: Zookeeper
-    id: zookeeper
-    description: |
-      The Zookeeper (`zookeeper`) input plugin collects variables output from the `mntr`
-      command [Zookeeper Admin](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html).
-    link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/zookeeper/README.md
-    introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
 
 ##########    %%%%   %%  %%  %%%%%%  %%%%%   %%  %%  %%%%%%   %%%%    ##########
@@ -1538,7 +1539,7 @@ output:
       The Amazon CloudWatch output plugin send metrics to Amazon CloudWatch.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cloudwatch/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
 
   - name: Amazon Kinesis
     id: kinesis
@@ -1549,7 +1550,7 @@ output:
       by a considerable level.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/kinesis/README.md
     introduced: 0.2.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud, messaging]
 
   - name: Amon
     id: amon
@@ -1563,7 +1564,7 @@ output:
       Metrics are grouped by converting any `_` characters to `.` in the Point Name.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/amon/README.md
     introduced: 0.2.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, databases]
 
   - name: AMQP
     id: amqp
@@ -1575,7 +1576,7 @@ output:
       file as `RoutingTag`, as a routing key.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/amqp/README.md
     introduced: 0.1.9
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: Apache Kafka
     id: kafka
@@ -1584,7 +1585,7 @@ output:
       acting a Kafka Producer.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/kafka/README.md
     introduced: 0.1.7
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: CrateDB
     id: cratedb
@@ -1593,7 +1594,7 @@ output:
       machine data and IoT, using its [PostgreSQL protocol](https://crate.io/docs/crate/reference/protocols/postgres.html).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cratedb/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Datadog
     id: datadog
@@ -1603,7 +1604,7 @@ output:
       for the account.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/datadog/README.md
     introduced: 0.1.6
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, cloud]
 
   - name: Discard
     id: discard
@@ -1612,7 +1613,7 @@ output:
       It is only meant to be used for testing purposes.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/discard/README.md
     introduced: 1.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Elasticsearch
     id: elasticsearch
@@ -1622,7 +1623,7 @@ output:
       Elasticsearch 5.x series.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/elasticsearch/README.md
     introduced: 0.1.5
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: File
     id: file
@@ -1630,7 +1631,7 @@ output:
       The File output plugin writes Telegraf metrics to files.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/file/README.md
     introduced: 0.10.3
-    tags: [linux, macos]
+    tags: [linux, macos, windows, systems]
 
   - name: Google Cloud PubSub
     id: cloud_pubsub
@@ -1639,7 +1640,7 @@ output:
       topic as one of the supported [output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/cloud_pubsub/README.md
     introduced: 1.10.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging, cloud]
 
   - name: Graphite
     id: graphite
@@ -1647,7 +1648,7 @@ output:
       The Graphite output plugin writes to [Graphite](http://graphite.readthedocs.org/en/latest/index.html) via raw TCP.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/graphite/README.md
     introduced: 0.10.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Graylog
     id: graylog
@@ -1655,7 +1656,7 @@ output:
       The  Graylog output plugin writes to a Graylog instance using the `gelf` format.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/graylog/README.md
     introduced: 1.0.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, logging]
 
   - name: HTTP
     id: http
@@ -1664,7 +1665,7 @@ output:
       For `data_formats` that support batching, metrics are sent in batch format.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/http/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: InfluxDB v1.x
     id: influxdb
@@ -1672,7 +1673,7 @@ output:
       The InfluxDB v1.x output plugin writes to InfluxDB using HTTP or UDP.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/influxdb/README.md
     introduced: 0.1.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: InfluxDB v2
     id: influxdb_v2
@@ -1680,7 +1681,7 @@ output:
       The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.0](https://github.com/influxdata/influxdb).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/influxdb_v2/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Instrumental
     id: instrumental
@@ -1694,7 +1695,7 @@ output:
       if the metric comes in as a counter through `[[inputs.statsd]]`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/instrumental/README.md
     introduced: 0.13.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Librato
     id: librato
@@ -1704,7 +1705,7 @@ output:
       [here](https://metrics.librato.com/account/api_tokens) for the account.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/librato/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
 
   - name: Microsoft Azure Application Insights
     id: application_insights
@@ -1713,7 +1714,7 @@ output:
       [Application Insights (Microsoft Azure)](https://azure.microsoft.com/en-us/services/application-insights/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/application_insights/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud, applications]
 
   - name: Microsoft Azure Monitor
     id: azure_monitor
@@ -1737,7 +1738,7 @@ output:
       on each Azure Monitor metric.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/azure_monitor/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
 
   - name: MQTT Producer
     id: mqtt
@@ -1746,7 +1747,7 @@ output:
       [supported output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output/).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/mqtt/README.md
     introduced: 0.2.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: NATS Output
     id: nats
@@ -1754,7 +1755,7 @@ output:
       The NATS Output output plugin writes to a (list of) specified NATS instance(s).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/nats/README.md
     introduced: 1.1.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: NSQ
     id: nsq
@@ -1763,7 +1764,7 @@ output:
       It requires a server name and a topic name.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/nsq/README.md
     introduced: 0.2.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, messaging]
 
   - name: OpenTSDB
     id: opentsdb
@@ -1776,7 +1777,7 @@ output:
       See the [OpenTSDB documentation](http://opentsdb.net/docs/build/html/api_http/put.html) for details.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/opentsdb/README.md
     introduced: 0.1.9
-    tags: [linux, macos]
+    tags: [linux, macos, windows, data-stores]
 
   - name: Prometheus Client
     id: prometheus_client
@@ -1785,7 +1786,7 @@ output:
       it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/prometheus_client/README.md
     introduced: 0.2.1
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, data-stores]
 
   - name: Riemann
     id: riemann
@@ -1793,7 +1794,7 @@ output:
       The Riemann output plugin writes to [Riemann](http://riemann.io/) using TCP or UDP.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/riemann/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking, systems]
 
   - name: Riemann Legacy
     id: riemann_legacy
@@ -1803,7 +1804,7 @@ output:
     link: https://github.com/influxdata/telegraf/tree/release-1.10/plugins/outputs/riemann_legacy
     introduced: 0.2.3
     deprecated: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications]
 
   - name: Socket Writer
     id: socket_writer
@@ -1812,7 +1813,7 @@ output:
       It can output data in any of the [supported output formats](https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md).
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/socket_writer/README.md
     introduced: 1.3.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, networking]
 
   - name: Stackdriver
     id: stackdriver
@@ -1828,7 +1829,7 @@ output:
       `custom.googleapis.com/telegraf/system/load5`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/stackdriver/README.md
     introduced: 1.9.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, cloud]
 
   - name: Wavefront
     id: wavefront
@@ -1836,7 +1837,7 @@ output:
       The Wavefront output plugin writes to a Wavefront proxy, in Wavefront data format over TCP.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/wavefront/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows, applications, cloud]
 
 
 #    %%%%    %%%%    %%%%   %%%%%   %%%%%%   %%%%    %%%%   %%%%%%   %%%%   %%%%%    %%%%    #
@@ -1853,7 +1854,7 @@ aggregator:
       and `stdev` for a set of values, emitting the aggregate every period seconds.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/basicstats/README.md
     introduced: 1.5.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Histogram
     id: histogram
@@ -1869,7 +1870,7 @@ aggregator:
       increasing while Telegraf is running.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/histogram/README.md
     introduced: 1.4.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: MinMax
     id: minmax
@@ -1878,7 +1879,7 @@ aggregator:
       emitting the aggregrate every period seconds.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/minmax/README.md
     introduced: 1.1.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: ValueCounter
     id: valuecounter
@@ -1898,7 +1899,7 @@ aggregator:
       Float fields are being dropped to prevent the creating of too many fields.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/aggregators/valuecounter/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
 
 #   %%%%%   %%%%%    %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%%%%    %%%%    #
@@ -1916,7 +1917,7 @@ processor:
       Values that cannot be converted are dropped.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/converter/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Enum
     id: enum
@@ -1931,7 +1932,7 @@ processor:
       By default the source field is overwritten.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/enum/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Override
     id: override
@@ -1954,7 +1955,7 @@ processor:
       are adhered to irrespective of input plugin configurations, e.g., by `taginclude`.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/override/README.md
     introduced: 1.6.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Parser
     id: parser
@@ -1963,7 +1964,7 @@ processor:
       format and creates new metrics based on the contents of the field.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/parser/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Printer
     id: printer
@@ -1971,7 +1972,7 @@ processor:
       The Printer processor plugin simply prints every metric passing through it.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/printer/README.md
     introduced: 1.1.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Regex
     id: regex
@@ -1980,7 +1981,7 @@ processor:
       If `result_key `parameter is present, it can produce new tags and fields from existing ones.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/regex/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Rename
     id: rename
@@ -1988,7 +1989,7 @@ processor:
       The Rename processor plugin renames InfluxDB measurements, fields, and tags.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/rename/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: Strings
     id: strings
@@ -2013,7 +2014,7 @@ processor:
       You can specify lots of transformations on data with a single strings processor.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/strings/README.md
     introduced: 1.8.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
 
   - name: TopK
     id: topk
@@ -2034,4 +2035,4 @@ processor:
       than `K` metrics may be returned.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/processors/topk/README.md
     introduced: 1.7.0
-    tags: [linux, macos]
+    tags: [linux, macos, windows]
