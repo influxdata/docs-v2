@@ -809,7 +809,7 @@ input:
       Recorded metrics are lightweight and use Dynamic Management Views supplied by SQL Server.
     link: https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/sqlserver/README.md
     introduced: 0.10.1
-    tags: [linux, macos, , windows, data_stores]
+    tags: [linux, macos, windows, data_stores]
 
   - name: Minecraft
     id: minecraft
