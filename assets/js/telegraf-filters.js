@@ -5,7 +5,7 @@ function countTag(tag) {
 
 function getFilterCounts() {
   $('#plugin-filters label').each(function() {
-    var tagName = $('input', this).attr('name');
+    var tagName = $('input', this).attr('name').replace(/[\W]+/, "-");
     var tagCount = countTag(tagName);
     $(this).attr('data-count', '(' + tagCount + ')');
     if (tagCount <= 0) {
@@ -23,12 +23,12 @@ $("#plugin-filters input").click(function() {
 
   // List of tags to hide
   var tagArray = $("#plugin-filters input:checkbox:checked").map(function(){
-      return $(this).attr('name');
+      return $(this).attr('name').replace(/[\W]+/, "-");
     }).get();
 
   // List of tags to restore
   var restoreArray = $("#plugin-filters input:checkbox:not(:checked)").map(function(){
-      return $(this).attr('name');
+      return $(this).attr('name').replace(/[\W]+/, "-");
     }).get();
 
   // Actions for filter select

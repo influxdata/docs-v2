@@ -8,10 +8,10 @@ filters:
   - category: Plugin category
     values:
       - Applications
-      - Build_deploy
+      - Build & Deploy
       - Cloud
       - Containers
-      - Data_stores
+      - Data Stores
       - IoT
       - Logging
       - Messaging
