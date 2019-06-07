@@ -24,8 +24,9 @@ for using Telegraf with InfluxDB v2.0._
 
 ## Configure Telegraf input and output plugins
 Configure Telegraf input and output plugins in the Telegraf configuration file (typically named `telegraf.conf`).
-[Input plugins](https://docs.influxdata.com/telegraf/v1.9/plugins/inputs/) collect metrics.
-[Output plugins](https://docs.influxdata.com/telegraf/v1.9/plugins/outputs/) define destinations where metrics are sent.
+Input plugins collect metrics. Output plugins define destinations where metrics are sent.
+
+_See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
 
 ## Enable and configure the InfluxDB v2 output plugin
 To send data to an InfluxDB v2.0 instance, enable in the

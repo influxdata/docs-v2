@@ -13,7 +13,6 @@ menu:
   v2_0:
     name : Use Telegraf
     parent: Write data
-
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's
@@ -21,6 +20,8 @@ data collection agent for collecting and reporting metrics.
 Its vast library of input plugins and "plug-and-play" architecture lets you quickly
 and easily collect metrics from many different sources.
 This article describes how to use Telegraf to collect and store data in InfluxDB v2.0.
+
+_See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a list of available plugins._
 
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
