@@ -48,6 +48,10 @@ VariableAssignment = identifier "=" Expression
 
 ##### Examples of variable assignment
 
+{{% note %}}
+In this code snippet, `n` and `m` are defined in an outer block as integers. Within the anonymous function, `n` and `m` are defined as strings, but only within that scope. So while the function will return `"ab"`, `n` and `m` in the outer scope are unchanged, remaining `n = 1` and `m = 2`.
+{{% /note %}}
+
 ```js
 n = 1
 m = 2
@@ -55,7 +59,7 @@ x = 5.4
 f = () => {
     n = "a"
     m = "b"
-    return a + b
+    return n + m
 }
 ```
 
