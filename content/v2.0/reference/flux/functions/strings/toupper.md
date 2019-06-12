@@ -20,7 +20,7 @@ strings.toUpper(v: "koala")
 // returns "KOALA"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to convert.

@@ -23,7 +23,7 @@ strings.trim(v: ".abc.", cutset: ".")
 // returns "abc"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value from which to trim characters.

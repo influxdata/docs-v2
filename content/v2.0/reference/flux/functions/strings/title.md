@@ -20,7 +20,7 @@ strings.title(v: "a flux of foxes")
 // returns "A Flux Of Foxes"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to convert.

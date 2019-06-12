@@ -20,7 +20,7 @@ strings.toLower(v: "KOALA")
 // returns "koala"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to convert.

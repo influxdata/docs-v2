@@ -23,7 +23,7 @@ strings.trimSuffix(v: "123_abc", suffix: "abc")
 // returns "123_"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to trim.

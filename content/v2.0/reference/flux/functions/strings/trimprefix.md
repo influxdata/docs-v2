@@ -23,7 +23,7 @@ strings.trimPrefix(v: "123_abc", prefix: "123")
 // returns "_abc"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to trim.

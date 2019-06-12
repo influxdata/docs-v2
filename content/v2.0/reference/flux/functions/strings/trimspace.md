@@ -20,7 +20,7 @@ strings.trimSpace(v: "  abc  ")
 // returns "abc"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value from which to trim spaces.
