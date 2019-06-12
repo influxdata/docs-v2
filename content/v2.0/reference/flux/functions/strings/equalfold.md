@@ -42,7 +42,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       string1: r.string1,
       string2: r.string2,
       same: strings.equalFold(v: r.string1, t: r.string2)

@@ -6,6 +6,10 @@ menu:
     name: strings.toUpper
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/totitle
+  - /v2.0/reference/flux/functions/strings/tolower
+  - /v2.0/reference/flux/functions/strings/title
 ---
 
 The `strings.toUpper()` function converts a string to upper case.
@@ -34,5 +38,18 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.toUpper(v: r.envVars))
+  |> map(fn: (r) => strings.toUpper(v: r.envVars))
 ```
+
+{{% note %}}
+#### The difference between toTitle and toUpper
+The results of `toUpper()` and `toTitle` are often the same, however the difference
+is visible when using special characters:
+
+```js
+str = "ǳ"
+
+strings.toUpper(v: str) // Returns Ǳ
+strings.toTitle(v: str) // Returns ǲ
+```
+{{% /note %}}

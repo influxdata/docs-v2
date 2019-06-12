@@ -8,6 +8,8 @@ menu:
     name: strings.containsAny
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/containsstr
 ---
 
 The `strings.containsAny()` function reports whether a specified string contains
@@ -42,7 +44,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       _value: strings.containsAny(v: r.price, chars: "£$¢")
     })
   )

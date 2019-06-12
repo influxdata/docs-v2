@@ -6,6 +6,8 @@ menu:
     name: strings.isUpper
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/islower
 ---
 
 The `strings.isUpper()` function tests if a single character string is uppercase.

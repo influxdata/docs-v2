@@ -44,5 +44,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.lastIndexAny(v: r._field, chars: "_-"))
+  |> map(fn: (r) => strings.lastIndexAny(v: r._field, chars: "_-"))
 ```

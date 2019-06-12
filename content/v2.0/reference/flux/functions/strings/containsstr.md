@@ -6,6 +6,8 @@ menu:
     name: strings.containsStr
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/containsany
 ---
 
 The `strings.containsStr()` function reports whether a string is contained in another string.
@@ -39,7 +41,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       _value: strings.containsStr(v: r.author, substr: "John")
     })
   )

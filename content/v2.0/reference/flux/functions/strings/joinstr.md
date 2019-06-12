@@ -37,10 +37,11 @@ _**Data type:** String_
 
 ## Examples
 
-###### ...
+###### Join a list of strings into a single string
 ```js
 import "strings"
 
-data
-  |> map(fn:(r) => strings.joinStr(v: r.pageTitle))
+searchTags = ["tag1", "tag2", "tag3"]
+
+strings.joinStr(arr: searchTags, v: ","))
 ```

@@ -12,13 +12,6 @@ The `strings.compare()` function compares the lexicographical order of two strin
 
 _**Output data type:** Integer_
 
-##### Return values
-| Comparison | Return value |
-|:----------:|:------------:|
-| v < t      | -1           |
-| v == t     | 0            |
-| v > t      | 1            |
-
 ```js
 import "strings"
 
@@ -26,6 +19,13 @@ compare(v: "a", t: "a")
 
 // returns 0
 ```
+
+#### Return values
+| Comparison | Return value |
+|:----------:|:------------:|
+| `v < t`    | `-1`         |
+| `v == t`   | `0`          |
+| `v > t`    | `1`          |
 
 ## Parameters
 
@@ -46,7 +46,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       _value: strings.compare(v: r.tag1, t: r.tag2)
     })
   )  

@@ -8,6 +8,12 @@ menu:
     name: strings.trimPrefix
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/trim
+  - /v2.0/reference/flux/functions/strings/trimleft
+  - /v2.0/reference/flux/functions/strings/trimright
+  - /v2.0/reference/flux/functions/strings/trimsuffix
+  - /v2.0/reference/flux/functions/strings/trimspace
 ---
 
 The `strings.trimPrefix()` function removes a prefix from a string.
@@ -42,5 +48,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.trimPrefix(v: r.sensorId, prefix: "s12_"))
+  |> map(fn: (r) => strings.trimPrefix(v: r.sensorId, prefix: "s12_"))
 ```

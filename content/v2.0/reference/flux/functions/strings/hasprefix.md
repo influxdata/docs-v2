@@ -6,6 +6,8 @@ menu:
     name: strings.hasPrefix
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/hassuffix
 ---
 
 The `strings.hasPrefix()` function tests if a string begins with a specific prefix.

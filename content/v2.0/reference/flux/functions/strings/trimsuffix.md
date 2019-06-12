@@ -8,6 +8,12 @@ menu:
     name: strings.trimSuffix
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/trim
+  - /v2.0/reference/flux/functions/strings/trimleft
+  - /v2.0/reference/flux/functions/strings/trimright
+  - /v2.0/reference/flux/functions/strings/trimprefix
+  - /v2.0/reference/flux/functions/strings/trimspace
 ---
 
 The `strings.trimSuffix()` function removes a suffix from a string.
@@ -42,5 +48,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.trimSuffix(v: r.sensorId, suffix: "_s12"))
+  |> map(fn: (r) => strings.trimSuffix(v: r.sensorId, suffix: "_s12"))
 ```

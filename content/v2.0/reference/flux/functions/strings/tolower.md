@@ -6,6 +6,10 @@ menu:
     name: strings.toLower
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/totitle
+  - /v2.0/reference/flux/functions/strings/toupper
+  - /v2.0/reference/flux/functions/strings/title
 ---
 
 The `strings.toLower()` function converts a string to lower case.
@@ -34,5 +38,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.toLower(v: r.exclamation))
+  |> map(fn: (r) => strings.toLower(v: r.exclamation))
 ```

@@ -39,7 +39,7 @@ _**Data type:** Integer_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       laugh: r.laugh
       intensity: r.intensity
       laughter: strings.repeat(v: r.laugh, i: r.intensity)

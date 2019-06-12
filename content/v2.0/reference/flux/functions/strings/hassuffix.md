@@ -6,6 +6,8 @@ menu:
     name: strings.hasSuffix
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/hasprefix
 ---
 
 The `strings.hasSuffix()` function tests if a string ends with a specific suffix.

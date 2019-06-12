@@ -8,7 +8,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/index/
+  - /v2.0/reference/flux/functions/strings/index-func/
   - /v2.0/reference/flux/functions/strings/lastindex/
   - /v2.0/reference/flux/functions/strings/lastindexany/
 ---
@@ -45,5 +45,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.indexAny(v: r._field, chars: "_-"))
+  |> map(fn: (r) => strings.indexAny(v: r._field, chars: "_-"))
 ```

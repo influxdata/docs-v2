@@ -42,7 +42,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       _value: strings.countStr(v: r.message, substr: "uh")
     })
   )

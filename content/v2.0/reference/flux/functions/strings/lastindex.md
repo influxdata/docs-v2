@@ -46,7 +46,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => ({
+  |> map(fn: (r) => ({
       the_index: strings.lastIndex(v: r.pageTitle, substr: "the")
     })
   )

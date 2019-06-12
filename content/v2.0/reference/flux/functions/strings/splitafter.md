@@ -1,38 +1,50 @@
 ---
-title: strings.functionName() function
-description: The strings.functionName() function ...
+title: strings.splitAfter() function
+description: >
+  The strings.splitAfter() function splits a string after a specified separator and returns
+  an array of substrings.
 menu:
   v2_0_ref:
-    name: strings.functionName
+    name: strings.splitAfter
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/split
+  - /v2.0/reference/flux/functions/strings/splitaftern
+  - /v2.0/reference/flux/functions/strings/splitn
 ---
 
-The `strings.functionName()` function ...
+The `strings.splitAfter()` function splits a string after a specified separator and returns
+an array of substrings.
 
-_**Output data type:** String_
+_**Output data type:** Array of strings_
 
 ```js
 import "strings"
 
-strings.functionName(v: "a flux of foxes")
+strings.splitAfter(v: "a flux of foxes", t: " ")
 
-// returns "A Flux Of Foxes"
+// returns ["a ", "flux ", "of ", "foxes"]
 ```
 
 ## Parameters
 
 ### v
-The string value to convert.
+The string value to split.
+
+_**Data type:** String_
+
+### t
+The string value that acts as the separator.
 
 _**Data type:** String_
 
 ## Examples
 
-###### ...
+###### Split a string into an array of substrings
 ```js
 import "strings"
 
 data
-  |> map(fn:(r) => strings.functionName(v: r.pageTitle))
+  |> map (fn:(r) => strings.splitAfter(v: r.searchTags, t: ","))
 ```
