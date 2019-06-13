@@ -1,3 +1,15 @@
+---
+title: Gauge visualization
+list_title: Gauge
+list_image: /img/2-0-visualizations-gauge-example.png
+description: >
+  The Gauge view displays the single value most recent value for a time series in a gauge view.
+weight: 206
+menu:
+  v2_0:
+    name: Gauge
+    parent: Visualization types
+---
 
 The **Gauge** view displays the single value most recent value for a time series in a gauge view.
 

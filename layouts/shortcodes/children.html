@@ -21,6 +21,17 @@
 			{{ else }}{{- .Summary | markdownify -}}
 			{{ end -}}
 		</p>
+		{{ if .Params.list_image }}
+			{{ $img := .Params.list_image }}
+			{{ if (fileExists ( print "/static" $img )) }}
+				{{ with (imageConfig ( print "/static" $img )) }}
+					{{ $imageWidth := div .Width 3 }}
+					<img src='{{ $img }}' width='{{ $imageWidth }}' />
+				{{ end }}
+			{{ else }}
+				<img src='{{ $img }}'/>
+			{{ end }}
+		{{ end }}
 	{{ end }}
 
 {{ else if (eq $type "functions") }}

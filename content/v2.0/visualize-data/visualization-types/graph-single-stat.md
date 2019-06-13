@@ -1,3 +1,16 @@
+---
+title: Graph + Single Stat visualization
+list_title: Graph + Single Stat
+list_image: /img/2-0-visualizations-line-graph-single-stat-example.png
+description: >
+  The Graph + Single Stat view displays the specified time series in a line graph
+  and overlays the single most recent value as a large numeric value.
+weight: 202
+menu:
+  v2_0:
+    name: Graph + Single Stat
+    parent: Visualization types
+---
 
 The **Graph + Single Stat** view displays the specified time series in a line graph
 and overlays the single most recent value as a large numeric value.
@@ -14,7 +27,7 @@ next to the visualization dropdown in the upper right.
 
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
-- **Y Column**: Select a column to display on the y-axis. 
+- **Y Column**: Select a column to display on the y-axis.
 
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.

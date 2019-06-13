@@ -1,3 +1,16 @@
+---
+title: Single Stat visualization
+list_title: Single stat
+list_image: /img/2-0-visualizations-single-stat-example.png
+description: >
+  The Single Stat view displays the most recent value of the specified time series as a numerical value.
+weight: 205
+menu:
+  v2_0:
+    name: Single Stat
+    parent: Visualization types
+---
+
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
 
 {{< img-hd src="/img/2-0-visualizations-single-stat-example.png" alt="Single stat example" />}}
