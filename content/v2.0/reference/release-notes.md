@@ -6,6 +6,15 @@ menu:
     name: Release notes
     weight: 1
 ---
+## v2.0.0-alpha.12 [2019-06-13]
+
+## Features
+- Enable formatting line graph y ticks with binary prefix.
+- Add x and y column pickers to graph types.
+- Add option to shade area below line graphs.
+
+## Bug Fixes
+- Fix performance regression in graph tooltips.
 
 ## v2.0.0-alpha.11 [2019-05-31]
 
