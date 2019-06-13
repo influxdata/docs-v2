@@ -13,8 +13,8 @@ To view **Heatmap** controls, click the settings icon ({{< icon "gear" >}})
 next to the visualization dropdown in the upper right.
 
 ###### Data
-- **X Column**: Select the column to use for the x-axis.
-- **Y Column**: Select the column to use for the y-axis.
+- **X Column**: Select a column to display on the x-axis.
+- **Y Column**: Select a column to display on the y-axis.
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your heatmap.

@@ -11,6 +11,8 @@ to the visualization dropdown in the upper right.
 ###### Data
 - **Symbol column**: Define a column containing values that should be differentiated with symbols.
 - **Fill column**: Define a column containing values that should be differentiated with fill color.
+- **X Column**: Select a column to display on the x-axis.
+- **Y Column**: Select a column to display on the y-axis. 
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your scatter plot.

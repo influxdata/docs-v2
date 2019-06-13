@@ -10,6 +10,10 @@ in the upper right.
 To view **Graph** controls, click the settings icon ({{< icon "gear" >}}) next
 to the visualization dropdown in the upper right.
 
+###### Data
+- **X Column**: Select a column to display on the x-axis.
+- **Y Column**: Select a column to display on the y-axis.
+
 ###### Options
 - **Interpolation**: Select from the following options:
   - **Line**: Display a time series in a line graph
