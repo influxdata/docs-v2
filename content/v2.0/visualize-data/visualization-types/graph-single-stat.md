@@ -31,6 +31,7 @@ next to the visualization dropdown in the upper right.
 
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.
+- **Shade Area Below Lines**: Shade in the area below the graph lines.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.

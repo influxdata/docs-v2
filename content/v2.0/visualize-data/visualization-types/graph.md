@@ -35,6 +35,7 @@ to the visualization dropdown in the upper right.
   <!-- - **Bar**: Display the specified time series using a bar chart. -->
   <!-- - **Stacked**: Display multiple time series bars as segments stacked on top of each other. -->
 - **Line Colors**: Select a color scheme to use for your graph.
+- **Shade Area Below Lines**: Shade in the area below the graph lines.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
