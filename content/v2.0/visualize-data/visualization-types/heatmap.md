@@ -1,6 +1,7 @@
 ---
 title: Heatmap visualization
 list_title: Heatmap
+list_image: /img/2-0-visualizations-heatmap-example.png
 description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.

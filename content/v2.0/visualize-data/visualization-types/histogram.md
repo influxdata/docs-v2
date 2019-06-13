@@ -1,6 +1,7 @@
 ---
 title: Histogram visualization
 list_title: Histogram
+list_image: /img/2-0-visualizations-histogram-example.png
 description: >
   A histogram is a way to view the distribution of data. Unlike column charts, histograms have no time axis.
   The y-axis is dedicated to count, and the x-axis is divided into bins.

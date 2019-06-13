@@ -1,6 +1,7 @@
 ---
 title: Scatter visualization
 list_title: Scatter
+list_image: /img/2-0-visualizations-scatter-example.png
 description: >
   The Scatter view uses a scatter plot to display time series data.
 weight: 208
