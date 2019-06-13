@@ -1,4 +1,16 @@
-The **Scatter** option uses a scatter plot to display time series data.
+---
+title: Scatter visualization
+list_title: Scatter
+description: >
+  The Scatter view uses a scatter plot to display time series data.
+weight: 208
+menu:
+  v2_0:
+    name: Scatter
+    parent: Visualization types
+---
+
+The **Scatter** view uses a scatter plot to display time series data.
 
 {{< img-hd src="/img/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
 
@@ -12,7 +24,7 @@ to the visualization dropdown in the upper right.
 - **Symbol column**: Define a column containing values that should be differentiated with symbols.
 - **Fill column**: Define a column containing values that should be differentiated with fill color.
 - **X Column**: Select a column to display on the x-axis.
-- **Y Column**: Select a column to display on the y-axis. 
+- **Y Column**: Select a column to display on the y-axis.
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your scatter plot.
