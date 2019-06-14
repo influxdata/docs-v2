@@ -6,6 +6,12 @@ menu:
     name: Release notes
     weight: 1
 ---
+
+## v2.0.0-alpha.13 [2019-06-13]
+
+### Features
+- Add static templates for system, Docker, Redis, Kubernetes.
+
 ## v2.0.0-alpha.12 [2019-06-13]
 
 ## Features
