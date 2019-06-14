@@ -16,5 +16,9 @@ To view templates in the InfluxDB UI:
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab. The list of templates appears.
+2. Select the **Templates** tab.
+
+  - In the **Static Templates** tab, a list of pre-created templates appears.
+  - In the **User Templates** tab, a list of custom user-created templates appears.
+  
 3. Click on the name of a template to view its JSON.
