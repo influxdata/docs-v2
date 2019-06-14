@@ -23,27 +23,6 @@ weight: 201
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
 
-## Create a dashboard from a template in the templates UI
-
-1. Click the **Settings** icon in the left navigation.
-
-    {{< nav-icon "settings" >}}
-
-2. Select the **Templates** tab.
-
-  - In the **Static Templates** tab, a list of pre-created templates appears. The following pre-created templates are available:
-    - **Docker**
-    - **Getting Started with Flux**
-    - **Kubernetes**
-    - **Local Metrics**
-    - **Nginx**
-    - **Redis**
-    - **System**
-
-  - In the **User Templates** tab, a list of custom user-created templates appears.
-
-3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
-
 **To import an existing dashboard**:
 
 1. Click the **Dashboards** icon in the navigation bar.
@@ -75,7 +54,20 @@ weight: 201
     {{< nav-icon "settings" >}}
 
 2. Select the **Templates** tab.
+
+  - In the **Static Templates** tab, a list of pre-created templates appears. The following pre-created templates are available:
+    - **Docker**
+    - **Getting Started with Flux**
+    - **Kubernetes**
+    - **Local Metrics**
+    - **Nginx**
+    - **Redis**
+    - **System**
+
+  - In the **User Templates** tab, a list of custom user-created templates appears.
+
 3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
+
 
 ## Clone a dashboard
 
