@@ -1,19 +1,19 @@
 ---
-title: Annotated CSV reference
+title: Annotated CSV syntax
 description: >
-  Describes the annotated CSV syntax required for Flux.
+  Annotated CSV format is used to encode HTTP responses and results returned to the Flux `csv.from()` function.
   
 menu:
   v2_0_ref:
-    name: Annotated CSV syntax
+    name: Annotated CSV
     weight: 2
 ---
 
-Flux accepts HTTP responses in CSV (comma-separated values) tables that are encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). 
+Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/csv/from/). 
 
-Line endings must be CRLF (Carriage Return Line Feed) as defined by the text/csv MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
+CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv` MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
-### Examples
+## Examples
 
 In this topic, you'll find examples of valid CSV syntax for responses to the following query:
 
@@ -26,21 +26,22 @@ from(bucket:"mydb/autogen")
     |> yield(name:"mean")
 ```
 
-### CSV response format
+## CSV response format
 Flux supports encodings listed below.
 
-#### Tables
+### Tables
 A table may have the following rows and columns.
 
-##### Rows
+#### Rows
 
-- Annotation rows: describe column properties. 
+- **Annotation rows**: describe column properties. 
 
-- Header row: defines column labels (one header row per table).
+- **Header row**: defines column labels (one header row per table).
 
-- Record row: describes data in the table (one record per row).
+- **Record row**: describes data in the table (one record per row).
 
-**Examples** below show encoding of a table with a header row and without a header row (both with three record rows and no annotation rows).
+**Example of a table with and without a header row**
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Header row](#)
@@ -65,27 +66,27 @@ mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-##### Columns
+#### Columns
 
 In addition to the data columns, a table may include the following columns:
 
-- Annotation column: when included, this is always the first column. Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
+- **Annotation column**: when included, this is always the first column. Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
 
-- Result column: contains the name of the result specified by the query.
+- **Result column**: contains the name of the result specified by the query.
 
-- Table column: contains a unique ID for each table in a result.
+- **Table column**: contains a unique ID for each table in a result.
 
-#### Multiple tables and results
+### Multiple tables and results
 If a file or data stream contains multiple tables or results, the following requirements must be met:
  
 - A table column indicates which table a row belongs to. 
 - All rows in a table are contiguous.
 - An empty row delimits a new table boundary in the following cases:
-    - between tables in the same result that do not share a common table scheme 
-    - between concatenated CSV files
+    - Between tables in the same result that do not share a common table scheme. 
+    - Between concatenated CSV files.
 - Each new table boundary starts with new annotation and header rows.
 
-**Example** below shows encoding of two tables with the same schema (header row) and two tables with different schema (both in the same result).
+**Example encoding of schema for two tables**
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -121,34 +122,36 @@ mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-#### Dialect options
-Flux supports the following dialect options for text/csv format.
+This example shows the same and different schema (header row) for two tables in the same result.
+
+### Dialect options
+Flux supports the following dialect options for `text/csv` format.
 
 | Option    | Description| Default |
 | :-------- | :--------- | :-------|
-| **header**    | If true, the header row is included.| ```true```   
-| **delimiter** | Character used to delimit columns. | ```,```
-| **quoteChar** | Character used to quote values containing the delimiter. |```"```    
-| **annotations** | List of annotations to encode (datatype, group, default, or null). | ```empty``` 
-| **commentPrefix** | String prefix to identify a comment. Always added to annotations. | ```#``` 
+| **header**    | If true, the header row is included.| `true`|   
+| **delimiter** | Character used to delimit columns. | `,`|
+| **quoteChar** | Character used to quote values containing the delimiter. |`"`|   
+| **annotations** | List of annotations to encode (datatype, group, or default). |`empty`|
+| **commentPrefix** | String prefix to identify a comment. Always added to annotations. |`#`|
 
-#### Annotations
+### Annotations
 
-- Annotation rows are:
-    
-    - optional
-    - describe column properties
-    - start with `#` (or commentPrefix value)
 
-- The first column in an annotation row contains the annotation name: `datatype`, `group`, `default`, or `null`. 
+|Annotation name | Values| Description |
+| :-------- | :--------- | :-------|
+| **datatype**    | a [valid data type | describes the type of data |   
+| **group** | Character used to delimit columns. | `,`|
+| **default** | Character used to quote values containing the delimiter. |`"`|   
+
+- Annotation rows are optional, describe column properties, and start with `#` (or commentPrefix value). The first column in an annotation row always contains the annotation name. `datatype`, `group`, or `default`. 
 
 - Subsequent columns contain one of the following annotation values:
   - for datatype, a [valid data type](#Valid-data-types) describes the type of data.
   - for group, a boolean flag `true` indicates the column is part of the group key. Otherwise, `false`.
-  - for default, a value to use for rows with an empty string value. 
-  - for null, a string value to indicate a missing value. If not specified, the null value is used.
+  - for default, a value to use for rows with an empty string value.
 
-**Examples** below show encoding for a response that includes a datatype annotation, a response that includes a group annotation, and a response that includes both.
+**Example encoding of annotation types for two tables**
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -205,13 +208,13 @@ Flux supports the following dialect options for text/csv format.
 
 
 **Notes:**
-        {{% note %}}
+{{% note %}}
 To encode a table with its group key, the `datatype`, `group`, and `default` annotations must be included.
 
 If a table has no rows, the `default` annotation provides the group key values.
-        {{% /note %}}
+{{% /note %}}
 
-#### Valid data types
+### Valid data types
 
 
 | Datatype     | Flux type     | Description                                                                        |
@@ -225,7 +228,7 @@ If a table has no rows, the `default` annotation provides the group key values.
 | dateTime     | time          | an instant in time, may be followed with a colon : and a description of the format |
 | duration     | duration      | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
 
-### Errors
+## Errors
 
 If an error occurs during execution, a table returns with: 
 
