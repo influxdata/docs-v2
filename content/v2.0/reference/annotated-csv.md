@@ -40,7 +40,9 @@ A table may have the following rows and columns.
 
 - **Record row**: describes data in the table (one record per row).
 
-**Example of a table with and without a header row**
+##### Examples
+ 
+Encoding of a table with and without a header row.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -86,7 +88,9 @@ If a file or data stream contains multiple tables or results, the following requ
     - Between concatenated CSV files.
 - Each new table boundary starts with new annotation and header rows.
 
-**Example encoding of schema for two tables**
+##### Examples
+
+Encoding of two tables in the same result with the same schema (header row) and different schema.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -122,8 +126,6 @@ mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-This example shows the same and different schema (header row) for two tables in the same result.
-
 ### Dialect options
 Flux supports the following dialect options for `text/csv` format.
 
@@ -137,21 +139,17 @@ Flux supports the following dialect options for `text/csv` format.
 
 ### Annotations
 
+Annotation rows are optional, describe column properties, and start with `#` (or commentPrefix value). The first column in an annotation row always contains the annotation name. Subsequent columns contain annotation values as shown in the table below.
 
 |Annotation name | Values| Description |
 | :-------- | :--------- | :-------|
-| **datatype**    | a [valid data type | describes the type of data |   
-| **group** | Character used to delimit columns. | `,`|
-| **default** | Character used to quote values containing the delimiter. |`"`|   
+| **datatype**    | a [valid data type](#Valid-data-types) | Describes the type of data. |   
+| **group** | boolean flag `true` or `false` | Indicates the column is part of the group key.|
+| **default** | a [valid data type](#Valid-data-types) |Value to use for rows with an empty string value.|   
 
-- Annotation rows are optional, describe column properties, and start with `#` (or commentPrefix value). The first column in an annotation row always contains the annotation name. `datatype`, `group`, or `default`. 
+##### Examples
 
-- Subsequent columns contain one of the following annotation values:
-  - for datatype, a [valid data type](#Valid-data-types) describes the type of data.
-  - for group, a boolean flag `true` indicates the column is part of the group key. Otherwise, `false`.
-  - for default, a value to use for rows with an empty string value.
-
-**Example encoding of annotation types for two tables**
+Encoding of datatype and group annotations for two tables.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -170,7 +168,6 @@ Flux supports the following dialect options for `text/csv` format.
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
-
 ```
 {{% /code-tab-content %}}
 
@@ -184,7 +181,6 @@ Flux supports the following dialect options for `text/csv` format.
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
-
 ```
 {{% /code-tab-content %}}
 
@@ -201,7 +197,6 @@ Flux supports the following dialect options for `text/csv` format.
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
-
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -241,16 +236,16 @@ If an error occurs:
 - Before results materialize, the HTTP status code indicates an error. Error details are encoded in the csv table.
 - After partial results are sent to the client, the error is encoded as the next table and remaining results are discarded. In this case, the HTTP status code remains 200 OK.
 
-**Example errors** 
+##### Examples
 
-- Encoding for an error with the datatype annotation:
+Encoding for an error with the datatype annotation:
   ```js
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
   ```
 
-- Encoding for error that occurs after a valid table has been encoded:
+Encoding for an error that occurs after a valid table has been encoded:
  ```js
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,result,table,_start,_stop,_time,region,host,_value
 ,mean,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
