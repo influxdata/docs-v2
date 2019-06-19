@@ -75,9 +75,45 @@ This dashboard is designed to get you started with the Flux language. It contain
 
 ### Kubernetes
 
-#### 
+The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displays the following information:
+
+- Allocatable Memory
+- Running Pods
+- Running Containers
+- K8s Node Capacity CPUs
+- K8s Node Allocatable CPUs
+- DaemonSet
+- Capacity Pods
+- Allocatable Pods
+- Resource Requests CPU
+- Resource Limit milliscpu
+- Resource Memory
+- Node Memory
+- Replicas Available
+- Persistent Volumes Status
+- Running Containers
+
+#### Plugins
+- [`kubernetes` plugin](v2.0/reference/telegraf-plugins/)
 
 ### Local Metrics
+The Local Metrics dashboard shows an overview of some of the metrics available from the Local Metrics endpoint located at /`metrics`. It displays the following information:
+
+- Uptime
+- Instance Info
+- # of Orgs
+- # of Users
+- # of Buckets
+- # of Tokens
+- # of Telegraf configurations
+- # of Dashboards
+- # of Scrapers
+- # of Tasks
+- Local Object Store IO
+- Memory Allocations (Bytes)
+- Memory Usage (%)
+- Memory Allocs & Frees (Bytes)
+
 
 ### Nginx
 
