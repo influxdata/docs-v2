@@ -27,7 +27,7 @@ To view templates in the InfluxDB UI:
 The following Telegraf-related dashboards templates are available.
 
 ### Docker
-The Docker dashboard template displays the following information:
+The Docker dashboard template contains an overview of Docker metrics. It displays the following information:
 
 - System Uptime
 - nCPUs
@@ -56,10 +56,26 @@ The Docker dashboard template displays the following information:
 - [`diskio` plugin](/telegraf/latest/plugins/inputs/#diskio)
 - [`system` plugin](/telegraf/latest/plugins/inputs/#system)
 - [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
+- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
 
 ### Getting Started with Flux
+This dashboard is designed to get you started with the Flux language. It contains explanations and visualizations for a series of increasingly complex example Flux queries.
+
+- Creating your first basic Flux query
+- Filtering data using the `filter` function
+- Windowing data with the `window` function
+- Aggregating data with the `aggregateWindow` function
+- Multiple aggregates using Flux variables and the `yield` function
+- Joins and maps with the `join`, `map`, `group`, and `drop` functions
+
+#### Plugins
+
+- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
+- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
 
 ### Kubernetes
+
+#### 
 
 ### Local Metrics
 
