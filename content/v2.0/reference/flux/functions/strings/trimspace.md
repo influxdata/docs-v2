@@ -6,6 +6,12 @@ menu:
     name: strings.trimSpace
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/trim
+  - /v2.0/reference/flux/functions/strings/trimleft
+  - /v2.0/reference/flux/functions/strings/trimright
+  - /v2.0/reference/flux/functions/strings/trimprefix
+  - /v2.0/reference/flux/functions/strings/trimsuffix
 ---
 
 The `strings.trimSpace()` function removes leading and trailing spaces from a string.
@@ -20,10 +26,10 @@ strings.trimSpace(v: "  abc  ")
 // returns "abc"
 ```
 
-## Paramters
+## Parameters
 
 ### v
-The string value from which to trim spaces.
+String to remove spaces from.
 
 _**Data type:** String_
 
@@ -34,5 +40,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.trimSpace(v: r.userInput))
+  |> map(fn: (r) => strings.trimSpace(v: r.userInput))
 ```
