@@ -14,7 +14,6 @@ Annotated CSV (comma-separated values) format is used to encode HTTP responses a
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv` MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
 ## Examples
-
 In this topic, you'll find examples of valid CSV syntax for responses to the following query:
 
 ```js
@@ -31,15 +30,13 @@ Flux supports encodings listed below.
 A table may have the following rows and columns.
 
 #### Rows
-
 - **Annotation rows**: describe column properties. 
 
 - **Header row**: defines column labels (one header row per table).
 
 - **Record row**: describes data in the table (one record per row).
 
-##### Examples
- 
+##### Example
 Encoding of a table with and without a header row.
 
 {{< code-tabs-wrapper >}}
@@ -67,10 +64,9 @@ my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,
 {{< /code-tabs-wrapper >}}
 
 #### Columns
-
 In addition to the data columns, a table may include the following columns:
 
-- **Annotation column**: Only used in annotation rows. Always the first column. Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations). You'll notice a space for this column for the entire length of the table, so rows appears to start with `,`.
+- **Annotation column**: Only used in annotation rows. Always the first column. Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations). You'll notice a space for this column for the entire length of the table, so rows appear to start with `,`.
 
 - **Result column**: Contains the name of the result specified by the query.
 
@@ -82,12 +78,11 @@ If a file or data stream contains multiple tables or results, the following requ
 - A table column indicates which table a row belongs to. 
 - All rows in a table are contiguous.
 - An empty row delimits a new table boundary in the following cases:
-    - Between tables in the same result that do not share a common table scheme. 
+    - Between tables in the same result that do not share a common table schema. 
     - Between concatenated CSV files.
 - Each new table boundary starts with new annotation and header rows.
 
-##### Examples
-
+##### Example
 Encoding of two tables in the same result with the same schema (header row) and different schema.
 
 {{< code-tabs-wrapper >}}
@@ -136,7 +131,6 @@ Flux supports the following dialect options for `text/csv` format.
 | **commentPrefix** | String prefix to identify a comment. Always added to annotations. |`#`|
 
 ### Annotations
-
 Annotation rows are optional, describe column properties, and start with `#` (or commentPrefix value). The first column in an annotation row always contains the annotation name. Subsequent columns contain annotation values as shown in the table below.
 
 |Annotation name | Values| Description |
@@ -145,8 +139,7 @@ Annotation rows are optional, describe column properties, and start with `#` (or
 | **group** | boolean flag `true` or `false` | Indicates the column is part of the group key.|
 | **default** | a [valid data type](#Valid-data-types) |Value to use for rows with an empty string value.|   
 
-##### Examples
-
+##### Example
 Encoding of datatype and group annotations for two tables.
 
 {{< code-tabs-wrapper >}}
@@ -209,7 +202,6 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 ### Valid data types
 
-
 | Datatype     | Flux type     | Description                                                                        |
 | :--------    | :---------    | :-----------------------------------------------------------------------------|
 | boolean      | bool          | a truth value, one of "true" or "false"                                            |
@@ -222,7 +214,6 @@ If a table has no rows, the `default` annotation provides the group key values.
 | duration     | duration      | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
 
 ## Errors
-
 If an error occurs during execution, a table returns with: 
 
 - An error column that contains an error message.
@@ -234,8 +225,7 @@ If an error occurs:
 - Before results materialize, the HTTP status code indicates an error. Error details are encoded in the csv table.
 - After partial results are sent to the client, the error is encoded as the next table and remaining results are discarded. In this case, the HTTP status code remains 200 OK.
 
-##### Examples
-
+##### Example
 Encoding for an error with the datatype annotation:
   ```js
 #datatype,string,long
