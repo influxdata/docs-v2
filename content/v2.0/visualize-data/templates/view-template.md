@@ -97,7 +97,7 @@ The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displ
 - [`kubernetes` plugin](v2.0/reference/telegraf-plugins/)
 
 ### Local Metrics
-The Local Metrics dashboard shows an overview of some of the metrics available from the Local Metrics endpoint located at /`metrics`. It displays the following information:
+The Local Metrics dashboard shows a visual overview of some of the metrics available from the Local Metrics endpoint located at /`metrics`. It displays the following information:
 
 - Uptime
 - Instance Info
@@ -114,8 +114,32 @@ The Local Metrics dashboard shows an overview of some of the metrics available f
 - Memory Usage (%)
 - Memory Allocs & Frees (Bytes)
 
-
 ### Nginx
+The Nginx dashboard gives a visual overview of Nginx metrics. It displays the following information:
+
+- System Uptime
+- nCPUs
+- System Load
+- Total Memory
+- Memory Usage
+- Disk Usage
+- CPU Usage
+- System Load
+- Swap
+- Nginx active connections
+- Nginx reading: writing/waiting
+- Nginx requests & connections/min
+- Network
+
+
+#### Plugins
+- [`docker` plugin](/telegraf/latest/plugins/inputs/#docker)
+- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
+- [`mem` plugin](/telegraf/latest/plugins/inputs/#mem)
+- [`diskio` plugin](/telegraf/latest/plugins/inputs/#diskio)
+- [`system` plugin](/telegraf/latest/plugins/inputs/#system)
+- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
+- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
 
 ### Redis
 
