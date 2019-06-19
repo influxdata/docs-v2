@@ -10,6 +10,8 @@ menu:
   v2_0:
     name: Heatmap
     parent: Visualization types
+related:
+  - /v2.0/visualize-data/visualization-types/scatter
 ---
 
 A **Heatmap** displays the distribution of data on an x and y axes where color
@@ -17,10 +19,16 @@ represents different concentrations of data points.
 
 {{< img-hd src="/img/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
 
-To select this view, select the **Heatmap** option from the visualization dropdown in the upper right.
+Select the **Heatmap** option from the visualization dropdown in the upper right.
 
-#### Heatmap Controls
+## Heatmap behavior
+Heatmaps divide data points into "bins" – segments of the visualization with upper
+and lower bounds for both [X and Y axes](#data).
+The [Bin Size option](#options) determines the bounds for each bin.
+The total number of points that fall within a bin determine the its value and color.
+Warmer or brighter colors represent higher bin values or density of points within the bin.
 
+## Heatmap Controls
 To view **Heatmap** controls, click the settings icon ({{< icon "gear" >}})
 next to the visualization dropdown in the upper right.
 
@@ -51,3 +59,57 @@ next to the visualization dropdown in the upper right.
   - **Custom**: Manually specify the value range of the y-axis.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
+
+## Heatmap examples
+
+### Cross-measurement correlation
+The following example explores possible correlation between CPU and Memory usage.
+It uses data collected with the Telegraf [Mem](/v2.0/reference/telegraf-plugins/#mem)
+and [CPU](/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+
+###### Join CPU and memory usage
+The following query joins CPU and memory usage on `_time`.
+Each row in the output table contains `_value_cpu` and `_value_mem` columns.
+
+```js
+cpu = from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "cpu" and
+      r._field == "usage_system" and
+      r.cpu == "cpu-total"
+  )
+
+mem = from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "mem" and
+      r._field == "used_percent"
+  )
+
+join(tables: {cpu: cpu, mem: mem}, on: ["_time"], method: "inner")
+```
+
+###### Use a heatmap to visualize correlation
+In the Heatmap visualization controls, `_value_cpu` is selected as the [X Column](#data)
+and `_value_mem` is selected as the [Y Column](#data).
+The domain for each axis is also customized to account for the scale difference
+between column values.
+
+{{< img-hd src="/img/2-0-visualizations-heatmap-correlation.jpg" alt="Heatmap correlation example" />}}
+
+
+## Important notes
+
+### Differences between a heatmap and a scatter plot
+Heatmaps and [Scatter plots](/v2.0/visualize-data/visualization-types/scatter/)
+both visualize the distribution of data points on X and Y axes.
+However, in certain cases, heatmaps provide better visibility into point density.
+
+For example, the dashboard cells below visualize the same query results:
+
+{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.jpg" alt="Heatmap vs Scatter plot" />}}
+
+The heatmap indicates isolated high point density, which isn't visible in the scatter plot.
+In the scatter plot visualization, points that share the same X and Y coordinates
+appear as a single point.
