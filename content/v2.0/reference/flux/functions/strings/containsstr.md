@@ -25,7 +25,7 @@ strings.containsStr(v: "This and that", substr: "and")
 ## Parameters
 
 ### v
-The string value to search for a substring.
+The string value to search.
 
 _**Data type:** String_
 

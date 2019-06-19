@@ -1,6 +1,6 @@
 ---
 title: strings.hasPrefix() function
-description: The strings.hasPrefix() function tests if a string begins with a specific prefix.
+description: The strings.hasPrefix() function indicates if a string begins with a specific prefix.
 menu:
   v2_0_ref:
     name: strings.hasPrefix
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/hassuffix
 ---
 
-The `strings.hasPrefix()` function tests if a string begins with a specific prefix.
+The `strings.hasPrefix()` function indicates if a string begins with a specified prefix.
 
 _**Output data type:** Boolean_
 
@@ -25,12 +25,12 @@ strings.hasPrefix(v: "go gopher", t: "go")
 ## Parameters
 
 ### v
-The string value to test.
+The string value to search.
 
 _**Data type:** String_
 
 ### t
-The prefix to test for.
+The prefix to search for.
 
 _**Data type:** String_
 

@@ -31,13 +31,13 @@ strings.trimLeft(v: ".abc.", cutset: ".")
 ## Parameters
 
 ### v
-The string value from which to trim characters.
+String to remove characters from.
 
 _**Data type:** String_
 
 ### cutset
-The leading characters to trim from the string value.
-Only characters that match the `cutset` string exactly are trimmed.
+The leading characters to remove from the string.
+Only characters that match the `cutset` string exactly are removed.
 
 _**Data type:** String_
 

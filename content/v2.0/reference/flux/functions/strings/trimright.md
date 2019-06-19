@@ -31,12 +31,12 @@ strings.trimRight(v: ".abc.", cutset: ".")
 ## Parameters
 
 ### v
-The string value from which to trim characters.
+String to remove characters from.
 
 _**Data type:** String_
 
 ### cutset
-The trailing characters to trim from the string value.
+The trailing characters to trim from the string.
 Only characters that match the `cutset` string exactly are trimmed.
 
 _**Data type:** String_

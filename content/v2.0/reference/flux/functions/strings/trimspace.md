@@ -29,7 +29,7 @@ strings.trimSpace(v: "  abc  ")
 ## Parameters
 
 ### v
-The string value from which to trim spaces.
+String to remove spaces from.
 
 _**Data type:** String_
 

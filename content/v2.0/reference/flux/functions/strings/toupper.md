@@ -1,6 +1,6 @@
 ---
 title: strings.toUpper() function
-description: The strings.toUpper() function converts a string to upper case.
+description: The strings.toUpper() function converts a string to uppercase.
 menu:
   v2_0_ref:
     name: strings.toUpper
@@ -12,7 +12,7 @@ related:
   - /v2.0/reference/flux/functions/strings/title
 ---
 
-The `strings.toUpper()` function converts a string to upper case.
+The `strings.toUpper()` function converts a string to uppercase.
 
 _**Output data type:** String_
 

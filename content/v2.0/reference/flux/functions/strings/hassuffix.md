@@ -1,6 +1,6 @@
 ---
 title: strings.hasSuffix() function
-description: The strings.hasSuffix() function tests if a string ends with a specific suffix.
+description: The strings.hasSuffix() function indicates if a string ends with a specified suffix.
 menu:
   v2_0_ref:
     name: strings.hasSuffix
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/hasprefix
 ---
 
-The `strings.hasSuffix()` function tests if a string ends with a specific suffix.
+The `strings.hasSuffix()` function indicates if a string ends with a specified suffix.
 
 _**Output data type:** Boolean_
 
@@ -25,12 +25,12 @@ strings.hasSuffix(v: "go gopher", t: "go")
 ## Parameters
 
 ### v
-The string value to test.
+The string value to search.
 
 _**Data type:** String_
 
 ### t
-The suffix to test for.
+The suffix to search for.
 
 _**Data type:** String_
 

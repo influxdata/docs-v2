@@ -44,7 +44,7 @@ data
 {{% note %}}
 #### The difference between toTitle and toUpper
 The results of `toTitle()` and `toUpper` are often the same, however the difference
-is visible when special characters:
+is visible with special characters:
 
 ```js
 str = "ǳ"

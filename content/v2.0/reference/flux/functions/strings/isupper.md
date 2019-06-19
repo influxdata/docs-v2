@@ -1,6 +1,6 @@
 ---
 title: strings.isUpper() function
-description: The strings.isUpper() function tests if a single character string is uppercase.
+description: The strings.isUpper() function indicates if a single character string is uppercase.
 menu:
   v2_0_ref:
     name: strings.isUpper
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/islower
 ---
 
-The `strings.isUpper()` function tests if a single character string is uppercase.
+The `strings.isUpper()` function indicates if a single character string is uppercase.
 
 _**Output data type:** Boolean_
 
@@ -31,7 +31,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Filter based on uppercase column values
+###### Filter by columns with single-letter uppercase values
 ```js
 import "strings"
 

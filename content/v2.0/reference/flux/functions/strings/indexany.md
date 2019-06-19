@@ -1,7 +1,7 @@
 ---
 title: strings.indexAny() function
 description: >
-  The strings.indexAny() function returns the index of the first instance of any specified characters in a string.
+  The strings.indexAny() function returns the index of the first instance of specified characters in a string.
 menu:
   v2_0_ref:
     name: strings.indexAny
@@ -13,7 +13,7 @@ related:
   - /v2.0/reference/flux/functions/strings/lastindexany/
 ---
 
-The `strings.indexAny()` function returns the index of the first instance of any specified characters in a string.
+The `strings.indexAny()` function returns the index of the first instance of specified characters in a string.
 If none of the specified characters are present, it returns `-1`.
 
 _**Output data type:** Integer_
@@ -34,7 +34,7 @@ The string value to search.
 _**Data type:** String_
 
 ### chars
-The string value that contains characters to search for.
+Characters to search for.
 
 _**Data type:** String_
 

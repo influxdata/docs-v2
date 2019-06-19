@@ -13,7 +13,7 @@ related:
 ---
 
 The `strings.lastIndexAny()` function returns the index of the last instance of any specified characters in a string.
-If none of the specified characters are present, it returns `-1`.
+If none of the specified characters are present, the function returns `-1`.
 
 _**Output data type:** Integer_
 

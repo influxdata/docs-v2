@@ -1,6 +1,6 @@
 ---
 title: strings.isLower() function
-description: The strings.isLower() function tests if a single-character string is lowercase.
+description: The strings.isLower() function indicates if a single-character string is lowercase.
 menu:
   v2_0_ref:
     name: strings.isLower
@@ -10,14 +10,14 @@ related:
   - /v2.0/reference/flux/functions/strings/isupper
 ---
 
-The `strings.isLower()` function tests if a single-character string is lowercase.
+The `strings.isLower()` function indicates if a single-character string is lowercase.
 
 _**Output data type:** Boolean_
 
 ```js
 import "strings"
 
-strings.isLower(v: "a flux of foxes")
+strings.isLower(v: "a")
 
 // returns true
 ```
@@ -31,7 +31,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Filter based on lowercase column values
+###### Filter by columns with single-letter lowercase values
 ```js
 import "strings"
 

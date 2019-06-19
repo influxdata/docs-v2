@@ -26,7 +26,7 @@ strings.countStr(v: "Hello mellow fellow", substr: "ello")
 ## Parameters
 
 ### v
-The string value in which to count non-overlapping instances of `substr`.
+The string value to search.
 
 _**Data type:** String_
 
@@ -34,6 +34,17 @@ _**Data type:** String_
 The substring value to count.
 
 _**Data type:** String_
+
+{{% note %}}
+The function counts only non-overlapping instances of `substr`.
+For example:
+
+```js
+strings.coutnStr(v: "ooooo", substr: "oo")
+
+// Returns 2 -- (oo)(oo)o
+```
+{{% /note %}}
 
 ## Examples
 

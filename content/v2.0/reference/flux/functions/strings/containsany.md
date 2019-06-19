@@ -13,7 +13,7 @@ related:
 ---
 
 The `strings.containsAny()` function reports whether a specified string contains
-any characters from from another string.
+characters from another string.
 
 _**Output data type:** Boolean_
 
@@ -28,12 +28,12 @@ strings.containsAny(v: "abc", chars: "and")
 ## Parameters
 
 ### v
-The string value to search for characters.
+The string value to search.
 
 _**Data type:** String_
 
 ### chars
-The string value that contains characters to search for.
+Characters to search for.
 
 _**Data type:** String_
 
