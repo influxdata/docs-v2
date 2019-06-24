@@ -15,10 +15,21 @@ The **Single Stat** view displays the most recent value of the specified time se
 
 {{< img-hd src="/img/2-0-visualizations-single-stat-example.png" alt="Single stat example" />}}
 
-To select this view, select the **Single Stat** option from the visualization dropdown in the upper right.
+Select the **Single Stat** option from the visualization dropdown in the upper right.
 
-#### Single Stat Controls
+## Single Stat behavior
+The Single Stat visualization displays a single numeric data point.
+It uses the latest point in the first table (or series) returned by the query.
 
+{{% note %}}
+#### Queries should return one table
+Flux does not guarantee the order in which tables are returned.
+If a query returns multiple tables (or series), the table order can change between query executions
+and result in the Single Stat visualization displaying inconsistent data.
+For consistent results, the Single Stat query should return a single table.
+{{% /note %}}
+
+## Single Stat Controls
 To view **Single Stat** controls, click the settings icon ({{< icon "gear" >}})
 next to the visualization dropdown in the upper right.
 
@@ -34,3 +45,21 @@ next to the visualization dropdown in the upper right.
     Choose a color from the dropdown menu next to the value.
 - **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
+
+## Single Stat examples
+
+### Show human-readable current value
+The following example shows the current memory usage displayed has a human-readable percentage:
+
+###### Query memory usage percentage
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "mem" and
+      r._field == "used_percent"
+  )
+```
+
+###### Memory usage as a single stat
+{{< img-hd src="/img/2-0-visualizations-single-stat-memor.jpg" alt="Graph + Single Stat Memory Usage Example" />}}

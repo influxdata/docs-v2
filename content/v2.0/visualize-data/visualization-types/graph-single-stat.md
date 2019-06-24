@@ -10,6 +10,9 @@ menu:
   v2_0:
     name: Graph + Single Stat
     parent: Visualization types
+related:
+  - /v2.0/visualize-data/visualization-types/graph
+  - /v2.0/visualize-data/visualization-types/single-stat
 ---
 
 The **Graph + Single Stat** view displays the specified time series in a line graph
@@ -17,11 +20,24 @@ and overlays the single most recent value as a large numeric value.
 
 {{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example.png" alt="Line Graph + Single Stat example" />}}
 
-To select this view, select the **Graph + Single Stat** option from the visualization
-dropdown in the upper right.
+Select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
 
-#### Graph + Single Stat Controls
+## Graph + Single Stat behavior
+The Graph visualization color codes each table (or series) in the queried data set.
+When multiple series are present, it automatically assigns colors based on the selected [Line Colors option](#options).
 
+The Single Stat visualization displays a single numeric data point.
+It uses the latest point in the first table (or series) returned by the query.
+
+{{% note %}}
+#### Queries should return one table
+Flux does not guarantee the order in which tables are returned.
+If a query returns multiple tables (or series), the table order can change between query executions
+and result in the Single Stat visualization displaying inconsistent data.
+For consistent Single Stat results, the query should return a single table.
+{{% /note %}}
+
+## Graph + Single Stat Controls
 To view **Graph + Single Stat** controls, click the settings icon ({{< icon "gear" >}})
 next to the visualization dropdown in the upper right.
 
@@ -56,3 +72,22 @@ next to the visualization dropdown in the upper right.
     Choose a color from the dropdown menu next to the value.
 - **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
+
+## Graph + Single Stat examples
+The primary use case for the Graph + Single Stat visualization is to show the current or latest
+value as well as historical values.
+
+### Show current value and historical values
+The following example shows the current percentage of memory used as well as memory usage over time:
+
+###### Query memory usage percentage
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "mem" and
+      r._field == "used_percent"
+  )
+```
+###### Memory usage visualization
+{{< img-hd src="/img/2-0-visualizations-graph-single-stat-mem.jpg" alt="Graph + Single Stat Memory Usage Example" />}}

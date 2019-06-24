@@ -3,7 +3,7 @@ title: Histogram visualization
 list_title: Histogram
 list_image: /img/2-0-visualizations-histogram-example.png
 description: >
-  A histogram is a way to view the distribution of data. Unlike column charts, histograms have no time axis.
+  A histogram is a way to view the distribution of data.
   The y-axis is dedicated to count, and the x-axis is divided into bins.
 weight: 204
 menu:
@@ -12,20 +12,32 @@ menu:
     parent: Visualization types
 ---
 
-A histogram is a way to view the distribution of data. Unlike column charts, histograms have no time axis.
-The y-axis is dedicated to count, and the x-axis is divided into bins.
+A histogram is a way to view the distribution of data.
+The y-axis is dedicated to count, and the X-axis is divided into bins.
 
 {{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
-To select this view, select the **Histogram** option from the visualization dropdown in the upper right.
+Select the **Histogram** option from the visualization dropdown in the upper right.
 
-#### Histogram Controls
+## Histogram behavior
+The Histogram visualization is a bar graph that displays the number of data points
+that fall within "bins" – segments of the X axis with upper and lower bounds.
+Bin thresholds are determined by dividing the width of the X axis by the number
+of bins set using the [Bins option](#options).
+Data within bins can be further grouped or segmented by selecting columns in the
+[Group By option](#options).
 
+{{% note %}}
+The Histogram visualization automatically bins, segments, and counts data.
+To work properly, query results **should not** be structured as histogram data.
+{{% /note %}}
+
+## Histogram Controls
 To view **Histogram** controls, click the settings icon ({{< icon "gear" >}}) next
 to the visualization dropdown in the upper right.
 
 ###### Data
-- **Column**: The column to select data from.
+- **X Column**: The column to select data from.
 - **Group By**: The column to group by.
 
 ###### Options
@@ -43,3 +55,26 @@ to the visualization dropdown in the upper right.
   - **Custom**: Manually specify the value range of the x-axis.
       - **Min**: Minimum x-axis value.
       - **Max**: Maximum x-axis value.
+
+## Histogram examples
+
+### View error counts by severity over time
+The following example uses the Histogram visualization to show the number of errors
+"binned" by time and segmented by severity.
+_It utilizes data from the [Telegraf Syslog plugin](/v2.0/reference/telegraf-plugins/#syslog)._
+
+##### Query for errors by severity code
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "syslog" and
+      r._field == "severity_code"
+  )
+```
+
+##### Histogram settings
+In the Histogram visualization options, select `_time` as the [X Column](#data)
+and `severity` as the [Group By](#data) option:
+
+{{< img-hd src="/img/2-0-visualizations-histogram-errors.jpg" alt="Errors histogram" />}}
