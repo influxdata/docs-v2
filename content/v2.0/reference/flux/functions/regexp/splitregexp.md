@@ -1,6 +1,8 @@
 ---
 title: regexp.splitRegexp() function
-description: The `regexp.splitRegexp()` function ...
+description: >
+  The `regexp.splitRegexp()` function splits a string into substrings separated by
+  regular expression matches and returns an array of `i` substrings between matches.
 menu:
   v2_0_ref:
     name: regexp.splitRegexp
@@ -8,27 +10,32 @@ menu:
 weight: 301
 ---
 
-The `regexp.splitRegexp()` function ...
+The `regexp.splitRegexp()` function splits a string into substrings separated by
+regular expression matches and returns an array of `i` substrings between matches.
 
-_**Output data type:** String_
+_**Output data type:** Array of Strings_
 
 ```js
 import "regexp"
 
-regexp.splitRegexp()
+regexp.splitRegexp(r: /a*/, v: "abaabaccadaaae", i: 5)
+
+// Returns ["", "b", "b", "c", "cadaaae"]
 ```
 
 ## Parameters
 
+### r
+The regular expression used to search `v`.
+
+_**Data type:** Regexp_
+
 ### v
-Desc
+The string value to search.
 
 _**Data type:** String_
 
-## Examples
+### i
+The number of substrings to return.
 
-###### ...
-```js
-import "regexp"
-
-```
+_**Data type:** Integer_
