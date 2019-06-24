@@ -40,10 +40,20 @@ Literal = int_lit
 Object literals construct a value with the object type.
 
 ```js
-ObjectLiteral = "{" PropertyList "}" .
-PropertyList  = [ Property { "," Property } ] .
-Property      = identifier [ ":" Expression ]
-              | string_lit ":" Expression .
+ObjectLiteral  = "{" ObjectBody "}" .
+ObjectBody     = WithProperties | PropertyList .
+WithProperties = identifier "with"  PropertyList .
+PropertyList   = [ Property { "," Property } ] .
+Property       = identifier [ ":" Expression ]
+               | string_lit ":" Expression .
+```
+
+**Examples**  
+```js
+{a: 1, b: 2, c: 3}
+{a, b, c}
+{o with x: 5, y: 5}
+{o with a, b}
 ```
 
 ### Array literals
