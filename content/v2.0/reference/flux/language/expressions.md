@@ -152,9 +152,20 @@ IndexExpression = "[" Expression "]" .
 
 ## Member expressions
 Member expressions access a property of an object.
+They are specified using an expression in one of the following forms:
+
+```js
+obj.k
+// or
+obj["k"]
+```
+
 The property being accessed must be either an identifier or a string literal.
 In either case the literal value is the name of the property being accessed, the identifier is not evaluated.
 It is not possible to access an object's property using an arbitrary expression.
+
+If `obj` contains an entry with property `k`, both `obj.k` and `obj["k"]` return the value associated with `k`.
+If `obj` does **not** contain an entry with property `k`, both `obj.k` and `obj["k"]` return _null_.
 
 ```js
 MemberExpression        = DotExpression  | MemberBracketExpression
@@ -177,6 +188,11 @@ ConditionalExpression = "if" Expression "then" Expression "else" Expression .
 color = if code == 0 then "green" else if code == 1 then "yellow" else "red"
 ```
 
+{{% note %}}
+According to the definition above, if a condition evaluates to a _null_ or unknown value,
+the _else_ branch is evaluated.
+{{% /note %}}
+
 ## Operators
 Operators combine operands into expressions.
 The precedence of the operators is given in the table below.
@@ -193,7 +209,8 @@ Operators with a lower number have higher precedence.
 |            | `<` `<=`           |                           |
 |            | `>` `>=`           |                           |
 |            |`=~` `!~`           |                           |
-| 5          | `not`              | Unary logical expression  |
+| 5          | `not`              | Unary logical operator    |
+|            | `exists`           | Null check operator       |
 | 6          | `and`              | Logical AND               |
 | 7          | `or`               | Logical OR                |
 | 8          | `if` `then` `else` | Conditional               |
@@ -209,7 +226,7 @@ LogicalExpression        = UnaryLogicalExpression
 LogicalOperator          = "and" | "or" .
 UnaryLogicalExpression   = ComparisonExpression
                          | UnaryLogicalOperator UnaryLogicalExpression .
-UnaryLogicalOperator     = "not" .
+UnaryLogicalOperator     = "not" | "exists".
 ComparisonExpression     = MultiplicativeExpression
                          | ComparisonExpression ComparisonOperator MultiplicativeExpression .
 ComparisonOperator       = "==" | "!=" | "<" | "<=" | ">" | ">=" | "=~" | "!~" .
