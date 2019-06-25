@@ -38,7 +38,7 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.toUpper(v: r.envVars))
+  |> map(fn: (r) => ({ r with envVars: strings.toUpper(v: r.envVars) }))
 ```
 
 {{% note %}}

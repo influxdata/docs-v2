@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "camera" and
   )
-  |> map(fn:(r) => float(v: r.aperature))
+  |> map(fn:(r) => ({ r with aperature: float(v: r.aperature) }))
 ```

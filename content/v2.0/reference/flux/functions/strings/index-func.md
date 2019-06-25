@@ -47,6 +47,7 @@ import "strings"
 
 data
   |> map(fn: (r) => ({
+      r with
       the_index: strings.index(v: r.pageTitle, substr: "the")
     })
   )

@@ -45,6 +45,7 @@ import "strings"
 
 data
   |> map(fn: (r) => ({
+      r with
       _value: strings.containsAny(v: r.price, chars: "£$¢")
     })
   )

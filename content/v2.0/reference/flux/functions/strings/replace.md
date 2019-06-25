@@ -54,6 +54,7 @@ import "strings"
 
 data
   |> map(fn: (r) => ({
+      r with
       content: strings.replace(v: r.content, t: "he", u: "her", i: 3)
     })
   )

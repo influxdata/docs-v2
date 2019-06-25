@@ -45,5 +45,9 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.indexAny(v: r._field, chars: "_-"))
+  |> map(fn: (r) => ({
+      r with
+      charIndex: strings.indexAny(v: r._field, chars: "_-")
+    })
+  )
 ```

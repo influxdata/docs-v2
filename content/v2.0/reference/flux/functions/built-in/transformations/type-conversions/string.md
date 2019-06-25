@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "system" and
   )
-  |> map(fn:(r) => string(v: r.model_number))
+  |> map(fn:(r) => ({ r with model_number string(v: r.model_number) }))
 ```

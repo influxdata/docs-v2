@@ -38,5 +38,8 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.toLower(v: r.exclamation))
+  |> map(fn: (r) => ({
+      r with exclamation: strings.toLower(v: r.exclamation)
+    })
+  )
 ```
