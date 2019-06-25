@@ -42,6 +42,7 @@ import "regexp"
 
 data
   |> map(fn: (r) => ({
+      r with
       message: r.message,
       regexp: r.regexp,
       match: regexp.findString(r: r.regexp, v: r.message)

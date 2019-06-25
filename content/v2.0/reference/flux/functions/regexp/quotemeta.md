@@ -36,7 +36,9 @@ import "regexp"
 
 data
   |> map(fn: (r) => ({
-    notes: r.notes,
-    notes_escaped: regexp.quoteMeta(v: r.notes)
-  }))
+      r with
+      notes: r.notes,
+      notes_escaped: regexp.quoteMeta(v: r.notes)
+    })
+  )
 ```

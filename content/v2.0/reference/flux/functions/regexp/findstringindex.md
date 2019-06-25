@@ -45,6 +45,7 @@ import "regexp"
 
 data
   |> map(fn: (r) => ({
+      r with
       regexStr: r.regexStr,
       _value: r._value,
       matchIndex: regexp.findStringIndex(

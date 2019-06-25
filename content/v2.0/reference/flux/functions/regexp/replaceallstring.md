@@ -48,6 +48,7 @@ import "regexp"
 
 data
   |> map(fn: (r) => ({
+      r with
       message: r.message,
       updated_message: regexp.replaceAllString(
         r: /cat|bird|ferret/,

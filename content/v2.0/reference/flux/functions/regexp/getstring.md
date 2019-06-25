@@ -37,6 +37,7 @@ import "regexp"
 
 data
   |> map(fn: (r) => ({
+      r with
       regex: r.regex,
       regexStr: regexp.getString(r: r.regex)
     })
