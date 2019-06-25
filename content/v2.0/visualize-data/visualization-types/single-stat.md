@@ -62,4 +62,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Memory usage as a single stat
-{{< img-hd src="/img/2-0-visualizations-single-stat-memor.jpg" alt="Graph + Single Stat Memory Usage Example" />}}
+{{< img-hd src="/img/2-0-visualizations-single-stat-memor.png" alt="Graph + Single Stat Memory Usage Example" />}}

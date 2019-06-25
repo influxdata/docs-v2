@@ -80,4 +80,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Cluster metrics in a table
-{{< img-hd src="/img/2-0-visualizations-table-human-readable.jpg" alt="Human readable metrics in a table" />}}
+{{< img-hd src="/img/2-0-visualizations-table-human-readable.png" alt="Human readable metrics in a table" />}}

@@ -91,7 +91,7 @@ union(tables: [cpu, mem])
 ###### Use a scatter plot to visualize correlation
 In the Scatter visualization controls, points are differentiated based on their group keys.
 
-{{< img-hd src="/img/2-0-visualizations-scatter-correlation.jpg" alt="Heatmap correlation example" />}}
+{{< img-hd src="/img/2-0-visualizations-scatter-correlation.png" alt="Heatmap correlation example" />}}
 
 ## Important notes
 
@@ -102,7 +102,7 @@ However, in certain cases, scatterplots can "hide" points if they share the same
 
 For example, the dashboard cells below visualize the same query results:
 
-{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.jpg" alt="Heatmap vs Scatter plot" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
 
 The heatmap indicates isolated high point density, which isn't visible in the scatter plot.
 In the scatter plot visualization, points that share the same X and Y coordinates

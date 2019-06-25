@@ -96,7 +96,7 @@ and `_value_mem` is selected as the [Y Column](#data).
 The domain for each axis is also customized to account for the scale difference
 between column values.
 
-{{< img-hd src="/img/2-0-visualizations-heatmap-correlation.jpg" alt="Heatmap correlation example" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-correlation.png" alt="Heatmap correlation example" />}}
 
 
 ## Important notes
@@ -108,7 +108,7 @@ However, in certain cases, heatmaps provide better visibility into point density
 
 For example, the dashboard cells below visualize the same query results:
 
-{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.jpg" alt="Heatmap vs Scatter plot" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
 
 The heatmap indicates isolated high point density, which isn't visible in the scatter plot.
 In the scatter plot visualization, points that share the same X and Y coordinates

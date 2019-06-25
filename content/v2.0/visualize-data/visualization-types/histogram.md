@@ -77,4 +77,4 @@ from(bucket: "example-bucket")
 In the Histogram visualization options, select `_time` as the [X Column](#data)
 and `severity` as the [Group By](#data) option:
 
-{{< img-hd src="/img/2-0-visualizations-histogram-errors.jpg" alt="Errors histogram" />}}
+{{< img-hd src="/img/2-0-visualizations-histogram-errors.png" alt="Errors histogram" />}}
