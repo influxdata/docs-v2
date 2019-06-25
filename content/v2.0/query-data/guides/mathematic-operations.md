@@ -115,7 +115,7 @@ The `map()` function iterates over each row in the piped-forward data and define
 a new `_value` by dividing the original `_value` by 1073741824.
 
 ```js
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: -10m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -195,7 +195,7 @@ usageToFloat = (tables=<-) =>
 
 // Define the data source and filter user and system CPU usage
 // from 'cpu-total' in the 'cpu' measurement
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -233,7 +233,7 @@ usageToFloat = (tables=<-) =>
       })
     )
 
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: timeRangeStart, stop: timeRangeStop)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
