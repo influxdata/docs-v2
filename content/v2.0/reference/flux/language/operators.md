@@ -129,17 +129,19 @@ Literal constructors define fixed values.
 The table below outlines operator precedence.
 Operators with a lower number have higher precedence.
 
-|Precedence | Operator  | Description                |
-|:--------- |:--------: |:-----------                |
-| 1         | `a()`     | Function call              |
-|           | `a[]`     | Member or index access     |
-|           | `.`       | Member access              |
-| 2         | `*` `/`   | Multiplication and division|
-| 3         | `+` `-`   | Addition and subtraction   |
-| 4         | `==` `!=` | Comparison operators       |
-|           | `<` `<=`  |                            |
-|           | `>` `>=`  |                            |
-|           | `=~` `!~` |                            |
-| 5         | `not`     | Unary logical expression   |
-| 6         | `and`     | Logical AND                |
-| 7         | `or`      | Logical OR                 |
+| Precedence | Operator           | Description               |
+|:----------:|:--------:          |:--------------------------|
+| 1          | `a()`              | Function call             |
+|            | `a[]`              | Member or index access    |
+|            | `.`                | Member access             |
+| 2          | `*` `/`            |Multiplication and division|
+| 3          | `+` `-`            | Addition and subtraction  |
+| 4          |`==` `!=`           | Comparison operators      |
+|            | `<` `<=`           |                           |
+|            | `>` `>=`           |                           |
+|            |`=~` `!~`           |                           |
+| 5          | `not`              | Unary logical operator    |
+|            | `exists`           | Null check operator       |
+| 6          | `and`              | Logical AND               |
+| 7          | `or`               | Logical OR                |
+| 8          | `if` `then` `else` | Conditional               |
