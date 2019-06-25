@@ -50,7 +50,7 @@ in an input table.
 ```
 
 {{% note %}}
-To preserve existing columns, [use the `with` operator](/reference/flux/functions/built-in/transformations/aggregates/reduce/#preserve-columns)
+To preserve existing columns, [use the `with` operator](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/#preserve-columns)
 when mapping values in the `r` object.
 {{% /note %}}
 
