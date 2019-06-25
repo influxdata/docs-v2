@@ -54,6 +54,7 @@ import "strings"
 
 data
   |> map(fn: (r) => ({
+      r with
       _value: strings.countStr(v: r.message, substr: "uh")
     })
   )

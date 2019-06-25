@@ -33,12 +33,12 @@ _**Data type:** String_
 
 ## Examples
 
-###### ...
+###### Covert characters in a string to title case
 ```js
 import "strings"
 
 data
-  |> map(fn: (r) => strings.toTitle(v: r.pageTitle))
+  |> map(fn: (r) => ({ r with pageTitle: strings.toTitle(v: r.pageTitle) }))
 ```
 
 {{% note %}}

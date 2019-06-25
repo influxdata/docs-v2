@@ -48,5 +48,9 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.trimSuffix(v: r.sensorId, suffix: "_s12"))
+  |> map(fn: (r) => ({
+      r with
+      sensorID: strings.trimSuffix(v: r.sensorId, suffix: "_s12")
+    })
+  )
 ```

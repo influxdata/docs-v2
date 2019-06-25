@@ -9,10 +9,17 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.33.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.33.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.33.2 [2019-06-25]
+
+### Bug fixes
+- Use `strings.Replace` instead of `strings.ReplaceAll` for compatibility.
+
+---
 
 ## v0.33.1 [2019-06-20]
 

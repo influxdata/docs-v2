@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "system" and
   )
-  |> map(fn:(r) => duration(v: r.uptime))
+  |> map(fn:(r) => ({ r with uptime: duration(v: r.uptime) }))
 ```

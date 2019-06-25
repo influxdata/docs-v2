@@ -40,5 +40,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.trimSpace(v: r.userInput))
+  |> map(fn: (r) => ({ r with userInput: strings.trimSpace(v: r.userInput) }))
 ```

@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "camera" and
   )
-  |> map(fn:(r) => uint(v: r.exposures))
+  |> map(fn:(r) => ({ r with exposures: uint(v: r.exposures) }))
 ```

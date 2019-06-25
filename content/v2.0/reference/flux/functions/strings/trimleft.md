@@ -48,5 +48,9 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.trimLeft(v: r.variables, cutset: "."))
+  |> map(fn: (r) => ({
+      r with
+      variables: strings.trimLeft(v: r.variables, cutset: ".")
+    })
+  )
 ```

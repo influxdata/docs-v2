@@ -38,5 +38,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn: (r) => strings.title(v: r.pageTitle))
+  |> map(fn: (r) => ({ r with pageTitle: strings.title(v: r.pageTitle) }))
 ```
