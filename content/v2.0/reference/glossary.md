@@ -694,18 +694,8 @@ Related entries: [tag](/influxdb/v1.7/concepts/glossary/#tag), [tag key](/influx
 
 ### time series data
 
-Sequence of data points typically consisting of successive measurements made from the same source over a time interval.
-
-Regular
-
-graph somewhere one of the the one of the axes on your graph would always be time so one of the
-dimensions of your data is always time. time matters and it changes over time so
-
-data does not evolve over time or if you
-
-don't care how your data evolves over
-time it's probably not a time series use
-case
+Sequence of data points typically consisting of successive measurements made from the same source over a time interval. Time series data shows how data evolves over
+time. On a time series data graph, one of the axes is always time. Time series data may be regular or irregular. Regular time series data changes in constant intervals. Irregular time series data changes at non-constant intervals. When aggregating time series 
 
 ### timestamp
 
