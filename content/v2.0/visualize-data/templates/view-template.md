@@ -24,7 +24,15 @@ To view templates in the InfluxDB UI:
 3. Click on the name of a template to view its JSON.
 
 ## Static templates
-The following Telegraf-related dashboards templates are available.
+The following Telegraf-related dashboards templates are available:
+
+- [Docker](#docker)
+- [Getting Started with Flux](#getting-started-with-flux)
+- [Kubernetes](#kubernetes)
+- [Local Metrics](#local-metrics)
+- [Nginx](#nginx)
+- [Redis](#redis)
+- [System](#system)
 
 ### Docker
 The Docker dashboard template contains an overview of Docker metrics. It displays the following information:
@@ -50,13 +58,13 @@ The Docker dashboard template contains an overview of Docker metrics. It display
 
 #### Plugins
 
-- [`docker` plugin](/telegraf/latest/plugins/inputs/#docker)
-- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
-- [`mem` plugin](/telegraf/latest/plugins/inputs/#mem)
-- [`diskio` plugin](/telegraf/latest/plugins/inputs/#diskio)
-- [`system` plugin](/telegraf/latest/plugins/inputs/#system)
-- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
-- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
+- [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
+- [`diskio` plugin](/v2.0/reference/telegraf-plugins/#diskio)
+- [`docker` plugin](//v2.0/reference/telegraf-plugins/#docker)
+- [`mem` plugin](/v2.0/reference/telegraf-plugins/#mem)
+- [`swap` plugin](/v2.0/reference/telegraf-plugins/#swap)
+- [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Getting Started with Flux
 This dashboard is designed to get you started with the Flux language. It contains explanations and visualizations for a series of increasingly complex example Flux queries.
@@ -70,8 +78,8 @@ This dashboard is designed to get you started with the Flux language. It contain
 
 #### Plugins
 
-- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
-- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
+- [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
 
 ### Kubernetes
 
@@ -94,7 +102,7 @@ The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displ
 - Running Containers
 
 #### Plugins
-- [`kubernetes` plugin](v2.0/reference/telegraf-plugins/)
+- [`kubernetes` plugin](/v2.0/reference/telegraf-plugins/)
 
 ### Local Metrics
 The Local Metrics dashboard shows a visual overview of some of the metrics available from the Local Metrics endpoint located at /`metrics`. It displays the following information:
@@ -133,13 +141,13 @@ The Nginx dashboard gives a visual overview of Nginx metrics. It displays the fo
 
 
 #### Plugins
-- [`docker` plugin](/telegraf/latest/plugins/inputs/#docker)
-- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
-- [`mem` plugin](/telegraf/latest/plugins/inputs/#mem)
-- [`diskio` plugin](/telegraf/latest/plugins/inputs/#diskio)
-- [`system` plugin](/telegraf/latest/plugins/inputs/#system)
-- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
-- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
+- [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
+- [`diskio` plugin](/v2.0/reference/telegraf-plugins/#diskio)
+- [`mem` plugin](/v2.0/reference/telegraf-plugins/#mem)
+- [`nginx` plugin](/v2.0/reference/telegraf-plugins/#nginx)
+- [`swap` plugin](/v2.0/reference/telegraf-plugins/#swap)
+- [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Redis
 The Redis dashboard gives a visual overview of Nginx metrics. It displays the following information:
@@ -164,19 +172,34 @@ The Redis dashboard gives a visual overview of Nginx metrics. It displays the fo
 - Redis uptime
 
 #### Plugins
-- [`redis` plugin]()
-- [`mem` plugin](/telegraf/latest/plugins/inputs/#mem)
-- [`system` plugin](/telegraf/latest/plugins/inputs/#system)
-- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
-- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
-- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
+- [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
+- [`mem` plugin](/v2.0/reference/telegraf-plugins/#mem)
+- [`redis` plugin](/v2.0/reference/telegraf-plugins/#redis)
+- [`swap` plugin](/v2.0/reference/telegraf-plugins/#swap)
+- [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
-## System
 
-  - **Docker**: A collection of useful visualizations for monitoring your system stats.
-  - **Getting Started with Flux**
-  - **Kubernetes**: A collection of useful visualization for monitoring your Kubernetes instance.
-  - **Local Metrics**
-  - **Nginx**
-  - **Redis**
-  - **System**
+### System
+The System dashboard gives a visual overview of system metrics. It displays the following information:
+
+- System Uptime
+- nCPUs
+- System Load
+- Total Memory
+- Memory Usage
+- Disk Usage
+- CPU Usage
+- System Load
+- Disk IO
+- Network
+- Processes
+- Swap
+
+#### Plugins
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
+- [`diskio` plugin](/v2.0/reference/telegraf-plugins/#diskio)
+- [`mem` plugin](/v2.0/reference/telegraf-plugins/#mem)
+- [`net` plugin](/v2.0/reference/telegraf-plugins/#net)
+- [`swap` plugin](/v2.0/reference/telegraf-plugins/#swap)
+- [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
