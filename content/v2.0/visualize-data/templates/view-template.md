@@ -142,6 +142,34 @@ The Nginx dashboard gives a visual overview of Nginx metrics. It displays the fo
 - [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
 
 ### Redis
+The Redis dashboard gives a visual overview of Nginx metrics. It displays the following information:
+
+- System Uptime
+- nCPUs
+- System Load
+- Total Memory
+- Memory Usage
+- Disk Usage
+- CPU Usage
+- System Load
+- Swap
+- Redis used memory
+- Redis CPU
+- Redis # commands processed per sec
+- Redis eviced/expired keys
+- Redis connected slaves
+- Keyspace hitrate
+- Redis - Network Input/Output
+- Redis connections
+- Redis uptime
+
+#### Plugins
+- [`redis` plugin]()
+- [`mem` plugin](/telegraf/latest/plugins/inputs/#mem)
+- [`system` plugin](/telegraf/latest/plugins/inputs/#system)
+- [`disk` plugin](/telegraf/latest/plugins/inputs/#disk)
+- [`swap` plugin](/telegraf/latest/plugins/inputs/#swap)
+- [`cpu` plugin](/telegraf/latest/plugins/inputs/#cpu)
 
 ## System
 
