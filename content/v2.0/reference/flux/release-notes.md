@@ -9,10 +9,24 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.33.2**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.34.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.34.1 [2019-06-26]
+
+### Features
+- Add custom PostgreSQL type support.
+- Added MySQL type support.
+- Nulls work in table and row functions.
+
+### Bug fixes
+- Fixed boolean literal type conversion problem and added tests.
+- Diff should track memory allocations when it copies the table.
+- Copy table will report if it is empty correctly.
+
+---
 
 ## v0.33.2 [2019-06-25]
 
