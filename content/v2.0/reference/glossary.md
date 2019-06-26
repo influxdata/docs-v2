@@ -15,7 +15,7 @@ v2.0/tags: [glossary]
 
 ### agent
 
-Core part of Telegraf that gathers metrics from the declared input plugins and sends metrics to the declared output plugins, based on the plugins enabled by the given configuration.
+A core part of Telegraf that gathers metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
 Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin)
 
@@ -87,11 +87,13 @@ Each collection interval, every input plugin will sleep for a random time betwee
 
 Related entries: [collection interval](#collection-interval), [input plugin](#input-plugin)
 
-### column
+<!-- ### column
 
 ### comment
 
 ### common log format (CLF)
+
+-->
 
 ### continuous query (CQ)
 
@@ -103,13 +105,14 @@ Related entries: [function](#function)
 
 ## D
 
-### daemon
+<!--### daemon
 
 ### dashboard
 
 ### Data Explorer
 
 ### data model
+-->
 
 ### data node
 
@@ -131,7 +134,7 @@ Stores time series data and handles writes and queries.
 
 Related entries: [data node](#data-node)
 
-### data type
+<!--### data type -->
 
 ### database
 
@@ -139,9 +142,10 @@ A logical container for users, retention policies, continuous queries, and time 
 
 Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
 
-### date-time
+<!-- ### date-time
 
 ### downsample
+-->
 
 ### duration
 
@@ -203,35 +207,37 @@ Field values are not indexed - queries on field values scan all points that matc
 
 Related entries: [field](#field), [field key](#field-key), [field set](#field-set), [tag value](#tag-value), [timestamp](#timestamp)
 
-### file block
+<!-- ### file block
 
 ### float
+-->
 
-### flush interval 
+### flush interval
 
 The global interval for flushing data from each output plugin to its destination.
 This value should not be set lower than the collection interval.
 
 Related entries: [collection interval](#collection-interval), [flush jitter](#flush-jitter), [output plugin](#output-plugin)
 
-### flush jitter 
+### flush jitter
 
-Flush jitter is used to prevent every output plugin from sending writes simultaneously, which can overwhelm some data sinks.
+Flush jitter prevents every output plugin from sending writes simultaneously, which can overwhelm some data sinks.
 Each flush interval, every output plugin will sleep for a random time between zero and the flush jitter before emitting metrics.
-This helps smooth out write spikes when running a large number of Telegraf instances.
+Flush jitter smooths out write spikes when running a large number of Telegraf instances.
 
 Related entries: [flush interval](#flush-interval), [output plugin](#output-plugin)
 
 ### Flux
 
+A lightweight scripting language for querying databases (like InfluxDB) and working with data. Flux is included with InfluxDB 1.7 and 2.0. Flux can also be run independently from InfluxDB.
+
 ### function
 
-InfluxQL aggregations, selectors, and transformations.
-See [InfluxQL Functions](/influxdb/v1.7/query_language/functions/) for a complete list of InfluxQL functions.
+Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/all-functions/). Or opt to use Flux functions' predecessor, InfluxQL functions. See [InfluxQL functions](/influxdb/v1.7/query_language/functions/) for a complete list.
 
-Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [selector](/influxdb/v1.7/concepts/glossary/#selector), [transformation](/influxdb/v1.7/concepts/glossary/#transformation)
+Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
-### function block
+<!--### function block
 
 ## G
 
@@ -248,26 +254,28 @@ Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [
 
 ### Hinted Handoff (HH)
 
-### historgram
+### histogram
+
+-->
 
 ## I
 
 ### identifier
 
-Tokens that refer to continuous query names, database names, field keys,
-measurement names, retention policy names, subscription names, tag keys, and
+Identifiers are tokens that refer to task names, bucket names, field keys,
+measurement names, subscription names, tag keys, and
 user names.
-See [Query Language Specification](/influxdb/v1.7/query_language/spec/#identifiers).
+For examples and rules, see [Flux language lexical elements](https://v2.docs.influxdata.com/v2.0/reference/flux/language/lexical-elements/#identifiers).
 
 Related entries:
-[database](/influxdb/v1.7/concepts/glossary/#database),
-[field key](/influxdb/v1.7/concepts/glossary/#field-key),
-[measurement](/influxdb/v1.7/concepts/glossary/#measurement),
-[retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp),
-[tag key](/influxdb/v1.7/concepts/glossary/#tag-key),
-[user](/influxdb/v1.7/concepts/glossary/#user)
+[bucket](#bucket)
+[field key](#field-key),
+[measurement]/#measurement),
+[retention policy](#retention-policy-rp),
+[tag key](#tag-key),
+[user](#user)
 
-### implicit block
+<!--### implicit block
 
 ### influx
 
@@ -279,6 +287,8 @@ Related entries:
 
 ### InfluxQL
 
+-->
+
 ### input plugin
 
 Input plugins actively gather metrics and deliver them to the core agent, where aggregator, processor, and output plugins can operate on the metrics.
@@ -286,7 +296,7 @@ In order to activate an input plugin, it needs to be enabled and configured in T
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [collection interval](/telegraf/v1.10/concepts/glossary/#collection-interval), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
 
-### instance
+<!-- ### instance
 
 ### int (data type)
 
@@ -306,15 +316,19 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 
 ### keyword
 
+-->
+
 ## L
 
-### literal
+<!-- ### literal
 
 ### load balancing
 
 ### Log Viewer
 
 ### logging
+
+-->
 
 ### Line Protocol (LP)
 
@@ -331,46 +345,47 @@ Related entries: [field](/influxdb/v1.7/concepts/glossary/#field), [series](/inf
 
 ### member
 
-### meta node - e
+### meta node
 
 A node that runs the meta service.
 
 For high availability, installations must have three meta nodes.
 Meta nodes can be very modestly sized instances like an EC2 t2.micro or even a
 nano.
-For additional fault tolerance installations may use five meta nodes; the
+For additional fault tolerance, installations may use five meta nodes. The
 number of meta nodes must be an odd number.
 
 Related entries: [meta service](#meta-service)
 
-### meta service - e
+### meta service
 
 The consistent data store that keeps state about the cluster, including which
-servers, databases, users, continuous queries, retention policies, subscriptions,
-and blocks of time exist.
+servers, buckets, users, tasks, subscriptions, and blocks of time exist.
 
 Related entries: [meta node](#meta-node)
 
 ### metastore
 
 Contains internal information about the status of the system.
-The metastore contains the user information, databases, retention policies, shard metadata, continuous queries, and subscriptions.
+The metastore contains the user information, buckets, shard metadata, tasks, and subscriptions.
 
-Related entries: [database](/influxdb/v1.7/concepts/glossary/#database), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp), [user](/influxdb/v1.7/concepts/glossary/#user)
+Related entries: [bucket](#bucket), [retention policy](#retention-policy-rp), [user](#user)
 
 ### metric
 
 Measurements gathered at regular time intervals.
 
-### metric buffer - obsolete?
+### metric buffer 
+<!-- obsolete? -->
 
 The metric buffer caches individual metrics when writes are failing for an output plugin.
 Telegraf will attempt to flush the buffer upon a successful write to the output.
 The oldest metrics are dropped first when this buffer fills.
 
-Related entries: [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin)
+Related entries: [output plugin](/#output-plugin)
 
-### missing value
+<!-- ### missing value
+-->
 
 ## N
 
@@ -378,23 +393,25 @@ Related entries: [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugi
 
 An independent `influxd` process.
 
-Related entries: [server](/influxdb/v1.7/concepts/glossary/#server)
+Related entries: [server](#server)
 
 ### now()
 
 The local server's nanosecond timestamp.
 
-### null
+<!-- ### null -->
 
 ## O
 
-### operator
+<!-- ### operator 
 
 ### option
 
 ### option assignment
 
 ### organization
+
+-->
 
 ### output plugin 
 
@@ -404,20 +421,19 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 
 ## P
 
-### parameter
+<!-- ### parameter
 
 ### pipe
 
 ### pipe-forward operator
 
+-->
+
 ### point
 
-The part of InfluxDB's data structure that consists of a single collection of fields in a series.
-Each point is uniquely identified by its series and timestamp.
-
-You cannot store more than one point with the same timestamp in the same series.
-Instead, when you write a new point to the same series with the same timestamp as an existing point in that series, the field set becomes the union of the old field set and the new field set, where any ties go to the new field set.
-For an example, see [Frequently Asked Questions](/influxdb/v1.7/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
+A point in the InfluxDB data structure that consists of a single collection of fields in a series. Each point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp.
+When you write a new point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+<!-- For an example, see [Frequently Asked Questions](/influxdb/v1.7/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
 
 Related entries: [field set](/influxdb/v1.7/concepts/glossary/#field-set), [series](/influxdb/v1.7/concepts/glossary/#series), [timestamp](/influxdb/v1.7/concepts/glossary/#timestamp)
 
@@ -430,33 +446,35 @@ Write speeds are generally quoted in values per second, a more precise metric.
 
 Related entries: [point](/influxdb/v1.7/concepts/glossary/#point), [schema](/influxdb/v1.7/concepts/glossary/#schema), [values per second](/influxdb/v1.7/concepts/glossary/#values-per-second)
 
-### precision 
+-->
+
+### precision
 
 The precision configuration setting determines how much timestamp precision is retained in the points received from input plugins. All incoming timestamps are truncated to the given precision.
 Telegraf then pads the truncated timestamps with zeros to create a nanosecond timestamp; output plugins will emit timestamps in nanoseconds.
 Valid precisions are `ns`, `us` or `µs`, `ms`, and `s`.
 
-For example, if the precision is set to `ms`, the nanosecond epoch timestamp `1480000000123456789` would be truncated to `1480000000123` in millisecond precision and then padded with zeroes to make a new, less precise nanosecond timestamp of `1480000000123000000`.
+For example, if the precision is set to `ms`, the nanosecond epoch timestamp `1480000000123456789` is truncated to `1480000000123` in millisecond precision and padded with zeroes to make a new, less precise nanosecond timestamp of `1480000000123000000`.
 Output plugins do not alter the timestamp further. The precision setting is ignored for service input plugins.
 
-Related entries:  [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin), [service input plugin](/telegraf/v1.10/concepts/glossary/#service-input-plugin)
+Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](/#processor-plugin), [service input plugin](#service-input-plugin)
 
-### process
+<!-- ### process -->
 
 ### processor plugin
 
 Processor plugins transform, decorate, and filter metrics collected by input plugins, passing the transformed metrics to the output plugins.
 
-Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin)
+Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin)
 
-### Prometheus format
+<!-- ### Prometheus format -->
 
 ## Q
 
 ### query
 
 An operation that retrieves data from InfluxDB.
-See [Data Exploration](/influxdb/v1.7/query_language/data_exploration/), [Schema Exploration](/influxdb/v1.7/query_language/schema_exploration/), [Database Management](/influxdb/v1.7/query_language/database_management/).
+See [Query data in InfluxDB](https://v2.docs.influxdata.com/v2.0/query-data/).
 
 ## R
 
@@ -466,7 +484,7 @@ See [Data Exploration](/influxdb/v1.7/query_language/data_exploration/), [Schema
 
 ### regular expressions
 
-### replication factor (RF) - e
+### replication factor (RF)
 
 The attribute of the retention policy that determines how many copies of the
 data are stored in the cluster.
