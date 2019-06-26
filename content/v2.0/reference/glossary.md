@@ -15,7 +15,7 @@ v2.0/tags: [glossary]
 
 ### agent
 
-A background process started by or on behalf of a user and typically requires user input. Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and send metrics to declared output plugins, based on the plugins enabled for a configuration.
+A background process started by or on behalf of a user and typically requires user input. Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
 Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin), [daemon](#daemon)
 
@@ -54,10 +54,12 @@ Related entries: [output plugin](#output-plugin)
 <!-- ### block-->
 
 ### boolean
+
 A data type with two possible values: true or false.
-By convention, you can express true as the integer 1 and false as the integer 0 (zero).
+By convention, you can express `true` as the integer `1` and false as the integer `0` (zero).
 
 ### bucket
+
 A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
 <!-->
 ### bytes
@@ -68,6 +70,7 @@ A bucket is a named location where time series data is stored. All buckets have 
 
 -->
 ### cardinality
+
 Cardinality is the number of unique series in a bucket or database as a whole.
 <!--
 
@@ -105,8 +108,6 @@ Related entries: [collection interval](#collection-interval), [input plugin](#in
 ### continuous query (CQ)
 
 Continuous queries are the predecessor to tasks in InfluxDB 2.0. Continuous queries run automatically and periodically on a database.
-Continuous queries require a function in the `SELECT` clause and must include a `GROUP BY time()` clause.
-See [Continuous queries](/influxdb/v1.7/query_language/continuous_queries/).
 
 Related entries: [function](#function)
 
@@ -160,8 +161,7 @@ Aggregating high resolution data into lower resolution data to preserve disk spa
 
 ### duration
 
-A data type that represents a duration of time (1s, 1m, 1h, 1d). Retention policies are set using durations.
-Data older than the duration is automatically dropped from the database.
+A data type that represents a duration of time (1s, 1m, 1h, 1d). Retention policies are set using durations. Data older than the duration is automatically dropped from the database.
 <!-- See [Database Management](/influxdb/v1.7/query_language/database_management/#create-retention-policies-with-create-retention-policy) for how to set duration.
 -->
 
@@ -299,8 +299,7 @@ The InfluxDB daemon that runs the InfluxDB server and other required processes.
 The graphical web interface provided by InfluxDB for visualizing data and managing InfluxDB functionality.
 
 ### InfluxQL
-
--->
+The SQL-like query language used to query data in InfluxDB 1.x.
 
 ### input plugin
 
@@ -418,7 +417,7 @@ A data type that represents a missing or unknown value. Denoted by the null valu
 ## O
 
 ### operator
-A character that represents a computation or evaluation of multiple operands.
+A symbol that usually represents an action or process. For example: `+`, `-`, `>`.
 
 ### operand
 The object or value on either side of an operator.
@@ -430,7 +429,7 @@ The object or value on either side of an operator.
 ### organization
 A workspace for a group of users. All dashboards, tasks, buckets, members, and so on, belong to an organization.
 
-### output plugin 
+### output plugin
 
 Telegraf output plugins deliver metrics to their configured destination. In order to activate an output plugin, it needs to be enabled and configured in Telegraf's configuration file.
 
@@ -444,7 +443,7 @@ A key-value pair used to pass information to functions.
 ### pipe
 -->
 ### pipe-forward operator
-An operator (|>) used in Flux to chain operations together. Specifies the output from a function is input to next function.
+An operator (`|>`) used in Flux to chain operations together. Specifies the output from a function is input to next function.
 
 ### point
 
