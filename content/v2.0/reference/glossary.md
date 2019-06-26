@@ -480,19 +480,25 @@ See [Query data in InfluxDB](https://v2.docs.influxdata.com/v2.0/query-data/).
 
 ### REPL
 
+A read-eval-print-loop is an interactive programming environment where you type a command and immediately see the result.
+See [Use the influx CLI's REPL](https://v2.docs.influxdata.com/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl)
+
 ### record
 
+A tuple of named values represented using an object type.
+
 ### regular expressions
+
+Regular expressions or regex are patterns used to match character combinations in strings.
 
 ### replication factor (RF)
 
 The attribute of the retention policy that determines how many copies of the
-data are stored in the cluster.
-InfluxDB replicates data across `N` data nodes, where `N` is the replication
+data are stored in the cluster. Replication factors do not serve a purpose with single node instances. InfluxDB replicates data across `N` data nodes, where `N` is the replication
 factor.
 
-<dt> Replication factors are not relevant for single node instances.
-</dt> - obsolete?
+<!-- Replication factors are not relevant for single node instances.
+ - obsolete? -->
 
 To maintain data availability for queries, the replication factor should be less
 than or equal to the number of data nodes in the cluster:
@@ -503,41 +509,39 @@ number of unavailable data nodes.
 unavailable data nodes.
 
 Any replication factor greater than two gives you additional fault tolerance and
-query capacity within the cluster.
+query capacity in the cluster.
 
-Related entries: [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp) - obsolete?
+Related entries: [duration](#duration), [node](#node), [retention policy](#retention-policy-rp)
 
 ### retention policy (RP)
 
-The part of InfluxDB's data structure that describes for how long InfluxDB keeps data (duration), how many copies of this data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration).
-RPs are unique per database and along with the measurement and tag set define a series.
+Retention polices are specified in a bucket and describes how long InfluxDB keeps data (duration), how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
 
-When you create a database, InfluxDB automatically creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
+<!-- still true? When you create a bucket, InfluxDB automatically creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
 See [Database Management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for retention policy management.
+-->
 
-<dt> Replication factors do not serve a purpose with single node instances.
-</dt>
-
-Related entries: [duration](/influxdb/v1.7/concepts/glossary/#duration), [measurement](/influxdb/v1.7/concepts/glossary/#measurement), [replication factor](/influxdb/v1.7/concepts/glossary/#replication-factor), [series](/influxdb/v1.7/concepts/glossary/#series), [shard duration](/influxdb/v1.7/concepts/glossary/#shard-duration), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set)
+Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
 
 ## S
 
 ### schema
 
-How the data are organized in InfluxDB.
-The fundamentals of the InfluxDB schema are databases, retention policies, series, measurements, tag keys, tag values, and field keys.
-See [Schema Design](/influxdb/v1.7/concepts/schema_and_data_layout/) for more information.
+How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys.
 
-Related entries: [database](/influxdb/v1.7/concepts/glossary/#database), [field key](/influxdb/v1.7/concepts/glossary/#field-key), [measurement](/influxdb/v1.7/concepts/glossary/#measurement), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp), [series](/influxdb/v1.7/concepts/glossary/#series), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
+<!-- See [Schema Design](/influxdb/v1.7/concepts/schema_and_data_layout/) for more information.
+should we replace this with influxd generate help-schema link? -->
 
-### scrape
+Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
+
+<!-- ### scrape -->
 
 ### selector
 
-An InfluxQL function that returns a single point from the range of specified points.
-See [InfluxQL Functions](/influxdb/v1.7/query_language/functions/#selectors) for a complete list of the available and upcoming selectors.
+A Flux function that returns a single point from the range of specified points.
+See [Flux built-in selector functions](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
 
-Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [transformation](/influxdb/v1.7/concepts/glossary/#transformation)
+Related entries: [aggregation](#aggregation), [function](#function), [transformation](#transformation)
 
 ### series
 
