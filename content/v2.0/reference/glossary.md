@@ -545,20 +545,18 @@ Related entries: [aggregation](#aggregation), [function](#function), [transforma
 
 ### series
 
-The collection of data in InfluxDB's data structure that share a measurement, tag set, and retention policy.
+A collection of data in the InfluxDB data structure that shares a measurement, tag set, and retention policy<!--bucket? -->.
 
-> **Note:** The field set is not part of the series identification! - obsolete? remove ! 
-
-Related entries: [field set](/influxdb/v1.7/concepts/glossary/#field-set), [measurement](/influxdb/v1.7/concepts/glossary/#measurement), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set)- obsolete? 
+Related entries: [field set](#field-set), [measurement](#measurement), [retention policy](/#retention-policy-rp), [tag set](#tag-set)
 
 ### series cardinality
 
-The number of unique database, measurement, tag set, and field key combinations in an InfluxDB instance.
+The number of unique bucket, measurement, tag set, and field key combinations in an InfluxDB instance.
 
-For example, assume that an InfluxDB instance has a single database and one measurement.
+For example, assume that an InfluxDB instance has a single bucket and one measurement.
 The single measurement has two tag keys: `email` and `status`.
 If there are three different `email`s, and each email address is associated with two
-different `status`es then the series cardinality for the measurement is 6
+different `status`es, the series cardinality for the measurement is 6
 (3 * 2 = 6):
 
 | email                 | status |
@@ -570,12 +568,11 @@ different `status`es then the series cardinality for the measurement is 6
 | cliff@influxdata.com | start  |
 | cliff@influxdata.com | finish |
 
-Note that, in some cases, simply performing that multiplication may overestimate series cardinality because of the presence of dependent tags.
-Dependent tags are tags that are scoped by another tag and do not increase series
+In some cases, performing this multiplication may overestimate series cardinality because of the presence of dependent tags. Dependent tags are scoped by another tag and do not increase series
 cardinality.
 If we add the tag `firstname` to the example above, the series cardinality
 would not be 18 (3 * 2 * 3 = 18).
-It would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
+The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
 | email                 | status | firstname |
 | :-------------------- | :----- | :-------- |
@@ -586,45 +583,44 @@ It would remain unchanged at 6, as `firstname` is already scoped by the `email` 
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
 
-See [SHOW CARDINALITY](/influxdb/v1.7/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality.
+<!--See [SHOW CARDINALITY](/influxdb/v1.7/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
 ### server
 
-A machine, virtual or physical, that is running InfluxDB.
-There should only be one InfluxDB process per server.
+A computer, virtual or physical, running InfluxDB. <!--still valid There should only be one InfluxDB process per server. -->
 
-Related entries: [node](/influxdb/v1.7/concepts/glossary/#node)
+Related entries: [node](#node)
 
-### service
+<!-- ### service -->
 
 ### service input plugin
 
-Service input plugins are input plugins that run in a passive collection mode while the Telegraf agent is running.
-They listen on a socket for known protocol inputs, or apply their own logic to ingested metrics before delivering them to the Telegraf agent.
+Input plugins that run in a passive collection mode while the Telegraf agent is running.
+Service input plugins listen on a socket for known protocol inputs, or apply their own logic to ingested metrics before delivering metrics to the Telegraf agent.
 
-Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
+Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
 ### shard
 
-A shard contains the actual encoded and compressed data, and is represented by a TSM file on disk.
+A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
 Every shard belongs to one and only one shard group.
 Multiple shards may exist in a single shard group.
 Each shard contains a specific set of series.
 All points falling on a given series in a given shard group will be stored in the same shard (TSM file) on disk.
 
-Related entries: [series](/influxdb/v1.7/concepts/glossary/#series), [shard duration](/influxdb/v1.7/concepts/glossary/#shard-duration), [shard group](/influxdb/v1.7/concepts/glossary/#shard-group), [tsm](/influxdb/v1.7/concepts/glossary/#tsm-time-structured-merge-tree)
+Related entries: [series](#series), [shard duration](#shard-duration), [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
 
 ### shard duration
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-See [Retention Policy management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for more information.-->
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
-Related entries: [database](/influxdb/v1.7/concepts/glossary/#database), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp), [series](/influxdb/v1.7/concepts/glossary/#series), [shard](/influxdb/v1.7/concepts/glossary/#shard), [shard group](/influxdb/v1.7/concepts/glossary/#shard-group)
+Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard group](#shard-group)
 
 ### shard group
 
@@ -634,9 +630,9 @@ Every retention policy that contains data has at least one associated shard grou
 A given shard group contains all shards with data for the interval covered by the shard group.
 The interval spanned by each shard group is the shard duration.
 
-Related entries: [database](/influxdb/v1.7/concepts/glossary/#database), [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp), [series](/influxdb/v1.7/concepts/glossary/#series), [shard](/influxdb/v1.7/concepts/glossary/#shard), [shard duration](/influxdb/v1.7/concepts/glossary/#shard-duration)
+Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard duration](#shard-duration)
 
-### Single Stat
+<!--### Single Stat
 
 ### Snappy compression
 
@@ -660,9 +656,11 @@ Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxD
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
+-->
+
 ## T
 
-### TCP
+<!--### TCP
 
 ### TSL
 
@@ -680,21 +678,22 @@ Tags are an optional part of InfluxDB's data structure but they are useful for s
 
 Related entries: [field](/influxdb/v1.7/concepts/glossary/#field), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
 
+-->
+
 ### tag key
 
-The key part of the key-value pair that makes up a tag.
-Tag keys are strings and they store metadata.
-Tag keys are indexed so queries on tag keys are performant.
+Part of the key-value pair that makes up a tag. Tag keys are strings and store metadata.
+<!--Tag keys are indexed so queries on tag keys are performant. -->
 
-*Query tip:* Compare tag keys to field keys; field keys are not indexed.
+*Query tip:* Compare tag keys to field keys. Field keys are not indexed.
 
-Related entries: [field key](/influxdb/v1.7/concepts/glossary/#field-key), [tag](/influxdb/v1.7/concepts/glossary/#tag), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
+Related entries: [field key](/#field-key), [tag](#tag), [tag set](#tag-set), [tag value](#tag-value)
 
 ### tag set
 
 The collection of tag keys and tag values on a point.
 
-Related entries: [point](/influxdb/v1.7/concepts/glossary/#point), [series](/influxdb/v1.7/concepts/glossary/#series), [tag](/influxdb/v1.7/concepts/glossary/#tag), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
+Related entries: [point](#point), [series](#series), [tag](#tag), [tag key](#tag-key), [tag value](#tag-value)
 
 ### tag value
 
@@ -702,9 +701,9 @@ The value part of the key-value pair that makes up a tag.
 Tag values are strings and they store metadata.
 Tag values are indexed so queries on tag values are performant.
 
-Related entries: [tag](/influxdb/v1.7/concepts/glossary/#tag), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set)
+Related entries: [tag]#tag), [tag key](#tag-key), [tag set](#tag-set)
 
-### task
+<!--### task
 
 ### Telegraf
 
@@ -714,14 +713,16 @@ Related entries: [tag](/influxdb/v1.7/concepts/glossary/#tag), [tag key](/influx
 
 ### time (data type)
 
+-->
+
 ### time series data
 
 Sequence of data points typically consisting of successive measurements made from the same source over a time interval. Time series data shows how data evolves over
-time. On a time series data graph, one of the axes is always time. Time series data may be regular or irregular. Regular time series data changes in constant intervals. Irregular time series data changes at non-constant intervals. When aggregating time series 
+time. On a time series data graph, one of the axes is always time. Time series data may be regular or irregular. Regular time series data changes in constant intervals. Irregular time series data changes at non-constant intervals.
 
 ### timestamp
 
-The date and time associated with a point. Time in InfluxDB is UTC.
+The date and time associated with a point. Time in InfluxDB is in UTC.
 
 To specify time when writing data, see [Elements of line protocol](https://v2.docs.influxdata.com/v2.0/reference/line-protocol/#elements-of-line-protocol).
 To specify time when querying data, see [Query InfluxDB with Flux](https://v2.docs.influxdata.com/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
@@ -770,7 +771,7 @@ To calculate the values per second rate, multiply the number of points written p
 
 Related entries: [batch](#batch), [field](#field), [point](#point), [points per second](#points-per-second)
 
-### variable
+<!-- ### variable
 
 ### variable assignment
 
