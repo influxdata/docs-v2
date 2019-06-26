@@ -15,9 +15,9 @@ v2.0/tags: [glossary]
 
 ### agent
 
-A core part of Telegraf that gathers metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
+A background process started by or on behalf of a user and typically requires user input. Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and send metrics to declared output plugins, based on the plugins enabled for a configuration.
 
-Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin)
+Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin), [daemon](#daemon)
 
 ### aggregator plugin
 
@@ -25,10 +25,10 @@ Receives metrics from input plugins, creates aggregate metrics, and then passes 
 
 Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-### aggregation
+### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [Flux built-in aggregate functions](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/built-in/transformations/aggregates/).
+For a list of available aggregation functions, see [Flux built-in aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -39,31 +39,37 @@ Related entries: [function](#function), [selector](#selector), [transformation](
 ### batch
 
 A collection of points in line protocol format, separated by newlines (`0x0A`).
-Submitting a batch of points to the database using a single HTTP request to the write endpoints drastically increases performance by reducing the HTTP overhead.
+Submitting a batch of points using a single HTTP request to the write endpoints drastically increases performance by reducing the HTTP overhead.
 InfluxData typically recommends batch sizes of 5,000-10,000 points. In some use cases, performance may improve with significantly smaller or larger batches.
 
 Related entries: [line protocol](/v2.0/reference/line-protocol/), [point](#point)
 
 ### batch size 
 
-The Telegraf agent sends metrics to output plugins in batches, not individually.
-The batch size controls the size of each write batch that Telegraf sends to the output plugins.
+The number of lines or individual data points in a line protocol batch. The Telegraf agent sends metrics to output plugins in batches rather than individually.
+Batch size controls the size of each write batch that Telegraf sends to the output plugins.
 
 Related entries: [output plugin](#output-plugin)
 
-<!-- ### block
+<!-- ### block-->
 
-### bool
+### boolean
+A data type with two possible values: true or false.
+By convention, you can express true as the integer 1 and false as the integer 0 (zero).
 
 ### bucket
-
+A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
+<!-->
 ### bytes
 
 ## C
 
 ### CSV
 
+-->
 ### cardinality
+Cardinality is the number of unique series in a bucket or database as a whole.
+<!--
 
 ### cluster
 
@@ -75,15 +81,16 @@ Related entries: [output plugin](#output-plugin)
 
 ### collection interval
 
-The default global interval for collecting data from each input plugin.
+The default global interval for collecting data from each Telegraf input plugin.
 The collection interval can be overridden by each individual input plugin's configuration.
 
 Related entries: [input plugin](#input-plugin)
 
+<!--Likely configurable for scrapers in the future.-->
+
 ### collection jitter
 
-Collection jitter is used to prevent every input plugin from collecting metrics simultaneously, which can have a measurable effect on the system.
-Each collection interval, every input plugin will sleep for a random time between zero and the collection jitter before collecting the metrics.
+Collection jitter prevents every input plugin from collecting metrics simultaneously, which can have a measurable effect on the system. For each collection interval, every Telegraf input plugin will sleep for a random time between zero and the collection jitter before collecting the metrics.
 
 Related entries: [collection interval](#collection-interval), [input plugin](#input-plugin)
 
@@ -97,36 +104,40 @@ Related entries: [collection interval](#collection-interval), [input plugin](#in
 
 ### continuous query (CQ)
 
-An InfluxQL query that runs automatically and periodically within a database.
+Continuous queries are the predecessor to tasks in InfluxDB 2.0. Continuous queries run automatically and periodically on a database.
 Continuous queries require a function in the `SELECT` clause and must include a `GROUP BY time()` clause.
-See [Continuous Queries](/influxdb/v1.7/query_language/continuous_queries/).
+See [Continuous queries](/influxdb/v1.7/query_language/continuous_queries/).
 
 Related entries: [function](#function)
 
 ## D
 
-<!--### daemon
+### daemon
+A background process that runs without user input.
 
+<!--
 ### dashboard
+
+### dashboard variable
 
 ### Data Explorer
 
 ### data model
 -->
 
-### data node
+<!-- ### data node
 
-A node that runs the data service.
+A node that runs the InfluxDB? data service.
 
 For high availability, installations must have at least two data nodes.
-The number of data nodes in your cluster must be the same as your highest
-replication factor.
+The number of data nodes in your cluster must be the same as your highest replication factor.
 Any replication factor greater than two gives you additional fault tolerance and
 query capacity in the cluster.
 
 Data node sizes will depend on your needs. The Amazon EC2 m4.large or m4.xlarge are good starting points.
 
 Related entries: [data service](#data-service), [replication factor](#replication-factor)
+-->
 
 ### data service
 
@@ -138,19 +149,19 @@ Related entries: [data node](#data-node)
 
 ### database
 
-A logical container for users, retention policies, continuous queries, and time series data.
+In InfluxDB 2.0, a database represents the InfluxDB instance as a whole.
 
 Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
 
-<!-- ### date-time
+<!-- ### date-time-->
 
 ### downsample
--->
+Aggregating high resolution data into lower resolution data to preserve disk space.
 
 ### duration
 
-The attribute of the retention policy that determines how long InfluxDB stores data.
-Data older than the duration are automatically dropped from the database.
+A data type that represents a duration of time (1s, 1m, 1h, 1d). Retention policies are set using durations.
+Data older than the duration is automatically dropped from the database.
 <!-- See [Database Management](/influxdb/v1.7/query_language/database_management/#create-retention-policies-with-create-retention-policy) for how to set duration.
 -->
 
@@ -163,13 +174,12 @@ Related entries: [retention policy](#retention-policy-rp)
 
 ### event
 
-Measurements gathered at irregular time intervals.
+Metrics gathered at irregular time intervals.
 
 <!-- ### explicit block
-
-### expression
-
 -->
+### expression
+A combination of one or more constants, variables, operators, and functions.
 
 ## F
 
@@ -184,7 +194,7 @@ Related entries: [field key](#field-key), [field set](#field-set), [field value]
 
 ### field key
 
-The key part of the key-value pair that makes up a field.
+The key of the key-value pair.
 Field keys are strings and they store metadata.
 
 Related entries: [field](#field), [field set](#field-set), [field value](#field-value), [tag key](#tag-key)
@@ -197,7 +207,7 @@ Related entries: [field](#field), [field key](#field-key), [field value](#field-
 
 ### field value
 
-The value part of the key-value pair that makes up a field.
+The value of a key-value pair.
 Field values are the actual data; they can be strings, floats, integers, or booleans.
 A field value is always associated with a timestamp.
 
@@ -208,32 +218,33 @@ Field values are not indexed - queries on field values scan all points that matc
 Related entries: [field](#field), [field key](#field-key), [field set](#field-set), [tag value](#tag-value), [timestamp](#timestamp)
 
 <!-- ### file block
-
-### float
 -->
+### float
+A float represents real numbers and is written with a decimal point dividing the integer and fractional parts. For example, 1.0, 3.14.
 
 ### flush interval
 
-The global interval for flushing data from each output plugin to its destination.
+The global interval for flushing data from each Telegraf output plugin to its destination.
 This value should not be set lower than the collection interval.
 
 Related entries: [collection interval](#collection-interval), [flush jitter](#flush-jitter), [output plugin](#output-plugin)
 
 ### flush jitter
 
-Flush jitter prevents every output plugin from sending writes simultaneously, which can overwhelm some data sinks.
-Each flush interval, every output plugin will sleep for a random time between zero and the flush jitter before emitting metrics.
+Flush jitter prevents every Telegraf output plugin from sending writes simultaneously, which can overwhelm some data sinks.
+Each flush interval, every Telegraf output plugin will sleep for a random time between zero and the flush jitter before emitting metrics.
 Flush jitter smooths out write spikes when running a large number of Telegraf instances.
 
 Related entries: [flush interval](#flush-interval), [output plugin](#output-plugin)
 
 ### Flux
 
-A lightweight scripting language for querying databases (like InfluxDB) and working with data. Flux is included with InfluxDB 1.7 and 2.0. Flux can also be run independently from InfluxDB.
+A lightweight scripting language for querying databases (like InfluxDB) and working with data. 
 
 ### function
 
-Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/all-functions/). Or opt to use Flux functions' predecessor, InfluxQL functions. See [InfluxQL functions](/influxdb/v1.7/query_language/functions/) for a complete list.
+Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/). 
+<!--Or opt to use Flux functions' predecessor, InfluxQL functions. See [InfluxQL functions](/influxdb/v1.7/query_language/functions/) for a complete list. -->
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
@@ -253,10 +264,9 @@ Related entries: [aggregation](#aggregation), [selector](#selector), [transforma
 ## H
 
 ### Hinted Handoff (HH)
-
-### histogram
-
 -->
+### histogram
+A visual representation of statistical information that uses rectangles to show the frequency of data items in successive, equal intervals or bins.
 
 ## I
 
@@ -265,7 +275,7 @@ Related entries: [aggregation](#aggregation), [selector](#selector), [transforma
 Identifiers are tokens that refer to task names, bucket names, field keys,
 measurement names, subscription names, tag keys, and
 user names.
-For examples and rules, see [Flux language lexical elements](https://v2.docs.influxdata.com/v2.0/reference/flux/language/lexical-elements/#identifiers).
+For examples and rules, see [Flux language lexical elements](/v2.0/reference/flux/language/lexical-elements/#identifiers).
 
 Related entries:
 [bucket](#bucket)
@@ -275,15 +285,18 @@ Related entries:
 [tag key](#tag-key),
 [user](#user)
 
-<!--### implicit block
+<!--### implicit block -->
 
 ### influx
+A command line interface (CLI) that interacts with the InfluxDB daemon (influxd).
 
 ### influxd
+The InfluxDB daemon that runs the InfluxDB server and other required processes.
 
-### InfluxDB
+<!--### InfluxDB -->
 
 ### InfluxDB UI
+The graphical web interface provided by InfluxDB for visualizing data and managing InfluxDB functionality.
 
 ### InfluxQL
 
@@ -291,7 +304,7 @@ Related entries:
 
 ### input plugin
 
-Input plugins actively gather metrics and deliver them to the core agent, where aggregator, processor, and output plugins can operate on the metrics.
+Telegraf input plugins actively gather metrics and deliver them to the core agent, where aggregator, processor, and output plugins can operate on the metrics.
 In order to activate an input plugin, it needs to be enabled and configured in Telegraf's configuration file.
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [collection interval](/telegraf/v1.10/concepts/glossary/#collection-interval), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
@@ -312,8 +325,6 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 
 ## K
 
-### Kapacitor
-
 ### keyword
 
 -->
@@ -332,7 +343,7 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 
 ### Line Protocol (LP)
 
-The text based format for writing points to InfluxDB. See [Line Protocol](/influxdb/v1.7/write_protocols/).
+The text based format for writing points to InfluxDB. See [Line Protocol](/v2.0/reference/line-protocol/).
 
 ## M
 
@@ -341,11 +352,12 @@ The text based format for writing points to InfluxDB. See [Line Protocol](/influ
 The part of InfluxDB's structure that describes the data stored in the associated fields.
 Measurements are strings.
 
-Related entries: [field](/influxdb/v1.7/concepts/glossary/#field), [series](/influxdb/v1.7/concepts/glossary/#series)
+Related entries: [field](#field), [series](#series)
 
 ### member
+A user in an organization. <!--or a node in a cluster. -->
 
-### meta node
+<!--### meta node
 
 A node that runs the meta service.
 
@@ -364,6 +376,8 @@ servers, buckets, users, tasks, subscriptions, and blocks of time exist.
 
 Related entries: [meta node](#meta-node)
 
+-->
+
 ### metastore
 
 Contains internal information about the status of the system.
@@ -373,12 +387,11 @@ Related entries: [bucket](#bucket), [retention policy](#retention-policy-rp), [u
 
 ### metric
 
-Measurements gathered at regular time intervals.
+Data tracked over time.
 
-### metric buffer 
-<!-- obsolete? -->
+### metric buffer
 
-The metric buffer caches individual metrics when writes are failing for an output plugin.
+The metric buffer caches individual metrics when writes are failing for an Telegraf output plugin.
 Telegraf will attempt to flush the buffer upon a successful write to the output.
 The oldest metrics are dropped first when this buffer fills.
 
@@ -399,35 +412,39 @@ Related entries: [server](#server)
 
 The local server's nanosecond timestamp.
 
-<!-- ### null -->
+### null
+A data type that represents a missing or unknown value. Denoted by the null value.
 
 ## O
 
-<!-- ### operator 
+### operator
+A character that represents a computation or evaluation of multiple operands.
 
-### option
+### operand
+The object or value on either side of an operator.
+
+<!-- ### option
 
 ### option assignment
-
-### organization
-
 -->
+### organization
+A workspace for a group of users. All dashboards, tasks, buckets, members, and so on, belong to an organization.
 
 ### output plugin 
 
-Output plugins deliver metrics to their configured destination. In order to activate an output plugin, it needs to be enabled and configured in Telegraf's configuration file.
+Telegraf output plugins deliver metrics to their configured destination. In order to activate an output plugin, it needs to be enabled and configured in Telegraf's configuration file.
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [flush interval](/telegraf/v1.10/concepts/glossary/#flush-interval), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
 
 ## P
 
-<!-- ### parameter
-
+### parameter
+A key-value pair used to pass information to functions.
+<!-- 
 ### pipe
-
-### pipe-forward operator
-
 -->
+### pipe-forward operator
+An operator (|>) used in Flux to chain operations together. Specifies the output from a function is input to next function.
 
 ### point
 
@@ -450,12 +467,9 @@ Related entries: [point](/influxdb/v1.7/concepts/glossary/#point), [schema](/inf
 
 ### precision
 
-The precision configuration setting determines how much timestamp precision is retained in the points received from input plugins. All incoming timestamps are truncated to the given precision.
-Telegraf then pads the truncated timestamps with zeros to create a nanosecond timestamp; output plugins will emit timestamps in nanoseconds.
-Valid precisions are `ns`, `us` or `µs`, `ms`, and `s`.
+The precision configuration setting determines the timestamp precision retained for input data points. All incoming timestamps are truncated to the specified precision. Valid precisions are `ns`, `us` or `µs`, `ms`, and `s`.
 
-For example, if the precision is set to `ms`, the nanosecond epoch timestamp `1480000000123456789` is truncated to `1480000000123` in millisecond precision and padded with zeroes to make a new, less precise nanosecond timestamp of `1480000000123000000`.
-Output plugins do not alter the timestamp further. The precision setting is ignored for service input plugins.
+In Telegraf, truncated timestamps are padded with zeros to create a nanosecond timestamp. Telegraf output plugins emit timestamps in nanoseconds. For example, if the precision is set to `ms`, the nanosecond epoch timestamp `1480000000123456789` is truncated to `1480000000123` in millisecond precision and padded with zeroes to make a new, less precise nanosecond timestamp of `1480000000123000000`. Telegraf output plugins do not alter the timestamp further. The precision setting is ignored for service input plugins.
 
 Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](/#processor-plugin), [service input plugin](#service-input-plugin)
 
@@ -463,7 +477,7 @@ Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input
 
 ### processor plugin
 
-Processor plugins transform, decorate, and filter metrics collected by input plugins, passing the transformed metrics to the output plugins.
+Telegraf processor plugins transform, decorate, and filter metrics collected by input plugins, passing the transformed metrics to the output plugins.
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin)
 
@@ -474,14 +488,14 @@ Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-
 ### query
 
 An operation that retrieves data from InfluxDB.
-See [Query data in InfluxDB](https://v2.docs.influxdata.com/v2.0/query-data/).
+See [Query data in InfluxDB](/v2.0/query-data/).
 
 ## R
 
 ### REPL
 
 A read-eval-print-loop is an interactive programming environment where you type a command and immediately see the result.
-See [Use the influx CLI's REPL](https://v2.docs.influxdata.com/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl)
+See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl)
 
 ### record
 
@@ -489,38 +503,14 @@ A tuple of named values represented using an object type.
 
 ### regular expressions
 
-Regular expressions or regex are patterns used to match character combinations in strings.
-
-### replication factor (RF)
-
-The attribute of the retention policy that determines how many copies of the
-data are stored in the cluster. Replication factors do not serve a purpose with single node instances. InfluxDB replicates data across `N` data nodes, where `N` is the replication
-factor.
-
-<!-- Replication factors are not relevant for single node instances.
- - obsolete? -->
-
-To maintain data availability for queries, the replication factor should be less
-than or equal to the number of data nodes in the cluster:
-
-* Data is fully available when the replication factor is greater than the
-number of unavailable data nodes.
-* Data may be unavailable when the replication factor is less than the number of
-unavailable data nodes.
-
-Any replication factor greater than two gives you additional fault tolerance and
-query capacity in the cluster.
-
-Related entries: [duration](#duration), [node](#node), [retention policy](#retention-policy-rp)
+Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
 ### retention policy (RP)
 
-Retention polices are specified in a bucket and describes how long InfluxDB keeps data (duration), how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
+Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
 
-<!-- still true? When you create a bucket, InfluxDB automatically creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
-See [Database Management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for retention policy management.
+<!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
 -->
-
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
 
 ## S
@@ -539,13 +529,13 @@ Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#meas
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
-See [Flux built-in selector functions](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
+See [Flux built-in selector functions](/v2.0/reference/flux/functions/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
 
 Related entries: [aggregation](#aggregation), [function](#function), [transformation](#transformation)
 
 ### series
 
-A collection of data in the InfluxDB data structure that shares a measurement, tag set, and retention policy<!--bucket? -->.
+A collection of data in the InfluxDB data structure that shares a measurement, tag set, and bucket.
 
 Related entries: [field set](#field-set), [measurement](#measurement), [retention policy](/#retention-policy-rp), [tag set](#tag-set)
 
@@ -597,12 +587,12 @@ Related entries: [node](#node)
 
 ### service input plugin
 
-Input plugins that run in a passive collection mode while the Telegraf agent is running.
+Telegraf input plugins that run in a passive collection mode while the Telegraf agent is running.
 Service input plugins listen on a socket for known protocol inputs, or apply their own logic to ingested metrics before delivering metrics to the Telegraf agent.
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-### shard
+<!--### shard
 
 A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
 Every shard belongs to one and only one shard group.
@@ -616,7 +606,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for more information.-->
+<!-- See [Retention Policy management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -631,6 +621,8 @@ A given shard group contains all shards with data for the interval covered by th
 The interval spanned by each shard group is the shard duration.
 
 Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard duration](#shard-duration)
+
+-->
 
 <!--### Single Stat
 
@@ -648,9 +640,12 @@ Related entries: [database](#database), [retention policy](#retention-policy-rp)
 
 "stream of tables"
 
-### string
+-->
 
-### subscription
+### string
+A data type used to represent text.
+
+<!-- how does this work in 2.0? ### subscription
 
 Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
@@ -669,7 +664,7 @@ Subscriptions can use TCP or UDP for transmitting the writes.
 ### TSM file
 
 ### table
-
+-->
 ### tag
 
 The key-value pair in InfluxDB's data structure that records metadata.
@@ -678,12 +673,10 @@ Tags are an optional part of InfluxDB's data structure but they are useful for s
 
 Related entries: [field](/influxdb/v1.7/concepts/glossary/#field), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
 
--->
-
 ### tag key
 
-Part of the key-value pair that makes up a tag. Tag keys are strings and store metadata.
-<!--Tag keys are indexed so queries on tag keys are performant. -->
+The key of a tag key-value pair. Tag keys are strings and store metadata.
+Tag keys are indexed so queries on tag keys are processed quickly.
 
 *Query tip:* Compare tag keys to field keys. Field keys are not indexed.
 
@@ -697,23 +690,20 @@ Related entries: [point](#point), [series](#series), [tag](#tag), [tag key](#tag
 
 ### tag value
 
-The value part of the key-value pair that makes up a tag.
+The value of a tag key-value pair.
 Tag values are strings and they store metadata.
-Tag values are indexed so queries on tag values are performant.
+Tag values are indexed so queries on tag values are processed quickly.
 
 Related entries: [tag]#tag), [tag key](#tag-key), [tag set](#tag-set)
 
 <!--### task
 
 ### Telegraf
-
-### template
-
-### template variable
+-->
 
 ### time (data type)
 
--->
+A data type that represents a single point in time with nanosecond precision.
 
 ### time series data
 
@@ -724,8 +714,8 @@ time. On a time series data graph, one of the axes is always time. Time series d
 
 The date and time associated with a point. Time in InfluxDB is in UTC.
 
-To specify time when writing data, see [Elements of line protocol](https://v2.docs.influxdata.com/v2.0/reference/line-protocol/#elements-of-line-protocol).
-To specify time when querying data, see [Query InfluxDB with Flux](https://v2.docs.influxdata.com/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
+To specify time when writing data, see [Elements of line protocol](/v2.0/reference/line-protocol/#elements-of-line-protocol).
+To specify time when querying data, see [Query InfluxDB with Flux](/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
 Related entries: [point](#point)
 
@@ -793,8 +783,12 @@ This has been deprecated and the suggestion is to use [Chronograf](/chronograf/l
 
 If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/chronograf/latest/guides/transition-web-admin-interface/) is available.
 
-### windowing 
+-->
 
+### windowing
+The process of partitioning data based on equal windows of time.
+
+<!-- 
 ## X 
 
 
