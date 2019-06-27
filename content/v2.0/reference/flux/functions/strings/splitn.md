@@ -22,7 +22,7 @@ _**Output data type:** Array of strings_
 ```js
 import "strings"
 
-strings.splitN(v: "a flux of foxes", t: " ")
+strings.splitN(v: "a flux of foxes", t: " ", i: 2)
 
 // returns ["a", "flux", "of foxes"]
 ```

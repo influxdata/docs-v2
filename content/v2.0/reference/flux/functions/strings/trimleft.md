@@ -1,7 +1,7 @@
 ---
 title: strings.trimLeft() function
 description: >
-  The strings.trimLeft() function removes leading characters specified in the cutset from a string.
+  The strings.trimLeft() function removes specified leading characters from a string.
 menu:
   v2_0_ref:
     name: strings.trimLeft
@@ -15,8 +15,7 @@ related:
   - /v2.0/reference/flux/functions/strings/trimspace
 ---
 
-The `strings.trimLeft()` function removes leading characters specified in the
-[`cutset`](#cutset) from a string.
+The `strings.trimLeft()` function removes specified leading characters from a string.
 
 _**Output data type:** String_
 

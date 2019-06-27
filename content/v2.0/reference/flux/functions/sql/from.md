@@ -74,6 +74,6 @@ import "sql"
 sql.from(
   driverName: "postgres",
   dataSourceName: "postgresql://user:password@localhost",
-  query:"SELECT * FROM TestTable"
+  query:"SELECT * FROM ExampleTable"
 )
 ```

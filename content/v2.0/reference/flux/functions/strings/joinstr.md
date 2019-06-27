@@ -10,7 +10,7 @@ menu:
 weight: 301
 ---
 
-The `strings.joinStr()` function concatenates the elements of a string array into
+The `strings.joinStr()` function concatenates elements of a string array into
 a single string using a specified separator.
 
 _**Output data type:** String_

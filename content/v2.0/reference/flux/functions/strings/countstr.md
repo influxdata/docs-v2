@@ -2,7 +2,7 @@
 title: strings.countStr() function
 description: >
   The strings.countStr() function counts the number of non-overlapping instances
-  one string appears in another string.
+  of a substring appears in a string.
 menu:
   v2_0_ref:
     name: strings.countStr
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `strings.countStr()` function counts the number of non-overlapping instances
-one string appears in another string.
+of a substring appears in a string.
 
 _**Output data type:** Integer_
 
@@ -31,7 +31,7 @@ The string value to search.
 _**Data type:** String_
 
 ### substr
-The substring value to count.
+The substring to count.
 
 _**Data type:** String_
 

@@ -1,6 +1,6 @@
 ---
 title: strings.containsStr() function
-description: The strings.containsStr() function reports whether a string is contained in another string.
+description: The strings.containsStr() function reports whether a string contains a specified substring.
 menu:
   v2_0_ref:
     name: strings.containsStr
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/containsany
 ---
 
-The `strings.containsStr()` function reports whether a string is contained in another string.
+The `strings.containsStr()` function reports whether a string contains a specified substring.
 
 _**Output data type:** Boolean_
 

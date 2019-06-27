@@ -2,7 +2,7 @@
 title: strings.lastIndex() function
 description: >
   The strings.lastIndex() function returns the index of the last instance of a substring
-  in another string or `-1` if substring is not present.
+  in a string or `-1` if substring is not present.
 menu:
   v2_0_ref:
     name: strings.lastIndex
@@ -15,7 +15,7 @@ related:
 ---
 
 The `strings.lastIndex()` function returns the index of the last instance of a substring
-in another string. If the substring is not present, the function returns `-1`.
+in a string. If the substring is not present, the function returns `-1`.
 
 _**Output data type:** Integer_
 

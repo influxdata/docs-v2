@@ -33,12 +33,12 @@ The string value to search.
 _**Data type:** String_
 
 ### t
-The string value to replace.
+The substring to replace.
 
 _**Data type:** String_
 
 ### u
-The string value to replace all instances of `t`.
+The replacement for all instances of `t`.
 
 _**Data type:** String_
 

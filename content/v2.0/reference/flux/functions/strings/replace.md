@@ -12,7 +12,8 @@ related:
   - /v2.0/reference/flux/functions/strings/replaceall
 ---
 
-The `strings.replace()` function replaces the first `i` non-overlapping instances of a substring with a specified replacement.
+The `strings.replace()` function replaces the first `i` non-overlapping instances
+of a substring with a specified replacement.
 
 _**Output data type:** String_
 
@@ -32,12 +33,12 @@ The string value to search.
 _**Data type:** String_
 
 ### t
-The string value to replace.
+The substring value to replace.
 
 _**Data type:** String_
 
 ### u
-The string value to replace `i` instances of `t`.
+The replacement for `i` instances of `t`.
 
 _**Data type:** String_
 

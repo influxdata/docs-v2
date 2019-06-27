@@ -1,6 +1,6 @@
 ---
 title: strings.isDigit() function
-description: The strings.isDigit() function indicates if a single character string is a digit (0-9).
+description: The strings.isDigit() function tests if a single character string is a digit (0-9).
 menu:
   v2_0_ref:
     name: strings.isDigit
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/isletter/
 ---
 
-The `strings.isDigit()` function indicates if a single-character string is a digit (0-9).
+The `strings.isDigit()` function tests if a single-character string is a digit (0-9).
 
 _**Output data type:** Boolean_
 

@@ -1,6 +1,6 @@
 ---
 title: strings.repeat() function
-description: The strings.repeat() function returns a string consisting of i copies of a specified string.
+description: The strings.repeat() function returns a string consisting of `i` copies of a specified string.
 menu:
   v2_0_ref:
     name: strings.repeat
@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `strings.repeat()` function returns a string consisting of i copies of a specified string.
+The `strings.repeat()` function returns a string consisting of `i` copies of a specified string.
 
 _**Output data type:** String_
 

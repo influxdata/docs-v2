@@ -15,7 +15,7 @@ related:
 ---
 
 The `strings.index()` function returns the index of the first instance of a substring
-in another string. If the substring is not present, it returns `-1`.
+in a string. If the substring is not present, it returns `-1`.
 
 _**Output data type:** Integer_
 

@@ -1,6 +1,6 @@
 ---
 title: strings.isLower() function
-description: The strings.isLower() function indicates if a single-character string is lowercase.
+description: The strings.isLower() function tests if a single-character string is lowercase.
 menu:
   v2_0_ref:
     name: strings.isLower
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/strings/isupper
 ---
 
-The `strings.isLower()` function indicates if a single-character string is lowercase.
+The `strings.isLower()` function tests if a single-character string is lowercase.
 
 _**Output data type:** Boolean_
 

@@ -21,7 +21,7 @@ import "strings"
 
 strings.toTitle(v: "a flux of foxes")
 
-// returns "A Flux Of Foxes"
+// returns "A FLUX OF FOXES"
 ```
 
 ## Parameters

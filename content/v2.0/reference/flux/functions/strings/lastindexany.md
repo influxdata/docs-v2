@@ -33,7 +33,7 @@ The string value to search.
 _**Data type:** String_
 
 ### chars
-The string value that contains characters to search for.
+Characters to search for.
 
 _**Data type:** String_
 
