@@ -21,6 +21,8 @@ InfluxDB until the next InfluxDB v2.0 release._
 ### Bug fixes
 - Parse float types with PostgreSQL.
 
+---
+
 ## v0.34.1 [2019-06-26]
 
 ### Features

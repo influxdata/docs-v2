@@ -9,7 +9,7 @@ menu:
   v2_0_ref:
     name: InfluxDB v1
     parent: Flux packages and functions
-weight: 203
+weight: 202
 v2.0/tags: [functions, influxdb-v1, package]
 ---
 

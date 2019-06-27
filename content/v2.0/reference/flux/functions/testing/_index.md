@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: Testing
     parent: Flux packages and functions
-weight: 205
+weight: 202
 v2.0/tags: [testing, functions, package]
 ---
 

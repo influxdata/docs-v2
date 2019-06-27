@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: Regular expressions
     parent: Flux packages and functions
-weight: 205
+weight: 202
 v2.0/tags: [regex, functions]
 ---
 
