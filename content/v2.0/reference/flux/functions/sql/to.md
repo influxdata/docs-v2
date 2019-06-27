@@ -1,6 +1,6 @@
 ---
 title: sql.to() function
-description: The `sql.to()` function writes data to an SQL database.
+description: The `sql.to()` function writes data to a SQL database.
 menu:
   v2_0_ref:
     name: sql.to
@@ -33,11 +33,11 @@ _**Data type:** String_
 The following drivers are available:
 
 - mysql
-- postrges
+- postgres
 
 ### dataSourceName
 The connection string used to connect to the SQL database.
-Its form and structure depend on the [driver](#drivername) used.
+The string's form and structure depend on the [driver](#drivername) used.
 
 _**Data type:** String_
 
