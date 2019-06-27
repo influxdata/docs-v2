@@ -55,16 +55,49 @@ A stream is grouped into individual tables using their respective group keys.
 Tables within a stream each have a unique group key value.
 
 {{% note %}}
-[IMPL#463](https://github.com/influxdata/flux/issues/463) Specify the primitive types that make up stream and table types
+[IMPL#463](https://github.com/influxdata/flux/issues/463) Specify the primitive
+types that make up stream and table types
 {{% /note %}}
 
-## Missing values
-A record may be missing a value for a specific column.
-Missing values are represented with a special `null` value.
-The `null` value can be of any data type.
+## Missing values (null)
+`null` is a predeclared identifier representing a missing or unknown value.
+`null` is the only value comprising the _null type_.
+Any non-boolean operator that operates on basic types returns _null_ when at least one of its operands is _null_.
+
+Think of _null_ as an unknown value.
+The following table explains how _null_ values behave in expressions:
+
+| Expression       | Evaluates To | Because                                                                             |
+| ---------------- | ------------ | ----------------------------------------------------------------------------------- |
+| `null + 5`       | `null`       | Adding 5 to an unknown value is still unknown                                       |
+| `null * 5`       | `null`       | Multiplying an unknown value by 5 is still unknown                                  |
+| `null == 5`      | `null`       | We don't know if an unknown value is equal to 5                                     |
+| `null < 5`       | `null`       | We don't know if an unknown value is less than 5                                    |
+| `null == null`   | `null`       | We don't know if something unknown is equal to something else that is also unknown  |
+
+Operating on something unknown produces something that is still unknown.
+The only place where this is not the case is in boolean logic.
+Because boolean types are nullable, Flux implements ternary logic as a way of handling boolean operators with _null_ operands.
+By interpreting a _null_ operand as an unknown value, we have the following definitions:
+
+- not _null_ = _null_
+- _null_ or false = _null_
+- _null_ or true = true
+- _null_ or _null_ = _null_
+- _null_ and false = false
+- _null_ and true = _null_
+- _null_ and _null_ = _null_
+
+Because records are represented using object types, attempting to access a column
+whose value is unknown or missing from a record will also return _null_.
 
 {{% note %}}
-[IMPL#723](https://github.com/influxdata/platform/issues/723) Design how nulls behave
+According to the definitions above, it is not possible to check if an expression is _null_ using the `==` and `!=` operators.
+These operators will return _null_ if any of their operands are _null_.
+In order to perform such a check, Flux provides a built-in `exists` operator:
+
+- `exists x` returns false if `x` is _null_
+- `exists x` returns true if `x` is not _null_
 {{% /note %}}
 
 ## Transformations

@@ -87,8 +87,7 @@ from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
   |> map(fn: (r) => ({
-    _time: r._time,
-    _value: r._value,
+    r with
     level:
       if r._value >= 95.0000001 and r._value <= 100.0 then "critical"
       else if r._value >= 85.0000001 and r._value <= 95.0 then "warning"
@@ -104,10 +103,8 @@ from(bucket: "example-bucket")
   |> range(start: -5m)
   |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
   |> map(fn: (r) => ({
-    // Retain the _time column in the mapped row
-    _time: r._time,
-    // Retain the _value column in the mapped row
-    _value: r._value,
+    // Retain all existing columns in the mapped row
+    r with
     // Set the level column value based on the _value column
     level:
       if r._value >= 95.0000001 and r._value <= 100.0 then "critical"

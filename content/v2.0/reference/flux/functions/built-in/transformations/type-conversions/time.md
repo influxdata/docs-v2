@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "system" and
   )
-  |> map(fn:(r) => time(v: r.timestamp))
+  |> map(fn:(r) => ({ r with timestamp: time(v: r.timestamp) }))
 ```
