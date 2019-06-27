@@ -1,6 +1,6 @@
 ---
 title: Flux release notes
-description: Important changes and notes introduced in each version of Flux.
+description: Important changes and and what's new in each version of Flux.
 weight: 102
 menu:
   v2_0_ref:

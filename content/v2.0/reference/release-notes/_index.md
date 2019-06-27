@@ -1,13 +1,12 @@
 ---
-title: InfluxData project release notes
-description: View release notes for InfluxData projects.
+title: Release notes
+description: Find important information about what's included in new versions of InfluxData products.
 menu:
   v2_0_ref:
     name: Release notes
     weight: 1
 ---
 
-The following release notes provide important information about released versions
-of InfluxData projects:
+Find important information about what's included in new versions of our products:
 
 {{< children >}}

@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Cloud release notes
-description: Important changes and notes introduced in each InfluxDB Cloud 2.0 update.
+description: Important changes and and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
   v2_0_ref:
