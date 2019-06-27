@@ -16,9 +16,10 @@ influxd inspect [command]
 ```
 
 ## Subcommands
-| Subcommand                                                    | Description    |
-|:----------                                                    |:-----------    |
-| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/) | Run TSM report |
+| Subcommand                                                    | Description                 |
+|:----------                                                    |:-----------                 |
+| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/) | Run TSM report              |
+| [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/) | Check for corrupt WAL files |
 
 ## Flags
 | Flag           | Description      |
