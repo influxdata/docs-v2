@@ -15,9 +15,9 @@ _**Output data type:** Integer_
 ```js
 import "strings"
 
-compare(v: "a", t: "a")
+strings.compare(v: "a", t: "b")
 
-// returns 0
+// returns -1
 ```
 
 #### Return values
