@@ -11,10 +11,15 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.34.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.34.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.34.2 [2019-06-27]
+
+### Bug fixes
+- Parse float types with PostgreSQL.
 
 ## v0.34.1 [2019-06-26]
 
