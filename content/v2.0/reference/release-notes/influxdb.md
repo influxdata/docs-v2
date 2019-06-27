@@ -1,16 +1,19 @@
 ---
 title: InfluxDB v2.0 release notes
-description:
+description: Important changes and notes introduced in each version of InfluxDB.
 menu:
   v2_0_ref:
-    name: Release notes
-    weight: 1
+    name: InfluxDB
+    parent: Release notes
+weight: 101
 ---
 
 ## v2.0.0-alpha.13 [2019-06-13]
 
 ### Features
 - Add static templates for system, Docker, Redis, Kubernetes.
+
+---
 
 ## v2.0.0-alpha.12 [2019-06-13]
 
@@ -22,10 +25,14 @@ menu:
 ## Bug Fixes
 - Fix performance regression in graph tooltips.
 
+---
+
 ## v2.0.0-alpha.11 [2019-05-31]
 
 ## Bug Fixes
 - Correctly check if columnKeys include xColumn in heatmap.
+
+---
 
 ## v2.0.0-alpha.10 [2019-05-30]
 
@@ -51,8 +58,9 @@ menu:
 - Change scrapers in scrapers list to be resource cards.
 - Export and download resource with formatted resource name with no spaces.
 
-## v2.0.0-alpha.9 [2019-05-01]
+---
 
+## v2.0.0-alpha.9 [2019-05-01]
 
 {{% warn %}}
 **This will remove all tasks from your InfluxDB v2.0 instance.**
