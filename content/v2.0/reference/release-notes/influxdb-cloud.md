@@ -1,11 +1,13 @@
 ---
 title: InfluxDB Cloud release notes
-description: Important changes and notes introduced in each InfluxDB Cloud 2.0 update.
+description: Important changes and and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
-  v2_0_cloud:
-    parent: About InfluxDB Cloud
-    name: Release notes
+  v2_0_ref:
+    parent: Release notes
+    name: InfluxDB Cloud
+aliases:
+  - /cloud/about/release-notes
 ---
 
 ## 2019-05-06 _Public Beta_
@@ -28,7 +30,7 @@ menu:
 ### Features
 
 - **InfluxDB 2.0 alpha-9** –
-_See the [alpha-9 release notes](/v2.0/reference/release-notes/#v2-0-0-alpha-9-2019-05-01) for details._
+_See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-9-2019-05-01) for details._
 
 ### Bug fixes
 
@@ -45,7 +47,7 @@ _See the [alpha-9 release notes](/v2.0/reference/release-notes/#v2-0-0-alpha-9-2
 ### Features
 
 - **InfluxDB 2.0 alpha-7** –
-_See the [alpha-7 release notes](/v2.0/reference/release-notes/#v2-0-0-alpha-7-2019-03-28) for details._
+_See the [alpha-7 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-7-2019-03-28) for details._
 
 ### Bug fixes
 
