@@ -38,9 +38,9 @@ The InfluxDB UI provides multiple ways to create a task:
 3. Select the **Task** option.
 4. Specify the task options. See [Task options](/v2.0/process-data/task-options)
    for detailed information about each option.
-5. Click **Save as Task**.
+5. Select a token to use from the **Token** dropdown.
+6. Click **Save as Task**.
 
-{{< img-hd src="/img/2-0-data-explorer-save-as-task.png" title="Add a task from the Data Explorer"/>}}
 
 ### Create a task in the Task UI
 1. Click on the **Tasks** icon in the left navigation menu.
@@ -51,8 +51,9 @@ The InfluxDB UI provides multiple ways to create a task:
 3. Select **New Task**.
 4. In the left panel, specify the task options.
    See [Task options](/v2.0/process-data/task-options) for detailed information about each option.
-5. In the right panel, enter your task script.
-6. Click **Save** in the upper right.
+5. Select a token to use from the **Token** dropdown.
+6. In the right panel, enter your task script.
+7. Click **Save** in the upper right.
 
 {{< img-hd src="/img/2-0-tasks-create-edit.png" title="Create a task" />}}
 
