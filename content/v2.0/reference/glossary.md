@@ -2,14 +2,14 @@
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
-weight: 6
+weight: 7
 menu:
   v2_0_ref:
     name: Glossary
 v2.0/tags: [glossary]
 ---
 
-[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) |[G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | [X](#x) | [Y](#y) | [Z](#z)
+[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | [X](#x) | [Y](#y) | [Z](#z)
 
 ## A
 
@@ -44,7 +44,7 @@ InfluxData typically recommends batch sizes of 5,000-10,000 points. In some use 
 
 Related entries: [line protocol](/v2.0/reference/line-protocol/), [point](#point)
 
-### batch size 
+### batch size
 
 The number of lines or individual data points in a line protocol batch. The Telegraf agent sends metrics to output plugins in batches rather than individually.
 Batch size controls the size of each write batch that Telegraf sends to the output plugins.
@@ -239,11 +239,11 @@ Related entries: [flush interval](#flush-interval), [output plugin](#output-plug
 
 ### Flux
 
-A lightweight scripting language for querying databases (like InfluxDB) and working with data. 
+A lightweight scripting language for querying databases (like InfluxDB) and working with data.
 
 ### function
 
-Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/). 
+Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/).
 <!--Or opt to use Flux functions' predecessor, InfluxQL functions. See [InfluxQL functions](/influxdb/v1.7/query_language/functions/) for a complete list. -->
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
@@ -439,7 +439,7 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 
 ### parameter
 A key-value pair used to pass information to functions.
-<!-- 
+<!--
 ### pipe
 -->
 ### pipe-forward operator
@@ -787,8 +787,8 @@ If you are transitioning from the Enterprise Web Console to Chronograf and helpf
 ### windowing
 The process of partitioning data based on equal windows of time.
 
-<!-- 
-## X 
+<!--
+## X
 
 
 ## Y
