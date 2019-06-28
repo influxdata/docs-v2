@@ -8,6 +8,24 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-alpha.14 [2019-06-28]
+
+### Features
+- Add `influxd inspect verify-wal` tool.
+- Move to [Flux 0.34.2](/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+  includes new string functions and initial multi-datasource support with `sql.from()`.
+- Only click save once to save cell.
+- Enable selecting more columns for line visualizations.
+
+### UI Improvements
+- Draw gauges correctly on HiDPI displays.
+- Clamp gauge position to gauge domain.
+- Improve display of error messages.
+- Remove rendering bottleneck when streaming Flux responses.
+- Prevent variable dropdown from clipping.
+
+---
+
 ## v2.0.0-alpha.13 [2019-06-13]
 
 ### Features
@@ -17,19 +35,19 @@ weight: 101
 
 ## v2.0.0-alpha.12 [2019-06-13]
 
-## Features
+### Features
 - Enable formatting line graph y ticks with binary prefix.
 - Add x and y column pickers to graph types.
 - Add option to shade area below line graphs.
 
-## Bug Fixes
+### Bug Fixes
 - Fix performance regression in graph tooltips.
 
 ---
 
 ## v2.0.0-alpha.11 [2019-05-31]
 
-## Bug Fixes
+### Bug Fixes
 - Correctly check if columnKeys include xColumn in heatmap.
 
 ---
