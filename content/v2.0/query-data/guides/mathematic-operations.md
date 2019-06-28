@@ -89,14 +89,14 @@ The example `multiplyByX()` function below includes:
 - A `tables` parameter that represents the input data stream (`<-`).
 - An `x` parameter which is the number by which values in the `_value` column are multiplied.
 - A `map()` function that iterates over each row in the input stream.
-  It uses the `_time` value of the input stream to define the `_time` value in the output stream.
+  It uses the `with` operator to preserve existing columns in each row.
   It also multiples the `_value` column by `x`.
 
 ```js
 multiplyByX = (x, tables=<-) =>
   tables
     |> map(fn: (r) => ({
-        _time: r._time,
+        r with
         _value: r._value * x
       })
     )
@@ -115,17 +115,17 @@ The `map()` function iterates over each row in the piped-forward data and define
 a new `_value` by dividing the original `_value` by 1073741824.
 
 ```js
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: -10m)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "active"
   )
   |> map(fn: (r) => ({
-        _time: r._time,
-        _value: r._value / 1073741824
-      })
-    )
+      r with
+      _value: r._value / 1073741824
+    })
+  )
 ```
 
 You could turn that same calculation into a function:
@@ -134,7 +134,7 @@ You could turn that same calculation into a function:
 bytesToGB = (tables=<-) =>
   tables
     |> map(fn: (r) => ({
-        _time: r._time,
+        r with
         _value: r._value / 1073741824
       })
     )
@@ -153,7 +153,7 @@ and format the denominator in the division operation as a float.
 bytesToGB = (tables=<-) =>
   tables
     |> map(fn: (r) => ({
-        _time: r._time,
+        r with
         _value: float(v: r._value) / 1073741824.0
       })
     )
@@ -195,7 +195,7 @@ usageToFloat = (tables=<-) =>
 
 // Define the data source and filter user and system CPU usage
 // from 'cpu-total' in the 'cpu' measurement
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -213,7 +213,8 @@ from(bucket: "default")
   // Map over each row and calculate the percentage of
   // CPU used by the user vs the system
   |> map(fn: (r) => ({
-      _time: r._time,
+      // Preserve existing columns in each row
+      r with
       usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
       usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
     })
@@ -232,7 +233,7 @@ usageToFloat = (tables=<-) =>
       })
     )
 
-from(bucket: "default")
+from(bucket: "example-bucket")
   |> range(start: timeRangeStart, stop: timeRangeStop)
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
@@ -243,7 +244,7 @@ from(bucket: "default")
   |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
   |> usageToFloat()
   |> map(fn: (r) => ({
-      _time: r._time,
+      r with
       usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
       usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
     })

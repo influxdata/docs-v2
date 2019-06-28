@@ -1,10 +1,29 @@
 ---
 title: InfluxDB v2.0 release notes
-description:
+description: Important changes and and what's new in each version of InfluxDB.
 menu:
   v2_0_ref:
-    name: Release notes
-    weight: 1
+    name: InfluxDB
+    parent: Release notes
+weight: 101
+---
+
+## v2.0.0-alpha.14 [2019-06-28]
+
+### Features
+- Add `influxd inspect verify-wal` tool.
+- Move to [Flux 0.34.2](/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+  includes new string functions and initial multi-datasource support with `sql.from()`.
+- Only click save once to save cell.
+- Enable selecting more columns for line visualizations.
+
+### UI Improvements
+- Draw gauges correctly on HiDPI displays.
+- Clamp gauge position to gauge domain.
+- Improve display of error messages.
+- Remove rendering bottleneck when streaming Flux responses.
+- Prevent variable dropdown from clipping.
+
 ---
 
 ## v2.0.0-alpha.13 [2019-06-13]
@@ -12,20 +31,26 @@ menu:
 ### Features
 - Add static templates for system, Docker, Redis, Kubernetes.
 
+---
+
 ## v2.0.0-alpha.12 [2019-06-13]
 
-## Features
+### Features
 - Enable formatting line graph y ticks with binary prefix.
 - Add x and y column pickers to graph types.
 - Add option to shade area below line graphs.
 
-## Bug Fixes
+### Bug Fixes
 - Fix performance regression in graph tooltips.
+
+---
 
 ## v2.0.0-alpha.11 [2019-05-31]
 
-## Bug Fixes
+### Bug Fixes
 - Correctly check if columnKeys include xColumn in heatmap.
+
+---
 
 ## v2.0.0-alpha.10 [2019-05-30]
 
@@ -51,8 +76,9 @@ menu:
 - Change scrapers in scrapers list to be resource cards.
 - Export and download resource with formatted resource name with no spaces.
 
-## v2.0.0-alpha.9 [2019-05-01]
+---
 
+## v2.0.0-alpha.9 [2019-05-01]
 
 {{% warn %}}
 **This will remove all tasks from your InfluxDB v2.0 instance.**

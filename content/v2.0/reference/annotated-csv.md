@@ -2,14 +2,13 @@
 title: Annotated CSV syntax
 description: >
   Annotated CSV format is used to encode HTTP responses and results returned to the Flux `csv.from()` function.
-  
+weight: 6
 menu:
   v2_0_ref:
     name: Annotated CSV
-    weight: 2
 ---
 
-Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/csv/from/). 
+Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/csv/from/).
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv` MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
@@ -30,7 +29,7 @@ Flux supports encodings listed below.
 A table may have the following rows and columns.
 
 #### Rows
-- **Annotation rows**: describe column properties. 
+- **Annotation rows**: describe column properties.
 
 - **Header row**: defines column labels (one header row per table).
 
@@ -74,11 +73,11 @@ In addition to the data columns, a table may include the following columns:
 
 ### Multiple tables and results
 If a file or data stream contains multiple tables or results, the following requirements must be met:
- 
-- A table column indicates which table a row belongs to. 
+
+- A table column indicates which table a row belongs to.
 - All rows in a table are contiguous.
 - An empty row delimits a new table boundary in the following cases:
-    - Between tables in the same result that do not share a common table schema. 
+    - Between tables in the same result that do not share a common table schema.
     - Between concatenated CSV files.
 - Each new table boundary starts with new annotation and header rows.
 
@@ -214,12 +213,12 @@ If a table has no rows, the `default` annotation provides the group key values.
 | duration     | duration      | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
 
 ## Errors
-If an error occurs during execution, a table returns with: 
+If an error occurs during execution, a table returns with:
 
 - An error column that contains an error message.
 - A reference column with a unique reference code to identify more information about the error.
-- A second row with error properties. 
- 
+- A second row with error properties.
+
 If an error occurs:
 
 - Before results materialize, the HTTP status code indicates an error. Error details are encoded in the csv table.
