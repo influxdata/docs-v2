@@ -2,18 +2,18 @@
 title: influxd inspect verify-wal
 description: >
   The `influxd inspect verify-wal` command analyzes the Write-Ahead Log (WAL)
-  in a storage directory to check if there are any corrupt files.
-v2.0/tags: [tsm, cardinality, inspect]
+  to check if there are any corrupt files.
+v2.0/tags: [wal, inspect]
 menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
 ---
 
-The `influxd inspect verify-wal` command analyze she Write-Ahead Log (WAL)
-in a storage directory to  check if there are any corrupt files.
-If any corrupt files are found, the command returns the names of those files.
-It also counts the total number of entries in each scanned WAL file.
+The `influxd inspect verify-wal` command analyze the Write-Ahead Log (WAL)
+to check if there are any corrupt files.
+If it finds corrupt files, the command returns the names of those files.
+It also returns the total number of entries in each scanned WAL file.
 
 ## Usage
 ```sh
