@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0:
     name: Process data
-weight: 5
+weight: 4
 v2.0/tags: [tasks]
 ---
 

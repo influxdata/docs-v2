@@ -7,7 +7,7 @@ v2.0/tags: [visualize]
 menu:
   v2_0:
     name: Visualize data
-weight: 4
+weight: 5
 ---
 
 The InfluxDB user interface (UI) provides tools for building custom dashboards to visualize your data.
