@@ -1,6 +1,6 @@
 ---
 title: Table visualization
-list_title: Single stat
+list_title: Table
 list_image: /img/2-0-visualizations-table-example.png
 description: >
   The Table option displays the results of queries in a tabular view, which is
@@ -17,10 +17,16 @@ sometimes easier to analyze than graph views of data.
 
 {{< img-hd src="/img/2-0-visualizations-table-example.png" alt="Table example" />}}
 
-To select this view, select the **Table** option from the visualization dropdown in the upper right.
+Select the **Table** option from the visualization dropdown in the upper right.
 
-#### Table Controls
+## Table behavior
+The table visualization renders queried data in structured, easy-to-read tables.
+Columns and rows match those in the query output.
+If query results contain multiple tables, only one table is shown at a time.
+Select other output tables in the far left column of the table visualization.
+Tables are identified by their [group key](/v2.0/query-data/get-started/#group-keys).
 
+## Table Controls
 To view **Table** controls, click the settings icon ({{< icon "gear" >}}) next to
 the visualization dropdown in the upper right.
 
@@ -51,3 +57,27 @@ the visualization dropdown in the upper right.
 - **Add a Threshold**: Change the color of the table based on the current value.
   - **Value is**: Enter the value at which the table should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
+
+## Table examples
+Tables are helpful when displaying many human-readable metrics in a dashboard
+such as cluster statistics or log messages.
+
+### Human-readable cluster metrics
+The following example queries the latest reported memory usage from a cluster of servers.
+
+###### Query the latest memory usage from each host
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "mem" and
+      r._field == "used_percent"
+  )
+  |> group(columns: ["host"])
+  |> last()
+  |> group()
+  |> keep(columns: ["_value", "host"])
+```
+
+###### Cluster metrics in a table
+{{< img-hd src="/img/2-0-visualizations-table-human-readable.png" alt="Human readable metrics in a table" />}}

@@ -55,15 +55,7 @@ weight: 201
 
 2. Select the **Templates** tab.
 
-  - In the **Static Templates** tab, a list of pre-created templates appears. The following pre-created templates are available:
-    - **Docker**
-    - **Getting Started with Flux**
-    - **Kubernetes**
-    - **Local Metrics**
-    - **Nginx**
-    - **Redis**
-    - **System**
-
+  - In the **Static Templates** tab, a list of pre-created templates appears. 
   - In the **User Templates** tab, a list of custom user-created templates appears.
 
 3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
