@@ -1,6 +1,5 @@
 ---
-title: Optimize writes
-seotitle: Optimize writes to InfluxDB
+title: Optimize writes to InfluxDB
 description: >
   Optimize performance and system overhead when writing data to InfluxDB using some simple tips.
 weight: 202
