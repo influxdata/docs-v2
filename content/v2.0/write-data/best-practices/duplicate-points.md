@@ -23,22 +23,27 @@ web,host=host2,region=us_west firstByte=15.0 1559260800000000000
 Measurement   Tag set                             Timestamp
 ```
 
-## How InfluxDB handles duplicate points
+## Duplicate data points
 For points that have the same measurement name, tag set, and timestamp,
 InfluxDB creates a union of the old and new field sets.
 For any matching field keys, InfluxDB uses the field value of the new point.
 For example:
 
 ```sh
-# Old data point
+# Existing data point
 web,host=host2,region=us_west firstByte=24.0,dnsLookup=7.0 1559260800000000000
 
 # New data point
 web,host=host2,region=us_west firstByte=15.0 1559260800000000000
 ```
 
-After you submit the new point, InfluxDB overwrites `firstByte` with the new field
-value and leaves the field `dnsLookup` alone:
+After you submit the new data point, InfluxDB overwrites `firstByte` with the new
+field value and leaves the field `dnsLookup` alone:
+
+```sh
+# Resulting data point
+web,host=host2,region=us_west firstByte=15.0,dnsLookup=7.0 1559260800000000000
+```
 
 ```sh
 from(bucket: "example-bucket")
@@ -60,15 +65,22 @@ To preserve both old and new field keys in duplicate points, use one of the foll
 ### Add an arbitrary tag
 Add an arbitrary tag with unique values so InfluxDB reads the duplicate points as unique.
 
-For example, add a uniq tag to each data point:
+For example, add a `uniq` tag to each data point:
 
 ```sh
-# Old point
+# Existing point
 web,host=host2,region=us_west,uniq=1 firstByte=24.0,dnsLookup=7.0 1559260800000000000
 
 # New point
 web,host=host2,region=us_west,uniq=2 firstByte=15.0 1559260800000000000
 ```
+
+{{% note %}}
+It is not necessary to retroactively add the unique tag to the existing data point.
+Tag sets are evaluated as a whole.
+The arbitrary `uniq` tag on the new point allows InfluxDB to recognize it as a unique point.
+However, this causes the schema of the two points to differ and may lead to challenges when querying the data.
+{{% /note %}}
 
 After writing the new point to InfluxDB:
 
