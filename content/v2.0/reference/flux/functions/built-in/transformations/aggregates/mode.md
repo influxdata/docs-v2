@@ -1,8 +1,8 @@
 ---
 title: mode() function
 description: >
-  The `mode()` function computes the mode or value that occurs most often among
-  records in the input table.
+  The `mode()` function computes the mode or value that occurs most often in a
+  specified column in the input table.
 menu:
   v2_0_ref:
     name: mode
@@ -10,10 +10,14 @@ menu:
 weight: 501
 ---
 
-The `mode()` function computes the mode or value that occurs most often among
-records in the input table.
+The `mode()` function computes the mode or value that occurs most often in a
+specified column in the input table.
 
 _**Function type:** Aggregate_  
+
+```js
+mode(column: "_value")
+```
 
 ## Parameters
 
