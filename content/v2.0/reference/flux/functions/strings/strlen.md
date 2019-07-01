@@ -10,7 +10,7 @@ menu:
 weight: 301
 ---
 
-The `strings.strlen()` function returns the length of the a string.
+The `strings.strlen()` function returns the length of a string.
 String length is determined by the number of UTF code points a string contains.
 
 _**Output data type:** Integer_
@@ -32,7 +32,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Filter based on column value length
+###### Filter based on string value length
 ```js
 import "strings"
 

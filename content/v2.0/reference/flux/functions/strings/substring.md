@@ -1,7 +1,7 @@
 ---
 title: strings.substring() function
 description: >
-  The strings.substring() function returns a substring based on given start and end indices.
+  The strings.substring() function returns a substring based on `start` and `end` parameters.
   Indices are based on UTF code points.
 menu:
   v2_0_ref:
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `strings.substring()` function returns a substring based on given start and end indices.
-Indices are based on UTF code points.
+The `strings.substring()` function returns a substring based on `start` and `end` parameters.
+These parameters are represent indices of UTF code points in the string.
 
 _**Output data type:** String_
 
@@ -42,7 +42,7 @@ _**Data type:** Integer_
 
 ## Examples
 
-###### Store the first four characters of column values
+###### Store the first four characters of a string
 ```js
 import "strings"
 
