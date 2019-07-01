@@ -57,7 +57,7 @@ Table: keys: [_measurement, host, region]
 ```
 
 ## Preserve duplicate points
-To preserve both old and new field keys in duplicate points, use one of the following strategies:
+To preserve both old and new field values in duplicate points, use one of the following strategies:
 
 - [Add an arbitrary tag](#add-an-arbitrary-tag)
 - [Increment the timestamp](#increment-the-timestamp)
