@@ -10,7 +10,7 @@ menu:
 weight: 301
 ---
 
-The `influxd inspect verify-wal` command analyze the Write-Ahead Log (WAL)
+The `influxd inspect verify-wal` command analyzes the Write-Ahead Log (WAL)
 to check if there are any corrupt files.
 If it finds corrupt files, the command returns the names of those files.
 It also returns the total number of entries in each scanned WAL file.
