@@ -11,10 +11,26 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.34.2**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.35.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.35.0 [2019-07-02]
+
+### Breaking changes
+- Remove `mergeKey` parameter from the `map()` function.
+
+### Features
+- Add `sql.to()` function.
+- Add `movingAverage()` function.
+- Add `strlen()` and `substring()` functions to the `strings` package.
+
+### Bug fixes
+- Remove `mergeKey` parameter from the `map()` function.
+- Parse float types with PostgreSQL.
+
+---
 
 ## v0.34.2 [2019-06-27]
 
