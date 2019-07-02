@@ -8,6 +8,7 @@ menu:
     name: mode
     parent: built-in-aggregates
 weight: 501
+draft: true
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a
