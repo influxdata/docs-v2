@@ -71,11 +71,11 @@ from(bucket: "example-bucket"):
 
 ## Function definition
 ```js
-movingAverage = (every, period, column="_value", timeSrc="_stop",timeDst="_time", tables=<-) =>
+movingAverage = (every, period, column="_value", timeSrc="_stop", timeDst="_time", tables=<-) =>
   tables
     |> window(every: every, period: period)
-    |> mean()
-    |> duplicate(column: "_stop", as: "_time")
+    |> mean(column: column)
+    |> duplicate(column: timeSrc, as: timeDst)
     |> window(every: inf)
 ```
 
