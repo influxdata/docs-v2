@@ -15,7 +15,9 @@ v2.0/tags: [glossary]
 
 ### agent
 
-A background process started by or on behalf of a user and typically requires user input. Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
+A background process started by (or on behalf of) a user and typically requires user input. 
+
+Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
 Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin), [daemon](#daemon)
 
@@ -34,7 +36,11 @@ Related entries: [function](#function), [selector](#selector), [transformation](
 
 ## B
 
-<!-- bar graph -->
+### bar graph
+
+A visual representation used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
+
+Related entries: [histogram](#histogram)
 
 ### batch
 
@@ -44,14 +50,30 @@ InfluxData typically recommends batch sizes of 5,000-10,000 points. In some use 
 
 Related entries: [line protocol](/v2.0/reference/line-protocol/), [point](#point)
 
-### batch size 
+### batch size
 
 The number of lines or individual data points in a line protocol batch. The Telegraf agent sends metrics to output plugins in batches rather than individually.
 Batch size controls the size of each write batch that Telegraf sends to the output plugins.
 
 Related entries: [output plugin](#output-plugin)
 
-<!-- ### block-->
+### block
+
+In Flux, a block is a possibly empty sequence of statements within matching braces ({ }). Two types of blocks exist in Flux:
+
+- Explicit blocks in the source code, for example:
+
+```
+Block         = "{" StatementList "} 
+StatementList = { Statement } 
+```
+
+- Implicit blocks, including:
+
+  - Universe: Encompasses all Flux source text.
+  - Package: Each package includes a package block that contains Flux source text for the package.
+  - File: Each file has a file block containing Flux source text in the file.
+  - Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
 
 ### boolean
 
@@ -61,26 +83,29 @@ By convention, you can express `true` as the integer `1` and false as the intege
 ### bucket
 
 A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
-<!-->
-### bytes
+
+### bytesRX
+
+A measurement statistic for the Anti-Entropy (AE) engine in InfluxDB Enterprise clusters that measures the number of bytes received by a data node.
 
 ## C
 
 ### CSV
 
--->
+Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux csv.from() function.
+
 ### cardinality
 
 Cardinality is the number of unique series in a bucket or database as a whole.
-<!--
 
 ### cluster
+
+An InfluxDB cluster includes meta nodes, data nodes, and the InfluxDB Enterprise web server. In a cluster, meta nodes must communicate with each other and data nodes must communicate with each other and with meta nodes.
 
 ### co-monitoring dashboard
 
 ### collect
 
--->
 
 ### collection interval
 
@@ -786,14 +811,3 @@ If you are transitioning from the Enterprise Web Console to Chronograf and helpf
 
 ### windowing
 The process of partitioning data based on equal windows of time.
-
-<!-- 
-## X 
-
-
-## Y
-
-
-## Z
-
--->
