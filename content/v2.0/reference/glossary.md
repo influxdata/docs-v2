@@ -59,7 +59,7 @@ Related entries: [output plugin](#output-plugin)
 
 ### block
 
-In Flux, a block is a possibly empty sequence of statements within matching braces ({ }). Two types of blocks exist in Flux:
+In Flux, a block is a possibly empty sequence of statements within matching braces (`{ }`). Two types of blocks exist in Flux:
 
 - Explicit blocks in the source code, for example:
 
@@ -86,23 +86,22 @@ By convention, you can express `true` as the integer `1` and false as the intege
 
 A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
 
-### bytesRX
-
-A measurement statistic for the Anti-Entropy (AE) engine in InfluxDB Enterprise clusters that measures the number of bytes received by a data node.
-
 ## C
 
 ### CSV
 
-Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux csv.from() function.
+Comma-separated values (CSV) delimits text between commas to separate values. A CSV file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. CSV file format is not fully standardized.
 
+InfluxData uses annotated CSV (comma-separated values) format to encode HTTP responses and results returned to the Flux csv.from() function. For more detail, see [Annotated CSV](/v2.0/reference/annotated-csv/).
+<!-- enterprise 
 ### cardinality
 
-Cardinality is the number of unique series in a bucket or database as a whole.
+Cardinality is the number of unique series in a bucket or database as a whole. 
 
 ### cluster
 
 An InfluxDB cluster includes meta nodes, data nodes, and the InfluxDB Enterprise web server. In a cluster, meta nodes must communicate with each other and data nodes must communicate with each other and with meta nodes.
+-->
 
 ### co-monitoring dashboard
 
@@ -169,7 +168,7 @@ A data model organizes elements of data and standardizes how they relate to one 
 
 Flux uses a data model built from basic data types: tables, records, columns and streams.
 
-### data node
+<!-- enterprise ### data node
 
 Data nodes allow a system to replicate data across multiple nodes.
 
@@ -178,6 +177,7 @@ For high availability in InfluxDB, a cluster must have at least two data nodes. 
 Data node sizes will depend on your needs. The Amazon EC2 m4.large or m4.xlarge are good starting points.
 
 Related entries: [data service](#data-service), [replication factor](#replication-factor)
+-->
 
 ### data service
 
@@ -219,7 +219,7 @@ Metrics gathered at irregular time intervals.
 
 ### explicit block
 
-In Flux, a an explicit block is a possibly empty sequence of statements within matching braces ({ }) that is defined in the source code, for example:
+In Flux, a an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
 
 ```
 Block         = "{" StatementList "} 
@@ -324,9 +324,12 @@ the gzip file extension is `.gz`.
 
 ## H
 
+<!--enterprise
 ### Hinted Handoff (HH)
 
 Offers full write availability on an InfluxDB cluster. Hinted handoff improves response consistency after temporary outages such as network failures.
+
+-->
 
 ### histogram
 
