@@ -1,23 +1,85 @@
 ---
 title: Flux release notes
-description: Important changes and notes introduced in each version of Flux.
+description: Important changes and and what's new in each version of Flux.
+weight: 102
 menu:
   v2_0_ref:
-    parent: Flux query language
-    name: Flux release notes
-    weight: 101
+    parent: Release notes
+    name: Flux
+aliases:
+  - /v2.0/reference/flux/release-notes
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.32.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.34.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.34.2 [2019-06-27]
+
+### Bug fixes
+- Parse float types with PostgreSQL.
+
+---
+
+## v0.34.1 [2019-06-26]
+
+### Features
+- Add custom PostgreSQL type support.
+- Added MySQL type support.
+- Nulls work in table and row functions.
+
+### Bug fixes
+- Fixed boolean literal type conversion problem and added tests.
+- Diff should track memory allocations when it copies the table.
+- Copy table will report if it is empty correctly.
+
+---
+
+## v0.33.2 [2019-06-25]
+
+### Bug fixes
+- Use `strings.Replace` instead of `strings.ReplaceAll` for compatibility.
+
+---
+
+## v0.33.1 [2019-06-20]
+
+### Bug fixes
+- Copy table will report if it is empty correctly.
+
+---
+
+## v0.33.0 [2019-06-18]
+
+### Breaking changes
+- Implement nulls in the compiler runtime.
+
+### Features
+- Add Go `regexp` functions to Flux.
+- Add the exists operator to the compiler runtime.
+- Implement nulls in the compiler runtime.
+- Add nullable kind.
+- Support "with" syntax for objects in row functions.
+- Port several string functions from go `strings` library to Flux.
+- Add exists unary operator.
+
+### Bug fixes
+- Add range to map_extension_with.flux.
+- Row function resets records map with each call to prepare.
+- Fix `joinStr`, including adding an EndToEnd Test.
+- Fix `string_trimLeft` and `string_trimRight` so that they pass in InfluxDB.
+- Add length check for empty tables in fill.
+
+---
 
 ## v0.32.1 [2019-06-10]
 
 ### Bug fixes
 - Identify memory limit exceeded errors in dispatcher.
+
+---
 
 ## v0.32.0 [2019-06-05]
 
@@ -28,10 +90,14 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Changelog generator now handles merge commits better.
 - Return count of errors when checking AST.
 
+---
+
 ## v0.31.1 [2019-05-29]
 
 ### Bug fixes
 - Do not call done after calling the function.
+
+---
 
 ## v0.31.0 [2019-05-28]
 
@@ -43,6 +109,8 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ### Bug fixes
 - Copy the table when a table is used multiple times.
+
+---
 
 ## v0.30.0 [2019-05-16]
 

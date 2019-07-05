@@ -213,9 +213,10 @@ new `_value` column.
 ```js
 join(tables: {mem:memUsed, proc:procTotal}, on: ["_time", "_stop", "_start", "host"])
   |> map(fn: (r) => ({
-    _time: r._time,
-    _value: r._value_mem / r._value_proc
-  }))
+      _time: r._time,
+      _value: r._value_mem / r._value_proc
+    })
+  )
 ```
 
 {{% truncate %}}

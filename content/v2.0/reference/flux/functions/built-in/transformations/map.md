@@ -24,25 +24,6 @@ _**Output data type:** Object_
 map(fn: (r) => r._value * r._value), mergeKey: true)
 ```
 
-{{% note %}}
-#### Dropped columns
-`map()` drops any columns that:
-
-1. Are not part of the input table's group key
-2. Are not explicitly mapped in the `map()` function.
-
-This often results in the `_time` column being dropped.
-To preserve the `_time` column, include it in your column mapping.
-
-```js
-map(fn: (r) => ({
-    _time: r._time,
-    ...
-  })
-)
-```
-{{% /note %}}
-
 ## Parameters
 
 ### fn
@@ -62,6 +43,25 @@ When not merging, only columns defined on the returned record will be present on
 Defaults to `true`.
 
 _**Data type:** Boolean_
+
+## Important notes
+
+#### Preserve columns
+By default, `map()` drops any columns that:
+
+1. Are not part of the input table's group key.
+2. Are not explicitly mapped in the `map()` function.
+
+This often results in the `_time` column being dropped.
+To preserve the `_time` column and other columns that do not meet the criteria above,
+use the `with` operator to map values in the `r` object.
+The `with` operator updates a column if it already exists,
+creates a new column if it doesn't exist, and includes all existing columns in
+the output table.
+
+```js
+map(fn: (r) => ({ r with newColumn: r._value * 2 }))
+```
 
 ## Examples
 
@@ -87,7 +87,23 @@ from(bucket:"example-bucket")
     |> range(start:-12h)
     // create a new table by copying each row into a new format
     |> map(fn: (r) => ({
-      _time: r._time,
+      time: r._time,
       app_server: r.host
+    }))
+```
+
+###### Add new columns and preserve existing columns
+```js
+from(bucket:"example-bucket")
+    |> filter(fn: (r) =>
+      r._measurement == "cpu" and
+      r._field == "usage_system"
+    )
+    |> range(start:-12h)
+    // create a new table by copying each row into a new format
+    |> map(fn: (r) => ({
+      r with
+      app_server: r.host,
+      valueInt: int(v: r._value)
     }))
 ```

@@ -28,5 +28,5 @@ from(bucket: "sensor-data")
   |> filter(fn:(r) =>
     r._measurement == "system" and
   )
-  |> map(fn:(r) => bool(v: r.responsive))
+  |> map(fn:(r) => ({ r with responsive: bool(v: r.responsive) }))
 ```

@@ -23,9 +23,10 @@ filter(fn: (r) => r._measurement == "cpu")
 ## Parameters
 
 ### fn
-A single argument function that evaluates true or false.
+A single argument predicate function that evaluates true or false.
 Records are passed to the function.
 Those that evaluate to true are included in the output tables.
+Records that evaluate to _null_ or false are not included in the output tables.
 
 _**Data type:** Function_
 

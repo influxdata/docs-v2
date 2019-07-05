@@ -3,7 +3,7 @@ title: InfluxDB client libraries
 description: >
   InfluxDB client libraries are language-specific tools that integrate with the InfluxDB v2 API.
   View the list of available client libraries.
-weight: 6
+weight: 3
 menu:
   v2_0_ref:
     name: Client libraries
@@ -18,5 +18,5 @@ These client libraries are in active development and may not be feature-complete
 This list will continue to grow as more client libraries are released.
 {{% /note %}}
 
-<!-- - [Go](https://github.com/influxdata/influxdb-client-go) -->
+- [Go](https://github.com/influxdata/influxdb-client-go)
 - [JavaScript/Node.js](https://github.com/influxdata/influxdb-client-js)

@@ -1,14 +1,18 @@
 ---
 title: strings.toLower() function
-description: The strings.toLower() function converts a string to lower case.
+description: The strings.toLower() function converts a string to lowercase.
 menu:
   v2_0_ref:
     name: strings.toLower
     parent: Strings
 weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/totitle
+  - /v2.0/reference/flux/functions/strings/toupper
+  - /v2.0/reference/flux/functions/strings/title
 ---
 
-The `strings.toLower()` function converts a string to lower case.
+The `strings.toLower()` function converts a string to lowercase.
 
 _**Output data type:** String_
 
@@ -20,7 +24,7 @@ strings.toLower(v: "KOALA")
 // returns "koala"
 ```
 
-## Paramters
+## Parameters
 
 ### v
 The string value to convert.
@@ -34,5 +38,8 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> map(fn:(r) => strings.toLower(v: r.exclamation))
+  |> map(fn: (r) => ({
+      r with exclamation: strings.toLower(v: r.exclamation)
+    })
+  )
 ```

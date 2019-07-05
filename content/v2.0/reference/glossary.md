@@ -2,14 +2,14 @@
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
-weight: 6
+weight: 7
 menu:
   v2_0_ref:
     name: Glossary
 v2.0/tags: [glossary]
 ---
 
-[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) |[G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | [X](#x) | [Y](#y) | [Z](#z)
+[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | [X](#x) | [Y](#y) | [Z](#z)
 
 ## A
 
@@ -295,11 +295,11 @@ Related entries: [flush interval](#flush-interval), [output plugin](#output-plug
 
 ### Flux
 
-A lightweight scripting language for querying databases (like InfluxDB) and working with data. 
+A lightweight scripting language for querying databases (like InfluxDB) and working with data.
 
 ### function
 
-Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/). 
+Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/).
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
@@ -525,7 +525,7 @@ Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregat
 ### parameter
 
 A key-value pair used to pass information to functions.
-<!-- 
+<!--
 ### pipe
 -->
 ### pipe-forward operator

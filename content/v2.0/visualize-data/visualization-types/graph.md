@@ -11,15 +11,20 @@ menu:
     parent: Visualization types
 ---
 
-There are several types of graphs you can create.
-
-To select this view, select the **Graph** option from the visualization dropdown
-in the upper right.
+The Graph visualization provides several types of graphs, each configured through
+the [Graph options](#graph-options).
 
 {{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
 
-#### Graph controls
+Select the **Graph** option from the visualization dropdown in the upper right.
 
+## Graph behavior
+The Graph visualization color codes each table (or series) in the queried data set.
+When multiple series are present, it automatically assigns colors based on the selected [Line Colors option](#options).
+
+When using a line graph, all points within a single table are connected. When multiple series are present, it automatically assigns colors based on the selected [Line Colors option](#options).
+
+## Graph controls
 To view **Graph** controls, click the settings icon ({{< icon "gear" >}}) next
 to the visualization dropdown in the upper right.
 
@@ -47,22 +52,19 @@ to the visualization dropdown in the upper right.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 
-##### Graph with linear interpolation
+## Graph Examples
 
+##### Graph with linear interpolation
 {{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
 
 ##### Graph with smooth interpolation
-
 {{< img-hd src="/img/2-0-visualizations-line-graph-smooth-example.png" alt="Step-Plot Graph example" />}}
 
 ##### Graph with step interpolation
-
 {{< img-hd src="/img/2-0-visualizations-line-graph-step-example.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Stacked Graph example
-
 {{< img-hd src="/img/2-0-visualizations-stacked-graph-example.png" alt="Stacked Graph example" />}} -->
 
 <!-- ##### Bar Graph example
-
 {{< img-hd src="/img/2-0-visualizations-bar-graph-example.png" alt="Bar Graph example" />}} -->

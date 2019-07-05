@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: Strings
     parent: Flux packages and functions
-weight: 204
+weight: 202
 v2.0/tags: [strings, functions, package]
 ---
 
