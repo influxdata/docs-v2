@@ -60,11 +60,11 @@ _**Data type:** String_
 ```js
 import "sql"
 
- sql.from(
-   driverName: "mysql",
-   dataSourceName: "user:password@tcp(localhost:3306)/db",
-   query:"SELECT * FROM ExampleTable"
- )
+sql.from(
+ driverName: "mysql",
+ dataSourceName: "user:password@tcp(localhost:3306)/db",
+ query:"SELECT * FROM ExampleTable"
+)
 ```
 
 ### Query a Postgres database
