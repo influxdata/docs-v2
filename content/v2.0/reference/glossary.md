@@ -588,7 +588,11 @@ In Telegraf, truncated timestamps are padded with zeros to create a nanosecond t
 
 Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](/#processor-plugin), [service input plugin](#service-input-plugin)
 
-<!-- ### process -->
+### process
+
+A set of predetermined rules. A process can refer to instructions being executed by the computer processor or refer to the act of manipulating data.
+
+In Flux, you can process data with [InfluxDB tasks](/v2.0/process-data/get-started/).
 
 ### processor plugin
 
@@ -596,13 +600,18 @@ Telegraf processor plugins transform, decorate, and filter metrics collected by 
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin)
 
-<!-- ### Prometheus format -->
+### Prometheus format
+
+Metrics can be exposed to Prometheus in a simple text-based exposition format. There's a variety of client libraries that implement this format for you. If your preferred language doesn't have a client library you can create your own.
+
+Collect data from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ## Q
 
 ### query
 
 An operation that retrieves data from InfluxDB.
+
 See [Query data in InfluxDB](/v2.0/query-data/).
 
 ## R
@@ -639,7 +648,9 @@ should we replace this with influxd generate help-schema link? -->
 
 Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
-<!-- ### scrape -->
+### scrape
+
+InfluxDB scrapes data from specified targets at regular intervals and writes the data to an InfluxDB bucket. Data can be scraped from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ### selector
 
