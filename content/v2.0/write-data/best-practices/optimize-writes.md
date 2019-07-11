@@ -1,7 +1,7 @@
 ---
 title: Optimize writes to InfluxDB
 description: >
-  Optimize performance and system overhead when writing data to InfluxDB using some simple tips.
+  Simple tips to optimize performance and system overhead when writing data to InfluxDB.
 weight: 202
 menu:
   v2_0:
@@ -9,7 +9,7 @@ menu:
 v2.0/tags: [best practices, write]
 ---
 
-Optimize performance and system overhead when writing data to InfluxDB using some simple tips.
+Use these tips to optimize performance and system overhead when writing data to InfluxDB.
 
 _[Telegraf](/v2.0/write-data/use-telegraf/), [InfluxDB scrapers](/v2.0/write-data/scrape-data/),
 and many [InfluxDB client libraries](/v2.0/reference/client-libraries/) employ these optimizations by default._
@@ -17,16 +17,15 @@ and many [InfluxDB client libraries](/v2.0/reference/client-libraries/) employ t
 ---
 
 ## Batch writes
-Minimize network overhead when writing data to InfluxDB by writing data in batches.
+Write data in batches to Minimize network overhead when writing data to InfluxDB.
 
 {{% note %}}
-The recommend batch size is 5000 lines of line protocol.
+The optimal batch size is 5000 lines of line protocol.
 {{% /note %}}
 
 ## Sort tags by key
-Sort tags by key before writing data points to InfluxDB.
-_The sort should match results from the [Go `bytes.Compare` function](http://golang.org/pkg/bytes/#Compare)
-(lexicographic order)._
+Before writing data points to InfluxDB, sort tags by key in lexicographic order.
+_Verify sort results match results from the [Go `bytes.Compare` function](http://golang.org/pkg/bytes/#Compare)._
 
 ```sh
 # Line protocol example with unsorted tags
@@ -37,16 +36,15 @@ measurement,tagA=i,tagB=think,tagC=therefore,tagD=i,tagE=am fieldKey=fieldValue 
 ```
 
 ## Use the coarsest time precision possible
-InfluxDB lets you write data with up to nanosecond precision.
-If data isn't collected at that precision, there is no need to write data at that precision.
-Use the coarsest precision possible for timestamps.
-This can result in significant compression improvements.
+InfluxDB lets you write data in nanosecond precision, however if data isn't
+collected in nanoseconds, there is no need to write at that precision.
+Using the coarsest precision possible for timestamps can result in significant
+compression improvements.
 
 _Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#precision)._
 
 ## Synchronize hosts with NTP
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
-InfluxDB uses a host's local time in UTC to assign timestamps to data if no
-timestamp is included in the line protocol.
-If hosts' clocks aren't synchronized with NTP, the timestamps on data written
-to InfluxDB can be inaccurate.
+If a timestamp isn't included in line protocol, InfluxDB uses its host's local
+time (in UTC) to assign timestamps to each point.
+If a host's clocks isn't synchronized with NTP, timestamps may be inaccurate.
