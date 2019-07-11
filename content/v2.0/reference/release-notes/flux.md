@@ -27,7 +27,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.36.0 [2019-07-09]
 
 ### Features
-- Refactored `movingAverage()`.
+- Updated `movingAverage()` and added `timedMovingAverage`.
 - `elapsed()` function.
 - `mode()` function.
 - `sleep()` function.
@@ -42,6 +42,10 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Make `map()` error if return type is not an object.
 - Fixed miscounted allocations in the `ColListTableBuilder`.
 - Support formatting `with`.
+
+### Breaking changes
+- Updated `movingAverage()` to `timedMovingAverage` and added new
+  `movingAverage()` implementation.
 
 ---
 
