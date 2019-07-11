@@ -1,7 +1,7 @@
 ---
 title: movingAverage() function
 description: >
-  The `movingAverage()` function calculates the the mean of values grouped into `n` number of points.
+  The `movingAverage()` function calculates the mean of values grouped into `n` number of points.
 menu:
   v2_0_ref:
     name: movingAverage
@@ -33,7 +33,7 @@ movingAverage(
 ## Parameters
 
 ### n
-The number of points to mean.
+The number of points to average.
 
 _**Data type:** Integer_
 
