@@ -11,10 +11,17 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.35.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.35.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.35.1 [2019-07-03]
+
+### Bug fixes
+- Re-add `mergeKey` parameter to `map()` in deprecated state.
+
+---
 
 ## v0.35.0 [2019-07-02]
 
