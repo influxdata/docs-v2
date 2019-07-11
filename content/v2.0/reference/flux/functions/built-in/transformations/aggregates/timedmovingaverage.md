@@ -47,7 +47,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Calculate a five year moving average every year
+###### Calculate a seven day moving average every day
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -7y)
@@ -56,6 +56,17 @@ from(bucket: "example-bucket"):
     r._field == "closing_price"
   )
   |> timedMovingAverage(every: 1y, period: 5y)
+```
+
+###### Calculate a five year moving average every year
+```js
+from(bucket: "example-bucket"):
+  |> range(start: -50d)
+  |> filter(fn: (r) =>
+    r._measurement == "financial" and
+    r._field == "closing_price"
+  )
+  |> timedMovingAverage(every: 1d, period: 7d)
 ```
 
 ## Function definition

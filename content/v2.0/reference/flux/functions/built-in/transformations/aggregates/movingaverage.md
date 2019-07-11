@@ -51,7 +51,14 @@ from(bucket: "example-bucket"):
   |> movingAverage(n: 5)
 ```
 
-#### Moving average table transformation
+#### Calculate a ten point moving average
+```js
+from(bucket: "example-bucket"):
+  |> range(start: -12h)
+  |> movingAverage(n: 10)
+```
+
+#### Table transformation with a two point moving average
 
 ###### Input table:
 | _time |   A  |   B  |   C  |   D  | tag |
