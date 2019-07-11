@@ -22,12 +22,16 @@ sleep(
 ## Parameters
 
 ### v
-The pipe parameter that defines input tables.
+Defines input tables.
+`sleep()` accepts piped-forward data and passes it on unmodified after the
+specified [duration](#duration).
+If data is not piped-forward into `sleep()`, set `v` to specify a stream object.
+The examples [below](#examples) illustrate how.
 
 _**Data type:** Object_
 
 ### duration
-The amount of time execution should be delayed.
+The length of time to delay execution.
 
 _**Data type:** Duration_
 

@@ -1,6 +1,6 @@
 ---
 title: elapsed() function
-description: The `elapsed()` function .returns the elapsed time between subsequent records.
+description: The `elapsed()` function returns the time between subsequent records.
 menu:
   v2_0_ref:
     name: elapsed
@@ -8,9 +8,9 @@ menu:
 weight: 401
 ---
 
-The `elapsed()` function returns the elapsed time between subsequent records.
-Given an input table, `elapsed` will return the same table with an additional
-`elapsed` column and without the first record as elapsed time is not defined.
+The `elapsed()` function returns the time between subsequent records.
+Given an input table, `elapsed()` returns the same table without the first record
+(as elapsed time is not defined) and an additional column containing the elapsed time.
 
 _**Function type:** Transformation_  
 
@@ -27,19 +27,19 @@ _`elapsed()` returns an errors if the `timeColumn` is not present in the input t
 ## Parameters
 
 ### unit
-The unit in which the elapsed time is returned.
+The unit time to returned.
 _Defaults to `1s`._
 
 _**Data type:** Duration_
 
 ### timeColumn
-Name of the column to use to compute the elapsed time.
+The column to use to compute the elapsed time.
 _Defaults to `"_time"`._
 
 _**Data type:** String_
 
 ### columnName
-Name of the column in which to store elapsed times.
+The column to store elapsed times.
 _Defaults to `"elapsed"`._
 
 _**Data type:** String_

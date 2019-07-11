@@ -19,7 +19,7 @@ _**Function type:** Aggregate_
 mode(column: "_value")
 ```
 
-If there are multiple modes, all are returned in a table in sorted order.
+Multiple modes are returned in a sorted table.
 If there is no mode, `mode()` returns `null`.
 
 ##### Supported data types
