@@ -43,6 +43,10 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Fixed miscounted allocations in the `ColListTableBuilder`.
 - Support formatting `with`.
 
+### Breaking changes
+- Updated `movingAverage()` to `timedMovingAverage` and added new
+  `movingAverage()` implementation.
+
 ---
 
 ## v0.35.1 [2019-07-03]
