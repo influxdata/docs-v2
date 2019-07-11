@@ -8,7 +8,6 @@ menu:
     name: mode
     parent: built-in-aggregates
 weight: 501
-draft: true
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a
@@ -20,6 +19,18 @@ _**Function type:** Aggregate_
 mode(column: "_value")
 ```
 
+If there are multiple modes, all are returned in a table in sorted order.
+If there is no mode, `mode()` returns `null`.
+
+##### Supported data types
+
+- String
+- Float
+- Integer
+- UInteger
+- Boolean
+- Time
+
 ## Parameters
 
 ### column
@@ -30,7 +41,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Mode as an aggregate
+###### Return the mode of windowed data
 ```js
 from(bucket: "example-bucket")
   |> filter(fn: (r) =>
