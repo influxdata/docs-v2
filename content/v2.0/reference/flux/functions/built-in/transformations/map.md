@@ -21,7 +21,7 @@ _**Function type:** Transformation_
 _**Output data type:** Object_
 
 ```js
-map(fn: (r) => r._value * r._value), mergeKey: true)
+map(fn: (r) => ({ _value: r._value * r._value }))
 ```
 
 ## Parameters
@@ -35,14 +35,6 @@ _**Data type:** Function_
 {{% note %}}
 Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
-
-### mergeKey
-Indicates if the record returned from `fn` should be merged with the group key.
-When merging, all columns on the group key will be added to the record giving precedence to any columns already present on the record.
-When not merging, only columns defined on the returned record will be present on the output records.
-Defaults to `true`.
-
-_**Data type:** Boolean_
 
 ## Important notes
 
