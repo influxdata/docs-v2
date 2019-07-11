@@ -1,85 +1,76 @@
 ---
 title: movingAverage() function
 description: >
-  The `movingAverage()` function calculates the mean of values in a defined time
-  range at a specified frequency.
+  The `movingAverage()` function calculates the the mean of values grouped into `n` number of points.
 menu:
   v2_0_ref:
     name: movingAverage
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 
-The `movingAverage()` function calculates the mean of values in a defined time
-range at a specified frequency.
+The `movingAverage()` function calculates the mean of values grouped into `n` number of points.
 
 _**Function type:** Aggregate_  
 
 ```js
 movingAverage(
-  every: 1d,
-  period: 5d,
-  column="_value",
-  timeSrc="_stop",
-  timeDst="_time",
+  n: 5,
+  columns: ["_value"]
 )
 ```
 
+##### Moving average rules:
+- The average over a period populated by `n` values is equal to their algebraic mean.
+- The average over a period populated by only `null` values is `null`.
+- Moving averages skip `null` values.
+- If `n` is less than the number of records in a table, `movingAverage` returns
+  the average of the available values.
+
 ## Parameters
 
-### every
-The frequency of time windows.
+### n
+The number of points to mean.
 
-_**Data type:** Duration_
+_**Data type:** Integer_
 
-### period
-The length of each averaged time window.
-_A negative duration indicates start and stop boundaries are reversed._
+### columns
+Columns to operate on. _Defaults to `["_value"]`_.
 
-_**Data type:** Duration_
-
-### column
-The column used to compute the moving average.
-Defaults to `"_value"`.
-
-_**Data type:** String_
-
-### timeSrc
-The column used as the source for the aggregated time.
-Defaults to `"_stop"`.
-
-_**Data type:** String_
-
-### timeDst
-The column in which to store the aggregated time.
-Defaults to `"_time"`.
-
-_**Data type:** String_
+_**Data type:** Array of Strings_
 
 ## Examples
 
-###### Calculate a five year moving average every year
+#### Calculate a five point moving average
 ```js
 from(bucket: "example-bucket"):
-  |> range(start: -7y)
-  |> filter(fn: (r) =>
-    r._measurement == "financial" and
-    r._field == "closing_price"
-  )
-  |> movingAverage(every: 1y, period: 5y)
+  |> range(start: -12h)
+  |> movingAverage(n: 5)
 ```
 
-## Function definition
+#### Moving average table transformation
+
+###### Input table:
+| _time |   A  |   B  |   C  |   D  | tag |
+|:-----:|:----:|:----:|:----:|:----:|:---:|
+|  0001 | null |   1  |   2  | null |  tv |
+|  0002 |   6  |   2  | null | null |  tv |
+|  0003 |   4  | null |   4  |   4  |  tv |
+
+###### Query:
 ```js
-movingAverage = (every, period, column="_value", timeSrc="_stop", timeDst="_time", tables=<-) =>
-  tables
-    |> window(every: every, period: period)
-    |> mean(column: column)
-    |> duplicate(column: timeSrc, as: timeDst)
-    |> window(every: inf)
+// ...
+  |> movingAverage(
+    n: 2,
+    columns: ["A", "B", "C", "D"]
+  )
 ```
 
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[MOVING_AVERAGE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average)  
+###### Output table:
+| _time |   A  |   B  |   C  |   D  | tag |
+|:-----:|:----:|:----:|:----:|:----:|:---:|
+|  0002 |   6  |  1.5 |   2  | null |  tv |
+|  0003 |   5  |   2  |   4  |   4  |  tv |
