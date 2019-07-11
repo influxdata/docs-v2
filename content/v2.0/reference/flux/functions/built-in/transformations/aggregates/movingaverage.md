@@ -19,9 +19,7 @@ _**Function type:** Aggregate_
 movingAverage(
   every: 1d,
   period: 5d,
-  column="_value",
-  timeSrc="_stop",
-  timeDst="_time",
+  column="_value"
 )
 ```
 
@@ -44,18 +42,6 @@ Defaults to `"_value"`.
 
 _**Data type:** String_
 
-### timeSrc
-The column used as the source for the aggregated time.
-Defaults to `"_stop"`.
-
-_**Data type:** String_
-
-### timeDst
-The column in which to store the aggregated time.
-Defaults to `"_time"`.
-
-_**Data type:** String_
-
 ## Examples
 
 ###### Calculate a five year moving average every year
@@ -71,11 +57,11 @@ from(bucket: "example-bucket"):
 
 ## Function definition
 ```js
-movingAverage = (every, period, column="_value", timeSrc="_stop", timeDst="_time", tables=<-) =>
+movingAverage = (every, period, column="_value", tables=<-) =>
   tables
     |> window(every: every, period: period)
     |> mean(column: column)
-    |> duplicate(column: timeSrc, as: timeDst)
+    |> duplicate(column: "_stop", as: "_time")
     |> window(every: inf)
 ```
 
