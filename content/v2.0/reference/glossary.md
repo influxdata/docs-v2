@@ -553,7 +553,7 @@ A workspace for a group of users. All dashboards, tasks, buckets, members, and s
 
 ### output plugin
 
-Telegraf output plugins deliver metrics to their configured destination. To activate an output plugin, you must enable and configure the plugin in Telegraf's configuration file.
+Telegraf output plugins deliver metrics to their configured destination. To activate an output plugin, enable and configure the plugin in Telegraf's configuration file.
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [flush interval](/telegraf/v1.10/concepts/glossary/#flush-interval), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
 
@@ -602,7 +602,7 @@ Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-
 
 ### Prometheus format
 
-Metrics can be exposed to Prometheus in a simple text-based exposition format. There's a variety of client libraries that implement this format for you. If your preferred language doesn't have a client library you can create your own.
+A simple text-based format for exposing metrics and ingesting them into Prometheus or InfluxDB using InfluxDB scrapers.
 
 Collect data from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
