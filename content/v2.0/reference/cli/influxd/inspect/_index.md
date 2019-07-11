@@ -12,16 +12,18 @@ The `influxd inspect` commands and subcommands inspecting on-disk InfluxDB time 
 
 ## Usage
 ```sh
-influxd inspect [command]
+influxd inspect [subcommand]
 ```
 
 ## Subcommands
-| Subcommand                                                    | Description                 |
-|:----------                                                    |:-----------                 |
-| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/) | Run TSM report              |
-| [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/) | Check for corrupt WAL files |
+| Subcommand                                                          | Description                        |
+|:----------                                                          |:-----------                        |
+| [export-blocks](/v2.0/reference/cli/influxd/inspect/export-blocks/) | Export block data                  |
+| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/)       | Run TSM report                     |
+| [verify-tsm](/v2.0/reference/cli/influxd/inspect/verify-tsm/)       | Check the consistency of TSM files |
+| [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/)       | Check for corrupt WAL files        |
 
 ## Flags
-| Flag           | Description      |
-|:----           |:-----------      |
-| `-h`, `--help` | help for inspect |
+| Flag           | Description        |
+|:----           |:-----------        |
+| `-h`, `--help` | Help for `inspect` |
