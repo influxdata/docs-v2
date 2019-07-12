@@ -16,6 +16,14 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.36.2 [2019-07-12]
+
+### Bug fixes
+- Add helper methods for comparing entire result sets.
+- Map will not panic when a record is `null`.
+
+---
+
 ## v0.36.1 [2019-07-10]
 
 ### Bug fixes
