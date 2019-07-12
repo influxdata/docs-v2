@@ -80,7 +80,7 @@ join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ```
 
 ### Create dashboard variables using SQL results
-With the `sql.from()` function you're able to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
+Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
 The following example uses the [air sensor sample data](#sample-data) below to
 create a variable that lets you select the location of a sensor.
@@ -97,7 +97,7 @@ sql.from(
   |> keep(columns: ["_value"])
 ```
 
-You can then use this variable to manipulate queries in your dashboards.
+Use the variable to manipulate queries in your dashboards.
 
 {{< img-hd src="/img/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
 
@@ -105,8 +105,8 @@ You can then use this variable to manipulate queries in your dashboards.
 
 ## Sample data
 The [sample data generator](#sample-data-generator) and [sample sensor information](#sample-sensor-information)
-simulate a fleet of sensors installed throughout a facility measuring the temperature,
-humidity, and carbon monoxide in each room.
+simulate a group of sensors that measure temperature, humidity, and carbon monoxide
+in rooms throughout a building.
 Each collected data point is stored in InfluxDB with a `sensor_id` tag that identifies
 the specific sensor it came from.
 
@@ -124,10 +124,10 @@ Information about each sensor is stored in a `sensors` table in a Postgres datab
 - last_inspected
 
 #### Sample data generator
-`air-sensor-data` is a CLI that generates air sensor data and stores in InfluxDB.
-To use it:
+`air-sensor-data` is a CLI that generates air sensor data and stores the data in InfluxDB.
+To use `air-sensor-data`:
 
-1. [Create a bucket](/v2.0/organizations/buckets/create-bucket/) in which to store the generated data.
+1. [Create a bucket](/v2.0/organizations/buckets/create-bucket/) to store the data.
 2. Get your [authorization token](/v2.0/security/tokens/view-tokens/).
 3. Download the sample data generator. _This tool requires **Ruby**._
 
@@ -139,13 +139,13 @@ To use it:
     chmod +x air-sensor-data
     ```
 
-5. Start the generator by providing it with your organization, bucket, and authorization token:
+5. Start the generator. Specify your organization, bucket, and authorization token:
 
     ```sh
     air-sensor-data -o your-org -b your-bucket -t YOURAUTHTOKEN
     ```
 
-    The generator will begin writing data to InfluxDB.
+    The generator begins to write data to InfluxDB.
 
     _**Note:** Use the `--help` flag to view other configuration options._
 
@@ -176,7 +176,7 @@ END $$
 ```
 
 {{% note %}}
-Update the `filepath` variable to match the path of your to your downloaded sample data CSV.
+Update the `filepath` variable to the path of the downloaded CSV sample data.
 {{% /note %}}
 
 Query the table to ensure the data was imported correctly:
