@@ -155,7 +155,8 @@ To use `air-sensor-data`:
 
     <a class="btn download" href="/downloads/sample-sensor-info.csv" download>Download Sample Data</a>
 
-3. Use a Postgres client (`psql` or a GUI) to import the CSV file using the following:
+3. Run the following in a Postgres client (`psql` or a GUI) to import the CSV file.
+   _Update the `filepath` variable to the path of the downloaded CSV sample data._
 
 ```sql
 DO $$
@@ -174,10 +175,6 @@ BEGIN
   FROM filepath DELIMITER ',' CSV HEADER;
 END $$
 ```
-
-{{% note %}}
-Update the `filepath` variable to the path of the downloaded CSV sample data.
-{{% /note %}}
 
 Query the table to ensure the data was imported correctly:
 
