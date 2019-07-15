@@ -38,7 +38,7 @@ Related entries: [function](#function), [selector](#selector), [transformation](
 
 ### bar graph
 
-A visual representation used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
+A visual representation in the InfluxDB user interface used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
 
 Related entries: [histogram](#histogram)
 
@@ -56,6 +56,10 @@ The number of lines or individual data points in a line protocol batch. The Tele
 Batch size controls the size of each write batch that Telegraf sends to the output plugins.
 
 Related entries: [output plugin](#output-plugin)
+
+### bin
+
+Includes all data points less than or equal to a specified upper bound.
 
 ### block
 
@@ -341,8 +345,7 @@ A visual representation of statistical information that uses rectangles to show 
 ### identifier
 
 Identifiers are tokens that refer to task names, bucket names, field keys,
-measurement names, subscription names, tag keys, and
-user names.
+measurement names, tag keys, and user names.
 For examples and rules, see [Flux language lexical elements](/v2.0/reference/flux/language/lexical-elements/#identifiers).
 
 Related entries:
@@ -482,14 +485,14 @@ servers, buckets, users, tasks, subscriptions, and blocks of time exist.
 
 Related entries: [meta node](#meta-node)
 
--->
-
 ### metastore
 
 Contains internal information about the status of the system.
 The metastore contains the user information, buckets, shard metadata, tasks, and subscriptions.
 
 Related entries: [bucket](#bucket), [retention policy](#retention-policy-rp), [user](#user)
+
+-->
 
 ### metric
 
@@ -573,11 +576,9 @@ An operator (`|>`) used in Flux to chain operations together. Specifies the outp
 
 ### point
 
- The InfluxDB database stores points. A single line of text in line protocol format represents one point in InfluxDB. A point has four components: a measurement, a tag set, a field set, and a timestamp.
+ InfluxDB stores points. A single line of text in line protocol format represents one point in InfluxDB. A point has four components: a measurement, a tag set, a field set, and a timestamp.
 
-<!--
-Related entries: [field set](#field-set), [series](/influxdb/v1.7/concepts/glossary/#series), [timestamp](/influxdb/v1.7/concepts/glossary/#timestamp)
--->
+Related entries: [measurement](#measurement), [tag set](#tag set), [field set](#field set), [timestamp](#timestamp)
 
 ### precision
 
@@ -628,13 +629,25 @@ A tuple of named values represented using an object type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+<!--### replication factor
+
+The attribute of the retention policy that determines how many copies of the data are stored in the cluster. InfluxDB replicates data across N data nodes, where N is the replication factor.
+
+To maintain data availability for queries, the replication factor should be less than or equal to the number of data nodes in the cluster:
+
+Data is fully available when the replication factor is greater than the number of unavailable data nodes.
+Data may be unavailable when the replication factor is less than the number of unavailable data nodes.
+Any replication factor greater than two gives you additional fault tolerance and query capacity within the cluster.
+
 ### retention policy (RP)
 
 Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
 
 <!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
--->
+
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
+
+-->
 
 ## S
 
@@ -645,7 +658,7 @@ How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are b
 <!-- See [Schema Design](/influxdb/v1.7/concepts/schema_and_data_layout/) for more information.
 should we replace this with influxd generate help-schema link? -->
 
-Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
+Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), <!--[retention policy](#retention-policy-rp),--> [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
 ### scrape
 
@@ -662,7 +675,7 @@ Related entries: [aggregation](#aggregation), [function](#function), [transforma
 
 A collection of data in the InfluxDB data structure that shares a measurement, tag set, and bucket.
 
-Related entries: [field set](#field-set), [measurement](#measurement), [retention policy](/#retention-policy-rp), [tag set](#tag-set)
+Related entries: [field set](#field-set), [measurement](#measurement),<!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 
 ### series cardinality
 
@@ -704,11 +717,9 @@ Related entries: [field key](#field-key),[measurement](#measurement), [tag key](
 
 ### server
 
-A computer, virtual or physical, running InfluxDB. <!--still valid There should only be one InfluxDB process per server. -->
+A computer, virtual or physical, running InfluxDB. <!--is this still valid for 2.0: There should only be one InfluxDB process per server. -->
 
 Related entries: [node](#node)
-
-<!-- ### service -->
 
 ### service input plugin
 
@@ -717,7 +728,7 @@ Service input plugins listen on a socket for known protocol inputs, or apply the
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-<!--### shard - in development
+<!--### shard
 
 A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
 Every shard belongs to one and only one shard group.
@@ -749,39 +760,46 @@ Related entries: [database](#database), [retention policy](#retention-policy-rp)
 
 -->
 
-<!--### Single Stat
+### Single Stat
+
+A visualization that displays the numeric value of the most recent point in a table (or series) returned by a query.
 
 ### Snappy compression
 
+InfluxDB uses snappy compression to compress batches of points. To improve space and disk IO efficiency, each batch is compressed before being written to disk.
+
 ### source
+
+An InfluxDB data source is selected for each bucket in an organization. Data can be streamed, scraped, or ingested using line protocol.
+
+Related entries: [bucket](#bucket), [organization](#organization), [stream](#stream), [scrape](#scrape), [line protocol](#line protocol)
 
 ### stacked graph
 
-### statement
+A visualization that displays groups in a bin are stacked on top of each other.
+
+Related entries: [bin](#bin)
 
 ### step-plot
 
+A visualization that displays a time series in a staircase graph.
+
 ### stream
 
-"stream of tables"
-
--->
+Flux processes streams of data. A stream includes a series of tables over a sequence of time intervals.
 
 ### string
 
 A data type used to represent text.
 
-<!-- how does this work in 2.0? ### subscription
-
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
-When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
-Subscriptions can use TCP or UDP for transmitting the writes.
-
--->
 
 ## T
 
-<!--### TCP
+### TCP
+
+InfluxDB uses TCP port 9999 for client-server communication over the InfluxDB HTTP API.
+
+<!--ports for InfluxDB Enterprise -->
 
 ### TSL
 
@@ -790,7 +808,9 @@ Subscriptions can use TCP or UDP for transmitting the writes.
 ### TSM file
 
 ### table
--->
+
+Flux processes a series of tables for a specified time series. These tables in sequence result in a stream of data.
+
 ### tag
 
 The key-value pair in InfluxDB's data structure that records metadata.
@@ -822,10 +842,14 @@ Tag values are indexed so queries on tag values are processed quickly.
 
 Related entries: [tag]#tag), [tag key](#tag-key), [tag set](#tag-set)
 
-<!--### task
+### task
 
 ### Telegraf
--->
+
+A plugin-driven agent that collects, processes, aggregates, and writes metrics.
+
+Related entries: [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](https://v2.docs.influxdata.com/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
+
 
 ### time (data type)
 
@@ -847,7 +871,16 @@ Related entries: [point](#point)
 
 ### token
 
+Tokens verify user and organization permissions in InfluxDB.
+
+Related entries: [Create a token](https://v2.docs.influxdata.com/v2.0/security/tokens/create-token/).
+
 ### tracing
+
+By default, tracing is disabled in InfluxDB. To enable tracing or set other InfluxDB  configuration options, see (https://v2.docs.influxdata.com/v2.0/reference/config-options/).
+
+<!-- any info here still relevant? https://docs.influxdata.com/influxdb/v1.7/administration/logs/#finding-all-trace-log-entries-for-an-influxdb-operation
+-->
 
 ### transformation
 
@@ -856,15 +889,21 @@ See [InfluxQL Functions](/influxdb/v1.7/query_language/functions/#transformation
 
 Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [selector](/influxdb/v1.7/concepts/glossary/#selector)
 
-## tsm (Time Structured Merge tree) - in 1.x - obsolete?
+## TSM (Time Structured Merge tree)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/) for more.
+A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage Engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/).
+
+Related entries: [TSI](#TSI)
+
+## TSI (Time Series Index)
+
+TSI uses the operating system's page cache to pull frequently accessed data into memory and keep infrequently accessed data on disk.
 
 ## U
 
 ### UDP
 
-User Datagram Protocol is a packet of information. When a request is made, a UDP packet is sent to the recipient. The sender doesn't verify the packet is received. The sender continues to send the next packets. This means computers can communicate more quickly. This protocol is used when speed is desirable and error correction is not necessary. 
+User Datagram Protocol is a packet of information. When a request is made, a UDP packet is sent to the recipient. The sender doesn't verify the packet is received. The sender continues to send the next packets. This means computers can communicate more quickly. This protocol is used when speed is desirable and error correction is not necessary.
 
 ### universe block
 
@@ -894,8 +933,9 @@ A statement that sets or updates the value stored in a variable.
 
 In Flux, the variable assignment creates a variable bound to an identifier and gives it a type and value. A variable keeps the same type and value for the remainder of its lifetime. An identifier assigned to a variable in a block cannot be reassigned in the same block.
 
-<!-- ## W
+## W
 
+<!--
 ### WAL (Write Ahead Log) - enterprise
 
 The temporary cache for recently written points. To reduce the frequency that permanent storage files are accessed, InfluxDB caches new points in the WAL until their total size or age triggers a flush to more permanent storage. This allows for efficient batching of the writes into the TSM.
@@ -903,7 +943,8 @@ The temporary cache for recently written points. To reduce the frequency that pe
 Points in the WAL can be queried and persist through a system reboot. On process start, all points in the WAL must be flushed before the system accepts new writes.
 
 Related entries: [tsm](#tsm-time-structured-merge-tree)
+-->
 
 ### windowing
 
-The process of partitioning data based on equal windows of time.
+Grouping data based on specified time intervals. For information about how to window in Flux, see [Window and aggregate data with Flux](https://v2.docs.influxdata.com/v2.0/query-data/guides/window-aggregate/).
