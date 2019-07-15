@@ -801,11 +801,12 @@ InfluxDB uses TCP port 9999 for client-server communication over the InfluxDB HT
 
 <!--ports for InfluxDB Enterprise -->
 
-### TSL
+<!-- ### TSL - I can't find any info about TSL other than a github issue that says we need to document it. :-) 
 
 ### TSM (Time-structured merge tree)
 
 ### TSM file
+-->
 
 ### table
 
