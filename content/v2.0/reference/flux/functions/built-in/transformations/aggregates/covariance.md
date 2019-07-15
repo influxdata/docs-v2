@@ -39,6 +39,7 @@ _**Data type:** String_
 ## Examples
 ```js
 from(bucket: "example-bucket")
-  |> range(start:-5m)
+  |> range(start:-5m)  
+  |> map(fn: (r) => ({r with x: r._value, y: r._value * r._value / 2}))
   |> covariance(columns: ["x", "y"])
 ```

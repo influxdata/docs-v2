@@ -18,8 +18,14 @@ _**Function type:** Aggregate_
 
 ```js
 movingAverage(
+<<<<<<< HEAD
   n: 5,
   columns: ["_value"]
+=======
+  every: 1d,
+  period: 5d,
+  column="_value"
+>>>>>>> master
 )
 ```
 
@@ -32,6 +38,7 @@ movingAverage(
 
 ## Parameters
 
+<<<<<<< HEAD
 ### n
 The number of points to average.
 
@@ -42,6 +49,8 @@ Columns to operate on. _Defaults to `["_value"]`_.
 
 _**Data type:** Array of Strings_
 
+=======
+>>>>>>> master
 ## Examples
 
 #### Calculate a five point moving average
@@ -53,9 +62,18 @@ from(bucket: "example-bucket"):
 
 #### Calculate a ten point moving average
 ```js
+<<<<<<< HEAD
 from(bucket: "example-bucket"):
   |> range(start: -12h)
   |> movingAverage(n: 10)
+=======
+movingAverage = (every, period, column="_value", tables=<-) =>
+  tables
+    |> window(every: every, period: period)
+    |> mean(column: column)
+    |> duplicate(column: "_stop", as: "_time")
+    |> window(every: inf)
+>>>>>>> master
 ```
 
 #### Table transformation with a two point moving average

@@ -8,6 +8,22 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-alpha.15 [2019-07-11]
+
+### Features
+- Add time zone support to UI.
+- Added new storage inspection tool to verify TSM files.
+
+### Bug Fixes
+- Fix incorrect reporting of tasks as successful when errors occur during result iteration.
+
+#### Known Issues
+The version of Flux included in Alpha 14 introduced `null` support.
+Most issues related to the `null` implementation have been fixed, but one known issue remains –
+The `map()` function panics if the first record processed has a `null` value.
+
+---
+
 ## v2.0.0-alpha.14 [2019-06-28]
 
 ### Features

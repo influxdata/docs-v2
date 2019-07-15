@@ -21,7 +21,7 @@ _**Function type:** Transformation_
 _**Output data type:** Object_
 
 ```js
-map(fn: (r) => r._value * r._value)
+map(fn: (r) => ({ _value: r._value * r._value }))
 ```
 
 ## Parameters

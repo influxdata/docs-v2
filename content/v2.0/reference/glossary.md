@@ -15,7 +15,9 @@ v2.0/tags: [glossary]
 
 ### agent
 
-A background process started by or on behalf of a user and typically requires user input. Telegraf is an example of an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
+A background process started by (or on behalf of) a user and typically requires user input.
+
+Telegraf is an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
 Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin), [daemon](#daemon)
 
@@ -34,7 +36,11 @@ Related entries: [function](#function), [selector](#selector), [transformation](
 
 ## B
 
-<!-- bar graph -->
+### bar graph
+
+A visual representation used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
+
+Related entries: [histogram](#histogram)
 
 ### batch
 
@@ -51,7 +57,25 @@ Batch size controls the size of each write batch that Telegraf sends to the outp
 
 Related entries: [output plugin](#output-plugin)
 
-<!-- ### block-->
+### block
+
+In Flux, a block is a possibly empty sequence of statements within matching braces (`{ }`). Two types of blocks exist in Flux:
+
+- Explicit blocks in the source code, for example:
+
+```
+Block         = "{" StatementList "} 
+StatementList = { Statement } 
+```
+
+- Implicit blocks, including:
+
+  - Universe: Encompasses all Flux source text.
+  - Package: Each package includes a package block that contains Flux source text for the package.
+  - File: Each file has a file block containing Flux source text in the file.
+  - Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
+
+Related entries: [implicit block](#implicit-block), [explicit block](#explicit-block)
 
 ### boolean
 
@@ -61,26 +85,32 @@ By convention, you can express `true` as the integer `1` and false as the intege
 ### bucket
 
 A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
-<!-->
-### bytes
 
 ## C
 
 ### CSV
 
--->
+Comma-separated values (CSV) delimits text between commas to separate values. A CSV file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. CSV file format is not fully standardized.
+
+InfluxData uses annotated CSV (comma-separated values) format to encode HTTP responses and results returned to the Flux csv.from() function. For more detail, see [Annotated CSV](/v2.0/reference/annotated-csv/).
+
+<!-- enterprise 
 ### cardinality
 
-Cardinality is the number of unique series in a bucket or database as a whole.
-<!--
+Cardinality is the number of unique series in a bucket or database as a whole. 
 
 ### cluster
 
+An InfluxDB cluster includes meta nodes, data nodes, and the InfluxDB Enterprise web server. In a cluster, meta nodes must communicate with each other and data nodes must communicate with each other and with meta nodes.
+-->
+
 ### co-monitoring dashboard
+
+The prebuilt co-monitoring dashboard displays details of your instance based on metrics from Telegraf, allowing you to monitor overall performance.
 
 ### collect
 
--->
+Collect and write time series data to InfluxDB using line protocol, Telegraf or InfluxDB scrapers, the InfluxDB v2 API, influx command line interface (CLI),the InfluxDB user interface (UI), and client libraries.
 
 ### collection interval
 
@@ -97,13 +127,17 @@ Collection jitter prevents every input plugin from collecting metrics simultaneo
 
 Related entries: [collection interval](#collection-interval), [input plugin](#input-plugin)
 
-<!-- ### column
+### column
+
+InfluxDB data is stored in tables within rows and columns. Columns store tag sets (indexed) and fields sets. The only required column is _time_, which stores timestamps and is included in all InfluxDB tables.
 
 ### comment
 
+Use comments with Flux statements to describe your functions.
+
 ### common log format (CLF)
 
--->
+A standardized text file format used by the InfluxDB web server to create log entries when generating server log files.
 
 ### continuous query (CQ)
 
@@ -114,26 +148,32 @@ Related entries: [function](#function)
 ## D
 
 ### daemon
+
 A background process that runs without user input.
 
-<!--
 ### dashboard
+
+InfluxDB dashboards visualize time series data. Use dashboards to query and graph data.
 
 ### dashboard variable
 
+Dashboard template variables define components of a cell query. Dashboard variables make is easier to interact with and explore your databoard data. Use the InfluxDB user interface (UI) to add predefined template variables or customize your own template variables.
+
 ### Data Explorer
 
+Use the Data Explorer in the InfluxDB user interface (UI) to view, add, or delete variables and functions manually or using the Script Editor. 
+
 ### data model
--->
 
-<!-- ### data node
+A data model organizes elements of data and standardizes how they relate to one another and to properties of the real world entities.
 
-A node that runs the InfluxDB? data service.
+Flux uses a data model built from basic data types: tables, records, columns and streams.
 
-For high availability, installations must have at least two data nodes.
-The number of data nodes in your cluster must be the same as your highest replication factor.
-Any replication factor greater than two gives you additional fault tolerance and
-query capacity in the cluster.
+<!-- enterprise ### data node
+
+Data nodes allow a system to replicate data across multiple nodes.
+
+For high availability in InfluxDB, a cluster must have at least two data nodes. The number of data nodes in a cluster must be the same as the highest replication factor. A replication factor greater than two adds fault tolerance and query capacity in a cluster.
 
 Data node sizes will depend on your needs. The Amazon EC2 m4.large or m4.xlarge are good starting points.
 
@@ -146,7 +186,11 @@ Stores time series data and handles writes and queries.
 
 Related entries: [data node](#data-node)
 
-<!--### data type -->
+### data type
+
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
+
+InfluxDB supports the following data types: float, integer, string, boolean, and timestamp.
 
 ### database
 
@@ -154,21 +198,19 @@ In InfluxDB 2.0, a database represents the InfluxDB instance as a whole.
 
 Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
 
-<!-- ### date-time-->
+### date-time
+
+InfluxDB stores the date-time format for each data point in a timestamp with nanosecond-precision Unix time. Specifying a timestamp is options. If a timestamp isn't specified for a data point, InfluxDB uses the server’s local nanosecond timestamp in UTC.
 
 ### downsample
+
 Aggregating high resolution data into lower resolution data to preserve disk space.
 
 ### duration
 
 A data type that represents a duration of time (1s, 1m, 1h, 1d). Retention policies are set using durations. Data older than the duration is automatically dropped from the database.
-<!-- See [Database Management](/influxdb/v1.7/query_language/database_management/#create-retention-policies-with-create-retention-policy) for how to set duration.
--->
 
 Related entries: [retention policy](#retention-policy-rp)
-
-<!-- ### duration (data type)
--->
 
 ## E
 
@@ -176,9 +218,19 @@ Related entries: [retention policy](#retention-policy-rp)
 
 Metrics gathered at irregular time intervals.
 
-<!-- ### explicit block
--->
+### explicit block
+
+In Flux, a an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
+
+```
+Block         = "{" StatementList "} 
+StatementList = { Statement } 
+```
+
+Related entries: [implicit block](#implicit block), [block](#block)
+
 ### expression
+
 A combination of one or more constants, variables, operators, and functions.
 
 ## F
@@ -217,9 +269,14 @@ Field values are not indexed - queries on field values scan all points that matc
 
 Related entries: [field](#field), [field key](#field-key), [field set](#field-set), [tag value](#tag-value), [timestamp](#timestamp)
 
-<!-- ### file block
--->
+### file block
+
+A file block is a fixed-length chunk of data read into memory when requested by an application.
+
+Related entries: [block](#block)
+
 ### float
+
 A float represents real numbers and is written with a decimal point dividing the integer and fractional parts. For example, 1.0, 3.14.
 
 ### flush interval
@@ -244,28 +301,39 @@ A lightweight scripting language for querying databases (like InfluxDB) and work
 ### function
 
 Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/).
-<!--Or opt to use Flux functions' predecessor, InfluxQL functions. See [InfluxQL functions](/influxdb/v1.7/query_language/functions/) for a complete list. -->
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
-<!--### function block
+### function block
+
+In Flux, each file has a file block containing all Flux source text in that file. Each function literal has its own function block even if not explicitly declared.
 
 ## G
 
 ### gauge
 
+ A type of visualization that displays the single most recent value for a time series. A gauge typically displays one or more measures from a single row, and is not designed to display multiple rows of data. Elements include a range, major and minor tick marks (within the range), and a pointer (needle) indicating the single most recent value.
+
 ### graph
+
+A diagram that visually depicts the relation between variable quantities measured along specified axes.
 
 ### gzip
 
-- compression
-- file (`.gz`)
+gzip is a type of data compression that compress chunks of data, which is restored by unzipping compressed gzip files.
+the gzip file extension is `.gz`.
 
 ## H
 
+<!--enterprise
 ### Hinted Handoff (HH)
+
+Offers full write availability on an InfluxDB cluster. Hinted handoff improves response consistency after temporary outages such as network failures.
+
 -->
+
 ### histogram
+
 A visual representation of statistical information that uses rectangles to show the frequency of data items in successive, equal intervals or bins.
 
 ## I
@@ -285,20 +353,35 @@ Related entries:
 [tag key](#tag-key),
 [user](#user)
 
-<!--### implicit block -->
+### implicit block
+
+In Flux, an implicit block is a possibly empty sequence of statements within matching braces ({ }) that includes the following types:
+
+  - Universe: Encompasses all Flux source text.
+  - Package: Each package includes a package block that contains Flux source text for the package.
+  - File: Each file has a file block containing Flux source text in the file.
+  - Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
+
+Related entries: [explict block](#explicit-block), [block](#block)
 
 ### influx
+
 A command line interface (CLI) that interacts with the InfluxDB daemon (influxd).
 
 ### influxd
+
 The InfluxDB daemon that runs the InfluxDB server and other required processes.
 
-<!--### InfluxDB -->
+### InfluxDB
+
+An open-source time series database (TSDB) developed by InfluxData. Written in Go and optimized for fast, high-availability storage and retrieval of time series data in fields such as operations monitoring, application metrics, Internet of Things sensor data, and real-time analytics.
 
 ### InfluxDB UI
+
 The graphical web interface provided by InfluxDB for visualizing data and managing InfluxDB functionality.
 
 ### InfluxQL
+
 The SQL-like query language used to query data in InfluxDB 1.x.
 
 ### input plugin
@@ -308,37 +391,60 @@ In order to activate an input plugin, it needs to be enabled and configured in T
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [collection interval](/telegraf/v1.10/concepts/glossary/#collection-interval), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
 
-<!-- ### instance
+### instance
+
+An entity comprising data on a server (or virtual server in cloud computing). <!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
 
 ### int (data type)
+
+A data type that represents an integer, a whole number that's positive, negative, or zero.
 
 ## J
 
 ### JWT
 
+Typically, JSON web tokens (JWT) are used to authenticate users between an identity provider and a service provider. A server can generate a JWT to assert any business processes. For example, an "admin" token sent to a client can prove the client is logged in as admin. Tokens are signed by one party's private key (typically, the server). Private keys are used by both parties to verify that a token is legitimate.
+
+JWT uses an open standard [RFC 7519](https://tools.ietf.org/html/rfc7519).
+
 ### Jaeger
 
-### Java Web Tokens
+Open source tracing used in distributed systems to monitor and troubleshoot transactions.
 
 ### join
+
+### JSON
+
+JavaScript Object Notation (JSON) is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types.
 
 ## K
 
 ### keyword
 
--->
+A keyword is reserved by a program because it has special meaning. Every programming language has a set of keywords (reserved names) that cannot be used as an identifier.
+
+See a list of [Flux keywords](/v2.0/reference/flux/language/lexical-elements/#keywords).
 
 ## L
 
-<!-- ### literal
+### literal
 
+A literal is value in an expression, a number, character, string, function, object, or array. Literal values are interpreted as defined.
+
+See examples of [Flux literals](/v2.0/reference/flux/language/expressions/#examples-of-function-literals).
+
+<!-- enterprise 
 ### load balancing
 
-### Log Viewer
-
-### logging
+Improves workload distribution across multiple computing resources in a network. Load balancing optimizes resource use, maximizes throughput, minimizes response time, and avoids overloading a single resource. Using multiple components with load balancing instead of a single component may increase reliability and availability. If requests to any server in a network increase, requests are forwarded to another server with more capacity. Load balancing can also refer to the communications channels themselves.
 
 -->
+
+### logs
+
+Logs record information. Event logs describe system events and activity that help to describe and diagnose problems. Transaction logs describe changes to stored data that help recover data if a database crashes or other errors occur.
+
+The InfluxDB 2.0 user interface (UI) can be used to view log history and data.
 
 ### Line Protocol (LP)
 
@@ -354,9 +460,10 @@ Measurements are strings.
 Related entries: [field](#field), [series](#series)
 
 ### member
+
 A user in an organization. <!--or a node in a cluster. -->
 
-<!--### meta node
+<!--### meta node - in development
 
 A node that runs the meta service.
 
@@ -396,8 +503,11 @@ The oldest metrics are dropped first when this buffer fills.
 
 Related entries: [output plugin](/#output-plugin)
 
-<!-- ### missing value
--->
+### missing values
+
+Denoted by a null value. Identifies missing information, which may be useful to include in an error message.
+
+The Flux data model includes [Missing values (null)](/v2.0/reference/flux/language/data-model/#missing-values-null).
 
 ## N
 
@@ -412,56 +522,62 @@ Related entries: [server](#server)
 The local server's nanosecond timestamp.
 
 ### null
+
 A data type that represents a missing or unknown value. Denoted by the null value.
 
 ## O
 
 ### operator
+
 A symbol that usually represents an action or process. For example: `+`, `-`, `>`.
 
 ### operand
+
 The object or value on either side of an operator.
 
-<!-- ### option
+### option
+
+Represents a storage location for any value of a specified type. Mutable, can hold different values during its lifetime.
+
+See built-in Flux [options](/v2.0/reference/flux/language/options/).
 
 ### option assignment
--->
+
+An option assignment binds an identifier to an option.
+
+Learn about the [Option assignment](/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
+
 ### organization
+
 A workspace for a group of users. All dashboards, tasks, buckets, members, and so on, belong to an organization.
 
 ### output plugin
 
-Telegraf output plugins deliver metrics to their configured destination. In order to activate an output plugin, it needs to be enabled and configured in Telegraf's configuration file.
+Telegraf output plugins deliver metrics to their configured destination. To activate an output plugin, enable and configure the plugin in Telegraf's configuration file.
 
 Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [flush interval](/telegraf/v1.10/concepts/glossary/#flush-interval), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
 
 ## P
 
 ### parameter
+
 A key-value pair used to pass information to functions.
-<!--
+
 ### pipe
--->
+
+Method for passing information from one process to another. For example, an output parameter from one process is input to another process. Information passed through a pipe is retained until the receiving process reads the information.
+
 ### pipe-forward operator
+
 An operator (`|>`) used in Flux to chain operations together. Specifies the output from a function is input to next function.
 
 ### point
 
 A point in the InfluxDB data structure that consists of a single collection of fields in a series. Each point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp.
 When you write a new point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
-<!-- For an example, see [Frequently Asked Questions](/influxdb/v1.7/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
 
-Related entries: [field set](/influxdb/v1.7/concepts/glossary/#field-set), [series](/influxdb/v1.7/concepts/glossary/#series), [timestamp](/influxdb/v1.7/concepts/glossary/#timestamp)
-
-## points per second - in 1.x - obsolete?
-
-A deprecated measurement of the rate at which data are persisted to InfluxDB.
-The schema allows and even encourages the recording of multiple metric values per point, rendering points per second ambiguous.
-
-Write speeds are generally quoted in values per second, a more precise metric.
-
-Related entries: [point](/influxdb/v1.7/concepts/glossary/#point), [schema](/influxdb/v1.7/concepts/glossary/#schema), [values per second](/influxdb/v1.7/concepts/glossary/#values-per-second)
-
+<!--
+Related entries: [field set](#field-set), [series](/influxdb/v1.7/concepts/glossary/#series), [timestamp](/influxdb/v1.7/concepts/glossary/#timestamp)
 -->
 
 ### precision
@@ -472,7 +588,11 @@ In Telegraf, truncated timestamps are padded with zeros to create a nanosecond t
 
 Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](/#processor-plugin), [service input plugin](#service-input-plugin)
 
-<!-- ### process -->
+### process
+
+A set of predetermined rules. A process can refer to instructions being executed by the computer processor or refer to the act of manipulating data.
+
+In Flux, you can process data with [InfluxDB tasks](/v2.0/process-data/get-started/).
 
 ### processor plugin
 
@@ -480,13 +600,18 @@ Telegraf processor plugins transform, decorate, and filter metrics collected by 
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin)
 
-<!-- ### Prometheus format -->
+### Prometheus format
+
+A simple text-based format for exposing metrics and ingesting them into Prometheus or InfluxDB using InfluxDB scrapers.
+
+Collect data from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ## Q
 
 ### query
 
 An operation that retrieves data from InfluxDB.
+
 See [Query data in InfluxDB](/v2.0/query-data/).
 
 ## R
@@ -523,7 +648,9 @@ should we replace this with influxd generate help-schema link? -->
 
 Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
-<!-- ### scrape -->
+### scrape
+
+InfluxDB scrapes data from specified targets at regular intervals and writes the data to an InfluxDB bucket. Data can be scraped from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ### selector
 
@@ -591,7 +718,7 @@ Service input plugins listen on a socket for known protocol inputs, or apply the
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-<!--### shard
+<!--### shard - in development
 
 A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
 Every shard belongs to one and only one shard group.
@@ -642,6 +769,7 @@ Related entries: [database](#database), [retention policy](#retention-policy-rp)
 -->
 
 ### string
+
 A data type used to represent text.
 
 <!-- how does this work in 2.0? ### subscription
@@ -718,7 +846,7 @@ To specify time when querying data, see [Query InfluxDB with Flux](/v2.0/query-d
 
 Related entries: [point](#point)
 
-<!--### token
+### token
 
 ### tracing
 
@@ -737,18 +865,15 @@ The purpose-built data storage format for InfluxDB. TSM allows for greater compa
 
 ### UDP
 
+User Datagram Protocol is a packet of information. When a request is made, a UDP packet is sent to the recipient. The sender doesn't verify the packet is received. The sender continues to send the next packets. This means computers can communicate more quickly. This protocol is used when speed is desirable and error correction is not necessary. 
+
 ### universe block
+
+An implicit block that encompasses all Flux source text in a universe block.
 
 ### user
 
-There are two kinds of users in InfluxDB:
-
-* *Admin users* have `READ` and `WRITE` access to all databases and full access to administrative queries and user management commands.
-* *Non-admin users* have `READ`, `WRITE`, or `ALL` (both `READ` and `WRITE`) access per database.
-
-When authentication is enabled, InfluxDB only executes HTTP requests that are sent with a valid username and password.
-See [Authentication and Authorization](/influxdb/v1.7/administration/authentication_and_authorization/).
--->
+InfluxDB users are granted permission to access to InfluxDB. Users are added as a member of an organization and are given a unique authentication token.
 
 ## V
 
@@ -760,13 +885,19 @@ To calculate the values per second rate, multiply the number of points written p
 
 Related entries: [batch](#batch), [field](#field), [point](#point), [points per second](#points-per-second)
 
-<!-- ### variable
+### variable
+
+A storage location (identified by a memory address) paired with an associated symbolic name (an identifier). A variable contains some known or unknown quantity of information referred to as a value.
 
 ### variable assignment
 
-## W
+A statement that sets or updates the value stored in a variable.
 
-### WAL (Write Ahead Log)
+In Flux, the variable assignment creates a variable bound to an identifier and gives it a type and value. A variable keeps the same type and value for the remainder of its lifetime. An identifier assigned to a variable in a block cannot be reassigned in the same block.
+
+<!-- ## W
+
+### WAL (Write Ahead Log) - enterprise
 
 The temporary cache for recently written points. To reduce the frequency that permanent storage files are accessed, InfluxDB caches new points in the WAL until their total size or age triggers a flush to more permanent storage. This allows for efficient batching of the writes into the TSM.
 
@@ -774,26 +905,6 @@ Points in the WAL can be queried and persist through a system reboot. On process
 
 Related entries: [tsm](#tsm-time-structured-merge-tree)
 
-<!-- ## web console - e - obsolete?
-
-Legacy user interface for the InfluxDB Enterprise.
-
-This has been deprecated and the suggestion is to use [Chronograf](/chronograf/latest/introduction/).
-
-If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/chronograf/latest/guides/transition-web-admin-interface/) is available.
-
--->
-
 ### windowing
+
 The process of partitioning data based on equal windows of time.
-
-<!--
-## X
-
-
-## Y
-
-
-## Z
-
--->
