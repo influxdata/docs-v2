@@ -576,7 +576,7 @@ An operator (`|>`) used in Flux to chain operations together. Specifies the outp
 
 ### point
 
-InfluxDB stores points. A point consists of a single collection of fields in a series. A single line of text in line protocol format represents one point in InfluxDB. Each point has four components: a measurement, a tag set, a field set, and a timestamp. A point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp.	If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+InfluxDB stores points. A single line of text in line protocol format represents one point in InfluxDB, and includes a collection of fields in a series. Each point has four components: a measurement, a tag set, a field set, and a timestamp. A point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp. If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
 
 Related entries: [measurement](#measurement), [tag set](#tag set), [field set](#field set), [timestamp](#timestamp)
 
