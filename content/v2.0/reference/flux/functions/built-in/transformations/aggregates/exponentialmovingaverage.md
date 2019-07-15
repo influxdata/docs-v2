@@ -2,7 +2,7 @@
 title: exponentialMovingAverage() function
 description: >
   The `exponentialMovingAverage()` function calculates the exponential moving average
-  of values grouped into `n` number of points giving more weight to recent data.
+  of values grouped into `n` number of points, giving more weight to recent data.
 menu:
   v2_0_ref:
     name: exponentialMovingAverage
@@ -15,7 +15,7 @@ related:
 ---
 
 The `exponentialMovingAverage()` function calculates the exponential moving average
-of values grouped into `n` number of points giving more weight to recent data.
+of values grouped into `n` number of points, giving more weight to recent data.
 
 _**Function type:** Aggregate_  
 
@@ -28,11 +28,11 @@ exponentialMovingAverage(
 
 ##### Exponential moving average rules:
 - The first value of an exponential moving average over `n` values is the
-  algebraic mean of the first `n` values.
+  algebraic mean of `n` values.
 - Subsequent values are calculated as `y(t) = x(t) * k + y(t-1) * (1 - k)`, where:
-    - `k = 2 / (1 + n)`.
     - `y(t)` is the exponential moving average at time `t`.
     - `x(t)` is the value at time `t`.
+    - `k = 2 / (1 + n)`.
 - The average over a period populated by only `null` values is `null`.
 - Exponential moving averages skip `null` values.
 
@@ -55,13 +55,6 @@ _**Data type:** Array of Strings_
 from(bucket: "example-bucket"):
   |> range(start: -12h)
   |> exponentialMovingAverage(n: 5)
-```
-
-#### Calculate a ten point exponential moving average
-```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> exponentialMovingAverage(n: 10)
 ```
 
 #### Table transformation with a two point exponential moving average
