@@ -31,7 +31,7 @@ import "sql"
 sql.from(
   driverName: "postgres",
   dataSourceName: "postgresql://user:password@localhost",
-  query: "SELECT * FROM exampleTable"
+  query: "SELECT * FROM example_table"
 )
 ```
 {{% /code-tab-content %}}
@@ -43,7 +43,7 @@ import "sql"
 sql.from(
   driverName: "mysql",
   dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM exampleTable"
+  query: "SELECT * FROM example_table"
 )
 ```
 {{% /code-tab-content %}}
@@ -142,7 +142,7 @@ To use `air-sensor-data`:
 5. Start the generator. Specify your organization, bucket, and authorization token:
 
     ```sh
-    air-sensor-data -o your-org -b your-bucket -t YOURAUTHTOKEN
+    ./air-sensor-data -o your-org -b your-bucket -t YOURAUTHTOKEN
     ```
 
     The generator begins to write data to InfluxDB.
@@ -155,32 +155,30 @@ To use `air-sensor-data`:
 
     <a class="btn download" href="/downloads/sample-sensor-info.csv" download>Download Sample Data</a>
 
-3. Run the following in a Postgres client (`psql` or a GUI) to import the CSV file.
-   _Update the `filepath` variable to the path of the downloaded CSV sample data._
+3. Use a Postgres client (`psql` or a GUI) to create the `sensors` table:
 
-```sql
-DO $$
-DECLARE
-  filepath VARCHAR(200) := '/path/to/sample-sensor-info.csv';
-BEGIN
-  -- Create the sensors table
-  CREATE TABLE sensors (
-    sensor_id character varying(50),
-    location character varying(50),
-    model_number character varying(50),
-    last_inspected date
-  );
-  -- Import sample CSV from your filesystem
-  COPY sensors(sensor_id,location,model_number,last_inspected)
-  FROM filepath DELIMITER ',' CSV HEADER;
-END $$
-```
+    ```sql
+    CREATE TABLE sensors (
+      sensor_id character varying(50),
+      location character varying(50),
+      model_number character varying(50),
+      last_inspected date
+    );
+    ```
 
-Query the table to ensure the data was imported correctly:
+4. Import the downloaded CSV sample data.
+   _Update the `FROM` file path to the path of the downloaded CSV sample data._
 
-```sql
-SELECT * FROM sensors;
-```
+    ```sql
+    COPY sensors(sensor_id,location,model_number,last_inspected)
+    FROM '/path/to/sample-sensor-info.csv' DELIMITER ',' CSV HEADER;
+    ```
+
+5. Query the table to ensure the data was imported correctly:
+
+    ```sql
+    SELECT * FROM sensors;
+    ```
 
 #### Sample dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
