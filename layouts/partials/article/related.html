@@ -4,7 +4,7 @@
     <ul>
     {{ range .Params.related }}
       {{ if in . "http" }}
-        {{ $link := replaceRE `\,\s(...)*$` "" . }}
+        {{ $link := replaceRE `\,\s(.*)$` "" . }}
         {{ $title := replaceRE `^(\S*\,\s)` "" . }}
         <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
       {{ else }}
