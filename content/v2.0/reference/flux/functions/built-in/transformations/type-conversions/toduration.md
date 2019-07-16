@@ -10,6 +10,10 @@ menu:
 weight: 501
 ---
 
+{{% warn %}}
+**`toDuration()` was removed in Flux 0.37.**
+{{% /warn %}}
+
 The `toDuration()` function converts all values in the `_value` column to durations.
 
 _**Function type:** Type conversion_  
@@ -22,7 +26,7 @@ toDuration()
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
 patterned after the [function definition](#function-definition),
-but replace the column in the `duration()` function with your desired column.
+but replace `_value` with your desired column.
 {{% /note %}}
 
 ## Examples
@@ -39,7 +43,7 @@ from(bucket: "telegraf")
 ```js
 toDuration = (tables=<-) =>
   tables
-    |> map(fn:(r) => duration(v: r._value))
+    |> map(fn:(r) => ({ r with _value: duration(v: r._value) }))
 ```
 
 _**Used functions:**
