@@ -15,7 +15,7 @@ A bin is defined by an upper bound where all data points that are less than or e
 The bin counts are cumulative.
 
 Each input table is converted into a single output table representing a single histogram.
-The output table has a the same group key as the input table.
+The output table has the same group key as the input table.
 Columns not part of the group key are removed and an upper bound column and a count column are added.
 
 _**Function type:** Transformation_  
