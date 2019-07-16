@@ -11,10 +11,51 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.35.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.36.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.36.2 [2019-07-12]
+
+### Bug fixes
+- Add helper methods for comparing entire result sets.
+- Map will not panic when a record is `null`.
+
+---
+
+## v0.36.1 [2019-07-10]
+
+### Bug fixes
+- Add `range` call to some end-to-end tests.
+- Fix implementation of `strings.replaceAll`.
+
+---
+
+## v0.36.0 [2019-07-09]
+
+### Features
+- Updated `movingAverage()` and added `timedMovingAverage`.
+- `elapsed()` function.
+- `mode()` function.
+- `sleep()` function.
+- Modify error usage in places to use the new enriched errors.
+- Enriched error interface.
+- End-to-end tests that show how to mimic pandas functionality.
+- End-to-end tests for string functions.
+
+### Bug fixes
+- Fix `difference()` so that it returns an error instead of panicking when given a `_time` column.
+- Added end-to-end tests for type conversion functions.
+- Make `map()` error if return type is not an object.
+- Fixed miscounted allocations in the `ColListTableBuilder`.
+- Support formatting `with`.
+
+### Breaking changes
+- Updated `movingAverage()` to `timedMovingAverage` and added new
+  `movingAverage()` implementation.
+
+---
 
 ## v0.35.1 [2019-07-03]
 
