@@ -12,7 +12,7 @@ weight: 207
 ---
 
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/v2.0/reference/flux/functions/sql/from/) lets you query SQL databases
+[`sql.from()`](/v2.0/reference/flux/functions/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
@@ -154,11 +154,10 @@ To use `air-sensor-data`:
     _**Note:** Use the `--help` flag to view other configuration options._
 
 
-5. Ensure data is successfully written.
+5. [Query your target bucket](v2.0/query-data/execute-queries/) to ensure the
+   generated data is writing successfully.
    The generator doesn't catch errors from write requests, so it will continue running
    even if data is not writing to InfluxDB successfully.
-   Check the output of your `influxd` daemon for errors or query your target
-   bucket to ensure the generated data is writing successfully:
 
     ```
     from(bucket: "example-bucket")
