@@ -2,7 +2,8 @@
 title: Query SQL data sources
 seotitle: Query SQL data sources with InfluxDB
 description: >
-  placeholder
+  The Flux `sql` package provides functions for working with SQL data sources.
+  Use `sql.from()` to query SQL databases like PostgreSQL and MySQL
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
@@ -54,7 +55,7 @@ information about required function parameters._
 
 ## Use cases
 
-### Join SQL results with time series data
+### Join SQL data with data in InfluxDB
 One of the primary benefits of querying SQL data sources from InfluxDB
 is the ability to enrich query results with data stored outside of InfluxDB.
 
@@ -79,7 +80,7 @@ sensorMetrics = from(bucket: "example-bucket")
 join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ```
 
-### Create dashboard variables using SQL results
+### Use SQL results to populate dashboard variables
 Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
 The following example uses the [air sensor sample data](#sample-data) below to
@@ -123,33 +124,48 @@ Information about each sensor is stored in a `sensors` table in a Postgres datab
 - model_number
 - last_inspected
 
-#### Sample data generator
+### Import and generate sample sensor data
+
+#### Download and run the sample data generator
 `air-sensor-data` is a CLI that generates air sensor data and stores the data in InfluxDB.
 To use `air-sensor-data`:
 
 1. [Create a bucket](/v2.0/organizations/buckets/create-bucket/) to store the data.
-2. Get your [authorization token](/v2.0/security/tokens/view-tokens/).
-3. Download the sample data generator. _This tool requires **Ruby**._
+2. Download the sample data generator. _This tool requires **Ruby**._
 
-    <a class="btn download" href="/downloads/air-sensor-data" download>Download Air Sensor Generator</a>
+    <a class="btn download" href="/downloads/air-sensor-data.rb" download>Download Air Sensor Generator</a>
 
-4. Give `air-sensor-data` executable permissions:
-
-    ```sh
-    chmod +x air-sensor-data
-    ```
-
-5. Start the generator. Specify your organization, bucket, and authorization token:
+3. Give `air-sensor-data` executable permissions:
 
     ```sh
-    ./air-sensor-data -o your-org -b your-bucket -t YOURAUTHTOKEN
+    chmod +x air-sensor-data.rb
     ```
 
-    The generator begins to write data to InfluxDB.
+4. Start the generator. Specify your organization, bucket, and authorization token.
+   _For information about retrieving your token, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+
+    ```sh
+    ./air-sensor-data.rb -o your-org -b your-bucket -t YOURAUTHTOKEN
+    ```
+
+    The generator begins to write data to InfluxDB and will continue until stopped.
+    Use `ctrl-c` to stop the generator.
 
     _**Note:** Use the `--help` flag to view other configuration options._
 
-## Sample sensor information
+5. Ensure data is successfully written.
+   The generator doesn't catch errors from write requests, so it will continue running
+   even if data is not writing to InfluxDB successfully.
+   Check the output of your `influxd` daemon for errors or query your target
+   bucket to ensure the generated data is writing successfully:
+
+    ```js
+    from(bucket: "example-bucket")
+       |> range(start: -1m)
+       |> filter(fn: (r) => r._measurement == "airSensors")
+    ```
+
+#### Import the sample sensor information
 1. [Download and install Postgres](https://www.postgresql.org/download/).
 2. Download the sample sensor information CSV.
 
@@ -180,10 +196,9 @@ To use `air-sensor-data`:
     SELECT * FROM sensors;
     ```
 
-#### Sample dashboard
+#### Import the sample data dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
 
 <a class="btn download" href="/downloads/air_sensors_dashboard.json" download>Download Air Sensors dashboard</a>
 
-_See [Create a dashboard](/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)
-for information about importing a dashboard._
+_For information about importing a dashboard, see [Create a dashboard](/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)._
