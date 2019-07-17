@@ -991,7 +991,7 @@
      "arguments": {
       "type": "query",
       "values": {
-       "query": "buckets()\n  |> map(fn: (r) => r.name)\n",
+       "query": "buckets()\n  |> map(fn: (r) => ({ _value: r.name }))\n",
        "language": "flux"
       }
      },
