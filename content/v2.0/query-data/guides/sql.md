@@ -137,14 +137,14 @@ To use `air-sensor-data`:
 
 3. Give `air-sensor-data` executable permissions:
 
-    ```sh
+    ```
     chmod +x air-sensor-data.rb
     ```
 
 4. Start the generator. Specify your organization, bucket, and authorization token.
-   _For information about retrieving your token, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+  _For information about retrieving your token, see [View tokens](/v2.0/security/tokens/view-tokens/)._
 
-    ```sh
+    ```
     ./air-sensor-data.rb -o your-org -b your-bucket -t YOURAUTHTOKEN
     ```
 
@@ -153,13 +153,14 @@ To use `air-sensor-data`:
 
     _**Note:** Use the `--help` flag to view other configuration options._
 
+
 5. Ensure data is successfully written.
    The generator doesn't catch errors from write requests, so it will continue running
    even if data is not writing to InfluxDB successfully.
    Check the output of your `influxd` daemon for errors or query your target
    bucket to ensure the generated data is writing successfully:
 
-    ```js
+    ```
     from(bucket: "example-bucket")
        |> range(start: -1m)
        |> filter(fn: (r) => r._measurement == "airSensors")
@@ -173,7 +174,7 @@ To use `air-sensor-data`:
 
 3. Use a Postgres client (`psql` or a GUI) to create the `sensors` table:
 
-    ```sql
+    ```
     CREATE TABLE sensors (
       sensor_id character varying(50),
       location character varying(50),
@@ -185,14 +186,14 @@ To use `air-sensor-data`:
 4. Import the downloaded CSV sample data.
    _Update the `FROM` file path to the path of the downloaded CSV sample data._
 
-    ```sql
+    ```
     COPY sensors(sensor_id,location,model_number,last_inspected)
     FROM '/path/to/sample-sensor-info.csv' DELIMITER ',' CSV HEADER;
     ```
 
 5. Query the table to ensure the data was imported correctly:
 
-    ```sql
+    ```
     SELECT * FROM sensors;
     ```
 
