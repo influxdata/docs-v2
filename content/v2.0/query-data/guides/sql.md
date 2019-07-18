@@ -105,8 +105,9 @@ Use the variable to manipulate queries in your dashboards.
 ---
 
 ## Sample data
-The [sample data generator](#sample-data-generator) and [sample sensor information](#sample-sensor-information)
-simulate a group of sensors that measure temperature, humidity, and carbon monoxide
+The [sample data generator](#download-and-run-the-sample-data-generator) and
+[sample sensor information](#import-the-sample-sensor-information) simulate a
+group of sensors that measure temperature, humidity, and carbon monoxide
 in rooms throughout a building.
 Each collected data point is stored in InfluxDB with a `sensor_id` tag that identifies
 the specific sensor it came from.
