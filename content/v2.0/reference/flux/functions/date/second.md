@@ -1,8 +1,8 @@
 ---
 title: date.second() function
 description: >
-  The `date.second()` function returns the second within the minute the specified time falls in.
-  Results are in the range `[0, 59]`.
+  The `date.second()` function returns the second of a specified time.
+  Results range from `[0-59]`.
 menu:
   v2_0_ref:
     name: date.second
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `date.second()` function returns the second within the minute the specified time falls in.
-Results are in the range `[0, 59]`.
+The `date.second()` function returns the second of a specified time.
+Results range from `[0-59]`.
 
 _**Function type:** Transformation_  
 

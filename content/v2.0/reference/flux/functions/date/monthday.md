@@ -1,8 +1,8 @@
 ---
 title: date.monthDay() function
 description: >
-  The `date.monthDay()` function returns the day of the month for the specified time.
-  Results are in the range `[1-31]`.
+  The `date.monthDay()` function returns the day of the month for a specified time.
+  Results range from `[1-31]`.
 menu:
   v2_0_ref:
     name: date.monthDay
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `date.monthDay()` function returns the day of the month for the specified time.
-Results are in the range `[1-31]`.
+The `date.monthDay()` function returns the day of the month for a specified time.
+Results range from `[1-31]`.
 
 _**Function type:** Transformation_  
 

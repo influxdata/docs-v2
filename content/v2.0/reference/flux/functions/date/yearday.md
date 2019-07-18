@@ -1,8 +1,8 @@
 ---
 title: date.yearDay() function
 description: >
-  The `date.yearDay()` function returns the day of the year the specified time falls in.
-  Results are in the range `[1, 365]` for non-leap years, and `[1, 366]` in leap years.
+  The `date.yearDay()` function returns the day of the year for a specified time.
+  Results range from `[1-365]` for non-leap years, and `[1-366]` in leap years.
 menu:
   v2_0_ref:
     name: date.yearDay
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `date.yearDay()` function returns the day of the year the specified time falls in.
-Results are in the range `[1, 365]` for non-leap years, and `[1, 366]` in leap years.
+The `date.yearDay()` function returns the day of the year for a specified time.
+Results include leap days and range from `[1-366]`.
 
 _**Function type:** Transformation_  
 

@@ -1,8 +1,8 @@
 ---
 title: date.minute() function
 description: >
-  The `date.minute()` function returns the minute within the hour the specified time falls in.
-  Results are in the range in the range `[0-59]`.
+  The `date.minute()` function returns the minute of a specified time.
+  Results range from `[0-59]`.
 menu:
   v2_0_ref:
     name: date.minute
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `date.minute()` function returns the minute within the hour a specified time falls in.
-Results are in the range in the range `[0-59]`.
+The `date.minute()` function returns the minute of a specified time.
+Results range from `[0-59]`.
 
 _**Function type:** Transformation_  
 

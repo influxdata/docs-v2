@@ -1,8 +1,8 @@
 ---
 title: date.month() function
 description: >
-  The `date.month()` function returns the month of the year a specified time falls in.
-  Results are in the range `[1-12]`
+  The `date.month()` function returns the month of a specified time.
+  Results range from `[1-12]`
 menu:
   v2_0_ref:
     name: date.month
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `date.month()` function returns the month of the year a specified time falls in.
-Results are in the range `[1-12]`
+The `date.month()` function returns the month of a specified time.
+Results range from `[1-12]`
 
 _**Function type:** Transformation_  
 
