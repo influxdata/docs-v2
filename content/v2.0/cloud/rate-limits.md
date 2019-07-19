@@ -10,13 +10,11 @@ menu:
 To optimize InfluxDB Cloud 2.0 services, the following rate limits are in place for Free tier users.
 To increase your rate limits, contact <a href="mailto:cloudbeta@influxdata.com?subject={{ $cloudName }} Feedback">cloudbeta@influxdata.com</a>.
 
-- `write` endpoint:
-  - 5 concurrent API calls
+- `write` endpoint
   - 3000 KB (10 KB/s) of data written in a 5 minute window
 
-- `query` endpoint:
-  - 20 concurrent API calls
-  - 3000 MB (10 MB/s) of data returned in a 5 minute window
+- `query` endpoint
+  - 30 MB (5 MB/s) of data returned in a 5 minute window
 
 - 5 dashboards
 - 5 tasks
@@ -24,6 +22,7 @@ To increase your rate limits, contact <a href="mailto:cloudbeta@influxdata.com?s
 - 72 hour retention period
 
 ## View data usage
+
 To view data usage, click **Usage** in the left navigation bar.
 
 {{< nav-icon "usage" >}}
