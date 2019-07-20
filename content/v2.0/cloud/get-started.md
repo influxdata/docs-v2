@@ -1,7 +1,7 @@
 ---
 title: Get started with InfluxDB Cloud 2.0
 description: >
-  Sign up now to get started with InfluxDB Cloud 2.0.
+  Sign up now, sign in, and get started exploring and using the InfluxDB Cloud 2.0 time series platform.
 weight: 1
 menu:
   v2_0_cloud:
