@@ -8,7 +8,7 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-To quickly get started with InfluxDB Cloud 2.0, complete the tasks below.
+To quickly get started with InfluxDB Cloud 2.0, complete the tasks below. 
 
 {{% cloud-msg %}}
 The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "short" >}} unless otherwise specified.
@@ -26,7 +26,9 @@ The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "shor
    To suggest regions to add, click the **Let us know** link under Regions.
 
 4. Review the terms of the  agreement, and then select
-   **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement [www.influxdata.com/legal/cloud-services-subscription-agreement] and Data Protection Agreement [https://www.influxdata.com/legal/data-processing-agreement/].**.
+   **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and Data Protection Agreement.**.
+
+   For details on the agreements, see the [InfluxDB Cloud 2.0 Services Subscription Agreement](www.influxdata.com/legal/cloud-services-subscription-agreement) and the [Data Protection Agreement](https://www.influxdata.com/legal/data-processing-agreement/).
 
 5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization
    (created from your email address) and a default bucket (created from your email local-part).
@@ -88,6 +90,8 @@ Once you've set up {{< cloud-name "short" >}} to collect data, view your data us
 
 You'll see sparkline charts showing data trends over the past four hours and a single value that shows usage in the last five minutes.
 To view your data, click **Usage** in the left navigation menu.
+
+Here is an example of the usage panel.
 
 {{< img-hd src="/img/2-0-cloud-usage.png" />}}
 

@@ -37,10 +37,7 @@ To increase your rate limits, upgrade to the Pay As You Go option.
 The Pay As You Go option offers more flexibility and ensures that you only pay for what you need. 
 This option automatically adjusts for projects based on data needs.
 
-### Upgrade to the Pay As You Go option and learn more details
-
-Perform the following steps to access details about the Pay As You Go option
-and to upgrade.
+To get more details and upgrade to the Pay As You Go option, perform the following steps.
 
 1. Click **Usage > Billing** in the left navigation menu.
 
