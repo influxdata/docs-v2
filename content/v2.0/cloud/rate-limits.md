@@ -28,7 +28,7 @@ The following rate limits apply to Free tier users.
 - 5 dashboards
 - 5 tasks
 - 2 buckets
-- 72 hour retention period
+- 72-hour retention period
 
 To increase your rate limits, upgrade to the Pay As You Go option.
 

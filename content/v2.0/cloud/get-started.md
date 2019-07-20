@@ -26,7 +26,7 @@ The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "shor
    To suggest regions to add, click the **Let us know** link under Regions.
 
 4. Review the terms of the  agreement, and then select
-   **I viewed and agree to InfluxDB Cloud 2.0  Agreement**.
+   **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement [www.influxdata.com/legal/cloud-services-subscription-agreement] and Data Protection Agreement [https://www.influxdata.com/legal/data-processing-agreement/].**.
 
 5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization
    (created from your email address) and a default bucket (created from your email local-part).
