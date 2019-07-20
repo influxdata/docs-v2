@@ -8,10 +8,10 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-To get started with InfluxDB Cloud 2.0, complete the tasks below.
+To quickly get started with InfluxDB Cloud 2.0, complete the tasks below.
 
 {{% cloud-msg %}}
-InfluxDB 2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
+The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "short" >}} unless otherwise specified.
 {{% /cloud-msg %}}
 
 ## Sign up
@@ -39,13 +39,13 @@ Sign in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) u
 
 ## Collect and write data
 
-Collect and write data to InfluxDB using Telegraf plugins, the InfluxDB v2 API, the `influx`
-command line interface (CLI), the InfluxDB user interface (UI), or the InfluxDB API client libraries.
+Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
+command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.0), or the InfluxDB v2 API client libraries.
 
 ### Use Telegraf
 
 Use Telegraf to quickly write data to {{< cloud-name >}}.
-Create new Telegraf configurations automatically in the user interface or manually update an
+Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
 existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
 
 For details, see [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)

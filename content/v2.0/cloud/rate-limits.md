@@ -12,8 +12,12 @@ menu:
 
 ## Free Tier
 
-To optimize InfluxDB Cloud 2.0 services, the following rate limits are in place for Free tier users.
-To increase your rate limits, contact <a href="mailto:cloudbeta@influxdata.com?subject={{ $cloudName }} Feedback">cloudbeta@influxdata.com</a>.
+You can try out InfluxDB Cloud as long as you like, 
+but the data retention is limited to new data (within the last 72 hours) only. 
+Other limits are in place for query and writes, 
+but you should be able to monitor 5-10 sensors, stacks or servers comfortably.
+
+The following rate limits apply to Free tier users.
 
 - `write` endpoint
   - 3000 KB (10 KB/s) of data written in a 5 minute window
@@ -26,12 +30,21 @@ To increase your rate limits, contact <a href="mailto:cloudbeta@influxdata.com?s
 - 2 buckets
 - 72 hour retention period
 
-## Pay As You Go plan
+To increase your rate limits, upgrade to the Pay As You Go option.
 
+## Pay As You Go option
+
+The Pay As You Go option offers more flexibility and ensures that you only pay for what you need. 
+This option automatically adjusts for projects based on data needs.
+
+To upgrade to the Pay As You Go option and learn more details, 
+click **Usage** in the left navigation menu.
+
+{{< img-hd src="/img/2-0-cloud-usage.png" />}}
 
 ## View data usage
 
-To view data usage, click **Usage** in the left navigation bar.
+To view your data usage, click **Usage** in the left navigation bar.
 
 {{< nav-icon "usage" >}}
 
