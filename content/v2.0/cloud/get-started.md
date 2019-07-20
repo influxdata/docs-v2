@@ -36,7 +36,7 @@ InfluxDB 2.0 alpha documentation applies to {{< cloud-name "short" >}} unless ot
 
 Sign in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
 
-{{< nav-icon "Sign in" >}}
+<a class="btn" href="https://us-west-2-1.aws.cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
 
 ## Collect and write data
 
@@ -96,13 +96,5 @@ To view your data, click **Usage** in the left navigation menu.
 
 To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free tier users.
 
-To upgrade to Paid tier for free, discuss use cases, or increase rate limits,
+To upgrade to the Pay As You Go option, discuss use cases, or increase rate limits,
 reach out to <a href="mailto:cloudbeta@influxdata.com?subject={{< cloud-name >}} Feedback">cloudbeta@influxdata.com</a>.
-
-{{% note %}}
-
-#### Known issues and disabled features
-
-For information regarding all known issues in InfluxDB Cloud, see [Known issues](/v2.0/cloud/about/known-issues/).
-
-{{% /note %}}
