@@ -8,18 +8,7 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-{{< cloud-name >}} is a fully managed and hosted version of the InfluxDB 2.0 time series data platform.
-The InfluxDB Cloud 2.0 platform is more than just a database — it includes services for monitoring, 
-dashboading, analytics, and processing of events and metrics.
-Important new features in InfluxDB Cloud 2.0 include:
-
-- **FREE tier (rate-limited)**: Designed for getting started and the hobbyist, it is even faster to get started than downloading the open source product.
-- **Support for the new Flux language**: Designed by InfluxData, Flux is the first functional scripting and query language purposefully created to address the requirements of time series applications. Using Flux, you can much more easily perform complex analytics and math across measurements.
-- **Single, unified API**:  Everything in InfluxDB (ingest, query, storage, and visualization) is now accessible using a unified API, enabling seamless movement between open source and cloud.
-- **Integrated visualization and dashboarding**: The pioneering work of the Chronograf project is now part of InfluxDB; enabling enhanced onboarding and user experience without having to rely on additional installs.
-- **Usage-based pricing**: The new pricing model offers more flexibility and ensures that customers are only paying for what they need; it will automatically adjust for projects based on data needs.
-
-To get started, complete the tasks below.
+To get started with InfluxDB Cloud 2.0, complete the tasks below.
 
 {{% cloud-msg %}}
 InfluxDB 2.0 alpha documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
@@ -44,7 +33,7 @@ InfluxDB 2.0 alpha documentation applies to {{< cloud-name "short" >}} unless ot
 
 ## Sign in
 
-Sign in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using the credentials created above.
+Sign in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using your email address and password.
 
 <a class="btn" href="https://us-west-2-1.aws.cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
 
