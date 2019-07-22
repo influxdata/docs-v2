@@ -21,13 +21,13 @@ The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "shor
 1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password,
    and then click **Sign Up**.
 
-2. Open your email and locate the new message from cloudbeta@influxdata.com (subject: Please verify your email address for InfluxDB Cloud),
+2. Open your email and locate the new message from support@influxdata.com (subject: Please verify your email address for InfluxDB Cloud),
    and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
 
 3. Currently, {{< cloud-name >}} AWS - US West (Oregon) is the only region available.
    To suggest regions to add, click the **Let us know** link under Regions.
 
-4. Review the terms of the  agreement, and then select
+4. Review the terms of the agreement, and then select
    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and Data Protection Agreement.**.
 
    For details on the agreements, see the [InfluxDB Cloud 2.0 Services Subscription Agreement](www.influxdata.com/legal/cloud-services-subscription-agreement) and the [Data Protection Agreement](https://www.influxdata.com/legal/data-processing-agreement/).

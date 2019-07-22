@@ -22,9 +22,9 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 Important new features in InfluxDB Cloud 2.0 include:
 
 - **Free plan (rate-limited)**: Designed for getting started and for the hobbyist, you can skip downloading and installing and jump right in to exploring InfluxDB 2.0 technology.
-- **Support for Flux**: Designed by InfluxData, [Flux](/v2.0/query-data/get-started/) is the first functional scripting and query language to address the requirements of time series applications. Using Flux makes hard things much easier to do — you can more easily produce complex analytics and math across measurements.
+- **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data scripting and query language that increases productivity and code reuse. It is the primary language for working with data within InfluxDB 2.0. Flux can be used with other data sources as well. This allows users to work with data where it resides.
 - **Unified API**:  Everything in InfluxDB (ingest, query, storage, and visualization) is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that enables seamless movement between open source and cloud.
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project, the new user interface (InfluxDB UI) offers quick and effortless onboarding, richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The new pricing approach offers more flexibility and ensures that you only pay for what you need. The Pay As You Go option automatically adjusts for projects based on data needs.
+- **Usage-based pricing**: The new pricing approach offers more flexibility and ensures that you only pay for what you need. The Pay As You Go plan automatically adjusts for projects based on data needs.
 
 {{< children >}}
