@@ -17,8 +17,8 @@ left navigation bar and select **Usage**.
 
 The usage page provides the following information:
 
-- **Writes:** Total kilobytes written to your {{< cloud-name "short" >}} instance.
-- **Reads:** Total kilobytes sent in responses to queries from your {{< cloud-name "short" >}} instance.
+- **Writes:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+- **Reads:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 - **Query Duration:** Total time spent processing queries in seconds.
 - **Storage Usage:** Total disk usage in gigabytes.
 - **API Request Count:** The number of HTTP requests received by all InfluxDB API endpoints.
