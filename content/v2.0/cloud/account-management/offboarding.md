@@ -16,9 +16,9 @@ You can cancel your {{< cloud-name >}} account at any time. To do so, follow the
 
 To stop being charged for {{< cloud-name "short" >}}, you'll first need to pause all your writes and queries.
 
-### 2. Create backups as needed
+### 2. Export your data
 
-To create backups from your {{< cloud-name "short" >}}, follow the steps below.
+To export your data, follow the steps below.
 
 #### Export tasks
 
