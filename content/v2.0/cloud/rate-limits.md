@@ -7,17 +7,17 @@ menu:
     name: Rate limits
 ---
 
-InfluxDB Cloud 2.0 offers two options, the rate-limited Free Tier and the Pay As You Go option. 
+InfluxDB Cloud 2.0 offers two options, the rate-limited Free plan and the Pay As You Go plan. 
 For details about InfluxDB Cloud 2.0, see [About the InfluxDB Cloud 2.0](/v2/cloud/about/index).
 
-## Free Tier
+## Free plan
 
-Everyone starts with the rate-limited Free Tier. 
-You can use the InfluxDB Cloud as long as you want, 
+Everyone starts with the rate-limited Free plan.
+You can use the InfluxDB Cloud as long as you want,
 but limits apply.
 You should be able to monitor 5-10 sensors, stacks, or servers comfortably.
 
-### Limits applied to Free Tier accounts
+### Limits applied to Free accounts
 
 - `write` endpoint
   - Write throughput of 10KB per second
@@ -30,11 +30,11 @@ You should be able to monitor 5-10 sensors, stacks, or servers comfortably.
 - 2 buckets to store your time series data
 - 72-hour storage retention period
 
-To remove the rate limits, upgrade to the Pay As You Go option.
+To remove these restrictions, upgrade to the Pay As You Go option.
 
-## Pay As You Go option
+## Pay As You Go plan
 
-The Pay As You Go option offers more flexibility and ensures that you only pay for what you need.
+The Pay As You Go plan offers more flexibility and ensures that you only pay for what you need.
 This option automatically adjusts for projects based on data needs.
 
 To get more details and upgrade to the Pay As You Go option, perform the following steps.
