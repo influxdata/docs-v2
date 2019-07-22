@@ -16,9 +16,15 @@ The [Flux](/v2.0/reference/flux) `sql` package provides functions for working wi
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
+- [Query a SQL data source](#query-a-sql-data-source)
+- [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
+- [Use SQL results to populate dashboard variables](#use-sql-results-to-populate-dashboard-variables)
+- [Sample sensor data](#sample-sensor-data)
+
+## Query a SQL data source
 To query a SQL data source:
 
-1. import the `sql` package in your Flux query
+1. Import the `sql` package in your Flux query
 2. Use the `sql.from()` function to specify the driver, data source name (DSN),
    and query used to query data from your SQL data source:
 
