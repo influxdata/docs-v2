@@ -29,7 +29,7 @@ Use it as much and as long as you want within the Free Plan rate limits:
   - Up to 5 tasks
   - Up to 2 buckets
 
-_To remove rate limits, [upgrade to a Pay As You Go Plan](#upgrade-to-the-pay-as-you-go-plan)._
+_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
 
 ## Pay As You Go Plan
 Pay As You Go Plans offer more flexibility and ensure you only pay for what you use.
@@ -48,18 +48,3 @@ Pay As You Go Plans includes some soft rate limits:
   - Unlimited users
 
 _To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
-
-## Upgrade to a Pay As You Go Plan
-To upgrade to a Pay As You Go Plan:
-
-1. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
-
-    {{< nav-icon "usage" >}}
-
-2. Click **Upgrade to Pay As You Go**.
-3. Review the terms and pricing associated with the Pay As You Go Plan.
-4. Click **Sounds Good To Me**.
-5. Enter your Billing contact information.
-6. Enter your payment information and click **Add Card**.
-7. Review the plan details, billing contact information, and credit card information.
-8. Click **Confirm & Order**.

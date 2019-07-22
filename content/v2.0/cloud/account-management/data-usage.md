@@ -2,7 +2,7 @@
 title: View InfluxDB Cloud data usage
 description: >
   View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
-weight: 102
+weight: 103
 menu:
   v2_0_cloud:
     parent: Account management
@@ -36,7 +36,7 @@ and add a rate limit event to your **Usage** page for review.
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._
 
-_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/pricing-plans/#upgrade-to-the-pay-as-you-go-plan)._
+_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
 
 ### Rate-limited HTTP response code
 When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
