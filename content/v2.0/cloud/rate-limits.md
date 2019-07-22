@@ -14,7 +14,7 @@ For details about InfluxDB Cloud 2.0, see [About the InfluxDB Cloud 2.0](/v2/clo
 
 Everyone starts with the rate-limited Free Tier. 
 You can use the InfluxDB Cloud as long as you want, 
-but rate limits for query and writes and data retention limits apply.
+but limits apply.
 You should be able to monitor 5-10 sensors, stacks, or servers comfortably.
 
 ### Limits applied to Free Tier accounts
@@ -22,15 +22,13 @@ You should be able to monitor 5-10 sensors, stacks, or servers comfortably.
 - `write` endpoint
   - Write throughput of 10KB per second
   - 3000 KB of data written in a 5 minute window
-
 - `query` endpoint
   - Query throughput of 100 KB/s
   - 30MB of data returned in a 5 minute window
-
 - 5 dashboards
 - 5 tasks
-- 2 buckets
-- 72-hour retention period
+- 2 buckets to store your time series data
+- 72-hour storage retention period
 
 To remove the rate limits, upgrade to the Pay As You Go option.
 
