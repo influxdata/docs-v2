@@ -8,7 +8,7 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-Everyone starts with the rate limited, Free Tier. You can try out InfluxDB Cloud as long as you like, but the data retention is limited to new data (within the last 72 hours) only. Other limits are in place for query and writes, but you should be able to monitor 5-10 sensors, stacks or servers comfortably.
+Everyone starts with the rate-limited [Free Tier](/v2/cloud/rate-limits/free-tier). You can try out InfluxDB Cloud as long as you like, but the data retention is limited to new data (within the last 72 hours) only. Other limits are in place for query and writes, but you should be able to monitor 5-10 sensors, stacks or servers comfortably. If you want to remove the rate limits, you can upgrade tp the [Pay As You Go](/v2/cloud/rate-limits/pay-as-you-go-option) option.
 
 To quickly get started with InfluxDB Cloud 2.0, complete the tasks below. 
 
