@@ -16,9 +16,13 @@ You can cancel your {{< cloud-name >}} account at any time. To do so, follow the
 
 To stop being charged for {{< cloud-name "short" >}}, you'll first need to pause all your writes and queries.
 
-### 2. Export your data
+### 2. Export your data and other artifacts
 
-To export your data, follow the steps below.
+To export data and artifacts, follow the steps below.
+
+{{% note %}}
+Exported data and artifacts can be used in an InfluxDB OSS instance.
+{{% /note %}}
 
 #### Export tasks
 

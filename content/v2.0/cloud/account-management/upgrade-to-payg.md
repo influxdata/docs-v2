@@ -19,6 +19,9 @@ To upgrade to a Pay As You Go Plan:
 3. Review the terms and pricing associated with the Pay As You Go Plan.
 4. Click **Sounds Good To Me**.
 5. Enter your Billing contact information.
+   Traditionally this would be "shipping" information, but InfluxData does not ship anything.
+   This information should be the primary location where the service is consumed.
+   It is used to determine any applicable sales tax.
 6. Enter your payment information and click **Add Card**.
 7. Review the plan details, billing contact information, and credit card information.
 8. Click **Confirm & Order**.

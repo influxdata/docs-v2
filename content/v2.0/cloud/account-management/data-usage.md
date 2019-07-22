@@ -15,15 +15,16 @@ left navigation bar and select **Usage**.
 
 {{< nav-icon "usage" >}}
 
-The usage page provides the following information:
+The usage page provides data usage information for time frame specified in the
+drop-down at the top of the Usage page.
 
 - **Writes:** Total data in MB written to your {{< cloud-name "short" >}} instance.
 - **Reads:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 - **Query Duration:** Total time spent processing queries in seconds.
 - **Storage Usage:** Total disk usage in gigabytes.
-- **API Request Count:** The number of HTTP requests received by all InfluxDB API endpoints.
+- **API Request Count:** The total number of query and write API requests received
+  during the specified time frame.
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
-  Select the time period from the drop-down at the top of the Usage page.
 - **Rate Limits over the specified time period:** A list of rate limit events over
   the specified time period.
 
