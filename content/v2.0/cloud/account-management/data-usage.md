@@ -1,5 +1,6 @@
 ---
 title: View InfluxDB Cloud data usage
+list_title: View data usage
 description: >
   View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
 weight: 103

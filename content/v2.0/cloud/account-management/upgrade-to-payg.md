@@ -1,7 +1,7 @@
 ---
 title: Upgrade to a Pay As You Go Plan
 description: >
-  placholder
+  Upgrade to a Pay As You Go Plan to remove rate limits from your InfluxDB Cloud 2.0 account.
 weight: 102
 menu:
   v2_0_cloud:
