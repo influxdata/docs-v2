@@ -19,7 +19,7 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 
 {{% note %}}
 InfluxData recommends using the Data Explorer to create
-[Query type dashboard variables](/v2.0/visualize-data/variables/variable-types/#query).
+[Query dashboard variables](/v2.0/visualize-data/variables/variable-types/#query).
 The [Table visualization type](/v2.0/visualize-data/visualization-types/table/) and
 **View Raw Data** option provide human-readable query results.
 {{% /note %}}
@@ -29,7 +29,8 @@ The [Table visualization type](/v2.0/visualize-data/visualization-types/table/) 
     {{< nav-icon "data-explorer" >}}
 
 2. Use the **Query Builder** or **Script Editor** to build a query.
-3. Use the [Table visualization type](/v2.0/visualize-data/visualization-types/table/) or enable the **View Raw Data** option to view query results.
+3. Use the [Table visualization type](/v2.0/visualize-data/visualization-types/table/)
+   or enable the **View Raw Data** option to view human-readable query results.
 4. Click **Save As** in the upper right.
 5. In the window that appears, select **Variable**.
 6. Enter a name for your variable in the **Name** field.
@@ -58,8 +59,8 @@ InfluxDB lets you import variables exported from InfluxDB in JSON format.
     {{< nav-icon "settings" >}}
 
 2.  Select the **Variables** tab.
-3. Click the **{{< icon "plus" >}} Create Variable** dropdown menu and select **Import Variable**.
+3. Click the **{{< icon "plus" >}} Create Variable** drop-down menu and select **Import Variable**.
 4. In the window that appears:
-  - Select **Upload File** to drag-and-drop or select a file.
+  - Select **Upload File** to drag and drop or select a file.
   - Select **Paste JSON** to paste in JSON.
 6. Click **Import JSON as Variable**.
