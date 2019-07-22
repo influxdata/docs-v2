@@ -8,9 +8,9 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-Everyone starts with the rate-limited [Free Tier](/v2/cloud/rate-limits/free-tier). You can try out InfluxDB Cloud as long as you like, but the data retention is limited to new data (within the last 72 hours) only. Other limits are in place for query and writes, but you should be able to monitor 5-10 sensors, stacks or servers comfortably. If you want to remove the rate limits, you can upgrade tp the [Pay As You Go](/v2/cloud/rate-limits/pay-as-you-go-option) option.
+Everyone starts with the rate-limited [Free plan](/v2/cloud/rate-limits/free-tier). You can try out InfluxDB Cloud as long as you like, but the data retention is limited to new data (within the last 72 hours) only. Other limits are in place for query and writes, but you should be able to monitor 5-10 sensors, stacks or servers comfortably. If you want to remove the rate limits, you can upgrade tp the [Pay As You Go](/v2/cloud/rate-limits/pay-as-you-go-option) plan.
 
-To quickly get started with InfluxDB Cloud 2.0, complete the tasks below. 
+To quickly get started with InfluxDB Cloud 2.0, complete the tasks below.
 
 {{% cloud-msg %}}
 The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "short" >}} unless otherwise specified.
@@ -99,7 +99,7 @@ Here is an example of the usage panel.
 
 ## Review rate limits
 
-To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free tier users.
+To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free plan users.
 
 To upgrade to the Pay As You Go option, discuss use cases, or increase rate limits,
 reach out to <a href="mailto:cloudbeta@influxdata.com?subject={{< cloud-name >}} Feedback">cloudbeta@influxdata.com</a>.
