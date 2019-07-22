@@ -16,12 +16,15 @@ The [Flux](/v2.0/reference/flux) `sql` package provides functions for working wi
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
-To query a SQL data source, import the `sql` package in your Flux query and use
-the `sql.from()` function:
+To query a SQL data source:
+
+1. import the `sql` package in your Flux query
+2. Use the `sql.from()` function to specify the driver, data source name (DSN),
+   and query used to query data from your SQL data source:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Postgres](#)
+[PostgreSQL](#)
 [MySQL](#)
 {{% /code-tabs %}}
 
@@ -53,34 +56,36 @@ sql.from(
 _See the [`sql.from()` documentation](/v2.0/reference/flux/functions/sql/from/) for
 information about required function parameters._
 
-## Use cases
-
-### Join SQL data with data in InfluxDB
+## Join SQL data with data in InfluxDB
 One of the primary benefits of querying SQL data sources from InfluxDB
 is the ability to enrich query results with data stored outside of InfluxDB.
 
-Using the [air sensor sample data](#sample-data) below, the following query
+Using the [air sensor sample data](#sample-sensor-data) below, the following query
 joins air sensor metrics stored in InfluxDB with sensor information stored in PostgreSQL.
 The joined data lets you query and filter results based on sensor information
 that isn't stored in InfluxDB.
 
 ```js
+// Import the "sql" package
 import "sql"
 
+// Query data from PostgreSQL
 sensorInfo = sql.from(
   driverName: "postgres",
   dataSourceName: "postgresql://localhost?sslmode=disable",
   query: "SELECT * FROM sensors"
 )
 
+// Query data from InfluxDB
 sensorMetrics = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "airSensors")
 
+// Join InfluxDB query results with PostgreSQL query results
 join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ```
 
-### Use SQL results to populate dashboard variables
+## Use SQL results to populate dashboard variables
 Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
 The following example uses the [air sensor sample data](#sample-data) below to
@@ -104,39 +109,40 @@ Use the variable to manipulate queries in your dashboards.
 
 ---
 
-## Sample data
+## Sample sensor data
 The [sample data generator](#download-and-run-the-sample-data-generator) and
 [sample sensor information](#import-the-sample-sensor-information) simulate a
 group of sensors that measure temperature, humidity, and carbon monoxide
 in rooms throughout a building.
 Each collected data point is stored in InfluxDB with a `sensor_id` tag that identifies
 the specific sensor it came from.
+Sample sensor information is stored in PostgreSQL.
 
-Observed sensor data is stored in the `airSensors` measurement which contains the following fields:
+**Sample data includes:**
 
-- temperature
-- humidity
-- co
+- Simulated data collected from each sensor and stored in the `airSensors` measurement in **InfluxDB**:
+    - temperature
+    - humidity
+    - co
 
-Information about each sensor is stored in a `sensors` table in a Postgres database:
-
-- sensor_id
-- location
-- model_number
-- last_inspected
+- Information about each sensor stored in the `sensors` table in **PostgreSQL**:
+    - sensor_id
+    - location
+    - model_number
+    - last_inspected
 
 ### Import and generate sample sensor data
 
 #### Download and run the sample data generator
-`air-sensor-data` is a CLI that generates air sensor data and stores the data in InfluxDB.
-To use `air-sensor-data`:
+`air-sensor-data.rb` is a script that generates air sensor data and stores the data in InfluxDB.
+To use `air-sensor-data.rb`:
 
 1. [Create a bucket](/v2.0/organizations/buckets/create-bucket/) to store the data.
-2. Download the sample data generator. _This tool requires **Ruby**._
+2. Download the sample data generator. _This tool requires [Ruby](https://www.ruby-lang.org/en/)._
 
     <a class="btn download" href="/downloads/air-sensor-data.rb" download>Download Air Sensor Generator</a>
 
-3. Give `air-sensor-data` executable permissions:
+3. Give `air-sensor-data.rb` executable permissions:
 
     ```
     chmod +x air-sensor-data.rb
@@ -167,12 +173,12 @@ To use `air-sensor-data`:
     ```
 
 #### Import the sample sensor information
-1. [Download and install Postgres](https://www.postgresql.org/download/).
+1. [Download and install PostgreSQL](https://www.postgresql.org/download/).
 2. Download the sample sensor information CSV.
 
     <a class="btn download" href="/downloads/sample-sensor-info.csv" download>Download Sample Data</a>
 
-3. Use a Postgres client (`psql` or a GUI) to create the `sensors` table:
+3. Use a PostgreSQL client (`psql` or a GUI) to create the `sensors` table:
 
     ```
     CREATE TABLE sensors (
