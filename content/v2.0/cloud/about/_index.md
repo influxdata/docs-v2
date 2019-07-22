@@ -17,7 +17,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
 - Scrapers collecting data from specified targets are not available in the cloud
 - A cloud instance currently includes only a single user and a single organization
-- Retrieving data from a CSV source using the `csv.from()` function is not supported
+- Retrieving data from a CSV source using the [`csv.from()`](/v2/reference/flux/functions/csv/from) function is not supported
 
 Important new features in InfluxDB Cloud 2.0 include:
 
