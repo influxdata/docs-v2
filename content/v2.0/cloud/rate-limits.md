@@ -13,18 +13,19 @@ For details about InfluxDB Cloud 2.0, see [About the InfluxDB Cloud 2.0](/v2/clo
 ## Free Tier
 
 Everyone starts with the rate-limited Free Tier. 
-You can try out InfluxDB Cloud as long as you like, 
-but the data retention is limited to new data (within the last 72 hours) only.
-Other limits are in place for query and writes, 
-but you should be able to monitor 5-10 sensors, stacks or servers comfortably.
+You can use the InfluxDB Cloud as long as you want, 
+but rate limits for query and writes and data retention limits apply.
+You should be able to monitor 5-10 sensors, stacks, or servers comfortably.
 
-The following rate limits apply to Free tier users.
+### Limits applied to Free Tier accounts
 
 - `write` endpoint
-  - 3000 KB (10 KB/s) of data written in a 5 minute window
+  - Write throughput of 10KB per second
+  - 3000 KB of data written in a 5 minute window
 
 - `query` endpoint
-  - 30 MB (5 MB/s) of data returned in a 5 minute window
+  - Query throughput of 100 KB/s
+  - 30MB of data returned in a 5 minute window
 
 - 5 dashboards
 - 5 tasks
@@ -35,7 +36,7 @@ To remove the rate limits, upgrade to the Pay As You Go option.
 
 ## Pay As You Go option
 
-The Pay As You Go option offers more flexibility and ensures that you only pay for what you need. 
+The Pay As You Go option offers more flexibility and ensures that you only pay for what you need.
 This option automatically adjusts for projects based on data needs.
 
 To get more details and upgrade to the Pay As You Go option, perform the following steps.
@@ -54,5 +55,5 @@ To view your data usage, click **Usage** in the left navigation bar.
 
 When a request exceeds the rate limit for the endpoint, the InfluxDB API returns:
 
-- HTTP 429 “Too Many Requests”
-- Retry-After: xxx (seconds to wait before retrying the request)
+- `HTTP 429 “Too Many Requests”`
+- `Retry-After: xxx (seconds to wait before retrying the request)`
