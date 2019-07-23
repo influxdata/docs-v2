@@ -11,10 +11,35 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.36.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.37.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.37.1 [2019-07-23]
+
+### Bug fixes
+- Fixed InfluxDB test errors.
+- Add range to tests to pass in InfluxDB.
+
+---
+
+## v0.37.0 [2019-07-22]
+
+### Features
+- Add PromQL to Flux transpiler and Flux helper functions.
+- Add mutable arrow array builders.
+- Created date package.
+- Return query and result errors in the multi result encoder.
+- Add `exponentialMovingAverage()`.
+- Add full draft of Rust parser.
+- Implement more production rules.
+- AST marshalling.
+- Parse statements.
+- Parse integer and float literals.
+- Add initial Rust implementation of parser.
+
+---
 
 ## v0.36.2 [2019-07-12]
 
