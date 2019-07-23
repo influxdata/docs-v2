@@ -8,38 +8,55 @@ menu:
     name: Get started with InfluxDB Cloud
 ---
 
-Everyone starts with the rate-limited [Free plan](/v2/cloud/rate-limits/free-tier). You can try out InfluxDB Cloud as long as you like, but the data retention is limited to new data (within the last 72 hours) only. Other limits are in place for query and writes, but you should be able to monitor 5-10 sensors, stacks or servers comfortably. If you want to remove the rate limits, you can upgrade tp the [Pay As You Go](/v2/cloud/rate-limits/pay-as-you-go-option) plan.
+{{< cloud-name >}} is a fully managed, hosted, multi-tenanted version of the
+InfluxDB 2.0 time series data platform.
+The core of {{< cloud-name "short" >}} is built on the foundation of the open source
+version of InfluxDB 2.0, which is much more than a database.
+It is a time series data platform that collects, stores, processes and visualizes metrics and events.
 
-To quickly get started with InfluxDB Cloud 2.0, complete the tasks below.
+_See the differences between {{< cloud-name "short">}} and InfluxDB OSS
+[below](#differences-between-influxdb-cloud-and-influxdb-oss)._
 
-{{% cloud-msg %}}
-The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "short" >}} unless otherwise specified.
-{{% /cloud-msg %}}
+## Start for free
+Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/cloud/pricing-plans/#free-plan).
+Use it as much and as long as you like within the plan's rate-limits.
+Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
+Once you're ready to grow, [upgrade to the Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/).
 
 ## Sign up
 
-1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password,
-   and then click **Sign Up**.
+1.  Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password,
+    and click **Sign Up**.
+2.  InfluxDB Cloud requires email verification to complete the sign up process.
+    Verify your email address by opening the email sent to the address you provided
+    and clicking **Verify Your Email**.
+3.  Select a region for you {{< cloud-name >}} instance.
+    Currently, {{< cloud-name >}} AWS - US West (Oregon) is the only region available.
+    _To suggest regions to add, click **Let us know** under Regions._
+4.  Review the terms of the agreement, and then select
+    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement
+    and InfluxData Global Data Processing Agreement.**.
 
-2. Open your email and locate the new message from support@influxdata.com (subject: Please verify your email address for InfluxDB Cloud),
-   and then click **Verify Your Email**. The Welcome to InfluxDB Cloud 2.0 page is displayed.
+    For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/)
+    and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
-3. Currently, {{< cloud-name >}} AWS - US West (Oregon) is the only region available.
-   To suggest regions to add, click the **Let us know** link under Regions.
+5.  Click **Continue**. {{< cloud-name >}} opens with a default organization
+    and bucket (both created from your email address).
 
-4. Review the terms of the agreement, and then select
-   **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and Data Protection Agreement.**.
+    _To update organization and bucket names, see [Update an organtization](/v2.0/organizations/update-org/)
+    and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
-   For details on the agreements, see the [InfluxDB Cloud 2.0 Services Subscription Agreement](www.influxdata.com/legal/cloud-services-subscription-agreement) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/data-processing-agreement/).
-
-5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization
-   (created from your email address) and a default bucket (created from your email local-part).
+{{% cloud-msg %}}
+All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
+References to the InfluxDB user interface (UI) or localhost:9999 refer to your
+{{< cloud-name >}} UI.
+{{% /cloud-msg %}}
 
 ## Sign in
 
-Sign in to [InfluxDB Cloud 2.0](https://us-west-2-1.aws.cloud2.influxdata.com) using your email address and password.
+Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email address and password.
 
-<a class="btn" href="https://us-west-2-1.aws.cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
+<a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
 
 ## Collect and write data
 
@@ -78,28 +95,48 @@ https://us-west-2-1.aws.cloud2.influxdata.com
 
 Once you've set up {{< cloud-name "short" >}} to collect data, you can do the following:
 
-- Query data using Flux, the UI, and the `influx` command line interface. See [Query data](/v2.0/query-data/).
-- Build custom dashboards to visualize your data. See [Visualize data](/v2.0/visualize-data/).
+- Query data using Flux, the UI, and the `influx` command line interface.
+  See [Query data](/v2.0/query-data/).
+- Build custom dashboards to visualize your data.
+  See [Visualize data](/v2.0/visualize-data/).
+
+## Process data
+
+Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
 
 ## View data usage
 
-Once you've set up {{< cloud-name "short" >}} to collect data, view your data usage, including:
+Once you're up and running with {{< cloud-name "short" >}}, [monitor your data usage in
+your {{< cloud-name "short" >}} UI](/v2.0/cloud/account-management/data-usage/).
 
-- **Writes:** Total kilobytes ingested.
-- **Reads:** Total kilobytes sent out for responses to queries.
-- **Total Query Duration:** Sum of time spent processing queries in seconds.
-- **Storage:** Average disk usage in gigabytes.
+## Differences between InfluxDB Cloud and InfluxDB OSS
+{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
+The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
-You'll see charts showing the data trends over the past 24 hours, 7 days or 30 days based on the time range selected in the drop list located in the upper left.
-To view your data, click **Usage** in the left navigation menu.
+- [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
+  targets are not available in {{< cloud-name "short" >}}.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
+- Retrieving data from a file based CSV source using the `file` parameter of the
+  [`csv.from()`](/v2/reference/flux/functions/csv/from) function is not supported;
+  however you can use raw CSV data with the `csv` parameter.
+- Multi-organization accounts and multi-user organizations are currently not
+  available in {{< cloud-name >}}.
 
-Here is an example of the usage panel.
+### New features in InfluxDB Cloud 2.0
 
-{{< img-hd src="/img/2-0-cloud-usage.png" />}}
-
-## Review rate limits
-
-To optimize InfluxDB Cloud 2.0 services, [rate limits](/v2.0/cloud/rate-limits/) are in place for Free plan users.
-
-To upgrade to the Pay As You Go option, discuss use cases, or increase rate limits,
-reach out to <a href="mailto:cloudbeta@influxdata.com?subject={{< cloud-name >}} Feedback">cloudbeta@influxdata.com</a>.
+- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
+  jump right in to exploring InfluxDB 2.0 technology.
+  The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
+- **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data
+  scripting and query language that increases productivity and code reuse.
+  It is the primary language for working with data within InfluxDB 2.0.
+  Flux can be used with other data sources as well.
+  This allows users to work with data where it resides.
+- **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
+  is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that
+  enables seamless movement between open source and cloud.
+- **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
+  the new user interface (InfluxDB UI) offers quick and effortless onboarding,
+  richer user experiences, and significantly quicker results.
+- **Usage-based pricing**: The [The Pay As You Go Plan](/v2.0/cloud/pricing-plans/#pay-as-you-go-plan)
+  offers more flexibility and ensures that you only pay for what you use.
