@@ -1,7 +1,7 @@
 ---
 title: strings.strlen() function
 description: >
-  The strings.strlen() function returns the length of the a string.
+  The strings.strlen() function returns the length of a string.
   String length is determined by the number of UTF code points a string contains.
 menu:
   v2_0_ref:

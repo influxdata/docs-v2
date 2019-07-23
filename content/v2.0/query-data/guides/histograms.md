@@ -58,9 +58,30 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
 // Generated list: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
 ```
 
+## Histogram visualization
+The [Histogram visualization type](/v2.0/visualize-data/visualization-types/histogram/)
+creates histograms by automatically generating bins and groups within bins using
+columns available in query results.
+
+{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
+
+[Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
+let you specify the number of bins and how to define groups within bins.
+
+### Histogram visualization data structure
+Because the Histogram visualization creates bins and bin segments based on settings
+specified in the visualization controls, query results **should not** be structured
+as histogram data.
+
+{{% note %}}
+Output of the [`histogram()` function](#histogram-function) is **not** compatible
+with the Histogram visualization type.
+View the example [below](#visualize-error-counts-by-severity-over-time).
+{{% /note %}}
+
 ## Examples
 
-### Generating a histogram with linear bins
+### Generate a histogram with linear bins
 ```js
 from(bucket:"example-bucket")
   |> range(start: -5m)
@@ -105,7 +126,7 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 2018-11-07T22:19:58.423358000Z  2018-11-07T22:24:58.423358000Z            used_percent                     mem  Scotts-MacBook-Pro.local                            75                            30
 ```
 
-### Generating a histogram with logarithmic bins
+### Generate a histogram with logarithmic bins
 ```js
 from(bucket:"example-bucket")
   |> range(start: -5m)
@@ -139,3 +160,21 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 2018-11-07T22:23:36.860664000Z  2018-11-07T22:28:36.860664000Z            used_percent                     mem  Scotts-MacBook-Pro.local                           128                            30
 2018-11-07T22:23:36.860664000Z  2018-11-07T22:28:36.860664000Z            used_percent                     mem  Scotts-MacBook-Pro.local                           256                            30
 ```
+
+### Visualize error counts by severity over time
+Use the [Telegraf Syslog plugin](Telegraf Syslog plugin) to collect error information from your system.
+Query the `severity_code` field in the `syslog` measurement:
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "syslog" and
+      r._field == "severity_code"
+  )
+```
+
+In the Histogram visualization options, select `_time` as the **X Column**
+and `severity` as the **Group By** option:
+
+{{< img-hd src="/img/2-0-visualizations-histogram-errors.png" alt="Logs by severity histogram" />}}
