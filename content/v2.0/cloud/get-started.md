@@ -34,7 +34,8 @@ Once you're ready to grow, [upgrade to the Pay As You Go Plan](/v2.0/cloud/accou
     Currently, {{< cloud-name >}} AWS - US West (Oregon) is the only region available.
     _To suggest regions to add, click **Let us know** under Regions._
 4.  Review the terms of the agreement, and then select
-    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and Data Protection  Agreement.**.
+    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement
+    and InfluxData Global Data Processing Agreement.**.
 
     For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/)
     and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
@@ -118,6 +119,8 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - Retrieving data from a file based CSV source using the `file` parameter of the
   [`csv.from()`](/v2/reference/flux/functions/csv/from) function is not supported;
   however you can use raw CSV data with the `csv` parameter.
+- Multi-organization accounts and multi-user organizations are currently not
+  available in {{< cloud-name >}}.
 
 ### New features in InfluxDB Cloud 2.0
 
