@@ -36,7 +36,7 @@ Pay As You Go Plans offer more flexibility and ensure you only pay for what you 
 
 #### Pay As You Go Plan rate limits
 In order to protect against any intentional or unintentional harm,
-Pay As You Go Plans includes some soft rate limits:
+Pay As You Go Plans include soft rate limits:
 
 - **Writes:** 300MB every 5 minutes
 - **Queries:** 3000MB every 5 minutes
