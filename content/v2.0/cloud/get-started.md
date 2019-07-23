@@ -30,7 +30,7 @@ The InfluxDB 2.0 documentation (currently alpha) applies to {{< cloud-name "shor
 4. Review the terms of the agreement, and then select
    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and Data Protection Agreement.**.
 
-   For details on the agreements, see the [InfluxDB Cloud 2.0 Services Subscription Agreement](www.influxdata.com/legal/cloud-services-subscription-agreement) and the [Data Protection Agreement](https://www.influxdata.com/legal/data-processing-agreement/).
+   For details on the agreements, see the [InfluxDB Cloud 2.0 Services Subscription Agreement](www.influxdata.com/legal/cloud-services-subscription-agreement) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/data-processing-agreement/).
 
 5. Click **Continue**. InfluxDB Cloud 2.0 opens with a default organization
    (created from your email address) and a default bucket (created from your email local-part).
@@ -90,7 +90,7 @@ Once you've set up {{< cloud-name "short" >}} to collect data, view your data us
 - **Total Query Duration:** Sum of time spent processing queries in seconds.
 - **Storage:** Average disk usage in gigabytes.
 
-You'll see sparkline charts showing data trends over the past four hours and a single value that shows usage in the last five minutes.
+You'll see charts showing the data trends over the past 24 hours, 7 days or 30 days based on the time range selected in the drop list located in the upper left.
 To view your data, click **Usage** in the left navigation menu.
 
 Here is an example of the usage panel.
