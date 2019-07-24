@@ -60,18 +60,16 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
 
 ## Histogram visualization
 The [Histogram visualization type](/v2.0/visualize-data/visualization-types/histogram/)
-creates histograms by automatically generating bins and groups within bins using
-columns available in query results.
+automatically converts query results into a binned and segmented histogram.
 
 {{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
 
-[Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
-let you specify the number of bins and how to define groups within bins.
+Use the [Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
+to specify the number of bins and define groups in bins.
 
 ### Histogram visualization data structure
-Because the Histogram visualization creates bins and bin segments based on settings
-specified in the visualization controls, query results **should not** be structured
-as histogram data.
+Because the Histogram visualization uses visualization controls to creates bins and groups,
+**do not** structure query results as histogram data.
 
 {{% note %}}
 Output of the [`histogram()` function](#histogram-function) is **not** compatible
@@ -161,7 +159,7 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 2018-11-07T22:23:36.860664000Z  2018-11-07T22:28:36.860664000Z            used_percent                     mem  Scotts-MacBook-Pro.local                           256                            30
 ```
 
-### Visualize error counts by severity over time
+### Visualize errors by severity
 Use the [Telegraf Syslog plugin](Telegraf Syslog plugin) to collect error information from your system.
 Query the `severity_code` field in the `syslog` measurement:
 
