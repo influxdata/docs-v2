@@ -1,9 +1,8 @@
 ---
 title: relativeStrengthIndex() function
 description: >
-  The `relativeStrengthIndex()` function is a momentum indicator that compares the
-  magnitude of recent increases and decreases of values over a period of time period
-  to measure the speed and change of data movements.
+  The `relativeStrengthIndex()` function measures the relative speed and change of
+  values in an input table.
 menu:
   v2_0_ref:
     name: relativeStrengthIndex
@@ -16,9 +15,8 @@ related:
   - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
 ---
 
-The `relativeStrengthIndex()` function is a momentum indicator that compares the
-magnitude of recent increases and decreases of values over a period of time period
-to measure thepeed and change of data movements.
+The `relativeStrengthIndex()` function measures the relative speed and change of
+values in an input table.
 
 _**Function type:** Aggregate_  
 
@@ -32,7 +30,7 @@ relativeStrengthIndex(
 ##### Relative strength index rules:
 - The general equation for calculating a relative strength index (RSI) is
   `RSI = 100 - (100 / (1 + (AVG GAIN / AVG LOSS)))`.
-- For the first value of the RSI, `AVG GAIN` and `AVG LOSS` are simple `n`-period averages.
+- For the first value of the RSI, `AVG GAIN` and `AVG LOSS` are averages of the `n` period.
 - For subsequent calculations:
   - `AVG GAIN` = `((PREVIOUS AVG GAIN) * (n - 1)) / n`
   - `AVG LOSS` = `((PREVIOUS AVG LOSS) * (n - 1)) / n`
@@ -41,7 +39,7 @@ relativeStrengthIndex(
 ## Parameters
 
 ### n
-The sample size of the algorithm.
+The number of values to use to calculate the RSI.
 
 _**Data type:** Integer_
 
