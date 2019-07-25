@@ -561,6 +561,35 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, networking, servers, systems]
 
+  - name: InfluxDB v1.x
+    id: influxdb
+    description: |
+      The InfluxDB v1.x input plugin gathers metrics from the exposed InfluxDB v1.x `/debug/vars` endpoint.
+      Using Telegraf to extract these metrics to create a "monitor of monitors" is a
+      best practice and allows you to reduce the overhead associated with capturing
+      and storing these metrics locally within the `_internal` database for production deployments.
+      [Read more about this approach here](https://www.influxdata.com/blog/influxdb-debugvars-endpoint/).
+    link: https://github.com/influxdata/telegraf/blob/release-1.11/plugins/inputs/influxdb/README.md
+    introduced: 0.2.5
+    tags: [linux, macos, windows, data-stores]
+
+  - name: InfluxDB v2
+    id: influxdb
+    description: |
+      InfluxDB 2.x exposes its metrics using the Prometheus Exposition Format — there is no InfluxDB v2 input
+      plugin.
+
+      To collect data on an InfluxDB 2.x instance running on localhost, the configuration for the
+      Prometheus input plugin would be:
+
+      ```
+      [[inputs.prometheus]]
+      ## An array of urls to scrape metrics from.
+      urls = ["http://localhost:9999/metrics"]
+      ```
+    introduced: 1.8.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: InfluxDB Listener
     id: influxdb_listener
     description: |
@@ -582,35 +611,6 @@ input:
       submits data to InfluxDB determines the destination database.
     link: https://github.com/influxdata/telegraf/blob/release-1.11/plugins/inputs/influxdb_listener/README.md
     introduced: 1.9.0
-    tags: [linux, macos, windows, data-stores]
-
-  - name: InfluxDB v1.x
-    id: influxdb
-    description: |
-      The InfluxDB v1.x input plugin gathers metrics from the exposed InfluxDB v1.x `/debug/vars` endpoint.
-      Using Telegraf to extract these metrics to create a "monitor of monitors" is a
-      best practice and allows you to reduce the overhead associated with capturing
-      and storing these metrics locally within the `_internal` database for production deployments.
-      [Read more about this approach here](https://www.influxdata.com/blog/influxdb-debugvars-endpoint/).
-    link: https://github.com/influxdata/telegraf/blob/release-1.11/plugins/inputs/influxdb/README.md
-    introduced: 0.2.5
-    tags: [linux, macos, windows, data-stores]
-    
-   - name: InfluxDB v2
-    id: influxdb
-    description: |
-      InfluxDB 2.x exposes its metrics using the Prometheus Exposition Format — there is no InfluxDB v2 input
-      plugin.
-      
-      To collect data on an InfluxDB 2.x instance running on localhost, the configuration for the 
-      Prometheus input plugin would be:
-      
-      ```
-      [[inputs.prometheus]]
-      ## An array of urls to scrape metrics from.
-      urls = ["http://localhost:9999/metrics"]
-      ```
-    introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
   - name: Interrupts
