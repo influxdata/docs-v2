@@ -12,7 +12,6 @@ related:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
   - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
-draft: true
 ---
 
 The `exponentialMovingAverage()` function calculates the exponential moving average
