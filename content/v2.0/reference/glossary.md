@@ -67,10 +67,10 @@ In Flux, a block is a possibly empty sequence of statements within matching brac
 
 - Explicit blocks in the source code, for example:
 
-```
-Block         = "{" StatementList "}
-StatementList = { Statement }
-```
+  ```
+  Block         = "{" StatementList "}
+  StatementList = { Statement }
+  ```
 
 - Implicit blocks, including:
 
@@ -237,7 +237,7 @@ Block         = "{" StatementList "}
 StatementList = { Statement } 
 ```
 
-Related entries: [implicit block](#implicit block), [block](#block)
+Related entries: [implicit block](#implicit-block), [block](#block)
 
 ### expression
 
@@ -357,7 +357,7 @@ For examples and rules, see [Flux language lexical elements](/v2.0/reference/flu
 Related entries:
 [bucket](#bucket)
 [field key](#field-key),
-[measurement]/#measurement),
+[measurement](#measurement),
 [retention policy](#retention-policy-rp),
 [tag key](#tag-key),
 [user](#user)
@@ -420,8 +420,6 @@ JWT uses an open standard [RFC 7519](https://tools.ietf.org/html/rfc7519).
 
 Open source tracing used in distributed systems to monitor and troubleshoot transactions.
 
-### join
-
 ### JSON
 
 JavaScript Object Notation (JSON) is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types.
@@ -455,9 +453,9 @@ Logs record information. Event logs describe system events and activity that hel
 
 The InfluxDB 2.0 user interface (UI) can be used to view log history and data.
 
-### Line Protocol (LP)
+### Line protocol (LP)
 
-The text based format for writing points to InfluxDB. See [Line Protocol](/v2.0/reference/line-protocol/).
+The text based format for writing points to InfluxDB. See [line protocol](/v2.0/reference/line-protocol/).
 
 ## M
 
@@ -553,7 +551,7 @@ See built-in Flux [options](/v2.0/reference/flux/language/options/).
 
 An option assignment binds an identifier to an option.
 
-Learn about the [Option assignment](/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
+Learn about the [option assignment](/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
 
 ### organization
 
@@ -581,9 +579,13 @@ An operator (`|>`) used in Flux to chain operations together. Specifies the outp
 
 ### point
 
-InfluxDB stores points. A single line of text in line protocol format represents one point in InfluxDB, and includes a collection of fields in a series. Each point has four components: a measurement, a tag set, a field set, and a timestamp. A point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp. If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+In InfluxDB, a point represents a single data record, similar to a row in a SQL database table. Each point:
 
-Related entries: [measurement](#measurement), [tag set](#tag set), [field set](#field set), [timestamp](#timestamp)
+- Has four components: a measurement, a tag set, a field set, and a timestamp.
+- Is represented by one row in [line protocol](/v2.0/reference/line-protocol/).
+- Is uniquely identified by its series and timestamp. In a series, each point has a unique timestamp. If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+
+Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
 ### precision
 
@@ -624,7 +626,7 @@ See [Query data in InfluxDB](/v2.0/query-data/).
 ### REPL
 
 A read-eval-print-loop is an interactive programming environment where you type a command and immediately see the result.
-See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl)
+See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl).
 
 ### record
 
@@ -658,10 +660,7 @@ Related entries: [duration](#duration), [measurement](#measurement), [replicatio
 
 ### schema
 
-How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys.
-
-<!-- See [Schema Design](/influxdb/v1.7/concepts/schema_and_data_layout/) for more information.
-should we replace this with influxd generate help-schema link? -->
+How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys. For more information about [schema design], see (/v2.0/reference/cli/influxd/generate/help-schema/).
 
 Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), <!--[retention policy](#retention-policy-rp),--> [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
@@ -707,14 +706,14 @@ If we add the tag `firstname` to the example above, the series cardinality
 would not be 18 (3 * 2 * 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
-| email                 | status | firstname |
-| :-------------------- | :----- | :-------- |
+| email               | status | firstname |
+| :-------------------| :----- | :-------- |
 | lorr@influxdata.com | start  | lorraine  |
 | lorr@influxdata.com | finish | lorraine  |
-| marv@influxdata.com     | start  | marvin      |
-| marv@influxdata.com     | finish | marvin      |
-| cliff@influxdata.com | start  | clifford  |
-| cliff@influxdata.com | finish | clifford  |
+| marv@influxdata.com | start  | marvin    |
+| marv@influxdata.com | finish | marvin    |
+| cliff@influxdata.com| start  | clifford  |
+| cliff@influxdata.com| finish | clifford  |
 
 <!--See [SHOW CARDINALITY](/influxdb/v1.7/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
@@ -800,16 +799,6 @@ InfluxDB uses Transmission Control Protocol (TCP) port 9999 for client-server co
 
 <!--ports for InfluxDB Enterprise -->
 
-### TSL
-
-The Time Series Logs (TSL) extension (.tsl) identifies Time Series Index (TSI) log files, generated by the tsi1 engine.
-
-
-### TSM (Time-structured merge tree)
-
-### TSM file
-
-
 ### table
 
 Flux processes a series of tables for a specified time series. These tables in sequence result in a stream of data.
@@ -843,16 +832,19 @@ The value of a tag key-value pair.
 Tag values are strings and they store metadata.
 Tag values are indexed so queries on tag values are processed quickly.
 
-Related entries: [tag]#tag), [tag key](#tag-key), [tag set](#tag-set)
+Related entries: [tag](#tag), [tag key](#tag-key), [tag set](#tag-set)
 
 ### task
+
+A scheduled Flux query that runs periodically and may store results in a specified measurement. Examples include downsampling and batch jobs. For more information, see [Process Data with InfluxDB tasks](https://v2.docs.influxdata.com/v2.0/process-data/).
+
+Related entries: [function](#function)
 
 ### Telegraf
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries: [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](https://v2.docs.influxdata.com/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
-
 
 ### time (data type)
 
@@ -880,27 +872,28 @@ Related entries: [Create a token](https://v2.docs.influxdata.com/v2.0/security/t
 
 ### tracing
 
-By default, tracing is disabled in InfluxDB. To enable tracing or set other InfluxDB  configuration options, see (https://v2.docs.influxdata.com/v2.0/reference/config-options/).
-
-<!-- any info here still relevant? https://docs.influxdata.com/influxdb/v1.7/administration/logs/#finding-all-trace-log-entries-for-an-influxdb-operation
--->
+By default, tracing is disabled in InfluxDB. To enable tracing or set other InfluxDB  configuration options, see [InfluxDB configuration options](https://v2.docs.influxdata.com/v2.0/reference/config-options/).
 
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL Functions](/influxdb/v1.7/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](/influxdb/v1.7/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [selector](/influxdb/v1.7/concepts/glossary/#selector)
-
-## TSM (Time Structured Merge tree)
-
-A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage Engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/).
-
-Related entries: [TSI](#TSI)
 
 ## TSI (Time Series Index)
 
 TSI uses the operating system's page cache to pull frequently accessed data into memory and keep infrequently accessed data on disk.
+
+### TSL
+
+The Time Series Logs (TSL) extension (.tsl) identifies Time Series Index (TSI) log files, generated by the tsi1 engine.
+
+## TSM (Time Structured Merge tree)
+
+A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/).
+
+Related entries: [TSI](#TSI)
 
 ## U
 
