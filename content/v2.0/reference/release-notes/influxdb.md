@@ -8,6 +8,21 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-alpha.16 [2019-07-25]
+
+### Bug Fixes
+- Add link to documentation text in line protocol upload overlay.
+- Fix issue in Authorization API, can't create auth for another user.
+- Fix Influx CLI ignored user flag for auth creation.
+- Fix the map example in the documentation.
+- Ignore null/empty Flux rows which prevents a single stat/gauge crash.
+- Fixes an issue where clicking on a dashboard name caused an incorrect redirect.
+- Upgrade templates lib to 0.5.0.
+- Upgrade giraffe lib to 0.16.1.
+- Fix incorrect notification type for manually running a task.
+- Fix an issue where canceled tasks did not resume.
+
+
 ## v2.0.0-alpha.15 [2019-07-11]
 
 ### Features
