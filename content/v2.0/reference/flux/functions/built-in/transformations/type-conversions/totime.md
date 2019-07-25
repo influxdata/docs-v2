@@ -22,7 +22,7 @@ toTime()
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
 patterned after the [function definition](#function-definition),
-but replace the column in the `time()` function with your desired column.
+but replace `_value` with your desired column.
 {{% /note %}}
 
 ## Examples
@@ -39,7 +39,7 @@ from(bucket: "telegraf")
 ```js
 toTime = (tables=<-) =>
   tables
-    |> map(fn:(r) => time(v:r._value))
+    |> map(fn:(r) => ({ r with _value: time(v:r._value) }))
 ```
 
 _**Used functions:**
