@@ -101,6 +101,7 @@ In order to perform such a check, Flux provides a built-in `exists` operator:
 {{% /note %}}
 
 ## Transformations
+
 Transformations define a change to a stream.
 Transformations may consume an input stream and always produce a new output stream.
 The output stream group keys have a stable output order based on the input stream.
@@ -111,3 +112,23 @@ Transformations that modify group keys or values regroup the tables in the outpu
 A transformation produces side effects when constructed from a function that produces side effects.
 
 Transformations are represented using function types.
+
+Some transformations, for example `map` and `filter`, are represented using higher-order functions (functions that accept other functions).
+Each argument passed into a function must match the parameter name defined for the function.
+
+For example, `filter` accepts `fn`, which takes one argument named `r`:
+
+ ```js
+from(bucket: "db")
+    |> filter(fn: (r) => ...)
+```
+
+ If a parameter is renamed from `r` to `v`, the script fails:
+ 
+```js
+from(bucket: "db")
+    |> filter(fn: (v) => ...)
+ // FAILS!: 'v' != 'r'.
+```
+
+Because Flux does not support positional arguments, parameter names matter. The transformation (in this case, `filter`) must know `r` is the parameter name to successfully invoke the function.
