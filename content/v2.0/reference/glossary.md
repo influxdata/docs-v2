@@ -660,7 +660,7 @@ Related entries: [duration](#duration), [measurement](#measurement), [replicatio
 
 ### schema
 
-How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys. For more information about [schema design], see (/v2.0/reference/cli/influxd/generate/help-schema/).
+How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys.
 
 Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), <!--[retention policy](#retention-policy-rp),--> [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
@@ -836,7 +836,7 @@ Related entries: [tag](#tag), [tag key](#tag-key), [tag set](#tag-set)
 
 ### task
 
-A scheduled Flux query that runs periodically and may store results in a specified measurement. Examples include downsampling and batch jobs. For more information, see [Process Data with InfluxDB tasks](https://v2.docs.influxdata.com/v2.0/process-data/).
+A scheduled Flux query that runs periodically and may store results in a specified measurement. Examples include downsampling and batch jobs. For more information, see [Process Data with InfluxDB tasks](/v2.0/process-data/).
 
 Related entries: [function](#function)
 
@@ -877,7 +877,7 @@ By default, tracing is disabled in InfluxDB. To enable tracing or set other Infl
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL functions](/influxdb/v1.7/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [selector](/influxdb/v1.7/concepts/glossary/#selector)
 
