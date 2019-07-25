@@ -11,10 +11,18 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.37.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.37.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.37.2 [2019-07-24]
+
+-  _General cleanup of internal code._
+
+---
 
 ## v0.37.1 [2019-07-23]
 

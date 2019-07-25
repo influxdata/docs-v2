@@ -20,7 +20,7 @@ import "date"
 
 date.minute(t: 2019-07-17T12:05:21.012Z)
 
-// Returns 21
+// Returns 5
 ```
 
 ## Parameters
