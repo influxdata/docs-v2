@@ -118,7 +118,7 @@ A transformation produces side effects when constructed from a function that pro
 
 Transformations are represented using function types.
 
-### Matching parameter names
+### Match parameter names
 
 Some transformations, for example `map` and `filter`, are represented using higher-order functions (functions that accept other functions).
 Each argument passed into a function must match the parameter name defined for the function.
