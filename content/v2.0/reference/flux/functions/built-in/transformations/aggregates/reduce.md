@@ -30,6 +30,10 @@ However, if two reduced tables write to the same destination group key, the func
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
 Function to apply to each record with a reducer object ([`identity`](#identity)).
 
