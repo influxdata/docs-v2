@@ -17,7 +17,11 @@ _**Function type:** Aggregate_
 _**Output data type:** Float_
 
 ```js
-difference(nonNegative: false, column: "_value")
+difference(
+  nonNegative: false,
+  column: "_value",
+  keepFirst: false
+)
 ```
 
 ## Parameters
@@ -33,6 +37,13 @@ The column to use to compute the difference.
 Defaults to `"_value"`.
 
 _**Data type:** String_
+
+### keepFirst
+Indicates if the first row should be kept.
+If `true`, the difference will be `null`.
+Defaults to `false`.
+
+_**Data type:** Boolean_
 
 ## Subtraction rules for numeric types
 - The difference between two non-null values is their algebraic difference;
@@ -87,6 +98,20 @@ from(bucket: "example-bucket")
 |:-----:|:------:|:---:|
 | 0002  | null   | tv  |
 | 0003  | null   | tv  |
+| 0004  | 6      | tv  |
+| 0005  | null   | tv  |
+
+
+#### With keepFirst set to true
+```js
+|> difference(nonNegative: false, keepfirst: true):
+```
+###### Output table
+| _time | _value | tag |
+|:-----:|:------:|:---:|
+| 0001  | null   | tv  |
+| 0002  | null   | tv  |
+| 0003  | -2     | tv  |
 | 0004  | 6      | tv  |
 | 0005  | null   | tv  |
 
