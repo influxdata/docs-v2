@@ -34,7 +34,12 @@ and does not affect the state duration._
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
+
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state duration.
@@ -43,17 +48,20 @@ Those that evaluate to `false` reset the state duration.
 _**Data type:** Function_
 
 ### column
+
 The name of the column added to each record that contains the state duration.
 
 _**Data type:** String_
 
 ### unit
+
 The unit of time in which the state duration is incremented.
 For example: `1s`, `1m`, `1h`, etc.
 
 _**Data type:** Duration_
 
 ## Examples
+
 ```js
 from("monitor/autogen")
   |> range(start: -1h)
