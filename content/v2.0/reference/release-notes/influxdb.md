@@ -22,6 +22,7 @@ weight: 101
 - Fix incorrect notification type for manually running a task.
 - Fix an issue where canceled tasks did not resume.
 
+---
 
 ## v2.0.0-alpha.15 [2019-07-11]
 
