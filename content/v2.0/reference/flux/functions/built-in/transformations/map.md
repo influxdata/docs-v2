@@ -26,7 +26,12 @@ map(fn: (r) => ({ _value: r._value * r._value }))
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
+
 A single argument function that to apply to each record.
 The return value must be an object.
 
@@ -39,6 +44,7 @@ Objects evaluated in `fn` functions are represented by `r`, short for "record" o
 ## Important notes
 
 #### Preserve columns
+
 By default, `map()` drops any columns that:
 
 1. Are not part of the input table's group key.
@@ -58,6 +64,7 @@ map(fn: (r) => ({ r with newColumn: r._value * 2 }))
 ## Examples
 
 ###### Square the value of each record
+
 ```js
 from(bucket:"example-bucket")
   |> filter(fn: (r) =>
@@ -70,6 +77,7 @@ from(bucket:"example-bucket")
 ```
 
 ###### Create a new table with new format
+
 ```js
 from(bucket:"example-bucket")
     |> filter(fn: (r) =>
