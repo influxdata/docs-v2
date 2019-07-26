@@ -1,9 +1,9 @@
 ---
 title: doubleEMA() function
 description: >
-  The `doubleEMA()` or `doubleExponentialMovingAverage()` function calculates the
-  exponential moving average of values grouped into `n` number of points,
-  giving more weight to recent data at double the rate of `exponentialMovingAverage()`.
+  The `doubleEMA()` function calculates the exponential moving average of values
+  grouped into `n` number of points, giving more weight to recent data at double
+  the rate of `exponentialMovingAverage()`.
 menu:
   v2_0_ref:
     name: doubleEMA
@@ -11,30 +11,20 @@ menu:
 weight: 501
 related:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
-  - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
+  - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#double-exponential-moving-average, InfluxQL DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
-The `doubleEMA()` or `doubleExponentialMovingAverage()` function calculates the
-exponential moving average (EMA) of values grouped into `n` number of points,
-giving more weight to recent data at double the rate of
-[`exponentialMovingAverage()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/).
+The `doubleEMA()` function calculates the exponential moving average of values in
+the `_value` column grouped into `n` number of points, giving more weight to recent
+data at double the rate of [`exponentialMovingAverage()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/).
 
 _**Function type:** Aggregate_  
 
 ```js
-doubleExponentialMovingAverage(
-  n: 5,
-  columns: ["_value"]
-)
-
-// OR
-
-doubleEMA(
-  n: 5,
-  columns: ["_value"]
-)
+doubleEMA(n: 5)
 ```
 
 ##### Double exponential moving average rules:
@@ -52,16 +42,22 @@ The number of points to average.
 
 _**Data type:** Integer_
 
-### columns
-Columns to operate on. _Defaults to `["_value"]`_.
-
-_**Data type:** Array of Strings_
-
 ## Examples
 
 #### Calculate a five point double exponential moving average
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -12h)
-  |> doubleExponentialMovingAverage(n: 5)
+  |> doubleEMA(n: 5)
+```
+
+## Function definition
+```js
+doubleEMA = (n, tables=<-) =>
+  tables
+    |> exponentialMovingAverage(n:n)
+    |> duplicate(column:"_value", as:"ema")
+    |> exponentialMovingAverage(n:n)
+    |> map(fn: (r) => ({r with _value: 2.0 * r.ema - r._value}))
+    |> drop(columns: ["ema"])
 ```
