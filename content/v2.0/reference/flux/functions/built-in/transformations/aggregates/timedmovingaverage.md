@@ -11,10 +11,7 @@ weight: 501
 related:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
-<<<<<<< HEAD
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
-=======
->>>>>>> flux-0.38
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 
