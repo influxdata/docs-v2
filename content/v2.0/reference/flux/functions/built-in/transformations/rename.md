@@ -30,13 +30,19 @@ rename(fn: (column) => "{column}_new")
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### columns
+
 A map of columns to rename and their corresponding new names.
 Cannot be used with `fn`.
 
 _**Data type:** Object_
 
 ### fn
+
 A function mapping between old and new column names.
 Cannot be used with `columns`.
 
@@ -45,6 +51,7 @@ _**Data type:** Function_
 ## Examples
 
 ##### Rename a single column
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -5m)
@@ -52,6 +59,7 @@ from(bucket: "example-bucket")
 ```
 
 ##### Rename all columns using a function
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -5m)
