@@ -28,7 +28,12 @@ and does not affect the state count._
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
+
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state count.
@@ -37,11 +42,13 @@ Those that evaluate to `false` reset the state count.
 _**Data type:** Function_
 
 ### column
+
 The name of the column added to each record that contains the incremented state count.
 
 _**Data type:** String_
 
 ## Examples
+
 ```js
 from("monitor/autogen")
   |> range(start: -1h)
