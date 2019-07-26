@@ -66,16 +66,37 @@
 
       .btn {
         display: inline-block;
-        padding: .85rem 1.5rem;
+        padding: .65rem 2.5rem;
         color: $g20-white;
         font-weight: bold;
-        background: rgba($g20-white, .25);
-        border: 2px solid rgba($g20-white, .5);
-        border-radius: $radius;
+        background: rgba($g20-white, .2);
+        border: 2px solid $g20-white;
         transition: background-color .2s, color .2s;
 
         &:hover {
           background: $g20-white;
+          color: $b-pool;
+        }
+      }
+    }
+    &#cloud {
+      position: relative;
+      margin-bottom: 1px;
+      padding: 1.25rem 2rem 2.5rem;
+      // background: rgba($g20-white, .15);
+      background: linear-gradient(20deg, rgba($landing-cloud-gradient-left, .35), rgba($landing-cloud-gradient-right, .75) );
+
+      h2 {
+        font-size: 1.75rem;
+        margin: 1rem 1.5rem .5rem;
+      }
+
+      a {
+        color: $g20-white;
+        font-weight: $medium;
+        font-style: italic;
+
+        &:hover {
           color: $b-pool;
         }
       }

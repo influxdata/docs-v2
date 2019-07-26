@@ -38,7 +38,7 @@ Related entries: [function](#function), [selector](#selector), [transformation](
 
 ### bar graph
 
-A visual representation used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
+A visual representation in the InfluxDB user interface used to compare variables (bars) and plot categorical data. A bar graph has spaces between bars, can be sorted in any order, and bars in the graph typically have the same width.
 
 Related entries: [histogram](#histogram)
 
@@ -57,16 +57,20 @@ Batch size controls the size of each write batch that Telegraf sends to the outp
 
 Related entries: [output plugin](#output-plugin)
 
+### bin
+
+In a cumulative histogram, a bin includes all data points less than or equal to a specified upper bound. In a normal histogram, a bin includes all data points between the upper and lower bounds.
+
 ### block
 
 In Flux, a block is a possibly empty sequence of statements within matching braces (`{ }`). Two types of blocks exist in Flux:
 
 - Explicit blocks in the source code, for example:
 
-```
-Block         = "{" StatementList "} 
-StatementList = { Statement } 
-```
+  ```
+  Block         = "{" StatementList "}
+  StatementList = { Statement }
+  ```
 
 - Implicit blocks, including:
 
@@ -186,6 +190,12 @@ Stores time series data and handles writes and queries.
 
 Related entries: [data node](#data-node)
 
+### data source
+
+A source of data that InfluxDB collects or queries data from. Examples include InfluxDB buckets, Prometheus, Postgres, MySQL, and InfluxDB clients.
+
+Related entries: [bucket](#bucket)
+
 ### data type
 
 A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
@@ -227,7 +237,7 @@ Block         = "{" StatementList "}
 StatementList = { Statement } 
 ```
 
-Related entries: [implicit block](#implicit block), [block](#block)
+Related entries: [implicit block](#implicit-block), [block](#block)
 
 ### expression
 
@@ -341,14 +351,13 @@ A visual representation of statistical information that uses rectangles to show 
 ### identifier
 
 Identifiers are tokens that refer to task names, bucket names, field keys,
-measurement names, subscription names, tag keys, and
-user names.
+measurement names, tag keys, and user names.
 For examples and rules, see [Flux language lexical elements](/v2.0/reference/flux/language/lexical-elements/#identifiers).
 
 Related entries:
 [bucket](#bucket)
 [field key](#field-key),
-[measurement]/#measurement),
+[measurement](#measurement),
 [retention policy](#retention-policy-rp),
 [tag key](#tag-key),
 [user](#user)
@@ -411,8 +420,6 @@ JWT uses an open standard [RFC 7519](https://tools.ietf.org/html/rfc7519).
 
 Open source tracing used in distributed systems to monitor and troubleshoot transactions.
 
-### join
-
 ### JSON
 
 JavaScript Object Notation (JSON) is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types.
@@ -446,9 +453,9 @@ Logs record information. Event logs describe system events and activity that hel
 
 The InfluxDB 2.0 user interface (UI) can be used to view log history and data.
 
-### Line Protocol (LP)
+### Line protocol (LP)
 
-The text based format for writing points to InfluxDB. See [Line Protocol](/v2.0/reference/line-protocol/).
+The text based format for writing points to InfluxDB. See [line protocol](/v2.0/reference/line-protocol/).
 
 ## M
 
@@ -482,14 +489,13 @@ servers, buckets, users, tasks, subscriptions, and blocks of time exist.
 
 Related entries: [meta node](#meta-node)
 
--->
-
 ### metastore
 
 Contains internal information about the status of the system.
 The metastore contains the user information, buckets, shard metadata, tasks, and subscriptions.
 
 Related entries: [bucket](#bucket), [retention policy](#retention-policy-rp), [user](#user)
+-->
 
 ### metric
 
@@ -545,7 +551,7 @@ See built-in Flux [options](/v2.0/reference/flux/language/options/).
 
 An option assignment binds an identifier to an option.
 
-Learn about the [Option assignment](/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
+Learn about the [option assignment](/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
 
 ### organization
 
@@ -573,12 +579,13 @@ An operator (`|>`) used in Flux to chain operations together. Specifies the outp
 
 ### point
 
-A point in the InfluxDB data structure that consists of a single collection of fields in a series. Each point is uniquely identified by its series and timestamp. In a series, you cannot store more than one point with the same timestamp.
-When you write a new point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+In InfluxDB, a point represents a single data record, similar to a row in a SQL database table. Each point:
 
-<!--
-Related entries: [field set](#field-set), [series](/influxdb/v1.7/concepts/glossary/#series), [timestamp](/influxdb/v1.7/concepts/glossary/#timestamp)
--->
+- Has four components: a measurement, a tag set, a field set, and a timestamp.
+- Is represented by one row in [line protocol](/v2.0/reference/line-protocol/).
+- Is uniquely identified by its series and timestamp. In a series, each point has a unique timestamp. If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+
+Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
 ### precision
 
@@ -619,7 +626,7 @@ See [Query data in InfluxDB](/v2.0/query-data/).
 ### REPL
 
 A read-eval-print-loop is an interactive programming environment where you type a command and immediately see the result.
-See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl)
+See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl).
 
 ### record
 
@@ -629,13 +636,25 @@ A tuple of named values represented using an object type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+<!--### replication factor
+
+The attribute of the retention policy that determines how many copies of the data are stored in the cluster. InfluxDB replicates data across N data nodes, where N is the replication factor.
+
+To maintain data availability for queries, the replication factor should be less than or equal to the number of data nodes in the cluster:
+
+Data is fully available when the replication factor is greater than the number of unavailable data nodes.
+Data may be unavailable when the replication factor is less than the number of unavailable data nodes.
+Any replication factor greater than two gives you additional fault tolerance and query capacity within the cluster.
+
 ### retention policy (RP)
 
 Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
 
 <!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
--->
+
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
+
+-->
 
 ## S
 
@@ -643,10 +662,7 @@ Related entries: [duration](#duration), [measurement](#measurement), [replicatio
 
 How data is organized in InfluxDB. The fundamentals of the InfluxDB schema are buckets (which include retention policies), series, measurements, tag keys, tag values, and field keys.
 
-<!-- See [Schema Design](/influxdb/v1.7/concepts/schema_and_data_layout/) for more information.
-should we replace this with influxd generate help-schema link? -->
-
-Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
+Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#measurement), <!--[retention policy](#retention-policy-rp),--> [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
 ### scrape
 
@@ -663,7 +679,7 @@ Related entries: [aggregation](#aggregation), [function](#function), [transforma
 
 A collection of data in the InfluxDB data structure that shares a measurement, tag set, and bucket.
 
-Related entries: [field set](#field-set), [measurement](#measurement), [retention policy](/#retention-policy-rp), [tag set](#tag-set)
+Related entries: [field set](#field-set), [measurement](#measurement),<!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 
 ### series cardinality
 
@@ -690,14 +706,14 @@ If we add the tag `firstname` to the example above, the series cardinality
 would not be 18 (3 * 2 * 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
-| email                 | status | firstname |
-| :-------------------- | :----- | :-------- |
+| email               | status | firstname |
+| :-------------------| :----- | :-------- |
 | lorr@influxdata.com | start  | lorraine  |
 | lorr@influxdata.com | finish | lorraine  |
-| marv@influxdata.com     | start  | marvin      |
-| marv@influxdata.com     | finish | marvin      |
-| cliff@influxdata.com | start  | clifford  |
-| cliff@influxdata.com | finish | clifford  |
+| marv@influxdata.com | start  | marvin    |
+| marv@influxdata.com | finish | marvin    |
+| cliff@influxdata.com| start  | clifford  |
+| cliff@influxdata.com| finish | clifford  |
 
 <!--See [SHOW CARDINALITY](/influxdb/v1.7/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
@@ -705,11 +721,9 @@ Related entries: [field key](#field-key),[measurement](#measurement), [tag key](
 
 ### server
 
-A computer, virtual or physical, running InfluxDB. <!--still valid There should only be one InfluxDB process per server. -->
+A computer, virtual or physical, running InfluxDB. <!--is this still valid for 2.0: There should only be one InfluxDB process per server. -->
 
 Related entries: [node](#node)
-
-<!-- ### service -->
 
 ### service input plugin
 
@@ -718,7 +732,7 @@ Service input plugins listen on a socket for known protocol inputs, or apply the
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-<!--### shard - in development
+<!--### shard
 
 A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
 Every shard belongs to one and only one shard group.
@@ -750,48 +764,45 @@ Related entries: [database](#database), [retention policy](#retention-policy-rp)
 
 -->
 
-<!--### Single Stat
+### Single Stat
+
+A visualization that displays the numeric value of the most recent point in a table (or series) returned by a query.
 
 ### Snappy compression
 
-### source
+InfluxDB uses snappy compression to compress batches of points. To improve space and disk IO efficiency, each batch is compressed before being written to disk.
 
-### stacked graph
+<!-- in development ### stacked graph
 
-### statement
+A visualization that displays points sharing a common X value as stacked rather than overlaid. Hence, the Y value is equal to the sum of Y values.
+
+Related entries: [bin](#bin)
+-->
 
 ### step-plot
 
+In InfluxDB 1.x, a [step-plot graph](https://docs.influxdata.com/chronograf/v1.7/guides/visualization-types/#step-plot-graph) displays time series data in a staircase graph. In InfluxDB 2.0, generate a similar graph using the step interpolation option for [line graphs](https://v2.docs.influxdata.com/v2.0/visualize-data/visualization-types/graph/#options).
+
 ### stream
 
-"stream of tables"
-
--->
+Flux processes streams of data. A stream includes a series of tables over a sequence of time intervals.
 
 ### string
 
 A data type used to represent text.
 
-<!-- how does this work in 2.0? ### subscription
-
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
-When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
-Subscriptions can use TCP or UDP for transmitting the writes.
-
--->
-
 ## T
 
-<!--### TCP
+### TCP
 
-### TSL
+InfluxDB uses Transmission Control Protocol (TCP) port 9999 for client-server communication over the InfluxDB HTTP API.
 
-### TSM (Time-structured merge tree)
-
-### TSM file
+<!--ports for InfluxDB Enterprise -->
 
 ### table
--->
+
+Flux processes a series of tables for a specified time series. These tables in sequence result in a stream of data.
+
 ### tag
 
 The key-value pair in InfluxDB's data structure that records metadata.
@@ -821,12 +832,19 @@ The value of a tag key-value pair.
 Tag values are strings and they store metadata.
 Tag values are indexed so queries on tag values are processed quickly.
 
-Related entries: [tag]#tag), [tag key](#tag-key), [tag set](#tag-set)
+Related entries: [tag](#tag), [tag key](#tag-key), [tag set](#tag-set)
 
-<!--### task
+### task
+
+A scheduled Flux query that runs periodically and may store results in a specified measurement. Examples include downsampling and batch jobs. For more information, see [Process Data with InfluxDB tasks](/v2.0/process-data/).
+
+Related entries: [function](#function)
 
 ### Telegraf
--->
+
+A plugin-driven agent that collects, processes, aggregates, and writes metrics.
+
+Related entries: [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](https://v2.docs.influxdata.com/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
 
 ### time (data type)
 
@@ -848,24 +866,40 @@ Related entries: [point](#point)
 
 ### token
 
+Tokens verify user and organization permissions in InfluxDB.
+
+Related entries: [Create a token](https://v2.docs.influxdata.com/v2.0/security/tokens/create-token/).
+
 ### tracing
+
+By default, tracing is disabled in InfluxDB. To enable tracing or set other InfluxDB  configuration options, see [InfluxDB configuration options](https://v2.docs.influxdata.com/v2.0/reference/config-options/).
 
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL Functions](/influxdb/v1.7/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [selector](/influxdb/v1.7/concepts/glossary/#selector)
 
-## tsm (Time Structured Merge tree) - in 1.x - obsolete?
+## TSI (Time Series Index)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/) for more.
+TSI uses the operating system's page cache to pull frequently accessed data into memory and keep infrequently accessed data on disk.
+
+### TSL
+
+The Time Series Logs (TSL) extension (.tsl) identifies Time Series Index (TSI) log files, generated by the tsi1 engine.
+
+## TSM (Time Structured Merge tree)
+
+A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/).
+
+Related entries: [TSI](#TSI)
 
 ## U
 
 ### UDP
 
-User Datagram Protocol is a packet of information. When a request is made, a UDP packet is sent to the recipient. The sender doesn't verify the packet is received. The sender continues to send the next packets. This means computers can communicate more quickly. This protocol is used when speed is desirable and error correction is not necessary. 
+User Datagram Protocol is a packet of information. When a request is made, a UDP packet is sent to the recipient. The sender doesn't verify the packet is received. The sender continues to send the next packets. This means computers can communicate more quickly. This protocol is used when speed is desirable and error correction is not necessary.
 
 ### universe block
 
@@ -895,8 +929,9 @@ A statement that sets or updates the value stored in a variable.
 
 In Flux, the variable assignment creates a variable bound to an identifier and gives it a type and value. A variable keeps the same type and value for the remainder of its lifetime. An identifier assigned to a variable in a block cannot be reassigned in the same block.
 
-<!-- ## W
+## W
 
+<!--
 ### WAL (Write Ahead Log) - enterprise
 
 The temporary cache for recently written points. To reduce the frequency that permanent storage files are accessed, InfluxDB caches new points in the WAL until their total size or age triggers a flush to more permanent storage. This allows for efficient batching of the writes into the TSM.
@@ -904,7 +939,8 @@ The temporary cache for recently written points. To reduce the frequency that pe
 Points in the WAL can be queried and persist through a system reboot. On process start, all points in the WAL must be flushed before the system accepts new writes.
 
 Related entries: [tsm](#tsm-time-structured-merge-tree)
+-->
 
 ### windowing
 
-The process of partitioning data based on equal windows of time.
+Grouping data based on specified time intervals. For information about how to window in Flux, see [Window and aggregate data with Flux](https://v2.docs.influxdata.com/v2.0/query-data/guides/window-aggregate/).

@@ -49,8 +49,9 @@ v1.measurementTagValues(
 )
 ```
 
-## List hosts
-List all `host` tag values in a specified bucket.
+## List unique tag values
+List all unique tag values for a specific tag in a specified bucket.
+The example below lists all unique values of the `host` tag.
 
 _**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)_  
 _**Flux functions:** [v1.measurements()](/v2.0/reference/flux/functions/influxdb-v1/measurements/)_  
