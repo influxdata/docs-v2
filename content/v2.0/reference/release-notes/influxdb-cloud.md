@@ -10,6 +10,18 @@ aliases:
   - /cloud/about/release-notes
 ---
 
+## 2019-07-23 _General Availability_
+
+### Features
+
+- **InfluxDB 2.0 alpha-15** –
+_See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-15-2019-07-11) for details._
+- Pay As You Go Pricing Plan.
+- Adjusted Free Plan rate limits.
+- Timezone selection in the user interface.
+
+---
+
 ## 2019-05-06 _Public Beta_
 
 ### Features
