@@ -22,6 +22,7 @@ PrimaryExpression = identifier | Literal | "(" Expression ")" .
 ```
 
 ## Literals
+
 Literals construct a value.
 
 ```js
@@ -37,6 +38,7 @@ Literal = int_lit
 ```
 
 ### Object literals
+
 Object literals construct a value with the object type.
 
 ```js
@@ -126,7 +128,6 @@ Use short notation in a call expression when the name of every argument matches 
 ##### Examples of short notation in call expressions
 
 ```js
-
 add(a: a, b: b) //long notation
 add(a, b) // short notation equivalent
 
