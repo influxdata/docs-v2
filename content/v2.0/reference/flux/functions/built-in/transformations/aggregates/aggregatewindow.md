@@ -31,6 +31,10 @@ View the [function definition](#function-definition).
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match the parameter names specified below. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### every
 The duration of windows.
 
