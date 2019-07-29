@@ -35,7 +35,9 @@ to(
 ```
 
 {{% note %}}
+
 ### Output data requirements
+
 The `to()` function converts output data into line protocol and writes it to InfluxDB.
 Line protocol requires each record to have a timestamp, a measurement, a field, and a value.
 All output data must include the following columns:
@@ -47,21 +49,25 @@ All output data must include the following columns:
 {{% /note %}}
 
 ## Parameters
+
 {{% note %}}
 `bucket` OR `bucketID` is **required**.
 {{% /note %}}
 
 ### bucket
+
 The bucket to which data is written. Mutually exclusive with `bucketID`.
 
 _**Data type:** String_
 
 ### bucketID
+
 The ID of the bucket to which data is written. Mutually exclusive with `bucket`.
 
 _**Data type:** String_
 
 ### org
+
 The organization name of the specified [`bucket`](#bucket).
 Only required when writing to a remote host.
 Mutually exclusive with `orgID`
@@ -73,6 +79,7 @@ Specify either an `org` or an `orgID`, but not both.
 {{% /note %}}
 
 ### orgID
+
 The organization ID of the specified [`bucket`](#bucket).
 Only required when writing to a remote host.
 Mutually exclusive with `org`.
@@ -92,18 +99,21 @@ _Required when a `host` is specified._
 _**Data type:** String_ -->
 
 ### timeColumn
+
 The time column of the output.
 Default is `"_time"`.
 
 _**Data type:** String_
 
 ### tagColumns
+
 The tag columns of the output.
 Defaults to all columns with type `string`, excluding all value columns and the `_field` column if present.
 
 _**Data type:** Array of strings_
 
 ### fieldFn
+
 Function that takes a record from the input table and returns an object.
 For each record from the input table, `fieldFn` returns an object that maps output the field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
@@ -111,9 +121,14 @@ Default is `(r) => ({ [r._field]: r._value })`
 _**Data type:** Function_
 _**Output data type:** Object_
 
+{{% note %}}
+Make sure `fieldFn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ## Examples
 
 ### Default to() operation
+
 Given the following table:
 
 | _time | _start | _stop | _measurement | _field | _value |
@@ -138,6 +153,7 @@ _measurement=a temp=99.9 0007
 ```
 
 ### Custom to() operation
+
 The `to()` functions default operation can be overridden. For example, given the following table:
 
 | _time | _start | _stop | tag1 | tag2 | hum  | temp  |
@@ -164,4 +180,5 @@ _tag1=a hum=55.5,temp=99.9 0007
 <hr style="margin-top:4rem"/>
 
 ##### Related InfluxQL functions and statements:
+
 [SELECT INTO](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-into-clause)
