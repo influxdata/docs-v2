@@ -39,7 +39,7 @@ Defaults to `"_value"`.
 _**Data type:** String_
 
 ### keepFirst
-Indicates if the first row should be kept.
+Indicates the first row should be kept.
 If `true`, the difference will be `null`.
 Defaults to `false`.
 
