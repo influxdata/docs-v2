@@ -25,7 +25,8 @@ chandeMomentumOscillator(
 ```
 
 The Chande Momentum Oscillator (CMO) indicator calculates the difference between
-the sum of all recent higher data points and the sum of all recent lower data points,
+the sum of all recent data points with values greater than the median value of the data set
+and the sum of all recent data points with values lower than the median value of the data set,
 then divides the result by the sum of all data movement over a given time period.
 It then multiplies the result by 100 and returns a value between -100 and +100.
 
