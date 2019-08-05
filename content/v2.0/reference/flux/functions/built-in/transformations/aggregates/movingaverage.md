@@ -47,16 +47,6 @@ from(bucket: "example-bucket"):
   |> movingAverage(n: 5)
 ```
 
-#### Calculate a ten point moving average
-```js
-movingAverage = (every, period, column="_value", tables=<-) =>
-  tables
-    |> window(every: every, period: period)
-    |> mean(column: column)
-    |> duplicate(column: "_stop", as: "_time")
-    |> window(every: inf)
-```
-
 #### Table transformation with a two point moving average
 
 ###### Input table:
