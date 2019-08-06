@@ -36,24 +36,25 @@ values six minutes apart.
 
 #### Seasonality
 [`seasonality`](#seasonality) delimits the length of a seasonal pattern according to `interval`.
-If your `interval` is `2m` and `s` is `3`, then the seasonal pattern occurs every
-six minutes or every three data points.
-If there is no seasonality in the data, set `seasonality` to `0`.
+If your `interval` is `2m` and `seasonality` is `4`, then the seasonal pattern occurs every
+eight minutes or every four data points.
+If data doesn't have a seasonal pattern, set `seasonality` to `0`.
 
 #### Space values evenly in time
 `holtWinters()` expects values evenly spaced in time.
-To ensure this, it applies the following rules:
+To ensure `holtWinters()` values are spaced evenly in time, the following rules apply:
 
-- `interval` is used to divide the into buckets based time.
+- Data is grouped into time-based "buckets" determined by the `interval`.
 - If a bucket includes many values, the first value is used.
 - If a bucket includes no values, a missing value (`null`) is added for that bucket.
 
-By default, `holtWinters()` uses the first value in each time bucket.
-Use [`window()`](/v2.0/reference/flux/functions/built-in/transformations/window/)
-and [selectors](/v2.0/reference/flux/functions/built-in/transformations/selectors/)
-or [aggregates](/v2.0/reference/flux/functions/built-in/transformations/aggregates/),
-or use [`aggregateWindow()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow)
-to specify other values to use in the `holtWinters()` calculation.
+By default, `holtWinters()` uses the first value in each time bucket to run the Holt-Winters calculation.
+To specify other values to use in the calculation, use:
+
+- [`window()`](/v2.0/reference/flux/functions/built-in/transformations/window/)
+  with [selectors](/v2.0/reference/flux/functions/built-in/transformations/selectors/)
+  or [aggregates](/v2.0/reference/flux/functions/built-in/transformations/aggregates/)
+- [`aggregateWindow()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow)
 
 #### Fitted model
 The `holtWinters()` function applies the [Nelder-Mead optimization](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method)
@@ -64,7 +65,6 @@ to include "fitted" data points in results when [`withFit`](#withfit) is set to 
 
 #### Null values
 `holtWinters()` treats `null` values as missing data points and includes them in the Holt-Winters calculation.
-
 
 ## Parameters
 
