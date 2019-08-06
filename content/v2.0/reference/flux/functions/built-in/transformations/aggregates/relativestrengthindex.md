@@ -27,7 +27,7 @@ relativeStrengthIndex(
 )
 ```
 
-##### Relative strength index rules:
+##### Relative strength index rules
 - The general equation for calculating a relative strength index (RSI) is
   `RSI = 100 - (100 / (1 + (AVG GAIN / AVG LOSS)))`.
 - For the first value of the RSI, `AVG GAIN` and `AVG LOSS` are averages of the `n` period.

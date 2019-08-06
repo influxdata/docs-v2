@@ -24,7 +24,7 @@ _**Function type:** Aggregate_
 movingAverage(n: 5)
 ```
 
-##### Moving average rules:
+##### Moving average rules
 - The average over a period populated by `n` values is equal to their algebraic mean.
 - The average over a period populated by only `null` values is `null`.
 - Moving averages skip `null` values.
