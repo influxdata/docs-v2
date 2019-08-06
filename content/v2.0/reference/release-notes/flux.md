@@ -11,10 +11,34 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.37.2**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.38.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.38.0 [2019-08-06]
+
+### Features
+- Update selectors to operate on time columns.
+- Add `relativeStrengthIndex()` transformation.
+- Add double and triple exponential average transformations (`doubleEMA()` and `tripleEMA()`).
+- Add `holtWinters()` transformation.
+- Add `keepFirst` parameter to `difference()`.
+- DatePart equivalent functions.
+- Add runtime package.
+- Add and subtract duration literal arithmetic.
+- Allow `keep()` to run regardless of nonexistent columns.
+  If all columns given are nonexistent, `keep()` returns an empty table.
+- Scanner returns positioning.
+
+### Bug fixes
+- Function resolver now keeps track of local assignments that may be evaluated at runtime.
+- Fixed InfluxDB test errors.
+- Add range to tests to pass in InfluxDB.
+- Allow converting a duration to a duration.
+- Catch integer overflow and underflow for literals.
 
 ---
 
