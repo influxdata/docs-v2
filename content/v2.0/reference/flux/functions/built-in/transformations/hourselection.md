@@ -19,7 +19,7 @@ _**Function type:** Transformation_
 ```js
 hourSelection(
   start: 9,
-  stop: 15,
+  stop: 17,
   timeColumn: "_time"
 )
 ```
@@ -45,6 +45,8 @@ Default is `"_time"`.
 _**Data type:** String_
 
 ## Examples
+
+##### Use only data from 9am to 5pm
 ```js
 from(bucket:"example-bucket")
   |> range(start:-90d)
