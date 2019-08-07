@@ -29,7 +29,7 @@ _**Function type:** Aggregate_
 tripleEMA(n: 5)
 ```
 
-##### Triple exponential moving average rules:
+##### Triple exponential moving average rules
 - A triple exponential moving average is defined as `tripleEMA = (3 * EMA_1) - (3 * EMA_2) + EMA_3`.
   - `EMA_1` is the exponential moving average of the original data.
   - `EMA_2` is the exponential moving average of `EMA_1`.

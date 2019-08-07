@@ -25,7 +25,7 @@ _**Function type:** Aggregate_
 exponentialMovingAverage(n: 5)
 ```
 
-##### Exponential moving average rules:
+##### Exponential moving average rules
 - The first value of an exponential moving average over `n` values is the
   algebraic mean of `n` values.
 - Subsequent values are calculated as `y(t) = x(t) * k + y(t-1) * (1 - k)`, where:

@@ -27,7 +27,7 @@ _**Function type:** Aggregate_
 doubleEMA(n: 5)
 ```
 
-##### Double exponential moving average rules:
+##### Double exponential moving average rules
 - A double exponential moving average is defined as `doubleEMA = 2 * EMA_N - EMA of EMA_N`.
     - `EMA` is an exponential moving average.
     - `N = n` is the period used to calculate the EMA.
