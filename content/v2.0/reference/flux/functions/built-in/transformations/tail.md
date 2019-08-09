@@ -1,6 +1,6 @@
 ---
 title: tail() function
-description: The `tail()` function limits records in each output table to the last `n` records.
+description: The `tail()` function limits each output table to the last `n` records.
 menu:
   v2_0_ref:
     name: tail
@@ -10,7 +10,7 @@ related:
   - /v2.0/reference/flux/functions/built-in/transformations/limit/
 ---
 
-The `tail()` function limits records in each output table to the last [`n`](#n) records.
+The `tail()` function limits each output table to the last [`n`](#n) records.
 The function produces one output table for each input table.
 Each output table contains the last `n` records before the [`offset`](#offset).
 If the input table has less than `offset + n` records, `tail()` outputs all records before the `offset`.
@@ -18,7 +18,10 @@ If the input table has less than `offset + n` records, `tail()` outputs all reco
 _**Function type:** Filter_
 
 ```js
-tail(n:10, offset: 0)
+tail(
+  n:10,
+  offset: 0
+)
 ```
 
 ## Parameters
@@ -41,11 +44,4 @@ _**Data type:** Integer_
 from(bucket:"example-bucket")
   |> range(start:-1h)
   |> tail(n:10)
-```
-
-##### Output the last ten records in each table
-```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> tail(n:5, offset: 1)
 ```
