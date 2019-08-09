@@ -1,6 +1,6 @@
 ---
 title: limit() function
-description: The `limit()` function limits the number of records in output tables to a fixed number (n).
+description: The `limit()` function limits records in each output table to the first `n` records.
 aliases:
   - /v2.0/reference/flux/functions/transformations/limit
 menu:
@@ -8,15 +8,17 @@ menu:
     name: limit
     parent: built-in-transformations
 weight: 401
+related:
+  - /v2.0/reference/flux/functions/built-in/transformations/tail/
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 ---
 
-The `limit()` function limits the number of records in output tables to a fixed number ([`n`](#n)).
-One output table is produced for each input table.
-Each output table contains the first `n` records after the first `offset` records of the input table.
-If the input table has less than `offset + n` records, all records except the first `offset` ones are output.
+The `limit()` function limits records in each output table to the first [`n`](#n) records.
+The function produces one output table for each input table.
+Each output table contains the first `n` records after the [`offset`](#offset).
+If the input table has less than `offset + n` records, `limit()` outputs all records after the `offset`.
 
-_**Function type:** Filter_  
-_**Output data type:** Object_
+_**Function type:** Filter_
 
 ```js
 limit(n:10, offset: 0)
@@ -41,8 +43,3 @@ from(bucket:"example-bucket")
   |> range(start:-1h)
   |> limit(n:10, offset: 1)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[LIMIT](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-limit-and-slimit-clauses)  
