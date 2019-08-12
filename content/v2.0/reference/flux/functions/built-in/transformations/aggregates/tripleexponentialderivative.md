@@ -2,7 +2,7 @@
 title: tripleExponentialDerivative() function
 description: >
   The `tripleExponentialDerivative()` function calculates a triple exponential
-  derivative of input tables using `n` points.
+  derivative (TRIX) of input tables using `n` points.
 menu:
   v2_0_ref:
     name: tripleExponentialDerivative
@@ -19,7 +19,8 @@ related:
 ---
 
 The `tripleExponentialDerivative()` function calculates a triple exponential
-derivative of input tables using `n` points.
+derivative ([TRIX](https://en.wikipedia.org/wiki/Trix_(technical_analysis)) of
+input tables using `n` points.
 
 _**Function type:** Aggregate_  
 
@@ -28,15 +29,16 @@ tripleExponentialDerivative(n: 5)
 ```
 
 Triple exponential derivative, commonly referred to as “TRIX,” is a momentum indicator and oscillator.
-A triple exponential derivative is a triple exponential moving average of the log of data input over the period of time.
-It prevents cycles shorter than the defined period from being considered by the indicator.
-With `tripleExponentialDerivative()`, the period of time is determined by the time `n` points span.
+A triple exponential derivative uses the natural logarithm (log) of input data to
+calculate a triple exponential moving average over the period of time.
+The calculation prevents cycles shorter than the defined period from being considered by the indicator.
+`tripleExponentialDerivative()` uses the time between `n` points to define the period.
 
 Triple exponential derivative oscillates around a zero line.
-When used as a momentum **oscillator**, a positive value indicates an overbought market
-and a negative value indicates an oversold market.
-When used as a momentum **indicator**, a positive value suggests momentum is
-increasing and a negative value suggests momentum is decreasing.
+A positive momentum **oscillator** value indicates an overbought market;
+a negative value indicates an oversold market.
+A positive momentum **indicator** value indicates increasing momentum;
+a negative value indicates decreasing momentum.
 
 ##### Triple exponential moving average rules
 - A triple exponential derivative is defined as:
@@ -44,10 +46,9 @@ increasing and a negative value suggests momentum is decreasing.
     - `EMA_3 = EMA(EMA(EMA(data)))`
 - If there are not enough values to calculate a triple exponential derivative,
   the output `_value` is `NaN`; all other columns are the same as the _last_ record of the input table.
-- The behavior of the exponential moving averages used for calculating the triple
-  exponential derivative is the same as [`exponentialMovingAverage`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/):
-    - `tripleExponentialDerivative` ignores `null` values and does not inlcude them in the calculation.
-    - It acts only on the `_value` column.
+- The function behaves the same way as the [`exponentialMovingAverage()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/) function:
+    - The function does not include `null` values in the calculation.
+    - The function acts only on the `_value` column.
 
 ## Parameters
 
