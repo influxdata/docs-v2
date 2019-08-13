@@ -59,8 +59,9 @@ This variable is typically used to define the `every` or `period` parameters of 
 [`window()` function](/v2.0/reference/flux/functions/built-in/transformations/window)
 in data aggregation operations.
 
-The value of this variable is calculated by dividing the total time within the displayed
-time range by the dashboard refresh interval (defined by the **Refresh** dropdown).
+The value of this variable is calculated by analyzing the duration of the Flux
+query it is used within. Queries that fetch data from a longer time range will
+have a larger `v.windowPeriod` duration.
 
 ## Custom dashboard variables
 Create, manage, and use custom dashboard variables in the InfluxDB user interface (UI).

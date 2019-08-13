@@ -22,7 +22,12 @@ filter(fn: (r) => r._measurement == "cpu")
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
+
 A single argument predicate function that evaluates true or false.
 Records are passed to the function.
 Those that evaluate to true are included in the output tables.
@@ -35,6 +40,7 @@ Objects evaluated in `fn` functions are represented by `r`, short for "record" o
 {{% /note %}}
 
 ## Examples
+
 ```js
 from(bucket:"example-bucket")
   |> range(start:-1h)
@@ -48,4 +54,5 @@ from(bucket:"example-bucket")
 <hr style="margin-top:4rem"/>
 
 ##### Related InfluxQL functions and statements:
+
 [SELECT](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement)

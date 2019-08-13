@@ -31,6 +31,7 @@ keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage
 {{% /note %}}
 
 ### keyColumns
+
 A list of columns from which values are extracted.
 All columns indicated must be of the same type.
 Each input table must have all of the columns listed by the `keyColumns` parameter.
@@ -38,8 +39,13 @@ Each input table must have all of the columns listed by the `keyColumns` paramet
 _**Data type:** Array of strings_
 
 ### fn
+
 Function used to identify a set of columns.
 All columns indicated must be of the same type.
+
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
 
 _**Data type:** Function_
 
@@ -52,6 +58,7 @@ _**Data type:** Function_
 ## Examples
 
 ##### Get key values from explicitly defined columns
+
 ```js
 from(bucket: "example-bucket")
   |> range(start: -30m)
@@ -60,6 +67,7 @@ from(bucket: "example-bucket")
 ```
 
 ##### Get key values from columns matching a regular expression
+
 ```js
 from(bucket: "example-bucket")
   |> range(start: -30m)
@@ -70,6 +78,7 @@ from(bucket: "example-bucket")
 <hr style="margin-top:4rem"/>
 
 ##### Related InfluxQL functions and statements:
+
 [SHOW MEASUREMENTS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements)  
 [SHOW FIELD KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys)  
 [SHOW TAG KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys)  

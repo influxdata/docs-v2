@@ -22,6 +22,7 @@ PrimaryExpression = identifier | Literal | "(" Expression ")" .
 ```
 
 ## Literals
+
 Literals construct a value.
 
 ```js
@@ -37,6 +38,7 @@ Literal = int_lit
 ```
 
 ### Object literals
+
 Object literals construct a value with the object type.
 
 ```js
@@ -119,6 +121,23 @@ CallExpression = "(" PropertyList ")" .
 ```js
 f(a:1, b:9.6)
 float(v:1)
+```
+
+Use short notation in a call expression when the name of every argument matches the name of every parameter.
+
+##### Examples of short notation in call expressions
+
+```js
+add(a: a, b: b) //long notation
+add(a, b) // short notation equivalent
+
+add = (a,b) => a + b
+a = 1
+b = 2
+
+// Don't mix short and long notation.
+add(a: a, b)
+add(a, b: b)
 ```
 
 ## Pipe expressions

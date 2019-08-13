@@ -21,7 +21,12 @@ tableFind(column: "_value")
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### fn
+
 A predicate function for matching keys in a table's group key.
 `tableFind` returns the first table that resolves as `true`.
 It expects a `key` argument which represents a group key in the input stream.
@@ -29,11 +34,13 @@ It expects a `key` argument which represents a group key in the input stream.
 _**Data type:** Function_
 
 ##### Example fn function
+
 ```js
 (key) => key._field == "fieldName"
 ```
 
 ## Example
+
 ```js
 t = from(bucket:"example-bucket")
     |> range(start: -5m)

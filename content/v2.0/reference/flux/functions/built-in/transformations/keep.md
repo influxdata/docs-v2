@@ -27,13 +27,19 @@ keep(fn: (column) => column =~ /inodes*/)
 
 ## Parameters
 
+{{% note %}}
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+{{% /note %}}
+
 ### columns
+
 Columns that should be included in the resulting table.
 Cannot be used with `fn`.
 
 _**Data type:** Array of strings_
 
 ### fn
+
 A predicate function which takes a column name as a parameter (`column`) and returns
 a boolean indicating whether or not the column should be included in the resulting table.
 Cannot be used with `columns`.
@@ -43,6 +49,7 @@ _**Data type:** Function_
 ## Examples
 
 ##### Keep a list of columns
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -5m)
@@ -50,6 +57,7 @@ from(bucket: "example-bucket")
 ```
 
 ##### Keep all columns matching a predicate
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -5m)
