@@ -8,6 +8,19 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-alpha.17 [2019-08-13]
+
+### Features
+- Optional gzip compression of the query CSV response.
+- Add task types.
+- When getting task runs from the API, runs will be returned in order of most recently scheduled first.
+
+### Bug Fixes
+- Fix authentication when updating a task with invalid org or bucket.
+- Update the documentation link for Telegraf.
+- Fix to surface errors properly as task notifications on create.
+- Fix limiting of get runs for task.
+---
 ## v2.0.0-alpha.16 [2019-07-25]
 
 ### Bug Fixes
