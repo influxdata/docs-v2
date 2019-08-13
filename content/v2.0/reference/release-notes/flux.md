@@ -11,10 +11,34 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.38.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.39.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.39.0 [2019-08-13]
+
+### Breaking changes
+- Implement the scanning components for string expressions.
+
+### Features
+- Add `tail()` function.
+- Add framework for `http.post()` function.
+- Implement `deadman()` function.
+- Time arithmetic functions.
+- Alerts package.
+- Add an experimental `group()` function with mode `extend`.
+- Implement the scanning components for string expressions.
+- Add `chandeMomentumOscillator()` function.
+- Add `hourSelection()` function.
+- Add `date.year()` function
+
+### Bug fixes
+- Update object to use Invalid type instead of nil monotypes.
+- Make it so the alerts package can be defined in pure Flux.
+- Close connection after `sql.to()`.
 
 ---
 
