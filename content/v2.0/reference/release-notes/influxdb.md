@@ -20,7 +20,9 @@ weight: 101
 - Update the documentation link for Telegraf.
 - Fix to surface errors properly as task notifications on create.
 - Fix limiting of get runs for task.
+
 ---
+
 ## v2.0.0-alpha.16 [2019-07-25]
 
 ### Bug Fixes
