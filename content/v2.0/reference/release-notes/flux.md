@@ -20,6 +20,8 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ## v0.39.0 [2019-08-13]
 
+> A queryd panic has been reported in `HoltWinters()`. We're working to resolve this issue as soon as possible.
+
 ### Breaking changes
 - Implement the scanning components for string expressions.
 
