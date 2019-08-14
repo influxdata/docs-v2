@@ -73,7 +73,7 @@ from(bucket:"example-bucket")
     r.cpu == "cpu-total"
   )
   |> range(start:-12h)
-  |> map(fn: (r) => r._value * r._value)
+  |> map(fn: (r) => ({ r with _value: r._value * r._value}))
 ```
 
 ###### Create a new table with new format

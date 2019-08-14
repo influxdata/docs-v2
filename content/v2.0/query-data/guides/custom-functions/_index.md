@@ -77,7 +77,7 @@ to modify each `_value`.
 // Function definition
 multByX = (tables=<-, x) =>
   tables
-    |> map(fn: (r) => r._value * x)
+    |> map(fn: (r) => ({ r with _value: r._value * x}))
 
 // Function usage
 from(bucket: "example-bucket")
