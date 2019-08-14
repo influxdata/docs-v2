@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.0-alpha.17 [2019-08-13]
+## v2.0.0-alpha.17 [2019-08-14]
 
 ### Features
 - Optional gzip compression of the query CSV response.
