@@ -1,0 +1,68 @@
+---
+title: tripleEMA() function
+description: >
+  The `tripleEMA()` function calculates the exponential moving average of values
+  grouped into `n` number of points, giving more weight to recent data with less lag
+  than `exponentialMovingAverage()` and `doubleEMA()`.
+menu:
+  v2_0_ref:
+    name: tripleEMA
+    parent: built-in-aggregates
+weight: 501
+related:
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
+  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
+    - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
+---
+
+The `tripleEMA()` function calculates the exponential moving average of values in
+the `_value` column grouped into `n` number of points, giving more weight to recent
+data with less lag than
+[`exponentialMovingAverage()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/)
+and [`doubleEMA()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/).
+
+_**Function type:** Aggregate_  
+
+```js
+tripleEMA(n: 5)
+```
+
+##### Triple exponential moving average rules
+- A triple exponential moving average is defined as `tripleEMA = (3 * EMA_1) - (3 * EMA_2) + EMA_3`.
+  - `EMA_1` is the exponential moving average of the original data.
+  - `EMA_2` is the exponential moving average of `EMA_1`.
+  - `EMA_3` is the exponential moving average of `EMA_2`.
+- A true triple exponential moving average requires at least requires at least `3 * n - 2` values.
+  If not enough values exist to calculate the triple EMA, it returns a `NaN` value.
+- `tripleEMA()` inherits all [exponential moving average rules](/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/#exponential-moving-average-rules).
+
+## Parameters
+
+### n
+The number of points to average.
+
+_**Data type:** Integer_
+
+## Examples
+
+#### Calculate a five point triple exponential moving average
+```js
+from(bucket: "example-bucket"):
+  |> range(start: -12h)
+  |> tripleEMA(n: 5)
+```
+
+## Function definition
+```js
+tripleEMA = (n, tables=<-) =>
+	tables
+		|> exponentialMovingAverage(n:n)
+		|> duplicate(column:"_value", as:"ema1")
+    |> exponentialMovingAverage(n:n)
+		|> duplicate(column:"_value", as:"ema2")
+		|> exponentialMovingAverage(n:n)
+		|> map(fn: (r) => ({r with _value: 3.0 * r.ema1 - 3.0 * r.ema2 + r._value}))
+		|> drop(columns: ["ema1", "ema2"])
+```
