@@ -46,7 +46,7 @@ _**Data type:** Boolean_
 
 ## Examples
 ```js
-logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
+logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 
 // Generated list: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
 ```

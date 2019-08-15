@@ -53,7 +53,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 The [`logarithmicBins()` function](/v2.0/reference/flux/functions/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
-logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
+logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 
 // Generated list: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
 ```
