@@ -11,10 +11,41 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.39.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.40.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.40.0 [2019-08-20]
+
+### Breaking changes
+- Update compiler package to use true scope.
+- Add `http` and `json` to prelude.
+
+### Features
+- Add `alerts.check()` function.
+- Add `alerts.notify` function.
+- Add `kaufmansER()` and `kaufmansAMA()` functions.
+- Add `experimental.to()` function.
+- Add `experimental.set()` function to update entire object.
+- Add `tripleExponentialDerivative()` function.
+- Add `json.encode()` function.
+- Add `mqtt.to()` function.
+- Add `objectKeys()` function.
+- Add Bytes type.
+- Update compiler package to use true scope.
+- Add http endpoint.
+- Add post method implementation.
+- String interpolation.
+
+### Bug fixes
+- Avoid wrapping table errors in the CSV encoder.
+- Remove irrelevant TODOs.
+- `mode()` now properly considers nulls when calculating the mode.
+- Add `http` and `json` to prelude.
+- Rename all Flux test files to use `_test.flux`.
 
 ---
 
