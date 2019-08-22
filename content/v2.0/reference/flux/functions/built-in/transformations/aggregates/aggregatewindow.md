@@ -30,6 +30,10 @@ As data is windowed into separate tables and processed, the `_time` column is dr
 This function copies the timestamp from a remaining column into the `_time` column.
 View the [function definition](#function-definition).
 
+`aggregateWindow()` restores the original `_start` and `_stop` values of input data
+and, by default, uses `_stop` to set the `_time` value for each aggregated window.
+Each row in the output of `aggregateWindow` represents an aggregated window ending at `_time`.
+
 ## Parameters
 
 {{% note %}}
