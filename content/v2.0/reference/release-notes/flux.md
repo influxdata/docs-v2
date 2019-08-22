@@ -11,10 +11,17 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.40.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.40.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.40.2 [2019-08-22]
+
+### Bug fixes
+- Resolved `holtWinters()` panic.
 
 ---
 
@@ -60,6 +67,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 {{% warn %}}
 In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
+**Flux 0.40.2 resolves this panic.**
 {{% /warn %}}
 
 ### Breaking changes
