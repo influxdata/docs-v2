@@ -13,17 +13,17 @@ weight: 301
 Create a new scraper in the InfluxDB user interface (UI).
 
 ## Create a scraper in the InfluxDB UI
-1. Click the **Settings** tab in the navigation bar.
+1. Click **Load Data** in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Click the **Scrapers** tab.
+2. Click **Scrapers**.
 3. Click **{{< icon "plus" >}} Create Scraper**.
 4. Enter a **Name** for the scraper.
 5. Select a **Bucket** to store the scraped data.
 6. Enter the **Target URL** to scrape. The default URL value is `http://localhost:9999/metrics`,
    which provides InfluxDB-specific metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
-7. Click **Finish**.
+7. Click **Create**.
 
 The new scraper will begin scraping data after approximately 10 seconds,
 then continue scraping in 10 second intervals.

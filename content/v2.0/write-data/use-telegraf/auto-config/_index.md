@@ -29,7 +29,7 @@ for using Telegraf with InfluxDB v2.0._
 
     {{< nav-icon "load data" >}}
 
-3. Click the **Telegraf** tab.
+3. Select **Telegrafs**.
 4. Click **{{< icon "plus" >}} Create Configuration**.
 5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
 6. Select one or more of the available plugin groups
