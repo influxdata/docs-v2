@@ -15,7 +15,7 @@ related:
 
 The `kaufmansER()` function calculates the Kaufman's Efficiency Ratio (KER) using
 values in an input table.
-It operates only on the `_value` column.
+The function operates on the `_value` column.
 
 _**Function type:** Aggregate_
 
