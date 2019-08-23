@@ -11,9 +11,9 @@
 {{ else if eq $navIcon "tasks" }}
   {{ .Scratch.Set "icon" "calendar" }}
   {{ .Scratch.Set "title" "Tasks" }}
-{{ else if or (eq $navIcon "organizations") (eq $navIcon "orgs") }}
-  {{ .Scratch.Set "icon" "organizations" }}
-  {{ .Scratch.Set "title" "Organizations" }}
+{{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") }}
+  {{ .Scratch.Set "icon" "disks" }}
+  {{ .Scratch.Set "title" "Load Data" }}
 {{ else if eq $navIcon "settings" }}
   {{ .Scratch.Set "icon" "wrench-2" }}
   {{ .Scratch.Set "title" "Settings" }}
