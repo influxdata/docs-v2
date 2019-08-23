@@ -18,6 +18,7 @@ influxd inspect [subcommand]
 ## Subcommands
 | Subcommand                                                                  | Description                          |
 |:----------                                                                  |:-----------                          |
+| [dump-tsi](/v2.0/reference/cli/influxd/inspect/dump-tsi/)                   | Output low level TSI information     |
 | [dumpwal](/v2.0/reference/cli/influxd/inspect/dumpwal/)                     | Output TSM data from WAL files       |
 | [export-blocks](/v2.0/reference/cli/influxd/inspect/export-blocks/)         | Export block data                    |
 | [report-tsi](/v2.0/reference/cli/influxd/inspect/report-tsi/)               | Report the cardinality of TSI files  |
