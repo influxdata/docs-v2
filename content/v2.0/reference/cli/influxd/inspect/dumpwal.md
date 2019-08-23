@@ -33,7 +33,7 @@ that matches the specified [globbing patterns](#globbing-patterns):
 that matches the specified [globbing patterns](#globbing-patterns):
 
 - The file name
-- A list of keys with timestamps in the wrong order in the file 
+- A list of keys with timestamps in the wrong order 
 
 ## Arguments
 
