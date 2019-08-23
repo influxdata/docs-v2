@@ -16,13 +16,14 @@ influxd inspect [subcommand]
 ```
 
 ## Subcommands
-| Subcommand                                                          | Description                         |
-|:----------                                                          |:-----------                         |
-| [export-blocks](/v2.0/reference/cli/influxd/inspect/export-blocks/) | Export block data                   |
-| [report-tsi](/v2.0/reference/cli/influxd/inspect/report-tsi/)       | Report the cardinality of TSI files |
-| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/)       | Run TSM report                      |
-| [verify-tsm](/v2.0/reference/cli/influxd/inspect/verify-tsm/)       | Check the consistency of TSM files  |
-| [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/)       | Check for corrupt WAL files         |
+| Subcommand                                                                  | Description                          |
+|:----------                                                                  |:-----------                          |
+| [export-blocks](/v2.0/reference/cli/influxd/inspect/export-blocks/)         | Export block data                    |
+| [report-tsi](/v2.0/reference/cli/influxd/inspect/report-tsi/)               | Report the cardinality of TSI files  |
+| [report-tsm](/v2.0/reference/cli/influxd/inspect/report-tsm/)               | Run TSM report                       |
+| [verify-seriesfile](/v2.0/reference/cli/influxd/inspect/verify-seriesfile/) | Verify the integrity of series files |
+| [verify-tsm](/v2.0/reference/cli/influxd/inspect/verify-tsm/)               | Check the consistency of TSM files   |
+| [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/)               | Check for corrupt WAL files          |
 
 ## Flags
 | Flag           | Description        |
