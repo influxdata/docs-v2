@@ -10,7 +10,7 @@ weight: 301
 ---
 
 The `influxd inspect dumpwal` command outputs data from Write Ahead Log (WAL) files.
-Given a list of file path globs (patterns which match `.wal` file paths),
+Given a list of file path globs (patterns that match `.wal` file paths),
 the command parses and prints out entries in each file.
 
 ## Usage
@@ -19,7 +19,7 @@ influxd inspect dumpwal [flags] <globbing-patterns>
 ```
 
 ## Output details
-The `--find-duplicates` flag determines the output of `influxd inspect dumpwal` command.
+The `--find-duplicates` flag determines the `influxd inspect dumpwal` output.
 
 **Without `--find-duplicates`**, the command outputs the following for each file
 that matches the specified [globbing patterns](#globbing-patterns):
@@ -33,7 +33,7 @@ that matches the specified [globbing patterns](#globbing-patterns):
 that matches the specified [globbing patterns](#globbing-patterns):
 
 - The file name
-- A list of keys in the file with out of order timestamps
+- A list of keys with timestamps in the wrong order in the file 
 
 ## Arguments
 
