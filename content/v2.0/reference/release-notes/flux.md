@@ -44,10 +44,10 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Add `kaufmansER()` and `kaufmansAMA()` functions.
 - Add `experimental.to()` function.
 - Add `experimental.set()` function to update entire object.
+- Add `experimental.objectKeys()` function.
 - Add `tripleExponentialDerivative()` function.
 - Add `json.encode()` function.
 - Add `mqtt.to()` function.
-- Add `objectKeys()` function.
 - Add Bytes type.
 - Update compiler package to use true scope.
 - Add http endpoint.
