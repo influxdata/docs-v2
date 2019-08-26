@@ -47,6 +47,7 @@ import "date"
 truncateTimeColumn = (unit, tables=<-) =>
   tables
     |> map(fn: (r) => ({
-      r with _time: date.truncate(t: r._time, unit:unit })
+        r with _time: date.truncate(t: r._time, unit:unit)
+      })
     )
 ```
