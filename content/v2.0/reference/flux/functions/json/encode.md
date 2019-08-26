@@ -18,13 +18,13 @@ import "json"
 json.encode(v: "some value")
 ```
 
-The function encodes [Flux types](/v2.0/reference/flux/language/types/) in the following manner:
+This function encodes [Flux types](/v2.0/reference/flux/language/types/) as follows:
 
-- It encodes `time` values using [RFC3339](https://tools.ietf.org/html/rfc3339).
-- It encodes `duration` values in number of milliseconds since the epoch.
-- It encodes `regexp` values as their string representation.
-- It encodes `bytes` values as base64-encoded strings.
-- It cannot encode `function` values and will produce an error.
+- `time` values in [RFC3339](https://tools.ietf.org/html/rfc3339) format
+- `duration` values in number of milliseconds since the epoch
+- `regexp` values as their string representation
+- `bytes` values as base64-encoded strings
+- `function` values are not encoded and produce an error
 
 ## Parameters
 
