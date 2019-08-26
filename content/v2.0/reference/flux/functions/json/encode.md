@@ -1,6 +1,6 @@
 ---
 title: json.encode() function
-description: The `json.encode()` function converts a value into JSON bytes
+description: The `json.encode()` function converts a value into JSON bytes.
 menu:
   v2_0_ref:
     name: json.encode
