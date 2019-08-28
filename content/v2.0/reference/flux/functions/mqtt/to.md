@@ -47,11 +47,11 @@ _**Data type: String**_
 
 ### message
 The message or payload to send to the MQTT broker.
-The default payload is all output tables.
+The default payload is an output table.
+If there are multiple output tables, it sends each table as a separate MQTT message.
 
 {{% note %}}
-When you specify a message, the function sends only the message string to the MQTT broker.
-It does not send any output tables.
+When you specify a message, the function sends the message string only (no output table).
 {{% /note %}}
 
 _**Data type: String**_
@@ -70,24 +70,26 @@ _**Data type: String**_
 
 ### username
 The username to send to the MQTT broker.
-This is only necessary when the MQTT broker requires authentication.
+Username is only required if the broker requires authentication.
+If you provide a username, you must provide a [password](#password).
 
 _**Data type: String**_
 
 ### password
 The password to send to the MQTT broker.
-This is only necessary when the MQTT broker requires authentication.
+Password is only required if the broker requires authentication.
+If you provide a password, you must provide a [username](#username).
 
 _**Data type: String**_
 
 ### name
-The name for the MQTT message _(Optional)_.
+_(Optional)_ The name for the MQTT message.
 
 _**Data type: String**_
 
 ### timeout
 The MQTT connection timeout.
-Default is `1s`   
+Default is `1s`.
 
 _**Data type: Duration**_
 
