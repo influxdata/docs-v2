@@ -12,7 +12,7 @@ weight: 202
 v2.0/tags: [functions, monitor, alerts, package]
 ---
 
-Monitor Flux functions provide tools for monitoring and alerting.
+Monitor Flux functions provide tools for monitoring and alerting with InfluxDB.
 Import the `influxdata/influxdb/monitor` package:
 
 ```js
