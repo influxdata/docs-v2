@@ -5,7 +5,7 @@ description: >
 menu:
   v2_0_ref:
     name: monitor.deadman
-    parent: Monitor
+    parent: InfluxDB Monitor
 weight: 202
 cloud_all: true
 ---
@@ -22,24 +22,26 @@ import "influxdata/influxdb/monitor"
 monitor.deadman(t: -3m)
 ```
 
-`monitor.deadman()` retains the most recent row from each input table.
-It adds a `dead` column to output tables.
-If a group or series  and sets it to `true` if the row's gro
+`monitor.deadman()` retains the most recent row from each input table and adds a `dead` column.
+It sets `dead` to `true` if the record appears before time `t`.
+It sets `dead` to `false` if the group appears after time `t`.
 
 ## Parameters
 
-### v
-The value to convert.
+### t
+The time threshold for the deadman check.
 
-_**Data type:** Boolean | Duration | Float | Integer | String | Time | UInteger_
+_**Data type:** Time_
 
 ## Examples
 
-### ...
+### Detect if a host hasn't reported in the last five minutes
 ```js
 import "influxdata/influxdb/monitor"
+import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> monitor.deadman(...)
+  |> range(start: -10m)
+  |> group(columns: ["host"])
+  |> monitor.deadman(t: experimental.subDuration(d: 5m, from: now() ))
 ```

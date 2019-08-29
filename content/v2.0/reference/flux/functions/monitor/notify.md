@@ -6,14 +6,14 @@ description: >
 menu:
   v2_0_ref:
     name: monitor.notify
-    parent: Monitor
+    parent: InfluxDB Monitor
 weight: 202
 ---
 
 The `monitor.notify()` function sends a notification to an endpoint and logs it
 in the `notifications` measurement in the `_monitoring` bucket.
 
-_**Function type:** Type conversion_
+_**Function type:** Output_
 
 ```js
 import "influxdata/influxdb/monitor"
@@ -32,8 +32,8 @@ A function that constructs and sends the notification to an endpoint.
 _**Data type:** Function_
 
 ### data
-The data object to send to the endpoint.
-Defaults to `{}`.
+Data to append to output data.
+**InfluxDB populates notification data.**
 
 _**Data type:** Object_
 

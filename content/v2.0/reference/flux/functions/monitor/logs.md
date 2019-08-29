@@ -5,7 +5,7 @@ description: >
 menu:
   v2_0_ref:
     name: monitor.logs
-    parent: Monitor
+    parent: InfluxDB Monitor
 weight: 202
 ---
 
