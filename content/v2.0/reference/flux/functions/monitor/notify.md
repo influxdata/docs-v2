@@ -19,7 +19,7 @@ _**Function type:** Output_
 import "influxdata/influxdb/monitor"
 
 monitor.notify(
-  endpoint: ,
+  endpoint: endpoint,
   data: {}
 )
 ```
