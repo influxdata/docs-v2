@@ -18,7 +18,7 @@ _**Function type:** Transformation_
 ```js
 import "influxdata/influxdb/monitor"
 
-monitor.deadman(t: -3m)
+monitor.deadman(t: 2019-08-30T12:30:00Z)
 ```
 
 `monitor.deadman()` retains the most recent row from each input table and adds a `dead` column.
