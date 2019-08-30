@@ -11,8 +11,7 @@ cloud_all: true
 ---
 
 The `monitor.deadman()` function detects when a group stops reporting data.
-It takes a stream of tables and reports which groups or series are
-observed before time `t`, but not after.
+It takes a stream of tables and reports if groups have been observed since time `t`.
 
 _**Function type:** Transformation_
 
@@ -23,8 +22,8 @@ monitor.deadman(t: -3m)
 ```
 
 `monitor.deadman()` retains the most recent row from each input table and adds a `dead` column.
-It sets `dead` to `true` if the record appears before time `t`.
-It sets `dead` to `false` if the group appears after time `t`.
+If a record appears **after** time `t`, `monitor.deadman()` sets `dead` to `false`.
+Otherwise, `dead` is set to `true`.
 
 ## Parameters
 

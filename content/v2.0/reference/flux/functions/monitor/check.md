@@ -1,8 +1,8 @@
 ---
 title: monitor.check() function
 description: >
-  The `monitor.check()` function performs a check against input data and assigns an `ok`,
-  `info`, `warn` or `crit`level to each row based on user-specified predicate functions.
+  The `monitor.check()` function function checks input data and assigns a level
+  (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 menu:
   v2_0_ref:
     name: monitor.check
@@ -10,10 +10,8 @@ menu:
 weight: 202
 ---
 
-The `monitor.check()` function performs a check against input data and assigns an `ok`,
-`info`, `warn` or `crit` level to each row based on user-specified predicate functions.
-The function stores statuses in the `_level` column and writes all check results to the
-`statuses` measurement in the `_monitoring` bucket.
+The `monitor.check()` function function checks input data and assigns a level
+(`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 
 _**Function type:** Transformation_
 
@@ -29,6 +27,9 @@ monitor.check(
   data: {}
 )
 ```
+
+`monitor.check()` stores statuses in the `_level` column and writes results
+to the `statuses` measurement in the `_monitoring` bucket.
 
 ## Parameters
 
@@ -63,7 +64,7 @@ The message is stored in the `_message` column.
 _**Data type:** Function_
 
 ### data
-Data to append to the to output data.
+Data to append to the output.
 **InfluxDB populates check data.**
 
 _**Data type:** Object_

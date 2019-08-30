@@ -32,7 +32,7 @@ A function that constructs and sends the notification to an endpoint.
 _**Data type:** Function_
 
 ### data
-Data to append to output data.
+Data to append to the output.
 **InfluxDB populates notification data.**
 
 _**Data type:** Object_

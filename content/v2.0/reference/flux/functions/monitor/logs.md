@@ -26,27 +26,24 @@ monitor.logs(
 ## Parameters
 
 ### start
-The oldest time to include in results.
-
-Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+The earliest time to include in results.
+Use a relative duration or absolute time.
+For example, `-1h` or `2019-08-28T22:00:00Z`.
+Durations are relative to `now()`.
 
 _**Data type:** Duration | Time_
 
 ### stop
-The newest time to include in the results.
+The latest time to include in results.
+Use a relative duration or absolute time.
+For example, `-1h` or `2019-08-28T22:00:00Z`.
+Durations are relative to `now()`.
 Defaults to `now()`.
-
-Relative stop times are defined using negative durations.
-Negative durations are relative to now.
-Absolute stop times are defined using timestamps.
 
 _**Data type:** Duration | Time_
 
 {{% note %}}
-Flux only honors [RFC3339 timestamps](/v2.0/reference/flux/language/types#timestamp-format)
-and ignores dates and times provided in other formats.
+Time values in Flux must be in [RFC3339 format](/v2.0/reference/flux/language/types#timestamp-format).
 {{% /note %}}
 
 ### fn
