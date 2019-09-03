@@ -4,7 +4,7 @@ description: >
   Create notification endpoints to receive alerts on your time series data.
 
 weight: 101
-v2.0/tags: [monitor, checks]
+v2.0/tags: [monitor, notification endpoints]
 menu:
   v2_0:
     name: Create notification endpoints
