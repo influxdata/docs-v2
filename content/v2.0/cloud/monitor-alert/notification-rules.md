@@ -18,11 +18,21 @@ To receive notifications about changes in your data, start by setting up a notif
 ## Create a notification rule in the UI
 
 1. On the **Monitoring and Alerting** page, next to **Notification Rules**, click **Create**.
-2. In the **Name** and **Description** fields, enter a name and description for the endpoint (description used on History page? anywhere else?).
-3. From the **Destination** drop-down list, select a destination to send notifications:
+2. Complete the **About** section:
+  a. In the **Name** field, enter a name for the notification rule.
+  b. In the **Schedule Every** field, enter .
+  c. In the **Offset** field, enter .
+3. In the **Conditions** section, build a condition using a combination of status and tag keys.
+
+Next to **When status**, select a an operator from the drop-down field. (either **is equal to** or **changes from**.)
+
+Select status from the drop-down list (one for is equal to or two for changes from). 
+
+
+4. From the **Destination** drop-down list, select a destination to send notifications:
    - (Free plan) HTTP server
    - (Pay as You Go plan) HTTP server, Slack, or PagerDuty
-4. Enter the **URL** to notify, and then enter connection information:
+5. Enter the **URL** to notify, and then enter connection information:
 
    - For HTTP:
 
