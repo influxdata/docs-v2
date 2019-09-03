@@ -2,8 +2,8 @@
 title: Flux date package
 list_title: Date package
 description: >
-  The Flux math package provides basic constants and mathematical functions.
-  Import the `math` package.
+  The Flux date package provides date and time constants and functions.
+  Import the `date` package.
 aliases:
   - /v2.0/reference/flux/language/built-ins/time-constants/
 menu:
