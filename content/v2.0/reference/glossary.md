@@ -34,6 +34,12 @@ For a list of available aggregation functions, see [Flux built-in aggregate func
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
+### alert
+
+In data monitoring and alerting, an alert occurs when a [check](#check) results in a [check status](#check-status) that triggers a [notification rule](#notification-rule).
+
+Related entries: [notification bucket](#notification-bucket)
+
 ## B
 
 ### bar graph
@@ -91,6 +97,19 @@ By convention, you can express `true` as the integer `1` and false as the intege
 A bucket is a named location where time series data is stored. All buckets have a retention policy, a duration of time that each data point persists. A bucket belongs to an organization.
 
 ## C
+
+### check
+
+In data monitoring and alerting, a check analyzes query results to determine the current [check status](#check-status) and writes the check status to a [status bucket](#status-bucket).
+
+Related entries: [alerts](#alerts)
+
+### check status
+
+In data monitoring and alerting, a check status identifies:
+
+- Status level (OK, INFO, WARN, CRIT, or UNKNOWN)
+- Check [tags](#tag) written to the [status bucket](#status-bucket)
 
 ### CSV
 
@@ -523,6 +542,22 @@ An independent `influxd` process.
 
 Related entries: [server](#server)
 
+### notification bucket
+
+ In data monitoring and alerting, the notification bucket is where a [notification rule](#notification-rule) records the name of the [notification endpoint](#notification-endpoint), [notification message](notification-message), and [tags](#tag) in a [query](#query).
+
+### notification endpoint
+
+ In data monitoring and alerting, the notification endpoint is the configuration describing how to call <send a notification to?> a 3rd party service (for example, Slack or Pagerduty). <what about HTTP?>
+
+### notification message
+
+A templatized payload sent to <message template sent {in the payload} to?> the [notification endpoint](#notification-endpoint).
+
+### notification rule
+
+ In data monitoring and alerting, a notification rule is a query on a [status bucket](#status-bucket) that returns the [check status](#check-status). When warranted by the conditions of the rule, the notification rule sends a [message] to a 3rd party using the [notification endpoint](#notification-endpoint) and stores a receipt in the [notification bucket](#notification-bucket).
+
 ### now()
 
 The local server's nanosecond timestamp.
@@ -617,7 +652,7 @@ Collect data from any accessible endpoint that provides data in the [Prometheus 
 
 ### query
 
-An operation that retrieves data from InfluxDB.
+A Flux script that returns time series data, including [tags](#tag) and [timestamps](#timestamp).
 
 See [Query data in InfluxDB](/v2.0/query-data/).
 
@@ -778,6 +813,14 @@ A visualization that displays points sharing a common X value as stacked rather 
 
 Related entries: [bin](#bin)
 -->
+
+### status bucket
+
+ In data monitoring and alerting, a status bucket stores the current [check status](#check-status).
+
+### status graph
+
+ In data monitoring and alerting, a status graph shows the [check status](#check-status) over time.
 
 ### step-plot
 
