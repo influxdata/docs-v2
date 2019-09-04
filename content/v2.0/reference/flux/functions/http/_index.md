@@ -2,7 +2,7 @@
 title: Flux HTTP package
 list_title: HTTP package
 description: >
-  The Flux HTTP package provides functions ...
+  The Flux HTTP package provides functions for transferring data using the HTTP protocol.
   Import the `http` package.
 menu:
   v2_0_ref:
@@ -12,7 +12,7 @@ weight: 202
 v2.0/tags: [functions, http, package]
 ---
 
-The Flux HTTP package provides functions ...
+The Flux HTTP package provides functions for transferring data using the HTTP protocol.
 Import the `http` package:
 
 ```js

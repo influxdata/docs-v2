@@ -1,7 +1,8 @@
 ---
 title: http.post() function
-description: The `http.post()` function submits an HTTP POST request to the specified URL with headers and data.
-// The HTTP status code is returned.
+description: >
+  The `http.post()` function submits an HTTP POST request to the specified URL with headers and data.
+  The HTTP status code is returned.
 menu:
   v2_0_ref:
     name: http.post
@@ -43,7 +44,7 @@ _**Data type:** Bytes_
 
 ## Examples
 
-### ...
+##### Send the last reported status to a URL
 ```js
 import "json"
 import "http"
