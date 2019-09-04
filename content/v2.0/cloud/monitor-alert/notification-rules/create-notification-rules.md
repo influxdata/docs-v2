@@ -8,7 +8,7 @@ v2.0/tags: [monitor, notification rules]
 menu:
   v2_0:
     name: Create notification rules
-    parent: Notification rules
+    parent: Manage notification rules
 related:
   - /v2.0/monitor-alert/create-notification-endpoints/
 ---
