@@ -8,7 +8,7 @@ v2.0/tags: [monitor, notification rules]
 menu:
   v2_0:
     name: Create notification rules
-    parent: Monitor and alert
+    parent: Notification rules
 related:
   - /v2.0/monitor-alert/create-notification-endpoints/
 ---
@@ -26,7 +26,7 @@ To receive notifications about changes in your data, start by setting up a notif
 
 Next to **When status**, select a an operator from the drop-down field. (either **is equal to** or **changes from**.)
 
-Select status from the drop-down list (one for is equal to or two for changes from). 
+Select status from the drop-down list (one for is equal to or two for changes from).
 
 
 4. From the **Destination** drop-down list, select a destination to send notifications:
