@@ -30,8 +30,6 @@ _**Data type:** String_
 
 ### mapFn
 A function that builds the object used to generate the POST request.
-The object must include `headers` and `data` key-value pairs.
-_For more information, see [`http.post()`](/v2.0/reference/flux/functions/http/post/)_
 
 {{% note %}}
 _You should rarely need to override the default `mapFn` parameter.
@@ -40,6 +38,13 @@ To see the default `mapFn` value or for insight into possible overrides, view th
 {{% /note %}}
 
 _**Data type:** Function_
+
+The returned object must include the following fields:
+
+- `headers`
+- `data`
+
+_For more information, see [`http.post()`](/v2.0/reference/flux/functions/http/post/)_
 
 ## Examples
 
