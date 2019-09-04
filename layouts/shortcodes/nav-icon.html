@@ -11,6 +11,9 @@
 {{ else if eq $navIcon "tasks" }}
   {{ .Scratch.Set "icon" "calendar" }}
   {{ .Scratch.Set "title" "Tasks" }}
+{{ else if or (eq $navIcon "monitor") (eq $navIcon "alerts") (eq $navIcon "bell") }}
+  {{ .Scratch.Set "icon" "bell" }}
+  {{ .Scratch.Set "title" "Monitoring & Alerting" }}
 {{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") }}
   {{ .Scratch.Set "icon" "disks" }}
   {{ .Scratch.Set "title" "Load Data" }}
