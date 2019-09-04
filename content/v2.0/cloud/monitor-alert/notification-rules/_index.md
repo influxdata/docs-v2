@@ -9,3 +9,6 @@ menu:
     name: Manage notification rules
     parent: Monitor and alert
 ---
+The following articles provide information on managing your notification rules:
+
+{{< children >}}

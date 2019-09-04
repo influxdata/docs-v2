@@ -16,7 +16,7 @@ menu:
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
 
-    {{< nav-icon "alert" >}}
+    {{< nav-icon "alerts" >}}
 
 
 2. Under **Notification Rules**, click **Add a label** next to the rule you want to add a label to. The **Add Labels** box opens.
@@ -34,7 +34,7 @@ menu:
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
 
-    {{< nav-icon "alert" >}}
+    {{< nav-icon "alerts" >}}
 
 
 2. Under **Notification Rules**, find the rule you want to disable.
@@ -45,7 +45,7 @@ menu:
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
 
-    {{< nav-icon "alert" >}}
+    {{< nav-icon "alerts" >}}
 
 
 2. Under **Notification Rules**, hover over the name or description of a rule.

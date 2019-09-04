@@ -13,5 +13,11 @@ menu:
 
 ## Delete a notification rule in the UI
 
-1. On the **Monitoring and Alerting** page, under **Notification Rules**, hover over an existing notification rule.
-2. Click the delete icon, then click **Delete** to confirm.
+1. Select the **Monitoring and Alerting** icon from the sidebar.
+
+
+    {{< nav-icon "alerts" >}}
+
+
+2. Under **Notification Rules**, find the rule you want to disable.
+3. Click the delete icon, then click **Delete** to confirm.
