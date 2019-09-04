@@ -13,7 +13,7 @@ related:
   - /v2.0/monitor-alert/create-notification-endpoints/
 ---
 
-To send notifications about changes in your data, start by setting up a notification endpoint. After setting up your notification endpoints, create notification rules <insertlink> and checks <insertlink>.
+To send notifications about changes in your data, start by setting up a notification endpoint in the UI or with the InfluxDB After setting up your notification endpoints, create notification rules <insertlink> and checks <insertlink>.
 
 ## Create a notification endpoint in the UI
 
