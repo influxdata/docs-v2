@@ -3,46 +3,43 @@ title: Create notification rules
 description: >
   Create notification rules to receive alerts on your time series data.
 
-weight: 101
+weight: 201
 v2.0/tags: [monitor, notification rules]
 menu:
   v2_0:
     name: Create notification rules
     parent: Manage notification rules
-related:
-  - /v2.0/monitor-alert/create-notification-endpoints/
 ---
 
-To receive notifications about changes in your data, start by setting up a notification endpoint. After setting up your notification endpoints, create notification rules <insertlink> and checks <insertlink>.
+Once you've set up checks and notification endpoints, create notification rules to alert you. For details, see <link> and <link>.
 
-## Create a notification rule in the UI
+## Create a new notification rule in the UI
 
-1. On the **Monitoring and Alerting** page, next to **Notification Rules**, click **Create**.
+1. Select the **Monitoring and Alerting** icon from the sidebar.
+
+
+    {{< nav-icon "alert" >}}
+
+
+2. Under **Notification Rules**, click **+Create**.
 2. Complete the **About** section:
   a. In the **Name** field, enter a name for the notification rule.
   b. In the **Schedule Every** field, enter .
   c. In the **Offset** field, enter .
 3. In the **Conditions** section, build a condition using a combination of status and tag keys.
+  a. Next to **When status**, select a an operator from the drop-down field. (either **is equal to** or **changes from**.)
+  Select status from the drop-down list (one for is equal to or two for changes from).
+  b. Next to **AND When**, enter one or more tag key-value pairs to filter by.
+4. In the **Message** section, select an endpoint to notify.
+5. Click **Create Notification Rule**.
 
-Next to **When status**, select a an operator from the drop-down field. (either **is equal to** or **changes from**.)
+## Clone an existing notification rule in the UI
 
-Select status from the drop-down list (one for is equal to or two for changes from).
+1. Select the **Monitoring and Alerting** icon from the sidebar.
 
 
-4. From the **Destination** drop-down list, select a destination to send notifications:
-   - (Free plan) HTTP server
-   - (Pay as You Go plan) HTTP server, Slack, or PagerDuty
-5. Enter the **URL** to notify, and then enter connection information:
+    {{< nav-icon "alert" >}}
 
-   - For HTTP:
 
-        a. Select the **HTTP method** to use. In most cases, select **POST**. {find use cases when to use PUT & GET}
-
-        b. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with a token, select **Bearer**, and then enter the authentication token in the **Token** field.
-
-        c. In the **Content Template** field, enter {examples for each endpoint template}.
-
-    - For Slack, enter your Slack authentication token in the **Token** field.
-    - For PagerDuty, enter your PagerDuty routing key in the **Routing Key** field.
-
-5. Click **Create Notification Endpoint**.
+2. Under **Notification Rules**, hover over the rule you want to clone.
+3. Click the clone icon and select **Clone**. The cloned rule appears.
