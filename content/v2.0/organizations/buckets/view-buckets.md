@@ -11,11 +11,11 @@ weight: 202
 
 ## View buckets in the InfluxDB UI
 
-1. Click the **Settings** tab in the navigation bar.
+1. Click **Load Data** in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Select the **Buckets** tab.
+2. Select **Buckets**.
 3. Click on a bucket to view details.
 
 ## View buckets using the influx CLI

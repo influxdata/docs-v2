@@ -114,11 +114,11 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 ```
 
 ## Write data in the InfluxDB UI
-1. Click **Settings** in the left navigation menu.
+1. Click **Load Data** in the left navigation menu.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Select the **Buckets** tab.
+2. Select **Buckets**.
 3. Hover over the bucket to write data to and click **{{< icon "plus" >}} Add Data**.
 4. Select **Line Protocol**.
    _You can also [use Telegraf](/v2.0/write-data/use-telegraf/) or
