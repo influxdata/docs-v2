@@ -1,7 +1,8 @@
 ---
 title: Delete notification rules
 description: >
-  Delete notification rules to receive alerts on your time series data.
+  If you no longer need to receive an alert, delete the associated notification rule.
+
 
 weight: 201
 v2.0/tags: [monitor, notification rules]
