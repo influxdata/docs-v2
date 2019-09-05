@@ -11,10 +11,24 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.41.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.42.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.42.0 [2019-08-30]
+
+### Features
+- Add `stateChanges` function.
+
+### Bug fixes
+- Race condition in looking up types in `map`.
+- Support bool equality expressions.
+- Calculating a type variable's free type variables.
+- Do not generate fresh type variables for member expressions.
+- Array instantiation.
 
 ---
 
