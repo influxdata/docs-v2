@@ -119,6 +119,7 @@ duration // duration of time
 time     // time
 string   // utf-8 encoded string
 regexp   // regular expression
+bytes    // sequence of byte values
 type     // a type that itself describes a type
 ```
 

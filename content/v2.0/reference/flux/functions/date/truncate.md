@@ -32,7 +32,7 @@ The time to operate on.
 _**Data type:** Time_
 
 ### unit
-The unit time to truncate to.
+The unit of time to truncate to.
 
 _**Data type:** Duration_
 
