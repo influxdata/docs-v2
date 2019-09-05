@@ -15,7 +15,7 @@ related:
   - /v2.0/cloud/monitor-alert/manage-notification-endpoints/
 ---
 
-To send notifications about changes in your data, start by setting up a notification endpoint to a third party service. After setting up notification endpoints, [create notification rules](/v2.0/cloud/monitor-alert/manage-notification-rules/create-notification-rules) to send alerts to third party services on [check statuses](/v2.0/cloud/monitor-alert/manage-checks/create-checks).
+To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/v2.0/cloud/monitor-alert/manage-notification-rules/create-notification-rules) to send alerts to third party services on [check statuses](/v2.0/cloud/monitor-alert/manage-checks/create-checks).
 
 ## Create a notification endpoint in the UI
 
