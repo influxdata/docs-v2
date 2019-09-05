@@ -29,14 +29,15 @@ The Slack API URL.
 Defaults to `https://slack.com/api/chat.postMessage`.
 
 {{% note %}}
-If using a Slack Webhook, the Webhook setup process provides the
-[Webhook URL](https://api.slack.com/incoming-webhooks#create_a_webhook).
+If using a Slack webhook, you'll receive a Slack webhook URL when you
+[create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
 {{% /note %}}
 
 _**Data type:** String_
 
 ### token
-The Slack API token used to interact with Slack.
+The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
+used to interact with Slack.
 Defaults to `""`.
 
 {{% note %}}

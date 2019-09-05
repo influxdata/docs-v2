@@ -2,7 +2,7 @@
 title: slack.message() function
 description: >
   The `slack.message()` function sends a single message to a Slack channel.
-  It work with either with the chat.postMessage API or with a Slack webhook.
+  The function works with either with the chat.postMessage API or with a Slack webhook.
 menu:
   v2_0_ref:
     name: slack.message
@@ -11,8 +11,8 @@ weight: 202
 ---
 
 The `slack.message()` function sends a single message to a Slack channel.
-It will work either with the [chat.postMessage API](https://api.slack.com/methods/chat.postMessage)
-or with a [Slack Webhook](https://api.slack.com/incoming-webhooks).
+The function works with either with the [chat.postMessage API](https://api.slack.com/methods/chat.postMessage)
+or with a [Slack webhook](https://api.slack.com/incoming-webhooks).
 
 _**Function type:** Output_
 
@@ -38,14 +38,15 @@ The Slack API URL.
 Defaults to `https://slack.com/api/chat.postMessage`.
 
 {{% note %}}
-If using a Slack Webhook, the Webhook setup process provides the
-[Webhook URL](https://api.slack.com/incoming-webhooks#create_a_webhook).
+If using a Slack webhook, you'll receive a Slack webhook URL when you
+[create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
 {{% /note %}}
 
 _**Data type:** String_
 
 ### token
-The Slack API token used to interact with Slack.
+The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
+used to interact with Slack.
 Defaults to `""`.
 
 {{% note %}}
@@ -60,7 +61,7 @@ The username to use when posting the message to a Slack channel. <span class="re
 _**Data type:** String_
 
 ### channel
-The name of channel in which to post the message. <span class="required">Required</span>
+The name of channel to post the message to. <span class="required">Required</span>
 
 _**Data type:** String_
 
@@ -84,7 +85,7 @@ _**Data type:** String_
 {{% note %}}
 #### Things to know about iconEmoji
 - **Do not** enclose the name in colons `:` as you do in the Slack client.
-- If using a Slack Webhook, the `iconEmoji` **will not** show as the avatar.
+- `iconEmoji` only appears as the user avatar when using the Slack chat.postMessage API.
 {{% /note %}}
 
 ### color
@@ -96,7 +97,7 @@ The color to include with the message.
 - `good`
 - `warning`
 - `danger`
-- Any valid RGB hex color code. For example: `#439FE0`.
+- Any valid RGB hex color code. For example, `#439FE0`.
 
 _**Data type:** String_
 

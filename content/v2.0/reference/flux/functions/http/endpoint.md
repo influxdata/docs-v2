@@ -1,7 +1,7 @@
 ---
 title: http.endpoint() function
 description: >
-  The `http.endpoint()` function sends output data to a an HTTP URL using the POST request method.
+  The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
 menu:
   v2_0_ref:
     name: http.endpoint
@@ -9,7 +9,7 @@ menu:
 weight: 202
 ---
 
-The `http.endpoint()` function sends output data to a an HTTP URL using the POST request method.
+The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
 
 _**Function type:** Output_
 
