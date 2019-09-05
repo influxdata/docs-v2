@@ -1,7 +1,7 @@
 ---
 title: Update notification rules
 description: >
-  Update notification rules to receive alerts on your time series data.
+  Update notification rules to update the notification message or change the schedule or conditions.
 
 weight: 201
 v2.0/tags: [monitor, notification rules]
