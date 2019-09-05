@@ -49,8 +49,6 @@ _**Data type:** String_
 ```js
 import "influxdata/influxdb/monitor"
 
-from(bucket: "example-bucket")
-  |> range(start: -10m)
-  |> group(columns: ["host"])
+monitor.from(start: -1h)
   |> monitor.stateChanges(toLevel: "crit")
 ```
