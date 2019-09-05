@@ -24,7 +24,7 @@ menu:
 4. To create and add a new label:
   - In the search field, enter the name of the new label. The **Create Label** box opens.
   - In the **Description** field, enter an optional description for the label.
-  - Select a color from the for the label.
+  - Select a color for the label.
   - Click **Create Label**.
 5. To remove a label, hover over the label under to a rule and click X.
 
