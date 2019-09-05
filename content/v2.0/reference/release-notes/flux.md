@@ -11,10 +11,31 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.40.2**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.41.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.41.0 [2019-08-26]
+
+### Features
+- Add ability to validate URLs before making `http.post` requests.
+- Evaluate string interpolation.
+- Implement the `secrets.get` function.
+- Added secret service interface.
+- Add secrets package that will construct a secret object.
+- Added a SecretService interface and a new dependencies package and a basic test of functionality.
+- Add Slack endpoint.
+
+### Bug fixes
+- Make `reset()` check for non-nil data before calling `Release()`.
+- Add test case for `notify` function.
+- Add missing math import to test case.
+- Make packages aware of options.
+- Resolved `holtWinters` panic.
+- Use non-pointer receiver for `interpreter.function`.
 
 ---
 
