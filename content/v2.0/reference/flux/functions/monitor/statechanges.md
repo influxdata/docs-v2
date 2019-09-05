@@ -1,7 +1,8 @@
 ---
 title: monitor.stateChanges() function
 description: >
-  The `monitor.stateChanges()` function ...
+  The `monitor.stateChanges()` function  detects state changes in a stream of data and
+  outputs only records that change from `fromLevel` to `toLevel`.
 menu:
   v2_0_ref:
     name: monitor.stateChanges
