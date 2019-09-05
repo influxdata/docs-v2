@@ -4,7 +4,7 @@ description: >
   Update notification rules to update the notification message or change the schedule or conditions.
 
 weight: 201
-v2.0/tags: [monitor, notification rules]
+v2.0/tags: [notifications]
 menu:
   v2_0:
     name: Update notification rules
@@ -26,7 +26,7 @@ menu:
   - In the **Description** field, enter an optional description for the label.
   - Select a color from the for the label.
   - Click **Create Label**.
-5. To remove a label, hover over the label next to a rule and click the X.
+5. To remove a label, hover over the label under to a rule and click X.
 
 
 ## Disable notification rules
