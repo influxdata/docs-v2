@@ -5,7 +5,7 @@ description: >
 
 
 weight: 201
-v2.0/tags: [monitor, notification rules]
+v2.0/tags: [notifications]
 menu:
   v2_0:
     name: Delete notification rules
@@ -20,5 +20,5 @@ menu:
     {{< nav-icon "alerts" >}}
 
 
-2. Under **Notification Rules**, find the rule you want to disable.
+2. Under **Notification Rules**, find the rule you want to delete.
 3. Click the delete icon, then click **Delete** to confirm.
