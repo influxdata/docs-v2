@@ -1,7 +1,7 @@
 ---
 title: Create notification rules
 description: >
-  Create notification rules to receive alerts on your time series data.
+  Create notifications to receive alerts on your time series data.
 
 weight: 201
 v2.0/tags: [monitor, notification rules]
