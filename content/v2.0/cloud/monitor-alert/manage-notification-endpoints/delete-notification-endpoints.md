@@ -17,7 +17,11 @@ related:
 
 If notifications are no longer sent to an endpoint, complete the steps below to delete the endpoint, and then [update notification rules](/v2.0/cloud/monitor-alert/manage-notification-rules/update-notification-rules) with a new notification endpoint as needed.
 
+## Delete a notification endpoint in the UI
+
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
-
     {{< nav-icon "alerts" >}}
+
+2. Under **Notification Rules**, find the rule you want to delete.
+3. Click the delete icon, then click **Delete** to confirm.
