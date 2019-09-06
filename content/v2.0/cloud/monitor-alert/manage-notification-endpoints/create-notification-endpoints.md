@@ -34,7 +34,12 @@ To send notifications about changes in your data, start by creating a notificati
         
         c. In the **Content Template** field, enter {examples for each endpoint template}.
         
-    - For Slack, enter your Slack authentication token in the **Token** field.
+    - For Slack:
+    
+        a. Create an Incoming WebHook within Slack in order to send notifications to Slack.
+        
+        b. Enter the Slack Incoming WebHook URL in the **Slack Incoming WebHook URL** field.
+        
     - For PagerDuty, enter your PagerDuty routing key in the **Routing Key** field.
 
 5. Click **Create Notification Endpoint**.
