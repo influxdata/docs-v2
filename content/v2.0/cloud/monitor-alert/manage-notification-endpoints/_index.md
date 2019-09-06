@@ -12,6 +12,6 @@ menu:
 weight: 102
 ---
 
-Notification endpoints store information to connect to a third party service. If you're using the Free plan, create an HTTP or Slack endpoint. If you're using the Pay as You Go plan, create a connection to a HTTP, Slack, or PagerDuty endpoint.
+Notification endpoints store information to connect to a third party service. If you're using the Free plan, create a Slack endpoint. If you're using the Pay as You Go plan, create a connection to a HTTP, Slack, or PagerDuty endpoint.
 
 {{< children >}}
