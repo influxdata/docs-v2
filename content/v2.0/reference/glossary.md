@@ -34,12 +34,6 @@ For a list of available aggregation functions, see [Flux built-in aggregate func
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
-### alert
-
-In data monitoring and alerting, an alert occurs when a [check](#check) results in a [check status](#check-status) that triggers a [notification rule](#notification-rule).
-
-Related entries: [notification bucket](#notification-bucket)
-
 ## B
 
 ### bar graph
@@ -100,16 +94,29 @@ A bucket is a named location where time series data is stored. All buckets have 
 
 ### check
 
-In data monitoring and alerting, a check analyzes query results to determine the current [check status](#check-status) and writes the check status to a [status bucket](#status-bucket).
+Checks are part of queries used in monitoring to read input data and assign a [status](#check-status) (`_level`) based on specified conditions. For example:
 
-Related entries: [alerts](#alerts)
+```
+monitor.check(
+  crit: (r) => r._value > 90.0,
+  warn: (r) => r._value > 80.0,
+  info: (r) => r._value > 60.0,
+  ok:   (r) => r._value <= 20.0,
+  messageFn: (r) => "The current level is ${r._level}",
+)
+```
+
+This check gives rows with a `_value` greater than 90.0 a crit _level; rows greater than 80.0 get a warn _level, and so on.
+
+Learn how to [create a check](/v2.0/cloud/monitor-alert/manage-checks/create-checks).
+
+Related entries: [check status](#check-status), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
 
 ### check status
 
-In data monitoring and alerting, a check status identifies:
+A [check](#check) gets one of the following statuses (`_level`): CRIT, INFO, WARN, or OK. Check statuses are written to a status measurement in the _monitoring bucket.
 
-- Status level (OK, INFO, WARN, CRIT, or UNKNOWN)
-- Check [tags](#tag) written to the [status bucket](#status-bucket)
+Related entries: [check](#check), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
 
 ### CSV
 
@@ -542,21 +549,19 @@ An independent `influxd` process.
 
 Related entries: [server](#server)
 
-### notification bucket
-
- In data monitoring and alerting, the notification bucket is where a [notification rule](#notification-rule) records the name of the [notification endpoint](#notification-endpoint), [notification message](notification-message), and [tags](#tag) in a [query](#query).
-
 ### notification endpoint
 
- In data monitoring and alerting, the notification endpoint is the configuration describing how to call <send a notification to?> a 3rd party service (for example, Slack or Pagerduty). <what about HTTP?>
+ The notification endpoint specifies the Slack or PagerDuty endpoint to send a notification and contains configuration details for connecting to the endpoint. Learn how to [create a notification endpoint](/v2.0/cloud/monitor-alert/manage-notification-endpoints/create-notification-endpoints).
 
-### notification message
-
-A templatized payload sent to <message template sent {in the payload} to?> the [notification endpoint](#notification-endpoint).
+Related entries: [check](#check), [notification rule](#notification-rule)
 
 ### notification rule
 
- In data monitoring and alerting, a notification rule is a query on a [status bucket](#status-bucket) that returns the [check status](#check-status). When warranted by the conditions of the rule, the notification rule sends a [message] to a 3rd party using the [notification endpoint](#notification-endpoint) and stores a receipt in the [notification bucket](#notification-bucket).
+A notification rule specifies a status level (and tags) to alert on, the notification message to send for the specified status level (or change in status level), and the interval or schedule you want to check the status level (and tags). If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the _monitoring bucket. For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
+
+Learn how to [create a notification rule](/v2.0/cloud/monitor-alert/notification-rules/create-notification-rules).
+
+Related entries: [check](#check), [notification endpoint](#notification-endpoint)
 
 ### now()
 
@@ -813,14 +818,6 @@ A visualization that displays points sharing a common X value as stacked rather 
 
 Related entries: [bin](#bin)
 -->
-
-### status bucket
-
- In data monitoring and alerting, a status bucket stores the current [check status](#check-status).
-
-### status graph
-
- In data monitoring and alerting, a status graph shows the [check status](#check-status) over time.
 
 ### step-plot
 
