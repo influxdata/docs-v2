@@ -13,7 +13,7 @@ weight: 202
 The `pagerduty.dedupKey()` function uses the group key of an input table to
 generate and store a deduplication key in the `_pagerdutyDedupKey` column.
 The function sorts, newline-concatenates, SHA256-hashes, and hex-encodes
-the group key before storing it.
+the group key to create a unique deduplication key for each input table.
 
 _**Function type:** Transformation_
 

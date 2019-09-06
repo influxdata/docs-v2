@@ -77,12 +77,14 @@ _**Data type:** String_
 
 ### class
 The class or type of the event.
+Classes are user-defined.
 For example, `ping failure` or `cpu load`.
 
 _**Data type:** String_
 
 ### group
 A logical grouping used by PagerDuty.
+Groups are user-defined.
 For example, `app-stack`.
 
 _**Data type:** String_
@@ -101,6 +103,7 @@ _**Data type:** String_
 
 ### component
 The component of the source machine responsible for the event.
+Components are user-defined.
 For example, `mysql` or `eth0`.
 
 _**Data type:** String_
