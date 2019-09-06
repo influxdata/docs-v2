@@ -38,7 +38,7 @@ Once you've set up checks and notification endpoints, create notification rules 
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
 
-    {{< nav-icon "alert" >}}
+    {{< nav-icon "alerts" >}}
 
 
 2. Under **Notification Rules**, hover over the rule you want to clone.
