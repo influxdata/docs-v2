@@ -49,7 +49,7 @@ username = "myawesomeuser"
 password = "mySupErSecRetPasSW0rD"
 
 http.post(
-  url: "http://localhost:9999/",
+  url: "http://myawesomesite.com/api/",
   headers: {Authorization: http.basicAuth(u:username, p:password)},
   data: bytes(v: "something I want to send.")
 )
