@@ -15,4 +15,7 @@ related:
 
 To update information for a specified notification endpoint, complete the steps below. To update a notification endpoint for a specified notification rule, [update notification rules](/v2.0/cloud/monitor-alert/update-notification-rules/) by selecting the updated notification endpoint.
 
-1.
+1. Select the **Monitoring and Alerting** icon from the sidebar.
+
+
+    {{< nav-icon "alerts" >}}
