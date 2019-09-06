@@ -30,7 +30,7 @@ To send notifications about changes in your data, start by creating a notificati
 4. From the **Destination** drop-down list, select a destination endpoint to send notifications:
    - (Free plan) Slack
    - (Pay as You Go plan) HTTP, Slack, or PagerDuty
-5. Enter the **URL** to notify, and then enter connection information:
+5. Enter the **URL** to send the notification, and then enter connection information:
 
    - For HTTP:
      
@@ -42,10 +42,8 @@ To send notifications about changes in your data, start by creating a notificati
         
     - For Slack:
     
-        a. Create an Incoming WebHook within Slack in order to send notifications to Slack.
+        a. Create an [Incoming WebHook](https://api.slack.com/incoming-webhooks#posting_with_webhooks) in Slack, and then enter your webHook URL in the **Slack Incoming WebHook URL** field.
         
-        b. Enter the Slack Incoming WebHook URL in the **Slack Incoming WebHook URL** field.
-        
-    - For PagerDuty, enter your PagerDuty routing key in the **Routing Key** field.
+    - For PagerDuty, [create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field.
 
 6. Click **Create Notification Endpoint**.
