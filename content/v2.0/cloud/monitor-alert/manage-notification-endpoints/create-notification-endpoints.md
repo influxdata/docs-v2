@@ -34,7 +34,7 @@ To send notifications about changes in your data, start by creating a notificati
 
    - For HTTP:
      
-        a. Select the **HTTP method** to use. In most cases, select **POST**. {find use cases when to use PUT & GET}
+        a. From the **HTTP method** drop-down list, select **POST**.
         
         b. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with a token, select **Bearer**, and then enter the authentication token in the **Token** field.
         
