@@ -2,7 +2,7 @@
 title: monitor.stateChanges() function
 description: >
   The `monitor.stateChanges()` function  detects state changes in a stream of data and
-  outputs only records that change from `fromLevel` to `toLevel`.
+  outputs records that change from `fromLevel` to `toLevel`.
 menu:
   v2_0_ref:
     name: monitor.stateChanges
@@ -12,7 +12,7 @@ cloud_all: true
 ---
 
 The `monitor.stateChanges()` function detects state changes in a stream of data and
-outputs only records that change from `fromLevel` to `toLevel`.
+outputs records that change from `fromLevel` to `toLevel`.
 
 {{% note %}}
 `monitor.stateChanges` operates on data in the `statuses` measurement and requires a `_level` column .
@@ -39,7 +39,7 @@ _**Data type:** String_
 
 ### toLevel
 The level to detect a change to.
-The function only output records that change to this level.
+The function output records that change to this level.
 
 _**Data type:** String_
 
