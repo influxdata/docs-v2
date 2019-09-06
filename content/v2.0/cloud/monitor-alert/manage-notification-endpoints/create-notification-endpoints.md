@@ -22,7 +22,7 @@ To send notifications about changes in your data, start by creating a notificati
 1. On the **Monitoring and Alerting** page, next to **Notification Endpoints**, click **Create**.
 2. In the **Name** and **Description** fields, enter a name and description for the endpoint.
 3. From the **Destination** drop-down list, select a destination endpoint to send notifications:
-   - (Free plan) HTTP or Slack
+   - (Free plan) Slack
    - (Pay as You Go plan) HTTP, Slack, or PagerDuty
 4. Enter the **URL** to notify, and then enter connection information:
 
