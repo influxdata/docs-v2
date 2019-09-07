@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ui-eye-closed:before {
+  content: "\e956";
+}
+.icon-ui-eye-open:before {
+  content: "\e957";
+}
 .icon-ui-chat:before {
   content: "\e93a";
 }

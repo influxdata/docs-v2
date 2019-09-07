@@ -26,22 +26,21 @@
     &.ui-toggle {
       display: inline-block;
       position: relative;
-      width: 34px;
-      height: 22px;
-      background: #1C1C21;
-      border: 2px solid #383846;
+      width: 28px;
+      height: 16px;
+      background: $b-pool;
       border-radius: .7rem;
-      vertical-align: text-bottom;
+      vertical-align: text-top;
 
       .circle {
         display: inline-block;
         position: absolute;
         border-radius: 50%;
-        height: 12px;
-        width: 12px;
-        background: #22ADF6;
-        top: 3px;
-        right: 3px;
+        height: 8px;
+        width: 8px;
+        background: $g20-white;
+        top: 4px;
+        right: 4px;
       }
     }
   }
