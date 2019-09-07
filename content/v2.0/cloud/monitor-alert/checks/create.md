@@ -72,7 +72,8 @@ The following statuses or levels are available:
     These tags are unique to each check.
 
 2.  In the **Status Message Template** column, configure the status message for the check.
-    Use [Flux string interpolation](#) to populate the message with data from the query.
+    Use [Flux string interpolation](/v2.0/reference/flux/language/string-interpolation/)
+    to populate the message with data from the query.
     Check data is represented as an object, `r`.
     Access specific column values using dot notation: `r.columnName`.
 
