@@ -15,8 +15,6 @@ cloud_all: true
 Monitor your time series data and send alerts by creating checks, notification
 rules, and notification endpoints.
 
-InfluxDB lets
-
 ## The monitoring workflow
 1.  InfluxDB uses a [check](/v2.0/reference/glossary/#check) to query data and
     assigns a status or `_level` based on specific conditions.
@@ -30,7 +28,8 @@ InfluxDB lets
 To get started, do the following:
 
 1.  [Create checks](/v2.0/monitor-alert/checks/create/) to monitor data and assign a status.
-2.  [Add notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/) to send notifications to.
+2.  [Add notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/)
+    to send notifications to third parties.
 3.  [Create notification rules](/v2.0/monitor-alert/notification-rules/create) to check
     statuses and send notifications to your notifications endpoints.
 
