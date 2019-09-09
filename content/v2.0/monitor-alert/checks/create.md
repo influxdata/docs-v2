@@ -7,7 +7,10 @@ menu:
   v2_0:
     parent: Manage checks
 weight: 201
-v2.0/tags: [monitor, checks, notifications]
+related:
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
 
 Create a check in the InfluxDB user interface (UI).
@@ -70,7 +73,7 @@ A check consists of two parts – a query and check confiuration.
 
     Use custom tags to associate additional metadata with the check.
     Common metadata tags across different checks lets you easily group and organize checks.
-    You can also use custom tags in [notification rules](/v2.0/cloud/monitor-alert/notification-rules/create-notification-rules/).
+    You can also use custom tags in [notification rules](/v2.0/monitor-alert/notification-rules/create/).
 
 3.  In the **Status Message Template** column, enter the status message template for the check.
     Use [Flux string interpolation](/v2.0/reference/flux/language/string-interpolation/)

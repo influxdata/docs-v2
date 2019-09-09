@@ -2,13 +2,17 @@
 title: Manage notification rules
 description: >
   Manage notification rules in InfluxDB.
-weight: 20
-v2.0/tags: [notifications]
+weight: 103
+v2.0/tags: [monitor, notifications, alert]
 menu:
   v2_0:
-    name: Manage notification rules
-    parent: Monitor and alert
+    parent: Monitor & alert
+related:
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
+
 The following articles provide information on managing your notification rules:
 
 {{< children >}}

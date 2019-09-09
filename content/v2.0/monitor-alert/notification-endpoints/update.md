@@ -1,16 +1,16 @@
 ---
 title: Update notification endpoints
-seotitle: Update notification endpoints
 description: >
   Update notification endpoints in the InfluxDB UI.
 menu:
   v2_0:
     name: Update endpoints
     parent: Manage notification endpoints
-weight: 204
+weight: 203
 related:
-  - /v2.0/cloud/monitor-alert/manage-notification-rules/
-  - /v2.0/cloud/monitor-alert/manage-notification-endpoints/
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-rules/
+cloud_all: true
 ---
 
 To update the notification endpoint details, complete the following procedures as needed.
@@ -21,9 +21,7 @@ To update the notification endpoint details, complete the following procedures a
 
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
-
     {{< nav-icon "alerts" >}}
-
 
 2. Under **Notification Endpoints**, click **Add a label** next to the endpoint you want to add a label to. The **Add Labels** box opens.
 3. To add an existing label, select the label from the list.
@@ -67,4 +65,4 @@ To update the notification endpoint details, complete the following procedures a
     {{< nav-icon "alerts" >}}
 
 2. Under **Notification Endpoints**, click the endpoint to update.
-3. Update details as needed, and then click **Edit a Notification Endpoint**. For details about each field, see [create a notification endpoint](v2.0/cloud/monitor-alert/manage-checks/create-notification-endpoints).
+3. Update details as needed, and then click **Edit a Notification Endpoint**. For details about each field, see [Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/).
