@@ -294,9 +294,9 @@ StringExpression = "${" Expression "}" .
 ```
 
 String literals are also interpolated for embedded expressions to be evaluated as strings.
-Embedded expressions are enclosed within the literals `${` and `}` respectively.
+Embedded expressions are enclosed in a dollar sign and curly braces (`${}`).
 The expressions are evaluated in the scope containing the string literal.
-The result of an expression is formatted as a string and replaces the string content between the brackets.
+The result of an expression is formatted as a string and replaces the string content between the braces.
 All types are formatted as strings according to their literal representation.
 A function `printf` exists to allow more precise control over formatting of various types.
 To include the literal `${` within a string, it must be escaped.
