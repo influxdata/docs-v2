@@ -18,7 +18,6 @@ import "pagerduty"
 
 pagerduty.sendEvent(
   pagerdutyURL: "https://events.pagerduty.com/v2/enqueue",
-  token: "mySuPerSecRetTokEn",
   routingKey: "ExampleRoutingKey",
   client: "ExampleClient",
   clientURL: "http://examplepagerdutyclient.com",
@@ -38,13 +37,6 @@ pagerduty.sendEvent(
 ### pagerdutyURL
 The URL of the PagerDuty endpoint.
 Defaults to `https://events.pagerduty.com/v2/enqueue`.
-
-_**Data type:** String_
-
-### token
-The [PagerDuty API token](https://support.pagerduty.com/docs/generating-api-keys#section-generating-a-general-access-rest-api-key)
-used to interact with PagerDuty.
-Defaults to `""`.
 
 _**Data type:** String_
 
@@ -98,6 +90,17 @@ The severity of the event.
 - `error`
 - `warning`
 - `info`
+
+_**Data type:** String_
+
+### eventAction
+The type of event to send to PagerDuty.
+
+**Valid values include:**
+
+- `trigger`
+- `resolve`
+- `acknowledge`
 
 _**Data type:** String_
 

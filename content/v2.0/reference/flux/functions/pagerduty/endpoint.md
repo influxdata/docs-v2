@@ -18,8 +18,7 @@ _**Function type:** Output_
 import "pagerduty"
 
 pagerduty.endpoint(
-  url: "https://events.pagerduty.com/v2/enqueue",
-  token: "mySuPerSecRetTokEn"
+  url: "https://events.pagerduty.com/v2/enqueue"
 )
 ```
 
@@ -28,13 +27,6 @@ pagerduty.endpoint(
 ### pagerdutyURL
 The PagerDuty API URL.
 Defaults to `https://events.pagerduty.com/v2/enqueue`.
-
-_**Data type:** String_
-
-### token
-The [PagerDuty API token](https://support.pagerduty.com/docs/generating-api-keys#section-generating-a-general-access-rest-api-key)
-used to interact with PagerDuty.
-Defaults to `""`.
 
 _**Data type:** String_
 
