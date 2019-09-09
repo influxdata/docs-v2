@@ -2,7 +2,7 @@
 title: Delete notification rules
 description: >
   If you no longer need to receive an alert, delete the associated notification rule.
-weight: 201
+weight: 204
 menu:
   v2_0:
     parent: Manage notification rules

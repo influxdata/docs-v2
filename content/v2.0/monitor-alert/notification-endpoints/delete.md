@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Delete endpoints
     parent: Manage notification endpoints
-weight: 201
+weight: 204
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-rules/

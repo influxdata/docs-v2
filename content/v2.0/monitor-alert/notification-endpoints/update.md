@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Update endpoints
     parent: Manage notification endpoints
-weight: 204
+weight: 203
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-rules/

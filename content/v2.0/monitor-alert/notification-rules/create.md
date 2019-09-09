@@ -2,7 +2,7 @@
 title: Create notification rules
 description: >
   Create notification rules to send alerts on your time series data.
-weight: 20
+weight: 201
 menu:
   v2_0:
     parent: Manage notification rules

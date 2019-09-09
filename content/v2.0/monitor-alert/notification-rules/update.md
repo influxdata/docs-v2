@@ -2,7 +2,7 @@
 title: Update notification rules
 description: >
   Update notification rules to update the notification message or change the schedule or conditions.
-weight: 201
+weight: 203
 menu:
   v2_0:
     parent: Manage notification rules
