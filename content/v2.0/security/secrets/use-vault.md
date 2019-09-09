@@ -4,13 +4,13 @@ description: Manage authentication tokens in InfluxDB using the InfluxDB UI or t
 v2.0/tags: [tokens, security]
 menu:
   v2_0:
-    parent: Security & authorization
-weight: 102
+    parent: Store secrets
+weight: 201
 ---
 
 [Vault](https://www.vaultproject.io/) secures, stores, and tightly controls access
 to tokens, passwords, certificates, and other sensitive secrets.
-Store sensitive secrets in Vault using the InfluxDB built-in Vault integration. 
+Store sensitive secrets in Vault using the InfluxDB built-in Vault integration.
 
 {{% note %}}
 When not using Vault, secrets are Base64-encoded and stored in the InfluxDB embedded key value store,
