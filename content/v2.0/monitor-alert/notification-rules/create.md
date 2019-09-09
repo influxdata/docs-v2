@@ -1,25 +1,26 @@
 ---
 title: Create notification rules
 description: >
-  Create notification rules to receive alerts on your time series data.
-
+  Create notification rules to send alerts on your time series data.
 weight: 20
-v2.0/tags: [notifications]
 menu:
   v2_0:
-    name: Create notification rules
     parent: Manage notification rules
+related:
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
 
-Once you've set up checks and notification endpoints, create notification rules to alert you. For details, see <link to checks doc> and <link to endpoints doc>.
+Once you've set up checks and notification endpoints, create notification rules to alert you.
+_For details, see [Manage checks](/v2.0/monitor-alert/checks/) and
+[Manage notification endpoints](/v2.0/monitor-alert/notification-endpoints/)._
 
 ## Create a new notification rule in the UI
 
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
-
     {{< nav-icon "alerts" >}}
-
 
 2. Under **Notification Rules**, click **+Create**.
 3. Complete the **About** section:

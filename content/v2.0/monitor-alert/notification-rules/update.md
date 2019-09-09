@@ -2,22 +2,21 @@
 title: Update notification rules
 description: >
   Update notification rules to update the notification message or change the schedule or conditions.
-
 weight: 201
-v2.0/tags: [notifications]
 menu:
   v2_0:
-    name: Update notification rules
     parent: Manage notification rules
+related:
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
 
 ## Add a label to notification rules
 
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
-
     {{< nav-icon "alerts" >}}
-
 
 2. Under **Notification Rules**, click **Add a label** next to the rule you want to add a label to. The **Add Labels** box opens.
 3. To add an existing label, select the label from the list.

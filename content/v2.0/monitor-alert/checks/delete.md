@@ -7,7 +7,10 @@ menu:
   v2_0:
     parent: Manage checks
 weight: 204
-v2.0/tags: [monitor, checks, notifications]
+related:
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
 
 If you no longer need a check, use the InfluxDB user interface (UI) to delete it.

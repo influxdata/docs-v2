@@ -7,7 +7,10 @@ menu:
   v2_0:
     parent: Manage checks
 weight: 201
-v2.0/tags: [monitor, checks, notifications]
+related:
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
+cloud_all: true
 ---
 
 Create a check in the InfluxDB user interface (UI).
