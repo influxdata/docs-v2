@@ -18,7 +18,7 @@ command line interface (CLI).
 
 1. Click the **Load Data** icon in the navigation bar.
 
-    {{< nav-icon "load" >}}
+    {{< nav-icon "disks" >}}
 
 2. Click **Tokens**.
 3. Click the **+ Generate** dropdown in the upper right and select a token type (**Read/Write Token** or **All Access Token**).

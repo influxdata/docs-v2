@@ -18,7 +18,7 @@ command line interface (CLI).
 
 1. Click the **Load Data** icon in the navigation bar.
 
-    {{< nav-icon "load" >}}
+    {{< nav-icon "disks" >}}
 
 2. Click **Tokens**. All of your account's tokens appear.
 3. Click on a token name from the list to view the token and a summary of access permissions.
