@@ -41,7 +41,7 @@
 {{ else if or (eq $icon "refresh") (eq $icon "replay") }}
 <span class="inline icon-ui-refresh middle small"></span>
 {{ else if or (eq $icon "remove") (eq $icon "x") }}
-<span class="inline icon-ui-remove middle small"></span>
+<span class="inline icon-ui-remove top small"></span>
 {{ else if eq $icon "search" }}
 <span class="inline icon-ui-search middle small"></span>
 {{ else if or (eq $icon "trash") (eq $icon "trashcan") (eq $icon "delete") }}
@@ -54,6 +54,10 @@
 <span class="inline icon-ui-nav-chat large"></span>
 {{ else if eq $icon "chat" }}
 <span class="inline icon-ui-chat large"></span>
+{{ else if or (eq $icon "eye-open") (eq $icon "eye") (eq $icon "view") }}
+<span class="inline icon-ui-eye-open large"></span>
+{{ else if or (eq $icon "eye-closed") (eq $icon "hide") }}
+<span class="inline icon-ui-eye-closed large"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>
 {{ else if eq $icon "toggle" }}
