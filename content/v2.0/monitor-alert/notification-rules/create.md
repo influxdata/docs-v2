@@ -39,9 +39,7 @@ _For details, see [Manage checks](/v2.0/monitor-alert/checks/) and
 
 1. Select the **Monitoring and Alerting** icon from the sidebar.
 
-
     {{< nav-icon "alerts" >}}
-
 
 2. Under **Notification Rules**, hover over the rule you want to clone.
 3. Click the clone icon and select **Clone**. The cloned rule appears.

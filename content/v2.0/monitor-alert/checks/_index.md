@@ -14,7 +14,7 @@ related:
 cloud_all: true
 ---
 
-InfluxDB checks query data and apply a status or level to each data point based on specified conditions.
+Checks in InfluxDB query data and apply a status or level to each data point based on specified conditions.
 Learn how to create and manage checks:
 
 {{< children >}}
