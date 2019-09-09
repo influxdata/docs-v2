@@ -30,7 +30,7 @@ To update checks, click **Monitoring & Alerting** in the InfluxDB UI sidebar.
 2. To edit the check query, click **1. Query** at the top of the check builder window.
 3. To edit the check logic, click **2. Check** at the top of the check builder window.
 
-_For details about using the check builder, see [Create checks](/v2.0/cloud/monitor-alert/checks/create/)._
+_For details about using the check builder, see [Create checks](/v2.0/monitor-alert/checks/create/)._
 
 ## Enable or disable a check
 In the **Checks** column, click the {{< icon "toggle" >}} toggle next to a check

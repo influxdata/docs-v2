@@ -551,7 +551,7 @@ Related entries: [server](#server)
 
 ### notification endpoint
 
- The notification endpoint specifies the Slack or PagerDuty endpoint to send a notification and contains configuration details for connecting to the endpoint. Learn how to [create a notification endpoint](/v2.0/cloud/monitor-alert/manage-notification-endpoints/create-notification-endpoints).
+ The notification endpoint specifies the Slack or PagerDuty endpoint to send a notification and contains configuration details for connecting to the endpoint. Learn how to [create a notification endpoint](/v2.0/monitor-alert/notification-endpoints/create).
 
 Related entries: [check](#check), [notification rule](#notification-rule)
 

@@ -2,7 +2,7 @@
 title: Manage notification rules
 description: >
   Manage notification rules in InfluxDB.
-weight: 20
+weight: 103
 v2.0/tags: [notifications]
 menu:
   v2_0:

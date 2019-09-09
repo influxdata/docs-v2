@@ -9,8 +9,8 @@ menu:
     parent: Manage notification endpoints
 weight: 204
 related:
-  - /v2.0/cloud/monitor-alert/manage-notification-rules/
-  - /v2.0/cloud/monitor-alert/manage-notification-endpoints/
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 To update the notification endpoint details, complete the following procedures as needed.
