@@ -16,6 +16,8 @@ InfluxDB Cloud 2.0 offers two pricing plans:
 - [Free Plan](#free-plan)
 - [Pay As You Go Plan](#pay-as-you-go-plan)
 
+To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).
+
 ## Free Plan
 All new {{< cloud-name >}} accounts start with a rate-limited Free Plan.
 Use it as much and as long as you want within the Free Plan rate limits:
