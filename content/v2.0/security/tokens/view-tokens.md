@@ -16,9 +16,9 @@ command line interface (CLI).
 
 ## View tokens in the InfluxDB UI
 
-1. Click the **Settings** icon in the navigation bar.
+1. Click the **Load Data** icon in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load" >}}
 
 2. Click **Tokens**. All of your account's tokens appear.
 3. Click on a token name from the list to view the token and a summary of access permissions.
