@@ -1,7 +1,8 @@
 ---
 title: monitor.logs() function
 description: >
-  The `monitor.logs()` function retrieves notification events stored in the `_monitoring` bucket.
+  The `monitor.logs()` function retrieves notification events stored in the `notifications`
+  measurement in the `_monitoring` bucket.
 menu:
   v2_0_ref:
     name: monitor.logs
@@ -9,7 +10,8 @@ menu:
 weight: 202
 ---
 
-The `monitor.logs()` function retrieves notification events stored in the `_monitoring` bucket.
+The `monitor.logs()` function retrieves notification events stored in the `notifications`
+measurement in the `_monitoring` bucket.
 
 _**Function type:** Input_
 

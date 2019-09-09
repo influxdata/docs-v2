@@ -1,7 +1,8 @@
 ---
 title: monitor.from() function
 description: >
-  The `monitor.from()` function retrieves check statuses stored in the `_monitoring` bucket.
+  The `monitor.from()` function retrieves check statuses stored in the `statuses`
+  measurement in the `_monitoring` bucket.
 menu:
   v2_0_ref:
     name: monitor.from
@@ -9,7 +10,8 @@ menu:
 weight: 202
 ---
 
-The `monitor.from()` function retrieves check statuses stored in the `_monitoring` bucket.
+The `monitor.from()` function retrieves check statuses stored in the `statuses`
+measurement in the `_monitoring` bucket.
 
 _**Function type:** Input_
 

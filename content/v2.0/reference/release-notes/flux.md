@@ -18,6 +18,17 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ---
 
+## v0.44.0 [2019-09-05]
+
+### Features
+- Add `http.basicAuth` function.
+- Add measurement filters to `monitor.from` and `monitor.logs`.
+
+### Bug fixes
+- changed the default HTTP client to be more robust.
+
+---
+
 ## v0.43.0 [2019-09-04]
 
 ### Features
