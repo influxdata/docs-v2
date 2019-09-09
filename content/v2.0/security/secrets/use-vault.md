@@ -33,6 +33,14 @@ For this example, install Vault on your local machine and start a Vault dev serv
 vault server -dev
 ```
 
+{{% note %}}
+The InfluxDB API supports KV engine v2 only.
+{{% /note %}}
+
+#### Enable KV secrets engine v2
+
+To pass the correct version of the KV secrets engine when you enable a secrets engine, run: `vault secrets enable kv-v2`.
+
 ## Define Vault environment variables
 
 Use [Vault environment variables](https://www.vaultproject.io/docs/commands/index.html#environment-variables)
@@ -124,14 +132,6 @@ curl --request GET \
 
 For each organization, InfluxDB creates a [secrets engine](https://learn.hashicorp.com/vault/getting-started/secrets-engines)
 using the following pattern: `/secret/data/<org-id>`
-
-{{% note %}}
-The InfluxDB API supports KV engine v2 only.
-{{% /note %}}
-
-#### Enable KV secrets engine v2
-
-To pass the correct version of the KV secrets engine when you enable a secrets engine, run: `vault secrets enable kv-v2`.
 
 Secrets are stored in Vault as key value pairs in their respective secrets engines.
 
