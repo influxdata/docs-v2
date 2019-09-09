@@ -559,7 +559,7 @@ Related entries: [check](#check), [notification rule](#notification-rule)
 
 A notification rule specifies a status level (and tags) to alert on, the notification message to send for the specified status level (or change in status level), and the interval or schedule you want to check the status level (and tags). If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the _monitoring bucket. For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
 
-Learn how to [create a notification rule](/v2.0/cloud/monitor-alert/notification-rules/create-notification-rules).
+Learn how to [create a notification rule](/v2.0/monitor-alert/notification-rules/create).
 
 Related entries: [check](#check), [notification endpoint](#notification-endpoint)
 

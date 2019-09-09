@@ -65,4 +65,4 @@ To update the notification endpoint details, complete the following procedures a
     {{< nav-icon "alerts" >}}
 
 2. Under **Notification Endpoints**, click the endpoint to update.
-3. Update details as needed, and then click **Edit a Notification Endpoint**. For details about each field, see [create a notification endpoint](v2.0/cloud/monitor-alert/manage-checks/create-notification-endpoints).
+3. Update details as needed, and then click **Edit a Notification Endpoint**. For details about each field, see [Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/).
