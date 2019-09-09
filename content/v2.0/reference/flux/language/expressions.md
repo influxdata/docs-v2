@@ -269,4 +269,8 @@ PostfixOperator          = MemberExpression
                          | IndexExpression .
 ```
 
+{{% warn %}}
+Dividing by 0 or using the mod operator with a divisor of 0 will result in an error.
+{{% /warn %}}
+
 _Also see [Flux Operators](/v2.0/reference/flux/language/operators)._
