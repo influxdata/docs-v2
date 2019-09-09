@@ -6,7 +6,7 @@ description: >
 v2.0/tags: [monitor, endpoints, notifications, alert]
 menu:
   v2_0:
-    parent: Monitor and alert
+    parent: Monitor & alert
 weight: 102
 related:
   - /v2.0/monitor-alert/checks/

@@ -6,7 +6,7 @@ description: >
   rules, and notification endpoints.
 menu:
   v2_0:
-    name: Monitor and alert
+    name: Monitor & alert
 weight: 6
 v2.0/tags: [monitor, alert, checks, notification, endpoints]
 cloud_all: true
