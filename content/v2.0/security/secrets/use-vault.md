@@ -1,7 +1,7 @@
 ---
 title: Store secrets in Vault
-description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
-v2.0/tags: [tokens, security]
+description: Manage secrets in InfluxDB using the InfluxDB UI or the influx CLI.
+v2.0/tags: [secrets, security]
 menu:
   v2_0:
     parent: Store secrets
