@@ -129,9 +129,9 @@ using the following pattern: `/secret/data/<org-id>`
 The InfluxDB API supports KV engine v2 only.
 {{% /note %}}
 
-#### Enable KV engine v2
+#### Enable KV secrets engine v2
 
-To pass the correct version of the KV engine when you enable a secrets engine, run the following command `vault secrets enable kv-v2`.
+To pass the correct version of the KV secrets engine when you enable a secrets engine, run: `vault secrets enable kv-v2`.
 
 Secrets are stored in Vault as key value pairs in their respective secrets engines.
 
