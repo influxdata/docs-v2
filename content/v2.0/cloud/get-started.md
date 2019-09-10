@@ -139,4 +139,4 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
 - **Usage-based pricing**: The [The Pay As You Go Plan](/v2.0/cloud/pricing-plans/#pay-as-you-go-plan)
-  offers more flexibility and ensures that you only pay for what you use.
+  offers more flexibility and ensures that you only pay for what you use. To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).
