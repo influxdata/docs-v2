@@ -11,10 +11,30 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.43.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.45.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+---
+
+## v0.45.1 [2019-09-09]
+
+### Bug fixes
+- Ensure `http.post` respects the context.
+
+---
+
+## v0.45.0 [2019-09-06]
+
+### Features
+- Added Google Bigtable `from()`.
+
+### Bug fixes
+- Add `pagerduty.severityFromLevel()` helper function.
+- Sleep function now gets canceled when the context is canceled.
+- Categorize the undefined identifier as an invalid status code.
+- Panic from `CheckKind` in `memberEvaluator`.
 
 ---
 
