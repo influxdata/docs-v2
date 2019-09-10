@@ -44,5 +44,5 @@ toString = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
-[string()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/string)_
+[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[string()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string)_

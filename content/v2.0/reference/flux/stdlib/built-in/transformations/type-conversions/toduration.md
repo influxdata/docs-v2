@@ -48,5 +48,5 @@ toDuration = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
-[duration()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/duration)_
+[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[duration()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_

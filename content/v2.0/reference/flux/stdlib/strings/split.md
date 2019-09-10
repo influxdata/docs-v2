@@ -11,9 +11,9 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/splitafter
-  - /v2.0/reference/flux/functions/strings/splitaftern
-  - /v2.0/reference/flux/functions/strings/splitn
+  - /v2.0/reference/flux/stdlib/strings/splitafter
+  - /v2.0/reference/flux/stdlib/strings/splitaftern
+  - /v2.0/reference/flux/stdlib/strings/splitn
 ---
 
 The `strings.split()` function splits a string on a specified separator and returns

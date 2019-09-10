@@ -54,6 +54,6 @@ t = from(bucket:"example-bucket")
 ```
 
 {{% note %}}
-You can use `t` from the example above as input for [`getColumn()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/)
-and [`getRecord()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/).
+You can use `t` from the example above as input for [`getColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
+and [`getRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/).
 {{% /note %}}

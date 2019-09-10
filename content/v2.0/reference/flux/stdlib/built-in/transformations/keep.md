@@ -13,7 +13,7 @@ weight: 401
 
 The `keep()` function returns a table containing only the specified columns, ignoring all others.
 Only columns in the group key that are also specified in the `keep()` function will be kept in the resulting group key.
-_It is the inverse of [`drop`](/v2.0/reference/flux/functions/built-in/transformations/drop)._
+_It is the inverse of [`drop`](/v2.0/reference/flux/stdlib/built-in/transformations/drop)._
 
 _**Function type:** Transformation_  
 _**Output data type:** Object_

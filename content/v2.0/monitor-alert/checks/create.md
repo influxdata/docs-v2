@@ -82,7 +82,7 @@ A check consists of two parts – a query and check configuration.
     {{% note %}}
 #### Flux only interpolates string values
 Flux currently interpolates only string values.
-Use the [string() function](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/string/)
+Use the [string() function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
 to convert non-string values to strings.
 
 ```js

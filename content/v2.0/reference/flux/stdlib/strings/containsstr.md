@@ -9,7 +9,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/containsany
+  - /v2.0/reference/flux/stdlib/strings/containsany
 ---
 
 The `strings.containsStr()` function reports whether a string contains a specified substring.

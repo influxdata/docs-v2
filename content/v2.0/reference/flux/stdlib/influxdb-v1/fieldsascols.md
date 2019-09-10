@@ -46,4 +46,4 @@ fieldsAsCols = (tables=<-) =>
 ```
 
 _**Used functions:**
-[pivot()](/v2.0/reference/flux/functions/built-in/transformations/pivot)_
+[pivot()](/v2.0/reference/flux/stdlib/built-in/transformations/pivot)_

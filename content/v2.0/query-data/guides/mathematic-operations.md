@@ -40,7 +40,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/)
+To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -82,7 +82,7 @@ percent(sample: 20.0, total: 80.0)
 To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/v2.0/query-data/guides/custom-functions/#functions-that-manipulate-piped-forward-data).
-- Use the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map) to iterate over each row.
+- Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -146,7 +146,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/float)
+[`float()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)
 and format the denominator in the division operation as a float.
 
 ```js

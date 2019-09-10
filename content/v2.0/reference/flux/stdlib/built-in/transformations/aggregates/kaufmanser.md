@@ -11,7 +11,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
   - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
 ---
 

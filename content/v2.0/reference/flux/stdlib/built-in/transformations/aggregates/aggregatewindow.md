@@ -49,7 +49,7 @@ _**Data type:** Duration_
 
 ### fn
 
-The [aggregate function](/v2.0/reference/flux/functions/built-in/transformations/aggregates) used in the operation.
+The [aggregate function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates) used in the operation.
 
 _**Data type:** Function_
 

@@ -9,7 +9,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/isletter/
+  - /v2.0/reference/flux/stdlib/strings/isletter/
 ---
 
 The `strings.isDigit()` function tests if a single-character string is a digit (0-9).

@@ -9,7 +9,7 @@ menu:
     parent: Regular expressions
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/regexp/compile
+  - /v2.0/reference/flux/stdlib/regexp/compile
 ---
 
 The `regexp.getString()` function returns the source string used to compile a regular expression.

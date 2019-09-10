@@ -11,7 +11,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/replace
+  - /v2.0/reference/flux/stdlib/strings/replace
 ---
 
 The `strings.replaceAll()` function replaces all non-overlapping instances of a

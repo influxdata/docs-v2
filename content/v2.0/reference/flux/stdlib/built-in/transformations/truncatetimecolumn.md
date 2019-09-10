@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 401
 related:
-  - /v2.0/reference/flux/functions/date/truncate/
+  - /v2.0/reference/flux/stdlib/date/truncate/
 ---
 
 The `truncateTimeColumn()` function truncates all input table `_time` values to a specified unit.

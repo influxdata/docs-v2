@@ -9,7 +9,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/isdigit/
+  - /v2.0/reference/flux/stdlib/strings/isdigit/
 ---
 
 The `strings.isLetter()` function tests if a single character string is a letter (a-z, A-Z).

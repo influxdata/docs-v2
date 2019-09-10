@@ -9,7 +9,7 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/hasprefix
+  - /v2.0/reference/flux/stdlib/strings/hasprefix
 ---
 
 The `strings.hasSuffix()` function indicates if a string ends with a specified suffix.

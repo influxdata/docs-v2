@@ -10,9 +10,9 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/index-func/
-  - /v2.0/reference/flux/functions/strings/lastindex/
-  - /v2.0/reference/flux/functions/strings/lastindexany/
+  - /v2.0/reference/flux/stdlib/strings/index-func/
+  - /v2.0/reference/flux/stdlib/strings/lastindex/
+  - /v2.0/reference/flux/stdlib/strings/lastindexany/
 ---
 
 The `strings.indexAny()` function returns the index of the first instance of specified characters in a string.

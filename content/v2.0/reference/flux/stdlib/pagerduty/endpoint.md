@@ -56,7 +56,7 @@ The returned object must include the following fields:
 - `summary`
 - `timestamp`
 
-_For more information, see [`pagerduty.message()`](/v2.0/reference/flux/functions/pagerduty/message/)_
+_For more information, see [`pagerduty.sendEvent()`](/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
 
 ## Examples
 

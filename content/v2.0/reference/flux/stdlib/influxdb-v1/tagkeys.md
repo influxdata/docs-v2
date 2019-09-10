@@ -67,9 +67,9 @@ tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[from](/v2.0/reference/flux/functions/built-in/inputs/from/),
-[range](/v2.0/reference/flux/functions/built-in/transformations/range/),
-[filter](/v2.0/reference/flux/functions/built-in/transformations/filter/),
-[keys](/v2.0/reference/flux/functions/built-in/transformations/keys/),
-[keep](/v2.0/reference/flux/functions/built-in/transformations/keep/),
-[distinct](/v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/)_
+[from](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
+[range](/v2.0/reference/flux/stdlib/built-in/transformations/range/),
+[filter](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+[keys](/v2.0/reference/flux/stdlib/built-in/transformations/keys/),
+[keep](/v2.0/reference/flux/stdlib/built-in/transformations/keep/),
+[distinct](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/)_

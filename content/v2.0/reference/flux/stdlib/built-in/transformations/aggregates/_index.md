@@ -30,7 +30,7 @@ Any output table will have the following properties:
 - It will not have a `_time` column.
 
 ### aggregateWindow helper function
-The [`aggregateWindow()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow)
+The [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
 does most of the work needed when aggregating data.
 It windows and aggregates the data, then combines windowed tables into a single output table.
 
@@ -44,9 +44,9 @@ The following functions are both aggregates and selectors.
 Each returns `n` values after performing an aggregate operation.
 They are categorized as selector functions in this documentation:
 
-- [highestAverage](/v2.0/reference/flux/functions/transformations/selectors/highestaverage)
-- [highestCurrent](/v2.0/reference/flux/functions/transformations/selectors/highestcurrent)
-- [highestMax](/v2.0/reference/flux/functions/transformations/selectors/highestmax)
-- [lowestAverage](/v2.0/reference/flux/functions/transformations/selectors/lowestaverage)
-- [lowestCurrent](/v2.0/reference/flux/functions/transformations/selectors/lowestcurrent)
-- [lowestMin](/v2.0/reference/flux/functions/transformations/selectors/lowestmin)
+- [highestAverage](/v2.0/reference/flux/stdlib/transformations/selectors/highestaverage)
+- [highestCurrent](/v2.0/reference/flux/stdlib/transformations/selectors/highestcurrent)
+- [highestMax](/v2.0/reference/flux/stdlib/transformations/selectors/highestmax)
+- [lowestAverage](/v2.0/reference/flux/stdlib/transformations/selectors/lowestaverage)
+- [lowestCurrent](/v2.0/reference/flux/stdlib/transformations/selectors/lowestcurrent)
+- [lowestMin](/v2.0/reference/flux/stdlib/transformations/selectors/lowestmin)

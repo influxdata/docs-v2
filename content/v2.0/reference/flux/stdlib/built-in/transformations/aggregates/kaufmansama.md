@@ -11,7 +11,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmanser/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmanser/
   - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 ---
 

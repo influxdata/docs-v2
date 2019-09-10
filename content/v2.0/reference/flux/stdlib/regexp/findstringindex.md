@@ -11,7 +11,7 @@ menu:
     parent: Regular expressions
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/regexp/compile
+  - /v2.0/reference/flux/stdlib/regexp/compile
 ---
 
 The `regexp.findStringIndex()` function returns a two-element array of integers defining

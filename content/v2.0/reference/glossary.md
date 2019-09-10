@@ -30,7 +30,7 @@ Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin),
 ### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [Flux built-in aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/).
+For a list of available aggregation functions, see [Flux built-in aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -336,7 +336,7 @@ A lightweight scripting language for querying databases (like InfluxDB) and work
 
 ### function
 
-Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/functions/all-functions/).
+Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/stdlib/all-functions/).
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
@@ -711,7 +711,7 @@ InfluxDB scrapes data from specified targets at regular intervals and writes the
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
-See [Flux built-in selector functions](/v2.0/reference/flux/functions/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
+See [Flux built-in selector functions](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
 
 Related entries: [aggregation](#aggregation), [function](#function), [transformation](#transformation)
 

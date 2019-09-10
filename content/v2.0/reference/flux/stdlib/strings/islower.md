@@ -1,13 +1,15 @@
 ---
 title: strings.isLower() function
 description: The strings.isLower() function tests if a single-character string is lowercase.
+aliases:
+  - /v2.0/reference/flux/functions/strings/islower/
 menu:
   v2_0_ref:
     name: strings.isLower
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/isupper
+  - /v2.0/reference/flux/stdlib/strings/isupper
 ---
 
 The `strings.isLower()` function tests if a single-character string is lowercase.
@@ -38,4 +40,3 @@ import "strings"
 data
   |> filter(fn: (r) => strings.isLower(v: r.host))
 ```
-- /v2.0/reference/flux/functions/strings/islower/

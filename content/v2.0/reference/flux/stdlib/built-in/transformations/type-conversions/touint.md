@@ -44,5 +44,5 @@ toUInt = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/functions/built-in/transformations/map),
-[uint()](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/uint)_
+[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[uint()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint)_

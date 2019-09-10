@@ -11,10 +11,10 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
   - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
 ---
 

@@ -9,9 +9,9 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/toupper
-  - /v2.0/reference/flux/functions/strings/tolower
-  - /v2.0/reference/flux/functions/strings/title
+  - /v2.0/reference/flux/stdlib/strings/toupper
+  - /v2.0/reference/flux/stdlib/strings/tolower
+  - /v2.0/reference/flux/stdlib/strings/title
 ---
 
 The `strings.toTitle()` function converts all characters in a string to title case.

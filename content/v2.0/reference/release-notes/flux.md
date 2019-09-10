@@ -394,9 +394,9 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ### Features
 - Add stream table index functions (
-  [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/),
-  [`getRecord()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/),
-  [`getColumn()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/)
+  [`tableFind()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/),
+  [`getRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/),
+  [`getColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
   ).
 - Construct invalid binary expressions when given multiple expressions.
 

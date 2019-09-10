@@ -9,11 +9,11 @@ menu:
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/functions/strings/trim
-  - /v2.0/reference/flux/functions/strings/trimleft
-  - /v2.0/reference/flux/functions/strings/trimright
-  - /v2.0/reference/flux/functions/strings/trimprefix
-  - /v2.0/reference/flux/functions/strings/trimsuffix
+  - /v2.0/reference/flux/stdlib/strings/trim
+  - /v2.0/reference/flux/stdlib/strings/trimleft
+  - /v2.0/reference/flux/stdlib/strings/trimright
+  - /v2.0/reference/flux/stdlib/strings/trimprefix
+  - /v2.0/reference/flux/stdlib/strings/trimsuffix
 ---
 
 The `strings.trimSpace()` function removes leading and trailing spaces from a string.
