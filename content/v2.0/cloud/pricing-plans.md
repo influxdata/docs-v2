@@ -26,7 +26,6 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
 #### Free Plan rate limits
 
 - **Writes:** 3MB every 5 minutes
-- **Ingest batch size:** 50MB
 - **Query:** 30MB every 5 minutes
 - **Storage:** 72-hour data retention
 - **Series cardinality:** 10,000
@@ -60,5 +59,6 @@ To protect against any intentional or unintentional harm, Pay As You Go Plans in
   - Unlimited users
   - Unlimited checks
   - Unlimited notification rules
+  - Unlimited PagerDuty, Slack, and HTTP notification endpoints
 
 _To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._

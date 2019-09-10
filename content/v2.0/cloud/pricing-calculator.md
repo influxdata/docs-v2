@@ -21,6 +21,14 @@ Use the {{< cloud-name >}} pricing calculator to estimate costs for the Pay As Y
 | **Writes per minute**              |  6     |     4    |       3      |      3     |
 | **Average retention in days**      |  7     |    30    |      30      |     30     |
 
+Guidelines used to estimate costs for default configurations:
+
+- Average metrics per plugin = 25
+- Average KB per value = 0.01
+- Number of cells per dashboard = 10
+- Average response KB per cell = 0.5
+- Average query duration = 75ms
+
 **To estimate costs** 
 
 1. If you're using the Free plan, hover over the **Usage** icon in the left navigation bar and select **Billing**.
@@ -30,7 +38,7 @@ Use the {{< cloud-name >}} pricing calculator to estimate costs for the Pay As Y
 2. Click the **Pricing Calculator** link at the bottom of the page.
 
 {{% note %}}
-If you're using the Pay As You Go plan, open the pricing calculator [here](https://cloud2.influxdata.com/pricing). 
+If you're using the Pay As You Go plan, open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 {{% /note %}}
 
 3. Choose your region.
