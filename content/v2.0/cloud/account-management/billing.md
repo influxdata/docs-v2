@@ -10,8 +10,6 @@ menu:
     name: Add payment and view billing
 ---
 
-## Manage your InfluxDB Cloud payment and billing information
-
 - Hover over the **Usage** icon in the left navigation bar and select **Billing**.
 
 {{< nav-icon "cloud" >}}
