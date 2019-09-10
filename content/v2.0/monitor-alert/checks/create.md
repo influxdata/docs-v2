@@ -48,7 +48,7 @@ A check consists of two parts – a query and check configuration.
 2. In the **Aggregate functions** column, select an interval from the interval drop-down list
    (for example, "Every 5 minutes") and an aggregate function from the list of functions.
 3. Click **Submit** to run the query and preview the results.
-   To see the raw query results, click the the **{{< icon "toggle" >}} View Raw Data** toggle.
+   To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
 
 ### Configure the check
 1.  Click **2. Check** near the top of the window to display the **Check view**.
