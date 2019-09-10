@@ -1,0 +1,45 @@
+---
+title: strings.hasPrefix() function
+description: The strings.hasPrefix() function indicates if a string begins with a specific prefix.
+aliases:
+  - /v2.0/reference/flux/functions/strings/hasprefix/
+menu:
+  v2_0_ref:
+    name: strings.hasPrefix
+    parent: Strings
+weight: 301
+related:
+  - /v2.0/reference/flux/functions/strings/hassuffix
+---
+
+The `strings.hasPrefix()` function indicates if a string begins with a specified prefix.
+
+_**Output data type:** Boolean_
+
+```js
+import "strings"
+
+strings.hasPrefix(v: "go gopher", t: "go")
+
+// returns true
+```
+
+## Parameters
+
+### v
+The string value to search.
+
+_**Data type:** String_
+
+### t
+The prefix to search for.
+
+_**Data type:** String_
+
+###### Filter based on the presence of a prefix in a column value
+```js
+import "strings"
+
+data
+  |> filter(fn:(r) => strings.hasPrefix(v: r.metric, t: "int_" ))
+```
