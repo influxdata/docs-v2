@@ -84,9 +84,12 @@ options task = {
 ```
 
 ## concurrency
+
 The number task of executions that can run concurrently.
 If the concurrency limit is reached, all subsequent executions are queued until
 other running task executions complete.
+
+This default value for concurrency is currently 11. This can also be set via an environment variable called `DEFAULT_CONCURRENCY`. If a concurrency is provided in the task options, it will override this default value.
 
 _**Data type:** Integer_
 
