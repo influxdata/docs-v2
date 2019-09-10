@@ -35,6 +35,7 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
   - Up to 2 buckets
   - Up to 2 checks
   - Up to 2 notification rules
+  - Unlimited Slack notification endpoints
 
 
 _To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
