@@ -16,7 +16,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
-    - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
+  - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
 The `tripleEMA()` function calculates the exponential moving average of values in

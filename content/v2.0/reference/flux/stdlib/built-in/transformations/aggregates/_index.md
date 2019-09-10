@@ -44,9 +44,9 @@ The following functions are both aggregates and selectors.
 Each returns `n` values after performing an aggregate operation.
 They are categorized as selector functions in this documentation:
 
-- [highestAverage](/v2.0/reference/flux/stdlib/transformations/selectors/highestaverage)
-- [highestCurrent](/v2.0/reference/flux/stdlib/transformations/selectors/highestcurrent)
-- [highestMax](/v2.0/reference/flux/stdlib/transformations/selectors/highestmax)
-- [lowestAverage](/v2.0/reference/flux/stdlib/transformations/selectors/lowestaverage)
-- [lowestCurrent](/v2.0/reference/flux/stdlib/transformations/selectors/lowestcurrent)
-- [lowestMin](/v2.0/reference/flux/stdlib/transformations/selectors/lowestmin)
+- [highestAverage](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestaverage)
+- [highestCurrent](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestcurrent)
+- [highestMax](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestmax)
+- [lowestAverage](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestaverage)
+- [lowestCurrent](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent)
+- [lowestMin](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestmin)
