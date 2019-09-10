@@ -31,16 +31,14 @@ Guidelines used to estimate costs for default configurations:
 
 **To estimate costs** 
 
-1. If you're using the Free plan, hover over the **Usage** icon in the left navigation bar and select **Billing**.
+1. Do one of the following:
 
-{{< nav-icon "cloud" >}}
+  - Free plan. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
 
-2. Click the **Pricing Calculator** link at the bottom of the page.
+         {{< nav-icon "cloud" >}}
 
-{{% note %}}
-If you're using the Pay As You Go plan, open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
-{{% /note %}}
-
+        Then click the **Pricing Calculator** link at the bottom of the page. 
+  - Pay As You Go plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 3. Choose your region.
 4. Select your configuration:
    - **Hobby**. For a single user monitoring a few machines or sensors.
