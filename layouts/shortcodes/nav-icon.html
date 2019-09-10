@@ -15,10 +15,10 @@
   {{ .Scratch.Set "icon" "bell" }}
   {{ .Scratch.Set "title" "Monitoring & Alerting" }}
 {{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") }}
-  {{ .Scratch.Set "icon" "disks" }}
+  {{ .Scratch.Set "icon" "disks-nav" }}
   {{ .Scratch.Set "title" "Load Data" }}
 {{ else if eq $navIcon "settings" }}
-  {{ .Scratch.Set "icon" "wrench-2" }}
+  {{ .Scratch.Set "icon" "wrench-nav" }}
   {{ .Scratch.Set "title" "Settings" }}
 {{ else if or (eq $navIcon "feedback") }}
   {{ .Scratch.Set "icon" "nav-chat" }}

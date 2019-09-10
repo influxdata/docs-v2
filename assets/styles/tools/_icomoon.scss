@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ui-disks-nav:before {
+  content: "\e93c";
+}
+.icon-ui-wrench-nav:before {
+  content: "\e93d";
+}
 .icon-ui-eye-closed:before {
   content: "\e956";
 }
@@ -41,9 +47,6 @@
 }
 .icon-ui-nav-chat:before {
   content: "\e941";
-}
-.icon-ui-disks:before {
-  content: "\e950";
 }
 .icon-ui-add-cell:before {
   content: "\e91f";
