@@ -16,11 +16,11 @@ Monitor your time series data and send alerts by creating checks, notification
 rules, and notification endpoints.
 
 ## The monitoring workflow
-1.  InfluxDB uses a [check](/v2.0/reference/glossary/#check) to query data and
-    assigns a status or `_level` based on specific conditions.
-2.  InfluxDB stores the output the check in the `statuses` measurement in the `_monitoring` system bucket.
+
+1.  A [check](/v2.0/reference/glossary/#check) in InfluxDB queries data and assigns a status with a `_level` based on specific conditions.
+2.  InfluxDB stores the output of a check in the `statuses` measurement in the `_monitoring` system bucket.
 3.  [Notification rules](/v2.0/reference/glossary/#notification-rule) check data in the `statuses`
-    measurement and, based conditions set in the notification rule, send a message
+    measurement and, based on conditions set in the notification rule, send a message
     to a [notification endpoint](/v2.0/reference/glossary/#notification-endpoint).
 4.  InfluxDB stores notifications in the `notifications` measurement in the `_monitoring` system bucket.
 
