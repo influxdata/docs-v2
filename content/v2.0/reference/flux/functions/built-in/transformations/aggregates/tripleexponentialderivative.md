@@ -19,7 +19,7 @@ related:
 ---
 
 The `tripleExponentialDerivative()` function calculates a triple exponential
-derivative ([TRIX](https://en.wikipedia.org/wiki/Trix_(technical_analysis)) of
+derivative ([TRIX](https://en.wikipedia.org/wiki/Trix_(technical_analysis))) of
 input tables using `n` points.
 
 _**Function type:** Aggregate_  

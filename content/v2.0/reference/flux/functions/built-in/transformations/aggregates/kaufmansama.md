@@ -21,7 +21,7 @@ _**Function type:** Aggregate_
 ```js
 kaufmansAMA(
   n: 10,
-  columns: ["_value"]
+  column: "_value"
 )
 ```
 

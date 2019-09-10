@@ -9,7 +9,8 @@ menu:
 weight: 202
 ---
 
-The `secrets.get()` function retrieves a secret from the InfluxDB secret store.
+The `secrets.get()` function retrieves a secret from the
+[InfluxDB secret store](/v2.0/security/secrets/).
 
 _**Function type:** Miscellaneous_
 

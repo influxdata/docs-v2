@@ -62,3 +62,7 @@ option set to `vault`.
 ```bash
 influxd --secret-store vault
 ```
+
+## Manage tokens through the InfluxDB API
+Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
+For details, see [Manage secrets](/v2.0/security/secrets/manage-secrets/).
