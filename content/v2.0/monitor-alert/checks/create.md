@@ -31,7 +31,7 @@ A check consists of two parts – a query and check configuration.
     - `crit`
     - `warn`
     - `info`
-    - `note`
+    - `ok`
 - Stores status in the `_level` column.
 
 ## Create a check in the InfluxDB UI
