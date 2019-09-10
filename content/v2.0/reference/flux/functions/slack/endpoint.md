@@ -7,6 +7,7 @@ menu:
     name: slack.endpoint
     parent: Slack
 weight: 202
+v2.0/tags: [endpoints]
 ---
 
 The `slack.endpoint()` function sends a message to Slack that includes output data.
