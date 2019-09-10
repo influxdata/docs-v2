@@ -12,11 +12,6 @@ weight: 201
 to tokens, passwords, certificates, and other sensitive secrets.
 Store sensitive secrets in Vault using the InfluxDB built-in Vault integration.
 
-{{% note %}}
-When not using Vault, secrets are Base64-encoded and stored in the InfluxDB embedded key value store,
-[BoltDB](https://github.com/boltdb/bolt).
-{{% /note %}}
-
 ## Start a Vault server
 
 Start a Vault server and ensure InfluxDB has network access to the server.
@@ -27,15 +22,20 @@ The following links provide information about running Vault in both development 
 - [Start a Vault dev server](https://learn.hashicorp.com/vault/getting-started/dev-server)
 - [Deploy Vault](https://learn.hashicorp.com/vault/getting-started/deploy)
 
+{{% note %}}
+InfluxDB supports the [Vault KV Secrets Engine Version 2 API](https://www.vaultproject.io/api/secret/kv/kv-v2.html) only.
+When you create a secrets engine, enable the `kv-v2` version by running:
+
+```js
+vault secrets enable kv-v2
+```
+{{% /note %}}
+
 For this example, install Vault on your local machine and start a Vault dev server.
 
 ```sh
 vault server -dev
 ```
-
-{{% note %}}
-The InfluxDB API supports KV engine v2 only.
-{{% /note %}}
 
 ## Define Vault environment variables
 
@@ -61,82 +61,4 @@ option set to `vault`.
 
 ```bash
 influxd --secret-store vault
-```
-
-## Test Vault storage
-
-With Vault and InfluxDB servers running, use the InfluxDB API to test Vault:
-
-{{% note %}}
-Replace `<org-id>` with your [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)
-and `YOURAUTHTOKEN` with your [InfluxDB authentication token](/v2.0/security/tokens/).
-{{% /note %}}
-
-##### Retrieve an organization's secrets
-
-```sh
-curl --request GET \
-  --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token YOURAUTHTOKEN'
-
-# should return
-#  {
-#    "links": {
-#      "org": "/api/v2/orgs/031c8cbefe101000",
-#      "secrets": "/api/v2/orgs/031c8cbefe101000/secrets"
-#    },
-#    "secrets": []
-#  }
-```
-
-##### Add secrets to an organization
-
-```sh
-curl --request PATCH \
-  --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token YOURAUTHTOKEN' \
-  --header 'content-type: application/json' \
-  --data '{
-	"foo": "bar",
-	"hello": "world"
-}'
-
-# should return 204 no content
-```
-
-##### Retrieve the added secrets
-
-```bash
-curl --request GET \
-  --url http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  --header 'authorization: Token YOURAUTHTOKEN'
-
-# should return
-#  {
-#    "links": {
-#      "org": "/api/v2/orgs/031c8cbefe101000",
-#      "secrets": "/api/v2/orgs/031c8cbefe101000/secrets"
-#    },
-#    "secrets": [
-#      "foo",
-#      "hello"
-#    ]
-#  }
-```
-
-## Vault secrets storage
-
-For each organization, InfluxDB creates a [secrets engine](https://learn.hashicorp.com/vault/getting-started/secrets-engines)
-using the following pattern: `/secret/data/<org-id>`
-
-{{% note %}}
-When you create a secrets engine, enable the `kv-v2` version by running: `vault secrets enable kv-v2`.
-{{% /note %}}
-
-Secrets are stored in Vault as key value pairs in their respective secrets engines.
-```
-/secret/data/031c8cbefe101000 ->
-  this_key: foo
-  that_key: bar
-  a_secret: key
 ```
