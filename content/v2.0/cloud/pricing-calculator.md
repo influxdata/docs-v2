@@ -9,7 +9,7 @@ menu:
     name: Pricing calculator
 ---
 
-Use the {{< cloud-name >}} pricing calculator to estimate costs by adjusting your number of devices,
+Use the {{< cloud-name >}} pricing calculator to estimate costs for the Pay As You Go plan by adjusting your number of devices,
   plugins, users, dashboards, writes, and retention. Default configurations include:
 
 | Configuration                      | Hobby  | Standard | Professional | Enterprise |
@@ -23,7 +23,13 @@ Use the {{< cloud-name >}} pricing calculator to estimate costs by adjusting you
 
 **To estimate costs** 
 
-1. Click the **Pricing Calculator** icon in the left navigation bar.
+Free plan only.
+
+1. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
+
+{{< nav-icon "cloud" >}}
+
+2. Click the **Pricing Calculator** link at the bottom of the page.
 2. Choose your region.
 2. Select your configuration:
    - **Hobby**. For a single user monitoring a few machines or sensors.
