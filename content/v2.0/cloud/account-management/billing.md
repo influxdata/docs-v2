@@ -53,7 +53,7 @@ menu:
 
 ### View Free plan information
 
-If you're on the Free plan, the Billing page monitors rate limits and lets you know how much data or options you have left to use.
+- On the Billing page, view the total limits available for the Free plan.
 
 ### Exceeded rate limits
 
