@@ -14,7 +14,7 @@ cloud_all: true
 ---
 
 Create a check in the InfluxDB user interface (UI).
-A check consists of two parts – a query and check confiuration.
+A check consists of two parts – a query and check configuration.
 
 ##### Check query
 - Specifies the dataset to monitor.
