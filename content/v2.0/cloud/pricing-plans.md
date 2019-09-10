@@ -34,7 +34,7 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
   - Up to 5 dashboards
   - Up to 5 tasks
   - Up to 2 buckets
-  - Up to 3 checks
+  - Up to 2 checks
   - Up to 2 notification rules
 
 
