@@ -27,5 +27,5 @@ The value to convert.
 from(bucket: "sensor-data")
   |> range(start: -1m)
   |> filter(fn:(r) => r._measurement == "system" )
-  |> map(fn:(r) => ({ r with model_number string(v: r.model_number) }))
+  |> map(fn:(r) => ({ r with model_number: string(v: r.model_number) }))
 ```
