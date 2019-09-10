@@ -39,6 +39,8 @@ To send notifications about changes in your data, start by creating a notificati
 
     - For Slack, create an [Incoming WebHook](https://api.slack.com/incoming-webhooks#posting_with_webhooks) in Slack, and then enter your webHook URL in the **Slack Incoming WebHook URL** field.
 
-    - For PagerDuty, [create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field. The **Client URL** provides a useful link in your PagerDuty notification; set to any URL that you'd like to use to investigate issues. By default, the **Client URL** is set to your Monitoring & Alerting History page.
+    - For PagerDuty:
+      - [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field. 
+      - The **Client URL** provides a useful link in your PagerDuty notification. Enter any URL that you'd like to use to investigate issues. This URL is sent as the `client_url` property in the PagerDuty trigger event. By default, the **Client URL** is set to your Monitoring & Alerting History page, and the following included in the PagerDuty trigger event: `"client_url": "https://twodotoh.a.influxcloud.net/orgs/<your-org-ID>/alert-history”`
 
 6. Click **Create Notification Endpoint**.
