@@ -18,7 +18,8 @@
     }
   }
   h2,h3,h4,h5,h6 {
-    & + .highlight pre { margin-top: .5rem; }
+    & + .highlight pre { margin-top: .5rem }
+    & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
   h1 {

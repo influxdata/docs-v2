@@ -92,6 +92,32 @@ A bucket is a named location where time series data is stored. All buckets have 
 
 ## C
 
+### check
+
+Checks are part of queries used in monitoring to read input data and assign a [status](#check-status) (`_level`) based on specified conditions. For example:
+
+```
+monitor.check(
+  crit: (r) => r._value > 90.0,
+  warn: (r) => r._value > 80.0,
+  info: (r) => r._value > 60.0,
+  ok:   (r) => r._value <= 20.0,
+  messageFn: (r) => "The current level is ${r._level}",
+)
+```
+
+This check gives rows with a `_value` greater than 90.0 a crit _level; rows greater than 80.0 get a warn _level, and so on.
+
+Learn how to [create a check](/v2.0/cloud/monitor-alert/manage-checks/create-checks).
+
+Related entries: [check status](#check-status), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
+
+### check status
+
+A [check](#check) gets one of the following statuses (`_level`): CRIT, INFO, WARN, or OK. Check statuses are written to a status measurement in the _monitoring bucket.
+
+Related entries: [check](#check), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
+
 ### CSV
 
 Comma-separated values (CSV) delimits text between commas to separate values. A CSV file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. CSV file format is not fully standardized.
@@ -523,6 +549,20 @@ An independent `influxd` process.
 
 Related entries: [server](#server)
 
+### notification endpoint
+
+ The notification endpoint specifies the Slack or PagerDuty endpoint to send a notification and contains configuration details for connecting to the endpoint. Learn how to [create a notification endpoint](/v2.0/monitor-alert/notification-endpoints/create).
+
+Related entries: [check](#check), [notification rule](#notification-rule)
+
+### notification rule
+
+A notification rule specifies a status level (and tags) to alert on, the notification message to send for the specified status level (or change in status level), and the interval or schedule you want to check the status level (and tags). If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the _monitoring bucket. For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
+
+Learn how to [create a notification rule](/v2.0/monitor-alert/notification-rules/create).
+
+Related entries: [check](#check), [notification endpoint](#notification-endpoint)
+
 ### now()
 
 The local server's nanosecond timestamp.
@@ -617,7 +657,7 @@ Collect data from any accessible endpoint that provides data in the [Prometheus 
 
 ### query
 
-An operation that retrieves data from InfluxDB.
+A Flux script that returns time series data, including [tags](#tag) and [timestamps](#timestamp).
 
 See [Query data in InfluxDB](/v2.0/query-data/).
 

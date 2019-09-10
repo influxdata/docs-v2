@@ -13,12 +13,6 @@ menu:
 weight: 207
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 Flux source is organized into packages.
 A package consists of one or more source files.
 Each source file is parsed individually and composed into a single package.
@@ -40,10 +34,6 @@ The package clause must be at the beginning of any Flux source file.
 All files in the same package must declare the same package name.
 When a file does not declare a package clause, all identifiers in that
 file will belong to the special `main` package.
-
-{{% note %}}
-[IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
-{{% /note %}}
 
 ### Package main
 

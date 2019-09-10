@@ -25,33 +25,32 @@ for using Telegraf with InfluxDB v2.0._
 ## Create a Telegraf configuration
 
 1. Open the InfluxDB UI _(default: [localhost:9999](http://localhost:9999))_.
-2. Click **Organizations** in the left navigation menu.
+2. Click **Load Data** in the left navigation menu.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "load data" >}}
 
-3. Click on the name of your organization.
-4. Click the **Telegraf** tab.
-5. Click **{{< icon "plus" >}} Create Configuration**.
-6. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
-7. Select one or more of the available plugin groups
+3. Select **Telegrafs**.
+4. Click **{{< icon "plus" >}} Create Configuration**.
+5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
+6. Select one or more of the available plugin groups
    (e.g. **System**, **Docker**, **Kubernetes**, **NGINX**, or **Redis**), and click **Continue**.
    {{% note %}}
    All Telegraf plugins are supported, but only a subset are configurable using the InfluxDB UI.
    To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config).
    {{% /note %}}
-8. Review the list of **Plugins to Configure** for configuration requirements.
+7. Review the list of **Plugins to Configure** for configuration requirements.
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
-9. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
-10. Click **Create and Verify**.
-11. The **Test Your Configuration** page provides instructions for how to start
+8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
+9. Click **Create and Verify**.
+10. The **Test Your Configuration** page provides instructions for how to start
    Telegraf using the generated configuration.
    _See [Start Telegraf](#start-telegraf) below for detailed information about what each step does._
-12. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully
+11. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully
    sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
-13. Click **Finish**. Your configuration name and the associated bucket name appears
+12. Click **Finish**. Your configuration name and the associated bucket name appears
    in the list of Telegraf connections.
 
 ## Start Telegraf
