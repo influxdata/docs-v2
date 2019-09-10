@@ -4,6 +4,13 @@ This repository contains the InfluxDB 2.x documentation published at [docs.influ
 ## Contributing
 We welcome and encourage community contributions. For information about contributing to the InfluxData documentation, see [Contribution guidelines](CONTRIBUTING.md).
 
+## Reporting a Vulnerability
+InfluxData takes security and our users' trust very seriously. 
+If you believe you have found a security issue in any of our open source projects, 
+please responsibly disclose it by contacting security@influxdata.com. 
+More details about security vulnerability reporting, 
+including our GPG key, can be found here. https://www.influxdata.com/how-to-report-security-vulnerabilities/
+
 ## Run the docs locally
 The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site
 generator built in Go.
