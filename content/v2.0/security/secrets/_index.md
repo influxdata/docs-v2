@@ -1,5 +1,5 @@
 ---
-title: Store and view secrets
+title: Store and use secrets
 description:
 v2.0/tags: [secrets, security]
 menu:

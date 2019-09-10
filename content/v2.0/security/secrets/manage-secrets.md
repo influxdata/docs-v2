@@ -4,7 +4,7 @@ description: Manage secrets in InfluxDB with the InfluxDB API.
 v2.0/tags: [secrets, security]
 menu:
   v2_0:
-    parent: Store secrets
+    parent: Store and use secrets
 weight: 201
 ---
 
