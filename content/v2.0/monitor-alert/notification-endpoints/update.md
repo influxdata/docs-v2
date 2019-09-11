@@ -13,7 +13,7 @@ related:
 cloud_all: true
 ---
 
-To update the notification endpoint details, complete the procedures below as needed. To update the notification endpoint selected for a notification rule, see [update notification rules](/v2.0/cloud/monitor-alert/update-notification-rules/).
+To update the notification endpoint details, complete the procedures below as needed. To update the notification endpoint selected for a notification rule, see [update notification rules](/v2.0/monitor-alert/notification-rules/update/).
 
 ## Add a label to notification endpoint
 

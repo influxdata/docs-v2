@@ -74,7 +74,7 @@ Because the Histogram visualization uses visualization controls to creates bins 
 {{% note %}}
 Output of the [`histogram()` function](#histogram-function) is **not** compatible
 with the Histogram visualization type.
-View the example [below](#visualize-error-counts-by-severity-over-time).
+View the example [below](#visualize-errors-by-severity).
 {{% /note %}}
 
 ## Examples
@@ -160,7 +160,8 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 ```
 
 ### Visualize errors by severity
-Use the [Telegraf Syslog plugin](Telegraf Syslog plugin) to collect error information from your system.
+Use the [Telegraf Syslog plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/syslog)
+to collect error information from your system.
 Query the `severity_code` field in the `syslog` measurement:
 
 ```js

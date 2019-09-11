@@ -94,7 +94,7 @@ join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ## Use SQL results to populate dashboard variables
 Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
-The following example uses the [air sensor sample data](#sample-data) below to
+The following example uses the [air sensor sample data](#sample-sensor-data) below to
 create a variable that lets you select the location of a sensor.
 
 ```js
@@ -167,7 +167,7 @@ To use `air-sensor-data.rb`:
     _**Note:** Use the `--help` flag to view other configuration options._
 
 
-5. [Query your target bucket](v2.0/query-data/execute-queries/) to ensure the
+5. [Query your target bucket](/v2.0/query-data/execute-queries/) to ensure the
    generated data is writing successfully.
    The generator doesn't catch errors from write requests, so it will continue running
    even if data is not writing to InfluxDB successfully.
