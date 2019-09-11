@@ -12,7 +12,7 @@ menu:
 weight: 501
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
-  - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
 ---
 
 The `kaufmansER()` function calculates the Kaufman's Efficiency Ratio (KER) using

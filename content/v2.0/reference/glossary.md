@@ -755,7 +755,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com| start  | clifford  |
 | cliff@influxdata.com| finish | clifford  |
 
-<!--See [SHOW CARDINALITY](/influxdb/v1.7/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
+<!--See [SHOW CARDINALITY](/influxdb/latest/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
@@ -786,7 +786,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/influxdb/v1.7/query_language/database_management/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/influxdb/latest/query_language/database_management/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -849,7 +849,7 @@ The key-value pair in InfluxDB's data structure that records metadata.
 Tags are an optional part of InfluxDB's data structure but they are useful for storing commonly-queried metadata; tags are indexed so queries on tags are performant.
 *Query tip:* Compare tags to fields; fields are not indexed.
 
-Related entries: [field](/influxdb/v1.7/concepts/glossary/#field), [tag key](/influxdb/v1.7/concepts/glossary/#tag-key), [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), [tag value](/influxdb/v1.7/concepts/glossary/#tag-value)
+Related entries: [field](/influxdb/latest/concepts/glossary/#field), [tag key](/influxdb/latest/concepts/glossary/#tag-key), [tag set](/influxdb/latest/concepts/glossary/#tag-set), [tag value](/influxdb/latest/concepts/glossary/#tag-value)
 
 ### tag key
 
@@ -919,7 +919,7 @@ By default, tracing is disabled in InfluxDB. To enable tracing or set other Infl
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
 See [InfluxQL functions](/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
-Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [function](/influxdb/v1.7/concepts/glossary/#function), [selector](/influxdb/v1.7/concepts/glossary/#selector)
+Related entries: [aggregation](/influxdb/latest/concepts/glossary/#aggregation), [function](/influxdb/latest/concepts/glossary/#function), [selector](/influxdb/latest/concepts/glossary/#selector)
 
 ## TSI (Time Series Index)
 
@@ -931,7 +931,7 @@ The Time Series Logs (TSL) extension (.tsl) identifies Time Series Index (TSI) l
 
 ## TSM (Time Structured Merge tree)
 
-A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/).
+A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage engine](http://docs.influxdata.com/influxdb/latest/concepts/storage_engine/).
 
 Related entries: [TSI](#TSI)
 

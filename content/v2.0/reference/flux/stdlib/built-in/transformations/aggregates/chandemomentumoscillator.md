@@ -11,7 +11,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/v1.7/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
 ---
 
 The `chandeMomentumOscillator()` function applies the technical momentum indicator
