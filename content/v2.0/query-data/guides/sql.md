@@ -12,7 +12,7 @@ weight: 207
 ---
 
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/v2.0/reference/flux/functions/sql/from/) lets you query SQL data sources
+[`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
@@ -59,7 +59,7 @@ sql.from(
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_See the [`sql.from()` documentation](/v2.0/reference/flux/functions/sql/from/) for
+_See the [`sql.from()` documentation](/v2.0/reference/flux/stdlib/sql/from/) for
 information about required function parameters._
 
 ## Join SQL data with data in InfluxDB

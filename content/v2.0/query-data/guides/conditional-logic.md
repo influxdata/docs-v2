@@ -27,9 +27,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/v2.0/reference/flux/functions/built-in/transformations/filter/),
-  [`map()`](/v2.0/reference/flux/functions/built-in/transformations/map/),
-  [`reduce()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce) ).
+  [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+  [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/),
+  [`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
 
 ## Examples
 
@@ -72,7 +72,7 @@ from(bucket: "example-bucket")
 
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map/)
+The following example uses the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -119,8 +119,8 @@ from(bucket: "example-bucket")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/)
-and [`reduce()`](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/)
+The following example uses the [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+and [`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

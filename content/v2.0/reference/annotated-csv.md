@@ -8,7 +8,7 @@ menu:
     name: Annotated CSV
 ---
 
-Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/functions/csv/from/).
+Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/stdlib/csv/from/).
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv` MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
 

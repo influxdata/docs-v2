@@ -9,9 +9,9 @@ menu:
 weight: 201
 related:
   - /v2.0/query-data/guides/
-  - /v2.0/reference/flux/functions/built-in/inputs/from
-  - /v2.0/reference/flux/functions/built-in/transformations/range
-  - /v2.0/reference/flux/functions/built-in/transformations/filter
+  - /v2.0/reference/flux/stdlib/built-in/inputs/from
+  - /v2.0/reference/flux/stdlib/built-in/transformations/range
+  - /v2.0/reference/flux/stdlib/built-in/transformations/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
@@ -23,8 +23,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/v2.0/reference/flux/functions/built-in/inputs/from) function defines an InfluxDB data source.
-It requires a [`bucket`](/v2.0/reference/flux/functions/built-in/inputs/from#bucket) parameter.
+Flux's [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
+It requires a [`bucket`](/v2.0/reference/flux/stdlib/built-in/inputs/from#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -36,7 +36,7 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/functions/built-in/transformations/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range)
 function, which specifies a time range for your query.
 It accepts two properties: `start` and `stop`.
 Ranges can be **relative** using negative [durations](/v2.0/reference/flux/language/lexical-elements#duration-literals)
