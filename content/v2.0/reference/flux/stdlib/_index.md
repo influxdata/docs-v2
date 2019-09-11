@@ -12,8 +12,7 @@ menu:
 weight: 102
 ---
 
-The Flux standard library of packages and functions allows you to retrieve,
-transform, process, and output data easily.
-There the standard library includes built-in functions and importable packages:
+The Flux standard library includes built-in functions and importable packages that retrieve, transform,
+process, and output data.
 
 {{< children >}}
