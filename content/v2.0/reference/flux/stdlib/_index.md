@@ -1,8 +1,8 @@
 ---
 title: Flux standard library
 description: >
-  The Flux standard library of packages and functions allows you to retrieve,
-  transform, process, and output data easily.
+  The Flux standard library includes built-in functions and importable packages
+  that retrieve, transform, process, and output data.
 aliases:
   - /v2.0/reference/flux/functions/
 v2.0/tags: [flux, functions, package]
@@ -12,7 +12,7 @@ menu:
 weight: 102
 ---
 
-The Flux standard library includes built-in functions and importable packages that retrieve, transform,
-process, and output data.
+The Flux standard library includes built-in functions and importable packages
+that retrieve, transform,rocess, and output data.
 
 {{< children >}}
