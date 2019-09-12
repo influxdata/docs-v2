@@ -30,7 +30,7 @@ For details, see [Export a task](/v2.0/process-data/manage-tasks/export-task/).
 
 #### Export dashboards
 
-For details, see [Export a dashboard](v2.0/visualize-data/dashboards/export-dashboard/).
+For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-dashboard/).
 
 #### Telegraf configurations
 

@@ -106,15 +106,16 @@ monitor.check(
 )
 ```
 
-This check gives rows with a `_value` greater than 90.0 a crit _level; rows greater than 80.0 get a warn _level, and so on.
+This check gives rows with a `_value` greater than 90.0 a crit `_level`; rows greater than 80.0 get a warn `_level`, and so on.
 
-Learn how to [create a check](/v2.0/cloud/monitor-alert/manage-checks/create-checks).
+Learn how to [create a check](/v2.0/monitor-alert/checks/create/).
 
 Related entries: [check status](#check-status), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
 
 ### check status
 
-A [check](#check) gets one of the following statuses (`_level`): CRIT, INFO, WARN, or OK. Check statuses are written to a status measurement in the _monitoring bucket.
+A [check](#check) gets one of the following statuses (`_level`): `crit`, `info`, `warn`, or `ok`.
+Check statuses are written to a status measurement in the `_monitoring` bucket.
 
 Related entries: [check](#check), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
 
@@ -124,10 +125,10 @@ Comma-separated values (CSV) delimits text between commas to separate values. A 
 
 InfluxData uses annotated CSV (comma-separated values) format to encode HTTP responses and results returned to the Flux csv.from() function. For more detail, see [Annotated CSV](/v2.0/reference/annotated-csv/).
 
-<!-- enterprise 
+<!-- enterprise
 ### cardinality
 
-Cardinality is the number of unique series in a bucket or database as a whole. 
+Cardinality is the number of unique series in a bucket or database as a whole.
 
 ### cluster
 
@@ -191,7 +192,7 @@ Dashboard template variables define components of a cell query. Dashboard variab
 
 ### Data Explorer
 
-Use the Data Explorer in the InfluxDB user interface (UI) to view, add, or delete variables and functions manually or using the Script Editor. 
+Use the Data Explorer in the InfluxDB user interface (UI) to view, add, or delete variables and functions manually or using the Script Editor.
 
 ### data model
 
@@ -214,8 +215,6 @@ Related entries: [data service](#data-service), [replication factor](#replicatio
 
 Stores time series data and handles writes and queries.
 
-Related entries: [data node](#data-node)
-
 ### data source
 
 A source of data that InfluxDB collects or queries data from. Examples include InfluxDB buckets, Prometheus, Postgres, MySQL, and InfluxDB clients.
@@ -232,7 +231,7 @@ InfluxDB supports the following data types: float, integer, string, boolean, and
 
 In InfluxDB 2.0, a database represents the InfluxDB instance as a whole.
 
-Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
+Related entries: [continuous query](#continuous-query-cq), <!-- [retention policy](#retention-policy-rp),--> [user](#user)
 
 ### date-time
 
@@ -246,7 +245,7 @@ Aggregating high resolution data into lower resolution data to preserve disk spa
 
 A data type that represents a duration of time (1s, 1m, 1h, 1d). Retention policies are set using durations. Data older than the duration is automatically dropped from the database.
 
-Related entries: [retention policy](#retention-policy-rp)
+<!-- Related entries: [retention policy](#retention-policy-rp) -->
 
 ## E
 
@@ -259,8 +258,8 @@ Metrics gathered at irregular time intervals.
 In Flux, a an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
 
 ```
-Block         = "{" StatementList "} 
-StatementList = { Statement } 
+Block         = "{" StatementList "}
+StatementList = { Statement }
 ```
 
 Related entries: [implicit block](#implicit-block), [block](#block)
@@ -338,7 +337,7 @@ A lightweight scripting language for querying databases (like InfluxDB) and work
 
 Flux functions aggregate, select, and transform time series data. For a complete list of Flux functions, see [Flux functions](/v2.0/reference/flux/stdlib/all-functions/).
 
-Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
+Related entries: [aggregate](#aggregate), [selector](#selector), [transformation](#transformation)
 
 ### function block
 
@@ -384,7 +383,7 @@ Related entries:
 [bucket](#bucket)
 [field key](#field-key),
 [measurement](#measurement),
-[retention policy](#retention-policy-rp),
+<!-- [retention policy](#retention-policy-rp), -->
 [tag key](#tag-key),
 [user](#user)
 
@@ -424,7 +423,7 @@ The SQL-like query language used to query data in InfluxDB 1.x.
 Telegraf input plugins actively gather metrics and deliver them to the core agent, where aggregator, processor, and output plugins can operate on the metrics.
 In order to activate an input plugin, it needs to be enabled and configured in Telegraf's configuration file.
 
-Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [collection interval](/telegraf/v1.10/concepts/glossary/#collection-interval), [output plugin](/telegraf/v1.10/concepts/glossary/#output-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
+Related entries: [aggregator plugin](#aggregator-plugin), [collection interval](#collection-interval), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
 ### instance
 
@@ -466,7 +465,7 @@ A literal is value in an expression, a number, character, string, function, obje
 
 See examples of [Flux literals](/v2.0/reference/flux/language/expressions/#examples-of-function-literals).
 
-<!-- enterprise 
+<!-- enterprise
 ### load balancing
 
 Improves workload distribution across multiple computing resources in a network. Load balancing optimizes resource use, maximizes throughput, minimizes response time, and avoids overloading a single resource. Using multiple components with load balancing instead of a single component may increase reliability and availability. If requests to any server in a network increase, requests are forwarded to another server with more capacity. Load balancing can also refer to the communications channels themselves.
@@ -533,7 +532,7 @@ The metric buffer caches individual metrics when writes are failing for an Teleg
 Telegraf will attempt to flush the buffer upon a successful write to the output.
 The oldest metrics are dropped first when this buffer fills.
 
-Related entries: [output plugin](/#output-plugin)
+Related entries: [output plugin](#output-plugin)
 
 ### missing values
 
@@ -557,7 +556,7 @@ Related entries: [check](#check), [notification rule](#notification-rule)
 
 ### notification rule
 
-A notification rule specifies a status level (and tags) to alert on, the notification message to send for the specified status level (or change in status level), and the interval or schedule you want to check the status level (and tags). If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the _monitoring bucket. For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
+A notification rule specifies a status level (and tags) to alert on, the notification message to send for the specified status level (or change in status level), and the interval or schedule you want to check the status level (and tags). If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the `_monitoring` bucket. For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
 
 Learn how to [create a notification rule](/v2.0/monitor-alert/notification-rules/create).
 
@@ -601,7 +600,7 @@ A workspace for a group of users. All dashboards, tasks, buckets, members, and s
 
 Telegraf output plugins deliver metrics to their configured destination. To activate an output plugin, enable and configure the plugin in Telegraf's configuration file.
 
-Related entries: [aggregator plugin](/telegraf/v1.10/concepts/glossary/#aggregator-plugin), [flush interval](/telegraf/v1.10/concepts/glossary/#flush-interval), [input plugin](/telegraf/v1.10/concepts/glossary/#input-plugin), [processor plugin](/telegraf/v1.10/concepts/glossary/#processor-plugin)
+Related entries: [aggregator plugin](#aggregator-plugin), [flush interval](#flush-interval), [input plugin](#input-plugin), [processor plugin](#processor-plugin)
 
 ## P
 
@@ -633,7 +632,7 @@ The precision configuration setting determines the timestamp precision retained 
 
 In Telegraf, truncated timestamps are padded with zeros to create a nanosecond timestamp. Telegraf output plugins emit timestamps in nanoseconds. For example, if the precision is set to `ms`, the nanosecond epoch timestamp `1480000000123456789` is truncated to `1480000000123` in millisecond precision and padded with zeroes to make a new, less precise nanosecond timestamp of `1480000000123000000`. Telegraf output plugins do not alter the timestamp further. The precision setting is ignored for service input plugins.
 
-Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](/#processor-plugin), [service input plugin](#service-input-plugin)
+Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin)
 
 ### process
 
@@ -713,7 +712,7 @@ InfluxDB scrapes data from specified targets at regular intervals and writes the
 A Flux function that returns a single point from the range of specified points.
 See [Flux built-in selector functions](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
 
-Related entries: [aggregation](#aggregation), [function](#function), [transformation](#transformation)
+Related entries: [aggregate](#aggregate), [function](#function), [transformation](#transformation)
 
 ### series
 
@@ -733,12 +732,12 @@ different `status`es, the series cardinality for the measurement is 6
 
 | email                 | status |
 | :-------------------- | :----- |
-| lorr@influxdata.com | start  |
-| lorr@influxdata.com | finish |
-| marv@influxdata.com     | start  |
-| marv@influxdata.com     | finish |
-| cliff@influxdata.com | start  |
-| cliff@influxdata.com | finish |
+| lorr@influxdata.com   | start  |
+| lorr@influxdata.com   | finish |
+| marv@influxdata.com   | start  |
+| marv@influxdata.com   | finish |
+| cliff@influxdata.com  | start  |
+| cliff@influxdata.com  | finish |
 
 In some cases, performing this multiplication may overestimate series cardinality because of the presence of dependent tags. Dependent tags are scoped by another tag and do not increase series
 cardinality.
@@ -746,14 +745,14 @@ If we add the tag `firstname` to the example above, the series cardinality
 would not be 18 (3 * 2 * 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
-| email               | status | firstname |
-| :-------------------| :----- | :-------- |
-| lorr@influxdata.com | start  | lorraine  |
-| lorr@influxdata.com | finish | lorraine  |
-| marv@influxdata.com | start  | marvin    |
-| marv@influxdata.com | finish | marvin    |
-| cliff@influxdata.com| start  | clifford  |
-| cliff@influxdata.com| finish | clifford  |
+| email                | status | firstname |
+| :------------------- | :----- | :-------- |
+| lorr@influxdata.com  | start  | lorraine  |
+| lorr@influxdata.com  | finish | lorraine  |
+| marv@influxdata.com  | start  | marvin    |
+| marv@influxdata.com  | finish | marvin    |
+| cliff@influxdata.com | start  | clifford  |
+| cliff@influxdata.com | finish | clifford  |
 
 <!--See [SHOW CARDINALITY](/influxdb/latest/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
@@ -849,7 +848,7 @@ The key-value pair in InfluxDB's data structure that records metadata.
 Tags are an optional part of InfluxDB's data structure but they are useful for storing commonly-queried metadata; tags are indexed so queries on tags are performant.
 *Query tip:* Compare tags to fields; fields are not indexed.
 
-Related entries: [field](/influxdb/latest/concepts/glossary/#field), [tag key](/influxdb/latest/concepts/glossary/#tag-key), [tag set](/influxdb/latest/concepts/glossary/#tag-set), [tag value](/influxdb/latest/concepts/glossary/#tag-value)
+Related entries: [field](#field), [tag key](#tag-key), [tag set](#tag-set), [tag value](#tag-value)
 
 ### tag key
 
@@ -858,7 +857,7 @@ Tag keys are indexed so queries on tag keys are processed quickly.
 
 *Query tip:* Compare tag keys to field keys. Field keys are not indexed.
 
-Related entries: [field key](/#field-key), [tag](#tag), [tag set](#tag-set), [tag value](#tag-value)
+Related entries: [field key](#field-key), [tag](#tag), [tag set](#tag-set), [tag value](#tag-value)
 
 ### tag set
 
@@ -917,9 +916,9 @@ By default, tracing is disabled in InfluxDB. To enable tracing or set other Infl
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL functions](/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](http://docs.influxdata.com/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
-Related entries: [aggregation](/influxdb/latest/concepts/glossary/#aggregation), [function](/influxdb/latest/concepts/glossary/#function), [selector](/influxdb/latest/concepts/glossary/#selector)
+Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
 ## TSI (Time Series Index)
 
@@ -933,7 +932,7 @@ The Time Series Logs (TSL) extension (.tsl) identifies Time Series Index (TSI) l
 
 A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations. For more information, see [Storage engine](http://docs.influxdata.com/influxdb/latest/concepts/storage_engine/).
 
-Related entries: [TSI](#TSI)
+Related entries: [TSI](#tsi-time-series-index)
 
 ## U
 
@@ -957,7 +956,7 @@ The preferred measurement of the rate at which data are persisted to InfluxDB. W
 
 To calculate the values per second rate, multiply the number of points written per second by the number of values stored per point. For example, if the points have four fields each, and a batch of 5000 points is written 10 times per second, the values per second rate is `4 field values per point * 5000 points per batch * 10 batches per second = 200,000 values per second`.
 
-Related entries: [batch](#batch), [field](#field), [point](#point), [points per second](#points-per-second)
+Related entries: [batch](#batch), [field](#field), [point](#point)
 
 ### variable
 

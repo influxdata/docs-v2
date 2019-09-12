@@ -134,9 +134,9 @@ Annotation rows are optional, describe column properties, and start with `#` (or
 
 |Annotation name | Values| Description |
 | :-------- | :--------- | :-------|
-| **datatype**    | a [valid data type](#Valid-data-types) | Describes the type of data. |   
+| **datatype**    | a [valid data type](#valid-data-types) | Describes the type of data. |   
 | **group** | boolean flag `true` or `false` | Indicates the column is part of the group key.|
-| **default** | a [valid data type](#Valid-data-types) |Value to use for rows with an empty string value.|   
+| **default** | a [valid data type](#valid-data-types) |Value to use for rows with an empty string value.|   
 
 ##### Example
 Encoding of datatype and group annotations for two tables.
