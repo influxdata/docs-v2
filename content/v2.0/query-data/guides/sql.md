@@ -212,6 +212,6 @@ To use `air-sensor-data.rb`:
 #### Import the sample data dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
 
-<a class="btn download" href="/downloads/air_sensors_dashboard.json" download>Download Air Sensors dashboard</a>
+<a class="btn download" href="/downloads/air-sensors-dashboard.json" download>Download Air Sensors dashboard</a>
 
 _For information about importing a dashboard, see [Create a dashboard](/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)._
