@@ -42,7 +42,7 @@ _To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-ma
 
 ## Pay As You Go Plan
 
-Pay As You Go Plans offer more flexibility and ensure you only pay for what you use.
+The Pay As You Go Plan offers more flexibility and ensures you only pay for what you [use]((/v2.0/cloud/account-management/data-usage/).
 
 #### Pay As You Go Plan rate limits
 
