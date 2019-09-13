@@ -12,9 +12,23 @@ menu:
 
 - Hover over the **Usage** icon in the left navigation bar and select **Billing**.
 
-{{< nav-icon "cloud" >}}
+    {{< nav-icon "cloud" >}}
 
-### Add or update your {{< cloud-name >}} payment method
+    Complete the following procedures as needed:
+
+  - [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
+  - [Add or update your contact information](#add-or-update-your-contact-information)
+  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
+
+    View information about:
+
+  - [Pay As You Go billing](#view-pay-as-you-go-billing-information)
+  - [Free plan](#view-free-plan-information)
+  - [Exceeded rate limits](#exceeded-rate-limits)
+  - [Billing cycle](#billing-cycle)
+  - [Declined or late payments](#declined-or-late-payments)
+
+### Add or update your InfluxDB Cloud 2.0 payment method
 
 1. On the Billing page:
    - To update, click the **Change Payment** button on the Billing page.
@@ -25,16 +39,6 @@ menu:
       - Enter your card billing address
 
 2. Click **Add Card**.
-
-### View Pay As You Go billing information
-
-- On the Billing page, view your billing information, including:
-  - Account balance
-  - Last billing update (updated hourly)
-  - Past invoices
-  - Payment method
-  - Contact information
-  - Notification settings
 
 ### Add or update your contact information
 
@@ -48,6 +52,16 @@ menu:
 1. On the Billing page, click **Notification Settings**.
 2. Select the **Send email notification** toggle, and then enter the email address to notify. 
 3. Enter the dollar amount to trigger a notification email. By default, an email is triggered when the amount exceeds $10. (Whole dollar amounts only. For example, $10.50 is not a supported amount.)
+
+### View Pay As You Go billing information
+
+- On the Billing page, view your billing information, including:
+  - Account balance
+  - Last billing update (updated hourly)
+  - Past invoices
+  - Payment method
+  - Contact information
+  - Notification settings
 
 ### View Free plan information
 
@@ -70,3 +84,16 @@ When a request exceeds your plan's rate limit, the InfluxDB API returns the foll
 HTTP 429 “Too Many Requests”
 Retry-After: xxx (seconds to wait before retrying the request)
 ```
+
+### Billing cycle
+
+Billing occurs on the first day of the month for the previous month. For example, if you start the Pay As You Go plan on September 15, you're billed on October 1 for your usage from September 15-30.
+
+### Declined or late payments
+
+| Timeline                    | Action |
+|:----------------------------|:------------------------------------------------------------------------------------------------------------------------|
+| **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |  
+| **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |  
+| **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |  
+| **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|  
