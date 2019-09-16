@@ -13,12 +13,12 @@ related:
 ---
 
 The `experimental.addDuration()` function adds a duration to a time value and
-returns a the resulting time value.
+returns the resulting time value.
 
 _**Function type:** Transformation_
 
 {{% warn %}}
-The `experimental.addDuration()` function is currently experimental and is subject to change at any time.
+The `experimental.addDuration()` function is subject to change at any time.
 This specific function will be removed once duration vectors are implemented.
 See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
 {{% /warn %}}
