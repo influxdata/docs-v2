@@ -18,6 +18,8 @@ The Flux Experimental package includes experimental functions that perform vario
 Experimental functions are subject to change at any time and are not recommended for production use.
 {{% /warn %}}
 
+## Experimental functions
 {{< children type="functions" show="pages" >}}
 
-{{< children >}}
+## Experimental packages
+{{< children show="sections" >}}

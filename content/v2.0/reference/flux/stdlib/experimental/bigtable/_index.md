@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: Bigtable
     parent: Experimental
-weight: 202
+weight: 201
 v2.0/tags: [functions, bigtable, package, google]
 ---
 

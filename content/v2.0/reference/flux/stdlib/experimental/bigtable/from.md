@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: bigtable.from
     parent: Bigtable
-weight: 202
+weight: 301
 ---
 
 The `bigtable.from()` function retrieves data from a [Google Cloud Bigtable](https://cloud.google.com/bigtable/)
