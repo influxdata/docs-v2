@@ -17,6 +17,7 @@ The Flux Bigtable package provides tools for working with data in
 
 {{% warn %}}
 The Bigtable package is currently experimental and is subject to change at any time.
+By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 Import the `experimental/bigtable` package:
