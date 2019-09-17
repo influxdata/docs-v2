@@ -6,16 +6,20 @@ menu:
   v2_0_ref:
     name: mqtt.to
     parent: MQTT
-weight: 202
-draft: true
+weight: 301
 ---
 
 The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
 
 _**Function type:** Output_
 
+{{% warn %}}
+The `mqtt.to()` function is currently experimental and is subject to change at any time.
+By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+{{% /warn %}}
+
 ```js
-import "mqtt"
+import "experimental/mqtt"
 
 mqtt.to(
   broker: "tcp://localhost:8883",
@@ -115,7 +119,7 @@ _**Data type: Array of strings**_
 
 ### Send data to an MQTT endpoint
 ```js
-import "mqtt"
+import "experimental/mqtt"
 
 from(bucket: "example-bucket")
   |> range(start: -5m)
