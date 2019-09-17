@@ -14,11 +14,11 @@ weight: 301
 
 View Telegraf configuration information in the InfluxDB user interface (UI):
 
-1. Click the **Settings** tab in the navigation bar.
+1. Click **Load Data** in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Click the **Telegraf** tab.
+2. Click **Telegraf**.
 
 ### View and download the telegraf.conf
 To view the actual `telegraf.conf` associated with the configuration,

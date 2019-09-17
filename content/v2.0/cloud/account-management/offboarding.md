@@ -30,15 +30,15 @@ For details, see [Export a task](/v2.0/process-data/manage-tasks/export-task/).
 
 #### Export dashboards
 
-For details, see [Export a dashboard](v2.0/visualize-data/dashboards/export-dashboard/).
+For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-dashboard/).
 
 #### Telegraf configurations
 
 **To save a Telegraf configuration:**
 
-1. Click in the **Organizations** icon in the navigation bar.
+1. Click in the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
 2. Select the **Telegraf** tab. A list of existing Telegraf configurations appears.
 3. Click on the name of a Telegraf configuration.

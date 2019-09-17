@@ -8,12 +8,6 @@ menu:
 weight: 202
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 An assignment binds an identifier to a variable, option, or function.
 Every identifier in a program must be assigned.
 
@@ -31,10 +25,6 @@ While the identifier of the inner assignment is in scope, it denotes the entity 
 Note that the package clause is not an assignment.
 The package name does not appear in any scope.
 Its purpose is to identify the files belonging to the same package and to specify the default package name for import declarations.
-
-{{% note %}}
-[IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
-{{% /note %}}
 
 ## Variable assignment
 A variable assignment creates a variable bound to an identifier and gives it a type and value.

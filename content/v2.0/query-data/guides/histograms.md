@@ -14,7 +14,7 @@ Histograms provide valuable insight into the distribution of your data.
 This guide walks through using Flux's `histogram()` function to transform your data into a **cumulative histogram**.
 
 ## histogram() function
-The [`histogram()` function](/v2.0/reference/flux/functions/built-in/transformations/histogram) approximates the
+The [`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -41,7 +41,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/v2.0/reference/flux/functions/built-in/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -50,7 +50,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/v2.0/reference/flux/functions/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
@@ -74,7 +74,7 @@ Because the Histogram visualization uses visualization controls to creates bins 
 {{% note %}}
 Output of the [`histogram()` function](#histogram-function) is **not** compatible
 with the Histogram visualization type.
-View the example [below](#visualize-error-counts-by-severity-over-time).
+View the example [below](#visualize-errors-by-severity).
 {{% /note %}}
 
 ## Examples
@@ -160,7 +160,8 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 ```
 
 ### Visualize errors by severity
-Use the [Telegraf Syslog plugin](Telegraf Syslog plugin) to collect error information from your system.
+Use the [Telegraf Syslog plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/syslog)
+to collect error information from your system.
 Query the `severity_code` field in the `syslog` measurement:
 
 ```js

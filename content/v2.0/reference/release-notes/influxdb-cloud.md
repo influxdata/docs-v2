@@ -10,12 +10,23 @@ aliases:
   - /cloud/about/release-notes
 ---
 
+## 2019-09-10 _Monitoring & Alerts_
+
+## Features
+- **InfluxDB 2.0 alpha-17** –
+  _See the [alpha-17 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-17-2019-08-14) for details._
+- Alerts and Notifications to Slack (Free Tier), PagerDuty and HTTP (Pay As You Go).
+- Rate limiting on cardinality for Free Tier.
+- Billing notifications.
+- Pricing calculator.
+- Improved Signup flow.
+
 ## 2019-07-23 _General Availability_
 
 ### Features
 
 - **InfluxDB 2.0 alpha-15** –
-_See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-15-2019-07-11) for details._
+  _See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-15-2019-07-11) for details._
 - Pay As You Go Pricing Plan.
 - Adjusted Free Plan rate limits.
 - Timezone selection in the user interface.
@@ -42,7 +53,7 @@ _See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-
 ### Features
 
 - **InfluxDB 2.0 alpha-9** –
-_See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-9-2019-05-01) for details._
+  _See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-9-2019-05-01) for details._
 
 ### Bug fixes
 
@@ -59,7 +70,7 @@ _See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-
 ### Features
 
 - **InfluxDB 2.0 alpha-7** –
-_See the [alpha-7 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-7-2019-03-28) for details._
+  _See the [alpha-7 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-7-2019-03-28) for details._
 
 ### Bug fixes
 

@@ -11,16 +11,135 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.39.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.45.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.45.1 [2019-09-09]
+
+### Bug fixes
+- Ensure `http.post` respects the context.
+
+---
+
+## v0.45.0 [2019-09-06]
+
+### Features
+- Added Google Bigtable `from()`.
+
+### Bug fixes
+- Add `pagerduty.severityFromLevel()` helper function.
+- Sleep function now gets canceled when the context is canceled.
+- Categorize the undefined identifier as an invalid status code.
+- Panic from `CheckKind` in `memberEvaluator`.
+
+---
+
+## v0.44.0 [2019-09-05]
+
+### Features
+- Add `http.basicAuth` function.
+- Add measurement filters to `monitor.from` and `monitor.logs`.
+
+### Bug fixes
+- changed the default HTTP client to be more robust.
+
+---
+
+## v0.43.0 [2019-09-04]
+
+### Features
+- PagerDuty endpoint for alerts and notifications.
+
+---
+
+## v0.42.0 [2019-08-30]
+
+### Features
+- Add `stateChanges` function.
+
+### Bug fixes
+- Race condition in looking up types in `map`.
+- Support bool equality expressions.
+- Calculating a type variable's free type variables.
+- Do not generate fresh type variables for member expressions.
+- Array instantiation.
+
+---
+
+## v0.41.0 [2019-08-26]
+
+### Features
+- Add ability to validate URLs before making `http.post` requests.
+- Evaluate string interpolation.
+- Implement the `secrets.get` function.
+- Added secret service interface.
+- Add secrets package that will construct a secret object.
+- Added a SecretService interface and a new dependencies package and a basic test of functionality.
+- Add Slack endpoint.
+
+### Bug fixes
+- Make `reset()` check for non-nil data before calling `Release()`.
+- Add test case for `notify` function.
+- Add missing math import to test case.
+- Make packages aware of options.
+- Resolved `holtWinters` panic.
+- Use non-pointer receiver for `interpreter.function`.
+
+---
+
+## v0.40.2 [2019-08-22]
+
+### Bug fixes
+- Resolved `holtWinters()` panic.
+
+---
+
+## v0.40.1 [2019-08-21]
+
+### Bug fixes
+- Use non-pointer receiver for `interpreter.function`.
+
+---
+
+## v0.40.0 [2019-08-20]
+
+### Breaking changes
+- Update compiler package to use true scope.
+- Add `http` and `json` to prelude.
+
+### Features
+- Add `alerts.check()` function.
+- Add `alerts.notify` function.
+- Add `kaufmansER()` and `kaufmansAMA()` functions.
+- Add `experimental.to()` function.
+- Add `experimental.set()` function to update entire object.
+- Add `experimental.objectKeys()` function.
+- Add `tripleExponentialDerivative()` function.
+- Add `json.encode()` function.
+- Add `mqtt.to()` function.
+- Add Bytes type.
+- Update compiler package to use true scope.
+- Add http endpoint.
+- Add post method implementation.
+- String interpolation.
+
+### Bug fixes
+- Avoid wrapping table errors in the CSV encoder.
+- Remove irrelevant TODOs.
+- `mode()` now properly considers nulls when calculating the mode.
+- Add `http` and `json` to prelude.
+- Rename all Flux test files to use `_test.flux`.
 
 ---
 
 ## v0.39.0 [2019-08-13]
 
-> A queryd panic has been reported in `HoltWinters()`. We're working to resolve this issue as soon as possible.
+{{% warn %}}
+In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
+**Flux 0.40.2 resolves this panic.**
+{{% /warn %}}
 
 ### Breaking changes
 - Implement the scanning components for string expressions.
@@ -273,9 +392,9 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ### Features
 - Add stream table index functions (
-  [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/),
-  [`getRecord()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/),
-  [`getColumn()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/)
+  [`tableFind()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/),
+  [`getRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/),
+  [`getColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
   ).
 - Construct invalid binary expressions when given multiple expressions.
 

@@ -163,7 +163,7 @@ Resources:
             const { uri, headers, origin } = request;
             const extension = uri.substr(uri.lastIndexOf('.') + 1);
 
-            const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.jpg', '.svg', '.otf', '.eot', '.ttf', '.woff'];
+            const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.jpg', '.svg', '.json', '.csv', '.rb', '.otf', '.eot', '.ttf', '.woff'];
             const indexPath = 'index.html';
             const defaultPath = '/v2.0/'
 

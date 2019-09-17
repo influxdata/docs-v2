@@ -12,7 +12,7 @@ weight: 207
 ---
 
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/v2.0/reference/flux/functions/sql/from/) lets you query SQL data sources
+[`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
@@ -59,7 +59,7 @@ sql.from(
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_See the [`sql.from()` documentation](/v2.0/reference/flux/functions/sql/from/) for
+_See the [`sql.from()` documentation](/v2.0/reference/flux/stdlib/sql/from/) for
 information about required function parameters._
 
 ## Join SQL data with data in InfluxDB
@@ -94,7 +94,7 @@ join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ## Use SQL results to populate dashboard variables
 Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
-The following example uses the [air sensor sample data](#sample-data) below to
+The following example uses the [air sensor sample data](#sample-sensor-data) below to
 create a variable that lets you select the location of a sensor.
 
 ```js
@@ -167,7 +167,7 @@ To use `air-sensor-data.rb`:
     _**Note:** Use the `--help` flag to view other configuration options._
 
 
-5. [Query your target bucket](v2.0/query-data/execute-queries/) to ensure the
+5. [Query your target bucket](/v2.0/query-data/execute-queries/) to ensure the
    generated data is writing successfully.
    The generator doesn't catch errors from write requests, so it will continue running
    even if data is not writing to InfluxDB successfully.
@@ -212,6 +212,6 @@ To use `air-sensor-data.rb`:
 #### Import the sample data dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
 
-<a class="btn download" href="/downloads/air_sensors_dashboard.json" download>Download Air Sensors dashboard</a>
+<a class="btn download" href="/downloads/air-sensors-dashboard.json" download>Download Air Sensors dashboard</a>
 
 _For information about importing a dashboard, see [Create a dashboard](/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)._
