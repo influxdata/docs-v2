@@ -11,10 +11,56 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.45.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.47.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.47.0 [2019-09-13]
+
+### Bug fixes
+- Introduce ParenExpression.
+- Make fmt runs cargo fmt on Rust directories.
+- Update `Hex.Dump` to `hex.EncodeToString`.
+- Integrate the Promql transpiler into Flux.
+
+---
+
+## v0.46.2 [2019-09-12]
+
+### Bug fixes
+- Make `to` use URL validator.
+- Add filesystem to default test dependencies.
+
+---
+
+## v0.46.1 [2019-09-11]
+
+### Bug fixes
+- Add a filesystem service.
+- Do a pointer comparison for table objects instead of a deep compare.
+
+---
+
+## v0.46.0 [2019-09-10]
+
+### Features
+- Replace EnvironmentSecretService with EmptySecret….
+- Source location for rust parser.
+
+### Bug fixes
+- Push error for bad string expression.
+- Remove `token` parameter from `pagerduty.endpoint`.
+
+---
+
+## v0.45.2 [2019-09-10]
+
+### Bug fixes
+- Push the tag before running goreleaser.
+- Additional opentracing spans for debugging query flow.
+
+---
 
 ## v0.45.1 [2019-09-09]
 
