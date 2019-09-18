@@ -14,18 +14,29 @@ cloud_all: true
 ---
 
 Create a check in the InfluxDB user interface (UI).
+Checks query data and apply a status to each point based on specified conditions.
+
+## Check types
+There are two types of checks – a threshold check and a deadman check.
+
+#### Threshold check
+A threshold check assigns a status based on a value being above, below,
+inside, or outside of defined thresholds.
+[Create a threshold check](#create-a-threshold-check).
+
+#### Deadman check
+A deadman check assigns a status to data when a series or group doesn't not
+report in a specified amount of time.
+[Create a deadman check](#create-a-deadman-check).
+
+## Parts of a check
 A check consists of two parts – a query and check configuration.
 
-##### Check query
+#### Check query
 - Specifies the dataset to monitor.
-- Requires a bucket, measurement, field, and an aggregate function.
-
-    {{% note %}}The aggregate function aggregates data points between the specified check intervals
-    and returns a single value for the check to process.
-    {{% /note %}}
 - May include tags to narrow results.
 
-##### Check configuration
+#### Check configuration
 - Defines check properties, including the check interval and status message.
 - Evaluates specified conditions and applies a status (if applicable) to each data point:
     - `crit`
@@ -35,23 +46,28 @@ A check consists of two parts – a query and check configuration.
 - Stores status in the `_level` column.
 
 ## Create a check in the InfluxDB UI
-1. Click **Monitoring & Alerting** in the sidebar.
+1.  Click **Monitoring & Alerting** in the sidebar in the InfluxDB UI.
 
     {{< nav-icon "alerts" >}}
 
-2. In the top right corner of the **Checks** column, click **{{< icon "plus" >}} Create**.
+2.  In the top right corner of the **Checks** column, click **{{< icon "plus" >}} Create**
+    and select the [type of check](#check-types) to create.
+3.  Click **Name this check** in the top left corner and provide a unique name for the check.
 
-3. Click **Name this check** in the top left corner and provide a unique name for the check.
+#### Configure the check query
+1.  Select the **bucket**, **measurement**, **field** and **tag sets** to query.
+2.  If creating a threshold checks, select an **aggregate function**.
+    Aggregate functions aggregate data between the specified check intervals and
+    return a single value for the check to process.
 
-### Configure the query
-1. In the **Query view**, select the bucket, measurement, field and tag sets to query.
-2. In the **Aggregate functions** column, select an interval from the interval drop-down list
-   (for example, "Every 5 minutes") and an aggregate function from the list of functions.
+    In the **Aggregate functions** column, select an interval from the interval drop-down list
+    (for example, "Every 5 minutes") and an aggregate function from the list of functions.
+
 3. Click **Submit** to run the query and preview the results.
    To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
 
-### Configure the check
-1.  Click **2. Check** near the top of the window to display the **Check view**.
+#### Configure the check
+1.  Click **2. Check** near the top of the window.
 2.  In the **Properties** column, configure the following:
 
     ##### Schedule Every
@@ -113,32 +129,22 @@ count = 12
 
     When a check generates a status, it stores the message in the `_message` column.
 
-4.  In the **Conditions** column, define the logic that assigns a status or level to data.
-    Select the type of check to configure:    
-
-    ##### Threshold
-    A threshold check assigns a status based on a value being above, below,
-    inside, or outside of defined thresholds.
-    [Configure a threshold check](#configure-a-threshold-check).
-
-    ##### Deadman
-    A deadman check assigns a status to data when a series or group has not
-    reported in a specified amount of time.
-    [Configure a deadman check](#configure-a-deadman-check).
+4.  Define check conditions that assign statuses to points.    
 
     ##### Configure a threshold check
-    1.  For each status you want to configure, click the status name (CRIT, WARN, INFO, or OK).
+    1.  In the **Thresholds** column, click the status name (CRIT, WARN, INFO, or OK)
+        to define conditions for that specific status.
     2.  From the **When value** drop-down list, select a threshold: is above, is below,
         is inside of, is outside of.
     3.  Enter a value or values for the threshold.
         You can also use the threshold sliders in the data visualization to define threshold values.
 
     ##### Configure a deadman check
-    1.  In the **for** field, enter a duration for the deadman check.
-        For example, `5m`, `1h`, or `2h30m`.
+    1.  In the **Deadman** column, enter a duration for the deadman check in the **for** field.
+        For example, `90s`, `5m`, `2h30m`, etc.
     2.  Use the **set status to** drop-down list to select a status to set on a dead series.
     3.  In the **And stop checking after** field, enter the time to stop monitoring the series.
-        For example, `30m`, `2h`, `3h15m`.
+        For example, `30m`, `2h`, `3h15m`, etc.
 
 5. Click the green **{{< icon "check" >}}** in the top right corner to save the check.
 
