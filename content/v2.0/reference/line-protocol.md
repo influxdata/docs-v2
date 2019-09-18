@@ -96,7 +96,7 @@ If no timestamp is provided, InfluxDB uses the system time (UTC) of its host mac
 _**Data type:** [Unix timestamp](#unix-timestamp)_
 
 {{% note %}}
-Though timestamps are optional, you should include them to ensure times associated with points
+Though timestamps are optional, include them to ensure times associated with points
 are the actual times metrics were observed rather than when InfluxDB received them.
 {{% /note %}}
 
