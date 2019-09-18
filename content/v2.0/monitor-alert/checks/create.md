@@ -10,7 +10,6 @@ weight: 201
 related:
   - /v2.0/monitor-alert/notification-rules/
   - /v2.0/monitor-alert/notification-endpoints/
-cloud_all: true
 ---
 
 Create a check in the InfluxDB user interface (UI).

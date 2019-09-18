@@ -10,7 +10,6 @@ weight: 201
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-rules/
-cloud_all: true
 ---
 
 To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/v2.0/monitor-alert/notification-rules/create) to send alerts to third party services on [check statuses](/v2.0/monitor-alert/checks/create).
@@ -26,11 +25,11 @@ To send notifications about changes in your data, start by creating a notificati
     The following endpoints are available for InfluxDB 2.0 OSS, the InfluxDB Cloud 2.0 Free Plan,
     and the InfluxDB Cloud 2.0 Pay As You Go (PAYG) Plan:
 
-    | Endpoint      | OSS      | Free Plan _(Cloud)_      | PAYG Plan _(Cloud)_          |
-    |:--------      |:--------:|:-------------------:     |:----------------------------:|
-    | **Slack**     | _Coming_ | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
-    | **PagerDuty** | _Coming_ |                          | **{{< icon "check" >}}**     |
-    | **HTTP**      | _Coming_ |                          | **{{< icon "check" >}}**     |
+    | Endpoint      | OSS                      | Free Plan _(Cloud)_      | PAYG Plan _(Cloud)_          |
+    |:--------      |:--------:                |:-------------------:     |:----------------------------:|
+    | **Slack**     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
+    | **PagerDuty** | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
+    | **HTTP**      | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
 
 4.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 5.  Enter enter information to connect to the endpoint:
@@ -40,7 +39,7 @@ To send notifications about changes in your data, start by creating a notificati
     - For Slack, create an [Incoming WebHook](https://api.slack.com/incoming-webhooks#posting_with_webhooks) in Slack, and then enter your webHook URL in the **Slack Incoming WebHook URL** field.
 
     - For PagerDuty:
-      - [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field. 
+      - [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field.
       - The **Client URL** provides a useful link in your PagerDuty notification. Enter any URL that you'd like to use to investigate issues. This URL is sent as the `client_url` property in the PagerDuty trigger event. By default, the **Client URL** is set to your Monitoring & Alerting History page, and the following included in the PagerDuty trigger event: `"client_url": "https://twodotoh.a.influxcloud.net/orgs/<your-org-ID>/alert-history”`
 
 6. Click **Create Notification Endpoint**.

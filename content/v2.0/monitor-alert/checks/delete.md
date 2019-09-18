@@ -10,7 +10,6 @@ weight: 204
 related:
   - /v2.0/monitor-alert/notification-rules/
   - /v2.0/monitor-alert/notification-endpoints/
-cloud_all: true
 ---
 
 If you no longer need a check, use the InfluxDB user interface (UI) to delete it.
