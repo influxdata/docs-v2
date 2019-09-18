@@ -93,7 +93,12 @@ The Unix nanosecond timestamp for the data point.
 InfluxDB accepts one timestamp per point.
 If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
 
-_**Data type:** [Unix timestamp](#unix-timestamp)_  
+_**Data type:** [Unix timestamp](#unix-timestamp)_
+
+{{% note %}}
+Though timestamps are optional, you should include them to ensure times associated with points
+are the actual times metrics were observed rather than when InfluxDB received them.
+{{% /note %}}
 
 {{% note %}}
 _Use the default nanosecond precision timestamp or specify an alternative precision
