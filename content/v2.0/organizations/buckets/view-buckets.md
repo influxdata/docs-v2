@@ -21,8 +21,7 @@ weight: 202
 ## View buckets using the influx CLI
 
 Use the [`influx bucket find` command](/v2.0/reference/cli/influx/bucket/find)
-to view a buckets in an organization. Viewing bucket requires the following:
-
+to view a buckets in an organization. 
 
 ```sh
 influx bucket find

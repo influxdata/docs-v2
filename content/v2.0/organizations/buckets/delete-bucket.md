@@ -20,7 +20,7 @@ to delete a bucket.
 
 2. Select **Buckets**.
 3. Hover over the bucket you would like to delete.
-4. Click **{{< icon "delete" >}} Delete Bucket** and **Delete** to delete the bucket.
+4. Click **{{< icon "delete" >}} Delete Bucket** and **Confirm** to delete the bucket.
 
 ## Delete a bucket using the influx CLI
 
