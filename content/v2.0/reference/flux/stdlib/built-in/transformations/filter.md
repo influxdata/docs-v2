@@ -9,6 +9,7 @@ menu:
     name: filter
     parent: built-in-transformations
 weight: 401
+v2.0/tags: [exists]
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).
@@ -42,6 +43,7 @@ Objects evaluated in `fn` functions are represented by `r`, short for "record" o
 
 ## Examples
 
+##### Filter based on measurement, field, and tag
 ```js
 from(bucket:"example-bucket")
   |> range(start:-1h)
@@ -50,6 +52,20 @@ from(bucket:"example-bucket")
     r._field == "usage_system" and
     r.cpu == "cpu-total"
   )
+```
+
+##### Filter out null values
+```js
+from(bucket:"example-bucket")
+  |> range(start:-1h)
+  |> filter(fn: (r) => exists r._value )
+```
+
+##### Filter values based on thresholds
+```js
+from(bucket:"example-bucket")
+  |> range(start:-1h)
+  |> filter(fn: (r) => r._value > 50.0 and r._value < 65.0 )
 ```
 
 <hr style="margin-top:4rem"/>

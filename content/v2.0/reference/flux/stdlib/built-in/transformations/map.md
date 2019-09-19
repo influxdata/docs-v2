@@ -9,6 +9,7 @@ menu:
     name: map
     parent: built-in-transformations
 weight: 401
+v2.0/tags: [exists]
 ---
 
 The `map()` function applies a function to each record in the input tables.
