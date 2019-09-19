@@ -25,8 +25,8 @@ inside, or outside of defined thresholds.
 [Create a threshold check](#create-a-threshold-check).
 
 #### Deadman check
-A deadman check assigns a status to data when a series or group doesn't not
-report in a specified amount of time.
+A deadman check assigns a status to data when a series or group doesn't report
+in a specified amount of time.
 [Create a deadman check](#create-a-deadman-check).
 
 ## Parts of a check
@@ -56,7 +56,7 @@ A check consists of two parts – a query and check configuration.
 
 #### Configure the check query
 1.  Select the **bucket**, **measurement**, **field** and **tag sets** to query.
-2.  If creating a threshold checks, select an **aggregate function**.
+2.  If creating a threshold check, select an **aggregate function**.
     Aggregate functions aggregate data between the specified check intervals and
     return a single value for the check to process.
 
@@ -129,7 +129,8 @@ count = 12
 
     When a check generates a status, it stores the message in the `_message` column.
 
-4.  Define check conditions that assign statuses to points.    
+4.  Define check conditions that assign statuses to points.
+    Condition options depend on your check type.
 
     ##### Configure a threshold check
     1.  In the **Thresholds** column, click the status name (CRIT, WARN, INFO, or OK)
