@@ -21,9 +21,9 @@ to create a bucket.
 2. Select **Buckets**.
 3. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
 4. Enter a **Name** for the bucket.
-5. Select when to **Delete Data**.
-    Select **Never** to retain data forever.  
-    Select **Older than** to choose a specific retention policy.
+5. Select when to **Delete Data**:
+    - **Never** to retain data forever.  
+    - **Older than** to choose a specific retention policy.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI

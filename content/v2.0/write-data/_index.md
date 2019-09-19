@@ -129,8 +129,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
     ---
 
     #### Configure Telegraf Agent  
-    1.  _See [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)
-        for more details._
+    1.  To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
 
     ---
 
@@ -151,8 +150,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
     ---
 
     #### Scrape Metrics
-    1.  _See [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui)
-        for more details._
+    1.  To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
         {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
         {{% /cloud-msg %}}
