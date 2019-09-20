@@ -10,24 +10,23 @@ weight: 209
 ---
 
 Every point stored in InfluxDB has an associated timestamp.
-Flux includes tools to process and manipulate timestamps to suit your needs.
+Use Flux to process and manipulate timestamps to suit your needs.
 
-- [Timestamp conversions](#timestamp-conversions)
-- [Common scenarios](#common-scenarios)
+- [Convert timestamp format](#convert-timestamp-format)
 - [Time-related Flux functions](#time-related-flux-functions)
 
-## Timestamp conversions
+## Convert timestamp format
 
 ### Convert nanosecond epoch timestamp to RFC3339
 Use the [`time()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
-to convert a **nanosecond** epoch timestamp to RFC3339 format.
+to convert a **nanosecond** epoch timestamp to an RFC3339 timestamp.
 
 ```js
 time(v: 1568808000000000000)
 // Returns 2019-09-18T12:00:00.000000000Z
 ```
 
-### Convert RFC3339 timestamp to nanosecond epoch timestamp
+### Convert RFC3339 to nanosecond epoch timestamp
 Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/unit/)
 to convert an RFC3339 timestamp to a nanosecond epoch timestamp.
 
@@ -36,10 +35,8 @@ uint(v: 2019-09-18T12:00:00.000000000Z)
 // Returns 1568808000000000000
 ```
 
-## Common scenarios
-
 ### Calculate the duration between two timestamps
-Flux doesn't support mathematical operations with time values.
+Flux doesn't support mathematical operations using [time type](/v2.0/reference/flux/language/types/#time-types) values.
 To calculate the duration between two timestamps:
 
 1. Use the `uint()` function to convert each timestamp to a nanosecond epoch timestamp.
@@ -57,12 +54,12 @@ duration(v: time2 - time1)
 {{% note %}}
 Flux doesn't support duration column types.
 To store a duration in a column, use the [`string()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
-to convert it to a string.
+to convert the duration to a string.
 {{% /note %}}
 
 ## Time-related Flux functions
 
-#### now()
+### Retrieve the current time
 Use the [`now()` function](/v2.0/reference/flux/stdlib/built-in/misc/now/) to
 return the current UTC time in RFC3339 format.
 
@@ -70,7 +67,7 @@ return the current UTC time in RFC3339 format.
 now()
 ```
 
-#### experimental.addDuration()
+### Add a duration to a timestamp
 The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/addduration/)
 adds a duration to a specified time and returns the resulting time.
 
@@ -90,7 +87,7 @@ experimental.addDuration(
 // Returns 2019-09-16T18:00:00.000000000Z
 ```
 
-#### experimental.subDuration()
+### Subtract a duration from a timestamps
 The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/subduration/)
 subtracts a duration from a specified time and returns the resulting time.
 
