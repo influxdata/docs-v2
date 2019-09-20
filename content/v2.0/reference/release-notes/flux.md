@@ -24,7 +24,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ### Features
 - New dependency injection framework.
 - Add planner options to Flux language.
-- Make flux `quantile()` behavior match PromQL `quantile()` aggregate.
+- Make Flux `internal/promql/quantile` behavior match PromQL `quantile` aggregate.
 
 ### Bug fixes
 - Passing context to WalkIR.
