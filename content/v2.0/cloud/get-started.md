@@ -43,7 +43,7 @@ Once you're ready to grow, [upgrade to the Pay As You Go Plan](/v2.0/cloud/accou
 5.  Click **Continue**. {{< cloud-name >}} opens with a default organization
     and bucket (both created from your email address).
 
-    _To update organization and bucket names, see [Update an organtization](/v2.0/organizations/update-org/)
+    _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
 {{% cloud-msg %}}
