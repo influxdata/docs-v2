@@ -40,8 +40,11 @@ An array of URLs for your InfluxDB v2.0 instances.
 _By default, InfluxDB runs on port `9999`._
 
 {{% cloud-msg %}}
-To write data to an {{< cloud-name "short" >}} instance, use the URL of your {{< cloud-name "short" >}}
-user interface (UI).
+###### {{< cloud-name "short" >}} URL
+To write data to an {{< cloud-name "short" >}} instance, use the URL of your
+{{< cloud-name "short" >}} user interface (UI).
+{{< cloud-name >}} requires HTTPS.
+
 For example: <code>https:<nolink>//us-west-2-1.aws.cloud2.influxdata.com</code>
 {{% /cloud-msg %}}
 
@@ -69,6 +72,8 @@ The name of the organization that owns the target bucket.
 The name of the bucket to write data to.
 
 #### Example influxdb_v2 configuration
+The example below illustrates `influxdb_v2` configurations that write to InfluxDB OSS or {{< cloud-name >}}.
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [InfluxDB OSS](#)
