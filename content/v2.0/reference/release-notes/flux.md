@@ -11,10 +11,26 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.47.1**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.48.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.48.0 [2019-09-20]
+
+### Breaking changes
+- Convert the Flux memory allocator into an arrow allocator.
+
+### Features
+- New dependency injection framework.
+- Add planner options to Flux language.
+- Make Flux `internal/promql/quantile` behavior match PromQL `quantile` aggregate.
+
+### Bug fixes
+- Passing context to WalkIR.
+- Make `join()` reject input tables lacking `on` columns.
+
+---
 
 ## v0.47.1 [2019-09-18]
 
