@@ -50,21 +50,62 @@ for using Telegraf with InfluxDB v2.0._
 11. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully
    sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
-12. Click **Finish**. Your configuration name and the associated bucket name appears
-   in the list of Telegraf connections.
+12. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears
+   in the list of Telegraf configurations.
+
+### Monitor a Windows machine
+
+If you're using Telegraf to monitor a Windows machine, you must complete the following steps.
+
+1. In the list of Telegraf configurations, double-click your Telegraf configuration, and then click **Download Config**.
+2. Open the downloaded Telegraf configuration file and replace `[[inputs.processes]]` with
+ `[[inputs.win_perf_counters]]` or `[inputs.win_services]]`, depending on your Windows configuration.
+3. Save the file and place it in a directory where **Telegraf.exe** can access.
 
 ## Start Telegraf
 
-### Configure your API token as an environment variable
 Requests to the [InfluxDB v2 API](/v2.0/reference/api/) must include an authentication token.
 A token identifies specific permissions to the InfluxDB instance.
 
-Define the `INFLUX_TOKEN` environment variable using your token.
-_For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+### Configure your token as an environment variable
+
+1. Find your authentication token. _For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+
+2. To configure your token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS or Linux](#)
+[Windows PowerShell](#)
+[Windows CMD](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
 
 ```sh
 export INFLUX_TOKEN=YourAuthenticationToken
 ```
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+```sh
+$env:INFLUX_TOKEN = “YourAuthenticationToken"
+```
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+```sh
+set INFLUX_TOKEN=YourAuthenticationToken 
+# Make sure to include a space character at the end of this command.
+```
+
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
 
 ### Start the Telegraf service
 Start the Telegraf service using the `-config` flag to specify the URL of your generated configuration file.
