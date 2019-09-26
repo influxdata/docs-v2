@@ -13,7 +13,7 @@ weight: 101
 - Add jsonweb package for future JWT support.
 - Added the JMeter Template dashboard.
 
-## UI Improvements
+### UI Improvements
 - Display dashboards index as a grid.
 - Add viewport scaling to html meta for responsive mobile scaling.
 - Remove rename and delete functionality from system buckets.
@@ -25,7 +25,7 @@ weight: 101
 - Expose all Settings tabs in navigation menu.
 - Added Stream and table functions to query builder.
 
-## Bug Fixes
+### Bug Fixes
 - Remove scrollbars blocking onboarding UI step.
 
 ---
