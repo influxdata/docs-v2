@@ -48,7 +48,7 @@ InfluxDB accepts the following precisions:
 - `s` - Seconds
 
 ### Authentication token
-All InfluxDB write interactions require an [authentication token](http://localhost:1313/v2.0/security/tokens/).
+All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).
 
 ### Line protocol
 Use line protocol to write data points to InfluxDB.
