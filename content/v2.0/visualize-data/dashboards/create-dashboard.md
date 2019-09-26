@@ -55,7 +55,7 @@ weight: 201
 
 2. Select the **Templates** tab.
 
-  - In the **Static Templates** tab, a list of pre-created templates appears. 
+  - In the **Static Templates** tab, a list of pre-created templates appears.
   - In the **User Templates** tab, a list of custom user-created templates appears.
 
 3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
@@ -65,8 +65,6 @@ weight: 201
 
 1. Hover over the dashboard name in the list of dashboard to show options.
 2. Click **Clone**. The cloned dashboard opens.
-
-    ![Clone a dashboard](/img/2-0-dashboard-clone.png)
 
 
 #### Add data to your dashboard
