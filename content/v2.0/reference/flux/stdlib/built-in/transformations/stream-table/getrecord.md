@@ -21,6 +21,13 @@ _**Function type:** Stream and table_
 getRecord(idx: 0)
 ```
 
+{{% note %}}
+#### Use tableFind() to extract a single table
+`getRecord()` requires a single table as input.
+Use [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/)
+to extract a single table from a stream of tables.
+{{% /note %}}
+
 ## Parameters
 
 ### idx
