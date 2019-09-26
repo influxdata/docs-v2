@@ -18,13 +18,14 @@ group key values match a predicate. If no table is found, the function errors.
 _**Function type:** Stream and table_  
 
 ```js
-tableFind(column: "_value")
+tableFind(fn: (key) => key._field == "fieldName")
 ```
 
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter.
+To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn
