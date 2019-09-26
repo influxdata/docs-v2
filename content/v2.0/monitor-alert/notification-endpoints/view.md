@@ -11,7 +11,6 @@ weight: 202
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-rules/
-cloud_all: true
 ---
 
 View notification endpoint details and history in the InfluxDB user interface (UI).

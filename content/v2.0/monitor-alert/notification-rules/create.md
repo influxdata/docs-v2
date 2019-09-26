@@ -9,7 +9,6 @@ menu:
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-endpoints/
-cloud_all: true
 ---
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.

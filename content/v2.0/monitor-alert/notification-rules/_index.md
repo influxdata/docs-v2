@@ -10,7 +10,6 @@ menu:
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-endpoints/
-cloud_all: true
 ---
 
 The following articles provide information on managing your notification rules:

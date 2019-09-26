@@ -9,7 +9,6 @@ menu:
     name: Monitor & alert
 weight: 6
 v2.0/tags: [monitor, alert, checks, notification, endpoints]
-cloud_all: true
 ---
 
 Monitor your time series data and send alerts by creating checks, notification
