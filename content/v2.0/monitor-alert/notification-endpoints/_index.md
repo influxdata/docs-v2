@@ -11,7 +11,6 @@ weight: 102
 related:
   - /v2.0/monitor-alert/checks/
   - /v2.0/monitor-alert/notification-rules/
-cloud_all: true
 ---
 
 Notification endpoints store information to connect to a third party service.
