@@ -11,10 +11,25 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.48.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.49.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.49.0 [2019-09-24]
+
+### Features
+- Optimize `filter()` to pass through tables when possible.
+- Additional arrow builder utilities.
+- Add a `benchmark()` function to the testing package.
+- Add an arrow backed version of the table buffer.
+
+### Bug fixes
+- Fix `sql.from()` connection leak.
+- Fix some of the memory leaks within the standard library.
+- Fix `mqtt.to()` topic parameter.
+
+---
 
 ## v0.48.0 [2019-09-20]
 
