@@ -61,7 +61,11 @@ If you plan to monitor a Windows host using the System plugin, you must complete
 
 1. In the list of Telegraf configurations, double-click your 
     Telegraf configuration, and then click **Download Config**.
-2. Open the downloaded Telegraf configuration file and replace `[[inputs.processes]]` with `[[inputs.win_perf_counters]]` or `[inputs.win_services]]`, depending on your Windows configuration.
+2. Open the downloaded Telegraf configuration file and replace the `[[inputs.processes]]` plugin with one of the following Windows plugins, depending on your Windows configuration:
+
+  - [`[[inputs.win_perf_counters]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_perf_counters)
+  -  [`[[inputs.win_services]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_services)
+
 3. Save the file and place it in a directory that **telegraf.exe** can access.
 
     {{% /note %}}
