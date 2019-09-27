@@ -27,5 +27,3 @@ To view the API documentation, [start InfluxDB](/v2.0/get-started/#start-influxd
 and visit the `/docs` endpoint in a browser.
 
 <a class="btn" href="http://localhost:9999/docs" target="\_blank">localhost:9999/docs</a>
-
-{{< children >}}
