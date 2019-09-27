@@ -53,14 +53,18 @@ for using Telegraf with InfluxDB v2.0._
 12. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears
    in the list of Telegraf configurations.
 
-### Monitor a Windows machine
+    {{% note %}}
 
-If you're using Telegraf to monitor a Windows machine, you must complete the following steps.
+### Windows
 
-1. In the list of Telegraf configurations, double-click your Telegraf configuration, and then click **Download Config**.
-2. Open the downloaded Telegraf configuration file and replace `[[inputs.processes]]` with
- `[[inputs.win_perf_counters]]` or `[inputs.win_services]]`, depending on your Windows configuration.
-3. Save the file and place it in a directory where **Telegraf.exe** can access.
+If you plan to monitor a Windows host using the System plugin, you must complete the following steps.
+
+1. In the list of Telegraf configurations, double-click your 
+    Telegraf configuration, and then click **Download Config**.
+2. Open the downloaded Telegraf configuration file and replace `[[inputs.processes]]` with `[[inputs.win_perf_counters]]` or `[inputs.win_services]]`, depending on your Windows configuration.
+3. Save the file and place it in a directory that **telegraf.exe** can access.
+
+    {{% /note %}}
 
 ## Start Telegraf
 
@@ -76,39 +80,47 @@ A token identifies specific permissions to the InfluxDB instance.
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS or Linux](#)
-[Windows PowerShell](#)
-[Windows CMD](#)
+[Windows](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
-
 ```sh
 export INFLUX_TOKEN=YourAuthenticationToken
 ```
-
 {{% /tab-content %}}
 
 {{% tab-content %}}
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[PowerShell](#)
+[CMD](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
 ```sh
 $env:INFLUX_TOKEN = “YourAuthenticationToken"
 ```
+{{% /code-tab-content %}}
 
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
+{{% code-tab-content %}}
 ```sh
 set INFLUX_TOKEN=YourAuthenticationToken 
 # Make sure to include a space character at the end of this command.
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% /tab-content %}}
-
 {{< /tabs-wrapper >}}
 
 ### Start the Telegraf service
-Start the Telegraf service using the `-config` flag to specify the URL of your generated configuration file.
+
+Start the Telegraf service using the `-config` flag to specify the location of the generated Telegraf configuration file.
+
+- For Windows, the location is always a local file path.
+- For Linux and macOS, the location can be a local file path or URL.
+
 Telegraf starts using the Telegraf configuration pulled from InfluxDB API.
 
 {{% note %}}
@@ -121,6 +133,7 @@ telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
 ```
 
 ## Manage Telegraf configurations
+
 Create, view, and manage Telegraf configurations in the InfluxDB UI.
 
 {{< children >}}

@@ -59,39 +59,41 @@ InfluxData does not recommend storing authentication tokens in plain text in the
 A secure alternative is to set the `INFLUX_TOKEN` environment variable and include
 it into your configuration file.
 
-
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS or Linux](#)
-[Windows PowerShell](#)
-[Windows CMD](#)
+[Windows](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
-
 ```sh
 export INFLUX_TOKEN=YourAuthenticationToken
 ```
-
 {{% /tab-content %}}
 
 {{% tab-content %}}
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[PowerShell](#)
+[CMD](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
 ```sh
 $env:INFLUX_TOKEN = “YourAuthenticationToken"
 ```
+{{% /code-tab-content %}}
 
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
+{{% code-tab-content %}}
 ```sh
 set INFLUX_TOKEN=YourAuthenticationToken 
 # Make sure to include a space character at the end of this command.
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% /tab-content %}}
-
 {{< /tabs-wrapper >}}
 
 _See the [example `telegraf.conf` below](#example-influxdb-v2-configuration)._
@@ -136,16 +138,20 @@ The example below illustrates `influxdb_v2` configurations that write to InfluxD
 
 # ...
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 {{% note %}}
+
 ##### Write to InfluxDB v1.x and v2.0
+
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
 enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.0 instances.
 {{% /note %}}
 
 ## Start Telegraf
+
 Start the Telegraf service using the `-config` flag to specify the location of your `telegraf.conf`.
 
 ```sh
