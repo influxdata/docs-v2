@@ -5,6 +5,7 @@
 {{ $cssOptionsLight := (dict "targetPath" "light-theme.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $cssSidebarOpen := (dict "targetPath" "sidebar-open.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $cssSidebarClose := (dict "targetPath" "sidebar-closed.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $cssAPIOverrides := (dict "targetPath" "api.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $PostCSSOptions := (dict "use" "autoprefixer" "noMap" false) }}
 
 {{ $stylesLight := resources.Get "styles/styles-default.scss" | toCSS $cssOptionsLight | postCSS $PostCSSOptions | fingerprint }}
@@ -18,3 +19,6 @@
 
 {{ $stylesSidebarClosed := resources.Get "styles/sidebar-closed.scss" | toCSS $cssOptionsLight | postCSS $PostCSSOptions | fingerprint }}
 <link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="{{ $stylesSidebarClosed.RelPermalink }}">
+
+{{ $stylesAPIOverrides := resources.Get "styles/styles-api.scss" | toCSS $cssAPIOverrides | postCSS $PostCSSOptions }}
+<link rel="stylesheet" type="text/css" href="{{ $stylesAPIOverrides.RelPermalink }}">

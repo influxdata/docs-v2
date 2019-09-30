@@ -86,9 +86,9 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
-  -d 'from(bucket:“test”)
+  -d 'from(bucket:"example-bucket")
         |> range(start:-1000h)
-        |> group(columns:[“_measurement”], mode:“by”)
+        |> group(columns:["_measurement"], mode:"by")
         |> sum()'
 ```
 {{% /code-tab-content %}}
@@ -100,9 +100,9 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
   -H 'Accept-Encoding: gzip' \
-  -d 'from(bucket:“test”)
+  -d 'from(bucket:"example-bucket")
         |> range(start:-1000h)
-        |> group(columns:[“_measurement”], mode:“by”)
+        |> group(columns:["_measurement"], mode:"by")
         |> sum()'
 ```
 {{% /code-tab-content %}}
