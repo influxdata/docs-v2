@@ -10,6 +10,7 @@ to generate version-specific API documentation.
 
 ### Versioned swagger files
 Structure versions swagger files using the following pattern:
+
 ```
 api-docs/
   ├── v2.0/
