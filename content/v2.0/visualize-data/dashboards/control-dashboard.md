@@ -39,21 +39,21 @@ Select how frequently to refresh the dashboard's data. By default, refreshing is
 
 ### Manual refresh
 
-Click the refresh button to manually refresh the dashboard's data.
+Click the refresh button {{< icon "refresh" >}} to manually refresh the dashboard's data.
 
 ### Time range
 
-Select from the time range options or choose **Custom Time Range** to enter a custom time range with precision up to ???.
+Select from the time range options or choose **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.
 
 ### Variables
 
 Click **Variables** to display variables available for your dashboard.
-For details, see ???.
+For details, see [Use and manage variables](/v2.0/visualize-data/variables/)
 
 ### Presentation mode
 
-Click the fullscreen icon to enter presentation mode. 
+Click the fullscreen icon to enter presentation mode.
 
 ## Control dashboard cells
 
