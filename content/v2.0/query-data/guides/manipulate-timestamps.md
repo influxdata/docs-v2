@@ -87,12 +87,12 @@ experimental.addDuration(
 // Returns 2019-09-16T18:00:00.000000000Z
 ```
 
-### Subtract a duration from a timestamps
-The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/subduration/)
+### Subtract a duration from a timestamp
+The [`experimental.subDuration()` function](/v2.0/reference/flux/stdlib/experimental/subduration/)
 subtracts a duration from a specified time and returns the resulting time.
 
 {{% warn %}}
-By using `experimental.addDuration()`, you accept the
+By using `experimental.subDuration()`, you accept the
 [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
