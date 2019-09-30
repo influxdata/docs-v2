@@ -26,7 +26,7 @@ jobs:
           command: sudo npm i -g postcss-cli autoprefixer redoc-cli
       - run:
           name: Generate API documentation
-          command: cd api-docs && sh generate-api-docs.sh
+          command: cd api-docs && bash generate-api-docs.sh
       - save_cache:
           key: install-v1-{{ checksum ".circleci/config.yml" }}
           paths:
