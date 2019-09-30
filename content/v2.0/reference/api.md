@@ -37,14 +37,15 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## View Influx v2 API Documentation
-View the
+## View InfluxDB v2 API Documentation
 <a class="btn" href="/v2.0/api/">InfluxDB v2.0 API documentation</a>
 
 ### View InfluxDB API documentation locally
 InfluxDB API documentation is built into the `influxd` service and represents
 the API specific to the current version of InfluxDB.
 To view the API documentation locally, [start InfluxDB](/v2.0/get-started/#start-influxdb)
-and visit the `/docs` endpoint in a browser.
+and visit the `/docs` endpoint in a browser ([localhost:9999/docs](http://localhost:9999/docs)).
 
-<a class="btn" href="http://localhost:9999/docs" target="\_blank">localhost:9999/docs</a>
+## InfluxDB client libraries
+InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
+For information about supported client libraries, see [InfluxDB client libraries](/v2.0/reference/client-libraries/).
