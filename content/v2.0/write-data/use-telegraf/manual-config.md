@@ -29,6 +29,7 @@ Input plugins collect metrics. Output plugins define destinations where metrics 
 _See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
 
 ## Enable and configure the InfluxDB v2 output plugin
+
 To send data to an InfluxDB v2.0 instance, enable in the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
@@ -58,9 +59,42 @@ InfluxData does not recommend storing authentication tokens in plain text in the
 A secure alternative is to set the `INFLUX_TOKEN` environment variable and include
 it into your configuration file.
 
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS or Linux](#)
+[Windows](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
 ```sh
 export INFLUX_TOKEN=YourAuthenticationToken
 ```
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[PowerShell](#)
+[CMD](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```sh
+$env:INFLUX_TOKEN = “YourAuthenticationToken"
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```sh
+set INFLUX_TOKEN=YourAuthenticationToken 
+# Make sure to include a space character at the end of this command.
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 _See the [example `telegraf.conf` below](#example-influxdb-v2-configuration)._
 {{% /note %}}
@@ -104,16 +138,20 @@ The example below illustrates `influxdb_v2` configurations that write to InfluxD
 
 # ...
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 {{% note %}}
+
 ##### Write to InfluxDB v1.x and v2.0
+
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
 enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.0 instances.
 {{% /note %}}
 
 ## Start Telegraf
+
 Start the Telegraf service using the `-config` flag to specify the location of your `telegraf.conf`.
 
 ```sh
