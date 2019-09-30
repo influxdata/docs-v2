@@ -23,7 +23,10 @@ jobs:
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NPM dependencies
-          command: sudo npm i -g postcss-cli autoprefixer
+          command: sudo npm i -g postcss-cli autoprefixer redoc-cli
+      - run:
+          name: Generate API documentation
+          command: cd api-docs && sh generate-api-docs.sh
       - save_cache:
           key: install-v1-{{ checksum ".circleci/config.yml" }}
           paths:

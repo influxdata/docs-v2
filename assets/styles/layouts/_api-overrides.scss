@@ -1,0 +1,266 @@
+@import "tools/color-palette";
+@import "tools/icomoon";
+
+// Fonts
+$rubik: 'Rubik', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$roboto-mono: 'Roboto Mono', monospace;
+
+// Font weights
+$medium: 500;
+$bold: 700;
+
+//////////////////////////////////// LOADER ////////////////////////////////////
+
+#loading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: $g20-white;
+  opacity: 1;
+  transition: opacity .5s;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  border-radius: 50%;
+  border: 3px solid $g16-pearl;
+  border-top-color: $cp-comet;
+  animation: spinner .6s linear infinite;
+}
+
+//////////////////////////////// InfluxDB Header ///////////////////////////////
+
+#influx-header {
+  font-family: $rubik;
+  padding: 15px 20px ;
+  display: block;
+  background-color: $wp-violentdark;
+  a {
+    color: $g20-white;
+    text-decoration: none;
+    transition: color .2s;
+    &:hover {
+      color: $b-pool;
+    }
+    &:before {
+      content: '\e918';
+      font-family: 'icomoon';
+      margin-right: .65rem;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+.cjtbAK {
+  h1,h2,h3,h4,h5,h6,
+  p,li,th,td {
+    font-family: $rubik !important;
+  }
+}
+
+#redoc {
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: $medium !important;
+  }
+}
+
+// Section title padding
+.dluJDj {
+  padding: 20px 0;
+}
+
+// Page h1
+.dTJWQH {
+  color: $g7-graphite;
+  font-size: 2rem;
+}
+
+// Download button
+.jIdpVJ {
+  background: $b-dodger;
+  color: $g20-white;
+  border: none;
+  border-radius: 3px;
+  font-family: $rubik;
+  font-size: .85rem;
+  font-weight: $medium;
+  transition: background-color .2s;
+  &:hover {
+    background-color: $b-pool;
+  }
+}
+
+// Tag h1s
+.WxWXp {
+  color: $g7-graphite;
+  font-size: 1.75rem;
+}
+
+// Summaru h2s and table headers
+.ioYTqA, .bxcHYI, .hoUoen {
+  color: $g7-graphite;
+}
+
+// h3s
+.espozG {
+  color: $g8-storm;
+}
+
+// Links
+.bnFPhO a { color: $b-dodger;
+  &:visited {color: $b-dodger;}
+}
+
+.redoc-json {
+  font-family: $roboto-mono !important;
+}
+
+// Inline Code
+.flfxUM code,
+.gDsWLk code,
+.kTVySD {
+  font-family: $roboto-mono !important;
+  color: $cp-marguerite;
+  background: $cp-titan;
+  border-color: $cp-titan;
+}
+
+// Required tags
+.jsTAxL {
+  color: $o-curacao;
+}
+
+///////////////////////////// RESPONSE COLOR BLOCKS ////////////////////////////
+
+// Green
+.hLVzSF {
+  background-color: rgba($gr-wasabi, .5);
+  color: $gr-emerald;
+}
+
+// Red
+.byLrBg {
+  background-color: rgba($o-marmelade, .35);
+  color: $o-curacao;
+}
+
+
+
+/////////////////////////////////// LEFT NAV ///////////////////////////////////
+
+// Left nav background
+.gZdDsM {
+  background-color: $g19-ghost;
+}
+
+.gpbcFk:hover, .sc-eTuwsz.active {
+  background-color: rgb(237, 237, 237);
+}
+
+// List item text
+.SmuWE, .gcUzvG, .bbViyS, .sc-hrWEMg label {
+  font-family: $rubik !important;
+}
+
+.fyUykq {
+  font-weight: $medium;
+}
+
+// Request method tags
+.cFwMcp {
+  &.post { background-color: $b-curious; }
+  &.get { background-color: $gr-canopy; }
+  &.put { background-color: $cp-comet; }
+  &.patch { background-color: $ch-keylime; }
+  &.delete { background-color: $o-curacao; }
+}
+
+// Active nav section
+.gcUzvG, .iNzLCk:hover {
+  color: $m-magenta;
+}
+
+/////////////////////////////// RIGHT CODE COLUMN //////////////////////////////
+
+// Right column backgrounds
+.dtUibw, .fLUKgj {
+  background-color: $wp-jagger;
+  h3,h4,h5,h6 {
+    font-family: $rubik !important;
+    font-weight: $medium !important;
+  }
+}
+
+// Code backgrounds
+.irpqyy > .react-tabs__tab-panel {
+  background-color: $wp-telopea;
+}
+.dHLKeu, .fVaxnA {
+  padding-left: 10px;
+  background-color: $wp-telopea;
+}
+
+// Response code tabs
+.irpqyy > ul > li {
+  background-color: $wp-telopea;
+  border-radius: 3px;
+  &.react-tabs__tab--selected{ color: $cp-blueviolet; }
+  &.tab-error { color: $o-fire; }
+  &.tab-success { color: $gr-viridian; }
+}
+
+// Request methods
+.bNYCAJ,
+.jBjYbV,
+.hOczRB,
+.fRsrDc,
+.hPskZd {
+  font-family: $rubik;
+  font-weight: $medium;
+  letter-spacing: .04em;
+  border-radius: 3px;
+}
+.bNYCAJ { background-color: $b-curious; } /* Post */
+.jBjYbV { background-color: $gr-canopy; } /* Get */
+.hOczRB { background-color: $cp-comet; } /* Put */
+.fRsrDc { background-color: $ch-chartreuse; color: $ch-olive; } /* Patch */
+.hPskZd { background-color: $o-curacao; } /* Delete */
+
+// Content type block
+.gzAoUb {
+  background-color: rgba($wp-jagger, .4);
+  font-family: $rubik;
+}
+.iENVAs { font-family: $roboto-mono; }
+.dpMbau { font-family: $rubik; }
+
+// Code controls
+.fCJmC {
+  font-family: $rubik;
+  span { border-radius: 3px; }
+}
+
+// Code blocks
+.kZHJcC { font-family: $roboto-mono; }
+.jCgylq {
+  .token.string {
+    color: $gr-honeydew;
+    & + a { color: $b-malibu; }
+  }
+  .token.boolean { color: #f955b0; }
+}

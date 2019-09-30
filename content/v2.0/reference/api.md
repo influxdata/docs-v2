@@ -22,8 +22,13 @@ curl --request GET \
 ```
 
 ## View Influx v2 API Documentation
-Full InfluxDB v2 API documentation is built into the `influxd` service.
-To view the API documentation, [start InfluxDB](/v2.0/get-started/#start-influxdb)
+
+<a class="btn" href="/v2.0/api/">InfluxDB v2.0 API documentation</a>
+
+### View InfluxDB API documentation locally
+InfluxDB API documentation is built into the `influxd` service and represents
+the API specific to the current version of InfluxDB.
+To view the API documentation locally, [start InfluxDB](/v2.0/get-started/#start-influxdb)
 and visit the `/docs` endpoint in a browser.
 
 <a class="btn" href="http://localhost:9999/docs" target="\_blank">localhost:9999/docs</a>
