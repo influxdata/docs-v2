@@ -8,7 +8,6 @@ menu:
     name: Control a dashboard
     parent: Manage dashboards
 weight: 203
-draft: true
 ---
 
 ## Control at the dashboard level
@@ -23,27 +22,34 @@ For details on using the Data Explorer, see [Explore metrics](/v2.0/visualize-da
 
 ### Add a note
 
-Click **Add Note** to add a note to your dashboard.
-Enter your note in Markdown in the left pane. A preview appears in the right pane.
-Enable the **Show note when query returns no data** option to show the note only when the dashboard displays no data.
+1. Click **Add Note** to add a note cell to your dashboard.
+2. Enter your note in Markdown in the left pane. A preview appears in the right pane.
+3. Enable the **Show note when query returns no data** option to show the note only when the query displays no data.
+4. Click **Save**.
 
-### Timezone
+### Select timezone
 
 Click the timezone dropdown to select a timezone to use for the dashboard. Select either the local time (default) or UTC.
 
-### Refresh interval
+{{< img-hd src="/img/timezone.png" alt="Select timezone" />}}
+
+### Select auto-refresh interval
 
 Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
 
-<img>
+{{< img-hd src="/img/refresh-interval.png" alt="Select refresh interval" />}}
 
-### Manual refresh
+### Manually refresh dashboard
 
-Click the refresh button {{< icon "refresh" >}} to manually refresh the dashboard's data.
+Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashboard's data.
 
-### Time range
+### Select time range
 
-Select from the time range options or choose **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
+1. Select from the time range options in the dropdown menu.
+
+{{< img-hd src="/img/time-range.png" alt="Select time range" />}}
+
+2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.
 
 ### Variables
