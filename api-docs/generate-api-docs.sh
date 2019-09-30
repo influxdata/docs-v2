@@ -35,6 +35,8 @@ weight: 102
   # Create temp file with frontmatter and Redoc html
   echo "$frontmatter" >> $version.tmp
   cat redoc-static.html >> $version.tmp
+
+  # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html
   mv $version.tmp ../content/$version/api.html
 done
