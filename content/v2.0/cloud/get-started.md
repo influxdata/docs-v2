@@ -43,7 +43,7 @@ Once you're ready to grow, [upgrade to the Pay As You Go Plan](/v2.0/cloud/accou
 5.  Click **Continue**. {{< cloud-name >}} opens with a default organization
     and bucket (both created from your email address).
 
-    _To update organization and bucket names, see [Update an organtization](/v2.0/organizations/update-org/)
+    _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
 {{% cloud-msg %}}
@@ -117,7 +117,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
 - Retrieving data from a file based CSV source using the `file` parameter of the
-  [`csv.from()`](/v2/reference/flux/functions/csv/from) function is not supported;
+  [`csv.from()`](/v2.0/reference/flux/functions/csv/from) function is not supported;
   however you can use raw CSV data with the `csv` parameter.
 - Multi-organization accounts and multi-user organizations are currently not
   available in {{< cloud-name >}}.
@@ -139,4 +139,4 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
 - **Usage-based pricing**: The [The Pay As You Go Plan](/v2.0/cloud/pricing-plans/#pay-as-you-go-plan)
-  offers more flexibility and ensures that you only pay for what you use.
+  offers more flexibility and ensures that you only pay for what you use. To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).

@@ -11,7 +11,7 @@ menu:
     parent: Query data
 related:
   - /v2.0/reference/flux/
-  - /v2.0/reference/flux/functions/
+  - /v2.0/reference/flux/stdlib/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,

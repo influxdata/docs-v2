@@ -48,7 +48,7 @@ InfluxDB accepts the following precisions:
 - `s` - Seconds
 
 ### Authentication token
-All InfluxDB write interactions require an [authentication token](http://localhost:1313/v2.0/security/tokens/).
+All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).
 
 ### Line protocol
 Use line protocol to write data points to InfluxDB.
@@ -114,29 +114,46 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 ```
 
 ## Write data in the InfluxDB UI
-1. Click **Settings** in the left navigation menu.
+1. Click **Load Data** in the left navigation menu.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Select the **Buckets** tab.
-3. Hover over the bucket to write data to and click **{{< icon "plus" >}} Add Data**.
-4. Select **Line Protocol**.
-   _You can also [use Telegraf](/v2.0/write-data/use-telegraf/) or
-   [scrape data](/v2.0/write-data/scrape-data/)._
-5. Select **Upload File** or **Enter Manually**.
+2. Select **Buckets**.
+3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
+4. Select from the following options:
 
-    - **Upload File:**
-      Select the time precision of your data.
-      Drag and drop the line protocol file into the UI or click to select the
-      file from your file manager.
-    - **Enter Manually:**
-      Select the time precision of your data.
-      Manually enter line protocol.
+    - [Configure Telegraf Agent](#configure-telegraf-agent)
+    - [Line Protocol](#line-protocol-1)
+    - [Scrape Metrics](#scrape-metrics)
 
-6. Click **Continue**.
-   A message indicates whether data is successfully written to InfluxDB.
-7. To add more data or correct line protocol, click **Previous**.
-8. Click **Finish**.
+    ---
+
+    #### Configure Telegraf Agent  
+    1.  To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
+
+    ---
+
+    #### Line Protocol
+    1.  Select **Upload File** or **Enter Manually**.
+        - **Upload File:**
+          Select the time precision of your data.
+          Drag and drop the line protocol file into the UI or click to select the
+          file from your file manager.
+        - **Enter Manually:**
+          Select the time precision of your data.
+          Manually enter line protocol.
+    2. Click **Continue**.
+       A message indicates whether data is successfully written to InfluxDB.
+    3. To add more data or correct line protocol, click **Previous**.
+    4. Click **Finish**.
+
+    ---
+
+    #### Scrape Metrics
+    1.  To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
+
+        {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
+        {{% /cloud-msg %}}
 
 ## Other ways to write data to InfluxDB
 

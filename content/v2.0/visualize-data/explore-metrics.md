@@ -28,7 +28,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-  {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" >}}
 
 2. Use the Flux builder in the bottom panel to select a bucket and filters such as measurement, field or tag.
    Alternatively, click **Script Editor** to manually edit the query.

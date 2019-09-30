@@ -12,7 +12,7 @@ menu:
 ---
 
 The Graph visualization provides several types of graphs, each configured through
-the [Graph options](#graph-options).
+the [Graph controls](#graph-controls).
 
 {{< img-hd src="/img/2-0-visualizations-line-graph-example.png" alt="Line Graph example" />}}
 

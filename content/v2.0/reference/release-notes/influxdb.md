@@ -7,6 +7,43 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.0.0-alpha.18 [2019-09-26]
+
+### Features
+- Add jsonweb package for future JWT support.
+- Added the JMeter Template dashboard.
+
+### UI Improvements
+- Display dashboards index as a grid.
+- Add viewport scaling to html meta for responsive mobile scaling.
+- Remove rename and delete functionality from system buckets.
+-  Prevent new buckets from being named with the reserved `_` prefix.
+- Prevent user from selecting system buckets when creating Scrapers, Telegraf configurations, read/write tokens, and when saving as a task.
+- Limit values from draggable threshold handles to 2 decimal places.
+- Redesign check builder UI to fill the screen and make more room for composing message templates.
+- Move Tokens tab from Settings to Load Data page.
+- Expose all Settings tabs in navigation menu.
+- Added Stream and table functions to query builder.
+
+### Bug Fixes
+- Remove scrollbars blocking onboarding UI step.
+
+---
+
+## v2.0.0-alpha.17 [2019-08-14]
+
+### Features
+- Optional gzip compression of the query CSV response.
+- Add task types.
+- When getting task runs from the API, runs will be returned in order of most recently scheduled first.
+
+### Bug Fixes
+- Fix authentication when updating a task with invalid org or bucket.
+- Update the documentation link for Telegraf.
+- Fix to surface errors properly as task notifications on create.
+- Fix limiting of get runs for task.
+
+---
 
 ## v2.0.0-alpha.16 [2019-07-25]
 
