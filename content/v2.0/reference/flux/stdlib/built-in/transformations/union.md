@@ -35,21 +35,13 @@ _**Data type:** Array of streams_
 
 ## Examples
 ```js
-left = from(bucket: "test")
+left = from(bucket: "example-bucket")
   |> range(start: 2018-05-22T19:53:00Z, stop: 2018-05-22T19:53:50Z)
-  |> filter(fn: (r) =>
-    r._field == "usage_guest" or
-    r._field == "usage_guest_nice"
-  )
-  |> drop(columns: ["_start", "_stop"])
+  |> filter(fn: (r) => r._field == "usage_guest" or r._field == "usage_guest_nice")
 
-right = from(bucket: "test")
+right = from(bucket: "example-bucket")
   |> range(start: 2018-05-22T19:53:50Z, stop: 2018-05-22T19:54:20Z)
-  |> filter(fn: (r) =>
-    r._field == "usage_guest" or
-    r._field == "usage_idle"
-  )
-  |> drop(columns: ["_start", "_stop"])
+  |> filter(fn: (r) => r._field == "usage_guest" or r._field == "usage_idle")
 
 union(tables: [left, right])
 ```
