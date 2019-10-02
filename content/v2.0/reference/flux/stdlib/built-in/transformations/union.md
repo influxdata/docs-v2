@@ -18,11 +18,11 @@ The output schemas of the `union()` function is the union of all input schemas.
 `union()` does not preserve the sort order of the rows within tables.
 A sort operation may be added if a specific sort order is needed.
 
-_**Function type:** Transformation_
+_**Function type:** Transformation_  
 _**Output data type:** Object_
 
 ```js
-union(tables: ["table1", "table2"])
+union(tables: [table1, table2])
 ```
 
 ## Parameters
