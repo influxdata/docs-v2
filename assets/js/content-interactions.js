@@ -92,3 +92,10 @@ $(".article--content img").on("error", function() {
   $(this).attr("src", "/img/coming-soon.svg");
   $(this).attr("style", "max-width:500px;");
 });
+
+////////////////////////// Inject tooltips on load //////////////////////////////
+$('.tooltip').each( function(){
+  $toolTipText = $('<div/>').addClass('tooltip-text').text($(this).attr('data-tooltip-text'));
+  $toolTipElement = $('<div/>').addClass('tooltip-container').append($toolTipText);
+  $(this).prepend($toolTipElement);
+});
