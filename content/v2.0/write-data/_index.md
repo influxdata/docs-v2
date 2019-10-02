@@ -109,8 +109,13 @@ Include the following in your command:
 # Write a single data point
 influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
 
+# Write multiple data points
+influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326\nmyMeasurement2,host=myHost testField2="testData" 1556896327\nmyMeasurement3,host=myHost testField3="testData" 1556896328'
+
 # Write line protocol from a file
 influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
+
+To write multiple lines in one request, add the newline character `\n` to the end of each line.
 ```
 
 ## Write data in the InfluxDB UI
