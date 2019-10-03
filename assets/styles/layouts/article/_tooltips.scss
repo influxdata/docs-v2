@@ -1,0 +1,39 @@
+////////////////////////////////// Tool Tips //////////////////////////////////
+
+.tooltip {
+  font-weight: $medium;
+  color: $article-link;
+  position: relative;
+
+  &:before {
+    content: attr(data-tooltip-text);
+    position: absolute;
+    padding: .5rem 1rem;
+    background: $article-bg;
+    border-radius: $radius;
+    box-shadow: 1px 3px 10px $article-shadow;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 100;
+    top: -3rem;
+    left: 50%;
+    margin: 0 0 0 -50%;
+  }
+
+  // &:after {
+  //   content: '';
+  //   top: -1.25rem;
+  //   left: -50%;
+  //   position: absolute;
+  //   z-index: 100;
+  //   width: 0;
+  //   height: 0;
+  //   border-style: solid;
+  //   border-width: 6px 6px 0 6px;
+  //   border-color: red transparent transparent transparent;
+  // }
+}
+
+.tooltip-modal {
+
+}
