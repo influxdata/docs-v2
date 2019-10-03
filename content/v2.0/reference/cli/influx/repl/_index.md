@@ -19,6 +19,10 @@ from which you can run Flux commands.
 influx repl [flags]
 ```
 
+{{% note %}}
+Use **ctrl + d** to exit the REPL.
+{{% /note %}}
+
 ## Flags
 | Flag           | Description                     | Input type |
 |:----           |:-----------                     |:----------:|
