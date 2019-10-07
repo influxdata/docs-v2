@@ -1,8 +1,9 @@
-#### Issue description
+_Describe the issue here._
 
-#### Relevant URLs
+##### Relevant URLs
+- _Provide relevant URLs_
 
-#### What products and version are you using?
+##### What products and version are you using?
 
 <!--
 Is this an issue with the InfluxDB documentation (typos, missing/inaccurate information, etc.)
