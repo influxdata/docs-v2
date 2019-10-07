@@ -1,15 +1,8 @@
-- [ ] Signed the CLA
+Closes #
 
-#### Issue description
+_Describe your proposed changes here._
 
-#### Relevant URLs
-
-#### What products and version are you using?
-
-
-<!--
-Is this an issue with the InfluxDB documentation (typos, missing/inaccurate information, etc.)
-or it related to a specific InfluxData project (bug report, unexpected behavior, etc.)?
-Submit product-related issues to the appropriate Github repository in the
-[InfluxData organization](https://github.com/influxdata).
--->
+- [ ] Signed the [InfluxData CLA](https://www.influxdata.com/legal/cla/)
+  ([if necessary](https://github.com/influxdata/docs-v2/blob/master/CONTRIBUTING.md#sign-the-influxdata-cla))
+- [ ] Tests pass (no build errors)
+- [ ] Rebased/mergeable
