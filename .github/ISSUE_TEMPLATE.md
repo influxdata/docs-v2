@@ -6,8 +6,12 @@ _Describe the issue here._
 ##### What products and version are you using?
 
 <!--
-Is this an issue with the InfluxDB documentation (typos, missing/inaccurate information, etc.)
-or it related to a specific InfluxData project (bug report, unexpected behavior, etc.)?
-Submit product-related issues to the appropriate Github repository in the
-[InfluxData organization](https://github.com/influxdata).
+For InfluxDB 2.0 documentation issues (typos, missing/inaccurate information,
+etc.), create an issue in this repository. For project issues (bugs, unexpected
+behavior, etc.), create an issue in the appropriate project repository.
+For example, report:
+
+- InfluxDB issues at https://github.com/influxdata/influxdb
+- Telegraf issues at https://github.com/influxdata/telegraf
+- Flux issues at https://github.com/influxdata/flux
 -->
