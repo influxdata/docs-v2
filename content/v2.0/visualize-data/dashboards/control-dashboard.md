@@ -52,20 +52,10 @@ Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashbo
 2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.
 
-### Variables
+### Add variables
 
-Click **Variables** to display variables available for your dashboard.
-For details, see [Use and manage variables](/v2.0/visualize-data/variables/)
+- Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/v2.0/visualize-data/variables/)
 
 ### Presentation mode
 
-Click the fullscreen icon to enter presentation mode.
-
-## Control dashboard cells
-
-
-### View raw data
-
-### Visualization type selector
-
-See <visualization types>.
+- Click the fullscreen icon ({{< icon "fullscreen" >}}) to enter presentation mode.

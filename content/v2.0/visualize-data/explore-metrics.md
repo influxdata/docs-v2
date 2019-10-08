@@ -41,6 +41,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
   * Click on the name of the query in the tab to rename it.
 
 ## Visualize your query
+
 Select from available [visualization types](/v2.0/visualize-data/visualization-types/) or enable the **View Raw Data** option to view all of your query's results.
 
 1. Select a visualization type from the dropdown menu in the upper-left.
@@ -50,6 +51,43 @@ Select from available [visualization types](/v2.0/visualize-data/visualization-t
 2. Select the **Visualization** tab at the bottom of the **Data Explorer**.
    For details about all of the available visualization options, see
    [Visualization types](/v2.0/visualize-data/visualization-types/).
+
+## Control your dashboard cell
+
+From the cell editor overlay, use the controls in the lower pane to control your dashboard.
+
+### View raw data
+
+Toggle the **View Raw data** option to see your data in table format instead of a graph.
+
+ {{< img-hd src="/img/view-raw-data.png" alt="View raw data" />}}
+
+### Save as CSV
+
+Click the CSV icon to save the cells contents as a CSV file.
+
+### Select auto-refresh interval
+
+Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
+
+{{< img-hd src="/img/refresh-interval.png" alt="Select refresh interval" />}}
+
+### Manually refresh dashboard
+
+Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashboard's data.
+
+### Select time range
+
+1. Select from the time range options in the dropdown menu.
+
+{{< img-hd src="/img/time-range.png" alt="Select time range" />}}
+
+2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
+The default time range is 5m.
+
+### Query Builder or Script Editor
+
+Click **Query Builder** to use the builder to create a Flux query. Click **Script Editor** to manually edit the query.
 
 ## Save your query as a dashboard cell or task
 
