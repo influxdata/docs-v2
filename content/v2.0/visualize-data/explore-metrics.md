@@ -58,7 +58,7 @@ From the cell editor overlay, use the controls in the lower pane to control your
 
 ### View raw data
 
-Toggle the **View Raw data** option to see your data in table format instead of a graph.
+Toggle the **View Raw data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
 
  {{< img-hd src="/img/view-raw-data.png" alt="View raw data" />}}
 
