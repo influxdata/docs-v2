@@ -94,6 +94,9 @@ $(".article--content img").on("error", function() {
 });
 
 ////////////////////////// Inject tooltips on load //////////////////////////////
-$('.tooltip').each( function(){
 
-});
+$('.tooltip').each( function(){
+		$toolTipText = $('<div/>').addClass('tooltip-text').text($(this).attr('data-tooltip-text'));
+		$toolTipElement = $('<div/>').addClass('tooltip-container').append($toolTipText);
+		$(this).prepend($toolTipElement);
+	});

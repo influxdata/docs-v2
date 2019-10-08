@@ -1,9 +1,10 @@
 // InfluxData Docs Default Theme (Light)
 
 // Import Tools
-@import "tools/icomoon";
-@import "tools/media-queries.scss";
-@import "tools/mixins.scss";
+@import "tools/icomoon",
+        "tools/media-queries.scss",
+        "tools/mixins.scss",
+        "tools/tooltips";
 
 // Import default light theme
 @import "themes/theme-light.scss";
