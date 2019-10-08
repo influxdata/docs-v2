@@ -22,19 +22,23 @@ the InfluxDB user interface (UI), and client libraries.
 - [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb)
 
 ## Requirements to write data
+
 To write data to InfluxDB, you must have an organization, bucket, authentication token,
 and data formatted in line protocol.
 
 ### Organization
+
 The organization in which to write data.
 Use your organization name or ID.
 
 ### Bucket
+
 The bucket in which to write data.
 Use the bucket name or ID.
 The bucket must belong to the specified organization.
 
 ### Precision
+
 The precision of timestamps provided in the line protocol.
 Default timestamp precision is in nanoseconds.
 
@@ -48,9 +52,11 @@ InfluxDB accepts the following precisions:
 - `s` - Seconds
 
 ### Authentication token
+
 All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).
 
 ### Line protocol
+
 Use line protocol to write data points to InfluxDB.
 Each line represents a data point.
 Each point requires a [measurement](/v2.0/reference/line-protocol/#measurement)
@@ -63,6 +69,7 @@ of its host machine when it receives the data point._
 {{% /note %}}
 
 ##### Example line protocol
+
 ```sh
 mem,host=host1 used_percent=23.43234543 1556892576842902000
 cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
@@ -73,6 +80,7 @@ _For details about line protocol, see the [Line protocol reference](/v2.0/refere
 <!-- Link to line protocol best practices -->
 
 ## Write data using the InfluxDB v2 API
+
 Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
 Include the following in your request:
 
@@ -85,6 +93,7 @@ Include the following in your request:
 | Line protocol        | Pass as plain text in your request body.                 |
 
 ###### Example API write request
+
 ```sh
 curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
@@ -92,6 +101,7 @@ curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precisi
 ```
 
 ## Write data using the influx CLI
+
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
 
@@ -105,6 +115,7 @@ Include the following in your command:
 
 
 ##### Example influx write commands
+
 ```sh
 # Write a single data point
 influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
@@ -119,6 +130,7 @@ To write multiple lines in one request, add the newline character `\n` to the en
 ```
 
 ## Write data in the InfluxDB UI
+
 1. Click **Load Data** in the left navigation menu.
 
     {{< nav-icon "load data" >}}
@@ -133,12 +145,14 @@ To write multiple lines in one request, add the newline character `\n` to the en
 
     ---
 
-    #### Configure Telegraf Agent  
-    1.  To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
+    ### Configure Telegraf Agent  
+    
+    To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
 
     ---
 
-    #### Line Protocol
+    ### Line Protocol
+
     1.  Select **Upload File** or **Enter Manually**.
         - **Upload File:**
           Select the time precision of your data.
@@ -154,8 +168,9 @@ To write multiple lines in one request, add the newline character `\n` to the en
 
     ---
 
-    #### Scrape Metrics
-    1.  To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
+    ### Scrape Metrics
+
+    To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
         {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
         {{% /cloud-msg %}}
@@ -165,5 +180,6 @@ To write multiple lines in one request, add the newline character `\n` to the en
 {{< children >}}
 
 ### InfluxDB client libraries
+
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
 See [Client libraries reference](/v2.0/reference/client-libraries/) for more information.
