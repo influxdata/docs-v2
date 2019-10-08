@@ -1,0 +1,91 @@
+@import "themes/theme-light.scss";
+
+// Font weights
+$medium: 500;
+$bold: 700;
+
+// Border radius
+$radius: 3px;
+
+////////////////////////////////// Tool Tips //////////////////////////////////
+
+.tooltip {
+	position: relative;
+  display: inline;
+	font-weight: $medium;
+	color: $tooltip-color;
+
+  &:hover {
+    .tooltip-container { visibility: visible; }
+    .tooltip-text {
+    	opacity: 1;
+    	transform: translate(-50%,-2.5rem);
+    }
+  }
+
+  .tooltip-container {
+  	position: absolute;
+  	top: 0;
+  	left: 50%;
+  	transform: translateX(-50%);
+  	overflow: visible;
+  	visibility: hidden;
+  }
+
+  .tooltip-text {
+  	font-weight: $medium;
+  	position: absolute;
+  	border-radius: $radius;
+  	padding: .15rem .75rem;
+  	font-size: 0.9rem;
+    line-height: 1.75rem;
+  	left: 50%;
+  	transform: translate(-50%,-1.75rem);
+  	transition: all 0.2s ease;
+  	white-space: nowrap;
+  	opacity: 0;
+  	color: $tooltip-text;
+  	background-color: $tooltip-bg;
+
+    &:after {
+    	content: '';
+    	position: absolute;
+    	left: 50%;
+    	bottom: -14px;
+    	transform: translateX(-50%);
+    	border-top: 8px solid $tooltip-bg;
+    	border-right: 8px solid transparent;
+    	border-bottom: 8px solid transparent;
+    	border-left: 8px solid transparent;
+    }
+  }
+}
+
+th .tooltip {
+	color: $tooltip-color-alt;
+
+  &:hover {
+    .tooltip-container { visibility: visible; }
+    .tooltip-text {
+    	opacity: 1;
+    	transform: translate(-50%,1.75rem);
+    }
+  }
+
+  .tooltip-text {
+  	transform: translate(-50%,1rem);
+
+    &:after {
+    	content: '';
+    	position: absolute;
+      height: 0;
+    	left: 50%;
+    	top: -14px;
+    	transform: translateX(-50%);
+    	border-top: 8px solid transparent;
+    	border-right: 8px solid transparent;
+    	border-bottom: 8px solid $tooltip-bg;
+    	border-left: 8px solid transparent;
+    }
+  }
+}

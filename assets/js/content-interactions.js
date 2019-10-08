@@ -35,9 +35,9 @@ $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
 ///////////////////////////// Left Nav Interactions /////////////////////////////
 
 $(".children-toggle").click(function(e) {
-	e.preventDefault()
-	$(this).toggleClass('open');
-	$(this).siblings('.children').toggleClass('open');
+  e.preventDefault()
+  $(this).toggleClass('open');
+  $(this).siblings('.children').toggleClass('open');
 })
 
 //////////////////////////// Mobile Contents Toggle ////////////////////////////
@@ -52,28 +52,28 @@ $('#contents-toggle-btn').click(function(e) {
 
 function tabbedContent(container, tab, content) {
 
-	// Add the active class to the first tab in each tab group,
-	// in case it wasn't already set in the markup.
-	$(container).each(function () {
-		$(tab, this).removeClass('is-active');
-		$(tab + ':first', this).addClass('is-active');
-	});
+  // Add the active class to the first tab in each tab group,
+  // in case it wasn't already set in the markup.
+  $(container).each(function () {
+    $(tab, this).removeClass('is-active');
+    $(tab + ':first', this).addClass('is-active');
+  });
 
-	$(tab).on('click', function(e) {
-		e.preventDefault();
+  $(tab).on('click', function(e) {
+    e.preventDefault();
 
-		// Make sure the tab being clicked is marked as active, and make the rest inactive.
-		$(this).addClass('is-active').siblings().removeClass('is-active');
+    // Make sure the tab being clicked is marked as active, and make the rest inactive.
+    $(this).addClass('is-active').siblings().removeClass('is-active');
 
-		// Render the correct tab content based on the position of the tab being clicked.
-		const activeIndex = $(tab).index(this);
-		$(content).each(function(i) {
-			if (i === activeIndex) {
-				$(this).show();
-				$(this).siblings(content).hide();
-			}
-		});
-	});
+    // Render the correct tab content based on the position of the tab being clicked.
+    const activeIndex = $(tab).index(this);
+    $(content).each(function(i) {
+      if (i === activeIndex) {
+        $(this).show();
+        $(this).siblings(content).hide();
+      }
+    });
+  });
 }
 
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
@@ -82,8 +82,8 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 /////////////////////////////// Truncate Content ///////////////////////////////
 
 $(".truncate-toggle").click(function(e) {
-	e.preventDefault()
-	$(this).closest('.truncate').toggleClass('closed');
+  e.preventDefault()
+  $(this).closest('.truncate').toggleClass('closed');
 })
 
 //////////////////// Replace Missing Images with Placeholder ///////////////////
@@ -94,6 +94,7 @@ $(".article--content img").on("error", function() {
 });
 
 ////////////////////////// Inject tooltips on load //////////////////////////////
+
 $('.tooltip').each( function(){
   $toolTipText = $('<div/>').addClass('tooltip-text').text($(this).attr('data-tooltip-text'));
   $toolTipElement = $('<div/>').addClass('tooltip-container').append($toolTipText);

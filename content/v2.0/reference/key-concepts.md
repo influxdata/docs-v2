@@ -133,10 +133,10 @@ This means that queries on tags are faster and that tags are ideal for storing c
 That behavior can hurt query response times - especially on a much larger scale.
 To optimize your queries, it may be beneficial to rearrange your [schema](/influxdb/v0.10/concepts/glossary/#schema) such that the fields (`butterflies` and `honeybees`) become the tags and the tags (`location` and `scientist`) become the fields:
 
-| _time                | _measurement | <span class="tooltip" tooltip-text="Tag key">scientist</span> | _field | _value |
+| _time                | _measurement | <span class="tooltip" data-tooltip-text="Tag key">scientist</span> | _field | _value |
 |----------------------|--------------|-----------|--------|-------|
-| 2015-08-18T00:00:00Z | <span class="tooltip" tooltip-text="Measurement name">census</span> | <span class="tooltip" tooltip-text="Tag value">langstroth</span> | <span class="tooltip" tooltip-text="Field key">butterflies</span> | <span class="tooltip" tooltip-text="Field value">33</span> |
 | 2015-08-18T00:00:00Z | census | mullen   | honeybees   | 23 |
+| <span class="tooltip" data-tooltip-text="Timestamp">2015-08-18T00:00:00Z</span> | <span class="tooltip" data-tooltip-text="Measurement name">census</span> | <span class="tooltip" data-tooltip-text="Tag value">langstroth</span> | <span class="tooltip" data-tooltip-text="Field key">butterflies</span> | <span class="tooltip" data-tooltip-text="Field value">33</span> |
 | 2015-08-18T00:06:00Z | census | anderson | butterflies | 45 |
 | 2015-08-18T00:06:00Z | census | mullen   | honeybees   | 10 |
 
