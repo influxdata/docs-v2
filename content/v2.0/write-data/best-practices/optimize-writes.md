@@ -22,6 +22,7 @@ The following tools write to InfluxDB and employ write optimizations by default:
 ---
 
 ## Batch writes
+
 Write data in batches to Minimize network overhead when writing data to InfluxDB.
 
 {{% note %}}
@@ -29,6 +30,7 @@ The optimal batch size is 5000 lines of line protocol.
 {{% /note %}}
 
 ## Sort tags by key
+
 Before writing data points to InfluxDB, sort tags by key in lexicographic order.
 _Verify sort results match results from the [Go `bytes.Compare` function](http://golang.org/pkg/bytes/#Compare)._
 
@@ -41,6 +43,7 @@ measurement,tagA=i,tagB=think,tagC=therefore,tagD=i,tagE=am fieldKey=fieldValue 
 ```
 
 ## Use the coarsest time precision possible
+
 InfluxDB lets you write data in nanosecond precision, however if data isn't
 collected in nanoseconds, there is no need to write at that precision.
 Using the coarsest precision possible for timestamps can result in significant
@@ -49,7 +52,12 @@ compression improvements.
 _Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#precision)._
 
 ## Synchronize hosts with NTP
+
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
 If a timestamp isn't included in line protocol, InfluxDB uses its host's local
 time (in UTC) to assign timestamps to each point.
 If a host's clocks isn't synchronized with NTP, timestamps may be inaccurate.
+
+## Write multiple data points in one request
+
+To write multiple lines in one request, each line of line protocol must be delimited by a new line (`\n`).
