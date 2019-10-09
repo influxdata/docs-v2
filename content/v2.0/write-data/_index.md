@@ -28,7 +28,7 @@ First, install InfluxDBv2 by following [these instructions](/v2.0/get-started).
 
 #### The basics
 
-To write data to InfluxDB, you will need to have an _organization_, a _bucket_, and an _authentication token_.
+To write data into InfluxDB, you will need to have an _organization_, a _bucket_, and an _authentication token_.
 (All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).)
 If you've installed using the graphical UI, you should have been guided through creating all these.
 
@@ -69,7 +69,7 @@ _For more details about line protocol, see the [Line protocol reference](/v2.0/r
 
 There are multiple ways to get data into InfluxDB.
 
-### InfluxDB UI
+### User Interface
 
 When first getting started with InfluxDB, you can use the provided user interface to start writing data right away.
 By default the UI is at http://localhost:9999.
@@ -87,11 +87,13 @@ Navigate to the interface using a web browser then follow the instructions below
 ---
 
 #### Configure Telegraf Agent
+
 To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
 
 ---
 
 #### Line Protocol
+
 1.  Select **Upload File** or **Enter Manually**.
     - **Upload File:**
       Select the time precision of your data.
@@ -108,12 +110,13 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
 ---
 
 #### Scrape Metrics
+
 To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
 {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
 {{% /cloud-msg %}}
 
-### InfluxBD command line tool (`influx`)
+### Command line tool (`influx`)
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
