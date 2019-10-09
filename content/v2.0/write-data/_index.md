@@ -81,7 +81,7 @@ Navigate to the interface using a web browser then follow the instructions below
 4. Select from the following options:
 
    - [Configure Telegraf Agent](#configure-telegraf-agent)
-   - [Line Protocol](#line-protocol-1)
+   - [Line Protocol](#line-protocol)
    - [Scrape Metrics](#scrape-metrics)
 
 ---
