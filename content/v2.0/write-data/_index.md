@@ -12,10 +12,12 @@ v2.0/tags: [write, line protocol]
 ---
 
 <!-- CONTENTS -->
-<!-- - [Before you begin](#before-you-begin) -->
-<!-- - [InfluxDB v2 API](#write-data-using-the-influxdb-v2-api) -->
-<!-- - [influx CLI](#write-data-using-the-influx-cli) -->
-<!-- - [InfluxDB UI](#write-data-in-the-influxdb-ui) -->
+- [Before you begin](#before-you-begin)
+- [What you'll need](#what-you-ll-need)
+- [Methods for writing data into InfluxDB](#methods)
+  - [InfluxDB UI](#influxdb-ui)
+  - [InfluxDB API](#influxdb-api)
+  - [`influx` CLI](#write-data-using-the-influx-cli)
 <!-- - [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb) -->
 
 ### Before you begin
@@ -23,6 +25,7 @@ v2.0/tags: [write, line protocol]
 First, install InfluxDBv2 by following [these instructions](/v2.0/get-started).
 
 ### What you'll need
+
 #### The basics
 
 To write data to InfluxDB, you will need to have an _organization_, a _bucket_, and an _authentication token_.
@@ -60,9 +63,9 @@ InfluxDB accepts the following precisions:
 _For more details about line protocol, see the [Line protocol reference](/v2.0/reference/line-protocol)._
 <!-- Link to line protocol best practices -->
 
-## Methods
+## Methods for writing data into InfluxDB
 
-### Write data using the InfluxDB API
+### InfluxDB API
 
 Data can be written to InfluxDB using raw http requests.
 Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
@@ -84,7 +87,7 @@ curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precisi
   --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
 ```
 
-### Write data using the influx CLI
+### `influx` CLI
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
