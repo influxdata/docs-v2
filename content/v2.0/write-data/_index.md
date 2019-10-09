@@ -15,9 +15,9 @@ v2.0/tags: [write, line protocol]
 - [Before you begin](#before-you-begin)
 - [What you'll need](#what-you-ll-need)
 - [Methods for writing data into InfluxDB](#methods)
-  - [InfluxDB UI](#influxdb-ui)
-  - [InfluxDB API](#influxdb-api)
+  - [InfluxDB graphical user interface](#influxdb-graphical-user-interface)
   - [`influx` CLI](#write-data-using-the-influx-cli)
+  - [InfluxDB API](#influxdb-api)
 <!-- - [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb) -->
 
 ### Before you begin
@@ -65,54 +65,9 @@ _For more details about line protocol, see the [Line protocol reference](/v2.0/r
 
 ## Methods for writing data into InfluxDB
 
-### InfluxDB API
+There are multiple ways to get data into InfluxDB.
 
-Data can be written to InfluxDB using raw http requests.
-Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
-Include the following in your request:
-
-| Requirement          | Include by                                               |
-|:-----------          |:----------                                               |
-| Organization         | Use the `org` query parameter in your request URL.       |
-| Bucket               | Use the `bucket` query parameter in your request URL.    |
-| Precision            | Use the `precision` query parameter in your request URL. |
-| Authentication token | Use the `Authorization: Token` header.                   |
-| Line protocol        | Pass as plain text in your request body.                 |
-
-Below is an example API write request using `curl`:
-
-```sh
-curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
-```
-
-### `influx` CLI
-
-Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
-Include the following in your command:
-
-| Requirement          | Include by                                                                  |
-|:-----------          |:----------                                                                  |
-| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                  |
-| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                           |
-| Precision            | Use the the `-p`, `--precision` flag.                                       |
-| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
-| Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
-
-To write a single data point, for example, run
-
-```sh
-influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
-```
-
-To write data in line protocol from a file, try
-
-```
-influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
-```
-
-### Write data in the InfluxDB UI
+### InfluxDB UI
 
 1. Click **Load Data** in the left navigation menu.
 
@@ -154,6 +109,55 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 
     {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
     {{% /cloud-msg %}}
+
+### `influx` CLI
+
+Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
+Include the following in your command:
+
+| Requirement          | Include by                                                                  |
+|:-----------          |:----------                                                                  |
+| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                  |
+| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                           |
+| Precision            | Use the the `-p`, `--precision` flag.                                       |
+| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
+| Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
+
+To write a single data point, for example, run
+
+```sh
+influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
+```
+
+To write data in line protocol from a file, try
+
+```
+influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
+```
+
+### InfluxDB API
+
+Data can be written to InfluxDB using raw http requests.
+Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
+Include the following in your request:
+
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| Organization         | Use the `org` query parameter in your request URL.       |
+| Bucket               | Use the `bucket` query parameter in your request URL.    |
+| Precision            | Use the `precision` query parameter in your request URL. |
+| Authentication token | Use the `Authorization: Token` header.                   |
+| Line protocol        | Pass as plain text in your request body.                 |
+
+Below is an example API write request using `curl`:
+
+```sh
+curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+  --header "Authorization: Token YOURAUTHTOKEN" \
+  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+```
+
+
 
 ### Other ways to write data to InfluxDB
 
