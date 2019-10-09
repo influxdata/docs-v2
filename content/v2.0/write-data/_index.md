@@ -69,6 +69,10 @@ There are multiple ways to get data into InfluxDB.
 
 ### InfluxDB UI
 
+When first getting started with InfluxDB, the fastest way to write data is to use the provided user interface.
+By default the UI is at http://localhost:9999.
+Navigate to the interface using a web browser then follow the instructions below.
+
 1. Click **Load Data** in the left navigation menu.
 
     {{< nav-icon "load data" >}}
@@ -84,7 +88,7 @@ There are multiple ways to get data into InfluxDB.
     ---
 
     #### Configure Telegraf Agent
-    1.  To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
+    To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
 
     ---
 
