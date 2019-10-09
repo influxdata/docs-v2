@@ -41,14 +41,16 @@ Each point requires a [*measurement*](/v2.0/reference/line-protocol/#measurement
 and [*field set*](/v2.0/reference/line-protocol/#field-set) but can also include
 a [*tag set*](/v2.0/reference/line-protocol/#tag-set) and a [*timestamp*](/v2.0/reference/line-protocol/#timestamp).
 
+Line protocol data looks like this:
+
 ```sh
 mem,host=host1 used_percent=23.43234543 1556892576842902000
 cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
 mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
-Timestamps are essential.
-If a data point does not include a timestamp when it is written, InfluxDB uses the current system time (UTC) of its host machine.)
+Timestamps are essential in InfluxDB.
+If a data point does not include a timestamp when it is written, InfluxDB uses the current system time (UTC) of its host machine.
 
 The default precision for timestamps is in nanoseconds.
 If the precision of the timestamps is anything other than nanoseconds (`ns`),
@@ -78,9 +80,9 @@ Navigate to the interface using a web browser then follow the instructions below
 3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
 4. Select from the following options:
 
-    - [Configure Telegraf Agent](#configure-telegraf-agent)
-    - [Line Protocol](#line-protocol-1)
-    - [Scrape Metrics](#scrape-metrics)
+   - [Configure Telegraf Agent](#configure-telegraf-agent)
+   - [Line Protocol](#line-protocol-1)
+   - [Scrape Metrics](#scrape-metrics)
 
 ---
 
@@ -157,8 +159,6 @@ curl "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precisi
   --header "Authorization: Token YOURAUTHTOKEN" \
   --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
 ```
-
-
 
 ### Other ways to write data to InfluxDB
 
