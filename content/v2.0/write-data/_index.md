@@ -12,12 +12,12 @@ v2.0/tags: [write, line protocol]
 ---
 
 <!-- CONTENTS -->
-- [Before you begin](#before-you-begin)
-- [What you'll need](#what-you-ll-need)
-- [Methods for writing data into InfluxDB](#methods)
-  - [InfluxDB graphical user interface](#influxdb-graphical-user-interface)
-  - [`influx` CLI](#write-data-using-the-influx-cli)
-  - [InfluxDB API](#influxdb-api)
+<!-- - [Before you begin](#before-you-begin) -->
+<!-- - [What you'll need](#what-you-ll-need) -->
+<!-- - [Methods for writing data into InfluxDB](#methods) -->
+<!--   - [InfluxDB graphical user interface](#influxdb-graphical-user-interface) -->
+<!--   - [`influx` CLI](#influx-cli) -->
+<!--   - [InfluxDB API](#influxdb-api) -->
 <!-- - [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb) -->
 
 ### Before you begin
@@ -69,15 +69,12 @@ There are multiple ways to get data into InfluxDB.
 
 ### InfluxDB UI
 
-When first getting started with InfluxDB, the fastest way to write data is to use the provided user interface.
+When first getting started with InfluxDB, you can use the provided user interface to start writing data right away.
 By default the UI is at http://localhost:9999.
 Navigate to the interface using a web browser then follow the instructions below.
 
-1. Click **Load Data** in the left navigation menu.
-
-    {{< nav-icon "load data" >}}
-
-2. Select **Buckets**.
+1. Click **Load Your Data** in the navigation menu.
+2. Select the **Buckets** tab.
 3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
 4. Select from the following options:
 
@@ -85,36 +82,36 @@ Navigate to the interface using a web browser then follow the instructions below
     - [Line Protocol](#line-protocol-1)
     - [Scrape Metrics](#scrape-metrics)
 
-    ---
+---
 
-    #### Configure Telegraf Agent
-    To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
+#### Configure Telegraf Agent
+To configure a Telegraf agent, see [Automatically create a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration).
 
-    ---
+---
 
-    #### Line Protocol
-    1.  Select **Upload File** or **Enter Manually**.
-        - **Upload File:**
-          Select the time precision of your data.
-          Drag and drop the line protocol file into the UI or click to select the
-          file from your file manager.
-        - **Enter Manually:**
-          Select the time precision of your data.
-          Manually enter line protocol.
-    2. Click **Continue**.
-       A message indicates whether data is successfully written to InfluxDB.
-    3. To add more data or correct line protocol, click **Previous**.
-    4. Click **Finish**.
+#### Line Protocol
+1.  Select **Upload File** or **Enter Manually**.
+    - **Upload File:**
+      Select the time precision of your data.
+      Drag and drop the line protocol file into the UI or click to select the
+      file from your file manager.
+    - **Enter Manually:**
+      Select the time precision of your data.
+      Manually enter line protocol.
+2. Click **Continue**.
+   A message indicates whether data is successfully written to InfluxDB.
+3. To add more data or correct line protocol, click **Previous**.
+4. Click **Finish**.
 
-    ---
+---
 
-    #### Scrape Metrics
-    To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
+#### Scrape Metrics
+To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
-    {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
-    {{% /cloud-msg %}}
+{{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
+{{% /cloud-msg %}}
 
-### `influx` CLI
+### InfluxBD command line tool (`influx`)
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
