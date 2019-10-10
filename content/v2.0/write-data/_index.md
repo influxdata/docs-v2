@@ -11,14 +11,13 @@ menu:
 v2.0/tags: [write, line protocol]
 ---
 
-<!-- CONTENTS -->
-<!-- - [Before you begin](#before-you-begin) -->
-<!-- - [What you'll need](#what-you-ll-need) -->
-<!-- - [Methods for writing data into InfluxDB](#methods) -->
-<!--   - [InfluxDB graphical user interface](#influxdb-graphical-user-interface) -->
-<!--   - [`influx` CLI](#influx-cli) -->
-<!--   - [InfluxDB API](#influxdb-api) -->
-<!-- - [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb) -->
+- [Before you begin](#before-you-begin)
+- [What you'll need](#what-you-ll-need)
+- [Methods for writing data into InfluxDB](#methods-for-writing-data-into-influxdb)
+  - [User Interface](#user-interface)
+  - [influx CLI](#influx-cli)
+  - [InfluxDB API](#influxdb-api)
+- [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb)
 
 ### Before you begin
 
@@ -116,7 +115,7 @@ To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-sc
 {{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
 {{% /cloud-msg %}}
 
-### Command line tool (`influx`)
+### influx CLI
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
