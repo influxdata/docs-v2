@@ -27,9 +27,9 @@ First, install InfluxDBv2 by following [these instructions](/v2.0/get-started).
 
 #### The basics
 
-To write data into InfluxDB, you will need to have an _organization_, a _bucket_, and an _authentication token_.
+To write data into InfluxDB, you will need an _organization_, a _bucket_, and an _authentication token_.
 (All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).)
-If you've installed using the graphical UI, you should have been guided through creating all these.
+If you've installed using the graphical UI, you should have been guided through creating all of these.
 
 #### Data
 
@@ -66,13 +66,15 @@ _For more details about line protocol, see the [Line protocol reference](/v2.0/r
 
 ## Methods for writing data into InfluxDB
 
-There are multiple ways to get data into InfluxDB.
+There are many ways to get data into InfluxDB.
+What follows are some basic ways to get started.
 
 ### User Interface
 
 When first getting started with InfluxDB, you can use the provided user interface to start writing data right away.
 By default the UI is at http://localhost:9999.
-Navigate to the interface using a web browser then follow the instructions below.
+Launch `influxdb`, and navigate to the interface using a web browser.
+Then follow the instructions below.
 
 1. Click **Load Your Data** in the navigation menu.
 2. Select the **Buckets** tab.
@@ -142,7 +144,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 
 ### InfluxDB API
 
-Data can be written to InfluxDB using raw http requests.
+You can also write to InfluxDB using raw http requests.
 Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
 Include the following in your request:
 
