@@ -9,7 +9,7 @@ menu:
     name: Prometheus
     parent: Experimental
 weight: 201
-v2.0/tags: [functions, mqtt, package]
+v2.0/tags: [functions, prometheus, package]
 ---
 
 Flux Prometheus functions provide tools for working with
