@@ -24,11 +24,14 @@ the InfluxDB user interface (UI), and client libraries.
 
 ### What you'll need
 
-To write data into InfluxDB, you need an **organization**, a **bucket**, and an **authentication token**.
-(All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).)
+To write data into InfluxDB, you need the following:
+
+- an **organization**
+- a **bucket**; and
+- an [**authentication token**](/v2.0/security/tokens/).
+
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
-Of course, you'll also need data.
 Use _line protocol_ format to write data into InfluxDB.
 Each line represents a data point.
 Each point requires a [*measurement*](/v2.0/reference/line-protocol/#measurement)
@@ -70,10 +73,15 @@ To write data into InfluxDB, use one of the following methods:
 
 To quickly start writing data, use the provided user interface.
 
-1. Click **Load Data** in the navigation menu.
-2. Select **Buckets**.
-3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
-4. Select from the following options:
+1. Do one of the following:
+   - _InfluxDB 2.0 OSS users_:
+     In your terminal, run `influxd` and then in your browser, go to the location where you're hosting the UI (by default, localhost:9999).
+   - _InfluxDB 2.0 Cloud users_:
+     In your browser, go to https://cloud2.influxdata.com/.
+2. Click **Load Data** in the navigation menu on the left.
+3. Select **Buckets**.
+4. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
+5. Select from the following options:
 
    - [Configure Telegraf Agent](#configure-telegraf-agent)
    - [Line Protocol](#line-protocol)
@@ -140,7 +148,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 
 ### InfluxDB API
 
-Write data to InfluxDB using an HTTP request to the InfluxDB API write endpoint.
+Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
 Include the following in your request:
 
 | Requirement          | Include by                                               |
