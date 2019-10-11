@@ -11,22 +11,22 @@ menu:
 v2.0/tags: [write, line protocol]
 ---
 
+Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/line-protocol),
+Telegraf, data scrapers, the InfluxDB v2 API, `influx` command line interface (CLI),
+the InfluxDB user interface (UI), and client libraries.
+
 - [What you'll need](#what-you-ll-need)
 - [Ways to write data into InfluxDB](#ways-to-write-data-into-influxdb)
   - [User Interface](#user-interface)
   - [influx CLI](#influx-cli)
   - [InfluxDB API](#influxdb-api)
-- [Other ways to write data to InfluxDB](#other-ways-to-write-data-to-influxdb)
+- [Others](#others)
 
 ### What you'll need
 
-#### The basics
-
 To write data into InfluxDB, you need an **organization**, a **bucket**, and an **authentication token**.
 (All InfluxDB write interactions require an [authentication token](/v2.0/security/tokens/).)
-If you've installed using the graphical UI, you should have been guided through creating all of these.
-
-#### Data
+The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
 Of course, you'll also need data.
 Use _line protocol_ format to write data into InfluxDB.
@@ -56,8 +56,7 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/line-protocol)._
-<!-- Link to line protocol best practices -->
+_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/line-protocol) and [Best practices for writing data](/v2.0/write-data/best-practices/)._
 
 ## Ways to write data into InfluxDB
 
@@ -70,12 +69,9 @@ To write data into InfluxDB, use one of the following methods:
 ### User Interface
 
 To quickly start writing data, use the provided user interface.
-By default the UI is at http://localhost:9999.
-Launch `influxdb`, and navigate to the interface using a web browser.
-Then follow the instructions below.
 
-1. Click **Load Your Data** in the navigation menu.
-2. Select the **Buckets** tab.
+1. Click **Load Data** in the navigation menu.
+2. Select **Buckets**.
 3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
 4. Select from the following options:
 
@@ -128,6 +124,8 @@ Include the following in your command:
 | Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
 | Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
 
+##### Example influx write commands
+
 To write a single data point, for example, run
 
 ```sh
@@ -142,8 +140,7 @@ influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
 
 ### InfluxDB API
 
-You can also write to InfluxDB using raw http requests.
-Use the InfluxDB API `/write` endpoint to write data to InfluxDB.
+Write data to InfluxDB using an HTTP request to the InfluxDB API write endpoint.
 Include the following in your request:
 
 | Requirement          | Include by                                               |
@@ -154,6 +151,8 @@ Include the following in your request:
 | Authentication token | Use the `Authorization: Token` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
+##### Example API write request
+
 Below is an example API write request using `curl`:
 
 ```sh
@@ -161,9 +160,8 @@ curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&
   --header "Authorization: Token YOURAUTHTOKEN" \
   --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
 ```
-<a name="./#api-ex">permalink</a>
 
-### Other ways to write data to InfluxDB
+### Others
 
 {{< children >}}
 
