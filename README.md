@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/static/img/influx-logo-cubo-dark.png" width="200">
+</p>
+
 # InfluxDB 2.0 Documentation
 This repository contains the InfluxDB 2.x documentation published at [docs.influxdata.com](https://docs.influxdata.com).
 
