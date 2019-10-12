@@ -14,8 +14,8 @@ The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
 _**Function type:** Output_
 
 {{% warn %}}
-The `mqtt.to()` function is currently experimental and is subject to change at any time.
-By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+The `mqtt.to()` function is currently experimental and subject to change at any time.
+By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 ```js
