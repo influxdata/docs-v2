@@ -16,8 +16,8 @@ Flux Prometheus functions provide tools for working with
 [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 {{% warn %}}
-The Prometheus package is currently experimental and is subject to change at any time.
-By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+The Prometheus package is currently experimental and subject to change at any time.
+By using this package, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 Import the `experimental/prometheus` package:

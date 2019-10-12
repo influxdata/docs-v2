@@ -15,8 +15,8 @@ data source.
 _**Function type:** Input_
 
 {{% warn %}}
-The `bigtable.from()` function is currently experimental and is subject to change at any time.
-By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+The `bigtable.from()` function is currently experimental and subject to change at any time.
+By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 ```js
