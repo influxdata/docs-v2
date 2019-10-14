@@ -68,27 +68,27 @@ _[See the example below](#use-pivot-to-shape-data-for-experimental-to)._
 The bucket to write data to.
 `bucket` and `bucketID` are mutually exclusive.
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### bucketID
 The ID of the bucket to write data to.
 `bucketID` and `bucket` are mutually exclusive.
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### org
 The organization name of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `org` and `orgID` are mutually exclusive.
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### orgID
 The organization ID of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `orgID` and `org` are mutually exclusive.
 
-_**Data type: String**_
+_**Data type:** String_
 
 
 ## Examples

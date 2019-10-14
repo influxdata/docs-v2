@@ -39,10 +39,12 @@ experimental.addDuration(
 ### d
 The duration to add.
 
-_**Data type: Duration**_
+_**Data type:** Duration_
 
 ### to
 The time to add the [duration](#d) to.
+
+_**Data type:** Time_
 
 ## Examples
 
