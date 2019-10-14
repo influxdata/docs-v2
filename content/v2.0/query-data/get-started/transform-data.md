@@ -19,6 +19,7 @@ Common examples are aggregating data into averages, downsampling data, etc.
 This guide demonstrates using [Flux functions](/v2.0/reference/flux/stdlib) to transform your data.
 It walks through creating a Flux script that partitions data into windows of time,
 averages the `_value`s in each window, and outputs the averages as a new table.
+(Remember, Flux structures all data in [tables](/v2.0/query-data/get-started/#tables).)
 
 It's important to understand how the "shape" of your data changes through each of these operations.
 
