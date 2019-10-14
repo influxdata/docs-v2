@@ -7,6 +7,17 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.0.0-alpha.19 [2019-10-14]
+
+### Features
+- Add shortcut for toggling comments and submitting in Script Editor.
+
+### Bug Fixes
+- Ensure users are created with an active status.
+- Added missing string values for `CacheStatus` type.
+- Disable saving for threshold check if no threshold selected.
+- Query variable selector shows variable keys, not values.
+
 ## v2.0.0-alpha.18 [2019-09-26]
 
 ### Features
