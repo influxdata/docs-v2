@@ -39,10 +39,12 @@ experimental.subDuration(
 ### d
 The duration to subtract.
 
-_**Data type: Duration**_
+_**Data type:** Duration_
 
 ### from
 The time to subtract the [duration](#d) from.
+
+_**Data type:** Time_
 
 ## Examples
 

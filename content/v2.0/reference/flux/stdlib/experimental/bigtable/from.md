@@ -41,19 +41,19 @@ _For more information, see the following:_
 - [Google Cloud IAM How-to guides](https://cloud.google.com/iam/docs/how-to)
 - [Setting Up Authentication for Server to Server Production Applications on Google Cloud](https://cloud.google.com/docs/authentication/production)
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### project
 The project ID of the Cloud Bigtable project to retrieve data from.
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### instance
 The instance ID of the Cloud Bigtable instance to retrieve data from.
 
-_**Data type: String**_
+_**Data type:** String_
 
 ### table
 The name of the Cloud Bigtable table to retrieve data from.
 
-_**Data type: String**_
+_**Data type:** String_

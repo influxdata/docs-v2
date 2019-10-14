@@ -33,7 +33,7 @@ experimental.objectKeys(
 ### o
 The object to return keys from.
 
-_**Data type: Object**_
+_**Data type:** Object_
 
 ## Examples
 

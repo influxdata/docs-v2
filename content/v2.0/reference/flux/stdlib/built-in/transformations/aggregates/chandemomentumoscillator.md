@@ -37,7 +37,7 @@ It then multiplies the result by 100 and returns a value between -100 and +100.
 ### n
 The period or number of points to use in the calculation.
 
-_**Data type: Integer**_
+_**Data type:** Integer_
 
 ### columns
 The columns to operate on.
