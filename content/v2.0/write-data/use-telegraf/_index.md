@@ -29,7 +29,7 @@ For a list of available plugins, see [Telegraf plugins](/v2.0/reference/telegraf
   [Telegraf Installation instructions](https://docs.influxdata.com/telegraf/latest/introduction/installation/)._
 
 ## Configure Telegraf
-All Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).
+Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).
 You have the following options for configuring Telegraf:
 
 {{< children >}}
