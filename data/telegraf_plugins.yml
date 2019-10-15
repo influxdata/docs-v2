@@ -393,7 +393,7 @@ input:
     id: exec
     description: |
       The Exec input plugin parses supported [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/)
-      (InfluxDB Line Protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard into metrics.
+      (InfluxDB Line Protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard) into metrics.
       Each Telegraf metric includes the measurement name, tags, fields, and timestamp.
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/exec/README.md
     introduced: 0.1.5
