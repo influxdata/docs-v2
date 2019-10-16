@@ -26,9 +26,9 @@ the InfluxDB user interface (UI), and client libraries.
 
 To write data into InfluxDB, you need the following:
 
-- an **organization**
-- a **bucket**; and
-- an [**authentication token**](/v2.0/security/tokens/).
+- an organization
+- a bucket
+- an [authentication token](/v2.0/security/tokens/)
 
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
