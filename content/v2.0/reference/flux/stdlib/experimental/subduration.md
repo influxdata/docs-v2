@@ -19,7 +19,7 @@ _**Function type:** Transformation_
 
 {{% warn %}}
 The `experimental.subDuration()` function is subject to change at any time.
-By using it, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 
 This specific function will be removed once duration vectors are implemented.
 See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
@@ -39,10 +39,12 @@ experimental.subDuration(
 ### d
 The duration to subtract.
 
-_**Data type: Duration**_
+_**Data type:** Duration_
 
 ### from
 The time to subtract the [duration](#d) from.
+
+_**Data type:** Time_
 
 ## Examples
 
