@@ -5,7 +5,7 @@ description: >
 weight: 201
 menu:
   v2_0:
-    name: Enabling TLS
+    name: Enabling HTTPS
     parent: Security & authorization
 v2.0/tags: [security, authentication, tls]
 ---
@@ -40,12 +40,13 @@ InfluxDB supports three types of TLS certificates:
     They do not allow clients to verify the identity of the InfluxDB server.
     With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
 
-Regardless of your certificate's type, InfluxDB supports certificates composed of
-a private key file (`.key`) and a signed certificate file (`.crt`) file pair, as well as certificates
-that combine the private key file and the signed certificate file into a single bundled file (`.pem`).
+InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair,
+as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`).
 
-The following two sections outline how to set up HTTPS with InfluxDB [using a CA-signed
-certificate](#setup-https-with-a-ca-signed-certificate) and [using a self-signed certificate](#setup-https-with-a-self-signed-certificate)
+<!-- TODO test on multiple OSes -->
+The following two sections outline how to set up HTTPS with InfluxDB
+[using a CA-signed certificate](#set-up-https-with-a-ca-signed-certificate)
+and [using a self-signed certificate](#set-up-https-with-a-self-signed-certificate)
 on Ubuntu 16.04.
 Steps may vary for other operating systems.
 
@@ -60,7 +61,9 @@ Steps may vary for other operating systems.
 
     Users running InfluxDB must have read permissions on the TLS certificate.
 
-    >***Note***: You may opt to set up multiple users, groups, and permissions. Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
+    {{% note %}}You may opt to set up multiple users, groups, and permissions.
+    Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
+    {{% /note %}}
 
     Run the following command to give InfluxDB read and write permissions on the certificate files.
 
@@ -180,8 +183,9 @@ That's it! You've successfully set up HTTPS with InfluxDB.
       https-private-key = "/etc/ssl/influxdb-selfsigned.key"
     ```
 
-    > If setting up HTTPS for [InfluxDB Enterprise](/enterprise_influxdb), you also need to configure insecure TLS connections between both meta and data nodes in your cluster.
-    > Instructions are provided in the [InfluxDB Enterprise HTTPS Setup guide](/enterprise_influxdb/latest/guides/https_setup/#setup-https-with-a-self-signed-certificate).
+    {{% note %}}If setting up HTTPS for [InfluxDB Enterprise](/enterprise_influxdb), you also need to configure insecure TLS connections between both meta and data nodes in your cluster.
+    Instructions are provided in the [InfluxDB Enterprise HTTPS Setup guide](/enterprise_influxdb/latest/guides/https_setup/#setup-https-with-a-self-signed-certificate).
+    {{% /note %}}
 
 4. Restart InfluxDB
 
