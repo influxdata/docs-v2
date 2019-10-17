@@ -1,4 +1,4 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+{{ $currentVersion := replaceRE "v" "" (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
 <!doctype html>
 <html lang="en">
   <head>
