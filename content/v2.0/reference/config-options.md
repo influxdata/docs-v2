@@ -34,31 +34,6 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--vault-skip-verify](#vault-skip-verify)
 - [--vault-tls-server-name](#vault-tls-server-name)
 
-```sh
-influxd \
-  --assets-path=/path/to/custom/assets-dir \
-  --bolt-path=~/.influxdbv2/influxd.bolt \
-  --e2e-testing \
-  --engine-path=~/.influxdbv2/engine \
-  --http-bind-address=:9999 \
-  --log-level=info \
-  --reporting-disabled \
-  --secret-store=bolt \
-  --session-length=60 \
-  --session-renew-disabled \
-  --store=bolt \
-  --tracing-type=log \
-  --vault-address=https://localhost:8200 \
-  --vault-ca-cert=/path/to/ca.pem \
-  --vault-ca-path=/path/to/certs/ \
-  --vault-client-cert=/path/to/client_cert.pem \
-  --vault-client-key=/path/to/private_key.pem \
-  --vault-client-max-retries=2 \
-  --vault-client-timeout=60s \
-  --vault-skip-verify \
-  --vault-tls-server-name=secure.example.com
-```
-
 ---
 
 ## --assets-path
@@ -278,7 +253,7 @@ _You can also set this using the `VAULT_CLIENT_KEY` environment variable, howeve
 
 ## --vault-client-max-retries
 Specifies the maximum number of retries when encountering a 5xx error code.
-The default is 2, for three total attempts. Set this to 0 or less to disable retrying.
+The default is 2 (for three attempts in total). Set this to 0 or less to disable retrying.
 
 **Default:** `2`  
 

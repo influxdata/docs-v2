@@ -43,12 +43,12 @@ influxd [command]
 | `--session-renew-disabled`   | Disables automatically extending session TTL on request                                               |            |
 | `--store`                    | Data store for REST resources (bolt or memory) (default `bolt`)                                       | string     |
 | `--tracing-type`             | Supported tracing types (log or jaeger)                                                               | string     |
-| `--vault-address`            | Address of the Vault server (for example: `https://127.0.0.1:8200/`).                                 | string     |
-| `--vault-ca-cert`            | Path to a PEM-encoded CA certificate file.                                                            | string     |
-| `--vault-ca-path`            | Path to a directory of PEM-encoded CA certificate files.                                              | string     |
-| `--vault-client-cert`        | Path to a PEM-encoded client certificate.                                                             | string     |
-| `--vault-client-key`         | Path to an unencrypted, PEM-encoded private key which corresponds to the matching client certificate. | string     |
-| `--vault-client-max-retries` | Maximum number of retries when encountering a 5xx error code (default `2`).                           | integer    |
-| `--vault-client-timeout`     | Vault client timeout (default `60s`).                                                                 | duration   |
-| `--vault-skip-verify`        | Skip certificate verification when communicating with Vault.                                          |            |
-| `--vault-tls-server-name`    | Name to use as the SNI host when connecting to Vault via TLS.                                         | string     |
+| `--vault-address`            | Address of the Vault server (for example: `https://127.0.0.1:8200/`)                                  | string     |
+| `--vault-ca-cert`            | Path to a PEM-encoded CA certificate file                                                             | string     |
+| `--vault-ca-path`            | Path to a directory of PEM-encoded CA certificate files                                               | string     |
+| `--vault-client-cert`        | Path to a PEM-encoded client certificate                                                              | string     |
+| `--vault-client-key`         | Path to an unencrypted, PEM-encoded private key which corresponds to the matching client certificate  | string     |
+| `--vault-client-max-retries` | Maximum number of retries when encountering a 5xx error code (default `2`)                            | integer    |
+| `--vault-client-timeout`     | Vault client timeout (default `60s`)                                                                  | duration   |
+| `--vault-skip-verify`        | Skip certificate verification when communicating with Vault                                           |            |
+| `--vault-tls-server-name`    | Name to use as the SNI host when connecting to Vault via TLS                                          | string     |
