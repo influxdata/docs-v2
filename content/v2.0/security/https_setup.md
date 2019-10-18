@@ -78,22 +78,6 @@ and [using a self-signed certificate](#set-up-https-with-a-self-signed-certifica
     --tls-key "/etc/ssl/influxdb-selfsigned.key"
     ```
 
-4. **Verify the HTTPS setup**
-
-    Verify that HTTPS is working by connecting to InfluxDB with the [CLI tool](/influxdb/v1.7/tools/shell/):
-
-    ```bash
-    influx -ssl -host <domain_name>.com
-    ```
-
-    A successful connection returns the following:
-
-    ```bash
-    Connected to https://<domain_name>.com:8086 version 1.x.x
-    InfluxDB shell version: 1.x.x
-    >
-    ```
-
 That's it! You've successfully set up HTTPS with InfluxDB.
 
 ## Set up HTTPS with a self-signed certificate
@@ -116,28 +100,12 @@ That's it! You've successfully set up HTTPS with InfluxDB.
 
 2. **Run `influxd` with TLS flags**
 
-   Start InfluxDB with TLS command line flags:
-
-   ```bash
-   influxd \
-   --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
-   --tls-key "/etc/ssl/influxdb-selfsigned.key"
-   ```
-
-3. Verify the HTTPS setup
-
-    Verify that HTTPS is working by connecting to InfluxDB with the [CLI tool](/influxdb/v1.7/tools/shell/):
+    Start InfluxDB with TLS command line flags:
 
     ```bash
-    influx -ssl -unsafeSsl -host <domain_name>.com
-    ```
-
-    A successful connection returns the following:
-
-    ```bash
-    Connected to https://<domain_name>.com:8086 version 1.x.x
-    InfluxDB shell version: 1.x.x
-    >
+    influxd \
+    --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
+    --tls-key "/etc/ssl/influxdb-selfsigned.key"
     ```
 
 That's it! You've successfully set up HTTPS with InfluxDB.
