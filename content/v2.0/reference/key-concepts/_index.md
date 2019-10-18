@@ -2,7 +2,7 @@
 title: InfluxDB key concepts
 description: >
   Concepts related to InfluxDB.
-weight: 7
+weight: 2
 menu:
   v2_0_ref:
     name: Key concepts
@@ -11,10 +11,13 @@ v2.0/tags: [key concepts]
 
 Before working with InfluxDB 2.0, it's helpful to learn a few key concepts, including:
 
-- [InfluxDB data elements](#influxdb-data-elements)
+
+{{< children >}}
+
+<!-- - [InfluxDB data elements](#influxdb-data-elements)
 - [InfluxDB table structure](#influxdb-layout)
 - [InfluxDB design principles](/v2.0/reference/design-principles)
-<!--- [InfluxDB platform](/v2.0/reference/) -->
+<!--- [InfluxDB platform](/v2.0/reference/) --> -->
 
 ### InfluxDB data elements
 
@@ -94,7 +97,7 @@ census bees=23i,ants=30i 1566086400000000000
 census bees=28i,ants=32i 1566086760000000000
        -----------------
            Field set
-           
+
 ```
 
 {{% note %}}
@@ -169,7 +172,7 @@ Now that you're familiar with measurements, field sets, and tag sets, it's time 
 | census        | location=portland,scientist=mullen                                                           | ants                |
 
 A **series** includes timestamps and field values for a given series key. From the sample data, here's a **series key** and the corresponding **series**:
- 
+
 ```bash
 # series key
 census,location=klamath,scientist=anderson bees
@@ -197,6 +200,6 @@ An InfluxDB **organization** is a workspace for a group of [users](/v2.0/users/)
 
 If you're just starting out, we recommend taking a look at the following guides:
 
-- [Getting Started](/influxdb/v0.10/introduction/getting_started/) 
+- [Getting Started](/influxdb/v0.10/introduction/getting_started/)
 - [Writing Data](/influxdb/v0.10/guides/writing_data/)
-- [Querying Data](/influxdb/v0.10/guides/querying_data/) 
+- [Querying Data](/influxdb/v0.10/guides/querying_data/)
