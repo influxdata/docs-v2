@@ -14,8 +14,7 @@ Before working with InfluxDB 2.0, it's helpful to learn a few key concepts, incl
 - [InfluxDB data elements](#influxdb-data-elements)
 - [InfluxDB table structure](#influxdb-layout)
 - [InfluxDB design principles](/v2.0/reference/design-principles)
-<!--- [InfluxDB 2.0 platform](/v2.0/reference/) -->
-
+<!--- [InfluxDB platform](/v2.0/reference/) -->
 
 ### InfluxDB data elements
 
@@ -33,6 +32,8 @@ InfluxDB 2.0 includes the following data elements:
 - [point](#point)
 - [bucket](#bucket)
 - [organization](#organization)
+
+The [sample data](#sample-data) below is used to illustrate data elements concepts.
 
 ### InfluxDB table structure
 
@@ -85,7 +86,7 @@ A field value represents the value of an associated field. Field values can be s
 
 ##### Field sets
 
-A field set is a collection of field key-value pairs associated with a timestamp. The sample data includes the following four field sets:
+A field set is a collection of field key-value pairs associated with a timestamp. The sample data includes the following field sets:
 
 ```bash
 
@@ -160,12 +161,23 @@ Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` 
 
 #### Series
 
-Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss **series keys** and **series**. A series is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes four unique series:
+Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss **series keys** and **series**. A series key is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes two unique series:
 
-| _measurement  | tag set                                                                                   | _field                                                         |
-|:------------- |:-------------------------------                                                           |:------                                                         |
-| census        | <span class="tooltip" data-tooltip-text="Tag set">location=klamath,scientist=anderson</span> | <span class="tooltip" data-tooltip-text="Field key">bees</span>|
-| census        | location=portland,scientist=mullen                                                            | ants                                                           |
+| _measurement  | tag set                                                                                      | _field               |
+|:------------- |:-------------------------------                                                              |:------               |
+| census        | <span class="tooltip" data-tooltip-text="Tag set">location=klamath,scientist=anderson</span> |<span class="tooltip" data-tooltip-text="Field key">bees</span>|
+| census        | location=portland,scientist=mullen                                                           | ants                |
+
+A series includes timestamps and field values for a given series key. From the sample data, here's a series key and the corresponding series:
+ 
+**series key:** `census,location=klamath,scientist=anderson bees`
+
+**series:**
+
+```bash
+2019-08-18T00:00:00Z 23
+2019-08-18T00:06:00Z 28
+```
 
 Understanding the concept of a series is essential when designing your [schema](v2.0/reference/glossary/#schema) and working with your data in InfluxDB.
 
@@ -174,8 +186,6 @@ Understanding the concept of a series is essential when designing your [schema](
 A **point** includes the series key, a field value, and a timestamp. For example, a single point from the [sample data](#sample-data) looks like this:
 
 `2019-08-18T00:00:00Z bees 30  census  1  mullen`
-
-
 
 #### Bucket
 
