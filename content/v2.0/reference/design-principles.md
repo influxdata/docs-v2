@@ -6,33 +6,31 @@ weight: 7
 menu:
   v2_0_ref:
     name: Design principles
-v2.0/tags: [InfluxDB design principles]
+v2.0/tags: [key concepts, design principles]
 ---
 
-InfluxDB 2.0 implements optimal design principles for time series data. Some of these design principles may have associated tradeoffs in performance.
+InfluxDB implements optimal design principles for time series data. Some of these design principles may have associated tradeoffs in performance.
 
-### Design principles and tradeoffs
+- **Time-ordered data**
 
-#### Data sent multiple times is duplicate data
+    To improve performance, data is written in time-ascending order.
 
-To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data.Duplicate data isn’t stored. In rare circumstances, data may be overwritten.
+- **Strict update and delete permissions**
 
-#### Strict permissions to update and delete data
+    To increase query and write performance, InfluxDB tightly restricts **update** and **delete** permissions. Time series data is predominantly new data that is never updated. Deletes generally only affect data that isn't being written to, and contentious updates never occur.
 
-To increase query and write performance, InfluxDB restricts access to update and delete data. Time series data is predominantly new data that is never updated. Deletes are almost always of data that isn't being written to, and contentious updates never occur.|Update and delete functionality is significantly restricted.
+- **Handle read and write queries first**
 
-#### Data ordered by timestamps in ascending order
+    Writing and querying the data is more important than having a strongly consistent view. Multiple clients can writes InfluxDB at high loads. Query returns may not include the most recent points if database is under heavy load.
 
-To significantly improve performance, data is written in time-ascending order. Writing points with random times (or in non-ascending order) is not performant.
+- **Schemaless design**
 
-#### Queries first, consistency second
+    InfluxDB uses a schemaless design to better manage discontinuous data. Time series data are often ephemeral, meaning the data appears for a few hours and then go away. For example, a new host that gets started and reports for a while and then gets shut down.
 
-Writing and querying the data is more important than having a strongly consistent view. Multiple clients can writes InfluxDB at high loads. Query returns may not include the most recent points if database is under heavy load.
+- **Datasets over individual points**
 
-#### Schemaless design
+    Because the data set is more important than an individual point, InfluxDB implements powerful tools to aggregate data and handle large data sets. Points are differentiated by timestamp and series, so don’t have IDs in the traditional sense.
 
-To better manage discontinuous data, InfluxDB uses a schemaless design. Many time series are ephemeral. There are often time series that appear only for a few hours and then go away, for example, a new host that gets started and reports for a while and then gets shut down. A few database functions aren’t supported, for example, no cross table joins.
+- **Duplicate data**
 
-#### Datasets over individual points
-
-Because the data set is more important than an individual point, InfluxDB implements powerful tools to aggregate data and handle large data sets. Points are differentiated by timestamp and series, so don’t have IDs in the traditional sense.
+    To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/v2.0/write-data/best-practices/duplicate-points/).
