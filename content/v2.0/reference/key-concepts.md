@@ -161,22 +161,22 @@ Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` 
 
 #### Series
 
-Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss **series keys** and **series**. A series key is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes two unique series:
+Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series. A **series key** is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes two unique series keys:
 
 | _measurement  | tag set                                                                                      | _field               |
 |:------------- |:-------------------------------                                                              |:------               |
 | census        | <span class="tooltip" data-tooltip-text="Tag set">location=klamath,scientist=anderson</span> |<span class="tooltip" data-tooltip-text="Field key">bees</span>|
 | census        | location=portland,scientist=mullen                                                           | ants                |
 
-A series includes timestamps and field values for a given series key. From the sample data, here's a series key and the corresponding series:
+A **series** includes timestamps and field values for a given series key. From the sample data, here's a **series key** and the corresponding **series**:
  
-**series key:** `census,location=klamath,scientist=anderson bees`
-
-**series:**
-
 ```bash
+# series key
+census,location=klamath,scientist=anderson bees
+
+# series
 2019-08-18T00:00:00Z 23
-2019-08-18T00:06:00Z 28
+2019-08-18T00:06:00Z 28        
 ```
 
 Understanding the concept of a series is essential when designing your [schema](v2.0/reference/glossary/#schema) and working with your data in InfluxDB.
@@ -185,7 +185,7 @@ Understanding the concept of a series is essential when designing your [schema](
 
 A **point** includes the series key, a field value, and a timestamp. For example, a single point from the [sample data](#sample-data) looks like this:
 
-`2019-08-18T00:00:00Z bees 30  census  1  mullen`
+`2019-08-18T00:00:00Z census ants 30 portland mullen`
 
 #### Bucket
 
