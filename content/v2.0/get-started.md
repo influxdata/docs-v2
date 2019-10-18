@@ -31,7 +31,8 @@ Download InfluxDB v2.0 alpha for macOS.
 
 ### Unpackage the InfluxDB binaries
 To unpackage the downloaded archive, **double click the archive file in Finder**
-or run the following command in **Terminal**:
+or run the following command in a macOS command prompt application such
+**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
 
 ```sh
 # Unpackage contents to the current working directory
