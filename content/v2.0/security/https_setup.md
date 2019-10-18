@@ -73,7 +73,9 @@ and [using a self-signed certificate](#set-up-https-with-a-self-signed-certifica
     Start InfluxDB with TLS command line flags:
 
     ```bash
-    influxd --tls-cert "/etc/ssl/influxdb-selfsigned.crt" --tls-key "/etc/ssl/influxdb-selfsigned.key"
+    influxd \
+    --tls-cert "/etc/ssl/influxdb-selfsigned.crt"\
+    --tls-key "/etc/ssl/influxdb-selfsigned.key"
     ```
 
 4. **Verify the HTTPS setup**
@@ -103,7 +105,10 @@ That's it! You've successfully set up HTTPS with InfluxDB.
     It outputs those files to `/etc/ssl/` and gives them the required permissions.
 
     ```bash
-    sudo openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/ssl/influxdb-selfsigned.key -out /etc/ssl/influxdb-selfsigned.crt -days <NUMBER_OF_DAYS>
+    sudo openssl req -x509 -nodes -newkey rsa:2048 \
+    -keyout /etc/ssl/influxdb-selfsigned.key \
+    -out /etc/ssl/influxdb-selfsigned.crt \
+    -days <NUMBER_OF_DAYS>
     ```
 
     When you execute the command, it will prompt you for more information.
@@ -114,7 +119,9 @@ That's it! You've successfully set up HTTPS with InfluxDB.
    Start InfluxDB with TLS command line flags:
 
    ```bash
-   influxd --tls-cert "/etc/ssl/influxdb-selfsigned.crt" --tls-key "/etc/ssl/influxdb-selfsigned.key"
+   influxd \
+   --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
+   --tls-key "/etc/ssl/influxdb-selfsigned.key"
    ```
 
 3. Verify the HTTPS setup
