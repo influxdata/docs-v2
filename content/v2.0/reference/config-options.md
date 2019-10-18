@@ -24,22 +24,15 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--session-renew-disabled](#session-renew-disabled)
 - [--store](#store)
 - [--tracing-type](#tracing-type)
-
-```sh
-influxd \
-  --assets-path=/path/to/custom/assets-dir \
-  --bolt-path=~/.influxdbv2/influxd.bolt \
-  --e2e-testing \
-  --engine-path=~/.influxdbv2/engine \
-  --http-bind-address=:9999 \
-  --log-level=info \
-  --reporting-disabled \
-  --secret-store=bolt \
-  --session-length=60 \
-  --session-renew-disabled \
-  --store=bolt \
-  --tracing-type=log
-```
+- [--vault-address](#vault-address)
+- [--vault-ca-cert](#vault-ca-cert)
+- [--vault-ca-path](#vault-ca-path)
+- [--vault-client-cert](#vault-client-cert)
+- [--vault-client-key](#vault-client-key)
+- [--vault-client-max-retries](#vault-client-max-retries)
+- [--vault-client-timeout](#vault-client-timeout)
+- [--vault-skip-verify](#vault-skip-verify)
+- [--vault-tls-server-name](#vault-tls-server-name)
 
 ---
 
@@ -189,3 +182,124 @@ Tracing is disabled by default.
 ```sh
 influxd --tracing-type=log
 ```
+
+---
+
+## --vault-address
+Specifies the address of the Vault server expressed as a URL and port.
+For example: `https://127.0.0.1:8200/`.
+
+```sh
+influxd --vault-address=https://127.0.0.1:8200/
+```
+
+_You can also set this using the `VAULT_ADDR` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-ca-cert
+Specifies the path to a PEM-encoded CA certificate file on the local disk.
+This file is used to verify the Vault server's SSL certificate.
+**This setting takes precedence over the [`--vault-ca-path`](#vault-ca-path) setting.**
+
+```sh
+influxd  --vault-ca-cert=/path/to/ca.pem
+```
+
+_You can also set this using the `VAULT_CACERT` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-ca-path
+Specifies the path to a directory of PEM-encoded CA certificate files on the local disk.
+These certificates are used to verify the Vault server's SSL certificate.
+
+```sh
+influxd --vault-ca-path=/path/to/certs/
+```
+
+_You can also set this using the `VAULT_CAPATH` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-client-cert
+Specifies the path to a PEM-encoded client certificate on the local disk.
+This file is used for TLS communication with the Vault server.
+
+```sh
+influxd --vault-client-cert=/path/to/client_cert.pem
+```
+
+_You can also set this using the `VAULT_CLIENT_CERT` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-client-key
+Specifies the path to an unencrypted, PEM-encoded private key on disk which
+corresponds to the matching client certificate.
+
+```sh
+influxd --vault-client-key=/path/to/private_key.pem
+```
+
+_You can also set this using the `VAULT_CLIENT_KEY` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-client-max-retries
+Specifies the maximum number of retries when encountering a 5xx error code.
+The default is 2 (for three attempts in total). Set this to 0 or less to disable retrying.
+
+**Default:** `2`  
+
+```sh
+influxd --vault-client-max-retries=2
+```
+
+_You can also set this using the `VAULT_MAX_RETRIES` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-client-timeout
+Specifies the Vault client timeout.
+
+**Default:** `60s`  
+
+```sh
+influxd --vault-client-timeout=60s
+```
+
+_You can also set this using the `VAULT_CLIENT_TIMEOUT` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-skip-verify
+Skip certificate verification when communicating with Vault.
+_Setting this variable voids [Vault's security model](https://www.vaultproject.io/docs/internals/security.html)
+and is **not recommended**._
+
+```sh
+influxd --vault-skip-verify
+```
+
+_You can also set this using the `VAULT_SKIP_VERIFY` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-tls-server-name
+Specifies the name to use as the Server Name Indication (SNI) host when connecting via TLS.
+
+```sh
+influxd --vault-tls-server-name=secure.example.com
+```
+
+_You can also set this using the `VAULT_TLS_SERVER_NAME` environment variable, however
+`influxd` flags take precedence over environment variables._

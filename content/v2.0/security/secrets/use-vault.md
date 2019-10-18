@@ -63,6 +63,21 @@ option set to `vault`.
 influxd --secret-store vault
 ```
 
+`influxd` includes the following Vault configuration options.
+If set, these flags override any [Vault environment variables](#define-vault-environment-variables):
+
+- `--vault-address`
+- `--vault-ca-cert`
+- `--vault-ca-path`
+- `--vault-client-cert`
+- `--vault-client-key`
+- `--vault-client-max-retries`
+- `--vault-client-timeout`
+- `--vault-skip-verify`
+- `--vault-tls-server-name`
+
+For more information, see [InfluxDB configuration options](/v2.0/reference/config-options/).
+
 ## Manage tokens through the InfluxDB API
 Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
 For details, see [Manage secrets](/v2.0/security/secrets/manage-secrets/).
