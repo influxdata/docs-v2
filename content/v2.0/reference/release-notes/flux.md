@@ -16,6 +16,28 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.50.0 [2019-10-11]
+
+### Features
+- Add `experimental/prometheus` package.
+- Add a memory manager to the memory allocator.
+- Add an internal function for generating data.
+- Switch to using discarding mode for transformations.
+- Group key join on `_time`.
+
+### Bug fixes
+- Require `data` parameter in `monitor.check()`.
+- Return the EOF error when reading metadata.
+- Re-add missing import.
+- Fix broken links in SPEC.
+- Return error from cache.
+- Update the `universe` package to use flux errors throughout.
+- Parse escape characters in string interpolation expressions.
+- Improve CSV error message for serialized Flux error.
+- Have the interpreter return annotated Flux errors.
+
+---
+
 ## v0.49.0 [2019-09-24]
 
 ### Features
