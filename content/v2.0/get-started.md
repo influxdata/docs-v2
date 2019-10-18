@@ -30,17 +30,17 @@ Download InfluxDB v2.0 alpha for macOS.
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.19_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
-Unpackage the downloaded archive.
-
-_**Note:** The following commands are examples. Adjust the file paths to your own needs._
+To unpackage the downloaded archive, **double click the archive file in Finder**
+or run the following command in **Terminal**:
 
 ```sh
 # Unpackage contents to the current working directory
-gunzip -c ~/Downloads/influxdb_2.0.0-alpha.19_darwin_amd64.tar.gz | tar xopf -
+tar zxvf ~/Downloads/influxdb_2.0.0-alpha.19_darwin_amd64.tar.gz
 ```
 
-If you choose, you can place `influx` and `influxd` in your `$PATH`.
-You can also prefix the executables with `./` to run then in place.
+#### (Optional) Place the binaries in your $PATH
+If you choose, you can place `influx` and `influxd` in your `$PATH` or you can
+prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
