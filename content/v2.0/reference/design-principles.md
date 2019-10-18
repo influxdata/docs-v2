@@ -19,9 +19,9 @@ InfluxDB implements optimal design principles for time series data. Some of thes
 
     To increase query and write performance, InfluxDB tightly restricts **update** and **delete** permissions. Time series data is predominantly new data that is never updated. Deletes generally only affect data that isn't being written to, and contentious updates never occur.
 
-- **Handle read and write queries first**
+<!--- **Handle read and write queries first**
 
-    Writing and querying the data is more important than having a strongly consistent view. Multiple clients can writes InfluxDB at high loads. Query returns may not include the most recent points if database is under heavy load.
+   InfluxDB prioritizes read and write requests over strong consistency. InfluxDB returns results when a query is executed, and then replicates data so all transactions are eventually consistency. Therefore, if the ingest rate is high (multiple writes per ms), results may not include the most recent data. -->
 
 - **Schemaless design**
 
