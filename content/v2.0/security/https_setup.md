@@ -70,7 +70,11 @@ and [using a self-signed certificate](#set-up-https-with-a-self-signed-certifica
 
 3. **Run `influxd` with TLS flags**
 
-    TODO
+    Start InfluxDB with TLS command line flags:
+
+    ```bash
+    influxd --tls-cert "/etc/ssl/influxdb-selfsigned.crt" --tls-key "/etc/ssl/influxdb-selfsigned.key"
+    ```
 
 4. **Verify the HTTPS setup**
 
@@ -104,15 +108,15 @@ That's it! You've successfully set up HTTPS with InfluxDB.
 
     When you execute the command, it will prompt you for more information.
     You can choose to fill out that information or leave it blank; both actions generate valid certificate files.
-    
+
 2. **Run `influxd` with TLS flags**
-   
+
    Start InfluxDB with TLS command line flags:
-   
+
    ```bash
    influxd --tls-cert "/etc/ssl/influxdb-selfsigned.crt" --tls-key "/etc/ssl/influxdb-selfsigned.key"
    ```
-   
+
 3. Verify the HTTPS setup
 
     Verify that HTTPS is working by connecting to InfluxDB with the [CLI tool](/influxdb/v1.7/tools/shell/):
@@ -137,10 +141,9 @@ Connecting [Telegraf](/telegraf/latest/) to an InfluxDB instance that's using
 HTTPS requires some additional steps.
 
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), edit the `urls`
-setting to indicate `https` instead of `http` and change `localhost` to the
-relevant domain name.
-If you're using a self-signed certificate, uncomment the `insecure_skip_verify`
-setting and set it to `true`.
+setting to indicate `https` instead of `http`.
+(Change `localhost` to the relevant domain name if necessary.)
+If you're using a self-signed certificate, uncomment the `insecure_skip_verify` setting and set it to `true`.
 
 ```toml
     ###############################################################################
