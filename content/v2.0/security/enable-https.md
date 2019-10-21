@@ -1,13 +1,13 @@
 ---
-title: Enabling HTTPS with InfluxDB
+title: Enable HTTPS with InfluxDB
 description: >
   Enable HTTPS and Transport Security Layer (TLS) secure communication between clients and your InfluxDB servers.
-weight: 201
+weight: 101
 menu:
   v2_0:
-    name: Enabling HTTPS
+    name: Enable HTTPS
     parent: Security & authorization
-v2.0/tags: [security, authentication, tls, https]
+v2.0/tags: [security, authentication, tls, https, ssl]
 ---
 
 Enabling HTTPS encrypts the communication between clients and the InfluxDB server.
