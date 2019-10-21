@@ -24,15 +24,16 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--session-renew-disabled](#session-renew-disabled)
 - [--store](#store)
 - [--tracing-type](#tracing-type)
-- [--vault-address](#vault-address)
-- [--vault-ca-cert](#vault-ca-cert)
-- [--vault-ca-path](#vault-ca-path)
+- [--vault-addr](#vault-addr)
+- [--vault-cacert](#vault-cacert)
+- [--vault-capath](#vault-capath)
 - [--vault-client-cert](#vault-client-cert)
 - [--vault-client-key](#vault-client-key)
-- [--vault-client-max-retries](#vault-client-max-retries)
+- [--vault-max-retries](#vault-max-retries)
 - [--vault-client-timeout](#vault-client-timeout)
 - [--vault-skip-verify](#vault-skip-verify)
 - [--vault-tls-server-name](#vault-tls-server-name)
+- [--vault-token](#vault-token)
 
 ---
 
@@ -185,12 +186,12 @@ influxd --tracing-type=log
 
 ---
 
-## --vault-address
+## --vault-addr
 Specifies the address of the Vault server expressed as a URL and port.
 For example: `https://127.0.0.1:8200/`.
 
 ```sh
-influxd --vault-address=https://127.0.0.1:8200/
+influxd --vault-addr=https://127.0.0.1:8200/
 ```
 
 _You can also set this using the `VAULT_ADDR` environment variable, however
@@ -198,13 +199,13 @@ _You can also set this using the `VAULT_ADDR` environment variable, however
 
 ---
 
-## --vault-ca-cert
+## --vault-cacert
 Specifies the path to a PEM-encoded CA certificate file on the local disk.
 This file is used to verify the Vault server's SSL certificate.
-**This setting takes precedence over the [`--vault-ca-path`](#vault-ca-path) setting.**
+**This setting takes precedence over the [`--vault-capath`](#vault-capath) setting.**
 
 ```sh
-influxd  --vault-ca-cert=/path/to/ca.pem
+influxd  --vault-cacert=/path/to/ca.pem
 ```
 
 _You can also set this using the `VAULT_CACERT` environment variable, however
@@ -212,12 +213,12 @@ _You can also set this using the `VAULT_CACERT` environment variable, however
 
 ---
 
-## --vault-ca-path
+## --vault-capath
 Specifies the path to a directory of PEM-encoded CA certificate files on the local disk.
 These certificates are used to verify the Vault server's SSL certificate.
 
 ```sh
-influxd --vault-ca-path=/path/to/certs/
+influxd --vault-capath=/path/to/certs/
 ```
 
 _You can also set this using the `VAULT_CAPATH` environment variable, however
@@ -251,14 +252,14 @@ _You can also set this using the `VAULT_CLIENT_KEY` environment variable, howeve
 
 ---
 
-## --vault-client-max-retries
+## --vault-max-retries
 Specifies the maximum number of retries when encountering a 5xx error code.
 The default is 2 (for three attempts in total). Set this to 0 or less to disable retrying.
 
 **Default:** `2`  
 
 ```sh
-influxd --vault-client-max-retries=2
+influxd --vault-max-retries=2
 ```
 
 _You can also set this using the `VAULT_MAX_RETRIES` environment variable, however
@@ -302,4 +303,16 @@ influxd --vault-tls-server-name=secure.example.com
 ```
 
 _You can also set this using the `VAULT_TLS_SERVER_NAME` environment variable, however
+`influxd` flags take precedence over environment variables._
+
+---
+
+## --vault-token
+Specifies the Vault authentication token use when authenticating with Vault.
+
+```sh
+influxd --vault-token=exAmple-t0ken-958a-f490-c7fd0eda5e9e
+```
+
+_You can also set this using the `VAULT_TOKEN` environment variable, however
 `influxd` flags take precedence over environment variables._

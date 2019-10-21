@@ -1,6 +1,6 @@
 ---
 title: Store secrets in Vault
-description: Manage secrets in InfluxDB using the InfluxDB UI or the influx CLI.
+description: Use Vault as an InfluxDB secret store and manage secrets through the in InfluxDB API.
 v2.0/tags: [secrets, security]
 menu:
   v2_0:
@@ -37,47 +37,52 @@ For this example, install Vault on your local machine and start a Vault dev serv
 vault server -dev
 ```
 
-## Define Vault environment variables
+## Provide Vault server address and token
 
-Use [Vault environment variables](https://www.vaultproject.io/docs/commands/index.html#environment-variables)
+Use `influxd` Vault-related tags or [Vault environment variables](https://www.vaultproject.io/docs/commands/index.html#environment-variables)
 to provide connection credentials and other important Vault-related information to InfluxDB.
 
-#### Required environment variables
+### Required credentials
 
-- `VAULT_ADDR`: The API address of your Vault server _(provided in the Vault server output)_.
-- `VAULT_TOKEN`: The [Vault token](https://learn.hashicorp.com/vault/getting-started/authentication)
-  required to access your Vault server.
+#### Vault address
+Provide the API address of your Vault server _(available in the Vault server output)_
+using the [`--vault-addr` flag](/v2.0/reference/config-options/#vault-addr) when
+starting `influxd` or with the `VAULT_ADDR` environment variable.
 
-_Your Vault server configuration may require other environment variables._
+#### Vault token
+Provide your [Vault token](https://learn.hashicorp.com/vault/getting-started/authentication)
+(required to access your Vault server) using the [`--vault-token` flag](/v2.0/reference/config-options/#vault-token)
+when starting `influxd` or with the `VAULT_TOKEN` environment variable.
 
-```sh
-export VAULT_ADDR='http://127.0.0.1:8200' VAULT_TOKEN='s.0X0XxXXx0xXxXXxxxXxXxX0x'
-```
+_Your Vault server configuration may require other Vault settings._
 
 ## Start InfluxDB
 
 Start the [`influxd` service](/v2.0/reference/cli/influxd/) with the `--secret-store`
-option set to `vault`.
+option set to `vault` any other necessary flags.
 
 ```bash
-influxd --secret-store vault
+influxd --secret-store vault \
+  --vault-addr=http://127.0.0.1:8200 \
+  --vault-token=s.0X0XxXXx0xXxXXxxxXxXxX0x
 ```
 
 `influxd` includes the following Vault configuration options.
 If set, these flags override any [Vault environment variables](#define-vault-environment-variables):
 
-- `--vault-address`
-- `--vault-ca-cert`
-- `--vault-ca-path`
+- `--vault-addr`
+- `--vault-cacert`
+- `--vault-capath`
 - `--vault-client-cert`
 - `--vault-client-key`
-- `--vault-client-max-retries`
+- `--vault-max-retries`
 - `--vault-client-timeout`
 - `--vault-skip-verify`
 - `--vault-tls-server-name`
+- `--vault-token`
 
 For more information, see [InfluxDB configuration options](/v2.0/reference/config-options/).
 
-## Manage tokens through the InfluxDB API
+## Manage secrets through the InfluxDB API
 Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
 For details, see [Manage secrets](/v2.0/security/secrets/manage-secrets/).
