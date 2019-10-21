@@ -27,7 +27,7 @@ time(v: 1568808000000000000)
 ```
 
 ### Convert RFC3339 to nanosecond epoch timestamp
-Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/unit/)
+Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/)
 to convert an RFC3339 timestamp to a nanosecond epoch timestamp.
 
 ```js

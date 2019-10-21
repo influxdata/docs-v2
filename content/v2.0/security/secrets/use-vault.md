@@ -68,7 +68,7 @@ influxd --secret-store vault \
 ```
 
 `influxd` includes the following Vault configuration options.
-If set, these flags override any [Vault environment variables](#define-vault-environment-variables):
+If set, these flags override any [Vault environment variables](https://www.vaultproject.io/docs/commands/index.html#environment-variables):
 
 - `--vault-addr`
 - `--vault-cacert`

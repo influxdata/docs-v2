@@ -102,7 +102,7 @@ include the timestamp.
 
 {{% note %}}
 _Use the default nanosecond precision timestamp or specify an alternative precision
-when [writing the data](/v2.0/write-data/#precision)._
+when [writing the data](/v2.0/write-data/#timestamp-precision)._
 {{% /note %}}
 
 ### Whitespace

@@ -15,19 +15,6 @@ related:
 Create a check in the InfluxDB user interface (UI).
 Checks query data and apply a status to each point based on specified conditions.
 
-## Check types
-There are two types of checks – a threshold check and a deadman check.
-
-#### Threshold check
-A threshold check assigns a status based on a value being above, below,
-inside, or outside of defined thresholds.
-[Create a threshold check](#create-a-threshold-check).
-
-#### Deadman check
-A deadman check assigns a status to data when a series or group doesn't report
-in a specified amount of time.
-[Create a deadman check](#create-a-deadman-check).
-
 ## Parts of a check
 A check consists of two parts – a query and check configuration.
 
@@ -43,6 +30,17 @@ A check consists of two parts – a query and check configuration.
     - `info`
     - `ok`
 - Stores status in the `_level` column.
+
+## Check types
+There are two types of checks – a threshold check and a deadman check.
+
+#### Threshold check
+A threshold check assigns a status based on a value being above, below,
+inside, or outside of defined thresholds.
+
+#### Deadman check
+A deadman check assigns a status to data when a series or group doesn't report
+in a specified amount of time.
 
 ## Create a check in the InfluxDB UI
 1.  Click **Monitoring & Alerting** in the sidebar in the InfluxDB UI.
