@@ -9,6 +9,6 @@ menu:
 v2.0/tags: [key concepts]
 ---
 
-Before working with InfluxDB 2.0, it's helpful to learn a few key concepts, including:
+Before working with InfluxDB 2.0, it's helpful to learn a few key concepts. Browse the topics below to learn more.
 
 {{< children >}}
