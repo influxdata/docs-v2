@@ -1,7 +1,7 @@
 ---
 title: Enable HTTPS with InfluxDB
 description: >
-  Enable HTTPS and Transport Security Layer (TLS) secure communication between clients and your InfluxDB servers.
+  Enable Transport Layer Security (TLS) and use the HTTPS protocol to secure communication between clients and InfluxDB.
 weight: 101
 menu:
   v2_0:
@@ -19,35 +19,29 @@ InfluxData [strongly recommends](/influxdb/v1.7/administration/security/) enabli
 
 ## Requirements
 
-To enable HTTPS with InfluxDB, you'll need an existing or new InfluxDB instance
-and a Transport Layer Security (TLS) certificate (also known as a Secured Sockets Layer (SSL) certificate).
-
+To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate (also known as a Secured Sockets Layer (SSL) certificate).
 InfluxDB supports three types of TLS certificates:
 
-* **Single domain certificates signed by a Certificate Authority**
+### Single domain certificates signed by a Certificate Authority
 
-    Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-    With this certificate option, every InfluxDB instance requires a unique single domain certificate.
+Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+With this certificate option, every InfluxDB instance requires a unique single domain certificate.
 
-* **Wildcard certificates signed by a Certificate Authority**
+### Wildcard certificates signed by a Certificate Authority
 
-    Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-    Wildcard certificates can be used across multiple InfluxDB instances on different servers.
+Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+Wildcard certificates can be used across multiple InfluxDB instances on different servers.
 
-* **Self-signed certificates**
+### Self-signed certificates
 
-    Self-signed certificates are _not_ signed by a Certificate Authority (CA).
-    Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
-    They do not allow clients to verify the identity of the InfluxDB server.
-    With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
-    You can generate a self-signed certificate on your own machine.
+Self-signed certificates are _not_ signed by a Certificate Authority (CA).
+Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
+They do not allow clients to verify the identity of the InfluxDB server.
+With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
+You can generate a self-signed certificate on your own machine.
 
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
-
-The following two sections outline how to set up HTTPS with InfluxDB
-[using a CA-signed certificate](#set-up-https-with-a-ca-signed-certificate)
-and [using a self-signed certificate](#set-up-https-with-a-self-signed-certificate).
 
 ## Set up HTTPS with a CA-signed certificate
 
@@ -57,7 +51,7 @@ and [using a self-signed certificate](#set-up-https-with-a-self-signed-certifica
 
 2. **Set certificate file permissions**
 
-    Users running InfluxDB must have read permissions on the TLS certificate.
+    The user running InfluxDB must have read permissions on the TLS certificate.
 
     {{% note %}}You may opt to set up multiple users, groups, and permissions.
     Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
@@ -123,23 +117,25 @@ setting to indicate `https` instead of `http`.
 If you're using a self-signed certificate, uncomment the `insecure_skip_verify` setting and set it to `true`.
 
 ```toml
-    ###############################################################################
-    #                            OUTPUT PLUGINS                                   #
-    ###############################################################################
->
-    # Configuration for InfluxDB server to send metrics to
-    [[outputs.influxdb]]
-      ## The full HTTP or UDP endpoint URL for your InfluxDB instance.
-      ## Multiple urls can be specified as part of the same cluster,
-      ## this means that only ONE of the urls will be written to each interval.
-      # urls = ["udp://localhost:8089"] # UDP endpoint example
-      urls = ["https://<domain_name>.com:8086"]
->
-    [...]
->
-      ## Optional SSL Config
-      [...]
-      insecure_skip_verify = true # <-- Update only if you're using a self-signed certificate
+###############################################################################
+#                            OUTPUT PLUGINS                                   #
+###############################################################################
+
+# Configuration for sending metrics to InfluxDB
+[[outputs.influxdb_v2]]
+  ## The URLs of the InfluxDB cluster nodes.
+  ##
+  ## Multiple URLs can be specified for a single cluster, only ONE of the
+  ## urls will be written to each interval.
+  urls = ["http://127.0.0.1:9999"]
+
+  [...]
+
+  ## Optional TLS Config for use on HTTP connections.
+  [...]
+  ## Use TLS but skip chain & host verification
+  insecure_skip_verify = true
 ```
 
-Next, restart Telegraf and you're all set!
+
+Restart Telegraf using the updated configuration file.
