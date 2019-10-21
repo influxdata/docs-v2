@@ -25,7 +25,7 @@ InfluxDB 2.0 includes the following data elements:
 - [bucket](#bucket)
 - [organization](#organization)
 
-The [sample data](#sample-data) below is used to illustrate data elements concepts.
+The sample data below is used to illustrate data elements concepts.
 _Hover over highlighted terms to get acquainted with InfluxDB terminology and layout._
 
 **bucket:**  `my_bucket`
