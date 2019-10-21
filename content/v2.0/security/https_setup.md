@@ -7,13 +7,15 @@ menu:
   v2_0:
     name: Enabling HTTPS
     parent: Security & authorization
-v2.0/tags: [security, authentication, tls]
+v2.0/tags: [security, authentication, tls, https]
 ---
 
 Enabling HTTPS encrypts the communication between clients and the InfluxDB server.
 When configured with a signed certificate, HTTPS can also verify the authenticity of the InfluxDB server to connecting clients.
 
+{{% warn %}}
 InfluxData [strongly recommends](/influxdb/v1.7/administration/security/) enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
+{{% /warn %}}
 
 ## Requirements
 
@@ -35,10 +37,10 @@ InfluxDB supports three types of TLS certificates:
 * **Self-signed certificates**
 
     Self-signed certificates are _not_ signed by a Certificate Authority (CA).
-    [Generate a self-signed certificate]((#step-1-generate-a-self-signed-certificate)) on your own machine.
     Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
     They do not allow clients to verify the identity of the InfluxDB server.
     With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
+    You can generate a self-signed certificate on your own machine.
 
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
