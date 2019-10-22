@@ -42,4 +42,6 @@ influxd [command]
 | `--session-length`         | TTL in minutes for newly created sessions (default `60`)                               | integer    |
 | `--session-renew-disabled` | Disables automatically extending session TTL on request                                |            |
 | `--store`                  | Data store for REST resources (bolt or memory) (default `bolt`)                        | string     |
+| `--tls-cert`               | Path to TLS certificate file                                                           | string     |
+| `--tls-key`                | Path to TLS private key file                                                           | string     |
 | `--tracing-type`           | Supported tracing types (log or jaeger)                                                | string     |
