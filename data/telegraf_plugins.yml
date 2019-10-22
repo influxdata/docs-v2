@@ -393,7 +393,7 @@ input:
     id: exec
     description: |
       The Exec input plugin parses supported [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/)
-      (InfluxDB Line Protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard) into metrics.
+      (line protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard) into metrics.
       Each Telegraf metric includes the measurement name, tags, fields, and timestamp.
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/exec/README.md
     introduced: 0.1.5
@@ -564,7 +564,7 @@ input:
     id: http_listener_v2
     description: |
       The HTTP Listener v2 input plugin listens for messages sent via HTTP POST.
-      Messages are expected in the [InfluxDB Line Protocol input data format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx)
+      Messages are expected in [line protocol format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx)
       ONLY (other [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest//data_formats/input/) are not supported).
       This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB v2110 HTTP API.
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/http_listener_v2/README.md
