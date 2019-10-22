@@ -12,11 +12,20 @@ weight: 101
 ### Features
 - Add shortcut for toggling comments and submitting in Script Editor.
 
+### UI Improvements
+- Redesign page headers to be more space-efficient.
+- Add 403 handler that redirects back to the sign-in page on oats-generated routes.
+
 ### Bug Fixes
 - Ensure users are created with an active status.
 - Added missing string values for `CacheStatus` type.
 - Disable saving for threshold check if no threshold selected.
 - Query variable selector shows variable keys, not values.
+- Create Label overlay disables the submit button and returns a UI error if name field is empty.
+- Log error as info message on unauthorized API call attempts.
+- Ensure `members` and `owners` endpoints lead to 404 when organization resource does not exist.
+- Telegraf UI filter functionality shows results based on input name.
+- Fix Telegraf UI sort functionality.
 
 ## v2.0.0-alpha.18 [2019-09-26]
 
