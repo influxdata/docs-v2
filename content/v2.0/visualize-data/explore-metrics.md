@@ -35,7 +35,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 3. Use the **Functions** list to review the available Flux functions.
    Click on a function from the list to add it to your query.
-4. Click **Submit** to run your query. You can then preview your graph in the above pane.
+4. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
 5. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
   * Click the eye icon on a tab to hide or show a query's visualization.
   * Click on the name of the query in the tab to rename it.
@@ -88,6 +88,10 @@ The default time range is 5m.
 ### Query Builder or Script Editor
 
 Click **Query Builder** to use the builder to create a Flux query. Click **Script Editor** to manually edit the query.
+
+#### Add comments to your script
+
+In **Script Editor** mode, press `Control+/` to toggle between commenting a line out.
 
 ## Save your query as a dashboard cell or task
 

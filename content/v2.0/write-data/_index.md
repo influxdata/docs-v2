@@ -46,12 +46,14 @@ cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
 mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
+#### Timestamp precision
 Timestamps are essential in InfluxDB.
-If a data point does not include a timestamp when it is received by the database, InfluxDB uses the current system time (UTC) of its host machine.
+If a data point does not include a timestamp when it is received by the database,
+InfluxDB uses the current system time (UTC) of its host machine.
 
 The default precision for timestamps is in nanoseconds.
 If the precision of the timestamps is anything other than nanoseconds (`ns`),
-you must specify the precision in your write request.
+you must specify the precision in your [write request](#ways-to-write-data-into-influxdb).
 InfluxDB accepts the following precisions:
 
 - `ns` - Nanoseconds

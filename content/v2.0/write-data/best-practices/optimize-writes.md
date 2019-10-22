@@ -49,7 +49,7 @@ collected in nanoseconds, there is no need to write at that precision.
 Using the coarsest precision possible for timestamps can result in significant
 compression improvements.
 
-_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#precision)._
+_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timestamp-precision)._
 
 ## Synchronize hosts with NTP
 
