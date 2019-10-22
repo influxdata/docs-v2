@@ -55,6 +55,9 @@ To request a backup of data in your {{< cloud-name "short" >}} instance, contact
 ### Cancel service
 
 1. Hover over the Usage icon in the left navigation bar and select Billing.
+
+    {{< nav-icon "usage" >}}
+
 2. Click **Cancel Service**.
 3. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.**
 4. Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.
