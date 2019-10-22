@@ -10,6 +10,8 @@ menu:
     name: system.time
     parent: System
 weight: 401
+related:
+  - /v2.0/reference/flux/stdlib/built-in/misc/now/
 ---
 
 The `system.time()` function returns the current system time.

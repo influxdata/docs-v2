@@ -8,6 +8,8 @@ menu:
     name: now
     parent: built-in-misc
 weight: 401
+related:
+  - /v2.0/reference/flux/stdlib/system/time/
 ---
 
 The `now()` function returns the current time (UTC).
