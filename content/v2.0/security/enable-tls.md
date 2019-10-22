@@ -1,11 +1,11 @@
 ---
-title: Enable HTTPS with InfluxDB
+title: Enable TLS encryption
+seotitle: Enable TLS/SSL encryption
 description: >
   Enable Transport Layer Security (TLS) and use the HTTPS protocol to secure communication between clients and InfluxDB.
 weight: 101
 menu:
   v2_0:
-    name: Enable HTTPS
     parent: Security & authorization
 v2.0/tags: [security, authentication, tls, https, ssl]
 ---
