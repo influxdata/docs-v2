@@ -125,13 +125,13 @@ That's it! You've successfully set up HTTPS with InfluxDB.
 
 ## Connect Telegraf to a secured InfluxDB instance
 
-Connecting [Telegraf](/telegraf/latest/) to an InfluxDB instance that's using
-HTTPS requires some additional steps.
+To connect [Telegraf](/telegraf/latest/) to an InfluxDB 2.0 instance with TLS enabled,
+update the following `influxdb_v2` output settings in your Telegraf configuration file:
 
-In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), edit the `urls`
-setting to indicate `https` instead of `http`.
-(Change `localhost` to the relevant domain name if necessary.)
-If you're using a self-signed certificate, uncomment the `insecure_skip_verify` setting and set it to `true`.
+- Update urls to use https instead of http.
+- If using a self-signed certificate, uncomment and set `insecure_skip_verify` to true.
+
+### Example configuration
 
 ```toml
 ###############################################################################
@@ -144,7 +144,7 @@ If you're using a self-signed certificate, uncomment the `insecure_skip_verify` 
   ##
   ## Multiple URLs can be specified for a single cluster, only ONE of the
   ## urls will be written to each interval.
-  urls = ["http://127.0.0.1:9999"]
+  urls = ["https://127.0.0.1:9999"]
 
   [...]
 
