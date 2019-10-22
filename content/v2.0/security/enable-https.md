@@ -74,6 +74,14 @@ You can generate a self-signed certificate on your own machine.
     --tls-key "/etc/ssl/influxdb-selfsigned.key"
     ```
 
+4. **Verify**
+
+    Ensure you can connect over HTTPS by running
+
+    ```
+    curl -v https://influxdb:9999/api/v2/ping
+    ```
+
 That's it! You've successfully set up HTTPS with InfluxDB.
 
 ## Set up HTTPS with a self-signed certificate
@@ -102,6 +110,14 @@ That's it! You've successfully set up HTTPS with InfluxDB.
     influxd \
     --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
     --tls-key "/etc/ssl/influxdb-selfsigned.key"
+    ```
+
+3. **Verify**
+
+    Ensure you can connect over HTTPS by running
+
+    ```
+    curl -vk https://influxdb:9999/api/v2/ping
     ```
 
 That's it! You've successfully set up HTTPS with InfluxDB.
@@ -136,6 +152,5 @@ If you're using a self-signed certificate, uncomment the `insecure_skip_verify` 
   ## Use TLS but skip chain & host verification
   insecure_skip_verify = true
 ```
-
 
 Restart Telegraf using the updated configuration file.
