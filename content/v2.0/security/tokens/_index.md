@@ -15,6 +15,9 @@ weight: 101
 InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
+Use authentication tokens for the following tasks:
+- Authorize API requests. See [InfluxDB v2 API](/v2.0/reference/api/#view-influxdb-v2-api-documentation)
+
 The following articles provide information about managing authentication tokens.
 
 {{< children >}}
