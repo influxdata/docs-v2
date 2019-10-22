@@ -26,3 +26,10 @@ now()
 data
   |> range(start: -10h, stop: now())
 ```
+
+{{% note %}}
+#### now() vs system.time()
+`now()` returns the current UTC time.
+[`system.time()`](/v2.0/reference/flux/stdlib/system/time/) returns the current
+system time of the host machine, which typically accounts for the local time zone.
+{{% /note %}}

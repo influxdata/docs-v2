@@ -32,3 +32,10 @@ import "system"
 data
   |> set(key: "processed_at", value: string(v: system.time() ))
 ```
+
+{{% note %}}
+#### system.time() vs now()
+`system.time()` returns the current system time of the host machine, which
+typically accounts for the local time zone.
+[`now()`](/v2.0/reference/flux/stdlib/built-in/misc/now/) returns the current UTC time.
+{{% /note %}}
