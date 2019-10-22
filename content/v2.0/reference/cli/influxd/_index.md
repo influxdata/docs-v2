@@ -42,6 +42,8 @@ influxd [command]
 | `--session-length`         | TTL in minutes for newly created sessions (default `60`)                                              | integer    |
 | `--session-renew-disabled` | Disables automatically extending session TTL on request                                               |            |
 | `--store`                  | Data store for REST resources (bolt or memory) (default `bolt`)                                       | string     |
+| `--tls-cert`               | Path to TLS certificate file                                                                          | string     |
+| `--tls-key`                | Path to TLS private key file                                                                          | string     |
 | `--tracing-type`           | Supported tracing types (log or jaeger)                                                               | string     |
 | `--vault-addr `            | Address of the Vault server (example: `https://127.0.0.1:8200/`)                                      | string     |
 | `--vault-cacert`           | Path to a PEM-encoded CA certificate file                                                             | string     |
