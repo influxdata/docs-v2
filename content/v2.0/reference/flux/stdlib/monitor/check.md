@@ -83,6 +83,7 @@ from(bucket: "telegraf")
       r._measurement == "disk" and
       r._field = "used_percent"
   )
+  |> group(columns: ["_measurement"])
   |> monitor.check(
     crit: (r) => r._value > 90.0,
     warn: (r) => r._value > 80.0,

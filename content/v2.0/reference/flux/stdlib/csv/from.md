@@ -29,10 +29,6 @@ csv.from(file: "/path/to/data-file.csv")
 csv.from(csv: csvData)
 ```
 
-{{% cloud-msg %}}
-`csv.from()` is not available in {{< cloud-name "short" >}}.
-{{% /cloud-msg %}}
-
 ## Parameters
 
 ### file
@@ -40,6 +36,10 @@ The file path of the CSV file to query.
 The path can be absolute or relative.
 If relative, it is relative to the working directory of the `influxd` process.
 _The CSV file must exist in the same file system running the `influxd` process._
+
+{{% cloud-msg %}}
+{{< cloud-name "short" >}} does not support the `file` parameter.
+{{% /cloud-msg %}}
 
 _**Data type:** String_
 
