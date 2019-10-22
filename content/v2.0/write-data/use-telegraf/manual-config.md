@@ -24,7 +24,8 @@ for using Telegraf with InfluxDB v2.0._
 
 ## Configure Telegraf input and output plugins
 Configure Telegraf input and output plugins in the Telegraf configuration file (typically named `telegraf.conf`).
-Input plugins collect metrics. Output plugins define destinations where metrics are sent.
+Input plugins collect metrics.
+Output plugins define destinations where metrics are sent.
 
 _See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
 
@@ -54,10 +55,8 @@ Your InfluxDB v2.0 authorization token.
 For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/).
 
 {{% note %}}
-#### Avoid storing tokens in plain text
-InfluxData does not recommend storing authentication tokens in plain text in the `telegraf.conf`.
-A secure alternative is to set the `INFLUX_TOKEN` environment variable and include
-it into your configuration file.
+###### Avoid storing tokens in `telegraf.conf`
+We recommend storing your tokens by setting the `INFLUX_TOKEN` environment variable and including the environment variable in your configuration file.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

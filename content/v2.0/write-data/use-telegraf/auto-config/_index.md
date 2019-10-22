@@ -12,10 +12,15 @@ menu:
 weight: 201
 ---
 
-The InfluxDB user interface (UI) provides a workflow that automatically creates
+The InfluxDB user interface (UI) can automatically create
 Telegraf configuration files based on user-selected Telegraf plugins.
 This article describes how to create a Telegraf configuration in the InfluxDB UI and
 start Telegraf using the generated configuration file.
+
+{{% note %}}
+Only a subset of plugins are configurable using the InfluxDB UI.
+To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config).
+{{% /note %}}
 
 {{% note %}}
 _View the [requirements](/v2.0/write-data/use-telegraf#requirements)
@@ -32,12 +37,7 @@ for using Telegraf with InfluxDB v2.0._
 3. Select **Telegrafs**.
 4. Click **{{< icon "plus" >}} Create Configuration**.
 5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
-6. Select one or more of the available plugin groups
-   (e.g. **System**, **Docker**, **Kubernetes**, **NGINX**, or **Redis**), and click **Continue**.
-   {{% note %}}
-   All Telegraf plugins are supported, but only a subset are configurable using the InfluxDB UI.
-   To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config).
-   {{% /note %}}
+6. Select one or more of the available plugin groups and click **Continue**.
 7. Review the list of **Plugins to Configure** for configuration requirements.
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.

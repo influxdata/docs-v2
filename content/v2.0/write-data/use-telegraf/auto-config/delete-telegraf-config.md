@@ -18,7 +18,7 @@ To delete a Telegraf configuration:
 
 2. Select **Telegraf**.
 3. Hover over the configuration you want to delete, click the **{{< icon "trash" >}}**
-   icon, and **Delete**.
+   icon, and click **Delete**.
 
 {{% note %}}
 Deleting a Telegraf configuration does not affect _**running**_ Telegraf agents.
