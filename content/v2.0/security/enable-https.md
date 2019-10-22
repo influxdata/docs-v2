@@ -88,6 +88,7 @@ That's it! You've successfully set up HTTPS with InfluxDB.
 
 1. **Generate a self-signed certificate**
 
+    Use the `openssl` utility (preinstalled on many OSes) to create a certificate.
     The following command generates a private key file (`.key`) and a self-signed
     certificate file (`.crt`) which remain valid for the specified `NUMBER_OF_DAYS`.
     It outputs those files to `/etc/ssl/` and gives them the required permissions.
