@@ -10,13 +10,17 @@ menu:
     name: Cancel InfluxDB Cloud
 ---
 
-You can cancel your {{< cloud-name >}} account at any time. To do so, follow the steps below.
+To cancel your {{< cloud-name >}} subscription, complete the following steps:
 
-### 1. Stop reading and writing data to {{< cloud-name >}}
+1. [Stop reading and writing data](#stop-reading-and-writing-data).
+2. [Export data and other artifacts](#export-data-and-other-artifacts).
+3. [Cancel service](#cancel-service).
 
-To stop being charged for {{< cloud-name "short" >}}, you'll first need to pause all your writes and queries.
+### Stop reading and writing data
 
-### 2. Export your data and other artifacts
+To stop being charged for {{< cloud-name "short" >}}, pause all writes and queries.
+
+### Export data and other artifacts
 
 To export data and artifacts, follow the steps below.
 
@@ -48,6 +52,9 @@ For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-das
 
 To request a backup of data in your {{< cloud-name "short" >}} instance, contact [InfluxData Support](mailto:support@influxdata.com).
 
-### 3. Contact Support
+### Cancel service
 
-To cancel your subscription, reach out to [InfluxData Support](mailto:support@influxdata.com). Your payment method is charged your final balance immediately upon cancelation of service.
+1. Hover over the Usage icon in the left navigation bar and select Billing.
+2. Click **Cancel Service**.
+3. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.**
+4. Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.
