@@ -34,7 +34,7 @@ See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-i
 {{% note %}}
 See [View buckets](/v2.0/organizations/view-orgs/#view-your-organization-id/) for instructions on viewing your bucket ID.
 {{% /note %}}
-- an [authentication token](/v2.0/security/tokens/)
+- an [authentication token](/v2.0/security/tokens/view-tokens/)
 
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
