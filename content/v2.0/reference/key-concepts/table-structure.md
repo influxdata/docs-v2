@@ -1,5 +1,4 @@
 ---
-draft: true
 title: InfluxDB table structure
 description: >
   InfluxDB uses a columnar system to structure tables.
@@ -17,6 +16,7 @@ InfluxDB 2.0 uses the following columnar table structure to store data:
 - **Header row:** describes the data labels for each column in a row.
 - **Data columns:** include the following columns: annotation, result, and table.
 - **Data rows:** all rows that contain time series data. For details about the type of data stored in InfluxDB, see [InfluxDB data elements](/v2.0/reference/key-concepts/data-elements/).
+- **Group keys** modify output tables in Flux by grouping records that share common values in specified columns. Learn more about [how group keys shapes your data](/v2.0/query-data/guides/group-data/#example-grouping-operations).
 
 For specifications on the InfluxDB 2.0 table structure, see [Tables](/v2.0/reference/annotated-csv/#tables).
 
