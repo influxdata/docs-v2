@@ -17,7 +17,7 @@ weight: 201
 
 1. Click the **Dashboards** icon in the navigation bar.
 
-  {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" >}}
 
 2. Click the **+Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
