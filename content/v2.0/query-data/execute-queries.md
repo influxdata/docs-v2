@@ -13,10 +13,10 @@ v2.0/tags: [query]
 There are multiple ways to execute queries with InfluxDB.
 This guide covers the different options:
 
-1. [Data Explorer](#data-explorer)
-2. [Influx REPL](#influx-repl)
-3. [Influx query command](#influx-query-command)
-5. [InfluxDB API](#influxdb-api)
+- [Data Explorer](#data-explorer)
+- [Influx REPL](#influx-repl)
+- [Influx query command](#influx-query-command)
+- [InfluxDB API](#influxdb-api)
 
 ## Data Explorer
 Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.

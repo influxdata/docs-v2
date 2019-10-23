@@ -20,7 +20,7 @@ the InfluxDB user interface (UI), and client libraries.
   - [User Interface](#user-interface)
   - [influx CLI](#influx-cli)
   - [InfluxDB API](#influxdb-api)
-- [Others](#others)
+  - [Others](#others)
 
 ### What you'll need
 
