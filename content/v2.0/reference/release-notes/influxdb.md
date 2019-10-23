@@ -7,7 +7,7 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.19 [2019-10-14]
+## v2.0.0-alpha.19 [2019-10-24]
 
 ### Features
 - Add shortcut for toggling comments and submitting in Script Editor.
