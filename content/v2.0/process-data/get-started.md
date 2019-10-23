@@ -49,8 +49,7 @@ _See [Task configuration options](/v2.0/process-data/task-options) for detailed 
 about each option._
 
 {{% note %}}
-If creating a task in the InfluxDB user interface (UI), task options are defined
-in form fields when creating the task.
+When creating a task in the InfluxDB user interface (UI), task options are defined in form fields.
 {{% /note %}}
 
 ## Define a data source
