@@ -14,8 +14,8 @@ menu:
 weight: 101
 ---
 
-InfluxDB tasks are scheduled Flux scripts that take a stream of input data, modify or analyze
-it in some way, then store the modified data in a new bucket or perform other actions.
+An **InfluxDB task** is a scheduled Flux scripts that takes a stream of input data, modifies or analyzes
+it in some way, then stores the modified data in a new bucket or performs other actions.
 
 This article walks through writing a basic InfluxDB task that downsamples
 data and stores it in a new bucket.
