@@ -35,16 +35,13 @@ As TSM files accumulate, they are combined and compacted into higher level TSM f
 
 Points can be sent individually; however, for efficiency, most applications send points in batches.
 A typical batch ranges in size from hundreds to thousands of points.
-Points in a POST body can be from an arbitrary number of series.
+Points in a POST body can be from an arbitrary number of series, measurements, and tag sets.
 Points in a batch do not have to be from the same measurement or tagset.
 
 ## Write Ahead Log (WAL)
 
-To ensure durability, we use a Write Ahead Log (WAL).
-<!-- The WAL is a write-optimized storage format that allows for writes to be durable, but not easily queryable -->
-<!-- On the write side, -->
-WAL is a data structure and algorithm that is super simple and powerful.
-It ensures that written data does not disappear when storage engine restarts.
+The Write Ahead Log (WAL) ensures durability by retaining data when the storage engine restarts.
+It ensures that written data does not disappear in an unexpected failure.
 When a client sends a write request, the following occurs:
 
 1. Write request is appended to the end of the WAL file.
@@ -53,16 +50,18 @@ When a client sends a write request, the following occurs:
    <!-- 3. Update the in-memory CACHE? -->
 4. Return success to caller.
 
-fsync() is a system call, so it has a kernel context switch which costs something.
 fsync() takes the file and pushes pending writes all the way through any buffers and caches to disk.
-fsync() is expensive _in terms of time_ but guarantees your data is safe on disk.
-**Important** to batch your points (send in ~2000 points at a time), to fsync() less frequently.
+As a system call, fsync() has a kernel context switch which is expensive _in terms of time_ but guarantees your data is safe on disk.
+
+{{% note%}}
+To fsync() less frequently, batch your points (send in ~2000 points at a time).
+{{% /note %}}
 
 <!-- On read side: -->
 When the storage engine restarts,
 <!-- (if we've pulled the plug, say) -->
 open WAL file and read it back into the in-memory database.
-Answer requests to the /read endpoint.
+InfluxDB then snswer requests to the `/read` endpoint.
 
 <!-- ===== V1 material -->
 <!-- TODO is this still true? -->
@@ -82,9 +81,9 @@ Queries execute on a copy of the data that is made from the cache at query proce
 This way writes that come in while a query is running won’t affect the result.
 
 The Cache is an in-memory copy of all data points current stored in the WAL.
-The points are organized by the key, which is the measurement, tag set, and unique field.
-Each field is kept as its own time-ordered range.
-The Cache data is not compressed while in memory.
+Points are organized by the key, which is the measurement, tag set, and unique field.
+Each field is stored in its own time-ordered range.
+Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
 
@@ -114,7 +113,7 @@ organize values for a series together into long runs to best optimize compressio
 
 ## Time Series Index (TSI)
 
-TSI stores series keys grouped by measure, tag, field.
+TSI stores series keys grouped by measurement, tag, and field.
 
 To keep queries fast as we have more data, we use a **Time Series Index**.
 In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
