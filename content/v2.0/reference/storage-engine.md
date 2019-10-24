@@ -24,23 +24,12 @@ Major topics include:
 * [Time-Structed Merge Tree (TSM)](#time-structured-merge-tree-tsm)
 * [Time Series Index (TSI)](#time-series-index-tsi)
 
-{{% note %}}
-##### At a glance: changes to the InfluxDB storage engine from 1.x to 2.0
-- The InfluxDB 2.0 storage engine no longer partitions data into shards by time.
-- **Buckets** replace databases and retention policies.
-- Only TSI is used. There is no more in-memory index.
-- The configuration interface and options have changed. Configuration options are not currently exposed, but will be.
-
-Read about the [v1 storage engine](https://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine).
-{{% /note %}}
-
 ## Writing data: from API to disk
 
 The storage engine handles data from the point an API request is received through writing it to the physical disk.
 Data is written to InfluxDB using [Line protocol](/) sent via HTTP POST request to the `/write` endpoint.
-Batches of points are sent to InfluxDB.
-Those batches are compressed and written to a WAL for immediate durability.
-The points are also written to an in-memory cache so that newly written points are immediately queryable.
+Batches of [points](/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
+The points are also written to an in-memory cache and become immediately queryable.
 The cache is periodically written to disk as TSM files.
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
