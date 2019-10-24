@@ -79,7 +79,7 @@ Answer requests to the /read endpoint.
 <!-- TODO is this still true? -->
 <!-- On the file system, the WAL is made up of sequentially numbered files (`_000001.wal`). -->
 <!-- The file numbers are monotonically increasing and referred to as WAL segments. -->
-<!-- When a segment reaches 10MB in size, it is closed and a new one is opened.  Each WAL segment stores multiple compressed blocks of writes and deletes. -->
+<!-- When a segment reaches 10MB in size, it is closed and a new one is opened. Each WAL segment stores multiple compressed blocks of writes and deletes. -->
 <!-- Each entry in the WAL follows a [TLV standard](https://en.wikipedia.org/wiki/Type-length-value) with a single byte representing the type of entry (write or delete), a 4 byte `uint32` for the length of the compressed block, and then the compressed block. -->
 
 {{% note%}}
@@ -93,40 +93,31 @@ Queries execute on a copy of the data that is made from the cache at query proce
 This way writes that come in while a query is running won’t affect the result.
 
 The Cache is an in-memory copy of all data points current stored in the WAL.
-The points are organized by the key, which is the measurement, [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), and unique [field](/influxdb/v1.7/concepts/glossary/#field).
+The points are organized by the key, which is the measurement, tag set, and unique field.
 Each field is kept as its own time-ordered range.
 The Cache data is not compressed while in memory.
-
-It is queried at runtime and merged with the data stored in TSM files.
-
+The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
 
-The cache is recreated on restart by re-reading the WAL files on disk back into memory.
+<!-- It is queried at runtime and merged with the data stored in TSM files. -->
 
 ## Time-Structured Merge Tree (TSM)
 
-<!-- - TSM Files - TSM files store compressed series data in a columnar format. -->
-
-Now let's handle more Data!
-Queries get slower as data grows
-Service terminates if data size exceeds memory...
-
-**Time-Structured Merge Tree** (TSM) is our data format
-We group field values grouped by series key, then order field values by time
-
-<!-- TERMS -->
-series key = measurement, tag key+value, field key
-point = series key, field value, timestamp
-
+In order to efficiently compact and store data,
+We group field values grouped by series key, then order field values by time.
+**Time-Structured Merge Tree** (TSM) is our data format.
+TSM files store compressed series data in a columnar format.
 Within a series, we store only differences between values, which is more efficient.
-
 Column-Oriented storage means we can read by series key and ignore what it doesn't need.
 
-Compression helps with performance.
+<!-- TERMS -->
+Some terminology:
+
+- a *series key* is defined by measurement, tag key+value, and field key.
+- a *point* is a series key, field value, and timestamp.
 
 After fields are stored safely in TSM files, WAL is truncated...
 <!-- TODO what next? -->
-(This stuff is configurable)
 
 There’s a lot of logic and sophistication in the TSM compaction code.
 However, the high-level goal is quite simple:
@@ -137,10 +128,9 @@ organize values for a series together into long runs to best optimize compressio
 TSI stores series keys grouped by measure, tag, field.
 
 To keep queries fast as we have more data, we use a **Time Series Index**.
-cardinality = quantity of series keys
-With high cardinality, we have to search through all series keys.
-So how to quickly find and match series keys?
-We use Time Series Index (TSI), which stores series keys grouped by measurement,tag,field
+In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
+<!-- So how to quickly find and match series keys? -->
+We use Time Series Index (TSI), which stores series keys grouped by measurement, tag, and field.
 TSI answers two questions well:
 1) What measurements, tags, fields exist?
 2) Given a measurement, tags, and fields, what series keys exist?
