@@ -1,7 +1,7 @@
 ---
 title: InfluxDB storage engine
 description: >
-  Concepts related to InfluxDB storage engine.
+  An overview of the InfluxDB storage engine architecture.
 weight: 7
 menu:
   v2_0_ref:
@@ -36,7 +36,6 @@ Major topics include:
 Read about the [v1 storage engine](https://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine).
 {{% /note %}}
 
-
 ## Writing data: from API to disk
 
 In summary, batches of points are POSTed to InfluxDB.
@@ -44,28 +43,10 @@ Those batches are snappy compressed and written to a WAL for immediate durabilit
 The points are also written to an in-memory cache so that newly written points are immediately queryable.
 The cache is periodically flushed to TSM files.
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
-TSM data is organized into shards.
-The time range covered by a shard and the replication factor of a shard in a clustered deployment are configured by the retention policy.
+<!-- TSM data is organized into shards. -->
+<!-- The time range covered by a shard and the replication factor of a shard in a clustered deployment are configured by the retention policy. -->
 
-<!-- V1 -->
-<!-- The storage engine is composed of a number of components that each serve a particular role: -->
-
-<!-- - WAL - The WAL is a write-optimized storage format that allows for writes to be durable, but not easily queryable. -->
-<!--   Writes to the WAL are appended to segments of a fixed size. -->
-<!-- - Cache - The Cache is an in-memory representation of the data stored in the WAL. -->
-<!--   It is queried at runtime and merged with the data stored in TSM files. -->
-<!-- - TSM Files - TSM files store compressed series data in a columnar format. -->
-<!-- - FileStore - The FileStore mediates access to all TSM files on disk. -->
-<!--   It ensures that TSM files are installed atomically when existing ones are replaced as well as removing TSM files that are no longer used. -->
-<!-- - Compactor - The Compactor is responsible for converting less optimized Cache and TSM data into more read-optimized formats. -->
-<!--   It does this by compressing series, removing deleted data, optimizing indices and combining smaller files into larger ones. -->
-<!-- - Compaction Planner - The Compaction Planner determines which TSM files are ready for a compaction and ensures that multiple concurrent compactions do not interfere with each other. -->
-<!-- - Compression - Compression is handled by various Encoders and Decoders for specific data types. -->
-<!--   Some encoders are fairly static and always encode the same type the same way; -->
-<!--   others switch their compression strategy based on the shape of the data. -->
-<!-- - Writers/Readers - Each file type (WAL segment, TSM files, tombstones, etc..) has Writers and Readers for working with the formats. -->
-
-## /write endpoint
+<!-- ## /write endpoint -->
 
 Data is written to InfluxDB using [Line protocol](/) sent via HTTP POST request to the `/write` endpoint.
 Points can be sent individually; however, for efficiency, most applications send points in batches.
@@ -77,6 +58,8 @@ Points in a batch do not have to be from the same measurement or tagset.
 
 <!-- Also mention the cache -->
 <!-- Which parts of cache and WAL are configurable? -->
+
+<!-- The WAL is a write-optimized storage format that allows for writes to be durable, but not easily queryable -->
 
 To ensure durability, we use a Write Ahead Log (WAL).
 <!-- On the write side, -->
@@ -107,7 +90,7 @@ Answer requests to the /read endpoint.
 
 <!-- V1 (edited) -->
 <!-- TODO is this still true? -->
-<!-- On the file system, the WAL is made up of files named `_000001.wal`. -->
+<!-- On the file system, the WAL is made up of sequentially numbered files (`_000001.wal`). -->
 <!-- The file numbers are monotonically increasing and referred to as WAL segments. -->
 <!-- When a segment reaches 10MB in size, it is closed and a new one is opened.  Each WAL segment stores multiple compressed blocks of writes and deletes. -->
 <!-- When a write comes in the new points are serialized, compressed using Snappy, and written to a WAL file. -->
@@ -122,15 +105,18 @@ Once you receive a response to a write request, your data is on disk!
 
 ## Cache
 
+Queries to the storage engine will merge data from the Cache with data from the TSM files.
+Queries execute on a copy of the data that is made from the cache at query processing time.
+This way writes that come in while a query is running won’t affect the result.
+
+<!-- - Cache - The Cache is an in-memory representation of the data stored in the WAL. -->
+<!--   It is queried at runtime and merged with the data stored in TSM files. -->
+
 <!-- V1 -->
 The Cache is an in-memory copy of all data points current stored in the WAL.
 The points are organized by the key, which is the measurement, [tag set](/influxdb/v1.7/concepts/glossary/#tag-set), and unique [field](/influxdb/v1.7/concepts/glossary/#field).
 Each field is kept as its own time-ordered range.
 The Cache data is not compressed while in memory.
-
-Queries to the storage engine will merge data from the Cache with data from the TSM files.
-Queries execute on a copy of the data that is made from the cache at query processing time.
-This way writes that come in while a query is running won't affect the result.
 
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
 
@@ -147,6 +133,9 @@ Deletes sent to the Cache will clear out the given key or the specific time rang
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 
 ## Time-Structured Merge Tree
+
+<!-- - TSM Files - TSM files store compressed series data in a columnar format. -->
+
 
 Now let's handle more Data!
 Queries get slower as data grows
@@ -183,8 +172,8 @@ We use Time Series Index (TSI), which stores series keys grouped by measurement,
 TSI answers question what measurements, tags, fields exist?
 <!-- TODO there's another Question TSI answers... -->
 
+<!-- ## Retention-->
 <!-- TODO should we even mention shards? -->
-<!-- ## Shards -->
 
 <!-- A shard contains: -->
 <!--   WAL files -->
@@ -199,4 +188,17 @@ TSI answers question what measurements, tags, fields exist?
 <!-- In OSS 2.0, shards are no longer time-bounded -->
 <!-- This is to support cold-storage -->
 <!-- Retention policies are more complicated -->
+
+<!-- =========== OTHER -->
+
+<!-- V1 -->
+<!-- - FileStore - The FileStore mediates access to all TSM files on disk. -->
+<!--   It ensures that TSM files are installed atomically when existing ones are replaced as well as removing TSM files that are no longer used. -->
+<!-- - Compactor - The Compactor is responsible for converting less optimized Cache and TSM data into more read-optimized formats. -->
+<!--   It does this by compressing series, removing deleted data, optimizing indices and combining smaller files into larger ones. -->
+<!-- - Compaction Planner - The Compaction Planner determines which TSM files are ready for a compaction and ensures that multiple concurrent compactions do not interfere with each other. -->
+<!-- - Compression - Compression is handled by various Encoders and Decoders for specific data types. -->
+<!--   Some encoders are fairly static and always encode the same type the same way; -->
+<!--   others switch their compression strategy based on the shape of the data. -->
+<!-- - Writers/Readers - Each file type (WAL segment, TSM files, tombstones, etc..) has Writers and Readers for working with the formats. -->
 
