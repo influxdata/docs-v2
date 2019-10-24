@@ -11,14 +11,7 @@ v2.0/tags: [storage engine, internals, platform]
 
 ## Introduction
 
-The InfluxDB 2.0 platform includes:
-
-- query engine
-- internal API
-- storage engine
-
-The query engine sends requests through the internal API to the storage engine.
-The storage engine ensures the following three things:
+The InfluxDB storage engine ensures the following three things:
 
 - Data is safely written to disk
 - Queried data is returned complete and correct
@@ -27,17 +20,24 @@ The storage engine ensures the following three things:
 This document details the internal workings of the storage engine.
 This information is presented both as a reference and to aid those looking to maximize performance.
 
+Major topics include:
+
+* [Write Ahead Log (WAL)](#)
+* [Time-Structed Merge Tree (TSM)](#)
+* [Time Series Index (TSI)](#)
+
 {{% note %}}
-##### At a glance: Changes in InfluxDB 2.0
+##### At a glance: changes to the storage engine in InfluxDB 2.0
 - The InfluxDB 2.0 storage engine no longer partitions data into shards by time.
 - **Buckets** replace databases and retention policies.
 - Only TSI is used. There is no more in-memory index.
 - The configuration interface and options have changed. Configuration options are not currently exposed, but will be.
 
-[Read about the v1 storage engine](https://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine).
+Read about the [v1 storage engine](https://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine).
 {{% /note %}}
 
-## Summary
+
+## Writing data: from API to disk
 
 In summary, batches of points are POSTed to InfluxDB.
 Those batches are snappy compressed and written to a WAL for immediate durability.
@@ -183,7 +183,7 @@ We use Time Series Index (TSI), which stores series keys grouped by measurement,
 TSI answers question what measurements, tags, fields exist?
 <!-- TODO there's another Question TSI answers... -->
 
-<!-- TODO should we even mention shards -->
+<!-- TODO should we even mention shards? -->
 <!-- ## Shards -->
 
 <!-- A shard contains: -->
