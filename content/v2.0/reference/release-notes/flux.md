@@ -16,6 +16,21 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.50.2 [2019-10-24]
+
+### Bug fixes
+- Make `keep()` and `drop()` throw an error if merging tables with different schemas.
+
+---
+
+## v0.50.1 [2019-10-24]
+
+### Bug fixes
+- Add annotated errors to the execute package where it affects normal usage.
+- Reorder variables in the allocator for atomic operations.
+
+---
+
 ## v0.50.0 [2019-10-11]
 
 ### Features
