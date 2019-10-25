@@ -27,10 +27,10 @@ Major topics include:
 ## Writing data: from API to disk
 
 The storage engine handles data from the point an API request is received through writing it to the physical disk.
-Data is written to InfluxDB using [Line protocol](/) sent via HTTP POST request to the `/write` endpoint.
+Data is written to InfluxDB using [line protocol](/v2.0/reference/line-) sent via HTTP POST request to the `/write` endpoint.
 Batches of [points](/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 The points are also written to an in-memory cache and become immediately queryable.
-The cache is periodically written to disk as TSM files.
+The cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
 Points can be sent individually; however, for efficiency, most applications send points in batches.
@@ -45,22 +45,19 @@ It ensures that written data does not disappear in an unexpected failure.
 When a client sends a write request, the following occurs:
 
 1. Write request is appended to the end of the WAL file.
-2. fsync() the data to the file.
+2. `fsync()` the data to the file.
 3. Update the in-memory database.
    <!-- 3. Update the in-memory CACHE? -->
 4. Return success to caller.
 
-fsync() takes the file and pushes pending writes all the way through any buffers and caches to disk.
-As a system call, fsync() has a kernel context switch which is expensive _in terms of time_ but guarantees your data is safe on disk.
+`fsync()` takes the file and pushes pending writes all the way through any buffers and caches to disk.
+As a system call, `fsync()` has a kernel context switch which is expensive _in terms of time_ but guarantees your data is safe on disk.
 
 {{% note%}}
-To fsync() less frequently, batch your points (send in ~2000 points at a time).
+To `fsync()` less frequently, batch your points (send in ~2000 points at a time).
 {{% /note %}}
 
-<!-- On read side: -->
-When the storage engine restarts,
-<!-- (if we've pulled the plug, say) -->
-open WAL file and read it back into the in-memory database.
+When the storage engine restarts, the WAL file is read back into the in-memory database.
 InfluxDB then snswer requests to the `/read` endpoint.
 
 <!-- ===== V1 material -->
@@ -80,23 +77,26 @@ Queries to the storage engine will merge data from the Cache with data from the 
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running won’t affect the result.
 
-The Cache is an in-memory copy of all data points current stored in the WAL.
+The cache is an in-memory copy of data points current stored in the WAL.
 Points are organized by the key, which is the measurement, tag set, and unique field.
 Each field is stored in its own time-ordered range.
 Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
+The cache is queried at runtime and merged with the data stored in TSM files.
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
-
-<!-- It is queried at runtime and merged with the data stored in TSM files. -->
 
 ## Time-Structured Merge Tree (TSM)
 
-In order to efficiently compact and store data,
-We group field values grouped by series key, then order field values by time.
-**Time-Structured Merge Tree** (TSM) is our data format.
+To efficiently compact and store data,
+the storage engine groups field values by [series](/v2.0/reference/key-concepts/data-elements/#series) key,
+and then orders those field values by time.
+
+The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.
-Within a series, we store only differences between values, which is more efficient.
+Within a series, we store only , which is more efficient.
+To improve efficiency, the storage engine only stores differences between values in a series.
 Column-Oriented storage means we can read by series key and ignore what it doesn't need.
+Storing data in columns lets the storage engine read by series key.
 
 <!-- TERMS -->
 Some terminology:
@@ -113,25 +113,21 @@ organize values for a series together into long runs to best optimize compressio
 
 ## Time Series Index (TSI)
 
-TSI stores series keys grouped by measurement, tag, and field.
-
 To keep queries fast as we have more data, we use a **Time Series Index**.
+TSI stores series keys grouped by measurement, tag, and field.
 In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
-<!-- So how to quickly find and match series keys? -->
 We use Time Series Index (TSI), which stores series keys grouped by measurement, tag, and field.
 TSI answers two questions well:
 1) What measurements, tags, fields exist?
 2) Given a measurement, tags, and fields, what series keys exist?
 
 <!-- ## Shards -->
-
 <!-- A shard contains: -->
 <!--   WAL files -->
 <!--   TSM files -->
 <!--   TSI files -->
 <!-- Shards are time-bounded -->
 <!-- Retention policies have properties: duration and shard duration -->
-
 <!-- colder shards get more compacted -->
 
 <!-- =========== QUESTIONS -->
@@ -139,7 +135,6 @@ TSI answers two questions well:
 <!-- Should we even mention shards? -->
 
 <!-- =========== OTHER -->
-
 <!-- V1 -->
 <!-- - FileStore - The FileStore mediates access to all TSM files on disk. -->
 <!--   It ensures that TSM files are installed atomically when existing ones are replaced as well as removing TSM files that are no longer used. -->
