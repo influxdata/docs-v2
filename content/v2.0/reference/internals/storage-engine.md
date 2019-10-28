@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: Storage engine
     parent: Internals
-v2.0/tags: [storage engine, internals, platform]
+v2.0/tags: [storage, internals]
 ---
 
 The InfluxDB storage engine ensures the following three things:
