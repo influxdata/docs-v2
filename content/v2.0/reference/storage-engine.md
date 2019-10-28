@@ -6,6 +6,7 @@ weight: 7
 menu:
   v2_0_ref:
     name: Storage engine
+    parent: Internals
 v2.0/tags: [storage engine, internals, platform]
 ---
 
@@ -34,13 +35,13 @@ The cache is periodically written to disk in the form of [TSM](#time-structured-
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
 Points can be sent individually; however, for efficiency, most applications send points in batches.
-A typical batch ranges in size from hundreds to thousands of points.
+<!-- Batch size ranges from hundreds to thousands of points. -->
 Points in a POST body can be from an arbitrary number of series, measurements, and tag sets.
 Points in a batch do not have to be from the same measurement or tagset.
 
 ## Write Ahead Log (WAL)
 
-The Write Ahead Log (WAL) ensures durability by retaining data when the storage engine restarts.
+The **Write Ahead Log** (WAL) ensures durability by retaining data when the storage engine restarts.
 It ensures that written data does not disappear in an unexpected failure.
 When a client sends a write request, the following occurs:
 
@@ -54,7 +55,7 @@ When a client sends a write request, the following occurs:
 As a system call, `fsync()` has a kernel context switch which is expensive _in terms of time_ but guarantees your data is safe on disk.
 
 {{% note%}}
-To `fsync()` less frequently, batch your points (send in ~2000 points at a time).
+To `fsync()` less frequently, batch your points.
 {{% /note %}}
 
 When the storage engine restarts, the WAL file is read back into the in-memory database.
@@ -73,16 +74,19 @@ Once you receive a response to a write request, your data is on disk!
 
 ## Cache
 
-Queries to the storage engine will merge data from the Cache with data from the TSM files.
-Queries execute on a copy of the data that is made from the cache at query processing time.
-This way writes that come in while a query is running won’t affect the result.
-
-The cache is an in-memory copy of data points current stored in the WAL.
+The **cache** is an in-memory copy of data points current stored in the WAL.
 Points are organized by the key, which is the measurement, tag set, and unique field.
 Each field is stored in its own time-ordered range.
 Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 The cache is queried at runtime and merged with the data stored in TSM files.
+
+<!-- When the storage engine restarts, WAL files are written to the in-memory cache. -->
+
+Queries to the storage engine will merge data from the cache with data from the TSM files.
+Queries execute on a copy of the data that is made from the cache at query processing time.
+This way writes that come in while a query is running won’t affect the result.
+
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
 
 ## Time-Structured Merge Tree (TSM)
@@ -93,15 +97,14 @@ and then orders those field values by time.
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.
-Within a series, we store only , which is more efficient.
 To improve efficiency, the storage engine only stores differences between values in a series.
-Column-Oriented storage means we can read by series key and ignore what it doesn't need.
+Column-oriented storage means we can read by series key and ignore what it doesn't need.
 Storing data in columns lets the storage engine read by series key.
 
 <!-- TERMS -->
 Some terminology:
 
-- a *series key* is defined by measurement, tag key+value, and field key.
+- a *series key* is defined by measurement, tag key and value, and field key.
 - a *point* is a series key, field value, and timestamp.
 
 After fields are stored safely in TSM files, WAL is truncated...
@@ -113,10 +116,14 @@ organize values for a series together into long runs to best optimize compressio
 
 ## Time Series Index (TSI)
 
+As data cardinality (number of series) grows, queries read more series keys and become slower.
+
+The **Time Series Index** ensures queries fast as data cardinality of data grows...
 To keep queries fast as we have more data, we use a **Time Series Index**.
+
 TSI stores series keys grouped by measurement, tag, and field.
 In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
-We use Time Series Index (TSI), which stores series keys grouped by measurement, tag, and field.
+The TSI stores series keys grouped by measurement, tag, and field.
 TSI answers two questions well:
 1) What measurements, tags, fields exist?
 2) Given a measurement, tags, and fields, what series keys exist?
