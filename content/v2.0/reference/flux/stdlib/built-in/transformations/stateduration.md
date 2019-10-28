@@ -58,6 +58,7 @@ _**Data type:** String_
 
 The unit of time in which the state duration is incremented.
 For example: `1s`, `1m`, `1h`, etc.
+The default unit is one second (`1s`).
 
 _**Data type:** Duration_
 
