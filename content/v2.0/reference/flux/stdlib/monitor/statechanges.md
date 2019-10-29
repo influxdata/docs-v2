@@ -10,7 +10,6 @@ menu:
     name: monitor.stateChanges
     parent: InfluxDB Monitor
 weight: 202
-cloud_all: true
 ---
 
 The `monitor.stateChanges()` function detects state changes in a stream of data and
