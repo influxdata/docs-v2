@@ -760,6 +760,19 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
+## series key
+
+A series key identifies a particular series by measurement, tag set, and field key.
+
+For example:
+
+```
+# measurement, tag set, field key
+h2o_level, location=santa_monica, h2o_feet
+```
+
+Related entries: [series](/influxdb/v1.7/concepts/glossary/#series)
+
 ### server
 
 A computer, virtual or physical, running InfluxDB. <!--is this still valid for 2.0: There should only be one InfluxDB process per server. -->
