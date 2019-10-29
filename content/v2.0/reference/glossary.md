@@ -620,9 +620,11 @@ An operator (`|>`) used in Flux to chain operations together. Specifies the outp
 
 In InfluxDB, a point represents a single data record, similar to a row in a SQL database table. Each point:
 
-- Has four components: a measurement, a tag set, a field set, and a timestamp.
-- Is represented by one row in [line protocol](/v2.0/reference/line-protocol/).
-- Is uniquely identified by its series and timestamp. In a series, each point has a unique timestamp. If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
+- has a measurement, a tag set, a field key, a field value, and a timestamp;
+- is uniquely identified by its series and timestamp.
+
+In a series, each point has a unique timestamp.
+If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, where any ties go to the new field set.
 
 Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
