@@ -10,133 +10,144 @@ menu:
 weight: 209
 ---
 
-Flux helps you to monitor states and state changes in your metrics and events:
+Flux helps you monitor states in your metrics and events:
 
 - [Find how long a state persists](#find-how-long-a-state-persists)
-- [Count the number of states in a specified interval](#count-the-number-of-states-in-a-specified-interval)
-- (Cloud only) [Detect specified state changes](#detect-specified-state-changes)
+- [Count the number of states](#count-the-number-of-states)
+- (Cloud only) [Detect state changes](#detect-state-changes)
+
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Find how long a state persists
 
-1. Specify the bucket to search.
+1. In your query, specify the bucket to search.
 2. Specify a time range to search.
 3. Use the `stateDuration()` function and include the following information:
+  
+  - **Column to search:** any tag key, tag value, field key, field value, or measurement.
+  - **Value:** value (or state) to search for in the specified column.
+  - **State duration column:** a new column to store the state duration─the length of time the specified value persists.
+  - **Unit:** of time to measure the state duration (`1s` (by default), `1m`, `1h`).
 
-  - State to search for. If `true`, increment the state duration. If `false`, the state duration is reset to `0`.
-  - Column to store the state duration.
-  - Unit of time to increment the state duration (for example, `1s`, `1m`, `1h`).
-  <!-- if the unit isn't specified...is there a default value added, or throw an error? -->
+        `|> stateDuration(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_duration", unit: 1s`
 
-### Query to find state duration
+4. Run `stateDuration()` to search each point in the specified time range for the specified value:
 
-The following query searches the `doors` bucket to find the state duration over the past 24 hours, in seconds. <!-- what if you're looking for the the duration of all states, would you filter by the specified "state" you're looking for before the stateDuration() function? -->
+    - For the first point that evaluates `true`, the state duration is set to `0`. For each consecutive point that evaluates `true`, the state duration increases by the time interval between each consecutive point (in specified units).
+    - If the state is `false`, the state duration is reset to `-1`.
+  
+### Example query with stateDuration()
 
-```
-bash
-from(bucket: "doors")
-  |> range(start: -24h)
-  |> stateDuration(fn: (r) => r._measurement == "state", column: "stateDuration", unit: 1s)
-```
+The following query searches the `doors` bucket over the past 5 minutes to find how many seconds a door has been `closed`.
 
 ```bash
-  from(bucket: "cpu")
-   |> range(start: -24h)
-   |> group(columns: ["host", "_cpu-total"])
-   |> stateDuration(fn: (r) => r._cpu == "cpu-total", column: "stateDuration", unit: 1s)
+  from(bucket: "doors")
+  |> range(start: -5m)
+  |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed", unit: 1s)
+  
 ```
 
-```js
-from("monitor/autogen")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "http")
-  |> stateDuration(
-    fn: (r) => r.http_response_code == "500",
-    column: "server_error_duration"
-  )
+In this example, `door_closed` is the **State duration** column. If you write data to the `doors` bucket every minute, the state duration increases by `60s` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state duration is reset to `0`.
+
+#### Query results
+
+Results for the example query above may look like this (for simplicity, we've omitted the measurement, tag, and field columns):
+
+```bash
+_time                   _value        door_closed
+2019-10-26T17:39:16Z    closed        0
+2019-10-26T17:40:16Z    closed        60
+2019-10-26T17:41:16Z    closed        120
+2019-10-26T17:42:16Z    open          -1
+2019-10-26T17:43:16Z    closed        0
+2019-10-26T17:44:27Z    closed        60
 ```
 
-```js
-from("monitor/autogen")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "http")
-  |> stateDuration(
-    fn: (r) => r.state == "",
-    column: "server_error_duration"
-  )
+## Count the number of states
+
+1. In your query, specify the bucket to search.
+2. Specify a time range to search.
+3. Use the `stateCount()` function and include the following information:
+
+  - **Column to search:** any tag key, tag value, field key, field value, or measurement.
+  - **Value:** to search for in the specified column.
+  - **State count column:** a new column to store the state count─the number of consecutive records in which the specified value exists.
+
+        `|> stateCount(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_count"`
+
+4. Run `stateCount()` to search each point in the specified time range for the specified value:
+
+    - For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
+    - If the state is `false`, the state count is reset to `-1`.
+  
+### Example query with stateCount()
+
+The following query searches the `doors` bucket over the past 5 minutes to find how many points have been counted where `_value` is `closed`.
+
+```bash
+  from(bucket: "doors")
+  |> range(start: -5m)
+  |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed")
+  
 ```
 
+In this example, `door_closed` is the **State count** column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
 
-## Count the number of states in a specified interval
+#### Query results
 
- To find the number of consecutive records in a given state, use the stateCount() function and specify the following information:
+Results for the example query above may look like this (for simplicity, we've omitted the measurement, tag, and field columns):
 
-- bucket
-- time range
-- measurement
-- field key
-- tag key
-- field value to count
+```bash
+_time                   _value        door_closed
+2019-10-26T17:39:16Z    closed        1
+2019-10-26T17:40:16Z    closed        2
+2019-10-26T17:41:16Z    closed        3
+2019-10-26T17:42:16Z    open          -1
+2019-10-26T17:43:16Z    closed        1
+2019-10-26T17:44:27Z    closed        2
+```
 
-### Query to count machine state
+<!-- #### Example query to count machine state
 
 To check the machine state every minute (idle, assigned, or busy).
 
 ```
 from(bucket: "servers")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "nodes")
-  |> filter(fn: (r) => r._field == "state")
-  |> filter(fn: (r) => r.node == "node1")
-  |> stateCount(fn: (r) => r._value == "busy", column: "_count")
-  |> stateCount(fn: (r) => r._value == "assigned", column: "_count")
-  |> stateCount(fn: (r) => r._value == "idle", column: "_count")
+  |> range(start: -1h)
+  |> group(columns: "r.machine_state")
+(  |> filter(fn: (r) => r.machine_state == "idle" or r.machine_state == "assigned" or r.machine_state == "busy")) --does this help filter if there are more than 3 machine states?...or do next 3 lines do the same?
+  |> stateCount(fn: (r) => r.machine_state == "busy", column: "_count")
+  |> stateCount(fn: (r) => r.machine_state == "assigned", column: "_count")
+  |> stateCount(fn: (r) => r.machine_state == "idle", column: "_count")
 ```
 
-Here, InfluxDB searches the `servers` bucket over the past hour, for records that include the following criteria:
+In this query, InfluxDB searches the `servers` bucket over the past hour, counts records with a machine state of `idle`, `assigned` or `busy` and groups by the machine state:
 
-- `doors` measurement
-- `door` tag key
-- `door1` tag value
-- `status` field key
+-->
 
-### Query to count a door's closed state
+## Detect state changes
 
-```
-from(bucket: "doors")
-  |> range(start: -30d)
-  |> filter(fn: (r) => r._measurement == "doors")
-  |> filter(fn: (r) => r._field == "status")
-  |> filter(fn: (r) => r.door == "door1")
-  |> stateCount(fn: (r) => r._value == "closed", column: "_count")
-```
+Detect state changes in InfluxDB Cloud 2.0 with the `monitor.stateChanges()` function available in Monitoring and Alerting within a specified check.
 
-Here, InfluxDB searches the `doors` bucket over the past 30 days, for records that include the following criteria:
+1. In Cloud, click **Monitoring and Alerting** icon from the sidebar.
 
-- `doors` measurement
-- `door` tag key
-- `door1` tag value
-- `status` field key
+    {{< nav-icon "alerts" >}}
 
-This combination of data—_measurement_, _tag key_, _tag value_, and _field key_ —is a _series key_. <!-- test this. Each unique series key represents a new table? or do new, unique field values trigger a new table too?-->
+2. Open your query, and then open your specified check. 
+3. specify the bucket to search.
+2. Specify a time range to search.
+3. Use the `stateCount()` function and include the following information:
 
-InfluxDB evaluates each consecutive record _with the specified series key_ to determine whether the `_value` is `closed`. If `true`, the state count is incremented by one. If `false`, the state count is reset and returns `-1`. For each record, the value is added to the `_count` column (stored as the `long` data type).
+  - **Column to search:** any tag key, tag value, field key, field value, or measurement.
+  - **Value:** to search for in the specified column.
+  - **State count column:** a new column to store the state count─the number of consecutive records in which the specified value exists.
 
-In annotated CSV format, query results look similar to the format shown in the table below.
+        `|> stateCount(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_count"`
 
-### Query results
-
-| table | _start  |   _stop    |    _time         | _value | _field | _measurement | door  | _count |
-|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  | ---|
-| 0     | 2019-09-25T19:40:22.318247188Z | 2019-10-25T19:09:26.763725117Z | 2019-10-18T12:00:00Z | closed | status | doors        | door1 | 1      |
-| 0   |   2019-09-25T19:40:22.318247188Z     |  	2019-10-25T19:09:26.763725117Z     | 2019-10-18T12:33:20Z      |      open |    status   |   doors    |  door1     |-1|
-| 0    |  2019-09-25T19:40:22.318247188Z     |  2019-10-25T19:09:26.763725117Z     |  	2019-10-20T23:45:05Z    |    closed   |  	status     |   doors	    |   door1    |1|
-| 0    |    2019-09-25T19:40:22.318247188Z   |   2019-10-25T19:09:26.763725117Z    |   2019-10-21T12:00:00Z    |closed       |  status     |   doors    |   door1    |2|
-| 0    | 2019-09-25T19:40:22.318247188Z      |  2019-10-25T19:09:26.763725117Z     |  2019-10-22T12:33:20Z     |    open   |   status    |    doors   | door1      |-1|
-
-
-## Detect specified state changes
-
-To detect specified state changes in your data, use the `monitor.stateChanges()` function and specify the following information:
+ including the following information:
 
 `fromLevel`
 `toLevel`
@@ -153,17 +164,14 @@ monitor.stateChanges(
 )
 ```
 
-
 ### Detect when the state changes to critical
+
 ```js
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h)
   |> monitor.stateChanges(toLevel: "crit")
 ```
-
-
-
 
 traffic lights
 
