@@ -14,7 +14,7 @@ Flux helps you monitor states in your metrics and events:
 
 - [Find how long a state persists](#find-how-long-a-state-persists)
 - [Count the number of states](#count-the-number-of-states)
-- (Cloud only) [Detect state changes](#detect-state-changes)
+- [Detect state changes](#detect-state-changes)
 
 If you're just getting started with Flux queries, check out the following:
 
@@ -23,9 +23,7 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. In your query, specify the bucket to search.
-2. Specify a time range to search.
-3. Use the `stateDuration()` function and include the following information:
+1. Use the `stateDuration()` function and include the following information:
   
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** value (or state) to search for in the specified column.
@@ -36,12 +34,10 @@ If you're just getting started with Flux queries, check out the following:
         |> stateDuration(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_duration", unit: 1s
         ```
 
-4. Run `stateDuration()` to search each point in the specified time range for the specified value:
+2. Run `stateDuration()` to search each point in the specified time range for the specified value:
 
     - For the first point that evaluates `true`, the state duration is set to `0`. For each consecutive point that evaluates `true`, the state duration increases by the time interval between each consecutive point (in specified units).
     - If the state is `false`, the state duration is reset to `-1`.
-  
-{{% truncate %}}
 
 ### Example query with stateDuration()
 <!-- once we have multiple example queries,link to multiple examples here with sub-descriptors -->
@@ -71,13 +67,9 @@ _time                   _value        door_closed
 2019-10-26T17:44:27Z    closed        60
 ```
 
-{{% /truncate %}}
-
 ## Count the number of states
 
-1. In your query, specify the bucket to search.
-2. Specify a time range to search.
-3. Use the `stateCount()` function and include the following information:
+1. Use the `stateCount()` function and include the following information:
 
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** to search for in the specified column.
@@ -85,12 +77,10 @@ _time                   _value        door_closed
 
         `|> stateCount(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_count"`
 
-4. Run `stateCount()` to search each point in the specified time range for the specified value:
+2. Run `stateCount()` to search each point in the specified time range for the specified value:
 
     - For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
     - If the state is `false`, the state count is reset to `-1`.
-  
-{{% truncate %}}
 
 ### Example query with stateCount()
 
@@ -118,7 +108,6 @@ _time                   _value        door_closed
 2019-10-26T17:43:16Z    closed        1
 2019-10-26T17:44:27Z    closed        2
 ```
-{{% /truncate %}}
 
 <!-- #### Example query to count machine state
 
@@ -140,9 +129,7 @@ In this query, InfluxDB searches the `servers` bucket over the past hour, counts
 
 ## Detect state changes
 
-Detect state changes in InfluxDB Cloud 2.0 with the `monitor.stateChanges()` function <!--are there other ways/functions for OSS folks to "detect/monitor changes that we can link to?-->. 
-
-To use the `monitor.stateChanges()` function, you must have set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
+Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, you must have set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
 
 1. In Cloud, click **Monitoring and Alerting** icon from the sidebar.
 
@@ -156,8 +143,6 @@ To use the `monitor.stateChanges()` function, you must have set up a **check** t
   - `fromLevel` (optional; by default, this is set to `any`)
   - `toLevel`
 
-{{% truncate %}}
-
 ### Example query with monitor.stateChanges()
 
 ```bash
@@ -169,7 +154,6 @@ monitor.stateChanges(
   toLevel: "crit"
 )
 ```
-{{% /truncate %}}
 
 <!-- ### Example query results
 
