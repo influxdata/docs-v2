@@ -19,7 +19,7 @@ To view your tasks, click the **Tasks** icon in the left navigation menu.
 
 Click on the name of a task to update it.
 
-#### Update a task's Flux script
+#### Update a task Flux script
 1. In the list of tasks, click the **Name** of the task you want to update.
 2. In the left panel, modify the task options.
 3. In the right panel, modify the task script.
@@ -40,7 +40,7 @@ Use the `influx task update` command to update or change the status of an existi
 
 _This command requires a task ID, which is available in the output of `influx task find`._
 
-#### Update a task's Flux script
+#### Update a task Flux script
 Pass the file path of your updated Flux script to the `influx task update` command
 with the ID of the task you want to update.
 Modified [task options](/v2.0/process-data/task-options) defined in the Flux
