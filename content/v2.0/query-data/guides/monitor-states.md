@@ -160,7 +160,7 @@ Detect state changes with the `monitor.stateChanges()` function. To use the `mon
 ```js
   import "influxdata/influxdb/monitor"
 
-  from ${ r._check_name}`
+  `from ${ r._check_name}`
     monitor.stateChanges(
     fromLevel: "warn",
     toLevel: "crit")
