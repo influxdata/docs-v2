@@ -11,7 +11,7 @@ menu:
     name: Annotated CSV
 v2.0/tags: [csv, syntax]
 aliases:
-  - /v2.0/reference/syntax/annotated-csv/
+  - /v2.0/reference/annotated-csv/
 ---
 
 Flux returns raw results in Annotated CSV format and also reads Annotated CSV

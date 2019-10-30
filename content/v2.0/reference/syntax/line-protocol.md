@@ -11,7 +11,7 @@ menu:
 weight: 102
 v2.0/tags: [write, line protocol, syntax]
 aliases:
-  - /v2.0/reference/syntax/line-protocol
+  - /v2.0/reference/line-protocol
 ---
 
 InfluxDB uses line protocol to write data points.
