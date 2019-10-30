@@ -9,6 +9,10 @@ menu:
 weight: 208
 ---
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 Histograms provide valuable insight into the distribution of your data.
 This guide walks through using Flux's `histogram()` function to transform your data into a **cumulative histogram**.

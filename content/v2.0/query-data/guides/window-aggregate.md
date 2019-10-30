@@ -12,6 +12,11 @@ weight: 202
 v2.0/tags: [flux, aggregates]
 ---
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 A common operation performed with time series data is grouping data into windows of time,
 or "windowing" data, then aggregating windowed values into a new value.
 This guide walks through windowing and aggregating data with Flux and demonstrates

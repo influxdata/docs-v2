@@ -11,6 +11,11 @@ menu:
 weight: 207
 ---
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/)
