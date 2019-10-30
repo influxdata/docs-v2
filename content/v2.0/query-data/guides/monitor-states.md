@@ -143,7 +143,7 @@ In this query, InfluxDB searches the `servers` bucket over the past hour, counts
 
 Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, you must set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
 
-1. In Cloud, click the **Monitoring and Alerting** icon from the sidebar.
+1. In the InfluxDB user interface, click the **Monitoring and Alerting** icon from the sidebar.
 
     {{< nav-icon "alerts" >}}
 
