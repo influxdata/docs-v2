@@ -7,7 +7,7 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.19 [2019-10-24]
+## v2.0.0-alpha.19 [2019-10-30]
 
 ### Features
 - Add shortcut for toggling comments and submitting in Script Editor.
@@ -26,6 +26,11 @@ weight: 101
 - Ensure `members` and `owners` endpoints lead to 404 when organization resource does not exist.
 - Telegraf UI filter functionality shows results based on input name.
 - Fix Telegraf UI sort functionality.
+- Fix task UI sort functionality.
+- Exiting a configuration of a dashboard cell properly renders the cell content.
+- Newly created checks appear on the checklist.
+- Changed task runs success status code from 200 to 201 to match Swagger documentation.
+- Text areas have the correct height.
 
 ## v2.0.0-alpha.18 [2019-09-26]
 
