@@ -101,7 +101,7 @@ _See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commo
 
 ## Define a destination
 In the vast majority of task use cases, once data is transformed, it needs to sent and stored somewhere.
-This could be a separate bucket, another measurement, or even an alert endpoint _(Coming)_.
+This could be a separate bucket or another measurement.
 
 The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
 to send the transformed data to another bucket:
@@ -112,10 +112,7 @@ to send the transformed data to another bucket:
 ```
 
 {{% note %}}
-#### Important notes
-- You cannot write to the same bucket you are reading from.
-- In order to write data into InfluxDB, you must have `_time`, `_measurement`,
-  `_field`, and `_value` columns.
+In order to write data into InfluxDB, you must have `_time`, `_measurement`, `_field`, and `_value` columns.
 {{% /note %}}
 
 ## Full example task script
