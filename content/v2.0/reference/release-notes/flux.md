@@ -16,6 +16,17 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.52.0 [2019-10-30]
+
+### Features
+- `Visitor` uses `Rc` for nodes.
+- Add `EvalOptions`.
+
+### Bug fixes
+- Correctly lex `µs`.
+
+---
+
 ## v0.51.0 [2019-10-24]
 
 ### Breaking changes
