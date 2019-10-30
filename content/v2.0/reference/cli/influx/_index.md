@@ -47,6 +47,7 @@ retrieving authentication tokens._
 |:-------                                     |:-----------                                          |
 | [auth](/v2.0/reference/cli/influx/auth)     | Authorization management commands                    |
 | [bucket](/v2.0/reference/cli/influx/bucket) | Bucket management commands                           |
+| [delete](/v2.0/reference/cli/influx/delete) | Delete points from InfluxDB                          |
 | [help](/v2.0/reference/cli/influx/help)     | Help about any command                               |
 | [org](/v2.0/reference/cli/influx/org)       | Organization management commands                     |
 | [ping](/v2.0/reference/cli/influx/ping)     | Check the InfluxDB `/health` endpoint                |
