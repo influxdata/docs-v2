@@ -1,16 +1,25 @@
 ---
 title: Annotated CSV syntax
+list_title: Annotated CSV
 description: >
-  Annotated CSV format is used to encode HTTP responses and results returned to the Flux `csv.from()` function.
-weight: 6
+  Flux returns raw results in Annotated CSV format and also reads Annotated CSV
+  using the `csv.from()` function.
+weight: 106
 menu:
   v2_0_ref:
+    parent: Syntax
     name: Annotated CSV
+v2.0/tags: [csv, syntax]
+aliases:
+  - /v2.0/reference/syntax/annotated-csv/
 ---
 
-Annotated CSV (comma-separated values) format is used to encode HTTP responses and results returned to the Flux [`csv.from()` function](https://v2.docs.influxdata.com/v2.0/reference/flux/stdlib/csv/from/).
+Flux returns raw results in Annotated CSV format and also reads Annotated CSV
+using the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/).
 
-CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/). Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv` MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
+CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
+Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv`
+MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
 ## Examples
 
@@ -71,7 +80,10 @@ my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,
 
 In addition to the data columns, a table may include the following columns:
 
-- **Annotation column**: Only used in annotation rows. Always the first column. Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations). You'll notice a space for this column for the entire length of the table, so rows appear to start with `,`.
+- **Annotation column**: Only used in annotation rows. Always the first column.
+  Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
+  You'll notice a space for this column for the entire length of the table,
+  so rows appear to start with `,`.
 
 - **Result column**: Contains the name of the result specified by the query.
 
@@ -130,23 +142,25 @@ my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,
 
 Flux supports the following dialect options for `text/csv` format.
 
-| Option    | Description| Default |
-| :-------- | :--------- | :-------|
-| **header**    | If true, the header row is included.| `true`|   
-| **delimiter** | Character used to delimit columns. | `,`|
-| **quoteChar** | Character used to quote values containing the delimiter. |`"`|   
-| **annotations** | List of annotations to encode (datatype, group, or default). |`empty`|
-| **commentPrefix** | String prefix to identify a comment. Always added to annotations. |`#`|
+| Option            | Description                                                       | Default |
+| :--------         | :---------                                                        |:------- |
+| **header**        | If true, the header row is included.                              | `true`  |
+| **delimiter**     | Character used to delimit columns.                                | `,`     |
+| **quoteChar**     | Character used to quote values containing the delimiter.          | `"`     |
+| **annotations**   | List of annotations to encode (datatype, group, or default).      | `empty` |
+| **commentPrefix** | String prefix to identify a comment. Always added to annotations. | `#`     |
 
 ### Annotations
 
-Annotation rows describe column properties, and start with `#` (or commentPrefix value). The first column in an annotation row always contains the annotation name. Subsequent columns contain annotation values as shown in the table below.
+Annotation rows describe column properties, and start with `#` (or commentPrefix value).
+The first column in an annotation row always contains the annotation name.
+Subsequent columns contain annotation values as shown in the table below.
 
-|Annotation name | Values| Description |
-| :-------- | :--------- | :-------|
-| **datatype**    | a [valid data type](#valid-data-types) | Describes the type of data. |   
-| **group** | boolean flag `true` or `false` | Indicates the column is part of the group key.|
-| **default** | a [valid data type](#valid-data-types) |Value to use for rows with an empty string value.|   
+| Annotation name | Values                                 | Description                                       |
+|:--------        |:---------                              | :-------                                          |
+| **datatype**    | a [valid data type](#valid-data-types) | Describes the type of data.                       |
+| **group**       | boolean flag `true` or `false`         | Indicates the column is part of the group key.    |
+| **default**     | a [valid data type](#valid-data-types) | Value to use for rows with an empty string value. |
 
 {{% note %}}
 To encode a table with its group key, the `datatype`, `group`, and `default` annotations must be included. If a table has no rows, the `default` annotation provides the group key values.
@@ -174,16 +188,16 @@ csv.from(csv:a) |> yield()
 
 ### Valid data types
 
-| Datatype     | Flux type     | Description                                                                        |
-| :--------    | :---------    | :-----------------------------------------------------------------------------|
-| boolean      | bool          | a truth value, one of "true" or "false"                                            |
-| unsignedLong | uint          | an unsigned 64-bit integer                                                         |
-| long         | int           | a signed 64-bit integer                                                            |
-| double       | float         | an IEEE-754 64-bit floating-point number                                           |
-| string       | string        | a UTF-8 encoded string                                                             |
-| base64Binary | bytes         | a base64 encoded sequence of bytes as defined in RFC 4648                          |
-| dateTime     | time          | an instant in time, may be followed with a colon : and a description of the format |
-| duration     | duration      | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
+| Datatype     | Flux type  | Description                                                                        |
+| :--------    | :--------- | :----------                                                                        |
+| boolean      | bool       | a truth value, one of "true" or "false"                                            |
+| unsignedLong | uint       | an unsigned 64-bit integer                                                         |
+| long         | int        | a signed 64-bit integer                                                            |
+| double       | float      | an IEEE-754 64-bit floating-point number                                           |
+| string       | string     | a UTF-8 encoded string                                                             |
+| base64Binary | bytes      | a base64 encoded sequence of bytes as defined in RFC 4648                          |
+| dateTime     | time       | an instant in time, may be followed with a colon : and a description of the format |
+| duration     | duration   | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
 
 ## Errors
 
