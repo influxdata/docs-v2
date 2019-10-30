@@ -101,7 +101,7 @@ _See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commo
 
 ## Define a destination
 In the vast majority of task use cases, once data is transformed, it needs to sent and stored somewhere.
-This could be a separate bucket with a different retention policy, another measurement, or even an alert endpoint _(Coming)_.
+This could be a separate bucket, another measurement, or even an alert endpoint _(Coming)_.
 
 The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
 to send the transformed data to another bucket:
@@ -119,8 +119,7 @@ to send the transformed data to another bucket:
 {{% /note %}}
 
 ## Full example task script
-Below is the full example task script that combines all of the components described above:
-
+Below is a task script that combines all of the components described above:
 
 ```js
 // Task options
