@@ -18,8 +18,8 @@ influx delete [flags]
 ```
 
 {{% warn %}}
-Running `influx delete` without the `-p` or `--predicate` flag will delete all data
-with timestamps between the specified `--start` and `--stop` times.
+Running `influx delete` without the `-p` or `--predicate` flag deletes all data with
+timestamps between the specified `--start` and `--stop` times in the specified bucket.
 {{% /warn %}}
 
 ## Flags
