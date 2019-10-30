@@ -1,7 +1,7 @@
 ---
 title: monitor.check() function
 description: >
-  The `monitor.check()` function function checks input data and assigns a level
+  The `monitor.check()` function checks input data and assigns a level
   (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 aliases:
   - /v2.0/reference/flux/functions/monitor/check/
@@ -12,7 +12,7 @@ menu:
 weight: 202
 ---
 
-The `monitor.check()` function function checks input data and assigns a level
+The `monitor.check()` function checks input data and assigns a level
 (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 
 _**Function type:** Transformation_

@@ -15,6 +15,11 @@ Use Flux to process and manipulate timestamps to suit your needs.
 - [Convert timestamp format](#convert-timestamp-format)
 - [Time-related Flux functions](#time-related-flux-functions)
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ## Convert timestamp format
 
 ### Convert nanosecond epoch timestamp to RFC3339
