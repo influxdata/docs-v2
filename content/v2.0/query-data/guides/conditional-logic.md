@@ -12,12 +12,12 @@ menu:
 weight: 209
 ---
 
+Flux provides `if`, `then`, and `else` conditional expressions that allow for powerful and flexible Flux queries.
+
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
-
-Flux provides `if`, `then`, and `else` conditional expressions that allow for powerful and flexible Flux queries.
 
 ##### Conditional expression syntax
 ```js

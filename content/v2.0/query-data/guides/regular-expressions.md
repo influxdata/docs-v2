@@ -9,15 +9,15 @@ menu:
 weight: 210
 ---
 
-If you're just getting started with Flux queries, check out the following:
-
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
-
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.
 With Flux, regular expressions are primarily used for evaluation logic in predicate functions for things
 such as filtering rows, dropping and keeping columns, state detection, etc.
 This guide shows how to use regular expressions in your Flux scripts.
+
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Go regular expression syntax
 Flux uses Go's [regexp package](https://golang.org/pkg/regexp/) for regular expression search.
