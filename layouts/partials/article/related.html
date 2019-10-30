@@ -1,0 +1,19 @@
+{{ if .Params.related }}
+  <div class="related">
+    <h4 id="related-articles">Related articles</h4>
+    <ul>
+    {{ range .Params.related }}
+      {{ if in . "http" }}
+        {{ $link := replaceRE `\,\s(.*)$` "" . }}
+        {{ $title := replaceRE `^(\S*\,\s)` "" . }}
+        <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
+      {{ else }}
+        {{ $sanitizedPath := replaceRE `\/$` "" (print .) }}
+        {{ with $.Page.GetPage $sanitizedPath }}
+          <li><a href="{{ .RelPermalink }}" >{{ .Title }}</a></li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    </ul>
+  </div>
+{{ end }}

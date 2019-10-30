@@ -8,12 +8,6 @@ menu:
 weight: 202
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 An assignment binds an identifier to a variable, option, or function.
 Every identifier in a program must be assigned.
 
@@ -32,10 +26,6 @@ Note that the package clause is not an assignment.
 The package name does not appear in any scope.
 Its purpose is to identify the files belonging to the same package and to specify the default package name for import declarations.
 
-{{% note %}}
-[IMPL#247](https://github.com/influxdata/platform/issues/247) Add package/namespace support.
-{{% /note %}}
-
 ## Variable assignment
 A variable assignment creates a variable bound to an identifier and gives it a type and value.
 A variable keeps the same type and value for the remainder of its lifetime.
@@ -48,6 +38,10 @@ VariableAssignment = identifier "=" Expression
 
 ##### Examples of variable assignment
 
+{{% note %}}
+In this code snippet, `n` and `m` are defined in an outer block as integers. Within the anonymous function, `n` and `m` are defined as strings, but only within that scope. So while the function will return `"ab"`, `n` and `m` in the outer scope are unchanged, remaining `n = 1` and `m = 2`.
+{{% /note %}}
+
 ```js
 n = 1
 m = 2
@@ -55,7 +49,7 @@ x = 5.4
 f = () => {
     n = "a"
     m = "b"
-    return a + b
+    return n + m
 }
 ```
 

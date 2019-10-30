@@ -13,7 +13,6 @@ menu:
   v2_0:
     name : Use Telegraf
     parent: Write data
-
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's
@@ -22,13 +21,15 @@ Its vast library of input plugins and "plug-and-play" architecture lets you quic
 and easily collect metrics from many different sources.
 This article describes how to use Telegraf to collect and store data in InfluxDB v2.0.
 
+For a list of available plugins, see [Telegraf plugins](/v2.0/reference/telegraf-plugins/).
+
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
   [Telegraf Installation instructions](https://docs.influxdata.com/telegraf/latest/introduction/installation/)._
 
 ## Configure Telegraf
-All Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).
+Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).
 You have the following options for configuring Telegraf:
 
 {{< children >}}

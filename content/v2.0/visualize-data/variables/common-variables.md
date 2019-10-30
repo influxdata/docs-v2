@@ -13,9 +13,9 @@ weight: 208
 List all buckets in the current organization.
 
 _**Flux functions:**
-[buckets()](/v2.0/reference/flux/functions/built-in/inputs/buckets/),
-[rename()](/v2.0/reference/flux/functions/built-in/transformations/rename/),
-[keep()](/v2.0/reference/flux/functions/built-in/transformations/keep/)_
+[buckets()](/v2.0/reference/flux/stdlib/built-in/inputs/buckets/),
+[rename()](/v2.0/reference/flux/stdlib/built-in/transformations/rename/),
+[keep()](/v2.0/reference/flux/stdlib/built-in/transformations/keep/)_
 
 ```js
 buckets()
@@ -26,8 +26,8 @@ buckets()
 ## List measurements
 List all measurements in a specified bucket.
 
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)  
-**Flux functions:** [v1.measurements()](/v2.0/reference/flux/functions/influxdb-v1/measurements/)_
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)  
+**Flux functions:** [v1.measurements()](/v2.0/reference/flux/stdlib/influxdb-v1/measurements/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -37,8 +37,8 @@ v1.measurements(bucket: "bucket-name")
 ## List fields in a measurement
 List all fields in a specified bucket and measurement.
 
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)  
-**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)  
+**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -49,11 +49,12 @@ v1.measurementTagValues(
 )
 ```
 
-## List hosts
-List all `host` tag values in a specified bucket.
+## List unique tag values
+List all unique tag values for a specific tag in a specified bucket.
+The example below lists all unique values of the `host` tag.
 
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)_  
-_**Flux functions:** [v1.measurements()](/v2.0/reference/flux/functions/influxdb-v1/measurements/)_  
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)_  
+_**Flux functions:** [v1.measurements()](/v2.0/reference/flux/stdlib/influxdb-v1/measurements/)_  
 
 ```js
 import "influxdata/influxdb/v1"
@@ -64,8 +65,8 @@ v1.tagValues(bucket: "bucket-name", tag: "host")
 List all Docker containers when using the Docker Telegraf plugin.
 
 _**Telegraf plugin:** [Docker](https://docs.influxdata.com/telegraf/latest/plugins/inputs/#docker)_  
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)_  
-_**Flux functions:** [v1.tagValues()](/v2.0/reference/flux/functions/influxdb-v1/tagvalues/)_
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)_  
+_**Flux functions:** [v1.tagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -76,8 +77,8 @@ v1.tagValues(bucket: "bucket-name", tag: "container_name")
 List all Kubernetes pods when using the Kubernetes Telegraf plugin.
 
 _**Telegraf plugin:** [Kubernetes](https://docs.influxdata.com/telegraf/latest/plugins/inputs/#kubernetes)_  
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)_  
-_**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)_  
+_**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -92,8 +93,8 @@ v1.measurementTagValues(
 List all Kubernetes nodes when using the Kubernetes Telegraf plugin.
 
 _**Telegraf plugin:** [Kubernetes](https://docs.influxdata.com/telegraf/latest/plugins/inputs/#kubernetes)_  
-_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/functions/influxdb-v1/)_  
-_**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)_  
+_**Flux functions:** [v1.measurementTagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"

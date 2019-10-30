@@ -10,9 +10,9 @@ weight: 301
 ---
 
 To aggregate your data, use the Flux
-[built-in aggregate functions](/v2.0/reference/flux/functions/built-in/transformations/aggregates/)
+[built-in aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
 or create custom aggregate functions using the
-[`reduce()`function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/).
+[`reduce()`function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
 
 ## Aggregate function characteristics
 Aggregate functions all have the same basic characteristics:
@@ -22,7 +22,7 @@ Aggregate functions all have the same basic characteristics:
 
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
-the [`fn` parameter](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/#fn).
+the [`fn` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
 The `fn` function maps keys to specific values using two [objects](/v2.0/query-data/get-started/syntax-basics/#objects)
 specified by the following parameters:
 
@@ -32,7 +32,7 @@ specified by the following parameters:
 | `accumulator` | An object that contains values used in each row's aggregate calculation. |
 
 {{% note %}}
-The `reduce()` function's [`identity` parameter](/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/#identity)
+The `reduce()` function's [`identity` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
 defines the initial `accumulator` object.
 {{% /note %}}
 
@@ -48,6 +48,11 @@ in an input table.
   identity: {sum: 0.0, product: 1.0}
 )
 ```
+
+{{% note %}}
+To preserve existing columns, [use the `with` operator](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#preserve-columns)
+when mapping values in the `r` object.
+{{% /note %}}
 
 To illustrate how this function works, take this simplified table for example:
 
@@ -145,7 +150,7 @@ and the `reduce()` function to aggregate rows in each input table.
 ### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
-The built-in [`mean()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/)
+The built-in [`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
 does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}

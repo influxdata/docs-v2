@@ -18,7 +18,8 @@
     }
   }
   h2,h3,h4,h5,h6 {
-    & + .highlight pre { margin-top: .5rem; }
+    & + .highlight pre { margin-top: .5rem }
+    & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
   h1 {
@@ -61,7 +62,7 @@
 
   p,li {
     color: $article-text;
-    line-height: 1.6rem;
+    line-height: 1.7rem;
   }
 
   p {
@@ -106,10 +107,12 @@
           "article/lists",
           "article/note",
           "article/pagination-btns",
+          "article/related",
           "article/scrollbars",
           "article/tabbed-content",
           "article/tables",
           "article/tags",
+          "article/telegraf-plugins",
           "article/truncate",
           "article/warn";
 

@@ -70,14 +70,14 @@ functionName = (tables=<-) => tables |> functionOperations
 ###### Multiply row values by x
 The example below defines a `multByX` function that multiplies the `_value` column
 of each row in the input table by the `x` parameter.
-It uses the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map)
+It uses the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map)
 to modify each `_value`.
 
 ```js
 // Function definition
 multByX = (tables=<-, x) =>
   tables
-    |> map(fn: (r) => r._value * x)
+    |> map(fn: (r) => ({ r with _value: r._value * x}))
 
 // Function usage
 from(bucket: "example-bucket")
@@ -104,9 +104,9 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 ###### Get the winner or the "winner"
 The example below defines a `getWinner` function that returns the record with the highest
 or lowest `_value` (winner versus "winner") depending on the `noSarcasm` parameter which defaults to `true`.
-It uses the [`sort()` function](/v2.0/reference/flux/functions/built-in/transformations/sort)
+It uses the [`sort()` function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)
 to sort records in either descending or ascending order.
-It then uses the [`limit()` function](/v2.0/reference/flux/functions/built-in/transformations/limit)
+It then uses the [`limit()` function](/v2.0/reference/flux/stdlib/built-in/transformations/limit)
 to return the first record from the sorted table.
 
 ```js

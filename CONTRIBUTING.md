@@ -3,9 +3,12 @@
 ## Sign the InfluxData CLA
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
 for the open-source ecosystem that protects both you and InfluxData.
-In order to contribute to any InfluxData project, you must first sign the CLA.
+To make substantial contributions to InfluxData documentation, first sign the InfluxData CLA.
+What constitutes a "substantial" change is at the discretion of InfluxData documentation maintainers.
 
-[Sign the InfluxData (CLA)](https://www.influxdata.com/legal/cla/)
+[Sign the InfluxData CLA](https://www.influxdata.com/legal/cla/)
+
+_**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
 ## Make suggested updates
 
@@ -59,13 +62,16 @@ menu:
   v2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
-weight: # Determines sort order in both the nav tree and in article lists.
+weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
 enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
 enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
 cloud_all: # If true, specifies the doc as a whole is specific to InfluxDB Cloud
 cloud_some: # If true, specifies the doc includes some content specific to InfluxDB Cloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
+related: # Creates links to specific internal and external content at the bottom of the page
+  - /path/to/related/article
+  - https://external-link.com, This is an external link
 ```
 
 #### Title usage
@@ -199,6 +205,17 @@ Insert Cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
+#### InfluxDB Cloud content block
+The `{{ cloud-msg }}` shortcode creates a highlighted block of text specific to
+InfluxDB Cloud meant to stand out from the rest of the article content.
+It's format is similar to note and warning blocks.
+
+```md
+{{% cloud-msg %}}
+Insert Cloud-specific markdown content here.
+{{% /cloud-msg %}}
+```
+
 #### InfluxDB Cloud name
 The name used to refer to InfluxData's cloud offering is subject to change.
 To facilitate easy updates in the future, use the `cloud-name` short-code when
@@ -310,6 +327,20 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
+### Related content
+Use the `related` frontmatter to include links to specific articles at the bottom of an article.
+
+- If the page exists inside of this documentation, just include the path to the page.
+  It will automatically detect the title of the page.
+- If the page exists outside of this documentation, include the full URL and a title for the link.
+  The link and title must be in that order and must be separated by a comma and a space.
+
+```yaml
+related:
+  - /v2.0/write-data/quick-start
+  - https://influxdata.com, This is an external link
+```
+
 ### High-resolution images
 In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
 Because of this, the actual pixel dimension is 2x larger than it needs to be and is rendered 2x bigger than it should be.
@@ -389,15 +420,20 @@ Below is a list of available icons (some are aliases):
 - dashboard
 - dashboards
 - data-explorer
+- delete
 - download
 - duplicate
 - edit
 - expand
 - export
+- eye
+- eye-closed
+- eye-open
 - feedback
 - fullscreen
 - gear
 - graph
+- hide
 - influx
 - influx-icon
 - nav-admin
@@ -422,7 +458,11 @@ Below is a list of available icons (some are aliases):
 - search
 - settings
 - tasks
+- toggle
+- trash
+- trashcan
 - triangle
+- view
 - wrench
 - x
 
@@ -436,12 +476,15 @@ Provide a visual example of the the navigation item using the `nav-icon` shortco
 
 The following case insensitive values are supported:
 
-- admin
-- data explorer, data-explorer
+- admin, influx
+- data-explorer, data explorer
 - dashboards
 - tasks
-- organizations, orgs
-- configuration, config
+- monitor, alerts, bell
+- cloud, usage
+- disks, load data, load-data
+- settings
+- feedback
 
 ### InfluxDB UI notification messages
 In some cases, documentation references a notification message that appears in
@@ -491,6 +534,13 @@ menu:
 ### Image naming conventions
 Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
 
+## InfluxDB API documentation
+InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
+InfluxDB API documentation when documentation is deployed.
+Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
+For more information about generating InfluxDB API documentation, see the
+[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
+
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.
@@ -536,7 +586,10 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
    latest_version: v2.1
    ```
 
-7. Commit the changes and push the new branch to Github.
+7. Copy the InfluxDB `swagger.yml` specific to the new version into the
+   `/api-docs/v<version-number>/` directory.
+
+8. Commit the changes and push the new branch to Github.
 
 
 These changes lay the foundation for the new version.

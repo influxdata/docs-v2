@@ -7,6 +7,11 @@ menu:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201
+related:
+  - /v2.0/query-data/guides/
+  - /v2.0/reference/flux/stdlib/built-in/inputs/from
+  - /v2.0/reference/flux/stdlib/built-in/transformations/range
+  - /v2.0/reference/flux/stdlib/built-in/transformations/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
@@ -18,8 +23,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/v2.0/reference/flux/functions/built-in/inputs/from) function defines an InfluxDB data source.
-It requires a [`bucket`](/v2.0/reference/flux/functions/built-in/inputs/from#bucket) parameter.
+Flux's [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
+It requires a [`bucket`](/v2.0/reference/flux/stdlib/built-in/inputs/from#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -31,9 +36,9 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/functions/built-in/transformations/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range)
 function, which specifies a time range for your query.
-It accepts two properties: `start` and `stop`.
+It accepts two parameters: `start` and `stop`.
 Ranges can be **relative** using negative [durations](/v2.0/reference/flux/language/lexical-elements#duration-literals)
 or **absolute** using [timestamps](/v2.0/reference/flux/language/lexical-elements#date-and-time-literals).
 
@@ -101,7 +106,7 @@ from(bucket:"example-bucket")
 ```
 
 ## 4. Yield your queried data
-Use Flux's `yield()` function to output the filtered tables as the result of the query.
+Flux's `yield()` function outputs the filtered tables as the result of the query.
 
 ```js
 from(bucket:"example-bucket")
@@ -114,16 +119,17 @@ from(bucket:"example-bucket")
   |> yield()
 ```
 
-{{% note %}}
-Flux automatically assume a `yield()` function at
+Flux automatically assumes a `yield()` function at
 the end of each script in order to output and visualize the data.
-`yield()` is only necessary when including multiple queries in the same Flux query.
+Explicitly calling `yield()` is only necessary when including multiple queries in the same Flux query.
 Each set of returned data needs to be named using the `yield()` function.
-{{% /note %}}
 
 ## Congratulations!
 You have now queried data from InfluxDB using Flux.
-This is a barebones query that can be transformed in other ways.
+
+The query shown here is a barebones example.
+Flux queries can be extended in many ways to form powerful scripts.
+
 
 <div class="page-nav-btns">
   <a class="btn prev" href="/v2.0/query-data/get-started/">Get started with Flux</a>

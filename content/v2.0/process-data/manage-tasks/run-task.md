@@ -8,6 +8,9 @@ menu:
     name: Run a task
     parent: Manage tasks
 weight: 203
+related:
+  - /v2.0/reference/cli/influx/task/run
+  - /v2.0/reference/cli/influx/task/retry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,

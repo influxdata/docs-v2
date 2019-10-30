@@ -86,7 +86,7 @@ $article-note-table-row-alt: #3B2862;
 $article-note-table-scrollbar: $np-deepnight;
 $article-note-shadow: $np-deepnight;
 $article-note-code: $cp-comet;
-$article-note-code-bg: $wp-telopea;
+$article-note-code-bg: $wp-jaguar;
 $article-note-code-accent1: #567375;
 $article-note-code-accent2: $b-pool;
 $article-note-code-accent3: $gr-viridian;
@@ -168,5 +168,17 @@ $error-page-btn-hover-text: $b-dodger;
 // Landing Page colors
 $landing-lg-gradient-left: $wp-violentdark;
 $landing-lg-gradient-right: $cp-minsk;
-$landing-sm-gradient-overlay: $b-dodger;
+$landing-sm-bg: $cp-victoria;
+$landing-sm-bg-alt: $cp-victoria;
+$landing-sm-bg-hover: $b-dodger;
+$landing-btn-text: $g20-white;
+$landing-btn-bg: $b-dodger;
+$landing-btn-text-hover: $b-dodger;
+$landing-btn-bg-hover: $g20-white;
 $landing-artwork-color: $cp-minsk;
+
+// Tooltip colors
+$tooltip-color: $ch-chartreuse;
+$tooltip-color-alt: $ch-canary;
+$tooltip-bg: $g20-white;
+$tooltip-text: $cp-minsk;

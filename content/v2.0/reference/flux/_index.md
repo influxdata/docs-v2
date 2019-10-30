@@ -8,7 +8,7 @@ menu:
 weight: 4
 ---
 
-The following articles are meant as a reference for Flux functions and the
-Flux language specification.
+The following articles are meant as a reference for the Flux standard library and
+the Flux language specification.
 
 {{< children >}}

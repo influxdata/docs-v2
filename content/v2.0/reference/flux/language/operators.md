@@ -34,7 +34,8 @@ perform a calculation that returns a single numerical value.
 | `-`      | Subtraction    | `3 - 2`  | `1`    |
 | `*`      | Multiplication | `2 * 3`  | `6`    |
 | `/`      | Division       | `9 / 3`  | `3`    |
-| `%`      | Modulus        | `10 % 5` | `0`    |
+| `^`      | Exponentiation | `2 ^ 3`  | `8`    |
+| `%`      | Modulo         | `10 % 5` | `0`    |
 
 {{% note %}}
 In the current version of Flux, values used in arithmetic operations must
@@ -129,17 +130,19 @@ Literal constructors define fixed values.
 The table below outlines operator precedence.
 Operators with a lower number have higher precedence.
 
-|Precedence | Operator  | Description                |
-|:--------- |:--------: |:-----------                |
-| 1         | `a()`     | Function call              |
-|           | `a[]`     | Member or index access     |
-|           | `.`       | Member access              |
-| 2         | `*` `/`   | Multiplication and division|
-| 3         | `+` `-`   | Addition and subtraction   |
-| 4         | `==` `!=` | Comparison operators       |
-|           | `<` `<=`  |                            |
-|           | `>` `>=`  |                            |
-|           | `=~` `!~` |                            |
-| 5         | `not`     | Unary logical expression   |
-| 6         | `and`     | Logical AND                |
-| 7         | `or`      | Logical OR                 |
+| Precedence | Operator           | Description               |
+|:----------:|:--------:          |:--------------------------|
+| 1          | `a()`              | Function call             |
+|            | `a[]`              | Member or index access    |
+|            | `.`                | Member access             |
+| 2          | `*` `/`            |Multiplication and division|
+| 3          | `+` `-`            | Addition and subtraction  |
+| 4          |`==` `!=`           | Comparison operators      |
+|            | `<` `<=`           |                           |
+|            | `>` `>=`           |                           |
+|            |`=~` `!~`           |                           |
+| 5          | `not`              | Unary logical operator    |
+|            | `exists`           | Null check operator       |
+| 6          | `and`              | Logical AND               |
+| 7          | `or`               | Logical OR                |
+| 8          | `if` `then` `else` | Conditional               |

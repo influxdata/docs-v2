@@ -93,7 +93,12 @@ The Unix nanosecond timestamp for the data point.
 InfluxDB accepts one timestamp per point.
 If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
 
-_**Data type:** [Unix timestamp](#unix-timestamp)_  
+_**Data type:** [Unix timestamp](#unix-timestamp)_
+
+{{% note %}}
+To ensure a data point includes the time a metric is observed (not received by InfluxDB),
+include the timestamp.
+{{% /note %}}
 
 {{% note %}}
 _Use the default nanosecond precision timestamp or specify an alternative precision
@@ -235,7 +240,7 @@ Line protocol supports both literal backslashes and backslashes as an escape cha
 With two contiguous backslashes, the first is interpreted as an escape character.
 For example:
 
-| Backslashes | Intepreted as |
+| Backslashes | Interpreted as |
 |:-----------:|:-------------:|
 | `\`         | `\`           |
 | `\\`        | `\`           |
