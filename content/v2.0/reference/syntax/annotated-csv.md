@@ -4,7 +4,7 @@ list_title: Annotated CSV
 description: >
   Flux returns raw results in Annotated CSV format and also reads Annotated CSV
   using the `csv.from()` function.
-weight: 106
+weight: 103
 menu:
   v2_0_ref:
     parent: Syntax
