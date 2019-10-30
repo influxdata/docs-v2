@@ -13,7 +13,7 @@ weight: 209
 Flux helps you monitor states in your metrics and events:
 
 - [Find how long a state persists](#find-how-long-a-state-persists)
-- [Count the number of states](#count-the-number-of-states)
+- [Count the number of consecutive states](#count-the-number-of-consecutive-states)
 - [Detect state changes](#detect-state-changes)
 
 If you're just getting started with Flux queries, check out the following:
@@ -23,32 +23,38 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. Use the `stateDuration()` function and include the following information:
+1. Use the `stateDuration()` function to calculate how long a column value has remained the same value (or state). This function requires the following information:
   
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
-  - **Value:** value (or state) to search for in the specified column.
+  - **Value:** the value (or state) to search for in the specified column.
   - **State duration column:** a new column to store the state duration─the length of time the specified value persists.
-  - **Unit:** of time to measure the state duration (`1s` (by default), `1m`, `1h`).
+  - **Unit:** the unit of time (`1s` (by default), `1m`, `1h`) used to increment the state duration.
 
-        ```bash
-        |> stateDuration(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_duration", unit: 1s
+        ```js
+          |> stateDuration(fn: (r) =>
+           r._column_to_search == "value_to_search_for",
+          column: "state_duration",
+          unit: 1s)
         ```
 
-2. Run `stateDuration()` to search each point in the specified time range for the specified value:
+2. Run `stateDuration()` to search each point for the specified value:
 
     - For the first point that evaluates `true`, the state duration is set to `0`. For each consecutive point that evaluates `true`, the state duration increases by the time interval between each consecutive point (in specified units).
     - If the state is `false`, the state duration is reset to `-1`.
 
 ### Example query with stateDuration()
+
 <!-- once we have multiple example queries,link to multiple examples here with sub-descriptors -->
 
 The following query searches the `doors` bucket over the past 5 minutes to find how many seconds a door has been `closed`.
 
-```bash
+```js
   from(bucket: "doors")
   |> range(start: -5m)
-  |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed", unit: 1s)
-  
+  |> stateDuration(fn: (r) =>
+  r._value == "closed",
+   column: "door_closed",
+   unit: 1s)
 ```
 
 In this example, `door_closed` is the **State duration** column. If you write data to the `doors` bucket every minute, the state duration increases by `60s` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state duration is reset to `0`.
@@ -67,7 +73,7 @@ _time                   _value        door_closed
 2019-10-26T17:44:27Z    closed        60
 ```
 
-## Count the number of states
+## Count the number of consecutive states
 
 1. Use the `stateCount()` function and include the following information:
 
@@ -75,9 +81,14 @@ _time                   _value        door_closed
   - **Value:** to search for in the specified column.
   - **State count column:** a new column to store the state count─the number of consecutive records in which the specified value exists.
 
-        `|> stateCount(fn: (r) => r._column_to_search == "value_to_search_for", column: "state_count"`
+        ```js
+        `|> stateCount(fn: (r) => 
+            r._column_to_search == "value_to_search_for",
+            column: "state_count"`
+          )
+          ```
 
-2. Run `stateCount()` to search each point in the specified time range for the specified value:
+2. Run `stateCount()` to search each point for the specified value:
 
     - For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
     - If the state is `false`, the state count is reset to `-1`.
@@ -86,11 +97,12 @@ _time                   _value        door_closed
 
 The following query searches the `doors` bucket over the past 5 minutes to find how many points have been counted where `_value` is `closed`.
 
-```bash
+```js
   from(bucket: "doors")
   |> range(start: -5m)
-  |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed")
-  
+  |> stateDuration(fn: (r) =>
+   r._value == "closed",
+   column: "door_closed")
 ```
 
 In this example, `door_closed` is the **State count** column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
@@ -129,9 +141,9 @@ In this query, InfluxDB searches the `servers` bucket over the past hour, counts
 
 ## Detect state changes
 
-Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, you must have set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
+Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, you must set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
 
-1. In Cloud, click **Monitoring and Alerting** icon from the sidebar.
+1. In Cloud, click the **Monitoring and Alerting** icon from the sidebar.
 
     {{< nav-icon "alerts" >}}
 
@@ -145,7 +157,7 @@ Detect state changes with the `monitor.stateChanges()` function. To use the `mon
 
 ### Example query with monitor.stateChanges()
 
-```bash
+```js
 import "influxdata/influxdb/monitor"
 
 from ${ r._check_name}`
