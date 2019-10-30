@@ -30,6 +30,11 @@ Click on the name of a task to update it.
 In the list of tasks, click the {{< icon "toggle" >}} toggle to the left of the
 task you want to activate or inactivate.
 
+#### Update a task description
+1. In the list of tasks, hover over the name of the task you want to update.
+2. Click the pencil icon {{< icon "pencil" >}}.
+3. Click outside of the field or press `RETURN` to update.
+
 ## Update a task with the influx CLI
 Use the `influx task update` command to update or change the status of an existing task.
 
