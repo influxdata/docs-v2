@@ -82,7 +82,7 @@ _time                   _value        door_closed
   - **State count column:** a new column to store the state count─the number of consecutive records in which the specified value exists.
 
         ```js
-        `|> stateCount(fn: (r) => 
+        |> stateCount(fn: (r) => 
             r._column_to_search == "value_to_search_for",
             column: "state_count"`
           )
@@ -158,13 +158,12 @@ Detect state changes with the `monitor.stateChanges()` function. To use the `mon
 ### Example query with monitor.stateChanges()
 
 ```js
-import "influxdata/influxdb/monitor"
+  import "influxdata/influxdb/monitor"
 
-from ${ r._check_name}`
-monitor.stateChanges(
-  fromLevel: "warn",
-  toLevel: "crit"
-)
+  from ${ r._check_name}`
+    monitor.stateChanges(
+    fromLevel: "warn",
+    toLevel: "crit")
 ```
 
 <!-- ### Example query results
