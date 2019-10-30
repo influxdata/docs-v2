@@ -15,11 +15,6 @@ weight: 209
 Use the Flux `exists` operator to check if an object contains a key or if that
 key's value is `null`.
 
-If you're just getting started with Flux queries, check out the following:
-
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
-
 ```js
 p = {firstName: "John", lastName: "Doe", age: 42}
 
@@ -29,6 +24,11 @@ exists p.firstName
 exists p.height
 // Returns false
 ```
+
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 Use `exists` with row functions (
 [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
