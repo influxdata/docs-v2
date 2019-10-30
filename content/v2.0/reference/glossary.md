@@ -697,6 +697,12 @@ The precision setting is ignored for service input plugins.
 
 Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin)
 
+### predicate expression
+
+A predicate expression compares two values and returns `true` or `false` based on the
+the relationship between the two values.
+A predicate expression is comprised of a left operand, a comparison operator, and a right operand.
+
 ### process
 
 A set of predetermined rules.
