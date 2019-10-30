@@ -12,8 +12,8 @@ weight: 105
 v2.0/tags: [tasks, flux]
 ---
 
-Task options define specific information about the task and are specified in your
-Flux script or in the InfluxDB user interface (UI).
+Task options define specific information about a task.
+They are set in a Flux script or in the InfluxDB user interface (UI).
 The following task options are available:
 
 - [name](#name)
@@ -44,14 +44,16 @@ The interval at which the task runs.
 
 _**Data type:** Duration_
 
-_**Note:** In the InfluxDB UI, the **Interval** field sets this option_.
-
 ```js
 options task = {
   // ...
   every: 1h,
 }
 ```
+
+{{% note %}}
+In the InfluxDB UI, the **Interval** field sets this option.
+{{% /note %}}
 
 ## cron
 The [cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that

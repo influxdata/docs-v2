@@ -35,12 +35,6 @@ but examples include mean, median, top, bottom, etc.
 View [Flux's aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
 for more information and ideas.
 
-## Create a destination bucket
-By design, tasks cannot write to the same bucket from which they are reading.
-You need another bucket where the task can store the aggregated, downsampled data.
-
-_For information about creating buckets, see [Create a bucket](#)._
-
 ## Example downsampling task script
 The example task script below is a very basic form of data downsampling that does the following:
 
