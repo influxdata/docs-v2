@@ -11,10 +11,50 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.49.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.51.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.51.0 [2019-10-24]
+
+### Breaking changes
+- Update the Flux SPEC to remove duration addition and subtraction.
+- Turn duration value into a vector.
+
+### Features
+- Implementations for type substitutions and constraints.
+- Add semantic analysis.
+- Updated the duration value to include months and negative flag.
+- Create a flatbuffers schema for AST.
+- Add initial C binding for parsing an AST.
+- Create a tool for updating `.flux` tests in-place.
+- Add walk implementation.
+- Turn duration value into a vector.
+- Define initial Flux data types.
+
+### Bug fixes
+- Update libflux parser to match the Go parser.
+- Allow data collected by `prometheus.scrape()` to be used by `histogramQuantile()`.
+- Remove mock allocator.
+- Validate url for `sql.from()`, `sql.to()`, and `socket.from()`.
+
+---
+
+## v0.50.2 [2019-10-24]
+
+### Bug fixes
+- Make `keep()` and `drop()` throw an error if merging tables with different schemas.
+
+---
+
+## v0.50.1 [2019-10-24]
+
+### Bug fixes
+- Add annotated errors to the execute package where it affects normal usage.
+- Reorder variables in the allocator for atomic operations.
+
+---
 
 ## v0.50.0 [2019-10-11]
 

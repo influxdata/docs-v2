@@ -56,11 +56,12 @@ lastReported =
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
-    |> map(fn: (r) => { return {status: r._status} })
+    |> tableFind(fn: (key) => exists key._level)
+    |> getColumn(column: "_level")
 
 http.post(
   url: "http://myawsomeurl.com/api/notify",
   headers: {Authorization: "Bearer mySuPerSecRetTokEn"},
-  data: bytes(v: lastReported)
+  data: bytes(v: lastReported[0])
 )
 ```

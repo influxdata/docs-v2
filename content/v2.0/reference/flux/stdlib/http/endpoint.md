@@ -48,19 +48,3 @@ The returned object must include the following fields:
 - `data`
 
 _For more information, see [`http.post()`](/v2.0/reference/flux/stdlib/http/post/)_
-
-## Examples
-
-##### Send critical statuses to an HTTP endpoint
-```js
-import "monitor"
-import "http"
-
-endpoint = http.endpoint(url: "http://myawsomeurl.com/api/notify")
-
-from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-  |> map(fn: (r) => { return {status: r._status} })
-  |> monitor.notify(endpoint: endpoint)
-```
