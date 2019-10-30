@@ -6,7 +6,7 @@ weight: 7
 menu:
   v2_0_ref:
     name: Storage engine
-    parent: Internals
+    parent: InfluxDB Internals
 v2.0/tags: [storage, internals]
 ---
 
@@ -35,7 +35,6 @@ The cache is periodically written to disk in the form of [TSM](#time-structured-
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
 Points can be sent individually; however, for efficiency, most applications send points in batches.
-<!-- Batch size ranges from hundreds to thousands of points. -->
 Points in a POST body can be from an arbitrary number of series, measurements, and tag sets.
 Points in a batch do not have to be from the same measurement or tagset.
 
@@ -47,8 +46,7 @@ When a client sends a write request, the following occurs:
 
 1. Write request is appended to the end of the WAL file.
 2. `fsync()` the data to the file.
-3. Update the in-memory database.
-   <!-- 3. Update the in-memory CACHE? -->
+3. Update the in-memory cache.
 4. Return success to caller.
 
 `fsync()` takes the file and pushes pending writes all the way through any buffers and caches to disk.
@@ -61,7 +59,6 @@ To `fsync()` less frequently, batch your points.
 When the storage engine restarts, the WAL file is read back into the in-memory database.
 InfluxDB then snswer requests to the `/read` endpoint.
 
-<!-- ===== V1 material -->
 <!-- TODO is this still true? -->
 <!-- On the file system, the WAL is made up of sequentially numbered files (`_000001.wal`). -->
 <!-- The file numbers are monotonically increasing and referred to as WAL segments. -->
@@ -81,11 +78,14 @@ Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 The cache is queried at runtime and merged with the data stored in TSM files.
 
+<!-- From Scott: Points are organize by series. -->
+<!-- A series key defines the contents of a series and is comprised of a measurement, tag set, and field key. -->
+
 <!-- When the storage engine restarts, WAL files are written to the in-memory cache. -->
 
 Queries to the storage engine will merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
-This way writes that come in while a query is running won’t affect the result.
+This way writes that come in while a query is running do not affect the result.
 
 Deletes sent to the Cache will clear out the given key or the specific time range for the given key.
 
@@ -97,15 +97,15 @@ and then orders those field values by time.
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.
-To improve efficiency, the storage engine only stores differences between values in a series.
+To improve efficiency, the storage engine only stores differences (or *deltas*) between values in a series.
 Column-oriented storage means we can read by series key and ignore what it doesn't need.
 Storing data in columns lets the storage engine read by series key.
 
 <!-- TERMS -->
-Some terminology:
+<!-- Some terminology: -->
 
-- a *series key* is defined by measurement, tag key and value, and field key.
-- a *point* is a series key, field value, and timestamp.
+<!-- - a *series key* is defined by measurement, tag key and value, and field key. -->
+<!-- - a *point* is a series key, field value, and timestamp. -->
 
 After fields are stored safely in TSM files, WAL is truncated...
 <!-- TODO what next? -->
@@ -118,7 +118,7 @@ organize values for a series together into long runs to best optimize compressio
 
 As data cardinality (number of series) grows, queries read more series keys and become slower.
 
-The **Time Series Index** ensures queries fast as data cardinality of data grows...
+The **Time Series Index** ensures queries remain fast as data cardinality of data grows...
 To keep queries fast as we have more data, we use a **Time Series Index**.
 
 TSI stores series keys grouped by measurement, tag, and field.
@@ -152,13 +152,3 @@ TSI answers two questions well:
 <!--   Some encoders are fairly static and always encode the same type the same way; -->
 <!--   others switch their compression strategy based on the shape of the data. -->
 <!-- - Writers/Readers - Each file type (WAL segment, TSM files, tombstones, etc..) has Writers and Readers for working with the formats. -->
-
-<!-- === CONFIGURABLES? === -->
-<!-- The Cache exposes a few controls for snapshotting behavior. -->
-<!-- The two most important controls are the memory limits. -->
-<!-- There is a lower bound, [`cache-snapshot-memory-size`](/influxdb/v1.7/administration/config#cache-snapshot-memory-size-25m), which when exceeded will trigger a snapshot to TSM files and remove the corresponding WAL segments. -->
-<!-- There is also an upper bound, [`cache-max-memory-size`](/influxdb/v1.7/administration/config#cache-max-memory-size-1g), which when exceeded will cause the Cache to reject new writes. -->
-<!-- These configurations are useful to prevent out of memory situations and to apply back pressure to clients writing data faster than the instance can persist it. -->
-<!-- The checks for memory thresholds occur on every write. -->
-<!-- The other snapshot controls are time based. -->
-<!-- The idle threshold, [`cache-snapshot-write-cold-duration`](/influxdb/v1.7/administration/config#cache-snapshot-write-cold-duration-10m), forces the Cache to snapshot to TSM files if it hasn't received a write within the specified interval. -->
