@@ -981,8 +981,7 @@ A data type that represents a single point in time with nanosecond precision.
 ### time series data
 
 Sequence of data points typically consisting of successive measurements made from the same source over a time interval.
-Time series data shows how data evolves over
-time.
+Time series data shows how data evolves over time.
 On a time series data graph, one of the axes is always time.
 Time series data may be regular or irregular.
 Regular time series data changes in constant intervals.
