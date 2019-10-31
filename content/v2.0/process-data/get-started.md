@@ -14,8 +14,8 @@ menu:
 weight: 101
 ---
 
-InfluxDB tasks are scheduled Flux scripts that take a stream of input data, modify or analyze
-it in some way, then store the modified data in a new bucket or perform other actions.
+An **InfluxDB task** is a scheduled Flux script that takes a stream of input data, modifies or analyzes
+it in some way, then stores the modified data in a new bucket or performs other actions.
 
 This article walks through writing a basic InfluxDB task that downsamples
 data and stores it in a new bucket.
@@ -49,13 +49,12 @@ _See [Task configuration options](/v2.0/process-data/task-options) for detailed 
 about each option._
 
 {{% note %}}
-If creating a task in the InfluxDB user interface (UI), task options are defined
-in form fields when creating the task.
+When creating a task in the InfluxDB user interface (UI), task options are defined in form fields.
 {{% /note %}}
 
 ## Define a data source
-Define a data source using Flux's [`from()` function](/v2.0/reference/flux/functions/built-in/inputs/from/)
-or any other [Flux input functions](/v2.0/reference/flux/functions/built-in/inputs/).
+Define a data source using Flux's [`from()` function](/v2.0/reference/flux/stdlib/built-in/inputs/from/)
+or any other [Flux input functions](/v2.0/reference/flux/stdlib/built-in/inputs/).
 
 For convenience, consider creating a variable that includes the sourced data with
 the required time range and any relevant filters.
@@ -88,7 +87,7 @@ specific use case.
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
 It then windows the data into 5 minute intervals and calculates the average of each
-window using the [`aggregateWindow()` function](/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/).
+window using the [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
 
 ```js
 data
@@ -102,9 +101,9 @@ _See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commo
 
 ## Define a destination
 In the vast majority of task use cases, once data is transformed, it needs to sent and stored somewhere.
-This could be a separate bucket with a different retention policy, another measurement, or even an alert endpoint _(Coming)_.
+This could be a separate bucket or another measurement.
 
-The example below uses Flux's [`to()` function](/v2.0/reference/flux/functions/built-in/outputs/to)
+The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
 to send the transformed data to another bucket:
 
 ```js
@@ -113,15 +112,11 @@ to send the transformed data to another bucket:
 ```
 
 {{% note %}}
-#### Important notes
-- You cannot write to the same bucket you are reading from.
-- In order to write data into InfluxDB, you must have `_time`, `_measurement`,
-  `_field`, and `_value` columns.
+In order to write data into InfluxDB, you must have `_time`, `_measurement`, `_field`, and `_value` columns.
 {{% /note %}}
 
 ## Full example task script
-Below is the full example task script that combines all of the components described above:
-
+Below is a task script that combines all of the components described above:
 
 ```js
 // Task options

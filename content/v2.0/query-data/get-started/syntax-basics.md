@@ -186,10 +186,8 @@ topN = (tables=<-, n) => tables |> sort(desc: true) |> limit(n: n)
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_More information about creating custom functions is available in the [Custom functions](/v2.0/query-data/guides/custom-functions) documentation._
-
-Using the `cpuUsageUser` data stream variable defined above, find the top five data
-points with the custom `topN` function and yield the results.
+Using this new custom function `topN` and the `cpuUsageUser` data stream variable defined above,
+we can find the top five data points and yield the results.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -214,6 +212,8 @@ cpuUsageUser |> topN(n:5) |> yield()
 {{< /code-tabs-wrapper>}}
 
 This query will return the five data points with the highest user CPU usage over the last hour.
+
+_More information about creating custom functions is available in the [Custom functions](/v2.0/query-data/guides/custom-functions) documentation._
 
 <div class="page-nav-btns">
   <a class="btn prev" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>

@@ -105,7 +105,12 @@ The string type is nullable.
 An empty string is **not** a _null_ value.
 {{% /note %}}
 
-The length of a string is its size in bytes, not the number of characters, since a single character may be multiple bytes.
+The length of a string is its size in bytes, not the number of characters,
+since a single character may be multiple bytes.
+
+### Bytes types
+A _bytes type_ represents a sequence of byte values.
+The bytes type name is `bytes`.
 
 ## Regular expression types
 A _regular expression type_ represents the set of all patterns for regular expressions.

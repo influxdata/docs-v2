@@ -14,16 +14,16 @@ to create a bucket.
 
 ## Create a bucket in the InfluxDB UI
 
-1. Click the **Settings** tab in the navigation bar.
+1. Click **Load Data** in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "load data" >}}
 
-2. Select the **Buckets** tab.
+2. Select **Buckets**.
 3. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
 4. Enter a **Name** for the bucket.
-5. Select **How often to clear data?**:  
-    Select **Never** to retain data forever.  
-    Select **Periodically** to define a specific retention policy.
+5. Select when to **Delete Data**:
+    - **Never** to retain data forever.  
+    - **Older than** to choose a specific retention policy.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI
@@ -32,7 +32,7 @@ Use the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/creat
 to create a new bucket. A bucket requires the following:
 
 - A name
-- The name or ID of the organization to which it belongs
+- The name or ID of the organization the bucket belongs to
 - A retention period in nanoseconds
 
 ```sh

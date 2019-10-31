@@ -1,4 +1,4 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+{{ $currentVersion := replaceRE "v" "" (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,7 +12,7 @@
     {{ end }}
     <meta name="description" content="{{ if .Description }}{{ .Description | markdownify | plainify }}{{else}}{{ .Summary | markdownify | plainify }}{{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}

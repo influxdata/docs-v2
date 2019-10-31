@@ -167,13 +167,24 @@ duration_unit = "y" | "mo" | "w" | "d" | "h" | "m" | "s" | "ms" | "us" | "µs" |
 | ns       | nanoseconds (1 billionth of a second)   |
 
 Durations represent a length of time.
-Lengths of time are dependent on specific instants in time they occur and as such, durations do not represent a fixed amount of time.
-No amount of seconds is equal to a day, as days vary in their number of seconds.
-No amount of days is equal to a month, as months vary in their number of days.
-A duration consists of three basic time units: seconds, days and months.
+Lengths of time are dependent on specific instants in time they occur and as such,
+durations do not represent a fixed amount of time.
+There are no amount of days equal to a month, as months vary in their number of days.
+Durations are a tuple of positive integers that represent a duration and the sign
+of the duration (positive or negative).
+Durations are implemented this way so it is possible to determine whether a duration is positive or negative.
+Since duration values depend on their context, the only way to know if a duration
+is a positive or negative number is if all magnitudes have the same sign.
+In the canonical implementation, this is implemented as a tuple of the months and
+nanoseconds and a boolean that indicates whether it is positive or negative.
+The spec does not prescribe a specific implementation and other implementations
+may use a different internal representation.
 
-Durations can be combined via addition and subtraction.
-Durations can be multiplied by an integer value.
+Durations cannot be combined by addition and subtraction.
+All magnitudes in the tuple must be a positive integer which cannot be guaranteed
+when using addition and subtraction.
+Durations can be multiplied by any integer value.
+The unary negative operator is the equivalent of multiplying the duration by -1.
 These operations are performed on each time unit independently.
 
 ##### Examples of duration literals
@@ -181,9 +192,11 @@ These operations are performed on each time unit independently.
 ```js
 1s
 10d
-1h15m // 1 hour and 15 minutes
+1h15m  // 1 hour and 15 minutes
 5w
-1mo5d // 1 month and 5 days
+1mo5d  // 1 month and 5 days
+-1mo5d // negative 1 month and 5 days
+5w * 2 // 10 weeks
 ```
 Durations can be added to date times to produce a new date time.
 
@@ -269,8 +282,7 @@ String literals support several escape sequences.
 \t   U+0009 horizontal tab
 \"   U+0022 double quote
 \\   U+005C backslash
-\{   U+007B open curly bracket
-\}   U+007D close curly bracket
+\${  U+0024 U+007B dollar sign and opening curly bracket
 ```
 
 Additionally, any byte value may be specified via a hex encoding using `\x` as the prefix.
@@ -281,14 +293,8 @@ byte_value       = `\` "x" hex_digit hex_digit .
 hex_digit        = "0" … "9" | "A" … "F" | "a" … "f" .
 unicode_value    = unicode_char | escaped_char .
 escaped_char     = `\` ( "n" | "r" | "t" | `\` | `"` ) .
-StringExpression = "{" Expression "}" .
+StringExpression = "${" Expression "}" .
 ```
-
-{{% note %}}
-To be added: TODO: With string interpolation `string_lit` is not longer a lexical token as part of a literal, but an entire expression in and of itself.
-
-[IMPL#252](https://github.com/influxdata/platform/issues/252) Parse string literals.
-{{% /note %}}
 
 ##### Examples of string literals
 
@@ -301,12 +307,12 @@ To be added: TODO: With string interpolation `string_lit` is not longer a lexica
 ```
 
 String literals are also interpolated for embedded expressions to be evaluated as strings.
-Embedded expressions are enclosed in curly brackets (`{}`).
+Embedded expressions are enclosed in a dollar sign and curly braces (`${}`).
 The expressions are evaluated in the scope containing the string literal.
-The result of an expression is formatted as a string and replaces the string content between the brackets.
+The result of an expression is formatted as a string and replaces the string content between the braces.
 All types are formatted as strings according to their literal representation.
 A function `printf` exists to allow more precise control over formatting of various types.
-To include the literal curly brackets within a string they must be escaped.
+To include the literal `${` within a string, it must be escaped.
 
 {{% note %}}
 [IMPL#248](https://github.com/influxdata/platform/issues/248) Add printf function.
@@ -316,14 +322,13 @@ To include the literal curly brackets within a string they must be escaped.
 
 ```js
 n = 42
-"the answer is {n}" // the answer is 42
-"the answer is not {n+1}" // the answer is not 43
-"openinng curly bracket \{" // openinng curly bracket {
-"closing curly bracket \}" // closing curly bracket }
+"the answer is ${n}" // the answer is 42
+"the answer is not ${n+1}" // the answer is not 43
+"dollar sign opening curly bracket \${" // dollar sign opening curly bracket ${
 ```
 
 {{% note %}}
-[IMPL#251](https://github.com/influxdata/platform/issues/251) Add string interpolation support
+[IMPL#1775](https://github.com/influxdata/flux/issues/1775) Interpolate arbitrary expressions in string literals
 {{% /note %}}
 
 ### Regular expression literals

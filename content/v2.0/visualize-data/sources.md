@@ -14,11 +14,11 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 
 **To add data to a bucket**:
 
-1. Click in the **Organizations** icon in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Select the **Buckets** tab.
+2. Click the **Buckets** tab.
 3. Next to the name of a bucket, click **Add Data**.
 4. Select **Streaming**, **Line Protocol**, or **Scraping** from the data source options.
 5. Click **Continue**.
@@ -26,15 +26,16 @@ Like dashboards and buckets, data sources are scoped by organization. When you f
 
 **To manage Telegraf configurations**:
 
-1. Click in the **Organizations** icon in the navigation bar.
+1. Click the **Settings** tab in the navigation bar.
 
-    {{< nav-icon "orgs" >}}
+    {{< nav-icon "settings" >}}
 
-2. Select the **Telegraf** tab. A list of existing Telegraf configurations appears.
+2. Click the **Telegraf** tab. A list of existing Telegraf configurations appears.
 3. To add a new Telegraf configuration:
   * Click **Create Configuration** in the upper right.
   * Select the Telegraf plugins you want to use to collect data.
   * Click **Continue**.
   * Follow the instructions on the **Listen for Streaming Data** page that appears to complete your configuration.
 4. To delete a Telegraf configuration, hover over its name in the list and click **Delete**.
-5. To view details of a Telegraf configuration, hover over its name in the list and click **Download Config**.
+5. To view details of a Telegraf configuration, click on its name in the list.
+    - To save the Telegraf configuration, click **Download Config**.

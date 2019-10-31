@@ -13,10 +13,10 @@ v2.0/tags: [query]
 There are multiple ways to execute queries with InfluxDB.
 This guide covers the different options:
 
-1. [Data Explorer](#data-explorer)
-2. [Influx REPL](#influx-repl)
-3. [Influx query command](#influx-query-command)
-5. [InfluxDB API](#influxdb-api)
+- [Data Explorer](#data-explorer)
+- [Influx REPL](#influx-repl)
+- [Influx query command](#influx-query-command)
+- [InfluxDB API](#influxdb-api)
 
 ## Data Explorer
 Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
@@ -60,35 +60,50 @@ In your request, set the following:
 
 - Your organization via the `org` or `orgID` URL parameters.
 - `Authorization` header to `Token ` + your authentication token.
-- `accept` header to `application/csv`.
-- `content-type` header to `application/vnd.flux`.
+- `Accept` header to `application/csv`.
+- `Content-type` header to `application/vnd.flux`.
+- Your plain text query as the request's raw data.
 
-This lets you POST the Flux query in plain text and receive the annotated CSV response.
+InfluxDB returns the query results in [annotated CSV](/v2.0/reference/syntax/annotated-csv/).
+
+{{% note %}}
+#### Use gzip to compress the query response
+To compress the query response, set the `Accept-Encoding` header to `gzip`.
+This saves network bandwidth, but increases server-side load.
+{{% /note %}}
 
 Below is an example `curl` command that queries InfluxDB:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Multi-line](#)
-[Single-line](#)
+[Without compression](#)
+[With compression](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
 ```bash
 curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
--H 'Authorization: Token YOURAUTHTOKEN' \
--H 'accept:application/csv' \
--H 'content-type:application/vnd.flux' \
--d 'from(bucket:“test”)
-      |> range(start:-1000h)
-      |> group(columns:[“_measurement”], mode:“by”)
-      |> sum()'
+  -H 'Authorization: Token YOURAUTHTOKEN' \
+  -H 'Accept: application/csv' \
+  -H 'Content-type: application/vnd.flux' \
+  -d 'from(bucket:"example-bucket")
+        |> range(start:-1000h)
+        |> group(columns:["_measurement"], mode:"by")
+        |> sum()'
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS -H 'Authorization: Token TOKENSTRINGHERE' -H 'accept:application/csv' -H 'content-type:application/vnd.flux' -d 'from(bucket:“test”) |> range(start:-1000h) |> group(columns:[“_measurement”], mode:“by”) |> sum()'
+curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
+  -H 'Authorization: Token YOURAUTHTOKEN' \
+  -H 'Accept: application/csv' \
+  -H 'Content-type: application/vnd.flux' \
+  -H 'Accept-Encoding: gzip' \
+  -d 'from(bucket:"example-bucket")
+        |> range(start:-1000h)
+        |> group(columns:["_measurement"], mode:"by")
+        |> sum()'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

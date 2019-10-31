@@ -10,7 +10,7 @@ menu:
 weight: 205
 ---
 
-The [`join()` function](/v2.0/reference/flux/functions/built-in/transformations/join) merges two or more
+The [`join()` function](/v2.0/reference/flux/stdlib/built-in/transformations/join) merges two or more
 input streams, whose values are equal on a set of common columns, into a single output stream.
 Flux allows you to join on any columns common between two data streams and opens the door
 for operations such as cross-measurement joins and math across measurements.
@@ -20,6 +20,11 @@ InfluxDB - memory usage and processes.
 
 In this guide, we'll join two data streams, one representing memory usage and the other representing the
 total number of running processes, then calculate the average memory usage per running process.
+
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Define stream variables
 In order to perform a join, you must have two streams of data.
@@ -205,7 +210,7 @@ These represent the columns with values unique to the two input tables.
 
 ## Calculate and create a new table
 With the two streams of data joined into a single table, use the
-[`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map)
+[`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map)
 to build a new table by mapping the existing `_time` column to a new `_time`
 column and dividing `_value_mem` by `_value_proc` and mapping it to a
 new `_value` column.

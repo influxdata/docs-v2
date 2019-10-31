@@ -6,15 +6,20 @@ menu:
   v2_0:
     name: Create histograms
     parent: How-to guides
-weight: 207
+weight: 208
 ---
-
 
 Histograms provide valuable insight into the distribution of your data.
 This guide walks through using Flux's `histogram()` function to transform your data into a **cumulative histogram**.
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ## histogram() function
-The [`histogram()` function](/v2.0/reference/flux/functions/built-in/transformations/histogram) approximates the
+
+The [`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -41,7 +46,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/v2.0/reference/flux/functions/built-in/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -50,17 +55,36 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/v2.0/reference/flux/functions/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
-logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
+logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 
 // Generated list: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
 ```
 
+## Histogram visualization
+The [Histogram visualization type](/v2.0/visualize-data/visualization-types/histogram/)
+automatically converts query results into a binned and segmented histogram.
+
+{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
+
+Use the [Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
+to specify the number of bins and define groups in bins.
+
+### Histogram visualization data structure
+Because the Histogram visualization uses visualization controls to creates bins and groups,
+**do not** structure query results as histogram data.
+
+{{% note %}}
+Output of the [`histogram()` function](#histogram-function) is **not** compatible
+with the Histogram visualization type.
+View the example [below](#visualize-errors-by-severity).
+{{% /note %}}
+
 ## Examples
 
-### Generating a histogram with linear bins
+### Generate a histogram with linear bins
 ```js
 from(bucket:"example-bucket")
   |> range(start: -5m)
@@ -105,7 +129,7 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 2018-11-07T22:19:58.423358000Z  2018-11-07T22:24:58.423358000Z            used_percent                     mem  Scotts-MacBook-Pro.local                            75                            30
 ```
 
-### Generating a histogram with logarithmic bins
+### Generate a histogram with logarithmic bins
 ```js
 from(bucket:"example-bucket")
   |> range(start: -5m)
@@ -139,3 +163,22 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 2018-11-07T22:23:36.860664000Z  2018-11-07T22:28:36.860664000Z            used_percent                     mem  Scotts-MacBook-Pro.local                           128                            30
 2018-11-07T22:23:36.860664000Z  2018-11-07T22:28:36.860664000Z            used_percent                     mem  Scotts-MacBook-Pro.local                           256                            30
 ```
+
+### Visualize errors by severity
+Use the [Telegraf Syslog plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/syslog)
+to collect error information from your system.
+Query the `severity_code` field in the `syslog` measurement:
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "syslog" and
+      r._field == "severity_code"
+  )
+```
+
+In the Histogram visualization options, select `_time` as the **X Column**
+and `severity` as the **Group By** option:
+
+{{< img-hd src="/img/2-0-visualizations-histogram-errors.png" alt="Logs by severity histogram" />}}

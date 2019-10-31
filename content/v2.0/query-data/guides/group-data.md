@@ -15,6 +15,11 @@ With Flux, you can group data by any column in your queried data set.
 "Grouping" partitions data into tables in which each row shares a common value for specified columns.
 This guide walks through grouping data in Flux and provides examples of how data is shaped in the process.
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ## Group keys
 Every table has a **group key** – a list of columns which for which every row in the table has the same value.
 
@@ -28,7 +33,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/v2.0/reference/flux/functions/built-in/transformations/group) defines the
+Flux's [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

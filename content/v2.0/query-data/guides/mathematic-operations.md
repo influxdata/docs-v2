@@ -15,6 +15,11 @@ supports mathematic expressions in data transformations.
 This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ##### Basic mathematic operations
 ```js
 // Examples executed using the Flux REPL
@@ -40,7 +45,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/)
+To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -82,7 +87,7 @@ percent(sample: 20.0, total: 80.0)
 To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/v2.0/query-data/guides/custom-functions/#functions-that-manipulate-piped-forward-data).
-- Use the [`map()` function](/v2.0/reference/flux/functions/built-in/transformations/map) to iterate over each row.
+- Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -146,7 +151,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/v2.0/reference/flux/functions/built-in/transformations/type-conversions/float)
+[`float()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)
 and format the denominator in the division operation as a float.
 
 ```js

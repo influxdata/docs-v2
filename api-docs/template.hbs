@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8" />
+  <title>{{title}}</title>
+  <meta name="description" content="The InfluxDB API provides a programmatic interface for interactions with InfluxDB {{templateOptions.version}}.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-45024174-12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-45024174-12');
+  </script>
+  <meta name="google-site-verification" content="_V6CNhaIIgVsTO9max_ECw7DUfPL-ZGE7G03MQgEGMU" />
+
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  {{#unless disableGoogleFont}}<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500,500i,700,700i|Roboto:400,400i,700,700i|Rubik:400,400i,500,500i,700,700i" rel="stylesheet">{{/unless}}
+  {{{redocHead}}}
+  <link rel="stylesheet" type="text/css" href="/api.css">
+</head>
+
+<body>
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+  <div id="influx-header">
+    <a href="/{{templateOptions.version}}">InfluxDB {{templateOptions.version}} Docs</a>
+  </div>
+  {{{redocHTML}}}
+  <script type="text/javascript">
+    function removeFadeOut( el, speed ) {
+      var seconds = speed/1000;
+      el.style.transition = "opacity "+seconds+"s ease";
+      el.style.opacity = 0;
+      setTimeout(function() {
+          el.parentNode.removeChild(el);
+      }, speed);
+    }
+    removeFadeOut(document.getElementById('loading'), 500);
+  </script>
+</body>
+
+</html>

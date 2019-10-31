@@ -6,35 +6,44 @@
     <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
 
     <div class="cards">
-      <div class="card full" id="get-started">
-
-        {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
-        <h1>InfluxDB {{ $currentVersion }} Documentation</h1>
-        <a class="btn" href="get-started">Get Started</a>
+      <div class="card main" id="get-started">
+        {{ $currentVersion := replaceRE "v" "" (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+        <h1>Get started with InfluxDB {{ $currentVersion }}</h1>
+        <a class="btn oss" href="get-started">Start with InfluxDB OSS</a>
+        <a class="btn" href="cloud/get-started">Start with InfluxDB Cloud</a>
       </div>
       {{ partial "svgs/hive.svg" }}
       <div class="group">
 
-        <a class="card quarter" href="write-data">
+        <a class="card sm" href="write-data">
           <h3>Write Data</h3>
+          <p>Write data to InfluxDB using a number of different options.</p>
         </a>
 
-        <a class="card quarter"href="query-data">
+        <a class="card sm"href="query-data">
           <h3>Query Data</h3>
+          <p>Use Flux to query and transform your data.</p>
         </a>
 
-        <a class="card quarter" href="process-data">
+        <a class="card sm" href="process-data">
           <h3>Process Data</h3>
+          <p>Use InfluxDB tasks to process and downsample data.</p>
         </a>
 
-        <a class="card quarter" href="visualize-data">
+        <a class="card sm" href="visualize-data">
           <h3>Visualize Data</h3>
+          <p>Build powerful dashboards to visualize your data.</p>
+        </a>
+
+        <a class="card sm" href="monitor-alert">
+          <h3>Monitor & Alert</h3>
+          <p>Monitor metrics and send alerts with InfluxDB.</p>
         </a>
 
       </div>
     </div>
 
-    {{ partial "article.html" . }}
+    <!-- {{ partial "article.html" . }} -->
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>

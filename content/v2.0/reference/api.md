@@ -4,7 +4,7 @@ description: >
   The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
   Access the InfluxDB API using the `/api/v2/` endpoint.
 menu: v2_0_ref
-weight: 2
+weight: 3
 v2.0/tags: [api]
 ---
 
@@ -15,15 +15,37 @@ Access the InfluxDB API using the `/api/v2/` endpoint.
 InfluxDB uses [authentication tokens](/v2.0/security/tokens/) to authorize API requests.
 Include your authentication token as an `Authorization` header in each request.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[InfluxDB OSS](#)
+[InfluxDB Cloud](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
-curl --request GET \
-  --url http://localhost:9999/api/v2/ \
+curl --request POST \
+  --url http://localhost:9999/api/v2/write?org=my-org&bucket=example-bucket \
   --header 'Authorization: Token YOURAUTHTOKEN'
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+# Use the hostname of your InfluxDB Cloud UI
+curl --request POST \
+  --url https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/write?org=my-org&bucket=example-bucket \
+  --header 'Authorization: Token YOURAUTHTOKEN'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-## View Influx v2 API Documentation
-Full InfluxDB v2 API documentation is built into the `influxd` service.
-To view the API documentation, [start InfluxDB](/v2.0/get-started/#start-influxdb)
-and visit the `/docs` endpoint in a browser.
+## View InfluxDB v2 API Documentation
+<a class="btn" href="/v2.0/api/">InfluxDB v2.0 API documentation</a>
 
-<a class="btn" href="http://localhost:9999/docs" target="\_blank">localhost:9999/docs</a>
+### View InfluxDB API documentation locally
+InfluxDB API documentation is built into the `influxd` service and represents
+the API specific to the current version of InfluxDB.
+To view the API documentation locally, [start InfluxDB](/v2.0/get-started/#start-influxdb)
+and visit the `/docs` endpoint in a browser ([localhost:9999/docs](http://localhost:9999/docs)).
+
+## InfluxDB client libraries
+InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
+For information about supported client libraries, see [InfluxDB client libraries](/v2.0/reference/client-libraries/).

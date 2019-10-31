@@ -33,5 +33,5 @@ influx org members [command]
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands locally against the filesystem                |            |
-| `-t`, `--token` | API token to be used throughout client calls               | string     |
+| `--local`       | Run commands against the local filesystem                  |            |
+| `-t`, `--token` | API token to use in client calls                           | string     |

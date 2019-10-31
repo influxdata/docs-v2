@@ -7,6 +7,84 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.0.0-alpha.19 [2019-10-30]
+
+### Features
+- Add shortcut for toggling comments and submitting in Script Editor.
+
+### UI Improvements
+- Redesign page headers to be more space-efficient.
+- Add 403 handler that redirects back to the sign-in page on oats-generated routes.
+
+### Bug Fixes
+- Ensure users are created with an active status.
+- Added missing string values for `CacheStatus` type.
+- Disable saving for threshold check if no threshold selected.
+- Query variable selector shows variable keys, not values.
+- Create Label overlay disables the submit button and returns a UI error if name field is empty.
+- Log error as info message on unauthorized API call attempts.
+- Ensure `members` and `owners` endpoints lead to 404 when organization resource does not exist.
+- Telegraf UI filter functionality shows results based on input name.
+- Fix Telegraf UI sort functionality.
+- Fix task UI sort functionality.
+- Exiting a configuration of a dashboard cell properly renders the cell content.
+- Newly created checks appear on the checklist.
+- Changed task runs success status code from 200 to 201 to match Swagger documentation.
+- Text areas have the correct height.
+
+## v2.0.0-alpha.18 [2019-09-26]
+
+### Features
+- Add jsonweb package for future JWT support.
+- Added the JMeter Template dashboard.
+
+### UI Improvements
+- Display dashboards index as a grid.
+- Add viewport scaling to html meta for responsive mobile scaling.
+- Remove rename and delete functionality from system buckets.
+-  Prevent new buckets from being named with the reserved `_` prefix.
+- Prevent user from selecting system buckets when creating Scrapers, Telegraf configurations, read/write tokens, and when saving as a task.
+- Limit values from draggable threshold handles to 2 decimal places.
+- Redesign check builder UI to fill the screen and make more room for composing message templates.
+- Move Tokens tab from Settings to Load Data page.
+- Expose all Settings tabs in navigation menu.
+- Added Stream and table functions to query builder.
+
+### Bug Fixes
+- Remove scrollbars blocking onboarding UI step.
+
+---
+
+## v2.0.0-alpha.17 [2019-08-14]
+
+### Features
+- Optional gzip compression of the query CSV response.
+- Add task types.
+- When getting task runs from the API, runs will be returned in order of most recently scheduled first.
+
+### Bug Fixes
+- Fix authentication when updating a task with invalid org or bucket.
+- Update the documentation link for Telegraf.
+- Fix to surface errors properly as task notifications on create.
+- Fix limiting of get runs for task.
+
+---
+
+## v2.0.0-alpha.16 [2019-07-25]
+
+### Bug Fixes
+- Add link to documentation text in line protocol upload overlay.
+- Fix issue in Authorization API, can't create auth for another user.
+- Fix Influx CLI ignored user flag for auth creation.
+- Fix the map example in the documentation.
+- Ignore null/empty Flux rows which prevents a single stat/gauge crash.
+- Fixes an issue where clicking on a dashboard name caused an incorrect redirect.
+- Upgrade templates lib to 0.5.0.
+- Upgrade giraffe lib to 0.16.1.
+- Fix incorrect notification type for manually running a task.
+- Fix an issue where canceled tasks did not resume.
+
+---
 
 ## v2.0.0-alpha.15 [2019-07-11]
 

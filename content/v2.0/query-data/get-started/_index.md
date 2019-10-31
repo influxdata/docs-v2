@@ -11,14 +11,14 @@ menu:
     parent: Query data
 related:
   - /v2.0/reference/flux/
-  - /v2.0/reference/flux/functions/
+  - /v2.0/reference/flux/stdlib/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on data.
 
-This multi-part getting started guide walks through important concepts related to Flux,
-how to query time series data from InfluxDB using Flux, and introduces Flux syntax and functions.
+This multi-part getting started guide walks through important concepts related to Flux.
+It covers querying time series data from InfluxDB using Flux, and introduces Flux syntax and functions.
 
 ## Flux design principles
 Flux is designed to be usable, readable, flexible, composable, testable, contributable, and shareable.
@@ -26,7 +26,7 @@ Its syntax is largely inspired by [2018's most popular scripting language](https
 Javascript, and takes a functional approach to data exploration and processing.
 
 The following example illustrates querying data stored from the last five minutes,
-filtering by the `cpu` measurement and the `cpu=cpu-usage` tag, windowing the data in 1 minute intervals,
+filtering by the `cpu` measurement and the `cpu=cpu-total` tag, windowing the data in 1 minute intervals,
 and calculating the average of each window:
 
 ```js
@@ -47,6 +47,7 @@ Flux uses pipe-forward operators (`|>`) extensively to chain operations together
 After each function or operation, Flux returns a table or collection of tables containing data.
 The pipe-forward operator pipes those tables into the next function or operation where
 they are further processed or manipulated.
+This makes it easy to chain together functions to build sophisticated queries.
 
 ### Tables
 Flux structures all data in tables.

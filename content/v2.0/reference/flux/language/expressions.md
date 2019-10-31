@@ -22,6 +22,7 @@ PrimaryExpression = identifier | Literal | "(" Expression ")" .
 ```
 
 ## Literals
+
 Literals construct a value.
 
 ```js
@@ -37,12 +38,13 @@ Literal = int_lit
 ```
 
 ### Object literals
+
 Object literals construct a value with the object type.
 
 ```js
 ObjectLiteral  = "{" ObjectBody "}" .
 ObjectBody     = WithProperties | PropertyList .
-WithProperties = identifier "with"  PropertyList .
+WithProperties = identifier "with" PropertyList .
 PropertyList   = [ Property { "," Property } ] .
 Property       = identifier [ ":" Expression ]
                | string_lit ":" Expression .
@@ -119,6 +121,23 @@ CallExpression = "(" PropertyList ")" .
 ```js
 f(a:1, b:9.6)
 float(v:1)
+```
+
+Use short notation in a call expression when the name of every argument matches the name of every parameter.
+
+##### Examples of short notation in call expressions
+
+```js
+add(a: a, b: b) //long notation
+add(a, b) // short notation equivalent
+
+add = (a,b) => a + b
+a = 1
+b = 2
+
+// Don't mix short and long notation.
+add(a: a, b)
+add(a, b: b)
 ```
 
 ## Pipe expressions
@@ -198,22 +217,23 @@ Operators combine operands into expressions.
 The precedence of the operators is given in the table below.
 Operators with a lower number have higher precedence.
 
-| Precedence | Operator           | Description               |
-|:----------:|:--------:          |:--------------------------|
-| 1          | `a()`              | Function call             |
-|            | `a[]`              | Member or index access    |
-|            | `.`                | Member access             |
-| 2          | `*` `/`            |Multiplication and division|
-| 3          | `+` `-`            | Addition and subtraction  |
-| 4          |`==` `!=`           | Comparison operators      |
-|            | `<` `<=`           |                           |
-|            | `>` `>=`           |                           |
-|            |`=~` `!~`           |                           |
-| 5          | `not`              | Unary logical operator    |
-|            | `exists`           | Null check operator       |
-| 6          | `and`              | Logical AND               |
-| 7          | `or`               | Logical OR                |
-| 8          | `if` `then` `else` | Conditional               |
+| Precedence | Operator           | Description                          |
+|:----------:|:--------:          |:--------------------------           |
+| 1          | `a()`              | Function call                        |
+|            | `a[]`              | Member or index access               |
+|            | `.`                | Member access                        |
+| 2          | `^`                | Exponentiation                       |
+| 3          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 4          | `+` `-`            | Addition and subtraction             |
+| 5          |`==` `!=`           | Comparison operators                 |
+|            | `<` `<=`           |                                      |
+|            | `>` `>=`           |                                      |
+|            |`=~` `!~`           |                                      |
+| 6          | `not`              | Unary logical operator               |
+|            | `exists`           | Null check operator                  |
+| 7          | `and`              | Logical AND                          |
+| 8          | `or`               | Logical OR                           |
+| 9          | `if` `then` `else` | Conditional                          |
 
 The operator precedence is encoded directly into the grammar as the following.
 
@@ -235,7 +255,7 @@ AdditiveExpression       = MultiplicativeExpression
 AdditiveOperator         = "+" | "-" .
 MultiplicativeExpression = PipeExpression
                          | MultiplicativeExpression MultiplicativeOperator PipeExpression .
-MultiplicativeOperator   = "*" | "/" .
+MultiplicativeOperator   = "*" | "/" | "%" | "^".
 PipeExpression           = PostfixExpression
                          | PipeExpression PipeOperator UnaryExpression .
 PipeOperator             = "|>" .
@@ -248,5 +268,9 @@ PostfixOperator          = MemberExpression
                          | CallExpression
                          | IndexExpression .
 ```
+
+{{% warn %}}
+Dividing by 0 or using the mod operator with a divisor of 0 will result in an error.
+{{% /warn %}}
 
 _Also see [Flux Operators](/v2.0/reference/flux/language/operators)._
