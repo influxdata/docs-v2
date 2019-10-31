@@ -2,7 +2,7 @@
 title: Delete predicate syntax
 list_title: Delete predicate
 description: >
-  The InfluxDB `/delete` endpoint uses a SQL-like predicate syntax to determine
+  The InfluxDB `/delete` endpoint uses a InfluxQL-like predicate syntax to determine
   what data points to delete.
 menu:
   v2_0_ref:
@@ -14,12 +14,12 @@ related:
   - /v2.0/reference/cli/influx/delete/
 ---
 
-The InfluxDB `/delete` endpoint uses a SQL-like predicate syntax to determine
+The InfluxDB `/delete` endpoint uses a InfluxQL-like predicate syntax to determine
 what data [points](/v2.0/reference/glossary/#point) to delete.
-InfluxDB uses the delete predicate to evaluate each point in the time range
-specified in the delete request.
-Points that evaluate to `true` are deleted.
-Points that evaluate to `false` are preserved.
+InfluxDB uses the delete predicate to evaluate the [series keys](/v2.0/reference/glossary/#series-key)
+of points in the time range specified in the delete request.
+Points with series keys that evaluate to `true` for the given predicate are deleted.
+Points with series keys that evaluate to `false` are preserved.
 
 A delete predicate is comprised of one or more [predicate expressions](/v2.0/reference/glossary/#predicate-expression).
 The left operand of the predicate expression is the column name.
@@ -48,19 +48,17 @@ Comparison operators compare left and right operands and return `true` or `false
 | Operator | Description  | Example        | Result |
 |:-------- |:-----------  |:-------:       |:------:|
 | `=`      | Equal to     | `"abc"="abc"`  | `true` |
-| `!=`     | Not equal to | `"abc"!="def"` | `true` |
-
 
 ## Delete predicate examples
 
-### Delete a measurement
+### Delete points with a specific measurement
 The following will delete points in the `sensorData` measurement:
 
 ```sql
 _measurement="sensorData"
 ```
 
-### Delete a field
+### Delete points with a specific field
 The following will delete points with the `temperature` field:
 
 ```sql
@@ -79,4 +77,5 @@ The delete predicate syntax has the following limitations.
 
 - Delete predicates do not support regular expressions.
 - Delete predicates do not support the `OR` logical operator.
+- Delete predicates only support equality (`=`), not inequality (`!=`).
 - Delete predicates can use any column or tag except `_time` or `_value`.
