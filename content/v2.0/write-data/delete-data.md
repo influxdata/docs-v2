@@ -10,7 +10,9 @@ menu:
 weight: 104
 ---
 
-## Delete data from buckets
+## Delete data in the InfluxDB UI
+
+### Delete data from buckets
 
 1. Click the **Settings** tab in the navigation bar.
 
@@ -20,7 +22,11 @@ weight: 104
 3. Hover over the name of the bucket with data you want to delete it.
 4. Click the gear icon ({{< icon "gear" >}}) and select **Delete Data by Filter**.
 5. target Bucket,
-6. time range, 
+6. time range,
 6. add filter, tag keys, tag values
 
-## Delete data from the Data Explorer
+### Delete data from the Data Explorer
+
+## Delete data using the influx CLI
+
+## Delete data using the API
