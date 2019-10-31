@@ -2,14 +2,14 @@
 title: InfluxDB Cloud 2.0 pricing calculator
 description: >
   Use the InfluxDB Cloud 2.0 pricing calculator to estimate costs by adjusting the number of devices, 
-  plugins, metrics, and writes for the Pay As You Go Plan.
+  plugins, metrics, and writes for the Usage-based Plan.
 weight: 2
 menu:
   v2_0_cloud:
     name: Pricing calculator
 ---
 
-Use the {{< cloud-name >}} pricing calculator to estimate costs for the Pay As You Go plan by adjusting your number of devices,
+Use the {{< cloud-name >}} pricing calculator to estimate costs for the Usage-based Plan by adjusting your number of devices,
   plugins, users, dashboards, writes, and retention. Default configurations include:
 
 | Configuration                      | Hobby  | Standard | Professional | Enterprise |
@@ -33,12 +33,12 @@ Guidelines used to estimate costs for default configurations:
 
 1. Do one of the following:
 
-  - Free plan. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
+  - Free Plan. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
 
          {{< nav-icon "cloud" >}}
 
         Then click the **Pricing Calculator** link at the bottom of the page. 
-  - Pay As You Go plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
+  - Usage-based Plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 3. Choose your region.
 4. Select your configuration:
    - **Hobby**. For a single user monitoring a few machines or sensors.

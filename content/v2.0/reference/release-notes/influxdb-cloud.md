@@ -15,8 +15,8 @@ aliases:
 ## Features
 - **InfluxDB 2.0 alpha-17** –
   _See the [alpha-17 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-17-2019-08-14) for details._
-- Alerts and Notifications to Slack (Free Tier), PagerDuty and HTTP (Pay As You Go).
-- Rate limiting on cardinality for Free Tier.
+- Alerts and Notifications to Slack (Free Plan), PagerDuty and HTTP (Usage-based Plan).
+- Rate limiting on cardinality for Free Plan.
 - Billing notifications.
 - Pricing calculator.
 - Improved Signup flow.
@@ -27,7 +27,7 @@ aliases:
 
 - **InfluxDB 2.0 alpha-15** –
   _See the [alpha-9 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-15-2019-07-11) for details._
-- Pay As You Go Pricing Plan.
+- Usage-based Plan.
 - Adjusted Free Plan rate limits.
 - Timezone selection in the user interface.
 
@@ -37,14 +37,14 @@ aliases:
 
 ### Features
 
-- Add rate limiting for Free tier users.
+- Add rate limiting for Free Plan users.
 - Add client libraries for Go and JS.
 
 ### Bug fixes
 
 - Users cannot delete themselves from their Cloud 2.0 account.
-- The bucket retention period for Free tier users is set to 72 hours.
-- Free tier users cannot change a bucket's retention period.
+- The bucket retention period for Free Plan users is set to 72 hours.
+- Free Plan users cannot change a bucket's retention period.
 
 ---
 

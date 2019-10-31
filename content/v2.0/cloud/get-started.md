@@ -21,7 +21,7 @@ _See the differences between {{< cloud-name "short">}} and InfluxDB OSS
 Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/cloud/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
-Once you're ready to grow, [upgrade to the Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/).
+Once you're ready to grow, [upgrade to the Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
 
 ## Sign up
 
@@ -138,5 +138,5 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [The Pay As You Go Plan](/v2.0/cloud/pricing-plans/#pay-as-you-go-plan)
+- **Usage-based pricing**: The [The Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
   offers more flexibility and ensures that you only pay for what you use. To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).
