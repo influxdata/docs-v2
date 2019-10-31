@@ -1640,6 +1640,68 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /delete:
+    post:
+      summary: Delete time series data from InfluxDB
+      requestBody:
+          description: Predicate delete request
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeletePredicateRequest"
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: org
+          description: Specifies the organization that owns the bucket.
+          schema:
+            type: string
+            description: All points within batch are written to this organization.
+        - in: query
+          name: bucket
+          description: Specifies the bucket to delete data from.
+          schema:
+            type: string
+            description: Points are only deleted from this bucket.
+        - in: query
+          name: orgID
+          description: Specifies the organization ID that owns the bucket.
+          schema:
+            type: string
+        - in: query
+          name: bucketID
+          description: Specifies the bucket ID to delete data from.
+          schema:
+            type: string
+            description: Points are only deleted from this bucket.
+      responses:
+        '204':
+          description: delete has been accepted
+        '400':
+          description: invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: the bucket or organization is not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '403':
+          description: no token was sent or does not have sufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /ready:
     servers:
         - url: /
@@ -3212,7 +3274,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Bucket"
+              $ref: "#/components/schemas/PostBucketRequest"
       responses:
         '201':
           description: Bucket created
@@ -3975,6 +4037,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResourceMembers"
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         default:
           description: Unexpected error
           content:
@@ -4067,6 +4135,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResourceOwners"
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         default:
           description: Unexpected error
           content:
@@ -5126,7 +5200,7 @@ paths:
         content:
           application/json:
             schema:
-                $ref: "#/components/schemas/Check"
+                $ref: "#/components/schemas/PostCheck"
       responses:
         '201':
           description: Check created
@@ -5420,7 +5494,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NotificationRule"
+              $ref: "#/components/schemas/PostNotificationRule"
       responses:
         '201':
           description: Notification rule created
@@ -5780,7 +5854,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NotificationEndpoint"
+              $ref: "#/components/schemas/PostNotificationEndpoint"
       responses:
         '201':
           description: Notification endpoint created
@@ -6160,6 +6234,21 @@ components:
           $ref: "#/components/schemas/Identifier"
         path:
           $ref: "#/components/schemas/StringLiteral"
+    DeletePredicateRequest:
+      description: The delete predicate request
+      type: object
+      required: [start, stop]
+      properties:
+        start:
+          description: RFC3339Nano
+          type: string
+        stop:
+          description: RFC3339Nano
+          type: string
+        predicate:
+          description: SQL-like predicate expression
+          example: tag1="value1" and tag2="value2"
+          type: string
     Node:
       oneOf:
         - $ref: "#/components/schemas/Expression"
@@ -6674,6 +6763,34 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Authorization"
+    PostBucketRequest:
+      properties:
+        orgID:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        rp:
+          type: string
+        retentionRules:
+          type: array
+          description: Rules to expire or retain data.  No rules means data never expires.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                default: expire
+                enum:
+                  - expire
+              everySeconds:
+                type: integer
+                description: Duration in seconds for how long data will be kept in the database.
+                example: 86400
+                minimum: 1
+            required: [type, everySeconds]
+      required: [name, retentionRules]
     Bucket:
       properties:
         links:
@@ -7038,6 +7155,16 @@ components:
           type: string
           format: date-time
           readOnly: true
+        lastRunStatus:
+          readOnly: true
+          type: string
+          enum:
+            - failed
+            - success
+            - canceled
+        lastRunError:
+          readOnly: true
+          type: string
         createdAt:
           type: string
           format: date-time
@@ -9261,9 +9388,6 @@ components:
     TaskCreateRequest:
       type: object
       properties:
-        type:
-          description: The type of task, this can be used for filtering tasks on list actions.
-          type: string
         orgID:
           description: The ID of the organization that owns this Task.
           type: string
@@ -9319,7 +9443,7 @@ components:
           enum:
             - active
             - inactive
-    Check:
+    CheckDiscriminator:
       oneOf:
         - $ref: "#/components/schemas/DeadmanCheck"
         - $ref: "#/components/schemas/ThresholdCheck"
@@ -9328,6 +9452,28 @@ components:
         mapping:
           deadman:  "#/components/schemas/DeadmanCheck"
           threshold: "#/components/schemas/ThresholdCheck"
+    Check:
+      allOf:
+        - $ref: "#/components/schemas/CheckDiscriminator"
+        - type: object
+          properties:
+            labels:
+              $ref: "#/components/schemas/Labels"
+    PostCheck:
+      allOf:
+        - $ref: "#/components/schemas/CheckDiscriminator"
+        - type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - active
+                - inactive
+            labels:
+              type: array
+              description: List of label IDs to associate with check
+              items:
+                type: string
     Checks:
       properties:
         checks:
@@ -9384,8 +9530,6 @@ components:
         statusMessageTemplate:
           description: The template used to generate and write a status message.
           type: string
-        labels:
-          $ref: "#/components/schemas/Labels"
         links:
           type: object
           readOnly: true
@@ -9518,7 +9662,7 @@ components:
           enum:
             - active
             - inactive
-    NotificationRule:
+    NotificationRuleDiscriminator:
       oneOf:
         - $ref: "#/components/schemas/SlackNotificationRule"
         - $ref: "#/components/schemas/SMTPNotificationRule"
@@ -9531,6 +9675,28 @@ components:
           smtp: "#/components/schemas/SMTPNotificationRule"
           pagerduty: "#/components/schemas/PagerDutyNotificationRule"
           http: "#/components/schemas/HTTPNotificationRule"
+    NotificationRule:
+      allOf:
+        - $ref: "#/components/schemas/NotificationRuleDiscriminator"
+        - type: object
+          properties:
+            labels:
+              $ref: "#/components/schemas/Labels"
+    PostNotificationRule:
+      allOf:
+        - $ref: "#/components/schemas/NotificationRuleDiscriminator"
+        - type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - active
+                - inactive
+            labels:
+              type: array
+              description: List of label IDs to associate with notification rule
+              items:
+                type: string
     NotificationRules:
       properties:
         notificationRules:
@@ -9605,8 +9771,6 @@ components:
           minItems: 1
           items:
             $ref: "#/components/schemas/StatusRule"
-        labels:
-          $ref: "#/components/schemas/Labels"
         links:
           type: object
           readOnly: true
@@ -9719,7 +9883,7 @@ components:
           enum:
             - active
             - inactive
-    NotificationEndpoint:
+    NotificationEndpointDiscrimator:
       oneOf:
         - $ref: "#/components/schemas/SlackNotificationEndpoint"
         - $ref: "#/components/schemas/PagerDutyNotificationEndpoint"
@@ -9730,6 +9894,28 @@ components:
           slack: "#/components/schemas/SlackNotificationEndpoint"
           pagerduty:  "#/components/schemas/PagerDutyNotificationEndpoint"
           http: "#/components/schemas/HTTPNotificationEndpoint"
+    NotificationEndpoint:
+      allOf:
+        - $ref: "#/components/schemas/NotificationEndpointDiscrimator"
+        - type: object
+          properties:
+            labels:
+              $ref: "#/components/schemas/Labels"
+    PostNotificationEndpoint:
+      allOf:
+        - $ref: "#/components/schemas/NotificationEndpointDiscrimator"
+        - type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - active
+                - inactive
+            labels:
+              type: array
+              description: List of label IDs to associate with check
+              items:
+                type: string
     NotificationEndpoints:
       properties:
         notificationEndpoints:
@@ -9766,8 +9952,6 @@ components:
           default: active
           type: string
           enum: ["active", "inactive"]
-        labels:
-          $ref: "#/components/schemas/Labels"
         links:
           type: object
           readOnly: true
@@ -9808,7 +9992,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/NotificationEndpointBase"
         - type: object
-          required: [clientURL, routingKey]
+          required: [routingKey]
           properties:
             clientURL:
               type: string
