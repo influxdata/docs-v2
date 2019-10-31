@@ -22,8 +22,8 @@ menu:
 
     View information about:
 
-  - [Pay As You Go billing](#view-pay-as-you-go-billing-information)
-  - [Free plan](#view-free-plan-information)
+  - [Usage-based Plan](#view-usage-based-plan-information)
+  - [Free Plan](#view-free-plan-information)
   - [Exceeded rate limits](#exceeded-rate-limits)
   - [Billing cycle](#billing-cycle)
   - [Declined or late payments](#declined-or-late-payments)
@@ -53,7 +53,7 @@ menu:
 2. Select the **Send email notification** toggle, and then enter the email address to notify. 
 3. Enter the dollar amount to trigger a notification email. By default, an email is triggered when the amount exceeds $10. (Whole dollar amounts only. For example, $10.50 is not a supported amount.)
 
-### View Pay As You Go billing information
+### View Usage-based Plan information
 
 - On the Billing page, view your billing information, including:
   - Account balance
@@ -63,9 +63,9 @@ menu:
   - Contact information
   - Notification settings
 
-### View Free plan information
+### View Free Plan information
 
-- On the Billing page, view the total limits available for the Free plan.
+- On the Billing page, view the total limits available for the Free Plan.
 
 ### Exceeded rate limits
 
@@ -74,7 +74,7 @@ If you exceed your plan's [rate limits](/v2.0/cloud/pricing-plans/), {{< cloud-n
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._
 
-_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
+_To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/)._
 
 #### Rate-limited HTTP response code
 
@@ -87,7 +87,7 @@ Retry-After: xxx (seconds to wait before retrying the request)
 
 ### Billing cycle
 
-Billing occurs on the first day of the month for the previous month. For example, if you start the Pay As You Go plan on September 15, you're billed on October 1 for your usage from September 15-30.
+Billing occurs on the first day of the month for the previous month. For example, if you start the Usage-based Plan on September 15, you're billed on October 1 for your usage from September 15-30.
 
 ### Declined or late payments
 

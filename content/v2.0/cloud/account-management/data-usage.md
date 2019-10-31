@@ -38,7 +38,7 @@ and add a rate limit event to your **Usage** page for review.
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._
 
-_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
+_To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/)._
 
 ### Rate-limited HTTP response code
 When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:

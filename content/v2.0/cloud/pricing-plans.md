@@ -2,7 +2,7 @@
 title: InfluxDB Cloud 2.0 pricing plans
 description: >
   InfluxDB Cloud 2.0 provides two pricing plans to fit your needs – the rate-limited
-  Free Plan and the Pay As You Go Plan.
+  Free Plan and the Usage-based Plan.
 aliases:
   - /v2.0/cloud/rate-limits/
 weight: 2
@@ -14,7 +14,7 @@ menu:
 InfluxDB Cloud 2.0 offers two pricing plans:
 
 - [Free Plan](#free-plan)
-- [Pay As You Go Plan](#pay-as-you-go-plan)
+- [Usage-based Plan](#usage-based-plan)
 
 To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).
 
@@ -38,15 +38,15 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
   - Unlimited Slack notification endpoints
 
 
-_To remove rate limits, [upgrade to a Pay As You Go Plan](/v2.0/cloud/account-management/upgrade-to-payg/)._
+_To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/)._
 
-## Pay As You Go Plan
+## Usage-based Plan
 
-The Pay As You Go Plan offers more flexibility and ensures you only pay for what you [use]((/v2.0/cloud/account-management/data-usage/).
+The Usage-based Plan offers more flexibility and ensures you only pay for what you [use]((/v2.0/cloud/account-management/data-usage/).
 
-#### Pay As You Go Plan rate limits
+#### Usage-based Plan rate limits
 
-To protect against any intentional or unintentional harm, Pay As You Go Plans include soft rate limits:
+To protect against any intentional or unintentional harm, Usage-based Plans include soft rate limits:
 
 - **Writes:** 300MB every 5 minutes
 - **Ingest batch size:** 50MB
