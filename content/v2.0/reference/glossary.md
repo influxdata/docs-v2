@@ -699,7 +699,7 @@ Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input
 
 ### predicate expression
 
-A predicate expression compares two values and returns `true` or `false` based on the
+A predicate expression compares two values and returns `true` or `false` based on
 the relationship between the two values.
 A predicate expression is comprised of a left operand, a comparison operator, and a right operand.
 
