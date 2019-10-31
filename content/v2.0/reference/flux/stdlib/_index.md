@@ -8,7 +8,7 @@ aliases:
 v2.0/tags: [flux, functions, package]
 menu:
   v2_0_ref:
-    parent: Flux query language
+    parent: Flux language
 weight: 102
 ---
 
