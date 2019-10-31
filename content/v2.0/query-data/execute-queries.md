@@ -64,7 +64,7 @@ In your request, set the following:
 - `Content-type` header to `application/vnd.flux`.
 - Your plain text query as the request's raw data.
 
-InfluxDB returns the query results in [annotated CSV](/v2.0/reference/annotated-csv/).
+InfluxDB returns the query results in [annotated CSV](/v2.0/reference/syntax/annotated-csv/).
 
 {{% note %}}
 #### Use gzip to compress the query response

@@ -1,13 +1,17 @@
 ---
 title: Line protocol reference
+list_title: Line protocol
 description: >
   InfluxDB uses line protocol to write data points.
   It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 menu:
   v2_0_ref:
+    parent: Syntax
     name: Line protocol
-weight: 6
-v2.0/tags: [write, line protocol]
+weight: 102
+v2.0/tags: [write, line protocol, syntax]
+aliases:
+  - /v2.0/reference/line-protocol
 ---
 
 InfluxDB uses line protocol to write data points.
@@ -102,7 +106,7 @@ include the timestamp.
 
 {{% note %}}
 _Use the default nanosecond precision timestamp or specify an alternative precision
-when [writing the data](/v2.0/write-data/#precision)._
+when [writing the data](/v2.0/write-data/#timestamp-precision)._
 {{% /note %}}
 
 ### Whitespace

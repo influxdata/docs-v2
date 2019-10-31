@@ -48,7 +48,7 @@ By default, InfluxDB writes data in nanosecond precision.
 However if your data isn't collected in nanoseconds, there is no need to write at that precision.
 For better performance, use the coarsest precision possible for timestamps.
 
-_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#precision)._
+_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timestamp-precision)._
 
 ## Synchronize hosts with NTP
 

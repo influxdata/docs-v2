@@ -58,7 +58,7 @@ the **field value** as the **column value**.
 | -----     | ------------     | ---------   |
 | timestamp | measurement-name | field value |
 
-If using the built-in `from()` function, use [`pivot()`](/v2.0/reference/flux/stdlib/transformations/pivot/)
+If using the built-in `from()` function, use [`pivot()`](/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 to transform data into the structure `experimetnal.to()` expects.
 _[See the example below](#use-pivot-to-shape-data-for-experimental-to)._
 

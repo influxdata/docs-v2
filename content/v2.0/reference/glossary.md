@@ -50,7 +50,7 @@ Submitting a batch of points using a single HTTP request to the write endpoints 
 InfluxData typically recommends batch sizes of 5,000-10,000 points.
 In some use cases, performance may improve with significantly smaller or larger batches.
 
-Related entries: [line protocol](/v2.0/reference/line-protocol/), [point](#point)
+Related entries: [line protocol](/v2.0/reference/syntax/line-protocol/), [point](#point)
 
 ### batch size
 
@@ -136,7 +136,7 @@ Each record consists of one or more fields, separated by commas.
 CSV file format is not fully standardized.
 
 InfluxData uses annotated CSV (comma-separated values) format to encode HTTP responses and results returned to the Flux csv.from() function.
-For more detail, see [Annotated CSV](/v2.0/reference/annotated-csv/).
+For more detail, see [Annotated CSV](/v2.0/reference/syntax/annotated-csv/).
 
 <!-- enterprise
 ### cardinality
@@ -521,7 +521,7 @@ The InfluxDB 2.0 user interface (UI) can be used to view log history and data.
 ### Line protocol (LP)
 
 The text based format for writing points to InfluxDB.
-See [line protocol](/v2.0/reference/line-protocol/).
+See [line protocol](/v2.0/reference/syntax/line-protocol/).
 
 ## M
 
@@ -992,7 +992,7 @@ Irregular time series data changes at non-constant intervals.
 The date and time associated with a point.
 Time in InfluxDB is in UTC.
 
-To specify time when writing data, see [Elements of line protocol](/v2.0/reference/line-protocol/#elements-of-line-protocol).
+To specify time when writing data, see [Elements of line protocol](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol).
 To specify time when querying data, see [Query InfluxDB with Flux](/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
 Related entries: [point](#point)

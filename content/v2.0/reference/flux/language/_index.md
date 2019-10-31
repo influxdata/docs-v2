@@ -6,7 +6,7 @@ description: >
 menu:
   v2_0_ref:
     name: Flux specification
-    parent: Flux query language
+    parent: Flux language
 weight: 103
 v2.0/tags: [flux]
 ---

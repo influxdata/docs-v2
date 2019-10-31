@@ -11,7 +11,7 @@ menu:
 v2.0/tags: [write, line protocol]
 ---
 
-Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/line-protocol),
+Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/syntax/line-protocol),
 Telegraf, data scrapers, the InfluxDB v2 API, `influx` command line interface (CLI),
 the InfluxDB user interface (UI), and client libraries.
 
@@ -40,9 +40,9 @@ The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of
 
 Use _line protocol_ format to write data into InfluxDB.
 Each line represents a data point.
-Each point requires a [*measurement*](/v2.0/reference/line-protocol/#measurement)
-and [*field set*](/v2.0/reference/line-protocol/#field-set) and may also include
-a [*tag set*](/v2.0/reference/line-protocol/#tag-set) and a [*timestamp*](/v2.0/reference/line-protocol/#timestamp).
+Each point requires a [*measurement*](/v2.0/reference/syntax/line-protocol/#measurement)
+and [*field set*](/v2.0/reference/syntax/line-protocol/#field-set) and may also include
+a [*tag set*](/v2.0/reference/syntax/line-protocol/#tag-set) and a [*timestamp*](/v2.0/reference/syntax/line-protocol/#timestamp).
 
 Line protocol data looks like this:
 
@@ -52,12 +52,14 @@ cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
 mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
+#### Timestamp precision
 Timestamps are essential in InfluxDB.
-If a data point does not include a timestamp when it is received by the database, InfluxDB uses the current system time (UTC) of its host machine.
+If a data point does not include a timestamp when it is received by the database,
+InfluxDB uses the current system time (UTC) of its host machine.
 
 The default precision for timestamps is in nanoseconds.
 If the precision of the timestamps is anything other than nanoseconds (`ns`),
-you must specify the precision in your write request.
+you must specify the precision in your [write request](#ways-to-write-data-into-influxdb).
 InfluxDB accepts the following precisions:
 
 - `ns` - Nanoseconds
@@ -65,7 +67,7 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/line-protocol) and [Best practices for writing data](/v2.0/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol) and [Best practices for writing data](/v2.0/write-data/best-practices/)._
 
 ## Ways to write data into InfluxDB
 
