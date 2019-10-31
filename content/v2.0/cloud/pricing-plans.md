@@ -16,7 +16,7 @@ InfluxDB Cloud 2.0 offers two pricing plans:
 - [Free Plan](#free-plan)
 - [Usage-based Plan](#usage-based-plan)
 
-To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/).
+<!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/cloud/pricing-calculator/). -->
 
 ## Free Plan
 
