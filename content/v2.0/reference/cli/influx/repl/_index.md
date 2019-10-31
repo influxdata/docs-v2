@@ -36,5 +36,5 @@ To use the Flux REPL, you must first authenticate with a [token](/v2.0/security/
 | Global flag     | Description                                                | Input type |
 |:-----------     |:-----------                                                |:----------:|
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands locally against the filesystem                |            |
-| `-t`, `--token` | API token to be used throughout client calls               | string     |
+| `--local`       | Run commands against the local filesystem                  |            |
+| `-t`, `--token` | API token to use in client calls                           | string     |

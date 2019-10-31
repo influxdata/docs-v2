@@ -23,7 +23,7 @@ The following tools write to InfluxDB and employ write optimizations by default:
 
 ## Batch writes
 
-Write data in batches to Minimize network overhead when writing data to InfluxDB.
+Write data in batches to minimize network overhead when writing data to InfluxDB.
 
 {{% note %}}
 The optimal batch size is 5000 lines of line protocol.
@@ -44,12 +44,11 @@ measurement,tagA=i,tagB=think,tagC=therefore,tagD=i,tagE=am fieldKey=fieldValue 
 
 ## Use the coarsest time precision possible
 
-InfluxDB lets you write data in nanosecond precision, however if data isn't
-collected in nanoseconds, there is no need to write at that precision.
-Using the coarsest precision possible for timestamps can result in significant
-compression improvements.
+By default, InfluxDB writes data in nanosecond precision.
+However if your data isn't collected in nanoseconds, there is no need to write at that precision.
+For better performance, use the coarsest precision possible for timestamps.
 
-_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#precision)._
+_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timestamp-precision)._
 
 ## Synchronize hosts with NTP
 

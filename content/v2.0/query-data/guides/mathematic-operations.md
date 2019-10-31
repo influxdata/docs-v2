@@ -15,6 +15,11 @@ supports mathematic expressions in data transformations.
 This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ##### Basic mathematic operations
 ```js
 // Examples executed using the Flux REPL

@@ -15,6 +15,11 @@ Use Flux to process and manipulate timestamps to suit your needs.
 - [Convert timestamp format](#convert-timestamp-format)
 - [Time-related Flux functions](#time-related-flux-functions)
 
+If you're just getting started with Flux queries, check out the following:
+
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+
 ## Convert timestamp format
 
 ### Convert nanosecond epoch timestamp to RFC3339
@@ -27,7 +32,7 @@ time(v: 1568808000000000000)
 ```
 
 ### Convert RFC3339 to nanosecond epoch timestamp
-Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/unit/)
+Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/)
 to convert an RFC3339 timestamp to a nanosecond epoch timestamp.
 
 ```js
@@ -59,13 +64,33 @@ to convert the duration to a string.
 
 ## Time-related Flux functions
 
-### Retrieve the current time
+### Retrieve the current UTC time
 Use the [`now()` function](/v2.0/reference/flux/stdlib/built-in/misc/now/) to
 return the current UTC time in RFC3339 format.
 
 ```js
 now()
 ```
+
+{{% note %}}
+`now()`  is cached at runtime, so all instances of `now()` in a Flux script
+return the same value.
+{{% /note %}}
+
+### Retrieve the current system time
+Import the `system` package and use the [`system.time()` function](/v2.0/reference/flux/stdlib/system/time/)
+to return the current system time of the host machine in RFC3339 format.
+
+```js
+import "system"
+
+system.time()
+```
+
+{{% note %}}
+`system.time()` returns the time it is executed, so each instance of `system.time()`
+in a Flux script returns a unique value.
+{{% /note %}}
 
 ### Add a duration to a timestamp
 The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/addduration/)
