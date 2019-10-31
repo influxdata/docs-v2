@@ -7,6 +7,7 @@ weight: 2
 menu:
   v2_0_cloud:
     name: Pricing calculator
+draft: true
 ---
 
 Use the {{< cloud-name >}} pricing calculator to estimate costs for the Usage-based Plan by adjusting your number of devices,
