@@ -18,16 +18,16 @@ Flux helps you monitor states in your metrics and events:
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux.
 - [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Find how long a state persists
 
-1. Use the [`stateDuration()`](/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). This function requires the following information:
+1. Use the [`stateDuration()`](/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
   
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** the value (or state) to search for in the specified column.
-  - **State duration column:** a new column to store the state duration─the length of time the specified value persists.
+  - **State duration column:** a new column to store the state duration─the length of time that the specified value persists.
   - **Unit:** the unit of time (`1s` (by default), `1m`, `1h`) used to increment the state duration.
 
         ```js
@@ -44,8 +44,6 @@ If you're just getting started with Flux queries, check out the following:
     - If the state is `false`, the state duration is reset to `-1`.
 
 ### Example query with stateDuration()
-
-<!-- once we have multiple example queries,link to multiple examples here with sub-descriptors -->
 
 The following query searches the `doors` bucket over the past 5 minutes to find how many seconds a door has been `closed`.
 
@@ -127,7 +125,7 @@ _time                   _value        door_closed
 
 #### Example query to count machine state
 
-To check the machine state every minute (idle, assigned, or busy).
+The following query checks the machine state every minute (idle, assigned, or busy). InfluxDB searches the `servers` bucket over the past hour and counts records with a machine state of `idle`, `assigned` or `busy`.
 
 ```
 from(bucket: "servers")
@@ -141,8 +139,6 @@ from(bucket: "servers")
   |> stateCount(fn: (r) => r.machine_state == "assigned", column: "_count")
   |> stateCount(fn: (r) => r.machine_state == "idle", column: "_count")
 ```
-
-In this query, InfluxDB searches the `servers` bucket over the past hour, counts records with a machine state of `idle`, `assigned` or `busy`.
 
 <!--## Detect state changes
 
