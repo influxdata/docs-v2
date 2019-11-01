@@ -468,7 +468,7 @@ Below is a list of available icons (some are aliases):
 
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
-Provide a visual example of the the navigation item using the `nav-icon` shortcode.
+Provide a visual example of the navigation item using the `nav-icon` shortcode.
 
 ```
 {{< nav-icon "Tasks" >}}
