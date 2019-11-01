@@ -35,7 +35,7 @@ the visualization dropdown in the upper right.
 
 - **Prefix**: Prefix to add to the gauge.
 - **Suffix**: Suffix to add to the gauge.
-- **Decimal Places**: The number of decimal places to display for the the gauge.
+- **Decimal Places**: The number of decimal places to display for the gauge.
   - **Auto** or **Custom**: Enable or disable auto-setting.
 
 ###### Colorized Thresholds

@@ -18,7 +18,7 @@ Flux is a functional data scripting language designed for querying, analyzing, a
 Flux takes a functional approach to data exploration and processing, but is designed
 to be usable, readable, flexible, composable, testable, contributable, and shareable.
 
-The following example returns the the average CPU usage per minute over the last hour.
+The following example returns the average CPU usage per minute over the last hour.
 
 ```js
 from(bucket:"example-bucket")
