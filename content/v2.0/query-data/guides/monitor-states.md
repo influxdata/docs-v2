@@ -23,7 +23,7 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. Use the `stateDuration()` function to calculate how long a column value has remained the same value (or state). This function requires the following information:
+1. Use the [`stateDuration()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/] function to calculate how long a column value has remained the same value (or state). This function requires the following information:
   
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** the value (or state) to search for in the specified column.
@@ -31,13 +31,14 @@ If you're just getting started with Flux queries, check out the following:
   - **Unit:** the unit of time (`1s` (by default), `1m`, `1h`) used to increment the state duration.
 
         ```js
-          |> stateDuration(fn: (r) =>
-           r._column_to_search == "value_to_search_for",
-          column: "state_duration",
-          unit: 1s)
+          |> stateDuration(
+             fn: (r) =>
+             r._column_to_search == "value_to_search_for",
+             column: "state_duration",
+             unit: 1s)
         ```
 
-2. Run `stateDuration()` to search each point for the specified value:
+2. Use `stateDuration()` to search each point for the specified value:
 
     - For the first point that evaluates `true`, the state duration is set to `0`. For each consecutive point that evaluates `true`, the state duration increases by the time interval between each consecutive point (in specified units).
     - If the state is `false`, the state duration is reset to `-1`.
@@ -50,11 +51,12 @@ The following query searches the `doors` bucket over the past 5 minutes to find 
 
 ```js
   from(bucket: "doors")
-  |> range(start: -5m)
-  |> stateDuration(fn: (r) =>
-  r._value == "closed",
-   column: "door_closed",
-   unit: 1s)
+   |> range(start: -5m)
+   |> stateDuration(
+      fn: (r) =>
+      r._value == "closed",
+      column: "door_closed",
+      unit: 1s)
 ```
 
 In this example, `door_closed` is the **State duration** column. If you write data to the `doors` bucket every minute, the state duration increases by `60s` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state duration is reset to `0`.
@@ -82,30 +84,32 @@ _time                   _value        door_closed
   - **State count column:** a new column to store the state count─the number of consecutive records in which the specified value exists.
 
         ```js
-        |> stateCount(fn: (r) => 
+        |> stateCount
+           (fn: (r) => 
             r._column_to_search == "value_to_search_for",
             column: "state_count"`
           )
           ```
 
-2. Run `stateCount()` to search each point for the specified value:
+2. Use `stateCount()` to search each point for the specified value:
 
     - For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
     - If the state is `false`, the state count is reset to `-1`.
 
 ### Example query with stateCount()
 
-The following query searches the `doors` bucket over the past 5 minutes to find how many points have been counted where `_value` is `closed`.
+The following query searches the `doors` bucket over the past 5 minutes and calculates how many points have `closed` as their `_value`.
 
 ```js
   from(bucket: "doors")
   |> range(start: -5m)
-  |> stateDuration(fn: (r) =>
-   r._value == "closed",
-   column: "door_closed")
+  |> stateDuration(
+     fn: (r) =>
+     r._value == "closed",
+     column: "door_closed")
 ```
 
-In this example, `door_closed` is the **State count** column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
+This example stores the **state count** in the `door_closed` column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
 
 #### Query results
 
@@ -121,35 +125,36 @@ _time                   _value        door_closed
 2019-10-26T17:44:27Z    closed        2
 ```
 
-<!-- #### Example query to count machine state
+#### Example query to count machine state
 
 To check the machine state every minute (idle, assigned, or busy).
 
 ```
 from(bucket: "servers")
   |> range(start: -1h)
-  |> group(columns: ["r.machine_state"])
-(  |> filter(fn: (r) => r.machine_state == "idle" or r.machine_state == "assigned" or r.machine_state == "busy")) --does this help filter if there are more than 3 machine states?...or do next 3 lines do the same?
+  |> filter(fn: (r) =>
+     r.machine_state == "idle" or
+     r.machine_state == "assigned" or
+     r.machine_state == "busy"
+  )
   |> stateCount(fn: (r) => r.machine_state == "busy", column: "_count")
   |> stateCount(fn: (r) => r.machine_state == "assigned", column: "_count")
   |> stateCount(fn: (r) => r.machine_state == "idle", column: "_count")
 ```
 
-In this query, InfluxDB searches the `servers` bucket over the past hour, counts records with a machine state of `idle`, `assigned` or `busy` and groups by the machine state:
+In this query, InfluxDB searches the `servers` bucket over the past hour, counts records with a machine state of `idle`, `assigned` or `busy`.
 
--->
+<!--## Detect state changes
 
-## Detect state changes
-
-Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, you must set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](v2.0/monitor-alert/) for more detail.
+Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](/v2.0/monitor-alert/) for more detail.
 
 1. In the InfluxDB user interface, click the **Monitoring and Alerting** icon from the sidebar.
 
     {{< nav-icon "alerts" >}}
 
-2. If you haven't already, [create a check](v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman? -->
+2. If you haven't already, [create a check](/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman? 
 3. Import the InfluxDB `monitor` package.
-4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket? -->
+4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket? 
 5. Use the `monitor.stateChanges()` function and include the following information:
 
   - `fromLevel` (optional; by default, this is set to `any`)
