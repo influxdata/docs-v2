@@ -14,7 +14,7 @@ Enabling HTTPS encrypts the communication between clients and the InfluxDB serve
 When configured with a signed certificate, HTTPS can also verify the authenticity of the InfluxDB server to connecting clients.
 
 {{% warn %}}
-InfluxData [strongly recommends](/influxdb/v1.7/administration/security/) enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
+InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
 {{% /warn %}}
 
 ## Requirements
