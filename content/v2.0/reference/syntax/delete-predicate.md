@@ -11,7 +11,8 @@ menu:
 weight: 104
 v2.0/tags: [syntax, delete]
 related:
-  - /v2.0/reference/cli/influx/delete/
+  - /v2.0/write-data/delete-data/
+  - /v2.0/reference/cli/influx/delete/  
 ---
 
 The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine

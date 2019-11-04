@@ -7,6 +7,9 @@ menu:
     parent: influx
 weight: 101
 v2.0/tags: [delete]
+related:
+  - /v2.0/write-data/delete-data/
+  - /v2.0/reference/syntax/delete-predicate/
 ---
 
 The `influx delete` command deletes [points](/v2.0/reference/glossary/#point)
