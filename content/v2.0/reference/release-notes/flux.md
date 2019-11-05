@@ -16,6 +16,26 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.53.0 [2019-11-05]
+
+### Breaking changes
+- Interpret months as part of the semantic duration.
+
+### Features
+- Macros for type inference tests.
+- Let-polymorphism with test example.
+- Generalization, instantiation, and constraint solving.
+- Type environment.
+- Convert Rust AST to FlatBuffers format.
+- Allow lexing and parsing of string polytypes according to polytype grammar rules.
+- Add month support when adding durations to a time value.
+- Interpret months as part of the semantic duration.
+
+### Bug fixes
+- Type variable constraints.
+- Apply sub to both sides of constraint before unifying.
+- Instantiate quantified vars, not free vars.
+
 ## v0.52.0 [2019-10-30]
 
 ### Features
