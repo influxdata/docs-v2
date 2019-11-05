@@ -36,6 +36,8 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Apply sub to both sides of constraint before unifying.
 - Instantiate quantified vars, not free vars.
 
+---
+
 ## v0.52.0 [2019-10-30]
 
 ### Features
