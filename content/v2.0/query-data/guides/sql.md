@@ -169,8 +169,9 @@ To use `air-sensor-data.rb`:
     The generator begins to write data to InfluxDB and will continue until stopped.
     Use `ctrl-c` to stop the generator.
 
-    _**Note:** Use the `--help` flag to view other configuration options._
-
+    {{% note %}}
+    Use the `--help` flag to view other configuration options.
+    {{% /note %}}
 
 5. [Query your target bucket](/v2.0/query-data/execute-queries/) to ensure the
    generated data is writing successfully.
