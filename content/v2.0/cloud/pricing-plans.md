@@ -42,7 +42,7 @@ _To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/cloud/account-mana
 
 ## Usage-based Plan
 
-The Usage-based Plan offers more flexibility and ensures you only pay for what you [use]((/v2.0/cloud/account-management/data-usage/).
+The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/v2.0/cloud/account-management/data-usage/).
 
 #### Usage-based Plan rate limits
 
