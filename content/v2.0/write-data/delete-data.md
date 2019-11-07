@@ -16,7 +16,7 @@ related:
 
 ## Delete data in the InfluxDB UI
 
-You can only delete data from buckets you've created. You cannot delete data from system buckets.?? Is this true? It doesn't show delete data by filter next to them but they do appear in the dropdown menu
+You can only delete data from buckets you've created. You cannot delete data from system buckets.
 
 ### Delete data from buckets
 
@@ -45,7 +45,6 @@ You can only delete data from buckets you've created. You cannot delete data fro
   - Select a **Target Bucket** to delete data from.
   - Enter a **Time Range** to search.
   - Click **+ Add Filter** to filter by tag key and value pair.
-  - Operator other than equals?
   - Check the box next to **I understand that this cannot be undone**.
 4. Click **Confirm Delete** to delete the selected data.
 
