@@ -383,6 +383,11 @@ Elements include a range, major and minor tick marks (within the range), and a p
 
 A diagram that visually depicts the relation between variable quantities measured along specified axes.
 
+### group key
+Group keys determine the schema and contents of tables in Flux output.
+A group key is a list of columns for which every row in the table has the same value.
+Columns with unique values in each row are not part of the group key.
+
 ### gzip
 
 gzip is a type of data compression that compress chunks of data, which is restored by unzipping compressed gzip files.
