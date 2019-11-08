@@ -45,7 +45,7 @@ dataSet = from(bucket: "example-bucket")
 {{% note %}}
 This example drops the `host` column from the returned data since the memory data
 is only tracked for a single host and it simplifies the output tables.
-Dropping the `host` column is column is optional and not recommended if monitoring memory
+Dropping the `host` column is optional and not recommended if monitoring memory
 on multiple hosts.
 {{% /note %}}
 
