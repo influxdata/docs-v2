@@ -11,43 +11,42 @@ v2.0/tags: [scalar]
 ---
 
 Use Flux [stream and table functions](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)
-to extract scalar values from Flux query output for things like dynamically setting
-variables using query results.
+to extract scalar values from Flux query output.
+This lets you, for example, dynamically set variables using query results.
 
 **To extract scalar values from output:**
 
-1. [Extract a table](#extract-a-table)
-2. Use the extracted table and [extract an array of column values](#extract-a-column-from-the-table)
-   or [extract a row as an object](#extract-a-row-from-the-table).
+1. [Extract a table](#extract-a-table).
+2. [Extract a column from the table](#extract-a-column-from-the-table)
+   _**or**_ [extract a row from the table](#extract-a-row-from-the-table).
 
 _The samples on this page use the [sample data provided below](#sample-data)._
 
 {{% warn %}}
 #### Current limitations
-- The InfluxDB user interface (UI) does not support raw scalar output, but you can
-  use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
-  scalar values to data.
+- The InfluxDB user interface (UI) does not currently support raw scalar output.
+  Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
+  scalar values to output data.
 - The [Flux REPL ](/v2.0/reference/cli/influx/repl) does not currently support
   Flux stream and table functions (also known as "dynamic queries").
   See [#15321](https://github.com/influxdata/influxdb/issues/15231).
-
 {{% /warn %}}
 
 ## Extract a table
 Flux formats query results as a stream of tables.
-To extract a scalar value, first first use
-[`tableFind()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
+To extract a scalar value from a stream of tables, you must first extract a single table.
+
 to extract a single table from the stream of tables.
 
 {{% note %}}
 If query results include only one table, it is still formatted as a stream of tables.
+You still must extract that table from the stream.
 {{% /note %}}
 
-The `tableFind()` extracts the **first** table in a stream of tables whose
-[group key](/v2.0/reference/glossary/#group-key) values match the
-[predicate function](/v2.0/reference/glossary/#predicate-expression) defined by
-the `fn` parameter.
-The predicate function expects a `key` object, which represents the group key of
+Use [`tableFind()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
+to extract the **first** table whose [group key](/v2.0/reference/glossary/#group-key)
+values match the `fn` [predicate function](/v2.0/reference/glossary/#predicate-expression).
+The predicate function requires a `key` object, which represents the group key of
 each table.
 
 ```js
@@ -58,7 +57,7 @@ sampleData
   )
 ```
 
-This returns a single table:
+The example above returns a single table:
 
 | _time                | location | _field | _value |
 |:-----                |:--------:|:------:| ------:|
@@ -68,11 +67,12 @@ This returns a single table:
 | 2019-11-01T15:00:00Z | sfo      | temp   | 66.8   |
 
 {{% note %}}
-#### Minimize the number of input tables
-Flux functions do not guarantee the order in which tables are returned.
-`tableFind()` simply extracts the first table that matches the `fn` predicate.
-To ensure you retrieve the table that includes the data you actually want, filter
-and transform your data to minimize the number of tables piped-forward into `tableFind()`.
+#### Extract the correct table
+Flux functions do not guarantee table order and `tableFind()` returns only the
+**first** table that matches the `fn` predicate.
+To extract the table that includes the data you actually want, be very specific in
+your predicate function or filter and transform your data to minimize the number
+of tables piped-forward into `tableFind()`.
 {{% /note %}}
 
 ## Extract a column from the table
@@ -93,6 +93,7 @@ sampleData
 
 ### Use extracted column values
 Use a variable to store the array of values.
+In the example below, `SFOTemps` represents the array of values.
 Reference a specific index (integer starting from `0`) in the array to return the
 value at that index.
 
@@ -117,7 +118,7 @@ SFOTemps[2]
 ## Extract a row from the table
 Use the [`getRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/)
 to output data from a single row in the extracted table.
-Specify the index of row to output using the `idx` parameter.
+Specify the index of the row to output using the `idx` parameter.
 The function outputs an object with key-value pairs for each column.
 
 ```js
@@ -138,6 +139,7 @@ sampleData
 
 ### Use an extracted row object
 Use a variable to store the extracted row object.
+In the example below, `tempInfo` represents the extracted row.
 Use [dot notation](/v2.0/query-data/get-started/syntax-basics/#objects) to reference
 keys in the object.
 
@@ -165,8 +167,7 @@ tempInfo.location
 ```
 
 ## Example helper functions
-Use the process of extracting scalar values from query output to create custom
-helper functions that do it for you.
+Create custom helper functions to extract scalar values from query output.
 
 ##### Extract a scalar field value
 ```js
@@ -178,6 +179,7 @@ getFieldValue = (tables=<-, field) => {
   return extract[0]
 }
 
+// Use the helper function to define a variable
 lastJFKTemp = sampleData
   |> filter(fn: (r) => r.location == "kjfk")
   |> last()
@@ -197,16 +199,17 @@ getRow = (tables=<-, field, idx=0) => {
   return extract
 }
 
+// Use the helper function to define a variable
 lastReported = sampleData
   |> last()
   |> getRow(idx: 0)
 
 "The last location to report was ${lastReported.location}.
-The temperature was ${string(v: lastReported._value)}."
+The temperature was ${string(v: lastReported._value)}°F."
 
 // Returns:
 // The last location to report was kord.
-// The temperature was 38.9.
+// The temperature was 38.9°F.
 ```
 
 ---
