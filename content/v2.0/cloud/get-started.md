@@ -25,21 +25,15 @@ Once you're ready to grow, [upgrade to the Usage-based Plan](/v2.0/cloud/account
 
 ## Sign up
 
-1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password,
-    and click **Sign Up**.
-2. InfluxDB Cloud requires email verification to complete the sign up process.
-    Verify your email address by opening the email sent to the address you provided
-    and clicking **Verify Your Email**.
-3. Choose your cloud provider. Currently, AWS is the only cloud provider available.
-4. Select a region for your {{< cloud-name >}} instance.
-    Currently, US West (Oregon) and EU Frankfurt are available.
+1. Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password, and click **Sign Up**.
+2. InfluxDB Cloud requires email verification to complete the sign up process. Verify your email address by opening
+   the email sent to the address you provided and clicking **Verify Your Email**.
+3. Choose your cloud provider. Currently, **AWS** is the only cloud provider available.
+4. Select a region for your {{< cloud-name >}} instance. Currently, **US West (Oregon)** and **EU Frankfurt** are available.
     _To suggest regions to add, click **Let us know** under Regions._
-5. Review the terms of the agreement, and then select
-    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement
-    and InfluxData Global Data Processing Agreement.**.
-
-    For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/)
-    and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
+5. Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement
+   and InfluxData Global Data Processing Agreement.**.
+   For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
 6. Click **Continue**. {{< cloud-name >}} opens with a default organization
     and bucket (both created from your email address).
