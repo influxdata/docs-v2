@@ -31,7 +31,7 @@ Once you're ready to grow, [upgrade to the Usage-based Plan](/v2.0/cloud/account
 3. Choose your cloud provider. Currently, **AWS** is the only cloud provider available.
 4. Select a region for your {{< cloud-name >}} instance. The following regions are available:
 
-  -  **US West (Oregon)**
+  - **US West (Oregon)**
   - **EU Frankfurt**
 
     _To suggest regions to add, click **Let us know** under Regions._
