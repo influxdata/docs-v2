@@ -31,13 +31,13 @@ For details on using the Data Explorer, see [Explore metrics](/v2.0/visualize-da
 
 Click the timezone dropdown to select a timezone to use for the dashboard. Select either the local time (default) or UTC.
 
-{{< img-hd src="/img/timezone.png" alt="Select timezone" />}}
+{{< img-hd src="/img/2-0-controls-timezone.png" alt="Select timezone" />}}
 
 ### Select auto-refresh interval
 
 Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
 
-{{< img-hd src="/img/refresh-interval.png" alt="Select refresh interval" />}}
+{{< img-hd src="/img/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
 
 ### Manually refresh dashboard
 
@@ -47,7 +47,7 @@ Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashbo
 
 1. Select from the time range options in the dropdown menu.
 
-{{< img-hd src="/img/time-range.png" alt="Select time range" />}}
+{{< img-hd src="/img/2-0-controls-time-range.png" alt="Select time range" />}}
 
 2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5 minutes.
