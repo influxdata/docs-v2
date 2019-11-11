@@ -149,6 +149,20 @@ myMeasurement fieldKey=12485903i
 myMeasurement fieldKey=-12485903i
 ```
 
+### UInteger
+Unsigned 64-bit integers.
+Trailing `u` on the number specifies an unsigned integer.
+
+| Minimum uinteger | Maximum uinteger        |
+| ---------------- | ----------------        |
+| `0u`             | `18446744073709551615u` |
+
+##### UInteger field value examples
+```js
+myMeasurement fieldKey=1u
+myMeasurement fieldKey=12485903u
+```
+
 ### String
 Plain text string.
 Length limit 64KB.
