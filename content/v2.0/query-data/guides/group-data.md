@@ -367,7 +367,7 @@ Table: keys: [_time]
 ```
 {{% /truncate %}}
 
-Because each timestamp is a structured as a separate table, when visualized, all
+Because each timestamp is structured as a separate table, when visualized, all
 points that share the same timestamp appear connected.
 
 ![Group by time](/img/grouping-by-time.png)
