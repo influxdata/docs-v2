@@ -84,10 +84,16 @@ When using Telegraf, the InfluxDB v2 API, the `influx` CLI, or the client librar
 instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
 For example:
 
-```
-https://us-west-2-1.aws.cloud2.influxdata.com
+```bash
+
+# for US West (Oregon)
+https://us-west-2-1.aws.cloud2.influxdata.com 
+
+# for EU Frankfurt
+https://eu-central-1-1.aws.cloud2.influxdata.com
 ```
 
+Currently, client libraries are available for the US West (Oregon) region.
 {{% /note %}}
 
 ## Query and visualize data
