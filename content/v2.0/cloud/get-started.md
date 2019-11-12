@@ -87,7 +87,7 @@ For example:
 ```bash
 
 # for US West (Oregon)
-https://us-west-2-1.aws.cloud2.influxdata.com 
+https://us-west-2-1.aws.cloud2.influxdata.com
 
 # for EU Frankfurt
 https://eu-central-1-1.aws.cloud2.influxdata.com
