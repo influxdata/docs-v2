@@ -93,7 +93,6 @@ https://us-west-2-1.aws.cloud2.influxdata.com
 https://eu-central-1-1.aws.cloud2.influxdata.com
 ```
 
-Currently, client libraries are available for the US West (Oregon) region.
 {{% /note %}}
 
 ## Query and visualize data
