@@ -67,7 +67,7 @@ influxd
 ```
 {{% warn %}}
 #### Influxd cannot be opened because the developer cannot be verified.
-With the latest release of MacOS Catalina some binaries cannot be run without first
+With the latest release of macOS Catalina some binaries cannot be run without first
 being authorized.  To allow these files to run open Spotlight search (⌘ + space) and
 type "Security".  Open the Security & Privacy panel and click "Allow Anyway".  
 Next time you run influxd you will be prompted to click "Open" and Influxd will run.
