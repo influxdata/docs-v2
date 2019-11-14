@@ -65,6 +65,20 @@ Start InfluxDB by running the `influxd` daemon:
 ```bash
 influxd
 ```
+{{% warn %}}
+#### Run InfluxDB on macOS Catalina
+macOS Catalina requires downloaded binaries to be signed by registered Apple developers.
+Currently, when you first attempt to run `influxd` or `influx`, macOS will prevent it from running.
+To manually authorize the InfluxDB binaries:
+
+1. Attempt to run the `influx` or `influxd` commands.
+2. Open **System Preferences** and click **Security & Privacy**. 
+3. Under the **General** tab, there is a message about `influxd` or `influx` being blocked.
+   Click **Open Anyway**.
+4. Repeat this process for both binaries.
+
+We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
+{{% /warn %}}
 
 _See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
 available flags and options._
