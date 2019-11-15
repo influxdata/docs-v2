@@ -34,9 +34,4 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 | `--start`           | The start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |
 | `--stop`            | The stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                    | string     |
 
-## Global flags
-| Global flag     | Description                                                | Input type |
-|:-----------     |:-----------                                                |:----------:|
-| `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands against the local filesystem                  |            |
-| `-t`, `--token` | API token to use in client calls                           | string     |
+{{% influx-cli-global-flags %}}
