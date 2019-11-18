@@ -2,7 +2,6 @@
 
 | Flag            | Description                                                                                 | Input type |
 |:----------------|:--------------------------------------------------------------------------------------------|:----------:|
-| `-h`, `--help`  | Help for the influx command                                                                 |            |
 | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`)                                  | string     |
 | `--local`       | Run commands against the local filesystem                                                   |            |
 | `-t`, `--token` | API token to use in client calls                                                            | string     |

@@ -59,3 +59,8 @@ retrieving authentication tokens._
 | [write](/v2.0/reference/cli/influx/write)   | Write points to InfluxDB                             |
 
 {{% influx-cli-global-flags %}}
+
+## Flags
+| Flag           | Description                   |
+|:---------------|:------------------------------|
+| `-h`, `--help` | Help for the `influx` command |
