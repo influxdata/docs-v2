@@ -36,9 +36,4 @@ influx auth create [flags]
 | `--write-telegrafs`  | Grants the permission to create telegraf configs                               |             |
 | `--write-user`       | Grants the permission to perform mutative actions against organization users   |             |
 
-## Global flags
-| Global flag     | Description                                                | Input type |
-|:-----------     |:-----------                                                |:----------:|
-| `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands against the local filesystem                  |            |
-| `-t`, `--token` | API token to use in client calls                           | string     |
+{{% influx-cli-global-flags %}}

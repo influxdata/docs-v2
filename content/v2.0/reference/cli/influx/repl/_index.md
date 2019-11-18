@@ -32,9 +32,4 @@ To use the Flux REPL, you must first authenticate with a [token](/v2.0/security/
 | `-o`, `--org`  | The name of the organization    | string     |
 | `--org-id`     | The ID of organization to query | string     |
 
-## Global flags
-| Global flag     | Description                                                | Input type |
-|:-----------     |:-----------                                                |:----------:|
-| `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands against the local filesystem                  |            |
-| `-t`, `--token` | API token to use in client calls                           | string     |
+{{% influx-cli-global-flags %}}
