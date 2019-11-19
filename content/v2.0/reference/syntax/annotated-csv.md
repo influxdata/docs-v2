@@ -143,7 +143,7 @@ my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,
 Flux supports the following dialect options for `text/csv` format.
 
 | Option            | Description                                                       | Default |
-| :--------         | :---------                                                        |:------- |
+| :--------         | :---------                                                        |:-------:|
 | **header**        | If true, the header row is included.                              | `true`  |
 | **delimiter**     | Character used to delimit columns.                                | `,`     |
 | **quoteChar**     | Character used to quote values containing the delimiter.          | `"`     |
@@ -172,7 +172,8 @@ Example encoding of datatype, group, and default annotations.
 
 ```js
 import "csv"
-a = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
+
+csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
 #group,false,false,false,false,false,false,false,false
 #default,,,,,,,,
 ,result,table,_start,_stop,_time,region,host,_value
@@ -183,7 +184,8 @@ a = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,st
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
 "
-csv.from(csv:a) |> yield()
+
+csv.from(csv: csvData)
 ```
 
 ### Valid data types
@@ -215,20 +217,24 @@ If an error occurs:
 ##### Example
 
 Encoding for an error with the datatype annotation:
-  ```js
+
+```csv
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
-  ```
+```
 
 Encoding for an error that occurs after a valid table has been encoded:
- ```js
-#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,result,table,_start,_stop,_time,region,host,_value
+
+```csv
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
+,result,table,_start,_stop,_time,region,host,_value
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
- ```
-```js
+```
+
+```csv
 #datatype,string,long
 ,error,reference,query terminated: reached maximum allowed memory limits,576
 ```
