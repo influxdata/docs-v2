@@ -31,7 +31,9 @@ read-eval-print-loop (REPL) where you can write and execute Flux queries.
 influx repl --org org-name
 ```
 
-_**Note:** `ctrl-d` will close the REPL._
+{{% note %}}
+`ctrl-d` will close the REPL.
+{{% /note %}}
 
 ## Influx query command
 You can pass queries to the [`influx query` command](/v2.0/reference/cli/influx/query)

@@ -136,7 +136,7 @@ Include the following in your command:
 |:-----------          |:----------                                                                  |
 | Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                  |
 | Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                           |
-| Precision            | Use the the `-p`, `--precision` flag.                                       |
+| Precision            | Use the `-p`, `--precision` flag.                                       |
 | Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
 | Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
 

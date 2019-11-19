@@ -35,8 +35,8 @@ with each `influx` command, use one of the following methods to store your token
 2.  Store your token in `~/.influxdbv2/credentials`.
     _The content of the `credentials` file should be only your token._
 
-    _**Note:** If you [set up InfluxDB using the CLI](/v2.0/reference/cli/influx/setup),
-    InfluxDB stores your token in the credentials files automatically._
+If you [set up InfluxDB using the CLI](/v2.0/reference/cli/influx/setup),
+InfluxDB stores your token in the credentials files automatically.
 
 _See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
 retrieving authentication tokens._
