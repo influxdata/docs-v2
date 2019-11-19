@@ -16,6 +16,25 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.54.0 [2019-11-11]
+
+### Features
+- Expose function to analyze from string.
+- Added semantic expression constraints to libflux.
+- Custom `PartialEq` for polytypes.
+- Extensible record unification.
+- `Semantic.Walk`.
+
+### Bug fixes
+- Do not constrain type variables with empty kinds.
+- Update usage tests to filter on `_field`.
+- Record labels are scoped and fields are ordered.
+- Parse row variables.
+- Update make release to confirm remote and local are in sync.
+- Make `walk_rc` public.
+
+---
+
 ## v0.53.0 [2019-11-05]
 
 ### Breaking changes
