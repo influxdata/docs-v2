@@ -64,7 +64,7 @@ in a specified amount of time.
    To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
 
 #### Configure the check
-1.  Click **2. Check** near the top of the window.
+1.  Click **2. Configure Check** near the top of the window.
 2.  In the **Properties** column, configure the following:
 
     ##### Schedule Every
