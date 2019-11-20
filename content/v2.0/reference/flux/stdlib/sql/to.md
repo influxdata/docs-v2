@@ -95,7 +95,7 @@ sql.to(
 )
 ```
 
-### Write data to a SQLite database
+### Write data to an SQLite database
 ```js
 import "sql"
 

@@ -84,7 +84,7 @@ sql.from(
 )
 ```
 
-### Query a SQLite database
+### Query an SQLite database
 ```js
 import "sql"
 
