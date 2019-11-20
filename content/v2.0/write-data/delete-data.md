@@ -44,18 +44,20 @@ You can only delete data from buckets you've created. You cannot delete data fro
 3. In the **Delete Data** window that appears:
   - Select a **Target Bucket** to delete data from.
   - Enter a **Time Range** to search.
-  - Click **+ Add Filter** to filter by tag key and value pair.
+  - Click **+ Add Filter** to filter by tag key-value pairs.
   - Operator other than equals?
   - Check the box next to **I understand that this cannot be undone**.
 4. Click **Confirm Delete** to delete the selected data.
 
 ## Delete data using the influx CLI
-Use the [`influx delete` command](/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
-Specify your organization, bucket, and authentication token.
-Define the time range to delete data from with the `--start` and `--stop` flags.
-Specify which points to delete using the `--predicate` or `-p` flag and
-[Delete predicate syntax](/v2.0/reference/syntax/delete-predicate/).
 
+1. Use the [`influx delete` command](/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
+2. Specify your organization, bucket, and authentication token.
+3. Define the time range to delete data from with the `--start` and `--stop` flags.
+4. Specify which points to delete using the `--predicate` or `-p` flag and
+   [Delete predicate syntax](/v2.0/reference/syntax/delete-predicate/).
+
+##### Example delete command
 ```sh
 influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
   --start '1970-01-01T00:00:00.00Z' \
@@ -69,15 +71,16 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 {{% /warn %}}
 
 ## Delete data using the API
-Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.
-Include your organization and bucket as query parameters in the request URL.
-Use the `Authorization` header to provide your InfluxDB authentication token.
-In your request payload, define the time range to delete data from with `start` and `stop`.
-Specify which points to delete using the `predicate` and
-[Delete predicate syntax](/v2.0/reference/syntax/delete-predicate/).
+1. Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.
+2. Include your organization and bucket as query parameters in the request URL.
+3. Use the `Authorization` header to provide your InfluxDB authentication token.
+4. In your request payload, define the time range to delete data from with `start` and `stop`.
+   Specify which points to delete using the `predicate` and
+   [Delete predicate syntax](/v2.0/reference/syntax/delete-predicate/).
 
+##### Example delete request
 ```sh
-curl -XPOST http://localhost:9999/api/v2/delete/?org=my-org&bucket=mybucket \
+curl -XPOST http://localhost:9999/api/v2/delete/?org=myOrg&bucket=myBucket \
   -H 'Authorization: Token <YOURAUTHTOKEN>' \
   -d '{
         "start": "1970-01-01T00:00:00.00Z",
