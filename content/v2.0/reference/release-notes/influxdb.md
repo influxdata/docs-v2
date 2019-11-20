@@ -12,8 +12,8 @@ weight: 101
 ### Features
 - Add TLS insecure skip verify to influx CLI.
 - Extend influx cli user create to allow for organization ID and user passwords to be set on user.
-- Autopopulate organization ids in the code samples.
-- Expose bundle analysis tools for frontend resources.
+- Autopopulate organization IDs in the code samples.
+- Expose bundle analysis tools for front end resources.
 - Allow users to view just the output section of a Telegraf config.
 
 ### Bug Fixes
@@ -22,7 +22,7 @@ weight: 101
 - Ensure array cursor iterator stats accumulate all cursor stats.
 - Hide Members section in Cloud environments.
 - Change how cloud mode is enabled.
-- Merge frontend development environments.
+- Merge front end development environments.
 - Refactor table state logic on the front end.
 
 ### UI Improvements
