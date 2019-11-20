@@ -38,7 +38,6 @@ _**Data type:** String_
 
 ### headers
 Headers to include with the GET request.
-Headers are represented by key-value pairs.
 
 _**Data type:** Object_
 
