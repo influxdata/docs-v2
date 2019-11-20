@@ -38,6 +38,7 @@ _**Data type:** String_
 
 ### headers
 Headers to include with the GET request.
+Headers are represented by key-value pairs.
 
 _**Data type:** Object_
 
@@ -45,11 +46,14 @@ _**Data type:** Object_
 
 ##### Get the status of InfluxDB
 ```js
+import "influxdata/influxdb/secrets"
 import "experimental/http"
+
+token = secrets.get(key: "READONLY_TOKEN")
 
 response = http.get(
     url: "http://localhost.com:9999/health",
-    headers: {}
+    headers: {Authorization: "Token ${token}"}
   )
 
 status = string(v: response.statusCode)

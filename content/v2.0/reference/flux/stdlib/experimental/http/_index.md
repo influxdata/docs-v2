@@ -2,8 +2,8 @@
 title: Flux HTTP package
 list_title: HTTP package
 description: >
-  The Flux Experimental HTTP package provides experimental functions for transferring
-  data using the HTTP protocol.
+  The Flux Experimental HTTP package provides functions for transferring data
+  using HTTP protocol.
   Import the `experimental/http` package.
 menu:
   v2_0_ref:
@@ -14,8 +14,8 @@ weight: 201
 v2.0/tags: [functions, http, package]
 ---
 
-The Flux Experimental HTTP package provides experimental functions for transferring
-data using the HTTP protocol.
+The Flux Experimental HTTP package provides functions for transferring data
+using HTTP protocol.
 
 {{% warn %}}
 The experimental HTTP package is subject to change at any time.
