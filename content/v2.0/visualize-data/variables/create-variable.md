@@ -21,7 +21,7 @@ _For information about variable types, see [Variable types](/v2.0/visualize-data
 InfluxData recommends using the Data Explorer to create
 [Query dashboard variables](/v2.0/visualize-data/variables/variable-types/#query).
 The [Table visualization type](/v2.0/visualize-data/visualization-types/table/) and
-**View Raw Data** option provide human-readable query results.
+**View Raw Data** option to provide human-readable query results.
 {{% /note %}}
 
 1. Click the **Data Explorer** icon in the sidebar.
@@ -45,11 +45,10 @@ _For information about common Query variables, see [Common variable queries](/v2
     {{< nav-icon "settings" >}}
 
 2. Select the **Variables** tab.
-3. Click **{{< icon "plus" >}} Create Variable**.
-4. Enter a name for your variable.
-5. Select your [variable type](/v2.0/visualize-data/variables/variable-types/).
-6. Enter the appropriate variable information.
-7. Click **Create**.
+3. Enter a name for your variable.
+4. Select your variable type. For details on each type, see [Variable types](/v2.0/visualize-data/variables/variable-types/).
+5. Enter the appropriate variable information.
+6. Click **Create**.
 
 ## Import a variable
 InfluxDB lets you import variables exported from InfluxDB in JSON format.

@@ -96,3 +96,4 @@ Click **Query Builder** to use the builder to create a Flux query. Click **Scrip
 1. Click **Save as** in the upper right.
 2. Click **Dashboard Cell** to add your query to a dashboard.
 3. Click **Task** to save your query as a task.
+4. Click **Variable** to save your query as a variable.
