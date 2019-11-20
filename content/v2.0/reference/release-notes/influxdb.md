@@ -7,6 +7,21 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.0.0-alpha.20 [2019-11-20]
+
+### Features
+- Add TLS insecure skip verify to influx CLI.
+- Extend influx cli user create to allow for organization ID and user passwords to be set on user.
+
+### Bug Fixes
+- Fix long startup when running `influx help`.
+- Mock missing Flux dependencies when creating tasks.
+- Ensure array cursor iterator stats accumulate all cursor stats.
+- Hide Members section in Cloud environments.
+
+### UI Improvements
+- Redesign cards and animations on Getting Started page.
+
 ## v2.0.0-alpha.19 [2019-10-30]
 
 ### Features
