@@ -2,7 +2,7 @@
 title: Delete data
 list_title: Delete data
 description: >
-  Delete data in the InfluxDB UI.
+  Delete data in the InfluxDB UI, CLI, and API.
 menu:
   v2_0:
     name: Delete data
