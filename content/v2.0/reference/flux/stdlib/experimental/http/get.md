@@ -52,5 +52,6 @@ response = http.get(
     headers: {}
   )
 
-status = string(v: response.body)
+status = string(v: response.statusCode)
+body = string(v: response.body)
 ```
