@@ -54,11 +54,12 @@ Select from available [visualization types](/v2.0/visualize-data/visualization-t
 
 ## Control your dashboard cell
 
-From the cell editor overlay, use the controls in the lower pane to control your dashboard.
+To open the cell editor overlay, click the gear icon in the upper right of a cell and select **Configure**.
+ The cell editor overlay opens. 
 
 ### View raw data
 
-Toggle the **View Raw data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
+Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
 
  {{< img-hd src="/img/2-0-controls-view-raw-data.png" alt="View raw data" />}}
 
