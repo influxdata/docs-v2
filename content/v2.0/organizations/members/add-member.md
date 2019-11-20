@@ -33,7 +33,7 @@ _Complete content coming soon_ -->
 influx user find
 ```
 
-2. Add the desired user as a member of an organization with this command:
+2. To add a user to an organization, run the following command:
 
 ```sh
 influx org members add -n <org-name> -o <user-ID>
