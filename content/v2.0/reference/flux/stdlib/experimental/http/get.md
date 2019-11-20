@@ -2,7 +2,7 @@
 title: http.get() function
 description: >
   The `http.get()` function submits an HTTP GET request to the specified URL with headers
-  and returns the HTTP status code and body as a byte array.
+  and returns the HTTP status code as an integer and the response body as a byte array.
 menu:
   v2_0_ref:
     name: http.get
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `http.get()` function submits an HTTP GET request to the specified URL with headers
-and returns the HTTP status code and body as a byte array.
+and returns the HTTP status code as an integer and the response body as a byte array.
 
 _**Function type:** Miscellaneous_
 
@@ -56,6 +56,6 @@ response = http.get(
     headers: {Authorization: "Token ${token}"}
   )
 
-status = string(v: response.statusCode)
+status = response.statusCode
 body = string(v: response.body)
 ```
