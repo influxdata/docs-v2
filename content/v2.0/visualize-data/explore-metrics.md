@@ -97,6 +97,7 @@ In **Script Editor** mode, press `Control+/` to toggle between commenting a line
 
 **To save your query**:
 
-1. Click **Save as** in the upper right.
-2. Click **Dashboard Cell** to add your query to a dashboard.
-3. Click **Task** to save your query as a task.
+Click **Save as** in the upper right, then:
+- To add your query to a dashboard, click **Dashboard Cell**.
+- To save your query as a task, click **Task**.
+- To save your query as a variable, click **Variable**.
