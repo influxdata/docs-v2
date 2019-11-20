@@ -1,8 +1,8 @@
 ---
 title: http.get() function
 description: >
-  The `http.get()` function submits an HTTP GET request to the specified URL with headers
-  and returns the HTTP status code as an integer and the response body as a byte array.
+  The `http.get()` function submits an HTTP GET request to the specified URL and
+  returns the HTTP status code as an integer and the response body as a byte array.
 menu:
   v2_0_ref:
     name: http.get
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `http.get()` function submits an HTTP GET request to the specified URL with headers
-and returns the HTTP status code as an integer and the response body as a byte array.
+The `http.get()` function submits an HTTP GET request to the specified URL and
+returns the HTTP status code as an integer and the response body as a byte array.
 
 _**Function type:** Miscellaneous_
 
