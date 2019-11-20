@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: http.get
     parent: HTTP-exp
-weight: 202
+weight: 301
 ---
 
 The `http.get()` function submits an HTTP GET request to the specified URL with headers
