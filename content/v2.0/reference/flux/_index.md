@@ -5,7 +5,7 @@ v2.0/tags: [flux]
 menu:
   v2_0_ref:
     name: Flux language
-weight: 4
+weight: 3
 ---
 
 The following articles are meant as a reference for the Flux standard library and

@@ -48,4 +48,4 @@ and visit the `/docs` endpoint in a browser ([localhost:9999/docs](http://localh
 
 ## InfluxDB client libraries
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
-For information about supported client libraries, see [InfluxDB client libraries](/v2.0/reference/client-libraries/).
+For information about supported client libraries, see [InfluxDB client libraries](/v2.0/reference/api/client-libraries/).
