@@ -42,7 +42,7 @@ to retrieve your organization ID._
 
 ```sh
 # Pattern
-influx user create -n <username> -p <password> -o <ord-id>
+influx user create -n <username> -p <password> -o <org-id>
 
 # Example
 influx user create -n johndoe -p PaSsWoRd -o 0o0x00o0x0000oo0
