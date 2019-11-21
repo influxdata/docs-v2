@@ -32,3 +32,18 @@ influx user create -n <username>
 # Example
 influx user create -n johndoe
 ```
+
+### Create a user with a password and organization
+To create a new user with a password and add the user as a member of an organization,
+include a password and organization ID with the `influx user create` command.
+
+_Use the [`influx org find` command](/v2.0/reference/cli/influx/org/find/)
+to retrieve your organization ID._
+
+```sh
+# Pattern
+influx user create -n <username> -p <password> -o <ord-id>
+
+# Example
+influx user create -n johndoe -p PaSsWoRd -o 0o0x00o0x0000oo0
+```

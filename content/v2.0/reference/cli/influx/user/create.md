@@ -16,9 +16,11 @@ influx user create [flags]
 ```
 
 ## Flags
-| Flag           | Description                  | Input type  |
-|:----           |:-----------                  |:----------: |
-| `-h`, `--help` | Help for `create`            |             |
-| `-n`, `--name` | The user name **(Required)** | string      |
+| Flag               | Description                                                                      | Input type  |
+|:----               |:-----------                                                                      |:----------: |
+| `-h`, `--help`     | Help for `create`                                                                |             |
+| `-n`, `--name`     | The user name **(Required)**                                                     | string      |
+| `-o`, `--org-id`   | The organization ID to add the user to<br/> _(Required if password is provided)_ | string      |
+| `-p`, `--password` | The user password                                                                | string      |
 
 {{% influx-cli-global-flags %}}
