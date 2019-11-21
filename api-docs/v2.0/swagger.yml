@@ -1654,19 +1654,19 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: org
-          description: Specifies the organization that owns the bucket.
+          description: Specifies the organization to delete data from.
           schema:
             type: string
-            description: All points within batch are written to this organization.
+            description: Only points from this organization are deleted.
         - in: query
           name: bucket
           description: Specifies the bucket to delete data from.
           schema:
             type: string
-            description: Points are only deleted from this bucket.
+            description: Only points from this bucket are deleted.
         - in: query
           name: orgID
-          description: Specifies the organization ID that owns the bucket.
+          description: Specifies the organization ID of the resource.
           schema:
             type: string
         - in: query
@@ -1674,7 +1674,7 @@ paths:
           description: Specifies the bucket ID to delete data from.
           schema:
             type: string
-            description: Points are only deleted from this bucket.
+            description: Only points from this bucket ID are deleted.
       responses:
         '204':
           description: delete has been accepted
@@ -4241,6 +4241,73 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /packages:
+    post:
+      operationId: CreatePkg
+      tags:
+        - InfluxPackages
+      summary: Create a new Influx package
+      requestBody:
+        description: Influx package to create.
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PkgCreate"
+      responses:
+        '200':
+          description: Influx package created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pkg"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /packages/apply:
+    post:
+      operationId: ApplyPkg
+      tags:
+        - InfluxPackages
+      summary: Apply or dry-run an Influx package
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PkgApply"
+          text/yml:
+            schema:
+              $ref: "#/components/schemas/PkgApply"
+      responses:
+        '200':
+          description: >
+            Influx package dry-run successful, no new resources created.
+            The provided diff and summary will not have IDs for resources
+            that do not exist at the time of the dry run.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PkgSummary"
+        '201':
+          description: >
+            Influx package applied successfully. Newly created resources created
+            available in summary. The diff compares the state of the world before
+            the package is applied with the changes the application will impose.
+            This corresponds to `"dryRun": true`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PkgSummary"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /tasks:
     get:
       operationId: GetTasks
@@ -6235,7 +6302,7 @@ components:
         path:
           $ref: "#/components/schemas/StringLiteral"
     DeletePredicateRequest:
-      description: The delete predicate request
+      description: The delete predicate request.
       type: object
       required: [start, stop]
       properties:
@@ -6246,8 +6313,8 @@ components:
           description: RFC3339Nano
           type: string
         predicate:
-          description: SQL-like predicate expression
-          example: tag1="value1" and tag2="value2"
+          description: InfluxQL-like delete statement
+          example: tag1="value1" and (tag2="value2" and tag3!="value3")
           type: string
     Node:
       oneOf:
@@ -6712,6 +6779,14 @@ components:
         - $ref: "#/components/schemas/AuthorizationUpdateRequest"
         - type: object
           properties:
+            createdAt:
+              type: string
+              format: date-time
+              readOnly: true
+            updatedAt:
+              type: string
+              format: date-time
+              readOnly: true
             orgID:
               type: string
               description: ID of org that authorization is scoped to.
@@ -7013,6 +7088,244 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Organization"
+    PkgApply:
+      type: object
+      properties:
+        apply:
+          type: boolean
+        package:
+          $ref: "#/components/schemas/Pkg"
+    PkgCreate:
+      type: object
+      properties:
+        pkgName:
+          type: string
+        pkgDescription:
+          type: string
+        pkgVersion:
+          type: string
+        resources:
+          type: object
+          properties:
+            id:
+              type: string
+            kind:
+              type: string
+              enum:
+                - bucket
+                - dashboard
+                - label
+                - variable
+            name:
+              type: string
+          required: [id, kind]
+    Pkg:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - package
+        meta:
+          type: object
+          properties:
+            description:
+              type: string
+            pkgName:
+              type: string
+            pkgVersion:
+              type: string
+        spec:
+          type: object
+          properties:
+            resources:
+              type: array
+              items:
+                type: object
+    PkgSummary:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/Bucket"
+                  - type: object
+                    properties:
+                      labelAssociations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Label"
+            labels:
+              type: array
+              items:
+                $ref: "#/components/schemas/Label"
+            dashboards:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: "string"
+                  orgID:
+                    type: "string"
+                  name:
+                    type: "string"
+                  description:
+                    type: "string"
+                  labelAssociations:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Label"
+                  charts:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PkgChart"
+            labelMappings:
+              type: array
+              items:
+                type: object
+                properties:
+                  resourceName:
+                    type: string
+                  resourceID:
+                    type: string
+                  resourceType:
+                    type: string
+                  labelName:
+                    type: string
+                  labelID:
+                    type: string
+            variables:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/Variable"
+                  - type: object
+                    properties:
+                      labelAssociations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Label"
+        diff:
+          type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  oldDescription:
+                    type: string
+                  newDescription:
+                    type: string
+                  oldRP:
+                    type: string
+                  newRP:
+                    type: string
+            dashboards:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  charts:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PkgChart"
+            labels:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  oldDescription:
+                    type: string
+                  newDescription:
+                    type: string
+                  oldColor:
+                    type: string
+                  newColor:
+                    type: string
+            labelMappings:
+              type: array
+              items:
+                type: object
+                properties:
+                  isNew:
+                    type: boolean
+                  resourceType:
+                    type: string
+                  resourceID:
+                    type: string
+                  resourceName:
+                    type: string
+                  labelID:
+                    type: string
+                  labelName:
+                    type: string
+            variables:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  oldDescription:
+                    type: string
+                  newDescription:
+                    type: string
+                  oldArgs:
+                    $ref: "#/components/schemas/VariableProperties"
+                  newArgs:
+                    $ref: "#/components/schemas/VariableProperties"
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              kind:
+                type: string
+              reason:
+                type: string
+              fields:
+                type: array
+                items:
+                  type: string
+              indexes:
+                type: array
+                items:
+                  type: integer
+    PkgChart:
+      type: object
+      properties:
+        xPos:
+          type: integer
+        yPos:
+          type: integer
+        height:
+          type: integer
+        width:
+          type: integer
+        properties: # field name is properties
+          ref: "#/components/schemas/ViewProperties"
     Runs:
       type: object
       properties:
@@ -8208,11 +8521,7 @@ components:
         labels:
           $ref: "#/components/schemas/Labels"
         arguments:
-          type: object
-          oneOf:
-            - $ref: "#/components/schemas/QueryVariableProperties"
-            - $ref: "#/components/schemas/ConstantVariableProperties"
-            - $ref: "#/components/schemas/MapVariableProperties"
+          $ref: "#/components/schemas/VariableProperties"
         createdAt:
           type: string
           format: date-time
@@ -8258,6 +8567,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Variable"
+    VariableProperties:
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/QueryVariableProperties"
+        - $ref: "#/components/schemas/ConstantVariableProperties"
+        - $ref: "#/components/schemas/MapVariableProperties"
     ViewProperties:
       oneOf:
         - $ref: "#/components/schemas/LinePlusSingleStatProperties"
@@ -9471,7 +9786,7 @@ components:
                 - inactive
             labels:
               type: array
-              description: List of label IDs to associate with check
+              description: List of label ids to associate with check
               items:
                 type: string
     Checks:
@@ -9538,6 +9853,7 @@ components:
             labels: "/api/v2/checks/1/labels"
             members: "/api/v2/checks/1/members"
             owners: "/api/v2/checks/1/owners"
+            query: "/api/v2/checks/1/query"
           properties:
             self:
               description: URL for this check
@@ -9694,7 +10010,7 @@ components:
                 - inactive
             labels:
               type: array
-              description: List of label IDs to associate with notification rule
+              description: List of label IDs to associate with notification rule.
               items:
                 type: string
     NotificationRules:
@@ -9779,6 +10095,7 @@ components:
             labels: "/api/v2/notificationRules/1/labels"
             members: "/api/v2/notificationRules/1/members"
             owners: "/api/v2/notificationRules/1/owners"
+            query: "/api/v2/notificationRules/1/query"
           properties:
             self:
               description: URL for this endpoint.
@@ -9913,7 +10230,7 @@ components:
                 - inactive
             labels:
               type: array
-              description: List of label IDs to associate with check
+              description: List of label IDs to associate with check.
               items:
                 type: string
     NotificationEndpoints:
