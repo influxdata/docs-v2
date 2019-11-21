@@ -16,7 +16,7 @@ The following tools write to InfluxDB and employ write optimizations by default:
 
 - [Telegraf](/v2.0/write-data/use-telegraf/)
 - [InfluxDB scrapers](/v2.0/write-data/scrape-data/)
-- [InfluxDB client libraries](/v2.0/reference/client-libraries/)
+- [InfluxDB client libraries](/v2.0/reference/api/client-libraries/)
 {{% /note %}}
 
 ---

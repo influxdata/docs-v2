@@ -184,4 +184,4 @@ curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&
 ### InfluxDB client libraries
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
-See [Client libraries reference](/v2.0/reference/client-libraries/) for more information.
+See [Client libraries reference](/v2.0/reference/api/client-libraries/) for more information.
