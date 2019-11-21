@@ -15,6 +15,7 @@ weight: 101
 - Autopopulate organization IDs in the code samples.
 - Expose bundle analysis tools for front end resources.
 - Allow users to view just the output section of a Telegraf config.
+- Allow users to see string data in single stat graph type.
 
 ### Bug Fixes
 - Fix long startup when running `influx help`.
@@ -24,9 +25,19 @@ weight: 101
 - Change how cloud mode is enabled.
 - Merge front end development environments.
 - Refactor table state logic on the front end.
+- Arrows in tables show data in ascending and descending order.
+- Sort by retention rules now sorts by second.
+- Horizontal scrollbar no longer covering data;
+- Allow table columns to be draggable in table settings.
+- Light up the home page icon when active.
+- Make numeric inputs first-class citizens.
+- Prompt users to make a dashboard when dashboards are empty.
+- Remove name editing from query definition during threshold check creation.
+- Wait until user stops dragging and releases marker before zooming in after threshold changes.
 
 ### UI Improvements
 - Redesign cards and animations on Getting Started page.
+- Allow users to filter with labels in Telegraf input search.
 
 ## v2.0.0-alpha.19 [2019-10-30]
 
