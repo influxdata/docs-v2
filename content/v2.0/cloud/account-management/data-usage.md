@@ -15,8 +15,7 @@ left navigation bar and select **Usage**.
 
 {{< nav-icon "usage" >}}
 
-The usage page provides data usage information for time frame specified in the
-drop-down at the top of the Usage page.
+Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
 - **Writes:** Total data in MB written to your {{< cloud-name "short" >}} instance.
 - **Reads:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
@@ -31,6 +30,7 @@ drop-down at the top of the Usage page.
 {{< img-hd src="/img/2-0-cloud-usage.png" />}}
 
 ## Exceeded rate limits
+
 If you exceed your plan's [rate limits](/v2.0/cloud/pricing-plans/), {{< cloud-name >}}
 will provide a notification in the {{< cloud-name "short" >}} user interface (UI)
 and add a rate limit event to your **Usage** page for review.

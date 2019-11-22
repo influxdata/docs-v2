@@ -14,7 +14,9 @@ menu:
 
     {{< nav-icon "cloud" >}}
 
-    Complete the following procedures as needed:
+  If you subscribed to a plan through AWS Marketplace, click the **AWS** link to access your billing and subscription information.
+  
+  If you subscribed to an InfluxData plan, complete the following procedures as needed:
 
   - [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
   - [Add or update your contact information](#add-or-update-your-contact-information)
