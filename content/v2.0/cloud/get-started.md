@@ -35,14 +35,14 @@ Once you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account
 
 2. InfluxDB Cloud requires email verification to complete the sign up process.
    Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
-3. (InfluxData subscriptions only) Choose your cloud provider. Currently, **AWS** is the only cloud provider available.
+3. (If you subscribed through InfluxData) Choose your cloud provider.
 4. Select a region for your {{< cloud-name >}} instance. The following regions are available:
 
   - **US West (Oregon)**
   - **EU Frankfurt**
 
     _To suggest regions to add, click **Let us know** under Regions._
-5. (InfluxData subscriptions only) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement.**.
+5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement.**.
    For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
 6. Click **Continue**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
