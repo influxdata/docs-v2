@@ -28,7 +28,7 @@ Once you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account
 
 1. Choose one of the following:
    - To subscribe to an InfluxDB Cloud 2.0 plan (**Free** or **Usage-Based**) through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Sign Up**.
-   - To subscribe to an InfluxDB Cloud 2.0 plan through AWS Marketplace (**Usage-Based** only), go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Sign Up**.
+   - To subscribe to an InfluxDB Cloud 2.0 plan (**Usage-Based** only) through AWS Marketplace, go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Sign Up**.
 
        {{%note%}} **Note:** Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS Marketplace.
         {{%/note%}}
