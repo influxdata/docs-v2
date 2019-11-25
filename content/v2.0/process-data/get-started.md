@@ -100,7 +100,7 @@ data
 _See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 ## Define a destination
-In the vast majority of task use cases, once data is transformed, it needs to sent and stored somewhere.
+In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
 This could be a separate bucket or another measurement.
 
 The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
