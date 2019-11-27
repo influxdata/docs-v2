@@ -22,13 +22,12 @@ _See the differences between {{< cloud-name "short">}} and InfluxDB OSS
 Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/cloud/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
-Once you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
 
 ## Sign up
 
 1. Choose one of the following:
-   - To subscribe to an InfluxDB Cloud 2.0 plan (**Free** or **Usage-Based**) through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Sign Up**.
-   - To subscribe to an InfluxDB Cloud 2.0 plan (**Usage-Based** only) through AWS Marketplace, go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Sign Up**.
+   - To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Start your Free Plan now**. When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
+   - To subscribe to an InfluxDB Cloud 2.0 plan (**Usage-Based** only) through AWS Marketplace, go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Start Now**.
 
        {{%note%}} **Note:** Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS Marketplace.
         {{%/note%}}
@@ -45,7 +44,7 @@ Once you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account
 5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
    For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
-6. Click **Continue**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
+6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
     _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
