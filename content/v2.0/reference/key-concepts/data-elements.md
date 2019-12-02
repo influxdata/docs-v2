@@ -152,7 +152,7 @@ census,location=klamath,scientist=anderson bees
 2019-08-18T00:06:00Z 28        
 ```
 
-Understanding the concept of a series is essential when designing your [schema](v2.0/reference/glossary/#schema) and working with your data in InfluxDB.
+Understanding the concept of a series is essential when designing your [schema](/v2.0/reference/glossary/#schema) and working with your data in InfluxDB.
 
 ## Point
 
@@ -170,6 +170,6 @@ An InfluxDB **organization** is a workspace for a group of [users](/v2.0/users/)
 
 If you're just starting out, we recommend taking a look at the following guides:
 
-- [Getting Started](/influxdb/v0.10/introduction/getting_started/)
-- [Writing Data](/influxdb/v0.10/guides/writing_data/)
-- [Querying Data](/influxdb/v0.10/guides/querying_data/)
+- [Get started](/v2.0/get-started)
+- [Write data](/v2.0/write-data)
+- [Query data](/v2.0/query-data)
