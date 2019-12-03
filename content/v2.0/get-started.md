@@ -20,6 +20,7 @@ This article describes how to get started with InfluxDB OSS. To get started with
 [macOS](#)
 [Linux](#)
 [Docker](#)
+[Kubernetes](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -193,6 +194,107 @@ docker exec -it influxdb /bin/bash
 
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
+
+<!-------------------------------- BEGIN kubernetes---------------------------->
+{{% tab-content %}}
+
+You can install InfluxDB in a local kubernetes environment with Minikube.
+
+1. Install minikube.
+
+    On macOS, run:
+
+    ```
+    brew install minikube
+    ```
+
+2. Start minikube:
+
+    ```
+    minikube start
+    ```
+
+3. Save the following YAML configuration file somewhere on your machine:
+
+    ```yaml
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: monitoring
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: influxdb
+      namespace: monitoring
+    spec:
+      selector:
+        matchLabels:
+          app: influxdb
+      template:
+        metadata:
+          labels:
+            app: influxdb
+        spec:
+          containers:
+            - name: influxdb
+              image: quay.io/influxdb/influxdb:2.0.0-alpha
+              resources:
+                limits:
+                  memory: "128Mi"
+                  cpu: "1000m"
+              ports:
+                - containerPort: 9999
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: influxdb
+      namespace: monitoring
+    spec:
+      type: NodePort
+      ports:
+        - port: 9999
+          protocol: TCP
+          name: http
+      selector:
+        app: influxdb
+    ```
+
+4. Apply the configuration by running:
+
+    ```
+    kubectl apply -f <path-to-config>.yaml
+    ```
+
+    You should see an output like this:
+
+    ```
+    namespace/monitoring configured
+    deployment.apps/influxdb configured
+    service/influxdb configured
+    ```
+
+5. Ensure the service is running:
+
+    ```
+    $ kubectl get service -n monitoring
+    NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    influxdb   NodePort   10.100.164.55   <none>        9999:31111/TCP   26m
+    ```
+
+6. Get the cluster IP address:
+
+   ```
+   minikube ip
+   ```
+
+7. In your browser, visit the minikube IP address and port number listed for the service
+   (something like `192.168.64.6:31111`).
+
+Follow the on-screen instructions start using InfluxDB!
+{{% /tab-content %}}
+<!--------------------------------- END kubernetes ---------------------------->
 
 {{< /tabs-wrapper >}}
 
