@@ -16,6 +16,43 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.55.1 [2019-12-02]
+
+### Bug fixes
+- Fix e2e usage test so that their queries are properly pushed down.
+
+---
+
+## v0.55.0 [2019-12-02]
+
+### Breaking changes
+- Expand the interface for `BufferedTable`.
+
+### Features
+- Expose optimized `pivot()` function.
+- Create utility program for building `libflux`.
+- Create a tool that measures performance of calling Rust from Go.
+- Inject types in the semantic graph.
+- MonoType and PolyType flatbuffer encodings.
+- MonoType and PolyType flatbuffer schemas.
+- Update Rust flatbuffers to more closely match Rust semantic graph.
+- Flatbuffers AST to Go AST.
+- Port immutable walk and fix mutable walk.
+- Define the flatbuffers schema for semantic graph.
+- Infer imported package types.
+- Unify and infer function types.
+- Add support for safely converting bytes to strings.
+- Add sqlite3 support.
+- Add internal table utility for streaming tables.
+
+### Bug fixes
+- Update semantic graph FlatBuffers schema for identifiers.
+- Ignore order when comparing record types.
+- Operands for `<=` and `>=` are comparable AND equatable.
+- Constrain unary expressions to be same type as operand.
+
+---
+
 ## v0.54.0 [2019-11-11]
 
 ### Features
