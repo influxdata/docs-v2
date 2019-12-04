@@ -9,7 +9,7 @@ weight: 101
 v2.0/tags: [packages]
 ---
 
-The `influx pkg` command and its subcommands manage packages in InfluxDB.
+The `influx pkg` command manages packages in InfluxDB.
 
 ## Usage
 ```
