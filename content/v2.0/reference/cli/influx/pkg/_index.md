@@ -24,17 +24,17 @@ influx pkg [command]
 
 ## Flags
 
-| Flag                  | Description                                                                                                                             |
-|:----------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
-| `--buckets`           | List of bucket ids comma separated                                                                                                      |
-| `--dashboards`        | List of dashboard ids comma separated                                                                                                   |
-| `-d`, `--description` | description for new pkg                                                                                                                 |
-| `-f`, `--file`        | output file for created pkg; defaults to std out if no file provided; the extension of provided file (.yml/.json) will dictate encoding |
-| `-h`, `--help`        | Help for the export command                                                                                                             |
-| `--labels`            | List of label ids comma separated                                                                                                       |
-| `-n`, `--name`        | name for new pkg                                                                                                                        |
-| `--resource-type`     | The resource type provided will be associated with all IDs via stdin.                                                                   |
-| `--variables`         | List of variable ids comma separated                                                                                                    |
-| `-v`, `--version`     | version for new pkg                                                                                                                     |
+| Flag                  | Description                                                                     | Input Type      |
+|:----------------------|:--------------------------------------------------------------------------------|-----------------|
+| `--buckets`           | Comma-separated list of bucket IDs                                              | list of strings |
+| `--dashboards`        | Comma-separated list of dashboard IDs                                           | list of strings |
+| `-d`, `--description` | Package description                                                             | string          |
+| `-f`, `--file`        | Package output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string          |
+| `-h`, `--help`        | Help for the `export` command                                                   |                 |
+| `--labels`            | Comma-separated list of label IDs                                               | list of strings |
+| `-n`, `--name`        | Package name                                                                    | string          |
+| `--resource-type`     | Resource type associated with all IDs via stdin                                 | string          |
+| `--variables`         | Comma-separated list of variable IDs                                            | list of strings |
+| `-v`, `--version`     | Package version                                                                 | string          |
 
 {{% influx-cli-global-flags %}}
