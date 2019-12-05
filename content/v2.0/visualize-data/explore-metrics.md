@@ -54,13 +54,14 @@ Select from available [visualization types](/v2.0/visualize-data/visualization-t
 
 ## Control your dashboard cell
 
-From the cell editor overlay, use the controls in the lower pane to control your dashboard.
+To open the cell editor overlay, click the gear icon in the upper right of a cell and select **Configure**.
+ The cell editor overlay opens. 
 
 ### View raw data
 
-Toggle the **View Raw data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
+Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
 
- {{< img-hd src="/img/view-raw-data.png" alt="View raw data" />}}
+ {{< img-hd src="/img/2-0-controls-view-raw-data.png" alt="View raw data" />}}
 
 ### Save as CSV
 
@@ -70,7 +71,7 @@ Click the CSV icon to save the cells contents as a CSV file.
 
 Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
 
-{{< img-hd src="/img/refresh-interval.png" alt="Select refresh interval" />}}
+{{< img-hd src="/img/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
 
 ### Manually refresh dashboard
 
@@ -80,7 +81,7 @@ Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashbo
 
 1. Select from the time range options in the dropdown menu.
 
-    {{< img-hd src="/img/time-range.png" alt="Select time range" />}}
+    {{< img-hd src="/img/2-0-controls-time-range.png" alt="Select time range" />}}
 
 2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.
@@ -97,6 +98,7 @@ In **Script Editor** mode, press `Control+/` to toggle between commenting a line
 
 **To save your query**:
 
-1. Click **Save as** in the upper right.
-2. Click **Dashboard Cell** to add your query to a dashboard.
-3. Click **Task** to save your query as a task.
+Click **Save as** in the upper right, then:
+- To add your query to a dashboard, click **Dashboard Cell**.
+- To save your query as a task, click **Task**.
+- To save your query as a variable, click **Variable**.

@@ -24,9 +24,4 @@ influx bucket find [flags]
 | `-o`, `--org`  | The bucket organization name | string      |
 | `--org-id`     | The bucket organization ID   | string      |
 
-## Global flags
-| Global flag     | Description                                                | Input type |
-|:-----------     |:-----------                                                |:----------:|
-| `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     |
-| `--local`       | Run commands against the local filesystem                  |            |
-| `-t`, `--token` | API token to use in client calls                           | string     |
+{{% influx-cli-global-flags %}}

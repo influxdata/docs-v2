@@ -18,30 +18,33 @@ _See the differences between {{< cloud-name "short">}} and InfluxDB OSS
 [below](#differences-between-influxdb-cloud-and-influxdb-oss)._
 
 ## Start for free
+
 Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/cloud/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
-Once you're ready to grow, [upgrade to the Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
 
 ## Sign up
 
-1.  Go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your email address and password,
-    and click **Sign Up**.
-2.  InfluxDB Cloud requires email verification to complete the sign up process.
-    Verify your email address by opening the email sent to the address you provided
-    and clicking **Verify Your Email**.
-3.  Select a region for you {{< cloud-name >}} instance.
-    Currently, {{< cloud-name >}} AWS - US West (Oregon) is the only region available.
+1. Choose one of the following:
+   - To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Start your Free Plan now**. When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
+   - To subscribe to an InfluxDB Cloud 2.0 plan (**Usage-Based** only) through AWS Marketplace, go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Start Now**.
+
+       {{%note%}} **Note:** Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS Marketplace.
+        {{%/note%}}
+
+2. InfluxDB Cloud requires email verification to complete the sign up process.
+   Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
+3. (If you subscribed through InfluxData) Choose your cloud provider.
+4. Select a region for your {{< cloud-name >}} instance. The following regions are available:
+
+  - **US West (Oregon)**
+  - **EU Frankfurt**
+
     _To suggest regions to add, click **Let us know** under Regions._
-4.  Review the terms of the agreement, and then select
-    **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement
-    and InfluxData Global Data Processing Agreement.**.
+5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
+   For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
-    For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/)
-    and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
-
-5.  Click **Continue**. {{< cloud-name >}} opens with a default organization
-    and bucket (both created from your email address).
+6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
     _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
@@ -85,8 +88,13 @@ When using Telegraf, the InfluxDB v2 API, the `influx` CLI, or the client librar
 instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
 For example:
 
-```
+```bash
+
+# for US West (Oregon)
 https://us-west-2-1.aws.cloud2.influxdata.com
+
+# for EU Frankfurt
+https://eu-central-1-1.aws.cloud2.influxdata.com
 ```
 
 {{% /note %}}
@@ -110,6 +118,7 @@ Once you're up and running with {{< cloud-name "short" >}}, [monitor your data u
 your {{< cloud-name "short" >}} UI](/v2.0/cloud/account-management/data-usage/).
 
 ## Differences between InfluxDB Cloud and InfluxDB OSS
+
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 

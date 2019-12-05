@@ -2,9 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:dubnium
         environment:
-          HUGO_VERSION: "0.56.3"
+          HUGO_VERSION: "0.59.1"
           S3DEPLOY_VERSION: "2.3.2"
     steps:
       - checkout

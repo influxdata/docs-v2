@@ -21,7 +21,7 @@ _**Function type:** Miscellaneous_
 import "http"
 
 http.basicAuth(
-  u: "username"
+  u: "username",
   p: "passw0rd"
 )
 

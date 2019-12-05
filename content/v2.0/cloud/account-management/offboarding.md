@@ -36,11 +36,9 @@ For details, see [Export a task](/v2.0/process-data/manage-tasks/export-task/).
 
 For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-dashboard/).
 
-#### Telegraf configurations
+#### Save Telegraf configurations
 
-**To save a Telegraf configuration:**
-
-1. Click in the **Settings** icon in the navigation bar.
+1. Click the **Settings** icon in the navigation bar.
 
     {{< nav-icon "settings" >}}
 
@@ -48,16 +46,18 @@ For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-das
 3. Click on the name of a Telegraf configuration.
 4. Click **Download Config** to save.
 
-#### Data backups
+#### Request a data backup
 
 To request a backup of data in your {{< cloud-name "short" >}} instance, contact [InfluxData Support](mailto:support@influxdata.com).
 
 ### Cancel service
 
-1. Hover over the Usage icon in the left navigation bar and select Billing.
+1. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
 
     {{< nav-icon "usage" >}}
 
-2. Click **Cancel Service**.
-3. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.**
-4. Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.
+2. Do one of the following:
+
+  - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **AWS Marketplace**, click the **AWS** link, click **Unsubscribe**, and then click **Yes, cancel subscription**.
+  
+  - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **InfluxData**, click **Cancel Service**. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.** Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.

@@ -24,7 +24,7 @@ Reference each variable using dot-notation (e.g. `v.variableName`).
 ```js
 from(bucket: v.bucket)
   |> range(start: v.timeRangeStart, stop: v.timeRangeStart)
-  |> filter(fn (r) => r._measurement == v.measurement and r._field == v.field)
+  |> filter(fn: (r) => r._measurement == v.measurement and r._field == v.field)
   |> aggregateWindow(every: v.windowPeriod, fn: mean)
 ```
 
