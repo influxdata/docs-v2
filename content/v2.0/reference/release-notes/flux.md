@@ -24,6 +24,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Improve filter performance when filtering on values.
 - Update usage duration test to exclude queue and requeue time.
 - Add types for some built-ins.
+- Add `timeout` parameter to experimental `http.get()`.
 
 ### Bug fixes
 - Properly use a fake version with `flux-config` when no version is present.
