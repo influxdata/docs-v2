@@ -67,10 +67,10 @@ _**Data type:** String_
 
 ###### Possible Values:
 - `inner`
-- `cross`
+<!-- - `cross`
 - `left`
 - `right`
-- `full`
+- `full` -->
 
 {{% note %}}
 The `on` parameter and the `cross` method are mutually exclusive.

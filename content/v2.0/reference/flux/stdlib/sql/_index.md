@@ -2,7 +2,8 @@
 title: Flux SQL package
 list_title: SQL package
 description: >
-  The Flux SQL package provides tools for working with data in SQL databases such as MySQL and PostgreSQL.
+  The Flux SQL package provides tools for working with data in SQL databases such
+  as MySQL, PostgreSQL, and SQLite.
   Import the `sql` package.
 aliases:
   - /v2.0/reference/flux/functions/sql/
@@ -14,7 +15,8 @@ weight: 202
 v2.0/tags: [functions, sql, package, mysql, postgres]
 ---
 
-SQL Flux functions provide tools for working with data in SQL databases such as MySQL and PostgreSQL.
+SQL Flux functions provide tools for working with data in SQL databases such as
+MySQL, PostgreSQL, and SQLite.
 Import the `sql` package:
 
 ```js
