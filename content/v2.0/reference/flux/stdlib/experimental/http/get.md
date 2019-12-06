@@ -25,7 +25,8 @@ import "experimental/http"
 
 http.get(
   url: "http://localhost:9999/",
-  headers: {x:"a", y:"b", z:"c"}
+  headers: {x:"a", y:"b", z:"c"},
+  timeout: 30s
 )
 ```
 
@@ -40,6 +41,12 @@ _**Data type:** String_
 Headers to include with the GET request.
 
 _**Data type:** Object_
+
+### timeout
+Timeout for the GET request.
+Default is `30s`.
+
+_**Data type:** Duration_
 
 ## Examples
 
