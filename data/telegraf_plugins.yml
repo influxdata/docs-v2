@@ -156,6 +156,14 @@ input:
     introduced: 1.12.0
     tags: [linux, macos, windows, systems]
 
+  - name: Azure Storage Queue
+    id: azure_storage_queue
+    description: |
+      The Azure Storage Queue plugin gathers sizes of Azure Storage Queues.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/azure_storage_queue/README.md
+    introduces: 1.13.0
+    tags: [linux, macos, windows, systems, cloud]
+
   - name: Bcache
     id: bcache
     description: |
@@ -391,6 +399,15 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, data-stores]
 
+  - name: Ethtool
+    id: ethtool
+    description: |
+      The Ethtool plugin gathers ethernet device statistics.
+      The network device and driver determine what fields are gathered.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/ethtool/README.md
+    introduced: 1.13.0
+    tags: [linux, macos, windows, networking, servers]
+
   - name: Exec
     id: exec
     description: |
@@ -542,7 +559,7 @@ input:
   - name: HTTP JSON
     id: httpjson
     description: |
-      _Deprecated in Telegraf 1.6.0. Use the [HTTP input plugin](#http)._
+      *Deprecated in Telegraf 1.6.0. Use the [HTTP input plugin](#http).*
 
       The HTTP JSON input plugin collects data from HTTP URLs which respond with JSON.
       It flattens the JSON and finds all numeric values, treating them as floats.
@@ -704,7 +721,7 @@ input:
   - name: Jolokia
     id: jolokia
     description: |
-      _Deprecated in Telegraf 1.5.0. Use the [Jolokia2 input plugin](#jolokia2_agent)._
+      *Deprecated in Telegraf 1.5.0. Use the [Jolokia2 input plugin](#jolokia2_agent).*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/jolokia/README.md
     introduced: 0.2.1
     deprecated: 1.5.0
@@ -1403,10 +1420,20 @@ input:
     id: snmp_legacy
     description: |
       The SNMP Legacy input plugin gathers metrics from SNMP agents.
-      _Deprecated in Telegraf 1.0.0. Use the [SNMP input plugin](#snmp)._
+      *Deprecated in Telegraf 1.0.0. Use the [SNMP input plugin](#snmp).*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/snmp_legacy/README.md
     introduced: 0.10.1
     deprecated: 1.0.0
+    tags: [linux, macos, windows, networking]
+
+  - name: SNMP Trap
+    id: snmp_trap
+    description: |
+      The SNMP Trap plugin receives SNMP notifications (traps and inform requests).
+      Notifications are received over UDP on a configurable port.
+      Resolve OIDs to strings using system MIB files (just like with the [SNMP input plugin](#snmp)).
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/snmp_trap/README.md
+    introduced: 1.13.0
     tags: [linux, macos, windows, networking]
 
   - name: Socket Listener
@@ -1442,6 +1469,17 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, applications]
 
+  - name: Suricata
+    id: suricata
+    description: |
+      The Suricata input plugin reports internal performance counters of the Suricata
+      IDS/IPS engine, such as captured traffic volume, memory usage, uptime, flow counters, and more.
+      It provides a socket for the Suricata log output to write JSON stats output to
+      and processes the incoming data to fit Telegraf's format.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/suricata/README.md
+    introduced: 1.13.0
+    tags: [linux, macos, windows, networking]
+
   - name: Swap
     id: swap
     description: |
@@ -1454,6 +1492,15 @@ input:
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/swap/README.md
     introduced: 1.7.0
     tags: [linux, macos, systems]
+
+  - name: Synproxy
+    id: synproxy
+    description: |
+      The Synproxy plugin gathers the synproxy counters.
+      Synproxy is a Linux netfilter module used for SYN attack mitigation.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/synproxy/README.md
+    introduced: 1.13.0
+    tags: [linux, macos, windows, networking]
 
   - name: Syslog
     id: syslog
@@ -1484,6 +1531,26 @@ input:
     introduced: 0.1.6
     tags: [linux, macos, windows, systems]
 
+  - name: Systemd Units
+    id: systemd_units
+    description: |
+      The Systemd Units plugin gathers systemd unit status metrics on Linux.
+      It relies on `systemctl list-units --all --type=service` to collect data on service status.
+      **Linux only.**
+
+      Results are tagged with the unit name and provide enumerated fields for loaded,
+      active, and running fields, indicating the unit health.
+
+      This plugin can gather other unit types as well.
+      See `systemctl list-units --all --type help` for possible options.
+
+      > This plugin is related to the [Windows Services input plugin](#win_services),
+      > which fulfills the same purpose on Windows.
+
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/systemd_units/README.md
+    introduced: 1.13.0
+    tags: [linux, systems]
+
   - name: Tail
     id: tail
     description: |
@@ -1495,7 +1562,7 @@ input:
   - name: TCP Listener
     id: tcp_listener
     description: |
-      _Deprecated in Telegraf 1.3.0. Use the [Socket Listener input plugin](#socket_listener)._
+      *Deprecated in Telegraf 1.3.0. Use the [Socket Listener input plugin](#socket_listener).*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/tcp_listener/README.md
     introduced: 0.11.0
     deprecated: 1.3.0
@@ -1558,7 +1625,7 @@ input:
   - name: UDP Listener
     id: udp_listener
     description: |
-      _Deprecated in Telegraf 1.3.0. use the [Socket Listener input plugin](#socket_listener)._
+      *Deprecated in Telegraf 1.3.0. use the [Socket Listener input plugin](#socket_listener).*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/udp_listener/README.md
     introduced: 0.11.0
     deprecated: 1.3.0
@@ -2051,6 +2118,17 @@ aggregator:
     introduced: 1.4.0
     tags: [linux, macos, windows]
 
+  - name: Merge
+    id: merge
+    description: |
+      The Merge aggregator plugin merges metrics together and generates line protocol with
+      multiple fields per line. This optimizes memory and network transfer efficiency.
+      Use this plugin when fields are split over multiple lines of line protocol,
+      with the same measurement, tag set, and timestamp on each.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/aggregators/merge/README.md
+    introduced: 1.13.0
+    tags: [linux, macos, windows]
+
   - name: MinMax
     id: minmax
     description: |
@@ -2096,6 +2174,15 @@ processor:
       Values that cannot be converted are dropped.
     link: https://github.com/influxdata/telegraf/blob/master/plugins/processors/converter/README.md
     introduced: 1.7.0
+    tags: [linux, macos, windows]
+
+  - name: Clone
+    id: clone
+    description: |
+      The Clone processor plugin creates a copy of each metric to preserve the
+      original metric and allow modifications in the copied metric.
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/processors/clone/README.md
+    introduced: 1.13.0
     tags: [linux, macos, windows]
 
   - name: Date
@@ -2160,7 +2247,7 @@ processor:
       This transformation often results in data that is easier to use with mathematical operators and comparisons.
       It also flattens data into a more compact representation for write operations with some output data formats.
 
-      _To perform the reverse operation use the [Unpivot](#unpivot) processor._
+      *To perform the reverse operation use the [Unpivot](#unpivot) processor.*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/processors/pivot/README.md
     introduced: 1.12.0
     tags: [linux, macos, windows]
@@ -2255,7 +2342,7 @@ processor:
       The Unpivot processor plugin rotates a multi-field series into single-valued metrics.
       This transformation often results in data that is easier to aggregate across fields.
 
-      _To perform the reverse operation use the [Pivot](#pivot) processor._
+      *To perform the reverse operation use the [Pivot](#pivot) processor.*
     link: https://github.com/influxdata/telegraf/blob/master/plugins/processors/unpivot/README.md
     introduced: 1.12.0
     tags: [linux, macos, windows]
