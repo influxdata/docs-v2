@@ -12,21 +12,23 @@ v2.0/tags: [client libraries]
 
 The [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) can be used to integrate InfluxDB into Python scripts and applications.
 
-This guide is for programmers with some experience with Python and InfluxDB, but perhaps little experience using API libraries.
+This guide is for programmers who want to use Python to interact with InfluxDB.
+It presumes some familiarity with Python and InfluxDB.
+If you haven't, go ahead and read the [getting started](/v2.0/get-started/) guide.
 
 ## Before you begin
 
-1. Read the getting started guide.
-2. Install Python library.
+1. Install the InfluxDB Python library by running.
 
-   ```sh
-   pip install influxdb-client
-   ```
-3. Ensure that InfluxDB is running.
+    ```sh
+    pip install influxdb-client
+    ```
+
+2. Ensure that InfluxDB is running.
 
 ## Writing data to InfluxDB with Python
 
-We are going to write a single line of line protocol using the Python library.
+We are going to write some data in [line protocol](/v2.0/reference/syntax/line-protocol/) using the Python library.
 
 The first line of our program will import the InfluxDB library:
 
