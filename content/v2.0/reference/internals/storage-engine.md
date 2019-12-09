@@ -10,28 +10,28 @@ menu:
 v2.0/tags: [storage, internals]
 ---
 
-The InfluxDB storage engine ensures the following three things:
+The InfluxDB storage engine ensures that
 
 - Data is safely written to disk
 - Queried data is returned complete and correct
 - Data is accurate (first) and performant (second)
 
-This document details the internal workings of the storage engine.
+This document outlines the internal workings of the storage engine.
 This information is presented both as a reference and to aid those looking to maximize performance.
 
 Major topics include:
 
 * [Write Ahead Log (WAL)](#write-ahead-log-wal)
+* [Cache](#cache)
 * [Time-Structed Merge Tree (TSM)](#time-structured-merge-tree-tsm)
 * [Time Series Index (TSI)](#time-series-index-tsi)
 
 ## Writing data: from API to disk
 
-The storage engine handles data from the point an API request is received through writing it to the physical disk.
-Data is written to InfluxDB using [line protocol](/v2.0/reference/line-) sent via HTTP POST request to the `/write` endpoint.
+The storage engine handles data from the point an API write request is received through writing data to the physical disk.
+Data is written to InfluxDB using [line protocol](/v2.0/reference/line-protocol/) sent via HTTP POST request to the `/write` endpoint.
 Batches of [points](/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
-(A *point* is a series key, field value, and timestamp.)
-The points are also written to an in-memory cache and become immediately queryable.
+Points are also written to an in-memory cache and become immediately queryable.
 The cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
@@ -43,27 +43,27 @@ Points in a batch do not have to be from the same measurement or tagset.
 
 The **Write Ahead Log** (WAL) ensures durability by retaining data when the storage engine restarts.
 It ensures that written data does not disappear in an unexpected failure.
-When a client sends a write request, the following occurs:
+When a client sends a write request, the following steps occur:
 
-1. Write request is appended to the end of the WAL file.
-2. `fsync()` the data to the file.
+1. Append write request to the end of the WAL file.
+2. Write data to disk using `fsync()`.
 3. Update the in-memory cache.
 4. Return success to caller.
 
-`fsync()` takes the file and pushes pending writes all the way through any buffers and caches to disk.
-As a system call, `fsync()` has a kernel context switch which is computationally expensive, but guarantees your data is safe on disk.
-
-When the storage engine restarts, the WAL file is read back into the in-memory database.
-InfluxDB then snswer requests to the `/read` endpoint.
+`fsync()` takes the file and pushes pending writes all the way to the disk.
+As a system call, `fsync()` has a kernel context switch which is computationally expensive, but guarantees that data is safe on disk.
 
 {{% note%}}
 Once you receive a response to a write request, your data is on disk!
 {{% /note %}}
 
+When the storage engine restarts, the WAL file is read back into the in-memory database.
+InfluxDB then answers requests to the `/read` endpoint.
+
 ## Cache
 
 The **cache** is an in-memory copy of data points current stored in the WAL.
-Points are organized by the key, which is the measurement, tag set, and unique field.
+Points are organized by key, which is the measurement, tag set, and unique field.
 Each field is stored in its own time-ordered range.
 Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
@@ -82,7 +82,7 @@ Deletes sent to the cache will clear out the given key or the specific time rang
 To efficiently compact and store data,
 the storage engine groups field values by series key,
 and then orders those field values by time.
-(A *series key* is defined by measurement, tag key and value, and field key.)
+(A [series key](/v2/) is defined by measurement, tag key and value, and field key.)
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.
@@ -93,7 +93,7 @@ Storing data in columns lets the storage engine read by series key.
 After fields are stored safely in TSM files, the WAL is truncated and the cache is cleared.
 <!-- TODO what next? -->
 
-There’s a lot of logic and sophistication in the TSM compaction code.
+The TSM compaction code is quite complex.
 However, the high-level goal is quite simple:
 organize values for a series together into long runs to best optimize compression and scanning queries.
 
@@ -101,7 +101,7 @@ organize values for a series together into long runs to best optimize compressio
 
 As data cardinality (the number of series) grows, queries read more series keys and become slower.
 
-The **Time Series Index** ensures queries remain fast as data cardinality of data grows...
+The **Time Series Index** ensures queries remain fast as data cardinality grows.
 To keep queries fast as we have more data, we use a **Time Series Index**.
 
 TSI stores series keys grouped by measurement, tag, and field.
