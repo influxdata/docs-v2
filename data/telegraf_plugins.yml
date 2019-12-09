@@ -198,7 +198,7 @@ input:
       attributes through the jolokia REST endpoint.
       All metrics are collected for each server configured.
     introduced: 0.12.1
-    deprecated: 1.7.0
+    deprecated: 1.6.4
     tags: [linux, macos, windows, data-stores]
 
   - name: Ceph Storage
@@ -507,7 +507,7 @@ input:
       The HTTP JSON input plugin collects data from HTTP URLs which respond with JSON.
       It flattens the JSON and finds all numeric values, treating them as floats.
     introduced: 0.1.6
-    deprecated: 1.6.0
+    deprecated: 1.5.3
     tags: [linux, macos, windows, servers, web]
 
   - name: HTTP Listener
@@ -518,7 +518,7 @@ input:
       For general purpose transfer of metrics in any format via HTTP, use [`http_listener_v2`](#http_listener_v2)instead.
     link: https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/http_listener/README.md
     introduced: 1.1.0
-    deprecated: 1.9.0
+    deprecated: 1.8.3
     tags: [linux, macos, windows, servers, web]
 
   - name: HTTP Listener v2
@@ -654,7 +654,7 @@ input:
     description: |
       *Deprecated in Telegraf 1.5.0. Use the [Jolokia2 input plugin](#jolokia2_agent).*
     introduced: 0.2.1
-    deprecated: 1.5.0
+    deprecated: 1.4.5
     tags: [linux, macos, windows, networking]
 
   - name: Jolokia2 Agent
@@ -1287,7 +1287,7 @@ input:
       The SNMP Legacy input plugin gathers metrics from SNMP agents.
       *Deprecated in Telegraf 1.0.0. Use the [SNMP input plugin](#snmp).*
     introduced: 0.10.1
-    deprecated: 1.0.0
+    deprecated: 0.13.1
     tags: [linux, macos, windows, networking]
 
   - name: SNMP Trap
@@ -1415,7 +1415,7 @@ input:
     description: |
       *Deprecated in Telegraf 1.3.0. Use the [Socket Listener input plugin](#socket_listener).*
     introduced: 0.11.0
-    deprecated: 1.3.0
+    deprecated: 1.2.1
     tags: [linux, macos, windows, networking, web]
 
   - name: Teamspeak 3
@@ -1473,7 +1473,7 @@ input:
     description: |
       *Deprecated in Telegraf 1.3.0. use the [Socket Listener input plugin](#socket_listener).*
     introduced: 0.11.0
-    deprecated: 1.3.0
+    deprecated: 1.2.1
     tags: [linux, macos, windows, networking]
 
   - name: Unbound
@@ -1837,7 +1837,7 @@ output:
       see [#1878](https://github.com/influxdata/telegraf/issues/1878) for more details & discussion.
     link: https://github.com/influxdata/telegraf/tree/master/plugins/outputs/riemann_legacy
     introduced: 0.2.3
-    deprecated: 1.3.0
+    deprecated: 1.2.1
     tags: [linux, macos, windows, applications]
 
   - name: Socket Writer
