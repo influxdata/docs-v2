@@ -26,7 +26,8 @@ toDuration()
 _**Supported data types:** Integer | String | Uinteger_
 
 {{% note %}}
-`toDuration()` assumes numeric input values are **nanoseconds**.
+`duration()` assumes **numeric** input values are **nanoseconds**.
+**String** input values must use [duration literal representation](#/v2.0/reference/flux/language/lexical-elements/#duration-literals).
 {{% /note %}}
 
 {{% note %}}
