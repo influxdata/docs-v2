@@ -58,6 +58,9 @@ next to the visualization dropdown in the upper right.
   - **Custom**: Manually specify the value range of the y-axis.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
+- **Positioning**:
+  - **Overlaid**: Display graph lines overlaid over each other.
+  - **Stacked**: Display graph lines stacked on top of each other.
 
 ###### Customize Single-Stat  
 - **Prefix**: Prefix to be added to the single stat.
