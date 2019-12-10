@@ -52,7 +52,7 @@ to the visualization dropdown in the upper right.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 - **Positioning**:
-  - **Overlaid**: Display graph lines overlaid over each other.
+  - **Overlaid**: Display graph lines overlaid on each other.
   - **Stacked**: Display graph lines stacked on top of each other.
 
 
