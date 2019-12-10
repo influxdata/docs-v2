@@ -24,6 +24,12 @@ duration(v: "1m")
 ### v
 The value to convert.
 
+_**Data type:** Integer | String | Uinteger_
+
+{{% note %}}
+`duration()` assumes numeric input values are **nanoseconds**.
+{{% /note %}}
+
 ## Examples
 ```js
 from(bucket: "sensor-data")

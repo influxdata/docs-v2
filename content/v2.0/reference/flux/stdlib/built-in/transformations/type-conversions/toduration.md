@@ -18,11 +18,16 @@ weight: 501
 The `toDuration()` function converts all values in the `_value` column to durations.
 
 _**Function type:** Type conversion_  
-_**Output data type:** Duration_
 
 ```js
 toDuration()
 ```
+
+_**Supported data types:** Integer | String | Uinteger_
+
+{{% note %}}
+`toDuration()` assumes numeric input values are **nanoseconds**.
+{{% /note %}}
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function

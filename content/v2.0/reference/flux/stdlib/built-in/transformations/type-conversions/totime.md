@@ -14,11 +14,16 @@ weight: 501
 The `toTime()` function converts all values in the `_value` column to times.
 
 _**Function type:** Type conversion_  
-_**Output data type:** Time_
 
 ```js
 toTime()
 ```
+
+_**Supported data types:** Integer | String | Uinteger_
+
+{{% note %}}
+`toTime()` assumes all numeric input values are nanosecond epoch timestamps.
+{{% /note %}}
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
