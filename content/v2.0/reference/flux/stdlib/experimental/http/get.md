@@ -2,7 +2,7 @@
 title: http.get() function
 description: >
   The `http.get()` function submits an HTTP GET request to the specified URL and
-  returns the HTTP status code as an integer and the response body as a byte array.
+  returns the HTTP status code, response body, and response headers.
 menu:
   v2_0_ref:
     name: http.get
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `http.get()` function submits an HTTP GET request to the specified URL and
-returns the HTTP status code as an integer and the response body as a byte array.
+returns the HTTP status code, response body, and response headers.
 
 _**Function type:** Miscellaneous_
 
@@ -48,6 +48,28 @@ Default is `30s`.
 
 _**Data type:** Duration_
 
+## Response format
+`http.get` returns an object that contains the following:
+
+- [statusCode](#statuscode)
+- [body](#body)
+- [headers](#headers)
+
+### statusCode
+The HTTP status code returned by the GET request.
+
+_**Data type:** Integer_
+
+### body
+The response body.
+
+_**Data type:** Byte Array_
+
+### headers
+Headers included with the response.
+
+_**Data type:** Object_
+
 ## Examples
 
 ##### Get the status of InfluxDB
@@ -62,6 +84,7 @@ response = http.get(
     headers: {Authorization: "Token ${token}"}
   )
 
-status = response.statusCode
-body = string(v: response.body)
+httpStatus = response.statusCode
+responseBody = string(v: response.body)
+responseHeaders = response.headers
 ```
