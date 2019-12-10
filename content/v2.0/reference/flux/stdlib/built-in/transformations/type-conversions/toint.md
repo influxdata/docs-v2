@@ -14,11 +14,19 @@ weight: 501
 The `toInt()` function converts all values in the `_value` column to integers.
 
 _**Function type:** Type conversion_  
-_**Output data type:** Integer_
 
 ```js
 toInt()
 ```
+
+_**Supported data types:** Boolean | Duration | Float | Numeric String | Time | Uinteger_
+
+For duration and time values, `toInt()` returns the following:
+
+| Input type | Returned value                                      |
+|:---------- |:--------------                                      |
+| Duration   | The number of nanoseconds in the specified duration |
+| Time       | A nanosecond epoch timestamp                        |
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
