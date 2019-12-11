@@ -1,35 +1,38 @@
 ---
 title: Python client library
 description: >
-  Use the Python client library to interact with InfluxDB
+  Use the Python client library to interact with InfluxDB.
 weight: 103
 menu:
   v2_0_ref:
     name: Python client library
     parent: InfluxDB v2 API
-v2.0/tags: [client libraries]
+v2.0/tags: [client libraries, python]
 ---
 
 Use the [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
-If you haven't, go ahead and read the [getting started](/v2.0/get-started/) guide.
+If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
 
-1. Install the InfluxDB Python library by running
+1. Install the InfluxDB Python library:
 
     ```sh
     pip install influxdb-client
     ```
 
 2. Ensure that InfluxDB is running.
+   If running InfluxDB locally, it's http://localhost:9999.
+   If using InfluxDB Cloud, it's the URL of their InfluxDB Cloud UI.
+   For example: https://us-west-2-1.aws.cloud2.influxdata.com.
 
-## Writing data to InfluxDB with Python
+## Write data to InfluxDB with Python
 
 We are going to write some data in [line protocol](/v2.0/reference/syntax/line-protocol/) using the Python library.
 
-The first line of our program imports the InfluxDB library:
+In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
 
 ```python
 import influxdb_client
@@ -47,7 +50,7 @@ token = "<my-token>"
 
 In order to write data, we need to create a few objects: a client, and a writer.
 The InfluxDBClient object takes three named parameters: `url`, `org`, and `token`.
-Here we simply pass the three variable we have already defined.
+Here, we simply pass the three variables we have already defined.
 
 ```python
 client = InfluxDBClient(
@@ -58,32 +61,35 @@ client = InfluxDBClient(
 ```
 
 The `InfluxDBClient` object has a `write_api` method, used for configuration.
-We create and instance of the writer object using this method.
+Instantiate a writer object using the `client` object and the `write_api` method.
 
-```
+```python
 write_api = client.write_api()
 ```
 
-Next we need to give the writer some information about configuration.
+Use the `write_api` method to configure the writer object.
 
 ```python
 write_api = client.write_api(write_options=SYNCHRONOUS)
 ```
 
 If we were to run the file now, we'd get an error telling us `'SYNCHRONOUS' is not defined`.
-So in order to do this we need to add another line at the top of the file:
+In order to do this we need to add another line at the top of the file:
 
 ```python
 from influxdb_client.client.write_api import SYNCHRONOUS
 ```
 
-We need two more lines to have a program that can write data.
-Create a [point](/v2.0/reference/glossary/#point) object and write it to the database using the `write` method of the API writer object.
+We need two more lines for our program to write data.
+Create a [point](/v2.0/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object.
+The write method requires three parameters: `bucket`, `org`, and `record`.
 
 ```python
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
 write_api.write(bucket=bucket, org=org, record=p)
 ```
+
+For more information, see the [client README on GitHub](https://github.com/influxdata/influxdb-client-python).
 
 ### Complete example write script
 
