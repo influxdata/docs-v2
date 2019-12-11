@@ -24,6 +24,15 @@ uint(v: "4")
 ### v
 The value to convert.
 
+_**Data type:** Boolean | Duration | Float | Integer | Numeric String | Time_
+
+For duration and time values, `uint()` returns the following:
+
+| Input type | Returned value                                      |
+|:---------- |:--------------                                      |
+| Duration   | The number of nanoseconds in the specified duration |
+| Time       | A nanosecond epoch timestamp                        |
+
 ## Examples
 ```js
 from(bucket: "sensor-data")
