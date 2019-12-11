@@ -16,6 +16,24 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.56.0 [2019-12-05]
+
+### Features
+- Crate for typing Flux standard library.
+- Serialize type environment.
+- Improve filter performance when filtering on values.
+- Update usage duration test to exclude queue and requeue time.
+- Add types for some built-ins.
+- Add `timeout` parameter to experimental `http.get()`.
+
+### Bug fixes
+- Properly use a fake version with `flux-config` when no version is present.
+- Address clippy lints.
+- Add bytes monotype to Rust semantic module.
+- Allow underscores (`_`) in type expressions.
+
+---
+
 ## v0.55.1 [2019-12-02]
 
 ### Bug fixes
