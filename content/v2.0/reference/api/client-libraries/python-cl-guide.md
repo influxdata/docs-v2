@@ -6,7 +6,7 @@ weight: 103
 menu:
   v2_0_ref:
     name: Python client library
-    parent: InfluxDB v2 API
+    parent: Client libraries
 v2.0/tags: [client libraries, python]
 ---
 
@@ -55,8 +55,8 @@ Here, we simply pass the three variables we have already defined.
 ```python
 client = InfluxDBClient(
     url="http://localhost:9999",
-    token="my-token",
-    org="my-org"
+    token=token,
+    org=org
 )
 ```
 
@@ -73,7 +73,6 @@ Use the `write_api` method to configure the writer object.
 write_api = client.write_api(write_options=SYNCHRONOUS)
 ```
 
-If we were to run the file now, we'd get an error telling us `'SYNCHRONOUS' is not defined`.
 In order to do this we need to add another line at the top of the file:
 
 ```python
@@ -97,9 +96,9 @@ For more information, see the [client README on GitHub](https://github.com/influ
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-bucket = "<bucket>"
-org = "<my-org>"
-token = "<token>"
+bucket = bucket
+org = org
+token = token
 url = "http://localhost:9999"
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
