@@ -7,10 +7,13 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.21 [2019-??-??]
+## v2.0.0-alpha.21 [2019-12-12]
 
 ### Features
 - Add stacked line layer option to graphs.
+- Annotate log messages with trace ID, if available.
+- Bucket create to accept an organization name flag.
+- Add trace ID response header to query endpoint.
 
 ### Bug Fixes
 - Allow table columns to be draggable in table settings.
@@ -23,6 +26,13 @@ weight: 101
 - Gracefully handle invalid user-supplied JSON.
 - Fix crash when loading queries built using the query builder.
 - Create cell view properties on dashboard creation.
+- Update scrollbar style.
+- Fixed table UI threshold colorization issue.
+- Fixed windowPeriod issue that stemmed from Webpack rules.
+16175: Added delete functionality to note cells so that they can be deleted
+- Fix failure to create labels when creating Telegraf configs
+- Fix crash when editing a Telegraf config.
+- Updated start/end time functionality so that custom script time ranges overwrite dropdown selections.
 
 ## v2.0.0-alpha.20 [2019-11-20]
 
