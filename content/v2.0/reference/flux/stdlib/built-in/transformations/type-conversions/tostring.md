@@ -14,11 +14,12 @@ weight: 501
 The `toString()` function converts all values in the `_value` column to strings.
 
 _**Function type:** Type conversion_  
-_**Output data type:** String_
 
 ```js
 toString()
 ```
+
+_**Supported data types:** Boolean | Bytes | Duration | Float | Integer | Time | Uinteger_
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function

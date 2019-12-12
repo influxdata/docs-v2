@@ -11,10 +11,82 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.54.0**.
+_The latest release of InfluxDB v2.0 alpha includes **Flux v0.57.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.57.0 [2019-12-10]
+
+### Features
+- Categorize more flux errors with codes.
+- Teach flux-config how to download the sources when using vendor.
+- Opentracing in query execution runtime.
+- Reduce memory allocations for operations in values.
+- Translate FlatBuffers semantic graph to Go.
+- Add types for some universe builtins.
+- Add type declarations for builtins.
+- Add Numeric and Row kind constraints.
+
+### Bug fixes
+- Enable strict mode by default.
+
+---
+
+## v0.56.0 [2019-12-05]
+
+### Features
+- Crate for typing Flux standard library.
+- Serialize type environment.
+- Improve filter performance when filtering on values.
+- Update usage duration test to exclude queue and requeue time.
+- Add types for some built-ins.
+- Add `timeout` parameter to experimental `http.get()`.
+
+### Bug fixes
+- Properly use a fake version with `flux-config` when no version is present.
+- Address clippy lints.
+- Add bytes monotype to Rust semantic module.
+- Allow underscores (`_`) in type expressions.
+
+---
+
+## v0.55.1 [2019-12-02]
+
+### Bug fixes
+- Fix e2e usage test so that their queries are properly pushed down.
+
+---
+
+## v0.55.0 [2019-12-02]
+
+### Breaking changes
+- Expand the interface for `BufferedTable`.
+
+### Features
+- Expose optimized `pivot()` function.
+- Create utility program for building `libflux`.
+- Create a tool that measures performance of calling Rust from Go.
+- Inject types in the semantic graph.
+- MonoType and PolyType flatbuffer encodings.
+- MonoType and PolyType flatbuffer schemas.
+- Update Rust flatbuffers to more closely match Rust semantic graph.
+- Flatbuffers AST to Go AST.
+- Port immutable walk and fix mutable walk.
+- Define the flatbuffers schema for semantic graph.
+- Infer imported package types.
+- Unify and infer function types.
+- Add support for safely converting bytes to strings.
+- Add sqlite3 support.
+- Add internal table utility for streaming tables.
+
+### Bug fixes
+- Update semantic graph FlatBuffers schema for identifiers.
+- Ignore order when comparing record types.
+- Operands for `<=` and `>=` are comparable AND equatable.
+- Constrain unary expressions to be same type as operand.
+
+---
 
 ## v0.54.0 [2019-11-11]
 
