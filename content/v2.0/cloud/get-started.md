@@ -27,7 +27,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 
 1. Choose one of the following:
    - To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Start your Free Plan now**. When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
-   - To subscribe to an InfluxDB Cloud 2.0 plan (**Usage-Based** only) through AWS Marketplace, go to [Amazon Marketplace](https://aws.amazon.com/marketplace), search for **InfluxDB Cloud 2.0**, and then follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Start Now**.
+   - To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your AWS account, login to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS), and follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Start Now**. All usage charges will be paid through the subscribed AWS account.
 
        {{%note%}} **Note:** Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS Marketplace.
         {{%/note%}}
