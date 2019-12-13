@@ -220,13 +220,13 @@ You can install InfluxDB in a local kubernetes environment with Minikube.
     kind: Namespace
     apiVersion: v1
     metadata:
-      name: monitoring
+      name: influxdb
     ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: influxdb
-      namespace: monitoring
+      namespace: influxdb
     spec:
       selector:
         matchLabels:
@@ -239,10 +239,6 @@ You can install InfluxDB in a local kubernetes environment with Minikube.
           containers:
             - name: influxdb
               image: quay.io/influxdb/influxdb:2.0.0-alpha
-              resources:
-                limits:
-                  memory: "128Mi"
-                  cpu: "1000m"
               ports:
                 - containerPort: 9999
     ---
@@ -250,9 +246,9 @@ You can install InfluxDB in a local kubernetes environment with Minikube.
     kind: Service
     metadata:
       name: influxdb
-      namespace: monitoring
+      namespace: influxdb
     spec:
-      type: NodePort
+      type: ClusterIP
       ports:
         - port: 9999
           protocol: TCP
@@ -270,7 +266,7 @@ You can install InfluxDB in a local kubernetes environment with Minikube.
     You should see an output like this:
 
     ```
-    namespace/monitoring configured
+    namespace/influxdb configured
     deployment.apps/influxdb configured
     service/influxdb configured
     ```
@@ -278,21 +274,18 @@ You can install InfluxDB in a local kubernetes environment with Minikube.
 5. Ensure the service is running:
 
     ```
-    $ kubectl get service -n monitoring
+    $ kubectl get service -n influxdb
     NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
     influxdb   NodePort   10.100.164.55   <none>        9999:31111/TCP   26m
     ```
 
-6. Get the cluster IP address:
+6. Forward the port:
 
-   ```
-   minikube ip
-   ```
-
-7. In your browser, visit the minikube IP address and port number listed for the service
-   (something like `192.168.64.6:31111`).
-
-Follow the on-screen instructions start using InfluxDB!
+    ```
+    kubectl port-forward -n influxdb svc/influxdb 9999:9999 &
+    ```
+    
+Vist localhost:9999 in your browser and follow the on-screen instructions to start using InfluxDB!
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
 
