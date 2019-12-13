@@ -7,12 +7,39 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.0.0-alpha.21 [2019-12-12]
+
+### Features
+- Add stacked line layer option to graphs.
+- Annotate log messages with trace ID, if available.
+- Bucket create to accept an organization name flag.
+- Add trace ID response header to query endpoint.
+
+### Bug Fixes
+- Allow table columns to be draggable in table settings.
+- Light up the home page icon when active.
+- Make numeric inputs first class citizens.
+- Prompt users to make a dashboard when dashboards are empty.
+- Remove name editing from query definition during threshold check creation.
+- Wait until user stops dragging and releases marker before zooming in after threshold changes.
+- Adds properties to each cell on `GET /dashboards/{dashboardID}`.
+- Gracefully handle invalid user-supplied JSON.
+- Fix crash when loading queries built using the query builder.
+- Create cell view properties on dashboard creation.
+- Update scrollbar style.
+- Fixed table UI threshold colorization issue.
+- Fixed windowPeriod issue that stemmed from Webpack rules.
+16175: Added delete functionality to note cells so that they can be deleted
+- Fix failure to create labels when creating Telegraf configs
+- Fix crash when editing a Telegraf config.
+- Updated start/end time functionality so that custom script time ranges overwrite dropdown selections.
+
 ## v2.0.0-alpha.20 [2019-11-20]
 
 ### Features
 - Add TLS insecure skip verify to influx CLI.
 - Extend influx cli user create to allow for organization ID and user passwords to be set on user.
-- Autopopulate organization IDs in the code samples.
+- Auto-populate organization IDs in the code samples.
 - Expose bundle analysis tools for front end resources.
 - Allow users to view just the output section of a Telegraf config.
 - Allow users to see string data in single stat graph type.

@@ -14,11 +14,12 @@ weight: 501
 The `toBool()` function converts all values in the `_value` column to booleans.
 
 _**Function type:** Type conversion_  
-_**Output data type:** Boolean_
 
 ```js
 toBool()
 ```
+
+_**Supported data types:** Float | Integer | String | Uinteger_
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
