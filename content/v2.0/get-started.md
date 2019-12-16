@@ -198,23 +198,22 @@ docker exec -it influxdb /bin/bash
 <!-------------------------------- BEGIN kubernetes---------------------------->
 {{% tab-content %}}
 
-### Install InfluxDB in a Kubernetes Cluster
+### Install InfluxDB in a Kubernetes cluster
 
-Below you will find instructions for using Minikube, but the steps should be similar in any Kubernetes cluster.
+The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
 
-1. [Install minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
+1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
-2. Start minikube:
+2. Start Minikube:
 
     ```
     minikube start
     ```
 
 3. Save the following YAML configuration file on your local machine.
-   This file will set up a namespace in your cluster named "influxdb",
-   and create a Deployment and Service for running and connecting to InfluxDB.
+   This file will create an `influxdb` namespace in your clusterand a deployment and service for running and connecting to InfluxDB.
 
-    ```yaml
+    {{% truncate %}}
     kind: Namespace
     apiVersion: v1
     metadata:
@@ -253,7 +252,8 @@ Below you will find instructions for using Minikube, but the steps should be sim
           name: http
       selector:
         app: influxdb
-    ```
+    {{% /truncate %}}
+
 
 4. Apply the configuration by running:
 
@@ -264,7 +264,7 @@ Below you will find instructions for using Minikube, but the steps should be sim
 5. Ensure the service is running:
 
     ```
-    $ kubectl get service -n influxdb
+    kubectl get service -n influxdb
     ```
 
 6. Forward the port from inside the cluster:
