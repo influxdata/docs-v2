@@ -210,50 +210,67 @@ The instructions below use Minikube, but the steps should be similar in any Kube
     minikube start
     ```
 
-3. Save the following YAML configuration file on your local machine.
-   This file will create an `influxdb` namespace in your clusterand a deployment and service for running and connecting to InfluxDB.
+3. Save the following YAML configuration file on your local machine:
 
-    {{% truncate %}}
-    kind: Namespace
+    ```yaml
+    ---
     apiVersion: v1
+    kind: Namespace
     metadata:
-      name: influxdb
+        name: influxdb
     ---
     apiVersion: apps/v1
-    kind: Deployment
+    kind: StatefulSet
     metadata:
-      name: influxdb
-      namespace: influxdb
-    spec:
-      selector:
-        matchLabels:
-          app: influxdb
-      template:
-        metadata:
-          labels:
+        labels:
             app: influxdb
-        spec:
-          containers:
-            - name: influxdb
-              image: quay.io/influxdb/influxdb:2.0.0-alpha
-              ports:
-                - containerPort: 9999
+        name: influxdb
+        namespace: influxdb
+    spec:
+        replicas: 1
+        selector:
+            matchLabels:
+                app: influxdb
+        serviceName: influxdb
+        template:
+            metadata:
+                labels:
+                    app: influxdb
+            spec:
+                containers:
+                  - image: quay.io/influxdb/influxdb:2.0.0-alpha
+                    name: influxdb
+                    ports:
+                      - containerPort: 9999
+                        name: influxdb
+                    volumeMounts:
+                      - mountPath: /root/.influxdbv2
+                        name: data
+        volumeClaimTemplates:
+          - metadata:
+                name: data
+                namespace: influxdb
+            spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                    requests:
+                        storage: 10G
     ---
     apiVersion: v1
     kind: Service
     metadata:
-      name: influxdb
-      namespace: influxdb
+        name: influxdb
+        namespace: influxdb
     spec:
-      type: ClusterIP
-      ports:
-        - port: 9999
-          protocol: TCP
-          name: http
-      selector:
-        app: influxdb
-    {{% /truncate %}}
-
+        ports:
+          - name: influxdb
+            port: 9999
+            targetPort: 9999
+        selector:
+            app: influxdb
+        type: ClusterIP
+    ```
 
 4. Apply the configuration by running:
 
@@ -261,13 +278,19 @@ The instructions below use Minikube, but the steps should be similar in any Kube
     kubectl apply -f <path-to-config>.yaml
     ```
 
-5. Ensure the service is running:
+5. Ensure the pod is running:
+
+    ```
+    kubectl get pods -n influxdb
+    ```
+    
+6. Ensure the service is running:
 
     ```
     kubectl get service -n influxdb
     ```
 
-6. Forward the port from inside the cluster:
+7. Forward port 9999 from inside the cluster:
 
     ```
     kubectl port-forward -n influxdb svc/influxdb 9999:9999 &
