@@ -200,7 +200,9 @@ docker exec -it influxdb /bin/bash
 
 ### Install InfluxDB in a Kubernetes cluster
 
+{{% note %}}
 The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
+{{% /note %}}
 
 1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
