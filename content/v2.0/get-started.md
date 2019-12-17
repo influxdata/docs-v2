@@ -20,6 +20,7 @@ This article describes how to get started with InfluxDB OSS. To get started with
 [macOS](#)
 [Linux](#)
 [Docker](#)
+[Kubernetes](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -193,6 +194,52 @@ docker exec -it influxdb /bin/bash
 
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
+
+<!-------------------------------- BEGIN kubernetes---------------------------->
+{{% tab-content %}}
+
+### Install InfluxDB in a Kubernetes cluster
+
+{{% note %}}
+The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
+{{% /note %}}
+
+1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
+
+2. Start Minikube:
+
+    ```
+    minikube start
+    ```
+
+3. Apply the [sample InfluxDB configuration](https://github.com/influxdata/docs-v2/blob/master/static/downloads/influxdb-k8-minikube.yaml) by running:
+
+    ```
+    kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
+    ```
+
+    (**Note:** Always inspect yaml manifests before running `kubectl apply -f <url>`!)
+
+4. Ensure the pod is running:
+
+    ```
+    kubectl get pods -n influxdb
+    ```
+    
+5. Ensure the service is running:
+
+    ```
+    kubectl get service -n influxdb
+    ```
+
+6. Forward port 9999 from inside the cluster to localhost:
+
+    ```
+    kubectl port-forward -n influxdb svc/influxdb 9999:9999 &
+    ```
+
+{{% /tab-content %}}
+<!--------------------------------- END kubernetes ---------------------------->
 
 {{< /tabs-wrapper >}}
 
