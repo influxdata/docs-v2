@@ -88,7 +88,7 @@ p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("tem
 write_api.write(bucket=bucket, org=org, record=p)
 ```
 
-For more information, see the [client README on GitHub](https://github.com/influxdata/influxdb-client-python).
+For more information, see the [Python client README on GitHub](https://github.com/influxdata/influxdb-client-python).
 
 ### Complete example write script
 
