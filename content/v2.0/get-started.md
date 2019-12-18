@@ -235,7 +235,7 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 6. Forward port 9999 from inside the cluster to localhost:
 
     ```
-    kubectl port-forward -n influxdb svc/influxdb 9999:9999 &
+    kubectl port-forward -n influxdb svc/influxdb 9999:9999
     ```
 
 {{% /tab-content %}}
