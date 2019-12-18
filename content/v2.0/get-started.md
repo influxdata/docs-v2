@@ -225,17 +225,17 @@ The instructions below use Minikube, but the steps should be similar in any Kube
     ```
     kubectl get pods -n influxdb
     ```
-    
-5. Ensure the service is running:
+
+5. Ensure the service is available. You should see an IP address after `Endpoints`:
 
     ```
-    kubectl get service -n influxdb
+    kubectl describe service -n influxdb influxdb
     ```
 
 6. Forward port 9999 from inside the cluster to localhost:
 
     ```
-    kubectl port-forward -n influxdb svc/influxdb 9999:9999 &
+    kubectl port-forward -n influxdb svc/influxdb 9999:9999
     ```
 
 {{% /tab-content %}}
