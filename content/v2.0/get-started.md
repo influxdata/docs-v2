@@ -218,15 +218,15 @@ The instructions below use Minikube, but the steps should be similar in any Kube
     kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
     ```
 
-    (**Note:** Always inspect yaml manifests before running `kubectl apply -f <url>`!)
+    (**Note:** Always inspect YAML manifests before running `kubectl apply -f <url>`!)
 
-4. Ensure the pod is running:
+4. Ensure the Pod is running:
 
     ```
     kubectl get pods -n influxdb
     ```
 
-5. Ensure the service is available:
+5. Ensure the Service is available:
 
     ```
     kubectl describe service -n influxdb influxdb
