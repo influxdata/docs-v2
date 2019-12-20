@@ -128,8 +128,6 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - Retrieving data from a file based CSV source using the `file` parameter of the
   [`csv.from()`](/v2.0/reference/flux/functions/csv/from) function is not supported;
   however you can use raw CSV data with the `csv` parameter.
-- Multi-organization accounts and multi-user organizations are currently not
-  available in {{< cloud-name >}}.
 
 ### New features in InfluxDB Cloud 2.0
 
