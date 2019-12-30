@@ -39,10 +39,16 @@ Specify the following:
 
 ##### urls
 An array of URLs for your InfluxDB v2.0 instances.
-By default, InfluxDB 2.0 OSS runs on port `9999`.
-If using **{{< cloud-name >}}**, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/) for information
-about which URLs to use.
-**{{< cloud-name "short">}} requires HTTPS**.
+_By default, InfluxDB runs on port `9999`._
+
+{{% cloud-msg %}}
+###### {{< cloud-name "short" >}} URL
+To write data to an {{< cloud-name "short" >}} instance, use the URL of your
+{{< cloud-name "short" >}} user interface (UI).
+{{< cloud-name >}} requires HTTPS.
+
+For example: <code>https:<nolink>//us-west-2-1.aws.cloud2.influxdata.com</code>
+{{% /cloud-msg %}}
 
 ##### token
 Your InfluxDB v2.0 authorization token.
@@ -74,13 +80,13 @@ export INFLUX_TOKEN=YourAuthenticationToken
 
 {{% code-tab-content %}}
 ```sh
-$env:INFLUX_TOKEN = "YourAuthenticationToken"
+$env:INFLUX_TOKEN = “YourAuthenticationToken"
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```sh
-set INFLUX_TOKEN=YourAuthenticationToken
+set INFLUX_TOKEN=YourAuthenticationToken 
 # Make sure to include a space character at the end of this command.
 ```
 {{% /code-tab-content %}}
@@ -101,12 +107,12 @@ The name of the bucket to write data to.
 #### Example influxdb_v2 configuration
 The example below illustrates `influxdb_v2` configurations that write to InfluxDB OSS or {{< cloud-name >}}.
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
 [InfluxDB OSS](#)
 [{{< cloud-name "short" >}}](#)
-{{% /tabs %}}
-{{% tab-content %}}
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```toml
 # ...
 
@@ -118,18 +124,13 @@ The example below illustrates `influxdb_v2` configurations that write to InfluxD
 
 # ...
 ```
-{{% /tab-content %}}
-{{% tab-content %}}
-
-{{% cloud-msg %}}
-For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/).
-{{% /cloud-msg %}}
-
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```toml
 # ...
 
 [[outputs.influxdb_v2]]
-  urls = ["https://example.cloud2.influxdata.com"]
+  urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
   token = "$INFLUX_TOKEN"
   organization = "example-org"
   bucket = "example-bucket"
@@ -137,8 +138,8 @@ For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB 
 # ...
 ```
 
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% note %}}
 

@@ -169,34 +169,13 @@ Include the following in your request:
 
 ##### Example API write request
 
-Below is an example API write request using `curl`.
-The URL depends on the version and location of your InfluxDB 2.0 instance.
+Below is an example API write request using `curl`:
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[InfluxDB OSS](#)
-[{{< cloud-name "short">}}](#)
-{{% /tabs %}}
-{{% tab-content %}}
 ```sh
 curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
   --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
 ```
-{{% /tab-content %}}
-{{% tab-content %}}
-
-{{% cloud-msg %}}
-For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/).
-{{% /cloud-msg %}}
-
-```sh
-curl -XPOST "YOUR-INFLUXDB-CLOUD-URL/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
-```
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 ### Others
 

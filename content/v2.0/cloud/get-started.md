@@ -35,13 +35,10 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 2. InfluxDB Cloud requires email verification to complete the sign up process.
    Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
 3. (If you subscribed through InfluxData) Choose your cloud provider.
-4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
+4. Select a region for your {{< cloud-name >}} instance. The following regions are available:
 
-  - **Amazon Web Services (AWS)**
-      - **US West (Oregon)**
-      - **EU Frankfurt**
-  - **Google Cloud Platform (GCP)**
-      - **Iowa**
+  - **US West (Oregon)**
+  - **EU Frankfurt**
 
     _To suggest regions to add, click **Let us know** under Regions._
 5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
@@ -84,12 +81,22 @@ For information about using the InfluxDB v2 API, `influx` CLI, and client librar
 see [Write data to InfluxDB](/v2.0/write-data/).
 
 {{% note %}}
+
 #### InfluxDB Cloud instance endpoint
-When using Telegraf, the InfluxDB v2 API, the `influx` CLI, or the client libraries
-to interact with your {{< cloud-name "short" >}}, they each require the URL of your
-InfluxDB Cloud instance.
-See [InfluxDB Cloud URLs](/v2.0/cloud/urls/) for information about which URL to use
-and where to find it in your InfluxDB Cloud UI.
+
+When using Telegraf, the InfluxDB v2 API, the `influx` CLI, or the client libraries to interact with your {{< cloud-name "short" >}}
+instance, extract the "host" or "endpoint" of your instance from your {{< cloud-name "short" >}} UI URL.
+For example:
+
+```bash
+
+# for US West (Oregon)
+https://us-west-2-1.aws.cloud2.influxdata.com
+
+# for EU Frankfurt
+https://eu-central-1-1.aws.cloud2.influxdata.com
+```
+
 {{% /note %}}
 
 ## Query and visualize data
