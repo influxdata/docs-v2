@@ -7,7 +7,7 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.21 [2019-12-12]
+## v2.0.0-beta.1 [2019-12-12]
 
 ### Features
 - Add stacked line layer option to graphs.

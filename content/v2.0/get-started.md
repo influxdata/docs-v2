@@ -25,10 +25,10 @@ This article describes how to get started with InfluxDB OSS. To get started with
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 alpha
-Download InfluxDB v2.0 alpha for macOS.
+### Download and install InfluxDB v2.0 beta
+Download InfluxDB v2.0 beta for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.21_darwin_amd64.tar.gz" download>InfluxDB v2.0 alpha (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.1_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
 To unpackage the downloaded archive, **double click the archive file in Finder**
@@ -37,7 +37,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_2.0.0-alpha.21_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb_2.0.0-beta.1_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -46,7 +46,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.21_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.1_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -103,11 +103,11 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 alpha
-Download the InfluxDB v2.0 alpha package appropriate for your chipset.
+### Download and install InfluxDB v2.0 beta
+Download the InfluxDB v2.0 beta package appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.21_linux_amd64.tar.gz" download >InfluxDB v2.0 alpha (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-alpha.21_linux_arm64.tar.gz" download >InfluxDB v2.0 alpha (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.1_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.1_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
 
 ### Place the executables in your $PATH
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
@@ -116,10 +116,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-alpha.21_linux_amd64.tar.gz
+tar xvzf path/to/influxdb_2.0.0-beta.1_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-alpha.21_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.1_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -162,13 +162,13 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
-### Download and run InfluxDB v2.0 alpha
-Use `docker run` to download and run the InfluxDB v2.0 alpha Docker image.
+### Download and run InfluxDB v2.0 beta
+Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
 Expose port `9999`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha
+docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
 ```
 
 {{% note %}}
@@ -181,7 +181,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-alpha --reporting-disabled
+docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disabled
 ```
 {{% /note %}}
 

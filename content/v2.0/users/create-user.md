@@ -15,7 +15,7 @@ to create a user.
 ## Create a user in the InfluxDB UI
 
 {{% note %}}
-While in alpha, additional users cannot be created in the InfluxDB UI.
+Additional users cannot be created in the InfluxDB UI.
 {{% /note %}}
 
 ## Create a user using the influx CLI
