@@ -12,20 +12,21 @@ menu:
 InfluxDB Cloud 2.0 is available on multiple cloud providers in multiple regions.
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
-[InfluxDB API](/v2.0/reference/api/) or [InfluxDB client libraries](/v2.0/reference/api/client-libraries/).
+[InfluxDB API](/v2.0/reference/api/), [InfluxDB client libraries](/v2.0/reference/api/client-libraries/),
+[`influx` CLI](/v2.0/reference/cli/influx/), or [Telegraf](/v2.0/write-data/use-telegraf/).
 
 ## Amazon Web Services (AWS)
 
-| Region               | URL                                              |
-|:------               |:---                                              |
-| AWS US West (Oregon) | https://us-west-2-1.aws.cloud2.influxdata.com    |
-| AWS EU Frankfurt     | https://eu-central-1-1.aws.cloud2.influxdata.com |
+| Region           | URL                                              |
+|:------           |:---                                              |
+| US West (Oregon) | https://us-west-2-1.aws.cloud2.influxdata.com    |
+| EU Frankfurt     | https://eu-central-1-1.aws.cloud2.influxdata.com |
 
 ## Google Cloud Platform (GCP)
 
-| Region                         | URL                                                   |
-|:------                         |:---                                                   |
-| Google Cloud US Central (Iowa) | https://prod01-us-central-1.gcp.cloud2.influxdata.com |
+| Region | URL                                                   |
+|:------ |:---                                                   |
+| Iowa   | https://prod01-us-central-1.gcp.cloud2.influxdata.com |
 
 ---
 
@@ -37,4 +38,4 @@ For the URL of your specific InfluxDB Cloud instance:
     {{< nav-icon "load-data" >}}
 
 2. Go to **Client Libraries**.
-3. The URL of your InfluxDB instance is displayed at the top of the page.
+3. The URL of your InfluxDB instance is displayed near the top of the page.
