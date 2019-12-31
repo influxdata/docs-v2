@@ -24,9 +24,9 @@ Use the URLs below to interact with your InfluxDB Cloud instances with the
 
 ## Google Cloud Platform (GCP)
 
-| Region | URL                                                   |
-|:------ |:---                                                   |
-| Iowa   | https://prod01-us-central-1.gcp.cloud2.influxdata.com |
+| Region            | URL                                              |
+|:------            |:---                                              |
+| US Central (Iowa) | https://us-central1-1.gcp.cloud2.influxdata.com/ |
 
 ---
 
