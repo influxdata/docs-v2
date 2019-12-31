@@ -20,11 +20,11 @@ Currently, additional users cannot be created in the InfluxDB UI.
 
 ## Create a user using the influx CLI
 
-Use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
-to create a new user. A new user requires the following:
+To create a new user, use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
+and include the following:
 
-- A username
-- The organization name or organization ID to add the user to _(provided in the output of
+- Username
+- Organization name or organization ID to add the user to _(provided in the output of
   [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
 
 ```sh
@@ -39,10 +39,10 @@ influx user create -n johndoe -o example-org
 To create a new user with a password and add the user as a member of an organization,
 include a password and organization ID with the `influx user create` command.
 
-- A username
-- The organization name or organization ID to add the user to _(provided in the output of
+- Username
+- Organization name or organization ID to add the user to _(provided in the output of
   [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
-- A password
+- Password
 
 ```sh
 # Pattern
