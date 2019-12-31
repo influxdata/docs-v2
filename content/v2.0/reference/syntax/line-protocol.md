@@ -1,13 +1,11 @@
 ---
-title: Line protocol reference
-list_title: Line protocol
+title: Line protocol
 description: >
   InfluxDB uses line protocol to write data points.
   It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 menu:
   v2_0_ref:
     parent: Syntax
-    name: Line protocol
 weight: 102
 v2.0/tags: [write, line protocol, syntax]
 aliases:
@@ -69,8 +67,6 @@ Tag keys are subject to [naming restrictions](#naming-restrictions)._
 _**Key data type:** [String](#string)_  
 _**Value data type:** [String](#string)_
 
-_See [naming restrictions](#naming-restrictions)_
-
 ### Field set
 <span class="required">Required</span> –
 All field key-value pairs for the point.
@@ -79,9 +75,7 @@ _Field keys and string values are case-sensitive.
 Field keys are subject to [naming restrictions](#naming-restrictions)._
 
 _**Key data type:** [String](#string)_  
-_**Value data type:** [Float](#float) | [Integer](#integer) | [String](#string) | [Boolean](#boolean)_
-
-_See [naming restrictions](#naming-restrictions)_
+_**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteger) | [String](#string) | [Boolean](#boolean)_
 
 {{% note %}}
 _Always double quote string field values. More on quotes [below](#quotes)._
@@ -116,7 +110,7 @@ The **second unescaped space** delimits the field set from the timestamp.
 
 ```
 measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
-                               ┬                     ┬
+                               |                     |
                            1st space             2nd space
 ```
 
