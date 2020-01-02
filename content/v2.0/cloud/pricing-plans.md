@@ -25,11 +25,11 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
 
 #### Free Plan rate limits
 
-- **Writes:** 3MB every 5 minutes
-- **Query:** 30MB every 5 minutes
-- **Storage:** 72-hour data retention
+- **Writes:** 5.1MB every 5 minutes
+- **Query:** 300MB every 5 minutes
+- **Storage:** 30 days data retention
 {{% note %}}
-Data retention is determined by the time at which data is written to InfluxDB; not the timestamp of the data point. You can write data with timestamps older than 72 hours, but 72 hours after that data is written, it is evicted.
+Data retention is determined by the time at which data is written to InfluxDB; not the timestamp of the data point. You can write data with timestamps older than 30 days, but 30 days after that data is written, it is evicted.
 {{% /note %}}
 - **Series cardinality:** 10,000
 - **Create:**
