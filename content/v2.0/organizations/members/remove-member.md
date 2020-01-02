@@ -7,25 +7,39 @@ menu:
     name: Remove a member
     parent: Manage members
 weight: 203
-draft: true
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to remove a member from an organization.
 
+{{% note %}}
+Removing a member from an organization removes all permissions associated with the organization,
+but it does not delete the user from the system entirely.
+For information about deleting a user from InfluxDB, see [Delete a user](/v2.0/users/delete-user/).
+{{% /note %}}
+
 ## Remove a member from an organization in the InfluxDB UI
 
-1. Click the **Settings** tab in the navigation bar.
+1. Click **Settings** in the left navigation bar.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Members** tab.
-
-_Complete content coming soon_
+2. Select **Members**.
+3. Hover over the member you would like to delete and click the **{{< icon "delete" >}}** icon.
+4. Click **Delete**.
 
 ## Remove a member from an organization using the influx CLI
 
-Use the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add)
+Use the [`influx org members remove` command](/v2.0/reference/cli/influx/org/members/remove)
 to remove a member from an organization. Removing a member requires the following:
 
-_Complete content coming soon_
+- The organization name or ID _(provided in the output of [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
+- The member ID _(provided in the output of [`influx org members list`](/v2.0/reference/cli/influx/org/members/list/))_
+
+```sh
+# Pattern
+influx org members remove -o <member-id> -i <organization-id>
+
+# Example
+influx org members remove -o 00xXx0x00xXX0000 -i x0xXXXx00x0x000X
+```

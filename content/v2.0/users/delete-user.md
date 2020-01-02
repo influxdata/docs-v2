@@ -10,7 +10,13 @@ weight: 103
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to create a user.
+to delete a user.
+
+{{% warn %}}
+Deleting a user removes them completely from InfluxDB.
+To remove a user from an organization without deleting the user entirely, see
+[Remove a member from an organization](/v2.0/org/members/remove/).
+{{% /warn %}}
 
 ## Delete a user from the InfluxDB UI
 

@@ -21,6 +21,6 @@ influx user update [flags]
 |:----           |:-----------                |:----------: |
 | `-h`, `--help` | Help for `update`          |             |
 | `-i`, `--id`   | The user ID **(Required)** | string      |
-| `-n`, `--name` | The user name              | string      |
+| `-n`, `--name` | The username               | string      |
 
 {{% influx-cli-global-flags %}}
