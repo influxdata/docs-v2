@@ -1,7 +1,7 @@
 ---
 title: Other visualization tools
 description: >
-  Use the visualization tools other than the InfluxDB user interface to visualize
+  Use visualization tools other than the InfluxDB user interface to visualize
   time series data stored in InfluxDB.
 menu:
   v2_0:
