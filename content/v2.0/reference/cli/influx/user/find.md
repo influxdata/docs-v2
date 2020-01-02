@@ -20,6 +20,6 @@ influx user find [flags]
 |:----           |:-----------     |:----------: |
 | `-h`, `--help` | Help for `find` |             |
 | `-i`, `--id`   | The user ID     | string      |
-| `-n`, `--name` | The user name   | string      |
+| `-n`, `--name` | The username    | string      |
 
 {{% influx-cli-global-flags %}}

@@ -15,35 +15,39 @@ to create a user.
 ## Create a user in the InfluxDB UI
 
 {{% note %}}
-While in alpha, additional users cannot be created in the InfluxDB UI.
+Currently, additional users cannot be created in the InfluxDB UI.
 {{% /note %}}
 
 ## Create a user using the influx CLI
 
-Use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
-to create a new user. A new user requires the following:
+To create a new user, use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
+and include the following:
 
-- A username
+- Username
+- Organization name or organization ID to add the user to _(provided in the output of
+  [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
 
 ```sh
 # Pattern
-influx user create -n <username>
+influx user create -n <username> -o <org-name>
 
 # Example
-influx user create -n johndoe
+influx user create -n johndoe -o example-org
 ```
 
 ### Create a user with a password and organization
 To create a new user with a password and add the user as a member of an organization,
 include a password and organization ID with the `influx user create` command.
 
-_Use the [`influx org find` command](/v2.0/reference/cli/influx/org/find/)
-to retrieve your organization ID._
+- Username
+- Organization name or organization ID to add the user to _(provided in the output of
+  [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
+- Password
 
 ```sh
 # Pattern
-influx user create -n <username> -p <password> -o <org-id>
+influx user create -n <username> -p <password> -o <org-name>
 
 # Example
-influx user create -n johndoe -p PaSsWoRd -o 0o0x00o0x0000oo0
+influx user create -n johndoe -p PaSsWoRd -o example-org
 ```
