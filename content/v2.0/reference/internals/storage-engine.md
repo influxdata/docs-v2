@@ -10,7 +10,7 @@ menu:
 v2.0/tags: [storage, internals]
 ---
 
-The InfluxDB storage engine ensures that
+The InfluxDB storage engine ensures that:
 
 - Data is safely written to disk
 - Queried data is returned complete and correct
@@ -19,43 +19,42 @@ The InfluxDB storage engine ensures that
 This document outlines the internal workings of the storage engine.
 This information is presented both as a reference and to aid those looking to maximize performance.
 
-Major topics include:
+The storage engine includes the following components:
 
 * [Write Ahead Log (WAL)](#write-ahead-log-wal)
 * [Cache](#cache)
 * [Time-Structed Merge Tree (TSM)](#time-structured-merge-tree-tsm)
 * [Time Series Index (TSI)](#time-series-index-tsi)
 
-## Writing data: from API to disk
+## Writing data from API to disk
 
 The storage engine handles data from the point an API write request is received through writing data to the physical disk.
 Data is written to InfluxDB using [line protocol](/v2.0/reference/line-protocol/) sent via HTTP POST request to the `/write` endpoint.
 Batches of [points](/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 Points are also written to an in-memory cache and become immediately queryable.
-The cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
+The in-memory cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
 As TSM files accumulate, they are combined and compacted into higher level TSM files.
 
+{{% note %}}
 Points can be sent individually; however, for efficiency, most applications send points in batches.
 Points in a POST body can be from an arbitrary number of series, measurements, and tag sets.
 Points in a batch do not have to be from the same measurement or tagset.
+{{% /note %}}
 
 ## Write Ahead Log (WAL)
 
-The **Write Ahead Log** (WAL) ensures durability by retaining data when the storage engine restarts.
-It ensures that written data does not disappear in an unexpected failure.
-When a client sends a write request, the following steps occur:
+The **Write Ahead Log** (WAL) retains InfluxDB data when the storage engine restarts.
+The WAL ensures data is durable in case of an unexpected failure.
 
-1. Append write request to the end of the WAL file.
-2. Write data to disk using `fsync()`.
-3. Update the in-memory cache.
-4. Return success to caller.
+When the storage engine receives a write request, the following steps occur:
+
+1. The write request is appended to the end of the WAL file.
+2. Data is written data to disk using `fsync()`.
+3. The in-memory cache is updated.
+4. When data is successfully written to disk, a response confirms the write request was successful.
 
 `fsync()` takes the file and pushes pending writes all the way to the disk.
-As a system call, `fsync()` has a kernel context switch which is computationally expensive, but guarantees that data is safe on disk.
-
-{{% note%}}
-Once you receive a response to a write request, your data is on disk!
-{{% /note %}}
+As a system call, `fsync()` has a kernel context switch that's computationally expensive, but guarantees that data is safe on disk.
 
 When the storage engine restarts, the WAL file is read back into the in-memory database.
 InfluxDB then answers requests to the `/read` endpoint.
@@ -102,5 +101,6 @@ TSI stores series keys grouped by measurement, tag, and field.
 In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
 The TSI stores series keys grouped by measurement, tag, and field.
 TSI answers two questions well:
-1) What measurements, tags, fields exist?
-2) Given a measurement, tags, and fields, what series keys exist?
+
+- What measurements, tags, fields exist?
+- Given a measurement, tags, and fields, what series keys exist?
