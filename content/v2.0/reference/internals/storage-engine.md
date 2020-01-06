@@ -62,26 +62,23 @@ InfluxDB then answers requests to the `/read` endpoint.
 
 ## Cache
 
-The **cache** is an in-memory copy of data points current stored in the WAL.
+The **cache** is an in-memory copy of data points currently stored in the WAL.
 Points are organized by key, which is the measurement, tag set, and unique field.
 Each field is stored in its own time-ordered range.
 Data is not compressed in the cache.
 The cache is recreated on restart by re-reading the WAL files on disk back into memory.
 The cache is queried at runtime and merged with the data stored in TSM files.
-
 When the storage engine restarts, WAL files are re-read into the in-memory cache.
 
 Queries to the storage engine will merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running do not affect the result.
-
 Deletes sent to the cache will clear out the given key or the specific time range for the given key.
 
 ## Time-Structured Merge Tree (TSM)
 
 To efficiently compact and store data,
-the storage engine groups field values by series key,
-and then orders those field values by time.
+the storage engine groups field values by series key, and then orders those field values by time.
 (A [series key](/v2/) is defined by measurement, tag key and value, and field key.)
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
@@ -91,8 +88,6 @@ Column-oriented storage means we can read by series key and ignore what it doesn
 Storing data in columns lets the storage engine read by series key.
 
 After fields are stored safely in TSM files, the WAL is truncated and the cache is cleared.
-<!-- TODO what next? -->
-
 The TSM compaction code is quite complex.
 However, the high-level goal is quite simple:
 organize values for a series together into long runs to best optimize compression and scanning queries.
@@ -100,7 +95,6 @@ organize values for a series together into long runs to best optimize compressio
 ## Time Series Index (TSI)
 
 As data cardinality (the number of series) grows, queries read more series keys and become slower.
-
 The **Time Series Index** ensures queries remain fast as data cardinality grows.
 To keep queries fast as we have more data, we use a **Time Series Index**.
 
