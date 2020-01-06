@@ -20,7 +20,7 @@ The **Grafana Flux Data Source plugin** is currently in beta.
 
 1. [Start InfluxDB 2.0 OSS](/v2.0/get-started/) OR
    [sign up for {{< cloud-name >}}](/v2.0/cloud/get-started/).
-2. [Downland and install Grafana](https://grafana.com/grafana/download).
+2. [Download and install Grafana](https://grafana.com/grafana/download).
 3. Install the **Grafana Flux Data Source plugin** manually or with `grafana-cli` (installed
    with Grafana).
 
