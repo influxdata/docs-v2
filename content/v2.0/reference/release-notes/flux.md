@@ -16,6 +16,48 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.58.2 [2020-01-07]
+
+### Bug fixes
+- Correctly skip the stdlib symlink in libflux.
+
+---
+
+## v0.58.1 [2020-01-07]
+
+### Bug fixes
+- Ensure that stdlib is present when building with flux-config.
+
+---
+
+## v0.58.0 [2020-01-06]
+
+### Features
+- Serialize semantic graph flatbuffers.
+- Implement `onEmpty` parameter for `filter()`.
+- Serialize Flux standard library types as part of build process.
+- Add type declarations for universe.
+- Methods for type checking package dependencies.
+- Add type declarations for strings.
+
+### Bug fixes
+- Expose tracing flag.
+- Update `count` builtin type.
+- Update `experimental.set` builtin type.
+- Update the type of `influxdb.to` to be a passthrough.
+- Update `fill` builtin type.
+- Remove redundant clones found by a new version of clippy.
+- Fix durations in Rust semantic graph.
+- Removes unnecessary rc clone in semantic serializer.
+- Do not stall forever in flux-config when an error happens with verbose.
+- Update function block return statements to produce a stmt and not an expression.
+- Fix token location for `scan_with_regex`.
+- Cache environment variable for performance.
+- Fix a couple errors in builtin types.
+- Annotate variable assignment with polytype (not monotype).
+
+---
+
 ## v0.57.0 [2019-12-10]
 
 ### Features
