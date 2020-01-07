@@ -33,7 +33,7 @@ Data is written to InfluxDB using [line protocol](/v2.0/reference/line-protocol/
 Batches of [points](/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 Points are also written to an in-memory cache and become immediately queryable.
 The in-memory cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
-As TSM files accumulate, they are combined and compacted into higher level TSM files.
+As TSM files accumulate, the storage engine combines and compacts accumulated them into higher level TSM files.
 
 {{% note %}}
 Points can be sent individually; however, for efficiency, most applications send points in batches.
@@ -69,7 +69,7 @@ The cache is recreated on restart by re-reading the WAL files on disk back into 
 The cache is queried at runtime and merged with the data stored in TSM files.
 When the storage engine restarts, WAL files are re-read into the in-memory cache.
 
-Queries to the storage engine will merge data from the cache with data from the TSM files.
+Queries to the storage engine merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running do not affect the result.
 Deletes sent to the cache will clear out the given key or the specific time range for the given key.
