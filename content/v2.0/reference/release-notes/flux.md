@@ -16,6 +16,20 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.58.4 [2020-01-07]
+
+### Bug fixes
+- Skip stdlib symlink was removed erroneously.
+
+---
+
+## v0.58.3 [2020-01-07]
+
+### Bug fixes
+- Ensure stdlib directory is created.
+
+---
+
 ## v0.58.2 [2020-01-07]
 
 ### Bug fixes
