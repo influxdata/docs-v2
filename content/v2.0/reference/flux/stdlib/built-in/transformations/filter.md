@@ -19,7 +19,10 @@ _**Function type:** Transformation_
 _**Output data type:** Object_
 
 ```js
-filter(fn: (r) => r._measurement == "cpu")
+filter(
+  fn: (r) => r._measurement == "cpu",
+  onEmpty: "drop"
+)
 ```
 
 ## Parameters
@@ -40,6 +43,19 @@ _**Data type:** Function_
 {{% note %}}
 Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
+
+### onEmpty
+Defines the behavior for empty tables.
+Potential values are `keep` and `drop`.
+Defaults to `drop`.
+
+##### drop
+Empty tables are dropped.
+
+##### keep
+Empty tables are output to the next transformation.
+
+_**Data type:** String_
 
 ## Examples
 
