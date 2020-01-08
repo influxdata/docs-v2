@@ -36,7 +36,7 @@ The in-memory cache is periodically written to disk in the form of [TSM](#time-s
 As TSM files accumulate, the storage engine combines and compacts accumulated them into higher level TSM files.
 
 {{% note %}}
-Points can be sent individually; however, for efficiency, most applications send points in batches.
+While points can be sent individually, for efficiency, most applications send points in batches.
 Points in a POST body can be from an arbitrary number of series, measurements, and tag sets.
 Points in a batch do not have to be from the same measurement or tagset.
 {{% /note %}}
@@ -62,29 +62,29 @@ InfluxDB then answers requests to the `/read` endpoint.
 ## Cache
 
 The **cache** is an in-memory copy of data points currently stored in the WAL.
-Points are organized by key, which is the measurement, tag set, and unique field.
-Each field is stored in its own time-ordered range.
-Data is not compressed in the cache.
-The cache is recreated on restart by re-reading the WAL files on disk back into memory.
-The cache is queried at runtime and merged with the data stored in TSM files.
-When the storage engine restarts, WAL files are re-read into the in-memory cache.
+The cache:
+
+- Organizes points by key (measurement, tag set, and unique field)
+  Each field is stored in its own time-ordered range.
+- Stores uncompressed data.
+- Gets updates from the WAL each time the storage engine restarts.
+  The cache is queried at runtime and merged with the data stored in TSM files.
 
 Queries to the storage engine merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running do not affect the result.
-Deletes sent to the cache will clear out the given key or the specific time range for the given key.
+Deletes sent to the cache clear the specified key or time range for a specified key.
 
 ## Time-Structured Merge Tree (TSM)
 
 To efficiently compact and store data,
 the storage engine groups field values by series key, and then orders those field values by time.
-(A [series key](/v2/) is defined by measurement, tag key and value, and field key.)
+(A [series key](/v2.0/reference/glossary/#series-key) is defined by measurement, tag key and value, and field key.)
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.
 To improve efficiency, the storage engine only stores differences (or *deltas*) between values in a series.
-Column-oriented storage means we can read by series key and ignore what it doesn't need.
-Storing data in columns lets the storage engine read by series key.
+Column-oriented storage lets the engine read by series key and omit extraneous data.
 
 After fields are stored safely in TSM files, the WAL is truncated and the cache is cleared.
 The TSM compaction code is quite complex.
@@ -98,7 +98,7 @@ The **Time Series Index** ensures queries remain fast as data cardinality grows.
 To keep queries fast as we have more data, we use a **Time Series Index**.
 
 TSI stores series keys grouped by measurement, tag, and field.
-In data with high cardinality (a large quantity of series), it becomes slower to search through all series keys.
+In data with high cardinality (a large quantity of series), queries become slower.
 The TSI stores series keys grouped by measurement, tag, and field.
 TSI answers two questions well:
 
