@@ -7,7 +7,61 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.21 [2019-12-12]
+
+## v2.0.0-beta.1 [2019-01-08]
+
+### Features
+- Add support for notification endpoints to `influx` templates and packages.
+- Drop `id` prefix for secret key requirement for notification endpoints.
+- Add support for check resource to `pkger` parser.
+- Add support for check resource `pkger` dry run functionality
+- Add support for check resource `pkger` apply functionality
+- Add support for check resource `pkger` export functionality
+- Add new `kv.ForwardCursor` interface.
+- Add support for notification rule to `pkger` parser.
+- Add support for notification rule `pkger` dry run functionality
+- Add support for notification rule `pkger` apply functionality.
+- Add support for notification rule `pkger` export functionality.
+- Add support for tasks to `pkger` parser.
+- Add support for tasks to `pkger` dry run functionality
+- Add support for tasks to `pkger` apply functionality.
+- Add support for tasks to `pkger` export functionality.
+- Add `group()` to Query Builder.
+- Add last run status to check and notification rules.
+- Add last run status to tasks.
+- Extend `pkger` apply functionality with ability to provide secrets outside of package.
+- Add hide headers flag to `influx` CLI task find command.
+- Manual overrides for readiness endpoint.
+- Drop legacy inmem service implementation in favor of KV service with inmem dependency.
+- Drop legacy bolt service implementation in favor of KV service with bolt dependency.
+- While creating check, also display notification rules that would match check based on tag rules.
+- Increase default bucket retention period to 30 days.
+- Add toggle to table thresholds to allow users to choose between setting threshold colors to text or background.
+- Add developer documentation.
+- Capture User-Agent header as query source for logging purposes.
+
+### Bug Fixes
+- Ensure environment variables are applied consistently across command and fixes issue where `INFLUX_` environment variable prefix was not set globally.
+- Remove default frontend sorting when flux queries specify sorting.
+- Store canceled task runs in the correct bucket.
+- Update `sortby` functionality for table frontend sorts to sort numbers correctly.
+- Prevent potential infinite loop when finding tasks by organization.
+- Retain user input when parsing invalid JSON during import.
+- Fix test issues due to multiple flush/sign-ins being called in the same test suite.
+- Update `influx` CLI to show only "see help" message, instead of the whole usage.
+- Fix notification tag-matching rules and enable tests to verify.
+- Extend y-axis when stacked graph is selected.
+- Fix query reset bug that was resetting query in script editor whenever dates were changed.
+- Fix table threshold bug defaulting set colors to the background.
+- Time labels no longer squished to the left.
+- Fix underlying issue with disappearing queries made in Advanced Mode.
+- Prevent negative zero and allow zero to have decimal places.
+- Limit data loader bucket selection to non system buckets.
+
+### UI Improvements
+- Add honeybadger reporting to create checks.
+
+## v2.0.0-alpha.21 [2019-12-13]
 
 ### Features
 - Add stacked line layer option to graphs.
