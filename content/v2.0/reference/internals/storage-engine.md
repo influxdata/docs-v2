@@ -95,12 +95,9 @@ organize values for a series together into long runs to best optimize compressio
 
 As data cardinality (the number of series) grows, queries read more series keys and become slower.
 The **Time Series Index** ensures queries remain fast as data cardinality grows.
-To keep queries fast as we have more data, we use a **Time Series Index**.
-
-TSI stores series keys grouped by measurement, tag, and field.
-In data with high cardinality (a large quantity of series), queries become slower.
 The TSI stores series keys grouped by measurement, tag, and field.
-TSI answers two questions well:
+This allows the database to answer two questions well:
 
 - What measurements, tags, fields exist?
+  (This happens in meta queries.)
 - Given a measurement, tags, and fields, what series keys exist?
