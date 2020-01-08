@@ -7,7 +7,7 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-alpha.22 [2019-01-08]
+## v2.0.0-beta.1 [2019-01-08]
 
 ### Features
 - Add support for notification endpoints to `influx` templates and packages.
@@ -40,18 +40,17 @@ weight: 101
 - Capture User-Agent header as query source for logging purposes.
 
 ### Bug Fixes
-- Ensures env vars are applied consistently across cmd, and fixes issue where INFLUX_ env var prefix was not set globally.
-- Removed default frontend sorting when flux queries specify sorting
-- Store canceled task runs in the correct bucket
-- Updated Sortby functionality for table frontend sorts to sort numbers correctly
+- Ensure environment variables are applied consistently across command and fixes issue where `INFLUX_` environment variable prefix was not set globally.
+- Remove default frontend sorting when flux queries specify sorting.
+- Store canceled task runs in the correct bucket.
+- Update `sortby` functionality for table frontend sorts to sort numbers correctly.
 - Prevent potential infinite loop when finding tasks by organization.
-- Retain user input when parsing invalid JSON during import
-- Fixed test flakiness that stemmed from multiple flush/signins being called in the same test suite
-- Update pkger task export to only trim out option task and not all vars provided
-- Update influx CLI, only show "see help" message, instead of the whole usage.
-- Fix notification tag matching rules and enable tests to verify
-- Extend the y-axis when stacked graph is selected
-- Fixed query reset bug that was resetting query in script editor whenever dates were changed.
+- Retain user input when parsing invalid JSON during import.
+- Fix test issues due to multiple flush/sign-ins being called in the same test suite.
+- Update `influx` CLI to show only "see help" message, instead of the whole usage.
+- Fix notification tag-matching rules and enable tests to verify.
+- Extend y-axis when stacked graph is selected.
+- Fix query reset bug that was resetting query in script editor whenever dates were changed.
 - Fix table threshold bug defaulting set colors to the background.
 - Time labels no longer squished to the left.
 - Fix underlying issue with disappearing queries made in Advanced Mode.
