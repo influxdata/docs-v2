@@ -15,7 +15,7 @@ to update a user.
 ## Update a user in the InfluxDB UI
 
 {{% note %}}
-While in alpha, user information cannot be updated in the InfluxDB UI.
+User information cannot be updated in the InfluxDB UI.
 {{% /note %}}
 
 ## Update a user using the influx CLI
