@@ -21,7 +21,7 @@ To remove a user from an organization without deleting the user entirely, see
 ## Delete a user from the InfluxDB UI
 
 {{% note %}}
-Currently, users cannot be deleted from the InfluxDB UI.
+Users cannot be deleted from the InfluxDB UI.
 {{% /note %}}
 
 ## Delete a user using the influx CLI
