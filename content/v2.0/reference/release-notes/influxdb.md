@@ -7,6 +7,7 @@ menu:
     parent: Release notes
 weight: 101
 ---
+
 ## v2.0.0-beta.1 [2019-01-08]
 
 ### Features
@@ -55,6 +56,10 @@ weight: 101
 - Time labels no longer squished to the left.
 - Fix underlying issue with disappearing queries made in Advanced Mode.
 - Prevent negative zero and allow zero to have decimal places.
+- Limit data loader bucket selection to non system buckets.
+
+### UI Improvements
+- Add honeybadger reporting to create checks.
 
 ## v2.0.0-alpha.21 [2019-12-13]
 
