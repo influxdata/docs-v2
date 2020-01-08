@@ -25,6 +25,7 @@ influxd [command]
 | [generate](/v2.0/reference/cli/influxd/generate) | Generate time series data sets using TOML schema. |
 | [inspect](/v2.0/reference/cli/influxd/inspect)   | Inspect on-disk database data.                    |
 | [run](/v2.0/reference/cli/influxd/run)           | Start the influxd server _**(default)**_          |
+| [version](/v2.0/reference/cli/influxd/version)   | Output the current version of InfluxDB            |
 
 ## Flags
 
