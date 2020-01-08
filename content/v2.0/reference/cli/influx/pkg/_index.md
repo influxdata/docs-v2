@@ -18,23 +18,25 @@ influx pkg [command]
 ```
 
 ## Available commands
-| Command | Description                                                    |
-|:--------|----------------------------------------------------------------|
-| `all`   | Export all existing resources for an organization as a package |
+| Command                                              | Description                                                       |
+|:-------                                              |:-----------                                                       |
+| [export](/v2.0/reference/cli/influx/pkg/export/)     | Export existing resources as a package                            |
+| [new](/v2.0/reference/cli/influx/pkg/new/)           | Create a reusable pkg to create resources in a declarative manner |
+| [summary](/v2.0/reference/cli/influx/pkg/summary/)   | Summarize the provided package                                    |
+| [validate](/v2.0/reference/cli/influx/pkg/validate/) | Validate the provided package                                     |
 
 ## Flags
 
-| Flag                  | Description                                                                     | Input Type      |
-|:----------------------|:--------------------------------------------------------------------------------|-----------------|
-| `--buckets`           | Comma-separated list of bucket IDs                                              | list of strings |
-| `--dashboards`        | Comma-separated list of dashboard IDs                                           | list of strings |
-| `-d`, `--description` | Package description                                                             | string          |
-| `-f`, `--file`        | Package output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string          |
-| `-h`, `--help`        | Help for the `export` command                                                   |                 |
-| `--labels`            | Comma-separated list of label IDs                                               | list of strings |
-| `-n`, `--name`        | Package name                                                                    | string          |
-| `--resource-type`     | Resource type associated with all IDs via stdin                                 | string          |
-| `--variables`         | Comma-separated list of variable IDs                                            | list of strings |
-| `-v`, `--version`     | Package version                                                                 | string          |
+| Flag              | Description                                                                            | Input Type |
+|:----              |:-----------------------------                                                          |:---------- |
+| `-c`, `--color`   | Enable color in output _(default is true) _                                            |            |
+| `-f`, `--file`    | Path to package file                                                                   | string     |
+| `--force`         | Ignore warnings about destructive changes                                              |            |
+| `-h`, `--help`    | Help for the `pkg` command                                                             |            |
+| `-o`, `--org`     | The name of the organization that owns the bucket                                      | string     |
+| `--org-id`        | The ID of the organization that owns the bucket                                        | string     |
+| `-q`, `--quiet`   | Disable output printing                                                                |            |
+| `--secret`        | Secrets to provide alongside the package (format: `--secret=SECRET_KEY::SECRET_VALUE`) | string     |
+| `--table-borders` | Enable table borders _(default is true)_                                               |            |
 
 {{% influx-cli-global-flags %}}
