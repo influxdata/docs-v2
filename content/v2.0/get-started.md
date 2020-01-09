@@ -218,7 +218,11 @@ The instructions below use Minikube, but the steps should be similar in any Kube
     kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
     ```
 
-    (**Note:** Always inspect YAML manifests before running `kubectl apply -f <url>`!)
+    <div class="warn block">
+      <p>
+        Always inspect YAML manifests before running <code>kubectl apply -f &lt;url&gt;</code>!
+      </p>
+    </div>
 
 4. Ensure the Pod is running:
 
