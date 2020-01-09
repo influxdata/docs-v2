@@ -224,6 +224,9 @@ The instructions below use Minikube, but the steps should be similar in any Kube
       </p>
     </div>
 
+    This creates an `influxdb` Namespace, Service, and StatefulSet.
+    A PersistentVolumeClaim is also created to store data written to InfluxDB.
+
 4. Ensure the Pod is running:
 
     ```
