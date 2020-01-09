@@ -62,10 +62,11 @@ The `>` and `<` operators also [compare the lexicographic order of strings](#str
 {{% /note %}}
 
 ## Logical operators
-| Operator | Description                                                           |
-|:--------:|:-----------                                                           |
-| `and`    | Returns `true` if both operands are true. Otherwise, returns `false`. |
-| `or`     | Returns `true` if any operand is true. Otherwise, returns `false`.    |
+| Operator | Description                                                                |
+|:--------:|:-----------                                                                |
+| `exists` | Returns `false` if right operand is _**null**_. Otherwise, returns `true`. |
+| `and`    | Returns `true` if both operands are true. Otherwise, returns `false`.      |
+| `or`     | Returns `true` if any operand is true. Otherwise, returns `false`.         |
 
 #### Short-circuit evaluation
 Flux logical operators observe the short-circuiting behavior seen in other programming languages.
