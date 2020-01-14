@@ -26,4 +26,4 @@ This list will continue to grow as more client libraries are released.
 - [Java](https://github.com/influxdata/influxdb-client-java)
 - [JavaScript/Node.js](https://github.com/influxdata/influxdb-client-js)
 - [Python](https://github.com/influxdata/influxdb-client-python)
-- [Ruby](https://github.com/bonitoo-io/influxdb-client-ruby)
+- [Ruby](https://github.com/influxdata/influxdb-client-ruby)
