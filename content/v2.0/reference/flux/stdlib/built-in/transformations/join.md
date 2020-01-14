@@ -9,6 +9,8 @@ menu:
     name: join
     parent: built-in-transformations
 weight: 401
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/union/
 ---
 
 The `join()` function merges two or more input streams whose values are equal on
@@ -136,3 +138,15 @@ join(
   on: ["_time", "host"]
 )
 ```
+
+## join() versus union()
+`join()` creates new rows based on common values in one or more specified columns.
+Output rows also contain the differing values from each of the joined streams.
+`union()` does not modify data in rows, but unifies separate streams of tables
+into a single stream of tables and groups rows of data based on existing
+[group keys](/v2.0/reference/glossary/#group-key).
+
+Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
+are illustrated below:
+
+{{< svg "/static/svgs/join-vs-union.svg" >}}
