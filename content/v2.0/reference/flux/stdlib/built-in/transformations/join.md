@@ -140,8 +140,9 @@ join(
 ```
 
 ## join() versus union()
-`join()` outputs new rows comprised of data from each of the joined streams of tables.
-`union()` does not modify the data in each row, but unifies separate streams of tables
+`join()` creates new rows based on common values in one or more specified columns.
+Output rows also contain the differing values from each of the joined streams.
+`union()` does not modify data in rows, but unifies separate streams of tables
 into a single stream of tables and groups rows of data based on existing
 [group keys](/v2.0/reference/glossary/#group-key).
 
