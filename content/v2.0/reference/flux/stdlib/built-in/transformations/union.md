@@ -9,6 +9,8 @@ menu:
     name: union
     parent: built-in-transformations
 weight: 401
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/join/
 ---
 
 The `union()` function concatenates two or more input streams into a single output stream.
@@ -45,3 +47,15 @@ bucket2 = from(bucket: "example-bucket-2")
 
 union(tables: [bucket1, bucket2])
 ```
+
+## union() versus join()
+`union()` merges separate streams of tables into a single stream of tables and
+groups rows of data based on existing [group keys](/v2.0/reference/glossary/#group-key).
+`union()` does not modify individual rows of data.
+`join()` creates new rows based on common values in one or more specified columns.
+Output rows also contain the differing values from each of the joined streams.
+
+Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
+are illustrated below:
+
+{{< svg "/static/svgs/join-vs-union.svg" >}}
