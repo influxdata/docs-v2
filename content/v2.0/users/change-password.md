@@ -1,7 +1,7 @@
 ---
 title: Change your password
 seotitle: Change your password in InfluxDB
-description: Change your password in InfluxDB using the InfluxDB UI or the influx CLI.
+description: Change your password in InfluxDB using the influx CLI.
 menu:
   v2_0:
     name: Change your password
@@ -9,10 +9,7 @@ menu:
 weight: 105
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to update your password.
-
-## Change your password in the InfluxDB UI
+Use `influx` command line interface (CLI) to update your password.
 
 {{% note %}}
 User passwords cannot be updated in the InfluxDB UI.
@@ -28,7 +25,7 @@ to update a password for a user. To update a password, you need the following:
 
 ##### Update a password
 ```sh
-# Pattern
+# Syntax
 influx user password -n <username>
 
 # Example

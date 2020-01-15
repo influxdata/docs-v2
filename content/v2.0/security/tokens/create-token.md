@@ -35,7 +35,7 @@ Include flags with the command to grant specific permissions to the token.
 See the [available flags](/v2.0/reference/cli/influx/auth/create#flags).
 
 ```sh
-# Pattern
+# Syntax
 influx auth create -o <org-name> [permission-flags]
 
 # Example

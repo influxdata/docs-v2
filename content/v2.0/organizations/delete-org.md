@@ -32,7 +32,7 @@ to delete an organization. Deleting an organization requires the following:
 - The organization ID _(provided in the output of `influx org find`)_
 
 ```sh
-# Pattern
+# Syntax
 influx org delete -i <org-id>
 
 # Example

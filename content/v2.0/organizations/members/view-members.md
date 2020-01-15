@@ -29,7 +29,7 @@ to list members of an organization. Listing an organization's members requires t
 - The name or ID of the organization
 
 ```sh
-# Pattern
+# Syntax
 influx org members list -n <org-name>
 
 # Example

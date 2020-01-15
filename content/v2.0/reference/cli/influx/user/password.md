@@ -18,10 +18,10 @@ influx user password [flags]
 ```
 
 ## Flags
-| Flag           | Description     | Input type  |
-|:----           |:-----------     |:----------: |
-| `-h`, `--help` | Help for `find` |             |
-| `-i`, `--id`   | The user ID     | string      |
-| `-n`, `--name` | The username    | string      |
+| Flag           | Description         | Input type  |
+|:----           |:-----------         |:----------: |
+| `-h`, `--help` | Help for `password` |             |
+| `-i`, `--id`   | The user ID         | string      |
+| `-n`, `--name` | The username        | string      |
 
 {{% influx-cli-global-flags %}}

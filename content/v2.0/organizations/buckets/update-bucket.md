@@ -54,7 +54,7 @@ to update a bucket. Updating a bucket requires the following:
 
 ##### Update the name of a bucket
 ```sh
-# Pattern
+# Syntax
 influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
 
 # Example
@@ -63,7 +63,7 @@ influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 
 ##### Update a bucket's retention policy
 ```sh
-# Pattern
+# Syntax
 influx bucket update -i <bucket-id> -o <org-name> -r <retention period in nanoseconds>
 
 # Example
