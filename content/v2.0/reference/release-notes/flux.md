@@ -16,6 +16,23 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.59.0 [2020-01-14]
+
+### Features
+- Add Go/Rust API for getting semantic graph.
+- Optimize `limit()` transformation.
+- Optimize `group()` transformation.
+
+### Bug fixes
+- AST json serialization glitches.
+- Better messaging for malformed CSV.
+- Skip stdlib symlink was removed erroneously.
+- Ensure stdlib directory is created.
+- Correctly skip the stdlib symlink in libflux.
+- Ensure that stdlib is present when building with flux-config.
+
+---
+
 ## v0.58.4 [2020-01-07]
 
 ### Bug fixes
