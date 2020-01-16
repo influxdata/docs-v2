@@ -20,7 +20,7 @@ To open the **Data Explorer**, click the **Data Explorer** icon in the navigatio
 
 {{< nav-icon "data-explorer" >}}
 
-## Explore data with Flux
+## Explore data with Flux and the Data Explorer
 
 Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on time series data.
@@ -55,7 +55,7 @@ Select from available [visualization types](/v2.0/visualize-data/visualization-t
 ## Control your dashboard cell
 
 To open the cell editor overlay, click the gear icon in the upper right of a cell and select **Configure**.
- The cell editor overlay opens. 
+ The cell editor overlay opens.
 
 ### View raw data
 
