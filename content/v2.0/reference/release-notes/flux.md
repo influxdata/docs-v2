@@ -16,10 +16,32 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.59.3 [2020-01-16]
+
+### Bug fixes
+- Link both `libflux` and `libstd` for flux-config.
+
+---
+
+## v0.59.2 [2020-01-16]
+
+### Bug fixes
+- Link `libstd` into the lib directory instead of `libflux`.
+
+---
+
+## v0.59.1 [2020-01-16]
+
+### Bug fixes
+- Flux-config correctly copies `stdlib` when using a module.
+- UUID security.
+
+---
+
 ## v0.59.0 [2020-01-14]
 
 ### Features
-- Add Go/Rust API for getting semantic graph.
+- Add Go/Rust API for getting semantic graph..
 - Optimize `limit()` transformation.
 - Optimize `group()` transformation.
 
