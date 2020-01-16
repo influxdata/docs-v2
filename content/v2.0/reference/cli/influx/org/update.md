@@ -16,11 +16,11 @@ influx org update [flags]
 ```
 
 ## Flags
-| Flag                  | Description                          | Input type |
-|:----                  |:-----------                          |:----------:|
-| `-d`, `--description` | The description for the organization | string     |
-| `-h`, `--help`        | Help for `update`                    |            |
-| `-i`, `--id`          | The organization ID **(Required)**   | string     |
-| `-n`, `--name`        | The organization name                | string     |
+| Flag                  | Description                      | Input type |
+|:----                  |:-----------                      |:----------:|
+| `-d`, `--description` | Description for the organization | string     |
+| `-h`, `--help`        | Help for `update`                |            |
+| `-i`, `--id`          | **(Required)** Organization ID   | string     |
+| `-n`, `--name`        | Organization name                | string     |
 
 {{% influx-cli-global-flags %}}

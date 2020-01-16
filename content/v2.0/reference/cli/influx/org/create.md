@@ -16,10 +16,10 @@ influx org create [flags]
 ```
 
 ## Flags
-| Flag                  | Description                         | Input type  |
-|:----                  |:-----------                         |:----------: |
-| `-d`, `--description` | The description of the organization |             |
-| `-h`, `--help`        | Help for `create`                   |             |
-| `-n`, `--name`        | The name of organization            | string      |
+| Flag                  | Description                     | Input type  |
+|:----                  |:-----------                     |:----------: |
+| `-d`, `--description` | Description of the organization |             |
+| `-h`, `--help`        | Help for `create`               |             |
+| `-n`, `--name`        | Name of organization            | string      |
 
 {{% influx-cli-global-flags %}}
