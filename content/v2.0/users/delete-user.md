@@ -32,7 +32,7 @@ to delete a user. Deleting a user requires the following:
 - The user ID _(provided in the output of `influx user find`)_
 
 ```sh
-# Pattern
+# Syntax
 influx user delete -i <user-id>
 
 # Example

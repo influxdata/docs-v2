@@ -31,7 +31,7 @@ to delete a bucket. Deleting a bucket requires the following:
 - The name or ID of the organization to which the bucket belongs
 
 ```sh
-# Pattern
+# Syntax
 influx bucket delete -i <bucket-id>
 
 # Example

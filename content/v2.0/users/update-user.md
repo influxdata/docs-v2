@@ -27,7 +27,7 @@ to update a user. Updating a user requires the following:
 
 ##### Update the name of a user
 ```sh
-# Pattern
+# Syntax
 influx user update -i <user-id> -n <new-username>
 
 # Example
