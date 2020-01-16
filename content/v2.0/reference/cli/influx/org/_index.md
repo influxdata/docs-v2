@@ -23,11 +23,11 @@ influx org [command]
 ## Subcommands
 | Subcommand                                        | Description                      |
 |:----------                                        |:-----------                      |
-| [create](/v2.0/reference/cli/influx/org/create)   | Create an organization              |
-| [delete](/v2.0/reference/cli/influx/org/delete)   | Delete an organization              |
+| [create](/v2.0/reference/cli/influx/org/create)   | Create an organization           |
+| [delete](/v2.0/reference/cli/influx/org/delete)   | Delete an organization           |
 | [find](/v2.0/reference/cli/influx/org/find)       | Find organizations               |
 | [members](/v2.0/reference/cli/influx/org/members) | Organization membership commands |
-| [update](/v2.0/reference/cli/influx/org/update)   | Update an organization              |
+| [update](/v2.0/reference/cli/influx/org/update)   | Update an organization           |
 
 ## Flags
 | Flag           | Description                |
