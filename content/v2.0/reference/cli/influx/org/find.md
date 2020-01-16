@@ -18,7 +18,7 @@ influx org find [flags]
 ## Flags
 | Flag           | Description           | Input type  |
 |:----           |:-----------           |:----------: |
-| `-h`, `--help` | Help for `find`         |             |
+| `-h`, `--help` | Help for `find`       |             |
 | `-i`, `--id`   | The organization ID   | string      |
 | `-n`, `--name` | The organization name | string      |
 
