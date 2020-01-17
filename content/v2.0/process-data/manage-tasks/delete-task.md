@@ -28,7 +28,7 @@ Use the `influx task delete` command to delete a task.
 _This command requires a task ID, which is available in the output of `influx task find`._
 
 ```sh
-# Pattern
+# Syntax
 influx task delete -i <task-id>
 
 # Example

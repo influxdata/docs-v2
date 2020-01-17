@@ -27,16 +27,16 @@ influx pkg [command]
 
 ## Flags
 
-| Flag              | Description                                                                            | Input Type |
-|:----              |:-----------------------------                                                          |:---------- |
-| `-c`, `--disable-color`   | Disable color in output                                           |            |
-| `-f`, `--file`    | Path to package file                                                                   | string     |
-| `--force`         | Ignore warnings about destructive changes                                              |            |
-| `-h`, `--help`    | Help for the `pkg` command                                                             |            |
-| `-o`, `--org`     | The name of the organization that owns the bucket                                      | string     |
-| `--org-id`        | The ID of the organization that owns the bucket                                        | string     |
-| `-q`, `--quiet`   | Disable output printing                                                                |            |
-| `--secret`        | Secrets to provide alongside the package (format: `--secret=SECRET_KEY::SECRET_VALUE`) | string     |
-| `--disable-table-borders` | Disable table borders                                               |            |
+| Flag                      | Description                                                                           | Input Type |
+|:----                      |:-----------------------------                                                         |:---------- |
+| `-c`, `--disable-color`   | Disable color in output                                                               |            |
+| `-f`, `--file`            | Path to package file                                                                  | string     |
+| `--force`                 | Ignore warnings about destructive changes                                             |            |
+| `-h`, `--help`            | Help for the `pkg` command                                                            |            |
+| `-o`, `--org`             | The name of the organization that owns the bucket                                     | string     |
+| `--org-id`                | The ID of the organization that owns the bucket                                       | string     |
+| `-q`, `--quiet`           | Disable output printing                                                               |            |
+| `--secret`                | Secrets to provide alongside the package (format: `--secret=SECRET_KEY=SECRET_VALUE`) | string     |
+| `--disable-table-borders` | Disable table borders                                                                 |            |
 
 {{% influx-cli-global-flags %}}

@@ -32,7 +32,7 @@ to delete a token.
 _This command requires an auth ID, which is available in the output of `influx auth find`._
 
 ```sh
-# Pattern
+# Syntax
 influx auth delete -i <auth-id>
 
 # Example

@@ -37,7 +37,7 @@ to remove a member from an organization. Removing a member requires the followin
 - The member ID _(provided in the output of [`influx org members list`](/v2.0/reference/cli/influx/org/members/list/))_
 
 ```sh
-# Pattern
+# Syntax
 influx org members remove -o <member-id> -i <organization-id>
 
 # Example
