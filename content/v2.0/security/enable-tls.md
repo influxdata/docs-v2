@@ -69,8 +69,46 @@ InfluxDB supports three types of TLS certificates:
     You can choose to fill out these fields or leave them blank; both actions generate valid certificate files.
 
 2. **Set certificate file permissions**
+
+    The user running InfluxDB must have read permissions on the TLS certificate.
+
+    {{% note %}}You may opt to set up multiple users, groups, and permissions.
+    Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
+    {{% /note %}}
+
+    Run the following command to give InfluxDB read and write permissions on the certificate files.
+
+    ```bash
+    sudo chmod 644 /etc/ssl/<CA-certificate-file>
+    sudo chmod 600 /etc/ssl/<private-key-file>
+    ```
+
 3. **Run `influxd` with TLS flags**
+
+    Start InfluxDB with TLS command line flags:
+
+    ```bash
+    influxd \
+    --tls-cert "<path-to-crt>" \
+    --tls-key "<path-to-key>"
+    ```
+
 4. **Verify TLS connection**
+
+
+    Ensure you can connect over HTTPS by running
+
+    ```
+    curl -v https://influxdb:9999/api/v2/ping
+    ```
+
+    If using a self-signed certificate, use the `-k` flag to skip certificate verification:
+
+    ```
+    curl -vk https://influxdb:9999/api/v2/ping
+    ```
+
+    With this command, you should see output confirming a succussful TLS handshake.
 
 ## Enable HTTPS with a CA-signed certificate
 
