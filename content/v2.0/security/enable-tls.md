@@ -46,6 +46,13 @@ InfluxDB supports three types of TLS certificates:
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
 
+## Setup InfluxDB to use HTTPS
+
+1. **Download or generate certificate files**
+2. **Set certificate file permissions**
+3. **Run `influxd` with TLS flags**
+4. **Verify TLS connection**
+
 ## Enable HTTPS with a CA-signed certificate
 
 1. **Install the certificate**
