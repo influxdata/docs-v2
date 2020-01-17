@@ -36,7 +36,7 @@ influx pkg [command]
 | `-o`, `--org`     | The name of the organization that owns the bucket                                      | string     |
 | `--org-id`        | The ID of the organization that owns the bucket                                        | string     |
 | `-q`, `--quiet`   | Disable output printing                                                                |            |
-| `--secret`        | Secrets to provide alongside the package (format: `--secret=SECRET_KEY::SECRET_VALUE`) | string     |
+| `--secret`        | Secrets to provide alongside the package (format: `--secret=SECRET_KEY=SECRET_VALUE`)  | string     |
 | `--table-borders` | Enable table borders _(default is true)_                                               |            |
 
 {{% influx-cli-global-flags %}}
