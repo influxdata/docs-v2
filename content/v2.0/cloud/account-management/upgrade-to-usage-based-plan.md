@@ -13,7 +13,7 @@ menu:
 
 Upgrade to a Usage-Based Plan to remove rate limits from your InfluxDB Cloud 2.0 account.
 
-1. Click **Uprgrade** in the top right corner of the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade** in the top right corner of the {{< cloud-name "short" >}} user interface (UI).
 2. Review the terms and pricing associated with the Usage-Based Plan.
 3. Click **Sounds Good To Me**.
 4. Enter your contact information.
