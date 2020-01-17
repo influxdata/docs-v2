@@ -46,7 +46,7 @@ InfluxDB supports three types of TLS certificates:
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
 
-## Setup InfluxDB to use HTTPS
+## Setup InfluxDB to use TLS over HTTPS
 
 1. **Download or generate certificate files**
 
@@ -103,88 +103,6 @@ InfluxDB supports three types of TLS certificates:
     ```
 
     If using a self-signed certificate, use the `-k` flag to skip certificate verification:
-
-    ```
-    curl -vk https://influxdb:9999/api/v2/ping
-    ```
-
-    With this command, you should see output confirming a succussful TLS handshake.
-
-## Enable HTTPS with a CA-signed certificate
-
-1. **Install the certificate**
-
-    Place the private key file (`.key`) and the signed certificate file (`.crt`) in the `/etc/ssl/` directory.
-    (Other paths will also work.)
-
-2. **Set certificate file permissions**
-
-    The user running InfluxDB must have read permissions on the TLS certificate.
-
-    {{% note %}}You may opt to set up multiple users, groups, and permissions.
-    Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
-    {{% /note %}}
-
-    Run the following command to give InfluxDB read and write permissions on the certificate files.
-
-    ```bash
-    sudo chmod 644 /etc/ssl/<CA-certificate-file>
-    sudo chmod 600 /etc/ssl/<private-key-file>
-    ```
-
-3. **Run `influxd` with TLS flags**
-
-    Start InfluxDB with TLS command line flags:
-
-    ```bash
-    influxd \
-    --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
-    --tls-key "/etc/ssl/influxdb-selfsigned.key"
-    ```
-
-4. **Verify TLS connection**
-
-    Ensure you can connect over HTTPS by running
-
-    ```
-    curl -v https://influxdb:9999/api/v2/ping
-    ```
-
-    With this command, you should see output confirming a succussful TLS handshake.
-
-## Enable HTTPS with a self-signed certificate
-
-1. **Generate a self-signed certificate**
-
-    Use the `openssl` utility (preinstalled on many OSes) to create a certificate.
-    The following command generates a private key file (`.key`) and a self-signed
-    certificate file (`.crt`) which remain valid for the specified `NUMBER_OF_DAYS`.
-    It outputs those files to `/etc/ssl/` and gives them the required permissions.
-    (Other paths will also work.)
-
-    ```bash
-    sudo openssl req -x509 -nodes -newkey rsa:2048 \
-    -keyout /etc/ssl/influxdb-selfsigned.key \
-    -out /etc/ssl/influxdb-selfsigned.crt \
-    -days <NUMBER_OF_DAYS>
-    ```
-
-    When you execute the command, it will prompt you for more information.
-    You can choose to fill out that information or leave it blank; both actions generate valid certificate files.
-
-2. **Run `influxd` with TLS flags**
-
-    Start InfluxDB with TLS command line flags:
-
-    ```bash
-    influxd \
-    --tls-cert "/etc/ssl/influxdb-selfsigned.crt" \
-    --tls-key "/etc/ssl/influxdb-selfsigned.key"
-    ```
-
-3. **Verify TLS connection**
-
-    Ensure you can connect over HTTPS by running
 
     ```
     curl -vk https://influxdb:9999/api/v2/ping
