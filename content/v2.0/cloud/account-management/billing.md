@@ -10,25 +10,27 @@ menu:
     name: Add payment and view billing
 ---
 
-- Hover over the **Usage** icon in the left navigation bar and select **Billing**.
+Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
 
-    {{< nav-icon "cloud" >}}
+## Billing details
+To access billing information, click on the **user avatar** in the top right corner
+of the {{< cloud-name "short" >}} UI and select **Billing**.
 
-  If you subscribed to an InfluxDB Cloud 2.0 plan through **AWS Marketplace**, click the **AWS** link to access your billing and subscription information.
-  
-  If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
+If you subscribed to an InfluxDB Cloud 2.0 plan through **AWS Marketplace**, click the **AWS** link to access your billing and subscription information.
 
-  - [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
-  - [Add or update your contact information](#add-or-update-your-contact-information)
-  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
+If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
 
-    View information about:
+- [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
+- [Add or update your contact information](#add-or-update-your-contact-information)
+- [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
-  - [Usage-based Plan](#view-usage-based-plan-information)
-  - [Free Plan](#view-free-plan-information)
-  - [Exceeded rate limits](#exceeded-rate-limits)
-  - [Billing cycle](#billing-cycle)
-  - [Declined or late payments](#declined-or-late-payments)
+  View information about:
+
+- [Usage-based Plan](#view-usage-based-plan-information)
+- [Free Plan](#view-free-plan-information)
+- [Exceeded rate limits](#exceeded-rate-limits)
+- [Billing cycle](#billing-cycle)
+- [Declined or late payments](#declined-or-late-payments)
 
 ### Add or update your InfluxDB Cloud 2.0 payment method
 
@@ -52,7 +54,7 @@ menu:
 ### Send notifications when usage exceeds an amount
 
 1. On the Billing page, click **Notification Settings**.
-2. Select the **Send email notification** toggle, and then enter the email address to notify. 
+2. Select the **Send email notification** toggle, and then enter the email address to notify.
 3. Enter the dollar amount to trigger a notification email. By default, an email is triggered when the amount exceeds $10. (Whole dollar amounts only. For example, $10.50 is not a supported amount.)
 
 ### View Usage-based Plan information
