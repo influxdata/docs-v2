@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Cloud 2.0 pricing calculator
 description: >
-  Use the InfluxDB Cloud 2.0 pricing calculator to estimate costs by adjusting the number of devices, 
+  Use the InfluxDB Cloud 2.0 pricing calculator to estimate costs by adjusting the number of devices,
   plugins, metrics, and writes for the Usage-based Plan.
 weight: 2
 menu:
@@ -30,15 +30,13 @@ Guidelines used to estimate costs for default configurations:
 - Average response KB per cell = 0.5
 - Average query duration = 75ms
 
-**To estimate costs** 
+**To estimate costs**
 
 1. Do one of the following:
 
-  - Free Plan. Hover over the **Usage** icon in the left navigation bar and select **Billing**.
-
-         {{< nav-icon "cloud" >}}
-
-        Then click the **Pricing Calculator** link at the bottom of the page. 
+  - Free Plan. Click the **user avatar** in the top right corner of your
+    {{< cloud-name "short" >}} user interface (UI) and select **Billing**.
+    Then click the **Pricing Calculator** link at the bottom of the page. 
   - Usage-based Plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 3. Choose your region.
 4. Select your configuration:
