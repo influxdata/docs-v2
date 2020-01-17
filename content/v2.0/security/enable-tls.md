@@ -13,33 +13,35 @@ v2.0/tags: [security, authentication, tls, https, ssl]
 Enabling HTTPS encrypts the communication between clients and the InfluxDB server.
 When configured with a signed certificate, HTTPS can also verify the authenticity of the InfluxDB server to connecting clients.
 
+This pages outlines how to set up TLS over HTTPS with InfluxDB using either a signed or self-signed certificate.
+
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
 {{% /warn %}}
 
 ## Requirements
 
-To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate (also known as a Secured Sockets Layer (SSL) certificate).
+To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate, also known as a Secured Sockets Layer (SSL) certificate.
 InfluxDB supports three types of TLS certificates:
 
-### Single domain certificates signed by a Certificate Authority
+* **Single domain certificates signed by a [Certificate Authority](https://en.wikipedia.org/wiki/Certificate_authority)**
 
-Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-These certificates are signed and issued by a trusted, third-party Certificate Authority (CA).
-With this certificate option, every InfluxDB instance requires a unique single domain certificate.
+    Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+    These certificates are signed and issued by a trusted, third-party Certificate Authority (CA).
+    With this certificate option, every InfluxDB instance requires a unique single domain certificate.
 
-### Wildcard certificates signed by a Certificate Authority
+* **Wildcard certificates signed by a Certificate Authority**
 
-Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-Wildcard certificates can be used across multiple InfluxDB instances on different servers.
+    Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+    Wildcard certificates can be used across multiple InfluxDB instances on different servers.
 
-### Self-signed certificates
+* **Self-signed certificates**
 
-Self-signed certificates are _not_ signed by a trusted, third-party CA.
-Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
-They do not allow clients to verify the identity of the InfluxDB server.
-With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
-You can generate a self-signed certificate on your own machine.
+    Self-signed certificates are _not_ signed by a trusted, third-party CA.
+    Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
+    They do not allow clients to verify the identity of the InfluxDB server.
+    With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
+    You can generate a self-signed certificate on your own machine.
 
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
