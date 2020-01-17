@@ -23,9 +23,6 @@
 {{ else if or (eq $navIcon "feedback") }}
   {{ .Scratch.Set "icon" "nav-chat" }}
   {{ .Scratch.Set "title" "Feedback" }}
-{{ else if or (eq $navIcon "cloud") (eq $navIcon "usage") }}
-  {{ .Scratch.Set "icon" "cloud" }}
-  {{ .Scratch.Set "title" "Usage" }}
 {{ end }}
 
 {{ $icon := .Scratch.Get "icon" }}

@@ -10,10 +10,8 @@ menu:
     name: View data usage
 ---
 
-To view your {{< cloud-name >}} data usage, hover over the **Usage** icon in the
-left navigation bar and select **Usage**.
-
-{{< nav-icon "usage" >}}
+To view your {{< cloud-name >}} data usage, click the **user avatar** in the top
+right corner of your {{< cloud-name "short" >}} user interface (UI) and select **Usage**.
 
 Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
