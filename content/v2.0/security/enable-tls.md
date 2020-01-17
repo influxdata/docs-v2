@@ -49,6 +49,25 @@ InfluxDB supports three types of TLS certificates:
 ## Setup InfluxDB to use HTTPS
 
 1. **Download or generate certificate files**
+
+    If using a certificate provided by a CA, follow their instructions to download the certificate files.
+
+    If using a self-signed certificate, use the `openssl` utility to create a certificate.
+    The following command generates a private key file (`.key`) and a self-signed
+    certificate file (`.crt`) which remain valid for the specified `NUMBER_OF_DAYS`.
+    It outputs those files to `/etc/ssl/` and gives them the required permissions.
+    (Other paths will also work.)
+
+    ```sh
+    sudo openssl req -x509 -nodes -newkey rsa:2048 \
+      -keyout /etc/ssl/influxdb-selfsigned.key \
+      -out /etc/ssl/influxdb-selfsigned.crt \
+      -days <NUMBER_OF_DAYS>
+    ```
+
+    The command will prompt you for more information.
+    You can choose to fill out these fields or leave them blank; both actions generate valid certificate files.
+
 2. **Set certificate file permissions**
 3. **Run `influxd` with TLS flags**
 4. **Verify TLS connection**
