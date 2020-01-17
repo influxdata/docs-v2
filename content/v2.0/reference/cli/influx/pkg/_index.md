@@ -29,7 +29,7 @@ influx pkg [command]
 
 | Flag              | Description                                                                            | Input Type |
 |:----              |:-----------------------------                                                          |:---------- |
-| `-c`, `--color`   | Enable color in output _(default is true) _                                            |            |
+| `-c`, `--disable-color`   | Disable color in output                                           |            |
 | `-f`, `--file`    | Path to package file                                                                   | string     |
 | `--force`         | Ignore warnings about destructive changes                                              |            |
 | `-h`, `--help`    | Help for the `pkg` command                                                             |            |
@@ -37,6 +37,6 @@ influx pkg [command]
 | `--org-id`        | The ID of the organization that owns the bucket                                        | string     |
 | `-q`, `--quiet`   | Disable output printing                                                                |            |
 | `--secret`        | Secrets to provide alongside the package (format: `--secret=SECRET_KEY::SECRET_VALUE`) | string     |
-| `--table-borders` | Enable table borders _(default is true)_                                               |            |
+| `--disable-table-borders` | Disable table borders                                               |            |
 
 {{% influx-cli-global-flags %}}
