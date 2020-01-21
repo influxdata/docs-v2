@@ -56,10 +56,11 @@ InfluxDB supports three types of TLS certificates:
     If using a certificate provided by a CA, follow their instructions to download the certificate files.
 
     If using a self-signed certificate, use the `openssl` utility to create a certificate.
-    The following command generates a private key file (`.key`) and a self-signed
-    certificate file (`.crt`) which remain valid for the specified `NUMBER_OF_DAYS`.
-    It outputs those files to `/etc/ssl/` and gives them the required permissions.
+
+    The following command generates a private key file (.key) and a self-signed certificate file (.crt) with required permissions
+    and saves them to `/etc/ssl/`.
     (Other paths will also work.)
+    Files remain valid for the specified `NUMBER_OF_DAYS`.
 
     ```sh
     sudo openssl req -x509 -nodes -newkey rsa:2048 \
