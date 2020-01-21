@@ -10,10 +10,13 @@ menu:
 v2.0/tags: [security, authentication, tls, https, ssl]
 ---
 
-Enabling HTTPS encrypts the communication between clients and the InfluxDB server.
-When configured with a signed certificate, HTTPS can also verify the authenticity of the InfluxDB server to connecting clients.
+Enabling TLS encrypts the communication between clients and the InfluxDB server.
+When configured with a signed certificate, TLS also allows clients to verify the authenticity of the InfluxDB server.
 
-This pages outlines how to set up TLS over HTTPS with InfluxDB using either a signed or self-signed certificate.
+To set up TLS over HTTPS, do the following:
+
+- [Obtain requirements](#requirements)
+- [Configure InfluxDB to use TLS](#configure-influxdb-to-use-tls)
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
@@ -46,7 +49,7 @@ InfluxDB supports three types of TLS certificates:
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
 
-## Setup InfluxDB to use TLS over HTTPS
+## Configure InfluxDB to use TLS
 
 1. **Download or generate certificate files**
 
