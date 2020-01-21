@@ -16,6 +16,14 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.59.4 [2020-01-21]
+
+### Bug fixes
+- Remove `tags` line from local tags.
+- Handle malformed data as well as EOF.
+
+---
+
 ## v0.59.3 [2020-01-16]
 
 ### Bug fixes
