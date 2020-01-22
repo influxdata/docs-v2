@@ -31,6 +31,7 @@ Literal = int_lit
         | string_lit
         | regex_lit
         | duration_lit
+        | date_time_lit
         | pipe_receive_lit
         | ObjectLiteral
         | ArrayLiteral
@@ -187,8 +188,8 @@ If `obj` contains an entry with property `k`, both `obj.k` and `obj["k"]` return
 If `obj` does **not** contain an entry with property `k`, both `obj.k` and `obj["k"]` return _null_.
 
 ```js
-MemberExpression        = DotExpression  | MemberBracketExpression
-DotExpression           = "." identifer
+MemberExpression        = DotExpression  | MemberBracketExpression .
+DotExpression           = "." identifier .
 MemberBracketExpression = "[" string_lit "]" .
 ```
 
@@ -246,16 +247,16 @@ LogicalExpression        = UnaryLogicalExpression
 LogicalOperator          = "and" | "or" .
 UnaryLogicalExpression   = ComparisonExpression
                          | UnaryLogicalOperator UnaryLogicalExpression .
-UnaryLogicalOperator     = "not" | "exists".
-ComparisonExpression     = MultiplicativeExpression
-                         | ComparisonExpression ComparisonOperator MultiplicativeExpression .
+UnaryLogicalOperator     = "not" | "exists" .
+ComparisonExpression     = AdditiveExpression
+                         | ComparisonExpression ComparisonOperator AdditiveExpression .
 ComparisonOperator       = "==" | "!=" | "<" | "<=" | ">" | ">=" | "=~" | "!~" .
 AdditiveExpression       = MultiplicativeExpression
                          | AdditiveExpression AdditiveOperator MultiplicativeExpression .
 AdditiveOperator         = "+" | "-" .
 MultiplicativeExpression = PipeExpression
                          | MultiplicativeExpression MultiplicativeOperator PipeExpression .
-MultiplicativeOperator   = "*" | "/" | "%" | "^".
+MultiplicativeOperator   = "*" | "/" | "%" | "^" .
 PipeExpression           = PostfixExpression
                          | PipeExpression PipeOperator UnaryExpression .
 PipeOperator             = "|>" .
