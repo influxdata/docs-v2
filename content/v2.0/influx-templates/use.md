@@ -16,4 +16,5 @@ v2.0/tags: [influx templates]
   - Populating secrets for templates that include secrets
   - View package summaries before installing
   - Validate a package before installing
-  - Use a template from a remote URL
+  - Use a template from a remote URL  
+  - Define secrets while installing a template
