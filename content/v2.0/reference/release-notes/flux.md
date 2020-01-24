@@ -16,6 +16,13 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.59.5 [2020-01-24]
+
+### Bug fixes
+- Revert window optimizations to fix regression in output row sorting.
+
+---
+
 ## v0.59.4 [2020-01-21]
 
 ### Bug fixes
