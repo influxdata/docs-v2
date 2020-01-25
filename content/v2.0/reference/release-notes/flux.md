@@ -11,10 +11,64 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 alpha includes **Flux v0.58.0**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.59.5**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.59.5 [2020-01-24]
+
+### Bug fixes
+- Revert window optimizations to fix regression in output row sorting.
+
+---
+
+## v0.59.4 [2020-01-21]
+
+### Bug fixes
+- Remove `tags` line from local tags.
+- Handle malformed data as well as EOF.
+
+---
+
+## v0.59.3 [2020-01-16]
+
+### Bug fixes
+- Link both `libflux` and `libstd` for flux-config.
+
+---
+
+## v0.59.2 [2020-01-16]
+
+### Bug fixes
+- Link `libstd` into the lib directory instead of `libflux`.
+
+---
+
+## v0.59.1 [2020-01-16]
+
+### Bug fixes
+- Flux-config correctly copies `stdlib` when using a module.
+- UUID security.
+
+---
+
+## v0.59.0 [2020-01-14]
+
+### Features
+- Add Go/Rust API for getting semantic graph..
+- Optimize `limit()` transformation.
+- Optimize `group()` transformation.
+
+### Bug fixes
+- AST json serialization glitches.
+- Better messaging for malformed CSV.
+- Skip stdlib symlink was removed erroneously.
+- Ensure stdlib directory is created.
+- Correctly skip the stdlib symlink in libflux.
+- Ensure that stdlib is present when building with flux-config.
+
+---
 
 ## v0.58.4 [2020-01-07]
 
