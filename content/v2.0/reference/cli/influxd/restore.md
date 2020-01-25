@@ -1,23 +1,29 @@
 ---
 title: influxd restore
-description: The `influxd restore` command restores data and metadata from an InfluxDB backup file set.
+description: The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
 v2.0/tags: [restore]
 menu:
   v2_0_ref:
     parent: influxd
 weight: 201
+related:
+  - /v2.0/backup-restore/restore/
 ---
 
-The `influxd restore` command restores data and metadata from an InfluxDB backup file set.
+The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
 
 {{% warn %}}
-Shut down `influxd` server before restoring data.
+Shut down the `influxd` server before restoring data.
 {{% /warn %}}
 
 ### The restore process
 When restoring data from a backup file set, InfluxDB temporarily moves existing
 data and metadata while `restore` runs.
 After `restore` completes, the temporary data is deleted.
+If the restore process fails, InfluxDB preserves the data in the temporary location.
+
+_For information about recovering from a failed restore process, see
+[Restore data](/v2.0/backup-restore/restore/#recover-from-a-failed-restore)._
 
 By default, `restore` rebuilds the index and series file using the default options
 for [`influxd inspect build-tsi`](/v2.0/reference/cli/influxd/inspect/build-tsi/).
