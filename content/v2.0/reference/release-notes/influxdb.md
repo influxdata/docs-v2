@@ -8,7 +8,25 @@ menu:
 weight: 101
 ---
 
-## v2.0.0-beta.1 [2019-01-08]
+## v2.0.0-beta.2 [2020-01-24]
+
+### Features
+- Change Influx packages to be CRD compliant.
+- Allow trailing newline in credentials file and CLI integration.
+- Add support for prefixed cursor search to ForwardCursor types.
+- Add backup and restore.
+- Introduce resource logger to tasks, buckets and organizations.
+
+### Bug Fixes
+- Check engine closed before collecting index metrics.
+- Reject writes which use any of the reserved tag keys.
+
+### UI Improvements
+- Swap `billingURL` with `checkoutURL`.
+- Move Cloud navigation to top of page instead of within left side navigation.
+- Adjust aggregate window periods to use duration input with validation.
+
+## v2.0.0-beta.1 [2020-01-08]
 
 ### Features
 - Add support for notification endpoints to `influx` templates and packages.
