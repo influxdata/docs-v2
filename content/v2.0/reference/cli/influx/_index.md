@@ -46,6 +46,7 @@ retrieving authentication tokens._
 | Command                                           | Description                                          |
 |:-------                                           |:-----------                                          |
 | [auth](/v2.0/reference/cli/influx/auth)           | Authorization management commands                    |
+| [backup](/v2.0/reference/cli/influx/backup)       | Back up data                                         |
 | [bucket](/v2.0/reference/cli/influx/bucket)       | Bucket management commands                           |
 | [delete](/v2.0/reference/cli/influx/delete)       | Delete points from InfluxDB                          |
 | [help](/v2.0/reference/cli/influx/help)           | Help about any command                               |
