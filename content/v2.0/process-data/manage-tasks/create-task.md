@@ -91,7 +91,7 @@ It accepts either a file path or raw Flux.
 
 ###### Create a task using a file
 ```sh
-# Pattern
+# Syntax
 influx task create --org <org-name> @</path/to/task-script>
 
 # Example
