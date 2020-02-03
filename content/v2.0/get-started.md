@@ -168,8 +168,10 @@ Expose port `9999`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ```sh
-docker run -d --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
+docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
 ```
+
+Note: To run influxdb in detached mode use flag -d in the above command. 
 
 {{% note %}}
 #### InfluxDB "phone home"
