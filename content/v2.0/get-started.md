@@ -170,7 +170,6 @@ the [InfluxDB HTTP API](/v2.0/reference/api/).
 ```sh
 docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
 ```
-
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._ 
 
 {{% note %}}
