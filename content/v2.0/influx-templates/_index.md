@@ -1,17 +1,16 @@
 ---
-title: Influx Templates
+title: Influx templates
 description: >
-  Influx Templates are prepackaged InfluxDB configurations that contain
-  everything from dashboards and Telegraf configurations to notifications and
-  alerts in a single file.
+  Influx templates are prepackaged InfluxDB configurations that contain everything
+  from dashboards and Telegraf configurations to notifications and alerts.
 menu: v2_0
 weight: 10
 v2.0/tags: [influx templates]
 ---
 
-Influx Templates are prepackaged InfluxDB configurations that contain everything
-from dashboards and Telegraf configurations to notifications and alerts in a single file.
-Use Influx Templates to quickly set up a fresh instance of InfluxDB, backup your
+Influx templates are prepackaged InfluxDB configurations that contain everything
+from dashboards and Telegraf configurations to notifications and alerts.
+Use Influx templates to quickly set up a fresh instance of InfluxDB, back up your
 dashboard configuration, or share your configuration with the InfluxData community.
 
 ## Template manifests
@@ -31,9 +30,7 @@ _See [Create an Influx Template](/v2.0/influx-templates/create/) for information
 generating template manifests._
 
 ### Template resources
-Template **resources** are elements of the InfluxDB user interface (UI) and data
-storage that can be templated.
-The following template resources are available:
+Include the following **resources** in a template:
 
 - buckets
 - checks

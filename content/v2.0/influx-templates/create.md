@@ -4,7 +4,7 @@ description: >
   placeholder
 menu:
   v2_0:
-    parent: Influx Templates
+    parent: Influx templates
     name: Create a template
     identifier: Create an Influx Template
 weight: 101

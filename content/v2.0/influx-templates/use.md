@@ -4,7 +4,7 @@ description: >
   placeholder
 menu:
   v2_0:
-    parent: Influx Templates
+    parent: Influx templates
     name: Use a template
 weight: 101
 v2.0/tags: [influx templates]
