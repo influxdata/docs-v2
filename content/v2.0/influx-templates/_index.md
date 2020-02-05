@@ -14,15 +14,20 @@ Use Influx templates to quickly set up a fresh instance of InfluxDB, back up you
 dashboard configuration, or share your configuration with the InfluxData community.
 
 ## Template manifests
-A template manifest is a file that defines the contents of a template and supports
-the following formats:
+A template is defined in a single file known as a **manifest**.
+Template manifests support the following formats:
 
 - YAML
 - JSON
 - Jsonnet
 
+{{% note %}}
+Template manifests are compatible with
+[Kubernetes Custom Resource Definitions (CRD)](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
+{{% /note %}}
+
 _See [Create an Influx Template](/v2.0/influx-templates/create/) for information about
-generating manifest files._
+generating template manifests._
 
 ### Template resources
 Include the following **resources** in a template:
