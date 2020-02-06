@@ -1,5 +1,5 @@
 ---
-title: Use an Influx Template
+title: Use an Influx template
 description: >
   placeholder
 menu:
