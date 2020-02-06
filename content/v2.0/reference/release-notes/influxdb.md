@@ -7,6 +7,11 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v3.0.0-beta.2 [2020-02-06]
+
+### Bug Fixes
+
+- Fix notification rule renaming panics from UI.
 
 ## v2.0.0-beta.2 [2020-01-24]
 
