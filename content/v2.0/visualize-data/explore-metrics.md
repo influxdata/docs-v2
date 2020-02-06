@@ -30,13 +30,17 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
     {{< nav-icon "data-explorer" >}}
 
-2. Use the Flux builder in the bottom panel to select a bucket and filters such as measurement, field or tag.
-   Alternatively, click **Script Editor** to manually edit the query.
+2. Use the Flux builder in the bottom panel to create a Flux query:
+  - Select a bucket to define your data source.
+  - Edit your time range with the [time range option](/select-time-range/) in the dropdown menu.
+  - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
+  - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/v2.0/query-data/guides/group-data/).    
+3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
-3. Use the **Functions** list to review the available Flux functions.
+4. Use the **Functions** list to review the available Flux functions.
    Click on a function from the list to add it to your query.
-4. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
-5. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
+5. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
+6. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
   * Click the eye icon on a tab to hide or show a query's visualization.
   * Click on the name of the query in the tab to rename it.
 
