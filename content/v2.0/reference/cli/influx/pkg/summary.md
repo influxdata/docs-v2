@@ -25,7 +25,7 @@ influx pkg summary [flags]
 | `-f`, `--file`            | Package file to summarize                                          | string     |
 | `-h`, `--help`            | Help for the `summary` command                                     |            |
 | `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file` |            |
-| `-u`, `--url`             | URL of a package file file                                         | string     |
+| `-u`, `--url`             | URL of package file to summarize                                   | string     |
 
 
 {{% influx-cli-global-flags %}}

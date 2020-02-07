@@ -40,6 +40,6 @@ influx pkg [command]
 | `-q`, `--quiet`           | Disable output printing                                                                         |            |
 | `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                              |            |
 | `--secret`                | Secrets to provide alongside the package (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |
-| `-u`, `--url`             | URL of a package file file                                                                           | string     |
+| `-u`, `--url`             | URL of package file                                                                             | string     |
 
 {{% influx-cli-global-flags %}}

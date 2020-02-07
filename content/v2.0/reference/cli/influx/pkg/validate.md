@@ -23,6 +23,6 @@ influx pkg validate [flags]
 | `-f`, `--file`     | Package file to validate                                           | string     |
 | `-h`, `--help`     | Help for the `validate` command                                    |            |
 | `-R`, `--recurse`  | Recurse through files in the directory specified in `-f`, `--file` |            |
-| `-u`, `--url`      | URL of a package file file                                         | string     |
+| `-u`, `--url`      | URL of package file to validate                                    | string     |
 
 {{% influx-cli-global-flags %}}
