@@ -17,9 +17,12 @@ influx pkg validate [flags]
 
 ## Flags
 
-| Flag              | Description                                 | Input Type |
-|:----              |:-----------                                 |:---------- |
-| `-f`, `--file`    | Package file to validate                   | string     |
-| `-h`, `--help`    | Help for the `validate` command                  |            |
+| Flag               | Description                                                        | Input Type |
+|:----               |:-----------                                                        |:---------- |
+| `-e`, `--encoding` | Encoding of the input stream                                       | string     |
+| `-f`, `--file`     | Package file to validate                                           | string     |
+| `-h`, `--help`     | Help for the `validate` command                                    |            |
+| `-R`, `--recurse`  | Recurse through files in the directory specified in `-f`, `--file` |            |
+| `-u`, `--url`      | URL of a package file file                                         | string     |
 
 {{% influx-cli-global-flags %}}

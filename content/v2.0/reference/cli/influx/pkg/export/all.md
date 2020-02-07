@@ -20,12 +20,9 @@ influx pkg export all [flags]
 
 | Flag                  | Description                                                                     | Input Type |
 |:----                  |:-----------                                                                     |:---------- |
-| `-d`, `--description` | Package description                                                             | string     |
 | `-f`, `--file`        | Package output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |
 | `-h`, `--help`        | Help for the `export` command                                                   |            |
-| `-n`, `--name`        | Package name                                                                    | string     |
 | `-o`, `--org`         | The name of the organization that owns the resources                            | string     |
 | `--org-id`            | The ID of the organization that owns the resources                              | string     |
-| `-v`, `--version`     | Package version                                                                 | string     |
 
 {{% influx-cli-global-flags %}}
