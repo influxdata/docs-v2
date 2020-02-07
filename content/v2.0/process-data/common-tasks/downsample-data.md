@@ -55,7 +55,7 @@ option task = {
 
 // Defines a data source
 data = from(bucket: "system-data")
-  |> range(start: -task.every * 2)
+  |> range(start: -duration(v: int(v: task.every) * 2))
   |> filter(fn: (r) => r._measurement == "mem")
 
 data
