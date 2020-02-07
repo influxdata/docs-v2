@@ -1,35 +1,37 @@
 ---
-title: Create an Influx template
+title: Create an InfluxDB template
 description: >
-  Use the InfluxDB UI and the `influx pkg export` command to create Influx templates.
+  Use the InfluxDB UI and the `influx pkg export` command to create InfluxDB templates.
 menu:
   v2_0:
-    parent: Influx templates
+    parent: InfluxDB templates
     name: Create a template
-    identifier: Create an Influx template
+    identifier: Create an InfluxDB template
 weight: 101
-v2.0/tags: [influx templates]
+v2.0/tags: [templates]
 ---
 
 Use the InfluxDB user interface (UI) and the `influx pkg export` command to
-create Influx templates.
-Add buckets, Telegraf configurations, tasks, and more in the InfluxDB UI and export
-them as a template.
+create InfluxDB templates.
+Add resources (buckets, Telegraf configurations, tasks, and more) in the InfluxDB
+UI and export then the resources as a template.
 
 {{% note %}}
-The simplest way to create a template is to create a new organization and build
-the template within the organization.
-**InfluxDB OSS** supports multiple organizations.
+Templatable resources are scoped to a single organization, so the simplest way to create a
+template is to create a new organization, build the template within the organization,
+then [export all resources](#export-all-resources) as a template.
+
+**InfluxDB OSS** supports multiple organizations so you can create new organizations
+for the sole purpose of building and maintaining a template.
 In **InfluxDB Cloud**, your user account is an organization.
-**We recommend using InfluxDB OSS to create Influx templates.**
+**We recommend using InfluxDB OSS to create InfluxDB templates.**
 {{% /note %}}
 
 **To create a template:**
 
 1. [Start InfluxDB](/v2.0/get-started/).
 2. [Create a new organization](/v2.0/organizations/create-org/).
-3. Use the InfluxDB UI to add resources to your template.
-   The following resources are templatable:
+3. In the InfluxDB UI add one or more of the following templatable resources:
 
    - [buckets](/v2.0/organizations/buckets/create-bucket/)
    - [checks](/v2.0/monitor-alert/checks/create/)
@@ -44,23 +46,23 @@ In **InfluxDB Cloud**, your user account is an organization.
 4. Export the template _(see [below](#export-a-template))_.
 
 ## Export a template
-There are two methods for exporting a template.
+Do one of the following to export a template:
 
 1. Export all resources in an organization _(recommended)_
 2. Export specific resources in an organization
 
 ### Export all resources
-Use the `influx pkg export all` command to export all templatable resources
-into a new template manifest.
+To export all templatable resources within an organization to a template manifest,
+use the `influx pkg export all` command.
 Provide the following:
 
 - **Organization name** or **ID**
 - **Authentication token** with read access to the organization
-- **Destination file** path for the template manifest.
-  The extension of the destination file determines the output format of the manifest file.
-  Export template manifests in either YAML (`.yml` or `.yaml`) or JSON (`.json`).
+- **Destination path and filename** for the template manifest.
+  The filename extension determines the template format—both **YAML** (`.yml`) and
+  **JSON** (`.json`) are supported.
 
-###### Export all resources to a template manifest
+###### Export all resources to a template
 ```sh
 # Syntax
 influx pkg export all -o <org-name> -f <filepath> -t <token>
@@ -72,12 +74,12 @@ influx pkg export all \
   -t $INFLUX_TOKEN
 ```
 
-For information about other options and flags, see the
+For information about flags, see the
 [`influx pkg export all` documentation](/v2.0/reference/cli/influx/pkg/export/all/).
 
 ### Export specific resources
-Use the `influx pkg export` with resource flags to export all specific templatable
-resources into a new template manifest.
+To export specific templatable resources within an organization to a template manifest,
+use the `influx pkg export` with resource flags for each resource to include.
 Provide the following:
 
 - **Organization name** or **ID**
@@ -89,7 +91,7 @@ Provide the following:
   For information about what resource flags are available, see the
   [`influx pkg export` documentation](/v2.0/reference/cli/influx/pkg/export/).
 
-###### Export specific resources to a template manifest
+###### Export specific resources to a template
 ```sh
 # Syntax
 influx pkg export all -o <org-name> -f <filepath> -t <token> [resource-flags]

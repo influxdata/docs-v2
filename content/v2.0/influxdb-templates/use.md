@@ -1,13 +1,13 @@
 ---
-title: Use an Influx template
+title: Use an InfluxDB template
 description: >
   placeholder
 menu:
   v2_0:
-    parent: Influx templates
+    parent: InfluxDB templates
     name: Use a template
 weight: 101
-v2.0/tags: [influx templates]
+v2.0/tags: [templates]
 ---
 
 ## Placeholder outline

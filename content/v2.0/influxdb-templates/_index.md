@@ -1,16 +1,16 @@
 ---
-title: Influx templates
+title: InfluxDB templates
 description: >
-  Influx templates are prepackaged InfluxDB configurations that contain everything
+  InfluxDB templates are prepackaged InfluxDB configurations that contain everything
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: v2_0
 weight: 10
-v2.0/tags: [influx templates]
+v2.0/tags: [templates]
 ---
 
-Influx templates are prepackaged InfluxDB configurations that contain everything
+InfluxDB templates are prepackaged InfluxDB configurations that contain everything
 from dashboards and Telegraf configurations to notifications and alerts.
-Use Influx templates to quickly set up a fresh instance of InfluxDB, back up your
+Use InfluxDB templates to quickly set up a fresh instance of InfluxDB, back up your
 dashboard configuration, or share your configuration with the InfluxData community.
 
 ## Template manifests
@@ -26,7 +26,7 @@ Template manifests are compatible with
 [Kubernetes Custom Resource Definitions (CRD)](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 {{% /note %}}
 
-_See [Create an Influx Template](/v2.0/influx-templates/create/) for information about
+_See [Create an InfluxDB template](/v2.0/influx-templates/create/) for information about
 generating template manifests._
 
 ### Template resources
