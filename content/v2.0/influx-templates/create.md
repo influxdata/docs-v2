@@ -76,15 +76,15 @@ For information about other options and flags, see the
 [`influx pkg export all` documentation](/v2.0/reference/cli/influx/pkg/export/all/).
 
 ### Export specific resources
-Use the `influx pkg export` with resource flagss to export all specific templatable
+Use the `influx pkg export` with resource flags to export all specific templatable
 resources into a new template manifest.
 Provide the following:
 
 - **Organization name** or **ID**
 - **Authentication token** with read access to the organization
 - **Destination file** path for the template manifest.
-  The extension of the file determines the output format of the manifest file.
-  Influx templates support YAML, JSON, and Jsonnet.
+  The extension of the destination file determines the output format of the manifest file.
+  Export template manifests in either YAML (`.yml` or `.yaml`) or JSON (`.json`).
 - **Resource flags** with corresponding lists of resource IDs to include in the template.
   For information about what resource flags are available, see the
   [`influx pkg export` documentation](/v2.0/reference/cli/influx/pkg/export/).
