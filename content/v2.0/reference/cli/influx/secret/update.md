@@ -10,6 +10,8 @@ v2.0/tags: [secrets]
 ---
 
 The `influx secret update` command adds and updates secrets.
+Provide the secret key with the the `-k` or `--key` flag.
+When prompted, enter and confirm the secret value.
 
 ## Usage
 ```
