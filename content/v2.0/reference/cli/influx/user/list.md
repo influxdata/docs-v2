@@ -1,6 +1,6 @@
 ---
 title: influx user list
-description: The 'influx user list' lists and searches for users in InfluxDB.
+description: The 'influx user list' lists users in InfluxDB.
 menu:
   v2_0_ref:
     name: influx user list
@@ -10,7 +10,7 @@ aliases:
   - /v2.0/reference/cli/influx/user/find
 ---
 
-The `influx user list` command lists and searches for users in InfluxDB.
+The `influx user list` command lists users in InfluxDB.
 
 ## Usage
 ```

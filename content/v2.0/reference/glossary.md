@@ -919,8 +919,7 @@ Related entries: [bin](#bin)
 ### step-plot
 
 A data visualization that displays time series data in a staircase graph.
-Generate a step-plot using the step interpolation option for
-[line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
+Generate a step-plot using the step [interpolation option for line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
 
 ### stream
 
