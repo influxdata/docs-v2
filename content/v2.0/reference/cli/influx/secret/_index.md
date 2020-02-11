@@ -25,8 +25,8 @@ influx secret [subcommand]
 | [update](/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags
-| Flag           | Description                  |
-|:----           |:-----------                  |
+| Flag           | Description                   |
+|:----           |:-----------                   |
 | `-h`, `--help` | Help for the `secret` command |
 
 {{% influx-cli-global-flags %}}
