@@ -26,7 +26,7 @@ influx auth [command]
 | [active](/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
 | [create](/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
 | [delete](/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |
-| [find](/v2.0/reference/cli/influx/auth/find)         | Find authorization       |
+| [list](/v2.0/reference/cli/influx/auth/list)         | List authorizations      |
 | [inactive](/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
 
 ## Flags

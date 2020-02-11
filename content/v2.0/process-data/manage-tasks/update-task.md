@@ -38,7 +38,7 @@ task you want to activate or inactivate.
 ## Update a task with the influx CLI
 Use the `influx task update` command to update or change the status of an existing task.
 
-_This command requires a task ID, which is available in the output of `influx task find`._
+_This command requires a task ID, which is available in the output of `influx task list`._
 
 #### Update a task Flux script
 Pass the file path of your updated Flux script to the `influx task update` command

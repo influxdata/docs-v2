@@ -34,10 +34,10 @@ To run a task from the `influx` CLI, the task must have already run at least onc
 
 ```sh
 # List all tasks to find the ID of the task to run
-influx task find
+influx task list
 
 # Use the task ID to list previous runs of the task
-influx task run find --task-id=0000000000000000
+influx task run list --task-id=0000000000000000
 
 # Use the task ID and run ID to retry a run
 influx task run retry --task-id=0000000000000000 --run-id=0000000000000000

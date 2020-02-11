@@ -48,5 +48,5 @@ influx auth create -o my-org \
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth find` documentation](/v2.0/reference/cli/influx/auth/find)
+See the [`influx auth list` documentation](/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.

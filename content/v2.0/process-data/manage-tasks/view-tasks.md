@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 202
 related:
-  - /v2.0/reference/cli/influx/task/find
+  - /v2.0/reference/cli/influx/task/list
 ---
 
 ## View tasks in the InfluxDB UI
@@ -25,14 +25,14 @@ Click the **Tasks** icon in the left navigation to view the lists of tasks.
 3. Click on the heading of any column to sort by that field.
 
 ## View tasks with the influx CLI
-Use the `influx task find` command to return a list of created tasks.
+Use the `influx task list` command to return a list of created tasks.
 
 ```sh
-influx task find
+influx task list
 ```
 
 #### Filter tasks using the CLI
 Other filtering options such as filtering by organization or user,
 or limiting the number of tasks returned, are available.
-See the [`influx task find` documentation](/v2.0/reference/cli/influx/task/find)
+See the [`influx task list` documentation](/v2.0/reference/cli/influx/task/list)
 for information about other available flags.

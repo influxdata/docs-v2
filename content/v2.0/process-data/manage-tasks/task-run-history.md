@@ -31,14 +31,14 @@ to view task run histories and associated logs.
 To view logs associated with a run, click **View Logs** next to the run in the task's run history.
 
 ## View a task's run history with the influx CLI
-Use the `influx task run find` command to view a task's run history.
+Use the `influx task run list` command to view a task's run history.
 
 ```sh
 # List all tasks to find the ID of the task to run
-influx task find
+influx task list
 
 # Use the task ID to view the run history of a task
-influx task run find --task-id=0000000000000000
+influx task run list --task-id=0000000000000000
 ```
 
 {{% note %}}

@@ -22,7 +22,7 @@ influx task [command]
 |:----------                                       |:-----------          |
 | [create](/v2.0/reference/cli/influx/task/create) | Create task          |
 | [delete](/v2.0/reference/cli/influx/task/delete) | Delete task          |
-| [find](/v2.0/reference/cli/influx/task/find)     | Find tasks           |
+| [list](/v2.0/reference/cli/influx/task/list)     | List tasks           |
 | [log](/v2.0/reference/cli/influx/task/log)       | Log related commands |
 | [retry](/v2.0/reference/cli/influx/task/retry)   | retry a run          |
 | [run](/v2.0/reference/cli/influx/task/run)       | Run related commands |

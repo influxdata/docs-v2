@@ -20,7 +20,7 @@ User passwords cannot be updated in the InfluxDB UI.
 Use the [`influx user password` command](/v2.0/reference/cli/influx/user/password)
 to update a password for a user. To update a password, you need the following:
 
-- Username or user ID _(provided in the output of `influx user find`)_
+- Username or user ID _(provided in the output of `influx user list`)_
 - New password
 
 ##### Update a password

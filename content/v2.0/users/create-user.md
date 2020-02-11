@@ -25,7 +25,7 @@ and include the following:
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
+  [`influx org list`](/v2.0/reference/cli/influx/org/list/))_
 
 ```sh
 # Syntax
@@ -41,7 +41,7 @@ include a password and organization ID with the `influx user create` command.
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
+  [`influx org list`](/v2.0/reference/cli/influx/org/list/))_
 - Password
 
 ```sh

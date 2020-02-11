@@ -29,7 +29,7 @@ Users cannot be deleted from the InfluxDB UI.
 Use the [`influx user delete` command](/v2.0/reference/cli/influx/user/delete)
 to delete a user. Deleting a user requires the following:
 
-- The user ID _(provided in the output of `influx user find`)_
+- The user ID _(provided in the output of `influx user list`)_
 
 ```sh
 # Syntax
