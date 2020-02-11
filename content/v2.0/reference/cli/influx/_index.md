@@ -55,6 +55,7 @@ retrieving authentication tokens._
 | [pkg](/v2.0/reference/cli/influx/pkg)             | Manage InfluxDB packages                             |
 | [query](/v2.0/reference/cli/influx/query)         | Execute a Flux query                                 |
 | [repl](/v2.0/reference/cli/influx/repl)           | Interactive REPL (read-eval-print-loop)              |
+| [secret](/v2.0/reference/cli/influx/secret)       | Manage secrets                                       |
 | [setup](/v2.0/reference/cli/influx/setup)         | Create default username, password, org, bucket, etc. |
 | [task](/v2.0/reference/cli/influx/task)           | Task management commands                             |
 | [transpile](/v2.0/reference/cli/influx/transpile) | Manually transpile an InfluxQL query to Flux         |
