@@ -14,7 +14,7 @@ Flux helps you monitor states in your metrics and events:
 
 - [Find how long a state persists](#find-how-long-a-state-persists)
 - [Count the number of consecutive states](#count-the-number-of-consecutive-states)
-- [Detect state changes](#detect-state-changes)
+<!-- - [Detect state changes](#detect-state-changes) -->
 
 If you're just getting started with Flux queries, check out the following:
 
@@ -24,7 +24,7 @@ If you're just getting started with Flux queries, check out the following:
 ## Find how long a state persists
 
 1. Use the [`stateDuration()`](/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
-  
+
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** the value (or state) to search for in the specified column.
   - **State duration column:** a new column to store the state duration─the length of time that the specified value persists.
@@ -83,7 +83,7 @@ _time                   _value        door_closed
 
         ```js
         |> stateCount
-           (fn: (r) => 
+           (fn: (r) =>
             r._column_to_search == "value_to_search_for",
             column: "state_count"`
           )
@@ -148,9 +148,9 @@ Detect state changes with the `monitor.stateChanges()` function. To use the `mon
 
     {{< nav-icon "alerts" >}}
 
-2. If you haven't already, [create a check](/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman? 
+2. If you haven't already, [create a check](/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
 3. Import the InfluxDB `monitor` package.
-4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket? 
+4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket?
 5. Use the `monitor.stateChanges()` function and include the following information:
 
   - `fromLevel` (optional; by default, this is set to `any`)
