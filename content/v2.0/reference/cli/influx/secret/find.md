@@ -14,14 +14,13 @@ The `influx secret find` command lists secret keys.
 ## Usage
 ```
 influx secret find [flags]
-influx secret find [command]
 ```
 
 ## Flags
-| Flag           | Description       | Input type |
-|:----           |:-----------       |:----------:|
-| `-h`, `--help` | Help for `find`   |            |
-| `-o`, `--org`  | Organization name | string     |
-| `--org-id`     | Organization ID   | string     |
+| Flag           | Description            | Input type |
+|:----           |:-----------            |:----------:|
+| `-h`, `--help` | Help for `secret find` |            |
+| `-o`, `--org`  | Organization name      | string     |
+| `--org-id`     | Organization ID        | string     |
 
 {{% influx-cli-global-flags %}}

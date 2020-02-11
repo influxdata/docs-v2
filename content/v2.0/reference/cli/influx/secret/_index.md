@@ -14,7 +14,7 @@ The `influx secret` command manages secrets.
 ## Usage
 ```
 influx secret [flags]
-influx secret [command]
+influx secret [subcommand]
 ```
 
 ## Subcommands

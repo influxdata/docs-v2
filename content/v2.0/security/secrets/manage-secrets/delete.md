@@ -13,7 +13,7 @@ Delete secrets using the `influx` command line interface (CLI) or the InfluxDB A
 ## Delete a secret using the influx CLI
 Use the [`influx secret delete` command](/v2.0/reference/influx/secret/delete/)
 to delete a secret key-value pair from your organization.
-Provide the secret key to delete with the the `-k` or `--key` flag.
+Provide the secret key to delete with the `-k` or `--key` flag.
 
 ```sh
 # Syntax
@@ -31,7 +31,7 @@ to delete one or more secrets.
 
 - Your [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
 - Your [authentication token](/v2.0/security/tokens/view-tokens/) in the `Authorization` header
-- An array of secret keys to delete in the requests body
+- An array of secret keys to delete in the request body
 
 <!-- -->
 ```bash

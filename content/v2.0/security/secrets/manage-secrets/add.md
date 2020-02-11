@@ -13,7 +13,7 @@ Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 ## Add a secret using the influx CLI
 Use the [`influx secret update` command](/v2.0/reference/cli/influx/secret/update/)
 to add a new secret to your organization.
-Provide the secret key with the the `-k` or `--key` flag.
+Provide the secret key with the `-k` or `--key` flag.
 When prompted, enter and confirm the secret value.
 
 ```sh

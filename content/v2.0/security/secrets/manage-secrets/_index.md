@@ -8,7 +8,6 @@ menu:
 weight: 201
 ---
 
-
 Manage secrets using the [`influx` command line interface (CLI)](/v2.0/reference/cli/influx/) or the InfluxDB API.
 All secrets belong to an organization and are stored in your [secret-store](/v2.0/security/secrets/).
 
