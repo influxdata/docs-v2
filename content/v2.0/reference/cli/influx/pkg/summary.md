@@ -17,11 +17,15 @@ influx pkg summary [flags]
 
 ## Flags
 
-| Flag              | Description                                 | Input Type |
-|:----              |:-----------                                 |:---------- |
-| `-c`, `--color`   | Enable color in output _(default is true) _ |            |
-| `-f`, `--file`    | Package file to summarize                   | string     |
-| `-h`, `--help`    | Help for the `summary` command              |            |
-| `--table-borders` | Enable table borders _(default is true)_    |            |
+| Flag                      | Description                                                        | Input Type |
+|:----                      |:-----------                                                        |:---------- |
+| `-c`, `--disable-color`   | Disable color in output                                            |            |
+| `--disable-table-borders` | Disable table borders                                              |            |
+| `-e`, `--encoding`        | Encoding of the input stream                                       | string     |
+| `-f`, `--file`            | Package file to summarize                                          | string     |
+| `-h`, `--help`            | Help for the `summary` command                                     |            |
+| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file` |            |
+| `-u`, `--url`             | URL of package file to summarize                                   | string     |
+
 
 {{% influx-cli-global-flags %}}

@@ -8,6 +8,20 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.3 [2020-02-11]
+
+### Features
+- Extend `influx cli pkg command` with ability to take multiple files and directories.
+- Extend `influx cli pkg command` with ability to take multiple URLs, files,
+  directories, and stdin at the same time.
+- `influx` CLI can manage secrets.
+
+### Bug Fixes
+- Fix notification rule renaming panics in UI.
+- Fix the tooltip for stacked line graphs.
+- Fixed false success notification for read-only users creating dashboards.
+- Fix issue with pkger/http stack crashing on duplicate content type.
+
 ## v2.0.0-beta.2 [2020-01-24]
 
 ### Features

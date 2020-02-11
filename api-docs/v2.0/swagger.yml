@@ -3322,6 +3322,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Bucket"
+        422:
+          description: Request body failed validation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         default:
           description: Unexpected error
           content:
@@ -7139,18 +7145,24 @@ components:
           type: string
         package:
           $ref: "#/components/schemas/Pkg"
+        packages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Pkg"
         secrets:
           type: object
           additionalProperties:
             type: string
-        remote:
-          type: object
-          properties:
-            url:
-              type: string
-            contentType:
-              type: string
-          required: ["url"]
+        remotes:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+              contentType:
+                type: string
+            required: ["url"]
     PkgCreate:
       type: object
       properties:
@@ -7284,6 +7296,10 @@ components:
                     type: string
                   labelID:
                     type: string
+            missingEnvRefs:
+              type: array
+              items:
+                type: string
             missingSecrets:
               type: array
               items:
