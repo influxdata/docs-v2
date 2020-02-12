@@ -28,7 +28,7 @@ and include the following:
   [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
 
 ```sh
-# Pattern
+# Syntax
 influx user create -n <username> -o <org-name>
 
 # Example
@@ -45,7 +45,7 @@ include a password and organization ID with the `influx user create` command.
 - Password
 
 ```sh
-# Pattern
+# Syntax
 influx user create -n <username> -p <password> -o <org-name>
 
 # Example

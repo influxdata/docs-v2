@@ -36,7 +36,7 @@ to create a new bucket. A bucket requires the following:
 - A retention period in nanoseconds
 
 ```sh
-# Pattern
+# Syntax
 influx bucket create -n <bucket-name> -o <org-name> -r <retention period in nanoseconds>
 
 # Example

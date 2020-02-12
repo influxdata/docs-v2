@@ -46,6 +46,7 @@ retrieving authentication tokens._
 | Command                                           | Description                                          |
 |:-------                                           |:-----------                                          |
 | [auth](/v2.0/reference/cli/influx/auth)           | Authorization management commands                    |
+| [backup](/v2.0/reference/cli/influx/backup)       | Back up data                                         |
 | [bucket](/v2.0/reference/cli/influx/bucket)       | Bucket management commands                           |
 | [delete](/v2.0/reference/cli/influx/delete)       | Delete points from InfluxDB                          |
 | [help](/v2.0/reference/cli/influx/help)           | Help about any command                               |
@@ -54,6 +55,7 @@ retrieving authentication tokens._
 | [pkg](/v2.0/reference/cli/influx/pkg)             | Manage InfluxDB packages                             |
 | [query](/v2.0/reference/cli/influx/query)         | Execute a Flux query                                 |
 | [repl](/v2.0/reference/cli/influx/repl)           | Interactive REPL (read-eval-print-loop)              |
+| [secret](/v2.0/reference/cli/influx/secret)       | Manage secrets                                       |
 | [setup](/v2.0/reference/cli/influx/setup)         | Create default username, password, org, bucket, etc. |
 | [task](/v2.0/reference/cli/influx/task)           | Task management commands                             |
 | [transpile](/v2.0/reference/cli/influx/transpile) | Manually transpile an InfluxQL query to Flux         |

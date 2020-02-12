@@ -18,12 +18,13 @@ influx user [command]
 ```
 
 ## Subcommands
-| Subcommand                                       | Description |
-|:----------                                       |:----------- |
-| [create](/v2.0/reference/cli/influx/user/create) | Create user |
-| [delete](/v2.0/reference/cli/influx/user/delete) | Delete user |
-| [find](/v2.0/reference/cli/influx/user/find)     | Find user   |
-| [update](/v2.0/reference/cli/influx/user/update) | Update user |
+| Subcommand                                           | Description              |
+|:----------                                           |:-----------              |
+| [create](/v2.0/reference/cli/influx/user/create)     | Create a user            |
+| [delete](/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
+| [find](/v2.0/reference/cli/influx/user/find)         | Find a user              |
+| [password](/v2.0/reference/cli/influx/user/password) | Update a user's password |
+| [update](/v2.0/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
 | Flag           | Description                 |

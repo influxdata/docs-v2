@@ -33,7 +33,7 @@ to create a new organization. A new organization requires the following:
 - A name for the organization
 
 ```sh
-# Pattern
+# Syntax
 influx org create -n <org-name>
 
 # Example

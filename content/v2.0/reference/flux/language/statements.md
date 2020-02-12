@@ -27,7 +27,7 @@ Statement = OptionAssignment
 ## Import declaration
 
 ```js
-ImportDeclaration = "import" [identifier] string_lit
+ImportDeclaration = "import" [identifier] string_lit .
 ```
 
 A package name and an import path is associated with every package.
@@ -86,7 +86,7 @@ A named type can be created using a type assignment statement.
 A named type is equivalent to the type it describes and may be used interchangeably.
 
 ```js
-TypeAssignment    = "type" identifier "=" TypeExpression
+TypeAssignment    = "type" identifier "=" TypeExpression .
 TypeExpression    = identifier
                   | TypeParameter
                   | ObjectType
