@@ -14,6 +14,11 @@ v2.0/tags: [templates]
 Use the `influx pkg` command to summarize, validate, and install templates from
 your local filesystem and from URLs.
 
+- [View a template summary](#view-a-template-summary)
+- [Validate a template](#validate-a-template)
+- [Install templates](#install-templates)
+- [Use InfluxDB community templates](#use-influxdb-community-templates)
+
 ## View a template summary
 To view a summary of what's included in a template before installing the template,
 use the [`influx pkg summary` command](/v2.0/reference/cli/influx/pkg/summary/).
@@ -177,3 +182,12 @@ influx pkg -f /path/to/template.yml \
 ```
 
 _To add a secret after installing a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
+
+## Use InfluxDB community templates
+The [InfluxDB Community Templates repository](https://github.com/influxdata/community-templates/)
+is home to a growing number of InfluxDB templates developed and maintained by
+others in the InfluxData community.
+Install community templates directly from GitHub using a template's raw code URL
+or download them to your local machine.
+
+<a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
