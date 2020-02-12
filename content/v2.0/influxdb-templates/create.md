@@ -7,7 +7,7 @@ menu:
     parent: InfluxDB templates
     name: Create a template
     identifier: Create an InfluxDB template
-weight: 101
+weight: 102
 v2.0/tags: [templates]
 ---
 
@@ -44,6 +44,11 @@ In **InfluxDB Cloud**, your user account is an organization.
    - [Telegraf configurations](/v2.0/write-data/use-telegraf/)
 
 4. Export the template _(see [below](#export-a-template))_.
+
+{{% warn %}}
+InfluxDB templates do not support the [table visualization type](/v2.0/visualize-data/visualization-types/table/).
+Dashboard cells that use the table visualization are not included in exported templates.
+{{% /warn %}}
 
 ## Export a template
 Do one of the following to export a template:
@@ -105,3 +110,10 @@ influx pkg export all \
   --dashboards=00000xX0x0X00x000 \
   --telegraf-configs=00000x0x000X0x0X0
 ```
+
+## Share your InfluxDB templates
+Share your InfluxDB templates with the entire InfluxData community.
+**Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/)
+repository on GitHub.**
+
+<a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
