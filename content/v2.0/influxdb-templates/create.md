@@ -65,7 +65,7 @@ Provide the following:
 ###### Export all resources to a template
 ```sh
 # Syntax
-influx pkg export all -o <org-name> -f <filepath> -t <token>
+influx pkg export all -o <org-name> -f <file-path> -t <token>
 
 # Example
 influx pkg export all \
@@ -94,7 +94,7 @@ Provide the following:
 ###### Export specific resources to a template
 ```sh
 # Syntax
-influx pkg export all -o <org-name> -f <filepath> -t <token> [resource-flags]
+influx pkg export all -o <org-name> -f <file-path> -t <token> [resource-flags]
 
 # Example
 influx pkg export all \
