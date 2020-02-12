@@ -47,7 +47,7 @@ Modified [task options](/v2.0/process-data/task-options) defined in the Flux
 script are also updated.
 
 ```sh
-# Pattern
+# Syntax
 influx task update -i <task-id> @/path/to/updated-task-script
 
 # Example
@@ -61,7 +61,7 @@ command with the `--status` flag.
 _Possible arguments of the `--status` flag are `active` or `inactive`._
 
 ```sh
-# Pattern
+# Syntax
 influx task update -i <task-id> --status < active | inactive >
 
 # Example

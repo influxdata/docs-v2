@@ -8,7 +8,39 @@ menu:
 weight: 101
 ---
 
-## v2.0.0-beta.1 [2019-01-08]
+## v2.0.0-beta.3 [2020-02-11]
+
+### Features
+- Extend `influx cli pkg command` with ability to take multiple files and directories.
+- Extend `influx cli pkg command` with ability to take multiple URLs, files,
+  directories, and stdin at the same time.
+- `influx` CLI can manage secrets.
+
+### Bug Fixes
+- Fix notification rule renaming panics in UI.
+- Fix the tooltip for stacked line graphs.
+- Fixed false success notification for read-only users creating dashboards.
+- Fix issue with pkger/http stack crashing on duplicate content type.
+
+## v2.0.0-beta.2 [2020-01-24]
+
+### Features
+- Change Influx packages to be CRD compliant.
+- Allow trailing newline in credentials file and CLI integration.
+- Add support for prefixed cursor search to ForwardCursor types.
+- Add backup and restore.
+- Introduce resource logger to tasks, buckets and organizations.
+
+### Bug Fixes
+- Check engine closed before collecting index metrics.
+- Reject writes which use any of the reserved tag keys.
+
+### UI Improvements
+- Swap `billingURL` with `checkoutURL`.
+- Move Cloud navigation to top of page instead of within left side navigation.
+- Adjust aggregate window periods to use duration input with validation.
+
+## v2.0.0-beta.1 [2020-01-08]
 
 ### Features
 - Add support for notification endpoints to `influx` templates and packages.

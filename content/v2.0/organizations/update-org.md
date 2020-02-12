@@ -42,7 +42,7 @@ to update an organization. Updating an organization requires the following:
 
 ##### Update the name of a organization
 ```sh
-# Pattern
+# Syntax
 influx org update -i <org-id> -n <new-org-name>
 
 # Example

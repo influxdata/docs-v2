@@ -836,7 +836,12 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
-## series key
+### series file
+
+A file created and used by the [InfluxDB storage engine](/v2.0/reference/internals/storage-engine/)
+that contains a set of all series keys across the entire database.
+
+### series key
 
 A series key identifies a particular series by measurement, tag set, and field key.
 

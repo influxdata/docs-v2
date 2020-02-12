@@ -27,17 +27,14 @@ influx pkg export [command]
 | `--buckets`           | Comma-separated list of bucket IDs                                              | string     |
 | `--checks`            | Comma-separated list of check IDs                                               | string     |
 | `--dashboards`        | Comma-separated list of dashboard IDs                                           | string     |
-| `-d`, `--description` | Package description                                                             | string     |
 | `--endpoints`         | Comma-separated list of notification endpoint IDs                               | string     |
 | `-f`, `--file`        | Package output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |
 | `-h`, `--help`        | Help for the `export` command                                                   |            |
 | `--labels`            | Comma-separated list of label IDs                                               | string     |
-| `-n`, `--name`        | Package name                                                                    | string     |
 | `--resource-type`     | Resource type associated with all IDs via stdin                                 | string     |
 | `--rules`             | Comma-separated list of notification rule IDs                                   | string     |
 | `--tasks`             | Comma-separated list of task IDs                                                | string     |
 | `--telegraf-configs`  | Comma-separated list of Telegraf configuration IDs                              | string     |
 | `--variables`         | Comma-separated list of variable IDs                                            | string     |
-| `-v`, `--version`     | Package version                                                                 | string     |
 
 {{% influx-cli-global-flags %}}
