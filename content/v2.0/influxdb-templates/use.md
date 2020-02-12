@@ -78,6 +78,11 @@ influx pkg validate -u https://raw.githubusercontent.com/influxdata/community-te
 Use the [`influx pkg` command](/v2.0/reference/cli/influx/pkg/) to install templates
 from your local filesystem or from URLs.
 
+- [Install templates from files](#install-templates-from-files)
+- [Install templates from URLs](#install-templates-from-urls)
+- [Install templates from both files and URLs](#install-templates-from-both-files-and-urls)
+- [Include secrets when installing a template](#include-secrets-when-installing-a-template)
+
 ### Install templates from files
 To install templates stored on your local machine, use the `-f` or `--file` flag
 to provide the **file path** of the template manifest.
@@ -168,7 +173,7 @@ influx pkg -f /path/to/template.yml \
 # Define multiple secrets when installing a template
 influx pkg -f /path/to/template.yml \
   --secret=FOO=bar \
-  --secret=BAZ=quz \
+  --secret=BAZ=quz
 ```
 
-_To add a secret after installing a template, see [Add a secret](/v2.0/security/secrets/manage-secrets/add/)._
+_To add a secret after installing a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
