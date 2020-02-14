@@ -11,10 +11,17 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.59.5**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.59.6**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.59.6 [2020-02-13]
+
+### Bug fixes
+- `derivative()` works properly across multiple buffers.
+
+---
 
 ## v0.59.5 [2020-01-24]
 
