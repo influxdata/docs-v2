@@ -12,6 +12,8 @@ weight: 101
 
 ### Features
 - Added labels to buckets.
+- Connect Monaco Editor to Flux LSP server.
+- Update Flux to v0.59.6.
 
 ### Bug Fixes
 - Revert bad indexing of `UserResourceMappings` and `Authorizations`.
