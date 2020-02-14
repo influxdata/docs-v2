@@ -17,6 +17,7 @@ weight: 101
 
 ### Bug Fixes
 - Revert bad indexing of `UserResourceMappings` and `Authorizations`.
+- Prevent gauge visualization from becoming too small.
 
 ---
 
