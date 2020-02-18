@@ -87,6 +87,7 @@ from your local filesystem or from URLs.
 - [Install all templates in a directory](#install-all-templates-in-a-directory)
 - [Install a template from a URL](#install-a-template-from-a-url)
 - [Install templates from both files and URLs](#install-templates-from-both-files-and-urls)
+- [Define environment references](#define-environment-references)
 - [Include a secret when installing a template](#include-a-secret-when-installing-a-template)
 
 ### Install a template from a file
@@ -159,6 +160,21 @@ influx pkg \
   -f ~/templates/custom-template.yml \
   -f ~/templates/iot/home/ \
   --recurse
+```
+
+### Define environment references
+Some templates include [environment references](/v2.0/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom names for resources in the template.
+Template maintainers should document what environment references exist in the template
+and what keys to use to replace them.
+
+To provide values for environment references, include an `--env-ref` flag with
+the environment reference key and the value to replace it.
+
+```sh
+influx pkg -f /path/to/template.yml \
+  --env-ref=bucket-name-1=myBucket
+  --env-ref=label-name-1=Label1 \
+  --env-ref=label-name-2=Label2
 ```
 
 ### Include a secret when installing a template

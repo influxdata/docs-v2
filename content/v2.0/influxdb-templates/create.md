@@ -111,6 +111,70 @@ influx pkg export all \
   --telegraf-configs=00000x0x000X0x0X0
 ```
 
+## Include user-definable resource names
+To let users customize resource names when installing your template, use
+**environment references** in place of names.
+Environment references are replaced with user-defined values when the template is installed.
+
+In your template manifest, replace a [supported resource field](#supported-resource-fields)
+with an `envRef` object.
+A `envRef` object contains a single `key` property.
+`key` is a string that references a user-defined environment reference key.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+  name:
+    envRef:
+      key: bucket-name-1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "apiVersion": "influxdata.com/v2alpha1",
+  "kind": "Bucket",
+  "metadata": {
+    "name": {
+      "envRef": {
+        "key": "bucket-name-1"
+      }
+    }
+  }
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Using the example above, users would include `--env-ref=bucket-name-1=myBucket`
+when [installing the template](/v2.0/influxdb-templates/use/#install-templates) to
+set the bucket name to "myBucket".
+
+```sh
+influx pkg \
+  -f /path/to/template.yml \
+  --env-ref=bucket-name-1=myBucket
+```
+
+If the user does not provide the environment reference key-value pair, InfluxDB
+uses the `key` string as the default value.
+
+{{% note %}}
+#### Supported resource fields
+Only the following fields support environment references:
+
+- `metadata.name`
+- `associations[].name`
+- `endpointName`
+{{% /note %}}
+
 ## Share your InfluxDB templates
 Share your InfluxDB templates with the entire InfluxData community.
 **Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/)
