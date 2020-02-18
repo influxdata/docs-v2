@@ -47,11 +47,7 @@ In **InfluxDB Cloud**, your user account is an organization.
 
 {{% warn %}}
 InfluxDB templates do not support the [table visualization type](/v2.0/visualize-data/visualization-types/table/).
-<<<<<<< HEAD
-Dashboard cells that use the table visualization are not included in exported templates.
-=======
 Dashboard cells that use table visualization are not included in exported templates.
->>>>>>> influx-templates
 {{% /warn %}}
 
 ## Export a template
