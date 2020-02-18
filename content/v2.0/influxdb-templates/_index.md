@@ -17,9 +17,9 @@ dashboard configuration, or share your configuration with the InfluxData communi
 A template is defined in a single file known as a **manifest**.
 Template manifests support the following formats:
 
-- YAML
-- JSON
-- Jsonnet
+- [YAML](https://yaml.org/)
+- [JSON](https://www.json.org/)
+- [Jsonnet](https://jsonnet.org/)
 
 {{% note %}}
 Template manifests are compatible with
