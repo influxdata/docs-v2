@@ -172,7 +172,7 @@ Only the following fields support environment references:
 
 - `metadata.name`
 - `associations[].name`
-- `endpointName`
+- `endpointName` _(unique to the `NotificationRule` resource)_
 {{% /note %}}
 
 ## Share your InfluxDB templates
