@@ -114,12 +114,16 @@ influx pkg export all \
 ## Include user-definable resource names
 To let users customize resource names when installing your template, use
 **environment references** in place of names.
-Environment references are replaced with user-defined values when the template is installed.
 
-In your template manifest, replace a [supported resource field](#supported-resource-fields)
+In your template manifest, replace a [supported resource field](#resource-fields-that-support-environment-references)
 with an `envRef` object.
 A `envRef` object contains a single `key` property.
-`key` is a string that references a user-defined environment reference key.
+`key` is a string that references the key of a key-value pair a user should
+provide when installing the template.
+During installation, the `envRef` object is replaced by the value of the
+referenced key-value pair.
+If the user does not provide the environment reference key-value pair, InfluxDB
+uses the `key` string as the default value.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -163,16 +167,13 @@ influx pkg \
   --env-ref=bucket-name-1=myBucket
 ```
 
-If the user does not provide the environment reference key-value pair, InfluxDB
-uses the `key` string as the default value.
-
 {{% note %}}
-#### Supported resource fields
+#### Resource fields that support environment references
 Only the following fields support environment references:
 
 - `metadata.name`
 - `associations[].name`
-- `endpointName` _(unique to the `NotificationRule` resource)_
+- `endpointName` _(unique to `NotificationRule` resources)_
 {{% /note %}}
 
 ## Share your InfluxDB templates
