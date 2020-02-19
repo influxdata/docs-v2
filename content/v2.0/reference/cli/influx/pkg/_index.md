@@ -6,7 +6,7 @@ menu:
     name: influx pkg
     parent: influx
 weight: 101
-v2.0/tags: [packages]
+v2.0/tags: [templates]
 ---
 
 The `influx pkg` command manages packages in InfluxDB.
