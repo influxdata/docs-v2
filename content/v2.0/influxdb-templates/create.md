@@ -115,22 +115,26 @@ influx pkg export all \
 After exporting a template manifest, replace resource names with **environment references**
 to let users customize resource names when installing your template.
 
-In your template manifest, replace a [supported resource field](#resource-fields-that-support-environment-references)
-with an `envRef` object.
-A `envRef` object contains a single `key` property.
-`key` is a string that references the key of a key-value pair a user should
-provide when installing the template.
-During installation, the `envRef` object is replaced by the value of the
-referenced key-value pair.
-If the user does not provide the environment reference key-value pair, InfluxDB
-uses the `key` string as the default value.
+1.  [Export a template](#export-a-template)
+2.  Select any of the following resource fields to update:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+    - `metadata.name`
+    - `associations[].name`
+    - `endpointName` _(unique to `NotificationRule` resources)_
+
+3.  Replace the resource field value with an `envRef` object with a `key` property
+    that reference the key of a key-value pair the user provides when installing the template.
+    During installation, the `envRef` object is replaced by the value of the
+    referenced key-value pair.
+    If the user does not provide the environment reference key-value pair, InfluxDB
+    uses the `key` string as the default value.
+
+    {{< code-tabs-wrapper >}}
+    {{% code-tabs %}}
 [YAML](#)
 [JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+  {{% /code-tabs %}}
+  {{% code-tab-content %}}
 ```yml
 apiVersion: influxdata.com/v2alpha1
 kind: Bucket
@@ -139,8 +143,8 @@ metadata:
     envRef:
       key: bucket-name-1
 ```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
 ```json
 {
   "apiVersion": "influxdata.com/v2alpha1",
@@ -154,8 +158,8 @@ metadata:
   }
 }
 ```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+  {{% /code-tab-content %}}
+  {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
 when [installing the template](/v2.0/influxdb-templates/use/#install-templates).
@@ -176,9 +180,7 @@ exist in the template and what keys to use to replace them._
 #### Resource fields that support environment references
 Only the following fields support environment references:
 
-- `metadata.name`
-- `associations[].name`
-- `endpointName` _(unique to `NotificationRule` resources)_
+
 {{% /note %}}
 
 ## Share your InfluxDB templates
