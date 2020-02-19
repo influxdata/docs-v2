@@ -112,8 +112,8 @@ influx pkg export all \
 ```
 
 ## Include user-definable resource names
-To let users customize resource names when installing your template, use
-**environment references** in place of names.
+After exporting a template manifest, replace resource names with **environment references**
+to let users customize resource names when installing your template.
 
 In your template manifest, replace a [supported resource field](#resource-fields-that-support-environment-references)
 with an `envRef` object.
@@ -157,15 +157,20 @@ metadata:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Using the example above, users would include `--env-ref=bucket-name-1=myBucket`
-when [installing the template](/v2.0/influxdb-templates/use/#install-templates) to
-set the bucket name to "myBucket".
+Using the example above, users are prompted to provide a value for `bucket-name-1`
+when [installing the template](/v2.0/influxdb-templates/use/#install-templates).
+Users can also include the `--env-ref` flag with the appropriate key-value pair
+when installing the template.
 
 ```sh
+# Set bucket-name-1 to "myBucket"
 influx pkg \
   -f /path/to/template.yml \
   --env-ref=bucket-name-1=myBucket
 ```
+
+_If sharing your template, we recommend documenting what environment references
+exist in the template and what keys to use to replace them._
 
 {{% note %}}
 #### Resource fields that support environment references

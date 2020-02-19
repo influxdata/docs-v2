@@ -164,11 +164,11 @@ influx pkg \
 
 ### Define environment references
 Some templates include [environment references](/v2.0/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
-Template maintainers should document what environment references exist in the template
-and what keys to use to replace them.
-
-To provide values for environment references, include an `--env-ref` flag with a
-key-value pair comprised of the environment reference key and the value to replace it.
+The `influx pkg` command prompts you to provide a value for each environment
+reference in the template.
+You can also provide values for environment references by including an `--env-ref`
+flag with a key-value pair comprised of the environment reference key and the
+value to replace it.
 
 ```sh
 influx pkg -f /path/to/template.yml \
