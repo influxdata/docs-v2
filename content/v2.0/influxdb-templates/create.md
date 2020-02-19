@@ -111,6 +111,78 @@ influx pkg export all \
   --telegraf-configs=00000x0x000X0x0X0
 ```
 
+## Include user-definable resource names
+After exporting a template manifest, replace resource names with **environment references**
+to let users customize resource names when installing your template.
+
+1.  [Export a template](#export-a-template)
+2.  Select any of the following resource fields to update:
+
+    - `metadata.name`
+    - `associations[].name`
+    - `endpointName` _(unique to `NotificationRule` resources)_
+
+3.  Replace the resource field value with an `envRef` object with a `key` property
+    that reference the key of a key-value pair the user provides when installing the template.
+    During installation, the `envRef` object is replaced by the value of the
+    referenced key-value pair.
+    If the user does not provide the environment reference key-value pair, InfluxDB
+    uses the `key` string as the default value.
+
+    {{< code-tabs-wrapper >}}
+    {{% code-tabs %}}
+[YAML](#)
+[JSON](#)
+  {{% /code-tabs %}}
+  {{% code-tab-content %}}
+```yml
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+  name:
+    envRef:
+      key: bucket-name-1
+```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+```json
+{
+  "apiVersion": "influxdata.com/v2alpha1",
+  "kind": "Bucket",
+  "metadata": {
+    "name": {
+      "envRef": {
+        "key": "bucket-name-1"
+      }
+    }
+  }
+}
+```
+  {{% /code-tab-content %}}
+  {{< /code-tabs-wrapper >}}
+
+Using the example above, users are prompted to provide a value for `bucket-name-1`
+when [installing the template](/v2.0/influxdb-templates/use/#install-templates).
+Users can also include the `--env-ref` flag with the appropriate key-value pair
+when installing the template.
+
+```sh
+# Set bucket-name-1 to "myBucket"
+influx pkg \
+  -f /path/to/template.yml \
+  --env-ref=bucket-name-1=myBucket
+```
+
+_If sharing your template, we recommend documenting what environment references
+exist in the template and what keys to use to replace them._
+
+{{% note %}}
+#### Resource fields that support environment references
+Only the following fields support environment references:
+
+
+{{% /note %}}
+
 ## Share your InfluxDB templates
 Share your InfluxDB templates with the entire InfluxData community.
 **Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/)
