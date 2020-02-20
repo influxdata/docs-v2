@@ -20,11 +20,6 @@ _Once sufficiently vetted, `experimental.set()` will replace the existing
 
 _**Function type:** Transformation_
 
-{{% warn %}}
-The `experimental.set()` function is subject to change at any time.
-By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
-{{% /warn %}}
-
 ```js
 import "experimental"
 
