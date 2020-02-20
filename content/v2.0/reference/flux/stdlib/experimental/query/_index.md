@@ -12,7 +12,7 @@ weight: 201
 v2.0/tags: [package]
 ---
 
-Flux Query functions provide functions  meant to simplify common InfluxDB queries.
+Flux Query functions provide functions meant to simplify common InfluxDB queries.
 Import the `experimental/query` package:
 
 ```js
@@ -23,7 +23,7 @@ import "experimental/query"
 
 ## inBucket()
 The primary function in this package is [`query.inBucket()`](/v2.0/reference/flux/stdlib/experimental/query/inbucket/),
-which utilizes all other functions in this package.
+which uses all other functions in this package.
 
 ```js
 import "experimental/query"

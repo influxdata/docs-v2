@@ -67,10 +67,10 @@ Must be exact string matches.
 _**Data type:** Array of strings_
 
 ### predicate
-A single argument predicate function that evaluates true or false.
+A single argument function that evaluates true or false.
 Records are passed to the function.
-Those that evaluate to true are included in the output tables.
-Records that evaluate to _null_ or false are not included in the output tables.
+Those that evaluate to `true` are included in the output tables.
+Records that evaluate to `null` or `false` are not included in the output tables.
 Default is `(r) => true`.
 
 _**Data type:** Function_
