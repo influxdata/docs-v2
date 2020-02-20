@@ -2,7 +2,7 @@
 title: query.inBucket() function
 description: >
   The `query.inBucket()` function queries data from a specified bucket within given
-  time bounds, filters data my measurement, field, and other column values.
+  time bounds, filters data by measurement, field, and optional predicate expressions.
 menu:
   v2_0_ref:
     name: query.inBucket
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `query.inBucket()` function queries data from a specified bucket within given
-time bounds, filters data my measurement, field, and other column values.
+time bounds, filters data by measurement, field, and optional predicate expressions.
 
 _**Function type:** Input_
 

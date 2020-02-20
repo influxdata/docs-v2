@@ -34,6 +34,6 @@ query.inBucket(
   stop: now(),
   measurement: "example-measurement",
   fields: ["exampleField1", "exampleField2"],
-  predicate: (r) => true
+  predicate: (r) => r.tagA == "foo" and r.tagB != "bar"
 )
 ```
