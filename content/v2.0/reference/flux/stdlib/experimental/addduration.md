@@ -10,7 +10,6 @@ menu:
 weight: 201
 related:
   - /v2.0/reference/flux/stdlib/experimental/subduration/
-experimental: true
 ---
 
 The `experimental.addDuration()` function adds a duration to a time value and

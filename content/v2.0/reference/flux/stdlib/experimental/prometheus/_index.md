@@ -10,7 +10,6 @@ menu:
     parent: Experimental
 weight: 201
 v2.0/tags: [functions, prometheus, package]
-experimental: true
 ---
 
 Flux Prometheus functions provide tools for working with
