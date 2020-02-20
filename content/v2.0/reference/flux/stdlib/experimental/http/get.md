@@ -15,11 +15,6 @@ returns the HTTP status code, response body, and response headers.
 
 _**Function type:** Miscellaneous_
 
-{{% warn %}}
-The `http.get()` function is currently experimental and subject to change at any time.
-By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
-{{% /warn %}}
-
 ```js
 import "experimental/http"
 

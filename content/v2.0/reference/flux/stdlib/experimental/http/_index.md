@@ -16,12 +16,6 @@ v2.0/tags: [functions, http, package]
 
 The Flux Experimental HTTP package provides functions for transferring data
 using HTTP protocol.
-
-{{% warn %}}
-The experimental HTTP package is subject to change at any time.
-By using this package, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
-{{% /warn %}}
-
 Import the `experimental/http` package:
 
 ```js
