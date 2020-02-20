@@ -107,3 +107,9 @@ inBucket = (
     |> filter(fn: predicate)
     |> filterFields(fields)
 ```
+
+_**Used functions:**_  
+[filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
+[query.filterFields()](/v2.0/reference/flux/stdlib/experimental/query/filterfields/)  
+[query.filterMeasurement()](/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/)  
+[query.fromRange()](/v2.0/reference/flux/stdlib/experimental/query/fromrange/)  

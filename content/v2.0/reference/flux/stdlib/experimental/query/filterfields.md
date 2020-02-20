@@ -51,3 +51,8 @@ filterFields = (tables=<-, fields=[]) =>
     tables
       |> filter(fn: (r) => contains(value: r._field, set: fields))
 ```
+
+_**Used functions:**_  
+[contains()](/v2.0/reference/flux/stdlib/built-in/tests/contains/)  
+[filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
+[length()](/v2.0/reference/flux/stdlib/built-in/misc/length/)  

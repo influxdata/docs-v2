@@ -70,3 +70,7 @@ fromRange = (bucket, start, stop=now()) =>
   from(bucket: bucket)
     |> range(start: start, stop: stop)
 ```
+
+_**Used functions:**_  
+[from()](/v2.0/reference/flux/stdlib/built-in/inputs/from/)  
+[range()](/v2.0/reference/flux/stdlib/built-in/transformations/range/)  

@@ -48,3 +48,6 @@ filterMeasurement = (tables=<-, measurement) =>
   tables
     |> filter(fn: (r) => r._measurement == measurement)
 ```
+
+_**Used functions:**_  
+[filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
