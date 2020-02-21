@@ -23,12 +23,14 @@ count(column: "_value")
 
 {{% note %}}
 #### Count empty tables
-`count()` will return `0` for empty tables, but to include empty tables in your data,
-you must set the following parameters for specific functions:
+`count()` returns `0` for empty tables.
+To keep empty tables in your data, set the following parameters for the following functions:
 
-- [`filter(onEmpty: "keep")`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/#onempty)
-- [`window(createEmpty: true)`](/v2.0/reference/flux/stdlib/built-in/transformations/window/#createempty)
-- [`aggregateWindow(createEmpty: true)`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#createempty)
+| Function                                                                                              | Parameter           |
+|:--------                                                                                              |:---------           |
+| [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
+| [window()](/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
+| [aggregateWindow()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
 ## Parameters
