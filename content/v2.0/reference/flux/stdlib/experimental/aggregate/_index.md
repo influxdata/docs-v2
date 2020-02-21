@@ -2,7 +2,7 @@
 title: Flux Aggregate package
 list_title: Aggregate package
 description: >
-  The Flux Aggregate package provides functions meant to simplify common aggregate operations.
+  The Flux Aggregate package provides functions to simplify common aggregate operations.
   Import the `experimental/aggregate` package.
 menu:
   v2_0_ref:
@@ -12,7 +12,7 @@ weight: 201
 v2.0/tags: [package]
 ---
 
-The Flux Aggregate package provides functions meant to simplify common aggregate operations.
+The Flux Aggregate package provides functions to simplify common aggregate operations.
 Import the `experimental/aggregate` package:
 
 ```js
