@@ -1,7 +1,7 @@
 ---
 title: aggregate.rate() function
 description: >
-  The `aggregate.rate()` function returns the rate of change per windows of time.
+  The `aggregate.rate()` function calculates the rate of change per windows of time.
 menu:
   v2_0_ref:
     name: aggregate.rate
@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `aggregate.rate()` function returns the rate of change per windows of time.
+The `aggregate.rate()` function calculates the rate of change per windows of time.
 
 _**Function type:** Transformation_
 
