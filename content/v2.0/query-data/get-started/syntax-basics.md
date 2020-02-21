@@ -61,10 +61,10 @@ this is a string
 Flux also supports objects. Each value in an object can be a different data type.
 
 ```js
-> o = {name:"Jim", age: 42}
+> o = {name:"Jim", age: 42, "favorite color": "red"}
 ```
 
-Use dot notation to access a properties of an object:
+Use **dot notation** to access a properties of an object:
 
 ```js
 > o.name
@@ -73,8 +73,24 @@ Jim
 42
 ```
 
-### Lists
-Flux supports lists. List values must be the same type.
+Or **bracket notation**:
+
+```js
+> o["name"]
+Jim
+> o["age"]
+42
+> o["favorite color"]
+red
+```
+
+{{% note %}}
+Use bracket notation to reference object properties with special or
+white space characters in the property key.
+{{% /note %}}
+
+### Arrays
+Flux supports arrays. All values in an array must be the same type.
 
 ```js
 > n = 4
