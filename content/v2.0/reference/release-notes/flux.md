@@ -16,6 +16,17 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.61.0 [2020-02-21]
+
+### Features
+- Add experimental aggregate package with `rate()` function.
+
+### Bug fixes
+- Deserialize the default vector if array elements are null.
+- Allow array and row types to be equatable.
+
+---
+
 ## v0.60.0 [2020-02-19]
 
 ### Features
