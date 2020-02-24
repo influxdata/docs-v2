@@ -16,10 +16,10 @@ influx task create [query literal or @/path/to/query.flux] [flags]
 ```
 
 ## Flags
-| Flag           | Description                               | Input type  |
-|:----           |:-----------                               |:----------: |
-| `-h`, `--help` | Help for `create`                         |             |
-| `--org`        | Organization name                         | string      |
-| `--org-id`     | ID of the organization that owns the task | string      |
+| Flag           | Description                   | Input type  | {{< cli/mapped >}} |
+|:----           |:-----------                   |:----------: |:------------------ |
+| `-h`, `--help` | Help for the `create` command |             |                    |
+| `--org`        | Organization name             | string      | `INFLUX_ORG`       |
+| `--org-id`     | Organiztion ID                | string      | `INFLUX_ORG_ID`    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

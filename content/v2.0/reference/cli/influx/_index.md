@@ -62,9 +62,14 @@ retrieving authentication tokens._
 | [user](/v2.0/reference/cli/influx/user)           | User management commands                             |
 | [write](/v2.0/reference/cli/influx/write)         | Write points to InfluxDB                             |
 
-{{% influx-cli-global-flags %}}
+## Mapped environment variables
+Some `influx` CLI flags are mapped to environment variables.
+Mapped flags get the value of the environment variable.
+To override environment variables, set the flag explicitly in your command.
 
 ## Flags
 | Flag           | Description                   |
 |:---------------|:------------------------------|
 | `-h`, `--help` | Help for the `influx` command |
+
+{{% cli/influx-global-flags %}}

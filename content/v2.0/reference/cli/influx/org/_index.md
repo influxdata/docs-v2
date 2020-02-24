@@ -34,4 +34,4 @@ influx org [command]
 |:----           |:-----------                |
 | `-h`, `--help` | Help for the `org` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

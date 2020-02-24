@@ -16,13 +16,13 @@ influx task find [flags]
 ```
 
 ## Flags
-| Flag              | Description                                 | Input type  |
-|:----              |:-----------                                 |:----------: |
-| `-h`, `--help`    | Help for `find`                             |             |
-| `-i`, `--id`      | Task ID                                     | string      |
-| `--limit`         | The number of tasks to find (default `100`) | integer     |
-| `--org`           | Task organization name                      | string      |
-| `--org-id`        | Task organization ID                        | string      |
-| `-n`, `--user-id` | Task owner ID                               | string      |
+| Flag              | Description                             | Input type  | {{< cli/mapped >}} |
+|:----              |:-----------                             |:----------: |:------------------ |
+| `-h`, `--help`    | Help for the `find` command             |             |                    |
+| `-i`, `--id`      | Task ID                                 | string      |                    |
+| `--limit`         | Number of tasks to find (default `100`) | integer     |                    |
+| `--org`           | Task organization name                  | string      | `INFLUX_ORG`       |
+| `--org-id`        | Task organization ID                    | string      | `INFLUX_ORG_ID`    |
+| `-n`, `--user-id` | Task owner ID                           | string      |                    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

@@ -34,7 +34,7 @@ influxd run
 | `--bolt-path`              | Path to boltdb database (default `~/.influxdbv2/influxd.bolt`)                                        | string     |
 | `--e2e-testing`            | Add /debug/flush endpoint to clear stores; used for end-to-end tests (default `false`)                |            |
 | `--engine-path`            | Path to persistent engine files (default `~/.influxdbv2/engine`)                                      | string     |
-| `-h`, `--help`             | Help for `influxd`                                                                                    |            |
+| `-h`, `--help`             | Help for the `influxd` command                                                                        |            |
 | `--http-bind-address`      | Bind address for the REST HTTP API (default `:9999`)                                                  | string     |
 | `--log-level`              | Supported log levels are debug, info, and error (default `info`)                                      | string     |
 | `--reporting-disabled`     | Disable sending telemetry data to **https:<nolink>//telemetry.influxdata.com**                        |            |

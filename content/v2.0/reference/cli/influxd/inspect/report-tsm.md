@@ -52,6 +52,6 @@ in the following ways:
 | `--data-dir`   | Use provided data directory (defaults to `~/.influxdbv2/engine/data`).                           | string     |
 | `--detailed`   | Emit series cardinality segmented by measurements, tag keys, and fields. _**May take a while**_. |            |
 | `--exact`      | Calculate an exact cardinality count. _**May use significant memory**_.                          |            |
-| `-h`, `--help` | Help for `report-tsm`.                                                                           |            |
+| `-h`, `--help` | Help for the `report-tsm` command.                                                               |            |
 | `--org-id`     | Process only data belonging to organization ID.                                                  | string     |
 | `--pattern`    | Only process TSM files containing pattern.                                                       | string     |

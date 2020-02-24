@@ -16,11 +16,11 @@ influx org members add [flags]
 ```
 
 ## Flags
-| Flag             | Description           | Input type  |
-|:----             |:-----------           |:----------: |
-| `-h`, `--help`   | Help for `add`        |             |
-| `-i`, `--id`     | The organization ID   | string      |
-| `-o`, `--member` | The member ID         | string      |
-| `-n`, `--name`   | The organization name | string      |
+| Flag             | Description                | Input type  | {{< cli/mapped >}} |
+|:----             |:-----------                |:----------: |:------------------ |
+| `-h`, `--help`   | Help for the `add` command |             |                    |
+| `-i`, `--id`     | Organization ID            | string      | `INFLUX_ORG_ID`    |
+| `-o`, `--member` | Member ID                  | string      |                    |
+| `-n`, `--name`   | Organization name          | string      | `INFLUX_ORG`       |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

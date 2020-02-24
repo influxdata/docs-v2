@@ -16,12 +16,12 @@ influx bucket find [flags]
 ```
 
 ## Flags
-| Flag           | Description                  | Input type  |
-|:----           |:-----------                  |:----------: |
-| `-h`, `--help` | Help for the `find` command  |             |
-| `-i`, `--id`   | The bucket ID                | string      |
-| `-n`, `--name` | The bucket name              | string      |
-| `-o`, `--org`  | The bucket organization name | string      |
-| `--org-id`     | The bucket organization ID   | string      |
+| Flag           | Description                 | Input type  | {{< cli/mapped >}}   |
+|:----           |:-----------                 |:----------: |:------------------   |
+| `-h`, `--help` | Help for the `find` command |             |                      |
+| `-i`, `--id`   | Bucket ID                   | string      |                      |
+| `-n`, `--name` | Bucket name                 | string      | `INFLUX_BUCKET_NAME` |
+| `-o`, `--org`  | Organization name           | string      | `INFLUX_ORG`         |
+| `--org-id`     | Organization ID             | string      | `INFLUX_ORG_ID`      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

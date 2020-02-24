@@ -33,7 +33,7 @@ that matches the specified [globbing patterns](#globbing-patterns):
 that matches the specified [globbing patterns](#globbing-patterns):
 
 - The file name
-- A list of keys with timestamps in the wrong order 
+- A list of keys with timestamps in the wrong order
 
 ## Arguments
 
@@ -62,7 +62,7 @@ foo/**/baz
 ```
 
 ## Flags
-| Flag                | Description                                            |
-|:----                |:-----------                                            |
+| Flag                | Description                                                                |
+|:----                |:-----------                                                                |
 | `--find-duplicates` | Ignore dumping entries; only report keys in the WAL that are out of order. |
-| `-h`, `--help`      | Help for `dumpwal`.                                    |
+| `-h`, `--help`      | Help for the `dumpwal` cinnabd.                                            |

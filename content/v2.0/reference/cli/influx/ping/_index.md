@@ -25,4 +25,4 @@ influx ping [flags]
 |:----           |:-----------                 |
 | `-h`, `--help` | Help for the `ping` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}
