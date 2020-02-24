@@ -18,7 +18,7 @@ influx org delete [flags]
 ## Flags
 | Flag           | Description                    | Input type  | {{< cli/mapped >}} |
 |:----           |:-----------                    |:----------: |:------------------ |
-| `-h`, `--help` | Help for `delete`              |             |                    |
-| `-i`, `--id`   | **(Required)** Organization ID | string      | `INFLUX_ORG_ID`    |
+| `-h`, `--help` | Help for the `delete` command  |             |                    |
+| `-i`, `--id`   | Organization ID **(Required)** | string      | `INFLUX_ORG_ID`    |
 
 {{% cli/influx-global-flags %}}

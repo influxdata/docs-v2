@@ -30,6 +30,6 @@ influxd inspect [subcommand]
 | [verify-wal](/v2.0/reference/cli/influxd/inspect/verify-wal/)               | Check for corrupt WAL files            |
 
 ## Flags
-| Flag           | Description        |
-|:----           |:-----------        |
-| `-h`, `--help` | Help for `inspect` |
+| Flag           | Description                    |
+|:----           |:-----------                    |
+| `-h`, `--help` | Help for the `inspect` command |

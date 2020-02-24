@@ -64,9 +64,8 @@ retrieving authentication tokens._
 
 ## Mapped environment variables
 Some `influx` CLI flags are mapped to environment variables.
-If those environment variables are set, the flag automatically assumes the value
-of the environment variable.
-If the flag is included, the specified value overrides the mapped environment variable.
+Mapped flags get the value of the environment variable.
+To override environment variables, set the flag explicitly in your command.
 
 ## Flags
 | Flag           | Description                   |

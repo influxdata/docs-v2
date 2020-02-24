@@ -16,9 +16,9 @@ influx auth active [flags]
 ```
 
 ## Flags
-| Flag           | Description                         | Input type |
-|:----           |:-----------                         |:----------:|
-| `-h`, `--help` | Help for the `active` command       |            |
-| `-i`, `--id`   | The authorization ID **(Required)** | string     |
+| Flag           | Description                     | Input type |
+|:----           |:-----------                     |:----------:|
+| `-h`, `--help` | Help for the `active` command   |            |
+| `-i`, `--id`   | **(Required)** Authorization ID | string     |
 
 {{% cli/influx-global-flags %}}

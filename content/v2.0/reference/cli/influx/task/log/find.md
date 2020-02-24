@@ -16,10 +16,10 @@ influx task log find [flags]
 ```
 
 ## Flags
-| Flag           | Description            | Input type  |
-|:----           |:-----------            |:----------: |
-| `-h`, `--help` | Help for `find`        |             |
-| `--run-id`     | Run ID                 | string      |
-| `--task-id`    | Task ID **(Required)** | string      |
+| Flag           | Description                 | Input type  |
+|:----           |:-----------                 |:----------: |
+| `-h`, `--help` | Help for the `find` command |             |
+| `--run-id`     | Run ID                      | string      |
+| `--task-id`    | Task ID **(Required)**      | string      |
 
 {{% cli/influx-global-flags %}}

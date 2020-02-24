@@ -45,4 +45,4 @@ influxd restore [flags]
 | `--credentials-path` | Path to target persistent credentials files (default is `~/.influxdbv2/credentials`)   | string     |
 | `--backup-path`      | Path to backup files                                                                   | string     |
 | `--rebuild-index`    | Rebuild the TSI index and series file based on the `--engine-path` (default is `true`) |            |
-| `-h`, `--help`       | Help for `restore`                                                                     |            |
+| `-h`, `--help`       | Help for the `restore` command                                                         |            |

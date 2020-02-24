@@ -16,12 +16,12 @@ influx user create [flags]
 ```
 
 ## Flags
-| Flag               | Description                                     | Input type  | {{< cli/mapped >}} |
-|:----               |:-----------                                     |:----------: |:------------------ |
-| `-h`, `--help`     | Help for `create`                               |             |                    |
-| `-n`, `--name`     | The username **(Required)**                     | string      | `INFLUX_NAME`      |
-| `-o`, `--org`      | The name of the organization to add the user to | string      | `INFLUX_ORG`       |
-| `--org-id`         | The ID of the organization to add the user to   | string      | `INFLUX_ORG_ID`    |
-| `-p`, `--password` | The user password                               | string      |                    |
+| Flag               | Description                   | Input type  | {{< cli/mapped >}} |
+|:----               |:-----------                   |:----------: |:------------------ |
+| `-h`, `--help`     | Help for the `create` command |             |                    |
+| `-n`, `--name`     | Username **(Required)**       | string      | `INFLUX_NAME`      |
+| `-o`, `--org`      | Organization name             | string      | `INFLUX_ORG`       |
+| `--org-id`         | Organization ID               | string      | `INFLUX_ORG_ID`    |
+| `-p`, `--password` | User password                 | string      |                    |
 
 {{% cli/influx-global-flags %}}

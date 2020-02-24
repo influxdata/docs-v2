@@ -19,8 +19,8 @@ influx org update [flags]
 | Flag                  | Description                      | Input type | {{< cli/mapped >}}       |
 |:----                  |:-----------                      |:----------:|:------------------       |
 | `-d`, `--description` | Description for the organization | string     | `INFLUX_ORG_DESCRIPTION` |
-| `-h`, `--help`        | Help for `update`                |            |                          |
-| `-i`, `--id`          | **(Required)** Organization ID   | string     | `INFLUX_ORG_ID`          |
+| `-h`, `--help`        | Help for the `update` command    |            |                          |
+| `-i`, `--id`          | Organization ID **(Required)**   | string     | `INFLUX_ORG_ID`          |
 | `-n`, `--name`        | Organization name                | string     | `INFLUX_ORG`             |
 
 {{% cli/influx-global-flags %}}

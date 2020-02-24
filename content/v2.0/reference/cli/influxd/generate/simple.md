@@ -30,11 +30,11 @@ influxd generate simple [flags]
 | Flag           | Description                                                               | Input Type |
 |:----           |:-----------                                                               |:----------:|
 | `--print`      | Print data spec and exit                                                  |            |
-| `--org`        | Name of organization                                                      | string     |
-| `--bucket`     | Name of bucket                                                            | string     |
+| `--org`        | Organization name                                                         | string     |
+| `--bucket`     | Bucket name                                                               | string     |
 | `--start-time` | Start time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of one week ago) | string     |
 | `--end-time`   | End time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of current day)    | string     |
 | `--clean`      | Clean time series data files (`none`, `tsm` or `all`) (default `none`)    | string     |
 | `--cpuprofile` | Collect a CPU profile                                                     | string     |
 | `--memprofile` | Collect a memory profile                                                  | string     |
-| `-h`, `--help` | Help for `generate simple`                                                |            |
+| `-h`, `--help` | Help for the `simple` command                                             |            |

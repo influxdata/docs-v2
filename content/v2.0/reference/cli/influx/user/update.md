@@ -17,10 +17,10 @@ influx user update [flags]
 ```
 
 ## Flags
-| Flag           | Description                | Input type  |
-|:----           |:-----------                |:----------: |
-| `-h`, `--help` | Help for `update`          |             |
-| `-i`, `--id`   | The user ID **(Required)** | string      |
-| `-n`, `--name` | The username               | string      |
+| Flag           | Description                   | Input type  |
+|:----           |:-----------                   |:----------: |
+| `-h`, `--help` | Help for the `update` command |             |
+| `-i`, `--id`   | User ID **(Required)**        | string      |
+| `-n`, `--name` | Username                      | string      |
 
 {{% cli/influx-global-flags %}}

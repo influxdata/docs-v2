@@ -19,10 +19,10 @@ influx auth find [flags]
 | Flag           | Description                 | Input type  |
 |:----           |:-----------                 |:----------: |
 | `-h`, `--help` | Help for the `find` command |             |
-| `-i`, `--id`   | The authorization ID        | string      |
-| `-o`, `--org`  | The organization            | string      |
-| `--org-id`     | The organization ID         | string      |
-| `-u`, `--user` | The user                    | string      |
-| `--user-id`    | The user ID                 | string      |
+| `-i`, `--id`   | Authorization ID            | string      |
+| `-o`, `--org`  | Organization name           | string      |
+| `--org-id`     | Organization ID             | string      |
+| `-u`, `--user` | Username                    | string      |
+| `--user-id`    | User ID                     | string      |
 
 {{% cli/influx-global-flags %}}

@@ -19,7 +19,7 @@ influx org create [flags]
 | Flag                  | Description                     | Input type  |
 |:----                  |:-----------                     |:----------: |
 | `-d`, `--description` | Description of the organization |             |
-| `-h`, `--help`        | Help for `create`               |             |
-| `-n`, `--name`        | Name of organization            | string      |
+| `-h`, `--help`        | Help for the `create` command   |             |
+| `-n`, `--name`        | Organization name               | string      |
 
 {{% cli/influx-global-flags %}}

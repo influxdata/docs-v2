@@ -19,11 +19,11 @@ influx secret update [flags]
 ```
 
 ## Flags
-| Flag           | Description                 | Input type | {{< cli/mapped >}} |
-|:----           |:-----------                 |:----------:|:------------------ |
-| `-h`, `--help` | Help for `secret update`    |            |                    |
-| `-k`, `--key`  | Secret key _**(required)**_ | string     |                    |
-| `-o`, `--org`  | Organization name           | string     | `INFLUX_ORG`       |
-| `--org-id`     | Organization ID             | string     | `INFLUX_ORG_ID`    |
+| Flag           | Description                   | Input type | {{< cli/mapped >}} |
+|:----           |:-----------                   |:----------:|:------------------ |
+| `-h`, `--help` | Help for the `update` command |            |                    |
+| `-k`, `--key`  | Secret key _**(Required)**_   | string     |                    |
+| `-o`, `--org`  | Organization name             | string     | `INFLUX_ORG`       |
+| `--org-id`     | Organization ID               | string     | `INFLUX_ORG_ID`    |
 
 {{% cli/influx-global-flags %}}
