@@ -27,4 +27,4 @@ influx task log [command]
 |:----           |:-----------    |
 | `-h`, `--help` | Help for `log` |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

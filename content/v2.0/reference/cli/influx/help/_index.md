@@ -20,4 +20,4 @@ influx help [command] [flags]
 |:----           |:-----------   |
 | `-h`, `--help` | Help for help |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

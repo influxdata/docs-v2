@@ -21,4 +21,4 @@ influx task delete [flags]
 | `-h`, `--help` | Help for `delete`      |             |
 | `-i`, `--id`   | Task id **(Required)** | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

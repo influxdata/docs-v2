@@ -19,8 +19,7 @@ influx task log find [flags]
 | Flag           | Description            | Input type  |
 |:----           |:-----------            |:----------: |
 | `-h`, `--help` | Help for `find`        |             |
-| `--org-id`     | Organization ID        | string      |
 | `--run-id`     | Run ID                 | string      |
 | `--task-id`    | Task ID **(Required)** | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

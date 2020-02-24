@@ -21,4 +21,4 @@ influx user delete [flags]
 | `-h`, `--help` | Help for `delete`          |             |
 | `-i`, `--id`   | The user ID **(Required)** | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

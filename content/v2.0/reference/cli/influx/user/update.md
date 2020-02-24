@@ -23,4 +23,4 @@ influx user update [flags]
 | `-i`, `--id`   | The user ID **(Required)** | string      |
 | `-n`, `--name` | The username               | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

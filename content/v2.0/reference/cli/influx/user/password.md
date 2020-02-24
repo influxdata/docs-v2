@@ -24,4 +24,4 @@ influx user password [flags]
 | `-i`, `--id`   | The user ID         | string      |
 | `-n`, `--name` | The username        | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

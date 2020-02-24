@@ -22,4 +22,4 @@ influx task update [flags]
 | `-i`, `--id`   | Task ID **(Required)** | string      |
 | `--status`     | Update task status     | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

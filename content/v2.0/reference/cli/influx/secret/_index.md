@@ -29,4 +29,4 @@ influx secret [subcommand]
 |:----           |:-----------                   |
 | `-h`, `--help` | Help for the `secret` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

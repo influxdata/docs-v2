@@ -22,4 +22,4 @@ influx org create [flags]
 | `-h`, `--help`        | Help for `create`               |             |
 | `-n`, `--name`        | Name of organization            | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

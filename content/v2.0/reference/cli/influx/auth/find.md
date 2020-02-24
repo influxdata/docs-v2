@@ -25,4 +25,4 @@ influx auth find [flags]
 | `-u`, `--user` | The user                    | string      |
 | `--user-id`    | The user ID                 | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

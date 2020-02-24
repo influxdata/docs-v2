@@ -16,10 +16,10 @@ influx org members list [flags]
 ```
 
 ## Flags
-| Flag           | Description           | Input type  |
-|:----           |:-----------           |:----------: |
-| `-h`, `--help` | Help for `list`       |             |
-| `-i`, `--id`   | The organization ID   | string      |
-| `-n`, `--name` | The organization name | string      |
+| Flag           | Description           | Input type  | {{< cli/mapped >}} |
+|:----           |:-----------           |:----------: |:------------------ |
+| `-h`, `--help` | Help for `list`       |             |                    |
+| `-i`, `--id`   | The organization ID   | string      | `INFLUX_ORG_ID`    |
+| `-n`, `--name` | The organization name | string      | `INFLUX_ORG`       |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

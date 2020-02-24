@@ -16,11 +16,11 @@ influx org members remove [flags]
 ```
 
 ## Flags
-| Flag             | Description           | Input type  |
-|:----             |:-----------           |:----------: |
-| `-h`, `--help`   | Help for `remove`     |             |
-| `-i`, `--id`     | The organization ID   | string      |
-| `-o`, `--member` | The member ID         | string      |
-| `-n`, `--name`   | The organization name | string      |
+| Flag             | Description           | Input type  | {{< cli/mapped >}} |
+|:----             |:-----------           |:----------: |:------------------ |
+| `-h`, `--help`   | Help for `remove`     |             |                    |
+| `-i`, `--id`     | The organization ID   | string      | `INFLUX_ORG_ID`    |
+| `-o`, `--member` | The member ID         | string      |                    |
+| `-n`, `--name`   | The organization name | string      | `INFLUX_ORG`       |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

@@ -22,8 +22,7 @@ influx task run find [flags]
 | `--before`    | Before-time for filtering   | string      |
 | `-h`,`--help` | Help for `find`             |             |
 | `--limit`     | Limit the number of results | integer     |
-| `--org-id`    | Organization ID             | string      |
 | `--run-id`    | Run ID                      | string      |
 | `--task-id`   | Task ID **(Required)**      | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

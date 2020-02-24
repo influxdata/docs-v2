@@ -17,10 +17,10 @@ influx secret find [flags]
 ```
 
 ## Flags
-| Flag           | Description            | Input type |
-|:----           |:-----------            |:----------:|
-| `-h`, `--help` | Help for `secret find` |            |
-| `-o`, `--org`  | Organization name      | string     |
-| `--org-id`     | Organization ID        | string     |
+| Flag           | Description            | Input type | {{< cli/mapped >}} |
+|:----           |:-----------            |:----------:|:------------------ |
+| `-h`, `--help` | Help for `secret find` |            |                    |
+| `-o`, `--org`  | Organization name      | string     | `INFLUX_ORG`       |
+| `--org-id`     | Organization ID        | string     | `INFLUX_ORG_ID`    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

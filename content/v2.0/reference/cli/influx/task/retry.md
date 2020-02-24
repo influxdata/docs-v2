@@ -22,4 +22,4 @@ influx task retry [flags]
 | `-r`, `--run-id`  | Run id **(Required)**  | string      |
 | `-i`, `--task-id` | Task id **(Required)** | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

@@ -21,4 +21,4 @@ influx auth active [flags]
 | `-h`, `--help` | Help for the `active` command       |            |
 | `-i`, `--id`   | The authorization ID **(Required)** | string     |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

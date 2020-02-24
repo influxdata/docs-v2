@@ -26,20 +26,20 @@ influx pkg [command]
 
 ## Flags
 
-| Flag                      | Description                                                                                     | Input Type |
-|:----                      |:-----------------------------                                                                   |:---------- |
-| `-c`, `--disable-color`   | Disable color in output                                                                         |            |
-| `--disable-table-borders` | Disable table borders                                                                           |            |
-| `-e`, `--encoding`        | Encoding of the input stream                                                                    | string     |
-| `--env-ref`               | Environment references to provide alongside the package (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |
-| `-f`, `--file`            | Path to package file                                                                            | string     |
-| `--force`                 | Ignore warnings about destructive changes                                                       |            |
-| `-h`, `--help`            | Help for the `pkg` command                                                                      |            |
-| `-o`, `--org`             | The name of the organization that owns the bucket                                               | string     |
-| `--org-id`                | The ID of the organization that owns the bucket                                                 | string     |
-| `-q`, `--quiet`           | Disable output printing                                                                         |            |
-| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                              |            |
-| `--secret`                | Secrets to provide alongside the package (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |
-| `-u`, `--url`             | URL of package file                                                                             | string     |
+| Flag                      | Description                                                                                     | Input Type | {{< cli/mapped >}} |
+|:----                      |:-----------------------------                                                                   |:---------- |:------------------ |
+| `-c`, `--disable-color`   | Disable color in output                                                                         |            |                    |
+| `--disable-table-borders` | Disable table borders                                                                           |            |                    |
+| `-e`, `--encoding`        | Encoding of the input stream                                                                    | string     |                    |
+| `--env-ref`               | Environment references to provide alongside the package (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                    |
+| `-f`, `--file`            | Path to package file                                                                            | string     |                    |
+| `--force`                 | Ignore warnings about destructive changes                                                       |            |                    |
+| `-h`, `--help`            | Help for the `pkg` command                                                                      |            |                    |
+| `-o`, `--org`             | The name of the organization that owns the bucket                                               | string     | `INFLUX_ORG`       |
+| `--org-id`                | The ID of the organization that owns the bucket                                                 | string     | `INFLUX_ORG_ID`    |
+| `-q`, `--quiet`           | Disable output printing                                                                         |            |                    |
+| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                              |            |                    |
+| `--secret`                | Secrets to provide alongside the package (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                    |
+| `-u`, `--url`             | URL of package file                                                                             | string     |                    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

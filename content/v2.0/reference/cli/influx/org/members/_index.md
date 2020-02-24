@@ -29,4 +29,4 @@ influx org members [command]
 |:----           |:-----------        |
 | `-h`, `--help` | Help for `members` |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

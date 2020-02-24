@@ -21,4 +21,4 @@ influx auth delete [flags]
 | `-h`, `--help` | Help for the `delete` command       |             |
 | `-i`, `--id`   | The authorization ID **(Required)** | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}
