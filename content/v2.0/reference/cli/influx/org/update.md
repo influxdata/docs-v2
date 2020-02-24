@@ -20,7 +20,7 @@ influx org update [flags]
 |:----                  |:-----------                      |:----------:|:------------------       |
 | `-d`, `--description` | Description for the organization | string     | `INFLUX_ORG_DESCRIPTION` |
 | `-h`, `--help`        | Help for the `update` command    |            |                          |
-| `-i`, `--id`          | Organization ID **(Required)**   | string     | `INFLUX_ORG_ID`          |
+| `-i`, `--id`          | **(Required)** Organization ID   | string     | `INFLUX_ORG_ID`          |
 | `-n`, `--name`        | Organization name                | string     | `INFLUX_ORG`             |
 
 {{% cli/influx-global-flags %}}

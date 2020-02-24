@@ -19,7 +19,7 @@ influx bucket update [flags]
 | Flag                | Description                          | Input type  | {{< cli/mapped >}}   |
 |:----                |:-----------                          |:----------: |:------------------   |
 | `-h`, `--help`      | Help for the `update` command        |             |                      |
-| `-i`, `--id`        | Bucket ID **(Required)**             | string      |                      |
+| `-i`, `--id`        | **(Required)** Bucket ID             | string      |                      |
 | `-n`, `--name`      | New bucket name                      | string      | `INFLUX_BUCKET_NAME` |
 | `-r`, `--retention` | New duration bucket will retain data | duration    |                      |
 

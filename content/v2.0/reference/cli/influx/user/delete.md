@@ -19,6 +19,6 @@ influx user delete [flags]
 | Flag           | Description                   | Input type  |
 |:----           |:-----------                   |:----------: |
 | `-h`, `--help` | Help for the `delete` command |             |
-| `-i`, `--id`   | User ID **(Required)**        | string      |
+| `-i`, `--id`   | **(Required)** User ID        | string      |
 
 {{% cli/influx-global-flags %}}

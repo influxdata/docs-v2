@@ -23,6 +23,6 @@ influx task run find [flags]
 | `-h`,`--help` | Help for the `find` command |             |
 | `--limit`     | Limit the number of results | integer     |
 | `--run-id`    | Run ID                      | string      |
-| `--task-id`   | Task ID **(Required)**      | string      |
+| `--task-id`   | **(Required)** Task ID      | string      |
 
 {{% cli/influx-global-flags %}}

@@ -22,7 +22,7 @@ influx secret update [flags]
 | Flag           | Description                   | Input type | {{< cli/mapped >}} |
 |:----           |:-----------                   |:----------:|:------------------ |
 | `-h`, `--help` | Help for the `update` command |            |                    |
-| `-k`, `--key`  | Secret key _**(Required)**_   | string     |                    |
+| `-k`, `--key`  | **(Required)** Secret key     | string     |                    |
 | `-o`, `--org`  | Organization name             | string     | `INFLUX_ORG`       |
 | `--org-id`     | Organization ID               | string     | `INFLUX_ORG_ID`    |
 

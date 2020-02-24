@@ -20,7 +20,7 @@ influx user update [flags]
 | Flag           | Description                   | Input type  |
 |:----           |:-----------                   |:----------: |
 | `-h`, `--help` | Help for the `update` command |             |
-| `-i`, `--id`   | User ID **(Required)**        | string      |
+| `-i`, `--id`   | **(Required)** User ID        | string      |
 | `-n`, `--name` | Username                      | string      |
 
 {{% cli/influx-global-flags %}}

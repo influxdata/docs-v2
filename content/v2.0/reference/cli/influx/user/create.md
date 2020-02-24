@@ -19,7 +19,7 @@ influx user create [flags]
 | Flag               | Description                   | Input type  | {{< cli/mapped >}} |
 |:----               |:-----------                   |:----------: |:------------------ |
 | `-h`, `--help`     | Help for the `create` command |             |                    |
-| `-n`, `--name`     | Username **(Required)**       | string      | `INFLUX_NAME`      |
+| `-n`, `--name`     | **(Required)** Username       | string      | `INFLUX_NAME`      |
 | `-o`, `--org`      | Organization name             | string      | `INFLUX_ORG`       |
 | `--org-id`         | Organization ID               | string      | `INFLUX_ORG_ID`    |
 | `-p`, `--password` | User password                 | string      |                    |

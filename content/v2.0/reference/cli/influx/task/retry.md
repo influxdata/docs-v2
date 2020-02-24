@@ -19,7 +19,7 @@ influx task retry [flags]
 | Flag              | Description                  | Input type  |
 |:----              |:-----------                  |:----------: |
 | `-h`, `--help`    | Help for the `retry` command |             |
-| `-r`, `--run-id`  | Run ID **(Required)**        | string      |
-| `-i`, `--task-id` | Task ID **(Required)**       | string      |
+| `-r`, `--run-id`  | **(Required)** Run ID        | string      |
+| `-i`, `--task-id` | **(Required)** Task ID       | string      |
 
 {{% cli/influx-global-flags %}}

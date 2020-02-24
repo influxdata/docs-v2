@@ -19,6 +19,6 @@ influx bucket delete [flags]
 | Flag           | Description                   | Input type  |
 |:----           |:-----------                   |:----------: |
 | `-h`, `--help` | Help for the `delete` command |             |
-| `-i`, `--id`   | Bucket ID **(Required)**      | string      |
+| `-i`, `--id`   | **(Required)** Bucket ID      | string      |
 
 {{% cli/influx-global-flags %}}
