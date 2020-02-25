@@ -1,11 +1,112 @@
 ---
-title: Common queries
-seotitle: Common Flux queries
+title: Common Flux queries
 description: >
   placeholder
-weight: 102
+weight: 103
 menu:
   v2_0:
     parent: Query data
+    name: Common queries
 v2.0/tags: [query]
 ---
+
+
+- SELECT-like commands
+- Median
+- Percentile
+- Cumulative Sum
+- Moving Average
+- Increase
+- Rate
+- Delta
+- Window
+- First/Last
+- Histogram
+- Gap filling
+- Last observation carried forward
+- Last point
+
+## SELECT-like commands
+
+## Median
+
+##### Median as an aggregate
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggregateWindow(every: 5m, fn: median)
+```
+
+##### Median as a selector
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> median(method: "exact_selector")
+```
+
+## Percentile
+
+##### Percentile as an aggregate
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggregateWindow(
+      every: 5m,
+      fn: (tables=<-, column) => tables |> quantile(q: 0.99)
+  )
+```
+
+##### Percentile as a selector
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> quantile(q: 0.99)
+```
+
+## Cumulative Sum
+
+
+## Moving Average
+
+
+## Increase
+
+
+## Rate
+
+
+## Delta
+
+
+## Window
+
+
+## First/Last
+
+
+## Histogram
+
+
+## Gap filling
+
+
+## Last observation carried forward
+
+
+## Last point
