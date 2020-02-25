@@ -75,11 +75,11 @@ _**Data type:** String_
 - `left`
 - `right`
 - `full`
--->
 
 {{% note %}}
 The `on` parameter and the `cross` method are mutually exclusive.
 {{% /note %}}
+-->
 
 ## Examples
 
