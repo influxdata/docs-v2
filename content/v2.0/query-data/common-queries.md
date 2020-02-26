@@ -80,18 +80,62 @@ from(bucket: "example-bucket")
 ```
 
 ## Cumulative Sum
-
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> cumulativeSum()
+```
 
 ## Moving Average
-
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> movingAverage()
+```
 
 ## Increase
-
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> increase()
+```
 
 ## Rate
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> derivative(unit: 1s, nonNegative: true)
+```
 
+```js
+import "experimental/aggregate"
 
-## Delta
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggregate.rate(unit: 1s, every: 5m)
+```
+
+## Delta (state changes only)
 
 
 ## Window

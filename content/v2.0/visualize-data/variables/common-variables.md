@@ -54,7 +54,7 @@ List all unique tag values for a specific tag in a specified bucket.
 The example below lists all unique values of the `host` tag.
 
 _**Flux package:** [InfluxDB v1](/v2.0/reference/flux/stdlib/influxdb-v1/)_  
-_**Flux functions:** [v1.measurements()](/v2.0/reference/flux/stdlib/influxdb-v1/measurements/)_  
+_**Flux functions:** [v1.tagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/)_  
 
 ```js
 import "influxdata/influxdb/v1"
