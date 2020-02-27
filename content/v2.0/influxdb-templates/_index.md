@@ -26,7 +26,7 @@ Template manifests are compatible with
 [Kubernetes Custom Resource Definitions (CRD)](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 {{% /note %}}
 
-_See [Create an InfluxDB template](/v2.0/influx-templates/create/) for information about
+_See [Create an InfluxDB template](/v2.0/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources
