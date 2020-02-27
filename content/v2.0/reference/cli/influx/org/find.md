@@ -16,10 +16,10 @@ influx org find [flags]
 ```
 
 ## Flags
-| Flag           | Description       | Input type  |
-|:----           |:-----------       |:----------: |
-| `-h`, `--help` | Help for `find`   |             |
-| `-i`, `--id`   | Organization ID   | string      |
-| `-n`, `--name` | Organization name | string      |
+| Flag           | Description                 | Input type  | {{< cli/mapped >}} |
+|:----           |:-----------                 |:----------: |:------------------ |
+| `-h`, `--help` | Help for the `find` command |             |                    |
+| `-i`, `--id`   | Organization ID             | string      | `INFLUX_ORG`       |
+| `-n`, `--name` | Organization name           | string      | `INFLUX_ORG_ID`    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

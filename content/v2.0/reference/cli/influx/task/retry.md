@@ -16,10 +16,10 @@ influx task retry [flags]
 ```
 
 ## Flags
-| Flag              | Description            | Input type  |
-|:----              |:-----------            |:----------: |
-| `-h`, `--help`    | Help for `retry`       |             |
-| `-r`, `--run-id`  | Run id **(Required)**  | string      |
-| `-i`, `--task-id` | Task id **(Required)** | string      |
+| Flag              | Description                  | Input type  |
+|:----              |:-----------                  |:----------: |
+| `-h`, `--help`    | Help for the `retry` command |             |
+| `-r`, `--run-id`  | **(Required)** Run ID        | string      |
+| `-i`, `--task-id` | **(Required)** Task ID       | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

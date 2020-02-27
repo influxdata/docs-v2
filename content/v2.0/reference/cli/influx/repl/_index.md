@@ -26,10 +26,10 @@ Use **ctrl + d** to exit the REPL.
 To use the Flux REPL, you must first authenticate with a [token](/v2.0/security/tokens/view-tokens/).
 
 ## Flags
-| Flag           | Description                     | Input type |
-|:----           |:-----------                     |:----------:|
-| `-h`, `--help` | Help for the `repl` command     |            |
-| `-o`, `--org`  | The name of the organization    | string     |
-| `--org-id`     | The ID of organization to query | string     |
+| Flag           | Description                 | Input type | {{< cli/mapped >}} |
+|:----           |:-----------                 |:----------:|:------------------ |
+| `-h`, `--help` | Help for the `repl` command |            |                    |
+| `-o`, `--org`  | Organization name           | string     | `INFLUX_ORG`       |
+| `--org-id`     | Organization ID             | string     | `INFLUX_ORG_ID`    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

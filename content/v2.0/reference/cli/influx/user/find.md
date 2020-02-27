@@ -16,10 +16,10 @@ influx user find [flags]
 ```
 
 ## Flags
-| Flag           | Description     | Input type  |
-|:----           |:-----------     |:----------: |
-| `-h`, `--help` | Help for `find` |             |
-| `-i`, `--id`   | The user ID     | string      |
-| `-n`, `--name` | The username    | string      |
+| Flag           | Description                 | Input type  |
+|:----           |:-----------                 |:----------: |
+| `-h`, `--help` | Help for the `find` command |             |
+| `-i`, `--id`   | User ID                     | string      |
+| `-n`, `--name` | Username                    | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

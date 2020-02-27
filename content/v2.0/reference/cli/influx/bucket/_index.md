@@ -30,4 +30,4 @@ influx bucket [command]
 |:----           |:-----------                   |
 | `-h`, `--help` | Help for the `bucket` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

@@ -28,4 +28,4 @@ influx pkg summary [flags]
 | `-u`, `--url`             | URL of package file to summarize                                   | string     |
 
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

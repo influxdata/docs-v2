@@ -20,7 +20,7 @@ influxd inspect dump-tsi [flags]
 ## Flags
 | Flag                   | Description                                                                     | Input Type |
 |:----                   |:-----------                                                                     |:----------:|
-| `-h`, `--help`         | Help for `dump-tsi`.                                                            |            |
+| `-h`, `--help`         | Help for the `dump-tsi` command.                                                |            |
 | `--index-path`         | Path to data engine index directory (defaults to `~/.influxdbv2/engine/index`). | string     |
 | `--measurement-filter` | Regular expression measurement filter.                                          | string     |
 | `--measurements`       | Show raw measurement data.                                                      |            |

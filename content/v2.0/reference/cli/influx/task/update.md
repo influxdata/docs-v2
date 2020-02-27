@@ -16,10 +16,10 @@ influx task update [flags]
 ```
 
 ## Flags
-| Flag           | Description            | Input type  |
-|:----           |:-----------            |:----------: |
-| `-h`, `--help` | Help for `update`      |             |
-| `-i`, `--id`   | Task ID **(Required)** | string      |
-| `--status`     | Update task status     | string      |
+| Flag           | Description                   | Input type  |
+|:----           |:-----------                   |:----------: |
+| `-h`, `--help` | Help for the `update` command |             |
+| `-i`, `--id`   | **(Required)** Task ID        | string      |
+| `--status`     | Update task status            | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

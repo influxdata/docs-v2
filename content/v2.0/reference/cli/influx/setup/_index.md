@@ -24,4 +24,4 @@ influx setup [flags]
 |:----           |:-----------                  |
 | `-h`, `--help` | Help for the `setup` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

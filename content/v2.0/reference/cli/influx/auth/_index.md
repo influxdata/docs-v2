@@ -34,4 +34,4 @@ influx auth [command]
 |:----           |:-----------                 |
 | `-h`, `--help` | Help for the `auth` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

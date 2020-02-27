@@ -16,6 +16,45 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.61.0 [2020-02-21]
+
+### Features
+- Add experimental aggregate package with `rate()` function.
+
+### Bug fixes
+- Deserialize the default vector if array elements are null.
+- Allow array and row types to be equatable.
+
+---
+
+## v0.60.0 [2020-02-19]
+
+### Features
+- Add experimental `query` package.
+- Create a Docker environment for Flux releases.
+- Validate there are no free type variables in prelude/stdlib build.
+- Add formatter library.
+
+### Bug fixes
+- `derivative()` works properly across multiple buffers.
+- Fix free type variable found in `tripleExponentialDerivative()`.
+- Update type of `window()` function.
+- Freshen row types using deterministic property order.
+- Libflux JSON deserialization uses type properly.
+- Expose the builtin polytypes when analyzing a `stdlib` package.
+- Deserialize call expressions when arguments are missing.
+- Handled malformed data as well as EOF.
+- Allow unsigned integers to be subtractable.
+- Link both `libflux` and `liblibstd` for flux-config.
+- Link `libstd` into the `lib` directory instead of `libflux`.
+- Flux-config correctly copies `stdlib` when using a module.
+- Add 169.254/16 range to URL validator.
+- Update `uuid` library to improve security.
+- Handle invalid string literals.
+- Remove 'tags' line from local tags.
+
+---
+
 ## v0.59.6 [2020-02-13]
 
 ### Bug fixes
