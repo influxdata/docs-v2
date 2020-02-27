@@ -24,9 +24,9 @@ If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/)
     ```
 
 2. Ensure that InfluxDB is running.
-   If running InfluxDB locally, it's http://localhost:9999.
-   If using InfluxDB Cloud, it's the URL of their InfluxDB Cloud UI.
-   For example: https://us-west-2-1.aws.cloud2.influxdata.com.
+   If running InfluxDB locally, visit http://localhost:9999.
+   (If using InfluxDB Cloud, visit the URL of your InfluxDB Cloud UI.
+   For example: https://us-west-2-1.aws.cloud2.influxdata.com.)
 
 ## Write data to InfluxDB with Python
 
@@ -36,13 +36,12 @@ In your Python program, import the InfluxDB client library and use it to write d
 
 ```python
 import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
 ```
 
-Next, we define a few variables with the name of your bucket, organization, and token.
+Next, we define a few variables with the name of your [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
 ```python
-import influxdb_client
-
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
@@ -62,21 +61,10 @@ client = InfluxDBClient(
 
 The `InfluxDBClient` object has a `write_api` method, used for configuration.
 Instantiate a writer object using the `client` object and the `write_api` method.
-
-```python
-write_api = client.write_api()
-```
-
 Use the `write_api` method to configure the writer object.
 
 ```python
 write_api = client.write_api(write_options=SYNCHRONOUS)
-```
-
-In order to do this we need to add another line at the top of the file:
-
-```python
-from influxdb_client.client.write_api import SYNCHRONOUS
 ```
 
 We need two more lines for our program to write data.
@@ -96,10 +84,15 @@ For more information, see the [Python client README on GitHub](https://github.co
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-bucket = bucket
-org = org
-token = token
-url = "http://localhost:9999"
+bucket = "<my-bucket>"
+org = "<my-org>"
+token = "<my-token>"
+
+client = influxdb_client.InfluxDBClient(
+    url="http://localhost:9999",
+    token=token,
+    org=org
+)
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
@@ -107,3 +100,4 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
 write_api.write(bucket=bucket, org=org, record=p)
 ```
+
