@@ -8,6 +8,25 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.5 [2020-02-27]
+
+### Features
+- Update Flux to v0.61.0.
+- Add secure flag to session cookie.
+- Add optional secret value flag to `influx secret` command.
+
+### Bug Fixes
+- Sort dashboards on homepage alphabetically.
+- Tokens page now sorts by status.
+- Set the default value of tags in a check.
+- Fix sort by variable type.
+- Calculate correct stacked line cumulative when lines are different lengths.
+- Resource cards are scrollable.
+- Query Builder groups on column values, not tag values.
+- Scatterplots render tooltips correctly.
+- Remove pkger gauge chart requirement for color threshold type.
+- Remove secret confirmation from `influx secret update`.
+
 ## v2.0.0-beta.4 [2020-02-14]
 
 ### Features
