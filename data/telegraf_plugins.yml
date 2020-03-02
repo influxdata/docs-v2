@@ -1188,7 +1188,7 @@ input:
   - name: Prometheus Format
     id: prometheus
     description: |
-      The Prometheus Format input plugin input plugin gathers metrics from HTTP
+      The Prometheus Format input plugin gathers metrics from HTTP
       servers exposing metrics in Prometheus format.
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
