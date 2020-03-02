@@ -28,6 +28,8 @@ v2.0/tags: [query]
 
 ## SELECT-like commands
 
+Query fields from InfluxDB
+
 ## Median
 
 ##### Median as an aggregate
@@ -138,19 +140,71 @@ from(bucket: "example-bucket")
 ## Delta (state changes only)
 
 
-## Window
+## Window (time buckets)
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> window(every: 5m)
+```
 
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggreateWindow(every: 5m, fn: mean)
+```
 
 ## First/Last
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggreateWindow(every: 5m, fn: first)
+```
 
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+      r._measurement == "example-measurement" and
+      r._field == "example-key"
+  )
+  |> aggreateWindow(every: 5m, fn: last)
+```
 
 ## Histogram
+Histogram docs
+
+```js
+
+```
 
 
 ## Gap filling
+Fill gaps in data
+
+```js
+
+```
 
 
-## Last observation carried forward
+## Last observation carried forward (need)
+```js
+
+```
 
 
-## Last point
+## Last point (need)
+```js
+
+```

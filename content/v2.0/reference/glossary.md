@@ -708,6 +708,17 @@ A predicate expression compares two values and returns `true` or `false` based o
 the relationship between the two values.
 A predicate expression is comprised of a left operand, a comparison operator, and a right operand.
 
+### predicate function
+A Flux predicate function is an anonymous function that returns `true` or `false`
+based on one or more [predicate expressions](#predicate-expression).
+Flux uses predicate functions primarily to filter records based on values of specific columns,
+but predicate functions are used in other applications as well.
+
+###### Example predicate function
+```js
+(r) => r.foo == "bar" and r.baz != "quz"
+```
+
 ### process
 
 A set of predetermined rules.
