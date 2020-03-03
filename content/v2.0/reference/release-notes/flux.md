@@ -16,6 +16,17 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.62.0 [2020-02-28]
+
+### Features
+- InfluxQL decode and series aggregation tests.
+
+### Bug fixes
+- Properly categorize parse errors as "invalid".
+- Fail gracefully when `tableFind` does not have an execution context.
+
+---
+
 ## v0.61.0 [2020-02-21]
 
 ### Features
