@@ -1,15 +1,18 @@
 ---
 title: Query median values
 seotitle: Query median values in Flux
+list_title: Median
 description: >
-    placeholder
-weight: 201
+  Use the `median()` function to return all values within the `0.5` quantile
+  (50th percentile) or the median value of input data.
+weight: 202
 menu:
   v2_0:
     parent: Common queries
+    name: Median
 v2.0/tags: [query, median]
 related:
-  - /v2.0/query-data/common-queries/query-percentile/
+  - /v2.0/query-data/common-queries/percentile-quantile/
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
@@ -18,35 +21,88 @@ to return all values within the `0.5` quantile (50th percentile) or the median v
 ## Median calculation methods
 Select from the following methods for calculating the median:
 
-##### estimate_tdigest
+- [estimate_tdigest](#estimate-tdigest)
+- [exact_mean](#exact-mean)
+- [exact_selector](#exact-selector)
+
+### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
 to compute an accurate quantile estimate on large data sources.
-Returns all values in the `0.5` quantile or 50th percentile.
+Output tables consist of a single row containing the calculated median.
 
-##### exact_mean
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input table:**
+
+| _time | _value |
+| ----- |:------:|
+| 0001  | 1.0    |
+| 0002  | 1.0    |
+| 0003  | 2.0    |
+| 0004  | 3.0    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**`estimate_tdigest` returns:**
+
+| _value |
+|:------:|
+| 1.5    |
+{{% /flex-content %}}
+{{< /flex >}}
+
+### exact_mean
 An aggregate method that takes the average of the two points closest to the quantile value.
 Output tables consist of a single row containing the calculated median.
 
-##### exact_selector
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input table:**
+
+| _time | _value |
+| ----- |:------:|
+| 0001  | 1.0    |
+| 0002  | 1.0    |
+| 0003  | 2.0    |
+| 0004  | 3.0    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**`exact_mean` returns:**
+
+| _value |
+|:------:|
+| 1.5    |
+{{% /flex-content %}}
+{{< /flex >}}
+
+### exact_selector
 A selector method that returns the data point for which at least 50% of points are less than.
 Output tables consist of a single row containing the calculated median.
 
-{{% note %}}
-#### Example data variable
-To focus on using the `median()` function, the examples below use a `data` variable
-which represents a base queried dataset.
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input table:**
 
-```js
-data = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
-```
+| _time | _value |
+| ----- |:------:|
+| 0001  | 1.0    |
+| 0002  | 1.0    |
+| 0003  | 2.0    |
+| 0004  | 3.0    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**`exact_selector` returns:**
+
+| _time | _value |
+| ----- |:------:|
+| 0002  | 1.0    |
+{{% /flex-content %}}
+{{< /flex >}}
+
+{{% note %}}
+The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
 {{% /note %}}
 
-## Query all values in the 50th percentile
+## Query the value that represents the median
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that
 contain values in the 50th percentile of data in the table.
 
@@ -64,7 +120,7 @@ data
   |> median(method: "exact_mean")
 ```
 
-## Query the median value
+## Query the point with the median value
 Use the `exact_selector` method to return a single row per input table containing the
 value that 50% of values in the table are less than.
 
@@ -73,16 +129,13 @@ data
   |> median(method: "exact_selector")
 ```
 
-## Use median with aggregateWindow()
+## Use median() with aggregateWindow()
 [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, then removes the time-based segmentation.
 It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
 
-`aggregateWindow()` expects a single point from each time window.
-Use either the `exact_mean` or `exact_mode` median calculation method.
-
-To specify parameters of the aggregate function in `aggregateWindow()`, use the
+To specify the [median calculation method](#median-calculation-methods) in `aggregateWindow()`, use the
 [full function syntax](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js

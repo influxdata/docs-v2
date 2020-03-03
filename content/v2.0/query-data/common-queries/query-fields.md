@@ -4,7 +4,7 @@ seotitle: Query fields and tags in InfluxDB using Flux
 description: >
     Use the `filter()` function to query data based on fields, tags, or any other column value.
     If familiar with InfluxQL or other SQL-like query languages, `filter()` performs
-    operations similar to the `SELECT` statement and `WHERE` clause.
+    operations similar to the `SELECT` statement and the `WHERE` clause.
 weight: 201
 menu:
   v2_0:
@@ -15,7 +15,7 @@ v2.0/tags: [query, select, where]
 Use the [`filter()` function](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
 to query data based on fields, tags, or any other column value.
 If familiar with InfluxQL or other SQL-like query languages, `filter()` performs
-operations similar to the `SELECT` statement and `WHERE` clause.
+operations similar to the `SELECT` statement and the `WHERE` clause.
 
 ## The filter() function
 `filter()` has an `fn` parameter that expects a [predicate function](/v2.0/reference/glossary/#predicate-function),

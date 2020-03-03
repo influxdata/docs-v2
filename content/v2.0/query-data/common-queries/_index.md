@@ -11,86 +11,41 @@ v2.0/tags: [query]
 ---
 
 
-- SELECT-like commands
-- Median
-- Percentile
-- Cumulative Sum
-- Moving Average
-- Increase
-- Rate
-- Delta
-- Window
-- First/Last
-- Histogram
-- Gap filling
-- Last observation carried forward
-- Last point
+{{% note %}}
+#### Example data variable
+Many of the examples provided in the following guides use a `data` variable,
+which represents a basic query which filters data by measurement and field.
+`data` is defined as:
 
-## SELECT-like commands
-
-Query fields from InfluxDB
-
-## Median
-
-##### Median as an aggregate
 ```js
-from(bucket: "example-bucket")
+data = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-key"
-  )
-  |> aggregateWindow(every: 5m, fn: median)
-```
-
-##### Median as a selector
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-key"
-  )
-  |> median(method: "exact_selector")
-```
-
-## Percentile
-
-##### Percentile as an aggregate
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-key"
-  )
-  |> aggregateWindow(
-      every: 5m,
-      fn: (tables=<-, column) => tables |> quantile(q: 0.99)
+    r._measurement == "example-measurement" and
+    r._field == "example-field"
   )
 ```
+{{% /note %}}
 
-##### Percentile as a selector
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-key"
-  )
-  |> quantile(q: 0.99)
-```
+{{< children >}}
 
-## Cumulative Sum
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-key"
-  )
-  |> cumulativeSum()
-```
+---
+
+- [x] SELECT-like commands
+- [x] Median
+- [x] Percentile
+- [ ] Cumulative Sum
+- [ ] Moving Average
+- [ ] Increase
+- [ ] Rate
+- [ ] Delta
+- [ ] Window
+- [ ] First/Last
+- [ ] Histogram
+- [ ] Gap filling
+- [ ] Last observation carried forward
+- [ ] Last point
+
 
 ## Moving Average
 ```js
