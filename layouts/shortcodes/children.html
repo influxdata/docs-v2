@@ -6,7 +6,7 @@
 {{ else if (eq $show "sections") }}
 	{{ .Scratch.Set "pages" .Page.Sections }}
 {{ else if (eq $show "pages") }}
-	{{ .Scratch.Set "pages" .Page.Pages }}
+	{{ .Scratch.Set "pages" .Page.RegularPages }}
 {{ end }}
 
 {{ $pages := .Scratch.Get "pages" }}
