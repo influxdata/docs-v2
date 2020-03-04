@@ -37,4 +37,4 @@ influx pkg export [command]
 | `--telegraf-configs`  | Comma-separated list of Telegraf configuration IDs                              | string     |
 | `--variables`         | Comma-separated list of variable IDs                                            | string     |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

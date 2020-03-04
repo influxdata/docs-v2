@@ -24,8 +24,8 @@ influx task run [command]
 | [list](/v2.0/reference/cli/influx/task/run/list) | List runs for a task |
 
 ## Flags
-| Flag           | Description    |
-|:----           |:-----------    |
-| `-h`, `--help` | Help for `run` |
+| Flag           | Description                |
+|:----           |:-----------                |
+| `-h`, `--help` | Help for the `run` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

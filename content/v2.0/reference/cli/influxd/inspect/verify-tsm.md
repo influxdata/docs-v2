@@ -30,5 +30,5 @@ A list of files or directories in which to search for TSM files.
 | Flag           | Description                                               | Input Type |
 |:----           |:-----------                                               |:----------:|
 | `--bucket-id`  | Limit analysis to a specific bucket ID. _Optional._       | string     |
-| `-h`, `--help` | Help for `verify-tsm`.                                    |            |
+| `-h`, `--help` | Help for the `verify-tsm` command.                        |            |
 | `--org-id`     | Limit analysis to a specific organization ID. _Optional._ | string     |

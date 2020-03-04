@@ -33,4 +33,4 @@ influx task [command]
 |:----           |:-----------                 |
 | `-h`, `--help` | Help for the `task` command |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

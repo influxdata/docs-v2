@@ -7,11 +7,54 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v3.0.0-beta.2 [2020-02-06]
+
+## v2.0.0-beta.5 [2020-02-27]
+
+### Features
+- Update Flux to v0.61.0.
+- Add secure flag to session cookie.
+- Add optional secret value flag to `influx secret` command.
 
 ### Bug Fixes
+- Sort dashboards on homepage alphabetically.
+- Tokens page now sorts by status.
+- Set the default value of tags in a check.
+- Fix sort by variable type.
+- Calculate correct stacked line cumulative when lines are different lengths.
+- Resource cards are scrollable.
+- Query Builder groups on column values, not tag values.
+- Scatterplots render tooltips correctly.
+- Remove pkger gauge chart requirement for color threshold type.
+- Remove secret confirmation from `influx secret update`.
 
-- Fix notification rule renaming panics from UI.
+## v2.0.0-beta.4 [2020-02-14]
+
+### Features
+- Added labels to buckets.
+- Connect Monaco Editor to Flux LSP server.
+- Update Flux to v0.59.6.
+
+### Bug Fixes
+- Revert bad indexing of `UserResourceMappings` and `Authorizations`.
+- Prevent gauge visualization from becoming too small.
+
+---
+
+## v2.0.0-beta.3 [2020-02-11]
+
+### Features
+- Extend `influx cli pkg command` with ability to take multiple files and directories.
+- Extend `influx cli pkg command` with ability to take multiple URLs, files,
+  directories, and stdin at the same time.
+- `influx` CLI can manage secrets.
+
+### Bug Fixes
+- Fix notification rule renaming panics in UI.
+- Fix the tooltip for stacked line graphs.
+- Fixed false success notification for read-only users creating dashboards.
+- Fix issue with pkger/http stack crashing on duplicate content type.
+
+---
 
 ## v2.0.0-beta.2 [2020-01-24]
 
@@ -30,6 +73,8 @@ weight: 101
 - Swap `billingURL` with `checkoutURL`.
 - Move Cloud navigation to top of page instead of within left side navigation.
 - Adjust aggregate window periods to use duration input with validation.
+
+---
 
 ## v2.0.0-beta.1 [2020-01-08]
 
@@ -84,6 +129,8 @@ weight: 101
 ### UI Improvements
 - Add honeybadger reporting to create checks.
 
+---
+
 ## v2.0.0-alpha.21 [2019-12-13]
 
 ### Features
@@ -110,6 +157,8 @@ weight: 101
 - Fix failure to create labels when creating Telegraf configs
 - Fix crash when editing a Telegraf config.
 - Updated start/end time functionality so that custom script time ranges overwrite dropdown selections.
+
+---
 
 ## v2.0.0-alpha.20 [2019-11-20]
 
@@ -143,6 +192,8 @@ weight: 101
 - Redesign cards and animations on Getting Started page.
 - Allow users to filter with labels in Telegraf input search.
 
+---
+
 ## v2.0.0-alpha.19 [2019-10-30]
 
 ### Features
@@ -167,6 +218,8 @@ weight: 101
 - Newly created checks appear on the checklist.
 - Changed task runs success status code from 200 to 201 to match Swagger documentation.
 - Text areas have the correct height.
+
+---
 
 ## v2.0.0-alpha.18 [2019-09-26]
 

@@ -18,10 +18,7 @@ The `experimental.group()` function introduces an `extend` mode to the existing
 _**Function type:** Transformation_
 
 {{% warn %}}
-The `experimental.group()` function is subject to change at any time.
-By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
-
-This specific function will be removed once the proposed `extend` mode is sufficiently vetted.
+This function will be removed once the proposed `extend` mode is sufficiently vetted.
 {{% /warn %}}
 
 ```js

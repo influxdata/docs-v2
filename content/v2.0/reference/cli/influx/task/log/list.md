@@ -21,11 +21,10 @@ influx task log list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag           | Description            | Input type  |
-|:----           |:-----------            |:----------: |
-| `-h`, `--help` | Help for `list`        |             |
-| `--org-id`     | Organization ID        | string      |
-| `--run-id`     | Run ID                 | string      |
-| `--task-id`    | Task ID **(Required)** | string      |
+| Flag           | Description                 | Input type  |
+|:----           |:-----------                 |:----------: |
+| `-h`, `--help` | Help for the `list` command |             |
+| `--run-id`     | Run ID                      | string      |
+| `--task-id`    | **(Required)** Task ID      | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

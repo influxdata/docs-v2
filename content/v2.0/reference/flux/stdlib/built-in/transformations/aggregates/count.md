@@ -21,6 +21,18 @@ _**Output data type:** Integer_
 count(column: "_value")
 ```
 
+{{% note %}}
+#### Count empty tables
+`count()` returns `0` for empty tables.
+To keep empty tables in your data, set the following parameters for the following functions:
+
+| Function                                                                                              | Parameter           |
+|:--------                                                                                              |:---------           |
+| [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
+| [window()](/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
+| [aggregateWindow()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
+{{% /note %}}
+
 ## Parameters
 
 ### column

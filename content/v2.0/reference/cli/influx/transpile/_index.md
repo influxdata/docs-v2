@@ -25,4 +25,4 @@ influx transpile [InfluxQL query] [flags]
 | `-h`, `--help` | Help for the `transpile` command                                           |
 | `--now`        | RFC3339Nano timestamp to use as `now()` time (default is current UTC time) |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

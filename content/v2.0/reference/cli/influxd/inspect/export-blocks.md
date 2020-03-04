@@ -19,6 +19,6 @@ influxd inspect export-blocks [flags]
 ```
 
 ## Flags
-| Flag           | Description               |
-|:----           |:-----------               |
-| `-h`, `--help` | Help for `export-blocks`. |
+| Flag           | Description                           |
+|:----           |:-----------                           |
+| `-h`, `--help` | Help for the `export-blocks` command. |

@@ -17,12 +17,6 @@ preserveTaxonomyNames = true
 hrefTargetBlank = true
 smartDashes = false
 
-# Menu items without actual pages
-[menu]
-  [[menu.versions]]
-    name = "v1.x"
-    url = "https://docs.influxdata.com"
-
 [taxonomies]
   "v2.0/tag" = "v2.0/tags"
 

@@ -20,13 +20,13 @@ influx write [line protocol or @/path/to/points.txt] [flags]
 ```
 
 ## Flags
-| Flag                | Description                                             | Input type |
-|:----                |:-----------                                             |:----------:|
-| `-b`, `--bucket`    | The name of destination bucket                          | string     |
-| `--bucket-id`       | The ID of destination bucket                            | string     |
-| `-h`, `--help`      | Help for the write command                              |            |
-| `-o`, `--org`       | The name of the organization that owns the bucket       | string     |
-| `--org-id`          | The ID of the organization that owns the bucket         | string     |
-| `-p`, `--precision` | Precision of the timestamps of the lines (default `ns`) | string     |
+| Flag                | Description                                | Input type | {{< cli/mapped >}}   |
+|:----                |:-----------                                |:----------:|:------------------   |
+| `-b`, `--bucket`    | Bucket name                                | string     | `INFLUX_BUCKET_NAME` |
+| `--bucket-id`       | Bucket ID                                  | string     | `INFLUX_BUCKET_ID`   |
+| `-h`, `--help`      | Help for the `write` command               |            |                      |
+| `-o`, `--org`       | Organization name                          | string     | `INFLUX_ORG`         |
+| `--org-id`          | Organization ID                            | string     | `INFLUX_ORG_ID`      |
+| `-p`, `--precision` | Precision of the timestamps (default `ns`) | string     | `INFLUX_PRECISION`   |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}

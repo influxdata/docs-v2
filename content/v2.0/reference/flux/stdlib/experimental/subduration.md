@@ -18,10 +18,7 @@ returns the resulting time value.
 _**Function type:** Transformation_
 
 {{% warn %}}
-The `experimental.subDuration()` function is subject to change at any time.
-By using this function, you accept the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
-
-This specific function will be removed once duration vectors are implemented.
+This function will be removed once duration vectors are implemented.
 See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
 {{% /warn %}}
 

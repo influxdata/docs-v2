@@ -15,9 +15,10 @@
       <ul class="version-list">
         {{ range .Site.Menus.versions.ByName.Reverse }}
           <li>
-            <a href="{{ .URL }}" {{- if in .Name "1.x" }}class="legacy" target="_blank"{{ end -}}>{{ .Name }}</a>
+            <a href="{{ .URL }}">{{ .Name }}</a>
           </li>
         {{ end }}
+        <li><a href="https://docs.influxdata.com" class="legacy" target="_blank">v1.x</a></li>
       </ul>
     </div>
     <button id="search-btn" onclick="toggle_sidebar('sidebar-open');document.getElementById('algolia-search-input').focus();return false;"><span class="icon-search"></span></button>

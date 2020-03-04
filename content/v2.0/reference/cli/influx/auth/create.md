@@ -16,24 +16,25 @@ influx auth create [flags]
 ```
 
 ## Flags
-| Flag                 | Description                                                                    | Input type  |
-|:----                 |:-----------                                                                    |:----------: |
-| `-h`, `--help`       | Help for the `create` command                                                  |             |
-| `-o`, `--org`        | The organization name **(Required)**                                           | string      |
-| `--read-bucket`      | The bucket ID                                                                  | stringArray |
-| `--read-buckets`     | Grants the permission to perform read actions against organization buckets     |             |
-| `--read-dashboards`  | Grants the permission to read dashboards                                       |             |
-| `--read-orgs`        | Grants the permission to read organizations                                    |             |
-| `--read-tasks`       | Grants the permission to read tasks                                            |             |
-| `--read-telegrafs`   | Grants the permission to read telegraf configs                                 |             |
-| `--read-user`        | Grants the permission to perform read actions against organization users       |             |
-| `-u`, `--user`       | The user name                                                                  | string      |
-| `--write-bucket`     | The bucket ID                                                                  | stringArray |
-| `--write-buckets`    | Grants the permission to perform mutative actions against organization buckets |             |
-| `--write-dashboards` | Grants the permission to create dashboards                                     |             |
-| `--write-orgs`       | Grants the permission to create organizations                                  |             |
-| `--write-tasks`      | Grants the permission to create tasks                                          |             |
-| `--write-telegrafs`  | Grants the permission to create telegraf configs                               |             |
-| `--write-user`       | Grants the permission to perform mutative actions against organization users   |             |
+| Flag                 | Description                                                    | Input type  | {{< cli/mapped >}} |
+|:----                 |:-----------                                                    |:----------: |:------------------ |
+| `-h`, `--help`       | Help for the `create` command                                  |             |                    |
+| `-o`, `--org`        | **(Required)** Organization name                               | string      | `INFLUX_ORG`       |
+| `--org-id`           | Organization ID                                                | string      | `INFLUX_ORG_ID`    |
+| `--read-bucket`      | Bucket ID                                                      | stringArray |                    |
+| `--read-buckets`     | Grants permission to read organization buckets                 |             |                    |
+| `--read-dashboards`  | Grants permission to read dashboards                           |             |                    |
+| `--read-orgs`        | Grants permission to read organizations                        |             |                    |
+| `--read-tasks`       | Grants permission to read tasks                                |             |                    |
+| `--read-telegrafs`   | Grants permission to read Telegraf configurations              |             |                    |
+| `--read-user`        | Grants permission to read organization users                   |             |                    |
+| `-u`, `--user`       | Username                                                       | string      |                    |
+| `--write-bucket`     | Bucket ID                                                      | stringArray |                    |
+| `--write-buckets`    | Grants permission to create and update organization buckets    |             |                    |
+| `--write-dashboards` | Grants permission to create and update dashboards              |             |                    |
+| `--write-orgs`       | Grants permission to create and update organizations           |             |                    |
+| `--write-tasks`      | Grants permission to create and update tasks                   |             |                    |
+| `--write-telegrafs`  | Grants permission to create and update Telegraf configurations |             |                    |
+| `--write-user`       | Grants permission to create and update organization users      |             |                    |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}
