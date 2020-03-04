@@ -21,10 +21,10 @@ influx user list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag           | Description     | Input type  |
-|:----           |:-----------     |:----------: |
-| `-h`, `--help` | Help for `list` |             |
-| `-i`, `--id`   | The user ID     | string      |
-| `-n`, `--name` | The username    | string      |
+| Flag           | Description                 | Input type  |
+|:----           |:-----------                 |:----------: |
+| `-h`, `--help` | Help for the `list` command |             |
+| `-i`, `--id`   | User ID                     | string      |
+| `-n`, `--name` | Username                    | string      |
 
-{{% influx-cli-global-flags %}}
+{{% cli/influx-global-flags %}}
