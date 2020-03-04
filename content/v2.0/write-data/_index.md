@@ -28,11 +28,11 @@ To write data into InfluxDB, you need the following:
 
 - an organization
 {{% note %}}
-See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-id/) for instructions on viewing your organization ID.
+See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-id) for instructions on viewing your organization ID.
 {{% /note %}}
 - a bucket
 {{% note %}}
-See [View buckets](/v2.0/organizations/view-orgs/#view-your-organization-id/) for instructions on viewing your bucket ID.
+See [View buckets](/v2.0/organizations/buckets/view-buckets/) for instructions on viewing your bucket ID.
 {{% /note %}}
 - an [authentication token](/v2.0/security/tokens/view-tokens/)
 

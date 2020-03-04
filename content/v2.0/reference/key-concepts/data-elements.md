@@ -27,6 +27,7 @@ InfluxDB 2.0 includes the following data elements:
 
 The sample data below is used to illustrate data elements concepts.
 _Hover over highlighted terms to get acquainted with InfluxDB terminology and layout._
+<a id="sample-data"></a>
 
 **bucket:**  `my_bucket`
 
@@ -53,11 +54,11 @@ A field includes a field key stored in the `_field` column and a field value sto
 
 A field key is a string that represents the name of the field. In the sample data above, `bees` and `ants` are field keys.
 
-### Field values
+### Field value
 
 A field value represents the value of an associated field. Field values can be strings, floats, integers, or booleans. The field values in the sample data show the number of `bees` at specified times: `23`, and `28` and the number of `ants` at a specified time: `30` and `32`.
 
-### Field sets
+### Field set
 
 A field set is a collection of field key-value pairs associated with a timestamp. The sample data includes the following field sets:
 
@@ -79,16 +80,16 @@ census bees=28i,ants=32i 1566086760000000000
 The columns in the sample data, `location` and `scientist`, are tags.
 Tags include tag keys and tag values that are stored as strings and metadata.
 
-### Tag keys
+### Tag key
 
 The tag keys in the sample data are `location` and `scientist`.
 
-### Tag values
+### Tag value
 
 The tag key `location` has two tag values: `klamath` and `portland`.
 The tag key `scientist` also has two tag values: `anderson` and `mullen`.
 
-### Tag sets
+### Tag set
 
 The collection of tag key-value pairs make up a tag set. The sample data includes the following four tag sets:
 

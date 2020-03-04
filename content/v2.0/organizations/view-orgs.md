@@ -23,15 +23,15 @@ to view organizations.
 
 ## View organizations using the influx CLI
 
-Use the [`influx org find` command](/v2.0/reference/cli/influx/org/find)
+Use the [`influx org list` command](/v2.0/reference/cli/influx/org/list)
 to view organizations.
 
 ```sh
-influx org find
+influx org list
 ```
 
 Filtering options such as filtering by name or ID are available.
-See the [`influx org find` documentation](/v2.0/reference/cli/influx/org/find)
+See the [`influx org list` documentation](/v2.0/reference/cli/influx/org/list)
 for information about other available flags.
 
 ## View your organization ID
@@ -46,10 +46,10 @@ http://localhost:9999/orgs/<span class="bp" style="font-weight:bold;margin:0 .15
 
 
 ### Organization ID in the CLI
-Use [`influx org find`](#view-organizations-using-the-influx-cli) to view your organization ID.
+Use [`influx org list`](#view-organizations-using-the-influx-cli) to view your organization ID.
 
 ```sh
-> influx org find
+> influx org list
 
 ID                  Name
 03a2bbf46249a000    org-1

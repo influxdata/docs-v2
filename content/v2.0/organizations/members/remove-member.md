@@ -33,7 +33,7 @@ For information about deleting a user from InfluxDB, see [Delete a user](/v2.0/u
 Use the [`influx org members remove` command](/v2.0/reference/cli/influx/org/members/remove)
 to remove a member from an organization. Removing a member requires the following:
 
-- The organization name or ID _(provided in the output of [`influx org find`](/v2.0/reference/cli/influx/org/find/))_
+- The organization name or ID _(provided in the output of [`influx org list`](/v2.0/reference/cli/influx/org/list/))_
 - The member ID _(provided in the output of [`influx org members list`](/v2.0/reference/cli/influx/org/members/list/))_
 
 ```sh
