@@ -711,8 +711,6 @@ A predicate expression is comprised of a left operand, a comparison operator, an
 ### predicate function
 A Flux predicate function is an anonymous function that returns `true` or `false`
 based on one or more [predicate expressions](#predicate-expression).
-Flux uses predicate functions primarily to filter records based on values of specific columns,
-but predicate functions can be used in other applications as well.
 
 ###### Example predicate function
 ```js
