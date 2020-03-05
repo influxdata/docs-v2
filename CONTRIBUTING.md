@@ -509,6 +509,38 @@ The following options are available:
 {{< ui-message color="green" text="The message displayed in the notification.">}}
 ```
 
+### Flexbox-formatted content blocks
+CSS Flexbox formatting lets you create columns in article content that adjust and
+flow based on the viewable width.
+In article content, this helps if you have narrow tables that could be displayed
+side-by-side, rather than stacked vertically.
+Use the `{{< flex >}}` shortcode to create the Flexbox wrapper.
+Use the `{{% flex-content %}}` shortcode to identify each column content block.
+
+```md
+{{< flex >}}
+{{% flex-content %}}
+Column 1
+{{% /flex-content %}}
+{{% flex-content %}}
+Column 2
+{{% /flex-content %}}
+{{< /flex >}}
+```
+
+`{{% flex-content %}}` has an optional width argument that determines the maximum
+width of the column.
+
+```md
+{{% flex-content "half" %}}
+```
+
+The following options are available:
+
+- half _(Default)_
+- third
+- quarter
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
