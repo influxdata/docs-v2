@@ -31,14 +31,14 @@ to create a bucket.
 Use the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
 to create a new bucket. A bucket requires the following:
 
-- A name
-- The name or ID of the organization the bucket belongs to
-- A retention period in nanoseconds
+- bucket name
+- organization name or ID
+- retention period duration (`ns`, `us`, `ms`, `s`, or `h`)
 
 ```sh
 # Syntax
-influx bucket create -n <bucket-name> -o <org-name> -r <retention period in nanoseconds>
+influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duration>
 
 # Example
-influx bucket create -n my-bucket -o my-org -r 604800000000000
+influx bucket create -n my-bucket -o my-org -r 72h
 ```

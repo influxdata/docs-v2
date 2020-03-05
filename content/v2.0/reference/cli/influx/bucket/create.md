@@ -16,12 +16,12 @@ influx bucket create [flags]
 ```
 
 ## Flags
-| Flag                | Description                                     | Input type  | {{< cli/mapped >}}   |
-|:----                |:-----------                                     |:----------: |:------------------   |
-| `-h`, `--help`      | Help for the `create` command                   |             |                      |
-| `-n`, `--name`      | Bucket name                                     | string      | `INFLUX_BUCKET_NAME` |
-| `-o`, `--org`       | Organization name                               | string      | `INFLUX_ORG`         |
-| `--org-id`          | Organization ID                                 | string      | `INFLUX_ORG_ID`      |
-| `-r`, `--retention` | Duration in nanoseconds bucket will retain data | duration    |                      |
+| Flag                | Description                      | Input type  | {{< cli/mapped >}}   |
+|:----                |:-----------                      |:----------: |:------------------   |
+| `-h`, `--help`      | Help for the `create` command    |             |                      |
+| `-n`, `--name`      | Bucket name                      | string      | `INFLUX_BUCKET_NAME` |
+| `-o`, `--org`       | Organization name                | string      | `INFLUX_ORG`         |
+| `--org-id`          | Organization ID                  | string      | `INFLUX_ORG_ID`      |
+| `-r`, `--retention` | Duration bucket will retain data | duration    |                      |
 
 {{% cli/influx-global-flags %}}
