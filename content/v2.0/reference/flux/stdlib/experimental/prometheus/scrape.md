@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: prometheus.scrape
     parent: Prometheus
-weight: 301
+weight: 401
 related:
   - /v2.0/write-data/scrape-data/scrapable-endpoints/
 ---

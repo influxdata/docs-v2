@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: query.filterMeasurement
     parent: Query
-weight: 301
+weight: 401
 ---
 
 The `query.filterMeasurement()` function filters input data by measurement.

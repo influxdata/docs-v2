@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: experimental.subDuration
     parent: Experimental
-weight: 201
+weight: 302
 related:
   - /v2.0/reference/flux/stdlib/experimental/addduration/
 ---

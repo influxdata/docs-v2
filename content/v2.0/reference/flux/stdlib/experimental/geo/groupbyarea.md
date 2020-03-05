@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: geo.groupByArea
     parent: Geo
-weight: 301
+weight: 401
 v2.0/tags: [functions, geo]
 ---
 

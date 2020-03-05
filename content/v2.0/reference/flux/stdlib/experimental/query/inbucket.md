@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: query.inBucket
     parent: Query
-weight: 301
+weight: 401
 ---
 
 The `query.inBucket()` function queries data from a specified bucket within given
