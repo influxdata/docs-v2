@@ -16,7 +16,7 @@ related:
 ---
 
 Use the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
-to return all values within the `q` quantile or percentile of input data.
+to return a value representing the `q` quantile or percentile of input data.
 
 ## Percentile versus quantile
 Percentiles and quantiles are very similar, differing only in the number used to calculate return values.
@@ -24,8 +24,8 @@ A percentile is calculated using numbers between `0` and `100`.
 A quantile is calculated using numbers between `0.0` and `1.0`.
 For example, the **`0.5` quantile** is the same as the **50th percentile**.
 
-## Quantile calculation methods
-Select from the following methods for calculating the quantile:
+## Select a method for calculating the quantile
+Select one of the following methods to calculate the quantile:
 
 - [estimate_tdigest](#estimate-tdigest)
 - [exact_mean](#exact-mean)
@@ -33,7 +33,7 @@ Select from the following methods for calculating the quantile:
 
 ### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
-to compute an accurate quantile estimate on large data sources.
+to compute a quantile estimate on large data sources.
 Output tables consist of a single row containing the calculated quantile.
 
 If calculating the `0.5` quantile or 50th percentile:
@@ -114,27 +114,29 @@ If calculating the `0.5` quantile or 50th percentile:
 The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
 {{% /note %}}
 
-## Query the value representing the 99th percentile
+## Find the value representing the 99th percentile
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that
-contain values in the 50th percentile of data in the table.
+contain values in the 99th percentile of data in the table.
 
 ```js
 data
   |> quantile(q: 0.99)
 ```
 
-## Query the average of values closest to the quantile
+## Find the average of values closest to the quantile
 Use the `exact_mean` method to return a single row per input table containing the
 average of the two values closest to the mathematical quantile of data in the table.
+For example, to calculate the `0.99` quantile:
 
 ```js
 data
   |> quantile(q: 0.99, method: "exact_mean")
 ```
 
-## Query the point with the quantile value
+## Find the point with the quantile value
 Use the `exact_selector` method to return a single row per input table containing the
 value that `q * 100`% of values in the table are less than.
+For example, to calculate the `0.99` quantile:
 
 ```js
 data
@@ -144,7 +146,7 @@ data
 ## Use quantile() with aggregateWindow()
 [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
-point, then removes the time-based segmentation.
+point, and then removes the time-based segmentation.
 It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
 
 To specify the [quantile calculation method](#quantile-calculation-methods) in

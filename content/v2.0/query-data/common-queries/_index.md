@@ -14,7 +14,7 @@ v2.0/tags: [query]
 {{% note %}}
 #### Example data variable
 Many of the examples provided in the following guides use a `data` variable,
-which represents a basic query which filters data by measurement and field.
+which represents a basic query that filters data by measurement and field.
 `data` is defined as:
 
 ```js

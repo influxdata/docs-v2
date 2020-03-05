@@ -3,8 +3,8 @@ title: Query median values
 seotitle: Query median values in Flux
 list_title: Median
 description: >
-  Use the `median()` function to return all values within the `0.5` quantile
-  (50th percentile) or the median value of input data.
+  Use the `median()` function to return a value representing the `0.5` quantile
+  (50th percentile) or median of input data.
 weight: 202
 menu:
   v2_0:
@@ -16,10 +16,10 @@ related:
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
-to return all values within the `0.5` quantile (50th percentile) or the median value of input data.
+to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 
-## Median calculation methods
-Select from the following methods for calculating the median:
+## Select a method for calculating the median
+Select one of the following methods to calculate the median:
 
 - [estimate_tdigest](#estimate-tdigest)
 - [exact_mean](#exact-mean)
@@ -27,7 +27,7 @@ Select from the following methods for calculating the median:
 
 ### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
-to compute an accurate quantile estimate on large data sources.
+to compute an accurate `0.5` quantile estimate on large data sources.
 Output tables consist of a single row containing the calculated median.
 
 {{< flex >}}
@@ -51,7 +51,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 ### exact_mean
-An aggregate method that takes the average of the two points closest to the quantile value.
+An aggregate method that takes the average of the two points closest to the `0.5` quantile value.
 Output tables consist of a single row containing the calculated median.
 
 {{< flex >}}
@@ -102,7 +102,7 @@ Output tables consist of a single row containing the calculated median.
 The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
 {{% /note %}}
 
-## Query the value that represents the median
+## Find the value that represents the median
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that
 contain values in the 50th percentile of data in the table.
 
@@ -111,7 +111,7 @@ data
   |> median()
 ```
 
-## Query the average of values closest to the median
+## Find the average of values closest to the median
 Use the `exact_mean` method to return a single row per input table containing the
 average of the two values closest to the mathematical median of data in the table.
 
@@ -120,7 +120,7 @@ data
   |> median(method: "exact_mean")
 ```
 
-## Query the point with the median value
+## Find the point with the median value
 Use the `exact_selector` method to return a single row per input table containing the
 value that 50% of values in the table are less than.
 
@@ -132,7 +132,7 @@ data
 ## Use median() with aggregateWindow()
 [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
-point, then removes the time-based segmentation.
+point, and then removes the time-based segmentation.
 It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
 
 To specify the [median calculation method](#median-calculation-methods) in `aggregateWindow()`, use the
