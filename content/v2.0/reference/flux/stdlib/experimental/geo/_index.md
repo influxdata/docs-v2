@@ -2,8 +2,8 @@
 title: Flux Geo package
 list_title: Geo package
 description: >
-  The Flux Geo package provides tools for working with geo-temporal data and performing
-  geographic location filtering and grouping.
+  The Flux Geo package provides tools for working with geo-temporal data,
+  such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
 menu:
   v2_0_ref:
@@ -13,8 +13,8 @@ weight: 201
 v2.0/tags: [functions, package, geo]
 ---
 
-The Flux Geo package provides tools for working with geo-temporal data and performing
-geographic location filtering and grouping.
+The Flux Geo package provides tools for working with geo-temporal data,
+such as filtering and grouping by geographic location.
 Import the `experimental/geo` package:
 
 ```js
@@ -54,16 +54,22 @@ But know that that higher levels increase
 {{% /note %}}
 
 Language-specific implementations of the S2 Geometry Library provide methods for
-generating S2 Cell ID tokens.
+generating S2 Cell ID tokens. For example:
+
+- **Go:** [`s2.CellID.ToToken()`](https://godoc.org/github.com/golang/geo/s2#CellID.ToToken)
+- **Python:** [`s2sphere.CellId.to_token()`](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
+- **Javascript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ## Region definitions
 Many functions in the Geo package filter data based on geographic region.
-Define regions of different shapes using objects containing specific properties.
+Define geographic regions using the following shapes:
 
-Regions can be the following shapes:
+- [box](#box)
+- [circle](#circle)
+- [polygon](#polygon)
 
 ### box
-Define a box-shaped region with an object containing the following properties:
+Define a box-shaped region by specifying an object containing the following properties:
 
 - **minLat:** minimum latitude in decimal degrees (WGS 84) _(Float)_
 - **maxLat:** maximum latitude in decimal degrees (WGS 84) _(Float)_
@@ -81,11 +87,11 @@ Define a box-shaped region with an object containing the following properties:
 ```
 
 ### circle
-Define a circular region with an object containing the following properties:
+Define a circular region by specifying an object containing the following properties:
 
 - **lat**: latitude of the circle center in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude of the circle center in decimal degrees (WGS 84) _(Float)_
-- **radius**:  radius of the circle in Kilometers (km) _(Float)_
+- **radius**:  radius of the circle in kilometers (km) _(Float)_
 
 ##### Example circular region
 ```js
@@ -106,7 +112,7 @@ Define a custom polygon region using an object containing the following properti
       - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
       - **lon**: longitude in decimal degrees (WGS 84) _(Float)_
 
-##### Example polygon region
+##### Example polygonal region
 ```js
 {
   points: [

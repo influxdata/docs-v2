@@ -38,6 +38,7 @@ geo.strictFilter(
 
 ### region
 The region containing the desired data points.
+Specify object properties for the shape.
 _See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Object_

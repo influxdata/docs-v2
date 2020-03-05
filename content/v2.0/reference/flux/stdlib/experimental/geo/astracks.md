@@ -39,6 +39,8 @@ Default is `["_time"]`
 _**Data type:** Array of strings_
 
 ## Examples
+
+##### Group tracks in a box-shaped region
 ```js
 import "experimental/geo"
 

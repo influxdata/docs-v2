@@ -35,13 +35,13 @@ Name of the new column that stores the unique identifier for a geographic area.
 _**Data type:** String_
 
 ### level
-The [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used
+[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used
 to determine the size of each geographic area.
 
 _**Data type:** Integer_
 
 ### s2cellIDLevel
-[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) in `s2_cell_id` tag.
+[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
 Default is `-1`.
 
 _**Data type:** Integer_

@@ -18,7 +18,7 @@ It compares input data to a set of S2 Cell ID tokens located in the specified [r
 
 {{% note %}}
 S2 Grid cells may not perfectly align with the defined region, so results may include
-data with coordinates outside the region, but inside S2 grid cells that are partially covered by the region.
+data with coordinates outside the region, but inside S2 grid cells partially covered by the region.
 Use [`toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/toRows/) and
 [`geo.strictFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/)
 after `geo.gridFilter()` to precisely filter points.
@@ -42,24 +42,25 @@ geo.gridFilter(
 
 ### region
 The region containing the desired data points.
+Specify object properties for the shape.
 _See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Object_
 
 ### minSize
-Minimum number of tiles that cover the specified region.
+Minimum number of cells that cover the specified region.
 Default is `24`.
 
 _**Data type:** Integer_
 
 ### maxSize
-Maximum number of tiles that cover the specified region.
+Maximum number of cells that cover the specified region.
 Default is `-1`.
 
 _**Data type:** Integer_
 
 ### level
-Desired [cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid tiles.
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid cells.
 Default is `-1`.
 
 _**Data type:** Integer_
@@ -70,7 +71,7 @@ or equal to `s2cellIDLevel`.
 {{% /warn %}}
 
 ### s2cellIDLevel
-[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) in `s2_cell_id` tag.
+[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
 Default is `-1`.
 
 _**Data type:** Integer_

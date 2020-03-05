@@ -37,25 +37,27 @@ geo.filterRows(
 
 ## Parameters
 
+### region
 The region containing the desired data points.
+Specify object properties for the shape.
 _See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Object_
 
 ### minSize
-Minimum number of tiles that cover the specified region.
+Minimum number of cells that cover the specified region.
 Default is `24`.
 
 _**Data type:** Integer_
 
 ### maxSize
-Maximum number of tiles that cover the specified region.
+Maximum number of cells that cover the specified region.
 Default is `-1`.
 
 _**Data type:** Integer_
 
 ### level
-Desired [cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid tiles.
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid cells.
 Default is `-1`.
 
 _**Data type:** Integer_
@@ -66,7 +68,7 @@ or equal to `s2cellIDLevel`.
 {{% /warn %}}
 
 ### s2cellIDLevel
-[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) in `s2_cell_id` tag.
+[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
 Default is `-1`.
 
 _**Data type:** Integer_
@@ -82,7 +84,9 @@ Default is `["_time"]`.
 _**Data type:** Array of strings_
 
 ### strict
-Enable strict geographic data filtering.
+Enable strict geographic data filtering which filters points by longitude (`lon`) and latitude (`lat`).
+For S2 grid cells that are partially covered by the defined region, only points
+with coordinates in the defined region are returned.
 Default is `true`.
 
 _**Data type:** Boolean_
@@ -107,6 +111,9 @@ from(bucket: "example-bucket")
 ```
 
 ##### Approximately filter data in a circular region
+The following example returns points with coordinates located in S2 grid cells partially
+covered by the defined region even though some points my be located outside of the region.
+
 ```js
 import "experimental/geo"
 
@@ -123,7 +130,7 @@ from(bucket: "example-bucket")
   )
 ```
 
-##### Filter data in a custom polygon region
+##### Filter data in a polygonal region
 ```js
 import "experimental/geo"
 
