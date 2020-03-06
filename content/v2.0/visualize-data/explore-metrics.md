@@ -94,9 +94,15 @@ The default time range is 5m.
 
 Click **Query Builder** to use the builder to create a Flux query. Click **Script Editor** to manually edit the query.
 
-#### Add comments to your script
+#### Keyboard shortcuts
 
-In **Script Editor** mode, press `Control+/` to toggle between commenting a line out.
+In **Script Editor** mode, the following keyboard shortcuts are available:
+
+
+| Key                            | Description                                 |
+|--------------------------------|---------------------------------------------|
+| `Control + /` (`⌘ + /` on Mac) | Comment/uncomment current or selected lines |
+| `Control + Enter`              | Submit query                                |
 
 ## Save your query as a dashboard cell or task
 
