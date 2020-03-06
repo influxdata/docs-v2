@@ -1,6 +1,7 @@
 ---
 title: Sort and limit data with Flux
 seotitle: Sort and limit data in InfluxDB with Flux
+list_title: Sort and limit data
 description: >
   This guide walks through sorting and limiting data with Flux and outlines how
   it shapes your data in the process.
@@ -8,8 +9,10 @@ v2.0/tags: [sort, limit]
 menu:
   v2_0:
     name: Sort and limit data
-    parent: How-to guides
+    parent: Query with Flux
 weight: 206
+aliases:
+ - /v2.0/query-data/guides/sort-limit/
 ---
 
 The [`sort()`function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)

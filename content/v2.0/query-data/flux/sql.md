@@ -7,8 +7,10 @@ description: >
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
-    parent: How-to guides
+    parent: Query with Flux
 weight: 207
+aliases:
+ - /v2.0/query-data/guides/sql/
 ---
 
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.

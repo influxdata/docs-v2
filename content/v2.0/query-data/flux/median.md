@@ -8,11 +8,11 @@ description: >
 weight: 202
 menu:
   v2_0:
-    parent: Common queries
+    parent: Query with Flux
     name: Median
 v2.0/tags: [query, median]
 related:
-  - /v2.0/query-data/common-queries/percentile-quantile/
+  - /v2.0/query-data/flux/percentile-quantile/
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
@@ -99,7 +99,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
+The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value that represents the median

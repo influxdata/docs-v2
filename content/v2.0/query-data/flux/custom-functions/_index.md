@@ -5,8 +5,10 @@ v2.0/tags: [functions, custom, flux]
 menu:
   v2_0:
     name: Create custom functions
-    parent: How-to guides
+    parent: Query with Flux
 weight: 208
+aliases:
+ - /v2.0/query-data/guides/custom-functions/
 ---
 
 Flux's functional syntax allows for custom functions.

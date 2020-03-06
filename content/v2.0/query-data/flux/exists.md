@@ -8,8 +8,10 @@ v2.0/tags: [exists]
 menu:
   v2_0:
     name: Check if a value exists
-    parent: How-to guides
+    parent: Query with Flux
 weight: 209
+aliases:
+ - /v2.0/query-data/guides/exists/
 ---
 
 Use the Flux `exists` operator to check if an object contains a key or if that

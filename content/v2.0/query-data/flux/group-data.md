@@ -1,5 +1,6 @@
 ---
 title: Group data in InfluxDB with Flux
+list_title: Group data
 description: >
   This guide walks through grouping data with Flux by providing examples and
   illustrating how data is shaped throughout the process.
@@ -7,8 +8,10 @@ v2.0/tags: [group]
 menu:
   v2_0:
     name: Group data
-    parent: How-to guides
+    parent: Query with Flux
 weight: 203
+aliases:
+ - /v2.0/query-data/guides/group-data/
 ---
 
 With Flux, you can group data by any column in your queried data set.

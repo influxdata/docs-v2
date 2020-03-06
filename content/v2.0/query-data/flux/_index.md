@@ -1,15 +1,17 @@
 ---
-title: Common Flux queries
-description: >
-  placeholder
-weight: 103
+title: Query data with Flux
+description: Guides that walk through both common and complex queries and use cases for Flux.
+weight: 102
+v2.0/tags: [flux, query]
 menu:
   v2_0:
+    name: Query with Flux
     parent: Query data
-    name: Common queries
-v2.0/tags: [query]
+alias:
+  - /v2.0/query-data/guides/
 ---
 
+The following guides walk through both common and complex queries and use cases for Flux.
 
 {{% note %}}
 #### Example data variable
@@ -27,21 +29,8 @@ data = from(bucket: "example-bucket")
 ```
 {{% /note %}}
 
-{{< children >}}
+## Flux query guides
 
 ---
 
-- [x] SELECT-like commands
-- [x] Median
-- [x] Percentile
-- [ ] Cumulative Sum
-- [ ] Moving Average
-- [ ] Increase
-- [ ] Rate
-- [ ] Delta
-- [ ] Window
-- [ ] First/Last
-- [ ] Histogram
-- [ ] Gap filling
-- [ ] Last observation carried forward
-- [ ] Last point
+{{< children >}}

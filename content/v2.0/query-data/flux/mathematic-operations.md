@@ -1,13 +1,16 @@
 ---
 title: Transform data with mathematic operations
 seotitle: Transform data with mathematic operations in Flux
+list_title: Transform data with math
 description: This guide describes how to use Flux to transform data with mathematic operations.
 v2.0/tags: [math, flux]
 menu:
   v2_0:
     name: Transform data with math
-    parent: How-to guides
+    parent: Query with Flux
 weight: 209
+aliases:
+ - /v2.0/query-data/guides/mathematic-operations/
 ---
 
 [Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,

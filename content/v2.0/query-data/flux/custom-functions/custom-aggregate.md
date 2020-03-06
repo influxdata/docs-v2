@@ -7,6 +7,8 @@ menu:
     name: Custom aggregate functions
     parent: Create custom functions
 weight: 301
+aliases:
+ - /v2.0/query-data/guides/custom-functions/custom-aggregate/
 ---
 
 To aggregate your data, use the Flux

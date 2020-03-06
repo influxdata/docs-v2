@@ -1,5 +1,6 @@
 ---
 title: Extract scalar values in Flux
+list_title: Extract scalar values
 description: >
   Use Flux stream and table functions to extract scalar values from Flux query output.
   This lets you, for example, dynamically set variables using query results.
@@ -11,6 +12,8 @@ weight: 210
 v2.0/tags: [scalar]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
+aliases:
+  - /v2.0/query-data/guides/scalar-values/
 ---
 
 Use Flux [stream and table functions](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)
