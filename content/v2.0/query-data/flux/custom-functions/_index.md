@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Create custom functions
     parent: Query with Flux
-weight: 208
+weight: 220
 aliases:
  - /v2.0/query-data/guides/custom-functions/
 ---

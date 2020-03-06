@@ -10,7 +10,7 @@ menu:
   v2_0:
     name: Use conditional logic
     parent: Query with Flux
-weight: 209
+weight: 220
 aliases:
  - /v2.0/query-data/guides/conditional-logic/
 ---

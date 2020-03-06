@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Group data
     parent: Query with Flux
-weight: 203
+weight: 202
 aliases:
  - /v2.0/query-data/guides/group-data/
 ---

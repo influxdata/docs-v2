@@ -7,7 +7,7 @@ menu:
   v2_0:
     name: Create histograms
     parent: Query with Flux
-weight: 208
+weight: 210
 aliases:
  - /v2.0/query-data/guides/histograms/
 ---

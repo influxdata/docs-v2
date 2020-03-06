@@ -7,7 +7,7 @@ menu:
   v2_0:
     name: Monitor states
     parent: Query with Flux
-weight: 209
+weight: 220
 aliases:
  - /v2.0/query-data/guides/monitor-states/
 ---

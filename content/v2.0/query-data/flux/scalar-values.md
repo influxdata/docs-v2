@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Extract scalar values
     parent:  How-to guides
-weight: 210
+weight: 220
 v2.0/tags: [scalar]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/

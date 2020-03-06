@@ -1,15 +1,15 @@
 ---
-title: Query percentile and quantile values
+title: Find percentile and quantile values
 seotitle: Query percentile and quantile values in Flux
 list_title: Percentile & quantile
 description: >
   Use the `quantile()` function to return all values within the `q` quantile or
   percentile of input data.
-weight: 203
+weight: 210
 menu:
   v2_0:
     parent: Query with Flux
-    name: Percentile & quantile
+    name: Query percentiles & quantiles
 v2.0/tags: [query, percentile, quantile]
 related:
   - /v2.0/query-data/flux/query-median/

@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Check if a value exists
     parent: Query with Flux
-weight: 209
+weight: 220
 aliases:
  - /v2.0/query-data/guides/exists/
 ---

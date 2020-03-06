@@ -8,7 +8,7 @@ v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
     parent: Query with Flux
-weight: 207
+weight: 220
 aliases:
  - /v2.0/query-data/guides/sql/
 ---

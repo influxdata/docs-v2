@@ -10,7 +10,7 @@ menu:
   v2_0:
     name: Sort and limit data
     parent: Query with Flux
-weight: 206
+weight: 203
 aliases:
  - /v2.0/query-data/guides/sort-limit/
 ---

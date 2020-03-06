@@ -7,7 +7,7 @@ menu:
   v2_0:
     name: Use regular expressions
     parent: Query with Flux
-weight: 210
+weight: 220
 aliases:
  - /v2.0/query-data/guides/regular-expressions/
 ---

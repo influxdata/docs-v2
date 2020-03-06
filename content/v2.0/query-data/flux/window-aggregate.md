@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Window & aggregate data
     parent: Query with Flux
-weight: 202
+weight: 204
 v2.0/tags: [flux, aggregates]
 aliases:
  - /v2.0/query-data/guides/window-aggregate/
