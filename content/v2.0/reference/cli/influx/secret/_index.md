@@ -1,5 +1,5 @@
 ---
-title: influx secret – Manage secrets
+title: influx secret
 description: The 'influx secret' command manages secrets.
 menu:
   v2_0_ref:

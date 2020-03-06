@@ -1,5 +1,5 @@
 ---
-title: influx auth – Authorization management commands
+title: influx auth
 description: The 'influx auth' command and its subcommands manage authorizations in InfluxDB.
 menu:
   v2_0_ref:

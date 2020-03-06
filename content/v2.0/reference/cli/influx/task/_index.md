@@ -1,5 +1,5 @@
 ---
-title: influx task – Task management commands
+title: influx task
 description: The 'influx task' command and its subcommands manage tasks in InfluxDB.
 menu:
   v2_0_ref:

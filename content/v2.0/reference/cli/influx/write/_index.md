@@ -1,5 +1,5 @@
 ---
-title: influx write – Write data to InfluxDB using the CLI
+title: influx write
 description: >
   The 'influx write' command writes line protocol to InfluxDB either via a single
   line of line protocol, or a via a file containing line protocol.
