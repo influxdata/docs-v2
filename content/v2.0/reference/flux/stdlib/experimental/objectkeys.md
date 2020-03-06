@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: experimental.objectKeys
     parent: Experimental
-weight: 201
+weight: 302
 ---
 
 The `experimental.objectKeys()` function returns an array of keys in a specified object.

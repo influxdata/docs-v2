@@ -16,6 +16,14 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.63.0 [2020-03-03]
+
+### Features
+- Experimental `geo` package.
+- Initial grammar for Flux and a partial grammar for InfluxQL.
+
+---
+
 ## v0.62.0 [2020-02-28]
 
 ### Features

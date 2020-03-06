@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: Prometheus
     parent: Experimental
-weight: 201
+weight: 301
 v2.0/tags: [functions, prometheus, package]
 ---
 

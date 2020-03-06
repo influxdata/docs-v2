@@ -6,7 +6,7 @@ menu:
   v2_0_ref:
     name: mqtt.to
     parent: MQTT
-weight: 301
+weight: 401
 ---
 
 The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
