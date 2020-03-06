@@ -4,11 +4,11 @@ seotitle: Query cumulative sum in Flux
 list_title: Cumulative sum
 description: >
   Use the `cumulativeSum()` function to calculate a running total of values.
-weight: 204
+weight: 210
 menu:
   v2_0:
-    parent: Common queries
-    name: Cumulative sum
+    parent: Query with Flux
+    name: Query the cumulative sum
 v2.0/tags: [query, cumulative sum]
 ---
 
@@ -40,7 +40,7 @@ to calculate a running total of values.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
+The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ##### Calculate the running total of values

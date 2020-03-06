@@ -1,18 +1,18 @@
 ---
-title: Query median values
-seotitle: Query median values in Flux
+title: Find median values
+seotitle: Find median values in Flux
 list_title: Median
 description: >
   Use the `median()` function to return a value representing the `0.5` quantile
   (50th percentile) or median of input data.
-weight: 202
+weight: 210
 menu:
   v2_0:
-    parent: Common queries
-    name: Median
+    parent: Query with Flux
+    name: Find the median
 v2.0/tags: [query, median]
 related:
-  - /v2.0/query-data/common-queries/percentile-quantile/
+  - /v2.0/query-data/flux/percentile-quantile/
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
@@ -99,7 +99,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
+The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value that represents the median

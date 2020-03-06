@@ -1,18 +1,18 @@
 ---
-title: Query percentile and quantile values
+title: Find percentile and quantile values
 seotitle: Query percentile and quantile values in Flux
 list_title: Percentile & quantile
 description: >
   Use the `quantile()` function to return all values within the `q` quantile or
   percentile of input data.
-weight: 203
+weight: 210
 menu:
   v2_0:
-    parent: Common queries
-    name: Percentile & quantile
+    parent: Query with Flux
+    name: Query percentiles & quantiles
 v2.0/tags: [query, percentile, quantile]
 related:
-  - /v2.0/query-data/common-queries/query-median/
+  - /v2.0/query-data/flux/query-median/
 ---
 
 Use the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
@@ -111,7 +111,7 @@ If calculating the `0.5` quantile or 50th percentile:
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/common-queries/#example-data-variable).
+The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value representing the 99th percentile

@@ -8,7 +8,7 @@ description: >
 weight: 201
 menu:
   v2_0:
-    parent: Common queries
+    parent: Query with Flux
 v2.0/tags: [query, select, where]
 ---
 
