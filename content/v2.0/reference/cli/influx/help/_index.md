@@ -1,5 +1,5 @@
 ---
-title: influx help – Help command for the influx CLI
+title: influx help
 description: The 'influx help' command provides help for any command in the `influx` command line interface.
 menu:
   v2_0_ref:

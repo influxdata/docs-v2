@@ -1,5 +1,5 @@
 ---
-title: influx pkg – package management commands
+title: influx pkg
 description: The 'influx pkg' command and its subcommands manage packages in InfluxDB.
 menu:
   v2_0_ref:

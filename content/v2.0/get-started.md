@@ -321,6 +321,11 @@ influx setup
 InfluxDB is now initialized with a primary user, organization, and bucket.
 You are ready to [write or collect data](/v2.0/write-data).
 
+{{% note %}}
+To automate the setup process, use [flags](/v2.0/reference/cli/influx/setup/#flags)
+to provide the required information.
+{{% /note %}}
+
 {{% /tab-content %}}
 <!------------------------------- END UI Setup -------------------------------->
 {{< /tabs-wrapper >}}

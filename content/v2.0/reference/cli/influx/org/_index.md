@@ -1,5 +1,5 @@
 ---
-title: influx org – Organization management commands
+title: influx org
 description: The 'influx org' command and its subcommands manage organization information in InfluxDB.
 menu:
   v2_0_ref:

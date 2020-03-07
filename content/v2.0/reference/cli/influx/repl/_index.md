@@ -1,5 +1,5 @@
 ---
-title: influx repl – Enter an interactive REPL
+title: influx repl
 description: >
   The 'influx repl' command opens and interactive read-eval-print-loop (REPL)
   from which you can run Flux commands.
