@@ -49,13 +49,21 @@ Defines the behavior for empty tables.
 Potential values are `keep` and `drop`.
 Defaults to `drop`.
 
+_**Data type:** String_
+
 ##### drop
-Empty tables are dropped.
+Tables without rows are dropped.
 
 ##### keep
-Empty tables are output to the next transformation.
+Tables without rows are output to the next transformation.
 
-_**Data type:** String_
+{{% warn %}}
+Keeping empty tables with your first `filter()` function can have severe performance
+costs since it retains empty tables from your entire data set.
+For higher performance, use your first `filter()` function to do basic filtering,
+then keep empty tables on subsequent `filter()` calls with smaller data sets.
+_[See the example below](#keep-empty-tables-when-filtering)._
+{{% /warn %}}
 
 ## Examples
 
@@ -82,6 +90,14 @@ from(bucket:"example-bucket")
 from(bucket:"example-bucket")
   |> range(start:-1h)
   |> filter(fn: (r) => r._value > 50.0 and r._value < 65.0 )
+```
+
+##### Keep empty tables when filtering
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) => r._measurement == "events" and r._field == "open")
+  |> filter(fn: (r) => r.doorId =~ /^2.*/, onEmpty: "keep")
 ```
 
 <hr style="margin-top:4rem"/>
