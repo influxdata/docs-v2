@@ -79,6 +79,21 @@ influx pkg export all \
   -t $INFLUX_TOKEN
 ```
 
+#### Export resources filtered by labelName or resourceKind
+The `influx pkg export all` command has an optional `--filter` flag that filters
+only exports resources that match a specified `labelName` or `resourceKind`.
+
+###### Export only buckets with a specific label name
+```sh
+influx pkg export all \
+  -o my-org \
+  -f ~/templates/awesome-template.yml \
+  -t $INFLUX_TOKEN \
+  --filter=resourceKind=Bucket \
+  --filter=labelName=Example
+```
+
+
 For information about flags, see the
 [`influx pkg export all` documentation](/v2.0/reference/cli/influx/pkg/export/all/).
 
