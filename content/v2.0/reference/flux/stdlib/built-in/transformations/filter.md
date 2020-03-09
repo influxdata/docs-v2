@@ -49,13 +49,19 @@ Defines the behavior for empty tables.
 Potential values are `keep` and `drop`.
 Defaults to `drop`.
 
+_**Data type:** String_
+
 ##### drop
-Empty tables are dropped.
+Tables left without rows are dropped.
 
 ##### keep
-Empty tables are output to the next transformation.
+Tables left without rows are output to the next transformation.
 
-_**Data type:** String_
+{{% warn %}}
+Keeping empty tables with your first `filter()` function can have severe performance costs.
+For higher performance, use your first `filter()` function to do basic filtering,
+then keep empty tables on subsequent `filter()` calls.
+{{% /warn %}}
 
 ## Examples
 
