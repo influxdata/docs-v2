@@ -97,7 +97,7 @@ from(bucket:"example-bucket")
 from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "events" and r._field == "open")
-  |> filter(fn: (r) => r.doorId == "201df", onEmpty: "keep")
+  |> filter(fn: (r) => r.doorId =~ /^2.*/, onEmpty: "keep")
 ```
 
 <hr style="margin-top:4rem"/>
