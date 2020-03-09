@@ -61,7 +61,7 @@ Tables without rows are output to the next transformation.
 Keeping empty tables with your first `filter()` function can have severe performance
 costs since it retains empty tables from your entire data set.
 For higher performance, use your first `filter()` function to do basic filtering,
-then keep empty tables on subsequent `filter()` calls with a smaller data set.
+then keep empty tables on subsequent `filter()` calls with smaller data sets.
 _[See the example below](#keep-empty-tables-when-filtering)._
 {{% /warn %}}
 
