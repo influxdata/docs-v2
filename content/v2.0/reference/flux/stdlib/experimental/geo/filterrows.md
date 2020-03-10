@@ -35,6 +35,27 @@ geo.filterRows(
 )
 ```
 
+### Strict and non-strict filtering
+In most cases, the specified geographic region does not perfectly align with S2 grid cells.
+**Non-strict filtering** returns points that may be outside of the specified region but
+inside S2 grid cells partially covered by the region.
+**Strict filtering** returns only points inside the specified region.
+
+<span class="key-geo-cell"></span> S2 grid cell  
+<span class="key-geo-region"></span> Filter region  
+<span class="key-geo-point"></span> Returned point
+
+{{< flex >}}
+{{% flex-content %}}
+**Strict filtering**
+{{< svg "/static/svgs/geo-strict.svg" >}}
+{{% /flex-content %}}
+{{% flex-content %}}
+**Non-strict filtering**
+{{< svg "/static/svgs/geo-non-strict.svg" >}}
+{{% /flex-content %}}
+{{< /flex >}}
+
 ## Parameters
 
 ### region
@@ -88,6 +109,7 @@ Enable strict geographic data filtering which filters points by longitude (`lon`
 For S2 grid cells that are partially covered by the defined region, only points
 with coordinates in the defined region are returned.
 Default is `true`.
+_See [Strict and non-strict filtering](#strict-and-non-strict-filtering) above._
 
 _**Data type:** Boolean_
 
