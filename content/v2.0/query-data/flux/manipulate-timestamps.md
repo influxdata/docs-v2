@@ -1,12 +1,15 @@
 ---
 title: Manipulate timestamps with Flux
+list_title: Manipulate timestamps
 description: >
   Use Flux to process and manipulate timestamps.
 menu:
   v2_0:
     name: Manipulate timestamps
-    parent: How-to guides
-weight: 209
+    parent: Query with Flux
+weight: 220
+aliases:
+ - /v2.0/query-data/guides/manipulate-timestamps/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.
