@@ -1,6 +1,6 @@
 ---
 title: influx pkg
-description: The 'influx pkg' command and its subcommands manage packages in InfluxDB.
+description: The 'influx pkg' command and its subcommands manage InfluxDB templates.
 menu:
   v2_0_ref:
     name: influx pkg
@@ -9,7 +9,7 @@ weight: 101
 v2.0/tags: [templates]
 ---
 
-The `influx pkg` command manages packages in InfluxDB.
+The `influx pkg` command manages InfluxDB templates.
 
 ## Usage
 ```
@@ -20,26 +20,26 @@ influx pkg [command]
 ## Available commands
 | Command                                              | Description                                                       |
 |:-------                                              |:-----------                                                       |
-| [export](/v2.0/reference/cli/influx/pkg/export/)     | Export existing resources as a package                            |
-| [summary](/v2.0/reference/cli/influx/pkg/summary/)   | Summarize the provided package                                    |
-| [validate](/v2.0/reference/cli/influx/pkg/validate/) | Validate the provided package                                     |
+| [export](/v2.0/reference/cli/influx/pkg/export/)     | Export existing resources as a template                           |
+| [summary](/v2.0/reference/cli/influx/pkg/summary/)   | Summarize the provided template                                   |
+| [validate](/v2.0/reference/cli/influx/pkg/validate/) | Validate the provided template                                    |
 
 ## Flags
 
-| Flag                      | Description                                                                                     | Input Type | {{< cli/mapped >}} |
-|:----                      |:-----------------------------                                                                   |:---------- |:------------------ |
-| `-c`, `--disable-color`   | Disable color in output                                                                         |            |                    |
-| `--disable-table-borders` | Disable table borders                                                                           |            |                    |
-| `-e`, `--encoding`        | Encoding of the input stream                                                                    | string     |                    |
-| `--env-ref`               | Environment references to provide with the package (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                    |
-| `-f`, `--file`            | Path to package file                                                                            | string     |                    |
-| `--force`                 | Ignore warnings about destructive changes                                                       |            |                    |
-| `-h`, `--help`            | Help for the `pkg` command                                                                      |            |                    |
-| `-o`, `--org`             | The name of the organization that owns the bucket                                               | string     | `INFLUX_ORG`       |
-| `--org-id`                | The ID of the organization that owns the bucket                                                 | string     | `INFLUX_ORG_ID`    |
-| `-q`, `--quiet`           | Disable output printing                                                                         |            |                    |
-| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                              |            |                    |
-| `--secret`                | Secrets to provide with the package (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                    |
-| `-u`, `--url`             | URL of package file                                                                             | string     |                    |
+| Flag                      | Description                                                                                 | Input Type | {{< cli/mapped >}} |
+|:----                      |:-----------------------------                                                               |:---------- |:------------------ |
+| `-c`, `--disable-color`   | Disable color in output                                                                     |            |                    |
+| `--disable-table-borders` | Disable table borders                                                                       |            |                    |
+| `-e`, `--encoding`        | Encoding of the input stream                                                                | string     |                    |
+| `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                    |
+| `-f`, `--file`            | Path to template file                                                                       | string     |                    |
+| `--force`                 | Ignore warnings about destructive changes                                                   |            |                    |
+| `-h`, `--help`            | Help for the `pkg` command                                                                  |            |                    |
+| `-o`, `--org`             | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`       |
+| `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`    |
+| `-q`, `--quiet`           | Disable output printing                                                                     |            |                    |
+| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                          |            |                    |
+| `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                    |
+| `-u`, `--url`             | URL of template file                                                                        | string     |                    |
 
 {{% cli/influx-global-flags %}}
