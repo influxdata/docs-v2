@@ -80,8 +80,8 @@ influx pkg export all \
 ```
 
 #### Export resources filtered by labelName or resourceKind
-The `influx pkg export all` command has an optional `--filter` flag that filters
-only exports resources that match a specified `labelName` or `resourceKind`.
+The `influx pkg export all` command has an optional `--filter` flag that exports
+only resources that match specified label names or resource kinds.
 Provide multiple filters for both `labelName` and `resourceKind`
 
 ###### Export only dashboards and buckets with specific labels
