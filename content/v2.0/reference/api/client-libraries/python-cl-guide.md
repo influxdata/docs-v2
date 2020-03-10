@@ -5,7 +5,7 @@ description: >
 weight: 103
 menu:
   v2_0_ref:
-    name: Python client library
+    name: Python
     parent: Client libraries
 v2.0/tags: [client libraries, python]
 ---
