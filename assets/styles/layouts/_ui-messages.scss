@@ -5,7 +5,7 @@
     width: 375px;
     margin: 1rem 0 2rem;
     padding: .85rem 0;
-    font-family: $roboto;
+    font-family: $rubik;
     font-size: .9rem;
     border-radius: 5px;
     color: $g20-white;
@@ -24,21 +24,21 @@
 
     .text {
       width: 74%;
-      font-weight: 600;
+      font-weight: $medium;
     }
 
     &.green {
-      background: linear-gradient(to right, #4dd7a1, #21adf5);
-      .icon:before { content: "\e922"; }
+      background: linear-gradient(45deg, #34bb56, #00a3fe);
+      .icon:before { content: ""; }
     }
 
     &.blue {
-      background: linear-gradient(to right, #22adf6, #4591ed);
+      background: linear-gradient(45deg, rgb(190, 46, 228), rgb(0, 163, 255));
       .icon:before { content: "\e935"; }
     }
 
     &.red {
-      background: linear-gradient(to right, #e8695c, #7669e8);
+      background: linear-gradient(45deg, rgb(220, 78, 88), rgb(142, 31, 195));
       .icon:before { content: "\e920"; }
     }
 

@@ -7,7 +7,7 @@
   <div class="topnav--right">
     <div class="version-selector">
       {{- $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) -}}
-      {{ if eq $currentVersion nil }}
+      {{ if not ( in $currentVersion "v2") }}
         <p class="selected">Select Version</p>
       {{ else }}
         <p class="selected">{{ $currentVersion }}</p>

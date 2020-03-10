@@ -11,7 +11,7 @@
     &.add-btn-round {
       font-family: "icomoon";
       color:#fff;
-      background:#7a65f2;
+      background: linear-gradient(45deg,#5c10a0,#8e1fc3);
       border-radius:50%;
       margin:0 .25rem;
       display: inline-block;
@@ -19,7 +19,7 @@
       font-size: .7rem;
       width: 20px;
       height: 20px;
-      padding-left: .28rem;
+      padding-left: .29rem;
       line-height: 1.25rem;
     }
 
@@ -47,22 +47,23 @@
   }
 
   .nav-icon {
-    background: linear-gradient(to right, #50ABEF, #9195f7);
-    font-family: $roboto;
+    background: linear-gradient(to right, #00A3FF, #BE2EE4);
+    font-family: $rubik;
     display: inline-block;
-    padding: .85rem 1rem;
+    padding: 1rem 1.1rem;
     border-radius: 0 5px 5px 0;
     font-size: 1.05rem;
     margin-bottom: 1rem;
 
     .icon {
-      font-size: 1.35rem;
+      font-size: 1.65rem;
       vertical-align: middle;
       margin-right: 1.25rem;
     }
 
     strong {
       color: $g20-white;
+      font-weight: $medium;
     }
   }
 }
