@@ -708,6 +708,15 @@ A predicate expression compares two values and returns `true` or `false` based o
 the relationship between the two values.
 A predicate expression is comprised of a left operand, a comparison operator, and a right operand.
 
+### predicate function
+A Flux predicate function is an anonymous function that returns `true` or `false`
+based on one or more [predicate expressions](#predicate-expression).
+
+###### Example predicate function
+```js
+(r) => r.foo == "bar" and r.baz != "quz"
+```
+
 ### process
 
 A set of predetermined rules.
@@ -919,7 +928,7 @@ Related entries: [bin](#bin)
 ### step-plot
 
 In InfluxDB 1.x, a [step-plot graph](https://docs.influxdata.com/chronograf/v1.7/guides/visualization-types/#step-plot-graph) displays time series data in a staircase graph.
-In InfluxDB 2.0, generate a similar graph using the step interpolation option for [line graphs](https://v2.docs.influxdata.com/v2.0/visualize-data/visualization-types/graph/#options).
+In InfluxDB 2.0, generate a similar graph using the step interpolation option for [line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
 
 ### stream
 
@@ -988,7 +997,7 @@ Related entries: [function](#function)
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](https://v2.docs.influxdata.com/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](https://v2.docs.influxdata.com/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
+Related entries: [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
 
 ### time (data type)
 
@@ -1017,12 +1026,12 @@ Related entries: [point](#point)
 
 Tokens verify user and organization permissions in InfluxDB.
 
-Related entries: [Create a token](https://v2.docs.influxdata.com/v2.0/security/tokens/create-token/).
+Related entries: [Create a token](/v2.0/security/tokens/create-token/).
 
 ### tracing
 
 By default, tracing is disabled in InfluxDB.
-To enable tracing or set other InfluxDB configuration options, see [InfluxDB configuration options](https://v2.docs.influxdata.com/v2.0/reference/config-options/).
+To enable tracing or set other InfluxDB configuration options, see [InfluxDB configuration options](/v2.0/reference/config-options/).
 
 ### transformation
 
@@ -1106,4 +1115,4 @@ Related entries: [tsm](#tsm-time-structured-merge-tree)
 ### windowing
 
 Grouping data based on specified time intervals.
-For information about how to window in Flux, see [Window and aggregate data with Flux](https://v2.docs.influxdata.com/v2.0/query-data/guides/window-aggregate/).
+For information about how to window in Flux, see [Window and aggregate data with Flux](/v2.0/query-data/flux/window-aggregate/).

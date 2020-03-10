@@ -1,13 +1,16 @@
 ---
 title: Join data with Flux
 seotitle: Join data in InfluxDB with Flux
+list_title: Join data
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
 v2.0/tags: [join, flux]
 menu:
   v2_0:
     name: Join data
-    parent: How-to guides
-weight: 205
+    parent: Query with Flux
+weight: 220
+aliases:
+ - /v2.0/query-data/guides/join/
 ---
 
 The [`join()` function](/v2.0/reference/flux/stdlib/built-in/transformations/join) merges two or more
