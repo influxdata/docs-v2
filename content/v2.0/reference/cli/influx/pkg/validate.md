@@ -1,14 +1,14 @@
 ---
 title: influx pkg validate
 description: >
-  The 'influx pkg validate' command validates the provided package.
+  The 'influx pkg validate' command validates the provided InfluxDB template.
 menu:
   v2_0_ref:
     parent: influx pkg
 weight: 101
 ---
 
-The `influx pkg validate` command validates the provided package.
+The `influx pkg validate` command validates the provided InfluxDB template.
 
 ## Usage
 ```
@@ -23,6 +23,6 @@ influx pkg validate [flags]
 | `-f`, `--file`     | Package file to validate                                           | string     |
 | `-h`, `--help`     | Help for the `validate` command                                    |            |
 | `-R`, `--recurse`  | Recurse through files in the directory specified in `-f`, `--file` |            |
-| `-u`, `--url`      | URL of package file to validate                                    | string     |
+| `-u`, `--url`      | URL of template file to validate                                   | string     |
 
 {{% cli/influx-global-flags %}}
