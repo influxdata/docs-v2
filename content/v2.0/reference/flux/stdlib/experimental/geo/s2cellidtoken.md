@@ -25,12 +25,9 @@ geo.s2CellIDToken(
 
 ## Parameters
 
-{{% note %}}
-`point` and `token` are mutually exclusive.
-{{% /note %}}
-
 ### point
-Longitude and latitude in **decimal degrees** (WGS 84).
+Longitude and latitude in **decimal degrees** (WGS 84) to use when generating
+the S2 cell ID token.
 
 _**Data type:** Object_
 
@@ -40,8 +37,12 @@ Useful for changing the S2 cell level of an existing S2 cell ID token.
 
 _**Data type:** String_
 
+{{% note %}}
+`point` and `token` are mutually exclusive.
+{{% /note %}}
+
 ### level
-[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
 when generating the S2 cell ID token.
 
 _**Data type:** Integer_
@@ -64,7 +65,7 @@ from(bucket: "example-bucket")
   )
 ```
 
-##### Update S2 cell ID tokens using a new S2 cell level
+##### Update S2 cell ID token level
 ```js
 import "experimental/geo"
 
