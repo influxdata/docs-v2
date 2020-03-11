@@ -3,7 +3,6 @@ title: Python client library
 list_title: Python
 description: >
   Use the Python client library to interact with InfluxDB.
-weight: 201
 menu:
   v2_0_ref:
     name: Python
@@ -11,6 +10,7 @@ menu:
 v2.0/tags: [client libraries, python]
 aliases:
   - /v2.0/reference/api/client-libraries/python-cl-guide/
+weight: 201
 ---
 
 Use the [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.

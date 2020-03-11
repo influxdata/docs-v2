@@ -38,10 +38,11 @@
 
 	<ul>
 	{{ range $pages.ByWeight }}
-	  {{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
-		{{ $note := cond ( isset .Params "list_note" ) .Params.list_note "" }}
 		{{ $title := replaceRE `\ function` "" .Title }}
-		<li><a href="{{ $url }}">{{ if .Params.list_title }}{{ .Params.list_title }}{{ else }}{{ $title }}{{ end }}</a> {{ $note | markdownify }}</li>
+	  {{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
+		{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
+		{{ $note := cond ( isset .Params "list_note" ) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
+		<li><a href="{{ $url }}" target="{{ $target }}">{{ if .Params.list_title }}{{ .Params.list_title }}{{ else }}{{ $title }}{{ end }}</a> {{ $note | markdownify }}</span></li>
 	{{ end }}
 	<ul>
 
