@@ -21,12 +21,4 @@ These client libraries are in active development and may not be feature-complete
 This list will continue to grow as more client libraries are released.
 {{% /note %}}
 
-- [Arduino](https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino)
-  _(contributed by [tobiasschuerg](https://github.com/tobiasschuerg))_
-- [C#](https://github.com/influxdata/influxdb-client-csharp)
-- [Go](https://github.com/influxdata/influxdb-client-go)
-- [Java](https://github.com/influxdata/influxdb-client-java)
-- [JavaScript](https://github.com/influxdata/influxdb-client-js)
-- [PHP](https://github.com/influxdata/influxdb-client-php)
-- [Python](/v2.0/reference/api/client-libraries/python/)
-- [Ruby](https://github.com/influxdata/influxdb-client-ruby)
+{{< children type="functions" >}}

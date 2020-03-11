@@ -2,6 +2,7 @@
 title: InfluxDB C# client library
 list_title: C#
 description: Use the C# client library to interact with InfluxDB.
+external_url: https://github.com/influxdata/influxdb-client-csharp
 menu:
   v2_0_ref:
     name: C#
