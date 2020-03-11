@@ -72,6 +72,9 @@ v2.x/tags: # Tags specific to each version (replace .x" with the appropriate min
 related: # Creates links to specific internal and external content at the bottom of the page
   - /path/to/related/article
   - https://external-link.com, This is an external link
+external_url: # Used in children shortcode type="list" for page links that are external
+list_image: # Image included with article descriptions in children type="articles" shortcode
+list_note: # Used in children shortcode type="list" to add a small note next to listed links
 ```
 
 #### Title usage
@@ -390,11 +393,30 @@ or only "page" articles (those with no children) using the `show` argument:
 
 _By default, it displays both sections and pages._
 
-There is also a special use-case designed for listing Flux functions using the `type` argument:
+Use the `type` argument to specify the format of the children list.
 
 ```md
 {{< children type="functions" >}}
 ```
+
+The following list types are available:
+
+- **articles:** lists article titles as headers with the description or summary
+  of the article as a paragraph. Article headers link to the articles.
+- **list:** lists children article links in an unordered list.
+- **functions:** a special use-case designed for listing Flux functions.
+
+#### Children frontmatter
+Each children list `type` uses [frontmatter properties](#page-frontmatter) when generating the list of articles.
+The following table shows which children types use which frontmatter properties:
+
+| Frontmatter    | articles | list | functions |
+|:-----------    |:--------:|:----:|:---------:|
+| `list_title`   | ✓        | ✓    | ✓         |
+| `description`  | ✓        |      |           |
+| `external_url` | ✓        | ✓    |           |
+| `list_image`   | ✓        |      |           |
+| `list_note`    |          | ✓    |           |
 
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.

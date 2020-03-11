@@ -1,13 +1,16 @@
 ---
 title: Python client library
+list_title: Python
 description: >
   Use the Python client library to interact with InfluxDB.
-weight: 103
 menu:
   v2_0_ref:
     name: Python
     parent: Client libraries
 v2.0/tags: [client libraries, python]
+aliases:
+  - /v2.0/reference/api/client-libraries/python-cl-guide/
+weight: 201
 ---
 
 Use the [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
@@ -100,4 +103,3 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
 write_api.write(bucket=bucket, org=org, record=p)
 ```
-
