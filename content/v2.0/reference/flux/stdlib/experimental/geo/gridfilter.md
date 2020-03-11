@@ -41,9 +41,10 @@ geo.gridFilter(
 
 ### Non-strict and strict filtering
 In most cases, the specified geographic region does not perfectly align with S2 grid cells.
-**Non-strict filtering** returns points that may be outside of the specified region but
-inside S2 grid cells partially covered by the region.
-**Strict filtering** returns only points inside the specified region.
+
+- **Non-strict filtering** returns points that may be outside of the specified region but
+  inside S2 grid cells partially covered by the region.
+- **Strict filtering** returns only points inside the specified region.
 
 <span class="key-geo-cell"></span> S2 grid cell  
 <span class="key-geo-region"></span> Filter region  
