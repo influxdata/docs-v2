@@ -16,6 +16,43 @@ svg {
   	.st8{font-size:14.2px;}
   	.st9{fill: $svg-table-code-operator;}
   	.st10{fill: $svg-table-code-string;}
-
   }
+
+  &[id^='geo-s2-cells-'] {
+    max-width: 250px;
+    .geo-cell{fill:rgba($svg-geo-s2-cell, 0.25);stroke:$svg-geo-s2-cell;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;}
+  	.geo-region{fill:rgba($svg-geo-region, 0.35);stroke:$svg-geo-region;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;}
+  	.geo-point{fill:$svg-geo-point;}
+  }
+}
+
+//////////////////////////// Styles for SVG legends ////////////////////////////
+
+span.key-geo-cell {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 .5rem .25rem 0;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid $svg-geo-s2-cell;
+  background: rgba($svg-geo-s2-cell, .25);
+  border-radius: 2px;
+}
+span.key-geo-region {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 .5rem .25rem 0;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid $svg-geo-region;
+  background: rgba($svg-geo-region, .35);
+  border-radius: 2px;
+}
+span.key-geo-point {
+  display: inline-block;
+  margin: 0 .7rem 0 .25rem;
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: $svg-geo-point;
 }
