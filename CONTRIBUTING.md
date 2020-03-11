@@ -73,6 +73,7 @@ related: # Creates links to specific internal and external content at the bottom
   - /path/to/related/article
   - https://external-link.com, This is an external link
 external_url: # Used in children shortcode type="list" for page links that are external
+list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
 ```
 
@@ -413,7 +414,8 @@ The following table shows which children types use which frontmatter properties:
 |:-----------    |:--------:|:----:|:---------:|
 | `list_title`   | ✓        | ✓    | ✓         |
 | `description`  | ✓        |      |           |
-| `external_url` |          | ✓    |           |
+| `external_url` | ✓        | ✓    |           |
+| `list_image`   | ✓        |      |           |
 | `list_note`    |          | ✓    |           |
 
 ### Inline icons

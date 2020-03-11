@@ -15,7 +15,10 @@
 {{ if eq $type "articles" }}
 
 	{{ range $pages.ByWeight }}
-		<h3><a href="{{ .RelPermalink }}" >{{ if .Params.list_title }}{{ .Params.list_title }}{{ else }}{{ .Title }}{{ end }}</a></h3>
+		{{ $title := cond ( isset .Params "list_title" ) .Params.list_title .Title }}
+		{{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
+		{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
+		<h3><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h3>
 		<p>
 			{{- if .Description }}{{- .Description | markdownify -}}
 			{{ else }}{{- .Summary | markdownify -}}
@@ -51,7 +54,7 @@
 	  {{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
 		{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
 		{{ $note := cond ( isset .Params "list_note" ) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
-		<li><a href="{{ $url }}">{{ $title }}</a> {{ $note | markdownify }}</li>
+		<li><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a> {{ $note | markdownify }}</li>
 	{{ end }}
 	<ul>
 
