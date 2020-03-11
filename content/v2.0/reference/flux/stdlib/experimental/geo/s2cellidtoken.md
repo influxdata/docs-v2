@@ -28,6 +28,7 @@ geo.s2CellIDToken(
 ### point
 Longitude and latitude in **decimal degrees** (WGS 84) to use when generating
 the S2 cell ID token.
+Object must contain `lat` and `lon` properties.
 
 _**Data type:** Object_
 
