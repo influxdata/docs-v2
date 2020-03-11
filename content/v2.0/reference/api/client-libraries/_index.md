@@ -21,4 +21,4 @@ These client libraries are in active development and may not be feature-complete
 This list will continue to grow as more client libraries are released.
 {{% /note %}}
 
-{{< children type="functions" >}}
+{{< children type="list" >}}
