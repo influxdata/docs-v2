@@ -15,8 +15,8 @@ The `influx config create` command creates a new InfluxDB connection configurati
 influx config create [flags]
 ```
 
-## Flags
-| Flag                | Description                      | Input type  | {{< cli/mapped >}}   |
+## Flags{
+| Flag                | Description                      | Input type  | {< cli/mapped >}}   |
 |:----                |:-----------                      |:----------: |:------------------   |
 | `-h`, `--help`      | Help for the `create` command    |             |                      |
 | `-n`, `--name`      | Bucket name                      | string      | `INFLUX_BUCKET_NAME` |
