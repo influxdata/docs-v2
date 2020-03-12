@@ -17,7 +17,7 @@ influx config update [flags]
 
 #### Aliases
 
-`set` , `update`
+`set` , `update` TX
 
 ## Flags
 | Flag                | Description                                                                     | Input type  |
