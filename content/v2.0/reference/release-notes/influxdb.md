@@ -27,7 +27,6 @@ weight: 101
 - Fixed issue where creating a dashboard variable of type "map" piped the incorrect
   value when map variables were used in queries.
 - Added missing usernames to `influx auth` CLI commands.
-- Require `Content-Type` for query endpoint.
 - Disabled group functionality for check query builder.
 - Fixed cell configuration error that popped up when users created a dashboard
   and accessed the "Disk Usage" cell for the first time.
