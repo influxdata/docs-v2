@@ -8,6 +8,43 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.6 [2020-03-12]
+
+### Features
+- Clicking on bucket name takes user to Data Explorer with bucket selected.
+- Extend pkger (InfluxDB Templates) dashboards with table view support.
+- Allow for retention to be provided to `influx setup` command as a duration.
+- Extend `influx pkg export all` capabilities to support filtering by lable name and resource type.
+- Added new login and sign-up screen for InfluxDB Cloud users that allows direct login from their region.
+- Added new [`influx config` CLI](/v2.0/reference/cli/influx/config/) for managing multiple configurations.
+
+### Bug Fixes
+- Fixed issue where tasks were exported for notification rules.
+- Fixed issue where tasks were not exported when exporting by organization ID.
+- Fixed issue where tasks with imports in the query would break in pkger.
+- Fixed issue where selecting an aggregate function in the script editor did not
+  add the function to a new line.
+- Fixed issue where creating a dashboard variable of type "map" piped the incorrect
+  value when map variables were used in queries.
+- Added missing usernames to `influx auth` CLI commands.
+- Require `Content-Type` for query endpoint.
+- Disabled group functionality for check query builder.
+- Fixed cell configuration error that popped up when users created a dashboard
+  and accessed the "Disk Usage" cell for the first time.
+- Listing all the default variables in the Variable tab of the script editor.
+- Fixed bug that prevented the interval status on the dashboard header from
+  refreshing on selections.
+- Updated table custom decimal feature for tables to update on focus.
+- Fixed UI bug that set Telegraf config buttons off-center and resized config
+  selections when filtering through the data.
+- Fixed UI bug that caused dashboard cells to error when using `v.bucket` for the first time.
+- Fixed appearance of client library logos in Safari.
+- Fixed UI bug that prevented checks created with the query builder from updating.
+- Fixed a bug that prevented dashboard cell queries from working properly when
+  creating group queries using the query builder.
+
+---
+
 ## v2.0.0-beta.5 [2020-02-27]
 
 ### Features
@@ -153,7 +190,7 @@ weight: 101
 - Update scrollbar style.
 - Fixed table UI threshold colorization issue.
 - Fixed windowPeriod issue that stemmed from Webpack rules.
-16175: Added delete functionality to note cells so that they can be deleted
+- Added delete functionality to note cells so that they can be deleted
 - Fix failure to create labels when creating Telegraf configs
 - Fix crash when editing a Telegraf config.
 - Updated start/end time functionality so that custom script time ranges overwrite dropdown selections.
