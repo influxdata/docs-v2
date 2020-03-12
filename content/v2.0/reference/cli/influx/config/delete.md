@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx config delete` command deletes an InfluxDB connection configuration from the `config` file (by default, stored at `~/.influxdbv2/config`).
+The `influx config delete` command deletes an InfluxDB connection configuration from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage
 ```
@@ -16,9 +16,9 @@ influx config delete [flags]
 ```
 
 ## Flags
-| Flag                | Description                                                        | Input type  | {{< cli/mapped >}}   |
-|:----                |:-----------                                                        |:----------: |:------------------   |
-| `-h`, `--help`      | Help for the `delete` command                                      |             |                      |
-| `-n`, `--name`      | (**Required**) Name of InfluxDB connection configuration to delete | string      |                      |
+| Flag                | Description                                                        | Input type  |
+|:----                |:-----------                                                        |:----------: |
+| `-h`, `--help`      | Help for the `delete` command                                      |             |
+| `-n`, `--name`      | (**Required**) Name of InfluxDB connection configuration to delete | string      |
 
 {{% cli/influx-global-flags %}}

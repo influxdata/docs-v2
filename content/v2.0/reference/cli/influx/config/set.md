@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx config update` command updates information in an InfluxDB connection configuration in the `config` file (by default, stored at `~/.influxdbv2/config`).
+The `influx config update` command updates information in an InfluxDB connection configuration in the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage
 ```
@@ -17,7 +17,7 @@ influx config update [flags]
 
 #### Aliases
 
-`set` , `update` TX
+`set` , `update`
 
 ## Flags
 | Flag                | Description                                                                     | Input type  |

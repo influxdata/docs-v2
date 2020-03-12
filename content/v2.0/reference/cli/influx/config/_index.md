@@ -20,10 +20,14 @@ influx config [command]
 ## Subcommands
 | Subcommand                                         | Description   |
 |:----                                               |:-----------   |
-| [create](/v2.0/reference/cli/influx/config/create) | Create a new connection configuration to include in the configuration (`config`) file (by default, at `~/.influxdbv2/config`).
-| [list](/v2.0/reference/cli/influx/config/create)   | List connection configurations.
-| [delete](/v2.0/reference/cli/influx/config/delete  | Delete a connection configuration.
-| [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration.
-| `-h`, `--help`                                     | Help for the `config` command.
+| [create](/v2.0/reference/cli/influx/config/create) | Create a new connection configuration
+| [list](/v2.0/reference/cli/influx/config/create)   | List connection configurations
+| [delete](/v2.0/reference/cli/influx/config/delete  | Delete a connection configuration
+| [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration
+
+## Flags
+| Flag               | Description |
+|:----               |:----------- |
+| `-h`, `--help`     | Help for the `find` command
 
 {{% cli/influx-global-flags %}}
