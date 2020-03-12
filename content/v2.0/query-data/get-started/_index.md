@@ -25,7 +25,7 @@ Flux is designed to be usable, readable, flexible, composable, testable, contrib
 Its syntax is largely inspired by [2018's most popular scripting language](https://insights.stackoverflow.com/survey/2018#technology),
 Javascript, and takes a functional approach to data exploration and processing.
 
-The following example illustrates querying data stored from the last five minutes,
+The following example illustrates querying data stored from the last hour,
 filtering by the `cpu` measurement and the `cpu=cpu-total` tag, windowing the data in 1 minute intervals,
 and calculating the average of each window:
 
