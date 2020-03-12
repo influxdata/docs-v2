@@ -1,0 +1,24 @@
+/////////////////////////// Flex Content Blocks ///////////////////////////
+
+.flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-container {
+  margin-right: 1rem;
+  &.half { width: calc(50% - 1rem); }
+  &.third { width: calc(33.33% - 1rem); }
+  &.quarter { width: calc(25% - 1rem); }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .flex-container {
+    &.half, &.third { width: calc(100% - 1rem); }
+    &.quarter { width: calc(50% - 1rem); }
+  }
+}

@@ -17,12 +17,7 @@ related:
 The `geo.strictFilter()` function filters data by latitude and longitude in a specified region.
 This filter is more strict than [`geo.gridFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/),
 but for the best performance, use `geo.strictFilter()` **after** `geo.gridFilter()`.
-
-{{% note %}}
-`geo.strictFilter()` requires `lat` and `lon` columns in each row.
-Use [`geo.toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/)
-to pivot `lat` and `lon` fields into each row **before** using `geo.strictFilter()`.
-{{% /note %}}
+_See [Strict and non-strict filtering](#strict-and-non-strict-filtering) below._
 
 _**Function type:** Transformation_
 
@@ -33,6 +28,34 @@ geo.strictFilter(
   region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
 )
 ```
+
+{{% note %}}
+`geo.strictFilter()` requires `lat` and `lon` columns in each row.
+Use [`geo.toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/)
+to pivot `lat` and `lon` fields into each row **before** using `geo.strictFilter()`.
+{{% /note %}}
+
+### Strict and non-strict filtering
+In most cases, the specified geographic region does not perfectly align with S2 grid cells.
+
+- **Strict filtering** returns only points inside the specified region.
+- **Non-strict filtering** returns points that may be outside of the specified region but
+  inside S2 grid cells partially covered by the region.
+
+<span class="key-geo-cell"></span> S2 grid cell  
+<span class="key-geo-region"></span> Filter region  
+<span class="key-geo-point"></span> Returned point
+
+{{< flex >}}
+{{% flex-content %}}
+**Strict filtering**
+{{< svg "/static/svgs/geo-strict.svg" >}}
+{{% /flex-content %}}
+{{% flex-content %}}
+**Non-strict filtering**
+{{< svg "/static/svgs/geo-non-strict.svg" >}}
+{{% /flex-content %}}
+{{< /flex >}}
 
 ## Parameters
 

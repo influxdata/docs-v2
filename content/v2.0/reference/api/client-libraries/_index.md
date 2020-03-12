@@ -21,9 +21,4 @@ These client libraries are in active development and may not be feature-complete
 This list will continue to grow as more client libraries are released.
 {{% /note %}}
 
-- [C#](https://github.com/influxdata/influxdb-client-csharp)
-- [Go](https://github.com/influxdata/influxdb-client-go)
-- [Java](https://github.com/influxdata/influxdb-client-java)
-- [JavaScript/Node.js](https://github.com/influxdata/influxdb-client-js)
-- [Python](https://github.com/influxdata/influxdb-client-python)
-- [Ruby](https://github.com/influxdata/influxdb-client-ruby)
+{{< children type="list" >}}

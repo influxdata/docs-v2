@@ -6,8 +6,10 @@ v2.0/tags: [states, monitor, flux]
 menu:
   v2_0:
     name: Monitor states
-    parent: How-to guides
-weight: 209
+    parent: Query with Flux
+weight: 220
+aliases:
+ - /v2.0/query-data/guides/monitor-states/
 ---
 
 Flux helps you monitor states in your metrics and events:
