@@ -16,11 +16,12 @@ influx config create [flags]
 ```
 
 ## Flags{
-| Flag                | Description                      | Input type  | {< cli/mapped >}}   |
-|:----                |:-----------                      |:----------: |:------------------   |
-| `-h`, `--help`      | Help for the `create` command    |             |                      |
-| `-n`, `--name`      | Bucket name                      | string      | `INFLUX_BUCKET_NAME` |
-| `--org-id`          | Organization ID                  | string      | `INFLUX_ORG_ID`      |
-| `-o`, `--org`       | Organization name                | string      | `INFLUX_ORG`         |
+| Flag                | Description                                                    | Input type  |
+|:----                |:-----------                                                    |:----------: |
+| `-a,`, `--active`   | Set the specified connection to be the active configuration.   |             |
+| `-h`, `--help`      | Help for the `create` command                                  |             |
+| `-n`, `--name`      | (**Required**) Name of the new configuration.                  | string      |
+| `-o`, `--org`       | (Optional) Organization name                                   | string      |
+| `u`, `--url`        | **Required**) Connection URL for the new configuration.        | string      |
 
 {{% cli/influx-global-flags %}}
