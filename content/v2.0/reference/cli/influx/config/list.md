@@ -16,13 +16,8 @@ influx config list [flags]
 ```
 
 ## Flags
-| Flag               | Description                               | Input type  | {{< cli/mapped >}}   |
-|:----               |:-----------                               |:----------: |:------------------   |
-| `-a`, `--active`   | List the active connection configuration  |             |                      |
-| `-h`, `--help`     | Help for the `find` command               |             |                      |
-| `-i`, `--id`       | Bucket ID                                 | string      |                      |
-| `-n`, `--name`     | Bucket name                               | string      | `INFLUX_BUCKET_NAME` |
-| `-o`, `--org`      | Organization name                         | string      | `INFLUX_ORG`         |
-| `--org-id`         | Organization ID                           | string      | `INFLUX_ORG_ID`      |
+| Flag               | Description                               | Input type  |
+|:----               |:-----------                               |:----------: |
+| `-h`, `--help`     | Help for the `find` command               |             |
 
 {{% cli/influx-global-flags %}}
