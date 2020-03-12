@@ -1,24 +1,29 @@
 ---
-title: influx org find
-description: The 'influx org find' lists and searches for organizations in InfluxDB.
+title: influx org list
+description: The 'influx org list' lists and searches for organizations in InfluxDB.
 menu:
   v2_0_ref:
-    name: influx org find
+    name: influx org list
     parent: influx org
 weight: 201
+aliases:
+  - /v2.0/reference/influx/org/find
 ---
 
-The `influx org find` lists and searches for organizations in InfluxDB.
+The `influx org list` lists and searches for organizations in InfluxDB.
 
 ## Usage
 ```
-influx org find [flags]
+influx org list [flags]
 ```
+
+#### Aliases
+`list`, `ls`, `find`
 
 ## Flags
 | Flag           | Description                 | Input type  | {{< cli/mapped >}} |
 |:----           |:-----------                 |:----------: |:------------------ |
-| `-h`, `--help` | Help for the `find` command |             |                    |
+| `-h`, `--help` | Help for the `list` command |             |                    |
 | `-i`, `--id`   | Organization ID             | string      | `INFLUX_ORG`       |
 | `-n`, `--name` | Organization name           | string      | `INFLUX_ORG_ID`    |
 

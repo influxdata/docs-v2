@@ -1,5 +1,5 @@
 ---
-title: influx auth – Authorization management commands
+title: influx auth
 description: The 'influx auth' command and its subcommands manage authorizations in InfluxDB.
 menu:
   v2_0_ref:
@@ -26,7 +26,7 @@ influx auth [command]
 | [active](/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
 | [create](/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
 | [delete](/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |
-| [find](/v2.0/reference/cli/influx/auth/find)         | Find authorization       |
+| [list](/v2.0/reference/cli/influx/auth/list)         | List authorizations      |
 | [inactive](/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
 
 ## Flags

@@ -30,7 +30,7 @@ _Complete content coming soon_ -->
 1. Get a list of users and their IDs by running the following:
 
 ```sh
-influx user find
+influx user list
 ```
 
 2. To add a user to an organization, run the following command:

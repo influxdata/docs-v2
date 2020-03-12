@@ -20,13 +20,13 @@ There is no list of users in the InfluxDB UI.
 
 ## View users using the influx CLI
 
-Use the [`influx user find` command](/v2.0/reference/cli/influx/user/find)
+Use the [`influx user list` command](/v2.0/reference/cli/influx/user/list)
 to view users.
 
 ```sh
-influx user find
+influx user list
 ```
 
 Filtering options such as filtering by username or ID are available.
-See the [`influx user find` documentation](/v2.0/reference/cli/influx/user/find)
+See the [`influx user list` documentation](/v2.0/reference/cli/influx/user/list)
 for information about other available flags.

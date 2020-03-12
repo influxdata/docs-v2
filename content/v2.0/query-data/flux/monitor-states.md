@@ -16,7 +16,7 @@ Flux helps you monitor states in your metrics and events:
 
 - [Find how long a state persists](#find-how-long-a-state-persists)
 - [Count the number of consecutive states](#count-the-number-of-consecutive-states)
-- [Detect state changes](#detect-state-changes)
+<!-- - [Detect state changes](#detect-state-changes) -->
 
 If you're just getting started with Flux queries, check out the following:
 

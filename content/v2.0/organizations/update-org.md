@@ -38,7 +38,7 @@ If you change an organization name, be sure to update the organization in the ab
 Use the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
 to update an organization. Updating an organization requires the following:
 
-- The org ID _(provided in the output of `influx org find`)_
+- The org ID _(provided in the output of `influx org list`)_
 
 ##### Update the name of a organization
 ```sh

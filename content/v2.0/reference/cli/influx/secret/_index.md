@@ -1,5 +1,5 @@
 ---
-title: influx secret – Manage secrets
+title: influx secret
 description: The 'influx secret' command manages secrets.
 menu:
   v2_0_ref:
@@ -21,7 +21,7 @@ influx secret [subcommand]
 | Subcommand                                          | Description            |
 |:----------                                          |:-----------            |
 | [delete](/v2.0/reference/cli/influx/secret/delete/) | Delete a secret        |
-| [find](/v2.0/reference/cli/influx/secret/find/)     | Find secrets           |
+| [list](/v2.0/reference/cli/influx/secret/list/)     | List secrets           |
 | [update](/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags

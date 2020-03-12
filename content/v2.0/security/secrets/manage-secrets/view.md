@@ -11,11 +11,11 @@ weight: 302
 View secret keys using the `influx` command line interface (CLI) or the InfluxDB API.
 
 ## View secret keys using the influx CLI
-Use the [`influx secret find` command](/v2.0/reference/cli/influx/secret/find/)
+Use the [`influx secret list` command](/v2.0/reference/cli/influx/secret/list/)
 to list your organization's secret keys.
 
 ```sh
-influx secret find
+influx secret list
 ```
 
 ## View secret keys using the InfluxDB API

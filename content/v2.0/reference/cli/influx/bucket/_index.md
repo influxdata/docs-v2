@@ -1,5 +1,5 @@
 ---
-title: influx bucket – Bucket management commands
+title: influx bucket
 description: The 'influx bucket' command and its subcommands manage buckets in InfluxDB.
 menu:
   v2_0_ref:
@@ -22,7 +22,7 @@ influx bucket [command]
 |:----------                                         |:-----------   |
 | [create](/v2.0/reference/cli/influx/bucket/create) | Create bucket |
 | [delete](/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
-| [find](/v2.0/reference/cli/influx/bucket/find)     | Find buckets  |
+| [list](/v2.0/reference/cli/influx/bucket/find)     | List buckets  |
 | [update](/v2.0/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags

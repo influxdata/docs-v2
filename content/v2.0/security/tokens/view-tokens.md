@@ -25,13 +25,13 @@ command line interface (CLI).
 
 ## View tokens using the influx CLI
 
-Use the [`influx auth find` command](/v2.0/reference/cli/influx/auth/find)
+Use the [`influx auth list` command](/v2.0/reference/cli/influx/auth/list)
 to view tokens.
 
 ```sh
-influx auth find
+influx auth list
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth find` documentation](/v2.0/reference/cli/influx/auth/find)
+See the [`influx auth list` documentation](/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.

@@ -79,6 +79,34 @@ influx pkg export all \
   -t $INFLUX_TOKEN
 ```
 
+#### Export resources filtered by labelName or resourceKind
+The `influx pkg export all` command has an optional `--filter` flag that exports
+only resources that match specified label names or resource kinds.
+Provide multiple filters for both `labelName` and `resourceKind`
+
+###### Export only dashboards and buckets with specific labels
+The following example exports resources that match this predicate logic:
+
+```js
+(resourceKind == "Bucket" or resourceKind == "Dashboard")
+and
+(labelName == "Example1" or labelName == "Example2")
+```
+
+```sh
+influx pkg export all \
+  -o my-org \
+  -f ~/templates/awesome-template.yml \
+  -t $INFLUX_TOKEN \
+  --filter=resourceKind=Bucket \
+  --filter=resourceKind=Dashboard \
+  --filter=labelName=Example1 \
+  --filter=labelName=Example2
+```
+
+
+
+
 For information about flags, see the
 [`influx pkg export all` documentation](/v2.0/reference/cli/influx/pkg/export/all/).
 

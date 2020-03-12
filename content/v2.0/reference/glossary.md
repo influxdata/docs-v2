@@ -861,7 +861,7 @@ For example:
 h2o_level, location=santa_monica, h2o_feet
 ```
 
-Related entries: [series](/influxdb/v1.7/concepts/glossary/#series)
+Related entries: [series](#series)
 
 ### server
 
@@ -927,8 +927,13 @@ Related entries: [bin](#bin)
 
 ### step-plot
 
+<<<<<<< HEAD
+A data visualization that displays time series data in a staircase graph.
+Generate a step-plot using the step [interpolation option for line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
+=======
 In InfluxDB 1.x, a [step-plot graph](https://docs.influxdata.com/chronograf/v1.7/guides/visualization-types/#step-plot-graph) displays time series data in a staircase graph.
 In InfluxDB 2.0, generate a similar graph using the step interpolation option for [line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
+>>>>>>> master
 
 ### stream
 

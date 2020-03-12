@@ -1,5 +1,5 @@
 ---
-title: influx user – User management commands
+title: influx user
 description: The 'influx user' command and its subcommands manage user information in InfluxDB.
 menu:
   v2_0_ref:
@@ -22,7 +22,7 @@ influx user [command]
 |:----------                                           |:-----------              |
 | [create](/v2.0/reference/cli/influx/user/create)     | Create a user            |
 | [delete](/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
-| [find](/v2.0/reference/cli/influx/user/find)         | Find a user              |
+| [list](/v2.0/reference/cli/influx/user/list)         | List users               |
 | [password](/v2.0/reference/cli/influx/user/password) | Update a user's password |
 | [update](/v2.0/reference/cli/influx/user/update)     | Update a user            |
 

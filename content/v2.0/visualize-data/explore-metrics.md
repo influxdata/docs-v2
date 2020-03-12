@@ -32,7 +32,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 2. Use the Flux builder in the bottom panel to create a Flux query:
   - Select a bucket to define your data source.
-  - Edit your time range with the [time range option](/select-time-range/) in the dropdown menu.
+  - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
   - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/v2.0/query-data/flux/group-data/).    
 3. Alternatively, click **Script Editor** to manually edit the query.

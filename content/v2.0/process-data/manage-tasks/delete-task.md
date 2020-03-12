@@ -25,7 +25,7 @@ related:
 ## Delete a task with the influx CLI
 Use the `influx task delete` command to delete a task.
 
-_This command requires a task ID, which is available in the output of `influx task find`._
+_This command requires a task ID, which is available in the output of `influx task list`._
 
 ```sh
 # Syntax

@@ -11,10 +11,25 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.61.0**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.64.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.64.0 [2020-03-11]
+
+### Features
+- Hand-transpile `elapsed()` aggregate.
+- Hand-transpile `cumulative_sum()`.
+
+### Bug fixes
+- Add response reader as dependency to tune response size.
+- Handle unfinished option statement without panic.
+- Simplify libflux C API and resolve memory leaks.
+- Don't construct a `compiler.compilerScope` with a nil `value.Scope` as base.
+- Influxql-decode to handle the case without tag set.
+
+---
 
 ## v0.63.0 [2020-03-03]
 
