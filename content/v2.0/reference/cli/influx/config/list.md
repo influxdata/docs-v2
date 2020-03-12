@@ -16,8 +16,8 @@ influx config list [flags]
 ```
 
 ## Flags
-| Flag               | Description                               | Input type  |
-|:----               |:-----------                               |:----------: |
-| `-h`, `--help`     | Help for the `find` command               |             |
+| Flag               | Description
+|:----               |:-----------
+| `-h`, `--help`     | Help for the `find` command
 
 {{% cli/influx-global-flags %}}
