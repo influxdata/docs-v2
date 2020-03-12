@@ -16,7 +16,7 @@ weight: 101
 - Allow for retention to be provided to `influx setup` command as a duration.
 - Extend `influx pkg export all` capabilities to support filtering by lable name and resource type.
 - Added new login and sign-up screen for InfluxDB Cloud users that allows direct login from their region.
-- Added new [`influx config` CLI](/v2.0/reference/cli/influx/config/) for managing multiple configurations.
+- Added new `influx config` CLI for managing multiple configurations.
 
 ### Bug Fixes
 - Fixed issue where tasks were exported for notification rules.
