@@ -15,9 +15,13 @@ The `influx config list` command lists all InfluxDB connection configurations in
 influx config list [flags]
 ```
 
+#### Aliases
+
+`list`, `ls`
+
 ## Flags
-| Flag               | Description
-|:----               |:-----------
+| Flag               | Description |
+|:----               |:----------- |
 | `-h`, `--help`     | Help for the `find` command
 
 {{% cli/influx-global-flags %}}
