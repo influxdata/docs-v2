@@ -22,7 +22,7 @@ influx config [command]
 |:----                                               |:-----------                              |
 | [create](/v2.0/reference/cli/influx/config/create) | Create a new connection configuration    |
 | [list](/v2.0/reference/cli/influx/config/create)   | List connection configurations           |
-| [delete](/v2.0/reference/cli/influx/config/delete  | Delete a connection configuration        |
+| [delete](/v2.0/reference/cli/influx/config/delete) | Delete a connection configuration        |
 | [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
 ## Flags
