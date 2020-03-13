@@ -6,4 +6,4 @@ enterprise:
 cloud:
   name: "InfluxDB Cloud 2.0"
   shortname: "InfluxDB Cloud"
-  link: "https://cloud2.influxdata.com/beta/signup"
+  link: "https://cloud2.influxdata.com/signup"
