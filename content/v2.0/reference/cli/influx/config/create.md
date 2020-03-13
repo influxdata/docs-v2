@@ -23,6 +23,6 @@ influx config create [flags]
 | `-h`, `--help`      | Help for the `create` command                                  |             |
 | `-n`, `--name`      | (**Required**) Name of the new configuration.                  | string      |
 | `-o`, `--org`       | Organization name                                              | string      |
-| `u`, `--url`        | (**Required**) Connection URL for the new configuration.       | string      |
+| `-u`, `--url`       | (**Required**) Connection URL for the new configuration.       | string      |
 
 {{% cli/influx-global-flags %}}
