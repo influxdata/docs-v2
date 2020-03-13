@@ -21,6 +21,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ### Features
 - Hand-transpile `elapsed()` aggregate.
 - Hand-transpile `cumulative_sum()`.
+- Experimental `csv` package.
 
 ### Bug fixes
 - Add response reader as dependency to tune response size.
