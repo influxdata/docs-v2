@@ -22,35 +22,37 @@ _**Function type:** Input_
 ```js
 import "csv"
 
-csv.from(file: "/path/to/data-file.csv")
+csv.from(csv: csvData)
 
 // OR
 
-csv.from(csv: csvData)
+csv.from(file: "/path/to/data-file.csv")
 ```
 
 ## Parameters
 
-### file
-The file path of the CSV file to query.
-The path can be absolute or relative.
-If relative, it is relative to the working directory of the `influxd` process.
-_The CSV file must exist in the same file system running the `influxd` process._
-
-{{% cloud-msg %}}
-{{< cloud-name "short" >}} does not support the `file` parameter.
-{{% /cloud-msg %}}
-
-_**Data type:** String_
-
 ### csv
-Raw CSV-formatted text.
+Annotated CSV text.
 
 {{% note %}}
 CSV data must use Annotated CSV syntax and include all
 [annotation rows](/v2.0/reference/syntax/annotated-csv/#annotations).
 For more information, see [Annotated CSV](/v2.0/reference/syntax/annotated-csv/).
 {{% /note %}}
+
+_**Data type:** String_
+
+### file
+The file path of the CSV file to query.
+The path can be absolute or relative.
+If relative, it is relative to the working directory of the `fluxd` process.
+_The CSV file must exist in the same file system running the `fluxd` process._
+
+{{% warn %}}
+**InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ support the `file` parameter.
+Neither allow access to the underlying filesystem.
+However, the [Flux REPL](/v2.0/reference/cli/influx/repl/) does support the `file` parameter.
+{{% /warn %}}
 
 _**Data type:** String_
 
