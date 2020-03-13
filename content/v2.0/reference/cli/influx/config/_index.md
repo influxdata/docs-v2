@@ -26,8 +26,8 @@ influx config [command]
 | [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
 ## Flags
-| Flag               | Description |
-|:----               |:----------- |
-| `-h`, `--help`     | Help for the `find` command |
+| Flag           | Description                   |
+|:----           |:-----------                   |
+| `-h`, `--help` | Help for the `config` command |
 
 {{% cli/influx-global-flags %}}

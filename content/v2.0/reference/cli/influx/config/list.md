@@ -8,7 +8,10 @@ menu:
 weight: 201
 ---
 
-The `influx config list` command lists all InfluxDB connection configurations in the `configs` file (by default, stored at `~/.influxdbv2/configs`). Each connection configuration includes a URL, authentication token, and active setting. An asterisk (`*`) indicates the active configuration.
+The `influx config list` command lists all InfluxDB connection configurations in
+the `configs` file (by default, stored at `~/.influxdbv2/configs`).
+Each connection configuration includes a URL, authentication token, and active setting.
+An asterisk (`*`) indicates the active configuration.
 
 ## Usage
 ```
@@ -16,12 +19,11 @@ influx config list [flags]
 ```
 
 #### Aliases
-
 `list`, `ls`
 
 ## Flags
 | Flag               | Description                 |
 |:----               |:-----------                 |
-| `-h`, `--help`     | Help for the `find` command |
+| `-h`, `--help`     | Help for the `list` command |
 
 {{% cli/influx-global-flags %}}

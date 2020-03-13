@@ -8,7 +8,8 @@ menu:
 weight: 201
 ---
 
-The `influx config create` command creates a new InfluxDB connection configuration and stores it in the `configs` file (by default, stored at `~/.influxdbv2/configs`).
+The `influx config create` command creates a new InfluxDB connection configuration
+and stores it in the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage
 ```

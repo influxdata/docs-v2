@@ -8,7 +8,8 @@ menu:
 weight: 201
 ---
 
-The `influx config delete` command deletes an InfluxDB connection configuration from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
+The `influx config delete` command deletes an InfluxDB connection configuration
+from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage
 ```
