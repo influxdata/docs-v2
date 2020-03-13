@@ -1,25 +1,28 @@
 ---
-title: influx secret find
-description: The 'influx secret find' command lists secret keys.
+title: influx secret list
+description: The 'influx secret list' command lists secret keys.
 menu:
   v2_0_ref:
-    name: influx secret find
+    name: influx secret list
     parent: influx secret
 weight: 101
 v2.0/tags: [secrets]
 ---
 
-The `influx secret find` command lists secret keys.
+The `influx secret list` command lists secret keys.
 
 ## Usage
 ```
-influx secret find [flags]
+influx secret list [flags]
 ```
+
+#### Aliases
+`list`, `ls`, `find`
 
 ## Flags
 | Flag           | Description                 | Input type | {{< cli/mapped >}} |
 |:----           |:-----------                 |:----------:|:------------------ |
-| `-h`, `--help` | Help for the `find` command |            |                    |
+| `-h`, `--help` | Help for the `list` command |            |                    |
 | `-o`, `--org`  | Organization name           | string     | `INFLUX_ORG`       |
 | `--org-id`     | Organization ID             | string     | `INFLUX_ORG_ID`    |
 

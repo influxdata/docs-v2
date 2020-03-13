@@ -1,5 +1,5 @@
 ---
-title: influx org – Organization management commands
+title: influx org
 description: The 'influx org' command and its subcommands manage organization information in InfluxDB.
 menu:
   v2_0_ref:
@@ -25,7 +25,7 @@ influx org [command]
 |:----------                                        |:-----------                      |
 | [create](/v2.0/reference/cli/influx/org/create)   | Create an organization           |
 | [delete](/v2.0/reference/cli/influx/org/delete)   | Delete an organization           |
-| [find](/v2.0/reference/cli/influx/org/find)       | Find organizations               |
+| [list](/v2.0/reference/cli/influx/org/list)       | List organizations               |
 | [members](/v2.0/reference/cli/influx/org/members) | Organization membership commands |
 | [update](/v2.0/reference/cli/influx/org/update)   | Update an organization           |
 
