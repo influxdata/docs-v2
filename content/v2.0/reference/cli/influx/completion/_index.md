@@ -56,6 +56,6 @@ $ source <(influx completion zsh)
 {{< /code-tabs-wrapper >}}
 
 {{% note %}}
-To permanantly install `influx` completions scripts in your shell, save the output
-of `influx completions [bash|zsh]` to a file and source it in your `.bashrc` or `.zshrc`.
+To permanantly install `influx` completion scripts in your shell, add the installation
+command from above to your `.bashrc` or `.zshrc`.
 {{% /note %}}
