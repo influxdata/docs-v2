@@ -25,7 +25,7 @@ _**Function type:** Transformation_
 import "experimental/geo"
 
 geo.filterRows(
-  region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+  region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
   minSize: 24,
   maxSize: -1,
   level: -1,
