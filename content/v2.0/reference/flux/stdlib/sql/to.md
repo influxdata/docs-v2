@@ -53,7 +53,7 @@ postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 username:password@tcp(localhost:3306)/dbname?param=value
 
 # SQLite Driver DSN
-file:test.db?cache=shared&mode=memory
+file:/path/to/test.db?cache=shared&mode=rw
 ```
 
 ### table
@@ -101,7 +101,7 @@ import "sql"
 
 sql.to(
   driverName: "sqlite3",
-  dataSourceName: "file:test.db?cache=shared&mode=memory",
+  dataSourceName: "file:/path/to/test.db?cache=shared&mode=rw",
   table: "ExampleTable"
 )
 ```
