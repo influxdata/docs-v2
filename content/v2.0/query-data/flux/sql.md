@@ -73,7 +73,7 @@ import "sql"
 
 sql.from(
   driverName: "sqlite3",
-  dataSourceName: "file:test.db?cache=shared&mode=memory",
+  dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query: "SELECT * FROM example_table"
 )
 ```
