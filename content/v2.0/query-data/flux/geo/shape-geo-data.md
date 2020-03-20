@@ -8,6 +8,21 @@ menu:
     name: Shape geo-temporal data
     parent: Geo-temporal data
 weight: 301
+list_code_example: |
+  ```js
+  import "experimental/geo"
+
+  sampleGeoData
+    |> map(fn: (r) => ({ r with
+      _field:
+        if r._field == "latitude" then "lat"
+        else if r._field == "longitude" then "lon"
+        else r._field
+      }))
+    |> map(fn: (r) => ({ r with
+      s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
+    }))  
+  ```
 ---
 
 Functions in the Geo package require the following data schema:
@@ -18,9 +33,24 @@ Functions in the Geo package require the following data schema:
 - a **`lon` field** field containing the **longitude in decimal degrees** (WGS 84)
 
 <!--  -->
-- [Generate S2 cell ID tokens](#generate-s2-cell-id-tokens)  
 - [Rename latitude and longitude fields](#rename-latitude-and-longitude-fields)
+- [Generate S2 cell ID tokens](#generate-s2-cell-id-tokens)  
 
+## Rename latitude and longitude fields
+Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to rename
+existing latitude and longitude fields keys using other names.
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) => r._measurement == "example-measurement")
+  |> map(fn: (r) => ({ r with
+    _field:
+      if r._field == "existingLatitudeField" then "lat"
+      else if r._field == "existingLongitudeField" then "lon"
+      else r._field
+  }))
+```
 
 ## Generate S2 cell ID tokens
 The Geo package uses the [S2 Geometry Library](https://s2geometry.io/) which
@@ -87,21 +117,5 @@ from(bucket: "example-bucket")
   |> geo.toRows()
   |> map(fn: (r) => ({ r with
     s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
-  }))
-```
-
-## Rename latitude and longitude fields
-Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to rename
-existing latitude and longitude fields keys using other names.
-
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> map(fn: (r) => ({ r with
-    _field:
-      if r._field == "existingLatitudeField" then "lat"
-      else if r._field == "existingLongitudeField" then "lon"
-      else r._field
   }))
 ```

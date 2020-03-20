@@ -7,6 +7,14 @@ menu:
   v2_0:
     parent: Geo-temporal data
 weight: 302
+list_code_example: |
+  ```js
+  import "experimental/geo"
+
+  sampleGeoData
+    |> geo.groupByArea(newColumn: "geoArea", level: 5)
+    |> geo.asTracks(groupBy: ["id"],sortBy: ["_time"])
+  ```
 ---
 
 Use the `geo.groupByArea()` and `geo.asTracks()` functions to group geo-temporal

@@ -7,6 +7,16 @@ menu:
     name: Filter by region
     parent: Geo-temporal data
 weight: 302
+list_code_example: |
+  ```js
+  import "experimental/geo"
+
+  sampleGeoData
+    |> geo.filterRows(
+      region: {lat: 30.04, lon: 31.23, radius: 200.0},
+      strict: true
+    )
+  ```
 ---
 
 Use the [`geo.fitlerRows` function](/v2.0/reference/flux/stdlib/geo/filterrows/)
