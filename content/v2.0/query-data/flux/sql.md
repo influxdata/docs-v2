@@ -69,6 +69,10 @@ sql.from(
 
 {{% code-tab-content %}}
 ```js
+// NOTE: InfluxDB OSS and InfluxDB Cloud do not have access to
+// the local filesystem and can not query SQLite data sources.
+// Use the Flux REPL to query an SQLite data source.
+
 import "sql"
 
 sql.from(
