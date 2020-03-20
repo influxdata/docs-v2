@@ -33,4 +33,4 @@ data = from(bucket: "example-bucket")
 
 ---
 
-{{< children >}}
+{{< children pages="all" >}}
