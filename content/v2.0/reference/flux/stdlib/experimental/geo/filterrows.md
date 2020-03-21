@@ -35,6 +35,21 @@ geo.filterRows(
 )
 ```
 
+{{% note %}}
+#### s2_cell_id must be part of the group key
+In order for `geo.filterRows()` to filter geo-temporal data, the `s2_cell_id` column
+must be part of the [group key](/v2.0/reference/glossary/#group-key).
+If it is not, use the [`experimental.group` function](/v2.0/reference/flux/stdlib/experimental/group)
+to add it to the group key:
+
+```js
+import "experimental"
+
+// ...
+  |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
+```
+{{% /note %}}
+
 ### Strict and non-strict filtering
 In most cases, the specified geographic region does not perfectly align with S2 grid cells.
 
