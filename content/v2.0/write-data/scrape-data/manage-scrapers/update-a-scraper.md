@@ -13,7 +13,7 @@ weight: 302
 Update a scraper in the InfluxDB user interface (UI).
 
 {{% note %}}
-Scraper **Target URLs** and **Buckets** can not be updated.
+Scraper **Target URLs** and **Buckets** cannot be updated.
 To modify either, [create a new scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper).
 {{% /note %}}
 
