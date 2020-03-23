@@ -19,13 +19,11 @@ list_code_example: |
   ```
 ---
 
-Use the [`geo.fitlerRows` function](/v2.0/reference/flux/stdlib/geo/filterrows/)
-to filter geo-temporal data by geographic region.
-Define a box-shaped, circular, or polygonal region to filter by.
-Enable or disable strict filtering.
+Use the [`geo.filterRows` function](/v2.0/reference/flux/stdlib/geo/filterrows/)
+to filter geo-temporal data by geographic region:
 
-- [Define geographic regions](#define-geographic-regions)
-- [Strict and non-strict filtering](#strict-and-non-strict-filtering)
+1. [Define a geographic region](#define-geographic-regions)
+2. [Use strict or non-strict filtering](#strict-and-non-strict-filtering)
 
 The following example uses the [sample bird migration data](/v2.0/query-data/flux/geo/#sample-data)
 and queries data points **within 200km of Cairo, Egypt**:
@@ -40,9 +38,9 @@ sampleGeoData
   )
 ```
 
-## Define geographic regions
+## Define a geographic region
 Many functions in the Geo package filter data based on geographic region.
-Define geographic regions using the following shapes:
+Define a geographic region using one of the the following shapes:
 
 - [box](#box)
 - [circle](#circle)
@@ -83,7 +81,8 @@ Define a circular region by specifying an object containing the following proper
 ```
 
 ### polygon
-Define a custom polygon region using an object containing the following properties:
+Define a polygonal region with an object containing the latitude and longitude for
+each point in the polygon:
 
 - **points**: points that define the custom polygon _(Array of objects)_
 

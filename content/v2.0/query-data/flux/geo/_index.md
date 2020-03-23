@@ -11,18 +11,30 @@ weight: 220
 
 Use the [Flux Geo package](/v2.0/reference/flux/stdlib/experimental/geo) to
 filter geo-temporal data and group by geographic location or track.
-Import the `experimental/geo` package.
-
-```js
-import "experimental/geo"
-```
 
 {{% warn %}}
 The Geo package is experimental and subject to change at any time.
 By using it, you agree to the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
+**To work with geo-temporal data:**
+
+1. Import the `experimental/geo` package.
+
+    ```js
+    import "experimental/geo"
+    ```
+
+2. Load geo-temporal data. _See below for [sample geo-temporal data](#sample-data)._
+3. Do one or more of the following:
+
+    - [Shape data to work with the Geo package](#shape-data-to-work-with-the-geo-package)
+    - [Filter data by region](#filter-geo-temporal-data-by-region) (using strict or non-strict filters)
+    - [Group data by area or by track](#group-geo-temporal-data)
+
 {{< children >}}
+
+---
 
 ## Sample data
 Many of the examples in this section use a `sampleGeoData` variable that represents
@@ -44,7 +56,7 @@ sampleGeoData = csv.from(
 ```
 
 {{% note %}}
-This downloads all the sample data each time you execute the query **(~1.3 MB)**.
+`csv.from(url: ...)` downloads sample data each time you execute the query **(~1.3 MB)**.
 If bandwidth is a concern, use the [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to/)
 to write the data to a bucket, and then query the bucket with [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from/).
 {{% /note %}}

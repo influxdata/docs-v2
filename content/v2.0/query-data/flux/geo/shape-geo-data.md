@@ -38,7 +38,7 @@ Functions in the Geo package require the following data schema:
 
 ## Rename latitude and longitude fields
 Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to rename
-existing latitude and longitude fields keys using other names.
+existing latitude and longitude fields using other names.
 
 ```js
 from(bucket: "example-bucket")
@@ -53,31 +53,29 @@ from(bucket: "example-bucket")
 ```
 
 ## Generate S2 cell ID tokens
-The Geo package uses the [S2 Geometry Library](https://s2geometry.io/) which
-represents geographic coordinates on a three-dimensional sphere.
+The Geo package uses the [S2 Geometry Library](https://s2geometry.io/) to represent
+geographic coordinates on a three-dimensional sphere.
 The sphere is divided into [cells](https://s2geometry.io/devguide/s2cell_hierarchy),
 each with a unique 64-bit identifier (S2 cell ID).
 Grid and S2 cell ID accuracy are defined by a [level](https://s2geometry.io/resources/s2cell_statistics).
 
 {{% note %}}
-For faster filtering, use higher S2 Cell ID levels.
-But know that that higher levels increase [series cardinality](/v2.0/reference/glossary/#series-cardinality).
+To filter more quickly, use higher S2 Cell ID levels,
+but know that that higher levels increase [series cardinality](/v2.0/reference/glossary/#series-cardinality).
 {{% /note %}}
 
 The Geo package requires S2 cell IDs as tokens.
-Use one of the following options to generate and add S2 cell IDs to your geo-temporal data:
+To generate add S2 cell IDs tokens to your data, use one of the following options:
 
-- [Use the Telegraf S2 Geo processor](#use-the-telegraf-s2-geo-processor)
-- [Use language-specific S2 libraries](#use-language-specific-s2-libraries)
-- [Add S2 cell ID token with Flux](#add-s2-cell-id-token-with-flux)
+- [Generate S2 cell ID tokens with Telegraf](#generate-s2-cell-id-tokens-with-telegraf)
+- [Generate S2 cell ID tokens language-specific libraries](#generate-s2-cell-id-tokens-language-specific-libraries)
+- [Generate S2 cell ID tokens with Flux](#generate-s2-cell-id-tokens-with-flux)
 
-### Use the Telegraf S2 Geo processor
-The [Telegraf S2 Geo (`s2geo`) processor](https://github.com/influxdata/telegraf/tree/master/plugins/processors/s2geo)
-uses `lat` and `lon` field values to generate S2 cell ID tokens at a specified `cell_level`.
+### Generate S2 cell ID tokens with Telegraf
+Enable the [Telegraf S2 Geo (`s2geo`) processor](https://github.com/influxdata/telegraf/tree/master/plugins/processors/s2geo)
+to generate S2 cell ID tokens at a specified `cell_level` using `lat` and `lon` field values.
 
-To have Telegraf use existing latitude
-and longitude values to generate S2 cell ID tokens and assign them to the `s2_cell_id`
-tag in each line of line protocol, add the following to your `telegraf.conf`:
+Add the `processors.s2geo` configuration to your Telegraf configuration file (`telegraf.conf`):
 
 ```toml
 [[processors.s2geo]]
@@ -93,7 +91,9 @@ tag in each line of line protocol, add the following to your `telegraf.conf`:
   cell_level = 9
 ```
 
-### Use language-specific S2 libraries
+Telegraf stores the S2 cell ID token in the `s2_cell_id` tag.
+
+### Generate S2 cell ID tokens language-specific libraries
 Many programming languages offer S2 Libraries with methods for generating S2 cell ID tokens.
 Use latitude and longitude with the `s2.CellID.ToToken` endpoint of the S2 Geometry
 Library to generate `s2_cell_id` tags. For example:
@@ -102,7 +102,7 @@ Library to generate `s2_cell_id` tags. For example:
 - **Python:** [s2sphere.CellId.to_token()](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
 - **JavaScript:** [s2.cellid.toToken()](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
-### Add S2 cell ID tokens with Flux
+### Generate S2 cell ID tokens with Flux
 Use the [`geo.s2CellIDToken()` function](/v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken/)
 with existing longitude (`lon`) and latitude (`lat`) field values to generate and add the S2 cell ID token.
 First, use the [`geo.toRows()` function](/v2.0/reference/flux/stdlib/experimental/geo/torows/)
