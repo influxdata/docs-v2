@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0:
     name: Extract scalar values
-    parent:  How-to guides
+    parent:  Query with Flux
 weight: 220
 v2.0/tags: [scalar]
 related:
