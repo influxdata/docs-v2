@@ -41,10 +41,9 @@ geo.gridFilter(
 
 {{% note %}}
 #### s2_cell_id must be part of the group key
-In order for `geo.gridFilter()` to filter geo-temporal data, the `s2_cell_id` column
-must be part of the [group key](/v2.0/reference/glossary/#group-key).
-If it is not, use the [`experimental.group` function](/v2.0/reference/flux/stdlib/experimental/group)
-to add it to the group key:
+To filter geo-temporal data with `geo.gridFilter()`, `s2_cell_id` must be part
+of the [group key](/v2.0/reference/glossary/#group-key).
+To add `s2_cell_id` to the group key, use [`experimental.group`](/v2.0/reference/flux/stdlib/experimental/group):
 
 ```js
 import "experimental"

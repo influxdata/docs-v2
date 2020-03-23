@@ -1,9 +1,9 @@
 ---
 title: geo.shapeData() function
 description: >
-  The `geo.shapeData()` function restructures data with existing latitude and longitude
-  fields to meet the requirements of the Geo package by renaming the existing latitude
-  and longitude fields to **lat** and **lon** and adding an **s2_cell_id** tag.
+    The `geo.shapeData()` function renames existing latitude and longitude fields to
+    **lat** and **lon** and adds an **s2_cell_id** tag.
+    Use `geo.shapeData()` to ensure geo-temporal data meets the requirements of the Geo package.
 menu:
   v2_0_ref:
     name: geo.shapeData
@@ -12,17 +12,15 @@ weight: 401
 v2.0/tags: [functions, geo]
 ---
 
-The `geo.shapeData()` function restructures data with existing latitude and longitude
-fields to meet the requirements of the Geo package by renaming the existing latitude
-and longitude fields to **lat** and **lon** and adding an **s2_cell_id** tag.
+The `geo.shapeData()` function renames existing latitude and longitude fields to
+**lat** and **lon** and adds an **s2_cell_id** tag.
+Use `geo.shapeData()` to ensure geo-temporal data meets the
+[requirements of the Geo package](/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements):
 
-**`geo.shapeData()` does the following:**
-
-- renames existing latitude and longitude fields to `lat` and `lon`
-- pivots data into row-wise sets based on the [`correlatinKey`](#correlationkey)
-- uses the `lat` and `lon` values to generate the `s2_cell_id` tag based on a
-  specified [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
-- adds the `s2_cell_id` column to the group key
+1. Rename existing latitude and longitude fields to `lat` and `lon`.
+2. Pivot data into row-wise sets based on the [`correlatinKey`](#correlationkey).
+3. Generate `s2_cell_id` tags using `lat` and `lon` values and a specified
+   [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html).
 
 _**Function type:** Transformation_
 
@@ -50,10 +48,6 @@ Name of the existing field that contains the longitude value in **decimal degree
 Field is renamed to `lon`.
 
 _**Data type:** String_
-
-{{% note %}}
-`point` and `token` are mutually exclusive.
-{{% /note %}}
 
 ### level
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
@@ -83,7 +77,7 @@ from(bucket: "example-bucket")
   )
 ```
 
-### geo.shapeData input and ouput
+### geo.shapeData input and output
 
 {{< flex >}}
 {{% flex-content %}}
