@@ -75,6 +75,7 @@ related: # Creates links to specific internal and external content at the bottom
 external_url: # Used in children shortcode type="list" for page links that are external
 list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
+list_code_example: # Code example included with article descriptions in children type="articles" shortcode
 ```
 
 #### Title usage
@@ -406,17 +407,29 @@ The following list types are available:
 - **list:** lists children article links in an unordered list.
 - **functions:** a special use-case designed for listing Flux functions.
 
+#### Include a code example with a child summary
+Use the `list_code_example` frontmatter to provide a code example with an article
+in an articles list.
+
+~~~yaml
+list_code_example: |
+  ```sh
+  This is a code example
+  ```
+~~~
+
 #### Children frontmatter
 Each children list `type` uses [frontmatter properties](#page-frontmatter) when generating the list of articles.
 The following table shows which children types use which frontmatter properties:
 
-| Frontmatter    | articles | list | functions |
-|:-----------    |:--------:|:----:|:---------:|
-| `list_title`   | ✓        | ✓    | ✓         |
-| `description`  | ✓        |      |           |
-| `external_url` | ✓        | ✓    |           |
-| `list_image`   | ✓        |      |           |
-| `list_note`    |          | ✓    |           |
+| Frontmatter         | articles | list | functions |
+|:-----------         |:--------:|:----:|:---------:|
+| `list_title`        | ✓        | ✓    | ✓         |
+| `description`       | ✓        |      |           |
+| `external_url`      | ✓        | ✓    |           |
+| `list_image`        | ✓        |      |           |
+| `list_note`         |          | ✓    |           |
+| `list_code_example` | ✓        |      |           |
 
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
