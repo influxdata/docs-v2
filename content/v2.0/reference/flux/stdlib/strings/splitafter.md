@@ -18,6 +18,7 @@ related:
 
 The `strings.splitAfter()` function splits a string after a specified separator and returns
 an array of substrings.
+Split substrings include the separator, `t`.
 
 _**Output data type:** Array of strings_
 
