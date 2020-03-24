@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB v1
 weight: 301
 v2.0/tags: [tags]
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
 ---
 
 The `v1.tagValues()` function returns a list unique values for a given tag.

@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB v1
 weight: 301
 v2.0/tags: [tags]
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
 The `v1.measurementTagKeys()` function returns a list of tag keys for a specific measurement.
