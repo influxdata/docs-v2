@@ -25,11 +25,30 @@ to delete a bucket.
 ## Delete a bucket using the influx CLI
 
 Use the [`influx bucket delete` command](/v2.0/reference/cli/influx/bucket/delete)
-to delete a bucket. Deleting a bucket requires the following:
+to delete a bucket.
+Delete buckets by name or ID.
+
+### Delete a bucket by name
+**To delete a bucket by name, you need:**
+
+- The bucket name
+- The name or ID of the organization the bucket belongs to
+
+<!-- -->
+```sh
+# Syntax
+influx bucket delete -n <bucket-name> -o <org-name>
+
+# Example
+influx bucket delete -n my-bucket -o my-org
+```
+
+### Delete a bucket by ID
+**To delete a bucket by ID, you need:**
 
 - The bucket ID _(provided in the output of `influx bucket list`)_
-- The name or ID of the organization to which the bucket belongs
 
+<!-- -->
 ```sh
 # Syntax
 influx bucket delete -i <bucket-id>
