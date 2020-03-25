@@ -60,6 +60,8 @@
 <span class="inline icon-ui-eye-closed large"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>
-{{ else if eq $icon "toggle" }}
-<span class="inline ui-toggle"><span class="circle"></span></span>
+{{ else if or (eq $icon "toggle") (eq $icon "toggle-blue") }}
+<span class="inline ui-toggle blue"><span class="circle"></span></span>
+{{ else if eq $icon "toggle-green" }}
+<span class="inline ui-toggle green"><span class="circle"></span></span>
 {{ end }}
