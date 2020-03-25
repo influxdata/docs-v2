@@ -6,33 +6,67 @@ v2.0/tags: [templates]
 menu:
   v2_0:
     name: View templates
-    parent: Manage templates
+    parent: Manage dashboard templates
 weight: 202
-
 ---
-To view templates in the InfluxDB UI:
+
+To view templates in the InfluxDB userface (UI):
 
 1. Click the **Settings** icon in the left navigation.
 
     {{< nav-icon "settings" >}}
 
 2. Select the **Templates** tab.
+3. Select which templates to view:
 
-  - In the **Static Templates** tab, a list of pre-created templates appears. For a list of static templates, see [Static templates](#static-templates) below.
-  - In the **User Templates** tab, a list of custom user-created templates appears.
+    {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
 
-3. Click on the name of a template to view its JSON.
+    - **Static Templates:** pre-created dashboard templates include with the InfluxDB UI.
+      For more information, see [Static templates](#static-templates) below.
+    - **User Templates** custom user-created templates.
+
+4. Click on the name of a template to view its JSON.
 
 ## Static templates
-The following Telegraf-related dashboards templates are available:
+The following Telegraf-related dashboard templates are available:
 
+- [Apache Data](#apache-data)
 - [Docker](#docker)
 - [Getting Started with Flux](#getting-started-with-flux)
+- [GitHub Data](#github-data)
+- [InfluxDB 2.0 OSS Metrics](#influxdb-2-0-oss-metrics)
+- [JMeter](#jmeter)
 - [Kubernetes](#kubernetes)
-- [Local Metrics](#local-metrics)
 - [Nginx](#nginx)
 - [Redis](#redis)
 - [System](#system)
+
+### Apache data
+The Apache data dashboard template contains and overview of Apache HTTP server metrics.
+It displays the following metrics:
+
+- Apache Uptime
+- CPUs
+- Memory
+- Memory Used
+- Bytes per Second
+- Requests per Second
+- CPU Load (System, User)
+- Load
+- Workers
+- Disk IO
+- Network
+- Scoreboard
+
+#### Plugins
+- [`apache` plugin](/v2.0/reference/telegraf-plugins/#apache)
+- [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
+- [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
+- [`diskio` plugin](/v2.0/reference/telegraf-plugins/#diskio)
+- [`mem` plugin](/v2.0/reference/telegraf-plugins/#mem)
+- [`net` plugin](/v2.0/reference/telegraf-plugins/#net)
+- [`netstat` plugin](/v2.0/reference/telegraf-plugins/#netstat)
+- [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Docker
 The Docker dashboard template contains an overview of Docker metrics. It displays the following information:
@@ -81,6 +115,58 @@ This dashboard is designed to get you started with the Flux language. It contain
 - [`cpu` plugin](/v2.0/reference/telegraf-plugins/#cpu)
 - [`disk` plugin](/v2.0/reference/telegraf-plugins/#disk)
 
+### GitHub Data
+The GitHub Data dashboard template displays data related to GitHub repositories:
+
+- Total Forks
+- Total Size (bytes)
+- Total Stars
+- Total Open Issues
+- Forks
+- Size (bytes)
+- Stars
+- Issues
+- Summary
+
+#### Plugins
+- [`github` plugin](/v2.0/reference/telegraf-plugins/#github)
+
+
+### InfluxDB 2.0 OSS Metrics
+The InfluxDB 2.0 OSS Metrics dashboard shows a visual overview of some of the metrics
+available from the Local InfluxDB metrics endpoint located at `/metrics`.
+It displays the following information:
+
+- Uptime
+- Instance Info
+- # of Orgs
+- # of Users
+- # of Buckets
+- # of Tokens
+- # of Telegraf configurations
+- # of Dashboards
+- # of Scrapers
+- # of Tasks
+- Local Object Store IO
+- Memory Allocations (Bytes)
+- Memory Usage (%)
+- Memory Allocs & Frees (Bytes)
+
+### JMeter
+The JMeter dashboard template provides an overview of JMeter metrics.
+It displays the following:
+
+- OK requests count
+- Avg response time
+- Max response time
+- Min response time
+- 99 and 95 percentile for successful requests
+- KO requests count
+- Thread/Virtual user count
+- Number of hits
+- Sent bytes
+- Received bytes
+
 ### Kubernetes
 
 The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displays the following information:
@@ -103,24 +189,6 @@ The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displ
 
 #### Plugins
 - [`kubernetes` plugin](/v2.0/reference/telegraf-plugins/)
-
-### Local Metrics
-The Local Metrics dashboard shows a visual overview of some of the metrics available from the Local Metrics endpoint located at /`metrics`. It displays the following information:
-
-- Uptime
-- Instance Info
-- # of Orgs
-- # of Users
-- # of Buckets
-- # of Tokens
-- # of Telegraf configurations
-- # of Dashboards
-- # of Scrapers
-- # of Tasks
-- Local Object Store IO
-- Memory Allocations (Bytes)
-- Memory Usage (%)
-- Memory Allocs & Frees (Bytes)
 
 ### Nginx
 The Nginx dashboard gives a visual overview of Nginx metrics. It displays the following information:

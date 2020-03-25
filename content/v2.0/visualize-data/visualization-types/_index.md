@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0:
     parent: Visualize data
-weight: 101
+weight: 105
 ---
 
 The InfluxDB UI provides multiple visualization types to visualize your data in

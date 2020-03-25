@@ -7,8 +7,8 @@ description: >
 menu:
   v2_0:
     parent: Visualize data
-weight: 101
-"v2.0/tags": [variables]
+weight: 103
+v2.0/tags: [variables]
 ---
 
 Dashboard variables let you alter specific components of cells' queries without having to edit the queries,

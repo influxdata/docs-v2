@@ -6,7 +6,7 @@ menu:
   v2_0:
     name: Manage dashboards
     parent: Visualize data
-weight: 101
+weight: 102
 ---
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.
