@@ -31,8 +31,9 @@ weight: 201
 
     {{< nav-icon "dashboards" >}}
 
-2. Click the settings icon ({{< icon "gear" >}}) next to a dashboard in the list, then click **Export**. The dashboard JSON appears in a new window.
-3. Click **Save as template**.  
+2. Hover over the dashboard you want to use the create the template and click **{{< icon "gear" >}}**.
+3. Click **Export**. The dashboard JSON appears in a new window.
+4. Click **Save as template**.
 
 
 ## Clone a template
@@ -42,5 +43,5 @@ weight: 201
     {{< nav-icon "settings" >}}
 
 2. Select the **Templates** tab.
-3. Hover over the template you want to clone, then click {{< icon "clone" >}}.
+3. Hover over the template you want to clone and click **{{< icon "clone" >}}**.
 4. Click **Clone** to confirm. The cloned template appears in your list.

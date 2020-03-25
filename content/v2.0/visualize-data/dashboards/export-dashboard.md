@@ -19,7 +19,8 @@ InfluxDB lets you export dashboards from the InfluxDB user interface (UI).
 
   {{< nav-icon "dashboards" >}}
 
-2. Hover over a dashboard in the list, then click the gear icon ({{< icon "gear" >}}) and select **Export**.
+2. Hover over a dashboard in the list, click the gear icon (**{{< icon "gear" >}}**),
+   and then select **Export**.
 3. Review the JSON in the window that appears.
 4. Select one of the following options:
   * **Download JSON**: Download the dashboard as a JSON file.
