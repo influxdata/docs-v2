@@ -27,8 +27,8 @@ Use the [Symbol Column](#data) and [Fill Column](#data) options to select column
 used to differentiate points in the visualization.
 
 ## Scatter controls
-To view **Scatter** controls, click the settings icon ({{< icon "gear" >}}) next
-to the visualization dropdown in the upper right.
+To view **Scatter** controls, click **{{< icon "gear" >}} Customize** next to
+the visualization dropdown.
 
 ###### Data
 - **Symbol Column**: Define a column containing values that should be differentiated with symbols.
