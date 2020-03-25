@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB v1
 weight: 301
 v2.0/tags: [measurements]
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
 ---
 
 The `v1.measurements()` function returns a list of measurements in a specific bucket.

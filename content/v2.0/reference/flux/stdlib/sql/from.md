@@ -8,6 +8,8 @@ menu:
     name: sql.from
     parent: SQL
 weight: 202
+related:
+  - /v2.0/query-data/flux/sql/
 ---
 
 The `sql.from()` function retrieves data from a SQL data source.
@@ -35,7 +37,7 @@ The following drivers are available:
 
 - mysql
 - postgres
-- sqlite3
+- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
 
 ### dataSourceName
 The data source name (DSN) or connection string used to connect to the SQL database.
@@ -52,7 +54,7 @@ postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 username:password@tcp(localhost:3306)/dbname?param=value
 
 # SQLite Driver DSN
-file:test.db?cache=shared&mode=memory
+file:/path/to/test.db?cache=shared&mode=ro
 ```
 
 ### query
@@ -85,12 +87,20 @@ sql.from(
 ```
 
 ### Query an SQLite database
+
+{{% warn %}}
+**InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
+and cannot query SQLite data sources.
+Use the [Flux REPL](/v2.0/reference/cli/influx/repl/) to query a SQLite data source
+on your local filesystem.
+{{% /warn %}}
+
 ```js
 import "sql"
 
 sql.from(
   driverName: "sqlite3",
-  dataSourceName: "file:test.db?cache=shared&mode=memory",
+  dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query:"SELECT * FROM ExampleTable"
 )
 ```
