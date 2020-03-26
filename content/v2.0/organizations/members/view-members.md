@@ -18,7 +18,7 @@ to view members of an organization.
 
     {{< nav-icon "settings" >}}
 
-* Click on the name of an organization, then select the **Members** tab. The list of organization members appears.
+* Click the name of an organization, then select the **Members** tab. The list of organization members appears.
 
 
 ## View members of organization using the influx CLI

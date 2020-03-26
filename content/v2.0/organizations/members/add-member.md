@@ -21,7 +21,7 @@ Adding members is currently unavailable in {{< cloud-name >}}.
 
     {{< nav-icon "settings" >}}
 
-2. Click on the name of an organization, then select the **Members** tab.
+2. Click the name of an organization, then select the **Members** tab.
 
 _Complete content coming soon_ -->
 

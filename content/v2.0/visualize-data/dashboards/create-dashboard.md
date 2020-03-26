@@ -14,7 +14,6 @@ weight: 201
 
 ## Create a new dashboard
 
-
 1. Click the **Dashboards** icon in the navigation bar.
 
     {{< nav-icon "dashboards" >}}
@@ -63,13 +62,17 @@ weight: 201
 
 ## Clone a dashboard
 
-1. Hover over the dashboard in the list of dashboard and click **{{< icon "copy" >}}**.
-2. Click **Clone**. The cloned dashboard opens.
+1. Click the **Dashboards** icon in the navigation bar.
+
+    {{< nav-icon "dashboards" >}}
+
+2. Hover over the dashboard and click **{{< icon "copy" >}}**.
+3. Click **Clone**. The cloned dashboard opens.
 
 
 #### Add data to your dashboard
 
-1. From your dashboard, click **{{< icon "add-cell" >}} Add Cell**. The Data Explorer overlay opens.
+1. From your dashboard, click **{{< icon "add-cell" >}} Add Cell**.
 2. Create a query in the Data Explorer following the instructions in [Explore metrics](/v2.0/visualize-data/explore-metrics).
 3. Enter a name for your cell in the upper left.
 4. Click the checkmark icon (**{{< icon "checkmark" >}}**) to save the cell to your dashboard.

@@ -16,7 +16,7 @@ weight: 202
     {{< nav-icon "load data" >}}
 
 2. Select **Buckets**.
-3. Click on a bucket to open the **Data Explorer** with the bucket selected.
+3. Click a bucket to open it **Data Explorer**.
 
 ## View buckets using the influx CLI
 

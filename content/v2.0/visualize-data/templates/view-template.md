@@ -17,15 +17,15 @@ To view templates in the InfluxDB userface (UI):
     {{< nav-icon "settings" >}}
 
 2. Select the **Templates** tab.
-3. Select which templates to view:
+3. Select templates to view:
 
     {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
 
-    - **Static Templates:** pre-created dashboard templates include with the InfluxDB UI.
+    - **Static Templates:** templates included with InfluxDB.
       For more information, see [Static templates](#static-templates) below.
-    - **User Templates** custom user-created templates.
+    - **User Templates** custom-built templates saved in the UI.
 
-4. Click on the name of a template to view its JSON.
+4. Click the name of a template to view its JSON.
 
 ## Static templates
 The following Telegraf-related dashboard templates are available:
@@ -42,8 +42,8 @@ The following Telegraf-related dashboard templates are available:
 - [System](#system)
 
 ### Apache data
-The Apache data dashboard template contains and overview of Apache HTTP server metrics.
-It displays the following metrics:
+The Apache data dashboard template contains an overview of Apache HTTP server metrics.
+It displays the following information:
 
 - Apache Uptime
 - CPUs
@@ -69,7 +69,8 @@ It displays the following metrics:
 - [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Docker
-The Docker dashboard template contains an overview of Docker metrics. It displays the following information:
+The Docker dashboard template contains an overview of Docker metrics.
+It displays the following information:
 
 - System Uptime
 - nCPUs
@@ -101,7 +102,8 @@ The Docker dashboard template contains an overview of Docker metrics. It display
 - [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Getting Started with Flux
-This dashboard is designed to get you started with the Flux language. It contains explanations and visualizations for a series of increasingly complex example Flux queries.
+This dashboard is designed to get you started with the Flux language.
+It contains explanations and visualizations for a series of increasingly complex example Flux queries.
 
 - Creating your first basic Flux query
 - Filtering data using the `filter` function
@@ -134,7 +136,7 @@ The GitHub Data dashboard template displays data related to GitHub repositories:
 
 ### InfluxDB 2.0 OSS Metrics
 The InfluxDB 2.0 OSS Metrics dashboard shows a visual overview of some of the metrics
-available from the Local InfluxDB metrics endpoint located at `/metrics`.
+available from the local InfluxDB metrics endpoint located at `/metrics`.
 It displays the following information:
 
 - Uptime
@@ -154,7 +156,7 @@ It displays the following information:
 
 ### JMeter
 The JMeter dashboard template provides an overview of JMeter metrics.
-It displays the following:
+It displays the following information:
 
 - OK requests count
 - Avg response time
@@ -169,7 +171,8 @@ It displays the following:
 
 ### Kubernetes
 
-The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displays the following information:
+The Kubernetes dashboard gives a visual overview of Kubernetes metrics.
+It displays the following information:
 
 - Allocatable Memory
 - Running Pods
@@ -191,7 +194,8 @@ The Kubernetes dashboard gives a visual overview of Kubernetes metrics. It displ
 - [`kubernetes` plugin](/v2.0/reference/telegraf-plugins/)
 
 ### Nginx
-The Nginx dashboard gives a visual overview of Nginx metrics. It displays the following information:
+The Nginx dashboard gives a visual overview of Nginx metrics.
+It displays the following information:
 
 - System Uptime
 - nCPUs
@@ -218,7 +222,8 @@ The Nginx dashboard gives a visual overview of Nginx metrics. It displays the fo
 - [`system` plugin](/v2.0/reference/telegraf-plugins/#system)
 
 ### Redis
-The Redis dashboard gives a visual overview of Nginx metrics. It displays the following information:
+The Redis dashboard gives a visual overview of Nginx metrics.
+It displays the following information:
 
 - System Uptime
 - nCPUs
@@ -249,7 +254,8 @@ The Redis dashboard gives a visual overview of Nginx metrics. It displays the fo
 
 
 ### System
-The System dashboard gives a visual overview of system metrics. It displays the following information:
+The System dashboard gives a visual overview of system metrics.
+It displays the following information:
 
 - System Uptime
 - nCPUs

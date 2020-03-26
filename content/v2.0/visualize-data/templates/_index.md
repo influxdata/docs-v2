@@ -9,9 +9,10 @@ menu:
 weight: 104
 ---
 
-Templates are a way to create and share dashboards across organizations without starting from scratch.
+Dashboard templates are a way to create and share dashboards across organizations
+without starting from scratch.
 
-### Template types
+### Dashboard template types
 The following types of templates are available:
 
 - **Static templates:** templates included with the InfluxDB user interface (UI).

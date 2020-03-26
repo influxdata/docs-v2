@@ -30,7 +30,7 @@ The InfluxDB UI provides multiple ways to create a task:
 - [Clone a task](#clone-a-task)
 
 ### Create a task from the Data Explorer
-1. Click on the **Data Explorer** icon in the left navigation menu.
+1. Click the **Data Explorer** icon in the left navigation menu.
 
     {{< nav-icon "data-explorer" >}}
 
@@ -43,7 +43,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 
 ### Create a task in the Task UI
-1. Click on the **Tasks** icon in the left navigation menu.
+1. Click the **Tasks** icon in the left navigation menu.
 
     {{< nav-icon "tasks" >}}
 
@@ -56,7 +56,7 @@ The InfluxDB UI provides multiple ways to create a task:
 7. Click **Save** in the upper right.
 
 ### Import a task
-1. Click on the **Tasks** icon in the left navigation menu.
+1. Click the **Tasks** icon in the left navigation menu.
 
     {{< nav-icon "tasks" >}}
 
@@ -69,7 +69,7 @@ The InfluxDB UI provides multiple ways to create a task:
 5. Click **Import JSON as Task**.
 
 ### Create a task from a template
-1. Click on the **Settings** icon in the left navigation menu.
+1. Click the **Settings** icon in the left navigation menu.
 
     {{< nav-icon "Settings" >}}
 
@@ -78,7 +78,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 
 ### Clone a task
-1. Click on the **Tasks** icon in the left navigation menu.
+1. Click the **Tasks** icon in the left navigation menu.
 
     {{< nav-icon "tasks" >}}
 

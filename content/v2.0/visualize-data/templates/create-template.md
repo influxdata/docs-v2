@@ -11,27 +11,13 @@ weight: 201
 
 ---
 
-## Import a dashboard template
-
-1. Click the **Settings** icon in the left navigation.
-
-    {{< nav-icon "settings" >}}
-
-2. Select the **Templates** tab.
-3. Click **Import Template** in the upper right.
-4. In the window that appears:
-  * Select **Upload File** to drag-and-drop or select a file.
-  * Select **Paste JSON** to paste in JSON.
-5. Click **Import JSON as Template**.
-
-
 ## Create a template from an existing dashboard
 
 1. Click the **Dashboards** icon in the navigation bar.
 
     {{< nav-icon "dashboards" >}}
 
-2. Hover over the dashboard you want to use the create the template and click **{{< icon "gear" >}}**.
+2. Hover over the dashboard you want to use to create the template and click **{{< icon "gear" >}}**.
 3. Click **Export**. The dashboard JSON appears in a new window.
 4. Click **Save as template**.
 
@@ -39,7 +25,7 @@ weight: 201
 ## Clone a dashboard template
 
 {{% note %}}
-Only [user templates](/v2.0/visualize-data/templates/#template-types) can be cloned.
+Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
 {{% /note %}}
 
 1. Click the **Settings** icon in the left navigation.
@@ -53,3 +39,16 @@ Only [user templates](/v2.0/visualize-data/templates/#template-types) can be clo
 
 4. Hover over the template you want to clone and click **{{< icon "clone" >}}**.
 5. Click **Clone** to confirm. The cloned template appears in your list.
+
+## Import an existing dashboard template
+
+1. Click the **Settings** icon in the left navigation.
+
+    {{< nav-icon "settings" >}}
+
+2. Select the **Templates** tab.
+3. Click **Import Template** in the upper right.
+4. In the window that appears:
+  * Select **Upload File** to drag-and-drop or select a file.
+  * Select **Paste JSON** to paste in JSON.
+5. Click **Import JSON as Template**.
