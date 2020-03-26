@@ -1,5 +1,5 @@
 ---
-title: Get started with InfluxDB
+title: Get started with InfluxDB OSS
 description: Download, install, and setup InfluxDB, creating a default organization, user, and bucket.
 menu:
   v2_0:
@@ -8,7 +8,7 @@ weight: 1
 v2.0/tags: [get-started, install]
 ---
 
-Get started with InfluxDB v2.0 by downloading InfluxDB, installing the necessary
+Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
 
 {{% cloud-msg %}}

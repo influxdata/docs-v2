@@ -82,9 +82,10 @@ To write data into InfluxDB, use one of the following methods:
 To quickly start writing data, use the provided user interface.
 
 1. Do one of the following:
-   - _InfluxDB 2.0 OSS users_:
-     In your terminal, run `influxd` and then in your browser, go to the location where you're hosting the UI (by default, localhost:9999).
-   - _InfluxDB 2.0 Cloud users_:
+   - _**InfluxDB 2.0 OSS**_:
+     In your terminal, run `influxd` and then in your browser, go to the location
+     where you're hosting the UI (by default, **localhost:9999**).
+   - _**InfluxDB 2.0 Cloud**_:
      In your browser, go to https://cloud2.influxdata.com/.
 2. Click **Load Data** in the navigation menu on the left.
 3. Select **Buckets**.

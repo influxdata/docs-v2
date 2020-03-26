@@ -17,7 +17,7 @@ To view your tasks, click the **Tasks** icon in the left navigation menu.
 
 {{< nav-icon "tasks" >}}
 
-Click on the name of a task to update it.
+Click the name of a task to update it.
 
 #### Update a task Flux script
 1. In the list of tasks, click the **Name** of the task you want to update.

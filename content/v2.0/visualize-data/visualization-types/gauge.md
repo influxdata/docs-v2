@@ -30,8 +30,8 @@ For consistent results, the Gauge query should return a single table.
 {{% /note %}}
 
 ## Gauge Controls
-To view **Gauge** controls, click the settings icon ({{< icon "gear" >}}) next to
-the visualization dropdown in the upper right.
+To view **Gauge** controls, click **{{< icon "gear" >}} Customize** next to
+the visualization dropdown.
 
 - **Prefix**: Prefix to add to the gauge.
 - **Suffix**: Suffix to add to the gauge.

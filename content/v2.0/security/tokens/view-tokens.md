@@ -21,7 +21,7 @@ command line interface (CLI).
     {{< nav-icon "disks" >}}
 
 2. Click **Tokens**. All of your account's tokens appear.
-3. Click on a token name from the list to view the token and a summary of access permissions.
+3. Click a token name from the list to view the token and a summary of access permissions.
 
 ## View tokens using the influx CLI
 

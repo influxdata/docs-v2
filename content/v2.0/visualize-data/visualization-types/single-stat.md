@@ -30,8 +30,8 @@ For consistent results, the Single Stat query should return a single table.
 {{% /note %}}
 
 ## Single Stat Controls
-To view **Single Stat** controls, click the settings icon ({{< icon "gear" >}})
-next to the visualization dropdown in the upper right.
+To view **Single Stat** controls, click **{{< icon "gear" >}} Customize** next to
+the visualization dropdown.
 
 - **Prefix**: Prefix to be added to the single stat.
 - **Suffix**: Suffix to be added to the single stat.

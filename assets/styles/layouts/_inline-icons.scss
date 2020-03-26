@@ -28,10 +28,12 @@
       position: relative;
       width: 28px;
       height: 16px;
-      background: $b-pool;
       border-radius: .7rem;
       vertical-align: text-top;
       margin-top: 2px;
+
+      &.blue { background: $b-pool; }
+      &.green { background: $gr-viridian; }
 
       .circle {
         display: inline-block;
