@@ -3,7 +3,7 @@
     <h4 id="related-articles">Related articles</h4>
     <ul>
     {{ range .Params.related }}
-      {{ if in . "http" }}
+      {{ if or (in . "http") (in . "/v2.0/api") }}
         {{ $link := replaceRE `\,\s(.*)$` "" . }}
         {{ $title := replaceRE `^(\S*\,\s)` "" . }}
         <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
