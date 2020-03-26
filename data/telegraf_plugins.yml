@@ -141,6 +141,15 @@ input:
     introduced: 1.12.0
     tags: [linux, macos, windows, systems]
 
+  - name: Arista LANZ Consumer
+    id: lanz
+    description: |
+      The Arista LANZ Consumer input plugin provides a consumer for use with Arista Networks’ Latency Analyzer (LANZ).
+      Metrics are read from a stream of data via TCP through port 50001 on the switch's management IP. Data is in Protobuffers format.
+      For more information, see [Arista LANZ](https://www.arista.com/en/um-eos/eos-latency-analyzer-lanz).
+    introduced: 1.14.0
+    tags: [linux, macos, windows, networking]
+
   - name: Azure Storage Queue
     id: azure_storage_queue
     description: |
@@ -239,6 +248,14 @@ input:
       Telemetry data is expected to be GPB-KV (self-describing-gpb) encoded.
     introduced: 1.11.0
     tags: [linux, macos, windows, applications]
+
+  - name: ClickHouse
+    id: clickhouse
+    description: |
+      The ClickHouse input plugin gathers statistics from a [ClickHouse](https://github.com/ClickHouse/ClickHouse) server, an open source
+      column-oriented database management system that lets you generate analytical data reports in real time.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, servers, systems]
 
   - name: Conntrack
     id: conntrack
@@ -366,6 +383,13 @@ input:
     introduced: 1.13.0
     tags: [linux, macos, windows, networking, servers]
 
+  - name: Event Hub Consumer
+    id: eventhub_consumer
+    description: |
+     The Event Hub Consumer input plugin provides a consumer for use with Azure Event Hubs and Azure IoT Hub.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, iot]
+
   - name: Exec
     id: exec
     description: |
@@ -373,6 +397,16 @@ input:
       (line protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard) into metrics.
       Each Telegraf metric includes the measurement name, tags, fields, and timestamp.
     introduced: 0.1.5
+    tags: [linux, macos, windows]
+
+  - name: Execd
+    id: execd
+    description: |
+      The Execd input plugin runs an external program as a daemon. Programs must output metrics in an accepted
+      [Telegraf input data format](https://docs.influxdata.com/telegraf/latest/data_formats/input/)
+      on its standard output. Configure `signal` to send a signal to the daemon running on each collection interval.
+      The program output on standard error is mirrored to the Telegraf log.
+    introduced: 1.14.0
     tags: [linux, macos, windows]
 
   - name: Fail2ban
@@ -547,6 +581,14 @@ input:
       the [Icinga 2 API](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api).
     introduced: 1.8.0
     tags: [linux, macos, windows, networking, servers, systems]
+
+  - name: InfiniBand
+    id: infiniband
+    description: |
+      The InfiniBand input plugin gathers statistics for all InfiniBand devices and ports on the system. 
+      Counters are stored in `/sys/class/infiniband/<dev>/port/<port>/counters/`.
+    introduced: 1.14.0
+    tags: [linux, systems]
 
   - name: InfluxDB v1.x
     id: influxdb
@@ -858,6 +900,14 @@ input:
     introduced: 1.4.0
     tags: [linux, macos, windows, gaming]
 
+  - name: Modbus
+    id: modbus
+    description: |
+      The Modbus input plugin collects `discrete_inputs`, `coils`, `input_registers` and `holding_registers`
+      via Modbus TCP or Modbus RTU/ASCII.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, networking]
+
   - name: MongoDB
     id: mongodb
     description: |
@@ -865,6 +915,15 @@ input:
       few more and create a single measurement containing values.
     introduced: 0.1.5
     tags: [linux, macos, windows, data-stores]
+
+  - name: Monit
+    id: monit
+    description: |
+      The Monit input plugin gathers metrics and status information about local processes, remote hosts, files, 
+      file systems, directories, and network interfaces managed and watched by Monit. To use this plugin, 
+      enable the [HTTPD TCP port](https://mmonit.com/monit/documentation/monit.html#TCP-PORT) in Monit.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, systems, networking]
 
   - name: MQTT Consumer
     id: mqtt_consumer
@@ -1263,6 +1322,14 @@ input:
     introduced: 0.10.1
     tags: [linux, macos, windows, iot]
 
+  - name: SFlow
+    id: sflow
+    description: |
+      The SFlow input plugin provides support for acting as an SFlow V5 collector
+      in accordance with the [sflow.org](https://sflow.org/) specification.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, networking]
+
   - name: S.M.A.R.T.
     id: smart
     description: |
@@ -1552,6 +1619,14 @@ input:
       reading the `/proc/net/wireless` file. **This plugin currently supports Linux only**.
     introduced: 1.9.0
     tags: [linux, networking]
+
+  - name: Wireguard
+    id: wireguard
+    description: |
+      The Wireguard input plugin collects statistics on the local Wireguard server using the `wgctrl` library.
+      Reports gauge metrics for Wireguard interface device(s) and its peers.
+    introduced: 1.14.0
+    tags: [linux, macos, windows, networking]
 
   - name: X.509 Certificate
     id: x509_cert
@@ -1873,6 +1948,13 @@ output:
     introduced: 1.11.0
     tags: [linux, macos, windows, logging]
 
+  - name: Warp10
+    id: warp10
+    description: |
+      The Warp10 output plugin writes metrics to [SenX Warp 10](https://www.warp10.io/).
+    introduced: 1.14.0
+    tags: [linux, macos, windows]
+
   - name: Wavefront
     id: wavefront
     description: |
@@ -1990,6 +2072,13 @@ processor:
     introduced: 1.12.0
     tags: [linux, macos, windows]
 
+  - name: Dedup
+    id: dedup
+    description: |
+      The Dedup processor plugin filters metrics whose field values are exact repetitions of the previous values.
+    introduced: 1.14.0
+    tags: [linux, macos, windows]
+
   - name: Enum
     id: enum
     description: |
@@ -2067,6 +2156,15 @@ processor:
     introduced: 1.8.0
     tags: [linux, macos, windows]
 
+  - name: S2 Geo
+    id: s2geo
+    description: |
+      The S2 Geo processor plugin adds tags with an S2 cell ID token of a specified [cell level](https://s2geometry.io/resources/s2cell_statistics.html).
+      Tags are used in Flux `experimental/geo` functions. 
+      Specify `lat` and `lon` field values with WGS-84 coordinates in decimal degrees.
+    introduced: 1.14.0
+    tags: [linux, macos, windows]
+
   - name: Strings
     id: strings
     description: |
@@ -2101,6 +2199,16 @@ processor:
       hard limits on the number of tags or labels per metric or where high levels of
       cardinality are computationally or financially expensive.
     introduced: 1.12.0
+    tags: [linux, macos, windows]
+
+  - name: Template
+    id: template
+    description: |
+      The Template processor plugin applies a Go template to metrics to generate a new tag. 
+      Primarily used to create a tag for dynamic routing to multiple output plugins
+      or to an output specific routing option. The template has access to each metric's measurement name,
+      tags, fields, and timestamp using the interface in [template_metric.go](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/template/template_metric.go).
+    introduced: 1.14.0
     tags: [linux, macos, windows]
 
   - name: TopK
