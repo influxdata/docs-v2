@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.0-beta.7 [TBD]
+## v2.0.0-beta.7 [2020-03-27]
 
 ### Features
 
