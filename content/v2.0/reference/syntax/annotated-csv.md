@@ -161,11 +161,12 @@ Subsequent columns contain annotation values as shown in the table below.
 |:--------        |:---------                                                                      | :-------                                                                         |
 | **datatype**    | a [data type](#data-types) or [line protocol element](#line-protocol-elements) | Describes the type of data or which line protocol element the column represents. |
 | **group**       | boolean flag `true` or `false`                                                 | Indicates the column is part of the group key.                                   |
-| **default**     | a value representing the appropriate [data type](#data-types)                  | Value to use for rows with an empty value.                                       |
+| **default**     | a value of the column's data type                                              | Value to use for rows with an empty value.                                       |
 
 
 {{% note %}}
-To encode a table with its group key, the `datatype`, `group`, and `default` annotations must be included.
+To encode a table with its [group key](/v2.0/reference/glossary/#group-key),
+the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
 
@@ -184,9 +185,9 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 
 ## Line protocol elements
-The `datatype` annotation also accepts line protocol elements.
-The [`influx write` command](/v2.0/reference/cli/influx/write/) uses the line protocol
-element to convert annotated CSV into line protocol when writing to InfluxDB.
+The `datatype` annotation accepts accepts [data types](#data-types) and **line protocol elements**.
+Line protocol elements identify how columns are converted into line protocol when using the
+[`influx write` command](/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -197,21 +198,22 @@ element to convert annotated CSV into line protocol when writing to InfluxDB.
 | `ignore` or`ignored`  | column is ignored and not included in line protocol             |
 
 ### Mixing data types and line protocol elements
-Columns with [data types](#data-types) (other than `dataTime`) in the
+Columns with [data types](#data-types) (other than `dateTime`) in the
 `#datatype` annotation are treated as **fields** when converted to line protocol.
 Columns without a specified data type default to `field` when converted to line protocol
-and **column values are left unmodified**.
-_See [line protocol data types and format](/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
+and **column values are left unmodified** in line protocol.
+_See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
+[line protocol data types and format](/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
 A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
 when converted to line protocol.
-If there are multiple `time` or `dateTime` columns, the last (from left to right)
+If there are multiple `time` or `dateTime` columns, the last column (on the right)
 is used as the timestamp in line protocol.
-Other time columns are ignored and `influx write` command outputs a warning.
+Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted precision](/v2.0/write-data/#timestamp-precision)),
-**RFC3339 timestamps**, or **RFC3339Nano timestamps**.
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/v2.0/write-data/#timestamp-precision)),
+**RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation
 ```
