@@ -1,7 +1,7 @@
 ---
 title: experimental.join() function
 description: >
-  The `experimental.join()` function function joins two streams of tables on the
+  The `experimental.join()` function joins two streams of tables on the
   group key with the addition of the `_time` column.
 menu:
   v2_0_ref:
