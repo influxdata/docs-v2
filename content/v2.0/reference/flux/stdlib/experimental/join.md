@@ -11,7 +11,7 @@ weight: 302
 ---
 
 The `experimental.join()` function joins two streams of tables on the
-[group key](/v2.0/reference/glossary/#group-key) with the addition of the `_time` column.
+[group key](/v2.0/reference/glossary/#group-key) and `_time` column.
 Columns that are not part of the group key or explicitly mapped in the join operation
 are dropped from output tables.
 
@@ -61,6 +61,8 @@ The return value must be an object.
 _**Data type:** Function_
 
 ## Examples
+
+### Input and output tables
 
 **Given the following input tables:**
 {{< flex >}}
