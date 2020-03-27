@@ -16,9 +16,9 @@ Columns that are not part of the group key or explicitly mapped in the join oper
 are dropped from output tables.
 
 {{% note %}}
-To join streams of tables with different fields, use [`group()`](/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+To join streams of tables with different fields or measuremtns, use [`group()`](/v2.0/reference/flux/stdlib/built-in/transformations/group/)
 or [`drop()`](/v2.0/reference/flux/stdlib/built-in/transformations/drop/) to remove
-`_field` from the group key before joining.
+`_field` and `_measurement` from the group key before joining.
 _See an example [below](#join-two-streams-of-tables-with-different-fields)._
 {{% /note %}}
 
@@ -135,19 +135,19 @@ experimental.join(
 )
 ```
 
-###### Join two streams of tables with different fields
+###### Join two streams of tables with different fields and measurements
 ```js
 import "experimental"
 
 s1 = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "foo" and r._field == "bar")
-  |> group(columns: ["_time", "_field", "_value"], mode: "except")
+  |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
 s2 = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "baz" and r._field == "quz")
-  |> group(columns: ["_time", "_field", "_value"], mode: "except")
+  |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
 experimental.join(
   left: s1,
