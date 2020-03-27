@@ -9,12 +9,25 @@ weight: 101
 v2.0/tags: [config]
 ---
 
-The `influx config` command manages multiple InfluxDB connection configurations file (by default, stored at `~/.influxdbv2/configs`). Each connection includes a URL, token, associated organization, and active setting. InfluxDB reads the token from the active connection configuration, so you don't have to manually enter a token to log into InfluxDB.
+The `influx config` command manages multiple InfluxDB connection configurations
+file (by default, stored at `~/.influxdbv2/configs`).
+Each connection includes a URL, token, associated organization, and active setting.
+InfluxDB reads the token from the active connection configuration, so you don't
+have to manually enter a token to log into InfluxDB.
 
 ## Usage
 ```
 influx config [flags]
 influx config [command]
+```
+
+##### Quickly switch between configurations
+```sh
+# Syntax
+influx config <config-name>
+
+# Example
+influx config local-config
 ```
 
 ## Subcommands
