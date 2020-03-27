@@ -16,9 +16,11 @@ influx auth inactive [flags]
 ```
 
 ## Flags
-| Flag           | Description                     | Input type  |
-|:----           |:-----------                     |:----------: |
-| `-h`, `--help` | Help for the `inactive` command |             |
-| `-i`, `--id`   | **(Required)** Authorization ID | string      |
+| Flag             | Description                           | Input type  | {{< cli/mapped >}}    |
+|:----             |:-----------                           |:----------: |:------------------    |
+| `-h`, `--help`   | Help for the `inactive` command       |             |                       |
+| `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i`, `--id`     | **(Required)** Authorization ID       | string      |                       |
+| `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
 
 {{% cli/influx-global-flags %}}

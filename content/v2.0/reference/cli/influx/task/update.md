@@ -16,10 +16,12 @@ influx task update [flags]
 ```
 
 ## Flags
-| Flag           | Description                   | Input type  |
-|:----           |:-----------                   |:----------: |
-| `-h`, `--help` | Help for the `update` command |             |
-| `-i`, `--id`   | **(Required)** Task ID        | string      |
-| `--status`     | Update task status            | string      |
+| Flag             | Description                           | Input type  | {{< cli/mapped >}}    |
+|:----             |:-----------                           |:----------: |:------------------    |
+| `-h`, `--help`   | Help for the `update` command         |             |                       |
+| `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i`, `--id`     | **(Required)** Task ID                | string      |                       |
+| `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| `--status`       | Update task status                    | string      |                       |
 
 {{% cli/influx-global-flags %}}
