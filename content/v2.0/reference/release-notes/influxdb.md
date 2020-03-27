@@ -20,7 +20,7 @@ weight: 101
 - [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add module to write line data to specified url, org, and bucket.
 - Add foundation for pkger stacks, stateful package management.
-- Add flag to disable scheduling of tasks.
+- Add `--no-tasks` flag to disable scheduling of tasks.
 - Add ability to output cli output as JSON and hide table headers.
 
 ### Bug fixes
