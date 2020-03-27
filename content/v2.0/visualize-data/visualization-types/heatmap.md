@@ -29,8 +29,8 @@ The total number of points that fall within a bin determine the its value and co
 Warmer or brighter colors represent higher bin values or density of points within the bin.
 
 ## Heatmap Controls
-To view **Heatmap** controls, click the settings icon ({{< icon "gear" >}})
-next to the visualization dropdown in the upper right.
+To view **Heatmap** controls, click **{{< icon "gear" >}} Customize** next to
+the visualization dropdown.
 
 ###### Data
 - **X Column**: Select a column to display on the x-axis.

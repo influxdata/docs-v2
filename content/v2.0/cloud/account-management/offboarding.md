@@ -43,7 +43,7 @@ For details, see [Export a dashboard](/v2.0/visualize-data/dashboards/export-das
     {{< nav-icon "load-data" >}}
 
 2. Select the **Telegraf** tab. A list of existing Telegraf configurations appears.
-3. Click on the name of a Telegraf configuration.
+3. Click the name of a Telegraf configuration.
 4. Click **Download Config** to save.
 
 #### Request a data backup

@@ -27,8 +27,8 @@ Select other output tables in the far left column of the table visualization.
 Tables are identified by their [group key](/v2.0/query-data/get-started/#group-keys).
 
 ## Table Controls
-To view **Table** controls, click the settings icon ({{< icon "gear" >}}) next to
-the visualization dropdown in the upper right.
+To view **Table** controls, click **{{< icon "gear" >}} Customize** next to
+the visualization dropdown.
 
 - **Default Sort Field**: Select the default sort field. Default is **time**.
 - **Time Format**: Select the time format. Options include:

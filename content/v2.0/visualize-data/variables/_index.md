@@ -7,8 +7,8 @@ description: >
 menu:
   v2_0:
     parent: Visualize data
-weight: 101
-"v2.0/tags": [variables]
+weight: 103
+v2.0/tags: [variables]
 ---
 
 Dashboard variables let you alter specific components of cells' queries without having to edit the queries,
@@ -33,7 +33,7 @@ in the **Variables** tab next to the Functions tab.
 
 {{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
 
-Click on a variable name to add it to your query and select a value from the **Value** dropdown.
+Click a variable name to add it to your query and select a value from the **Value** dropdown.
 
 ## Predefined dashboard variables
 The InfluxDB user interface (UI) provides the following predefined dashboard variables:

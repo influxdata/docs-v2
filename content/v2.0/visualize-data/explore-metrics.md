@@ -38,11 +38,11 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 4. Use the **Functions** list to review the available Flux functions.
-   Click on a function from the list to add it to your query.
+   Click a function from the list to add it to your query.
 5. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
 6. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
   * Click the eye icon on a tab to hide or show a query's visualization.
-  * Click on the name of the query in the tab to rename it.
+  * Click the name of the query in the tab to rename it.
 
 ## Visualize your query
 

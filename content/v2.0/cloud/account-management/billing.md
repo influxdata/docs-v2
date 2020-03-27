@@ -13,7 +13,7 @@ menu:
 Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
 
 ## Access billing details
-1. Click on the **user avatar** in the top right corner of the {{< cloud-name "short" >}}
+1. Click the **user avatar** in the top right corner of the {{< cloud-name "short" >}}
    UI and select **Billing**.
 2. Do one of the following:
     - If you subscribed to an InfluxDB Cloud 2.0 plan through **AWS Marketplace**,

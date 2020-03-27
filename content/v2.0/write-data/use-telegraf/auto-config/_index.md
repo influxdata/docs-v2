@@ -34,7 +34,7 @@ for using Telegraf with InfluxDB v2.0._
 
     {{< nav-icon "load data" >}}
 
-3. Select **Telegrafs**.
+3. Select **Telegraf**.
 4. Click **{{< icon "plus" >}} Create Configuration**.
 5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
 6. Select one or more of the available plugin groups and click **Continue**.
@@ -59,7 +59,7 @@ for using Telegraf with InfluxDB v2.0._
 
 If you plan to monitor a Windows host using the System plugin, you must complete the following steps.
 
-1. In the list of Telegraf configurations, double-click your 
+1. In the list of Telegraf configurations, double-click your
     Telegraf configuration, and then click **Download Config**.
 2. Open the downloaded Telegraf configuration file and replace the `[[inputs.processes]]` plugin with one of the following Windows plugins, depending on your Windows configuration:
 
@@ -109,7 +109,7 @@ $env:INFLUX_TOKEN = “YourAuthenticationToken"
 
 {{% code-tab-content %}}
 ```sh
-set INFLUX_TOKEN=YourAuthenticationToken 
+set INFLUX_TOKEN=YourAuthenticationToken
 # Make sure to include a space character at the end of this command.
 ```
 {{% /code-tab-content %}}

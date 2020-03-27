@@ -1,14 +1,21 @@
 ---
-title: Manage InfluxDB templates
-description: Create, edit, and manage templates in the InfluxDB user interface (UI).
+title: Manage InfluxDB dashboard templates
+description: Create, edit, and manage dashboard templates in the InfluxDB user interface (UI).
 v2.0/tags: [templates]
 menu:
   v2_0:
-    name: Manage templates
+    name: Manage dashboard templates
     parent: Visualize data
-weight: 101
+weight: 104
 ---
 
-Templates are a way to create and share dashboards across organizations without starting from scratch.
+Dashboard templates are a way to create and share dashboards across organizations
+without starting from scratch.
+
+### Dashboard template types
+The following types of templates are available:
+
+- **Static templates:** templates included with the InfluxDB user interface (UI).
+- **User templates:** custom-built templates saved in the UI.
 
 {{< children >}}
