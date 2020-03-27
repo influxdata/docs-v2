@@ -16,11 +16,14 @@ influx bucket update [flags]
 ```
 
 ## Flags
-| Flag                | Description                          | Input type  | {{< cli/mapped >}}   |
-|:----                |:-----------                          |:----------: |:------------------   |
-| `-h`, `--help`      | Help for the `update` command        |             |                      |
-| `-i`, `--id`        | **(Required)** Bucket ID             | string      |                      |
-| `-n`, `--name`      | New bucket name                      | string      | `INFLUX_BUCKET_NAME` |
-| `-r`, `--retention` | New duration bucket will retain data | duration    |                      |
+| Flag                  | Description                           | Input type  | {{< cli/mapped >}}    |
+|:----                  |:-----------                           |:----------: |:------------------    |
+| `-d`, `--description` | Bucket description                    | string      |                       |
+| `-h`, `--help`        | Help for the `update` command         |             |                       |
+| `--hide-headers`      | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i`, `--id`          | **(Required)** Bucket ID              | string      |                       |
+| `--json`              | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| `-n`, `--name`        | New bucket name                       | string      | `INFLUX_BUCKET_NAME`  |
+| `-r`, `--retention`   | New duration bucket will retain data  | duration    |                       |
 
 {{% cli/influx-global-flags %}}

@@ -16,10 +16,12 @@ influx org create [flags]
 ```
 
 ## Flags
-| Flag                  | Description                     | Input type  |
-|:----                  |:-----------                     |:----------: |
-| `-d`, `--description` | Description of the organization |             |
-| `-h`, `--help`        | Help for the `create` command   |             |
-| `-n`, `--name`        | Organization name               | string      |
+| Flag                  | Description                           | Input type  | {{< cli/mapped >}}    |
+|:----                  |:-----------                           |:----------: |:------------------    |
+| `-d`, `--description` | Description of the organization       |             |                       |
+| `-h`, `--help`        | Help for the `create` command         |             |                       |
+| `--hide-headers`      | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `--json`              | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| `-n`, `--name`        | Organization name                     | string      |                       |
 
 {{% cli/influx-global-flags %}}

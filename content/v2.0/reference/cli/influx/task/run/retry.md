@@ -1,18 +1,18 @@
 ---
-title: influx task retry
-description: The 'influx task retry' command retries to run a task in InfluxDB.
+title: influx task run retry
+description: The 'influx task run retry' command retries to run a task in InfluxDB.
 menu:
   v2_0_ref:
-    name: influx task retry
-    parent: influx task
-weight: 201
+    name: influx task run retry
+    parent: influx task run
+weight: 301
 ---
 
-The `influx task retry` command retries to run a task in InfluxDB.
+The `influx task run retry` command retries to run a task in InfluxDB.
 
 ## Usage
 ```
-influx task retry [flags]
+influx task run retry [flags]
 ```
 
 ## Flags
