@@ -17,12 +17,13 @@ influx pkg [flags]
 influx pkg [command]
 ```
 
-## Available commands
-| Command                                              | Description                                                       |
-|:-------                                              |:-----------                                                       |
-| [export](/v2.0/reference/cli/influx/pkg/export/)     | Export existing resources as a template                           |
-| [summary](/v2.0/reference/cli/influx/pkg/summary/)   | Summarize the provided template                                   |
-| [validate](/v2.0/reference/cli/influx/pkg/validate/) | Validate the provided template                                    |
+## Subcommands
+| Subcommand                                           | Description                      |
+|:-------                                              |:-----------                      |
+| [export](/v2.0/reference/cli/influx/pkg/export/)     | Export resources as a template   |
+| [stack](/v2.0/reference/cli/influx/pkg/stack/)       | Manage stacks                    |
+| [summary](/v2.0/reference/cli/influx/pkg/summary/)   | Summarize the specified template |
+| [validate](/v2.0/reference/cli/influx/pkg/validate/) | Validate the specified template  |
 
 ## Flags
 
