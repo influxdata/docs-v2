@@ -8,6 +8,32 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.7 [TBD]
+
+### Features
+
+- Add option to display dashboards in [light mode](/v2.0/visualize-data/dashboards/control-dashboard/#toggle-dark-mode-and-light-mode).
+- Add [shell `completion` commands](/v2.0/reference/cli/influx/completion/) to the `influx` CLI.
+  specified shell (`bash` or `zsh`).
+- Make all `pkg` resources unique by `metadata.name` field.
+- Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
+- [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-using-the-influx-cli) using the `influx` CLI.
+
+### Bug fixes
+
+- Fix NodeJS logo display in Firefox.
+- Fix Telegraf configuration bugs where system buckets were appearing in the Buckets list.
+- Fix threshold check bug where checks could not be created when a field had a space in the name.
+- Reuse slices built by iterator to reduce allocations.
+- Updated duplicate check error message to be more explicit and actionable.
+
+### UI improvements
+
+- Redesign OSS Login page.
+- Display graphic when a dashboard has no cells.
+
+---
+
 ## v2.0.0-beta.6 [2020-03-12]
 
 ### Features
@@ -41,6 +67,11 @@ weight: 101
 - Fixed UI bug that prevented checks created with the query builder from updating.
 - Fixed a bug that prevented dashboard cell queries from working properly when
   creating group queries using the query builder.
+
+### UI Improvements
+- Swap `billingURL` with `checkoutURL`.
+- Move Cloud navigation to top of page instead of within left side navigation.
+- Adjust aggregate window periods to use duration input with validation.
 
 ---
 
