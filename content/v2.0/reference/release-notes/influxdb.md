@@ -17,7 +17,7 @@ weight: 101
   specified shell (`bash` or `zsh`).
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
-- [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-using-the-influx-cli) using the `influx` CLI.
+- [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 
 ### Bug fixes
 
