@@ -21,7 +21,7 @@ Use the `geo.groupByArea()` to group geo-temporal data by area and `geo.asTracks
 to group data into tracks or routes.
 
 - [Group data by area](#group-data-by-area)
-- [Group data into tracks or routes](#group-data-into-tracks-or-routes)
+- [Group data into tracks or routes](#group-data-by-track-or-route)
 
 ### Group data by area
 Use the [`geo.groupByArea()` function](/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/)

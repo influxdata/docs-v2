@@ -19,7 +19,7 @@ It compares input data to a set of S2 Cell ID tokens located in the specified [r
 {{% note %}}
 S2 Grid cells may not perfectly align with the defined region, so results may include
 data with coordinates outside the region, but inside S2 grid cells partially covered by the region.
-Use [`toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/toRows/) and
+Use [`toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/torows/) and
 [`geo.strictFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/)
 after `geo.gridFilter()` to precisely filter points.
 _See [Non-strict and strict filtering](#non-strict-and-strict-filtering) below._
