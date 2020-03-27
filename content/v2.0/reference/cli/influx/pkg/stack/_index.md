@@ -26,3 +26,5 @@ influx pkg stack [command]
 | Flag           | Description                  |
 |:----           |:-----------                  |
 | `-h`, `--help` | Help for the `stack` command |
+
+{{% cli/influx-global-flags %}}

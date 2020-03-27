@@ -23,7 +23,7 @@ influx bucket delete [flags]
 | `-h`, `--help` | Help for the `delete` command                |             |                    |
 | `-i`, `--id`   | Bucket ID _(required if no `--name`)_        | string      |                    |
 | `-n`, `--name` | Bucket name _(requires `--org` or `org-id`)_ | string      |                    |
-| `-o`, `--org`  | Organization name                            | string      | `$INFLUX_ORG`      |
-| `--org-id`     | Organization ID                              | string      | `$INFLUX_ORG_ID`   |
+| `-o`, `--org`  | Organization name                            | string      | `INFLUX_ORG`      |
+| `--org-id`     | Organization ID                              | string      | `INFLUX_ORG_ID`   |
 
 {{% cli/influx-global-flags %}}
