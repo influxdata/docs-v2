@@ -18,10 +18,11 @@ weight: 101
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
 - [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
-- Add module to write line data to specified url, org, and bucket.
-- Add foundation for pkger stacks, stateful package management.
-- Add `--no-tasks` flag to disable scheduling of tasks.
-- Add ability to output cli output as JSON and hide table headers.
+- Add helper module to write line protocol to specified url, org, and bucket.
+- Add [`pkg stack`](/v2.0/reference/cli/influx/pkg/stack) for stateful package management.
+- Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.
+- Add ability to output CLI output as JSON and hide table headers.
+- Add an [easy way to switch configurations](/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.
 
 ### Bug fixes
 
