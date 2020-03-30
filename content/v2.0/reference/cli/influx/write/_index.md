@@ -1,8 +1,8 @@
 ---
 title: influx write
 description: >
-  The 'influx write' command writes line protocol to InfluxDB either via a single
-  line of line protocol, or a via a file containing line protocol.
+  The `influx write` command writes data to InfluxDB via stdin or from a specified file.
+  Write data using line protocol or annotated CSV.
 menu:
   v2_0_ref:
     name: influx write
@@ -11,20 +11,29 @@ weight: 101
 v2.0/tags: [write]
 ---
 
-The `influx write` writes a single line of line protocol to InfluxDB,
-or adds an entire file specified with an `@` prefix.
+The `influx write` command writes data to InfluxDB via stdin or from a specified file.
+Write data using [line protocol](/v2.0/reference/syntax/line-protocol) or
+[annotated CSV](/v2.0/reference/syntax/annotated-csv).
 
 ## Usage
 ```
-influx write [line protocol or @/path/to/points.txt] [flags]
+influx write [flags]
+influx write [command]
 ```
+
+## Subcommands
+| Subcommand                                        | Description                         |
+|:----------                                        |:-----------                         |
+| [dryrun](/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
 | Flag                | Description                                | Input type | {{< cli/mapped >}}   |
 |:----                |:-----------                                |:----------:|:------------------   |
 | `-b`, `--bucket`    | Bucket name                                | string     | `INFLUX_BUCKET_NAME` |
 | `--bucket-id`       | Bucket ID                                  | string     | `INFLUX_BUCKET_ID`   |
-| `-h`, `--help`      | Help for the `write` command               |            |                      |
+| `-f`, `--file`      | File to import                             | string     |                      |
+| `--format`          | Input format (`lp` or `csv`, default `lp`) | string     |                      |
+| `-h`, `--help`      | Help for the `dryrun` command              |            |                      |
 | `-o`, `--org`       | Organization name                          | string     | `INFLUX_ORG`         |
 | `--org-id`          | Organization ID                            | string     | `INFLUX_ORG_ID`      |
 | `-p`, `--precision` | Precision of the timestamps (default `ns`) | string     | `INFLUX_PRECISION`   |
