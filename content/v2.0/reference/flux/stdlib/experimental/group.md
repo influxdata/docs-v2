@@ -52,7 +52,9 @@ Appends columns defined in the [`columns` parameter](#columns) to all existing
 
 ###### Include the value column in each groups' group key
 ```js
+import "experimental"
+
 from(bucket: "example-bucket")
   |> range(start: -1m)
-  |> group(columns: ["_value"], mode: "extend")
+  |> experimental.group(columns: ["_value"], mode: "extend")
 ```
