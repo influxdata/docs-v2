@@ -16,7 +16,21 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
-## v0.65.0 [unreleased]
+## v0.65.0 [2020-03-27]
+
+### Features
+- Add `experimental.join()` function.
+- Store comments in the AST and preserve on format.
+- Add `shapeData()` function to Geo package.
+- Expose format to Wasm users.
+
+### Bug fixes
+- Reimplement `stateChanges()` function.
+- Remove the `set -x` in the xcc script.
+- Publishes Flux as a public npm package.
+- Pivot message passing.
+
+---
 
 ## v0.64.0 [2020-03-11]
 
