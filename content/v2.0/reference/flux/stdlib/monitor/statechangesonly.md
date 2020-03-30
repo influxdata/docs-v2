@@ -1,7 +1,7 @@
 ---
 title: monitor.stateChangesOnly() function
 description: >
-  The `monitor.stateChangesOnly()` function  takes a stream of tables that contains a` _level`
+  The `monitor.stateChangesOnly()` function takes a stream of tables that contains a` _level`
   column and returns a stream of tables where each record represents a state change.
 menu:
   v2_0_ref:
@@ -31,3 +31,25 @@ import "influxdata/influxdb/monitor"
 monitor.from(start: -1h)
   |> monitor.stateChangesOnly()
 ```
+
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input:**
+
+| _time | _level |
+|:----- |:------:|
+| 0001  | ok     |
+| 0002  | ok     |
+| 0003  | warn   |
+| 0004  | crit   |
+{{% /flex-content %}}
+{{% flex-content %}}
+**`monitor.stateChangesOnly()` outputs:**
+
+| _time | _level |
+|:----- |:------:|
+| 0002  | ok     |
+| 0003  | warn   |
+| 0004  | crit   |
+{{% /flex-content %}}
+{{< /flex >}}

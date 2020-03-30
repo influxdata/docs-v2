@@ -1,7 +1,7 @@
 ---
 title: monitor.stateChanges() function
 description: >
-  The `monitor.stateChanges()` function  detects state changes in a stream of data and
+  The `monitor.stateChanges()` function detects state changes in a stream of tables and
   outputs records that change from `fromLevel` to `toLevel`.
 aliases:
   - /v2.0/reference/flux/functions/monitor/statechanges/
@@ -50,6 +50,32 @@ import "influxdata/influxdb/monitor"
 monitor.from(start: -1h)
   |> monitor.stateChanges(toLevel: "crit")
 ```
+
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input:**
+
+| _time | _level |
+|:----- |:------:|
+| 0001  | ok     |
+| 0002  | ok     |
+| 0003  | warn   |
+| 0004  | crit   |
+{{% /flex-content %}}
+{{% flex-content %}}
+**The following function outputs:**
+
+```js
+monitor.stateChanges(
+  toLevel: "crit"
+)
+```
+
+| _time | _level |
+|:----- |:------:|
+| 0004  | crit   |
+{{% /flex-content %}}
+{{< /flex >}}
 
 ## Function definition
 ```js
