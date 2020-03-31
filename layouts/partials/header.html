@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    {{ partial "header/google-analytics.html" }}
+    {{ partial "header/google-analytics-head.html" }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     {{ if in .RelPermalink "/cloud/"}}
@@ -16,12 +16,11 @@
 
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500,500i,700,700i|Rubik:400,400i,500,500i,700,700i" rel="stylesheet">
-
+    {{ partial "header/google-fonts.html" }}
     {{ partial "header/javascript.html" }}
 
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
   <body>
+    {{ partial "header/google-analytics-body.html" }}
     {{ partial "topnav.html" . }}
