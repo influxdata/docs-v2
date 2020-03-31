@@ -1,7 +1,7 @@
 ---
 title: monitor.stateChangesOnly() function
 description: >
-  The `monitor.stateChangesOnly()` function takes a stream of tables that contains a` _level`
+  The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
   column and returns a stream of tables where each record represents a state change.
 menu:
   v2_0_ref:
@@ -10,7 +10,7 @@ menu:
 weight: 202
 ---
 
-The `monitor.stateChangesOnly()` function takes a stream of tables that contains a` _level`
+The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
 column and returns a stream of tables where each record represents a state change.
 
 _**Function type:** Transformation_
