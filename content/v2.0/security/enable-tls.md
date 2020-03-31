@@ -93,8 +93,8 @@ InfluxDB supports three types of TLS certificates:
 
     ```bash
     influxd \
-    --tls-cert "<path-to-crt>" \
-    --tls-key "<path-to-key>"
+    --tls-cert="<path-to-crt>" \
+    --tls-key="<path-to-key>"
     ```
 
 4. **Verify TLS connection**
