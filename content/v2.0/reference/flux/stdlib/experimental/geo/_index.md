@@ -59,6 +59,19 @@ generating S2 Cell ID tokens. For example:
 - **Python:** [`s2sphere.CellId.to_token()`](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
 - **Javascript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
+### Add S2 Cell IDs to existing geo-temporal data
+Use the [`geo.shapeData()` function](/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
+to add `s2_cell_id` tags to data that includes fields with latitude and longitude values.
+
+```js
+//...
+  |> shapeData(
+    latField: "latitude",
+    lonField: "longitude",
+    level: 10
+  )
+```
+
 ## Region definitions
 Many functions in the Geo package filter data based on geographic region.
 Define geographic regions using the following shapes:
