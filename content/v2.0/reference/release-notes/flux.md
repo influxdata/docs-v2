@@ -19,9 +19,9 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.65.0 [2020-03-27]
 
 ### Features
-- Add `experimental.join()` function.
+- Add [`experimental.join()`](/v2.0/reference/flux/stdlib/experimental/join/) function.
 - Store comments in the AST and preserve on format.
-- Add `shapeData()` function to Geo package.
+- Add [`shapeData()`](/v2.0/reference/flux/stdlib/experimental/geo/shapedata/) function to Geo package.
 - Expose format to Wasm users.
 
 ### Bug fixes
