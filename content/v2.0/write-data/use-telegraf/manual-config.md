@@ -35,8 +35,7 @@ _See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list o
 To manually add any of the available Telegraf plugins [Telegraf plugins](/v2.0/reference/telegraf-plugins/), follow the steps below.
 
 1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/v2.0/reference/telegraf-plugins/).
-2. Click **View** to the right of the plugin name to open the plugin page on GitHub, as shown in the example with the MQTT plugin below.
-{{< img-hd src="/img/mqtt-plugin.png" alt="View in Github" />}}
+2. Click **View** to the right of the plugin name to open the plugin page on GitHub. For example, view the MQTT plugin GitHub page [here](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/mqtt_consumer/README.md). 
 3. Copy and paste the example configuration into your Telegraf configuration file (typically named `telegraf.conf`).
 
 ### Enable and configure the InfluxDB v2 output plugin
