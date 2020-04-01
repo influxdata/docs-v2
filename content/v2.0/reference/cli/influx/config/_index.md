@@ -30,12 +30,6 @@ influx config <config-name>
 influx config local-config
 ```
 
-To quickly switch back to the previous configuration, use the following command:
-
-```sh
-influx config -
-```
-
 ## Subcommands
 | Subcommand                                         | Description                              |
 |:----                                               |:-----------                              |
