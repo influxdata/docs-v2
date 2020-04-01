@@ -89,7 +89,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/v2.0/query-data/guides/custom-functions/#functions-that-manipulate-piped-forward-data).
+- [Handle piped-forward data](/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
 - Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:

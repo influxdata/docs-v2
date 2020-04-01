@@ -47,8 +47,10 @@
     position: absolute;
     top: 0;
     right: 0.5rem;
-    opacity: 0;
-    transition: opacity .2s, background .2s, color 2s;
+    opacity: 0.25;
+    transition: opacity .2s, background .2s, color .2s;
+    background-color: rgba($article-btn, 0);
+    color: $article-bold;
 
     .icon-github {
       font-size: 1.2rem;
@@ -57,7 +59,11 @@
   }
 
   &:hover {
-    .github-link { opacity: 1; }
+    .github-link {
+      opacity: 1;
+      background-color: rgba($article-btn, 1);
+      color: $g20-white;
+    }
   }
 
   // Special use-case for using block quotes in the yaml provided by the data file
@@ -208,6 +214,7 @@
   .plugin-card {
     .github-link {
       opacity: 1;
+      background-color: $article-btn;
       padding: .25rem .35rem .35rem;
       line-height: 0;
       .icon-github { margin: 0; }
