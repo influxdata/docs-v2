@@ -42,6 +42,11 @@ for using Telegraf with InfluxDB v2.0._
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
+
+   {{% note %}}
+   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/use-telegraf/manual-config/).
+   {{% /note %}}
+
 8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
 9. Click **Create and Verify**.
 10. The **Test Your Configuration** page provides instructions for how to start
@@ -59,7 +64,7 @@ for using Telegraf with InfluxDB v2.0._
 
 If you plan to monitor a Windows host using the System plugin, you must complete the following steps.
 
-1. In the list of Telegraf configurations, double-click your 
+1. In the list of Telegraf configurations, double-click your
     Telegraf configuration, and then click **Download Config**.
 2. Open the downloaded Telegraf configuration file and replace the `[[inputs.processes]]` plugin with one of the following Windows plugins, depending on your Windows configuration:
 
@@ -109,7 +114,7 @@ $env:INFLUX_TOKEN = “YourAuthenticationToken"
 
 {{% code-tab-content %}}
 ```sh
-set INFLUX_TOKEN=YourAuthenticationToken 
+set INFLUX_TOKEN=YourAuthenticationToken
 # Make sure to include a space character at the end of this command.
 ```
 {{% /code-tab-content %}}

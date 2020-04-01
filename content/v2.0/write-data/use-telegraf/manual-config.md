@@ -22,8 +22,6 @@ _View the [requirements](/v2.0/write-data/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
-
-
 ## Configure Telegraf input and output plugins
 Configure Telegraf input and output plugins in the Telegraf configuration file (typically named `telegraf.conf`).
 Input plugins collect metrics.
@@ -31,12 +29,17 @@ Output plugins define destinations where metrics are sent.
 
 _See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
 
-Find the plugin you want to enable (plugins list)
-Visit the plugin page on GH
+### Manually add Telegraf plugins
+
+To manually add any of the available Telegraf plugins [Telegraf plugins](/v2.0/reference/telegraf-plugins/), follow the steps below.
+
+1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/v2.0/reference/telegraf-plugins/).
+2. Click **View** to the right of the plugin name to open the plugin page on GitHub.
+3. 
 Copy and paste the example config into your telegraf.conf
 Restart Telegraf
 
-## Enable and configure the InfluxDB v2 output plugin
+### Enable and configure the InfluxDB v2 output plugin
 
 To send data to an InfluxDB v2.0 instance, enable in the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
