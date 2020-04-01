@@ -42,6 +42,11 @@ for using Telegraf with InfluxDB v2.0._
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
+
+   {{% note %}}
+   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/use-telegraf/manual-config/).
+   {{% /note %}}
+
 8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
 9. Click **Create and Verify**.
 10. The **Test Your Configuration** page provides instructions for how to start

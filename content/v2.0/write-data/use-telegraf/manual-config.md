@@ -11,6 +11,7 @@ menu:
   v2_0:
     parent: Use Telegraf
 weight: 202
+v2.0/tags: [manually, plugin, mqtt]
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.
@@ -29,7 +30,15 @@ Output plugins define destinations where metrics are sent.
 
 _See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
 
-## Enable and configure the InfluxDB v2 output plugin
+### Manually add Telegraf plugins
+
+To manually add any of the available Telegraf plugins [Telegraf plugins](/v2.0/reference/telegraf-plugins/), follow the steps below.
+
+1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/v2.0/reference/telegraf-plugins/).
+2. Click **View** to the right of the plugin name to open the plugin page on GitHub. For example, view the MQTT plugin GitHub page [here](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/mqtt_consumer/README.md). 
+3. Copy and paste the example configuration into your Telegraf configuration file (typically named `telegraf.conf`).
+
+### Enable and configure the InfluxDB v2 output plugin
 
 To send data to an InfluxDB v2.0 instance, enable in the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
