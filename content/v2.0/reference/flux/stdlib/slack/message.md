@@ -114,7 +114,8 @@ lastReported =
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
-    |> map(fn: (r) => { return {status: r._status} })
+    |> tableFind(fn: (key) => true)
+    |> getRecord(idx: 0)
 
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
