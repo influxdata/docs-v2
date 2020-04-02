@@ -1,18 +1,23 @@
 ---
 title: Window and aggregate data with Flux
 seotitle: Window and aggregate data in InfluxDB with Flux
-list_title: Window & aggregate data
+list_title: Window & aggregate
 description: >
   This guide walks through windowing and aggregating data with Flux and outlines
   how it shapes your data in the process.
 menu:
   v2_0:
-    name: Window & aggregate data
+    name: Window & aggregate
     parent: Query with Flux
 weight: 204
 v2.0/tags: [flux, aggregates]
 aliases:
- - /v2.0/query-data/guides/window-aggregate/
+  - /v2.0/query-data/guides/window-aggregate/
+list_code_example: |
+  ```js
+  data
+    |> aggregateWindow(every: 5m, fn: mean)
+  ```
 ---
 
 A common operation performed with time series data is grouping data into windows of time,

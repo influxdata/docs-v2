@@ -1,15 +1,28 @@
 ---
 title: Create histograms with Flux
-list_title: Create histograms
-description: This guide walks through using the `histogram()` function to create cumulative histograms with Flux.
+list_title: Histograms
+description: >
+  Use the [`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram/)
+  to create cumulative histograms with Flux.
 v2.0/tags: [histogram]
 menu:
   v2_0:
-    name: Create histograms
+    name: Histograms
     parent: Query with Flux
 weight: 210
 aliases:
- - /v2.0/query-data/guides/histograms/
+  - /v2.0/query-data/guides/histograms/
+list_code_example: |
+  ```js
+  data
+    |> histogram(
+      column: "_value",
+      upperBoundColumn: "le",
+      countColumn: "_value",
+      bins: [50.0, 75.0, 90.0],
+      normalize: false)
+    )
+  ```
 ---
 
 Histograms provide valuable insight into the distribution of your data.
