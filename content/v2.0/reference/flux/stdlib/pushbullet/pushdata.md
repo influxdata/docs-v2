@@ -9,7 +9,8 @@ menu:
 weight: 202
 ---
 
-The `pushbullet.pushData()` function sends a push notification to the Pushbullet API.
+The `pushbullet.pushData()` function sends a push notification to the
+[Pushbullet API](https://docs.pushbullet.com/).
 
 _**Function type:** Output_
 
@@ -57,6 +58,9 @@ _**Data type:** Object_
 ##### Send the last reported status to Pushbullet
 ```js
 import "pushbullet"
+import "influxdata/influxdb/secrets"
+
+token = secrets.get(key: "PUSHBULLET_TOKEN")
 
 lastReported =
   from(bucket: "example-bucket")
@@ -67,8 +71,7 @@ lastReported =
     |> getRecord(idx: 0)
 
 pushbullet.pushData(
-  url: "https://pushbullet.com/api/chat.postMessage",
-  token: "mySuPerSecRetPuShBuLL3tTokEn",
+  token: token,
   data: {
     "type": "link",
     "title": "Last reported status",

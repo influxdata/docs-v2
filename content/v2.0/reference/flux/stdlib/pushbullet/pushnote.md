@@ -58,6 +58,9 @@ _**Data type:** String_
 ##### Send the last reported status to Pushbullet
 ```js
 import "pushbullet"
+import "influxdata/influxdb/secrets"
+
+token = secrets.get(key: "PUSHBULLET_TOKEN")
 
 lastReported =
   from(bucket: "example-bucket")
@@ -68,8 +71,7 @@ lastReported =
     |> getRecord(idx: 0)
 
 pushbullet.pushNote(
-  url: "https://pushbullet.com/api/chat.postMessage",
-  token: "mySuPerSecRetPuShBuLL3tTokEn",
+  token: token,
   title: "Last reported status",
   text: "${lastReported._time}: ${lastReported.status}."
 )
