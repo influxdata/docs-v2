@@ -51,6 +51,7 @@ _**Data type:** Object_
 
 ### verbose
 Enable verbose output.
+Defaults to `true`.
 
 _**Data type:** Boolean_
 
