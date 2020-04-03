@@ -20,7 +20,6 @@ import "testing"
 testing.diff(
   got: stream2,
   want: stream1,
-  verbose: true,
   epsilon: 0.000000001
 )
 ```
@@ -48,12 +47,6 @@ _**Data type:** Object_
 Stream that contains the expected data to test against.
 
 _**Data type:** Object_
-
-### verbose
-Enable verbose output.
-Defaults to `true`.
-
-_**Data type:** Boolean_
 
 ### epsilon
 Specifies how far apart two **float** values can be, but still considered equal.
