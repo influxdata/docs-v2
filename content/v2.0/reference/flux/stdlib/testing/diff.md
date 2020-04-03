@@ -17,7 +17,12 @@ _**Function type:** Test_
 ```js
 import "testing"
 
-testing.diff(got: stream2, want: stream1)
+testing.diff(
+  got: stream2,
+  want: stream1,
+  verbose: true,
+  epsilon: 0.000000001
+)
 ```
 
 It matches tables from each stream with the same group keys.
@@ -34,15 +39,26 @@ _The `testing.diff()` function can be used to perform in-line diffs in a query._
 ## Parameters
 
 ### got
-The stream containing data to test.
+Stream containing data to test.
 _Defaults to piped-forward data (`<-`)._
 
 _**Data type:** Object_
 
 ### want
-The stream that contains the expected data to test against.
+Stream that contains the expected data to test against.
 
 _**Data type:** Object_
+
+### verbose
+Enable verbose output.
+
+_**Data type:** Boolean_
+
+### epsilon
+Specifies how far apart two **float** values can be, but still considered equal.
+Defaults to `0.000000001`.
+
+_**Data type:** Float_
 
 ## Examples
 
