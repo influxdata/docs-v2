@@ -11,7 +11,6 @@ weight: 302
 
 The `experimental.alignTime()` function aligns input tables to a common start time.
 
-
 _**Function type:** Transformation_
 
 ```js
@@ -56,13 +55,18 @@ from(bucket: "example-bucket")
 | 2020-02-03T00:00:00Z | 37.8   |
 | 2020-02-04T00:00:00Z | 37.5   |
 
-**The following functions output:**
+**The following functions:**
+
+1. Window data by calendar month creating two separate tables (one for January and one for February).
+2. Align tables to `2020-01-01T00:00:00Z`.
 
 ```js
 //...
   |> window(every: 1mo)
   |> alignTime(alignTo: 2020-01-01T00:00:00Z)
 ```
+
+**And output:**
 
 {{< flex >}}
 {{% flex-content %}}
@@ -84,5 +88,5 @@ from(bucket: "example-bucket")
 {{< /flex >}}
 
 Each output table represents data from a calendar month.
-When visualized, timestamps are aligned to a common start time and values can be
-compared in the time dimension.
+When visualized, data is still grouped by month, but timestamps are aligned to a
+common start time and values can be compared by time.
