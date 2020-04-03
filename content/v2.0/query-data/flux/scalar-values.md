@@ -14,6 +14,16 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
 aliases:
   - /v2.0/query-data/guides/scalar-values/
+list_code_example: |
+  ```js
+  scalarValue = {
+    _record =
+      data
+        |> tableFine(fn: key => true)
+        |> getRecord(idx: 0)
+    return _record._value
+  }
+  ```
 ---
 
 Use Flux [stream and table functions](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)

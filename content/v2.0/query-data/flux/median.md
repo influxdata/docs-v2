@@ -9,10 +9,15 @@ weight: 210
 menu:
   v2_0:
     parent: Query with Flux
-    name: Find the median
+    name: Median
 v2.0/tags: [query, median]
 related:
   - /v2.0/query-data/flux/percentile-quantile/
+list_code_example: |
+  ```js
+  data
+    |> median()
+  ```
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)

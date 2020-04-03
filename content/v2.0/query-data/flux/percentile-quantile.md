@@ -9,10 +9,15 @@ weight: 210
 menu:
   v2_0:
     parent: Query with Flux
-    name: Query percentiles & quantiles
+    name: Percentile & quantile
 v2.0/tags: [query, percentile, quantile]
 related:
   - /v2.0/query-data/flux/query-median/
+list_code_example: |
+  ```js
+  data
+    |> quantile(q: 0.99)
+  ```
 ---
 
 Use the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
