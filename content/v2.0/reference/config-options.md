@@ -23,6 +23,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--session-length](#session-length)
 - [--session-renew-disabled](#session-renew-disabled)
 - [--store](#store)
+- [--tls-cert](#tls-cert)
+- [--tls-key](#tls-key)
 - [--tracing-type](#tracing-type)
 - [--vault-addr](#vault-addr)
 - [--vault-cacert](#vault-cacert)
@@ -171,6 +173,28 @@ InfluxData does not recommend using `memory` in production.
 ```sh
 influxd --store=bolt
 ```
+
+---
+
+## --tls-cert
+Path to TLS certificate file.
+
+```sh
+influxd --tls-cert "influxdb.crt" --tls-key "influxdb.key"
+```
+
+For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/).
+
+---
+
+## --tls-key
+Path to TLS key file.
+
+```sh
+influxd --tls-cert "influxdb.crt" --tls-key "influxdb.key"
+```
+
+For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/).
 
 ---
 
