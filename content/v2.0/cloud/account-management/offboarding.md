@@ -58,5 +58,5 @@ To request a backup of data in your {{< cloud-name "short" >}} instance, contact
 2. Do one of the following:
 
   - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **AWS Marketplace**, click the **AWS** link, click **Unsubscribe**, and then click **Yes, cancel subscription**.
-
+  - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **GCP Marketplace**, click the **GCP** link, click **Unsubscribe**, and then click **Yes, cancel subscription**.
   - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **InfluxData**, click **Cancel Service**. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.** Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.
