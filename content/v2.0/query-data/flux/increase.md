@@ -4,8 +4,8 @@ seotitle: Calculate the increase in Flux
 list_title: Increase
 description: >
   Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/)
-  to calculate the increase in values since the beginning of the series or table.
-  This function is especially useful when tracking changes in counter values which
+  to track increases across multiple columns in a table.
+  This function is especially useful when tracking changes in counter values that
   wrap over time or periodically reset.
 weight: 210
 menu:
@@ -21,14 +21,17 @@ list_code_example: |
 ---
 
 Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/)
-to calculate the increase of values in a table.
-This function is especially useful when tracking changes in counter values which
+to track increases across multiple columns in a table.
+This function is especially useful when tracking changes in counter values that
 wrap over time or periodically reset.
 
 ```js
 data
   |> increase()
 ```
+
+`increase()` returns a cumulative sum of **non-negative** differences between rows in a table.
+For example:
 
 {{< flex >}}
 {{% flex-content %}}
