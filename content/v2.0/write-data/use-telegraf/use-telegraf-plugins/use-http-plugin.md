@@ -3,7 +3,7 @@ title: Use the HTTP input plugin
 seotitle: Use the Telegraf HTTP input plugin to write data to InfluxDB
 list_title: HTTP input plugin
 description: >
-  Enter a description here.
+  Write Citi Bike data to your InfluxDB instance with the HTTP plugin.
 menu:
   v2_0:
     name: HTTP input plugin
