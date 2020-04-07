@@ -32,14 +32,13 @@ Defaults to `https://events.pagerduty.com/v2/enqueue`.
 
 _**Data type:** String_
 
+## Usage
+`pagerduty.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
 ### mapFn
 A function that builds the object used to generate the POST request.
-
-{{% note %}}
-_You should rarely need to override the default `mapFn` parameter.
-To see the default `mapFn` value or for insight into possible overrides, view the
-[`pagerduty.endpoint()` source code](https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux)._
-{{% /note %}}
+Requires an `r` parameter.
 
 _**Data type:** Function_
 
@@ -49,6 +48,8 @@ The returned object must include the following fields:
 - `client`
 - `client_url`
 - `class`
+- `dedupKey`
+- `eventAction`
 - `group`
 - `severity`
 - `component`
@@ -62,14 +63,33 @@ _For more information, see [`pagerduty.sendEvent()`](/v2.0/reference/flux/stdlib
 
 ##### Send critical statuses to a PagerDuty endpoint
 ```js
-import "monitor"
 import "pagerduty"
+import "influxdata/influxdb/secrets"
 
-endpoint = pagerduty.endpoint(token: "mySuPerSecRetTokEn")
+token = secrets.get(key: "PAGERDUTY_TOKEN")
+e = pagerduty.endpoint(token: token)
 
-from(bucket: "example-bucket")
+crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-  |> map(fn: (r) => { return {r with status: r._status} })
-  |> monitor.notify(endpoint: endpoint)
+
+crit_statuses
+  |> e(mapFn: (r) => {
+      obj = mapFn(r: r)      
+      return {r with _sent: string(v: 2 == (sendEvent(pagerdutyURL: url,
+        routingKey: obj.routingKey,
+        client: obj.client,
+        clientURL: obj.clientURL,
+        dedupKey: r._pagerdutyDedupKey,
+        class: obj.class,
+        eventAction: obj.eventAction,
+        group: obj.group,
+        severity: obj.severity,
+        component: obj.component,
+        source: obj.source,
+        summary: obj.summary,
+        timestamp: obj.timestamp,
+      ) / 100))}
+    })
+  })()
 ```

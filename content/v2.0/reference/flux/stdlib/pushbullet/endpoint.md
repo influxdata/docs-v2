@@ -44,12 +44,19 @@ Defaults to `""`.
 
 _**Data type:** String_
 
+
+## Usage
+`pushbullet.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
 ### mapFn
 A function that builds the object used to generate the API request.
+Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+The returned object must include the following fields (as defined in
+[`pushbullet.pushNote()`](/v2.0/reference/flux/stdlib/pushbullet/pushnote/#title)):
 
 - `title`
 - `text`
@@ -62,6 +69,7 @@ import "pushbullet"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "PUSHBULLET_TOKEN")
+e = pushbullet.endpoint(token: token)
 
 lastReported =
   from(bucket: "example-bucket")
@@ -70,12 +78,10 @@ lastReported =
     |> last()
 
 lastReported
-  |> pushbullet.endpoint(
-    token: token,
-    mapFn: (r) => ({
+  |> e(mapFn: (r) => ({
       r with
       title: "Last reported status",
       text: "${lastReported._time}: ${lastReported.status}."
     })
-  )
+  )()
 ```
