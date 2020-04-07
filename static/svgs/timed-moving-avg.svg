@@ -1,0 +1,56 @@
+<svg version="1.1" id="timed-moving-average" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 340 154" style="enable-background:new 0 0 340 154;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#D7D4DC;stroke-miterlimit:10;}
+	.st1{}
+	.st2{}
+	.st3{font-size:14px;}
+	.st4{fill:#DC4E58;fill-opacity:0.15;stroke:#DC4E58;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#DC4E58;stroke-miterlimit:10;}
+	.st6{fill:#D553A2;fill-opacity:0.15;stroke:#D553A2;stroke-miterlimit:10;}
+	.st7{fill:none;stroke:#D553A2;stroke-miterlimit:10;}
+	.st8{fill:#CE58EB;fill-opacity:0.15;stroke:#CE58EB;stroke-miterlimit:10;}
+	.st9{fill:none;stroke:#CE58EB;stroke-miterlimit:10;}
+	.st10{fill:#677EF5;fill-opacity:0.15;stroke:#677EF5;stroke-miterlimit:10;}
+	.st11{fill:none;stroke:#677EF5;stroke-miterlimit:10;}
+	.st12{fill:#00A3FF;fill-opacity:0.15;stroke:#00A3FF;stroke-miterlimit:10;}
+	.st13{fill:#00A3FF;}
+	.st14{fill:#677EF5;}
+	.st15{fill:#CE58EB;}
+	.st16{fill:#D553A2;}
+	.st17{fill:#DC4E58;}
+	.st18{fill:none;stroke:#00A3FF;stroke-miterlimit:10;}
+</style>
+<line class="st0" x1="19.24" y1="121.35" x2="319.32" y2="121.35"/>
+<g>
+	<line class="st0" x1="19.24" y1="125.35" x2="19.24" y2="117.35"/>
+	<line class="st0" x1="69.26" y1="125.35" x2="69.26" y2="117.35"/>
+	<line class="st0" x1="119.27" y1="125.35" x2="119.27" y2="117.35"/>
+	<line class="st0" x1="169.28" y1="125.35" x2="169.28" y2="117.35"/>
+	<line class="st0" x1="219.3" y1="125.35" x2="219.3" y2="117.35"/>
+	<line class="st0" x1="269.31" y1="125.35" x2="269.31" y2="117.35"/>
+	<line class="st0" x1="319.32" y1="125.35" x2="319.32" y2="117.35"/>
+</g>
+<text transform="matrix(1 0 0 1 3.2131 145.1354)" class="st1 st2 st3">0:00</text>
+<text transform="matrix(1 0 0 1 53.5403 145.1354)" class="st1 st2 st3">0:30</text>
+<text transform="matrix(1 0 0 1 104.8401 145.1356)" class="st1 st2 st3">1:00</text>
+<text transform="matrix(1 0 0 1 155.1682 145.1354)" class="st1 st2 st3">1:30</text>
+<text transform="matrix(1 0 0 1 204.011 145.1357)" class="st1 st2 st3">2:00</text>
+<text transform="matrix(1 0 0 1 254.3386 145.1351)" class="st1 st2 st3">2:30</text>
+<text transform="matrix(1 0 0 1 304.1965 145.1356)" class="st1 st2 st3">3:00</text>
+<polyline class="st4" points="19.24,50.53 19.24,40.36 119.27,40.36 119.27,50.53 "/>
+<line class="st5" x1="119.27" y1="40.36" x2="119.27" y2="27.35"/>
+<polyline class="st6" points="69.26,66.08 69.26,55.91 169.28,55.91 169.28,66.08 "/>
+<line class="st7" x1="169.28" y1="55.91" x2="169.28" y2="27.35"/>
+<polyline class="st8" points="119.27,81.64 119.27,71.47 219.3,71.47 219.3,81.64 "/>
+<line class="st9" x1="219.3" y1="71.47" x2="219.3" y2="27.35"/>
+<polyline class="st10" points="169.28,97.19 169.28,87.02 269.31,87.02 269.31,97.19 "/>
+<line class="st11" x1="269.31" y1="87.02" x2="269.31" y2="29.35"/>
+<polyline class="st12" points="219.3,112.75 219.3,102.58 319.32,102.58 319.32,112.75 "/>
+<text transform="matrix(1 0 0 1 304.1967 16.8165)" class="st13 st2 st3">3:00</text>
+<text transform="matrix(1 0 0 1 254.3382 16.8165)" class="st14 st2 st3">2:30</text>
+<text transform="matrix(1 0 0 1 204.0109 16.8164)" class="st15 st2 st3">2:00</text>
+<text transform="matrix(1 0 0 1 155.1676 16.8166)" class="st16 st2 st3">1:30</text>
+<text transform="matrix(1 0 0 1 104.84 16.8168)" class="st17 st2 st3">1:00</text>
+<line class="st18" x1="319.32" y1="102.58" x2="319.32" y2="32.03"/>
+</svg>

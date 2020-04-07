@@ -24,6 +24,14 @@ svg {
   	.geo-region{fill:rgba($svg-geo-region, 0.35);stroke:$svg-geo-region;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;}
   	.geo-point{fill:$svg-geo-point;}
   }
+
+  &#timed-moving-average {
+    margin: 1rem 0 3rem;
+    max-width: 425px;
+    .st0 {stroke: $article-text;}
+    .st1 {fill: $article-text;}
+    .st2 {font-family: $rubik; font-weight: $medium}
+  }
 }
 
 //////////////////////////// Styles for SVG legends ////////////////////////////
