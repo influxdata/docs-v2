@@ -1,6 +1,8 @@
 ---
 title: increase() function
-description: The `increase()` function calculates the total non-negative difference between values in a table.
+description: >
+  The `increase()` function calculates the cumulative sum of **non-negative** differences
+  between subsequent values.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/increase
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/increase/
@@ -11,8 +13,8 @@ menu:
 weight: 501
 ---
 
-The `increase()` function calculates the total non-negative difference between
-subsequent values.
+The `increase()` function calculates the cumulative sum of **non-negative** differences
+between subsequent values.
 A main use case is tracking changes in counter values which may wrap over time
 when they hit a threshold or are reset.
 In the case of a wrap/reset, we can assume that the absolute delta between two
@@ -58,8 +60,8 @@ Given the following input table:
 | _time | _value |
 | ----- | ------ |
 | 00002 | 4      |
-| 00003 | 7      |
-| 00004 | 8      |
+| 00003 | 4      |
+| 00004 | 5      |
 
 ## Function definition
 ```js
