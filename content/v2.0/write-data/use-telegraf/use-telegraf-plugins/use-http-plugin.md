@@ -1,15 +1,19 @@
 ---
-title: Use the HTTP input plugin with Citi Bike data
-description:
+title: Use the HTTP input plugin
+seotitle: Use the Telegraf HTTP input plugin to write data to InfluxDB
+list_title: HTTP input plugin
+description: >
+  Enter a description here.
 menu:
   v2_0:
-    parent: Use Telegraf
+    name: HTTP input plugin
+    parent: Use Telegraf plugins
 weight: 202
 ---
 
 This example walks through using the Telegraf HTTP input plugin to collect live metrics on Citi Bike stations in New York City. Live station data is available in JSON format from [NYC OpenData](https://data.cityofnewyork.us/NYC-BigApps/Citi-Bike-Live-Station-Feed-JSON-/p94q-8hxh).
 
-For the following example to work, configure [`influxdb` output plugin](telegraf/v1.13/plugins/plugin-list/#influxdb). This plugin is what allows Telegraf to write the metrics to your InfluxDB.
+Configure [`influxdb` output plugin](telegraf/v1.13/plugins/plugin-list/#influxdb) to write metrics to your InfluxDB 2.0 instance.
 
 ## Configure the HTTP Input plugin in your Telegraf configuration file
 
@@ -92,7 +96,7 @@ The timezone We'll set this to the Unix TZ value where our bike data takes place
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/v1.13/introduction/getting-started/#start-the-telegraf-service).
+[Start the Telegraf service](https://docs.influxdata.com/telegraf/v1.14/introduction/getting-started/).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 
@@ -110,4 +114,4 @@ citibikenyc,id=359,stationName=E\ 47\ St\ &\ Park\ Ave totalDocks=64,availableBi
 citibikenyc,id=304,stationName=Broadway\ &\ Battery\ Pl statusValue="In Service",availableDocks=11,stAddress1="Broadway & Battery Pl",statusKey=1,stAddress2="",location="",totalDocks=33,latitude=40.70463334,longitude=-74.01361706,availableBikes=22 1581533499000000000
 ```
 
-Now, you can explore and query the Citi Bike data in InfluxDB. 
+Now, you can explore and query the Citi Bike data in InfluxDB.

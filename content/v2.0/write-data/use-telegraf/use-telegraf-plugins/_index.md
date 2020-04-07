@@ -8,3 +8,6 @@ menu:
     parent: Use Telegraf
 weight: 202
 ---
+The following articles guide you through step-by-step Telegraf configuration examples:
+
+{{< children >}}
