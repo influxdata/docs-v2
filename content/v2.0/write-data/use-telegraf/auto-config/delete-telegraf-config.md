@@ -12,11 +12,10 @@ weight: 303
 
 To delete a Telegraf configuration:
 
-1. Click **Data** in the left navigation menu.
+1. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 
-2. Select **Telegraf**.
 3. Hover over the configuration you want to delete, click the **{{< icon "trash" >}}**
    icon, and click **Delete**.
 
