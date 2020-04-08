@@ -43,12 +43,11 @@ A deadman check assigns a status to data when a series or group doesn't report
 in a specified amount of time.
 
 ## Create a check in the InfluxDB UI
-1.  Click **Monitoring & Alerting** in the sidebar in the InfluxDB UI.
+1. In the navigation menu on the left, select **Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2.  In the top right corner of the **Checks** column, click **{{< icon "plus" >}} Create**
-    and select the [type of check](#check-types) to create.
+2.  Click **{{< icon "plus" >}} Create** and select the [type of check](#check-types) to create.
 3.  Click **Name this check** in the top left corner and provide a unique name for the check.
 
 #### Configure the check query

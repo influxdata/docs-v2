@@ -13,9 +13,10 @@ related:
 
 ## Delete a notification rule in the UI
 
-1. Select the **Monitoring and Alerting** icon from the sidebar.
+1. In the navigation menu on the left, select **Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2. Under **Notification Rules**, find the rule you want to delete.
-3. Click the delete icon, then click **Delete** to confirm.
+2. Select **Notification Rules** near to top of the page.
+3. Hover over the rule you want to delete and click the **{{< icon "trash" >}}** icon.
+4. Click **Delete** to confirm.
