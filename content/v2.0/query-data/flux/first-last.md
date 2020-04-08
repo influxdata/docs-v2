@@ -4,7 +4,7 @@ seotitle: Query first and last values in Flux
 list_title: First and last
 description: >
   Use the [`first()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) or
-  [`last()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) functions
+  [`last()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
   to return the first or last point in an input table.
 weight: 210
 menu:
@@ -25,8 +25,8 @@ list_code_example: |
 ---
 
 Use the [`first()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) or
-[`last()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) functions
-to return the first or last point in an input table.
+[`last()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
+to return the first or last record in an input table.
 
 ```js
 data
@@ -42,7 +42,8 @@ data
 By default, InfluxDB returns results sorted by time, however you can use the
 [`sort()` function](/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
 to change how results are sorted.
-**`first()` and `last()` respect the sorting of input tables.**
+`first()` and `last()` respect the sort order of input data and return records
+based on the order they are received in.
 {{% /note %}}
 
 ### first
@@ -72,7 +73,7 @@ to change how results are sorted.
 {{< /flex >}}
 
 ### last
-`first()` returns the last non-null record in an input table.
+`last()` returns the last non-null record in an input table.
 
 {{< flex >}}
 {{% flex-content %}}
@@ -99,12 +100,28 @@ to change how results are sorted.
 {{< /flex >}}
 
 ## Use first() or last() with aggregateWindow()
-[`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
-segments data into windows of time, aggregates data in each window into a single
-point, and then removes the time-based segmentation.
-It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
-`aggregateWindow` supports selector functions such as `first()` and `last()`.
+Use `first()` and `last()` with [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+to select the first or last records in time-based groups.
+`aggregateWindow()` segments data into windows of time, aggregates data in each window into a single
+point using aggregate or selector functions, and then removes the time-based segmentation.
 
+
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:00Z | 10     |
+| 2020-01-01T00:00:15Z | 12     |
+| 2020-01-01T00:00:45Z | 9      |
+| 2020-01-01T00:01:05Z | 9      |
+| 2020-01-01T00:01:10Z | 15     |
+| 2020-01-01T00:02:30Z | 11     |
+{{% /flex-content %}}
+
+{{% flex-content %}}
+**The following function returns:**
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [first](#)
@@ -112,14 +129,31 @@ It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsa
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```js
-data
-  |> aggregateWindow(every: 5m, fn: first)
+|> aggregateWindow(
+  every: 1h,
+  fn: first
+)
 ```
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:59Z | 10     |
+| 2020-01-01T00:01:59Z | 9      |
+| 2020-01-01T00:02:59Z | 11     |
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-data
-  |> aggregateWindow(every: 5m, fn: last)
+|> aggregateWindow(
+  every: 1h,
+  fn: last
+)
 ```
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:59Z | 9      |
+| 2020-01-01T00:01:59Z | 15     |
+| 2020-01-01T00:02:59Z | 11     |
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{%/flex-content %}}
+{{< /flex >}}
