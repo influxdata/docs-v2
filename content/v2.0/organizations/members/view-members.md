@@ -14,11 +14,9 @@ to view members of an organization.
 
 ## View members of organization in the InfluxDB UI
 
-* Click the **Settings** tab in the navigation bar.
+In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-    {{< nav-icon "settings" >}}
-
-* Click the name of an organization, then select the **Members** tab. The list of organization members appears.
+{{< nav-icon "org" >}}
 
 
 ## View members of organization using the influx CLI

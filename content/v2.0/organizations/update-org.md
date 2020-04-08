@@ -23,15 +23,14 @@ If you change an organization name, be sure to update the organization in the ab
 
 ## Update an organization in the InfluxDB UI
 
-1. Click the **Settings** icon in the navigation bar.
+1. In the navigation menu on the left, click the **Org (Organization)** > **About**.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "org" >}}
 
-2. Click the **Org Profile** tab.
-3. Click **Rename**.
-4. In the window that appears, review the information and click **I understand, let's rename my organization**.
-5. Enter a new name for your organization.
-6. Click **Change organization name**.
+2. Click **{{< icon "edit" >}} Rename**.
+3. In the window that appears, review the information and click **I understand, let's rename my organization**.
+4. Enter a new name for your organization.
+5. Click **Change organization name**.
 
 ## Update an organization using the influx CLI
 

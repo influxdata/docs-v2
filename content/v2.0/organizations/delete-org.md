@@ -15,9 +15,9 @@ to delete an organization.
 <!--
 ## Delete an organization in the InfluxDB UI
 
-1.  Click the **Influx** icon in the navigation bar.
+1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "admin" >}}
+    {{< nav-icon "account" >}}
 
   The list of organizations appears.
 
