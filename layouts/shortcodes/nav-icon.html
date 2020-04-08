@@ -1,33 +1,54 @@
 {{ $navIcon := lower (.Get 0) | default "influx" }}
+
 {{ if or (eq $navIcon "admin") (eq $navIcon "influx") }}
   {{ .Scratch.Set "icon" "influx-icon" }}
   {{ .Scratch.Set "title" "username (org-name)" }}
+  {{ .Scratch.Set "short_title" "User" }}
 {{ else if or (eq $navIcon "data-explorer") (eq $navIcon "data explorer") }}
   {{ .Scratch.Set "icon" "data-explorer" }}
   {{ .Scratch.Set "title" "Data Explorer" }}
+  {{ .Scratch.Set "short_title" "Explore" }}
 {{ else if eq $navIcon "dashboards" }}
   {{ .Scratch.Set "icon" "dashboards" }}
   {{ .Scratch.Set "title" "Dashboards" }}
+  {{ .Scratch.Set "short_title" "Dashboards" }}
+  {{ .Scratch.Set "short_title" "Boards" }}
 {{ else if eq $navIcon "tasks" }}
   {{ .Scratch.Set "icon" "calendar" }}
   {{ .Scratch.Set "title" "Tasks" }}
+  {{ .Scratch.Set "short_title" "Tasks" }}
 {{ else if or (eq $navIcon "monitor") (eq $navIcon "alerts") (eq $navIcon "bell") }}
   {{ .Scratch.Set "icon" "bell" }}
-  {{ .Scratch.Set "title" "Monitoring & Alerting" }}
+  {{ .Scratch.Set "title" "Alerts" }}
+  {{ .Scratch.Set "short_title" "Alerts" }}
 {{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") }}
   {{ .Scratch.Set "icon" "disks-nav" }}
   {{ .Scratch.Set "title" "Load Data" }}
+  {{ .Scratch.Set "short_title" "Data" }}
 {{ else if eq $navIcon "settings" }}
   {{ .Scratch.Set "icon" "wrench-nav" }}
   {{ .Scratch.Set "title" "Settings" }}
-{{ else if or (eq $navIcon "feedback") }}
-  {{ .Scratch.Set "icon" "nav-chat" }}
-  {{ .Scratch.Set "title" "Feedback" }}
+  {{ .Scratch.Set "short_title" "Settings" }}
 {{ end }}
 
 {{ $icon := .Scratch.Get "icon" }}
 {{ $title := .Scratch.Get "title" }}
+{{ $shortTitle := .Scratch.Get "short_title" }}
 
-<div class="nav-icon">
-  <strong><span class ="icon icon-ui-{{ $icon }}"></span> {{ $title }}</strong>
+<div class="nav-item">
+  <div class="nav-icon small">
+    <span class ="icon icon-ui-{{ $icon }}"></span>
+    <div class="nav-icon-label">
+      {{ $shortTitle }}
+    </div>
+  </div>
+</div>
+
+<div class="nav-item">
+  <div class="nav-icon">
+    <span class ="icon icon-ui-{{ $icon }}"></span>
+    <div class="nav-icon-label">
+      {{ $title }}
+    </div>
+  </div>
 </div>
