@@ -15,19 +15,17 @@ Update an authentication token's description using the InfluxDB user interface (
 
 ## Update a token in the InfluxDB UI
 
-1. Click the **Load Data** icon in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
     {{< nav-icon "disks" >}}
 
-2. Click **Tokens**. All of your account's tokens appear.
-3. Click the pencil icon {{< icon "pencil" >}} next to the token's name in the **Description** column.
-4. Update the token description, then click anywhere else to save.
+2. Click the pencil icon {{< icon "pencil" >}} next to the token's name in the **Description** column.
+3. Update the token description, then click anywhere else to save.
 
 ## Enable or disable a token
 
-1. Click the **Load Data** icon in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
     {{< nav-icon "disks" >}}
 
-2. Click **Tokens**. All of your account's tokens appear.
-3. Click the **{{< icon "toggle-green" >}} Status** toggle.
+2. Click the **{{< icon "toggle-green" >}} Status** toggle.
