@@ -13,7 +13,7 @@ weight: 301
 Create a new scraper in the InfluxDB user interface (UI).
 
 ## Create a scraper in the InfluxDB UI
-1. Click **Load Data** in the navigation bar.
+1. Click **Data** in the navigation bar.
 
     {{< nav-icon "load data" >}}
 

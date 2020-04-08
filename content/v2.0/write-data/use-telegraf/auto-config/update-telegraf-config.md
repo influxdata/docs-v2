@@ -17,7 +17,7 @@ of a Telegraf configuration created in the UI.
 You cannot modify Telegraf settings in existing Telegraf configurations through the UI.
 {{% /note %}}
 
-1. Click **Load Data** in left the navigation bar.
+1. Click **Data** in left the navigation bar.
 
     {{< nav-icon "load data" >}}
 

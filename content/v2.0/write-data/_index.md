@@ -87,7 +87,7 @@ To quickly start writing data, use the provided user interface.
      where you're hosting the UI (by default, **localhost:9999**).
    - _**InfluxDB 2.0 Cloud**_:
      In your browser, go to https://cloud2.influxdata.com/.
-2. Click **Load Data** in the navigation menu on the left.
+2. Click **Data** in the navigation menu on the left.
 3. Select **Buckets**.
 4. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
 5. Select from the following options:
@@ -114,7 +114,7 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
     - **Enter Manually:**
       Select the time precision of your data.
       Manually enter line protocol.
-2. Click **Continue**.
+2. Click **Write Data**.
    A message indicates whether data is successfully written to InfluxDB.
 3. To add more data or correct line protocol, click **Previous**.
 4. Click **Finish**.

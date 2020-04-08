@@ -13,7 +13,7 @@ weight: 303
 Delete a scraper from the InfluxDB user interface (UI).
 
 ## Delete a scraper from the InfluxDB UI
-1. Click **Load Data** in the navigation bar.
+1. Click **Data** in the navigation bar.
 
     {{< nav-icon "load data" >}}
 

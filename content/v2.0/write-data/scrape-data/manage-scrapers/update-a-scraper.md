@@ -18,11 +18,10 @@ To modify either, [create a new scraper](/v2.0/write-data/scrape-data/manage-scr
 {{% /note %}}
 
 ## Update a scraper in the InfluxDB UI
-1. Click **Load Data** in the navigation bar.
+1. Click **Data** in the navigation bar.
 
     {{< nav-icon "load data" >}}
 
 2. Click **Scrapers**.
-3. Hover over the scraper you would like to update and click the **{{< icon "pencil" >}}**
-   that appears next to the scraper name.
+3. Hover over the scraper you would like to update and click the **{{< icon "pencil" >}}** that appears next to the scraper name.
 4. Enter a new name for the scraper. Press Return or click out of the name field to save the change.
