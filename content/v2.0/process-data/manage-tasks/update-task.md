@@ -48,10 +48,10 @@ script are also updated.
 
 ```sh
 # Syntax
-influx task update -i <task-id> @/path/to/updated-task-script
+influx task update -i <task-id> -f </path/to/updated-task-script>
 
 # Example
-influx task update -i 0343698431c35000 @/tasks/cq-mean-1h.flux
+influx task update -i 0343698431c35000 -f /tasks/cq-mean-1h.flux
 ```
 
 #### Update the status of a task

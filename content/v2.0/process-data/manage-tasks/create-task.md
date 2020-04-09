@@ -92,10 +92,10 @@ It accepts either a file path or raw Flux.
 ###### Create a task using a file
 ```sh
 # Syntax
-influx task create --org <org-name> @</path/to/task-script>
+influx task create --org -f </path/to/task-script>
 
 # Example
-influx task create --org my-org @/tasks/cq-mean-1h.flux
+influx task create --org my-org -f /tasks/cq-mean-1h.flux
 ```
 
 ###### Create a task using raw Flux
