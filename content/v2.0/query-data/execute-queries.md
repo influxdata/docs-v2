@@ -41,7 +41,7 @@ as either a file or raw Flux via stdin.
 
 ###### Run a query from a file
 ```bash
-influx query @/path/to/query.flux
+influx query --file /path/to/query.flux
 ```
 
 ###### Pass raw Flux via stdin pipe
