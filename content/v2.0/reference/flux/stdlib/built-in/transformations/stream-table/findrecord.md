@@ -8,6 +8,8 @@ menu:
     name: findRecord
     parent: Stream & table
 weight: 501
+related:
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `findRecord()` function returns a record at a specified index from the first

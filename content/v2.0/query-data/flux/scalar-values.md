@@ -22,9 +22,9 @@ This lets you, for example, dynamically set variables using query results.
 
 **To extract scalar values from output:**
 
-1. [Extract a table](#extract-a-table).
-2. [Extract a column from the table](#extract-a-column-from-the-table)
-   _**or**_ [extract a row from the table](#extract-a-row-from-the-table).
+1. [Extract a column from the input stream](#extract-a-column)
+   _**or**_ [extract a row from the input stream](#extract-a-row).
+2. Use the returned array or object to reference scalar values.
 
 _The samples on this page use the [sample data provided below](#sample-data)._
 
@@ -38,61 +38,32 @@ _The samples on this page use the [sample data provided below](#sample-data)._
   See [#15321](https://github.com/influxdata/influxdb/issues/15231).
 {{% /warn %}}
 
-## Extract a table
+## Table extraction
 Flux formats query results as a stream of tables.
-To extract a scalar value from a stream of tables, you must first extract a single table.
-
-to extract a single table from the stream of tables.
-
-{{% note %}}
-If query results include only one table, it is still formatted as a stream of tables.
-You still must extract that table from the stream.
-{{% /note %}}
-
-Use [`tableFind()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
-to extract the **first** table whose [group key](/v2.0/reference/glossary/#group-key)
-values match the `fn` [predicate function](/v2.0/reference/glossary/#predicate-expression).
-The predicate function requires a `key` object, which represents the group key of
-each table.
-
-```js
-sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
-  )
-```
-
-The example above returns a single table:
-
-| _time                | location | _field | _value |
-|:-----                |:--------:|:------:| ------:|
-| 2019-11-01T12:00:00Z | sfo      | temp   | 65.1   |
-| 2019-11-01T13:00:00Z | sfo      | temp   | 66.2   |
-| 2019-11-01T14:00:00Z | sfo      | temp   | 66.3   |
-| 2019-11-01T15:00:00Z | sfo      | temp   | 66.8   |
+Both `findColumn()` and `findRecord()` extract the first table in a stream of tables
+whose [group key](/v2.0/reference/glossary/#group-key) values match the `fn`
+[predicate function](/v2.0/reference/glossary/#predicate-function).
 
 {{% note %}}
 #### Extract the correct table
-Flux functions do not guarantee table order and `tableFind()` returns only the
-**first** table that matches the `fn` predicate.
-To extract the table that includes the data you actually want, be very specific in
-your predicate function or filter and transform your data to minimize the number
-of tables piped-forward into `tableFind()`.
+Flux functions do not guarantee table order.
+`findColumn()` and `findRecord` extract only the **first** table that matches the `fn` predicate.
+To extract the correct table, be very specific in your predicate function or
+filter and transform your data to minimize the number of tables piped-forward into the functions.
 {{% /note %}}
 
-## Extract a column from the table
+## Extract a column
 Use the [`getColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
 to output an array of values from a specific column in the extracted table.
 
+_See [Sample data](#sample-data) below._
 
 ```js
 sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp"  and
-      key.location == "sfo"
+  |> findColumn(
+    fn: (key) => key._field == "temp" and key.location == "sfo",
+    column: "_value"
   )
-  |> getColumn(column: "_value")
 
 // Returns [65.1, 66.2, 66.3, 66.8]
 ```
@@ -103,13 +74,14 @@ In the example below, `SFOTemps` represents the array of values.
 Reference a specific index (integer starting from `0`) in the array to return the
 value at that index.
 
+_See [Sample data](#sample-data) below._
+
 ```js
 SFOTemps = sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
+  |> findColumn(
+    fn: (key) => key._field == "temp" and key.location == "sfo",
+    column: "_value"
   )
-  |> getColumn(column: "_value")
 
 SFOTemps
 // Returns [65.1, 66.2, 66.3, 66.8]
@@ -121,7 +93,7 @@ SFOTemps[2]
 // Returns 66.3
 ```
 
-## Extract a row from the table
+## Extract a row
 Use the [`getRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
@@ -129,11 +101,10 @@ The function outputs an object with key-value pairs for each column.
 
 ```js
 sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
+  |> findRecord(
+    fn: (key) => key._field == "temp" and key.location == "sfo",
+    idx: 0
   )
-  |> getRecord(idx: 0)
 
 // Returns {
 //   _time:2019-11-11T12:00:00Z,
@@ -151,11 +122,10 @@ keys in the object.
 
 ```js
 tempInfo = sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
+  |> findRecord(
+    fn: (key) => key._field == "temp" and key.location == "sfo",
+    idx: 0
   )
-  |> getRecord(idx: 0)
 
 tempInfo
 // Returns {
@@ -180,8 +150,10 @@ Create custom helper functions to extract scalar values from query output.
 // Define a helper function to extract field values
 getFieldValue = (tables=<-, field) => {
   extract = tables
-    |> tableFind(fn: (key) => key._field == field)
-    |> getColumn(column: "_value")
+    |> findColumn(
+      fn: (key) => key._field == field,
+      column: "_value"
+    )
   return extract[0]
 }
 
@@ -200,8 +172,10 @@ lastJFKTemp
 // Define a helper function to extract a row as an object
 getRow = (tables=<-, field, idx=0) => {
   extract = tables
-    |> tableFind(fn: (key) => true)
-    |> getRecord(idx: idx)
+    |> getRecord(
+      fn: (key) => true,
+      idx: idx
+    )
   return extract
 }
 
