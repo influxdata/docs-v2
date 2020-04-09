@@ -290,6 +290,10 @@ use one of the following methods to provide your [authentication token](/v2.0/us
 
 1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
 2. Set the `INFLUX_TOKEN` environment variable using your token.
+
+    ```bash
+    export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
+    ```
 3. Store your token in `~/.influxdbv2/credentials`.
    _The content of the `credentials` file should be only your token._
 
