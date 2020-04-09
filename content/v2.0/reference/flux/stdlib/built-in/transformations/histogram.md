@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: histogram
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.
