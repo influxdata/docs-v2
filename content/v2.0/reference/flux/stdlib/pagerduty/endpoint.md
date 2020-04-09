@@ -48,7 +48,6 @@ The returned object must include the following fields:
 - `client`
 - `client_url`
 - `class`
-- `dedupKey`
 - `eventAction`
 - `group`
 - `severity`
@@ -74,22 +73,18 @@ crit_statuses = from(bucket: "example-bucket")
   |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> e(mapFn: (r) => {
-      obj = mapFn(r: r)      
-      return {r with _sent: string(v: 2 == (sendEvent(pagerdutyURL: url,
-        routingKey: obj.routingKey,
-        client: obj.client,
-        clientURL: obj.clientURL,
-        dedupKey: r._pagerdutyDedupKey,
-        class: obj.class,
-        eventAction: obj.eventAction,
-        group: obj.group,
-        severity: obj.severity,
-        component: obj.component,
-        source: obj.source,
-        summary: obj.summary,
-        timestamp: obj.timestamp,
-      ) / 100))}
+  |> e(mapFn: (r) => ({ r with
+      routingKey: r.routingKey,
+      client: r.client,
+      clientURL: r.clientURL,
+      class: r.class,
+      eventAction: r.eventAction,
+      group: r.group,
+      severity: r.severity,
+      component: r.component,
+      source: r.source,
+      summary: r.summary,
+      timestamp: r._time,
     })
-  })()
+  )()
 ```

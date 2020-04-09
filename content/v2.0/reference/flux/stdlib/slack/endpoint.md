@@ -91,17 +91,13 @@ crit_statuses = from(bucket: "example-bucket")
   |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> e(mapFn: (r) => {
-      obj = mapFn(r: r)
-      return {r with _sent: string(v: 2 == message(
-        url: url,
-        token: token,
-        username: obj.username,
-        channel: obj.channel,
-        workspace: obj.workspace,
-        text: obj.text,
-        iconEmoji: obj.iconEmoji,
-        color: obj.color,
-      ) / 100)}
-  }))()
+  |> e(mapFn: (r) => ({
+      username: r.username,
+      channel: r.channel,
+      workspace: r.workspace,
+      text: r.text,
+      iconEmoji: r.iconEmoji,
+      color: r.color,
+    })
+  )()
 ```

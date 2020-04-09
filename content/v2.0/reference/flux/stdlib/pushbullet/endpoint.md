@@ -80,8 +80,8 @@ lastReported =
 lastReported
   |> e(mapFn: (r) => ({
       r with
-      title: "Last reported status",
-      text: "${lastReported._time}: ${lastReported.status}."
+      title: r.title,
+      text: "${string(v: r._time)}: ${r.status}."
     })
   )()
 ```
