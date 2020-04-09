@@ -17,11 +17,9 @@ Adding members is currently unavailable in {{< cloud-name >}}.
 
 <!-- ## Add a member to an organization in the InfluxDB UI
 
-1. Click the **Settings** tab in the navigation bar.
+1. In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-    {{< nav-icon "settings" >}}
-
-2. Click the name of an organization, then select the **Members** tab.
+    {{< nav-icon "org" >}}
 
 _Complete content coming soon_ -->
 

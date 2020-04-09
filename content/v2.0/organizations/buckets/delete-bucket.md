@@ -14,13 +14,12 @@ to delete a bucket.
 
 ## Delete a bucket in the InfluxDB UI
 
-1. Click **Load Data** in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "load data" >}}
+    {{< nav-icon "data" >}}
 
-2. Select **Buckets**.
-3. Hover over the bucket you would like to delete.
-4. Click **{{< icon "delete" >}} Delete Bucket** and **Confirm** to delete the bucket.
+2. Hover over the bucket you would like to delete.
+3. Click **{{< icon "delete" >}} Delete Bucket** and **Confirm** to delete the bucket.
 
 ## Delete a bucket using the influx CLI
 

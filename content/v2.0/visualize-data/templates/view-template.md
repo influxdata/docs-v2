@@ -12,11 +12,10 @@ weight: 202
 
 To view templates in the InfluxDB userface (UI):
 
-1. Click the **Settings** icon in the left navigation.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab.
 3. Select templates to view:
 
     {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}

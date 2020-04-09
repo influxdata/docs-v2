@@ -13,9 +13,9 @@ Use the InfluxDB user interface (UI) to switch from one organization to another.
 
 ## Switch organizations in the InfluxDB UI
 
-1. Click the **Influx** icon in the navigation bar.
+1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "admin" >}}
+    {{< nav-icon "account" >}}
 
-2. Select **Switch Organizations**. The list of organizations appears.
+2. Select **Switch Organizations**.
 3. Click the organization you want to switch to.
