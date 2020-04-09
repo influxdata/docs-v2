@@ -6,6 +6,8 @@ weight: 1
 menu:
   v2_0_cloud:
     name: Get started with InfluxDB Cloud
+aliases:
+  - /v2.0/cloud/
 ---
 
 {{< cloud-name >}} is a fully managed, hosted, multi-tenanted version of the
@@ -26,10 +28,29 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 ## Sign up
 
 1. Choose one of the following:
-   - To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData, go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials, and then click **Start your Free Plan now**. When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
-   - To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your AWS account, sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS), and follow the prompts to subscribe. After you click **Set Up Your Account**, enter your credentials, and then click **Start Now**. All usage charges will be paid through the subscribed AWS account.
+    - **Subscribe through InfluxData**  
+      To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData,
+      go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials,
+      and then click **Start your Free Plan now**.
+      When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
+    - **Subscribe through a cloud provider**  
+      To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
+      **Amazon Web Services (AWS)** or **Google Cloud Platform (GCP)** account:
 
-       {{%note%}} **Note:** Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS Marketplace.
+        - **AWS**  
+          Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS),
+          and follow the prompts to subscribe. After you click **Set Up Your Account**,
+          enter your credentials, and then click **Start Now**.
+          All usage charges will be paid through the subscribed AWS account.
+
+        - **GCP**  
+          Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod),
+          and follow the prompts to subscribe. After you click **Set Up Your Account**,
+          enter your credentials, and then click **Start Now**.
+          All usage charges will be paid through the subscribed GCP account.
+
+        {{%note%}}
+Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS or GCP Marketplaces.
         {{%/note%}}
 
 2. InfluxDB Cloud requires email verification to complete the sign up process.

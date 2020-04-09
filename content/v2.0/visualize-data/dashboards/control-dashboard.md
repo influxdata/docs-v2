@@ -12,7 +12,7 @@ weight: 203
 
 ## Control at the dashboard level
 
-Use dashboard controls in the upper right to update your dashboard.
+Use dashboard controls in the upper left to update your dashboard.
 
 ### Add a cell
 

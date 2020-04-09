@@ -13,7 +13,7 @@ related:
 ---
 
 ## Update a task in the InfluxDB UI
-To view your tasks, click the **Tasks** icon in the left navigation menu.
+Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
 {{< nav-icon "tasks" >}}
 
