@@ -23,5 +23,6 @@ influx task update [flags]
 | `-i`, `--id`     | **(Required)** Task ID                | string      |                       |
 | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
 | `--status`       | Update task status                    | string      |                       |
+| `-f`, `--file`   | Path to Flux script file              |   string    |                       |
 
 {{% cli/influx-global-flags %}}
