@@ -13,7 +13,7 @@ weight: 201
 
 ## Create a template from an existing dashboard
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
@@ -28,11 +28,10 @@ weight: 201
 Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
 {{% /note %}}
 
-1. Click the **Settings** icon in the left navigation.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab.
 3. Select **User Templates**.
 
     {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
@@ -42,11 +41,10 @@ Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) 
 
 ## Import an existing dashboard template
 
-1. Click the **Settings** icon in the left navigation.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab.
 3. Click **Import Template** in the upper right.
 4. In the window that appears:
   * Select **Upload File** to drag-and-drop or select a file.

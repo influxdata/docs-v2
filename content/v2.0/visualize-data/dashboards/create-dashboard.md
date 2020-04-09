@@ -14,7 +14,7 @@ weight: 201
 
 ## Create a new dashboard
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
@@ -24,7 +24,7 @@ weight: 201
 
 **To import an existing dashboard**:
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
@@ -38,7 +38,7 @@ weight: 201
 
 **To create a dashboard from a template in the dashboards page**:
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
@@ -62,7 +62,7 @@ weight: 201
 
 ## Clone a dashboard
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
@@ -79,7 +79,7 @@ weight: 201
 You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/v2.0/visualize-data/explore-metrics).
 
 #### Add a note to your dashboard
-1. From your dashboard, click **{{< icon "note" >}} Add Note** in the upper right.
+1. From your dashboard, click **{{< icon "note" >}} Add Note** in the upper left.
 2. Enter your note in the window that appears. You can use Markdown syntax to format your note.
 3. To preview your Markdown formatting, click the **Preview** option.
 4. Click **Save**.
