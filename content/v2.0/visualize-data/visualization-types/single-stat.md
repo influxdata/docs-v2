@@ -13,7 +13,7 @@ menu:
 
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
 
-{{< img-hd src="/img/2-0-visualizations-single-stat-example.png" alt="Single stat example" />}}
+{{< img-hd src="/img/2-0-visualizations-single-stat-example-8.png" alt="Single stat example" />}}
 
 Select the **Single Stat** option from the visualization dropdown in the upper right.
 
@@ -62,4 +62,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Memory usage as a single stat
-{{< img-hd src="/img/2-0-visualizations-single-stat-memor.png" alt="Graph + Single Stat Memory Usage Example" />}}
+{{< img-hd src="/img/2-0-visualizations-single-stat-example-8.png" alt="Graph + Single Stat Memory Usage Example" />}}

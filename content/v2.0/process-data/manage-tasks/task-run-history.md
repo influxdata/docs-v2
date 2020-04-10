@@ -20,7 +20,7 @@ to view task run histories and associated logs.
 
 ## View a task's run history in the InfluxDB UI
 
-1. Click the **Tasks** icon in the left navigation to view the lists of tasks.
+1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 

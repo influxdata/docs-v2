@@ -13,7 +13,7 @@ menu:
 
 The **Gauge** visualization displays the most recent value for a time series in a gauge.
 
-{{< img-hd src="/img/2-0-visualizations-gauge-example.png" alt="Gauge example" />}}
+{{< img-hd src="/img/2-0-visualizations-gauge-example-8.png" alt="Gauge example" />}}
 
 Select the **Gauge** option from the visualization dropdown in the upper right.
 
@@ -64,4 +64,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Visualization options for pressure gauge
-{{< img-hd src="/img/2-0-visualizations-guage-pressure.png" alt="Pressure guage example" />}}
+{{< img-hd src="/img/2-0-visualizations-gauge-pressure-8.png" alt="Pressure guage example" />}}

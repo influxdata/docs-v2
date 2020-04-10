@@ -9,6 +9,12 @@ menu:
   v2_0:
     name: Write data
 v2.0/tags: [write, line protocol]
+related:
+  - /v2.0/write-data/use-telegraf/
+  - /v2.0/api/#tag/Write, InfluxDB API /write endpoint
+  - /v2.0/reference/syntax/line-protocol
+  - /v2.0/reference/syntax/annotated-csv
+  - /v2.0/reference/cli/influx/write
 ---
 
 Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/syntax/line-protocol),
@@ -87,10 +93,9 @@ To quickly start writing data, use the provided user interface.
      where you're hosting the UI (by default, **localhost:9999**).
    - _**InfluxDB 2.0 Cloud**_:
      In your browser, go to https://cloud2.influxdata.com/.
-2. Click **Load Data** in the navigation menu on the left.
-3. Select **Buckets**.
-4. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
-5. Select from the following options:
+2. In the navigation menu on the left, select **Data** (**Load Data**) > **Buckets**.
+3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
+4. Select from the following options:
 
    - [Configure Telegraf Agent](#configure-telegraf-agent)
    - [Line Protocol](#line-protocol)
@@ -114,7 +119,7 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
     - **Enter Manually:**
       Select the time precision of your data.
       Manually enter line protocol.
-2. Click **Continue**.
+2. Click **Write Data**.
    A message indicates whether data is successfully written to InfluxDB.
 3. To add more data or correct line protocol, click **Previous**.
 4. Click **Finish**.
@@ -133,26 +138,45 @@ To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-sc
 From the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
 
-| Requirement          | Include by                                                                  |
-|:-----------          |:----------                                                                  |
-| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                  |
-| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                           |
-| Precision            | Use the `-p`, `--precision` flag.                                       |
-| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
-| Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
+| Requirement          | Include by                                                                                         |
+|:-----------          |:----------                                                                                         |
+| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                                         |
+| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                                                  |
+| Precision            | Use the `-p`, `--precision` flag.                                                                  |
+| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
+| Data                 | Write data using **line protocol** or **annotated CSV**. Pass a file with the `-f`, `--file` flag. |
 
-##### Example influx write commands
+_See [Line protocol](/v2.0/reference/syntax/line-protocol/) and [Annotated CSV](/v2.0/reference/syntax/annotated-csv)_
 
-To write a single data point, for example, run
+#### Example influx write commands
 
+##### Write a single line of line protocol
 ```sh
-influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  'myMeasurement,host=myHost testField="testData" 1556896326'
 ```
 
-To write data in line protocol from a file, try
-
+##### Write line protocol from a file
+```sh
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  --format=lp
+  -f /path/to/line-protocol.txt
 ```
-influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
+
+##### Write annotated CSV from a file
+```sh
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  --format=csv
+  -f /path/to/data.csv
 ```
 
 ### InfluxDB API

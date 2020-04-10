@@ -30,11 +30,11 @@ The InfluxDB UI provides multiple ways to create a task:
 - [Clone a task](#clone-a-task)
 
 ### Create a task from the Data Explorer
-1. Click the **Data Explorer** icon in the left navigation menu.
+1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
     {{< nav-icon "data-explorer" >}}
 
-2. Building a query and click **Save As** in the upper right.
+2. Build a query and click **Save As** in the upper right.
 3. Select the **Task** option.
 4. Specify the task options. See [Task options](/v2.0/process-data/task-options)
    for detailed information about each option.
@@ -43,7 +43,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 
 ### Create a task in the Task UI
-1. Click the **Tasks** icon in the left navigation menu.
+1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 
@@ -56,7 +56,7 @@ The InfluxDB UI provides multiple ways to create a task:
 7. Click **Save** in the upper right.
 
 ### Import a task
-1. Click the **Tasks** icon in the left navigation menu.
+1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 
@@ -69,7 +69,7 @@ The InfluxDB UI provides multiple ways to create a task:
 5. Click **Import JSON as Task**.
 
 ### Create a task from a template
-1. Click the **Settings** icon in the left navigation menu.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "Settings" >}}
 
@@ -78,7 +78,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 
 ### Clone a task
-1. Click the **Tasks** icon in the left navigation menu.
+1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 
@@ -92,10 +92,10 @@ It accepts either a file path or raw Flux.
 ###### Create a task using a file
 ```sh
 # Syntax
-influx task create --org <org-name> @</path/to/task-script>
+influx task create --org <org-name>  -f </path/to/task-script>
 
 # Example
-influx task create --org my-org @/tasks/cq-mean-1h.flux
+influx task create --org my-org -f /tasks/cq-mean-1h.flux
 ```
 
 ###### Create a task using raw Flux

@@ -11,7 +11,7 @@ weight: 204
 
 To delete a dashboard from the InfluxDB user interface (UI):
 
-1. Click the **Dashboards** icon in the navigation bar.
+1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 

@@ -13,17 +13,18 @@ Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI
 to create an organization.
 
 {{% cloud-msg %}}
-You cannot currently create additional organizations in {{< cloud-name >}}. Only the default organization is available.
+You cannot currently create additional organizations in {{< cloud-name >}}.
+Only the default organization is available.
 {{% /cloud-msg %}}
 
 ## Create an organization in the InfluxDB UI
 
-1. Click the **Influx** icon in the navigation bar.
+1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "admin" >}}
+    {{< nav-icon "account" >}}
 
 2. Select **Create Organization**.
-3. In the window that appears, enter a name for the organization and associated bucket and click **Create**.
+3. In the window that appears, enter an **Organization Name** and **Bucket Name** and click **Create**.
 
 ## Create an organization using the influx CLI
 

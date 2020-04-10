@@ -14,14 +14,13 @@ to create a bucket.
 
 ## Create a bucket in the InfluxDB UI
 
-1. Click **Load Data** in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "load data" >}}
+    {{< nav-icon "data" >}}
 
-2. Select **Buckets**.
-3. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
-4. Enter a **Name** for the bucket.
-5. Select when to **Delete Data**:
+2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
+3. Enter a **Name** for the bucket.
+4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
     - **Older than** to choose a specific retention policy.
 5. Click **Create** to create the bucket.

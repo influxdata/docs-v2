@@ -18,6 +18,14 @@ To configure InfluxDB, use the following configuration options when starting the
 - [--engine-path](#engine-path)
 - [--http-bind-address](#http-bind-address)
 - [--log-level](#log-level)
+- [--new-meta-store](#new-meta-store)
+- [--new-meta-store-read-only](#new-meta-store-read-only)
+- [--no-tasks](#no-tasks)
+- [--query-concurrency](#query-concurrency)
+- [--query-initial-memory-bytes](#query-initial-memory-bytes)
+- [--query-max-memory-bytes](#query-max-memory-bytes)
+- [--query-memory-bytes](#query-memory-bytes)
+- [--query-queue-size](#query-queue-size)
 - [--reporting-disabled](#reporting-disabled)
 - [--secret-store](#secret-store)
 - [--session-length](#session-length)
@@ -40,8 +48,8 @@ To configure InfluxDB, use the following configuration options when starting the
 ---
 
 ## --assets-path
+Override the default InfluxDB user interface (UI) assets by serving assets from the specified directory.
 _Typically, InfluxData internal use only._
-Overrides the default InfluxDB user interface (UI) assets by serving assets from the specified directory.
 
 ```sh
 influxd --assets-path=/path/to/custom/assets-dir
@@ -50,7 +58,7 @@ influxd --assets-path=/path/to/custom/assets-dir
 ---
 
 ## --bolt-path
-Defines the path to the [BoltDB](https://github.com/boltdb/bolt) database.
+Define the path to the [BoltDB](https://github.com/boltdb/bolt) database.
 BoltDB is a key value store written in Go.
 InfluxDB uses BoltDB to store data including organization and
 user information, UI data, REST resources, and other key value data.
@@ -64,7 +72,7 @@ influxd --bolt-path=~/.influxdbv2/influxd.bolt
 ---
 
 ## --e2e-testing
-Adds a `/debug/flush` endpoint to the InfluxDB HTTP API to clear stores.
+Add a `/debug/flush` endpoint to the InfluxDB HTTP API to clear stores.
 InfluxData uses this endpoint in end-to-end testing.
 
 ```sh
@@ -74,7 +82,7 @@ influxd --e2e-testing
 ---
 
 ## --engine-path
-Defines the path to persistent storage engine files where InfluxDB stores all
+Define the path to persistent storage engine files where InfluxDB stores all
 Time-Structure Merge Tree (TSM) data on disk.
 
 **Default:** `~/.influxdbv2/engine`  
@@ -86,7 +94,7 @@ influxd --engine-path=~/.influxdbv2/engine
 ---
 
 ## --http-bind-address
-Defines the bind address for the InfluxDB HTTP API.
+Define the bind address for the InfluxDB HTTP API.
 Customize the URL and port for the InfluxDB API and UI.
 
 **Default:** `:9999`  
@@ -98,7 +106,7 @@ influxd --http-bind-address=:9999
 ---
 
 ## --log-level
-Defines the log output level.
+Define the log output level.
 InfluxDB outputs log entries with severity levels greater than or equal to the level specified.
 
 **Options:** `debug`, `info`, `error`  
@@ -106,6 +114,101 @@ InfluxDB outputs log entries with severity levels greater than or equal to the l
 
 ```sh
 influxd --log-level=info
+```
+
+---
+
+## --new-meta-store
+Enable the new meta store.
+
+**Default:** `false`
+
+```sh
+influxd --new-meta-store=false
+```
+
+---
+
+## --new-meta-store-read-only
+Toggle read-only mode for the new meta store.
+If `true`, reads are duplicated between old and new meta stores
+(if [new meta store](#new-meta-store) is enabled).
+
+**Default:** `true`
+
+```sh
+influxd --new-meta-store-read-only=true
+```
+
+---
+
+## --no-tasks
+Disable the task scheduler.
+If problematic tasks prevent InfluxDB from starting, use this option to start
+InfluxDB without scheduling or executing tasks.
+
+```sh
+influxd --no-tasks
+```
+
+---
+
+## --query-concurrency
+Number of queries allowed to execute concurrently.
+
+**Default:** `10`
+
+```sh
+influxd --query-concurrency=10
+```
+
+---
+
+## --query-initial-memory-bytes
+Initial bytes of memory allocated for a query.
+
+**Default:** _equal to_ [query-memory-bytes](#query-memory-bytes)
+
+```sh
+influxd --query-initial-memory-bytes=10485760
+```
+
+---
+
+## --query-max-memory-bytes
+Maximum total bytes of memory allowed for queries.
+
+**Default:** _equal to_ [query-concurrency](#query-concurrency) × [query-memory-bytes](#query-memory-bytes)
+
+```sh
+influxd --query-max-memory-bytes=104857600
+```
+
+---
+
+## --query-memory-bytes
+Maximum bytes of memory allowed for a single query.
+
+**Default:** _unlimited_
+
+{{% note %}}
+Must be greater than or equal to [query-initial-memory-bytes](#query-initial-memory-bytes).
+{{% /note %}}
+
+```sh
+influxd --query-memory-bytes=10485760
+```
+
+---
+
+## --query-queue-size
+Maximum number of queries allowed in execution queue.
+When queue limit is reached, new queries are rejected.
+
+**Default:** `10`
+
+```sh
+influxd --query-queue-size=10
 ```
 
 ---
