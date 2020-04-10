@@ -29,12 +29,12 @@ findRecord(
 
 ### fn
 A predicate function for matching keys in a table's group key.
-It expects a `key` argument which represents a group key in the input stream.
+Expects a `key` argument that represents a group key in the input stream.
 
 _**Data type:** Function_
 
 ### idx
-The index of the record to extract.
+Index of the record to extract.
 
 _**Data type:** Integer_
 

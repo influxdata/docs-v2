@@ -40,9 +40,10 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 
 ## Table extraction
 Flux formats query results as a stream of tables.
-Both `findColumn()` and `findRecord()` extract the first table in a stream of tables
-whose [group key](/v2.0/reference/glossary/#group-key) values match the `fn`
-[predicate function](/v2.0/reference/glossary/#predicate-function).
+Both [`findColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
+and [`findRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
+extract the first table in a stream of tables whose [group key](/v2.0/reference/glossary/#group-key)
+values match the `fn` [predicate function](/v2.0/reference/glossary/#predicate-function).
 
 {{% note %}}
 #### Extract the correct table
@@ -53,7 +54,7 @@ filter and transform your data to minimize the number of tables piped-forward in
 {{% /note %}}
 
 ## Extract a column
-Use the [`getColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
+Use the [`findColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
 to output an array of values from a specific column in the extracted table.
 
 _See [Sample data](#sample-data) below._
@@ -94,7 +95,7 @@ SFOTemps[2]
 ```
 
 ## Extract a row
-Use the [`getRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/)
+Use the [`findRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
 The function outputs an object with key-value pairs for each column.
@@ -172,7 +173,7 @@ lastJFKTemp
 // Define a helper function to extract a row as an object
 getRow = (tables=<-, field, idx=0) => {
   extract = tables
-    |> getRecord(
+    |> findRecord(
       fn: (key) => true,
       idx: idx
     )
