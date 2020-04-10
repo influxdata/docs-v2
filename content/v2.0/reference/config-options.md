@@ -189,7 +189,7 @@ influxd --query-max-memory-bytes=104857600
 ## --query-memory-bytes
 Maximum bytes of memory allowed for a single query.
 
-**Default:** `10485760`
+**Default:** _unlimited_
 
 {{% note %}}
 Must be greater than or equal to [query-initial-memory-bytes](#query-initial-memory-bytes).
