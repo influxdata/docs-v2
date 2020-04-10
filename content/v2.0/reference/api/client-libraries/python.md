@@ -13,7 +13,7 @@ aliases:
 weight: 201
 ---
 
-Use the [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
+Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
 If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/).
@@ -50,9 +50,7 @@ org = "<my-org>"
 token = "<my-token>"
 ```
 
-In order to write data, we need to create a few objects: a client, and a writer.
-The InfluxDBClient object takes three named parameters: `url`, `org`, and `token`.
-Here, we simply pass the three variables we have already defined.
+In order to write data, we need to instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
 
 ```python
 client = InfluxDBClient(
@@ -79,8 +77,6 @@ p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("tem
 write_api.write(bucket=bucket, org=org, record=p)
 ```
 
-For more information, see the [Python client README on GitHub](https://github.com/influxdata/influxdb-client-python).
-
 ### Complete example write script
 
 ```python
@@ -103,3 +99,70 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
 write_api.write(bucket=bucket, org=org, record=p)
 ```
+## Query data from InfluxDB with Python
+
+In order to query data, we need to instantiate the query client. 
+
+```python
+query_api = client.query_api()
+```
+
+Next, we create a flux query. 
+
+```python
+query = ‘ from(bucket:"my-bucket")\
+|> range(start: -10m)\
+|> filter(fn:(r) => r._measurement == “my_measurement”)\
+|> filter(fn: (r) => r.location == Prague")\
+|> filter(fn:(r) => r._field == "temperature" )‘
+```
+
+We query the InfluxDB server with our flux query. The query client returns the results as a Flux Object with a table structure. The query() method takes two parameters: `org` and `query`.  
+
+```python
+result = client.query_api().query(org=org, query=query)
+```
+
+We iterate through the tables and records in the Flux Object to return our values and fields using the `get_value()` and `get_field()` methods, respectively. 
+```python
+results = []
+for table in result:
+    for record in table.records:
+        results.append((record.get_field(), record.get_value()))
+
+print(results)
+[(temperature, 25.3)]
+```
+
+The Flux Object has the following methods for accessing your data:
+- ```get_measurement()```: Returns the measurement name of the record.
+- ```get_field()```: Returns the field name.
+- ```get_values()```: Returns the actual field value.
+- ```values()```: Returns map of the values where key is the column name.
+- ```values.get(“<your tags>”)```: Returns value for given column key for the record.
+- ```get_time()```: Returns the time of the record.
+- ```get_start()```: Returns the inclusive lower time bound of all records in the current table.
+- ```get_stop()```: Returns the exclusive upper time bound of all records in the current table.
+
+
+
+### Complete example query script
+
+```python
+query_api = client.query_api()
+query = ‘ from(bucket:"my-bucket")\
+|> range(start: -10m)\
+|> filter(fn:(r) => r._measurement == “my_measurement”)\
+|> filter(fn: (r) => r.location == Prague")\
+|> filter(fn:(r) => r._field == "temperature" )‘
+result = client.query_api().query(org=org, query=query)
+results = []
+for table in result:
+    for record in table.records:
+        results.append((record.get_field(), record.get_value()))
+
+print(results)
+[(temperature, 25.3)]
+```
+
+For more information, see the [Python client README on GitHub](https://github.com/influxdata/influxdb-client-python).
