@@ -7,12 +7,13 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.0.0-beta.8 [2020-04-09]
+## v2.0.0-beta.8 [2020-04-10]
 
 ### Features
 - Add `influx config` CLI command to switch back to previous activated configuration.
 - Introduce new navigation menu.
 - Add `-file` option to `influx query` and `influx task` CLI commands.
+- Add support for command line options to limit memory for queries.
 
 ### Bug Fixes
 - Fix card size and layout issues in dashboards index view.
