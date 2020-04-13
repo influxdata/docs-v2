@@ -18,8 +18,8 @@ This guide presumes some familiarity with Go and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
-
-1. Go 1.3 or later is required. 
+   
+1. Install Go 1.3 or later](https://golang.org/doc/install)
 2. Download the client package in your $GOPATH and build the package.
 
     ```sh
@@ -59,18 +59,18 @@ org := "<my-org>"
 token := "<my-token>"
 //variable to store the url of your local or InfluxDB Cloud instance
 url := "<http://localhost:9999>"
-``
+```
 
 To write data, create the the InfluxDB Go Client and pass in our named parameters: `url` and `token`.
 
 ```go
-client := influxdb2.NewClient(url, my-token)
+client := influxdb2.NewClient(url, token)
 ```
 
 Create a **write client** with the `WriteApiBlocking` method and pass in your other named parameters: `org` and `bucket`. 
 
 ```go
-writeApi := client.WriteApiBlocking(my-org, my-bucket)
+writeApi := client.WriteApiBlocking(org, bucket)
 ```
 
 To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
@@ -78,6 +78,7 @@ To query data, create an InfluxDB **query client** and pass in your InfluxDB `or
 ```go
   queryApi := client.QueryApi(org)
 ```
+
 ## Write data to InfluxDB with Go
 
 Use the Go library to write data to InfluxDB.

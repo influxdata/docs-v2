@@ -55,7 +55,7 @@ yarn install
     ```
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
-3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `url` which relies upon proxy to forward requests to the target InfluxDB. 
+3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB. 
 4. Run the following command to run the application at [http://localhost:3001/examples/index.html]()
 
     ```sh
@@ -71,22 +71,20 @@ To write a data point to InfluxDB using the JavaScript library, import the lates
 import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
 ```
 
-Next, define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `url` which  relies on a proxy to forward requests to the target InfluxDB instance. 
+Next, define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which  relies on a proxy to forward requests to the target InfluxDB instance. 
 
 
 ```js
-const url = '/influx' 
+const proxy = '/influx' 
 const token = '<my-token>'
 const org = '<my-org>'
 const bucket = '<my-bucket>'
-//variable to store the url of your local or InfluxDB Cloud instance
-const url = 'http://localhost:9999'
 ```
 
-Instantiate the InfluxDB JavaScript Client and pass in our named parameters: `url` and `token`.
+Instantiate the InfluxDB JavaScript Client and pass in our named parameters: `proxy` and `token`.
 
 ```js
-const InfluxDB = new InfluxDB({url, token})
+const InfluxDB = new InfluxDB({proxy, token})
 ```
 ## Write data to InfluxDB with JavaScript
 Use the Javascript library to write data to InfluxDB.
@@ -111,7 +109,7 @@ writeApi.close()
 ### Complete example write script
 
 ```js
-const writeApi = new InfluxDB({url, token})
+const writeApi = new InfluxDB({proxy, token})
 const writeApi = influxDB.getWriteApi(org, bucket)
 // setup default tags for all writes through this API
 writeApi.useDefaultTags({location: 'browser'})
