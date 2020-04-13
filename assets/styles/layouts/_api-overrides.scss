@@ -37,7 +37,7 @@ $bold: 700;
   margin-left: -25px;
   border-radius: 50%;
   border: 3px solid $g16-pearl;
-  border-top-color: $cp-comet;
+  border-top-color: $br-galaxy;
   animation: spinner .6s linear infinite;
 }
 
@@ -184,7 +184,7 @@ $bold: 700;
 .cFwMcp {
   &.post { background-color: $b-curious; }
   &.get { background-color: $gr-canopy; }
-  &.put { background-color: $cp-comet; }
+  &.put { background-color: $br-galaxy; }
   &.patch { background-color: $ch-keylime; }
   &.delete { background-color: $o-curacao; }
 }
@@ -236,7 +236,7 @@ $bold: 700;
 }
 .bNYCAJ { background-color: $b-curious; } /* Post */
 .jBjYbV { background-color: $gr-canopy; } /* Get */
-.hOczRB { background-color: $cp-comet; } /* Put */
+.hOczRB { background-color: $br-galaxy; } /* Put */
 .fRsrDc { background-color: $ch-chartreuse; color: $ch-olive; } /* Patch */
 .hPskZd { background-color: $o-curacao; } /* Delete */
 

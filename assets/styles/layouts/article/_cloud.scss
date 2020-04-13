@@ -79,6 +79,10 @@
     border-color: rgba($article-cloud-text, .25);
     p { color: rgba($article-cloud-text, .6); }
   }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    &.is-active {background: $article-cloud-code-bg}
+  }
 
   &.flex {
     font-style: italic;

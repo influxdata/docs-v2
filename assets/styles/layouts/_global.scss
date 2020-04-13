@@ -8,15 +8,12 @@ $bold: 700;
 
 html {
   height: 100%;
-  background: $body-bg;
 }
 
 body {
   min-height: 100%;
   font-family: 'Rubik', sans-serif;
-  background: radial-gradient(circle at 100% 0%, $body-gradient-top 0%, $body-gradient-bottom) 30%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: $body-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,7 +23,7 @@ body {
 }
 
 a {
-  transition: all .2s;
+  transition: color .2s, background-color .2s;
 }
 
 .page-wrapper {

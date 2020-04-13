@@ -9,7 +9,7 @@ enterprise_all: true
 #enterprise_some: true
 #cloud_all: true
 cloud_some: true
-draft: true
+#draft: true
 "v2.0/tags": [influxdb, functions]
 related:
   - /v2.0/write-data/
@@ -18,6 +18,8 @@ related:
 ---
 
 This is a paragraph. Lorem ipsum dolor ({{< icon "trash" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
+
+This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 
 {{< nav-icon "account" >}}
 {{< nav-icon "data" >}}
@@ -310,20 +312,36 @@ This is **bold**. This is _italic_.
     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
     Etiam tristique nisi et tristique auctor.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[tab1](#)
+[tab2](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+// This is a code block inside of a blockquote
+cpu = from(bucket:"my-bucket")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu")
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ###### This is a table in a blockquote
-| Column 1 | Column 2  | Column 3 | Column 4 |
-| -------- | --------  | -------- | -------- |
-| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
-| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
-| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
-| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
 {{% /note %}}
 

@@ -64,15 +64,14 @@
       margin: 0;
       border-radius: $radius $radius 0 0;
       display: inline-block;
-      background: $article-tab-code-bg;
-      color: $article-tab-code-text;
+      background: $article-bg;
+      color: rgba($article-tab-code-text, .5);
       &:hover {
-       background: $article-tab-code-bg-hover;
-       color: $article-tab-code-text-hover;
+       color: $article-tab-code-text;
       }
       &.is-active {
        background-color: $article-code-bg;
-       color: $article-tab-code-active-text;
+       color: $article-tab-code-text;
       }
     }
   }

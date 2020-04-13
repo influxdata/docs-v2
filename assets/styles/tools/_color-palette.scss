@@ -1,27 +1,96 @@
 // Influx Color Palette
 
-// Greys (Dark to Light)
-$g0-obsidian:     #0F0E15;
-$g1-raven:        #1C1C21;
-$g2-kevlar:       #202028;
-$g3-castle:       #292933;
-$g4-onyx:         #2C2C38;
-$g5-pepper:       #383846;
-$g6-smoke:        #434453;
-$g7-graphite:     #545667;
-$g8-storm:        #676978;
-$g9-mountain:     #757888;
-$g10-wolf:        #8E91A1;
-$g11-sidewalk:    #999DAB;
-$g12-forge:       #A4A8B6;
-$g13-mist:        #BEC2CC;
-$g14-chromium:    #C6CAD3;
-$g15-platinum:    #D4D7DD;
-$g16-pearl:       #E7E8EB;
-$g17-whisper:     #EEEFF2;
-$g18-cloud:       #F2F2F5;
-$g19-ghost:       #FAFAFC;
-$g20-white:       #FFFFFF; // Brand color
+// Brand Colors
+$br-chartreuse: #D6F622;
+$br-deeppurple: #13002D;
+$br-magenta:    #BF2FE5;
+$br-galaxy:     #9394FF;
+$br-pulsar:     #513CC6;
+
+// Greys
+$g0-obsidian:   #0F0E15;
+$g1-raven:      #181820;
+$g2-kevlar:     #202028;
+$g3-castle:     #292933;
+$g4-onyx:       #31313D;
+$g5-pepper:     #383846;
+$g6-smoke:      #434453;
+$g7-graphite:   #545667;
+$g8-storm:      #676978;
+$g9-mountain:   #757888;
+$g10-wolf:      #8E91A1;
+$g11-sidewalk:  #999DAB;
+$g12-forge:     #A4A8B6;
+$g13-mist:      #BEC2CC;
+$g14-chromium:  #C6CAD3;
+$g15-platinum:  #D4D7DD;
+$g16-pearl:     #E7E8EB;
+$g17-whisper:   #EEEFF2;
+$g18-cloud:     #F6F6F8;
+$g19-ghost:     #FAFAFC;
+$g20-white:     #FFFFFF;
+
+// Blues
+$b-abyss:       #120653;
+$b-sapphire:    #0B3A8D;
+$b-ocean:       #066FC5;
+$b-pool:        #00A3FF;
+$b-laser:       #00C9FF;
+$b-hydrogen:    #6BDFFF;
+$b-neutrino:    #BEF0FF;
+$b-yeti:        #F0FCFF;
+
+// Purples
+$p-shadow:      #2B007E;
+$p-void:        #5C10A0;
+$p-amethyst:    #8E1FC3;
+$p-star:        #BE2EE4;
+$p-comet:       #CE58EB;
+$p-potassium:   #DD84F1;
+$p-moonstone:   #EBADF8;
+$p-twilight:    #FAD9FF;
+
+// Greens
+$gr-gypsy:      #003E34;
+$gr-emerald:    #006F49;
+$gr-viridian:   #009F5F;
+$gr-rainforest: #34BB55;
+$gr-honeydew:   #67D74E;
+$gr-krypton:    #9BF445;
+$gr-wasabi:     #C6F98E;
+$gr-mint:       #F3FFD6;
+
+// Yellows
+$y-oak:         #3F241F;
+$y-topaz:       #E85B1C;
+$y-tiger:       #F48D38;
+$y-pineapple:   #FFB94A;
+$y-thunder:     #FFD255;
+$y-sulfur:      #FFE480;
+$y-daisy:       #FFF6B8;
+$y-banana:      #FFFDDE;
+
+// Reds
+$r-basalt:      #2F1F29;
+$r-ruby:        #BF3D5E;
+$r-fire:        #DC4E58;
+$r-curacao:     #F95F53;
+$r-dreamsicle:  #FF8564;
+$r-tungsten:    #FFB6A0;
+$r-marmelade:   #FFDCCF;
+$r-flan:        #FFF7F4;
+
+// Code
+$cp-munchkin:   #B7B8FF;
+$code-dark-bg:    $g0-obsidian;
+$code-dark-scroll:#2f2f50;
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// OLD COLORS //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 // Warm Purples - Magentas
 $wp-jaguar:       #1d0135;
@@ -47,9 +116,9 @@ $cp-victoria:     #52499A;
 $cp-blueviolet:   #625CB3;
 $cp-marguerite:   #736ECD;
 $cp-purple:       #8381E6;
-$cp-comet:        #9394ff; // Brand color
+//
 $cp-melrose:      #A5A6FF;
-$cp-munchkin:     #B7B8FF;
+//
 $cp-periwinkle:   #C9CAFF;
 $cp-coolfog:      #DBDBFF;
 $cp-titan:        #EDEDFF;
@@ -98,9 +167,9 @@ $ch-primrose:     #F1FCB5;
 $gr-gypsy:        #152B2D;
 $gr-grass:        #2B6058;
 $gr-emerald:      #108174;
-$gr-viridian:     #32B08C;
+//
 $gr-canopy:       #20B76F;
-$gr-rainforest:   #4ED8A0;
+//
 $gr-honeydew:     #7CE490;
 $gr-krypton:      #A5F3B4;
 $gr-wasabi:       #C6FFD0;
@@ -113,7 +182,7 @@ $o-ember:         #6F3943;
 $o-ruby:          #BF3D5E;
 $o-fire:          #DC4E58;
 $o-curacao:       #F95F53;
-$o-dreamsicle:    #FF8564;
+// $o-dreamsicle:    #FF8564;
 $o-tungsten:      #FFB6A0;
 $o-marmelade:     #FFDCCF;
 $o-orangecream:   #EADAD8;

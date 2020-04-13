@@ -46,4 +46,8 @@
     border-color: rgba($article-warn-text, .25);
     p { color: rgba($article-warn-text, .6); }
   }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    &.is-active {background: $article-warn-code-bg}
+  }
 }

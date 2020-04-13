@@ -1,6 +1,6 @@
 .note {
   border-color: $article-note-base;
-  background: rgba($article-note-base, .12);
+  background: rgba($article-note-base, .1);
   h1,h2,h3,h4,h5,h6 {
     color: $article-note-heading;
   }
@@ -45,5 +45,9 @@
   blockquote {
     border-color: rgba($article-note-text, .25);
     p { color: rgba($article-note-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    &.is-active {background: $article-note-code-bg}
   }
 }
