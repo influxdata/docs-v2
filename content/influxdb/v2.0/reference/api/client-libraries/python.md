@@ -86,9 +86,11 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
+#variable to store the url of your local or InfluxDB Cloud instance
+url="<http://localhost:9999>"
 
 client = influxdb_client.InfluxDBClient(
-    url="http://localhost:9999",
+    url=url,
     token=token,
     org=org
 )

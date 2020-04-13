@@ -54,11 +54,11 @@ import (
 Next, define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
 ```go
-bucket = "<my-bucket>"
-org = "<my-org>"
-token = "<my-token>"
+bucket := "<my-bucket>"
+org := "<my-org>"
+token := "<my-token>"
 //variable to store the url of your local or InfluxDB Cloud instance
-url = "<http://localhost:9999>"
+url := "<http://localhost:9999>"
 ``
 
 To write data, create the the InfluxDB Go Client and pass in our named parameters: `url` and `token`.
@@ -100,8 +100,10 @@ client.Close()
   bucket := "<my-bucket>"
   org := "<my-org>"
   token := "<my-token>"
+  //variable to store the url of your local or InfluxDB Cloud instance
+  url := "<http://localhost:9999>"
 	// Create new client with default option for server url authenticate by token
-	client := influxdb2.NewClient("http://localhost:9999", token)
+	client := influxdb2.NewClient(url, token)
 	// User blocking write client for writes to desired bucket
 	writeApi := client.WriteApiBlocking(org, bucket)
 	// Create point using full params constructor
@@ -171,9 +173,9 @@ The query client sends the Flux query to InfluxDB and returns the results as a F
 ```go
  func main() {
     // Create client
-    client := influxdb2.NewClient("http://localhost:9999", "my-token")
+    client := influxdb2.NewClient(url, token)
     // Get query client
-    queryApi := client.QueryApi("my-org")
+    queryApi := client.QueryApi(org)
     // Get QueryTableResult
     result, err := queryApi.Query(context.Background(), `from(bucket:"my-bucket")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
     if err == nil {
