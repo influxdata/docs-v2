@@ -17,7 +17,7 @@ weight: 201
 Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
-If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/).
+If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
 
@@ -49,21 +49,20 @@ Next, we define a few variables with the name of your [bucket](/v2.0/organizatio
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
+#variable to store the url of your local or InfluxDB Cloud instance
+url="<http://localhost:9999>"
 ```
 
-In order to write data, we need to instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
+Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
 
 ```python
 client = InfluxDBClient(
-    url="http://localhost:9999",
+    url=url,
     token=token,
     org=org
 )
 ```
-
-The `InfluxDBClient` object has a `write_api` method, used for configuration.
-Instantiate a writer object using the `client` object and the `write_api` method.
-Use the `write_api` method to configure the writer object.
+The `InfluxDBClient` object has a `write_api` method, used for configuration. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
 
 ```python
 write_api = client.write_api(write_options=SYNCHRONOUS)
@@ -101,13 +100,13 @@ write_api.write(bucket=bucket, org=org, record=p)
 ```
 ## Query data from InfluxDB with Python
 
-In order to query data, we need to instantiate the query client. 
+To query data, instantiate the **query client**. 
 
 ```python
 query_api = client.query_api()
 ```
 
-Next, we create a flux query. 
+Next, create a flux query. 
 
 ```python
 query = ‘ from(bucket:"my-bucket")\
@@ -117,13 +116,15 @@ query = ‘ from(bucket:"my-bucket")\
 |> filter(fn:(r) => r._field == "temperature" )‘
 ```
 
-We query the InfluxDB server with our flux query. The query client returns the results as a Flux Object with a table structure. The query() method takes two parameters: `org` and `query`.  
+The query client sends the Flux query to InfluxDB and returns a Flux Object with a table structure. The `query()` method takes two named parameters:`org` and `query`.  
 
 ```python
 result = client.query_api().query(org=org, query=query)
 ```
 
-We iterate through the tables and records in the Flux Object to return our values and fields using the `get_value()` and `get_field()` methods, respectively. 
+Iterate through the tables and records in the Flux Object.
+Use the `get_value()` method to return values.
+Use the `get_field()` method to return fields.
 ```python
 results = []
 for table in result:
@@ -134,16 +135,16 @@ print(results)
 [(temperature, 25.3)]
 ```
 
-The Flux Object has the following methods for accessing your data:
-- ```get_measurement()```: Returns the measurement name of the record.
-- ```get_field()```: Returns the field name.
-- ```get_values()```: Returns the actual field value.
-- ```values()```: Returns map of the values where key is the column name.
-- ```values.get(“<your tags>”)```: Returns value for given column key for the record.
-- ```get_time()```: Returns the time of the record.
-- ```get_start()```: Returns the inclusive lower time bound of all records in the current table.
-- ```get_stop()```: Returns the exclusive upper time bound of all records in the current table.
+**The Flux Object provides the following methods for accessing your data:**
 
+- `get_measurement()`: Returns the measurement name of the record.
+- `get_field()`: Returns the field name.
+- `get_values()`: Returns the actual field value.
+- `values()`: Returns a map of column values.
+- `values.get("<your tag>")`: Returns a value from the record for given column.
+- `get_time()`: Returns the time of the record.
+- `get_start()`: Returns the inclusive lower time bound of all records in the current table.
+- `get_stop()`: Returns the exclusive upper time bound of all records in the current table.
 
 
 ### Complete example query script

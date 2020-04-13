@@ -1,5 +1,6 @@
 ---
 title: Go client library
+seotitle: InfluxDB Go client library
 list_title: Go
 description: >
   Use the Go client library to interact with InfluxDB.
@@ -8,30 +9,36 @@ menu:
     name: Go
     parent: Client libraries
 v2.0/tags: [client libraries, Go]
-aliases:
-  - /v2.0/reference/api/client-libraries/go-cl-guide/
 weight: 201
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
 
 This guide presumes some familiarity with Go and InfluxDB.
-If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/).
+If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
 
 1. Go 1.3 or later is required. 
-2. Run ```go get github.com/influxdata/influxdb-client-go``` to download the client package in your $GOPATH, followed by ```go build``to build the package. 
-3. Ensure that InfluxDB is running.
+2. Download the client package in your $GOPATH and build the package.
+
+    ```sh
+    # Download the InfluxDB Go client package
+    go get github.com/influxdata/influxdb-client-go
+
+    # Build the package
+    go build
+    ```
+3. Ensure that InfluxDB is running and you can connect to it.
    If running InfluxDB locally, visit http://localhost:9999.
-   (If using InfluxDB Cloud, visit the URL of your InfluxDB Cloud UI.
-   For example: https://us-west-2-1.aws.cloud2.influxdata.com.)
+   If using InfluxDB Cloud, visit your [InfluxDB Cloud URL](/v2.0/cloud/urls).
 
-## Write data to InfluxDB with Go
+## Boilerplate for the InfluxDB Go Client Library  
 
-We are going to write some data as a point using the Go library.
+Use the Go library to write and query data to and from InfluxDB.
 
-In your Go program, import necessary packages and specify the entry point of our executable program. 
+In your Go program, import the necessary packages and specify the entry point of your executable program.
+
 ```go
 package main
 
@@ -44,27 +51,37 @@ import (
 )
 ```
 
-Next, define a few variables with the name of your [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
+Next, define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
 ```go
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
-```
+//variable to store the url of your local or InfluxDB Cloud instance
+url = "<http://localhost:9999>"
+``
 
-In order to write data, we need to create the the InfluxDB Go Client and pass in our named parameters: `url` and `token`.
-
-```go
-client := influxdb2.NewClient("http://localhost:9999", "my-token")
-```
-
-We create a write client with the `WriteApiBlocking` method and pass in our other named parameters: `org` and `bucket`. 
+To write data, create the the InfluxDB Go Client and pass in our named parameters: `url` and `token`.
 
 ```go
-writeApi := client.WriteApiBlocking("my-org", "my-bucket")
+client := influxdb2.NewClient(url, my-token)
 ```
 
-We need three more lines for our program to write data.
+Create a **write client** with the `WriteApiBlocking` method and pass in your other named parameters: `org` and `bucket`. 
+
+```go
+writeApi := client.WriteApiBlocking(my-org, my-bucket)
+```
+
+To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
+
+```go
+  queryApi := client.QueryApi(org)
+```
+## Write data to InfluxDB with Go
+
+Use the Go library to write data to InfluxDB.
+
 Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 Close the client to flush all pending writes and finish. 
 
@@ -99,25 +116,25 @@ client.Close()
 }
 ```
 ## Query data from InfluxDB with Go
+Use the Go library to query data to InfluxDB.
 
-In order to query data, we to create the client and the query client, similarly to to the write example above.  
+Create a flux query and supply your `bucket` parameter. 
 
-```go
-  client := influxdb2.NewClient("http://localhost:9999", "my-token")
-  queryApi := client.QueryApi("my-org")
-```
-
-Next, we create a flux query and supply our `bucket` parameter. 
-
-```flux
+```js
 from(bucket:"<bucket>")
 |> range(start: -1h)
-|> filter(fn: (r) => r._measurement == "stat"
+|> filter(fn: (r) => r._measurement == "stat")
 ```
 
-We query the InfluxDB server with our flux query. The query client returns the results as a FluxRecord object with a table structure. The `Query` method takes our flux query. 
-The `Next` method iterates over our query response. The `TableChanged` method notices whe the group key has changed. 
-The `Record` method returns last parsed FluxRecord and gives access to value and row properties. The `Value` method returns the actual field value. 
+The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
+
+**The query client includes the following methods:**
+
+- `Query`: Sends the Flux query to InfluxDB. 
+- `Next`: Iterates over the query response.
+- `TableChanged`: Identifies when the group key changes. 
+- `Record`: Returns the last parsed FluxRecord and gives access to value and row properties.
+- `Value`: Returns the actual field value.
 
 ```go
  result, err := queryApi.Query(context.Background(), `from(bucket:"<bucket>")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
@@ -136,21 +153,22 @@ The `Record` method returns last parsed FluxRecord and gives access to value and
     }
 ```
 
-The FluxRecord object has the following methods for accessing your data:
-- ```Table()```: Returns index of the table record belongs to.
-- ```Start()```: Returns the inclusive lower time bound of all records in the current table.
-- ```Stop()```: Returns the exclusive upper time bound of all records in the current table.
-- ```Time()```: Returns the time of the record.
-- ```Value() ```: Returns the actual field value.
-- ```Field()```: Returns the field name.
-- ```Measurement()```: Returns the measurement name of the record.
-- ```Values()```: Returns map of the values where key is the column name.
-- ```ValueByKey(<your_tags>)```: Returns value for given column key for the record.
+**The FluxRecord object includes the following methods for accessing your data:**
+
+- `Table()`: Returns the index of the table the record belongs to.
+- `Start()`: Returns the inclusive lower time bound of all records in the current table.
+- `Stop()`: Returns the exclusive upper time bound of all records in the current table.
+- `Time()`: Returns the time of the record.
+- `Value() `: Returns the actual field value.
+- `Field()`: Returns the field name.
+- `Measurement()`: Returns the measurement name of the record.
+- `Values()`: Returns a map of column values.
+- `ValueByKey(<your_tags>)`: Returns a value from the record for given column key.
 
 
 ### Complete example query script
 
-```
+```go
  func main() {
     // Create client
     client := influxdb2.NewClient("http://localhost:9999", "my-token")
