@@ -109,7 +109,7 @@ writeApi
 
 ## Query data from InfluxDB with JavaScript
 
-We get a query client with the `getQueryApi` method and pass in our named parameter `org`. 
+We get a query client with the `getQueryApi` method and pass in our named parameter: `org`. 
 
 ```js
 const queryApi = influxDB.getQueryApi(org)
