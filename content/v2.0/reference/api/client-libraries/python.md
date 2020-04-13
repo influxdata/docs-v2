@@ -97,7 +97,6 @@ client = influxdb_client.InfluxDBClient(
     org=org
 )
 
-client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
