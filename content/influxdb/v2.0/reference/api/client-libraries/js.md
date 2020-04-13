@@ -19,11 +19,9 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
 
-1. Install Go 1.3 or later](https://golang.org/doc/install)
+1. Install [NodeJS](https://nodejs.org/en/download/package-manager/):
 
-2. Install [NodeJS](https://nodejs.org/en/download/package-manager/):
-
-3. Ensure that InfluxDB is running and you can connect to it.
+2. Ensure that InfluxDB is running and you can connect to it.
    If running InfluxDB locally, visit http://localhost:9999.
    If using InfluxDB Cloud, visit your [InfluxDB Cloud URL](/v2.0/cloud/urls).
 
