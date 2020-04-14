@@ -20,12 +20,7 @@ import "pushbullet"
 
 pushbullet.endpoint(
   url: "https://api.pushbullet.com/v2/pushes",
-  token: "",
-  mapFn: (r) => ({
-    r with
-    title: "Notification Title",
-    text: "Value: ${string(v: r._value)}"
-  })
+  token: ""
 )
 ```
 
