@@ -19,37 +19,36 @@ $radius: 3px !default;
 
 // TopNav Colors
 $topnav-link: $g8-storm !default;
-$topnav-link-hover: $b-dodger !default;
-$version-selector-top: $b-pool !default;
-$version-selector-bottom: $br-galaxy !default;
+$topnav-link-hover: $b-pool !default;
+$version-selector-gradient: $grad-pastelgothic !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
 
 // Search
 $sidebar-search-bg: $g20-white !default;
 $sidebar-search-shadow: $g14-chromium !default;
-$sidebar-search-highlight: $b-dodger !default;
+$sidebar-search-highlight: $b-pool !default;
 $sidebar-search-text: $g8-storm !default;
 
 // Left Navigation
-$nav-category: $b-dodger !default;
-$nav-category-hover: $cp-purple !default;
-$nav-item: $np-rum !default;
-$nav-item-hover: $cp-purple !default;
+$nav-category: $b-pool !default;
+$nav-category-hover: $br-magenta !default;
+$nav-item: $g9-mountain !default;
+$nav-item-hover: $br-magenta !default;
 $nav-border: $g14-chromium !default;
 $nav-toggle: $g20-white !default;
 $nav-toggle-hover: $g20-white !default;
-$nav-toggle-bg-hover: $br-galaxy !default;
-$nav-active: $m-magenta !default;
+$nav-toggle-bg-hover: $br-magenta !default;
+$nav-active: $br-magenta !default;
 
 // Article Content
 $article-bg: $g20-white !default;
-$article-heading: $cp-marguerite !default;
-$article-heading-alt: $g7-graphite !default;
-$article-text: $g8-storm !default;
-$article-bold: $g8-storm !default;
-$article-link: $b-dodger !default;
-$article-link-hover: $cp-purple !default;
+$article-heading: $br-pulsar !default;
+$article-heading-alt: $g5-pepper !default;
+$article-text: $g6-smoke !default;
+$article-bold: $g5-pepper !default;
+$article-link: $b-pool !default;
+$article-link-hover: $br-magenta !default;
 $article-shadow: #c8cdd0 !default;
 $article-hr: $g15-platinum !default;
 
@@ -58,11 +57,11 @@ $article-code: $cp-marguerite !default;
 $article-code-bg: $cp-titan !default;
 $article-code-shadow: $g20-white !default;
 $article-code-accent1: $cp-melrose !default;
-$article-code-accent2: $b-dodger !default;
+$article-code-accent2: $b-pool !default;
 $article-code-accent3: #12A290 !default;
-$article-code-accent4: $o-ruby !default;
+$article-code-accent4: $r-ruby !default;
 $article-code-accent5: #e24bbb !default;
-$article-code-accent6: $b-dodger !default;
+$article-code-accent6: $b-pool !default;
 $article-code-accent7: #e90 !default;
 $article-code-select:  $b-pool !default;
 $article-code-link: $cp-marguerite !default;
@@ -70,8 +69,7 @@ $article-code-link-hover: $cp-marguerite !default;
 $article-code-scrollbar: $cp-periwinkle !default;
 
 // Article Tables
-$article-table-header-left: $cp-marguerite !default;
-$article-table-header-right: $b-laser !default;
+$article-table-header: $grad-miyazakisky !default;
 $article-table-row-alt: #F6F7F8 !default;
 $article-table-scrollbar: $g14-chromium !default;
 
@@ -81,7 +79,7 @@ $article-note-heading: $gr-emerald !default;
 $article-note-text: $gr-emerald !default;
 $article-note-link: $gr-emerald !default;
 $article-note-link-hover: $cp-purple !default;
-$article-note-table-header: $gr-viridian !default;
+$article-note-table-header: $grad-green-dark !default;
 $article-note-table-row-alt: #d6f5e9 !default;
 $article-note-table-scrollbar: #87DABE !default;
 $article-note-shadow: #8CB7AB !default;
@@ -101,7 +99,7 @@ $article-warn-heading: $o-fire !default;
 $article-warn-text: $o-curacao !default;
 $article-warn-link: $o-curacao !default;
 $article-warn-link-hover: $cp-purple !default;
-$article-warn-table-header: $r-dreamsicle !default;
+$article-warn-table-header: $grad-red !default;
 $article-warn-table-row-alt: #ffe6df !default;
 $article-warn-table-scrollbar: #FFB1B1 !default;
 $article-warn-shadow: #b98a7d !default;
@@ -121,7 +119,7 @@ $article-cloud-heading: $b-eastern !default;
 $article-cloud-text: $b-curious !default;
 $article-cloud-link: $b-curious !default;
 $article-cloud-link-hover: $cp-purple !default;
-$article-cloud-table-header: $b-curious !default;
+$article-cloud-table-header: $grad-blue !default;
 $article-cloud-table-row-alt: $b-hawkeye !default;
 $article-cloud-table-scrollbar: $b-malibu !default;
 $article-cloud-shadow: #6EB8E4 !default;
@@ -139,7 +137,7 @@ $article-cloud-code-scrollbar: $b-malibu !default;
 $article-enterprise-base: $br-galaxy !default;
 $article-enterprise-text: $cp-purple !default;
 $article-enterprise-link: $cp-purple !default;
-$article-enterprise-link-hover: $b-dodger !default;
+$article-enterprise-link-hover: $b-pool !default;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g8-storm !default;
@@ -152,7 +150,7 @@ $article-tab-code-text: $cp-marguerite !default;
 // Article page buttons
 $article-btn: $b-pool !default;
 $article-btn-text: $g20-white !default;
-$article-btn-hover: $b-dodger !default;
+$article-btn-hover: $b-pool !default;
 $article-btn-text-hover: $g20-white !default;
 
 // Article UI nav icons
@@ -160,7 +158,7 @@ $article-nav-icon-bg: $g6-smoke !default;
 $article-nav-acct-bg: $g5-pepper !default;
 
 // Error Page Colors
-$error-page-btn: $b-dodger !default;
+$error-page-btn: $b-pool !default;
 $error-page-btn-text: $g20-white !default;
 $error-page-btn-hover: $b-pool !default;
 $error-page-btn-hover-text: $g20-white !default;
@@ -170,10 +168,10 @@ $landing-lg-gradient-left: $cp-jakarta !default;
 $landing-lg-gradient-right: $wp-heart !default;
 $landing-sm-bg: $wp-seance !default;
 $landing-sm-bg-alt: $wp-jagger !default;
-$landing-sm-bg-hover: $b-dodger !default;
+$landing-sm-bg-hover: $b-pool !default;
 $landing-btn-text: $g20-white !default;
-$landing-btn-bg: $b-dodger !default;
-$landing-btn-text-hover: $b-dodger !default;
+$landing-btn-bg: $b-pool !default;
+$landing-btn-text-hover: $b-pool !default;
 $landing-btn-bg-hover: $g20-white !default;
 $landing-artwork-color: rgba($g20-white, .15) !default;
 
@@ -190,7 +188,7 @@ $svg-table-row-alt1: $b-laser !default;
 $svg-table-row-alt2: $br-galaxy !default;
 $svg-table-code: $cp-marguerite !default;
 $svg-table-code-bg: $cp-titan !default;
-$svg-table-code-operator: $b-dodger !default;
+$svg-table-code-operator: $b-pool !default;
 $svg-table-code-string: #12A290 !default;
 
 $svg-geo-s2-cell: $b-malibu !default;

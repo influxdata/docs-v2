@@ -14,3 +14,7 @@
     border-radius: 6px;
   }
 }
+
+@mixin gradient($colors, $deg: 45deg) {
+  background: linear-gradient($deg, $colors);
+}

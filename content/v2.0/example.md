@@ -441,20 +441,36 @@ This is **bold**. This is _italic_.
     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
     Etiam tristique nisi et tristique auctor.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[tab1](#)
+[tab2](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+// This is a code block inside of a blockquote
+cpu = from(bucket:"my-bucket")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu")
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ###### This is a table in a blockquote
-| Column 1 | Column 2  | Column 3 | Column 4 |
-| -------- | --------  | -------- | -------- |
-| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
-| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
-| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
-| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
 {{% /warn %}}
 
@@ -549,20 +565,36 @@ This is **bold**. This is _italic_.
     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
     Etiam tristique nisi et tristique auctor.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[tab1](#)
+[tab2](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+// This is a code block inside of a blockquote
+cpu = from(bucket:"my-bucket")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu")
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ###### This is a table in a blockquote
-| Column 1 | Column 2  | Column 3 | Column 4 |
-| -------- | --------  | -------- | -------- |
-| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
-| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
-| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
-| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
 {{% /cloud-msg %}}
 

@@ -36,7 +36,7 @@
     color: $article-note-text;
     box-shadow: 1px 3px 10px $article-note-shadow;
     thead{
-      background: $article-note-table-header;
+      @include gradient($article-note-table-header);
     }
     tr:nth-child(even) td {
       background: $article-note-table-row-alt;
@@ -48,6 +48,10 @@
   }
   .code-tabs-wrapper .code-tabs a {
     background: transparent;
-    &.is-active {background: $article-note-code-bg}
+    color: rgba($article-note-text, .5);
+    &:hover { color: rgba($article-note-text, 1); }
+    &.is-active {
+      color: rgba($article-note-text, 1);
+      background: $article-note-code-bg};
   }
 }

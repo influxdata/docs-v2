@@ -82,8 +82,40 @@ $r-flan:        #FFF7F4;
 
 // Code
 $cp-munchkin:   #B7B8FF;
-$code-dark-bg:    $g0-obsidian;
-$code-dark-scroll:#2f2f50;
+$cp-marguerite: #736ECD;
+$cp-titan:      #EDEDFF;
+
+
+/////////////////////////////////// Gradients //////////////////////////////////
+
+$grad-grey-light:   $g13-mist, $g18-cloud;
+$grad-grey:         $g10-wolf, $g13-mist;
+$grad-grey-dark:    $g3-castle, $g6-smoke;
+
+$grad-blue-light:   $b-pool, $b-hydrogen;
+$grad-blue:         $b-ocean, $b-pool;
+$grad-blue-dark:    $b-sapphire, $b-ocean;
+
+$grad-purple-light: $p-comet, $p-moonstone;
+$grad-purple:       $p-star, $p-comet;
+$grad-purple-dark:  $p-void, $p-amethyst;
+
+$grad-green-light:  $gr-honeydew, $gr-krypton;
+$grad-green:        $gr-rainforest, $gr-honeydew;
+$grad-green-dark:   $gr-emerald, $gr-viridian;
+
+$grad-yellow-light: $y-thunder, $y-sulfur;
+$grad-yellow:       $y-pineapple, $y-thunder;
+$grad-yellow-dark:  $y-topaz, $y-tiger;
+
+$grad-red-light:    $r-dreamsicle, $r-tungsten;
+$grad-red:          $r-curacao, $r-dreamsicle;
+$grad-red-dark:     $r-ruby, $r-fire;
+
+$grad-gundampilot:  $p-amethyst, $b-ocean;
+$grad-miyazakisky:  $p-star, $b-pool;
+$grad-pastelgothic: $p-comet, $b-laser;
+$grad-garageband:   $b-pool, $gr-rainforest;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,14 +146,12 @@ $cp-jakarta:      #322368;
 $cp-minsk:        #423681;
 $cp-victoria:     #52499A;
 $cp-blueviolet:   #625CB3;
-$cp-marguerite:   #736ECD;
 $cp-purple:       #8381E6;
 //
 $cp-melrose:      #A5A6FF;
 //
 $cp-periwinkle:   #C9CAFF;
 $cp-coolfog:      #DBDBFF;
-$cp-titan:        #EDEDFF;
 
 // Neutral Purples
 $np-deepnight:    #13002d; // Brand color

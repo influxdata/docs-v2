@@ -42,7 +42,7 @@
     right: 3.5rem;
     color: $g20-white;
     height: 2rem;
-    background: $version-selector-top;
+    @include gradient($version-selector-gradient);
     font-weight: $medium;
     border-radius: $radius;
     overflow: hidden;
@@ -65,7 +65,7 @@
 
     &.open {
       height: auto;
-      background: linear-gradient($version-selector-top, $version-selector-bottom);
+      @include gradient($version-selector-gradient);
       &:after {
         transform: rotate(180deg);
       }

@@ -15,7 +15,7 @@ table {
     padding: .85rem 1.25rem;
   }
   thead {
-    background: linear-gradient(to right, $article-table-header-left, $article-table-header-right);
+    @include gradient($article-table-header, 90deg);
     background-attachment: fixed;
   }
 

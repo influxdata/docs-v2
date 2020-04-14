@@ -19,8 +19,7 @@ $body-bg: $g0-obsidian;
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
-$version-selector-top: $b-pool;
-$version-selector-bottom: $br-galaxy;
+$version-selector-gradient: $grad-miyazakisky;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
@@ -33,7 +32,7 @@ $sidebar-search-text: $g20-white;
 // Left Navigation
 $nav-category: $b-pool;
 $nav-category-hover: $g20-white;
-$nav-item: $g16-pearl;
+$nav-item: $g15-platinum;
 $nav-item-hover: $b-pool;
 $nav-border: $g5-pepper;
 $nav-toggle: $g16-pearl;
@@ -45,7 +44,7 @@ $nav-active: $br-chartreuse;
 $article-bg: $g1-raven;
 $article-heading: $g20-white;
 $article-heading-alt: $g19-ghost;
-$article-text: $g16-pearl;
+$article-text: $g15-platinum;
 $article-bold: $g19-ghost;
 $article-link: $b-pool;
 $article-link-hover: $g20-white;
@@ -54,7 +53,7 @@ $article-shadow: $g0-obsidian;
 
 // Article Code
 $article-code: $cp-munchkin;
-$article-code-bg: $code-dark-bg;
+$article-code-bg: $g0-obsidian;
 $article-code-shadow: $g0-obsidian;
 $article-code-accent1: $np-smokey;
 $article-code-accent2: $b-pool;
@@ -64,13 +63,12 @@ $article-code-accent5: #ff6db0;
 $article-code-accent6: $b-pool;
 $article-code-accent7: #e90;
 $article-code-select: $b-pool;
-$article-code-link: $b-dodger;
+$article-code-link: $b-pool;
 $article-code-link-hover: $g20-white;
 $article-code-scrollbar: $g3-castle;
 
 // Article Tables
-$article-table-header-left: $br-pulsar;
-$article-table-header-right: $b-pool;
+$article-table-header: $grad-gundampilot;
 $article-table-row-alt: $g3-castle;
 $article-table-scrollbar: $g0-obsidian;
 
@@ -80,7 +78,7 @@ $article-note-heading: $g20-white;
 $article-note-text: $gr-honeydew;
 $article-note-link: $gr-wasabi;
 $article-note-link-hover: $g20-white;
-$article-note-table-header: $gr-viridian;
+$article-note-table-header: $grad-green-dark;
 $article-note-table-row-alt: #1a3c34;
 $article-note-table-scrollbar: #162627;
 $article-note-shadow: $g0-obsidian;
@@ -100,9 +98,9 @@ $article-warn-heading: $g20-white;
 $article-warn-text: $r-tungsten;
 $article-warn-link: $r-marmelade;
 $article-warn-link-hover: $g20-white;
-$article-warn-table-header: rgba($r-dreamsicle, .9);
+$article-warn-table-header: $grad-red;
 $article-warn-table-row-alt: #4a2a2a;
-$article-warn-table-scrollbar: #2a2025;
+$article-warn-table-scrollbar: #1f181b;
 $article-warn-shadow: $g0-obsidian;
 $article-warn-code: #ec6e6e;
 $article-warn-code-bg: $g0-obsidian;
@@ -120,7 +118,7 @@ $article-cloud-heading: $g20-white;
 $article-cloud-text: $b-fleur;
 $article-cloud-link: $b-hawkeye;
 $article-cloud-link-hover: $g20-white;
-$article-cloud-table-header: $b-pool;
+$article-cloud-table-header: $grad-blue-dark;
 $article-cloud-table-row-alt: #1b3a58;
 $article-cloud-table-scrollbar: #192a3a;
 $article-cloud-shadow: $g0-obsidian;
@@ -159,20 +157,20 @@ $article-nav-icon-bg: $g5-pepper;
 $article-nav-acct-bg: $g3-castle;
 
 // Error Page Colors
-$error-page-btn: $b-dodger;
+$error-page-btn: $b-pool;
 $error-page-btn-text: $g20-white;
 $error-page-btn-hover: $g20-white;
-$error-page-btn-hover-text: $b-dodger;
+$error-page-btn-hover-text: $b-pool;
 
 // Landing Page colors
 $landing-lg-gradient-left: $wp-violentdark;
 $landing-lg-gradient-right: $cp-minsk;
 $landing-sm-bg: $cp-victoria;
 $landing-sm-bg-alt: $cp-victoria;
-$landing-sm-bg-hover: $b-dodger;
+$landing-sm-bg-hover: $b-pool;
 $landing-btn-text: $g20-white;
-$landing-btn-bg: $b-dodger;
-$landing-btn-text-hover: $b-dodger;
+$landing-btn-bg: $b-pool;
+$landing-btn-text-hover: $b-pool;
 $landing-btn-bg-hover: $g20-white;
 $landing-artwork-color: $cp-minsk;
 

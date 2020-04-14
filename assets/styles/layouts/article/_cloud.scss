@@ -69,7 +69,7 @@
     color: $article-cloud-text;
     box-shadow: 1px 3px 10px $article-cloud-shadow;
     thead{
-      background: $article-cloud-table-header;
+      @include gradient($article-cloud-table-header);
     }
     tr:nth-child(even) td {
       background: $article-cloud-table-row-alt;
@@ -81,7 +81,11 @@
   }
   .code-tabs-wrapper .code-tabs a {
     background: transparent;
-    &.is-active {background: $article-cloud-code-bg}
+    color: rgba($article-cloud-text, .5);
+    &:hover { color: rgba($article-cloud-text, 1); }
+    &.is-active {
+      color: rgba($article-cloud-text, 1);
+      background: $article-cloud-code-bg};
   }
 
   &.flex {

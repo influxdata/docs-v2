@@ -521,29 +521,6 @@ The following case insensitive values are supported:
 - settings
 - feedback
 
-### InfluxDB UI notification messages
-In some cases, documentation references a notification message that appears in
-the top-right corner of the InfluxDB UI.
-Rather than taking a screenshot of the message (that can be hard to maintain over time),
-use the `{{< ui-message >}}` shortcode.
-
-It expects two parameters:
-
-**`text`** (Required)  
-The message displayed.
-
-**`color`** (Optional)  
-Sets the background color and icons used in the message.
-The following options are available:
-
-- green _(default)_
-- blue
-- red
-
-```
-{{< ui-message color="green" text="The message displayed in the notification.">}}
-```
-
 ### Flexbox-formatted content blocks
 CSS Flexbox formatting lets you create columns in article content that adjust and
 flow based on the viewable width.
