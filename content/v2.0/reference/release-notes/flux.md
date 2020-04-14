@@ -11,12 +11,34 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.64.0**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.65.0**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
-## v0.66.0 [unreleased]
+## v0.66.1 [2020-04-14]
+
+### Bug fixes
+- Add bounds to `alignTime()` tests.
+
+---
+
+## v0.66.0 [2020-04-13]
+
+### Features
+- Add [`epsilon` parameter](/v2.0/reference/flux/stdlib/testing/diff/#epsilon) to `testing.diff()`.
+- Add [`experimental.alignTime()` function](/v2.0/reference/flux/stdlib/experimental/aligntime/).
+- Add random access group lookup.
+- Add [Pushbullet package](/v2.0/reference/flux/stdlib/pushbullet/).
+- Add a helper for testing `execute.Source`.
+
+### Bug fixes
+- Use RandomAccessGroupLookup in `testing.diff()`.
+- Address deleted state `GroupLookup`.
+- Add test case for errors when AST is bad.
+- Reduce memory usage during CI testing.
+
+---
 
 ## v0.65.0 [2020-03-27]
 
