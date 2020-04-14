@@ -1,5 +1,5 @@
 ---
-title: Multi-user Accounts
+title: Manage multiple users
 description: >
   View and manage multiple users in an Influx Cloud account.
 weight: 4
@@ -8,5 +8,8 @@ menu:
     parent: Account management
     name: Manage multiple users
 ---
+
+{{< cloud-name >}} accounts support multiple-user organizations.
+Collaborate with others using these features.
 
 {{< children >}}

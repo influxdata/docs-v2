@@ -2,7 +2,7 @@
 title: Remove users
 list_title: Remove users
 description: >
-  [Description]
+  Remove a user from an organization
 weight: 103
 menu:
   v2_0_cloud:
@@ -10,5 +10,4 @@ menu:
     name: Remove users
 ---
 
-{{< cloud-name >}} accounts support multiple-user organizations.
-Collaborate with others using these features.
+## Remove a user from {{< cloud-name >}}
