@@ -1,0 +1,18 @@
+<div class="url-selector" style="background: #fff; padding: 1rem;">
+{{ range sort .Site.Data.influxdb_urls "product" "desc" }}
+  <h4>{{ .product }}</h4>
+  {{ if .name }}
+    <ul><li data-url="{{ .url }}">{{ .name }}</li></ul>
+  {{ end }}
+  {{ if .providers }}
+    {{ range .providers }}
+      <strong>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</strong>
+      <ul>
+        {{ range .regions }}
+          <li data-url="{{ .url }}">{{ .name }}</li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  {{ end }}
+{{ end }}
+</div>
