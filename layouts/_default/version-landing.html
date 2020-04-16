@@ -9,8 +9,7 @@
       <div class="card main" id="get-started">
         {{ $currentVersion := replaceRE "v" "" (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
         <h1>Get started with InfluxDB</h1>
-        <a class="btn" href="cloud/get-started">Start with InfluxDB Cloud</a>
-        <a class="btn oss" href="get-started">Start with InfluxDB OSS {{ $currentVersion }}</a>
+        <a class="btn oss" href="get-started">Get started with InfluxDB</a>
       </div>
       {{ partial "svgs/hive.svg" }}
       <div class="group">
