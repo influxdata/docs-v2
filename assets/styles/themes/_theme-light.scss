@@ -19,7 +19,7 @@ $radius: 3px !default;
 
 // TopNav Colors
 $topnav-link: $g8-storm !default;
-$topnav-link-hover: $b-pool !default;
+$topnav-link-hover: $b-dodger !default;
 $version-selector-gradient: $grad-pastelgothic !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
@@ -31,7 +31,7 @@ $sidebar-search-highlight: $b-pool !default;
 $sidebar-search-text: $g8-storm !default;
 
 // Left Navigation
-$nav-category: $b-pool !default;
+$nav-category: $b-dodger !default;
 $nav-category-hover: $br-magenta !default;
 $nav-item: $g9-mountain !default;
 $nav-item-hover: $br-magenta !default;
@@ -46,10 +46,10 @@ $article-bg: $g20-white !default;
 $article-heading: $br-pulsar !default;
 $article-heading-alt: $g5-pepper !default;
 $article-text: $g6-smoke !default;
-$article-bold: $g5-pepper !default;
+$article-bold: $g6-smoke !default;
 $article-link: $b-pool !default;
 $article-link-hover: $br-magenta !default;
-$article-shadow: #c8cdd0 !default;
+$article-shadow: $g14-chromium !default;
 $article-hr: $g15-platinum !default;
 
 // Article Code
@@ -57,13 +57,13 @@ $article-code: $cp-marguerite !default;
 $article-code-bg: $cp-titan !default;
 $article-code-shadow: $g20-white !default;
 $article-code-accent1: $cp-melrose !default;
-$article-code-accent2: $b-pool !default;
-$article-code-accent3: #12A290 !default;
+$article-code-accent2: $b-dodger !default;
+$article-code-accent3: $gr-viridian !default;
 $article-code-accent4: $r-ruby !default;
 $article-code-accent5: #e24bbb !default;
-$article-code-accent6: $b-pool !default;
+$article-code-accent6: $b-dodger !default;
 $article-code-accent7: #e90 !default;
-$article-code-select:  $b-pool !default;
+$article-code-select:  $b-dodger !default;
 $article-code-link: $cp-marguerite !default;
 $article-code-link-hover: $cp-marguerite !default;
 $article-code-scrollbar: $cp-periwinkle !default;
@@ -77,8 +77,8 @@ $article-table-scrollbar: $g14-chromium !default;
 $article-note-base: $gr-rainforest !default;
 $article-note-heading: $gr-emerald !default;
 $article-note-text: $gr-emerald !default;
-$article-note-link: $gr-emerald !default;
-$article-note-link-hover: $cp-purple !default;
+$article-note-link: $b-ocean !default;
+$article-note-link-hover: $br-magenta !default;
 $article-note-table-header: $grad-green-dark !default;
 $article-note-table-row-alt: #d6f5e9 !default;
 $article-note-table-scrollbar: #87DABE !default;

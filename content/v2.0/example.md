@@ -194,13 +194,13 @@ avg_cpu
 
 {{% enterprise %}}
 ###### This is a table
-| Column 1 | Column 2  | Column 3 | Column 4 |
-| -------- | --------  | -------- | -------- |
-| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
-| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
-| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
-| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
-| Row 5.1  | `Row 5.2` | Row 5.3  | Row 5.4  |
+| Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
+| -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+| Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
+| Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
+| Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
+| Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
+| Row 5.1  | `Row 5.2` | Row 5.3  | Row 5.4  | Row 5.1  | `Row 5.2` | Row 5.3  | Row 5.4  |
 
 ###### This is a table with lots of stuff
 | Column 1 | Column 2 | Column 3 | Column 4 |
