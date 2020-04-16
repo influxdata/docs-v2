@@ -2,6 +2,7 @@
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters | resources.Concat "js/footer.bundle.js" }}
+{{ $regionURLs := resources.Get "js/region-url.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $regionURLs | resources.Concat "js/footer.bundle.js" }}
 
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>

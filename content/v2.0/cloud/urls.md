@@ -15,18 +15,7 @@ Use the URLs below to interact with your InfluxDB Cloud instances with the
 [InfluxDB API](/v2.0/reference/api/), [InfluxDB client libraries](/v2.0/reference/api/client-libraries/),
 [`influx` CLI](/v2.0/reference/cli/influx/), or [Telegraf](/v2.0/write-data/use-telegraf/).
 
-## Amazon Web Services (AWS)
-
-| Region           | URL                                              |
-|:------           |:---                                              |
-| US West (Oregon) | https://us-west-2-1.aws.cloud2.influxdata.com    |
-| EU Frankfurt     | https://eu-central-1-1.aws.cloud2.influxdata.com |
-
-## Google Cloud Platform (GCP)
-
-| Region            | URL                                              |
-|:------            |:---                                              |
-| US Central (Iowa) | https://us-central1-1.gcp.cloud2.influxdata.com/ |
+{{< cloud_urls >}}
 
 ---
 

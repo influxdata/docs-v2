@@ -1,4 +1,8 @@
   {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+
+  <!-- InfluxDB URL modal -->
+  {{ partial "footer/influxdb-url-modal.html" . }}
+
   <!-- Docsearch JS -->
   <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
   <script>
