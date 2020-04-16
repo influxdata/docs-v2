@@ -15,7 +15,10 @@ The core of {{< cloud-name "short" >}} is built on the foundation of the open so
 version of InfluxDB 2.0, which is much more than a database.
 It is a time series data platform that collects, stores, processes and visualizes metrics and events.
 
-_See the differences between {{< cloud-name "short">}} and InfluxDB OSS [below](#differences-between-influxdb-cloud-and-influxdb-oss)._
+{{% note %}}
+To run InfluxDB locally, see [Start using InfluxDB OSS](#start-using-influxdb-oss) below.
+For more information, see [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss).
+{{% /note %}}
 
 ### Start for free
 
