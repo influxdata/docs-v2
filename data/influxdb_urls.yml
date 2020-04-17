@@ -1,7 +1,10 @@
 oss:
   product: InfluxDB OSS
-  name: localhost:9999
-  url: http://localhost:9999
+  providers:
+    - name: Default
+      regions:
+        - name: localhost:9999
+          url: http://localhost:9999
 
 cloud:
   product: InfluxDB Cloud
@@ -9,7 +12,7 @@ cloud:
     - name: Amazon Web Services
       short_name: AWS
       regions:
-        - name: US West (Orgeon)
+        - name: US West (Oregon)
           url: https://us-west-2-1.aws.cloud2.influxdata.com
         - name: EU Frankfort
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
