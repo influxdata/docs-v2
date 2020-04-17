@@ -11,3 +11,7 @@ menu:
 ---
 
 ## Remove a user from {{< cloud-name >}}
+
+1. Navigate to the **Members** page under **Organizations** in the left navigation bar.
+2. Click the [icon] next to the user you want to remove.
+3. Confirm the removal.
