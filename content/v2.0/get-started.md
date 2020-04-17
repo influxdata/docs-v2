@@ -8,6 +8,9 @@ weight: 1
 v2.0/tags: [get-started, install]
 ---
 
+- [Start using InfluxDB Cloud 2.0](#start-using-influxdb-cloud-2.0)
+- [Start using InfluxDB OSS](#start-using-influxdb-oss)
+
 ## Start using InfluxDB Cloud 2.0
 
 {{< cloud-name >}} is a fully managed and hosted, version of the InfluxDB 2.0 time series data platform.
@@ -15,10 +18,8 @@ The core of {{< cloud-name "short" >}} is built on the foundation of the open so
 version of InfluxDB 2.0, which is much more than a database.
 It is a time series data platform that collects, stores, processes and visualizes metrics and events.
 
-{{% note %}}
 To run InfluxDB locally, see [Start using InfluxDB OSS](#start-using-influxdb-oss) below.
 For more information, see [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss).
-{{% /note %}}
 
 ### Start for free
 
