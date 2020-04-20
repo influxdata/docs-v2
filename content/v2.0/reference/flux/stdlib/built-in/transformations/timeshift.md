@@ -9,7 +9,7 @@ menu:
   v2_0_ref:
     name: timeShift
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `timeShift()` function adds a fixed duration to time columns.

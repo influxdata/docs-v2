@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: group
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `group()` function groups records based on their values for specific columns.

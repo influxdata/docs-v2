@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: range
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `range()` function filters records based on time bounds.

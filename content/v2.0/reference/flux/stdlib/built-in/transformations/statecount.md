@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: stateCount
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `stateCount()` function computes the number of consecutive records in a given state.

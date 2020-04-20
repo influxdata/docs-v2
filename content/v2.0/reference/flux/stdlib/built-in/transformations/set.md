@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: set
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `set()` function assigns a static value to each record in the input table.
