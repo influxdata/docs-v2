@@ -55,10 +55,10 @@ $article-shadow: $g0-obsidian;
 $article-code: $cp-munchkin;
 $article-code-bg: $g0-obsidian;
 $article-code-shadow: $g0-obsidian;
-$article-code-accent1: $np-smokey;
+$article-code-accent1: $g7-graphite;
 $article-code-accent2: $b-pool;
 $article-code-accent3: $gr-viridian;
-$article-code-accent4: $o-ruby;
+$article-code-accent4: $r-ruby;
 $article-code-accent5: #ff6db0;
 $article-code-accent6: $b-pool;
 $article-code-accent7: #e90;
@@ -87,7 +87,7 @@ $article-note-code-bg: #0d1617;
 $article-note-code-accent1: #567375;
 $article-note-code-accent2: $b-pool;
 $article-note-code-accent3: $gr-viridian;
-$article-note-code-accent4: $o-ruby;
+$article-note-code-accent4: $r-ruby;
 $article-note-code-accent5: #ff6db0;
 $article-note-code-accent6: $b-pool;
 $article-note-code-accent7: #e90;
@@ -107,7 +107,7 @@ $article-warn-code-bg: $g0-obsidian;
 $article-warn-code-accent1: #844c4c;
 $article-warn-code-accent2: $b-pool;
 $article-warn-code-accent3: $gr-viridian;
-$article-warn-code-accent4: $o-ruby;
+$article-warn-code-accent4: $r-ruby;
 $article-warn-code-accent5: #ffb4fb;
 $article-warn-code-accent6: $b-pool;
 $article-warn-code-accent7: #e90;
@@ -115,9 +115,9 @@ $article-warn-code-scrollbar: #2a2025;
 
 $article-cloud-base: $b-pool;
 $article-cloud-heading: $g20-white;
-$article-cloud-text: $b-fleur;
-$article-cloud-link: $b-hawkeye;
-$article-cloud-link-hover: $g20-white;
+$article-cloud-text: $b-neutrino;
+$article-cloud-link: $g20-white;
+$article-cloud-link-hover: $b-hydrogen;
 $article-cloud-table-header: $grad-blue-dark;
 $article-cloud-table-row-alt: #1b3a58;
 $article-cloud-table-scrollbar: #192a3a;
@@ -127,15 +127,15 @@ $article-cloud-code-bg: #110d2b;
 $article-cloud-code-accent1: #567375;
 $article-cloud-code-accent2: $b-pool;
 $article-cloud-code-accent3: $gr-viridian;
-$article-cloud-code-accent4: $o-ruby;
+$article-cloud-code-accent4: $r-ruby;
 $article-cloud-code-accent5: #ff6db0;
 $article-cloud-code-accent6: $b-pool;
 $article-cloud-code-accent7: #e90;
 $article-cloud-code-scrollbar: #192a3a;
 
-$article-enterprise-base: $cp-purple;
-$article-enterprise-text: $cp-periwinkle;
-$article-enterprise-link: $cp-coolfog;
+$article-enterprise-base: $br-galaxy;
+$article-enterprise-text: $cp-melrose;
+$article-enterprise-link: $cp-titan;
 $article-enterprise-link-hover: $g20-white;
 
 // Article Tabs for tabbed content
@@ -163,33 +163,33 @@ $error-page-btn-hover: $g20-white;
 $error-page-btn-hover-text: $b-pool;
 
 // Landing Page colors
-$landing-lg-gradient-left: $wp-violentdark;
-$landing-lg-gradient-right: $cp-minsk;
-$landing-sm-bg: $cp-victoria;
-$landing-sm-bg-alt: $cp-victoria;
+$landing-lg-gradient-left: #2d0749;
+$landing-lg-gradient-right: #423681;
+$landing-sm-bg: #52499A;
+$landing-sm-bg-alt: #52499A;
 $landing-sm-bg-hover: $b-pool;
 $landing-btn-text: $g20-white;
 $landing-btn-bg: $b-pool;
 $landing-btn-text-hover: $b-pool;
 $landing-btn-bg-hover: $g20-white;
-$landing-artwork-color: $cp-minsk;
+$landing-artwork-color: #423681;
 
 // Tooltip colors
-$tooltip-color: $ch-chartreuse;
-$tooltip-color-alt: $ch-canary;
-$tooltip-bg: $g20-white;
-$tooltip-text: $cp-minsk;
+$tooltip-color: $br-chartreuse;
+$tooltip-color-alt: $br-chartreuse;
+$tooltip-bg: $br-chartreuse;
+$tooltip-text: $g2-kevlar;
 
 // SVG colors
-$svg-table-header: $cp-minsk;
-$svg-table-stroke: $np-deepnight;
-$svg-table-row-alt1: $m-magenta;
-$svg-table-row-alt2: $gr-canopy;
-$svg-table-code: $cp-munchkin;
-$svg-table-code-bg: $np-deepnight;
+$svg-table-header: $g6-smoke;
+$svg-table-stroke: $g0-obsidian;
+$svg-table-row-alt1: $br-magenta;
+$svg-table-row-alt2: $gr-rainforest;
+$svg-table-code: $article-code;
+$svg-table-code-bg: $g0-obsidian;
 $svg-table-code-operator: $b-pool;
 $svg-table-code-string: $gr-viridian;
 
-$svg-geo-s2-cell: $b-curious;
-$svg-geo-region: $m-lavander;
-$svg-geo-point: $ch-chartreuse;
+$svg-geo-s2-cell: $b-dodger;
+$svg-geo-region: $p-comet;
+$svg-geo-point: $br-chartreuse;

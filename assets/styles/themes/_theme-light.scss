@@ -88,17 +88,17 @@ $article-note-code-bg: #BDF3DA !default;
 $article-note-code-accent1: #6abba0 !default;
 $article-note-code-accent2: #0084d6 !default;
 $article-note-code-accent3: #5d52d6 !default;
-$article-note-code-accent4: $o-ruby !default;
+$article-note-code-accent4: $r-ruby !default;
 $article-note-code-accent5: #e24bbb !default;
 $article-note-code-accent6: #0084d6 !default;
 $article-note-code-accent7: #e90 !default;
 $article-note-code-scrollbar: #87DABE !default;
 
 $article-warn-base: $r-dreamsicle !default;
-$article-warn-heading: $o-fire !default;
-$article-warn-text: $o-curacao !default;
-$article-warn-link: $o-curacao !default;
-$article-warn-link-hover: $cp-purple !default;
+$article-warn-heading: $r-fire !default;
+$article-warn-text: $r-curacao !default;
+$article-warn-link: $r-curacao !default;
+$article-warn-link-hover: $br-pulsar !default;
 $article-warn-table-header: $grad-red !default;
 $article-warn-table-row-alt: #ffe6df !default;
 $article-warn-table-scrollbar: #FFB1B1 !default;
@@ -108,35 +108,35 @@ $article-warn-code-bg: #FFDDDC !default;
 $article-warn-code-accent1: #fd99b8 !default;
 $article-warn-code-accent2: #357ae8 !default;
 $article-warn-code-accent3: #6c59cc !default;
-$article-warn-code-accent4: $o-ruby !default;
+$article-warn-code-accent4: $r-ruby !default;
 $article-warn-code-accent5: #6a0a6f !default;
 $article-warn-code-accent6: #357ae8 !default;
 $article-warn-code-accent7: #e90 !default;
 $article-warn-code-scrollbar: #FFB1B1 !default;
 
 $article-cloud-base: $b-laser !default;
-$article-cloud-heading: $b-eastern !default;
-$article-cloud-text: $b-curious !default;
-$article-cloud-link: $b-curious !default;
-$article-cloud-link-hover: $cp-purple !default;
+$article-cloud-heading: $b-ocean !default;
+$article-cloud-text: $b-ocean !default;
+$article-cloud-link: $b-ocean !default;
+$article-cloud-link-hover: $br-pulsar !default;
 $article-cloud-table-header: $grad-blue !default;
-$article-cloud-table-row-alt: $b-hawkeye !default;
-$article-cloud-table-scrollbar: $b-malibu !default;
+$article-cloud-table-row-alt: $g20-white !default;
+$article-cloud-table-scrollbar: $b-hydrogen !default;
 $article-cloud-shadow: #6EB8E4 !default;
-$article-cloud-code: $b-matisse !default;
-$article-cloud-code-bg: $b-fleur !default;
+$article-cloud-code: $b-ocean !default;
+$article-cloud-code-bg: $b-neutrino !default;
 $article-cloud-code-accent1: #3CAAE2 !default;
-$article-cloud-code-accent2: $cp-blueviolet !default;
+$article-cloud-code-accent2: $br-pulsar !default;
 $article-cloud-code-accent3: #048E66 !default;
-$article-cloud-code-accent4: $o-ruby !default;
+$article-cloud-code-accent4: $r-ruby !default;
 $article-cloud-code-accent5: #e24bbb !default;
 $article-cloud-code-accent6: #0084d6 !default;
 $article-cloud-code-accent7: #e90 !default;
-$article-cloud-code-scrollbar: $b-malibu !default;
+$article-cloud-code-scrollbar: $b-laser !default;
 
 $article-enterprise-base: $br-galaxy !default;
-$article-enterprise-text: $cp-purple !default;
-$article-enterprise-link: $cp-purple !default;
+$article-enterprise-text: $cp-marguerite !default;
+$article-enterprise-link: $cp-marguerite !default;
 $article-enterprise-link-hover: $b-pool !default;
 
 // Article Tabs for tabbed content
@@ -144,7 +144,6 @@ $article-tab-text: $g8-storm !default;
 $article-tab-bg: $g18-cloud !default;
 $article-tab-active-text: $g20-white !default;
 $article-tab-active-bg: $b-pool !default;
-
 $article-tab-code-text: $cp-marguerite !default;
 
 // Article page buttons
@@ -176,9 +175,9 @@ $landing-btn-bg-hover: $g20-white !default;
 $landing-artwork-color: rgba($g20-white, .15) !default;
 
 // Tooltip colors
-$tooltip-color: $m-magenta !default;
-$tooltip-color-alt: $wp-trance !default;
-$tooltip-bg: $m-lavander !default;
+$tooltip-color: $p-amethyst !default;
+$tooltip-color-alt: $p-twilight !default;
+$tooltip-bg: $p-amethyst !default;
 $tooltip-text: $g20-white !default;
 
 // SVG colors
@@ -193,4 +192,4 @@ $svg-table-code-string: #12A290 !default;
 
 $svg-geo-s2-cell: $b-malibu !default;
 $svg-geo-region: $br-galaxy !default;
-$svg-geo-point: $m-heliotrope !default;
+$svg-geo-point: $p-potassium !default;
