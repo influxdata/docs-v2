@@ -585,6 +585,24 @@ Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
+## InfluxDB URLs
+InfluxDB and InfluxDB cloud are accessed at different and varying URLs.
+The InfluxDB documentation customizes InfluxDB URLs inside of code blocks using
+the product / region selected by the user.
+InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
+
+The default URL that is replaced inside of code blocks is `http://localhost:9999`.
+To exempt a code block from being updated, include the `{{< keep-url >}}` shortcode
+just before the code block.
+
+~~~
+{{< keep-url >}}
+```
+// This URL won't get updated
+http://localhost:9999
+```
+~~~
+
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.

@@ -1,0 +1,39 @@
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div id="influxdb-url-list" class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-ui-remove"></span></a>
+      <div class="modal-content">
+        <h3>Where are you running InfluxDB?</h3>
+        <p>Select where you're using InfluxDB and we'll customize code examples with your <strong>InfluxDB URL</strong>.</p>
+        <div class="products">
+          {{ range sort .Site.Data.influxdb_urls "product" "desc" }}
+            <div class="product">
+              <h4>{{ .product }}</h4>
+              <div class="providers">
+                {{ range .providers }}
+                  <div class="provider">
+                    <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
+                    <ul>
+                    {{ range .regions }}
+                      <li>
+                        <label for="{{ anchorize .name }}">
+                          <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                          <span class="radio"></span>
+                          {{ .name }}
+                        </label>
+                      </li>
+                    {{ end }}
+                    </ul>
+                  </div>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+        <p class="note">For more information, see <a href='{{ print "/" $currentVersion "/cloud/urls/"}}'>InfluxDB URLs</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>

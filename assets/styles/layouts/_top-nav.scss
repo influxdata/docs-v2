@@ -36,18 +36,18 @@
   }
 
   .version-selector {
-    display: inline-block;
-    position: absolute;
-    z-index: 100;
-    right: 3.5rem;
-    color: $g20-white;
-    height: 2rem;
-    @include gradient($version-selector-gradient);
-    font-weight: $medium;
-    border-radius: $radius;
-    overflow: hidden;
-    cursor: pointer;
-    transition: right .2s;
+  display: inline-block;
+  position: absolute;
+  z-index: 100;
+  right: 5.5rem;
+  color: $g20-white;
+  height: 2rem;
+  @include gradient($version-selector-gradient);
+  font-weight: $medium;
+  border-radius: $radius;
+  overflow: hidden;
+  cursor: pointer;
+  transition: right .2s;
 
     .selected {
       padding: 0 1.75rem 0 .75rem;
@@ -65,7 +65,6 @@
 
     &.open {
       height: auto;
-      @include gradient($version-selector-gradient);
       &:after {
         transform: rotate(180deg);
       }
@@ -102,7 +101,7 @@
     }
   }
 
-  .theme-switcher, #search-btn {
+  .theme-switcher, #search-btn, .url-trigger {
     display: inline-block;
     padding: 0;
     font-size: 1.8rem;
@@ -124,6 +123,12 @@
     }
     &#theme-switch-dark { display: $theme-switch-dark; }
     &#theme-switch-light { display: $theme-switch-light; }
+  }
+
+  .url-trigger {
+    font-size: 1.1rem;
+    vertical-align: top;
+    margin: .1rem 0 0 0;
   }
 
   #search-btn {
