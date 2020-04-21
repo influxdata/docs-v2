@@ -37,7 +37,7 @@ $bold: 700;
   margin-left: -25px;
   border-radius: 50%;
   border: 3px solid $g16-pearl;
-  border-top-color: $br-galaxy;
+  border-top-color: $br-pulsar;
   animation: spinner .6s linear infinite;
 }
 
@@ -47,7 +47,7 @@ $bold: 700;
   font-family: $rubik;
   padding: 15px 20px ;
   display: block;
-  background-color: $wp-violentdark;
+  background-color: $g2-kevlar;
   a {
     color: $g20-white;
     text-decoration: none;
@@ -147,14 +147,14 @@ $bold: 700;
 ///////////////////////////// RESPONSE COLOR BLOCKS ////////////////////////////
 
 // Green
-.hLVzSF {
-  background-color: rgba($gr-wasabi, .5);
+.hLVzSF, .fDvFMp {
+  background-color: rgba($gr-honeydew, .2);
   color: $gr-emerald;
 }
 
 // Red
 .byLrBg {
-  background-color: rgba($o-marmelade, .35);
+  background-color: rgba($r-curacao, .1);
   color: $r-curacao;
 }
 
@@ -168,7 +168,7 @@ $bold: 700;
 }
 
 .gpbcFk:hover, .sc-eTuwsz.active {
-  background-color: rgb(237, 237, 237);
+  background-color: $g17-whisper;
 }
 
 // List item text
@@ -183,9 +183,9 @@ $bold: 700;
 // Request method tags
 .cFwMcp {
   &.post { background-color: $b-ocean; }
-  &.get { background-color: $gr-canopy; }
+  &.get { background-color: $gr-rainforest; }
   &.put { background-color: $br-galaxy; }
-  &.patch { background-color: $y-thunder; }
+  &.patch { background-color: $y-thunder; color: rgba($g5-pepper, .75);}
   &.delete { background-color: $r-curacao; }
 }
 
@@ -198,7 +198,7 @@ $bold: 700;
 
 // Right column backgrounds
 .dtUibw, .fLUKgj {
-  background-color: $wp-jagger;
+  background-color: $g2-kevlar;
   h3,h4,h5,h6 {
     font-family: $rubik !important;
     font-weight: $medium !important;
@@ -207,18 +207,18 @@ $bold: 700;
 
 // Code backgrounds
 .irpqyy > .react-tabs__tab-panel {
-  background-color: $wp-telopea;
+  background-color: $g0-obsidian;
 }
 .dHLKeu, .fVaxnA {
   padding-left: 10px;
-  background-color: $wp-telopea;
+  background-color: $g0-obsidian;
 }
 
 // Response code tabs
 .irpqyy > ul > li {
-  background-color: $wp-telopea;
+  background-color: $g0-obsidian;
   border-radius: 3px;
-  &.react-tabs__tab--selected{ color: $cp-blueviolet; }
+  &.react-tabs__tab--selected{ color: $br-pulsar;}
   &.tab-error { color: $r-fire; }
   &.tab-success { color: $gr-viridian; }
 }
@@ -235,14 +235,14 @@ $bold: 700;
   border-radius: 3px;
 }
 .bNYCAJ { background-color: $b-ocean; } /* Post */
-.jBjYbV { background-color: $gr-canopy; } /* Get */
+.jBjYbV { background-color: $gr-viridian; } /* Get */
 .hOczRB { background-color: $br-galaxy; } /* Put */
-.fRsrDc { background-color: $br-chartreuse; color: $ch-olive; } /* Patch */
+.fRsrDc { background-color: $y-thunder; color: $g5-pepper; } /* Patch */
 .hPskZd { background-color: $r-curacao; } /* Delete */
 
 // Content type block
 .gzAoUb {
-  background-color: rgba($wp-jagger, .4);
+  background-color: $g2-kevlar;
   font-family: $rubik;
 }
 .iENVAs { font-family: $roboto-mono; }
@@ -259,7 +259,7 @@ $bold: 700;
 .jCgylq {
   .token.string {
     color: $gr-honeydew;
-    & + a { color: $b-malibu; }
+    & + a { color: $b-pool; }
   }
   .token.boolean { color: #f955b0; }
 }

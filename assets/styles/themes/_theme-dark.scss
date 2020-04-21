@@ -19,7 +19,7 @@ $body-bg: $g0-obsidian;
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
-$version-selector-gradient: $grad-miyazakisky;
+$version-selector-gradient: $grad-Miyazakisky;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
@@ -68,7 +68,7 @@ $article-code-link-hover: $g20-white;
 $article-code-scrollbar: $g3-castle;
 
 // Article Tables
-$article-table-header: $grad-gundampilot;
+$article-table-header: $grad-GundamPilot;
 $article-table-row-alt: $g3-castle;
 $article-table-scrollbar: $g0-obsidian;
 
@@ -163,16 +163,13 @@ $error-page-btn-hover: $g20-white;
 $error-page-btn-hover-text: $b-pool;
 
 // Landing Page colors
-$landing-lg-gradient-left: #2d0749;
-$landing-lg-gradient-right: #423681;
-$landing-sm-bg: #52499A;
-$landing-sm-bg-alt: #52499A;
+$landing-artwork-gradient: $grad-GrapeSoda;
+$landing-artwork-color: rgba($br-galaxy, .25);
+$landing-sm-bg: rgba($g1-raven, .4);
 $landing-sm-bg-hover: $b-pool;
 $landing-btn-text: $g20-white;
-$landing-btn-bg: $b-pool;
-$landing-btn-text-hover: $b-pool;
-$landing-btn-bg-hover: $g20-white;
-$landing-artwork-color: #423681;
+$landing-btn-grad: $grad-blue;
+$landing-btn-grad-hover: $grad-blue-light;
 
 // Tooltip colors
 $tooltip-color: $br-chartreuse;

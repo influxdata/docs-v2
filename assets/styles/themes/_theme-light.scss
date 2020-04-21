@@ -20,7 +20,7 @@ $radius: 3px !default;
 // TopNav Colors
 $topnav-link: $g8-storm !default;
 $topnav-link-hover: $b-dodger !default;
-$version-selector-gradient: $grad-pastelgothic !default;
+$version-selector-gradient: $grad-PastelGothic !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
 
@@ -69,7 +69,7 @@ $article-code-link-hover: $cp-marguerite !default;
 $article-code-scrollbar: $cp-periwinkle !default;
 
 // Article Tables
-$article-table-header: $grad-miyazakisky !default;
+$article-table-header: $grad-Miyazakisky !default;
 $article-table-row-alt: #F6F7F8 !default;
 $article-table-scrollbar: $g14-chromium !default;
 
@@ -163,16 +163,13 @@ $error-page-btn-hover: $b-pool !default;
 $error-page-btn-hover-text: $g20-white !default;
 
 // Landing Page colors
-$landing-lg-gradient-left: $cp-jakarta !default;
-$landing-lg-gradient-right: $wp-heart !default;
-$landing-sm-bg: $wp-seance !default;
-$landing-sm-bg-alt: $wp-jagger !default;
+$landing-artwork-gradient: $grad-GundamPilot !default;
+$landing-artwork-color: rgba($p-shadow, .35) !default;
+$landing-sm-bg: rgba($p-void, .4) !default;
 $landing-sm-bg-hover: $b-pool !default;
 $landing-btn-text: $g20-white !default;
-$landing-btn-bg: $b-pool !default;
-$landing-btn-text-hover: $b-pool !default;
-$landing-btn-bg-hover: $g20-white !default;
-$landing-artwork-color: rgba($g20-white, .15) !default;
+$landing-btn-grad: $grad-blue !default;
+$landing-btn-grad-hover: $grad-blue-light !default;
 
 // Tooltip colors
 $tooltip-color: $p-amethyst !default;
@@ -190,6 +187,6 @@ $svg-table-code-bg: $cp-titan !default;
 $svg-table-code-operator: $b-pool !default;
 $svg-table-code-string: #12A290 !default;
 
-$svg-geo-s2-cell: $b-malibu !default;
+$svg-geo-s2-cell: $b-hydrogen !default;
 $svg-geo-region: $br-galaxy !default;
 $svg-geo-point: $p-potassium !default;
