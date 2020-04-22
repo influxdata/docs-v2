@@ -130,8 +130,8 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
 
 To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
-{{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
-{{% /cloud-msg %}}
+{{% cloud %}}{{< cloud-name >}} does not support scrapers.
+{{% /cloud %}}
 
 ### influx CLI
 

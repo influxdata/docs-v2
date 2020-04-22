@@ -10,7 +10,7 @@ weight: 101
 related:
   - /v2.0/backup-restore/restore/
   - /v2.0/reference/cli/influx/backup/
-#draft: true
+products: [oss]
 ---
 
 Use the [`influx backup` command](/v2.0/reference/cli/influx/backup/) to back up
@@ -24,9 +24,9 @@ Root tokens created prior to **v2.0.0-beta.2** do not have the necessary permiss
 To succesfully use the backup tool, set up a new InfluxDB instance using **v2.0.0-beta.2+**.
 {{% /warn %}}
 
-{{% cloud-msg %}}
+{{% cloud %}}
 The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 The `influx backup` command requires:
 

@@ -8,6 +8,7 @@ menu:
 weight: 201
 related:
   - /v2.0/reference/config-options/
+products: [oss]
 ---
 
 The `influxd run` command is the default command for `influxd`.

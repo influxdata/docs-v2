@@ -6,20 +6,28 @@ menu:
     name: Get started
 weight: 1
 v2.0/tags: [get-started, install]
+aliases:
+  - /v2.0/cloud/get-started
 ---
 
-- [Start using InfluxDB Cloud 2.0](#start-using-influxdb-cloud-2.0)
-- [Start using InfluxDB OSS](#start-using-influxdb-oss)
+The InfluxDB 2.0 time series platform is purpose-built to collect, store,
+process and visualize metrics and events.
+Start with **InfluxDB Cloud 2.0**, a fully managed and hosted version of InfluxDB 2.0,
+or **InfluxDB OSS 2.0 _(beta)_**, the open source
+version of InfluxDB 2.0.
 
-## Start using InfluxDB Cloud 2.0
+---
 
-{{< cloud-name >}} is a fully managed and hosted, version of the InfluxDB 2.0 time series data platform.
-The core of {{< cloud-name "short" >}} is built on the foundation of the open source
-version of InfluxDB 2.0, which is much more than a database.
-It is a time series data platform that collects, stores, processes and visualizes metrics and events.
+<p style="text-align: center">
+  <a class="btn" href="#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
+  <a class="btn" href="#start-with-influxdb-oss">Start with InfluxDB OSS</a>
+</p>
 
-To run InfluxDB locally, see [Start using InfluxDB OSS](#start-using-influxdb-oss) below.
-For more information, see [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss).
+---
+
+_See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss)._
+
+## Start with InfluxDB Cloud 2.0
 
 ### Start for free
 
@@ -75,11 +83,11 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
     _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
-{{% cloud-msg %}}
+{{% cloud %}}
 All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 References to the InfluxDB user interface (UI) or localhost:9999 refer to your
 {{< cloud-name >}} UI.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ### Sign in
 
@@ -87,84 +95,12 @@ Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email 
 
 <a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
 
-### Collect and write data
+### Start working with your time series data
+With {{< cloud-name "short" >}} setup, see [Next steps](#next-steps) for what to do next.
 
-Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
-command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.0), or the InfluxDB v2 API client libraries.
+---
 
-#### Use Telegraf
-
-Use Telegraf to quickly write data to {{< cloud-name >}}.
-Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
-existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
-
-For details, see [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)
-and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manual-config/).
-
-#### API, CLI, and client libraries
-
-For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
-see [Write data to InfluxDB](/v2.0/write-data/).
-
-{{% note %}}
-##### InfluxDB Cloud instance endpoint
-When using Telegraf, the InfluxDB v2 API, the `influx` CLI, or the client libraries
-to interact with your {{< cloud-name "short" >}}, they each require the URL of your
-InfluxDB Cloud instance.
-See [InfluxDB Cloud URLs](/v2.0/cloud/urls/) for information about which URL to use
-and where to find it in your InfluxDB Cloud UI.
-{{% /note %}}
-
-### Query and visualize data
-
-Once you've set up {{< cloud-name "short" >}} to collect data, you can do the following:
-
-- Query data using Flux, the UI, and the `influx` command line interface.
-  See [Query data](/v2.0/query-data/).
-- Build custom dashboards to visualize your data.
-  See [Visualize data](/v2.0/visualize-data/).
-
-### Process data
-
-Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
-
-### View data usage
-
-Once you're up and running with {{< cloud-name "short" >}}, [monitor your data usage in
-your {{< cloud-name "short" >}} UI](/v2.0/cloud/account-management/data-usage/).
-
-### Differences between InfluxDB Cloud and InfluxDB OSS
-
-{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
-
-- [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
-  targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
-- Retrieving data from a file based CSV source using the `file` parameter of the
-  [`csv.from()`](/v2.0/reference/flux/functions/csv/from) function is not supported;
-  however you can use raw CSV data with the `csv` parameter.
-
-#### New features in InfluxDB Cloud 2.0
-
-- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
-  jump right in to exploring InfluxDB 2.0 technology.
-  The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
-- **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data
-  scripting and query language that increases productivity and code reuse.
-  It is the primary language for working with data within InfluxDB 2.0.
-  Flux can be used with other data sources as well.
-  This allows users to work with data where it resides.
-- **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
-  is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that
-  enables seamless movement between open source and cloud.
-- **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
-  the new user interface (InfluxDB UI) offers quick and effortless onboarding,
-  richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [The Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
-  offers more flexibility and ensures that you only pay for what you use.
-
-## Start using InfluxDB OSS
+## Start with InfluxDB OSS
 
 Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
@@ -210,11 +146,11 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-### Networking ports
+#### Networking ports
 By default, InfluxDB uses TCP port `9999` for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
-## Start InfluxDB
+### Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
 
 ```bash
@@ -283,11 +219,11 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-### Networking ports
+#### Networking ports
 By default, InfluxDB uses TCP port `9999` for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
-## Start InfluxDB
+### Start InfluxDB
 Start InfluxDB by running the `influxd` daemon:
 
 ```bash
@@ -363,13 +299,13 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 
 2. Start Minikube:
 
-    ```
+    ```sh
     minikube start
     ```
 
 3. Apply the [sample InfluxDB configuration](https://github.com/influxdata/docs-v2/blob/master/static/downloads/influxdb-k8-minikube.yaml) by running:
 
-    ```
+    ```sh
     kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
     ```
 
@@ -384,13 +320,13 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 
 4. Ensure the Pod is running:
 
-    ```
+    ```sh
     kubectl get pods -n influxdb
     ```
 
 5. Ensure the Service is available:
 
-    ```
+    ```sh
     kubectl describe service -n influxdb influxdb
     ```
 
@@ -398,7 +334,7 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 
 6. Forward port 9999 from inside the cluster to localhost:
 
-    ```
+    ```sh
     kubectl port-forward -n influxdb service/influxdb 9999:9999
     ```
 
@@ -487,3 +423,80 @@ to provide the required information.
 {{% /tab-content %}}
 <!------------------------------- END UI Setup -------------------------------->
 {{< /tabs-wrapper >}}
+
+---
+
+## Next Steps
+
+### Collect and write data
+
+Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
+command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.0), or the InfluxDB v2 API client libraries.
+
+#### Use Telegraf
+
+Use Telegraf to quickly write data to {{< cloud-name >}}.
+Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
+existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
+
+For details, see [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)
+and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manual-config/).
+
+#### Scrape data
+
+**InfluxDB OSS** lets you scrape Prometheus-formatted metrics from HTTP endpoints.
+For details, see [Scrape data](/v2.0/write-data/scrape-data/).
+
+#### API, CLI, and client libraries
+
+For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
+see [Write data to InfluxDB](/v2.0/write-data/).
+
+### Query data
+
+Query data using Flux, the UI, and the `influx` command line interface.
+See [Query data](/v2.0/query-data/).
+
+### Process data
+
+Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
+
+### Visualize data
+
+Build custom dashboards to visualize your data.
+See [Visualize data](/v2.0/visualize-data/).
+
+### Monitor and alert
+
+Monitor your data and sends alerts based on specified logic.
+See [Monitor and alert](/v2.0/monitor-alert/).
+
+## Differences between InfluxDB Cloud and InfluxDB OSS
+
+{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
+The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
+
+- [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
+  targets are not available in {{< cloud-name "short" >}}.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
+- **InfluxDB Cloud** does not support retrieving data from a file based CSV source
+  using the `file` parameter of the [`csv.from()`](/v2.0/reference/flux/functions/csv/from);
+  however you can use raw CSV data with the `csv` parameter.
+
+#### New features in InfluxDB Cloud 2.0
+
+- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
+  jump into exploring InfluxDB 2.0 technology.
+  The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
+- **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data
+  scripting and query language that increases productivity and code reuse.
+  It is the primary language for working with data within InfluxDB 2.0.
+  Flux can be used with other data sources as well, letting you work with data where it resides.
+- **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
+  is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that
+  enables seamless movement between open source and cloud.
+- **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
+  the new user interface (InfluxDB UI) offers quick and effortless onboarding,
+  richer user experiences, and significantly quicker results.
+- **Usage-based pricing**: The [Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
+  offers more flexibility and ensures that you only pay for what you use.

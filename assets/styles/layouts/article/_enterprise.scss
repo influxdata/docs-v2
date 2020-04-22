@@ -1,37 +1,4 @@
 .enterprise {
-  position: relative;
-  padding: 0 0 .01rem 2rem;
-  margin-left: -2rem;
-  border-left: 2px solid $article-enterprise-base;
-
-  .enterprise-flag {
-    &:hover {
-      transform: scale(1);
-      color: $g20-white;
-    }
-  }
-}
-
-.enterprise-flag {
-  padding: .2rem .4rem;
-  font-size: .75rem;
-  font-style: normal;
-  font-weight: bold;
-  color: $g20-white;
-  border-radius: $radius;
-  vertical-align: text-bottom;
-  background: $article-enterprise-base;
-  position: absolute;
-  top: -.15rem;
-  left: -.68rem;
-  transform: scale(.8);
-  transition: all .2s;
-  &:before {
-    content: "E";
-  }
-}
-
-.enterprise-msg {
   border-color: $article-enterprise-base;
   background: rgba($article-enterprise-base, .15);
   p,li {
@@ -47,24 +14,6 @@
     div:first-child {
       position: relative;
       margin: .25rem 2rem 0 0;
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////// MEDIA QUERIES ////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-@include media(small) {
-  .enterprise-msg .enterprise-flag {
-    margin-left: .5rem;
-  }
-  .enterprise {
-    padding: 0 0 .01rem .85rem;
-    margin-left: -.85rem;
-
-    .enterprise-flag {
-      left: -.25rem;
     }
   }
 }

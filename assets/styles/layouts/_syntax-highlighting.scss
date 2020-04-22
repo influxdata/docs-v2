@@ -1,3 +1,5 @@
+pre { line-height: 1.25rem; }
+
 code[class*="language-"],
 pre[class*="language-"] {
 	/*text-shadow: 0 1px #101419;*/
@@ -49,8 +51,6 @@ pre[class*="language-"] {
 }
 
 .highlight  { color: $article-code;
-
-  line-height: 1.25rem;
 
 	// COLORS
 

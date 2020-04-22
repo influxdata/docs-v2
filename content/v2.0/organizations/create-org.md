@@ -7,15 +7,16 @@ menu:
     name: Create an organization
     parent: Manage organizations
 weight: 101
+products: [oss]
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create an organization.
 
-{{% cloud-msg %}}
+{{% cloud %}}
 You cannot currently create additional organizations in {{< cloud-name >}}.
 Only the default organization is available.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ## Create an organization in the InfluxDB UI
 

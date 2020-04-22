@@ -8,6 +8,7 @@ menu:
   v2_0:
     parent: Manage scrapers
 weight: 302
+products: [oss]
 ---
 
 Update a scraper in the InfluxDB user interface (UI).

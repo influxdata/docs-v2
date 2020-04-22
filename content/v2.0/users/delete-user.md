@@ -7,6 +7,7 @@ menu:
     name: Delete a user
     parent: Manage users
 weight: 103
+products: [oss]
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

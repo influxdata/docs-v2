@@ -8,6 +8,7 @@ menu:
   v2_0_ref:
     parent: influxd generate
 weight: 301
+products: [oss]
 ---
 
 The `influxd generate help-schema` command outputs an example TOML schema to stdout that includes

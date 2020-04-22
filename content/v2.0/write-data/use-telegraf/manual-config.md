@@ -130,9 +130,9 @@ The example below illustrates `influxdb_v2` configurations that write to InfluxD
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% cloud-msg %}}
+{{% cloud %}}
 For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/).
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ```toml
 # ...

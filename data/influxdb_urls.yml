@@ -1,0 +1,23 @@
+oss:
+  product: InfluxDB OSS
+  providers:
+    - name: Default
+      regions:
+        - name: localhost:9999
+          url: http://localhost:9999
+
+cloud:
+  product: InfluxDB Cloud
+  providers:
+    - name: Amazon Web Services
+      short_name: AWS
+      regions:
+        - name: US West (Oregon)
+          url: https://us-west-2-1.aws.cloud2.influxdata.com
+        - name: EU Frankfort
+          url: https://eu-central-1-1.aws.cloud2.influxdata.com
+    - name: Google Cloud Platform
+      short_name: GCP
+      regions:
+        - name: US Central (Iowa)
+          url: https://us-central1-1.gcp.cloud2.influxdata.com

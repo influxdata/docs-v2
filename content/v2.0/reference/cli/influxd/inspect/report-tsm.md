@@ -9,6 +9,7 @@ menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
+products: [oss]
 ---
 
 The `influxd inspect report-tsm` command analyzes Time-Structured Merge Tree (TSM)
