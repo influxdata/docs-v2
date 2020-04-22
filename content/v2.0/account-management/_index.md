@@ -4,7 +4,7 @@ description: >
   View and manage information related to your InfluxDB Cloud 2.0 account such as
   pricing plans, data usage, account cancelation, etc.
 weight: 4
-cloud_all: true
+products: [cloud]
 aliases:
     - /v2.0/cloud/account-management/
 menu:

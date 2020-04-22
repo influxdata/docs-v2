@@ -12,15 +12,16 @@ menu:
 
 InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
 
-## Local URL
+## InfluxDB OSS URL
 
 For InfluxDB OSS, the default URL is the following:
 
+{{< keep-url >}}
 ```
 http://localhost:9999/
 ```
 
-## Cloud URLs
+## InfluxDB Cloud URLs
 
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
