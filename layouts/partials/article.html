@@ -8,11 +8,6 @@
     {{ .Content }}
     {{ partial "article/related.html" . }}
     {{ partial "article/tags.html" . }}
-
-    {{ if in .RelPermalink "/cloud/"}}
-      {{ partial "article/_cloud-feedback.html" . }}
-    {{ else }}
-      {{ partial "article/_feedback.html" . }}
-    {{ end }}
+    {{ partial "article/_feedback.html" . }}
   </article>
 </div>
