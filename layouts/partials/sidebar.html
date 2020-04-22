@@ -22,15 +22,10 @@
   <ul id="nav-tree">
 
   {{ $mainMenu := (index .Site.Menus (replaceRE "[.]" "_" $currentVersion)) }}
-  {{ $cloudMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_cloud")) }}
   {{ $refMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_ref")) }}
 
   <!-- Main Section -->
   {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) }}
-
-  <!-- Cloud Section -->
-  <h4 class="reference">{{ .Site.Data.products.cloud.shortname }}</h4>
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $cloudMenu) }}
 
   <!-- Reference Section -->
   <h4 class="reference">Reference</h4>

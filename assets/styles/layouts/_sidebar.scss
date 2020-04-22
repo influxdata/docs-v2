@@ -168,15 +168,16 @@
       font-weight: $medium;
       display: inline-block;
 
-      // Product exclusivity labels
+      /////////////////////// Product exclusivity labels ///////////////////////
       span:after{
         display: inline-block;
         position: relative;
         top: -2px;
         margin-left: .15rem;
-        padding: .45rem .17rem .35rem;
+        padding: .45rem .18rem .35rem;
         line-height: 0;
         font-size: .6rem;
+        font-style: italic;
         border-radius: 8px;
       }
 
@@ -205,6 +206,7 @@
         }
       }
     }
+    ////////////////////// End Product exclusivity labels //////////////////////
 
     .nav-category > a {
       color: $nav-category;

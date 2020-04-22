@@ -6,11 +6,12 @@ description: >
 aliases:
   - /v2.0/cloud/rate-limits/
   - /v2.0/cloud/pricing-plans/
-weight: 2
+weight: 102
 menu:
-v2_0_cloud:
-  parent: Account management
-  name: Pricing plans
+  v2_0:
+    parent: Account management
+    name: Pricing plans
+products: [cloud]
 ---
 
 InfluxDB Cloud 2.0 offers two pricing plans:

@@ -8,7 +8,7 @@ v2.0/tags: [backup, restore]
 menu:
   v2_0:
     name: Back up & restore data
-weight: 10
+weight: 9
 #draft: true
 ---
 
