@@ -8,6 +8,7 @@ menu:
   v2_0_ref:
     parent: influxd
 weight: 201
+products: [oss]
 ---
 
 The `influxd generate` command generates time series data direct to disk using a schema defined in a TOML file.

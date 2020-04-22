@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Back up & restore data
 weight: 9
-#draft: true
+products: [oss]
 ---
 
 InfluxDB provides tools to back up and restore data and metadata stored in InfluxDB.

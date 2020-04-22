@@ -11,7 +11,7 @@ v2.0/tags: [restore]
 related:
   - /v2.0/backup-restore/backup/
   - /v2.0/reference/cli/influxd/restore/
-#draft: true
+products: [oss]
 ---
 
 Use the `influxd restore` command to restore backup data and metadata from InfluxDB.
