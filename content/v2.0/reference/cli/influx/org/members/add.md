@@ -20,7 +20,7 @@ influx org members add [flags]
 |:----             |:-----------                |:----------: |:------------------ |
 | `-h`, `--help`   | Help for the `add` command |             |                    |
 | `-i`, `--id`     | Organization ID            | string      | `INFLUX_ORG_ID`    |
-| `-o`, `--member` | Member ID                  | string      |                    |
+| `-m`, `--member` | Member ID                  | string      |                    |
 | `-n`, `--name`   | Organization name          | string      | `INFLUX_ORG`       |
 
 {{% cli/influx-global-flags %}}

@@ -103,13 +103,13 @@ InfluxDB supports three types of TLS certificates:
     Ensure you can connect over HTTPS by running
 
     ```
-    curl -v https://influxdb:9999/api/v2/ping
+    curl -v https://localhost:9999/api/v2/ping
     ```
 
     If using a self-signed certificate, use the `-k` flag to skip certificate verification:
 
     ```
-    curl -vk https://influxdb:9999/api/v2/ping
+    curl -vk https://localhost:9999/api/v2/ping
     ```
 
     With this command, you should see output confirming a succussful TLS handshake.
