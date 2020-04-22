@@ -16,16 +16,14 @@ Start with **InfluxDB Cloud 2.0**, a fully managed and hosted version of InfluxD
 or **InfluxDB OSS 2.0 _(beta)_**, the open source
 version of InfluxDB 2.0.
 
----
-
-<p style="text-align: center">
+<div class="get-started-btns">
   <a class="btn" href="#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
-  <a class="btn" href="#start-with-influxdb-oss">Start with InfluxDB OSS</a>
-</p>
-
----
+  <a class="btn" href="#start-with-influxdb-oss">Start with InfluxDB OSS (beta)</a>
+</div>
 
 _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss)._
+
+---
 
 ## Start with InfluxDB Cloud 2.0
 

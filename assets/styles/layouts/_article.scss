@@ -138,6 +138,22 @@
     transition: opacity .2s;
     &:hover {opacity: 1;}
   }
+
+  /////////////////////////// Getting Started Buttons //////////////////////////
+  .get-started-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    a.btn {
+      max-width: 300px;
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

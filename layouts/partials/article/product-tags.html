@@ -1,5 +1,5 @@
+{{ if .Params.products }}
 <p class="product-tags">
-  {{ if .Params.products }}
     {{ range .Params.products }}
       {{ $product := . }}
       {{ $scratch := newScratch }}
@@ -8,5 +8,5 @@
       {{ if eq $product "enterprise"}}{{ $scratch.Set "product-tag" "Enterprise" }}{{ end }}
       <span class="{{ . }}">InfluxDB {{ $scratch.Get "product-tag"}}</span>
     {{ end }}
-  {{ end }}
 </p>
+{{ end }}
