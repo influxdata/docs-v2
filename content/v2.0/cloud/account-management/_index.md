@@ -7,6 +7,7 @@ weight: 4
 menu:
   v2_0_cloud:
     name: Account management
+products: [cloud]
 ---
 
 {{< children >}}

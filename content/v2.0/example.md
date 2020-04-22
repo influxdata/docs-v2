@@ -5,16 +5,13 @@ menu:
   v2_0:
     name: Example post
 weight: 1
-enterprise_all: true
-#enterprise_some: true
-#cloud_all: true
-cloud_some: true
-draft: true
+#draft: true
 "v2.0/tags": [influxdb, functions]
 related:
   - /v2.0/write-data/
   - /v2.0/write-data/quick-start
   - https://influxdata.com, This is an external link
+products: [cloud, oss, enterprise]
 ---
 
 This is a paragraph. Lorem ipsum dolor ({{< icon "trash" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
@@ -474,7 +471,7 @@ cpu = from(bucket:"my-bucket")
 
 {{% /warn %}}
 
-{{% cloud-msg %}}
+{{% cloud %}}
 This is a multiple paragraph blockquote with internal elements.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -596,7 +593,7 @@ cpu = from(bucket:"my-bucket")
 | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
 | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  | Row 4.1  | `Row 4.2` | Row 4.3  | Row 4.4  |
 
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

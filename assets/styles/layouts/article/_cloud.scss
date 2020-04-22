@@ -1,37 +1,4 @@
 .cloud {
-  position: relative;
-  padding: 0 0 .01rem 2rem;
-  margin-left: -2rem;
-  border-left: 2px solid $article-cloud-base;
-
-  .cloud-flag {
-    &:hover {
-      transform: scale(1);
-      color: $g20-white;
-    }
-  }
-}
-
-.cloud-flag {
-  padding: .2rem .4rem;
-  font-size: .75rem;
-  font-style: normal;
-  font-weight: bold;
-  color: $g20-white;
-  border-radius: $radius;
-  vertical-align: text-bottom;
-  background: $article-cloud-base;
-  position: absolute;
-  top: -.15rem;
-  left: -.68rem;
-  transform: scale(.8);
-  transition: all .2s;
-  &:before {
-    content: "C";
-  }
-}
-
-.cloud-msg {
   border-color: $article-cloud-base;
   background: rgba($article-cloud-base, .12);
   h1,h2,h3,h4,h5,h6 {
@@ -94,22 +61,6 @@
     div:first-child {
       position: relative;
       margin: .25rem 2rem 0 0;
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////// MEDIA QUERIES ////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-@include media(small) {
-  .cloud-msg .cloud-flag { margin-left: .5rem }
-  .cloud {
-    padding: 0 0 .01rem .85rem;
-    margin-left: -.85rem;
-
-    .cloud-flag {
-      left: -.25rem;
     }
   }
 }

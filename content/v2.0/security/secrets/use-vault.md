@@ -12,9 +12,9 @@ weight: 201
 to tokens, passwords, certificates, and other sensitive secrets.
 Store sensitive secrets in Vault using the InfluxDB built-in Vault integration.
 
-{{% cloud-msg %}}
+{{% cloud %}}
 By default, all secrets added to InfluxDB Cloud are stored in the InfluxDB Cloud Vault cluster.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ## Start a Vault server
 

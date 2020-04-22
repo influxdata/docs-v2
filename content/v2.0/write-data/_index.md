@@ -130,8 +130,8 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
 
 To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
-{{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
-{{% /cloud-msg %}}
+{{% cloud %}}{{< cloud-name >}} does not support scrapers.
+{{% /cloud %}}
 
 ### influx CLI
 
@@ -211,9 +211,9 @@ curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% cloud-msg %}}
+{{% cloud %}}
 For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/).
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ```sh
 curl -XPOST "YOUR-INFLUXDB-CLOUD-URL/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \

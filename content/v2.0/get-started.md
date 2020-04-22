@@ -83,11 +83,11 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
     _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
     and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
-{{% cloud-msg %}}
+{{% cloud %}}
 All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
 References to the InfluxDB user interface (UI) or localhost:9999 refer to your
 {{< cloud-name >}} UI.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 ### Sign in
 
