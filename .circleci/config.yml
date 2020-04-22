@@ -10,8 +10,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - install-v1-{{ checksum ".circleci/config.yml" }}
-            - install-v1-
+            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
+            - install-{{ .Environment.CACHE_VERSION }}-
       - run:
           name: Make bin folder
           command: mkdir -p $HOME/bin
