@@ -22,8 +22,8 @@ jobs:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
-          name: Install NPM dependencies
-          command: sudo npm i -g postcss-cli autoprefixer redoc-cli
+          name: Install NodeJS dependencies
+          command: sudo yarn install postcss-cli autoprefixer redoc-cli
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
