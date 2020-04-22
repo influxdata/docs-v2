@@ -5,8 +5,9 @@ description: >
   plugins, metrics, and writes for the Usage-based Plan.
 weight: 2
 menu:
-  v2_0_cloud:
+  v2_0:
     name: Pricing calculator
+products: [cloud]
 draft: true
 ---
 
@@ -36,7 +37,7 @@ Guidelines used to estimate costs for default configurations:
 
   - Free Plan. Click the **user avatar** in the top right corner of your
     {{< cloud-name "short" >}} user interface (UI) and select **Billing**.
-    Then click the **Pricing Calculator** link at the bottom of the page. 
+    Then click the **Pricing Calculator** link at the bottom of the page.
   - Usage-based Plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 3. Choose your region.
 4. Select your configuration:

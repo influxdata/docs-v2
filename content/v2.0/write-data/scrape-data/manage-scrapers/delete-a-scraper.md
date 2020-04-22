@@ -8,6 +8,7 @@ menu:
   v2_0:
     parent: Manage scrapers
 weight: 303
+products: [oss]
 ---
 
 Delete a scraper from the InfluxDB user interface (UI).

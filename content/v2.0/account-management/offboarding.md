@@ -7,9 +7,10 @@ weight: 104
 aliases:
     - /v2.0/cloud/account-management/offboarding
 menu:
-  v2_0_cloud:
+  v2_0:
     parent: Account management
     name: Cancel InfluxDB Cloud
+products: [cloud]
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:

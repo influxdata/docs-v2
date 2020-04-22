@@ -7,6 +7,7 @@ menu:
     name: Switch organizations
     parent: Manage organizations
 weight: 105
+products: [oss]
 ---
 
 Use the InfluxDB user interface (UI) to switch from one organization to another. The organization you're currently viewing determines what dashboards, tasks, buckets, members, and other assets you can access.

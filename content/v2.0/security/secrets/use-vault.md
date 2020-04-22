@@ -6,6 +6,7 @@ menu:
   v2_0:
     parent: Store and use secrets
 weight: 201
+products: [oss]
 ---
 
 [Vault](https://www.vaultproject.io/) secures, stores, and tightly controls access
@@ -13,7 +14,8 @@ to tokens, passwords, certificates, and other sensitive secrets.
 Store sensitive secrets in Vault using the InfluxDB built-in Vault integration.
 
 {{% cloud %}}
-By default, all secrets added to InfluxDB Cloud are stored in the InfluxDB Cloud Vault cluster.
+By default, all secrets added to **InfluxDB Cloud** are stored in the
+**InfluxDB Cloud Vault cluster**.
 {{% /cloud %}}
 
 ## Start a Vault server

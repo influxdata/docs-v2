@@ -20,6 +20,10 @@ to view organizations.
 
 2. Select **Switch Organizations**. The list of organizations appears.
 
+{{% cloud %}}
+**{{< cloud-name "short" >}}** does not support viewing and switching between multiple organizations.
+{{% /cloud %}}
+
 ## View organizations using the influx CLI
 
 Use the [`influx org list` command](/v2.0/reference/cli/influx/org/list)

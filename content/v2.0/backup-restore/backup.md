@@ -10,7 +10,7 @@ weight: 101
 related:
   - /v2.0/backup-restore/restore/
   - /v2.0/reference/cli/influx/backup/
-#draft: true
+products: [oss]
 ---
 
 Use the [`influx backup` command](/v2.0/reference/cli/influx/backup/) to back up
