@@ -64,10 +64,6 @@ menu:
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
-enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
-enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
-cloud_all: # If true, specifies the doc as a whole is specific to InfluxDB Cloud
-cloud_some: # If true, specifies the doc includes some content specific to InfluxDB Cloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
 related: # Creates links to specific internal and external content at the bottom of the page
   - /path/to/related/article
@@ -76,6 +72,7 @@ external_url: # Used in children shortcode type="list" for page links that are e
 list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
+products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
 ```
 
 #### Title usage
@@ -124,32 +121,19 @@ Insert warning markdown content here.
 ```
 
 ### Enterprise Content
-Many articles are unique to InfluxDB enterprise or at least contain some information specific to InfluxDB Enterprise.
-There are frontmatter options and an enterprise shortcode that help to properly identify this content.
-
-#### All content is Enterprise-specific
-If all content in an article is Enterprise-specific, set the `enterprise_all` frontmatter to `true`.
-
-```yaml
-enterprise_all: true
-```
-
-This will display a message at the top of page indicating that the things discussed are unique to InfluxDB Enterprise.
-
-#### Only some content is Enterprise-specific
-If only some content in the article is enterprise specific, set the `enterprise_some` frontmatter to `true`.
-
-```yaml
-enterprise_some: true
-```
-
-This will display a message at the top of page indicating some things are unique to InfluxDB Enterprise.
-To format Enterprise-specific content, wrap it in the `{{% enterprise %}}` shortcode:
+For sections content that relate specifically to InfluxDB Enterprise, use the `{{% enterprise %}}` shortcode.
 
 ```md
 {{% enterprise %}}
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
+```
+
+#### All content is Enterprise-specific
+If all content in an article is Enterprise-specific, include `enterprise`in the `products` frontmatter.
+
+```yaml
+products: [enterprise]
 ```
 
 #### Enterprise name
@@ -177,47 +161,19 @@ Find more info [here][{{< enterprise-link >}}]
 ```
 
 ### InfluxDB Cloud Content
-Some articles are unique to InfluxDB Cloud or at least contain some information specific to InfluxDB Cloud.
-There are frontmatter options and an cloud shortcode that help to properly identify this content.
-
-#### All content is cloud-specific
-If all content in an article is cloud-specific, set the menu in the frontmatter to `v2_0_cloud`
-(change the version number for the specific version of InfluxDB Cloud).
-
-```yaml
-menu:
-  v2_0_cloud:
-    name: Menu item name
-    # ...
-```
-
-The pages `parent` depends on where it fits in the hierarchy of the cloud documentation.
-
-#### Only some content is cloud-specific
-If only some content in the article is cloud-specific, set the `cloud_some` frontmatter to `true`.
-
-```yaml
-cloud_some: true
-```
-
-This will display a message at the top of page indicating some things are unique to InfluxDB Cloud.
-To format cloud-specific content, wrap it in the `{{% cloud %}}` shortcode:
+For sections content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
 
 ```md
 {{% cloud %}}
-Insert Cloud-specific markdown content here.
+Insert cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
-#### InfluxDB Cloud content block
-The `{{ cloud-msg }}` shortcode creates a highlighted block of text specific to
-InfluxDB Cloud meant to stand out from the rest of the article content.
-It's format is similar to note and warning blocks.
+#### All content is cloud-specific
+If all content in an article is cloud-specific, include `cloud` in the `products` frontmatter.
 
-```md
-{{% cloud-msg %}}
-Insert Cloud-specific markdown content here.
-{{% /cloud-msg %}}
+```yaml
+products: [cloud]
 ```
 
 #### InfluxDB Cloud name
@@ -242,6 +198,13 @@ InfluxDB Cloud.
 
 ```
 Find more info [here][{{< cloud-link >}}]
+```
+
+### InfluxDB OSS Content
+If all content in an article is OSS-specific, include `oss` in the `products` frontmatter.
+
+```yaml
+products: [oss]
 ```
 
 ### Tabbed Content
@@ -586,12 +549,29 @@ For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
 ## InfluxDB URLs
-InfluxDB and InfluxDB cloud are accessed at different and varying URLs.
-The InfluxDB documentation customizes InfluxDB URLs inside of code blocks using
-the product / region selected by the user.
+When a user selects an InfluxDB product and region, example URLs in code blocks
+throughout the documentation are updated to match their product and region.
 InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
 
-The default URL that is replaced inside of code blocks is `http://localhost:9999`.
+By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:9999`.
+Use this URL in all code examples that should be updated with a selected provider and region.
+
+For example:
+
+~~~
+```sh
+# This URL will get updated
+http://localhost:9999
+
+# This URL will NOT get updated
+http://example.com
+```
+~~~
+
+If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:9999`
+in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
+
+### Exempt URLs from getting updated
 To exempt a code block from being updated, include the `{{< keep-url >}}` shortcode
 just before the code block.
 
