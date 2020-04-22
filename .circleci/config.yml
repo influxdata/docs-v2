@@ -31,7 +31,7 @@ jobs:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
       - save_cache:
-          key: install-v1-{{ checksum ".circleci/config.yml" }}
+          key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
       - run:
@@ -49,8 +49,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - install-v1-{{ checksum ".circleci/config.yml" }}
-            - install-v1-
+            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
+            - install-{{ .Environment.CACHE_VERSION }}-
       - attach_workspace:
           at: workspace
       - run:
