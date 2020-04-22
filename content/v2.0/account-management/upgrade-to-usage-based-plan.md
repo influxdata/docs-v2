@@ -4,6 +4,7 @@ description: >
   Upgrade to a Usage-Based Plan to remove rate limits from your InfluxDB Cloud 2.0 account.
 aliases:
   - /v2.0/cloud/account-management/upgrade-to-payg/
+  - /v2.0/cloud/account-management/upgrade-to-usage-based-plan/
 weight: 102
 menu:
   v2_0_cloud:

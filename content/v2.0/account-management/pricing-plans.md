@@ -7,7 +7,6 @@ aliases:
   - /v2.0/cloud/rate-limits/
   - /v2.0/cloud/pricing-plans/
 weight: 2
-cloud_all: true
 menu:
 v2_0_cloud:
   parent: Account management

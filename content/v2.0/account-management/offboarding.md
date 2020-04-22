@@ -4,6 +4,8 @@ description: >
   Cancel your InfluxDB Cloud 2.0 account at any time by stopping all read and write
   requests, backing up data, and contacting InfluxData Support.
 weight: 104
+aliases:
+    - /v2.0/cloud/account-management/offboarding
 menu:
   v2_0_cloud:
     parent: Account management

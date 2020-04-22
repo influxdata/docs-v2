@@ -4,6 +4,8 @@ list_title: View data usage
 description: >
   View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
 weight: 103
+aliases:
+    - /v2.0/cloud/account-management/data-usage
 menu:
   v2_0_cloud:
     parent: Account management
