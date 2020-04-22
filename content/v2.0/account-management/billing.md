@@ -45,7 +45,7 @@ Add your payment method and view billing information in the {{< cloud-name "shor
 
     - If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
 
-        - [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
+        - [Add or update your payment method](#add-or-update-your-payment-method)
         - [Add or update your contact information](#add-or-update-your-contact-information)
         - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
@@ -99,7 +99,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/v2.0/cloud/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [rate limits](/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
 
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._

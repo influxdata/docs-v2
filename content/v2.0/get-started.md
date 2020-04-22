@@ -29,7 +29,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 ### Start for free
 
-Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/cloud/pricing-plans/#free-plan).
+Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/account-management/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
@@ -40,7 +40,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData,
       go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials,
       and then click **Start your Free Plan now**.
-      When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/).
+      When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/account-management/billing/#upgrade-to-usage-based-plan).
     - **Subscribe through a cloud provider**  
       To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
       **Amazon Web Services (AWS)** or **Google Cloud Platform (GCP)** account:
@@ -496,5 +496,5 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
+- **Usage-based pricing**: The [Usage-based Plan](/v2.0/account-management/pricing-plans/#usage-based-plan)
   offers more flexibility and ensures that you only pay for what you use.
