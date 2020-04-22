@@ -22,6 +22,8 @@ jobs:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
+          name: TMP Flush cache
+          command: sudo npm cache clean --force
           name: Install NPM dependencies
           command: sudo npm i -g postcss-cli autoprefixer redoc-cli
       - run:
