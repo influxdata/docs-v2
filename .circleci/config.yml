@@ -24,6 +24,7 @@ jobs:
       - run:
           name: TMP Flush cache
           command: sudo npm cache clean --force
+      - run:
           name: Install NPM dependencies
           command: sudo npm i -g postcss-cli autoprefixer redoc-cli
       - run:
