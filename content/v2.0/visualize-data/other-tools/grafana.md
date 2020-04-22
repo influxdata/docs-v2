@@ -49,10 +49,7 @@ grafana-cli plugins install grafana-influxdb-flux-datasource
 
 ## Configure your InfluxDB 2.0 connection
 1. Enter a name for your Flux datasource.
-2. Under **HTTP**, enter your **InfluxDB URL**.
-   If running InfluxDB 2.0 locally, use `http://localhost:9999`.
-   If connecting to an {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/)
-   for information about what URL to use.
+2. Under **HTTP**, enter your [InfluxDB URL](/v2.0/reference/urls/).
 3. Under **Auth**, select **With Credentials**.
 4. Under **InfluxDB 2.0.0 Details**, enter your **organization name** _or_ **organization ID**,
    **default bucket**, and **authentication token**.
