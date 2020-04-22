@@ -22,9 +22,6 @@ jobs:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
-          name: TMP correct cache permissions
-          command: sudo chown -R 65534:3434 "/root/.npm"
-      - run:
           name: Install NPM dependencies
           command: sudo npm i -g postcss-cli autoprefixer redoc-cli
       - run:
