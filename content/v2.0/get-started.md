@@ -269,7 +269,8 @@ the `influx` command line interface (CLI).
 {{% tab-content %}}
 ### Set up InfluxDB through the UI
 
-1. With InfluxDB running, visit [localhost:9999](http://localhost:9999).
+1. With InfluxDB running, visit [us-west-2-1.aws.cloud2.influxdata.com/docs](https://us-west-2-1.aws.cloud2.influxdata.com/docs) (Cloud) or [localhost:9999/docs](http://localhost:9999/docs) (OSS).
+_For specific InfluxDB Cloud provider and region URLs, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/)._.
 2. Click **Get Started**
 
 #### Set up your initial user

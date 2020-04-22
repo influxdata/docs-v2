@@ -27,9 +27,11 @@ If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/)
     ```
 
 2. Ensure that InfluxDB is running.
-   If running InfluxDB locally, visit http://localhost:9999.
-   (If using InfluxDB Cloud, visit the URL of your InfluxDB Cloud UI.
-   For example: https://us-west-2-1.aws.cloud2.influxdata.com.)
+If using InfluxDB Cloud, visit the URL of your InfluxDB Cloud UI.
+For example: https://us-west-2-1.aws.cloud2.influxdata.com.
+_For specific InfluxDB Cloud provider and region URLs, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/)._
+(If running InfluxDB locally, visit http://localhost:9999.)
+
 
 ## Write data to InfluxDB with Python
 
@@ -56,7 +58,7 @@ Here, we simply pass the three variables we have already defined.
 
 ```python
 client = InfluxDBClient(
-    url="http://localhost:9999",
+    url="https://us-west-2-1.aws.cloud2.influxdata.com",
     token=token,
     org=org
 )
@@ -92,7 +94,7 @@ org = "<my-org>"
 token = "<my-token>"
 
 client = influxdb_client.InfluxDBClient(
-    url="http://localhost:9999",
+    url="https://us-west-2-1.aws.cloud2.influxdata.com",
     token=token,
     org=org
 )
