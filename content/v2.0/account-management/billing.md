@@ -3,6 +3,8 @@ title: Add payment method and view billing
 list_title: Add payment and view billing
 description: >
   Add your InfluxDB Cloud payment method and view billing information.
+aliases:
+      - /v2.0/cloud/account-management/billing
 weight: 103
 menu:
   v2_0_cloud:
