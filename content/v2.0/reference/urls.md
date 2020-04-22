@@ -1,15 +1,27 @@
 ---
-title: InfluxDB Cloud 2.0 URLs
+title: InfluxDB 2.0 URLs
 description: >
-  InfluxDB Cloud 2.0 is available on multiple cloud providers in multiple regions,
-  each with with a unique URL and API endpoint.
-weight: 3
+  InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
+aliases:
+    - /v2.0/cloud/urls/
+weight: 8
 menu:
-  v2_0_cloud:
-    name: InfluxDB Cloud URLs
+  v2_0_ref:
+    name: InfluxDB 2.0 URLs
 ---
 
-InfluxDB Cloud 2.0 is available on multiple cloud providers in multiple regions.
+InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
+
+## Local URL
+
+For InfluxDB OSS, the default URL is the following:
+
+```
+http://localhost:9999/
+```
+
+## Cloud URLs
+
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
 [InfluxDB API](/v2.0/reference/api/), [InfluxDB client libraries](/v2.0/reference/api/client-libraries/),
