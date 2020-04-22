@@ -549,12 +549,29 @@ For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
 ## InfluxDB URLs
-InfluxDB and InfluxDB cloud are accessed at different and varying URLs.
-The InfluxDB documentation customizes InfluxDB URLs inside of code blocks using
-the product / region selected by the user.
+When a user selects an InfluxDB product and region, example URLs in code blocks
+throughout the documentation are updated to match their product and region.
 InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
 
-The default URL that is replaced inside of code blocks is `http://localhost:9999`.
+By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:9999`.
+Use this URL in all code examples that should be updated with a selected provider and region.
+
+For example:
+
+~~~
+```sh
+# This URL will get updated
+http://localhost:9999
+
+# This URL will NOT get updated
+http://example.com
+```
+~~~
+
+If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:9999`
+in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
+
+### Exempt URLs from getting updated
 To exempt a code block from being updated, include the `{{< keep-url >}}` shortcode
 just before the code block.
 

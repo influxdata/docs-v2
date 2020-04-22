@@ -479,25 +479,24 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
-- Retrieving data from a file based CSV source using the `file` parameter of the
-  [`csv.from()`](/v2.0/reference/flux/functions/csv/from) function is not supported;
+- **InfluxDB Cloud** does not support retrieving data from a file based CSV source
+  using the `file` parameter of the [`csv.from()`](/v2.0/reference/flux/functions/csv/from);
   however you can use raw CSV data with the `csv` parameter.
 
 #### New features in InfluxDB Cloud 2.0
 
 - **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
-  jump right in to exploring InfluxDB 2.0 technology.
+  jump into exploring InfluxDB 2.0 technology.
   The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
 - **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data
   scripting and query language that increases productivity and code reuse.
   It is the primary language for working with data within InfluxDB 2.0.
-  Flux can be used with other data sources as well.
-  This allows users to work with data where it resides.
+  Flux can be used with other data sources as well, letting you work with data where it resides.
 - **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
   is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that
   enables seamless movement between open source and cloud.
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [The Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
+- **Usage-based pricing**: The [Usage-based Plan](/v2.0/cloud/pricing-plans/#usage-based-plan)
   offers more flexibility and ensures that you only pay for what you use.
