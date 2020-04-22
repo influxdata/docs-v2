@@ -6,7 +6,7 @@
       {{ if eq $product "oss"}}{{ $scratch.Set "product-tag" "OSS" }}{{ end }}
       {{ if eq $product "cloud"}}{{ $scratch.Set "product-tag" "Cloud" }}{{ end }}
       {{ if eq $product "enterprise"}}{{ $scratch.Set "product-tag" "Enterprise" }}{{ end }}
-      <span class="{{ . }}">InfluxDB {{ $scratch.Get "product-tag"}}</span>
+      <span class="{{ . }}">InfluxDB {{ $scratch.Get "product-tag"}} Only</span>
     {{ end }}
 </p>
 {{ end }}

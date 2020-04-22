@@ -140,11 +140,12 @@
   }
 
   /////////////////////////// Getting Started Buttons //////////////////////////
+
   .get-started-btns {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 2rem;
 
     a.btn {
