@@ -1,10 +1,10 @@
 ---
 title: Fill null values in data
 seotitle: Fill null values in data
-list_title: Fill null values
+list_title: Fill
 description: >
   Use the [`fill()` function](/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
-  to replace _null_ values in query results.
+  to replace _null_ values.
 weight: 210
 menu:
   v2_0:
@@ -19,11 +19,10 @@ list_code_example: |
 ---
 
 Use the [`fill()` function](/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
-to replace _null_ values in query results.
+to replace _null_ values with:
 
-
-- [Use the previous non-null value](#fill-with-the-previous-value) to replace _null_ values
-- [Specify a value](#fill-with-a-specified-value) to replace _null_ values
+- [the previous non-null value](#fill-with-the-previous-value)
+- [a specified value](#fill-with-a-specified-value)
 
 <!-- -->
 ```js
