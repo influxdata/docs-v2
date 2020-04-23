@@ -18,6 +18,7 @@ weight: 101
 ### UI Improvements
 - Update layout of alerts page to work on all screen sizes.
 - Sort dashboards on Getting Started page by recently modified.
+- Add single-color color schemes for visualizations: Solid Red, Solid Blue, Solid Yellow, Solid Green, and Solid Purple.
 
 ## v2.0.0-beta.8 [2020-04-10]
 
