@@ -31,10 +31,6 @@ metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting
 The scraper stores the scraped metrics in the bucket created during the
 [initial setup process](/v2.0/get-started/#set-up-influxdb).
 
-The following message briefly appears in the UI:
-
-{{< ui-message text="Scraper was created successfully" >}}
-
 {{% note %}}
 Quick Start is only available in the last step of the setup process.
 If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/scrape-data)

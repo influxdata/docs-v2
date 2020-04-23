@@ -20,6 +20,10 @@ to view organizations.
 
 2. Select **Switch Organizations**. The list of organizations appears.
 
+{{% cloud %}}
+**{{< cloud-name "short" >}}** does not support viewing and switching between multiple organizations.
+{{% /cloud %}}
+
 ## View organizations using the influx CLI
 
 Use the [`influx org list` command](/v2.0/reference/cli/influx/org/list)
@@ -39,24 +43,10 @@ Use the InfluxDB UI or `influx` CLI to view your organization ID.
 ### Organization ID in the UI
 After logging in to the InfluxDB UI, your organization ID appears in the URL.
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[InfluxDB Cloud](#)
-[InfluxDB OSS](#)
-{{% /code-tabs %}}
-{{< code-tab-content >}}
-<pre class="highlight">
-https://us-west-2-1.aws.cloud2.influxdata.com/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
-</pre>
-{{< /code-tab-content >}}
-{{< code-tab-content >}}
+
 <pre class="highlight">
 http://localhost:9999/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
 </pre>
-{{< /code-tab-content >}}
-{{< /code-tabs-wrapper >}}
-
-_For specific InfluxDB Cloud provider and region URLs, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/)._
 
 
 ### Organization ID in the CLI

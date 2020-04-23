@@ -11,9 +11,9 @@ weight: 201
 
 Use the `influx` command line interface (CLI) to add a member to an organization.
 
-{{% cloud-msg %}}
+{{% cloud %}}
 Adding members is currently unavailable in {{< cloud-name >}}.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 <!-- ## Add a member to an organization in the InfluxDB UI
 

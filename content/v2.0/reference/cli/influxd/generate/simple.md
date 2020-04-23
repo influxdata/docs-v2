@@ -8,6 +8,7 @@ menu:
   v2_0_ref:
     parent: influxd generate
 weight: 301
+products: [oss]
 ---
 
 The `influxd generate simple` command generates and writes a simple data set using

@@ -50,7 +50,6 @@
     opacity: 0.25;
     transition: opacity .2s, background .2s, color .2s;
     background-color: rgba($article-btn, 0);
-    color: $article-bold;
 
     .icon-github {
       font-size: 1.2rem;
@@ -62,7 +61,6 @@
     .github-link {
       opacity: 1;
       background-color: rgba($article-btn, 1);
-      color: $g20-white;
     }
   }
 
@@ -149,6 +147,7 @@
 
   .checkbox {
     display: inline-block;
+    position: relative;
     height: 1.15em;
     width: 1.15em;
     background: rgba($article-text, .05);
@@ -175,16 +174,16 @@
       width: .5rem;
       border-radius: 50%;
       background: $article-link;
-      top: .65rem;
-      left: .35rem;
+      top: 50%;
+      left: 50%;
       opacity: 0;
-      transform: scale(2);
+      transform: scale(2) translate(-20%, -20%);
       transition: all .2s;
     }
 
     &:checked + .checkbox:after {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translate(-50%, -50%);
     }
   }
 }

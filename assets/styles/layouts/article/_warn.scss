@@ -36,7 +36,7 @@
     color: $article-warn-text;
     box-shadow: 1px 3px 10px $article-warn-shadow;
     thead{
-      background: $article-warn-table-header;
+      @include gradient($article-warn-table-header);
     }
     tr:nth-child(even) td {
       background: $article-warn-table-row-alt;
@@ -45,5 +45,13 @@
   blockquote {
     border-color: rgba($article-warn-text, .25);
     p { color: rgba($article-warn-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    color: rgba($article-warn-text, .5);
+    &:hover { color: rgba($article-warn-text, 1); }
+    &.is-active {
+      color: rgba($article-warn-text, 1);
+      background: $article-warn-code-bg};
   }
 }

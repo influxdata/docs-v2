@@ -1,8 +1,0 @@
-{{ $text := .Get "text" }}
-{{ $color := .Get "color" | default "green" }}
-
-<div class="ui-message {{ $color }}">
-  <div class="icon"></div>
-  <div class="text">{{ $text }}</div>
-  <div class="close"></div>
-</div>

@@ -7,6 +7,7 @@ menu:
   v2_0:
     name: Manage users
 weight: 11
+products: [oss]
 ---
 
 Users are those with access to InfluxDB.

@@ -8,6 +8,7 @@ menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
+products: [oss]
 ---
 
 The `influxd inspect verify-tsm` command analyzes a set of TSM files for inconsistencies
