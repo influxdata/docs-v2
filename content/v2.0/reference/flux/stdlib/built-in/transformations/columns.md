@@ -11,7 +11,7 @@ menu:
   v2_0_ref:
     name: columns
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `columns()` function lists the column labels of input tables.

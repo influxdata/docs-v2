@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: stateDuration
     parent: built-in-transformations
-weight: 401
+weight: 402
 ---
 
 The `stateDuration()` function computes the duration of a given state.
