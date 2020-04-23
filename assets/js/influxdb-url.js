@@ -36,7 +36,7 @@ function appendUrlSelector(currentUrl) {
   $(elementSelector).each(function() {
     var code = $(this).html()
     if (code.includes(currentUrl)) {
-      $(this).after("<div class='select-url'><a class='url-trigger' href='#'>InfluxDB URL</a></div>")
+      $(this).after("<div class='select-url'><a class='url-trigger' href='#'>Cloud or OSS?</a></div>")
       $('.select-url').fadeIn(400)
     }
   });
@@ -101,4 +101,17 @@ $(window).focus(function() {
 $("#modal-close, .modal-overlay, .url-trigger").click(function(e) {
   e.preventDefault()
   toggleModal()
+})
+
+// Show the feature callout on page load
+if ( Cookies.get('influxdb_url_selector_seen') != 'true' ) {
+  $('#callout-url-selector').fadeIn(300).removeClass('start-position')
+}
+
+// Set feature cookie when the button is clicked
+$('button.url-trigger, #callout-url-selector .close').click(function() {
+  if ( Cookies.get('influxdb_url_selector_seen') != 'true') {
+    Cookies.set('influxdb_url_selector_seen', 'true')
+    $('#callout-url-selector').fadeOut(200)
+  }
 })

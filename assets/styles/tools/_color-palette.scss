@@ -92,44 +92,46 @@ $cp-titan:      #EDEDFF;
 /////////////////////////////////// Gradients //////////////////////////////////
 
 // Brand Gradients
-$grad-WarpSpeed: $br-deeppurple, $p-void;
-$grad-PowerStone: $p-void, $br-magenta;
-$grad-MilkyWay: $br-magenta, $br-galaxy;
-$grad-LazyAfternoon: $b-pool, $br-galaxy;
+$grad-WarpSpeed:          $br-deeppurple, $p-void;
+$grad-PowerStone:         $p-void, $br-magenta;
+$grad-MilkyWay:           $br-magenta, $br-galaxy;
+$grad-LazyAfternoon:      $b-pool, $br-galaxy;
 $grad-NineteenEightyFour: $b-pool, $br-magenta;
 $grad-RadioactiveWarning: $b-pool, $br-chartreuse;
-$grad-LostGalaxy: $br-deeppurple, $br-pulsar;
-$grad-GrapeSoda: $br-deeppurple, $p-amethyst;
-$grad-LavenderLatte: $br-deeppurple, $p-star;
-$grad-OminousFog: $br-pulsar, $br-galaxy;
+$grad-LostGalaxy:         $br-deeppurple, $br-pulsar;
+$grad-GrapeSoda:          $br-deeppurple, $p-amethyst;
+$grad-LavenderLatte:      $br-deeppurple, $p-star;
+$grad-OminousFog:         $br-pulsar, $br-galaxy;
 
 // Single Hue Gradient
-$grad-grey-light:   $g13-mist, $g18-cloud;
-$grad-grey:         $g10-wolf, $g13-mist;
-$grad-grey-dark:    $g3-castle, $g6-smoke;
+$grad-grey-light:         $g13-mist, $g18-cloud;
+$grad-grey:               $g10-wolf, $g13-mist;
+$grad-grey-dark:          $g3-castle, $g6-smoke;
 
-$grad-blue-light:   $b-pool, $b-hydrogen;
-$grad-blue:         $b-ocean, $b-pool;
-$grad-blue-dark:    $b-sapphire, $b-ocean;
+$grad-blue-light:         $b-pool, $b-hydrogen;
+$grad-blue:               $b-ocean, $b-pool;
+$grad-blue-dark:          $b-sapphire, $b-ocean;
 
-$grad-purple-light: $p-comet, $p-moonstone;
-$grad-purple:       $p-star, $p-comet;
-$grad-purple-dark:  $p-void, $p-amethyst;
+$grad-purple-light:       $p-comet, $p-moonstone;
+$grad-purple:             $p-star, $p-comet;
+$grad-purple-dark:        $p-void, $p-amethyst;
 
-$grad-green-light:  $gr-honeydew, $gr-krypton;
-$grad-green:        $gr-rainforest, $gr-honeydew;
-$grad-green-dark:   $gr-emerald, $gr-viridian;
+$grad-green-light:        $gr-honeydew, $gr-krypton;
+$grad-green:              $gr-rainforest, $gr-honeydew;
+$grad-green-dark:         $gr-emerald, $gr-viridian;
 
-$grad-yellow-light: $y-thunder, $y-sulfur;
-$grad-yellow:       $y-pineapple, $y-thunder;
-$grad-yellow-dark:  $y-topaz, $y-tiger;
+$grad-yellow-light:       $y-thunder, $y-sulfur;
+$grad-yellow:             $y-pineapple, $y-thunder;
+$grad-yellow-dark:        $y-topaz, $y-tiger;
 
-$grad-red-light:    $r-dreamsicle, $r-tungsten;
-$grad-red:          $r-curacao, $r-dreamsicle;
-$grad-red-dark:     $r-ruby, $r-fire;
+$grad-red-light:          $r-dreamsicle, $r-tungsten;
+$grad-red:                $r-curacao, $r-dreamsicle;
+$grad-red-dark:           $r-ruby, $r-fire;
 
 // Multi-Hue Gradients
-$grad-GundamPilot:  $p-amethyst, $b-ocean;
-$grad-Miyazakisky:  $p-star, $b-pool;
-$grad-PastelGothic: $p-comet, $b-laser;
-$grad-GarageBand:   $b-pool, $gr-rainforest;
+$grad-GundamPilot:        $p-amethyst, $b-ocean;
+$grad-Miyazakisky:        $p-star, $b-pool;
+$grad-PastelGothic:       $p-comet, $b-laser;
+$grad-GarageBand:         $b-pool, $gr-rainforest;
+$grad-LowDifficulty:      $b-pool, $gr-honeydew;
+$grad-DesertFestival:     $r-curacao, $p-star;

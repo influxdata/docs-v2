@@ -1,4 +1,4 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
+{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink | default "v2.0" }}
 <div class="modal">
   <div class="modal-overlay"></div>
   <div class="modal-wrapper">
@@ -32,7 +32,7 @@
             </div>
           {{ end }}
         </div>
-        <p class="note">For more information, see <a href='{{ print "/" $currentVersion "/cloud/urls/"}}'>InfluxDB URLs</a>.</p>
+        <p class="note">For more information, see <a href='{{ print "/" $currentVersion "/reference/urls/"}}'>InfluxDB URLs</a>.</p>
       </div>
     </div>
   </div>
