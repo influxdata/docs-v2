@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: fill
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `fill()` function replaces all null values in an input stream with a non-null value.

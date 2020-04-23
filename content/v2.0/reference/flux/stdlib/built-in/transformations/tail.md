@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: tail
     parent: built-in-transformations
-weight: 402
+weight: 401
 related:
   - /v2.0/reference/flux/functions/built-in/transformations/limit/
 ---
