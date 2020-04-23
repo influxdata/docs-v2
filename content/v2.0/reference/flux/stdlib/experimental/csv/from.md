@@ -38,7 +38,7 @@ _**Data type:** String_
 ```js
 import "experimental/csv"
 
-csv.from(url: "http://mydomain.com/csv/example.csv")
+csv.from(url: "http://example.com/csv/example.csv")
   |> filter(fn: (r) => r._measurement == "example-measurement")
 ```
 

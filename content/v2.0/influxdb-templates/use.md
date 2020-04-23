@@ -137,12 +137,12 @@ influx pkg -u <template-url>
 
 # Examples
 # Install a single template from a URL
-influx pkg -u https://mydomain.com/templates/template.yml
+influx pkg -u https://example.com/templates/template.yml
 
 # Install multiple templates from URLs
 influx pkg \
-  -u https://mydomain.com/templates/template1.yml \
-  -u https://mydomain.com/templates/template2.yml
+  -u https://example.com/templates/template1.yml \
+  -u https://example.com/templates/template2.yml
 ```
 
 ### Install templates from both files and URLs
@@ -155,8 +155,8 @@ influx pkg -u <template-url> -f <template-path>
 
 # Example
 influx pkg \
-  -u https://mydomain.com/templates/template1.yml \
-  -u https://mydomain.com/templates/template2.yml \
+  -u https://example.com/templates/template1.yml \
+  -u https://example.com/templates/template2.yml \
   -f ~/templates/custom-template.yml \
   -f ~/templates/iot/home/ \
   --recurse
