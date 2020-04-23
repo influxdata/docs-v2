@@ -1,0 +1,56 @@
+.feature-callout {
+  padding: .5rem .5rem .5rem .75rem;
+  @include gradient($grad-DesertFestival)
+  border-radius: $radius;
+  font-size: .95rem;
+  font-style: italic;
+  font-weight: $medium;
+  color: $g20-white;
+  box-shadow: 2px 2px 6px rgba($g2-kevlar, .35);
+
+  // temp styles for animation
+  transition: margin .3s ease-out;
+  display: none;
+
+  p {
+    position: relative;
+    margin: 0;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .close {
+    margin-left: .5rem;
+    color: rgba($g20-white, .5);
+    text-decoration: none;
+
+    &:hover {
+      color: $g20-white;
+    }
+  }
+}
+
+#callout-url-selector {
+  position: absolute;
+  top: 3.25rem;
+  right: 1rem;
+
+  p:after {
+    top: -1rem;
+    right: 1.85rem;
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #CB39C4 transparent;
+  }
+
+  &.start-position {
+    margin-top: 2.5rem
+  }
+}

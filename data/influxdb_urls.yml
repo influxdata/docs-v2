@@ -14,7 +14,7 @@ cloud:
       regions:
         - name: US West (Oregon)
           url: https://us-west-2-1.aws.cloud2.influxdata.com
-        - name: EU Frankfort
+        - name: EU Frankfurt
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
     - name: Google Cloud Platform
       short_name: GCP
