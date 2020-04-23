@@ -13,6 +13,7 @@ menu:
   v2_0:
     name: Scrape data
     parent: Write data
+products: [oss]
 ---
 
 InfluxDB scrapers collect data from specified targets at regular intervals,
@@ -20,9 +21,9 @@ then write the scraped data to an InfluxDB bucket.
 Scrapers can collect data from any HTTP(S)-accessible endpoint that provides data
 in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
-{{% cloud-msg %}}
+{{% cloud %}}
 Scrapers are not available in {{< cloud-name "short" >}}.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 
 The following articles provide information about creating and managing InfluxDB data scrapers:

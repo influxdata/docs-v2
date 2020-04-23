@@ -18,8 +18,8 @@ to connect Grafana to InfluxDB 2.0 or InfluxDB Cloud 2.0.
 The **Grafana Flux Data Source plugin** is currently in beta.
 {{% /warn %}}
 
-1. [Start InfluxDB 2.0 OSS](/v2.0/get-started/) OR
-   [sign up for {{< cloud-name >}}](/v2.0/cloud/get-started/).
+1. [Sign up for {{< cloud-name >}}](/v2.0/get-started/) or
+   [Start InfluxDB 2.0 OSS](/v2.0/get-started/#start-with-influxdb-oss).
 2. [Download and install Grafana](https://grafana.com/grafana/download).
 3. Install the **Grafana Flux Data Source plugin** manually or with `grafana-cli` (installed
    with Grafana).
@@ -49,10 +49,7 @@ grafana-cli plugins install grafana-influxdb-flux-datasource
 
 ## Configure your InfluxDB 2.0 connection
 1. Enter a name for your Flux datasource.
-2. Under **HTTP**, enter your **InfluxDB URL**.
-   If running InfluxDB 2.0 locally, use `http://localhost:9999`.
-   If connecting to an {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/)
-   for information about what URL to use.
+2. Under **HTTP**, enter your [InfluxDB URL](/v2.0/reference/urls/).
 3. Under **Auth**, select **With Credentials**.
 4. Under **InfluxDB 2.0.0 Details**, enter your **organization name** _or_ **organization ID**,
    **default bucket**, and **authentication token**.

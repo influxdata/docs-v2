@@ -7,6 +7,7 @@ menu:
     name: Delete an organization
     parent: Manage organizations
 weight: 104
+products: [oss]
 ---
 
 Use the `influx` command line interface (CLI)

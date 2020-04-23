@@ -8,6 +8,7 @@ menu:
   v2_0:
     parent: Manage scrapers
 weight: 301
+products: [oss]
 ---
 
 Create a new scraper in the InfluxDB user interface (UI).

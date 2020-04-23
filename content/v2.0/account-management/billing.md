@@ -1,20 +1,43 @@
 ---
-title: Add payment method and view billing
-list_title: Add payment and view billing
+title: Manage InfluxDB Cloud billing
+list_title: Manage billing
 description: >
-  Add your InfluxDB Cloud payment method and view billing information.
+  Upgrade to the InfluxDB Cloud Usage-Based Plan and manage your billing information.
+aliases:
+  - /v2.0/cloud/account-management/billing
+  - /v2.0/cloud/account-management/upgrade-to-payg/
+  - /v2.0/cloud/account-management/upgrade-to-usage-based-plan/
 weight: 103
 menu:
-  v2_0_cloud:
+  v2_0:
     parent: Account management
-    name: Add payment and view billing
+    name: Manage billing
+products: [cloud]
 ---
+
+## Upgrade to Usage-Based Plan
+
+1. Click **Upgrade Now** in the top right corner of the {{< cloud-name "short" >}} user interface (UI).
+2. Review the terms and pricing associated with the Usage-Based Plan.
+3. Click **Sounds Good To Me**.
+4. Enter your contact information.
+   Traditionally this would be "shipping" information, but InfluxData does not ship anything.
+   This information should be the primary location where the service is consumed.
+   All service updates, security notifications and other important information are
+   sent using the information you provide.
+   The address is used to determine any applicable sales tax.
+5. Enter your payment information and click **Add Card**.
+6. Review the plan details, contact information, and credit card information.
+7. Click **Confirm & Order**.
 
 Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
 
 ## Access billing details
-1. Click the **user avatar** in the top right corner of the {{< cloud-name "short" >}}
-   UI and select **Billing**.
+1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
+   navigation menu, and select **Billing**.
+
+    {{< nav-icon "account" >}}
+
 2. Do one of the following:
     - If you subscribed to an InfluxDB Cloud 2.0 plan through **AWS Marketplace**
       or **GCP Marketplace**, click the **AWS** or **GCP** link to access your
@@ -22,7 +45,7 @@ Add your payment method and view billing information in the {{< cloud-name "shor
 
     - If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
 
-        - [Add or update your {{< cloud-name >}} payment method](#add-or-update-your-influxdb-cloud-2-0-payment-method)
+        - [Add or update your payment method](#add-or-update-your-payment-method)
         - [Add or update your contact information](#add-or-update-your-contact-information)
         - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
@@ -34,9 +57,9 @@ Add your payment method and view billing information in the {{< cloud-name "shor
         - [Billing cycle](#billing-cycle)
         - [Declined or late payments](#declined-or-late-payments)
 
-### Add or update your InfluxDB Cloud 2.0 payment method
+### Add or update your payment method
 
-1. On the Billing page:
+1. On the **Billing page**:
    - To update, click the **Change Payment** button on the Billing page.
    - In the **Payment Method** section:
       - Enter your cardholder name and number
@@ -48,39 +71,40 @@ Add your payment method and view billing information in the {{< cloud-name "shor
 
 ### Add or update your contact information
 
-1. On the Billing page:
+1. On the **Billing page**:
    - To update, click the **Edit Information** button.
    - In the **Contact Information** section, enter your name, company, and address.
 2. Click **Save Contact Info**.
 
 ### Send notifications when usage exceeds an amount
 
-1. On the Billing page, click **Notification Settings**.
+1. On the **Billing page**, click **Notification Settings**.
 2. Select the **Send email notification** toggle, and then enter the email address to notify.
 3. Enter the dollar amount to trigger a notification email. By default, an email is triggered when the amount exceeds $10. (Whole dollar amounts only. For example, $10.50 is not a supported amount.)
 
 ### View Usage-based Plan information
 
-- On the Billing page, view your billing information, including:
-  - Account balance
-  - Last billing update (updated hourly)
-  - Past invoices
-  - Payment method
-  - Contact information
-  - Notification settings
+On the **Billing page**, view your billing information, including:
+
+- Account balance
+- Last billing update (updated hourly)
+- Past invoices
+- Payment method
+- Contact information
+- Notification settings
 
 ### View Free Plan information
 
-- On the Billing page, view the total limits available for the Free Plan.
+On the **Billing page**, view the total limits available for the Free Plan.
 
-### Exceeded rate limits
+## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/v2.0/cloud/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [rate limits](/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
 
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/cloud/account-management/upgrade-to-usage-based-plan/)._
+_To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan)._
 
 #### Rate-limited HTTP response code
 
@@ -91,7 +115,7 @@ HTTP 429 “Too Many Requests”
 Retry-After: xxx (seconds to wait before retrying the request)
 ```
 
-### Billing cycle
+## Billing cycle
 
 Billing occurs on the first day of the month for the previous month. For example, if you start the Usage-based Plan on September 15, you're billed on October 1 for your usage from September 15-30.
 

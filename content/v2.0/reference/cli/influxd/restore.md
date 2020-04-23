@@ -8,6 +8,7 @@ menu:
 weight: 201
 related:
   - /v2.0/backup-restore/restore/
+products: [oss]
 ---
 
 The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.

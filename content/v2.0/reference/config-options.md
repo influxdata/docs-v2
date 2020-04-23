@@ -7,6 +7,7 @@ menu:
   v2_0_ref:
     name: Configuration options
     weight: 3
+products: [oss]
 ---
 
 To configure InfluxDB, use the following configuration options when starting the
