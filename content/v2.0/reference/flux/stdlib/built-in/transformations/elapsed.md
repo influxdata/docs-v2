@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: elapsed
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `elapsed()` function returns the time between subsequent records.

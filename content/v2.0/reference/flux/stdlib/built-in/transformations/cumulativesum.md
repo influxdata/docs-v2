@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: cumulativeSum
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `cumulativeSum()` function computes a running sum for non-null records in the table.

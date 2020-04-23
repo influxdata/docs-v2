@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: limit
     parent: built-in-transformations
-weight: 402
+weight: 401
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/tail/
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT

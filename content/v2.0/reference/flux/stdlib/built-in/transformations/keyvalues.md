@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: keyValues
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `keyValues()` function returns a table with the input table's group key plus two columns,

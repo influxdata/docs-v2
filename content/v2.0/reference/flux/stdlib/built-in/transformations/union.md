@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: union
     parent: built-in-transformations
-weight: 402
+weight: 401
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/join/
 ---

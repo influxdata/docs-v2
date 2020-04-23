@@ -31,7 +31,7 @@ to extract a single table from a stream of tables.
 ## Parameters
 
 ### idx
-Index of the record to extract.
+The index of the record to extract.
 
 _**Data type:** Integer_
 

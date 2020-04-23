@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: sort
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `sort()` function orders the records within each table.

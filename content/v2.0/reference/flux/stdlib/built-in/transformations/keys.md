@@ -11,7 +11,7 @@ menu:
   v2_0_ref:
     name: keys
     parent: built-in-transformations
-weight: 402
+weight: 401
 ---
 
 The `keys()` function outputs the group key of input tables.
