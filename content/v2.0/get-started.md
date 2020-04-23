@@ -18,7 +18,7 @@ version of InfluxDB 2.0.
 
 <div class="get-started-btns">
   <a class="btn" href="#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
-  <a class="btn" href="#start-with-influxdb-oss">Start with InfluxDB OSS (beta)</a>
+  <a class="btn" href="#start-with-influxdb-oss">Start with InfluxDB OSS <span class="oss"></span></a>
 </div>
 
 _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss)._

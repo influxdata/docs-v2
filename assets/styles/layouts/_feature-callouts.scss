@@ -27,13 +27,23 @@
     }
   }
 
+  .new {
+    display: inline-block;
+    position: relative;
+    margin-right: .25rem;
+    font-size: .8rem;
+    padding: .1rem .35rem;
+    background: rgba($g20-white, .25);
+    border-radius: 1rem;
+  }
+
   .close {
     margin-left: .5rem;
     color: rgba($g20-white, .5);
     text-decoration: none;
 
     &:hover {
-      color: $g20-white;
+      color: rgba($g20-white, .9);
     }
   }
 }
