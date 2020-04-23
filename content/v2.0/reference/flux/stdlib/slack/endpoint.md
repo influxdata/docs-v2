@@ -49,8 +49,13 @@ A token is only required if using the Slack chat.postMessage API.
 
 _**Data type:** String_
 
+## Usage
+`slack.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
 ### mapFn
 A function that builds the object used to generate the POST request.
+Requires an  `r` parameter.
 
 {{% note %}}
 _You should rarely need to override the default `mapFn` parameter.
@@ -75,14 +80,24 @@ _For more information, see [`slack.message()`](/v2.0/reference/flux/stdlib/slack
 
 ##### Send critical statuses to a Slack endpoint
 ```js
-import "monitor"
 import "slack"
+import "influxdata/influxdb/secrets"
 
-endpoint = slack.endpoint(token: "mySuPerSecRetTokEn")
+token = secrets.get(key: "SLACK_TOKEN")
+e = slack.endpoint(token: token)
 
-from(bucket: "example-bucket")
+crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-  |> map(fn: (r) => { return {r with status: r._status} })
-  |> monitor.notify(endpoint: endpoint)
+
+crit_statuses
+  |> e(mapFn: (r) => ({
+      username: r.username,
+      channel: r.channel,
+      workspace: r.workspace,
+      text: r.text,
+      iconEmoji: r.iconEmoji,
+      color: r.color,
+    })
+  )()
 ```
