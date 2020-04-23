@@ -56,10 +56,10 @@ data
 **The following returns:**
 
 ```js
-  |> aggregate.rate(
-    every: 20m,
-    unit: 1m
-  )
+|> aggregate.rate(
+  every: 20m,
+  unit: 1m
+)
 ```
 
 | _time                | _value |
