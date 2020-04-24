@@ -13,11 +13,10 @@ weight: 202
 
 To create a new dashboard from an InfluxDB dashboard template:
 
-1. Click the **Settings** icon in the left navigation.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab.
 3. Select the [template type](/v2.0/visualize-data/templates/#dashboard-template-types).
 
     {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}

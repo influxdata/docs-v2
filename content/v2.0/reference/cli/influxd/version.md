@@ -6,6 +6,7 @@ menu:
   v2_0_ref:
     parent: influxd
 weight: 202
+products: [oss]
 ---
 
 The `influxd version` command outputs the current version of InfluxDB.

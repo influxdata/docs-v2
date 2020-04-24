@@ -18,6 +18,7 @@ The experimental `csv.from()` function is an alternative to the standard
 
 _**Function type:** Input_
 
+{{< keep-url >}}
 ```js
 import "experimental/csv"
 
@@ -38,7 +39,7 @@ _**Data type:** String_
 ```js
 import "experimental/csv"
 
-csv.from(url: "http://mydomain.com/csv/example.csv")
+csv.from(url: "http://example.com/csv/example.csv")
   |> filter(fn: (r) => r._measurement == "example-measurement")
 ```
 

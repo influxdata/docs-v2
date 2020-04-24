@@ -13,6 +13,6 @@ weight: 102
 ---
 
 The Flux standard library includes built-in functions and importable packages
-that retrieve, transform,rocess, and output data.
+that retrieve, transform, process, and output data.
 
 {{< children >}}

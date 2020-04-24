@@ -4,10 +4,13 @@ description: >
   Cancel your InfluxDB Cloud 2.0 account at any time by stopping all read and write
   requests, backing up data, and contacting InfluxData Support.
 weight: 104
+aliases:
+    - /v2.0/cloud/account-management/offboarding
 menu:
-  v2_0_cloud:
+  v2_0:
     parent: Account management
     name: Cancel InfluxDB Cloud
+products: [cloud]
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:
@@ -58,5 +61,5 @@ To request a backup of data in your {{< cloud-name "short" >}} instance, contact
 2. Do one of the following:
 
   - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **AWS Marketplace**, click the **AWS** link, click **Unsubscribe**, and then click **Yes, cancel subscription**.
-
+  - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **GCP Marketplace**, click the **GCP** link, click **Unsubscribe**, and then click **Yes, cancel subscription**.
   - If you subscribed to an InfluxDB Cloud 2.0 **Usage-Based Plan** through **InfluxData**, click **Cancel Service**. Select **I understand and agree to these conditions**, and then click **I understand, Cancel Service.** Click **Confirm and Cancel Service**. Your payment method is charged your final balance immediately upon cancellation of service.

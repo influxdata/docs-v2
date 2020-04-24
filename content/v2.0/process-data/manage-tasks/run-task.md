@@ -18,7 +18,7 @@ however, you can manually run a task from the InfluxDB user interface (UI) or th
 `influx` command line interface (CLI).
 
 ## Run a task from the InfluxDB UI
-1. Click the **Tasks** icon in the left navigation to view the lists of tasks.
+1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 

@@ -11,17 +11,15 @@ weight: 201
 
 Use the `influx` command line interface (CLI) to add a member to an organization.
 
-{{% cloud-msg %}}
+{{% cloud %}}
 Adding members is currently unavailable in {{< cloud-name >}}.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 <!-- ## Add a member to an organization in the InfluxDB UI
 
-1. Click the **Settings** tab in the navigation bar.
+1. In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-    {{< nav-icon "settings" >}}
-
-2. Click the name of an organization, then select the **Members** tab.
+    {{< nav-icon "org" >}}
 
 _Complete content coming soon_ -->
 
@@ -36,7 +34,7 @@ influx user list
 2. To add a user to an organization, run the following command:
 
 ```sh
-influx org members add -n <org-name> -o <user-ID>
+influx org members add -n <org-name> -m <user-ID>
 ```
 
 For more information, see the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add).

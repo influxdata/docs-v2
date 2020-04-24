@@ -30,11 +30,10 @@ for using Telegraf with InfluxDB v2.0._
 ## Create a Telegraf configuration
 
 1. Open the InfluxDB UI _(default: [localhost:9999](http://localhost:9999))_.
-2. Click **Load Data** in the left navigation menu.
+2. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 
-3. Select **Telegraf**.
 4. Click **{{< icon "plus" >}} Create Configuration**.
 5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
 6. Select one or more of the available plugin groups and click **Continue**.
@@ -42,6 +41,11 @@ for using Telegraf with InfluxDB v2.0._
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
+
+   {{% note %}}
+   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/use-telegraf/manual-config/).
+   {{% /note %}}
+
 8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
 9. Click **Create and Verify**.
 10. The **Test Your Configuration** page provides instructions for how to start

@@ -17,11 +17,10 @@ of a Telegraf configuration created in the UI.
 You cannot modify Telegraf settings in existing Telegraf configurations through the UI.
 {{% /note %}}
 
-1. Click **Load Data** in left the navigation bar.
+1. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 
-2. Select **Telegraf**.
 3. Hover over the configuration you want to edit and click **{{< icon "pencil" >}}**
    to update the name or description.
 4. Press Return or click out of the editable field to save your changes.

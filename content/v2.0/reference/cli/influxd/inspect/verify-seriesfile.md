@@ -7,6 +7,7 @@ menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
+products: [oss]
 ---
 
 The `influxd inspect verify-seriesfile` command verifies the integrity of series files.

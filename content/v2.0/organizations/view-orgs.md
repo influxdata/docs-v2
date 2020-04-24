@@ -14,12 +14,15 @@ to view organizations.
 
 ## View organizations in the InfluxDB UI
 
-*  Click the **Influx** icon in the navigation bar.
+1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "admin" >}}
+    {{< nav-icon "account" >}}
 
-* Select **Switch Organizations**. The list of organizations appears.
+2. Select **Switch Organizations**. The list of organizations appears.
 
+{{% cloud %}}
+**{{< cloud-name "short" >}}** does not support viewing and switching between multiple organizations.
+{{% /cloud %}}
 
 ## View organizations using the influx CLI
 
@@ -39,6 +42,7 @@ Use the InfluxDB UI or `influx` CLI to view your organization ID.
 
 ### Organization ID in the UI
 After logging in to the InfluxDB UI, your organization ID appears in the URL.
+
 
 <pre class="highlight">
 http://localhost:9999/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...

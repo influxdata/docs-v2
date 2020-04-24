@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:dubnium
+      - image: circleci/node:erbium
         environment:
           HUGO_VERSION: "0.59.1"
           S3DEPLOY_VERSION: "2.3.2"
@@ -10,8 +10,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - install-v1-{{ checksum ".circleci/config.yml" }}
-            - install-v1-
+            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
+            - install-{{ .Environment.CACHE_VERSION }}-
       - run:
           name: Make bin folder
           command: mkdir -p $HOME/bin
@@ -22,13 +22,13 @@ jobs:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
-          name: Install NPM dependencies
-          command: sudo npm i -g postcss-cli autoprefixer redoc-cli
+          name: Install NodeJS dependencies
+          command: sudo yarn global add postcss-cli autoprefixer redoc-cli
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
       - save_cache:
-          key: install-v1-{{ checksum ".circleci/config.yml" }}
+          key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
       - run:
@@ -46,8 +46,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - install-v1-{{ checksum ".circleci/config.yml" }}
-            - install-v1-
+            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
+            - install-{{ .Environment.CACHE_VERSION }}-
       - attach_workspace:
           at: workspace
       - run:
