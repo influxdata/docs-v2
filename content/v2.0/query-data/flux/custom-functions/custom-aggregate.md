@@ -5,7 +5,7 @@ v2.0/tags: [functions, custom, flux, aggregates]
 menu:
   v2_0:
     name: Custom aggregate functions
-    parent: Create custom functions
+    parent: Custom functions
 weight: 301
 aliases:
  - /v2.0/query-data/guides/custom-functions/custom-aggregate/
