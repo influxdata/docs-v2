@@ -8,7 +8,7 @@ menu:
   v2_0:
     name: Join
     parent: Query with Flux
-weight: 220
+weight: 210
 aliases:
   - /v2.0/query-data/guides/join/
 list_code_example: |
