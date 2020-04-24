@@ -3,7 +3,9 @@ title: Calculate the rate of change
 seotitle: Calculate the rate of change in Flux
 list_title: Rate
 description: >
-  Use the [`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
+  Use the [`derivative()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)
+  to calculate the rate of change between subsequent values or the
+  [`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
   to calculate the average rate of change per window of time.
 weight: 210
 menu:
@@ -15,12 +17,111 @@ related:
   - /v2.0/reference/flux/stdlib/experimental/aggregate/rate/
 list_code_example: |
   ```js
+  data
+    |> derivative(unit: 1s, nonNegative: true)
+  ```
+  ```js
   import "experimental/aggregate"
 
   data
-    |> aggregate.rate(every: 1m, unit: 1s )
+    |> aggregate.rate(every: 1m, unit: 1s)
   ```
 ---
+
+
+Use the [`derivative()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)
+to calculate the rate of change between subsequent values or the
+[`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
+to calculate the average rate of change per window of time.
+
+- [Rate of change between subsequent values](#rate-of-change-between-subsequent-values)
+- [Average rate of change per window of time](#average-rate-of-change-per-window-of-time)
+
+## Rate of change between subsequent values
+Use the [`derivative()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)
+to calculate the rate of change per unit of time between subsequent _non-null_ values.
+
+```js
+data
+  |> derivative(unit: 1s)
+```
+
+By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
+
+
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:00Z | 250    |
+| 2020-01-01T00:10:00Z | 160    |
+| 2020-01-01T00:20:00Z | 150    |
+| 2020-01-01T00:30:00Z | 220    |
+| 2020-01-01T00:40:00Z | 200    |
+| 2020-01-01T00:50:00Z | 290    |
+| 2020-01-01T01:00:00Z | 340    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**`derivative(unit: 1m)` returns:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:10:00Z |        |
+| 2020-01-01T00:20:00Z |        |
+| 2020-01-01T00:30:00Z | 7      |
+| 2020-01-01T00:40:00Z |        |
+| 2020-01-01T00:50:00Z | 9      |
+| 2020-01-01T01:00:00Z | 5      |
+{{% /flex-content %}}
+{{< /flex >}}
+
+Results represent the average change per minute between subsequent values with
+negative values set to _null_.
+
+### Return negative derivative values
+To return negative derivative values, set the `nonNegative` parameter to `false`,
+
+{{< flex >}}
+{{% flex-content %}}
+**Given the following input:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:00Z | 250    |
+| 2020-01-01T00:10:00Z | 160    |
+| 2020-01-01T00:20:00Z | 150    |
+| 2020-01-01T00:30:00Z | 220    |
+| 2020-01-01T00:40:00Z | 200    |
+| 2020-01-01T00:50:00Z | 290    |
+| 2020-01-01T01:00:00Z | 340    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**The following returns:**
+
+```js
+|> derivative(
+  unit: 1m,
+  nonNegative: false
+)
+```
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:10:00Z | -9     |
+| 2020-01-01T00:20:00Z | -1     |
+| 2020-01-01T00:30:00Z | 7      |
+| 2020-01-01T00:40:00Z | -2     |
+| 2020-01-01T00:50:00Z | 9      |
+| 2020-01-01T01:00:00Z | 5      |
+{{% /flex-content %}}
+{{< /flex >}}
+
+Results represent the average change per minute between subsequent values and
+include negative values.
+
+## Average rate of change per window of time
 
 Use the [`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
@@ -37,6 +138,7 @@ data
 ```
 
 `aggregate.rate()` returns the average rate of change per `unit` for time intervals defined by `every`.
+**Negative values are replaced with _null_.**
 
 {{< flex >}}
 {{% flex-content %}}
@@ -64,10 +166,13 @@ data
 
 | _time                | _value |
 |:-----                | ------:|
+| 2020-01-01T00:20:00Z |        |
 | 2020-01-01T00:40:00Z | 7      |
 | 2020-01-01T01:00:00Z | 9      |
 | 2020-01-01T01:20:00Z | 5      |
 {{% /flex-content %}}
 {{< /flex >}}
 
-_Results represent the **average change rate per minute** of every **20 minute interval**._
+Results represent the **average change rate per minute** of every **20 minute interval**
+with negative values set to _null_.
+Timestamps represent the right bound of the time window used to average values.
