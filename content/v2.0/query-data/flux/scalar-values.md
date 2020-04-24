@@ -19,7 +19,7 @@ list_code_example: |
   scalarValue = {
     _record =
       data
-        |> tableFine(fn: key => true)
+        |> tableFind(fn: key => true)
         |> getRecord(idx: 0)
     return _record._value
   }
