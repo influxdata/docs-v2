@@ -2,7 +2,9 @@
 title: Transform data with mathematic operations
 seotitle: Transform data with mathematic operations in Flux
 list_title: Transform data with math
-description: This guide describes how to use Flux to transform data with mathematic operations.
+description: >
+  Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map)
+  to remap column values and apply mathematic operations.
 v2.0/tags: [math, flux]
 menu:
   v2_0:
@@ -10,7 +12,17 @@ menu:
     parent: Query with Flux
 weight: 205
 aliases:
- - /v2.0/query-data/guides/mathematic-operations/
+  - /v2.0/query-data/guides/mathematic-operations/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/map
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /v2.0/reference/flux/language/operators/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+list_code_example: |
+  ```js
+  data
+    |> map(fn: (r) => ({ r with _value: r._value * r._value }))
+  ```
 ---
 
 [Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,

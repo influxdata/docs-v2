@@ -9,6 +9,8 @@ menu:
     name: sample
     parent: built-in-selectors
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#sample, InfluxQL – SAMPLE()
 ---
 
 The `sample()` function selects a subset of the records from the input table.
@@ -45,8 +47,3 @@ from(bucket:"example-bucket")
   )
   |> sample(n: 5, pos: 1)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[SAMPLE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#sample)

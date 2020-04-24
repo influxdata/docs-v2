@@ -10,6 +10,9 @@ menu:
     name: quantile
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/query-data/flux/percentile-quantile/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 ---
 
 The `quantile()` function returns records from an input table with `_value`s that fall within
@@ -99,8 +102,3 @@ from(bucket: "example-bucket")
     method: "exact_selector"
   )
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[PERCENTILE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#percentile)  

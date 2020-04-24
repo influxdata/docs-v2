@@ -12,6 +12,8 @@ menu:
     parent: Flux standard library
 weight: 202
 v2.0/tags: [math, functions]
+related:
+  - /v2.0/query-data/flux/mathematic-operations/
 ---
 
 The Flux math package provides basic constants and mathematical functions.

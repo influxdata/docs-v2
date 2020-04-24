@@ -1,17 +1,25 @@
 ---
 title: Group data in InfluxDB with Flux
-list_title: Group data
+list_title: Group
 description: >
-  This guide walks through grouping data with Flux by providing examples and
-  illustrating how data is shaped throughout the process.
+  Use the [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group)
+  to group data with common values in specific columns.
 v2.0/tags: [group]
 menu:
   v2_0:
-    name: Group data
+    name: Group
     parent: Query with Flux
 weight: 202
 aliases:
- - /v2.0/query-data/guides/group-data/
+  - /v2.0/query-data/guides/group-data/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/group
+  - /v2.0/reference/flux/stdlib/experimental/group
+list_code_example: |
+  ```js
+  data
+    |> group(columns: ["cpu", "host"], mode: "by")
+  ```
 ---
 
 With Flux, you can group data by any column in your queried data set.

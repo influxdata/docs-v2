@@ -5,10 +5,12 @@ v2.0/tags: [functions, custom, flux, aggregates]
 menu:
   v2_0:
     name: Custom aggregate functions
-    parent: Create custom functions
+    parent: Custom functions
 weight: 301
 aliases:
- - /v2.0/query-data/guides/custom-functions/custom-aggregate/
+  - /v2.0/query-data/guides/custom-functions/custom-aggregate/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
 ---
 
 To aggregate your data, use the Flux

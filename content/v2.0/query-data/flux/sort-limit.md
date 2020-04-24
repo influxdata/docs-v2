@@ -1,22 +1,35 @@
 ---
 title: Sort and limit data with Flux
 seotitle: Sort and limit data in InfluxDB with Flux
-list_title: Sort and limit data
+list_title: Sort and limit
 description: >
-  This guide walks through sorting and limiting data with Flux and outlines how
-  it shapes your data in the process.
+  Use the [`sort()`function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+  to order records within each table by specific columns and the
+  [`limit()` function](/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+  to limit the number of records in output tables to a fixed number, `n`.
 v2.0/tags: [sort, limit]
 menu:
   v2_0:
-    name: Sort and limit data
+    name: Sort and limit
     parent: Query with Flux
 weight: 203
 aliases:
- - /v2.0/query-data/guides/sort-limit/
+  - /v2.0/query-data/guides/sort-limit/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/sort
+  - /v2.0/reference/flux/stdlib/built-in/transformations/limit
+list_code_example: |
+  ```js
+  data
+    |> sort(columns: ["host", "_value"])
+    |> limit(n: 10)
+  ```
 ---
 
-The [`sort()`function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)
-orders the records within each table.
+Use the [`sort()`function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+to order records within each table by specific columns and the
+[`limit()` function](/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+to limit the number of records in output tables to a fixed number, `n`.
 
 If you're just getting started with Flux queries, check out the following:
 

@@ -10,6 +10,8 @@ menu:
     name: getColumn
     parent: Stream & table
 weight: 501
+related:
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `getColumn()` function extracts a column from a table given its label.

@@ -9,6 +9,8 @@ menu:
     name: bottom
     parent: built-in-selectors
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#bottom, InfluxQL – BOTTOM()
 ---
 
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
@@ -56,8 +58,3 @@ _sortLimit = (n, desc, columns=["_value"], tables=<-) =>
 bottom = (n, columns=["_value"], tables=<-) =>
   _sortLimit(n:n, columns:columns, desc:false)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[BOTTOM()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#bottom)

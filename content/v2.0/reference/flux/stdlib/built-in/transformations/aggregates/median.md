@@ -11,6 +11,9 @@ menu:
     name: median
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/query-data/flux/median/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#median, InfluxQL – MEDIAN()
 ---
 
 The `median()` function is a special application of the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)
@@ -110,8 +113,3 @@ median = (method="estimate_tdigest", compression=0.0, tables=<-) =>
     compression:compression
   )
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[MEDIAN()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#median)  
