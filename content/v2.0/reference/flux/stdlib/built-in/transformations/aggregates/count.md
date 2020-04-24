@@ -9,6 +9,8 @@ menu:
     name: count
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#count, InfluxQL – COUNT()
 ---
 
 The `count()` function outputs the number of records in a column.
@@ -53,8 +55,3 @@ from(bucket: "example-bucket")
   |> range(start: -5m)
   |> count(column: "_value")
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[COUNT()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#count)

@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: Cumulative sum
 v2.0/tags: [query, cumulative sum]
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/
 list_code_example: |
   ```js
   data

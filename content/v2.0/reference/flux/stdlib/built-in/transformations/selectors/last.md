@@ -9,6 +9,9 @@ menu:
     name: last
     parent: built-in-selectors
 weight: 501
+related:
+  - /v2.0/query-data/flux/first-last/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#last, InfluxQL – LAST()
 ---
 
 The `last()` function selects the last non-null record from an input table.
@@ -30,8 +33,3 @@ from(bucket:"example-bucket")
   )
   |> last()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[LAST()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#last)  

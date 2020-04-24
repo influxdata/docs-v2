@@ -9,6 +9,9 @@ menu:
     name: first
     parent: built-in-selectors
 weight: 501
+related:
+  - /v2.0/query-data/flux/first-last/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#first, InfluxQL – FIRST()
 ---
 
 The `first()` function selects the first non-null record from an input table.
@@ -30,8 +33,3 @@ from(bucket:"example-bucket")
   )
   |> first()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[FIRST()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#first)

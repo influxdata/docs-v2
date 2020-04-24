@@ -9,6 +9,8 @@ menu:
     name: integral
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#integral, InfluxQL – INTEGRAL()
 ---
 
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.
@@ -44,8 +46,3 @@ from(bucket: "example-bucket")
   )
   |> integral(unit:10s)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[INTEGRAL()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#integral)

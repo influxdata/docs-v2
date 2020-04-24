@@ -7,6 +7,9 @@ menu:
     name: Filter by region
     parent: Geo-temporal data
 weight: 302
+related:
+  - /v2.0/reference/flux/stdlib/experimental/geo/
+  - /v2.0/reference/flux/stdlib/experimental/geo/filterrows/
 list_code_example: |
   ```js
   import "experimental/geo"

@@ -9,6 +9,8 @@ menu:
     name: to
     parent: built-in-outputs
 weight: 401
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-into-clause, InfluxQL – SELECT INTO
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
@@ -174,9 +176,3 @@ _tag1=a hum=55.3,temp=100.1 0005
 _tag1=a hum=55.4,temp=99.3 0006
 _tag1=a hum=55.5,temp=99.9 0007
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-
-[SELECT INTO](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-into-clause)

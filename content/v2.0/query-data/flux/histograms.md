@@ -12,6 +12,8 @@ menu:
 weight: 210
 aliases:
   - /v2.0/query-data/guides/histograms/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
 list_code_example: |
   ```js
   data

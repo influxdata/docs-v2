@@ -9,6 +9,9 @@ menu:
     name: group
     parent: built-in-transformations
 weight: 401
+related:
+  - /v2.0/query-data/flux/group-data/
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY
 ---
 
 The `group()` function groups records based on their values for specific columns.
@@ -78,8 +81,3 @@ from(bucket: "example-bucket")
   |> range(start: -30m)
   |> group()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[GROUP BY](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause) _(similar but different)_

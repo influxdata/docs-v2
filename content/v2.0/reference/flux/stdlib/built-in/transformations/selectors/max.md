@@ -9,6 +9,8 @@ menu:
     name: max
     parent: built-in-selectors
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#max, InfluxQL – MAX()
 ---
 
 The `max()` function selects record with the highest `_value` from the input table.
@@ -38,8 +40,3 @@ from(bucket:"example-bucket")
   )
   |> max()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[MAX()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#max)

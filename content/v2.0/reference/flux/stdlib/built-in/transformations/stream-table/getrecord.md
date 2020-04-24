@@ -10,6 +10,8 @@ menu:
     name: getRecord
     parent: Stream & table
 weight: 501
+related:
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `getRecord()` function extracts a record from a table given the record's index.

@@ -10,6 +10,10 @@ menu:
   v2_0:
     parent: Query with Flux
 v2.0/tags: [query, select, where]
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /v2.0/query-data/flux/conditional-logic/
+  - /v2.0/query-data/flux/regular-expressions/
 list_code_example: |
   ```js
   from(bucket: "example-bucket")

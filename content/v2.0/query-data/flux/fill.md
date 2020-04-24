@@ -11,6 +11,8 @@ menu:
     parent: Query with Flux
     name: Fill
 v2.0/tags: [query, fill]
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/fill/
 list_code_example: |
   ```js
   data

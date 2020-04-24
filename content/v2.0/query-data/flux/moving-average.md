@@ -12,6 +12,9 @@ menu:
     parent: Query with Flux
     name: Moving Average
 v2.0/tags: [query, moving average]
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
 list_code_example: |
   ```js
   data

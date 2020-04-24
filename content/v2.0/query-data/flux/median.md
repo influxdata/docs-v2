@@ -13,6 +13,8 @@ menu:
 v2.0/tags: [query, median]
 related:
   - /v2.0/query-data/flux/percentile-quantile/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_code_example: |
   ```js
   data

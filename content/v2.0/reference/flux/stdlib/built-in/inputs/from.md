@@ -9,6 +9,8 @@ menu:
     name: from
     parent: built-in-inputs
 weight: 401
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#from-clause, InfluxQL - FROM
 ---
 
 The `from()` function retrieves data from an InfluxDB data source.
@@ -46,8 +48,4 @@ from(bucket: "example-bucket")
 ```js
 from(bucketID: "0261d8287f4d6000")
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[FROM](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#from-clause)
+[FROM]()

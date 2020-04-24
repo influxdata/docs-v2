@@ -11,6 +11,8 @@ menu:
     name: increase
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/query-data/flux/increase/
 ---
 
 The `increase()` function calculates the cumulative sum of **non-negative** differences

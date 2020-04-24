@@ -11,6 +11,8 @@ menu:
 weight: 210
 aliases:
   - /v2.0/query-data/guides/join/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/join
 list_code_example: |
   ```js
   join(

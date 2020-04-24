@@ -15,6 +15,9 @@ menu:
 weight: 203
 aliases:
   - /v2.0/query-data/guides/sort-limit/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/sort
+  - /v2.0/reference/flux/stdlib/built-in/transformations/limit
 list_code_example: |
   ```js
   data

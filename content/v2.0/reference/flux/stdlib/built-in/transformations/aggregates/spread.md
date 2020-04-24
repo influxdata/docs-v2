@@ -9,6 +9,8 @@ menu:
     name: spread
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#spread, InfluxQL – SPREAD()
 ---
 
 The `spread()` function outputs the difference between the minimum and maximum values in a specified column.
@@ -42,8 +44,3 @@ from(bucket: "example-bucket")
   )
   |> spread()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[SPREAD()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#spread)  
