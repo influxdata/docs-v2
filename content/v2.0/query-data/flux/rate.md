@@ -77,7 +77,7 @@ By default, `derivative()` returns only positive derivative values and replaces 
 {{% /flex-content %}}
 {{< /flex >}}
 
-Results represent the average change per minute between subsequent values with
+Results represent the rate of change **per minute** between subsequent values with
 negative values set to _null_.
 
 ### Return negative derivative values
@@ -118,7 +118,7 @@ To return negative derivative values, set the `nonNegative` parameter to `false`
 {{% /flex-content %}}
 {{< /flex >}}
 
-Results represent the average change per minute between subsequent values and
+Results represent the rate of change **per minute** between subsequent values and
 include negative values.
 
 ## Average rate of change per window of time
