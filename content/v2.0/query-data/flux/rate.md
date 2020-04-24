@@ -7,6 +7,8 @@ description: >
   to calculate the rate of change between subsequent values or the
   [`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
   to calculate the average rate of change per window of time.
+  If time between points varies, these functions normalize points to a common time interval
+  making values easily comparable.
 weight: 210
 menu:
   v2_0:
@@ -33,6 +35,8 @@ Use the [`derivative()` function](/v2.0/reference/flux/stdlib/built-in/transform
 to calculate the rate of change between subsequent values or the
 [`aggregate.rate()` function](/v2.0/reference/flux/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
+If time between points varies, these functions normalize points to a common time interval
+making values easily comparable.
 
 - [Rate of change between subsequent values](#rate-of-change-between-subsequent-values)
 - [Average rate of change per window of time](#average-rate-of-change-per-window-of-time)
@@ -47,6 +51,7 @@ data
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
+Cacluated values are returned as [floats](/v2.0/reference/flux/language/types/#numeric-types).
 
 
 {{< flex >}}
@@ -56,11 +61,11 @@ By default, `derivative()` returns only positive derivative values and replaces 
 | _time                | _value |
 |:-----                | ------:|
 | 2020-01-01T00:00:00Z | 250    |
-| 2020-01-01T00:10:00Z | 160    |
-| 2020-01-01T00:20:00Z | 150    |
-| 2020-01-01T00:30:00Z | 220    |
-| 2020-01-01T00:40:00Z | 200    |
-| 2020-01-01T00:50:00Z | 290    |
+| 2020-01-01T00:04:00Z | 160    |
+| 2020-01-01T00:12:00Z | 150    |
+| 2020-01-01T00:19:00Z | 220    |
+| 2020-01-01T00:32:00Z | 200    |
+| 2020-01-01T00:51:00Z | 290    |
 | 2020-01-01T01:00:00Z | 340    |
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -68,12 +73,12 @@ By default, `derivative()` returns only positive derivative values and replaces 
 
 | _time                | _value |
 |:-----                | ------:|
-| 2020-01-01T00:10:00Z |        |
-| 2020-01-01T00:20:00Z |        |
-| 2020-01-01T00:30:00Z | 7      |
-| 2020-01-01T00:40:00Z |        |
-| 2020-01-01T00:50:00Z | 9      |
-| 2020-01-01T01:00:00Z | 5      |
+| 2020-01-01T00:04:00Z |        |
+| 2020-01-01T00:12:00Z |        |
+| 2020-01-01T00:19:00Z | 10.0   |
+| 2020-01-01T00:32:00Z |        |
+| 2020-01-01T00:51:00Z | 4.74   |
+| 2020-01-01T01:00:00Z | 5.56   |
 {{% /flex-content %}}
 {{< /flex >}}
 
@@ -90,11 +95,11 @@ To return negative derivative values, set the `nonNegative` parameter to `false`
 | _time                | _value |
 |:-----                | ------:|
 | 2020-01-01T00:00:00Z | 250    |
-| 2020-01-01T00:10:00Z | 160    |
-| 2020-01-01T00:20:00Z | 150    |
-| 2020-01-01T00:30:00Z | 220    |
-| 2020-01-01T00:40:00Z | 200    |
-| 2020-01-01T00:50:00Z | 290    |
+| 2020-01-01T00:04:00Z | 160    |
+| 2020-01-01T00:12:00Z | 150    |
+| 2020-01-01T00:19:00Z | 220    |
+| 2020-01-01T00:32:00Z | 200    |
+| 2020-01-01T00:51:00Z | 290    |
 | 2020-01-01T01:00:00Z | 340    |
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -109,12 +114,12 @@ To return negative derivative values, set the `nonNegative` parameter to `false`
 
 | _time                | _value |
 |:-----                | ------:|
-| 2020-01-01T00:10:00Z | -9     |
-| 2020-01-01T00:20:00Z | -1     |
-| 2020-01-01T00:30:00Z | 7      |
-| 2020-01-01T00:40:00Z | -2     |
-| 2020-01-01T00:50:00Z | 9      |
-| 2020-01-01T01:00:00Z | 5      |
+| 2020-01-01T00:04:00Z | -22.5  |
+| 2020-01-01T00:12:00Z | -1.25  |
+| 2020-01-01T00:19:00Z | 10.0   |
+| 2020-01-01T00:32:00Z | -1.54  |
+| 2020-01-01T00:51:00Z | 4.74   |
+| 2020-01-01T01:00:00Z | 5.56   |
 {{% /flex-content %}}
 {{< /flex >}}
 
@@ -137,8 +142,13 @@ data
   )
 ```
 
-`aggregate.rate()` returns the average rate of change per `unit` for time intervals defined by `every`.
-**Negative values are replaced with _null_.**
+`aggregate.rate()` returns the average rate of change (as a [float](/v2.0/reference/flux/language/types/#numeric-types))
+per `unit` for time intervals defined by `every`.
+Negative values are replaced with _null_.
+
+{{% note %}}
+`aggregate.rate()` does not support `nonNegative: false`.
+{{% /note %}}
 
 {{< flex >}}
 {{% flex-content %}}
@@ -147,11 +157,11 @@ data
 | _time                | _value |
 |:-----                | ------:|
 | 2020-01-01T00:00:00Z | 250    |
-| 2020-01-01T00:10:00Z | 160    |
-| 2020-01-01T00:20:00Z | 150    |
-| 2020-01-01T00:30:00Z | 220    |
-| 2020-01-01T00:40:00Z | 200    |
-| 2020-01-01T00:50:00Z | 290    |
+| 2020-01-01T00:04:00Z | 160    |
+| 2020-01-01T00:12:00Z | 150    |
+| 2020-01-01T00:19:00Z | 220    |
+| 2020-01-01T00:32:00Z | 200    |
+| 2020-01-01T00:51:00Z | 290    |
 | 2020-01-01T01:00:00Z | 340    |
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -167,9 +177,9 @@ data
 | _time                | _value |
 |:-----                | ------:|
 | 2020-01-01T00:20:00Z |        |
-| 2020-01-01T00:40:00Z | 7      |
-| 2020-01-01T01:00:00Z | 9      |
-| 2020-01-01T01:20:00Z | 5      |
+| 2020-01-01T00:40:00Z | 10.0   |
+| 2020-01-01T01:00:00Z | 4.74   |
+| 2020-01-01T01:20:00Z | 5.56   |
 {{% /flex-content %}}
 {{< /flex >}}
 
