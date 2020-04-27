@@ -313,7 +313,7 @@ moving_average:
     code: |
       ```js
       data
-        |> timedMovingAverage(every: 5m, period: 10m)
+        |> timedMovingAverage(every: 2m, period: 4m)
       ```
     input: |
       | _time                | _value |
