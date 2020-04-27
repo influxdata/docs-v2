@@ -13,13 +13,7 @@ aliases:
   - /v2.0/query-data/guides/join/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/join
-list_code_example: |
-  ```js
-  join(
-    tables: {t1: stream1, t2: stream2},
-    on: ["_time"]
-  )
-  ```
+list_query_example: join
 ---
 
 The [`join()` function](/v2.0/reference/flux/stdlib/built-in/transformations/join) merges two or more

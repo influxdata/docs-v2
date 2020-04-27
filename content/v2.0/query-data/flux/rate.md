@@ -18,17 +18,7 @@ v2.0/tags: [query, rate]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/
   - /v2.0/reference/flux/stdlib/experimental/aggregate/rate/
-list_code_example: |
-  ```js
-  data
-    |> derivative(unit: 1s, nonNegative: true)
-  ```
-  ```js
-  import "experimental/aggregate"
-
-  data
-    |> aggregate.rate(every: 1m, unit: 1s)
-  ```
+list_query_example: rate_of_change
 ---
 
 

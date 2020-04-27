@@ -11,6 +11,10 @@
   &.half { width: calc(50% - 1rem); }
   &.third { width: calc(33.33% - 1rem); }
   &.quarter { width: calc(25% - 1rem); }
+
+  table {
+    margin-bottom: 1rem;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

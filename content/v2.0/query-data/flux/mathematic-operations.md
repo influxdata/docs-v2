@@ -18,11 +18,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
   - /v2.0/reference/flux/language/operators/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
-list_code_example: |
-  ```js
-  data
-    |> map(fn: (r) => ({ r with _value: r._value * r._value }))
-  ```
+list_query_example: map_math
 ---
 
 [Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,

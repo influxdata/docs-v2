@@ -72,6 +72,8 @@ external_url: # Used in children shortcode type="list" for page links that are e
 list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
+list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
+  # References to examples in data/query_examples
 products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
 ```
 
@@ -368,7 +370,25 @@ The following list types are available:
 - **articles:** lists article titles as headers with the description or summary
   of the article as a paragraph. Article headers link to the articles.
 - **list:** lists children article links in an unordered list.
+- **anchored-list:** lists anchored children article links in an unordered list
+  meant to act as a page navigation and link to children header.
 - **functions:** a special use-case designed for listing Flux functions.
+
+#### Include a "Read more" link
+To include a "Read more" link with each child summary, set `readmore=true`.
+_Only the `articles` list type supports "Read more" links._
+
+```md
+{{< children readmore=true >}}
+```
+
+#### Include a horizontal rule
+To include a horizontal rule after each child summary, set `hr=true`.
+_Only the `articles` list type supports horizontal rules._
+
+```md
+{{< children readmore=true >}}
+```
 
 #### Include a code example with a child summary
 Use the `list_code_example` frontmatter to provide a code example with an article
@@ -381,18 +401,28 @@ list_code_example: |
   ```
 ~~~
 
+#### Reference a query example in children
+To include a query example with the children in your list, update `data/query_examples.yml`
+with the example code, input, and output, and use the `list_query_example`
+frontmatter to reference the corresponding example.
+
+```yaml
+list_query_example: cumulative_sum
+```
+
 #### Children frontmatter
 Each children list `type` uses [frontmatter properties](#page-frontmatter) when generating the list of articles.
 The following table shows which children types use which frontmatter properties:
 
-| Frontmatter         | articles | list | functions |
-|:-----------         |:--------:|:----:|:---------:|
-| `list_title`        | ✓        | ✓    | ✓         |
-| `description`       | ✓        |      |           |
-| `external_url`      | ✓        | ✓    |           |
-| `list_image`        | ✓        |      |           |
-| `list_note`         |          | ✓    |           |
-| `list_code_example` | ✓        |      |           |
+| Frontmatter          | articles | list | functions |
+|:-----------          |:--------:|:----:|:---------:|
+| `list_title`         | ✓        | ✓    | ✓         |
+| `description`        | ✓        |      |           |
+| `external_url`       | ✓        | ✓    |           |
+| `list_image`         | ✓        |      |           |
+| `list_note`          |          | ✓    |           |
+| `list_code_example`  | ✓        |      |           |
+| `list_query_example` | ✓        |      |           |
 
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.

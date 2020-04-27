@@ -15,16 +15,7 @@ v2.0/tags: [query]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
-list_code_example: |
-  ```js
-  data
-    |> first()
-
-  // OR
-
-  data
-    |> last()
-  ```
+list_query_example: first_last
 ---
 
 Use the [`first()`](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) or
@@ -56,12 +47,12 @@ based on the order they are received in.
 {{% flex-content %}}
 **Given the following input:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **The following function returns:**
@@ -69,9 +60,9 @@ based on the order they are received in.
 |> first()
 ```
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
 {{% /flex-content %}}
 {{< /flex >}}
 
@@ -83,11 +74,11 @@ based on the order they are received in.
 **Given the following input:**
 
 | _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **The following function returns:**
@@ -96,9 +87,9 @@ based on the order they are received in.
 |> last()
 ```
 
-| _time | _value |
-| ----- |:------:|
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{< /flex >}}
 

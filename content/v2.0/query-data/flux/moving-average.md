@@ -15,16 +15,7 @@ v2.0/tags: [query, moving average]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-list_code_example: |
-  ```js
-  data
-    |> movingAverage(n: 5)
-
-  // OR
-
-  data
-    |> timedMovingAverage(every: 5m, period: 10m)
-  ```
+list_query_example: moving_average
 ---
 
 Use the [`movingAverage()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/)

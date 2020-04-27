@@ -18,11 +18,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/window
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors
-list_code_example: |
-  ```js
-  data
-    |> aggregateWindow(every: 5m, fn: mean)
-  ```
+list_query_example: aggregate_window
 ---
 
 A common operation performed with time series data is grouping data into windows of time,
