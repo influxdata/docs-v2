@@ -1,0 +1,22 @@
+query_tasks:
+  cumulative_sum:
+    -
+      code: |
+        ```js
+        data
+          |> cumulativeSum()
+        ```
+      input: |
+        | _time | _value |
+        | ----- |:------:|
+        | 0001  | 1      |
+        | 0002  | 2      |
+        | 0003  | 1      |
+        | 0004  | 3      |
+      output: |
+        | _time | _value |
+        | ----- |:------:|
+        | 0001  | 1      |
+        | 0002  | 3      |
+        | 0003  | 4      |
+        | 0004  | 7      |
