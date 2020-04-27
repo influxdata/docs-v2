@@ -14,11 +14,7 @@ v2.0/tags: [query, percentile, quantile]
 related:
   - /v2.0/query-data/flux/query-median/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
-list_code_example: |
-  ```js
-  data
-    |> quantile(q: 0.99)
-  ```
+list_query_example: quantile
 ---
 
 Use the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
@@ -48,12 +44,12 @@ If calculating the `0.5` quantile or 50th percentile:
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`estimate_tdigest` returns:**
@@ -74,12 +70,12 @@ If calculating the `0.5` quantile or 50th percentile:
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`exact_mean` returns:**
@@ -100,19 +96,19 @@ If calculating the `0.5` quantile or 50th percentile:
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`exact_selector` returns:**
 
-| _time | _value |
-| ----- |:------:|
-| 0002  | 1.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:02:00Z | 1.0    |
 {{% /flex-content %}}
 {{< /flex >}}
 

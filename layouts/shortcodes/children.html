@@ -41,22 +41,22 @@
 			{{ end }}
 
 			{{ if .Params.list_query_example }}
-				{{ range (index .Site.Data.query_examples.query_tasks .Params.list_query_example) }}
+				{{ range (index .Site.Data.query_examples .Params.list_query_example) }}
 					{{ .code | markdownify }}
 					<div class="flex-wrapper">
 						<div class="flex-container half">
-							<h6>Input:</strong></h6>
+							<h6>Input:</h6>
 							{{ .input | markdownify }}
 						</div>
 						<div class="flex-container half">
-							<h6>Output:</strong></h6>
+							<h6>Output:</h6>
 							{{ .output | markdownify }}
 						</div>
 					</div>
 				{{ end }}
 			{{ end }}
 
-			{{ if eq $readMore true }}
+			{{ if and (eq $readMore true) ( or (isset .Params "list_query_example") (isset .Params "list_code_example") ) }}
 				<p style="text-align: right"><em><a href="{{ $url }}" target="{{ $target }}">Read more <span class="icon-chevron-right"></span></a></em></p>
 			{{ end }}
 			{{ if eq $hr true }}

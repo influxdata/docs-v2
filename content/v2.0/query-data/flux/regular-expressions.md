@@ -13,11 +13,7 @@ aliases:
 related:
   - /v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/regexp/
-list_code_example: |
-  ```js
-  data
-    |> filter(fn: (r) => r.tag =~ /^foo[0-9]/)
-  ```
+list_query_example: regular_expressions
 ---
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.

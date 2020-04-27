@@ -60,15 +60,13 @@ when mapping values in the `r` object.
 
 To illustrate how this function works, take this simplified table for example:
 
-```txt
-                  _time   _value
------------------------  -------
-2019-04-23T16:10:49.00Z      1.6
-2019-04-23T16:10:59.00Z      2.3
-2019-04-23T16:11:09.00Z      0.7
-2019-04-23T16:11:19.00Z      1.2
-2019-04-23T16:11:29.00Z      3.8
-```
+| _time                | _value |
+|:-----                | ------:|
+| 2019-04-23T16:10:49Z | 1.6    |
+| 2019-04-23T16:10:59Z | 2.3    |
+| 2019-04-23T16:11:09Z | 0.7    |
+| 2019-04-23T16:11:19Z | 1.2    |
+| 2019-04-23T16:11:29Z | 3.8    |
 
 ###### Input objects
 The `fn` function uses the data in the first row to define the `r` object.
@@ -124,15 +122,15 @@ This cycle continues until all rows in the table are processed.
 After all records in the table are processed, `reduce()` uses the final output object
 to create a transformed table with one row and columns for each mapped key.
 
+###### Final output object
 ```js
-// Final output object
 { sum: 9.6, product: 11.74656 }
-
-// Output table
- sum    product
-----  ---------
- 9.6   11.74656
 ```
+
+###### Output table
+| sum | product  |
+| --- | -------- |
+| 9.6 | 11.74656 |
 
 {{% note %}}
 #### What happened to the \_time column?

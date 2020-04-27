@@ -15,11 +15,7 @@ aliases:
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/group
   - /v2.0/reference/flux/stdlib/experimental/group
-list_code_example: |
-  ```js
-  data
-    |> group(columns: ["cpu", "host"], mode: "by")
-  ```
+list_query_example: group
 ---
 
 With Flux, you can group data by any column in your queried data set.

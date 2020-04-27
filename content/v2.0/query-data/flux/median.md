@@ -15,11 +15,7 @@ related:
   - /v2.0/query-data/flux/percentile-quantile/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
-list_code_example: |
-  ```js
-  data
-    |> median()
-  ```
+list_query_example: median
 ---
 
 Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
@@ -41,12 +37,12 @@ Output tables consist of a single row containing the calculated median.
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`estimate_tdigest` returns:**
@@ -65,12 +61,12 @@ Output tables consist of a single row containing the calculated median.
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`exact_mean` returns:**
@@ -89,19 +85,19 @@ Output tables consist of a single row containing the calculated median.
 {{% flex-content %}}
 **Given the following input table:**
 
-| _time | _value |
-| ----- |:------:|
-| 0001  | 1.0    |
-| 0002  | 1.0    |
-| 0003  | 2.0    |
-| 0004  | 3.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1.0    |
+| 2020-01-01T00:02:00Z | 1.0    |
+| 2020-01-01T00:03:00Z | 2.0    |
+| 2020-01-01T00:04:00Z | 3.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`exact_selector` returns:**
 
-| _time | _value |
-| ----- |:------:|
-| 0002  | 1.0    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:02:00Z | 1.0    |
 {{% /flex-content %}}
 {{< /flex >}}
 

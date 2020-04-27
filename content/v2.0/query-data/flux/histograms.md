@@ -14,17 +14,7 @@ aliases:
   - /v2.0/query-data/guides/histograms/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
-list_code_example: |
-  ```js
-  data
-    |> histogram(
-      column: "_value",
-      upperBoundColumn: "le",
-      countColumn: "_value",
-      bins: [50.0, 75.0, 90.0],
-      normalize: false)
-    )
-  ```
+list_query_example: histogram
 ---
 
 Histograms provide valuable insight into the distribution of your data.

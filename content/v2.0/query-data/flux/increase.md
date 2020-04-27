@@ -15,11 +15,7 @@ menu:
 v2.0/tags: [query, increase, counters]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
-list_code_example: |
-  ```js
-  data
-    |> increase()
-  ```
+list_query_example: increase
 ---
 
 Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/)
@@ -39,24 +35,24 @@ For example:
 {{% flex-content %}}
 **Given the following input:**
 
-| _time | _value |
-|:----- | ------:|
-| 0001  | 1      |
-| 0002  | 2      |
-| 0003  | 8      |
-| 0004  | 10     |
-| 0005  | 0      |
-| 0006  | 4      |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 1      |
+| 2020-01-01T00:02:00Z | 2      |
+| 2020-01-01T00:03:00Z | 8      |
+| 2020-01-01T00:04:00Z | 10     |
+| 2020-01-01T00:05:00Z | 0      |
+| 2020-01-01T00:06:00Z | 4      |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`increase()` returns:**
 
-| _time | _value |
-|:----- | ------:|
-| 0002  | 1      |
-| 0003  | 7      |
-| 0004  | 9      |
-| 0005  | 9      |
-| 0006  | 13     |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:02:00Z | 1      |
+| 2020-01-01T00:03:00Z | 7      |
+| 2020-01-01T00:04:00Z | 9      |
+| 2020-01-01T00:05:00Z | 9      |
+| 2020-01-01T00:06:00Z | 13     |
 {{% /flex-content %}}
 {{< /flex >}}

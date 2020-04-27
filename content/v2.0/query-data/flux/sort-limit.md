@@ -18,12 +18,7 @@ aliases:
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/sort
   - /v2.0/reference/flux/stdlib/built-in/transformations/limit
-list_code_example: |
-  ```js
-  data
-    |> sort(columns: ["host", "_value"])
-    |> limit(n: 10)
-  ```
+list_query_example: sort_limit
 ---
 
 Use the [`sort()`function](/v2.0/reference/flux/stdlib/built-in/transformations/sort)

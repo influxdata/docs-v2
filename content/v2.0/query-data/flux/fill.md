@@ -13,11 +13,7 @@ menu:
 v2.0/tags: [query, fill]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/fill/
-list_code_example: |
-  ```js
-  data
-    |> fill(usePrevious: true)
-  ```
+list_query_example: fill_null
 ---
 
 Use the [`fill()` function](/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
@@ -61,24 +57,24 @@ data
 {{% flex-content %}}
 **Given the following input:**
 
-| _time | _value |
-|:----- | ------:|
-| 0001  | null   |
-| 0002  | 0.8    |
-| 0003  | null   |
-| 0004  | null   |
-| 0005  | 1.4    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | null   |
+| 2020-01-01T00:02:00Z | 0.8    |
+| 2020-01-01T00:03:00Z | null   |
+| 2020-01-01T00:04:00Z | null   |
+| 2020-01-01T00:05:00Z | 1.4    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`fill(usePrevious: true)` returns:**
 
-| _time | _value |
-|:----- | ------:|
-| 0001  | null   |
-| 0002  | 0.8    |
-| 0003  | 0.8    |
-| 0004  | 0.8    |
-| 0005  | 1.4    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | null   |
+| 2020-01-01T00:02:00Z | 0.8    |
+| 2020-01-01T00:03:00Z | 0.8    |
+| 2020-01-01T00:04:00Z | 0.8    |
+| 2020-01-01T00:05:00Z | 1.4    |
 {{% /flex-content %}}
 {{< /flex >}}
 
@@ -96,23 +92,23 @@ data
 {{% flex-content %}}
 **Given the following input:**
 
-| _time | _value |
-|:----- | ------:|
-| 0001  | null   |
-| 0002  | 0.8    |
-| 0003  | null   |
-| 0004  | null   |
-| 0005  | 1.4    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | null   |
+| 2020-01-01T00:02:00Z | 0.8    |
+| 2020-01-01T00:03:00Z | null   |
+| 2020-01-01T00:04:00Z | null   |
+| 2020-01-01T00:05:00Z | 1.4    |
 {{% /flex-content %}}
 {{% flex-content %}}
 **`fill(value: 0.0)` returns:**
 
-| _time | _value |
-|:----- | ------:|
-| 0001  | 0.0    |
-| 0002  | 0.8    |
-| 0003  | 0.0    |
-| 0004  | 0.0    |
-| 0005  | 1.4    |
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:01:00Z | 0.0    |
+| 2020-01-01T00:02:00Z | 0.8    |
+| 2020-01-01T00:03:00Z | 0.0    |
+| 2020-01-01T00:04:00Z | 0.0    |
+| 2020-01-01T00:05:00Z | 1.4    |
 {{% /flex-content %}}
 {{< /flex >}}
