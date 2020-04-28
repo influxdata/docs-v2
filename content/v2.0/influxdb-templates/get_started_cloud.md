@@ -7,9 +7,9 @@ menu:
     parent: InfluxDB templates
     name: Get Started with Templates in Cloud
     identifier: Templates requires CLI
-    product: InfluxDB Cloud
 weight: 101
 v2.0/tags: [templates]
+products: [cloud]
 ---
 
 If you are an InfluxDB Cloud user, you'll need the InfluxDB CLI (`influx`) in order to run the 
