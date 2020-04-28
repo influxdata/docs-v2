@@ -12,7 +12,7 @@ v2.0/tags: [templates]
 products: [cloud]
 ---
 
-If you are an InfluxDB Cloud user, you'll need the InfluxDB CLI (`influx`) to run `pkg` commands against your Cloud account. 
+If you're an InfluxDB Cloud user, you'll need the InfluxDB CLI (`influx`) to run `pkg` commands against your Cloud account. 
 
 InfluxDB OSS 2.0 includes the InfluxDB CLI (`influx`). If you haven’t already, do the following:
 
