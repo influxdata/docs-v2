@@ -172,6 +172,10 @@ We are in the process of updating our build process to ensure released binaries 
 _See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
+### Enable shell completion (Optional)
+
+To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+
 {{% note %}}
 #### InfluxDB "phone home"
 By default, InfluxDB sends telemetry data back to InfluxData.
@@ -230,6 +234,10 @@ influxd
 
 _See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
 available flags and options._
+
+### Enable shell completion (Optional)
+
+To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 {{% note %}}
 #### InfluxDB "phone home"

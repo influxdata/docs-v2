@@ -28,6 +28,8 @@ influx completion [bash|zsh] [flags]
 
 ## Install completion scripts
 
+Add the appropriate installation command below to your `.bashrc` or `.zshrc`.
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [bash](#)
@@ -55,7 +57,3 @@ $ source <(influx completion zsh)
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% note %}}
-To automatically load the `influx` completion scripts when opening a new shell,
-add the appropriate installation command from above to your `.bashrc` or `.zshrc`.
-{{% /note %}}
