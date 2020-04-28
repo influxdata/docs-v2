@@ -132,7 +132,7 @@ Use `map()` to re-map values in each row.
 Divide `mem_used` by `mem_total` and multiply by 100 to return the percentage.
 
 {{% note %}}
-To return a precise float percentage value that includes decimal points the example
+To return a precise float percentage value that includes decimal points, the example
 below casts integer field values to floats and multiplies by a float value (`100.0`).
 {{% /note %}}
 
@@ -177,8 +177,8 @@ Both `pivot()` and `join()` will do this, but there are important differences be
 
 #### Pivot is more performant
 `pivot()` only has to read and operate on a single stream of data.
-`join()` requires two streams of data and the overhead of reading and combing both
-streams can be high, especially for larger data sets.
+`join()` requires two streams of data and the overhead of reading and combining
+both streams can be significant, especially for larger data sets.
 
 #### Use join for multiple data sources
 `join()` is really only necessary when querying data from multiple buckets or
@@ -208,8 +208,8 @@ from(bucket: "example-bucket")
 
 1. Ensure measurements are in the same [bucket](/v2.0/reference/glossary/#bucket).
 2. Use `filter()` to include data from both measurements.
-3. Use `group()` to ungroup data to return a single table.
-4. Use `pivot()` to pivot fields into row-wise sets.
+3. Use `group()` to ungroup data and return a single table.
+4. Use `pivot()` to pivot fields into columns.
 5. Use `map()` to re-map rows and perform the percentage calculation.
 
 <!-- -->
