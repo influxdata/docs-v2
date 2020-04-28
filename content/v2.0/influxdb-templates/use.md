@@ -7,7 +7,7 @@ menu:
   v2_0:
     parent: InfluxDB templates
     name: Use templates
-weight: 101
+weight: 102
 v2.0/tags: [templates]
 ---
 
