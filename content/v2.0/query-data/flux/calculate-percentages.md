@@ -228,11 +228,16 @@ from(bucket: "example-bucket")
 #### Use join for multiple data sources
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+pgUser = secrets.get(key: "POSTGRES_USER")
+pgPass = secrets.get(key: "POSTGRES_PASSWORD")
+pgHost = secrets.get(key: "POSTGRES_HOST")
 
 t1 = sql.from(
   driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query:"SELECT * FROM exampleTable"
+  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+  query:"SELECT id, name, available FROM exampleTable"
 )
 
 t2 = from(bucket: "example-bucket")
