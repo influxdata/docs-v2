@@ -174,7 +174,7 @@ available flags and options._
 
 ### Enable shell completion (Optional)
 
-To install shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -237,7 +237,7 @@ available flags and options._
 
 ### Enable shell completion (Optional)
 
-To install shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 {{% note %}}
 #### InfluxDB "phone home"
