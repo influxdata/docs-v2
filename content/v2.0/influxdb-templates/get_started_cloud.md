@@ -20,5 +20,6 @@ InfluxDB OSS 2.0 includes the InfluxDB CLI (`influx`). If you haven’t already,
 - [Set up and use InfluxDB CLI](/v2.0/reference/cli/influx/) with the appropriate InfluxDB Cloud instance URL, organization, and tokens associated with your account.
 
 Next, discover how to use `influx` and `pkg` to do the following:
+
 - [Create templates](/v2.0/influxdb-templates/create/)
 - [Use templates](/v2.0/influxdb-templates/use/)
