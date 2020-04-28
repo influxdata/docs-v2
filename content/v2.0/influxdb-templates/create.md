@@ -7,7 +7,7 @@ menu:
     parent: InfluxDB templates
     name: Create a template
     identifier: Create an InfluxDB template
-weight: 102
+weight: 103
 v2.0/tags: [templates]
 ---
 
