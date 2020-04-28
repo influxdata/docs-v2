@@ -15,4 +15,13 @@ products: [cloud]
 If you are an InfluxDB Cloud user, you'll need the InfluxDB CLI (`influx`) in order to run the 
 various `influx pkg` commands against your Cloud account. 
 
+The CLI is currently contained within the InfluxDB OSS 2.0 package that you can find on the [downloads page](
+
+The download package contains both the InfluxDB OSS 2.0 database executable and the CLI tooling. You can follow the
+[instructions](get-started/#start-with-influxdb-oss) for how to unpack these executables.  
+
+You can check out [how to setup and use the InfluxDB CLI tooling](/reference/cli/influx/) to use the appropriate 
+InfluxDB Cloud instance URL, organization, and tokens associated with your account.
+
+
 
