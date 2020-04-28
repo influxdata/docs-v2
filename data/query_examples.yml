@@ -332,6 +332,38 @@ moving_average:
       | 2020-01-01T00:06:00Z | 1.325  |
       | 2020-01-01T00:06:00Z | 1.150  |
 
+percentages:
+  -
+    code: |
+      ```js
+      data
+        |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+        |> map(fn: (r) => ({
+          _time: r._time,
+          _field: "used_percent",
+          _value: float(v: r.used) / float(v: r.total) * 100.0
+        }))
+      ```
+    input: |
+      | _time                | _field  | _value |
+      |:-----                |:------: | ------:|
+      | 2020-01-01T00:00:00Z | used    | 2.5    |
+      | 2020-01-01T00:00:10Z | used    | 3.1    |
+      | 2020-01-01T00:00:20Z | used    | 4.2    |
+
+      | _time                | _field  | _value |
+      |:-----                |:------: | ------:|
+      | 2020-01-01T00:00:00Z | total   | 8.0    |
+      | 2020-01-01T00:00:10Z | total   | 8.0    |
+      | 2020-01-01T00:00:20Z | total   | 8.0    |
+    output: |
+      | _time                | _field       | _value |
+      |:-----                |:------:      | ------:|
+      | 2020-01-01T00:00:00Z | used_percent | 31.25  |
+      | 2020-01-01T00:00:10Z | used_percent | 38.75  |
+      | 2020-01-01T00:00:20Z | used_percent | 52.50  |
+
+
 quantile:
   -
     code: |
