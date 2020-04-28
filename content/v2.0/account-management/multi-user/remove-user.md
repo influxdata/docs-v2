@@ -1,13 +1,13 @@
 ---
 title: Remove a member
-list_title: Remove a member
+seotitle: Remove a member from your InfluxDB Cloud organization
 description: >
   Remove a member from an InfluxDB Cloud organization.
 weight: 103
 menu:
   v2_0:
     parent: Manage multiple members
-    name: Remove a member...
+    identifier: remove_member_cloud
 ---
 
 1. Navigate to the **Members** page under **Organizations** in the left navigation bar.
