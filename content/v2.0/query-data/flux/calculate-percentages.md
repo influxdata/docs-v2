@@ -35,7 +35,7 @@ Then, use `map()` to re-map values in the row and calculate a percentage.
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
 {{% note %}}
-In the following examples use `pivot()` to align operands into rows because
+The following examples use `pivot()` to align operands into rows because
 `pivot()` works in most cases and is more performant than `join()`.
 _See [Pivot vs join](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)._
 {{% /note %}}
