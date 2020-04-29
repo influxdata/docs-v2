@@ -381,8 +381,9 @@ You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
 #### Using the influx CLI after setting up InfluxDB through the UI
-To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI,
-use one of the following methods to provide your [authentication token](/v2.0/users/tokens/) to the CLI:
+To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI, provide your [authentication token](/v2.0/users/tokens/), which is automatically generated during the setup process. For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).
+
+Use one of the following methods to provide your authentication token to the CLI:
 
 1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
 2. Set the `INFLUX_TOKEN` environment variable using your token.
@@ -418,7 +419,7 @@ influx setup
    Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, and bucket.
+InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. (For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).)
 You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
