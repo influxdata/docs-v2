@@ -16,6 +16,22 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.67.0 [2020-04-28]
+
+### Features
+- Planner Pattern interface supplies a set of ProcedureKind as root.
+- Initial prototype of a table-based Flux.
+- Evaluate and store "now" in execution dependencies for `tableFind()` to use.
+- Static analysis tool for listing entry points to Flux.
+- Pass context to rewrite rules in the planner.
+
+### Bug fixes
+- Pivot sends update watermark and processing time exactly once.
+- `system.time()` checks context for override.
+- Add bounds to alignTime tests.
+
+---
+
 ## v0.66.1 [2020-04-14]
 
 ### Bug fixes
