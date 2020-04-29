@@ -18,6 +18,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
   - /v2.0/reference/flux/language/operators/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+  - /v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 
@@ -98,6 +99,7 @@ percent(sample: 20.0, total: 80.0)
 To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
+- Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
@@ -178,93 +180,57 @@ bytesToGB = (tables=<-) =>
 ### Calculate a percentage
 To calculate a percentage, use simple division, then multiply the result by 100.
 
-{{% note %}}
-Operands in percentage calculations should always be floats.
-{{% /note %}}
-
 ```js
 > 1.0 / 4.0 * 100.0
 25.0
 ```
 
-#### User vs system CPU usage
-The example below calculates the percentage of total CPU used by the `user` vs the `system`.
+_For an in-depth look at calculating percentages, see [Calculate percentates](/v2.0/query-data/flux/calculate-percentages)._
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Comments](#)
-[No Comments](#)
-{{% /code-tabs %}}
+## Pivot vs join
+To query and use values in mathematical operations in Flux, operand values must
+exists in a single row.
+Both `pivot()` and `join()` will do this, but there are important differences between the two:
 
-{{% code-tab-content %}}
+#### Pivot is more performant
+`pivot()` reads and operates on a single stream of data.
+`join()` requires two streams of data and the overhead of reading and combining
+both streams can be significant, especially for larger data sets.
+
+#### Use join for multiple data sources
+Use `join()` when querying data from different buckets or data sources.
+
+##### Pivot fields into columns for mathematic calculations
 ```js
-// Custom function that converts usage_user and
-// usage_system columns to floats
-usageToFloat = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-      _time: r._time,
-      usage_user: float(v: r.usage_user),
-      usage_system: float(v: r.usage_system)
-      })
-    )
+data
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> map(fn: (r) => ({ r with
+    _value: (r.field1 + r.field2) / r.field3 * 100.0
+  }))
+```
 
-// Define the data source and filter user and system CPU usage
-// from 'cpu-total' in the 'cpu' measurement
-from(bucket: "example-bucket")
+##### Join multiple data sources for mathematic calculations
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+pgUser = secrets.get(key: "POSTGRES_USER")
+pgPass = secrets.get(key: "POSTGRES_PASSWORD")
+pgHost = secrets.get(key: "POSTGRES_HOST")
+
+t1 = sql.from(
+  driverName: "postgres",
+  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+  query:"SELECT id, name, available FROM exampleTable"
+)
+
+t2 = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_user" or
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
+    r._measurement == "example-measurement" and
+    r._field == "example-field"
   )
 
-  // Pivot the output tables so usage_user and usage_system are in each row
-  |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-
-  // Convert usage_user and usage_system to floats
-  |> usageToFloat()
-
-  // Map over each row and calculate the percentage of
-  // CPU used by the user vs the system
-  |> map(fn: (r) => ({
-      // Preserve existing columns in each row
-      r with
-      usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
-      usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
-    })
-  )
+join(tables: {t1: t1, t2: t2}, on: ["id"])
+  |> map(fn: (r) => ({ r with _value: r._value_t2 / r.available_t1 * 100.0 }))
 ```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```js
-usageToFloat = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-      _time: r._time,
-      usage_user: float(v: r.usage_user),
-      usage_system: float(v: r.usage_system)
-      })
-    )
-
-from(bucket: "example-bucket")
-  |> range(start: timeRangeStart, stop: timeRangeStop)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_user" or
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> usageToFloat()
-  |> map(fn: (r) => ({
-      r with
-      usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
-      usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
-    })
-  )
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
