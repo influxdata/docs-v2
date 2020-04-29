@@ -21,8 +21,8 @@ list_query_example: percentages
 ---
 
 Calculating percentages from queried data is a common use case for time series data.
-To calculate a percentage in Flux, all operands must be in one row.
-Then, use `map()` to re-map values in the row and calculate a percentage.
+To calculate a percentage in Flux, operands must be in each row.
+Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
@@ -125,6 +125,7 @@ below casts integer field values to floats and multiplies by a float value (`100
     _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
   }))
 ```
+##### Query results:
 
 | _time                | _measurement | _field           | _value  |
 |:-----                |:------------:|:------:          | ------: |

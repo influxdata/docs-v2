@@ -180,96 +180,12 @@ bytesToGB = (tables=<-) =>
 ### Calculate a percentage
 To calculate a percentage, use simple division, then multiply the result by 100.
 
-{{% note %}}
-Operands in percentage calculations should always be floats.
-{{% /note %}}
-
 ```js
 > 1.0 / 4.0 * 100.0
 25.0
 ```
 
-#### User vs system CPU usage
-The example below calculates the percentage of total CPU used by the `user` vs the `system`.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Comments](#)
-[No Comments](#)
-{{% /code-tabs %}}
-
-{{% code-tab-content %}}
-```js
-// Custom function that converts usage_user and
-// usage_system columns to floats
-usageToFloat = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-      _time: r._time,
-      usage_user: float(v: r.usage_user),
-      usage_system: float(v: r.usage_system)
-      })
-    )
-
-// Define the data source and filter user and system CPU usage
-// from 'cpu-total' in the 'cpu' measurement
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_user" or
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-
-  // Pivot the output tables so usage_user and usage_system are in each row
-  |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-
-  // Convert usage_user and usage_system to floats
-  |> usageToFloat()
-
-  // Map over each row and calculate the percentage of
-  // CPU used by the user vs the system
-  |> map(fn: (r) => ({
-      // Preserve existing columns in each row
-      r with
-      usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
-      usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
-    })
-  )
-```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```js
-usageToFloat = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-      _time: r._time,
-      usage_user: float(v: r.usage_user),
-      usage_system: float(v: r.usage_system)
-      })
-    )
-
-from(bucket: "example-bucket")
-  |> range(start: timeRangeStart, stop: timeRangeStop)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_user" or
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> usageToFloat()
-  |> map(fn: (r) => ({
-      r with
-      usage_user: r.usage_user / (r.usage_user + r.usage_system) * 100.0,
-      usage_system: r.usage_system / (r.usage_user +  r.usage_system) * 100.0
-    })
-  )
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+_For an in-depth look at calculating percentages, see [Calculate percentates](/v2.0/query-data/flux/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must
