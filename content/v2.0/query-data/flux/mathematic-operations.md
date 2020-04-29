@@ -99,6 +99,7 @@ percent(sample: 20.0, total: 80.0)
 To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
+- Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
@@ -269,3 +270,51 @@ from(bucket: "example-bucket")
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+## Pivot vs join
+To query and use values in mathematical operations in Flux, operand values must
+exists in a single row.
+Both `pivot()` and `join()` will do this, but there are important differences between the two:
+
+#### Pivot is more performant
+`pivot()` reads and operates on a single stream of data.
+`join()` requires two streams of data and the overhead of reading and combining
+both streams can be significant, especially for larger data sets.
+
+#### Use join for multiple data sources
+Use `join()` when querying data from different buckets or data sources.
+
+##### Pivot fields into columns for mathematic calculations
+```js
+data
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> map(fn: (r) => ({ r with
+    _value: (r.field1 + r.field2) / r.field3 * 100.0
+  }))
+```
+
+##### Join multiple data sources for mathematic calculations
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+pgUser = secrets.get(key: "POSTGRES_USER")
+pgPass = secrets.get(key: "POSTGRES_PASSWORD")
+pgHost = secrets.get(key: "POSTGRES_HOST")
+
+t1 = sql.from(
+  driverName: "postgres",
+  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+  query:"SELECT id, name, available FROM exampleTable"
+)
+
+t2 = from(bucket: "example-bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) =>
+    r._measurement == "example-measurement" and
+    r._field == "example-field"
+  )
+
+join(tables: {t1: t1, t2: t2}, on: ["id"])
+  |> map(fn: (r) => ({ r with _value: r._value_t2 / r.available_t1 * 100.0 }))
+```

@@ -4,7 +4,7 @@ list_title: Calculate percentages
 description: >
   Use [`pivot()` or `join()`](/v2.0/query-data/flux/calculate-percentages/#pivot-vs-join)
   and the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-  to align operand values into row-wise sets and calculate a percentage.
+  to align operand values into rows and calculate a percentage.
 menu:
   v2_0:
     name: Calculate percentages
@@ -21,23 +21,25 @@ list_query_example: percentages
 ---
 
 
-Calculating percentages using multiple values in a queried data set is a common use case for time series data.
-With Flux, all operand values need to exists in a single row to use them in a mathematic calculation.
-Once operands are aligned in rows, use `map()` to re-map values in the row and calculate a percentage.
+Calculating percentages from queried data is a common use case for time series data.
+To calculate a percentage in Flux, all operands must be in one row.
+Then, use `map()` to re-map values in the row and calculate a percentage.
 
-**To calculate percentages:**
+**To calculate percentages**
 
-1. Query the necessary operand values.
-2. Use [`pivot()` or `join()`](#pivot-vs-join) to align operand values into row-wise sets.
+1. Use [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
+   [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range/) and
+   [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
+2. Use [`pivot()` or `join()`](#pivot-vs-join) to align operand values into rows.
 3. Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[pivot()](#)
-[join()](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% note %}}
+In the following examples use `pivot()` to align operands into rows because
+`pivot()` works in most cases and is more performant than `join()`.
+_See [Pivot vs join](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)._
+{{% /note %}}
+
 ```js
 from(bucket: "example-bucket")
   |> range(start: -1h)
@@ -45,32 +47,10 @@ from(bucket: "example-bucket")
   |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
   |> map(fn: (r) => ({ r with _value: r.field1 / r.field2 * 100.0 }))
 ```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```js
-t1 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "m1" and r._field == "field1")
-
-t2 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "m2" and r._field == "field2")
-
-join(tables: {t1: t1, t2: t2}, on: ["_time"])
-  |> map(fn: (r) => ({ r with _value: r._value_t1 / r._value_t2 * 100.0 }))
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% note %}}
-This guide uses `pivot()` to align operand values into row-wise sets because
-`pivot()` works for the majority of use cases and is more performant than `join()`.
-_See [Pivot vs join](#pivot-vs-join) below._
-{{% /note %}}
 
 ## GPU monitoring example
-The following example queries data collected from a GPU monitoring solution and
-calculates the percentage of GPU memory used over time.
+The following example queries data from the gpu-monitor bucket and calculates the
+percentage of GPU memory used over time.
 Data includes the following:
 
 - **`gpu` measurement**
@@ -127,7 +107,7 @@ Output includes `mem_used` and `mem_total` columns with values for each correspo
 | 2020-01-01T00:00:50Z | gpu          | 4402341478 | 8589934592 |
 
 ### Map new values
-With fields pivoted into columns, each row contains the values necessary to calculate a percentage.
+Each row now contains the values necessary to calculate a percentage.
 Use `map()` to re-map values in each row.
 Divide `mem_used` by `mem_total` and multiply by 100 to return the percentage.
 
@@ -169,26 +149,9 @@ from(bucket: "gpu-monitor")
   }))
 ```
 
----
-
-## Pivot vs join
-To use values in mathematical operations in Flux, operand values must exists in a single row.
-Both `pivot()` and `join()` will do this, but there are important differences between the two:
-
-#### Pivot is more performant
-`pivot()` only has to read and operate on a single stream of data.
-`join()` requires two streams of data and the overhead of reading and combining
-both streams can be significant, especially for larger data sets.
-
-#### Use join for multiple data sources
-`join()` is really only necessary when querying data from multiple buckets or
-different data sources.
-
----
-
 ## Examples
 
-#### Use pivot() to align multiple fields
+#### Calculate percentages using multiple fields
 ```js
 from(bucket: "example-bucket")
   |> range(start: -1h)
@@ -204,7 +167,7 @@ from(bucket: "example-bucket")
   }))
 ```
 
-#### Use pivot() for math across measurements
+#### Calculate percentages using multiple measurements
 
 1. Ensure measurements are in the same [bucket](/v2.0/reference/glossary/#bucket).
 2. Use `filter()` to include data from both measurements.
@@ -225,7 +188,7 @@ from(bucket: "example-bucket")
   |> map(fn: (r) => ({ r with  _value: r.field1 / r.field2 * 100.0 }))
 ```
 
-#### Use join for multiple data sources
+#### Calculate percentages using multiple data sources
 ```js
 import "sql"
 import "influxdata/influxdb/secrets"
