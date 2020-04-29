@@ -2,14 +2,14 @@
 title: Calculate percentages with Flux
 list_title: Calculate percentages
 description: >
-  Use [`pivot()` or `join()`](/v2.0/query-data/flux/calculate-percentages/#pivot-vs-join)
+  Use [`pivot()` or `join()`](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
   and the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
   to align operand values into rows and calculate a percentage.
 menu:
   v2_0:
     name: Calculate percentages
     parent: Query with Flux
-weight: 220
+weight: 206
 aliases:
  - /v2.0/query-data/guides/manipulate-timestamps/
 related:
@@ -20,7 +20,6 @@ related:
 list_query_example: percentages
 ---
 
-
 Calculating percentages from queried data is a common use case for time series data.
 To calculate a percentage in Flux, all operands must be in one row.
 Then, use `map()` to re-map values in the row and calculate a percentage.
@@ -30,7 +29,8 @@ Then, use `map()` to re-map values in the row and calculate a percentage.
 1. Use [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
    [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range/) and
    [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
-2. Use [`pivot()` or `join()`](#pivot-vs-join) to align operand values into rows.
+2. Use [`pivot()` or `join()`](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
+   to align operand values into rows.
 3. Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
