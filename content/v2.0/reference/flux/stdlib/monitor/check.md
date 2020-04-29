@@ -66,7 +66,8 @@ The message is stored in the `_message` column.
 _**Data type:** Function_
 
 ### data
-Data to append to the output.
+Meta data used to identify this check.
+
 **InfluxDB populates check data.**
 
 _**Data type:** Object_
@@ -93,6 +94,12 @@ from(bucket: "telegraf")
       if r._level == "crit" then "Critical alert!! Disk usage is at ${r._value}%!"
       else if r._level == "warn" then "Warning! Disk usage is at ${r._value}%."
       else if r._level == "info" then "Disk usage is at ${r._value}%."
-      else "Things are looking good."
+      else "Things are looking good.",
+    data: {
+      _check_name: "Disk Utilization (Used Percentage)",
+      _check_id: "disk_used_percent",
+      _type: "threshold",
+      tags: {}
+    }
   )
 ```
