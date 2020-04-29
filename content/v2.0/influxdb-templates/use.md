@@ -27,7 +27,12 @@ others in the InfluxData community.
 Install community templates directly from GitHub using a template's download URL
 or download the template.
 
-{{% note %}} When attempting to access the community templates via the URL, the templates use the following as the root of the URL: `https://raw.githubusercontent.com/influxdata/community-templates/master/`. For example, the Docker community template can be accessed via `https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml`. {{% /note %}}
+{{% note %}} When attempting to access the community templates via the URL, the templates use the following 
+as the root of the URL: `https://raw.githubusercontent.com/influxdata/community-templates/master/`. 
+
+For example, the Docker community template can be accessed via:
+`https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml`. 
+{{% /note %}}
 
 <a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
 
