@@ -371,6 +371,15 @@ the `influx` command line interface (CLI).
 #### Set up your initial user
 
 1. Enter a **Username** for your initial user.
+    1. Testing a nested list.
+    2. Testing a nested list.
+        1. Testing a nested list.
+        2. Testing a nested list.
+            1. Testing a nested list.
+            2. Testing a nested list.
+                1. Testing a nested list.
+                2. Testing a nested list.
+    3. Testing a nested list.
 2. Enter a **Password** and **Confirm Password** for your user.
 3. Enter your initial **Organization Name**.
 4. Enter your initial **Bucket Name**.

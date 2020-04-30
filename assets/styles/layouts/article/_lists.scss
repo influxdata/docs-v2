@@ -13,32 +13,29 @@ ul {
 }
 
 ol {
-  list-style-type: none;
+  list-style: none;
   counter-reset: item;
-  margin: 0;
-  padding: 0;
-}
 
-ol > li {
-  display: table;
-  counter-increment: item;
-  margin-bottom: 0.6em;
+  li {
+    position: relative;
+    counter-increment: item;
 
-  &:before {
-    content: counters(item, ".") ". ";
-    display: table-cell;
-    padding-right: 0.6em;
-    letter-spacing: .05rem;
-    color: $article-bold;
-    font-weight: bold;
-  }
-}
+    &:before {
+      content: counter(item) ". ";
+      position: absolute;
+      left: -1.6em;
+      color: $article-bold;
+      font-weight: bold;
+    }
 
-li ol > li {
-  margin: .5rem 0;
+    & > ol li:before { content: counter(item, lower-latin) ". "; }
+    & > ol li ol li:before { content: counter(item) ". "; }
+    & > ol li ol li ol li:before { content: counter(item, lower-latin) ". "; }
+    & > ol li ol li ol li ol li:before { content: counter(item) ". "; }
 
-  &:before {
-    content: counters(item, ".") ".";
+    ul {
+      counter-reset: item;
+    }
   }
 }
 
