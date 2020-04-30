@@ -9,6 +9,8 @@ menu:
     name: mean
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#mean, InfluxQL – MEAN()
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.
@@ -38,8 +40,3 @@ from(bucket:"example-bucket")
   |> window(every:10m)
   |> mean()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[MEAN()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#mean)  

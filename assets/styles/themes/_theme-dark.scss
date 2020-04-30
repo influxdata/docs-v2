@@ -14,144 +14,142 @@
 
 @import "tools/color-palette";
 
-$body-bg: $np-deepnight;
-$body-gradient-top: rgba($m-magenta, .2);
-$body-gradient-bottom: $np-deepnight;
+$body-bg: $g0-obsidian;
 
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
-$version-selector-top: $b-pool;
-$version-selector-bottom: $cp-comet;
+$version-selector-gradient: $grad-Miyazakisky;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
 // Search
-$sidebar-search-bg: $np-deepnight;
-$sidebar-search-shadow: rgba($m-magenta, .05);
+$sidebar-search-bg: $g2-kevlar;
+$sidebar-search-shadow: rgba($g0-obsidian, .05);
 $sidebar-search-highlight: $b-pool;
 $sidebar-search-text: $g20-white;
 
 // Left Navigation
 $nav-category: $b-pool;
 $nav-category-hover: $g20-white;
-$nav-item: $g16-pearl;
+$nav-item: $g15-platinum;
 $nav-item-hover: $b-pool;
-$nav-border: $wp-jango;
+$nav-border: $g5-pepper;
 $nav-toggle: $g16-pearl;
 $nav-toggle-hover: $g16-pearl;
 $nav-toggle-bg-hover: $b-pool;
-$nav-active: $ch-chartreuse;
+$nav-active: $br-chartreuse;
+
+// Product Flags
+$product-cloud: $b-pool;
+$product-oss: $p-potassium;
+$product-enterprise: $br-galaxy;
 
 // Article Content
-$article-bg: $wp-violentdark;
+$article-bg: $g1-raven;
 $article-heading: $g20-white;
 $article-heading-alt: $g19-ghost;
-$article-text: $np-mischka;
-$article-bold: $g18-cloud;
-$article-link: $b-dodger;
+$article-text: $g15-platinum;
+$article-bold: $g19-ghost;
+$article-link: $b-pool;
 $article-link-hover: $g20-white;
-$article-hr: $wp-seance;
-$article-shadow: $np-deepnight;
+$article-hr: $g5-pepper;
+$article-shadow: $g0-obsidian;
 
 // Article Code
 $article-code: $cp-munchkin;
-$article-code-bg: $np-deepnight;
-$article-code-accent1: $np-smokey;
+$article-code-bg: $g0-obsidian;
+$article-code-shadow: $g0-obsidian;
+$article-code-accent1: $g7-graphite;
 $article-code-accent2: $b-pool;
 $article-code-accent3: $gr-viridian;
-$article-code-accent4: $o-ruby;
+$article-code-accent4: $r-ruby;
 $article-code-accent5: #ff6db0;
 $article-code-accent6: $b-pool;
 $article-code-accent7: #e90;
 $article-code-select: $b-pool;
-$article-code-link: $b-dodger;
+$article-code-link: $b-pool;
 $article-code-link-hover: $g20-white;
-$article-code-scrollbar: $np-martinique;
+$article-code-scrollbar: $g3-castle;
 
 // Article Tables
-$article-table-header-left: $wp-violet;
-$article-table-header-right: $b-curious;
-$article-table-row-alt: #3C0C59;
-$article-table-scrollbar: $np-deepnight;
+$article-table-header: $grad-GundamPilot;
+$article-table-row-alt: $g3-castle;
+$article-table-scrollbar: $g0-obsidian;
 
 // Article Notes, Warnings, & Messages
 $article-note-base: $gr-viridian;
 $article-note-heading: $g20-white;
-$article-note-text: $gr-viridian;
-$article-note-link: $gr-rainforest;
+$article-note-text: $gr-honeydew;
+$article-note-link: $gr-wasabi;
 $article-note-link-hover: $g20-white;
-$article-note-table-header: $gr-viridian;
-$article-note-table-row-alt: #3B2862;
-$article-note-table-scrollbar: $np-deepnight;
-$article-note-shadow: $np-deepnight;
-$article-note-code: $cp-comet;
-$article-note-code-bg: $wp-jaguar;
+$article-note-table-header: $grad-green-dark;
+$article-note-table-row-alt: #1a3c34;
+$article-note-table-scrollbar: #162627;
+$article-note-shadow: $g0-obsidian;
+$article-note-code: $br-galaxy;
+$article-note-code-bg: #0d1617;
 $article-note-code-accent1: #567375;
 $article-note-code-accent2: $b-pool;
 $article-note-code-accent3: $gr-viridian;
-$article-note-code-accent4: $o-ruby;
+$article-note-code-accent4: $r-ruby;
 $article-note-code-accent5: #ff6db0;
 $article-note-code-accent6: $b-pool;
 $article-note-code-accent7: #e90;
-$article-note-code-scrollbar: $cp-jakarta;
+$article-note-code-scrollbar: #162627;
 
-$article-warn-base: $o-dreamsicle;
+$article-warn-base: $r-dreamsicle;
 $article-warn-heading: $g20-white;
-$article-warn-text: $o-dreamsicle;
-$article-warn-link: $o-tungsten;
+$article-warn-text: $r-tungsten;
+$article-warn-link: $r-marmelade;
 $article-warn-link-hover: $g20-white;
-$article-warn-table-header: rgba($o-dreamsicle, .9);
-$article-warn-table-row-alt: #531B5B;
-$article-warn-table-scrollbar: $wp-telopea;
-$article-warn-shadow: $np-deepnight;
+$article-warn-table-header: $grad-red;
+$article-warn-table-row-alt: #4a2a2a;
+$article-warn-table-scrollbar: #1f181b;
+$article-warn-shadow: $g0-obsidian;
 $article-warn-code: #ec6e6e;
-$article-warn-code-bg: $wp-telopea;
+$article-warn-code-bg: $g0-obsidian;
 $article-warn-code-accent1: #844c4c;
 $article-warn-code-accent2: $b-pool;
 $article-warn-code-accent3: $gr-viridian;
-$article-warn-code-accent4: $o-ruby;
+$article-warn-code-accent4: $r-ruby;
 $article-warn-code-accent5: #ffb4fb;
 $article-warn-code-accent6: $b-pool;
 $article-warn-code-accent7: #e90;
-$article-warn-code-scrollbar: #561e4d;
+$article-warn-code-scrollbar: #2a2025;
 
 $article-cloud-base: $b-pool;
 $article-cloud-heading: $g20-white;
-$article-cloud-text: $b-fleur;
-$article-cloud-link: $b-hawkeye;
-$article-cloud-link-hover: $g20-white;
-$article-cloud-table-header: $b-pool;
-$article-cloud-table-row-alt: #382876;
-$article-cloud-table-scrollbar: $np-deepnight;
-$article-cloud-shadow: $np-deepnight;
+$article-cloud-text: $b-neutrino;
+$article-cloud-link: $g20-white;
+$article-cloud-link-hover: $b-hydrogen;
+$article-cloud-table-header: $grad-blue-dark;
+$article-cloud-table-row-alt: #1b3a58;
+$article-cloud-table-scrollbar: #192a3a;
+$article-cloud-shadow: $g0-obsidian;
 $article-cloud-code: $b-laser;
-$article-cloud-code-bg: $wp-telopea;
+$article-cloud-code-bg: #110d2b;
 $article-cloud-code-accent1: #567375;
 $article-cloud-code-accent2: $b-pool;
 $article-cloud-code-accent3: $gr-viridian;
-$article-cloud-code-accent4: $o-ruby;
+$article-cloud-code-accent4: $r-ruby;
 $article-cloud-code-accent5: #ff6db0;
 $article-cloud-code-accent6: $b-pool;
 $article-cloud-code-accent7: #e90;
-$article-cloud-code-scrollbar: $cp-jakarta;
+$article-cloud-code-scrollbar: #192a3a;
 
-$article-enterprise-base: $cp-purple;
-$article-enterprise-text: $cp-periwinkle;
-$article-enterprise-link: $cp-coolfog;
+$article-enterprise-base: $br-galaxy;
+$article-enterprise-text: $cp-melrose;
+$article-enterprise-link: $cp-titan;
 $article-enterprise-link-hover: $g20-white;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g12-forge;
-$article-tab-bg: rgba($np-deepnight, .6);
+$article-tab-bg: $g0-obsidian;
 $article-tab-active-text: $g20-white;
 $article-tab-active-bg: $b-pool;
 
-$article-tab-code-text: $g9-mountain;
-$article-tab-code-bg: rgba($np-deepnight, .45);
-$article-tab-code-text-hover: $g20-white;
-$article-tab-code-bg-hover: $b-pool;
-$article-tab-code-active-text: $g20-white;
+$article-tab-code-text: $g20-white;
 
 // Article page buttons
 $article-btn: $b-pool;
@@ -164,39 +162,36 @@ $article-nav-icon-bg: $g5-pepper;
 $article-nav-acct-bg: $g3-castle;
 
 // Error Page Colors
-$error-page-btn: $b-dodger;
+$error-page-btn: $b-pool;
 $error-page-btn-text: $g20-white;
 $error-page-btn-hover: $g20-white;
-$error-page-btn-hover-text: $b-dodger;
+$error-page-btn-hover-text: $b-pool;
 
 // Landing Page colors
-$landing-lg-gradient-left: $wp-violentdark;
-$landing-lg-gradient-right: $cp-minsk;
-$landing-sm-bg: $cp-victoria;
-$landing-sm-bg-alt: $cp-victoria;
-$landing-sm-bg-hover: $b-dodger;
+$landing-artwork-gradient: $grad-GrapeSoda;
+$landing-artwork-color: rgba($br-galaxy, .25);
+$landing-sm-bg: rgba($g1-raven, .4);
+$landing-sm-bg-hover: $b-pool;
 $landing-btn-text: $g20-white;
-$landing-btn-bg: $b-dodger;
-$landing-btn-text-hover: $b-dodger;
-$landing-btn-bg-hover: $g20-white;
-$landing-artwork-color: $cp-minsk;
+$landing-btn-grad: $grad-blue;
+$landing-btn-grad-hover: $grad-blue-light;
 
 // Tooltip colors
-$tooltip-color: $ch-chartreuse;
-$tooltip-color-alt: $ch-canary;
-$tooltip-bg: $g20-white;
-$tooltip-text: $cp-minsk;
+$tooltip-color: $br-chartreuse;
+$tooltip-color-alt: $br-chartreuse;
+$tooltip-bg: $br-chartreuse;
+$tooltip-text: $g2-kevlar;
 
 // SVG colors
-$svg-table-header: $cp-minsk;
-$svg-table-stroke: $np-deepnight;
-$svg-table-row-alt1: $m-magenta;
-$svg-table-row-alt2: $gr-canopy;
-$svg-table-code: $cp-munchkin;
-$svg-table-code-bg: $np-deepnight;
+$svg-table-header: $g6-smoke;
+$svg-table-stroke: $g0-obsidian;
+$svg-table-row-alt1: $br-magenta;
+$svg-table-row-alt2: $gr-rainforest;
+$svg-table-code: $article-code;
+$svg-table-code-bg: $g0-obsidian;
 $svg-table-code-operator: $b-pool;
 $svg-table-code-string: $gr-viridian;
 
-$svg-geo-s2-cell: $b-curious;
-$svg-geo-region: $m-lavander;
-$svg-geo-point: $ch-chartreuse;
+$svg-geo-s2-cell: $b-dodger;
+$svg-geo-region: $p-comet;
+$svg-geo-point: $br-chartreuse;

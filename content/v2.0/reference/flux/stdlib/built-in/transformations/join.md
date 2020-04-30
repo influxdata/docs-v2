@@ -10,6 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 401
 related:
+  - /v2.0/query-data/flux/join/
   - /v2.0/reference/flux/stdlib/built-in/transformations/union/
 ---
 

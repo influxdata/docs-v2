@@ -9,23 +9,23 @@ table {
   overflow-x: auto;
   overflow-y: hidden;
   box-shadow: 1px 3px 10px $article-shadow;
-  border-radius: ($radius * 1.5);
+  border-radius: ($radius);
 
   th, td {
     padding: .85rem 1.25rem;
   }
   thead {
-    background: linear-gradient(to right, $article-table-header-left, $article-table-header-right);
+    @include gradient($article-table-header, 90deg);
     background-attachment: fixed;
   }
 
   th  {
     color: $g20-white;
     &:first-child {
-      border-radius: ($radius * 1.5) 0 0 0;
+      border-radius: ($radius) 0 0 0;
     }
     &:last-child {
-      border-radius: 0 ($radius * 1.5) 0 0;
+      border-radius: 0 ($radius) 0 0;
     }
   }
 
@@ -40,8 +40,8 @@ table {
     }
     &:last-child {
       td {
-        &:first-child { border-radius: 0 0 0 ($radius * 1.5); }
-        &:last-child { border-radius: 0 0 ($radius * 1.5) 0; }
+        &:first-child { border-radius: 0 0 0 ($radius); }
+        &:last-child { border-radius: 0 0 ($radius) 0; }
       }
 
     }

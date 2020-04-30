@@ -8,6 +8,8 @@ menu:
     parent: Geo
 weight: 401
 v2.0/tags: [functions, geo]
+related:
+  - /v2.0/query-data/flux/geo/
 ---
 
 The `geo.asTracks()` function groups rows into tracks (sequential, related data points).

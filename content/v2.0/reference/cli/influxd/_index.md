@@ -9,6 +9,7 @@ menu:
 weight: 102
 related:
   - /v2.0/reference/config-options/
+products: [oss]
 ---
 
 The `influxd` daemon starts and runs all the processes necessary for InfluxDB to function.

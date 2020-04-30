@@ -8,6 +8,7 @@ menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
+products: [oss]
 ---
 
 The `influxd inspect build-tsi` command rebuilds the TSI index and, if necessary,

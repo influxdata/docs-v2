@@ -5,7 +5,7 @@
   overflow: hidden;
   border-radius: $radius 0 0 $radius;
   min-height: 700px;
-  background: linear-gradient(55deg, $landing-lg-gradient-left, $landing-lg-gradient-right );
+  @include gradient($landing-artwork-gradient);
 
   a {
     text-decoration: none;
@@ -99,15 +99,32 @@
 
     &#get-started {
       .btn {
+        position: relative;
         display: inline-block;
         padding: 1.25rem;
         margin: 0 20% .35rem;
         color: $landing-btn-text;
         font-size: 1.1rem;
         font-weight: $medium;
-        background: $landing-btn-bg;
+        @include gradient($landing-btn-grad);
         transition: background-color .2s, color .2s;
         border-radius: $radius;
+        z-index: 1;
+
+        &:before {
+          content: "";
+          position: absolute;
+          display: block;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: $radius;
+          @include gradient($landing-btn-grad-hover);
+          opacity: 0;
+          transition: opacity .2s;
+          z-index: -1;
+        }
 
         &.oss:after {
           content: 'beta';
@@ -116,16 +133,14 @@
           font-style: italic;
           font-size: .75em;
           margin-left: .45rem;
-          padding: .1rem .3rem .12rem;
-          border-radius: $radius;
+          padding: .1rem .4rem .12rem;
+          border-radius: 1rem;
           border: 1px solid rgba($landing-btn-text, .5);
           transition: border-color .2s;
         }
 
         &:hover {
-          background: $landing-btn-bg-hover;
-          color: $landing-btn-text-hover;
-          &:after { border-color: rgba($landing-btn-text-hover, .5) }
+          &:before { opacity: 1; }
         }
       }
     }
@@ -158,7 +173,6 @@
         flex-grow: 2;
         width: 49%;
         text-align: center;
-        background: $landing-sm-bg-alt;
         h3 {
           margin: 0 0 .5rem;
           font-size: 1.1rem;

@@ -9,6 +9,10 @@ menu:
     name: aggregateWindow
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/query-data/flux/window-aggregate/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations – InfluxQL – Aggregate functions
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause – InfluxQL – GROUP BY time()
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function
@@ -129,10 +133,3 @@ aggregateWindow = (every, fn, column="_value", timeSrc="_stop", timeDst="_time",
 		|> duplicate(column:timeSrc, as:timeDst)
 		|> window(every:inf, timeColumn:timeDst)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-
-[InfluxQL aggregate functions](https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations)  
-[GROUP BY time()](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause)  

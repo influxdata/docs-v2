@@ -7,6 +7,19 @@ menu:
     parent: Release notes
 weight: 101
 ---
+
+## v2.0.0-beta.9 [2020-04-23]
+
+### Bug Fixes
+- Add index for URM by user ID to improve lookup performance.
+- Existing session expiration time is respected on session renewal.
+- Make CLI respect environment variables and flags and extend support for config orgs to all commands.
+
+### UI Improvements
+- Update layout of alerts page to work on all screen sizes.
+- Sort dashboards on Getting Started page by recently modified.
+- Add single-color schemes for visualizations: Solid Red, Solid Blue, Solid Yellow, Solid Green, and Solid Purple.
+
 ## v2.0.0-beta.8 [2020-04-10]
 
 ### Features

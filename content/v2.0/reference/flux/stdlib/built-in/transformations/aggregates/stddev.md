@@ -9,6 +9,8 @@ menu:
     name: stddev
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#stddev, InfluxQL – STDDEV()
 ---
 
 The `stddev()` function computes the standard deviation of non-null records in a specified column.
@@ -55,8 +57,3 @@ from(bucket: "example-bucket")
   )
   |> stddev()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[STDDEV()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#stddev)  

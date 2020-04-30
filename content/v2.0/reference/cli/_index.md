@@ -15,4 +15,4 @@ InfluxDB provides command line tools designed to aid in managing and working
 with InfluxDB from the command line.
 The following command line interfaces (CLIs) are available:
 
-{{% children %}}
+{{< children >}}

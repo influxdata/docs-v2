@@ -67,19 +67,41 @@ _**Data type:** Object_
 
 ## Examples
 
-##### Get the status of InfluxDB
+##### Get the status of InfluxDB OSS
 ```js
 import "influxdata/influxdb/secrets"
 import "experimental/http"
+import "csv"
 
 token = secrets.get(key: "READONLY_TOKEN")
 
 response = http.get(
-    url: "http://localhost.com:9999/health",
+    url: "http://localhost:9999/health",
     headers: {Authorization: "Token ${token}"}
   )
 
 httpStatus = response.statusCode
 responseBody = string(v: response.body)
 responseHeaders = response.headers
+
+// Response header data
+date = responseHeaders.Date
+contentLenth = responseHeaders["Content-Length"]
+contentType = responseHeaders["Content-Type"]
+
+// Use the returned data in a stream of tables
+csvData = "#datatype,string,long,string
+#group,false,false,false
+#default,,,
+,result,table,column
+,,0,*
+"
+csv.from(csv: csvData)
+  |> map(fn: (r) => ({
+    httpStatus: httpStatus,
+    responseBody: responseBody,
+    date: date,
+    contentLenth: contentLenth,
+    contentType: contentType,
+  }))
 ```

@@ -1,15 +1,19 @@
 ---
 title: Use regular expressions in Flux
-list_title: Use regular expressions
+list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
 v2.0/tags: [regex]
 menu:
   v2_0:
-    name: Use regular expressions
+    name: Regular expressions
     parent: Query with Flux
 weight: 220
 aliases:
- - /v2.0/query-data/guides/regular-expressions/
+  - /v2.0/query-data/guides/regular-expressions/
+related:
+  - /v2.0/query-data/flux/query-fields/
+  - /v2.0/reference/flux/stdlib/regexp/
+list_query_example: regular_expressions
 ---
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.

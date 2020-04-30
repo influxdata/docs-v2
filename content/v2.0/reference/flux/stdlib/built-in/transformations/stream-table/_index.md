@@ -13,6 +13,8 @@ menu:
     name: Stream & table
     parent: built-in-transformations
 v2.0/tags: [transformations, built-in, functions, stream, table]
+related:
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 Use stream and table functions to extract a table from a stream of tables and access its

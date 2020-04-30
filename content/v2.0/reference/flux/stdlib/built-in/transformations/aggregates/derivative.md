@@ -9,6 +9,9 @@ menu:
     name: derivative
     parent: built-in-aggregates
 weight: 501
+related:
+  - /v2.0/query-data/flux/rate/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
 ---
 
 The `derivative()` function computes the rate of change per [`unit`](#unit) of time between subsequent non-null records.
@@ -59,8 +62,3 @@ from(bucket: "example-bucket")
   |> range(start: -5m)
   |> derivative(unit: 1s, nonNegative: true)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[DERIVATIVE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#derivative)

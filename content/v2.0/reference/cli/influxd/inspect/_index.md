@@ -6,6 +6,7 @@ menu:
   v2_0_ref:
     parent: influxd
 weight: 201
+products: [oss]
 ---
 
 The `influxd inspect` commands and subcommands inspecting on-disk InfluxDB time series data.
