@@ -14,7 +14,6 @@ menu:
 Currently, Cloud 2.0 has only one permission level: Owner.
 With Owner permissions, a member can delete resources and other members from your organization.
 Take care when inviting a member.
-Future releases will contain multiple permission levels.
 {{% /warn %}}
 
 1. Navigate to the **Members** page under **Organizations** in the left navigation bar.
