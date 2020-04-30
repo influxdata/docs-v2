@@ -458,10 +458,6 @@ For details, see [Scrape data](/v2.0/write-data/scrape-data/).
 For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
 see [Write data to InfluxDB](/v2.0/write-data/).
 
-#### Demo data
-If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/write-data/sample-data/demo-data/)
-for quick, _free_ access to time series data.
-
 ### Query data
 
 Query data using Flux, the UI, and the `influx` command line interface.
