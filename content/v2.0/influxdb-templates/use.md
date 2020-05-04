@@ -29,7 +29,8 @@ others in the InfluxData community.
 Install community templates directly from GitHub using a template's download URL
 or download the template.
 
-{{% note %}} When attempting to access the community templates via the URL, the templates use the following
+{{% note %}}
+When attempting to access the community templates via the URL, the templates use the following
 as the root of the URL:
 
 ```sh
