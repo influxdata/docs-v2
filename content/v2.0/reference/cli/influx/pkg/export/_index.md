@@ -10,6 +10,8 @@ related:
 ---
 
 The `influx pkg export` command exports existing resources as an InfluxDB template.
+_For detailed examples of exporting InfluxDB templates, see
+[Create an InfluxDB template](/v2.0/influxdb-templates/create/)._
 
 ## Usage
 ```

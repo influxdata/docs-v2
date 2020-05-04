@@ -12,6 +12,8 @@ related:
 ---
 
 The `influx pkg` command manages InfluxDB templates.
+_For information about finding and using InfluxDB templates, see
+[Use InfluxDB templates](/v2.0/influxdb-templates/use/)._
 
 ## Usage
 ```

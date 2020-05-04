@@ -12,6 +12,8 @@ related:
 
 The `influx pkg export all` command exports all resources in an
 organization as an InfluxDB template.
+_For detailed examples of exporting InfluxDB templates, see
+[Create an InfluxDB template](/v2.0/influxdb-templates/create/)._
 
 ## Usage
 ```
