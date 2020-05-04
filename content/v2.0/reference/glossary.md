@@ -779,6 +779,13 @@ Related entries: [duration](#duration), [measurement](#measurement), [replicatio
 
 -->
 
+### RFC3339 timestamp
+A timestamp that uses the human readable DateTime format proposed in
+[RFC 3339](https://tools.ietf.org/html/rfc3339) (for example: `2020-01-01T00:00:00.00Z`).
+Flux and InfluxDB clients return query results with RFC3339 timestamps.
+
+Related entries: [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
+
 ## S
 
 ### schema
@@ -927,13 +934,8 @@ Related entries: [bin](#bin)
 
 ### step-plot
 
-<<<<<<< HEAD
 A data visualization that displays time series data in a staircase graph.
 Generate a step-plot using the step [interpolation option for line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
-=======
-In InfluxDB 1.x, a [step-plot graph](https://docs.influxdata.com/chronograf/v1.7/guides/visualization-types/#step-plot-graph) displays time series data in a staircase graph.
-In InfluxDB 2.0, generate a similar graph using the step interpolation option for [line graphs](/v2.0/visualize-data/visualization-types/graph/#options).
->>>>>>> master
 
 ### stream
 
@@ -1025,7 +1027,7 @@ Time in InfluxDB is in UTC.
 To specify time when writing data, see [Elements of line protocol](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol).
 To specify time when querying data, see [Query InfluxDB with Flux](/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
-Related entries: [point](#point), [unix timestamp](#unix-timestamp)
+Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 timestamp](#rfc3339-timestamp)
 
 ### token
 
@@ -1077,8 +1079,7 @@ An implicit block that encompasses all Flux source text in a universe block.
 
 ### unix timestamp
 
-The number of a given unit of time since the **Unix Epoch (1970-01-01T00:00:00Z UTC)**.
-The unit of time is also known as the [precision](#precision).
+Counts time since **Unix Epoch (1970-01-01T00:00:00Z UTC)** in specified units ([precision](#precision)).
 Specify timestamp precision when [writing data to InfluxDB](/v2.0/write-data/).
 InfluxDB supports the following unix timestamp precisions:
 
@@ -1091,7 +1092,7 @@ InfluxDB supports the following unix timestamp precisions:
 
 <p style="font-size:.9rem;margin-top:-2rem"><em>The examples above represent <strong>2020-01-01T00:00:00Z UTC</strong>.</em></p>
 
-Related entries: [timestamp](#timestamp)
+Related entries: [timestamp](#timestamp), [RFC3339 timestamp](#rfc3339-timestamp)
 
 ### user
 

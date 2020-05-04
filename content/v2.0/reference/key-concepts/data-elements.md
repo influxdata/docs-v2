@@ -40,7 +40,7 @@ _Hover over highlighted terms to get acquainted with InfluxDB terminology and la
 
 ## Timestamp
 
-All data stored in InfluxDB has a `_time` column that stores timestamps. On disk, timestamps are stored in epoch nanosecond format. InfluxDB formats timestamps show the date and time in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) UTC associated with data. Timestamp precision is important when you write data.
+All data stored in InfluxDB has a `_time` column that stores timestamps. On disk, timestamps are stored in epoch nanosecond format. InfluxDB formats timestamps show the date and time in [RFC3339](/v2.0/reference/glossary/#rfc3339-timestamp) UTC associated with data. Timestamp precision is important when you write data.
 
 ## Measurement
 
