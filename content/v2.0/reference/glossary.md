@@ -1025,7 +1025,7 @@ Time in InfluxDB is in UTC.
 To specify time when writing data, see [Elements of line protocol](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol).
 To specify time when querying data, see [Query InfluxDB with Flux](/v2.0/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
-Related entries: [point](#point)
+Related entries: [point](#point), [unix timestamp](#unix-timestamp)
 
 ### token
 
@@ -1077,9 +1077,9 @@ An implicit block that encompasses all Flux source text in a universe block.
 
 ### unix timestamp
 
-The running total of a given unit of time since the **Unix Epoch (1970-01-01T00:00:00Z UTC)**.
-Express unix timestamps using different units of time (also known as **precision**).
-Specify timestamp precision when [writing data to InfluxDB](/v2.0/write-data/)
+The number of a given unit of time since the **Unix Epoch (1970-01-01T00:00:00Z UTC)**.
+The unit of time is also known as the [precision](#precision).
+Specify timestamp precision when [writing data to InfluxDB](/v2.0/write-data/).
 InfluxDB supports the following unix timestamp precisions:
 
 | Precision | Description  | Example               |
@@ -1090,6 +1090,8 @@ InfluxDB supports the following unix timestamp precisions:
 | `s`       | Seconds      | `1577836800`          |
 
 <p style="font-size:.9rem;margin-top:-2rem"><em>The examples above represent <strong>2020-01-01T00:00:00Z UTC</strong>.</em></p>
+
+Related entries: [timestamp](#timestamp)
 
 ### user
 
