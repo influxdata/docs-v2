@@ -26,7 +26,8 @@ the InfluxDB user interface (UI), and client libraries.
   - [User Interface](#user-interface)
   - [influx CLI](#influx-cli)
   - [InfluxDB API](#influxdb-api)
-  - [Others](#others)
+  - [Other ways to write data](#other-ways-to-write-data)
+- [Next steps](#next-steps)
 
 ### What you'll need
 
@@ -56,7 +57,7 @@ mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
 #### Timestamp precision
-Timestamps are essential in InfluxDB.
+When writing data to InfluxDB, we [recommend including a timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) with each point.
 If a data point does not include a timestamp when it is received by the database,
 InfluxDB uses the current system time (UTC) of its host machine.
 
@@ -70,7 +71,8 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol) and [Best practices for writing data](/v2.0/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol)
+and [Best practices for writing data](/v2.0/write-data/best-practices/)._
 
 ## Ways to write data into InfluxDB
 
@@ -179,7 +181,7 @@ influx write \
 ### InfluxDB API
 
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
-Include the following in your request:
+Use the `POST` request method and include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
@@ -189,19 +191,50 @@ Include the following in your request:
 | Authentication token | Use the `Authorization: Token` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
-##### Example API write request
+#### Example API write request
 
 Below is an example API write request using `curl`.
-The URL depends on the version and location of your InfluxDB 2.0 instance.
+The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/v2.0/reference/urls/))_.
 
+To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
+Compressing write requests reduces network bandwidth, but increases server-side load.
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Uncompressed](#)
+[Compressed](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+  --data-raw "
+mem,host=host1 used_percent=23.43234543 1556896326
+mem,host=host2 used_percent=26.81522361 1556896326
+mem,host=host1 used_percent=22.52984738 1556896336
+mem,host=host2 used_percent=27.18294630 1556896336
+"
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+  --header "Authorization: Token YOURAUTHTOKEN" \
+  --header "Content-Encoding: gzip" \
+  --data-raw "
+mem,host=host1 used_percent=23.43234543 1556896326
+mem,host=host2 used_percent=26.81522361 1556896326
+mem,host=host1 used_percent=22.52984738 1556896336
+mem,host=host2 used_percent=27.18294630 1556896336
+"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-### Others
+_For information about **InfluxDB API response codes**, see
+[InfluxDB API Write documentation](/v2.0/api/#operation/PostWrite)._
+
+## Other ways to write data
 
 {{< children >}}
 
@@ -209,3 +242,23 @@ curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
 See [Client libraries reference](/v2.0/reference/api/client-libraries/) for more information.
+
+---
+
+## Next steps
+With your data in InfluxDB, you're ready to do one or more of the following:
+
+### Query and explore your data
+Query data using Flux, the UI, and the `influx` command line interface.
+See [Query data](/v2.0/query-data/).
+
+### Process your data
+Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
+
+### Visualize your data
+Build custom dashboards to visualize your data.
+See [Visualize data](/v2.0/visualize-data/).
+
+### Monitor your data and send alerts
+Monitor your data and sends alerts based on specified logic.
+See [Monitor and alert](/v2.0/monitor-alert/).

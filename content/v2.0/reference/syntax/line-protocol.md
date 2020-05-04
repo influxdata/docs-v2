@@ -10,6 +10,8 @@ weight: 102
 v2.0/tags: [write, line protocol, syntax]
 aliases:
   - /v2.0/reference/line-protocol
+related:
+  - /v2.0/write-data/
 ---
 
 InfluxDB uses line protocol to write data points.
@@ -87,20 +89,18 @@ measurementName fieldKey="field string value" 1556813561098000000
 
 ### Timestamp
 _**Optional**_ –
-The Unix nanosecond timestamp for the data point.
+The [unix timestamp](/v2.0/reference/glossary/#unix-timestamp) for the data point.
 InfluxDB accepts one timestamp per point.
 If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
 
 _**Data type:** [Unix timestamp](#unix-timestamp)_
 
 {{% note %}}
-To ensure a data point includes the time a metric is observed (not received by InfluxDB),
-include the timestamp.
-{{% /note %}}
-
-{{% note %}}
-_Use the default nanosecond precision timestamp or specify an alternative precision
-when [writing the data](/v2.0/write-data/#timestamp-precision)._
+#### Important notes about timestamps
+- To ensure a data point includes the time a metric is observed (not received by InfluxDB),
+  include the timestamp.
+- If your timestamps are not in nanoseconds, specify the precision of your timestamps
+  when [writing the data to InfluxDB](/v2.0/write-data/#timestamp-precision).
 {{% /note %}}
 
 ### Whitespace
@@ -191,7 +191,8 @@ Quoted field values are interpreted as strings.
 {{% /note %}}
 
 ### Unix timestamp
-Unix nanosecond timestamp.
+Unix timestamp in a [specified precision](/v2.0/reference/glossary/#unix-timestamp).
+Default precision is nanoseconds (`ns`).
 
 | Minimum timestamp      | Maximum timestamp     |
 | -----------------      | -----------------     |
