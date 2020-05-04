@@ -5,6 +5,8 @@ menu:
   v2_0_ref:
     parent: influx pkg
 weight: 101
+related:
+  - /v2.0/influxdb-templates/create/
 ---
 
 The `influx pkg export` command exports existing resources as an InfluxDB template.
