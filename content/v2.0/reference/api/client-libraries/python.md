@@ -13,7 +13,7 @@ aliases:
 weight: 201
 ---
 
-Use the [InfluxDB Python client libary](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
+Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
 If just getting started, see [Getting started with InfluxDB](/v2.0/get-started/).
@@ -97,7 +97,6 @@ client = influxdb_client.InfluxDBClient(
     org=org
 )
 
-client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)

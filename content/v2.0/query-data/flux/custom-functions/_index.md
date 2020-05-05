@@ -1,14 +1,24 @@
 ---
 title: Create custom Flux functions
 description: Create your own custom Flux functions to transform and manipulate data.
+list_title: Custom functions
 v2.0/tags: [functions, custom, flux]
 menu:
   v2_0:
-    name: Create custom functions
+    name: Custom functions
     parent: Query with Flux
 weight: 220
 aliases:
- - /v2.0/query-data/guides/custom-functions/
+  - /v2.0/query-data/guides/custom-functions/
+list_code_example: |
+  ```js
+  multByX = (tables=<-, x) =>
+    tables
+      |> map(fn: (r) => ({ r with _value: r._value * x}))
+      
+  data
+    |> multByX(x: 2.0)
+  ```
 ---
 
 Flux's functional syntax allows for custom functions.

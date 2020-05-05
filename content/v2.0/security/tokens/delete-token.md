@@ -17,12 +17,11 @@ have access to your InfluxDB instance.
 
 ## Delete tokens in the InfluxDB UI
 
-1. Click the Click the **Load Data** icon in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
     {{< nav-icon "disks" >}}
 
-2. Click **Tokens**. All of your account's tokens appear.
-3. Hover over the token you want to delete and click **Delete** and **Confirm**.
+2. Hover over the token you want to delete and click **Delete** and **Confirm**.
 
 ## Delete tokens using the influx CLI
 

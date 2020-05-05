@@ -10,6 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
+  - /v2.0/query-data/flux/sort-limit/
   - /v2.0/reference/flux/stdlib/built-in/transformations/tail/
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 ---

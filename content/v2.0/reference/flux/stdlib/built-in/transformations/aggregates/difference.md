@@ -9,6 +9,8 @@ menu:
     name: difference
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
 
 The `difference()` function computes the difference between subsequent records.  
@@ -115,8 +117,3 @@ from(bucket: "example-bucket")
 | 0003  | -2     | tv  |
 | 0004  | 6      | tv  |
 | 0005  | null   | tv  |
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[DIFFERENCE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference)

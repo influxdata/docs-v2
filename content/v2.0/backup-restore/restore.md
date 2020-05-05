@@ -11,15 +11,15 @@ v2.0/tags: [restore]
 related:
   - /v2.0/backup-restore/backup/
   - /v2.0/reference/cli/influxd/restore/
-#draft: true
+products: [oss]
 ---
 
 Use the `influxd restore` command to restore backup data and metadata from InfluxDB.
 You must stop InfluxDB before restoring data.
 
-{{% cloud-msg %}}
+{{% cloud %}}
 The `influxd restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
-{{% /cloud-msg %}}
+{{% /cloud %}}
 
 When restoring data from a backup file set, InfluxDB temporarily moves existing
 data and metadata while the restore process runs.

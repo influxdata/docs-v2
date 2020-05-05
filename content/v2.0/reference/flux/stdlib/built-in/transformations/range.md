@@ -9,6 +9,8 @@ menu:
     name: range
     parent: built-in-transformations
 weight: 402
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
 ---
 
 The `range()` function filters records based on time bounds.
@@ -71,8 +73,3 @@ from(bucket:"example-bucket")
   |> range(start:2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
   // ...
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[WHERE](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-where-clause)  

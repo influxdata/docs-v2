@@ -1,18 +1,24 @@
 ---
 title: Window and aggregate data with Flux
 seotitle: Window and aggregate data in InfluxDB with Flux
-list_title: Window & aggregate data
+list_title: Window & aggregate
 description: >
   This guide walks through windowing and aggregating data with Flux and outlines
   how it shapes your data in the process.
 menu:
   v2_0:
-    name: Window & aggregate data
+    name: Window & aggregate
     parent: Query with Flux
 weight: 204
 v2.0/tags: [flux, aggregates]
 aliases:
- - /v2.0/query-data/guides/window-aggregate/
+  - /v2.0/query-data/guides/window-aggregate/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
+  - /v2.0/reference/flux/stdlib/built-in/transformations/window
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates
+  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors
+list_query_example: aggregate_window
 ---
 
 A common operation performed with time series data is grouping data into windows of time,

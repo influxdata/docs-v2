@@ -16,12 +16,13 @@ To send notifications about changes in your data, start by creating a notificati
 
 ## Create a notification endpoint in the UI
 
-1.  Select the **Monitoring and Alerting** icon from the sidebar.
+1.  In the navigation menu on the left, select **Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2.  Next to **Notification Endpoints**, click **Create**.
-3.  From the **Destination** drop-down list, select a destination endpoint to send notifications.
+2.  Select **Notification Endpoints** near to top of the page.
+3.  Click **{{< icon "plus" >}} Create**.
+4.  From the **Destination** drop-down list, select a destination endpoint to send notifications.
     The following endpoints are available for InfluxDB 2.0 OSS, the InfluxDB Cloud 2.0 Free Plan,
     and the InfluxDB Cloud 2.0 Usage-based Plan:
 
@@ -31,8 +32,8 @@ To send notifications about changes in your data, start by creating a notificati
     | **PagerDuty** | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
     | **HTTP**      | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
 
-4.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
-5.  Enter enter information to connect to the endpoint:
+5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
+6.  Enter enter information to connect to the endpoint:
 
     - For HTTP, enter the **URL** to send the notification. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with a token, select **Bearer**, and then enter the authentication token in the **Token** field.
 

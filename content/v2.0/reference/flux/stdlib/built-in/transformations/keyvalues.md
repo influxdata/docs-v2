@@ -9,6 +9,12 @@ menu:
     name: keyValues
     parent: built-in-transformations
 weight: 402
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-values, InfluxQL – SHOW TAG VALUES
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-serie, InfluxQL – SHOW SERIES
 ---
 
 The `keyValues()` function returns a table with the input table's group key plus two columns,
@@ -74,14 +80,4 @@ from(bucket: "example-bucket")
   |> range(start: -30m)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))
-```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-
-[SHOW MEASUREMENTS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements)  
-[SHOW FIELD KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys)  
-[SHOW TAG KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys)  
-[SHOW TAG VALUES](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-values)  
-[SHOW SERIES](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-series)  
+```  

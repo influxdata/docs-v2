@@ -1,23 +1,37 @@
 ---
 title: Query SQL data sources
 seotitle: Query SQL data sources with InfluxDB
+list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
-  Use `sql.from()` to query SQL databases like PostgreSQL and MySQL
+  Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake, and SQLite.
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
     parent: Query with Flux
+    list_title: SQL data
 weight: 220
 aliases:
- - /v2.0/query-data/guides/sql/
+  - /v2.0/query-data/guides/sql/
+related:
+  - /v2.0/reference/flux/stdlib/sql/
+list_code_example: |
+  ```js
+  import "sql"
+
+  sql.from(
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query: "SELECT * FROM example_table"
+  )
+  ```
 ---
 
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
-and [SQLite](https://www.sqlite.org/index.html), and use the results with InfluxDB
-dashboards, tasks, and other operations.
+[Snowflake](https://www.snowflake.com/), and [SQLite](https://www.sqlite.org/index.html),
+and use the results with InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
@@ -40,6 +54,7 @@ To query a SQL data source:
 {{% code-tabs %}}
 [PostgreSQL](#)
 [MySQL](#)
+[Snowflake](#)
 [SQLite](#)
 {{% /code-tabs %}}
 
@@ -62,6 +77,18 @@ import "sql"
 sql.from(
   driverName: "mysql",
   dataSourceName: "user:password@tcp(localhost:3306)/db",
+  query: "SELECT * FROM example_table"
+)
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+import "sql"
+
+sql.from(
+  driverName: "snowflake",
+  dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
   query: "SELECT * FROM example_table"
 )
 ```

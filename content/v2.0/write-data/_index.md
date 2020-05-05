@@ -9,6 +9,12 @@ menu:
   v2_0:
     name: Write data
 v2.0/tags: [write, line protocol]
+related:
+  - /v2.0/write-data/use-telegraf/
+  - /v2.0/api/#tag/Write, InfluxDB API /write endpoint
+  - /v2.0/reference/syntax/line-protocol
+  - /v2.0/reference/syntax/annotated-csv
+  - /v2.0/reference/cli/influx/write
 ---
 
 Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/syntax/line-protocol),
@@ -20,21 +26,19 @@ the InfluxDB user interface (UI), and client libraries.
   - [User Interface](#user-interface)
   - [influx CLI](#influx-cli)
   - [InfluxDB API](#influxdb-api)
-  - [Others](#others)
+  - [Other ways to write data](#other-ways-to-write-data)
+- [Next steps](#next-steps)
 
 ### What you'll need
 
 To write data into InfluxDB, you need the following:
 
-- an organization
-{{% note %}}
-See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-id) for instructions on viewing your organization ID.
-{{% /note %}}
-- a bucket
-{{% note %}}
-See [View buckets](/v2.0/organizations/buckets/view-buckets/) for instructions on viewing your bucket ID.
-{{% /note %}}
-- an [authentication token](/v2.0/security/tokens/view-tokens/)
+- **organization** – _See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-id)
+  for instructions on viewing your organization ID._
+- **bucket** – _See [View buckets](/v2.0/organizations/buckets/view-buckets/) for
+  instructions on viewing your bucket ID._
+- **authentication token** – _See [View tokens](/v2.0/security/tokens/view-tokens/)
+  for instructions on viewing your authentication token._
 
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
@@ -53,7 +57,7 @@ mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
 #### Timestamp precision
-Timestamps are essential in InfluxDB.
+When writing data to InfluxDB, we [recommend including a timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) with each point.
 If a data point does not include a timestamp when it is received by the database,
 InfluxDB uses the current system time (UTC) of its host machine.
 
@@ -67,7 +71,8 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol) and [Best practices for writing data](/v2.0/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol)
+and [Best practices for writing data](/v2.0/write-data/best-practices/)._
 
 ## Ways to write data into InfluxDB
 
@@ -87,10 +92,9 @@ To quickly start writing data, use the provided user interface.
      where you're hosting the UI (by default, **localhost:9999**).
    - _**InfluxDB 2.0 Cloud**_:
      In your browser, go to https://cloud2.influxdata.com/.
-2. Click **Load Data** in the navigation menu on the left.
-3. Select **Buckets**.
-4. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
-5. Select from the following options:
+2. In the navigation menu on the left, select **Data** (**Load Data**) > **Buckets**.
+3. Under the bucket you want to write data to, click **{{< icon "plus" >}} Add Data**.
+4. Select from the following options:
 
    - [Configure Telegraf Agent](#configure-telegraf-agent)
    - [Line Protocol](#line-protocol)
@@ -114,7 +118,7 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
     - **Enter Manually:**
       Select the time precision of your data.
       Manually enter line protocol.
-2. Click **Continue**.
+2. Click **Write Data**.
    A message indicates whether data is successfully written to InfluxDB.
 3. To add more data or correct line protocol, click **Previous**.
 4. Click **Finish**.
@@ -125,40 +129,59 @@ To configure a Telegraf agent, see [Automatically create a Telegraf configuratio
 
 To scrape metrics, see [Create a scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper/#create-a-scraper-in-the-influxdb-ui).
 
-{{% cloud-msg %}}{{< cloud-name >}} does not support scrapers.
-{{% /cloud-msg %}}
+{{% cloud %}}{{< cloud-name >}} does not support scrapers.
+{{% /cloud %}}
 
 ### influx CLI
 
 From the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.
 Include the following in your command:
 
-| Requirement          | Include by                                                                  |
-|:-----------          |:----------                                                                  |
-| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                  |
-| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                           |
-| Precision            | Use the `-p`, `--precision` flag.                                       |
-| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag. |
-| Line protocol        | Write a single line as a string or pass a file path prefixed with `@`.      |
+| Requirement          | Include by                                                                                         |
+|:-----------          |:----------                                                                                         |
+| Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                                         |
+| Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                                                  |
+| Precision            | Use the `-p`, `--precision` flag.                                                                  |
+| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
+| Data                 | Write data using **line protocol** or **annotated CSV**. Pass a file with the `-f`, `--file` flag. |
 
-##### Example influx write commands
+_See [Line protocol](/v2.0/reference/syntax/line-protocol/) and [Annotated CSV](/v2.0/reference/syntax/annotated-csv)_
 
-To write a single data point, for example, run
+#### Example influx write commands
 
+##### Write a single line of line protocol
 ```sh
-influx write -b bucketName -o orgName -p s 'myMeasurement,host=myHost testField="testData" 1556896326'
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  'myMeasurement,host=myHost testField="testData" 1556896326'
 ```
 
-To write data in line protocol from a file, try
-
+##### Write line protocol from a file
+```sh
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  --format=lp
+  -f /path/to/line-protocol.txt
 ```
-influx write -b bucketName -o orgName -p s @/path/to/line-protocol.txt
+
+##### Write annotated CSV from a file
+```sh
+influx write \
+  -b bucketName \
+  -o orgName \
+  -p s \
+  --format=csv
+  -f /path/to/data.csv
 ```
 
 ### InfluxDB API
 
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
-Include the following in your request:
+Use the `POST` request method and include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
@@ -168,38 +191,50 @@ Include the following in your request:
 | Authentication token | Use the `Authorization: Token` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
-##### Example API write request
+#### Example API write request
 
 Below is an example API write request using `curl`.
-The URL depends on the version and location of your InfluxDB 2.0 instance.
+The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/v2.0/reference/urls/))_.
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[InfluxDB OSS](#)
-[{{< cloud-name "short">}}](#)
-{{% /tabs %}}
-{{% tab-content %}}
+To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
+Compressing write requests reduces network bandwidth, but increases server-side load.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Uncompressed](#)
+[Compressed](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+  --data-raw "
+mem,host=host1 used_percent=23.43234543 1556896326
+mem,host=host2 used_percent=26.81522361 1556896326
+mem,host=host1 used_percent=22.52984738 1556896336
+mem,host=host2 used_percent=27.18294630 1556896336
+"
 ```
-{{% /tab-content %}}
-{{% tab-content %}}
-
-{{% cloud-msg %}}
-For the specific URL of your {{< cloud-name "short" >}} instance, see [InfluxDB Cloud URLs](/v2.0/cloud/urls/).
-{{% /cloud-msg %}}
-
-```sh
-curl -XPOST "YOUR-INFLUXDB-CLOUD-URL/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+  --header "Content-Encoding: gzip" \
+  --data-raw "
+mem,host=host1 used_percent=23.43234543 1556896326
+mem,host=host2 used_percent=26.81522361 1556896326
+mem,host=host1 used_percent=22.52984738 1556896336
+mem,host=host2 used_percent=27.18294630 1556896336
+"
 ```
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-### Others
+_For information about **InfluxDB API response codes**, see
+[InfluxDB API Write documentation](/v2.0/api/#operation/PostWrite)._
+
+## Other ways to write data
 
 {{< children >}}
 
@@ -207,3 +242,23 @@ curl -XPOST "YOUR-INFLUXDB-CLOUD-URL/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKE
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
 See [Client libraries reference](/v2.0/reference/api/client-libraries/) for more information.
+
+---
+
+## Next steps
+With your data in InfluxDB, you're ready to do one or more of the following:
+
+### Query and explore your data
+Query data using Flux, the UI, and the `influx` command line interface.
+See [Query data](/v2.0/query-data/).
+
+### Process your data
+Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
+
+### Visualize your data
+Build custom dashboards to visualize your data.
+See [Visualize data](/v2.0/visualize-data/).
+
+### Monitor your data and send alerts
+Monitor your data and sends alerts based on specified logic.
+See [Monitor and alert](/v2.0/monitor-alert/).

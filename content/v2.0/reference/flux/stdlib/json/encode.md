@@ -22,7 +22,7 @@ json.encode(v: "some value")
 
 This function encodes [Flux types](/v2.0/reference/flux/language/types/) as follows:
 
-- `time` values in [RFC3339](https://tools.ietf.org/html/rfc3339) format
+- `time` values in [RFC3339](/v2.0/reference/glossary/#rfc3339-timestamp) format
 - `duration` values in number of milliseconds since the epoch
 - `regexp` values as their string representation
 - `bytes` values as base64-encoded strings

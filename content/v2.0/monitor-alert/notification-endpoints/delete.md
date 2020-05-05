@@ -16,9 +16,11 @@ If notifications are no longer sent to an endpoint, complete the steps below to 
 
 ## Delete a notification endpoint in the UI
 
-1. Select the **Monitoring and Alerting** icon from the sidebar.
+1. In the navigation menu on the left, select **Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2. Under **Notification Rules**, find the rule you want to delete.
-3. Click the delete icon, then click **Delete** to confirm.
+2. Select **Notification Endpoints** near to top of the page.
+   find the rule you want to delete.
+3. Hover over the endpoint you want to delete and click the **{{< icon "trash" >}}** icon.
+4. Click **Delete** to confirm.

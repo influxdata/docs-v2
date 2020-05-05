@@ -13,10 +13,9 @@ weight: 203
 
 To delete a template in the InfluxDB UI:
 
-1. Click the **Settings** icon in the left navigation.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
-2. Select the **Templates** tab.
 3. Hover over the name of the template you want to delete, then click **{{< icon "trash" >}}**.    
 3. Click **Delete** to delete your dashboard.

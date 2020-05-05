@@ -2,8 +2,9 @@
 title: Annotated CSV syntax
 list_title: Annotated CSV
 description: >
-  Flux returns raw results in Annotated CSV format and also reads Annotated CSV
-  using the `csv.from()` function.
+  InfluxDB and Flux return query results in annotated CSV format.
+  You can also read annotated CSV directly from Flux with the `csv.from()` function
+  or write data to InfluxDB using annotated CSV and the `influx write` command.
 weight: 103
 menu:
   v2_0_ref:
@@ -14,12 +15,12 @@ aliases:
   - /v2.0/reference/annotated-csv/
 ---
 
-Flux returns raw results in Annotated CSV format and also reads Annotated CSV
-using the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/).
+InfluxDB and Flux return query results in annotated CSV format.
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
+or write data to InfluxDB using annotated CSV and the `influx write` command.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
-Line endings must be CRLF (Carriage Return Line Feed) as defined by the `text/csv`
-MIME type in [RFC 4180](https://tools.ietf.org/html/rfc4180).
+InfluxDB removes carriage returns before newline characters.
 
 ## Examples
 
@@ -59,7 +60,7 @@ Encoding of a table with and without a header row.
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-```js
+```sh
 result,table,_start,_stop,_time,region,host,_value
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
@@ -68,7 +69,7 @@ my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```js
+```sh
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
@@ -111,7 +112,7 @@ Encoding of two tables in the same result with the same schema (header row) and 
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-```js
+```sh
 result,table,_start,_stop,_time,region,host,_value
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
 my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
@@ -124,7 +125,7 @@ my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```js
+```sh
 ,result,table,_start,_stop,_time,region,host,_value
 ,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
 ,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
@@ -138,7 +139,7 @@ my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-### Dialect options
+## Dialect options
 
 Flux supports the following dialect options for `text/csv` format.
 
@@ -150,25 +151,105 @@ Flux supports the following dialect options for `text/csv` format.
 | **annotations**   | List of annotations to encode (datatype, group, or default).      | `empty` |
 | **commentPrefix** | String prefix to identify a comment. Always added to annotations. | `#`     |
 
-### Annotations
+## Annotations
 
 Annotation rows describe column properties, and start with `#` (or commentPrefix value).
 The first column in an annotation row always contains the annotation name.
 Subsequent columns contain annotation values as shown in the table below.
 
-| Annotation name | Values                                 | Description                                       |
-|:--------        |:---------                              | :-------                                          |
-| **datatype**    | a [valid data type](#valid-data-types) | Describes the type of data.                       |
-| **group**       | boolean flag `true` or `false`         | Indicates the column is part of the group key.    |
-| **default**     | a [valid data type](#valid-data-types) | Value to use for rows with an empty string value. |
+| Annotation name | Values                                                                         | Description                                                                      |
+|:--------        |:---------                                                                      | :-------                                                                         |
+| **datatype**    | a [data type](#data-types) or [line protocol element](#line-protocol-elements) | Describes the type of data or which line protocol element the column represents. |
+| **group**       | boolean flag `true` or `false`                                                 | Indicates the column is part of the group key.                                   |
+| **default**     | a value of the column's data type                                              | Value to use for rows with an empty value.                                       |
+
 
 {{% note %}}
-To encode a table with its group key, the `datatype`, `group`, and `default` annotations must be included. If a table has no rows, the `default` annotation provides the group key values.
+To encode a table with its [group key](/v2.0/reference/glossary/#group-key),
+the `datatype`, `group`, and `default` annotations must be included.
+If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
 
-##### Example
+## Data types
 
-Example encoding of datatype, group, and default annotations.
+| Datatype     | Flux type  | Description                                                                                                    |
+| :--------    | :--------- | :----------                                                                                                    |
+| boolean      | bool       | "true" or "false"                                                                                              |
+| unsignedLong | uint       | unsigned 64-bit integer                                                                                        |
+| long         | int        | signed 64-bit integer                                                                                          |
+| double       | float      | IEEE-754 64-bit floating-point number                                                                          |
+| string       | string     | UTF-8 encoded string                                                                                           |
+| base64Binary | bytes      | base64 encoded sequence of bytes as defined in RFC 4648                                                        |
+| dateTime     | time       | instant in time, may be followed with a colon : and a description of the format (number, RFC3339, RFC3339Nano) |
+| duration     | duration   | length of time represented as an unsigned 64-bit integer number of nanoseconds                                 |
+
+
+## Line protocol elements
+The `datatype` annotation accepts accepts [data types](#data-types) and **line protocol elements**.
+Line protocol elements identify how columns are converted into line protocol when using the
+[`influx write` command](/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+
+| Line protocol element | Description                                                     |
+|:--------------------- |:-----------                                                     |
+| `measurement`         | column value is the measurement                                 |
+| `field` _(default)_   | column header is the field key, column value is the field value |
+| `tag`                 | column header is the tag key, column value is the tag value     |
+| `time`                | column value is the timestamp _(alias for `dateTime`)_          |
+| `ignore` or`ignored`  | column is ignored and not included in line protocol             |
+
+### Mixing data types and line protocol elements
+Columns with [data types](#data-types) (other than `dateTime`) in the
+`#datatype` annotation are treated as **fields** when converted to line protocol.
+Columns without a specified data type default to `field` when converted to line protocol
+and **column values are left unmodified** in line protocol.
+_See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
+[line protocol data types and format](/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
+
+### Time columns
+A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
+when converted to line protocol.
+If there are multiple `time` or `dateTime` columns, the last column (on the right)
+is used as the timestamp in line protocol.
+Other time columns are ignored and the `influx write` command outputs a warning.
+
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/v2.0/write-data/#timestamp-precision)),
+**RFC3339**, or **RFC3339Nano**.
+
+##### Example line protocol elements in datatype annotation
+```
+#datatype measurement,tag,tag,field,field,ignored,time
+m,cpu,host,time_steal,usage_user,nothing,time
+cpu,cpu1,host1,0,2.7,a,1482669077000000000
+cpu,cpu1,host2,0,2.2,b,1482669087000000000
+```
+
+Resulting line protocol:
+
+```
+cpu,cpu=cpu1,host=host1 time_steal=0,usage_user=2.7 1482669077000000000
+cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
+```
+
+##### Example of mixing data types line protocol elements
+```
+#datatype measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
+#default test,annotatedDatatypes,,,,,,
+m,name,s,d,b,l,ul,dur,time
+,,str1,1.0,true,1,1,1ms,1
+,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
+```
+
+Resulting line protocol:
+
+```
+test,name=annotatedDatatypes s="str1",d=1,b=true,l=1i,ul=1u,dur=1000000i 1
+test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 1578737410000000000
+```
+
+## Annotated CSV in Flux
+Flux requires all annotation and header rows in annotated CSV.
+The example below illustrates how to use the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
+to read annotated CSV in Flux:
 
 ```js
 import "csv"
@@ -177,29 +258,21 @@ csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3
 #group,false,false,false,false,false,false,false,false
 #default,,,,,,,,
 ,result,table,_start,_stop,_time,region,host,_value
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
 "
 
 csv.from(csv: csvData)
 ```
 
-### Valid data types
-
-| Datatype     | Flux type  | Description                                                                        |
-| :--------    | :--------- | :----------                                                                        |
-| boolean      | bool       | a truth value, one of "true" or "false"                                            |
-| unsignedLong | uint       | an unsigned 64-bit integer                                                         |
-| long         | int        | a signed 64-bit integer                                                            |
-| double       | float      | an IEEE-754 64-bit floating-point number                                           |
-| string       | string     | a UTF-8 encoded string                                                             |
-| base64Binary | bytes      | a base64 encoded sequence of bytes as defined in RFC 4648                          |
-| dateTime     | time       | an instant in time, may be followed with a colon : and a description of the format |
-| duration     | duration   | a length of time represented as an unsigned 64-bit integer number of nanoseconds   |
+{{% warn %}}
+Flux only supports [data types](#data-types) in the `#datatype` annotation.
+It does **does not** support [line protocol elements](#line-protocol-elements).
+{{% /warn %}}
 
 ## Errors
 
@@ -218,7 +291,7 @@ If an error occurs:
 
 Encoding for an error with the datatype annotation:
 
-```csv
+```
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
@@ -226,7 +299,7 @@ Encoding for an error with the datatype annotation:
 
 Encoding for an error that occurs after a valid table has been encoded:
 
-```csv
+```
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
 ,result,table,_start,_stop,_time,region,host,_value
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
@@ -234,7 +307,7 @@ Encoding for an error that occurs after a valid table has been encoded:
 ,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
 ```
 
-```csv
+```
 #datatype,string,long
 ,error,reference,query terminated: reached maximum allowed memory limits,576
 ```

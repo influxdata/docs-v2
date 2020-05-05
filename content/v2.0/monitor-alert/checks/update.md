@@ -21,37 +21,35 @@ Common updates include:
 - [Add or update a check description](#add-or-update-a-check-description)
 - [Add a label to a check](#add-a-label-to-a-check)
 
-To update checks, click **Monitoring & Alerting** in the InfluxDB UI sidebar.
+To update checks, select **Alerts** in the navigation menu on the left.
 
 {{< nav-icon "alerts" >}}
 
 
 ## Update check queries and logic
-1.  In the **Checks** column, click the name of the check you want to update.
-    The check builder appears.
-2. To edit the check query, click **1. Query** at the top of the check builder window.
-3. To edit the check logic, click **2. Check** at the top of the check builder window.
+1. Click the name of the check you want to update. The check builder appears.
+2. To edit the check query, click **1. Define Query** at the top of the check builder window.
+3. To edit the check logic, click **2. Configure Check** at the top of the check builder window.
 
 _For details about using the check builder, see [Create checks](/v2.0/monitor-alert/checks/create/)._
 
 ## Enable or disable a check
-In the **Checks** column, click the {{< icon "toggle" >}} toggle next to a check
-to enable or disable it.
+Click the {{< icon "toggle" >}} toggle next to a check to enable or disable it.
 
 ## Rename a check
-1.  In the **Checks** column, hover over the name of the check you want to update.
+1.  Hover over the name of the check you want to update.
 2.  Click the **{{< icon "edit" >}}** icon that appears next to the check name.
 2.  Enter a new name and click out of the name field or press enter to save.
 
 _You can also rename a check in the [check builder](#update-check-queries-and-logic)._
 
 ## Add or update a check description
-1.  In the **Checks** column, hover over the check description you want to update.
+1.  Hover over the check description you want to update.
 2.  Click the **{{< icon "edit" >}}** icon that appears next to the description.
 2.  Enter a new description and click out of the name field or press enter to save.
 
 ## Add a label to a check
-1.  In the **Checks** column, click **Add a label** next to the check you want to add a label to.
+1.  Click **Add a label** next to the check you want to add a label to.
     The **Add Labels** box opens.
 2.  To add an existing label, select the label from the list.
 3.  To create and add a new label:

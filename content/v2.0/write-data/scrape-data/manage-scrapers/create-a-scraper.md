@@ -8,16 +8,16 @@ menu:
   v2_0:
     parent: Manage scrapers
 weight: 301
+products: [oss]
 ---
 
 Create a new scraper in the InfluxDB user interface (UI).
 
 ## Create a scraper in the InfluxDB UI
-1. Click **Load Data** in the navigation bar.
+1. In the navigation menu on the left, select **Data** (**Load Data**) > **Scrapers**.
 
     {{< nav-icon "load data" >}}
 
-2. Click **Scrapers**.
 3. Click **{{< icon "plus" >}} Create Scraper**.
 4. Enter a **Name** for the scraper.
 5. Select a **Bucket** to store the scraped data.

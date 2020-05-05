@@ -13,10 +13,12 @@ menu:
     parent: Flux standard library
 weight: 202
 v2.0/tags: [functions, sql, package, mysql, postgres]
+related:
+  - /v2.0/query-data/flux/sql/
 ---
 
 SQL Flux functions provide tools for working with data in SQL databases such as
-MySQL, PostgreSQL, and SQLite.
+MySQL, PostgreSQL, Snowflake, and SQLite.
 Import the `sql` package:
 
 ```js

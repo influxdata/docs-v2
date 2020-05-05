@@ -18,7 +18,7 @@ related:
 The **Graph + Single Stat** view displays the specified time series in a line graph
 and overlays the single most recent value as a large numeric value.
 
-{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example.png" alt="Line Graph + Single Stat example" />}}
+{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example-8.png" alt="Line Graph + Single Stat example" />}}
 
 Select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
 
@@ -92,5 +92,5 @@ from(bucket: "example-bucket")
       r._field == "used_percent"
   )
 ```
-###### Memory usage visualization
-{{< img-hd src="/img/2-0-visualizations-graph-single-stat-mem.png" alt="Graph + Single Stat Memory Usage Example" />}}
+###### Memory allocations visualization
+{{< img-hd src="/img/2-0-visualizations-graph-single-stat-mem-8.png" alt="Graph + Single Stat Memory Usage Example" />}}

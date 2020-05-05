@@ -9,6 +9,9 @@ menu:
     name: cumulativeSum
     parent: built-in-transformations
 weight: 402
+related:
+  - /v2.0/query-data/flux/cumulativesum/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 ---
 
 The `cumulativeSum()` function computes a running sum for non-null records in the table.
@@ -39,8 +42,3 @@ from(bucket: "example-bucket")
   )
   |> cumulativeSum(columns: ["_value"])
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[CUMULATIVE_SUM()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum)

@@ -12,6 +12,11 @@ menu:
     name: keys
     parent: built-in-transformations
 weight: 402
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW SERIES
 ---
 
 The `keys()` function outputs the group key of input tables.
@@ -50,11 +55,3 @@ from(bucket: "example-bucket")
     |> group()
     |> distinct()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[SHOW MEASUREMENTS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements)  
-[SHOW FIELD KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys)  
-[SHOW TAG KEYS](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys)  
-[SHOW SERIES](https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys)

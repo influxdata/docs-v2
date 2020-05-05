@@ -24,25 +24,24 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
 ## Update a bucket's name in the InfluxDB UI
 
-1. Click **Load Data** in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "load data" >}}
+    {{< nav-icon "data" >}}
 
-2. Select **Buckets**.
-3. Click **Rename** under the bucket you want to rename.
-4. Review the information in the window that appears and click **I understand, let's rename my bucket**.
-5. Update the bucket's name and click **Change Bucket Name**.
+2. Click **Settings** under the bucket you want to rename.
+3. Click **Rename**.
+3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
+4. Update the bucket's name and click **Change Bucket Name**.
 
 ## Update a bucket's retention policy in the InfluxDB UI
 
-1. Click **Load Data** in the navigation bar.
+1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "load data" >}}
+    {{< nav-icon "data" >}}
 
-2. Select **Buckets**.
-3. Click the name of the bucket you want to update from the list.
-4. In the window that appears, edit the bucket's retention policy.
-5. Click **Save Changes**.
+2. Click **Settings** next to the bucket you want to update.
+3. In the window that appears, edit the bucket's retention policy.
+4. Click **Save Changes**.
 
 ## Update a bucket using the influx CLI
 

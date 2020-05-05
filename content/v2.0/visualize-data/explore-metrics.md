@@ -16,7 +16,7 @@ The InfluxDB user interface (UI) allows you to move seamlessly between using the
 Flux builder or templates and manually editing the query.
 Choose between [visualization types](/v2.0/visualize-data/visualization-types/) for your query.
 
-To open the **Data Explorer**, click the **Data Explorer** icon in the navigation bar:
+To open the **Data Explorer**, click the **Explore** (**Data Explorer**) icon in the left navigation menu:
 
 {{< nav-icon "data-explorer" >}}
 
@@ -26,7 +26,7 @@ Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on time series data.
 See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Flux.
 
-1. Click the **Data Explorer** icon in the sidebar.
+1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
 
     {{< nav-icon "data-explorer" >}}
 
@@ -48,13 +48,9 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 Select from available [visualization types](/v2.0/visualize-data/visualization-types/) or enable the **View Raw Data** option to view all of your query's results.
 
-1. Select a visualization type from the dropdown menu in the upper-left.
+Select a visualization type from the dropdown menu in the upper-left.
 
     {{< img-hd src="/img/2-0-visualization-dropdown.png" title="Visualization dropdown" />}}
-
-2. Select the **Visualization** tab at the bottom of the **Data Explorer**.
-   For details about all of the available visualization options, see
-   [Visualization types](/v2.0/visualize-data/visualization-types/).
 
 ## Control your dashboard cell
 
@@ -65,7 +61,7 @@ To open the cell editor overlay, click the gear icon in the upper right of a cel
 
 Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
 
- {{< img-hd src="/img/2-0-controls-view-raw-data.png" alt="View raw data" />}}
+ {{< img-hd src="/img/beta-8-raw-data.png" alt="View raw data" />}}
 
 ### Save as CSV
 
@@ -75,7 +71,7 @@ Click the CSV icon to save the cells contents as a CSV file.
 
 Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
 
-{{< img-hd src="/img/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
+{{< img-hd src="/img/beta-8-interval-dropdown.png" alt="Select refresh interval" />}}
 
 ### Manually refresh dashboard
 

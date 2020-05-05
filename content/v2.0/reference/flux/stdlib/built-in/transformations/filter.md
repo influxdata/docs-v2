@@ -10,6 +10,11 @@ menu:
     parent: built-in-transformations
 weight: 402
 v2.0/tags: [exists]
+related:
+  - /v2.0/query-data/flux/query-fields/
+  - /v2.0/query-data/flux/conditional-logic/
+  - /v2.0/query-data/flux/exists/
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).
@@ -99,9 +104,3 @@ from(bucket: "example-bucket")
   |> filter(fn: (r) => r._measurement == "events" and r._field == "open")
   |> filter(fn: (r) => r.doorId =~ /^2.*/, onEmpty: "keep")
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-
-[SELECT](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement)

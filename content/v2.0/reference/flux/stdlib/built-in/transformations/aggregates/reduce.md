@@ -11,6 +11,9 @@ menu:
     parent: built-in-aggregates
 weight: 501
 v2.0/tags: [exists]
+related:
+  - /v2.0/query-data/flux/custom-functions/custom-aggregate/
+  - /v2.0/query-data/flux/conditional-logic/
 ---
 
 The `reduce()` function aggregates records in each table according to the reducer,

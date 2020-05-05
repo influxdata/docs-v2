@@ -10,6 +10,8 @@ menu:
     name: tableFind
     parent: Stream & table
 weight: 501
+related:
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `tableFind()` function extracts the first table in a stream of tables whose

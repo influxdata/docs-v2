@@ -7,6 +7,8 @@ menu:
     name: aggregate.rate
     parent: Aggregate
 weight: 301
+related:
+  - /v2.0/query-data/flux/rate/
 ---
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.
@@ -14,7 +16,7 @@ The `aggregate.rate()` function calculates the rate of change per windows of tim
 _**Function type:** Transformation_
 
 ```js
-import "experimental/query"
+import "experimental/aggregate"
 
 aggregate.rate(
   every: 1m,

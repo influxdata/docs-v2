@@ -28,11 +28,6 @@ Every input row should have a 1:1 mapping to a particular row + column in the ou
 In cases where more than one value is identified for the same row + column pair, the last value
 encountered in the set of table rows is used as the result.
 
-Every input row should have a 1:1 mapping to a particular row/column pair in the output table,
-determined by its values for the `rowKey` and `columnKey`.
-In cases where more than one value is identified for the same row/column pair in the output,
-the last value encountered in the set of table rows is used as the result.
-
 The output is constructed as follows:
 
 - The set of columns for the new table is the `rowKey` unioned with the group key,

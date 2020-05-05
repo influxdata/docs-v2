@@ -9,6 +9,8 @@ menu:
     name: yield
     parent: built-in-outputs
 weight: 401
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT AS
 ---
 
 The `yield()` function indicates the input tables received should be delivered as a result of the query.
@@ -41,8 +43,3 @@ from(bucket: "example-bucket")
   |> range(start: -5m)
   |> yield(name: "1")
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[SELECT AS](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement)

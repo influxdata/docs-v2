@@ -7,8 +7,11 @@ menu:
     parent: InfluxDB templates
     name: Create a template
     identifier: Create an InfluxDB template
-weight: 102
+weight: 103
 v2.0/tags: [templates]
+related:
+  - /v2.0/reference/cli/influx/pkg/export/
+  - /v2.0/reference/cli/influx/pkg/export/all/
 ---
 
 Use the InfluxDB user interface (UI) and the `influx pkg export` command to

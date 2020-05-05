@@ -9,6 +9,8 @@ menu:
     name: sort
     parent: built-in-transformations
 weight: 402
+related:
+  - /v2.0/query-data/flux/sort-limit/
 ---
 
 The `sort()` function orders the records within each table.

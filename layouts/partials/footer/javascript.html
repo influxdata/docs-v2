@@ -2,6 +2,7 @@
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters | resources.Concat "js/footer.bundle.js" }}
+{{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs | resources.Concat "js/footer.bundle.js" | resources.Fingerprint}}
 
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>

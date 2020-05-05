@@ -10,6 +10,14 @@ menu:
 weight: 220
 aliases:
  - /v2.0/query-data/guides/manipulate-timestamps/
+related:
+  - /v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /v2.0/reference/flux/stdlib/system/time/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+  - /v2.0/reference/flux/stdlib/experimental/addduration/
+  - /v2.0/reference/flux/stdlib/experimental/subduration/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.
@@ -25,18 +33,19 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Convert timestamp format
 
-### Convert nanosecond epoch timestamp to RFC3339
+### Convert unix nanosecond timestamp to RFC3339
 Use the [`time()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
-to convert a **nanosecond** epoch timestamp to an RFC3339 timestamp.
+to convert a [unix **nanosecond** timestamp](/v2.0/reference/glossary/#unix-timestamp)
+to an [RFC3339 timestamp](/v2.0/reference/glossary/#rfc3339-timestamp).
 
 ```js
 time(v: 1568808000000000000)
 // Returns 2019-09-18T12:00:00.000000000Z
 ```
 
-### Convert RFC3339 to nanosecond epoch timestamp
+### Convert RFC3339 to nanosecond unix timestamp
 Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/)
-to convert an RFC3339 timestamp to a nanosecond epoch timestamp.
+to convert an RFC3339 timestamp to a unix nanosecond timestamp.
 
 ```js
 uint(v: 2019-09-18T12:00:00.000000000Z)
@@ -47,8 +56,8 @@ uint(v: 2019-09-18T12:00:00.000000000Z)
 Flux doesn't support mathematical operations using [time type](/v2.0/reference/flux/language/types/#time-types) values.
 To calculate the duration between two timestamps:
 
-1. Use the `uint()` function to convert each timestamp to a nanosecond epoch timestamp.
-2. Subtract one nanosecond epoch timestamp from the other.
+1. Use the `uint()` function to convert each timestamp to a unix nanosecond timestamp.
+2. Subtract one unix nanosecond timestamp from the other.
 3. Use the `duration()` function to convert the result into a duration.
 
 ```js

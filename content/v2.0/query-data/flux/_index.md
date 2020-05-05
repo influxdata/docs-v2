@@ -31,6 +31,8 @@ data = from(bucket: "example-bucket")
 
 ## Flux query guides
 
+{{< children type="anchored-list" pages="all" >}}
+
 ---
 
-{{< children pages="all" >}}
+{{< children pages="all" readmore=true hr=true >}}

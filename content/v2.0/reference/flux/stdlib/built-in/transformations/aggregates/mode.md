@@ -10,6 +10,8 @@ menu:
     name: mode
     parent: built-in-aggregates
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#mode, InfluxQL – MODE()
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a
@@ -55,8 +57,3 @@ from(bucket: "example-bucket")
   |> window(every:10m)
   |> mode()
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[MODE()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#mode)

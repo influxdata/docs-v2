@@ -9,6 +9,9 @@ menu:
     name: fill
     parent: built-in-transformations
 weight: 402
+related:
+  - /v2.0/query-data/flux/fill/
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#group-by-time-intervals-and-fill, InfluxQL – FILL
 ---
 
 The `fill()` function replaces all null values in an input stream with a non-null value.
@@ -70,8 +73,3 @@ from(bucket: "example-bucket")
   )
   |> fill(usePrevious: true)
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[FILL](https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#group-by-time-intervals-and-fill)

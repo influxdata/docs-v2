@@ -7,6 +7,7 @@ menu:
   v2_0_ref:
     parent: influxd inspect
 weight: 301
+products: [oss]
 ---
 
 The `influxd inspect dumpwal` command outputs data from Write Ahead Log (WAL) files.

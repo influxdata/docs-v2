@@ -1,0 +1,28 @@
+.product-tags {
+  margin: -2rem 0 2.5rem;
+  span {
+    margin-right: .25rem;
+    padding: .2rem .65rem .25rem;
+    border-radius: 1rem;
+    font-weight: $medium;
+    font-style: italic;
+    font-size: .85rem;
+    border: 1px solid;
+
+    &.oss {
+      color: $product-oss;
+      border-color: rgba($product-oss, .35);
+      background: rgba($product-oss, .1);
+    }
+    &.cloud {
+      color: $product-cloud;
+      border-color: rgba($product-cloud, .35);
+      background: rgba($product-cloud, .1);
+    }
+    &.enterprise {
+      color: $product-enterprise;
+      border-color: rgba($product-enterprise, .35);
+      background: rgba($product-enterprise, .1);
+    }
+  }
+}

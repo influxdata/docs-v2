@@ -9,6 +9,8 @@ menu:
     name: distinct
     parent: built-in-selectors
 weight: 501
+related:
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#distinct, InfluxQL – DISTINCT()
 ---
 
 The `distinct()` function returns the unique values for a given column.
@@ -36,8 +38,3 @@ from(bucket: "example-bucket")
 	|> filter(fn: (r) => r._measurement == "cpu")
 	|> distinct(column: "host")
 ```
-
-<hr style="margin-top:4rem"/>
-
-##### Related InfluxQL functions and statements:
-[DISTINCT()](https://docs.influxdata.com/influxdb/latest/query_language/functions/#distinct)

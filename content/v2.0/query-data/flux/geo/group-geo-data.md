@@ -7,6 +7,10 @@ menu:
   v2_0:
     parent: Geo-temporal data
 weight: 302
+related:
+  - /v2.0/reference/flux/stdlib/experimental/geo/
+  - /v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
+  - /v2.0/reference/flux/stdlib/experimental/geo/astracks/
 list_code_example: |
   ```js
   import "experimental/geo"

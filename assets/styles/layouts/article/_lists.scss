@@ -13,11 +13,13 @@ ul {
 }
 
 ol {
-list-style: none;
-counter-reset: item;
+  list-style: none;
+  counter-reset: item;
+
   li {
     position: relative;
     counter-increment: item;
+
     &:before {
       content: counter(item) ". ";
       position: absolute;
@@ -25,6 +27,12 @@ counter-reset: item;
       color: $article-bold;
       font-weight: bold;
     }
+
+    & > ol li:before { content: counter(item, lower-latin) ". "; }
+    & > ol li ol li:before { content: counter(item) ". "; }
+    & > ol li ol li ol li:before { content: counter(item, lower-latin) ". "; }
+    & > ol li ol li ol li ol li:before { content: counter(item) ". "; }
+
     ul {
       counter-reset: item;
     }

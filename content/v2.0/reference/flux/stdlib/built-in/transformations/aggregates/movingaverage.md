@@ -10,6 +10,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
+  - /v2.0/query-data/flux/moving-average/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
