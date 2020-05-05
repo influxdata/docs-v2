@@ -48,7 +48,7 @@ All output data must include the following columns:
 - `_value`
 
 {{% note %}}
-The `to()` function ignores rows with a null `_time` values and does not write
+The `to()` function ignores rows with a null `_time` value and does not write
 them to InfluxDB.
 {{% /note %}}
 
