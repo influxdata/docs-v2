@@ -9,6 +9,8 @@ menu:
     name: Use templates
 weight: 102
 v2.0/tags: [templates]
+related:
+  - /v2.0/reference/cli/influx/pkg/
 ---
 
 Use the `influx pkg` command to summarize, validate, and install templates from
@@ -27,11 +29,19 @@ others in the InfluxData community.
 Install community templates directly from GitHub using a template's download URL
 or download the template.
 
-{{% note %}} When attempting to access the community templates via the URL, the templates use the following 
-as the root of the URL: `https://raw.githubusercontent.com/influxdata/community-templates/master/`. 
+{{% note %}}
+When attempting to access the community templates via the URL, the templates use the following
+as the root of the URL:
+
+```sh
+https://raw.githubusercontent.com/influxdata/community-templates/master/
+```
 
 For example, the Docker community template can be accessed via:
-`https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml`. 
+
+```sh
+https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
+```
 {{% /note %}}
 
 <a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
@@ -216,4 +226,3 @@ influx pkg -f /path/to/template.yml \
 ```
 
 _To add a secret after installing a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
-
