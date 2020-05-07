@@ -44,7 +44,15 @@ To send data to an InfluxDB v2.0 instance, enable in the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
-Specify the following:
+To find an example InfluxDB v2 output plugin configuration in the UI:
+1. In the navigation menu on the left, select **Data (Load Data)** > **Telegraf**.
+
+    {{< nav-icon "disks" >}}
+2. Click **InfluxDB Output Plugin**.
+3. Click **Copy to Clipboard** to copy the example configuration or **Download Config** to save a copy.
+4. Paste the example configuration into your `telegraf.conf` and specify the options below.
+
+The InfluxDB output plugin configuration contains the following options:
 
 ##### urls
 An array of URLs for your InfluxDB v2.0 instances.
