@@ -8,6 +8,23 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.10 [2020-05-07]
+
+### Features
+
+- Add ability to delete a stack and all associated resources.
+- Enforce DNS name compliance on all `pkger` resources' metadata.name field.
+- Add stateful `pkg` management with stacks.
+
+### Bug Fixes
+
+- Ensure `UpdateUser` cleans up the index when updating names.
+- Ensure Checks can be set for zero values.
+
+### UI Improvements
+
+- Create buckets in the Data Explorer and Cell Editor.
+
 ## v2.0.0-beta.9 [2020-04-23]
 
 ### Bug Fixes
