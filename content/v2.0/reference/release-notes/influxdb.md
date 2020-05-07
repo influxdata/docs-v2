@@ -13,7 +13,7 @@ weight: 101
 ### Features
 
 - Add ability to delete a stack and all associated resources.
-- Enforce DNS name compliance on all `pkger` resources' metadata.name field.
+- Enforce DNS name compliance on all `pkger` resources' `metadata.name` field.
 - Add stateful `pkg` management with stacks.
 
 ### Bug Fixes
@@ -24,6 +24,8 @@ weight: 101
 ### UI Improvements
 
 - Create buckets in the Data Explorer and Cell Editor.
+
+---
 
 ## v2.0.0-beta.9 [2020-04-23]
 
@@ -36,6 +38,8 @@ weight: 101
 - Update layout of alerts page to work on all screen sizes.
 - Sort dashboards on Getting Started page by recently modified.
 - Add single-color schemes for visualizations: Solid Red, Solid Blue, Solid Yellow, Solid Green, and Solid Purple.
+
+---
 
 ## v2.0.0-beta.8 [2020-04-10]
 
@@ -56,6 +60,8 @@ weight: 101
 ### UI Improvements
 - Update layout of Alerts page to work on all screen sizes.
 - Sort dashboards on Getting Started page by recently modified.
+
+---
 
 ## v2.0.0-beta.7 [2020-03-27]
 
@@ -147,6 +153,8 @@ weight: 101
 - Scatterplots render tooltips correctly.
 - Remove pkger gauge chart requirement for color threshold type.
 - Remove secret confirmation from `influx secret update`.
+
+---
 
 ## v2.0.0-beta.4 [2020-02-14]
 
