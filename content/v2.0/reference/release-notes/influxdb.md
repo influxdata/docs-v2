@@ -13,7 +13,7 @@ weight: 101
 ### Features
 
 - Add ability to delete a stack and all associated resources.
-- Enforce DNS name compliance on all `pkger` resources' `metadata.name` field.
+- Enforce DNS name compliance on the `metadata.name` field in all `pkger` resources.
 - Add stateful `pkg` management with stacks.
 
 ### Bug Fixes
