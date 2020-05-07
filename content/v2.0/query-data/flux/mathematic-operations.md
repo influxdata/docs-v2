@@ -10,7 +10,7 @@ menu:
   v2_0:
     name: Transform data with math
     parent: Query with Flux
-weight: 205
+weight: 208
 aliases:
   - /v2.0/query-data/guides/mathematic-operations/
 related:
