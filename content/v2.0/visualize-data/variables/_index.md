@@ -35,6 +35,10 @@ in the **Variables** tab next to the Functions tab.
 
 Click a variable name to add it to your query and select a value from the **Value** dropdown.
 
+## Link to dashboards with variables defined in the URL
+
+When you apply a variable to your dashboard, `&vars[variable_name]=value` is appended to the URL so you can share the link with the variables included.
+
 ## Predefined dashboard variables
 The InfluxDB user interface (UI) provides the following predefined dashboard variables:
 
