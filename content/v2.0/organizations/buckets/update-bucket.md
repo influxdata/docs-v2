@@ -63,8 +63,8 @@ influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 ##### Update a bucket's retention policy
 ```sh
 # Syntax
-influx bucket update -i <bucket-id> -o <org-name> -r <retention period in nanoseconds>
+influx bucket update -i <bucket-id> -r <retention period in nanoseconds>
 
 # Example
-influx bucket update -i 034ad714fdd6f000 -o my-org -r 1209600000000000
+influx bucket update -i 034ad714fdd6f000 -r 1209600000000000
 ```
