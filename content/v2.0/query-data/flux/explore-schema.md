@@ -101,10 +101,9 @@ v1.tagKeys(bucket: "example-bucket")
 ```
 
 ### List tag keys in a measurement
-Use the [`v1.measurementTagKeys`](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys)
+Use the [`v1.measurementTagKeys` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys)
 to list **tag keys in a measurement**.
-
-- from the last 30 days
+_This function returns results from the last 30 days._
 
 ```js
 import "influxdata/influxdb/v1"
@@ -126,9 +125,9 @@ v1.tagValues(bucket: "example-bucket", tag: "example-tag")
 ```
 
 ### List tag values in a measurement
-Use the [`v1.measurementTagValues`](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues)
+Use the [`v1.measurementTagValues` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues)
 to list **tag values for a given tag in a measurement**.
-- from the last 30 days
+_This function returns results from the last 30 days._
 
 ```js
 import "influxdata/influxdb/v1"

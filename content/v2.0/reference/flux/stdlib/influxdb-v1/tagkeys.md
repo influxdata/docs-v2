@@ -10,6 +10,7 @@ menu:
 weight: 301
 v2.0/tags: [tags]
 related:
+  - /v2.0/query-data/flux/explore-schema/
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
@@ -40,7 +41,7 @@ _Defaults to `(r) => true`._
 _**Data type:** Function_
 
 ### start
-Specifies the oldest time to be included in the results.
+The oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
@@ -59,6 +60,8 @@ v1.tagKeys(bucket: "my-bucket")
 
 ## Function definition
 ```js
+package v1
+
 tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
   from(bucket: bucket)
     |> range(start: start)
