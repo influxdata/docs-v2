@@ -47,7 +47,8 @@ in the `telegraf.conf`.
 To find an example InfluxDB v2 output plugin configuration in the UI:
 1. In the navigation menu on the left, select **Data (Load Data)** > **Telegraf**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load data" >}}
+
 2. Click **InfluxDB Output Plugin**.
 3. Click **Copy to Clipboard** to copy the example configuration or **Download Config** to save a copy.
 4. Paste the example configuration into your `telegraf.conf` and specify the options below.
