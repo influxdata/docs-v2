@@ -73,13 +73,22 @@ If writing to a **SQLite** database, set `batchSize` to `999` or less.
 
 ## Examples
 
+{{% note %}}
+The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
+sensitive connection credentials.
+{{% /note %}}
+
 ### Write data to a MySQL database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "MYSQL_USER")
+password = secrets.get(key: "MYSQL_PASS")
 
 sql.to(
   driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
+  dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
   table: "ExampleTable"
 )
 ```
@@ -87,10 +96,14 @@ sql.to(
 ### Write data to a Postgres database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "POSTGRES_USER")
+password = secrets.get(key: "POSTGRES_PASS")
 
 sql.to(
   driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
+  dataSourceName: "postgresql://${username}:${password}@localhost",
   table: "ExampleTable"
 )
 ```
