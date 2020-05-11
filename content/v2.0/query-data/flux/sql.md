@@ -157,14 +157,15 @@ Use the variable to manipulate queries in your dashboards.
 
 ## Use secrets to populate connection credentials
 If your SQL database requires authentication, use [InfluxDB secrets](/v2.0/security/secrets/)
-to store and populate sensitive connection credentials for your database.
-By default, InfluxDB encrypts and stores secrets in its internal key-value store, BoltDB,
-but also integrates directly with [Vault](https://www.vaultproject.io/).
+to store and populate connection credentials.
+By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
+For added security, [Vault](https://www.vaultproject.io/).
 
-_For information about using **Vault** with InfluxDB, see [Setup a Vault cluster](/v2.0/security/secrets/use-vault/)._
+_For information about the **InfluxDB Vault integration**, see [Store secrets in Vault](/v2.0/security/secrets/use-vault/)._
 
 ### Store your database credentials as secrets
-Use the **InfluxDB API** or the **`influx` CLI** to store your database credentials as secrets.
+Use the [InfluxDB API](/v2.0/reference/api/) or the [`influx` CLI](/v2.0/reference/cli/influx/secret/)
+to store your database credentials as secrets.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
