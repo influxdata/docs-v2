@@ -70,35 +70,53 @@ _**Data type:** String_
 
 ## Examples
 
+{{% note %}}
+The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
+sensitive connection credentials.
+{{% /note %}}
+
 ### Query a MySQL database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "MYSQL_USER")
+password = secrets.get(key: "MYSQL_PASS")
 
 sql.from(
  driverName: "mysql",
- dataSourceName: "user:password@tcp(localhost:3306)/db",
- query: "SELECT * FROM example_table"
+ dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
+ query:"SELECT * FROM example_table"
 )
 ```
 
 ### Query a Postgres database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "POSTGRES_USER")
+password = secrets.get(key: "POSTGRES_PASS")
 
 sql.from(
   driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query: "SELECT * FROM example_table"
+  dataSourceName: "postgresql://${username}:${password}@localhost",
+  query:"SELECT * FROM example_table"
 )
 ```
 
 ### Query a Snowflake database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SNOWFLAKE_USER")
+password = secrets.get(key: "SNOWFLAKE_PASS")
+account = secrets.get(key: "SNOWFLAKE_ACCT")
 
 sql.from(
   driverName: "snowflake",
-  dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+  dataSourceName: "${username}:${password}@${account}/db/exampleschema?warehouse=wh",
   query: "SELECT * FROM example_table"
 )
 ```

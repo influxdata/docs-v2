@@ -18,9 +18,11 @@ influx pkg stack [command]
 ```
 
 ## Subcommands
-| Subcommand                                         | Description        |
-|:-------                                            |:-----------        |
-| [init](/v2.0/reference/cli/influx/pkg/stack/init/) | Initialize a stack |
+| Subcommand                                             | Description        |
+|:-------                                                |:-----------        |
+| [init](/v2.0/reference/cli/influx/pkg/stack/init/)     | Initialize a stack |
+| [list](/v2.0/reference/cli/influx/pkg/stack/list/)     | List stacks        |
+| [remove](/v2.0/reference/cli/influx/pkg/stack/remove/) | Remove a stack     |
 
 ## Flags
 | Flag           | Description                  |

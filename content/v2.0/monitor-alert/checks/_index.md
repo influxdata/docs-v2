@@ -17,3 +17,7 @@ Checks in InfluxDB query data and apply a status or level to each data point bas
 Learn how to create and manage checks:
 
 {{< children >}}
+
+{{% cloud %}}
+**Known issue**: Currently in {{< cloud-name >}}, checks created before a [member is added to an organization](/v2.0/account-management/multi-member) are not visible to that member.
+{{% /cloud %}}
