@@ -36,7 +36,7 @@ dashboards, tasks, and other operations.
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
 - [Use SQL results to populate dashboard variables](#use-sql-results-to-populate-dashboard-variables)
-- [Use secrets to populate connection credentials](#use-secrets-to-populate-connection-credentials)
+- [Use secrets to store SQL database credentials](#use-secrets-to-store-sql-database-credentials)
 - [Sample sensor data](#sample-sensor-data)
 
 If you're just getting started with Flux queries, check out the following:
@@ -155,13 +155,11 @@ Use the variable to manipulate queries in your dashboards.
 
 ---
 
-## Use secrets to populate connection credentials
+## Use secrets to store SQL database credentials
 If your SQL database requires authentication, use [InfluxDB secrets](/v2.0/security/secrets/)
 to store and populate connection credentials.
 By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
-For added security, [Vault](https://www.vaultproject.io/).
-
-_For information about the **InfluxDB Vault integration**, see [Store secrets in Vault](/v2.0/security/secrets/use-vault/)._
+For added security, [store secrets in Vault](/v2.0/security/secrets/use-vault/).
 
 ### Store your database credentials as secrets
 Use the [InfluxDB API](/v2.0/reference/api/) or the [`influx` CLI](/v2.0/reference/cli/influx/secret/)
@@ -184,9 +182,10 @@ curl -X PATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
 }'
 ```
 
-_**Helpful links**_  
-[View your organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)  
-[View your authentication token](/v2.0/security/tokens/view-tokens/)
+**To store secrets, you need:**
+
+- [your organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)  
+- [your authentication token](/v2.0/security/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh
@@ -200,8 +199,12 @@ influx secret update -k POSTGRES_PASS
 **When prompted, enter your secret value.**
 
 {{% warn %}}
-You can provide the secret value with the `-v`, `--value` flag, but the plain text
-secret may appear in your shell history.
+You can provide the secret value with the `-v`, `--value` flag, but the **plain text
+secret may appear in your shell history**.
+
+```sh
+influx secret update -k <secret-key> -v <secret-value>
+```
 {{% /warn %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
