@@ -16,6 +16,8 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
+  - /v2.0/reference/flux/stdlib/date/truncate/
   - /v2.0/reference/flux/stdlib/experimental/addduration/
   - /v2.0/reference/flux/stdlib/experimental/subduration/
 ---
@@ -26,12 +28,20 @@ Use Flux to process and manipulate timestamps to suit your needs.
 - [Convert timestamp format](#convert-timestamp-format)
 - [Time-related Flux functions](#time-related-flux-functions)
 
+---
+
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
+---
+
 ## Convert timestamp format
+
+- [Convert unix nanosecond timestamp to RFC3339](#convert-unix-nanosecond-timestamp-to-rfc3339)
+- [Convert RFC3339 to nanosecond unix timestamp](#convert-rfc3339-to-nanosecond-unix-timestamp)
+- [Calculate the duration between two timestamps](#calculate-the-duration-between-two-timestamps)
 
 ### Convert unix nanosecond timestamp to RFC3339
 Use the [`time()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
@@ -76,6 +86,12 @@ to convert the duration to a string.
 
 ## Time-related Flux functions
 
+- [Retrieve the current UTC time](#retrieve-the-current-utc-time)
+- [Retrieve the current system time](#retrieve-the-current-system-time)
+- [Normalize irregular timestamps](#normalize-irregular-timestamps)
+- [Add a duration to a timestamp](#add-a-duration-to-a-timestamp)
+- [Subtract a duration from a timestamp](#subtract-a-duration-from-a-timestamp)
+
 ### Retrieve the current UTC time
 Use the [`now()` function](/v2.0/reference/flux/stdlib/built-in/misc/now/) to
 return the current UTC time in RFC3339 format.
@@ -103,6 +119,43 @@ system.time()
 `system.time()` returns the time it is executed, so each instance of `system.time()`
 in a Flux script returns a unique value.
 {{% /note %}}
+
+### Normalize irregular timestamps
+To normalize irregular timestamps, truncate all `_time` values to a specified unit
+with the [`truncateTimeColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/).
+This is useful in [`join()`](/v2.0/reference/flux/stdlib/built-in/transformations/join/)
+and [`pivot()`](/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+operations where points should align by time, but timestamps vary slightly.
+
+```js
+data
+  |> truncateTimeColumn(unit: 1m)
+```
+
+{{< flex >}}
+{{% flex-content %}}
+**Input:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:49Z | 2.0    |
+| 2020-01-01T00:01:01Z | 1.9    |
+| 2020-01-01T00:03:22Z | 1.8    |
+| 2020-01-01T00:04:04Z | 1.9    |
+| 2020-01-01T00:05:38Z | 2.1    |
+{{% /flex-content %}}
+{{% flex-content %}}
+**Output:**
+
+| _time                | _value |
+|:-----                | ------:|
+| 2020-01-01T00:00:00Z | 2.0    |
+| 2020-01-01T00:01:00Z | 1.9    |
+| 2020-01-01T00:03:00Z | 1.8    |
+| 2020-01-01T00:04:00Z | 1.9    |
+| 2020-01-01T00:05:00Z | 2.1    |
+{{% /flex-content %}}
+{{< /flex >}}
 
 ### Add a duration to a timestamp
 The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/addduration/)
