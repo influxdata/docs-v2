@@ -37,10 +37,7 @@ to(
 )
 ```
 
-{{% note %}}
-
 ### Output data requirements
-
 The `to()` function converts output data into line protocol and writes it to InfluxDB.
 Line protocol requires each record to have a timestamp, a measurement, a field, and a value.
 All output data must include the following columns:
@@ -49,6 +46,10 @@ All output data must include the following columns:
 - `_measurement`
 - `_field`
 - `_value`
+
+{{% note %}}
+The `to()` function ignores rows with a null `_time` value and does not write
+them to InfluxDB.
 {{% /note %}}
 
 ## Parameters

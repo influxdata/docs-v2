@@ -52,3 +52,26 @@ _**Data type:** String_
 The name of the Cloud Bigtable table to retrieve data from.
 
 _**Data type:** String_
+
+## Examples
+
+{{% note %}}
+The example below uses [InfluxDB secrets](/v2.0/security/secrets/) to populate
+sensitive connection credentials.
+{{% /note %}}
+
+```js
+import "experimental/bigtable"
+import "influxdata/influxdb/secrets"
+
+bigtable_token = secrets.get(key: "BIGTABLE_TOKEN")
+bigtable_project = secrets.get(key: "BIGTABLE_PROJECT_ID")
+bigtable_instance = secrets.get(key: "BIGTABLE_INSTANCE_ID")
+
+bigtable.from(
+  token: bigtable_token,
+  project: bigtable_project,
+  instance: bigtable_instance,
+  table: "example-table"
+)
+```

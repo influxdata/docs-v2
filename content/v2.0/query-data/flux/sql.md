@@ -36,6 +36,7 @@ dashboards, tasks, and other operations.
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
 - [Use SQL results to populate dashboard variables](#use-sql-results-to-populate-dashboard-variables)
+- [Use secrets to store SQL database credentials](#use-secrets-to-store-sql-database-credentials)
 - [Sample sensor data](#sample-sensor-data)
 
 If you're just getting started with Flux queries, check out the following:
@@ -151,6 +152,81 @@ sql.from(
 Use the variable to manipulate queries in your dashboards.
 
 {{< img-hd src="/img/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
+
+---
+
+## Use secrets to store SQL database credentials
+If your SQL database requires authentication, use [InfluxDB secrets](/v2.0/security/secrets/)
+to store and populate connection credentials.
+By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
+For added security, [store secrets in Vault](/v2.0/security/secrets/use-vault/).
+
+### Store your database credentials as secrets
+Use the [InfluxDB API](/v2.0/reference/api/) or the [`influx` CLI](/v2.0/reference/cli/influx/secret/)
+to store your database credentials as secrets.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxDB API](#)
+[influx CLI](#)
+{{% /tabs %}}
+{{% tab-content %}}
+```sh
+curl -X PATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
+  -H 'Authorization: Token YOURAUTHTOKEN' \
+  -H 'Content-type: application/json' \
+  -d '{
+  "POSTGRES_HOST": "http://example.com",
+  "POSTGRES_USER": "example-username",
+  "POSTGRES_PASS": "example-password"
+}'
+```
+
+**To store secrets, you need:**
+
+- [your organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)  
+- [your authentication token](/v2.0/security/tokens/view-tokens/)
+{{% /tab-content %}}
+{{% tab-content %}}
+```sh
+# Syntax
+influx secret update -k <secret-key>
+
+# Example
+influx secret update -k POSTGRES_PASS
+```
+
+**When prompted, enter your secret value.**
+
+{{% warn %}}
+You can provide the secret value with the `-v`, `--value` flag, but the **plain text
+secret may appear in your shell history**.
+
+```sh
+influx secret update -k <secret-key> -v <secret-value>
+```
+{{% /warn %}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+### Use secrets in your query
+Import the `influxdata/influxdb/secrets` package and use [string interpolation](/v2.0/reference/flux/language/string-interpolation/)
+to populate connection credentials with stored secrets in your Flux query.
+
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+POSTGRES_HOST = secrets.get(key: "POSTGRES_HOST")
+POSTGRES_USER = secrets.get(key: "POSTGRES_USER")
+POSTGRES_PASS = secrets.get(key: "POSTGRES_PASS")
+
+sql.from(
+  driverName: "postgres",
+  dataSourceName: "postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@${POSTGRES_HOST}",
+  query: "SELECT * FROM sensors"
+)
+```
 
 ---
 

@@ -23,7 +23,7 @@ Reference each variable using dot-notation (e.g. `v.variableName`).
 
 ```js
 from(bucket: v.bucket)
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStart)
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._measurement == v.measurement and r._field == v.field)
   |> aggregateWindow(every: v.windowPeriod, fn: mean)
 ```
@@ -34,6 +34,10 @@ in the **Variables** tab next to the Functions tab.
 {{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
 
 Click a variable name to add it to your query and select a value from the **Value** dropdown.
+
+## Link to dashboards with variables defined in the URL
+
+When you apply a variable to your dashboard, `&vars[variable_name]=value` is appended to the URL so you can share the link with the variables included.
 
 ## Predefined dashboard variables
 The InfluxDB user interface (UI) provides the following predefined dashboard variables:

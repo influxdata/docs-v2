@@ -64,13 +64,22 @@ _**Data type:** String_
 
 ## Examples
 
+{{% note %}}
+The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
+sensitive connection credentials.
+{{% /note %}}
+
 ### Query a MySQL database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "MYSQL_USER")
+password = secrets.get(key: "MYSQL_PASS")
 
 sql.from(
  driverName: "mysql",
- dataSourceName: "user:password@tcp(localhost:3306)/db",
+ dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
  query:"SELECT * FROM ExampleTable"
 )
 ```
@@ -78,10 +87,14 @@ sql.from(
 ### Query a Postgres database
 ```js
 import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "POSTGRES_USER")
+password = secrets.get(key: "POSTGRES_PASS")
 
 sql.from(
   driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
+  dataSourceName: "postgresql://${username}:${password}@localhost",
   query:"SELECT * FROM ExampleTable"
 )
 ```
