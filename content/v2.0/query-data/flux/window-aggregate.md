@@ -112,6 +112,11 @@ dataSet
   |> window(every: 1m)
 ```
 
+{{% note %}}
+The `every` parameter supports all [duration values](/v2.0/reference/flux/language/types/#duration-types),
+including calendar month (`1mo`) and year (`1y`).
+{{% /note %}}
+
 Each window of time is output in its own table containing all records that fall within the window.
 
 {{% truncate %}}

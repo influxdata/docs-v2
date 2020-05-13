@@ -11,8 +11,8 @@ menu:
 weight: 501
 related:
   - /v2.0/query-data/flux/window-aggregate/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations – InfluxQL – Aggregate functions
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause – InfluxQL – GROUP BY time()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations, InfluxQL – Aggregate functions
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function
@@ -48,6 +48,12 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 ### every
 
 The duration of windows.
+
+{{% note %}}
+#### Calendar months and years
+`every` supports all [duration values](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`) and years (`1y`)**.
+{{% /note %}}
 
 _**Data type:** Duration_
 
@@ -92,11 +98,11 @@ _**Data type:** Boolean_
 
 ## Examples
 
-###### Using an aggregate function with default parameters
+##### Using an aggregate function with default parameters
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: 1h)
+  |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent")
@@ -105,14 +111,14 @@ from(bucket: "example-bucket")
     fn: mean
   )
 ```
-###### Specify parameters of the aggregate function
+##### Specify parameters of the aggregate function
 To use functions that don't provide defaults for required parameters with `aggregateWindow()`,
 define an anonymous function with `column` and `tables` parameters that pipe-forward
 tables into the aggregate or selector function with all required parameters defined:
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: 1h)
+  |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent")
@@ -121,6 +127,16 @@ from(bucket: "example-bucket")
     every: 5m,
     fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
   )
+```
+
+##### Window and aggregate by calendar month
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1y)
+  |> filter(fn: (r) =>
+    r._measurement == "mem" and
+    r._field == "used_percent")
+  |> aggregateWindow(every: 1mo, fn: mean)
 ```
 
 ## Function definition
