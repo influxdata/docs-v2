@@ -932,7 +932,7 @@ input:
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
       Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     introduced: 0.10.3
-    tags: [linux, macos, windows, messaging]
+    tags: [linux, macos, windows, messaging, IoT]
 
   - name: Multifile
     id: multifile
@@ -1864,7 +1864,7 @@ output:
       The MQTT Producer output plugin writes to the MQTT server using
       [supported output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output/).
     introduced: 0.2.0
-    tags: [linux, macos, windows, messaging]
+    tags: [linux, macos, windows, messaging, IoT]
 
   - name: NATS Output
     id: nats
