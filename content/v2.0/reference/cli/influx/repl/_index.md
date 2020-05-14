@@ -1,7 +1,7 @@
 ---
 title: influx repl
 description: >
-  The 'influx repl' command opens and interactive read-eval-print-loop (REPL)
+  The 'influx repl' command opens an interactive read-eval-print-loop (REPL)
   from which you can run Flux commands.
 menu:
   v2_0_ref:
@@ -11,7 +11,7 @@ weight: 101
 v2.0/tags: [query]
 ---
 
-The `influx repl` command opens and interactive read-eval-print-loop (REPL)
+The `influx repl` command opens an interactive read-eval-print-loop (REPL)
 from which you can run Flux commands.
 
 ## Usage
