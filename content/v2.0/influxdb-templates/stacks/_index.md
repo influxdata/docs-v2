@@ -5,7 +5,7 @@ description: >
 menu:
   v2_0:
     parent: InfluxDB templates
-    weight: 105
+weight: 105
 related:
   - /v2.0/reference/cli/influx/pkg/stack/
 ---
@@ -18,10 +18,6 @@ related:
   - Easily distributing stateful InfluxDB templates
 
 
-- Create an InfluxDB Stack
-  - `influx pkg stack init ...`
-- Update an InfluxDB Stack
-- View installed InfluxDB stacks and their associated resources
-  - `influx pkg stack list`
-- Remove an InfluxDB Stack and its associated resources
-  - `influx pkg stack remove`
+## Manage InfluxDB Stacks
+
+{{< children show="pages" readmore=true >}}
