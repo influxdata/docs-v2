@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Cloud demo data
 description: >
-  Use **InfluxDB Cloud** demo data buckets for quick access to different types of sample data.
+  Use **InfluxDB Cloud** demo data buckets for quick, **free** access to different types of sample data.
 menu:
   v2_0:
     name: Demo data
@@ -16,8 +16,14 @@ types of demo data that let you explore and familiarize yourself with InfluxDB C
 
 - [Add a demo data bucket](#add-a-demo-data-bucket)
 - [Explore demo data](#explore-demo-data)
-- [Visualize demo data](#visualize-demo-data)
-- [Demo data pricing and restrictions](#demo-data-pricing-and-restrictions)
+- [View demo data dashboards](#view-demo-data-dashboards)
+
+{{% note %}}
+#### Free to use and read-only
+- InfluxDB Cloud demo data buckets are **free to use** and are **_not_ subject to
+  [Free Plan](/v2.0/account-management/pricing-plans/#free-plan) rate limits**.
+- Demo data buckets are **read-only**. You cannot write data into demo data buckets.
+{{% /note %}}
 
 ## Demo data sets
 Choose from the following demo data sets:
@@ -25,14 +31,13 @@ Choose from the following demo data sets:
 - **Website Monitoring**  
   Explore, visualize, and monitor HTTP response metrics from InfluxData websites.
 
-_More demo data options coming soon._
 
 ## Add a demo data bucket
 1.  In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
-2.  Click **{{< icon "plus" >}} Add Demo Data** and select the demo data bucket to add.
+2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the demo data bucket to add.
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Explore demo data
@@ -43,10 +48,8 @@ In the navigation menu on the left, click **Explore (Data Explorer)**.
 
 {{< nav-icon "explore" >}}
 
-## Visualize demo data
-When adding a demo data bucket, InfluxDB Cloud provides a pre-built dashboard for the demo data.
-
-**To view a demo data dashboard:**
+## View demo data dashboards
+After adding a demo data bucket, view the pre-built dashboard specific to the demo data set:
 
 1. In the navigation menu on the left, click **Boards (Dashboards)**.
 
@@ -54,7 +57,7 @@ When adding a demo data bucket, InfluxDB Cloud provides a pre-built dashboard fo
 
 2. Click the name of the dashboard that corresponds to your demo data bucket.
 
-## Demo data pricing and restrictions
-- InfluxDB Cloud demo data buckets are **free to use** and are **_not_ subject to
-  [Free Plan](/v2.0/account-management/pricing-plans/#free-plan) rate limits**.
-- Demo data buckets are **read-only**. You cannot write data into demo data buckets.
+{{% note %}}
+#### Other sample data sets
+See [Sample data](/v2.0/write-data/sample-data) for more sample InfluxDB data sets.
+{{% /note %}}

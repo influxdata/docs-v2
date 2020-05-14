@@ -460,7 +460,7 @@ see [Write data to InfluxDB](/v2.0/write-data/).
 
 #### Demo data
 If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/write-data/sample-data/demo-data/)
-for quick, _free_ access to time series data.
+for quick, **free** access to time series data.
 
 ### Query data
 
