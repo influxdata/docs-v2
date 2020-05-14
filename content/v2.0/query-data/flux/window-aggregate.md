@@ -113,8 +113,8 @@ dataSet
 ```
 
 {{% note %}}
-The `every` parameter supports all [duration values](/v2.0/reference/flux/language/types/#duration-types),
-including calendar month (`1mo`) and year (`1y`).
+The `every` parameter supports all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 Each window of time is output in its own table containing all records that fall within the window.

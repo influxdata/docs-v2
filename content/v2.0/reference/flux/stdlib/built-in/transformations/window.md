@@ -43,8 +43,8 @@ window(
 
 {{% note %}}
 #### Calendar months and years
-`every`, `period`, and `offset` support all [duration values](/v2.0/reference/flux/language/types/#duration-types),
-including **calendar months (`1mo`) and years (`1y`)**.
+`every`, `period`, and `offset` support all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 ### every

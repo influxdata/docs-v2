@@ -12,7 +12,7 @@ weight: 501
 related:
   - /v2.0/query-data/flux/window-aggregate/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations, InfluxQL – Aggregate functions
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - https://docs.influxdata.com/influxdb/latest/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function
@@ -51,8 +51,8 @@ The duration of windows.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [duration values](/v2.0/reference/flux/language/types/#duration-types),
-including **calendar months (`1mo`) and years (`1y`)**.
+`every` supports all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 _**Data type:** Duration_
@@ -97,15 +97,23 @@ Defaults to `true`.
 _**Data type:** Boolean_
 
 ## Examples
-
-##### Using an aggregate function with default parameters
+The examples below use a `data` variable to represent a filtered data set.
 
 ```js
-from(bucket: "example-bucket")
+data = from(bucket: "example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
     r._field == "used_percent")
+```
+
+##### Use an aggregate function with default parameters
+The following example uses the default parameters of the
+[`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
+to aggregate time-based windows:
+
+```js
+data
   |> aggregateWindow(
     every: 5m,
     fn: mean
@@ -113,15 +121,11 @@ from(bucket: "example-bucket")
 ```
 ##### Specify parameters of the aggregate function
 To use functions that don't provide defaults for required parameters with `aggregateWindow()`,
-define an anonymous function with `column` and `tables` parameters that pipe-forward
+define an anonymous function with `column` and `tables` parameters that pipes-forward
 tables into the aggregate or selector function with all required parameters defined:
 
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent")
+data
   |> aggregateWindow(
     column: "_value",
     every: 5m,
@@ -131,11 +135,7 @@ from(bucket: "example-bucket")
 
 ##### Window and aggregate by calendar month
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -1y)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent")
+data
   |> aggregateWindow(every: 1mo, fn: mean)
 ```
 

@@ -61,8 +61,8 @@ Use the `every` parameter to define a duration of each window.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [duration values](/v2.0/reference/flux/language/types/#duration-types),
-including **calendar months (`1mo`) and years (`1y`)**.
+`every` supports all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 For this example, window data in five minute intervals (`5m`).
