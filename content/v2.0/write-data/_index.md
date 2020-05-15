@@ -3,7 +3,7 @@ title: Write data to InfluxDB
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB using line protocol, Telegraf, data scrapers,
-  the InfluxDB v2 API, `influx` CLI, the InfluxDB UI, and client libaries.
+  the InfluxDB v2 API, `influx` CLI, the InfluxDB UI, and client libraries.
 weight: 2
 menu:
   v2_0:
@@ -19,13 +19,14 @@ related:
 
 Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/syntax/line-protocol),
 Telegraf, data scrapers, the InfluxDB v2 API, `influx` command line interface (CLI),
-the InfluxDB user interface (UI), and client libraries.
+the InfluxDB user interface (UI), client libraries, and third-party technologies.
 
 - [What you'll need](#what-you-ll-need)
 - [Ways to write data into InfluxDB](#ways-to-write-data-into-influxdb)
   - [User Interface](#user-interface)
   - [influx CLI](#influx-cli)
   - [InfluxDB API](#influxdb-api)
+  - [Third-party technologies (with native line protocol support)](#third-party-technologies)
   - [Other ways to write data](#other-ways-to-write-data)
 - [Next steps](#next-steps)
 
@@ -57,6 +58,7 @@ mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
 #### Timestamp precision
+
 When writing data to InfluxDB, we [recommend including a timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) with each point.
 If a data point does not include a timestamp when it is received by the database,
 InfluxDB uses the current system time (UTC) of its host machine.
@@ -233,6 +235,42 @@ mem,host=host2 used_percent=27.18294630 1556896336
 
 _For information about **InfluxDB API response codes**, see
 [InfluxDB API Write documentation](/v2.0/api/#operation/PostWrite)._
+
+### Third-party technologies
+
+Configure the following third-party technologies to write data to InfluxDB (**no download or install required**):
+
+- (Write metrics only) [Vector 0.9 or later](#configure-vector)
+
+- [Apache NiFi 1.8 or later](#configure-apache-nifi)
+
+- [OpenHAB 3.0 or later](#configure-openhab)
+
+- [Apache JMeter 5.2 or later](#configure-apache-jmeter)
+
+- [FluentD 1.x or later](#configure-fluentd)
+
+#### Configure Vector
+
+1. On the Vector.dev docs site, see the [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/) page.
+2. Under **Configuration**, click **v2** to view configuration settings.
+3. Scroll down to [How It Works](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works) for more detail.
+
+#### Configure Apache NiFi
+
+See the _[InfluxDB Processors for Apache NiFi Readme](https://github.com/influxdata/nifi-influxdb-bundle#influxdb-processors-for-apache-nifi)_ for details.
+
+#### Configure OpenHAB
+
+See the _[InfluxDB Persistence Readme](https://github.com/openhab/openhab-addons/tree/master/bundles/org.openhab.persistence.influxdb)_ for details.
+
+#### Configure Apache JMeter
+
+See the _[Apache JMeter User's Manual - JMeter configuration](https://jmeter.apache.org/usermanual/realtime-results.html#jmeter-configuration)_ for details.
+
+#### Configure FluentD 
+
+See the _[influxdb-plugin-fluent Readme](https://github.com/influxdata/influxdb-plugin-fluent)_ for details.
 
 ## Other ways to write data
 
