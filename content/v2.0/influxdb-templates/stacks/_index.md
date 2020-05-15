@@ -10,14 +10,15 @@ related:
   - /v2.0/reference/cli/influx/pkg/stack/
 ---
 
-- What is an InfluxDB stack?
-- Why are they important?
-  - Gracefully add and remove templated resources from InfluxDB.
-- What problems do they solve?
-  - Maintaining an InfluxDB Template over time
-  - Easily distributing stateful InfluxDB templates
+**InfluxDB stacks** are **stateful [InfluxDB templates](/v2.0/influxdb-templates)**
+that let you:
 
+- Gracefully add, update, and remove templated resources over time.
+- Avoid duplicating resources when applying the same or similar templates more than once.
+- Easily and gracefully apply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
 
 ## Manage InfluxDB Stacks
 
-{{< children show="pages" readmore=true >}}
+{{< children type="anchored-list" >}}
+
+{{< children readmore=true >}}

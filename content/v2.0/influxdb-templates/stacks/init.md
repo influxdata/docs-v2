@@ -13,7 +13,12 @@ related:
   - /v2.0/reference/cli/influx/pkg/stack/init/
 list_code_example: |
   ```sh
-  influx pkg stack init ...
+  influx pkg stack init \
+    -o example-org \
+    -n example-stack \
+    -d "InfluxDB stack for monitoring some awesome stuff" \
+    -u https://example.com/template-1.yml \
+    -u https://example.com/template-2.yml
   ```
 ---
 
@@ -34,12 +39,13 @@ influx pkg stack init \
   -o <org-name> \
   -n <stack-name> \
   -d <stack-description \
-  -u <list-of-package-urls>
+  -u <package-url>
 
 # Example
 influx pkg stack init \
   -o example-org \
   -n example-stack \
   -d "InfluxDB stack for monitoring some awesome stuff" \
-  -u https://example.com/template-1.yml,https://example.com/template-2.yml
+  -u https://example.com/template-1.yml \
+  -u https://example.com/template-2.yml
 ```

@@ -13,13 +13,29 @@ related:
   - /v2.0/reference/cli/influx/pkg/stack/remove/
 list_code_example: |
   ```sh
-  influx pkg stack remove ...
+  influx pkg stack remove \
+    -o example-org \
+    --stack-id=12ab34cd56ef \
+    --stack-id=78gh910i11jk
   ```
 ---
 
 Use the [`influx pkg stack remove` command](/v2.0/reference/cli/influx/pkg/stack/remove/)
 to remove an InfluxDB Stack and all its associated resources.
 
+**Provide the following:**
+
+- Organization name or ID
+- Stack ID
+
+<!-- -->
 ```sh
-influx pkg stack remove ...
+# Syntax
+influx pkg stack remove -o <org-name> --stack-id=<stack-id>
+
+# Example
+influx pkg stack remove \
+  -o example-org \
+  --stack-id=12ab34cd56ef \
+  --stack-id=78gh910i11jk
 ```
