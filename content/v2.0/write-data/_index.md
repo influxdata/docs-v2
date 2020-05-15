@@ -238,7 +238,9 @@ _For information about **InfluxDB API response codes**, see
 
 ### Third-party technologies
 
-Configure the following third-party technologies to write data to InfluxDB (**no download or install required**):
+A number of third-party technologies can be configured to send line protocol directly to InfluxDB.
+
+If you're using any of the following technologies, check out the handy links below to configure these technologies to write data to InfluxDB (**no additional software to download or install**):
 
 - (Write metrics only) [Vector 0.9 or later](#configure-vector)
 
