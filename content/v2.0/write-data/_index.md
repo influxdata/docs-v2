@@ -3,7 +3,7 @@ title: Write data to InfluxDB
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB using line protocol, Telegraf, data scrapers,
-  the InfluxDB v2 API, `influx` CLI, the InfluxDB UI, and client libraries.
+  the InfluxDB v2 API, `influx` CLI, the InfluxDB UI, client libraries, and third-party technologies.
 weight: 2
 menu:
   v2_0:
