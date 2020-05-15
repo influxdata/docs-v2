@@ -66,11 +66,7 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
 3. (If you subscribed through InfluxData) Choose your cloud provider.
 4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
 
-  - **Amazon Web Services (AWS)**
-      - **US West (Oregon)**
-      - **EU Frankfurt**
-  - **Google Cloud Platform (GCP)**
-      - **Iowa**
+    {{< cloud_regions type="list" >}}
 
     _To suggest regions to add, click **Let us know** under Regions._
 5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
