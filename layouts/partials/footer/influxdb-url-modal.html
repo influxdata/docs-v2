@@ -18,7 +18,7 @@
                     <ul>
                     {{ range .regions }}
                       <li>
-                        <label for="{{ anchorize .name }}">
+                        <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
                           <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
                           <span class="radio"></span>
                           {{ .name }}

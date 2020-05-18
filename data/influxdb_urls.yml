@@ -21,3 +21,9 @@ cloud:
       regions:
         - name: US Central (Iowa)
           url: https://us-central1-1.gcp.cloud2.influxdata.com
+    - name: Microsoft Azure
+      short_name: Azure
+      regions:
+        - name: West Europe
+          url: https://westeurope-1.azure.cloud2.influxdata.com
+          status: beta
