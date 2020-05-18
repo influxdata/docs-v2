@@ -39,6 +39,7 @@ The following drivers are available:
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
+- sqlserver, mssql
 
 ### dataSourceName
 The data source name (DSN) or connection string used to connect to the SQL database.
@@ -61,6 +62,12 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=ro
+
+# MS SQL Server Driver DSNs
+sqlserver://username:password@localhost:1234?database=examplebdb
+server=localhost;user id=username;database=examplebdb;
+server=localhost;user id=username;database=examplebdb;azure auth=ENV
+server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;azure client id=58879ce8;azure client secret=0123456789
 ```
 
 ### query
@@ -137,5 +144,20 @@ sql.from(
   driverName: "sqlite3",
   dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query: "SELECT * FROM example_table"
+)
+```
+
+### Query a SQL Server database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SQLSERVER_USER")
+password = secrets.get(key: "SQLSERVER_PASS")
+
+sql.from(
+  driverName: "sqlserver",
+  dataSourceName: "sqlserver://${username}:${password}@localhost:1234?database=examplebdb",
+  query: "GO SELECT * FROM Example.Table"
 )
 ```

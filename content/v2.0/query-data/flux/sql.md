@@ -4,7 +4,8 @@ seotitle: Query SQL data sources with InfluxDB
 list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
-  Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake, and SQLite.
+  Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
+  SQLite, and MS SQL Server.
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
@@ -30,7 +31,8 @@ list_code_example: |
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
-[Snowflake](https://www.snowflake.com/), and [SQLite](https://www.sqlite.org/index.html),
+[Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
+and [MS SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
 and use the results with InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
@@ -57,6 +59,7 @@ To query a SQL data source:
 [MySQL](#)
 [Snowflake](#)
 [SQLite](#)
+[SQL Server](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -107,6 +110,16 @@ sql.from(
   driverName: "sqlite3",
   dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query: "SELECT * FROM example_table"
+)
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+sql.from(
+  driverName: "sqlserver",
+  dataSourceName: "sqlserver://user:password@localhost:1234?database=examplebdb",
+  query: "GO SELECT * FROM Example.Table"
 )
 ```
 {{% /code-tab-content %}}
