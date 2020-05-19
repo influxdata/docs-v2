@@ -14,7 +14,3 @@ Collaborate with others using these features.
 By default, each member has full permissions on resources in your organization.
 
 {{< children >}}
-
-{{% cloud %}}
-**Known issue**: Currently, checks created before a member is added are not visible to that member.
-{{% /cloud %}}
