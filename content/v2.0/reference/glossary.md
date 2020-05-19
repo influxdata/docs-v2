@@ -90,6 +90,8 @@ Related entries: [implicit block](#implicit-block), [explicit block](#explicit-b
 
 A data type with two possible values: true or false.
 By convention, you can express `true` as the integer `1` and false as the integer `0` (zero).
+In [annotated CSV](/v2.0/reference/syntax/annotated-csv/), columns that contain
+boolean values are annotated with the `boolean` datatype.
 
 ### bucket
 
@@ -337,8 +339,10 @@ Related entries: [block](#block)
 
 ### float
 
-A float represents real numbers and is written with a decimal point dividing the integer and fractional parts.
-For example, 1.0, 3.14.
+A real number written with a decimal point dividing the integer and fractional parts (`1.0`, `3.14`, `-20.1`).
+InfluxDB supports 64-bit float values.
+In [annotated CSV](/v2.0/reference/syntax/annotated-csv/), columns that contain
+float values are annotated with the `double` datatype.
 
 ### flush interval
 
@@ -466,9 +470,14 @@ Related entries: [aggregator plugin](#aggregator-plugin), [collection interval](
 An entity comprising data on a server (or virtual server in cloud computing).
 <!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
 
-### int (data type)
+### integer
 
-A data type that represents an integer, a whole number that's positive, negative, or zero.
+A whole number that is positive, negative, or zero (`0`, `-5`, `143`).
+InfluxDB supports 64-bit integers (minimum: `-9223372036854775808`, maximum: `9223372036854775807`).
+In [annotated CSV](/v2.0/reference/syntax/annotated-csv/), columns that contain
+integers are annotated with the `long` datatype.
+
+Related entries: [unsigned integer](#unsigned-integer)
 
 ## J
 
@@ -945,6 +954,8 @@ A stream includes a series of tables over a sequence of time intervals.
 ### string
 
 A data type used to represent text.
+In [annotated CSV](/v2.0/reference/syntax/annotated-csv/), columns that contain
+string values are annotated with the `string` datatype.
 
 ## T
 
@@ -1093,6 +1104,14 @@ InfluxDB supports the following unix timestamp precisions:
 <p style="font-size:.9rem;margin-top:-2rem"><em>The examples above represent <strong>2020-01-01T00:00:00Z UTC</strong>.</em></p>
 
 Related entries: [timestamp](#timestamp), [RFC3339 timestamp](#rfc3339-timestamp)
+
+### unsigned integer
+A whole number that is positive or zero (`0`, `143`). Also known as a "uinteger."
+InfluxDB supports 64-bit unsigned integers (minimum: `0`, maximum: `18446744073709551615`).
+In [annotated CSV](/v2.0/reference/syntax/annotated-csv/), columns that contain
+integers are annotated with the `unisgnedLong` datatype.
+
+Related entries: [integer](#integer)
 
 ### user
 
