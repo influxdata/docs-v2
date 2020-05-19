@@ -26,10 +26,6 @@ To view checks, click **Alerts** in navigation menu on the left.
 ## View a list of all checks
 The **Checks** section of the Alerts landing page displays all existing checks.
 
-{{% cloud %}}
-**Known issue**: Currently in {{< cloud-name >}}, checks created before a [member is added to an organization](/v2.0/account-management/multi-member) are not visible to that member.
-{{% /cloud %}}
-
 ## View check details
 Click the name of the check you want to view.
 The check builder appears.
