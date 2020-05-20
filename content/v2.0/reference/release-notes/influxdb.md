@@ -8,6 +8,18 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.11 [2020-05-??]
+
+### Features
+- Integrate UTC dropdown when making custom time range query
+- Allow for min OR max y-axis visualization settings rather than min AND max
+- Add CSV to line protocol conversion library
+
+### Bug Fixes
+- Fixed bug that wasn't persisting `timeFormat` for Graph + Single Stat selections.
+- Authorizer now exposes full permission set
+- Fixed issue that was causing variable selections to hydrate all variable values.
+
 ## v2.0.0-beta.10 [2020-05-07]
 
 ### Features
