@@ -38,9 +38,14 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 1. Choose one of the following:
     - **Subscribe through InfluxData**  
       To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData,
-      go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials,
-      and then click **Start your Free Plan now**.
-      When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/account-management/billing/#upgrade-to-usage-based-plan).
+      go to [InfluxDB Cloud 2.0]({{< cloud-link >}}).
+
+        - To use social sign-on, click **Continue with Google**. Note that Google social sign-on does not support email aliases.
+
+        - Sign up with email by entering your name, email address, and password, then click **Create Account**.
+
+      If you originally signed up with email but want to enable social sign-on, you can do so by logging in through Google as long as you use the same email address.  
+
     - **Subscribe through a cloud provider**  
       To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
       **Amazon Web Services (AWS)** or **Google Cloud Platform (GCP)** account:
@@ -61,7 +66,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS or GCP Marketplaces.
         {{%/note%}}
 
-2. InfluxDB Cloud requires email verification to complete the sign up process.
+2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
    Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
 3. (If you subscribed through InfluxData) Choose your cloud provider.
 4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
