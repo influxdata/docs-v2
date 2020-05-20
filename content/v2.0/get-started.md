@@ -419,7 +419,10 @@ influx setup
    Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. (For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).)
+InfluxDB is now initialized with a primary user, organization, bucket, and authentication token.
+
+To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).) 
+
 You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
