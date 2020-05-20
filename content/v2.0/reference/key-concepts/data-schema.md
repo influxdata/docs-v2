@@ -1,7 +1,7 @@
 ---
 title: InfluxDB data schema
 description: >
-  InfluxDB uses a tabular data schema for displaying raw data in Data Explorer and for returning query results in annotative CSV syntax.
+  InfluxDB uses a tabular data schema for displaying raw data in Data Explorer and for returning query results in annotated CSV syntax.
 weight: 103
 menu:
   v2_0_ref:
