@@ -385,14 +385,13 @@ To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB 
 
 Use one of the following methods to provide your authentication token to the CLI:
 
-1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
-2. Set the `INFLUX_TOKEN` environment variable using your token.
+- Create a new InfluxDB connection configuration using the [`influx config create` command](/v2.0/reference/cli/influx/config/create/).
+- Pass your token to the `influx` CLI using the `-t` or `--token` flag.
+- Set the `INFLUX_TOKEN` environment variable using your token.
 
     ```bash
     export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
     ```
-3. Store your token in `~/.influxdbv2/credentials`.
-   _The content of the `credentials` file should be only your token._
 
 _See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
 retrieving authentication tokens._
@@ -421,7 +420,7 @@ influx setup
 
 InfluxDB is now initialized with a primary user, organization, bucket, and authentication token.
 
-To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).) 
+To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
 
 You are ready to [write or collect data](/v2.0/write-data).
 
