@@ -1,6 +1,5 @@
 ---
-title: Annotated CSV syntax
-list_title: Annotated CSV
+title: Annotated CSV
 description: >
   InfluxDB and Flux return query results in annotated CSV format.
   You can also read annotated CSV directly from Flux with the `csv.from()` function
@@ -9,10 +8,12 @@ weight: 103
 menu:
   v2_0_ref:
     parent: Syntax
-    name: Annotated CSV
 v2.0/tags: [csv, syntax]
 aliases:
   - /v2.0/reference/annotated-csv/
+related:
+  - /v2.0/reference/flux/stdlib/csv/from/
+  - /v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
