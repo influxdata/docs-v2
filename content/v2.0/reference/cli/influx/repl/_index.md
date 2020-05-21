@@ -25,6 +25,11 @@ Use **ctrl + d** to exit the REPL.
 
 To use the Flux REPL, you must first authenticate with a [token](/v2.0/security/tokens/view-tokens/).
 
+## Notes
+
+Variables in the Flux REPL are immutable.
+Once you assign a variable, it cannot be changed in the current session.
+
 ## Flags
 | Flag           | Description                 | Input type | {{< cli/mapped >}} |
 |:----           |:-----------                 |:----------:|:------------------ |
