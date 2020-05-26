@@ -1,6 +1,6 @@
 ---
 title: v1.fieldKeys() function
-description: The `v1.fieldKeys()` function returns a list of fields in a bucket.
+description: The `v1.fieldKeys()` function returns field keys in a bucket.
 menu:
   v2_0_ref:
     name: v1.fieldKeys
@@ -12,7 +12,7 @@ related:
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
 ---
 
-The `v1.fieldKeys()` function returns a list of fields in a bucket.
+The `v1.fieldKeys()` function returns field keys in a bucket.
 The return value is always a single table with a single column, `_value`.
 
 ```js
