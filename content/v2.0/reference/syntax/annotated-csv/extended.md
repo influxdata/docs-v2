@@ -75,8 +75,11 @@ The **column value** is the **tag value**.
 #### dateTime
 Indicates the column is the **timestamp**.
 `time` is as an alias for `dateTime`.
+If the [timestamp format](#supported-timestamp-formats) includes a time zone,
+the parsed timestamp respects the time zone.
 By default, all timestamps are UTC.
-Use the [`#timezone` annotation](#timezone) to adjust timestamps to a specific timezone.
+You can also use the [`#timezone` annotation](#timezone) to adjust timestamps to
+a specific time zone.
 
 {{% note %}}
 There can only be **one** `dateTime` column.
@@ -99,13 +102,17 @@ Append the timestamp format to the `dateTime` datatype with (`:`).
 | **RFC3339**      | RFC3339 timestamp | `2020-01-01T00:00:00Z`           |
 | **RFC3339Nano**  | RFC3339 timestamp | `2020-01-01T00:00:00.000000000Z` |
 | **number**       | Unix timestamp    | `1577836800000000000`            |
-| **2006-01-02**   | YYYY-MM-DD date   | `2020-01-01`                     |
 
 {{% note %}}
 If using the `number` timestamp format and timestamps are **not nanosecond Unix timestamps**,
 use the [`--precision` flag](/v2.0/reference/cli/influx/write/#flags) with the
 `influx write` command to specify the timestamp precision.
 {{% /note %}}
+
+##### Custom timestamp formats
+To specify a custom timestamp format, use timestamp formats as described in the
+[Go time package](https://golang.org/pkg/time).
+For example: `2020-01-01`.
 
 #### field
 Indicates the column is a **field** and auto-detects the field type.
@@ -119,6 +126,12 @@ The column is ignored and not written to InfluxDB.
 The column is a **field** of a specified type.
 The **column label** is the **field key**.
 The **column value** is the **field value**.
+
+- [string](#string)
+- [double](#double)
+- [long](#long)
+- [unsignedLong](#unsignedlong)
+- [boolean](#boolean)
 
 ##### string
 Column is a **[string](/v2.0/reference/glossary/#string) field**.
@@ -156,15 +169,81 @@ For example:
 
 {{% note %}}
 If your **float separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as column separator or delimitter.
+quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
 You can also [define a custom column separator](#define-custom-column-separator).
 {{% /note %}}
 
 ##### long
 Column is an **[integer](/v2.0/reference/glossary/#integer) field**.
+If column values contain separators such as periods (`.`) or commas (`,`), specify
+the following **integer separators**:
+
+- **fraction separator**: Separates the fraction from the whole number.
+  _**Integer values are truncated at the fraction separator when converted to line protocol.**_
+- **ignored separator**: Visually separates the whole number into groups but should
+  be ignored when parsing the integer value.
+
+Use the following syntax to specify **integer separators**:
+
+```sh
+# Syntax
+<fraction-separator><ignored-separator>
+
+# Example
+.,
+
+# With the integer separators above
+# 1,200,000.00 => 1200000i
+```
+
+Append **integer separators** to the `long` datatype annotation with a colon (`:`).
+For example:
+
+```
+#datatype "fieldName|long:.,"
+```
+
+{{% note %}}
+If your **integer separators** include a comma (`,`), wrap the column annotation in double
+quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+You can also [define a custom column separator](#define-custom-column-separator).
+{{% /note %}}
 
 ##### unsignedLong
-Column is an **[unsigned integer](/v2.0/reference/glossary/#unsigned-integer) field**.
+Column is an **[unsigned integer (uinteger)](/v2.0/reference/glossary/#unsigned-integer) field**.
+If column values contain separators such as periods (`.`) or commas (`,`), specify
+the following **uinteger separators**:
+
+- **fraction separator**: Separates the fraction from the whole number.
+  _**Uinteger values are truncated at the fraction separator when converted to line protocol.**_
+- **ignored separator**: Visually separates the whole number into groups but should
+  be ignored when parsing the uinteger value.
+
+Use the following syntax to specify **uinteger separators**:
+
+```sh
+# Syntax
+<fraction-separator><ignored-separator>
+
+# Example
+.,
+
+# With the uinteger separators above
+# 1,200,000.00 => 1200000u
+```
+
+Append **uinteger separators** to the `long` datatype annotation with a colon (`:`).
+For example:
+
+```
+#datatype "fieldName|usignedLong:.,"
+```
+
+{{% note %}}
+If your **uinteger separators** include a comma (`,`), wrap the column annotation in double
+quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+You can also [define a custom column separator](#define-custom-column-separator).
+{{% /note %}}
 
 ##### boolean
 Column is a **[boolean](/v2.0/reference/glossary/#boolean) field**.
@@ -176,10 +255,11 @@ specify the **boolean format** with the following syntax:
 <true-values>:<false-values>
 
 # Example
-y,Y:n,N
+y,Y,1:n,N,0
 
 # With the boolean format above
-# y => true, Y => true, n => false, N => false
+# y => true, Y => true, 1 => true
+# n => false, N => false, 0 => false
 ```
 
 Append the **boolean format** to the `boolean` datatype annotation with a colon (`:`).
