@@ -182,6 +182,13 @@ azure auth=ENV
 ```
 
 ##### Retrieve authentication credentials from a file
+{{% warn %}}
+**InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
+access to the underlying file system and do not support reading credentials from a file.
+To retrieve SQL Server credentials from a file, execute the query in the
+[Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
+{{% /warn %}}
+
 ```
 azure auth=c:\secure\azure.auth
 ```
