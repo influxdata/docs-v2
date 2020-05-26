@@ -170,3 +170,30 @@ sql.to(
   table: "Example.Table"
 )
 ```
+
+#### SQL Server ADO authentication
+Use one of the the following methods to provide SQL Server authentication credentials as
+[ActiveX Data Objects (ADO)](https://docs.microsoft.com/en-us/sql/ado/guide/ado-introduction?view=sql-server-ver15)
+connection string parameters:
+
+##### Retrieve authentication credentials from environment variables
+```
+azure auth=ENV
+```
+
+##### Retrieve authentication credentials from a file
+```
+azure auth=c:\secure\azure.auth
+```
+
+##### Specify authentication credentials in the connection string
+```
+azure tenant id=77...;azure client id=58...;azure client secret=0cf123..
+azure tenant id=77...;azure client id=58...;azure certificate path=C:\secure\...;azure certificate password=xY...
+azure tenant id=77...;azure client id=58...;azure username=some@myorg;azure password=a1...
+```
+
+##### Use a Managed identity in an Azure VM
+```
+azure auth=MSI
+```

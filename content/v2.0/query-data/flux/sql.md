@@ -116,12 +116,17 @@ sql.from(
 
 {{% code-tab-content %}}
 ```js
+import "sql"
+
 sql.from(
   driverName: "sqlserver",
   dataSourceName: "sqlserver://user:password@localhost:1234?database=examplebdb",
   query: "GO SELECT * FROM Example.Table"
 )
 ```
+
+_For information about authenticating with SQL Server using ADO-style parameters,
+see [SQL Server ADO authentication](/v2.0/reference/flux/stdlib/sql/from/#sql-server-ado-authentication)._
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
