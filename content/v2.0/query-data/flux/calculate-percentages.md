@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Calculate percentages
     parent: Query with Flux
-weight: 206
+weight: 209
 aliases:
  - /v2.0/query-data/guides/manipulate-timestamps/
 related:
