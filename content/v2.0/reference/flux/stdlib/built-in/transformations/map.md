@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: map
     parent: built-in-transformations
-weight: 401
+weight: 402
 v2.0/tags: [exists]
 related:
   - /v2.0/query-data/flux/conditional-logic/
