@@ -8,7 +8,11 @@ menu:
 weight: 101
 ---
 
-## v2.0.0-beta.11 [2020-05-22]
+## v2.0.0-beta.11 [2020-05-27]
+
+{{% warn %}}
+The beta 11 version was **not released**. Changes below are included in the beta 12 release.
+{{% /warn %}}
 
 ### Features
 
