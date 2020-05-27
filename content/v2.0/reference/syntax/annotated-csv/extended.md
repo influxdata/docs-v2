@@ -20,6 +20,8 @@ related:
 **Extended annotated CSV** provides additional annotations and options that specify
 how CSV data should be converted to [line protocol](/v2.0/reference/syntax/line-protocol/)
 and written to InfluxDB.
+InfluxDB uses the [`csv2lp` library](https://github.com/influxdata/influxdb/tree/master/pkg/csv2lp)
+to convert CSV into line protocol.
 Extended annotated CSV supports all [Annotated CSV](/v2.0/reference/syntax/annotated-csv/)
 annotations.
 
@@ -112,7 +114,7 @@ use the [`--precision` flag](/v2.0/reference/cli/influx/write/#flags) with the
 ##### Custom timestamp formats
 To specify a custom timestamp format, use timestamp formats as described in the
 [Go time package](https://golang.org/pkg/time).
-For example: `2020-01-01`.
+For example: `2020-01-02`.
 
 #### field
 Indicates the column is a **field** and auto-detects the field type.
@@ -164,7 +166,7 @@ Append **float separators** to the `double` datatype annotation with a colon (`:
 For example:
 
 ```
-#datatype "fieldName|double:.,"
+#datatype "double:.,"
 ```
 
 {{% note %}}
@@ -200,7 +202,7 @@ Append **integer separators** to the `long` datatype annotation with a colon (`:
 For example:
 
 ```
-#datatype "fieldName|long:.,"
+#datatype "long:.,"
 ```
 
 {{% note %}}
@@ -236,7 +238,7 @@ Append **uinteger separators** to the `long` datatype annotation with a colon (`
 For example:
 
 ```
-#datatype "fieldName|usignedLong:.,"
+#datatype "usignedLong:.,"
 ```
 
 {{% note %}}
@@ -266,7 +268,7 @@ Append the **boolean format** to the `boolean` datatype annotation with a colon 
 For example:
 
 ```
-#datatype "fieldName|boolean:y,Y:n,N"
+#datatype "boolean:y,Y:n,N"
 ```
 
 {{% note %}}
@@ -319,7 +321,7 @@ Use the `±HHmm` format to specify the timezone offset relative to UTC.
 
 ## Define custom column separator
 If columns are delimited using a character other than a comma, use the `sep`
-keyword to define a custom separator for your CSV file.
+keyword to define a custom separator **in the first line of your CSV file**.
 
 ```
 sep=;
@@ -336,23 +338,23 @@ header row using the following syntax:
 
 ##### Example annotation shorthand
 ```
-m|measurement|general,location|tag,temp|double,pm|long,time|dateTime:RFC3339
+m|measurement,location|tag|Hong Kong,temp|double,pm|long|0,time|dateTime:RFC3339
 weather,San Francisco,51.9,38,2020-01-01T00:00:00Z
-weather,New York,18.2,15,2020-01-01T00:00:00Z
-,Hong Kong,53.6,171,2020-01-01T00:00:00Z
+weather,New York,18.2,,2020-01-01T00:00:00Z
+weather,,53.6,171,2020-01-01T00:00:00Z
 ```
 
 ##### The shorthand explained
-- The `m` column represents the **measurement** and has a default value of `general`.
-- The `location` column is a **tag** with no default value.
+- The `m` column represents the **measurement** and has no default value.
+- The `location` column is a **tag** with the default value, `Hong Kong`.
 - The `temp` column is a **field** with **float** (`double`) values and no default value.
-- The `pm` column is a **field** with **integer** (`long`) values and no default value.
+- The `pm` column is a **field** with **integer** (`long`) values and a default of `0`.
 - The `time` column represents the **timestamp**, uses the **RFC3339** timestamp format,
   and has no default value.
 
 ##### Resulting line protocol
 ```
 weather,location=San\ Francisco temp=51.9,pm=38i 1577836800000000000
-weather,location=New\ York temp=18.2,pm=18i 1577836800000000000
+weather,location=New\ York temp=18.2,pm=0i 1577836800000000000
 general,location=Hong\ Kong temp=53.6,pm=171i 1577836800000000000
 ```

@@ -123,9 +123,52 @@ birds,loc=Detroit sighted=135 1590969600000000000
 {{% /flex-content %}}
 {{< /flex >}}
 
+#### Use files to inject headers
+The `influx write` command supports importing multiple files in a single command.
+Include annotations and header rows in their own file and import them with the write command.
+Files are read in the order in which they're provided.
+
+```sh
+influx write -b example-bucket \
+  -f path/to/headers.csv \
+  -f path/to/example.csv
+```
+
+{{< flex >}}
+{{% flex-content %}}
+##### headers.csv
+```
+#constant measurement,birds
+#datatype dataTime:2006-01-02,long,tag
+```
+{{% /flex-content %}}
+{{% flex-content %}}
+##### example.csv
+```
+date,sighted,loc
+2020-01-01,12,Boise
+2020-06-01,78,Boise
+2020-01-01,54,Seattle
+2020-06-01,112,Seattle
+2020-01-01,9,Detroit
+2020-06-01,135,Detroit
+```
+{{% /flex-content %}}
+{{< /flex >}}
+
+##### Resulting line protocol
+```
+birds,loc=Boise sighted=12 1577836800000000000
+birds,loc=Boise sighted=78 1590969600000000000
+birds,loc=Seattle sighted=54 1577836800000000000
+birds,loc=Seattle sighted=112 1590969600000000000
+birds,loc=Detroit sighted=9 1577836800000000000
+birds,loc=Detroit sighted=135 1590969600000000000
+```
+
 ## Skip annotation headers
-Some CSV data may include annotations that conflict with annotations necessary to
-write CSV data to InfluxDB.
+Some CSV data may include header rows that conflict with or lack the annotations
+necessary to write CSV data to InfluxDB.
 Use the `--skipHeader` flag to specify the **number of rows to skip** at the
 beginning of the CSV data.
 
@@ -134,6 +177,9 @@ influx write -b example-bucket \
   -f path/to/example.csv \
   --skipHeader=2
 ```
+
+You can then [inject new header rows](#inject-annotation-headers) to rename columns
+and provide the necessary annotations.
 
 ## Process input as CSV
 The `influx write` command automatically processes files with the `.csv` extension as CSV files.
@@ -256,11 +302,14 @@ To replace an existing column header row with annotation shorthand:
 1. Use the `--skipHeader` flag to ignore the existing column header row.
 2. Use the `--header` flag to inject a new column header row that uses annotation shorthand.
 
-<!-- -->
+{{% note %}}
+`--skipHeader` is the same as `--skipHeader=1`.
+{{% /note %}}
+
 ```sh
 influx write -b example-bucket \
   -f example.csv \
-  --skipHeader=1
+  --skipHeader
   --header="m|measurement,count|long|0,time|dateTime:RFC3339"
 ```
 
@@ -395,20 +444,20 @@ in the `boolean` datatype annotation.
 ```
 sep=;
 #datatype measurement,"boolean:y,Y,1:n,N,0",dateTime:RFC3339
-m,lbs,time
-example,"1,280.7",2020-01-01T00:00:00Z
-example,"1,352.5",2020-01-02T00:00:00Z
-example,"1,862.8",2020-01-03T00:00:00Z
-example,"2,014.9",2020-01-04T00:00:00Z
+m,verified,time
+example,y,2020-01-01T00:00:00Z
+example,n,2020-01-02T00:00:00Z
+example,1,2020-01-03T00:00:00Z
+example,N,2020-01-04T00:00:00Z
 ```
 {{% /flex-content %}}
 {{% flex-content %}}
 ##### Resulting line protocol
 ```
-example lbs=1280.7 1577836800000000000
-example lbs=1352.5 1577923200000000000
-example lbs=1862.8 1578009600000000000
-example lbs=2014.9 1578096000000000000
+example verified=true 1577836800000000000
+example verified=false 1577923200000000000
+example verified=true 1578009600000000000
+example verified=false 1578096000000000000
 ```
 {{% /flex-content %}}
 {{< /flex >}}
