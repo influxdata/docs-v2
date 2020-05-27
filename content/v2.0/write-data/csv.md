@@ -58,9 +58,8 @@ mem,host=host2 used_percent=73.77 1577836820000000000
 ```
 
 {{% note %}}
-To test the CSV to line protocol conversion process, include the `--dryrun` flag
-with the `influx write` command to print the resulting line protocol to stdout
-rather than write to InfluxDB.
+To test the CSV to line protocol conversion process, use the `influx write dryrun`
+command to print the resulting line protocol to stdout rather than write to InfluxDB.
 {{% /note %}}
 
 ## CSV Annotations
