@@ -62,7 +62,7 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=rw
 
-# MS SQL Server Driver DSNs
+# Microsoft SQL Server Driver DSNs
 sqlserver://username:password@localhost:1234?database=examplebdb
 server=localhost;user id=username;database=examplebdb;
 server=localhost;user id=username;database=examplebdb;azure auth=ENV
@@ -172,9 +172,14 @@ sql.to(
 ```
 
 #### SQL Server ADO authentication
-Use one of the the following methods to provide SQL Server authentication credentials as
+Use one of the following methods to provide SQL Server authentication credentials as
 [ActiveX Data Objects (ADO)](https://docs.microsoft.com/en-us/sql/ado/guide/ado-introduction?view=sql-server-ver15)
 connection string parameters:
+
+- [Retrieve authentication credentials from environment variables](#retrieve-authentication-credentials-from-environment-variables)
+- [Retrieve authentication credentials from a file](#retrieve-authentication-credentials-from-a-file)
+- [Specify authentication credentials in the connection string](#specify-authentication-credentials-in-the-connection-string)
+- [Use a Managed identity in an Azure VM](#use-a-managed-identity-in-an-azure-vm)
 
 ##### Retrieve authentication credentials from environment variables
 ```
@@ -189,18 +194,25 @@ To retrieve SQL Server credentials from a file, execute the query in the
 [Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
 {{% /warn %}}
 
-```
-azure auth=c:\secure\azure.auth
+```powershell
+azure auth=C:\secure\azure.auth
 ```
 
 ##### Specify authentication credentials in the connection string
-```
+```powershell
+# Example of providing tenant ID, client ID, and client secret token
 azure tenant id=77...;azure client id=58...;azure client secret=0cf123..
+
+# Example of providing tenant ID, client ID, certificate path and certificate password
 azure tenant id=77...;azure client id=58...;azure certificate path=C:\secure\...;azure certificate password=xY...
+
+# Example of providing tenant ID, client ID, and Azure username and password
 azure tenant id=77...;azure client id=58...;azure username=some@myorg;azure password=a1...
 ```
 
-##### Use a Managed identity in an Azure VM
+##### Use a managed identity in an Azure VM
+_For information about managed identities, see [Microsoft managed identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)._
+
 ```
 azure auth=MSI
 ```
