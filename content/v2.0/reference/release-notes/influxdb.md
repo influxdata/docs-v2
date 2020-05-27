@@ -15,6 +15,7 @@ weight: 101
 - Ability to set UTC time for a custom time range query.
 - Ability to set a minimum or maximum value for the y-axis visualization setting (rather than requiring both).
 - New `csv2lp` library for converting CSV (comma separated values) to InfluxDB line protocol.
+- Add influxdb version to the InfluxDB v2 API `/health` endpoint.
 
 ### Bug Fixes
 
