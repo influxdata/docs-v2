@@ -487,7 +487,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
 - [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
 #### New features in InfluxDB Cloud 2.0
 
