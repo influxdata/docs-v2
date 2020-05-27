@@ -117,7 +117,7 @@ executables, and running the initial setup process.
 ### Download and install InfluxDB v2.0 beta
 Download InfluxDB v2.0 beta for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.11_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
 To unpackage the downloaded archive, **double click the archive file in Finder**
@@ -126,7 +126,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_2.0.0-beta.11_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -135,7 +135,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.11_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.12_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -199,8 +199,8 @@ influxd --reporting-disabled
 ### Download and install InfluxDB v2.0 beta
 Download the InfluxDB v2.0 beta package appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.11_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.11_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
 
 ### Place the executables in your $PATH
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
@@ -209,10 +209,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-beta.11_linux_amd64.tar.gz
+tar xvzf path/to/influxdb_2.0.0-beta.12_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.11_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.12_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
