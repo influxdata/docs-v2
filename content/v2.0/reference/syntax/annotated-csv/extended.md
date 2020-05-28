@@ -1,9 +1,9 @@
 ---
 title: Extended annotated CSV
 description: >
-  Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data
-  to InfluxDB. Include annotations with the CSV data determine how the data translates
-  into [line protocol](/v2.0/reference/syntax/line-protocol/).
+  Extended annotated CSV provides additional annotations and options that specify
+  how CSV data should be converted to [line protocol](/v2.0/reference/syntax/line-protocol/)
+  and written to InfluxDB.
 menu:
   v2_0_ref:
     name: Extended annotated CSV
@@ -27,7 +27,7 @@ annotations.
 
 {{% warn %}}
 The Flux [`csv.from` function](/v2.0/reference/flux/stdlib/csv/from/) only supports
-**Annotated CSV**, not **Extended annotated CSV**.
+**annotated CSV**, not **extended annotated CSV**.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
@@ -37,8 +37,7 @@ To write data to InfluxDB, line protocol must include the following:
 - [timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) _(Optional but recommended)_
 - [tag set](/v2.0/reference/syntax/line-protocol/#tag-set) _(Optional)_
 
-Extended annotated CSV annotations identify which element of line protocol each
-column represents and how the data should be converted.
+Extended CSV annotations identify the element of line protocol a column represents.
 
 ## CSV Annotations
 Extended annotated CSV extends and adds the following annotations:
@@ -48,10 +47,10 @@ Extended annotated CSV extends and adds the following annotations:
 - [timezone](#timezone)
 
 ### datatype
-Use the `#datatype` annotation to specify which [line protocol element](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
-each column represents.
+Use the `#datatype` annotation to specify the [line protocol element](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+a column represents.
 To explicitly define a column as a **field** of a specific data type, use the field
-type in the annotation.
+type in the annotation (for example: `string`, `double`, `long`, etc.).
 
 | Data type                     | Resulting line protocol                 |
 |:----------                    |:-----------------------                 |
@@ -76,9 +75,9 @@ The **column value** is the **tag value**.
 
 #### dateTime
 Indicates the column is the **timestamp**.
-`time` is as an alias for `dateTime`.
+`time` is an alias for `dateTime`.
 If the [timestamp format](#supported-timestamp-formats) includes a time zone,
-the parsed timestamp respects the time zone.
+the parsed timestamp includes the time zone offset.
 By default, all timestamps are UTC.
 You can also use the [`#timezone` annotation](#timezone) to adjust timestamps to
 a specific time zone.
@@ -106,9 +105,9 @@ Append the timestamp format to the `dateTime` datatype with (`:`).
 | **number**       | Unix timestamp    | `1577836800000000000`            |
 
 {{% note %}}
-If using the `number` timestamp format and timestamps are **not nanosecond Unix timestamps**,
-use the [`--precision` flag](/v2.0/reference/cli/influx/write/#flags) with the
-`influx write` command to specify the timestamp precision.
+If using the `number` timestamp format and timestamps are **not in nanoseconds**,
+use the [`influx write --precision` flag](/v2.0/reference/cli/influx/write/#flags)
+to specify the [timestamp precision](/v2.0/reference/glossary/#precision).
 {{% /note %}}
 
 ##### Custom timestamp formats
@@ -117,9 +116,16 @@ To specify a custom timestamp format, use timestamp formats as described in the
 For example: `2020-01-02`.
 
 #### field
-Indicates the column is a **field** and auto-detects the field type.
+Indicates the column is a **field**.
 The **column label** is the **field key**.
 The **column value** is the **field value**.
+
+{{% note %}}
+With the `field` datatype, field values are copies **as-is** to line protocol.
+For information about line protocol values and how they are written to InfluxDB,
+see [Line protocol data types and formats](/v2.0/reference/syntax/line-protocol/#data-types-and-format).
+We generally recommend specifying the [field type](#field-types) in annotations.
+{{% /note %}}
 
 #### ignored
 The column is ignored and not written to InfluxDB.
@@ -145,9 +151,9 @@ fraction from the whole number.
 If column values include or use other separators, such as commas (`,`) to visually
 separate large numbers into groups, specify the following  **float separators**:
 
-- **fraction separator**: Separates the fraction from the whole number
-- **ignored separator**: Visually separates the whole number into groups but should
-  be ignored when parsing the float value.
+- **fraction separator**: Separates the fraction from the whole number.
+- **ignored separator**: Visually separates the whole number into groups but ignores
+  the separator when parsing the float value.
 
 Use the following syntax to specify **float separators**:
 
@@ -171,7 +177,7 @@ For example:
 
 {{% note %}}
 If your **float separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
 You can also [define a custom column separator](#define-custom-column-separator).
 {{% /note %}}
 
@@ -182,8 +188,8 @@ the following **integer separators**:
 
 - **fraction separator**: Separates the fraction from the whole number.
   _**Integer values are truncated at the fraction separator when converted to line protocol.**_
-- **ignored separator**: Visually separates the whole number into groups but should
-  be ignored when parsing the integer value.
+- **ignored separator**: Visually separates the whole number into groups but ignores
+  the separator when parsing the integer value.
 
 Use the following syntax to specify **integer separators**:
 
@@ -207,7 +213,7 @@ For example:
 
 {{% note %}}
 If your **integer separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
 You can also [define a custom column separator](#define-custom-column-separator).
 {{% /note %}}
 
@@ -218,8 +224,8 @@ the following **uinteger separators**:
 
 - **fraction separator**: Separates the fraction from the whole number.
   _**Uinteger values are truncated at the fraction separator when converted to line protocol.**_
-- **ignored separator**: Visually separates the whole number into groups but should
-  be ignored when parsing the uinteger value.
+- **ignored separator**: Visually separates the whole number into groups but ignores
+  the separator when parsing the uinteger value.
 
 Use the following syntax to specify **uinteger separators**:
 
@@ -243,7 +249,7 @@ For example:
 
 {{% note %}}
 If your **uinteger separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
 You can also [define a custom column separator](#define-custom-column-separator).
 {{% /note %}}
 
@@ -273,7 +279,7 @@ For example:
 
 {{% note %}}
 If your **boolean format** contains commas (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the commas from being parsed as column separators or delimiters.
+quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
 You can also [define a custom column separator](#define-custom-column-separator).
 {{% /note %}}
 
@@ -356,5 +362,5 @@ weather,,53.6,171,2020-01-01T00:00:00Z
 ```
 weather,location=San\ Francisco temp=51.9,pm=38i 1577836800000000000
 weather,location=New\ York temp=18.2,pm=0i 1577836800000000000
-general,location=Hong\ Kong temp=53.6,pm=171i 1577836800000000000
+weather,location=Hong\ Kong temp=53.6,pm=171i 1577836800000000000
 ```

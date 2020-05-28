@@ -2,7 +2,7 @@
 title: Write CSV data to InfluxDB
 description: >
   Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data
-  to InfluxDB. Include annotations with the CSV data determine how the data translates
+  to InfluxDB. Include annotations with the CSV data to determine how the data translates
   into [line protocol](/v2.0/reference/syntax/line-protocol/).
 menu:
   v2_0:
@@ -343,7 +343,7 @@ in the `double`, `long`, and `unsignedLong` datatype annotations.
 
 {{% note %}}
 If your **numeric format separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as column separator or delimiter.
+quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
 You can also [define a custom column separator](##################).
 {{% /note %}}
 
