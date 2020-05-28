@@ -123,14 +123,14 @@ to provide the **file path** of the template manifest.
 
 ```sh
 # Syntax
-influx pkg -f <template-file-path>
+influx pkg -o <org-name> -f <template-file-path>
 
 # Examples
 # Install a single template
-influx pkg -f /path/to/template.yml
+influx pkg -o example-org -f /path/to/template.yml
 
 # Install multiple templates
-influx pkg \
+influx pkg -o example-org \
   -f /path/to/this/template.yml \
   -f /path/to/that/template.yml
 ```
@@ -144,14 +144,14 @@ include the `--recurse` flag.
 
 ```sh
 # Syntax
-influx pkg -f <template-directory-path>
+influx pkg -o <org-name> -f <template-directory-path>
 
 # Examples
 # Install all templates in a directory
-influx pkg -f /path/to/template/dir/
+influx pkg -o example-org -f /path/to/template/dir/
 
 # Install all templates in a directory and its subdirectories
-influx pkg -f /path/to/template/dir/ --recurse
+influx pkg -o example-org -f /path/to/template/dir/ --recurse
 ```
 
 ### Install a template from a URL
@@ -160,14 +160,14 @@ of the template manifest.
 
 ```sh
 # Syntax
-influx pkg -u <template-url>
+influx pkg -o <org-name> -u <template-url>
 
 # Examples
 # Install a single template from a URL
-influx pkg -u https://example.com/templates/template.yml
+influx pkg -o example-org -u https://example.com/templates/template.yml
 
 # Install multiple templates from URLs
-influx pkg \
+influx pkg -o example-org \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml
 ```
@@ -178,10 +178,10 @@ file or directory paths and URLs, each with the appropriate `-f` or `-u` flag.
 
 ```sh
 # Syntax
-influx pkg -u <template-url> -f <template-path>
+influx pkg -o <org-name> -u <template-url> -f <template-path>
 
 # Example
-influx pkg \
+influx pkg -o example-org \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml \
   -f ~/templates/custom-template.yml \
@@ -198,7 +198,7 @@ flag with a key-value pair comprised of the environment reference key and the
 value to replace it.
 
 ```sh
-influx pkg -f /path/to/template.yml \
+influx pkg -o example-org -f /path/to/template.yml \
   --env-ref=bucket-name-1=myBucket
   --env-ref=label-name-1=Label1 \
   --env-ref=label-name-2=Label2
@@ -212,15 +212,16 @@ with the secret key-value pair.
 
 ```sh
 # Syntax
-influx pkg -f <template-file-path> --secret=<secret-key>=<secret-value>
+influx pkg -o <org-name> -f <template-file-path> \
+  --secret=<secret-key>=<secret-value>
 
 # Examples
 # Define a single secret when installing a template
-influx pkg -f /path/to/template.yml \
+influx pkg -o example-org -f /path/to/template.yml \
   --secret=FOO=BAR
 
 # Define multiple secrets when installing a template
-influx pkg -f /path/to/template.yml \
+influx pkg -o example-org -f /path/to/template.yml \
   --secret=FOO=bar \
   --secret=BAZ=quz
 ```

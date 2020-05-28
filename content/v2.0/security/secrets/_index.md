@@ -1,6 +1,6 @@
 ---
 title: Store and use secrets
-description:
+description: Use BoltDB or Vault to store secrets for InfluxDB.
 v2.0/tags: [secrets, security]
 menu:
   v2_0:

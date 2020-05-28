@@ -107,6 +107,7 @@
 
   .products {
     display: flex;
+    flex-direction: column-reverse;
     flex-wrap: wrap;
     flex-grow: 1;
     justify-content: flex-start;
@@ -178,6 +179,30 @@
   }
 }
 
+td,label,li {
+  &:after {
+    display: inline-block;
+    vertical-align: text-bottom;
+    font-style: italic;
+    font-weight: $medium;
+    font-size: .75em;
+    margin-left: .35rem;
+    padding: .1rem .3rem .12rem;
+    line-height: .75rem;
+    border-radius: 1rem;
+  }
+  &.beta:after {
+    content: 'beta';
+    color: $r-dreamsicle;
+    background: rgba($r-dreamsicle, .1);
+    border: 1px solid $r-dreamsicle;
+  }
+}
+
+label:after {
+  margin-left: .15rem;
+}
+
 ///////////////////////////// InfluxDB URL Triggers ////////////////////////////
 
 .article--content {
@@ -211,6 +236,6 @@
   }
 
   .code-tab-content {
-    .select-url{margin-top: -3.25rem} 
+    .select-url{margin-top: -3.25rem}
   }
 }
