@@ -35,7 +35,7 @@ performance, error messaging, and usability of the
 - Add [`findColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
   and [`findRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) functions.
 - Return `false` if `contains()` is called with an empty set.
-- Add small performance optimizations.
+- Various performance optimizations.
 - Add a dynamically linked Valgrind test.
 - Add location information to type error messages.
 - Add all Linux cross-compilation tools to release Docker image.
@@ -49,30 +49,30 @@ performance, error messaging, and usability of the
 - Add `lookuptype` function for stdlib builtins.
 
 ## Bug Fixes
-- Reenable Clippy linter rule match single binding.
+- Re-enable Clippy linter rule match single binding.
 - Fix bug in object equal method.
 - Add builtin formatting.
-- Implement TimeBounds for `influxdb.fromRemote`.
+- Implement `TimeBounds` for `influxdb.fromRemote`.
 - Inject the URL validator into `NewDefaultClient`.
 - Fix race condition in the `filter()` function.
 - Validate HTTP redirects against private IPs.
-- Do not disclose DNS info in HTTP.
+- Hide DNS information in HTTP.
 - Fix concurrent map write in `filter()` transformation.
 - Copy all fields of `WindowProcedureSpec` in `Copy()`.
 - Run `go generate` on libflux when `go generate` is run on stdlib.
-- `map()` panics when overwriting group column.
+- Fix panic when `map()` overwrites group column.
 - Support execution contexts in the REPL.
 - Apply substitution fully when compiling lambda.
 - Planner rewrite rules take a context.
-- Functions do not panic on null values.
-- Fixed logic for merging packages with no package clause.
+- Fix panics when functions operate on null values.
+- Fix logic for merging packages with no package clause.
 - Compute function's return type after substitution.
 - Resolve member expressions.
-- More descriptive error messages.
+- Improve error message descriptions.
 - Check types of parts when evaluating `StringExpression`.
 - Bind appropriate interpreter when evaluating functions.
 - Tweak Rust JSON serialization and add tests.
-- Pivot will send update watermark and processing time exactly once.
+- Pivot sends update watermark and processing time exactly once.
 - Calculate diff's watermark using both predecessors.
 - Add length check to avoid allocs checking for JSON `null`.
 - Make compilers robust to `null` keyword in `extern` field.
@@ -84,23 +84,23 @@ performance, error messaging, and usability of the
 - Fix JSON serialization of Rust AST.
 - Remove unused environment variables.
 - Make `merge_packages` allow no package clauses.
-- Should not call `CheckKind` when evaluating logical expressions.
-- Force the go libflux wrapper to rebuild using `go generate`.
+- Do not call `CheckKind` when evaluating logical expressions.
+- Force the Go libflux wrapper to rebuild using `go generate`.
 - Adjust `test-bench` config for Circle CI.
 - Fix Valgrind test code.
 - Let Rust parser parse with file name.
 - Remove Algorithm-W to-do list.
 - `JoinStr` returns a string, not an empty record.
 - Only add visible properties to output of `map()`.
-- InfluxDB source would serialize the wrong sign duration literal.
+- Serialize the correct sign duration literal.
 - Remove code in semantic package that depends on Rust/Cgo code.
-- Remove component field from API.
+- Remove `component` field from API.
 - Remove unused notification rule fields from Slack and PagerDuty APIs.
-- Array builders must take array types as input.
-- Un-skip `map()` tests with null values.
+- Array builders accept array types as input.
+- Enable `map()` tests with null values.
 - Remove tests for marshalling semantic graph.
-- Run `make generate`.
-- Type error in benchmark test.
+- Run `make generate` to generate stdlib.
+- Fix type error in benchmark test.
 - Update `TableObject` test.
 - Do not call `LocalRange` on nil scope.
 - Type assertion error in `length()` tests.
@@ -110,19 +110,19 @@ performance, error messaging, and usability of the
 - Type inference tests for binary comparison operators.
 - Fix typo in builtins.
 - Update `holtWinters()` to make `seasonality` optional.
-- Type errors in tests.
-- Remove default value from notify data as it is required.
+- Fix type errors in tests.
+- Remove default value from notify data.
 - Allow options to be set in scope.
 - Replace `ScopeComparer` with `ScopeTransformer`.
 - Use `LocalRange` in compile tests.
 - Add missing parameter to type of `to()`.
 - Get `TableObject` test case to compile.
-- Typo in test case.
+- Fix typo in test case.
 - Update `TableObjects` to type `Array`.
 - Use array type method correctly.
-- Schema mutators and miscellaneous to-do items.
+- Update schema mutators.
 - Return proper types for type conversion functions.
-- Complete package compiles and passes tests.
+- Enable complete package to compile and pass tests.
 - Make stdlib compile.
 - Expect monotypes for function values.
 - Require successful lookup of stdlib builtins or panic.
@@ -1327,7 +1327,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 - Implement and require builtin statements.
 - Fix keys to output group key.
 - Organizes builtin code into Flux packages.
-`- Change flux command to be a REPL.`
+- Change flux command to be a REPL.
 
 ### Features
 - Implement and require builtin statements.
