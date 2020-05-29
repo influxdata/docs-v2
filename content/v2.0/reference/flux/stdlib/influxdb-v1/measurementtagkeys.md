@@ -10,6 +10,7 @@ menu:
 weight: 301
 v2.0/tags: [tags]
 related:
+  - /v2.0/query-data/flux/explore-schema/
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
@@ -39,11 +40,14 @@ _**Data type:** String_
 
 ## Function definition
 ```js
+package v1
+
 measurementTagKeys = (bucket, measurement) =>
   tagKeys(
     bucket: bucket,
-    predicate: (r) => r._measurement == measurement)
+    predicate: (r) => r._measurement == measurement
+  )
 ```
 
 _**Used functions:**
-[tagKeys()](/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys)_
+[v1.tagKeys()](/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys)_

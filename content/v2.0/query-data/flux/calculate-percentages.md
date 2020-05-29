@@ -9,7 +9,7 @@ menu:
   v2_0:
     name: Calculate percentages
     parent: Query with Flux
-weight: 206
+weight: 209
 aliases:
  - /v2.0/query-data/guides/manipulate-timestamps/
 related:
@@ -201,7 +201,7 @@ pgHost = secrets.get(key: "POSTGRES_HOST")
 t1 = sql.from(
   driverName: "postgres",
   dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
-  query:"SELECT id, name, available FROM exampleTable"
+  query:"SELECT id, name, available FROM example_table"
 )
 
 t2 = from(bucket: "example-bucket")

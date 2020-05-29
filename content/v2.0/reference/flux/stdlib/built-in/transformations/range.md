@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: range
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
 ---

@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: cumulativeSum
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - /v2.0/query-data/flux/cumulativesum/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
