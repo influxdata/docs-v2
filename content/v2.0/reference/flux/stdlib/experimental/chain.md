@@ -1,7 +1,8 @@
 ---
 title: experimental.chain() function
 description: >
-  The `experimental.chain()` function ...
+  The `experimental.chain()` function runs two queries in a single Flux script
+  sequentially and outputs the results of the second query.
 menu:
   v2_0_ref:
     name: experimental.chain
@@ -9,16 +10,16 @@ menu:
 weight: 302
 ---
 
-The `experimental.chain()` function forces two queries in a single Flux script
-to run sequentially and outputs the results of the second query.
-The Flux execution planner typically executes multiple queries in a single script in parallel.
+The `experimental.chain()` function runs two queries in a single Flux script
+sequentially and outputs the results of the second query.
+Flux typically executes multiple queries in a single script in parallel.
 Running the queries sequentially ensures any dependencies the second query has on
 the results of the first query are met.
 
-##### Applicable use cases:
-- Writing to and bucket and querying the written data in a single Flux script or
+##### Applicable use cases
+- Writing to a bucket and querying the written data in a single Flux script or
   [InfluxDB task](/v2.0/process-data/get-started/).
-- Forcing the order of query execution in testing scenarios.
+- Execute queries sequentially in testing scenarios.
 
 _**Function type:** Miscellaneous_
 
