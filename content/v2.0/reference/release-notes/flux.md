@@ -30,7 +30,7 @@ performance, error messaging, and usability of the
   to v1 package.
 - Add a context to `plantest.RuleTestCase`.
 - Add Snowflake support to SQL package.
-- Add `experimental.chain()` function.
+- Add [`experimental.chain()`](/v2.0/reference/flux/stdlib/experimental/chain/) function.
 - Add semantic nodes for bad statement and bad expression.
 - Add [`findColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
   and [`findRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) functions.
