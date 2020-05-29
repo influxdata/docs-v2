@@ -9,54 +9,59 @@ menu:
 weight: 302
 ---
 
-The `experimental.chain()` function ...
+The `experimental.chain()` function forces two queries in a single Flux script
+to run sequentially and outputs the results of the second query.
+The Flux execution planner typically executes multiple queries in a single script in parallel.
+Running the queries sequentially ensures any dependencies the second query has on
+the results of the first query are met.
 
-_**Function type:** miscellaneous_
+##### Applicable use cases:
+- Writing to and bucket and querying the written data in a single Flux script or
+  [InfluxDB task](/v2.0/process-data/get-started/).
+- Forcing the order of query execution in testing scenarios.
+
+_**Function type:** Miscellaneous_
 
 ```js
 import "experimental"
 
 experimental.chain(
-  first: ,
-  second:
+  first: query1,
+  second: query2
 )
 ```
-
-{{% note %}}
-The `experimental.chain()` function is only necessary in the following use cases:
-
-- ...
-{{% /note %}}
-
 
 ## Parameters
 
 ### first
-...
+The first query to execute.
 
 _**Data type:** Stream of tables_
 
 ### second
-...
+The second query to execute.
 
 _**Data type:** Stream of tables_
 
 ## Examples
 
-### ...
+### Write to a bucket and query the written data
 ```js
 import "experimental"
 
-table1 = from(bucket: "example-bucket")
-  |> range(start: -12mo)
-  |> filter(fn: (r) => r._measurement == "example-measurement1")
+downsampled_max = from(bucket: "example-bucket-1")
+  |> range(start: -1d)
+  |> filter(fn: (r) => r._measurement == "example-measurement")
+  |> aggregateWindow(every: 1h, fn: max)
+  |> to(bucket: "downsample-1h-max", org: "example-org")
 
-table2 = from(bucket: "example-bucket")
-  |> range(start: -12mo)
-  |> filter(fn: (r) => r._measurement == "example-measurement2")
+average_max = from(bucket: "downsample-1h-max")
+  |> range(start: -1d)
+  |> filter(fn: (r) => r.measurement == "example-measurement")
+  |> mean()
 
 experimental.chain(
-  first: table1,
-  second: table2
+  first: downsampled_max,
+  second: average_max
 )
 ```
