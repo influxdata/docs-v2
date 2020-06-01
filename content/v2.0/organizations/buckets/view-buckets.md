@@ -9,13 +9,18 @@ menu:
 weight: 202
 ---
 
+## View a list of buckets
+
 ## View buckets in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
-2. Click a bucket to open it **Data Explorer**.
+    A list of buckets with their retention policies and IDs appears.
+
+2. Click a bucket to open it in the **Data Explorer**.
+3. Click the bucket ID to copy it to the clipboard. <img>
 
 ## View buckets using the influx CLI
 
