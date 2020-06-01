@@ -12,7 +12,7 @@ cloud:
     - name: Amazon Web Services
       short_name: AWS
       regions:
-        - name: US West
+        - name: US West (Oregon)
           location: Oregon, USA
           url: https://us-west-2-1.aws.cloud2.influxdata.com
         - name: EU Frankfurt
@@ -21,7 +21,7 @@ cloud:
     - name: Google Cloud Platform
       short_name: GCP
       regions:
-        - name: US Central
+        - name: US Central (Iowa)
           location: Iowa, USA
           url: https://us-central1-1.gcp.cloud2.influxdata.com
     - name: Microsoft Azure
