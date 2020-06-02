@@ -8,6 +8,17 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.12 [2020-06-??]
+
+### Features
+- Make all pkg applications stateful via stacks.
+- Add ability to export a stack's existing (as they are in the platform) resource state as a pkg.
+- Update influx pkg commands with improved usage and examples in long form.
+
+### Bug Fixes
+- Support organization name in addition to ID in DBRP operations.
+- Disable failing when providing an unexpected error to influx CLI.
+
 ## v2.0.0-beta.11 [2020-05-27]
 
 {{% warn %}}
