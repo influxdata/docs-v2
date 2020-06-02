@@ -1,7 +1,7 @@
 ---
 title: influx pkg export all
 description: >
-  The 'influx pkg' command exports all resources in an organization as an InfluxDB template.
+  The 'influx pkg all' command exports all resources in an organization as an InfluxDB template.
 menu:
   v2_0_ref:
     parent: influx pkg export
