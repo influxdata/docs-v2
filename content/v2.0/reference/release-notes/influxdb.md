@@ -14,6 +14,7 @@ weight: 101
 - Make all pkg applications stateful via stacks.
 - Add ability to export a stack's existing (as they are in the platform) resource state as a pkg.
 - Update influx pkg commands with improved usage and examples in long form.
+- Extend influx CLI with version and User-Agent.
 
 ### Bug Fixes
 - Support organization name in addition to ID in DBRP operations.
