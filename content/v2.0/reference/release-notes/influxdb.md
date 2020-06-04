@@ -14,11 +14,13 @@ weight: 101
 - Make all pkg applications stateful via stacks.
 - Add ability to export a stack's existing (as they are in the platform) resource state as a pkg.
 - Update influx pkg commands with improved usage and examples in long form.
-- Extend influx CLI with version and User-Agent.
+- Extend `influx` CLI with version and User-Agent.
+- Integrate RedirectTo functionality so CLOUD users now get navigated back to the originally linked page after login.
 
 ### Bug Fixes
 - Support organization name in addition to ID in DBRP operations.
-- Disable failing when providing an unexpected error to influx CLI.
+- Disable failing when providing an unexpected error to `influx` CLI.
+- `influx` delete command respects configuration.
 
 ## v2.0.0-beta.11 [2020-05-27]
 
