@@ -19,7 +19,7 @@
       {{ range .regions }}
         <tr>
           <td {{ if .status }}class="{{ .status }}"{{ end }}>{{ .name }}</td>
-          <td><{{ .location }}</td>
+          <td>{{ .location }}</td>
           <td><a href="{{ .url }}">{{ .url }}</a></td>
         </tr>
       {{ end }}
