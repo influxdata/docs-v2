@@ -13,17 +13,21 @@ cloud:
       short_name: AWS
       regions:
         - name: US West (Oregon)
+          location: Oregon, USA
           url: https://us-west-2-1.aws.cloud2.influxdata.com
         - name: EU Frankfurt
+          location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
     - name: Google Cloud Platform
       short_name: GCP
       regions:
         - name: US Central (Iowa)
+          location: Iowa, USA
           url: https://us-central1-1.gcp.cloud2.influxdata.com
     - name: Microsoft Azure
       short_name: Azure
       regions:
         - name: West Europe
+          location: Amsterdam, Netherlands
           url: https://westeurope-1.azure.cloud2.influxdata.com
           status: beta
