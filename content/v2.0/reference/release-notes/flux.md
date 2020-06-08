@@ -16,6 +16,17 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.69.0 [2020-06-08]
+
+### Features
+- Add Discord package (contributed by [@chobbs](https://github.com/chobbs)).
+- Add `json.parse()` function.
+
+### Bug fixes
+- Adjust error handling in Flux `date` package.
+
+---
+
 ## v0.68.0 [2020-05-28]
 This version of Flux introduces an updated type inference system that improves
 performance, error messaging, and usability of the
