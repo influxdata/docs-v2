@@ -10,7 +10,7 @@ weight: 401
 ---
 
 The `json.parse()` function takes JSON data as bytes and returns a value.
-The function can product lists, objects, strings, booleans, and float values.
+The function can return lists, objects, strings, booleans, and float values.
 All numeric values are returned as floats.
 
 _**Function type:** Type conversion_
@@ -33,7 +33,7 @@ _**Data type:** Bytes_
 
 ## Examples
 
-##### Use JSON data to restructure a table
+##### Parse and use JSON data to restructure a table
 ```js
 import "experimental/json"
 

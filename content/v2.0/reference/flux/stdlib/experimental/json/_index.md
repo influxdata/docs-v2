@@ -2,7 +2,7 @@
 title: Flux Experimental JSON package
 list_title: JSON package
 description: >
-  The Flux Experimental JSON package provides functions for working with JSON.
+  The Flux experimental JSON package provides functions for working with JSON.
   Import the `experimental/json` package.
 menu:
   v2_0_ref:
@@ -13,7 +13,7 @@ weight: 301
 v2.0/tags: [functions, json, package]
 ---
 
-Flux JSON functions provide tools for working with Message Queuing Telemetry Transport (JSON) protocol.
+Flux experimental JSON functions provide tools for working with JSON.
 Import the `experimental/json` package:
 
 ```js
