@@ -86,23 +86,11 @@ identity: {sum: 0.0, count: 0.0}
 
 ## Important notes
 
-#### Preserve columns
+#### Dropped columns
 By default, `reduce()` drops any columns that:
 
-1. Are not part of the input table's group key.
+1. Are not part of the input table's [group key](/v2.0/reference/glossary/#group-key).
 2. Are not explicitly mapped in the `reduce()` function.
-
-This often results in the `_time` column being dropped.
-To preserve the `_time` column and other columns that do not meet the criteria above,
-use the `with` operator to map values in the `r` object.
-The `with` operator updates a column if it already exists,
-creates a new column if it doesn't exist, and includes all existing columns in
-the output table.
-
-```js
-reduce(fn: (r) => ({ r with newColumn: r._value * 2 }))
-```
-
 
 ## Examples
 
@@ -157,14 +145,13 @@ from(bucket:"example-bucket")
     )
 ```
 
-##### Calculate the average and preserve existing columns
+##### Calculate the average
 ```js
 from(bucket: "example-bucket")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
   |> window(every: 5m)
   |> reduce(fn: (r, accumulator) => ({
-      r with
       count: accumulator.count + 1,
       total: accumulator.total + r._value,
       avg: (accumulator.total + r._value) / float(v: accumulator.count)
