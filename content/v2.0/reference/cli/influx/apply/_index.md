@@ -21,7 +21,7 @@ influx apply [flags]
 ```
 
 #### Aliases
-`apply`, `pkg`
+`apply`, `pkg` _(deprecated)_
 
 ## Flags
 | Flag                      | Description                                                                                 | Input Type | {{< cli/mapped >}}   |
