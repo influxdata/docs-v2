@@ -46,7 +46,7 @@ influx apply [flags]
 
 ## Examples
 ```sh
-# Apply a template from a file
+# Apply a template from a file.
 influx apply -f path/to/template.json
 
 # Apply a stack that has associated templates.
@@ -56,24 +56,24 @@ influx apply --stack-id $STACK_ID
 # Stacks make template application idempotent.
 influx apply -f path/to/template.json --stack-id $STACK_ID
 
-# Apply multiple template files together
+# Apply multiple template files together.
 influx apply \
   -f path/to/template_1.json \
   -f path/to/template_2.yml
 
-# Apply a template from a URL
+# Apply a template from a URL.
 influx apply -u https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
 
-# Apply a template from STDIN
+# Apply a template from STDIN.
 cat template.json | influx apply --encoding json
 
-# Apply all templates in a directory
+# Apply all templates in a directory.
 influx apply -f path/to/template_directory
 
-# Recurse through a directory and its subdirectories and apply all templates
+# Recurse through a directory and its subdirectories and apply all templates.
 influx apply -R -f path/to/template_directory
 
-# Apply templates from multiple from many sources – directory, file, and URL
+# Apply templates from multiple sources – directory, file, and URL.
 influx apply \
   -f path/to/template.yml
   -f path/to/templates_directory

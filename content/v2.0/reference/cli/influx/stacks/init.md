@@ -19,16 +19,16 @@ influx stacks init [flags]
 ```
 
 ## Flags
-| Flag                        | Description                           | Input type      | {{< cli/mapped >}}    |
-|:----                        |:-----------                           |:----------:     |:------------------    |
-| `-h`, `--help`              | Help for the `init` command           |                 |                       |
-| `--hide-headers`            | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
-| `--json`                    | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o`, `--org`               | Organization name                     | string          | `INFLUX_ORG`          |
-| `--org-id`                  | Organization ID                       | string          | `INFLUX_ORG_ID`       |
-| `-d`, `--stack-description` | Stack description                     | string          |                       |
-| `-n`, `--stack-name`        | Stack name                            | string          |                       |
-| `-u`, `--template-url`      | Package URLs to associate stack       | list of strings |                       |
+| Flag                        | Description                             | Input type      | {{< cli/mapped >}}    |
+|:----                        |:-----------                             |:----------:     |:------------------    |
+| `-h`, `--help`              | Help for the `init` command             |                 |                       |
+| `--hide-headers`            | Hide table headers (default `false`)    |                 | `INFLUX_HIDE_HEADERS` |
+| `--json`                    | Output data as JSON (default `false`)   |                 | `INFLUX_OUTPUT_JSON`  |
+| `-o`, `--org`               | Organization name                       | string          | `INFLUX_ORG`          |
+| `--org-id`                  | Organization ID                         | string          | `INFLUX_ORG_ID`       |
+| `-d`, `--stack-description` | Stack description                       | string          |                       |
+| `-n`, `--stack-name`        | Stack name                              | string          |                       |
+| `-u`, `--template-url`      | Template URLs to associate with a stack | list of strings |                       |
 
 {{% cli/influx-global-flags %}}
 

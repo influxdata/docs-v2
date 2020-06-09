@@ -1,6 +1,6 @@
 ---
 title: influx stacks remove
-description: The 'influx stacks remove' command removes an InfluxDB stack all associated resources.
+description: The 'influx stacks remove' command removes an InfluxDB stack and all associated resources.
 menu:
   v2_0_ref:
     name: influx stacks remove

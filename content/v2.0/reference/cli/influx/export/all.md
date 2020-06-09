@@ -36,7 +36,7 @@ influx export all [flags]
 ## Examples
 ```sh
 # Export all resources in an organization as a template
-influx pkg export all --org $INFLUX_ORG
+influx export all --org $INFLUX_ORG
 
 # Export all bucket resources as a template
 influx export all --org $INFLUX_ORG --filter=resourceKind=Bucket
@@ -50,9 +50,10 @@ influx export all --org $INFLUX_ORG \
 	--filter=labelName=Foo
 
 # Export all bucket or dashboard resources and filter by label Foo.
-# Note: like filters are unioned and filter types are intersections.
-#		This example will export a resource if it is a dashboard or
-#		bucket and has an associated label of Foo.
+#
+# Note: "like" filters are unioned and filter types are intersections.
+#	For example, the following will export a resource if it is a dashboard or
+#	bucket and has an associated label of Foo.
 influx export all --org $INFLUX_ORG \
 	--filter=resourceKind=Bucket \
 	--filter=resourceKind=Dashboard \

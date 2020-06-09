@@ -1,6 +1,6 @@
 ---
 title: influx template
-description: The 'influx template' command summarizes the provided InfluxDB template.
+description: The 'influx template' command summarizes the specified InfluxDB template.
 menu:
   v2_0_ref:
     name: influx template
@@ -11,7 +11,7 @@ aliases:
   - /v2.0/reference/cli/influx/pkg/summary/
 ---
 
-The `influx template` command summarizes the provided InfluxDB template.
+The `influx template` command summarizes the specified InfluxDB template.
 
 ## Usage
 ```
