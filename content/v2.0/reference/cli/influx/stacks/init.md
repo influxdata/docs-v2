@@ -1,19 +1,21 @@
 ---
-title: influx pkg stack init
-description: The 'influx pkg stack init' command initializes an InfluxDB stack.
+title: influx stacks init
+description: The 'influx stacks init' command initializes an InfluxDB stack.
 menu:
   v2_0_ref:
-    name: influx pkg stack init
-    parent: influx pkg stack
+    name: influx stacks init
+    parent: influx stacks
 weight: 201
+aliases:
+  - /v2.0/reference/cli/influx/pkg/stack/init/
 v2.0/tags: [templates]
 ---
 
-The `influx pkg stack init` command initializes an InfluxDB stack.
+The `influx stacks init` command initializes an InfluxDB stack.
 
 ## Usage
 ```
-influx pkg stack init [flags]
+influx stacks init [flags]
 ```
 
 ## Flags
@@ -24,8 +26,17 @@ influx pkg stack init [flags]
 | `--json`                    | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
 | `-o`, `--org`               | Organization name                     | string          | `INFLUX_ORG`          |
 | `--org-id`                  | Organization ID                       | string          | `INFLUX_ORG_ID`       |
-| `-u`, `--package-url`       | Package URLs to associate stack       | list of strings |                       |
 | `-d`, `--stack-description` | Stack description                     | string          |                       |
 | `-n`, `--stack-name`        | Stack name                            | string          |                       |
+| `-u`, `--template-url`      | Package URLs to associate stack       | list of strings |                       |
 
 {{% cli/influx-global-flags %}}
+
+## Examples
+```sh
+# Initialize a stack with a name and description
+influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
+
+# Initialize a stack with a name and urls to associate with stack.
+influx stack init -n $STACK_NAME -u $PATH_TO_TEMPLATE
+```

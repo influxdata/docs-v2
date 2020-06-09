@@ -1,28 +1,31 @@
 ---
-title: influx pkg export
+title: influx export
 description: The 'influx pkg' command exports existing resources as an InfluxDB template.
 menu:
   v2_0_ref:
-    parent: influx pkg
+    parent: influx
 weight: 101
+aliases:
+  - /v2.0/reference/cli/influx/pkg/export/
 related:
   - /v2.0/influxdb-templates/create/
 ---
 
-The `influx pkg export` command exports existing resources as an InfluxDB template.
+The `influx export` command exports existing resources as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
 [Create an InfluxDB template](/v2.0/influxdb-templates/create/)._
 
 ## Usage
 ```
-influx pkg export [flags]
-influx pkg export [command]
+influx export [flags]
+influx export [command]
 ```
 
 ## Available subcommands
-| Subcommand                                        | Description                                           |
-|:----------                                        |:-----------                                           |
-| [all](/v2.0/reference/cli/influx/pkg/export/all/) | Export all resources in an organization as a template |
+| Subcommand                                        | Description                                                |
+|:----------                                        |:-----------                                                |
+| [all](/v2.0/reference/cli/influx/export/all/)     | Export all resources in an organization as a template      |
+| [stack](/v2.0/reference/cli/influx/export/stack/) | Export all resources associated with a stack as a template |
 
 ## Flags
 
@@ -42,3 +45,15 @@ influx pkg export [command]
 | `--variables`        | Comma-separated list of variable IDs                                             | string     |
 
 {{% cli/influx-global-flags %}}
+
+## Examples
+```sh
+# Export buckets by ID
+influx export --buckets=$ID1,$ID2,$ID3
+
+# Export buckets, labels, and dashboards by ID
+influx export \
+  --buckets=$BID1,$BID2,$BID3 \
+  --labels=$LID1,$LID2,$LID3 \
+  --dashboards=$DID1,$DID2,$DID3
+```
