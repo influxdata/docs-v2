@@ -49,5 +49,4 @@ data
         c: jsonData.c,
       }
     })
-  |> keep(columns: ["_time", "_field", "a", "b", "c"]))
 ```
