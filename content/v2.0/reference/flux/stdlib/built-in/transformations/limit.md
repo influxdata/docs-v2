@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: limit
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - /v2.0/query-data/flux/sort-limit/
   - /v2.0/reference/flux/stdlib/built-in/transformations/tail/

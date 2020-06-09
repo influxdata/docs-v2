@@ -34,7 +34,7 @@ To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-mod
 
 A predicate function for matching keys in a table's group key.
 `tableFind` returns the first table that resolves as `true`.
-It expects a `key` argument which represents a group key in the input stream.
+Expects a `key` argument that represents a group key in the input stream.
 
 _**Data type:** Function_
 

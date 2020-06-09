@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: window
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - /v2.0/query-data/flux/window-aggregate/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/

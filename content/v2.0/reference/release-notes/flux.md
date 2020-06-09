@@ -16,6 +16,137 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.68.0 [2020-05-28]
+This version of Flux introduces an updated type inference system that improves
+performance, error messaging, and usability of the
+[Flux Language Server Protocol (LSP)](https://github.com/influxdata/flux-lsp).
+
+## Breaking Changes
+- Change signature of `group()` function.
+
+## Features
+- Add [`fieldKeys()`](/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/) and
+  [`measurementFieldKeys()`](/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys/)
+  to v1 package.
+- Add a context to `plantest.RuleTestCase`.
+- Add Snowflake support to SQL package.
+- Add [`experimental.chain()`](/v2.0/reference/flux/stdlib/experimental/chain/) function.
+- Add semantic nodes for bad statement and bad expression.
+- Add [`findColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
+  and [`findRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) functions.
+- Return `false` if `contains()` is called with an empty set.
+- Various performance optimizations.
+- Add a dynamically linked Valgrind test.
+- Add location information to type error messages.
+- Add all Linux cross-compilation tools to release Docker image.
+- Support remote `buckets()` and `v1.databases()` calls.
+- Add support for static linking.
+- Add `influxdb` source.
+- Add support for `pkg-config`.
+- Transform semantic nodes back to AST nodes.
+- Handle multi-file packages.
+- Make `Eval()` and `EvalAST()` use libflux for parsing and analysis.
+- Add `lookuptype` function for stdlib builtins.
+
+## Bug Fixes
+- Re-enable Clippy linter rule match single binding.
+- Fix bug in object equal method.
+- Add builtin formatting.
+- Implement `TimeBounds` for `influxdb.fromRemote`.
+- Inject the URL validator into `NewDefaultClient`.
+- Fix race condition in the `filter()` function.
+- Validate HTTP redirects against private IPs.
+- Hide DNS information in HTTP.
+- Fix concurrent map write in `filter()` transformation.
+- Copy all fields of `WindowProcedureSpec` in `Copy()`.
+- Run `go generate` on libflux when `go generate` is run on stdlib.
+- Fix panic when `map()` overwrites group column.
+- Support execution contexts in the REPL.
+- Apply substitution fully when compiling lambda.
+- Planner rewrite rules take a context.
+- Fix panics when functions operate on null values.
+- Fix logic for merging packages with no package clause.
+- Compute function's return type after substitution.
+- Resolve member expressions.
+- Improve error message descriptions.
+- Check types of parts when evaluating `StringExpression`.
+- Bind appropriate interpreter when evaluating functions.
+- Tweak Rust JSON serialization and add tests.
+- Pivot sends update watermark and processing time exactly once.
+- Calculate diff's watermark using both predecessors.
+- Add length check to avoid allocs checking for JSON `null`.
+- Make compilers robust to `null` keyword in `extern` field.
+- Address issues in `RemoveTrivialFilterRule`.
+- Bind appropriate interpreter when evaluating functions.
+- Convert `HashMap` in semantic package to `BTreeMap`.
+- Use static linking when creating the Valgrind test.
+- Update `flatbuffers` dependency.
+- Fix JSON serialization of Rust AST.
+- Remove unused environment variables.
+- Make `merge_packages` allow no package clauses.
+- Do not call `CheckKind` when evaluating logical expressions.
+- Force the Go libflux wrapper to rebuild using `go generate`.
+- Adjust `test-bench` config for Circle CI.
+- Fix Valgrind test code.
+- Let Rust parser parse with file name.
+- Remove Algorithm-W to-do list.
+- `JoinStr` returns a string, not an empty record.
+- Only add visible properties to output of `map()`.
+- Serialize the correct sign duration literal.
+- Remove code in semantic package that depends on Rust/Cgo code.
+- Remove `component` field from API.
+- Remove unused notification rule fields from Slack and PagerDuty APIs.
+- Array builders accept array types as input.
+- Enable `map()` tests with null values.
+- Remove tests for marshalling semantic graph.
+- Run `make generate` to generate stdlib.
+- Fix type error in benchmark test.
+- Update `TableObject` test.
+- Do not call `LocalRange` on nil scope.
+- Type assertion error in `length()` tests.
+- Update type inference test case with test for `union()`.
+- Make non-test CI steps pass.
+- Fix semantic check for option reassignment.
+- Type inference tests for binary comparison operators.
+- Fix typo in builtins.
+- Update `holtWinters()` to make `seasonality` optional.
+- Fix type errors in tests.
+- Remove default value from notify data.
+- Allow options to be set in scope.
+- Replace `ScopeComparer` with `ScopeTransformer`.
+- Use `LocalRange` in compile tests.
+- Add missing parameter to type of `to()`.
+- Get `TableObject` test case to compile.
+- Fix typo in test case.
+- Update `TableObjects` to type `Array`.
+- Use array type method correctly.
+- Update schema mutators.
+- Return proper types for type conversion functions.
+- Enable complete package to compile and pass tests.
+- Make stdlib compile.
+- Expect monotypes for function values.
+- Require successful lookup of stdlib builtins or panic.
+- Optimize lookup function using hashmap.
+- Include function type when deserializing function expressions.
+
+---
+
+## v0.67.0 [2020-04-28]
+
+### Features
+- Planner Pattern interface supplies a set of ProcedureKind as root.
+- Initial prototype of a table-based Flux.
+- Evaluate and store "now" in execution dependencies for `tableFind()` to use.
+- Static analysis tool for listing entry points to Flux.
+- Pass context to rewrite rules in the planner.
+
+### Bug fixes
+- Pivot sends update watermark and processing time exactly once.
+- `system.time()` checks context for override.
+- Add bounds to alignTime tests.
+
+---
+
 ## v0.66.1 [2020-04-14]
 
 ### Bug fixes
@@ -177,7 +308,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.59.0 [2020-01-14]
 
 ### Features
-- Add Go/Rust API for getting semantic graph..
+- Add Go/Rust API for getting semantic graph.
 - Optimize `limit()` transformation.
 - Optimize `group()` transformation.
 
@@ -235,7 +366,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Update `experimental.set` builtin type.
 - Update the type of `influxdb.to` to be a passthrough.
 - Update `fill` builtin type.
-- Remove redundant clones found by a new version of clippy.
+- Remove redundant clones found by a new version of Clippy.
 - Fix durations in Rust semantic graph.
 - Removes unnecessary rc clone in semantic serializer.
 - Do not stall forever in flux-config when an error happens with verbose.
@@ -250,7 +381,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.57.0 [2019-12-10]
 
 ### Features
-- Categorize more flux errors with codes.
+- Categorize more Flux errors with codes.
 - Teach flux-config how to download the sources when using vendor.
 - Opentracing in query execution runtime.
 - Reduce memory allocations for operations in values.
@@ -276,7 +407,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ### Bug fixes
 - Properly use a fake version with `flux-config` when no version is present.
-- Address clippy lints.
+- Address Clippy lints.
 - Add bytes monotype to Rust semantic module.
 - Allow underscores (`_`) in type expressions.
 
@@ -392,7 +523,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Update libflux parser to match the Go parser.
 - Allow data collected by `prometheus.scrape()` to be used by `histogramQuantile()`.
 - Remove mock allocator.
-- Validate url for `sql.from()`, `sql.to()`, and `socket.from()`.
+- Validate URL for `sql.from()`, `sql.to()`, and `socket.from()`.
 
 ---
 

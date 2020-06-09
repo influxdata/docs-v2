@@ -33,7 +33,7 @@ to extract a single table from a stream of tables.
 ## Parameters
 
 ### column
-The name of the column to extract.
+Name of the column to extract.
 
 _**Data type:** String_
 

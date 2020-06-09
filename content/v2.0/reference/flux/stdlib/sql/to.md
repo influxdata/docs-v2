@@ -20,7 +20,7 @@ import "sql"
 sql.to(
   driverName: "mysql",
   dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
-  table: "ExampleTable",
+  table: "example_table",
   batchSize: 10000
 )
 ```
@@ -36,6 +36,7 @@ The following drivers are available:
 
 - mysql
 - postgres
+- snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#write-data-to-an-sqlite-database)._
 
 ### dataSourceName
@@ -51,6 +52,11 @@ postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 
 # MySQL Driver DSN
 username:password@tcp(localhost:3306)/dbname?param=value
+
+# Snowflake Driver DSNs
+username[:password]@accountname/dbname/schemaname?param1=value1&paramN=valueN
+username[:password]@accountname/dbname?param1=value1&paramN=valueN
+username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param1=value1&paramN=valueN
 
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=rw
@@ -89,7 +95,7 @@ password = secrets.get(key: "MYSQL_PASS")
 sql.to(
   driverName: "mysql",
   dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
-  table: "ExampleTable"
+  table: "example_table"
 )
 ```
 
@@ -104,7 +110,23 @@ password = secrets.get(key: "POSTGRES_PASS")
 sql.to(
   driverName: "postgres",
   dataSourceName: "postgresql://${username}:${password}@localhost",
-  table: "ExampleTable"
+  table: "example_table"
+)
+```
+
+### Write data to a Snowflake database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SNOWFLAKE_USER")
+password = secrets.get(key: "SNOWFLAKE_PASS")
+account = secrets.get(key: "SNOWFLAKE_ACCT")
+
+sql.to(
+  driverName: "snowflake",
+  dataSourceName: "${username}:${password}@${account}/db/exampleschema?warehouse=wh",
+  table: "example_table"
 )
 ```
 
@@ -123,6 +145,6 @@ import "sql"
 sql.to(
   driverName: "sqlite3",
   dataSourceName: "file:/path/to/test.db?cache=shared&mode=rw",
-  table: "ExampleTable"
+  table: "example_table"
 )
 ```

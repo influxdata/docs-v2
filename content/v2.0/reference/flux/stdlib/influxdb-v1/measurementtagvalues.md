@@ -10,6 +10,7 @@ menu:
 weight: 301
 v2.0/tags: [tags]
 related:
+  - /v2.0/query-data/flux/explore-schema/
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
 ---
 
@@ -48,6 +49,8 @@ _**Data type:** String_
 
 ## Function definition
 ```js
+package v1
+
 measurementTagValues = (bucket, measurement, tag) =>
   tagValues(
     bucket: bucket,
@@ -57,4 +60,4 @@ measurementTagValues = (bucket, measurement, tag) =>
 ```
 
 _**Used functions:**
-[tagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues)_
+[v1.tagValues()](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues)_
