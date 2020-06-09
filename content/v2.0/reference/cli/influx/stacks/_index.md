@@ -1,29 +1,37 @@
 ---
-title: influx pkg stack list
+title: influx stacks
 description: >
-  The 'influx pkg stack list' command lists InfluxDB stacks and associated resources.
+  The 'influx stacks' command and its subcommands list and manage InfluxDB stacks
+  and associated resources.
 menu:
   v2_0_ref:
-    name: influx pkg stack list
-    parent: influx pkg stack
-weight: 201
+    name: influx stacks
+    parent: influx
+weight: 101
+aliases:
+  - /v2.0/reference/cli/influx/pkg/stack/list/
 v2.0/tags: [templates]
 ---
 
-The `influx pkg stack list` command lists InfluxDB stacks and associated resources.
+The `influx stacks` command and its subcommands list and manage InfluxDB stacks
+and associated resources.
 
 ## Usage
 ```
-influx pkg stack list [flags]
+influx stacks [flags]
+influx stacks [command]
 ```
 
-#### Aliases
-`list`, `ls`
+## Subcommands
+| Subcommand                                             | Description        |
+|:-------                                                |:-----------        |
+| [init](/v2.0/reference/cli/influx/stacks/init/)     | Initialize a stack |
+| [remove](/v2.0/reference/cli/influx/stacks/remove/) | Remove a stack     |
 
 ## Flags
 | Flag             | Description                           | Input type      | {{< cli/mapped >}}    |
 |:----             |:-----------                           |:----------:     |:------------------    |
-| `-h`, `--help`   | Help for the `list` command           |                 |                       |
+| `-h`, `--help`   | Help for the `stacks` command         |                 |                       |
 | `--hide-headers` | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
 | `--json`         | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
 | `-o`, `--org`    | Organization name                     | string          | `INFLUX_ORG`          |

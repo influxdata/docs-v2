@@ -1,7 +1,7 @@
 ---
 title: Create an InfluxDB template
 description: >
-  Use the InfluxDB UI and the `influx pkg export` command to create InfluxDB templates.
+  Use the InfluxDB UI and the `influx export` command to create InfluxDB templates.
 menu:
   v2_0:
     parent: InfluxDB templates
@@ -10,11 +10,11 @@ menu:
 weight: 103
 v2.0/tags: [templates]
 related:
-  - /v2.0/reference/cli/influx/pkg/export/
-  - /v2.0/reference/cli/influx/pkg/export/all/
+  - /v2.0/reference/cli/influx/export/
+  - /v2.0/reference/cli/influx/export/all/
 ---
 
-Use the InfluxDB user interface (UI) and the `influx pkg export` command to
+Use the InfluxDB user interface (UI) and the `influx export` command to
 create InfluxDB templates.
 Add resources (buckets, Telegraf configurations, tasks, and more) in the InfluxDB
 UI and export the resources as a template.
@@ -61,7 +61,7 @@ Do one of the following to export a template:
 
 ### Export all resources
 To export all templatable resources within an organization to a template manifest,
-use the `influx pkg export all` command.
+use the `influx export all` command.
 Provide the following:
 
 - **Organization name** or **ID**
@@ -73,17 +73,17 @@ Provide the following:
 ###### Export all resources to a template
 ```sh
 # Syntax
-influx pkg export all -o <org-name> -f <file-path> -t <token>
+influx export all -o <org-name> -f <file-path> -t <token>
 
 # Example
-influx pkg export all \
+influx export all \
   -o my-org \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN
 ```
 
 #### Export resources filtered by labelName or resourceKind
-The `influx pkg export all` command has an optional `--filter` flag that exports
+The `influx export all` command has an optional `--filter` flag that exports
 only resources that match specified label names or resource kinds.
 Provide multiple filters for both `labelName` and `resourceKind`
 
@@ -97,7 +97,7 @@ and
 ```
 
 ```sh
-influx pkg export all \
+influx export all \
   -o my-org \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN \
@@ -107,15 +107,12 @@ influx pkg export all \
   --filter=labelName=Example2
 ```
 
-
-
-
 For information about flags, see the
-[`influx pkg export all` documentation](/v2.0/reference/cli/influx/pkg/export/all/).
+[`influx export all` documentation](/v2.0/reference/cli/influx/export/all/).
 
 ### Export specific resources
 To export specific resources within an organization to a template manifest,
-use the `influx pkg export` with resource flags for each resource to include.
+use the `influx export` with resource flags for each resource to include.
 Provide the following:
 
 - **Organization name** or **ID**
@@ -125,15 +122,15 @@ Provide the following:
   **JSON** (`.json`) are supported.
 - **Resource flags** with corresponding lists of resource IDs to include in the template.
   For information about what resource flags are available, see the
-  [`influx pkg export` documentation](/v2.0/reference/cli/influx/pkg/export/).
+  [`influx export` documentation](/v2.0/reference/cli/influx/export/).
 
 ###### Export specific resources to a template
 ```sh
 # Syntax
-influx pkg export all -o <org-name> -f <file-path> -t <token> [resource-flags]
+influx export all -o <org-name> -f <file-path> -t <token> [resource-flags]
 
 # Example
-influx pkg export all \
+influx export all \
   -o my-org \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN \
@@ -193,13 +190,13 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [installing the template](/v2.0/influxdb-templates/use/#install-templates).
+when [applying the template](/v2.0/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 
 ```sh
 # Set bucket-name-1 to "myBucket"
-influx pkg \
+influx apply \
   -f /path/to/template.yml \
   --env-ref=bucket-name-1=myBucket
 ```
@@ -211,7 +208,9 @@ exist in the template and what keys to use to replace them._
 #### Resource fields that support environment references
 Only the following fields support environment references:
 
-
+- `metadata.name`
+- `spec.endpointName`
+- `spec.associations.name`
 {{% /note %}}
 
 ## Share your InfluxDB templates
