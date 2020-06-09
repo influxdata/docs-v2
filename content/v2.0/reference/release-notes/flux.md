@@ -26,8 +26,9 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.69.0 [2020-06-08]
 
 ### Features
-- Add Discord package (contributed by [@chobbs](https://github.com/chobbs)).
-- Add `json.parse()` function.
+- Add [Discord package](/v2.0/reference/flux/stdlib/contrib/discord/)
+  _(contributed by [@chobbs](https://github.com/chobbs))_.
+- Add [`json.parse()` function](/v2.0/reference/flux/stdlib/experimental/json/parse/).
 
 ### Bug fixes
 - Adjust error handling in Flux `date` package.
