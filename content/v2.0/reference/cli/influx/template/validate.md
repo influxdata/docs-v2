@@ -19,10 +19,10 @@ influx template validate [flags]
 
 ## Flags
 
-| Flag  |                  | Description                                                        | Input Type |
-|:----  | ---                 |:-----------                                                        |:---------- |
+| Flag |                  | Description                                                        | Input Type |
+|:---- | ---              |:-----------                                                        |:---------- |
 | `-e` | `--encoding`     | Encoding of the input stream                                       | string     |
-| `-f` | `--file`         | Package file to validate                                           | string     |
+| `-f` | `--file`         | Template file to validate                                          | string     |
 | `-h` | `--help`         | Help for the `validate` command                                    |            |
 | `-R` | `--recurse`      | Recurse through files in the directory specified in `-f`, `--file` |            |
 | `-u` | `--template-url` | URL of template file to validate                                   | string     |
