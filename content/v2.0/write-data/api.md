@@ -4,7 +4,7 @@ seotitle: Write data with the InfluxDB API
 list_title: Write data with the InfluxDB API
 weight: 6
 description: >
-Write data to InfluxDB using the InfluxDB API.
+  Write data to InfluxDB using the InfluxDB API.
 aliases:
 menu:
   v2_0:

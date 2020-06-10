@@ -4,7 +4,7 @@ seotitle: Write data with agent-less options
 list_title: Write data with agent-less options
 weight: 101
 description: >
-Write data to InfluxDB without deploying software.
+  Write data to InfluxDB without deploying software.
 
 aliases:
   - /v2.0/collect-data/advanced-telegraf
