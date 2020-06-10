@@ -16,6 +16,13 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.69.2 [2020-06-10]
+
+### Bug fixes
+- Include a hash of sources for `libflux`.
+
+---
+
 ## v0.69.1 [2020-06-09]
 
 ### Bug fixes
