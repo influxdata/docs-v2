@@ -4,7 +4,7 @@ seotitle: Write data with client libraries
 list_title: Write data with client libraries
 weight: 4
 description: >
-Write data to InfluxDB using client libraries.
+  Write data to InfluxDB using client libraries.
 aliases:
 menu:
   v2_0:
