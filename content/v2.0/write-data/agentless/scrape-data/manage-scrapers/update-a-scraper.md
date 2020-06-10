@@ -4,6 +4,7 @@ seotitle: Update an InfluxDB scraper
 description: Update an InfluxDB scraper that collects data from InfluxDB or a remote endpoint.
 aliases:
   - /v2.0/collect-data/scrape-data/manage-scrapers/update-a-scraper
+  - /v2.0/write-data/scrape-data/manage-scrapers/update-a-scraper
 menu:
   v2_0:
     parent: Manage scrapers

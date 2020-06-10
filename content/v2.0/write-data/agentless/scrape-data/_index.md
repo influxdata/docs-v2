@@ -8,11 +8,12 @@ description: >
 aliases:
   - /v2.0/collect-data/scraper-metrics-endpoint
   - /v2.0/collect-data/scrape-data
+  - /v2.0/write-data/scrapable-endpoints
 v2.0/tags: [scraper]
 menu:
   v2_0:
     name: Scrape data
-    parent: Write data
+    parent: Agent-less options
 products: [oss]
 ---
 
