@@ -5,7 +5,7 @@ description: >
 menu:
   v2_0:
     name: Use Telegraf plugins
-    parent: Use Telegraf
+    parent: Agent-based Telegraf
 weight: 202
 ---
 The following articles guide you through step-by-step Telegraf configuration examples:
