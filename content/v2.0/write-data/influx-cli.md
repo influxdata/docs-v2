@@ -4,7 +4,7 @@ seotitle: Write data with the influx CLI
 list_title: Write data with the influx CLI
 weight: 5
 description: >
-Write data to InfluxDB using the `influx` CLI.
+  Write data to InfluxDB using the `influx` CLI.
 aliases:
 menu:
   v2_0:
