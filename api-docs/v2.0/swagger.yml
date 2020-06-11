@@ -112,6 +112,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /setup/user:
+    post:
+      operationId: PostSetupUser
+      tags:
+        - Setup
+      summary: Set up a new user, org and bucket
+      description: Post an onboarding request to set up a new user, org and bucket.
+      parameters:
+        - $ref: "#/components/parameters/TraceSpan"
+      requestBody:
+        description: Source to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OnboardingRequest"
+      responses:
+        "201":
+          description: Created default user, bucket, org
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OnboardingResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /documents/templates:
     get:
       operationId: GetDocumentsTemplates
@@ -346,7 +375,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /dbrps:
     get:
-      operationId: GetDPRPs
+      operationId: GetDBRPs
       tags:
         - DBRPs
       summary: List all database retention policy mappings
@@ -435,7 +464,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  "/dprps/{dbrpID}":
+  "/dbrps/{dbrpID}":
     get:
       operationId: GetDBRPsID
       tags:
@@ -4699,6 +4728,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Pkg"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/Pkg"
         default:
           description: Unexpected error
           content:
@@ -4907,6 +4939,41 @@ paths:
       responses:
         "204":
           description: Stack and all its associated resources are deleted
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /packages/stacks/{stack_id}/export:
+    delete:
+      operationId: ExportStack
+      tags:
+        - InfluxPackages
+      summary: Export a stack's resources in the form of a package
+      parameters:
+        - in: path
+          name: stack_id
+          required: true
+          schema:
+            type: string
+          description: The stack id to be removed
+        - in: query
+          name: orgID
+          required: true
+          schema:
+            type: string
+          description: The organization id of the user
+      responses:
+        "200":
+          description: Stack and all its associated resources are deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pkg"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/Pkg"
         default:
           description: Unexpected error
           content:
@@ -7393,6 +7460,7 @@ components:
             - notificationRules
             - notificationEndpoints
             - checks
+            - dbrp
         id:
           type: string
           nullable: true
@@ -7826,9 +7894,29 @@ components:
                 type: string
           spec:
             type: object
+    PkgEnvReferences:
+      type: array
+      items:
+        type: object
+        properties:
+          resourceField:
+            type: string
+            description: Field the environment reference corresponds too
+          envRefKey:
+            type: string
+            description: Key identified as environment reference and is the key identified in the template
+          value:
+            type: string
+            description: Value provided to fulfill reference
+          defaultValue:
+            type: string
+            description: Default value that will be provided for the reference when no value is provided
+        required: [resourceField, envRefKey, defaultValue]
     PkgSummary:
       type: object
       properties:
+        stackID:
+          type: string
         summary:
           type: object
           properties:
@@ -7853,6 +7941,8 @@ components:
                     type: array
                     items:
                       $ref: "#/components/schemas/PkgSummaryLabel"
+                  envReferences:
+                    $ref: "#/components/schemas/PkgEnvReferences"
             checks:
               type: array
               items:
@@ -7866,6 +7956,8 @@ components:
                         type: array
                         items:
                           $ref: "#/components/schemas/PkgSummaryLabel"
+                      envReferences:
+                        $ref: "#/components/schemas/PkgEnvReferences"
             labels:
               type: array
               items:
@@ -7893,6 +7985,8 @@ components:
                     type: array
                     items:
                       $ref: "#/components/schemas/PkgChart"
+                  envReferences:
+                    $ref: "#/components/schemas/PkgEnvReferences"
             labelMappings:
               type: array
               items:
@@ -7935,6 +8029,8 @@ components:
                         type: array
                         items:
                           $ref: "#/components/schemas/PkgSummaryLabel"
+                      envReferences:
+                        $ref: "#/components/schemas/PkgEnvReferences"
             notificationRules:
               type: array
               items:
@@ -7984,6 +8080,8 @@ components:
                     type: array
                     items:
                       $ref: "#/components/schemas/PkgSummaryLabel"
+                  envReferences:
+                    $ref: "#/components/schemas/PkgEnvReferences"
             tasks:
               type: array
               items:
@@ -8007,6 +8105,8 @@ components:
                     type: string
                   status:
                     type: string
+                  envReferences:
+                    $ref: "#/components/schemas/PkgEnvReferences"
             telegrafConfigs:
               type: array
               items:
@@ -8020,6 +8120,8 @@ components:
                         type: array
                         items:
                           $ref: "#/components/schemas/PkgSummaryLabel"
+                      envReferences:
+                        $ref: "#/components/schemas/PkgEnvReferences"
             variables:
               type: array
               items:
@@ -8041,6 +8143,8 @@ components:
                     type: array
                     items:
                       $ref: "#/components/schemas/PkgSummaryLabel"
+                  envReferences:
+                    $ref: "#/components/schemas/PkgEnvReferences"
         diff:
           type: object
           properties:
@@ -8396,10 +8500,15 @@ components:
           type: string
         name:
           type: string
-        description:
-          type: string
-        retentionPeriod:
-          type: string
+        properties:
+          type: object
+          properties:
+            color:
+              type: string
+            description:
+              type: string
+        envReferences:
+          $ref: "#/components/schemas/PkgEnvReferences"
     PkgChart:
       type: object
       properties:
@@ -10939,6 +11048,8 @@ components:
           type: string
         properties:
           type: object
+          additionalProperties:
+            type: string
           description: Key/Value pairs associated with this label. Keys can be removed by sending an update with an empty value.
           example: { "color": "ffb3b3", "description": "this is a description" }
     LabelMapping:
@@ -11649,6 +11760,7 @@ components:
     DBRP:
       required:
         - orgID
+        - org
         - bucketID
         - database
         - retention_policy
@@ -11660,6 +11772,9 @@ components:
         orgID:
           type: string
           description: the organization ID that owns this mapping.
+        org:
+          type: string
+          description: the organization that owns this mapping.
         bucketID:
           type: string
           description: the bucket ID used as target for the translation.
