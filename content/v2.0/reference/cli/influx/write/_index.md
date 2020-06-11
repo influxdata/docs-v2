@@ -45,5 +45,6 @@ influx write [command]
 | `-p`, `--precision` | Precision of the timestamps (default `ns`)           | string     | `INFLUX_PRECISION`   |
 | `--skipHeader`      | Skip first n rows of input data                      | integer    |                      |
 | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing |            |                      |
+| `-u`, `--url`       | URL to import data from                              | string     |                      |
 
 {{% cli/influx-global-flags %}}
