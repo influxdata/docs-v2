@@ -8,6 +8,28 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.12 [2020-06-12]
+
+### Features
+
+- Make all `pkg` applications stateful through stacks.
+- Add ability to export a stack's existing resource state as a `pkg`.
+- Update influx `pkg` commands with improved usage and examples in long form.
+- Extend `influx` CLI with version and User-Agent.
+- Integrate `RedirectTo` functionality so Cloud users are redirected back to the originally linked page after login.
+- Consolidate `pkg` influx commands under templates. Remove some nesting of the `influx` CLI commands.
+- Dashboards maintain sort order after navigating away.
+- Allow tasks to open in new tabs.
+
+### Bug Fixes
+
+- Support organization name in addition to ID in DBRP operations.
+- Disable failing when providing an unexpected error to `influx` CLI.
+- `influx delete` now respects the config.
+- Store initialization for `pkger` enforced on reads.
+- Backfill missing `fillColumns` field for histograms in `pkger`.
+- Notify the user how to escape presentation mode when the feature is toggled.
+
 ## v2.0.0-beta.11 [2020-05-27]
 
 {{% warn %}}
