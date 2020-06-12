@@ -18,7 +18,7 @@ weight: 101
 - Update `influx apply` commands with improved usage and examples in long form.
 - Update `influx` CLI to include the `-version` command and return the User-Agent header.
 - Add `RedirectTo` functionality to ensure Cloud users are redirected to the page that they were trying access after logging into Cloud.
-- Dashboards maintain sort order after navigating away.
+- Maintain sort order on a dashboard after navigating away.
 - Allow tasks to open in new tabs.
 
 ### Bug Fixes
