@@ -23,7 +23,7 @@ weight: 101
 
 ### Bug Fixes
 
-- Support organization name in addition to ID in DBRP operations.
+- Support organization name and ID in DBRP operations.
 - Disable failing when providing an unexpected error to `influx` CLI.
 - `influx delete` now respects the config settings.
 - Store initialization for `pkger` enforced on reads.
