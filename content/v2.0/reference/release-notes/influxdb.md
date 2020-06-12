@@ -8,6 +8,35 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.12 [2020-06-12]
+
+### Features
+
+- Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
+- Make all `influx apply` applications stateful through stacks.
+- Add ability to export a stack's existing resource state using `influx export`.
+- Update `influx apply` commands with improved usage and examples in long form.
+- Update `influx` CLI to include the `-version` command and return the User-Agent header.
+- Add `RedirectTo` functionality to ensure Cloud users are redirected to the page that they were trying access after logging into Cloud.
+- Maintain sort order on a dashboard after navigating away.
+- Allow tasks to open in new tabs.
+
+### Bug Fixes
+
+- Support organization name and ID in DBRP operations.
+- Prevent the CLI from failing when an unexpected flag is entered in the CLI.
+- `influx delete` now respects the configuration settings.
+- Store initialization for `pkger` enforced on reads.
+- Backfill missing `fillColumns` field for histograms in `pkger`.
+- Notify the user how to escape presentation mode when the feature is toggled.
+
+### UI Improvements
+
+- Display bucket ID in bucket list and enable 1-click copying.
+- Update Tokens list to be consistent with other resource lists.
+- Reduce the number of variables being hydrated when toggling variables.
+- Redesign dashboard cell loading indicator to be more obvious.
+
 ## v2.0.0-beta.11 [2020-05-27]
 
 {{% warn %}}
