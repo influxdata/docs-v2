@@ -1,19 +1,21 @@
 ---
-title: influx pkg stack remove
-description: The 'influx pkg stack remove' command removes an InfluxDB stack.
+title: influx stacks remove
+description: The 'influx stacks remove' command removes an InfluxDB stack and all associated resources.
 menu:
   v2_0_ref:
-    name: influx pkg stack remove
-    parent: influx pkg stack
+    name: influx stacks remove
+    parent: influx stacks
 weight: 201
+aliases:
+  - /v2.0/reference/cli/influx/pkg/stack/remove/
 v2.0/tags: [templates]
 ---
 
-The `influx pkg stack remove` command removes an InfluxDB stack.
+The `influx stacks remove` command removes an InfluxDB stack and all associated resources.
 
 ## Usage
 ```
-influx pkg stack remove [flags]
+influx stacks remove [flags]
 ```
 
 #### Aliases

@@ -46,11 +46,9 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 ## Visualize your query
 
-Select from available [visualization types](/v2.0/visualize-data/visualization-types/) or enable the **View Raw Data** option to view all of your query's results.
+- Select an available [visualization types](/v2.0/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
 
-Select a visualization type from the dropdown menu in the upper-left.
-
-    {{< img-hd src="/img/2-0-visualization-dropdown.png" title="Visualization dropdown" />}}
+    {{< img-hd src="/img/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
 
 ## Control your dashboard cell
 
@@ -85,6 +83,8 @@ Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashbo
 
 2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.
+
+> The custom time range uses the selected timezone (local time or UTC).
 
 ### Query Builder or Script Editor
 

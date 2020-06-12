@@ -8,6 +8,28 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.11 [2020-05-27]
+
+{{% warn %}}
+The beta 11 version was **not released**. Changes below are included in the beta 12 release.
+{{% /warn %}}
+
+### Features
+
+- Ability to set UTC time for a custom time range query.
+- Ability to set a minimum or maximum value for the y-axis visualization setting (rather than requiring both).
+- New `csv2lp` library for converting CSV (comma separated values) to InfluxDB line protocol.
+- Add influxdb version to the InfluxDB v2 API `/health` endpoint.
+
+### Bug Fixes
+
+- Automatically adjust the drop-down list width to ensure the longest item in a list is visible.
+- Fix bug in Graph + Single Stat visualizations to ensure `timeFormat` persists.
+- Authorizer now exposes the full permission set. This adds the ability to derive which organizations the Authorizer has access to read or write to without using a User Request Management (URM) service.
+- Fix issue causing variable selections to hydrate all variable values, decreasing the impact on network requests.
+- Resolve scrollbar issues to ensure datasets are visible and scrollable.
+- Check status now displays a warning if loading a large amount.
+
 ## v2.0.0-beta.10 [2020-05-07]
 
 ### Features

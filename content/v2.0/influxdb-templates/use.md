@@ -1,8 +1,8 @@
 ---
 title: Use InfluxDB templates
 description: >
-  Use the `influx pkg` command to view and install templates from your local
-  filesystem or from URLs.
+  Use the `influx` command line interface (CLI) to summarize, validate, and apply
+  templates from your local filesystem and from URLs.
 menu:
   v2_0:
     parent: InfluxDB templates
@@ -10,23 +10,25 @@ menu:
 weight: 102
 v2.0/tags: [templates]
 related:
-  - /v2.0/reference/cli/influx/pkg/
+  - /v2.0/reference/cli/influx/apply/
+  - /v2.0/reference/cli/influx/template/
+  - /v2.0/reference/cli/influx/template/validate/
 ---
 
-Use the `influx pkg` command to summarize, validate, and install templates from
-your local filesystem and from URLs.
+Use the `influx` command line interface (CLI) to summarize, validate, and apply
+templates from your local filesystem and from URLs.
 
 - [Use InfluxDB community templates](#use-influxdb-community-templates)
 - [View a template summary](#view-a-template-summary)
 - [Validate a template](#validate-a-template)
-- [Install templates](#install-templates)
+- [Apply templates](#apply-templates)
 
 
 ## Use InfluxDB community templates
 The [InfluxDB community templates repository](https://github.com/influxdata/community-templates/)
 is home to a growing number of InfluxDB templates developed and maintained by
 others in the InfluxData community.
-Install community templates directly from GitHub using a template's download URL
+Apply community templates directly from GitHub using a template's download URL
 or download the template.
 
 {{% note %}}
@@ -47,8 +49,8 @@ https://raw.githubusercontent.com/influxdata/community-templates/master/docker/d
 <a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
 
 ## View a template summary
-To view a summary of what's included in a template before installing the template,
-use the [`influx pkg summary` command](/v2.0/reference/cli/influx/pkg/summary/).
+To view a summary of what's included in a template before applying the template,
+use the [`influx template` command](/v2.0/reference/cli/influx/template/).
 View a summary of a template stored in your local filesystem or from a URL.
 
 {{% code-tabs-wrapper %}}
@@ -59,26 +61,26 @@ View a summary of a template stored in your local filesystem or from a URL.
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx pkg summary -f <template-file-path>
+influx template -f <template-file-path>
 
 # Example
-influx pkg summary -f /path/to/template.yml
+influx template -f /path/to/template.yml
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx pkg summary -u <template-url>
+influx template -u <template-url>
 
 # Example
-influx pkg summary -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
+influx template -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
 ```
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
 ## Validate a template
 To validate a template before you install it or troubleshoot a template, use
-the [`influx pkg validate` command](/v2.0/reference/cli/influx/pkg/validate/).
+the [`influx template validate` command](/v2.0/reference/cli/influx/template/validate/).
 Validate a template stored in your local filesystem or from a URL.
 
 {{% code-tabs-wrapper %}}
@@ -89,99 +91,99 @@ Validate a template stored in your local filesystem or from a URL.
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx pkg validate -f <template-file-path>
+influx template validate -f <template-file-path>
 
 # Example
-influx pkg validate -f /path/to/template.yml
+influx template validate -f /path/to/template.yml
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx pkg validate -u <template-url>
+influx template validate -u <template-url>
 
 # Example
-influx pkg validate -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
+influx template validate -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
 ```
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
-## Install templates
-Use the [`influx pkg` command](/v2.0/reference/cli/influx/pkg/) to install templates
+## Apply templates
+Use the [`influx apply` command](/v2.0/reference/cli/influx/apply/) to install templates
 from your local filesystem or from URLs.
 
-- [Install a template from a file](#install-a-template-from-a-file)
-- [Install all templates in a directory](#install-all-templates-in-a-directory)
-- [Install a template from a URL](#install-a-template-from-a-url)
-- [Install templates from both files and URLs](#install-templates-from-both-files-and-urls)
+- [Apply a template from a file](#apply-a-template-from-a-file)
+- [Apply all templates in a directory](#apply-all-templates-in-a-directory)
+- [Apply a template from a URL](#apply-a-template-from-a-url)
+- [Apply templates from both files and URLs](#apply-templates-from-both-files-and-urls)
 - [Define environment references](#define-environment-references)
 - [Include a secret when installing a template](#include-a-secret-when-installing-a-template)
 
-### Install a template from a file
+### Apply a template from a file
 To install templates stored on your local machine, use the `-f` or `--file` flag
 to provide the **file path** of the template manifest.
 
 ```sh
 # Syntax
-influx pkg -o <org-name> -f <template-file-path>
+influx apply -o <org-name> -f <template-file-path>
 
 # Examples
-# Install a single template
-influx pkg -o example-org -f /path/to/template.yml
+# Apply a single template
+influx apply -o example-org -f /path/to/template.yml
 
-# Install multiple templates
-influx pkg -o example-org \
+# Apply multiple templates
+influx apply -o example-org \
   -f /path/to/this/template.yml \
   -f /path/to/that/template.yml
 ```
 
-### Install all templates in a directory
-To install all templates in a directory, use the `-f` or `--file` flag to provide
+### Apply all templates in a directory
+To apply all templates in a directory, use the `-f` or `--file` flag to provide
 the **directory path** of the directory where template manifests are stored.
-By default, this only installs templates stored in the specified directory.
-To install all templates stored in the specified directory and its subdirectories,
-include the `--recurse` flag.
+By default, this only applies templates stored in the specified directory.
+To apply all templates stored in the specified directory and its subdirectories,
+include the `-R`, `--recurse` flag.
 
 ```sh
 # Syntax
-influx pkg -o <org-name> -f <template-directory-path>
+influx apply -o <org-name> -f <template-directory-path>
 
 # Examples
-# Install all templates in a directory
-influx pkg -o example-org -f /path/to/template/dir/
+# Apply all templates in a directory
+influx apply -o example-org -f /path/to/template/dir/
 
-# Install all templates in a directory and its subdirectories
-influx pkg -o example-org -f /path/to/template/dir/ --recurse
+# Apply all templates in a directory and its subdirectories
+influx apply -o example-org -f /path/to/template/dir/ -R
 ```
 
-### Install a template from a URL
-To install templates from a URL, use the `-u` or `--url` flag to provide the URL
+### Apply a template from a URL
+To apply templates from a URL, use the `-u` or `--template-url` flag to provide the URL
 of the template manifest.
 
 ```sh
 # Syntax
-influx pkg -o <org-name> -u <template-url>
+influx apply -o <org-name> -u <template-url>
 
 # Examples
-# Install a single template from a URL
-influx pkg -o example-org -u https://example.com/templates/template.yml
+# Apply a single template from a URL
+influx apply -o example-org -u https://example.com/templates/template.yml
 
-# Install multiple templates from URLs
-influx pkg -o example-org \
+# Apply multiple templates from URLs
+influx apply -o example-org \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml
 ```
 
-### Install templates from both files and URLs
-To install templates from both files and URLs in a single command, include multiple
+### Apply templates from both files and URLs
+To apply templates from both files and URLs in a single command, include multiple
 file or directory paths and URLs, each with the appropriate `-f` or `-u` flag.
 
 ```sh
 # Syntax
-influx pkg -o <org-name> -u <template-url> -f <template-path>
+influx apply -o <org-name> -u <template-url> -f <template-path>
 
 # Example
-influx pkg -o example-org \
+influx apply -o example-org \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml \
   -f ~/templates/custom-template.yml \
@@ -191,14 +193,14 @@ influx pkg -o example-org \
 
 ### Define environment references
 Some templates include [environment references](/v2.0/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
-The `influx pkg` command prompts you to provide a value for each environment
+The `influx apply` command prompts you to provide a value for each environment
 reference in the template.
 You can also provide values for environment references by including an `--env-ref`
 flag with a key-value pair comprised of the environment reference key and the
 value to replace it.
 
 ```sh
-influx pkg -o example-org -f /path/to/template.yml \
+influx apply -o example-org -f /path/to/template.yml \
   --env-ref=bucket-name-1=myBucket
   --env-ref=label-name-1=Label1 \
   --env-ref=label-name-2=Label2
@@ -212,18 +214,18 @@ with the secret key-value pair.
 
 ```sh
 # Syntax
-influx pkg -o <org-name> -f <template-file-path> \
+influx apply -o <org-name> -f <template-file-path> \
   --secret=<secret-key>=<secret-value>
 
 # Examples
-# Define a single secret when installing a template
-influx pkg -o example-org -f /path/to/template.yml \
+# Define a single secret when applying a template
+influx apply -o example-org -f /path/to/template.yml \
   --secret=FOO=BAR
 
-# Define multiple secrets when installing a template
-influx pkg -o example-org -f /path/to/template.yml \
+# Define multiple secrets when applying a template
+influx apply -o example-org -f /path/to/template.yml \
   --secret=FOO=bar \
   --secret=BAZ=quz
 ```
 
-_To add a secret after installing a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
+_To add a secret after applying a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
