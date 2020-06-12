@@ -25,10 +25,17 @@ weight: 101
 
 - Support organization name in addition to ID in DBRP operations.
 - Disable failing when providing an unexpected error to `influx` CLI.
-- `influx delete` now respects the config.
+- `influx delete` now respects the config settings.
 - Store initialization for `pkger` enforced on reads.
 - Backfill missing `fillColumns` field for histograms in `pkger`.
 - Notify the user how to escape presentation mode when the feature is toggled.
+
+### UI Improvements
+
+- Display bucket ID in bucket list and enable 1-click copying.
+- Update Tokens list to be consistent with other resource lists.
+- Reduce the number of variables being hydrated when toggling variables.
+- Redesign dashboard cell loading indicator to be more obvious.
 
 ## v2.0.0-beta.11 [2020-05-27]
 
