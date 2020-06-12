@@ -12,20 +12,20 @@ weight: 101
 
 ### Features
 
-- Make all `pkg` applications stateful through stacks.
-- Add ability to export a stack's existing resource state as a `pkg`.
-- Update influx `pkg` commands with improved usage and examples in long form.
-- Extend `influx` CLI with version and User-Agent.
-- Integrate `RedirectTo` functionality so Cloud users are redirected back to the originally linked page after login.
-- Consolidate `pkg` influx commands under templates. Remove some nesting of the `influx` CLI commands.
+- Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
+- Make all `influx apply` applications stateful through stacks.
+- Add ability to export a stack's existing resource state using `influx export`.
+- Update `influx apply` commands with improved usage and examples in long form.
+- Update `influx` CLI to include the `-version` command and return the User-Agent header.
+- Add `RedirectTo` functionality to ensure Cloud users are redirected to the page that they were trying access after logging into Cloud.
 - Dashboards maintain sort order after navigating away.
 - Allow tasks to open in new tabs.
 
 ### Bug Fixes
 
 - Support organization name and ID in DBRP operations.
-- Disable failing when providing an unexpected error to `influx` CLI.
-- `influx delete` now respects the config settings.
+- Prevent the CLI from failing when an unexpected flag is entered in the CLI.
+- `influx delete` now respects the configuration settings.
 - Store initialization for `pkger` enforced on reads.
 - Backfill missing `fillColumns` field for histograms in `pkger`.
 - Notify the user how to escape presentation mode when the feature is toggled.
