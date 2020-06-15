@@ -89,9 +89,9 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
   -d 'from(bucket:"example-bucket")
-        |> range(start:-1000h)
-        |> group(columns:["_measurement"], mode:"by")
-        |> sum()'
+        |> range(start: -12h)
+        |> filter(fn: (r) => r._measurement == "example-measurement"
+        |> aggregateWindow(every: 1h, fn: mean)'
 ```
 {{% /code-tab-content %}}
 
@@ -103,9 +103,9 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
   -H 'Content-type: application/vnd.flux' \
   -H 'Accept-Encoding: gzip' \
   -d 'from(bucket:"example-bucket")
-        |> range(start:-1000h)
-        |> group(columns:["_measurement"], mode:"by")
-        |> sum()'
+        |> range(start: -12h)
+        |> filter(fn: (r) => r._measurement == "example-measurement"
+        |> aggregateWindow(every: 1h, fn: mean)'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

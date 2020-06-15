@@ -8,7 +8,7 @@ menu:
   v2_0_ref:
     name: filter
     parent: built-in-transformations
-weight: 401
+weight: 402
 v2.0/tags: [exists]
 related:
   - /v2.0/query-data/flux/query-fields/

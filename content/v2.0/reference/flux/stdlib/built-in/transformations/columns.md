@@ -11,7 +11,7 @@ menu:
   v2_0_ref:
     name: columns
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS  
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS  

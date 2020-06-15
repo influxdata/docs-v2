@@ -18,7 +18,7 @@ related:
 ---
 
 SQL Flux functions provide tools for working with data in SQL databases such as
-MySQL, PostgreSQL, and SQLite.
+MySQL, PostgreSQL, Snowflake, and SQLite.
 Import the `sql` package:
 
 ```js

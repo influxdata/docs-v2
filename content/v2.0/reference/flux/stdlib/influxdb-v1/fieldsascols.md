@@ -36,6 +36,8 @@ from(bucket:"example-bucket")
 
 ## Function definition
 ```js
+package v1
+
 fieldsAsCols = (tables=<-) =>
   tables
     |> pivot(

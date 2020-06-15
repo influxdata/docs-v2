@@ -8,9 +8,10 @@ menu:
   v2_0_ref:
     name: window
     parent: built-in-transformations
-weight: 401
+weight: 402
 related:
   - /v2.0/query-data/flux/window-aggregate/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
@@ -36,22 +37,14 @@ window(
   stopColumn: "_stop",
   createEmpty: false
 )
-
-// OR
-
-window(
-  intervals: intervals(every: 5m, period: 5m, offset: 12h),
-  timeColumn: "_time",
-  startColumn: "_start",
-  stopColumn: "_stop",
-  createEmpty: false
-)
 ```
 
 ## Parameters
 
 {{% note %}}
-`every`,`period` or `intervals` is required.
+#### Calendar months and years
+`every`, `period`, and `offset` support all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 ### every
@@ -74,20 +67,6 @@ It can be negative, indicating that the offset goes backwards in time.
 Defaults to 0, which will align window end boundaries with the `every` duration.
 
 _**Data type:** Duration_
-
-### intervals
-A function that returns an interval generator, a set of intervals used as windows.
-
-_**Data type:** Function_
-
-###### Example interval generator function
-```js
-intervals(every:1d, period:8h, offset:9h)
-```
-
-{{% note %}}
-When `intervals` is used, `every`, `period`, and `start` cannot be used or need to be set to 0.
-{{% /note %}}
 
 ### timeColumn
 The column containing time.
@@ -118,15 +97,15 @@ _**Data type:** Boolean_
 #### Window data into 10 minute intervals
 ```js
 from(bucket:"example-bucket")
-  |> range(start:-12h)
-  |> window(every:10m)
+  |> range(start: -12h)
+  |> window(every: 10m)
   // ...
 ```
 
-#### Window data using intervals function
-The following windows data into 8 hour intervals starting at 9AM every day.
+#### Window by calendar month
 ```js
 from(bucket:"example-bucket")
-  |> range(start:-12h)
-  |> window(intervals: intervals(every:1d, period:8h, offset:9h))
+  |> range(start: -1y)
+  |> window(every: 1mo)
+  // ...
 ```

@@ -45,21 +45,24 @@ retrieving authentication tokens._
 ## Commands
 | Command                                             | Description                                          |
 |:-------                                             |:-----------                                          |
+| [apply](/v2.0/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
 | [auth](/v2.0/reference/cli/influx/auth)             | Authorization management commands                    |
 | [backup](/v2.0/reference/cli/influx/backup)         | Back up data                                         |
 | [bucket](/v2.0/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/v2.0/reference/cli/influx/completion) | Generate completion scripts                          |
 | [config](/v2.0/reference/cli/influx/config)         | Configuration management commands                    |
 | [delete](/v2.0/reference/cli/influx/delete)         | Delete points from InfluxDB                          |
+| [export](/v2.0/reference/cli/influx/export)         | Export resources as a template                       |
 | [help](/v2.0/reference/cli/influx/help)             | Help about any command                               |
 | [org](/v2.0/reference/cli/influx/org)               | Organization management commands                     |
 | [ping](/v2.0/reference/cli/influx/ping)             | Check the InfluxDB `/health` endpoint                |
-| [pkg](/v2.0/reference/cli/influx/pkg)               | Manage InfluxDB packages                             |
 | [query](/v2.0/reference/cli/influx/query)           | Execute a Flux query                                 |
 | [repl](/v2.0/reference/cli/influx/repl)             | Interactive REPL (read-eval-print-loop)              |
 | [secret](/v2.0/reference/cli/influx/secret)         | Manage secrets                                       |
 | [setup](/v2.0/reference/cli/influx/setup)           | Create default username, password, org, bucket, etc. |
+| [stacks](/v2.0/reference/cli/influx/stacks)         | Manage InfluxDB stacks                               |
 | [task](/v2.0/reference/cli/influx/task)             | Task management commands                             |
+| [template](/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
 | [transpile](/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/v2.0/reference/cli/influx/user)             | User management commands                             |
 | [write](/v2.0/reference/cli/influx/write)           | Write points to InfluxDB                             |

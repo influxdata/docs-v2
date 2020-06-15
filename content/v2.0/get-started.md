@@ -38,9 +38,14 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 1. Choose one of the following:
     - **Subscribe through InfluxData**  
       To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData,
-      go to [InfluxDB Cloud 2.0]({{< cloud-link >}}), enter your credentials,
-      and then click **Start your Free Plan now**.
-      When you're ready to grow, [upgrade to the Usage-Based Plan](/v2.0/account-management/billing/#upgrade-to-usage-based-plan).
+      go to [InfluxDB Cloud 2.0]({{< cloud-link >}}).
+
+        - To use social sign-on, click **Continue with Google**. Note that Google social sign-on does not support email aliases.
+
+        - Sign up with email by entering your name, email address, and password, then click **Create Account**.
+
+      If you originally signed up with email but want to enable social sign-on, you can do so by logging in through Google as long as you use the same email address.  
+
     - **Subscribe through a cloud provider**  
       To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
       **Amazon Web Services (AWS)** or **Google Cloud Platform (GCP)** account:
@@ -61,16 +66,12 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS or GCP Marketplaces.
         {{%/note%}}
 
-2. InfluxDB Cloud requires email verification to complete the sign up process.
+2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
    Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
 3. (If you subscribed through InfluxData) Choose your cloud provider.
 4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
 
-  - **Amazon Web Services (AWS)**
-      - **US West (Oregon)**
-      - **EU Frankfurt**
-  - **Google Cloud Platform (GCP)**
-      - **Iowa**
+    {{< cloud_regions type="list" >}}
 
     _To suggest regions to add, click **Let us know** under Regions._
 5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
@@ -116,7 +117,7 @@ executables, and running the initial setup process.
 ### Download and install InfluxDB v2.0 beta
 Download InfluxDB v2.0 beta for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.10_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
 To unpackage the downloaded archive, **double click the archive file in Finder**
@@ -125,7 +126,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_2.0.0-beta.10_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -134,7 +135,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.10_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.12_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -198,8 +199,8 @@ influxd --reporting-disabled
 ### Download and install InfluxDB v2.0 beta
 Download the InfluxDB v2.0 beta package appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.10_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.10_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
 
 ### Place the executables in your $PATH
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
@@ -208,10 +209,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-beta.10_linux_amd64.tar.gz
+tar xvzf path/to/influxdb_2.0.0-beta.12_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.10_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb_2.0.0-beta.12_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -381,17 +382,17 @@ You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
 #### Using the influx CLI after setting up InfluxDB through the UI
-To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI,
-use one of the following methods to provide your [authentication token](/v2.0/users/tokens/) to the CLI:
+To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI, provide your [authentication token](/v2.0/users/tokens/), which is automatically generated during the setup process. For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).
 
-1. Pass your token to the `influx` CLI using the `-t` or `--token` flag.
-2. Set the `INFLUX_TOKEN` environment variable using your token.
+Use one of the following methods to provide your authentication token to the CLI:
+
+- Create a new InfluxDB connection configuration using the [`influx config create` command](/v2.0/reference/cli/influx/config/create/).
+- Pass your token to the `influx` CLI using the `-t` or `--token` flag.
+- Set the `INFLUX_TOKEN` environment variable using your token.
 
     ```bash
     export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
     ```
-3. Store your token in `~/.influxdbv2/credentials`.
-   _The content of the `credentials` file should be only your token._
 
 _See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
 retrieving authentication tokens._
@@ -418,7 +419,10 @@ influx setup
    Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, and bucket.
+InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. It has also create a config profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/v2.0/reference/cli/influx/config) command.
+
+To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
+
 You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
@@ -458,6 +462,10 @@ For details, see [Scrape data](/v2.0/write-data/scrape-data/).
 For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
 see [Write data to InfluxDB](/v2.0/write-data/).
 
+#### Demo data
+If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/write-data/sample-data/demo-data/)
+for quick, **free** access to time series data.
+
 ### Query data
 
 Query data using Flux, the UI, and the `influx` command line interface.
@@ -484,10 +492,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
 - [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization with a single user.
-- **InfluxDB Cloud** does not support retrieving data from a file based CSV source
-  using the `file` parameter of the [`csv.from()`](/v2.0/reference/flux/functions/csv/from);
-  however you can use raw CSV data with the `csv` parameter.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
 #### New features in InfluxDB Cloud 2.0
 

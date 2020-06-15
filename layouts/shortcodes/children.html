@@ -1,5 +1,6 @@
 {{ $type :=  .Get "type" | default "articles" }}
 {{ $show := .Get "show" | default "all" }}
+{{ $hlevel := .Get "hlevel" | default "h3"}}
 {{ $readMore := .Get "readmore" | default false }}
 {{ $hr := .Get "hr" | default false }}
 
@@ -19,7 +20,10 @@
 			{{ $title := cond ( isset .Params "list_title" ) .Params.list_title .Title }}
 			{{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
 			{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
-			<h3 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h3>
+			{{ if eq $hlevel "h2"}} <h2 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h2>
+			{{ else if eq $hlevel "h3"}} <h3 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h3>
+			{{ else if eq $hlevel "h4"}} <h4 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h4>
+			{{end}}
 			<p>
 				{{- if .Description }}{{- .Description | markdownify -}}
 				{{ else }}{{- .Summary | markdownify -}}

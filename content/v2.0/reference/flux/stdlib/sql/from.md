@@ -37,6 +37,7 @@ The following drivers are available:
 
 - mysql
 - postgres
+- snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
 
 ### dataSourceName
@@ -52,6 +53,11 @@ postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 
 # MySQL Driver DSN
 username:password@tcp(localhost:3306)/dbname?param=value
+
+# Snowflake Driver DSNs
+username[:password]@accountname/dbname/schemaname?param1=value1&paramN=valueN
+username[:password]@accountname/dbname?param1=value1&paramN=valueN
+username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param1=value1&paramN=valueN
 
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=ro
@@ -80,7 +86,7 @@ password = secrets.get(key: "MYSQL_PASS")
 sql.from(
  driverName: "mysql",
  dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
- query:"SELECT * FROM ExampleTable"
+ query:"SELECT * FROM example_table"
 )
 ```
 
@@ -95,7 +101,23 @@ password = secrets.get(key: "POSTGRES_PASS")
 sql.from(
   driverName: "postgres",
   dataSourceName: "postgresql://${username}:${password}@localhost",
-  query:"SELECT * FROM ExampleTable"
+  query:"SELECT * FROM example_table"
+)
+```
+
+### Query a Snowflake database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SNOWFLAKE_USER")
+password = secrets.get(key: "SNOWFLAKE_PASS")
+account = secrets.get(key: "SNOWFLAKE_ACCT")
+
+sql.from(
+  driverName: "snowflake",
+  dataSourceName: "${username}:${password}@${account}/db/exampleschema?warehouse=wh",
+  query: "SELECT * FROM example_table"
 )
 ```
 
@@ -114,6 +136,6 @@ import "sql"
 sql.from(
   driverName: "sqlite3",
   dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
-  query:"SELECT * FROM ExampleTable"
+  query: "SELECT * FROM example_table"
 )
 ```
