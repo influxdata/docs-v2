@@ -29,14 +29,14 @@ influx stacks [command]
 | [remove](/v2.0/reference/cli/influx/stacks/remove/) | Remove a stack     |
 
 ## Flags
-| Flag             | Description                           | Input type      | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------:     |:------------------    |
-| `-h`, `--help`   | Help for the `stacks` command         |                 |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
-| `--json`         | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o`, `--org`    | Organization name                     | string          | `INFLUX_ORG`          |
-| `--org-id`       | Organization ID                       | string          | `INFLUX_ORG_ID`       |
-| `--stack-id`     | Stack IDs to filter by                | list of strings |                       |
-| `--stack-name`   | Stack names to filter by              | list of strings |                       |
+| Flag |                  | Description                           | Input type      | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------:     |:------------------    |
+| `-h` | `--help`         | Help for the `stacks` command         |                 |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
+| `-o` | `--org`          | Organization name                     | string          | `INFLUX_ORG`          |
+|      | `--org-id`       | Organization ID                       | string          | `INFLUX_ORG_ID`       |
+|      | `--stack-id`     | Stack IDs to filter by                | list of strings |                       |
+|      | `--stack-name`   | Stack names to filter by              | list of strings |                       |
 
 {{% cli/influx-global-flags %}}

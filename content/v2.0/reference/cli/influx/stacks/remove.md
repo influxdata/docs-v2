@@ -22,13 +22,13 @@ influx stacks remove [flags]
 `remove`, `rm`, `uninstall`
 
 ## Flags
-| Flag             | Description                           | Input type      | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------:     |:------------------    |
-| `-h`, `--help`   | Help for the `remove` command         |                 |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
-| `--json`         | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o`, `--org`    | Organization name                     | string          | `INFLUX_ORG`          |
-| `--org-id`       | Organization ID                       | string          | `INFLUX_ORG_ID`       |
-| `--stack-id`     | Stack IDs to remove                   | list of strings |                       |
+| Flag |                  | Description                           | Input type      | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------:     |:------------------    |
+| `-h` | `--help`         | Help for the `remove` command         |                 |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |                 | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`) |                 | `INFLUX_OUTPUT_JSON`  |
+| `-o` | `--org`          | Organization name                     | string          | `INFLUX_ORG`          |
+|      | `--org-id`       | Organization ID                       | string          | `INFLUX_ORG_ID`       |
+|      | `--stack-id`     | Stack IDs to remove                   | list of strings |                       |
 
 {{% cli/influx-global-flags %}}

@@ -25,8 +25,8 @@ influx task run [command]
 | [retry](/v2.0/reference/cli/influx/task/run/retry) | Retry a task         |
 
 ## Flags
-| Flag           | Description                |
-|:----           |:-----------                |
-| `-h`, `--help` | Help for the `run` command |
+| Flag |          | Description                |
+|:---- |:---      |:-----------                |
+| `-h` | `--help` | Help for the `run` command |
 
 {{% cli/influx-global-flags %}}

@@ -19,9 +19,9 @@ influx backup [flags]
 ```
 
 ## Flags
-| Flag           | Description                             | Input type | {{< cli/mapped >}} |
-|:----           |:-----------                             |:----------:|:------------------ |
-| `-h`, `--help` | Help for the `backup` command           |            |                    |
-| `-p`, `--path` | Directory path to write backup files to | string     | `INFLUX_PATH`      |
+| Flag |          | Description                             | Input type | {{< cli/mapped >}} |
+|:---- |:---      |:-----------                             |:----------:|:------------------ |
+| `-h` | `--help` | Help for the `backup` command           |            |                    |
+| `-p` | `--path` | Directory path to write backup files to | string     | `INFLUX_PATH`      |
 
 {{% cli/influx-global-flags %}}

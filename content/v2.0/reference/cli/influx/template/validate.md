@@ -20,7 +20,7 @@ influx template validate [flags]
 ## Flags
 
 | Flag |                  | Description                                                        | Input Type |
-|:---- | ---              |:-----------                                                        |:---------- |
+|:---- |:---              |:-----------                                                        |:---------- |
 | `-e` | `--encoding`     | Encoding of the input stream                                       | string     |
 | `-f` | `--file`         | Template file to validate                                          | string     |
 | `-h` | `--help`         | Help for the `validate` command                                    |            |

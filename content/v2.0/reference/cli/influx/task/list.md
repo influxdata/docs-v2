@@ -21,15 +21,15 @@ influx task list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag              | Description                             | Input type  | {{< cli/mapped >}}    |
-|:----              |:-----------                             |:----------: |:------------------    |
-| `-h`, `--help`    | Help for the `list` command             |             |                       |
-| `--hide-headers`  | Hide table headers (default `false`)    |             | `INFLUX_HIDE_HEADERS` |
-| `-i`, `--id`      | Task ID                                 | string      |                       |
-| `--json`          | Output data as JSON (default `false`)   |             | `INFLUX_OUTPUT_JSON`  |
-| `--limit`         | Number of tasks to find (default `100`) | integer     |                       |
-| `--org`           | Task organization name                  | string      | `INFLUX_ORG`          |
-| `--org-id`        | Task organization ID                    | string      | `INFLUX_ORG_ID`       |
-| `-n`, `--user-id` | Task owner ID                           | string      |                       |
+| Flag |                  | Description                             | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                             |:----------: |:------------------    |
+| `-h` | `--help`         | Help for the `list` command             |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)    |             | `INFLUX_HIDE_HEADERS` |
+| `-i` | `--id`           | Task ID                                 | string      |                       |
+|      | `--json`         | Output data as JSON (default `false`)   |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--limit`        | Number of tasks to find (default `100`) | integer     |                       |
+| `-o` | `--org`          | Task organization name                  | string      | `INFLUX_ORG`          |
+|      | `--org-id`       | Task organization ID                    | string      | `INFLUX_ORG_ID`       |
+| `-n` | `--user-id`      | Task owner ID                           | string      |                       |
 
 {{% cli/influx-global-flags %}}

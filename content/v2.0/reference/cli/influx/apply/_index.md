@@ -24,23 +24,23 @@ influx apply [flags]
 `apply`, `pkg` _(deprecated)_
 
 ## Flags
-| Flag                      | Description                                                                                 | Input Type | {{< cli/mapped >}}   |
-|:----                      |:-----------------------------                                                               |:---------- |:------------------   |
-| `-c`, `--disable-color`   | Disable color in output                                                                     |            |                      |
-| `--disable-table-borders` | Disable table borders                                                                       |            |                      |
-| `-e`, `--encoding`        | Encoding of the input stream                                                                | string     |                      |
-| `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                      |
-| `-f`, `--file`            | Path to template file                                                                       | string     |                      |
-| `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
-| `-h`, `--help`            | Help for the `apply` command                                                                |            |                      |
-| `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
-| `-o`, `--org`             | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`         |
-| `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`      |
-| `-q`, `--quiet`           | Disable output printing                                                                     |            |                      |
-| `-R`, `--recurse`         | Recurse through files in the directory specified in `-f`, `--file`                          |            |                      |
-| `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
-| `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
-| `-u`, `--template-url`    | URL of template file                                                                        | string     |                      |
+| Flag |                           | Description                                                                                 | Input Type | {{< cli/mapped >}}   |
+|:---- |:---                       |:-----------------------------                                                               |:---------- |:------------------   |
+| `-c` | `--disable-color`         | Disable color in output                                                                     |            |                      |
+|      | `--disable-table-borders` | Disable table borders                                                                       |            |                      |
+| `-e` | `--encoding`              | Encoding of the input stream                                                                | string     |                      |
+|      | `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                      |
+| `-f` | `--file`                  | Path to template file                                                                       | string     |                      |
+|      | `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
+| `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
+|      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
+| `-o` | `--org`                   | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`         |
+|      | `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`      |
+| `-q` | `--quiet`                 | Disable output printing                                                                     |            |                      |
+| `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                      |
+|      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
+|      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
+| `-u` | `--template-url`          | URL of template file                                                                        | string     |                      |
 
 {{% cli/influx-global-flags %}}
 

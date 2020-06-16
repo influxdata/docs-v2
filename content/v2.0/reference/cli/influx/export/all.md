@@ -23,13 +23,13 @@ influx export all [flags]
 ```
 
 ## Flags
-| Flag           | Description                                                                                     | Input Type      | {{< cli/mapped >}} |
-|:----           |:-----------                                                                                     |:----------      |:------------------ |
-| `-f`, `--file` | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions.                | string          |                    |
-| `--filter`     | Specify resources to export by labelName or resourceKind (format: `--filter=labelName=example`) | list of strings |
-| `-h`, `--help` | Help for the `export all` command                                                               |                 |                    |
-| `-o`, `--org`  | Organization name that owns the resources                                                       | string          | `INFLUX_ORG`       |
-| `--org-id`     | Organization ID that owns the resources                                                         | string          | `INFLUX_ORG_ID`    |
+| Flag |            | Description                                                                                     | Input Type      | {{< cli/mapped >}} |
+|:---- |:---        |:-----------                                                                                     |:----------      |:------------------ |
+| `-f` | `--file`   | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions.                | string          |                    |
+|      | `--filter` | Specify resources to export by labelName or resourceKind (format: `--filter=labelName=example`) | list of strings |
+| `-h` | `--help`   | Help for the `export all` command                                                               |                 |                    |
+| `-o` | `--org`    | Organization name that owns the resources                                                       | string          | `INFLUX_ORG`       |
+|      | `--org-id` | Organization ID that owns the resources                                                         | string          | `INFLUX_ORG_ID`    |
 
 {{% cli/influx-global-flags %}}
 

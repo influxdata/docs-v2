@@ -20,9 +20,9 @@ influxd inspect compact-series-file [flags]
 ```
 
 ## Flags
-| Flag            | Description                                                                   | Input Type |
-|:----            |:-----------                                                                   |:----------:|
-| `--concurrency` | Number of workers to dedicate to compaction (default = `GOMAXPROCS`, max `8`) | integer    |
-| `-h`, `--help`  | Help for the `compact-series-file` command                                    |            |
-| `--sfile-path`  | Path to the series file directory (default: `~/.influxdbv2/engine/_series`)   | string     |
-| `--tsi-path`    | Path to the TSI index directory (default: `~/.influxdbv2/engine/index`)       | string     |
+| Flag |                | Description                                                                   | Input Type |
+|:---- |:---            |:-----------                                                                   |:----------:|
+|      |`--concurrency` | Number of workers to dedicate to compaction (default = `GOMAXPROCS`, max `8`) | integer    |
+| `-h` | `--help`       | Help for the `compact-series-file` command                                    |            |
+|      | `--sfile-path` | Path to the series file directory (default: `~/.influxdbv2/engine/_series`)   | string     |
+|      | `--tsi-path`   | Path to the TSI index directory (default: `~/.influxdbv2/engine/index`)       | string     |

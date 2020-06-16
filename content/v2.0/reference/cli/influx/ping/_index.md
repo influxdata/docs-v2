@@ -21,8 +21,8 @@ influx ping [flags]
 ```
 
 ## Flags
-| Flag           | Description                 |
-|:----           |:-----------                 |
-| `-h`, `--help` | Help for the `ping` command |
+| Flag |          | Description                 |
+|:---- |:---      |:-----------                 |
+| `-h` | `--help` | Help for the `ping` command |
 
 {{% cli/influx-global-flags %}}

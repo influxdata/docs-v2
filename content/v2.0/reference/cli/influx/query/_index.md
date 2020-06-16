@@ -20,12 +20,12 @@ influx query [query literal] [flags]
 ```
 
 ## Flags
-| Flag           | Description                  | Input type | {{< cli/mapped >}} |
-|----------------|------------------------------|:----------:|--------------------|
-| `-f`, `--file` | Path to Flux script file     | string     |                    |
-| `-h`, `--help` | Help for the `query` command |            |                    |
-| `-o`, `--org`  | Organization name            |   string   | `INFLUX_ORG`       |
-| `--org-id`     | Organization ID              |   string   | `INFLUX_ORG_ID`    |
+| Flag |            | Description                  | Input type | {{< cli/mapped >}} |
+|:---- |:---        |:-----------                  |:----------:|:------------------ |
+| `-f` | `--file`   | Path to Flux script file     | string     |                    |
+| `-h` | `--help`   | Help for the `query` command |            |                    |
+| `-o` | `--org`    | Organization name            | string     | `INFLUX_ORG`       |
+|      | `--org-id` | Organization ID              | string     | `INFLUX_ORG_ID`    |
 
 
 {{% cli/influx-global-flags %}}

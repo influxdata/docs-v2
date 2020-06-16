@@ -34,12 +34,12 @@ influxd inspect report-tsi [flags]
 ```
 
 ## Flags
-| Flag                   | Description                                                               | Input Type |
-|:----                   |:-----------                                                               |:----------:|
-| `--bucket-id`          | Process data for specified bucket ID. _Requires `org-id` flag to be set._ | string     |
-| `-h`, `--help`         | View Help for the `report-tsi` command.                                   |            |
-| `-m`, `--measurements` | Group cardinality by measurements.                                        |            |
-| `-o`, `--org-id`       | Process data for specified organization ID.                               | string     |
-| `--path`               | Specify path to index. Defaults to `~/.influxdbv2/engine/index`.          | string     |
-| `--series-file`        | Specify path to series file. Defaults to `~/.influxdbv2/engine/_series`.  | string     |
-| `-t`, `-top`           | Limit results to the top n.                                               | integer    |
+| Flag |                  | Description                                                               | Input Type |
+|:---- |:---              |:-----------                                                               |:----------:|
+|      | `--bucket-id`    | Process data for specified bucket ID. _Requires `org-id` flag to be set._ | string     |
+| `-h` | `--help`         | View Help for the `report-tsi` command.                                   |            |
+| `-m` | `--measurements` | Group cardinality by measurements.                                        |            |
+| `-o` | `--org-id`       | Process data for specified organization ID.                               | string     |
+|      | `--path`         | Specify path to index. Defaults to `~/.influxdbv2/engine/index`.          | string     |
+|      | `--series-file`  | Specify path to series file. Defaults to `~/.influxdbv2/engine/_series`.  | string     |
+| `-t` | `-top`           | Limit results to the top n.                                               | integer    |

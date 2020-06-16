@@ -17,13 +17,13 @@ influx secret delete [flags]
 ```
 
 ## Flags
-| Flag             | Description                           | Input type | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------:|:------------------    |
-| `-h`, `--help`   | Help for the `delete` command         |            |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |            | `INFLUX_HIDE_HEADERS` |
-| `--json`         | Output data as JSON (default `false`) |            | `INFLUX_OUTPUT_JSON`  |
-| `-k`, `--key`    | **(Required)** Secret key             | string     |                       |
-| `-o`, `--org`    | Organization name                     | string     | `INFLUX_ORG`          |
-| `--org-id`       | Organization ID                       | string     | `INFLUX_ORG_ID`       |
+| Flag |                  | Description                           | Input type | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------:|:------------------    |
+| `-h` | `--help`         | Help for the `delete` command         |            |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |            | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`) |            | `INFLUX_OUTPUT_JSON`  |
+| `-k` | `--key`          | **(Required)** Secret key             | string     |                       |
+| `-o` | `--org`          | Organization name                     | string     | `INFLUX_ORG`          |
+|      | `--org-id`       | Organization ID                       | string     | `INFLUX_ORG_ID`       |
 
 {{% cli/influx-global-flags %}}

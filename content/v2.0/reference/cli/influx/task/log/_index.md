@@ -23,8 +23,8 @@ influx task log [command]
 | [list](/v2.0/reference/cli/influx/task/log/list) | List logs for task |
 
 ## Flags
-| Flag           | Description                |
-|:----           |:-----------                |
-| `-h`, `--help` | Help for the `log` command |
+| Flag |          | Description                |
+|:---- |:---      |:-----------                |
+| `-h` | `--help` | Help for the `log` command |
 
 {{% cli/influx-global-flags %}}

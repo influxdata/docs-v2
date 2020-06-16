@@ -73,8 +73,8 @@ Mapped flags get the value of the environment variable.
 To override environment variables, set the flag explicitly in your command.
 
 ## Flags
-| Flag           | Description                   |
-|:---------------|:------------------------------|
-| `-h`, `--help` | Help for the `influx` command |
+| Flag |          | Description                   |
+|:---- |:---      |:-----------                   |
+| `-h` | `--help` | Help for the `influx` command |
 
 {{% cli/influx-global-flags %}}
