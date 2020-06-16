@@ -39,11 +39,11 @@ influxd restore [flags]
 
 ## Flags
 
-| Flag                 | Description                                                                            | Input type |
-|:----                 |:-----------                                                                            |:----------:|
-| `--bolt-path`        | Path to target boltdb database (default is `~/.influxdbv2/influxd.bolt`)               | string     |
-| `--engine-path`      | Path to target persistent engine files (default is `~/.influxdbv2/engine`)             | string     |
-| `--credentials-path` | Path to target persistent credentials files (default is `~/.influxdbv2/credentials`)   | string     |
-| `--backup-path`      | Path to backup files                                                                   | string     |
-| `--rebuild-index`    | Rebuild the TSI index and series file based on the `--engine-path` (default is `true`) |            |
-| `-h`, `--help`       | Help for the `restore` command                                                         |            |
+| Flag |                      | Description                                                                            | Input type |
+|:---- |:---                  |:-----------                                                                            |:----------:|
+|      | `--bolt-path`        | Path to target boltdb database (default is `~/.influxdbv2/influxd.bolt`)               | string     |
+|      | `--engine-path`      | Path to target persistent engine files (default is `~/.influxdbv2/engine`)             | string     |
+|      | `--credentials-path` | Path to target persistent credentials files (default is `~/.influxdbv2/credentials`)   | string     |
+|      | `--backup-path`      | Path to backup files                                                                   | string     |
+|      | `--rebuild-index`    | Rebuild the TSI index and series file based on the `--engine-path` (default is `true`) |            |
+| `-h` | `--help`             | Help for the `restore` command                                                         |            |

@@ -17,11 +17,11 @@ influx config delete [flags]
 ```
 
 ## Flags
-| Flag             | Description                                                        | Input type  | {{< cli/mapped >}}    |
-|:----             |:-----------                                                        |:----------: |:------------------    |
-| `-h`, `--help`   | Help for the `delete` command                                      |             |                       |
-| `--hide-headers` | Hide table headers (default `false`)                               |             | `INFLUX_HIDE_HEADERS` |
-| `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
-| `-n`, `--name`   | (**Required**) Name of InfluxDB connection configuration to delete | string      |                       |
+| Flag |                  | Description                                                        | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                                                        |:----------: |:------------------    |
+| `-h` | `--help`         | Help for the `delete` command                                      |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                               |             | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`         | (**Required**) Name of InfluxDB connection configuration to delete | string      |                       |
 
 {{% cli/influx-global-flags %}}

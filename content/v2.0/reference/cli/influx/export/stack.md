@@ -19,12 +19,12 @@ influx export stack <stack_id> [flags]
 ```
 
 ## Flags
-| Flag           | Description                                                                      | Input Type | {{< cli/mapped >}} |
-|:----           |:-----------                                                                      |:---------- |:------------------ |
-| `-f`, `--file` | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                    |
-| `-h`, `--help` | Help for the `export stack` command                                              |            |                    |
-| `-o`, `--org`  | Organization name that owns the resources                                        | string     | `INFLUX_ORG`       |
-| `--org-id`     | Organization ID that owns the resources                                          | string     | `INFLUX_ORG_ID`    |
+| Flag |            | Description                                                                      | Input Type | {{< cli/mapped >}} |
+|:---- |:---        |:-----------                                                                      |:---------- |:------------------ |
+| `-f` | `--file`   | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                    |
+| `-h` | `--help`   | Help for the `export stack` command                                              |            |                    |
+| `-o` | `--org`    | Organization name that owns the resources                                        | string     | `INFLUX_ORG`       |
+|      | `--org-id` | Organization ID that owns the resources                                          | string     | `INFLUX_ORG_ID`    |
 
 {{% cli/influx-global-flags %}}
 

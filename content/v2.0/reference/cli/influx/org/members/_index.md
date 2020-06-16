@@ -25,8 +25,8 @@ influx org members [command]
 | [remove](/v2.0/reference/cli/influx/org/members/remove) | Remove organization member |
 
 ## Flags
-| Flag           | Description                    |
-|:----           |:-----------                    |
-| `-h`, `--help` | Help for the `members` command |
+| Flag |          | Description                    |
+|:---- |:---      |:-----------                    |
+| `-h` | `--help` | Help for the `members` command |
 
 {{% cli/influx-global-flags %}}

@@ -16,11 +16,11 @@ influx task delete [flags]
 ```
 
 ## Flags
-| Flag             | Description                           | Input type  | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------: |:------------------    |
-| `-h`, `--help`   | Help for the `delete` command         |             |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
-| `-i`, `--id`     | **(Required)** Task ID                | string      |                       |
-| `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| Flag |                  | Description                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------: |:------------------    |
+| `-h` | `--help`         | Help for the `delete` command         |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i` | `--id`           | **(Required)** Task ID                | string      |                       |
+|      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
 
 {{% cli/influx-global-flags %}}

@@ -21,12 +21,12 @@ influx user list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag             | Description                           | Input type  | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------: |:------------------    |
-| `-h`, `--help`   | Help for the `list` command           |             |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
-| `-i`, `--id`     | User ID                               | string      |                       |
-| `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
-| `-n`, `--name`   | Username                              | string      |                       |
+| Flag |                  | Description                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------: |:------------------    |
+| `-h` | `--help`         | Help for the `list` command           |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i` | `--id`           | User ID                               | string      |                       |
+|      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`         | Username                              | string      |                       |
 
 {{% cli/influx-global-flags %}}

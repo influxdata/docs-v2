@@ -47,3 +47,9 @@ table {
     }
   }
 }
+
+#flags, #global-flags {
+  & + table {
+    td:nth-child(2) code { margin-left: -2rem; }
+  }
+}

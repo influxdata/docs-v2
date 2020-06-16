@@ -30,8 +30,8 @@ influx org [command]
 | [update](/v2.0/reference/cli/influx/org/update)   | Update an organization           |
 
 ## Flags
-| Flag           | Description                |
-|:----           |:-----------                |
-| `-h`, `--help` | Help for the `org` command |
+| Flag |          | Description                |
+|:---- |:---      |:-----------                |
+| `-h` | `--help` | Help for the `org` command |
 
 {{% cli/influx-global-flags %}}

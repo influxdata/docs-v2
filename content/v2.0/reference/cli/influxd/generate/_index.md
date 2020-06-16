@@ -34,14 +34,14 @@ influxd generate [subcommand]
 | [simple](/v2.0/reference/cli/influxd/generate/simple)           | Generate simple data sets using defaults and CLI flags. |
 
 ## Flags
-| Flag           | Description                                                               | Input Type |
-|:----           |:-----------                                                               |:----------:|
-| `--print`      | Print data spec and exit                                                  |            |
-| `--org`        | Organiztion name                                                          | string     |
-| `--bucket`     | Bucket Name                                                               | string     |
-| `--start-time` | Start time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of one week ago) | string     |
-| `--end-time`   | End time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of current day)    | string     |
-| `--clean`      | Clean time series data files (`none`, `tsm` or `all`) (default `none`)    | string     |
-| `--cpuprofile` | Collect a CPU profile                                                     | string     |
-| `--memprofile` | Collect a memory profile                                                  | string     |
-| `-h`, `--help` | Help for the `generate` command                                           |            |
+| Flag |                | Description                                                               | Input Type |
+|:---- |:---            |:-----------                                                               |:----------:|
+|      | `--print`      | Print data spec and exit                                                  |            |
+|      | `--org`        | Organiztion name                                                          | string     |
+|      | `--bucket`     | Bucket Name                                                               | string     |
+|      | `--start-time` | Start time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of one week ago) | string     |
+|      | `--end-time`   | End time (`YYYY-MM-DDT00:00:00Z`) (default is 00:00:00 of current day)    | string     |
+|      | `--clean`      | Clean time series data files (`none`, `tsm` or `all`) (default `none`)    | string     |
+|      | `--cpuprofile` | Collect a CPU profile                                                     | string     |
+|      | `--memprofile` | Collect a memory profile                                                  | string     |
+| `-h` | `--help`       | Help for the `generate` command                                           |            |
