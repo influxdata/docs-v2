@@ -88,6 +88,109 @@ References to the InfluxDB user interface (UI) or localhost:9999 refer to your
 {{< cloud-name >}} UI.
 {{% /cloud %}}
 
+### (Optional) Download and install the influx CLI
+
+You can write, query, and process data through the Cloud user interface (UI) or  `influx` CLI. To download and install the `influx` CLI, complete the following steps:
+
+1. Click the **macOS** or **Linux** button below, and then click the appropriate **influx CLI** button to download the CLI binary.
+2. Do one of the following:
+   - For **macOS**: [Unpackage the binary](#unpackage-the-influx-binary), and then [(optional) place the binary in your $PATH](#optional-place-the-binary-in-your-path)
+   - For **Linux**: [Place the binary in your $PATH](#place-the-binary-in-your-path)
+3. If you're downloading on macOS Catalina, complete the steps in [Run influx CLI on macOS Catalina](/v2.0/get-started/#run-influx-cli-on-macos-catalina).
+4. (Optional) To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS](#)
+[Linux](#)
+{{% /tabs %}}
+
+<!-------------------------------- BEGIN macOS -------------------------------->
+{{% tab-content %}}
+
+#### Download influx CLI for macOS
+
+Click the following button to download and install `influx` CLI for macOS.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
+
+#### Unpackage the influx binary
+
+To unpackage the downloaded archive, **double click the archive file in Finder**
+or run the following command in a macOS command prompt application such
+**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
+
+```sh
+# Unpackage contents to the current working directory
+tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.12_darwin_amd64.tar.gz
+```
+
+#### (Optional) Place the binary in your $PATH
+
+If you choose, you can place `influx` in your `$PATH` or you can
+prefix the executable with `./` to run in place.
+
+```sh
+# (Optional) Copy the influx binary to your $PATH
+sudo cp influxdb_client_2.0.0-beta.12_darwin_amd64/influx /usr/local/bin/
+```
+
+{{% note %}}
+If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
+{{% /note %}}
+
+{{% warn %}}
+
+##### Run influx CLI on macOS Catalina
+
+macOS Catalina requires downloaded binaries to be signed by registered Apple developers.
+Currently, when you first attempt to run `influx`, macOS prevents it from running.
+To manually authorize the binary:
+
+1. Attempt to run the `influx`.
+2. Open **System Preferences** and click **Security & Privacy**.
+3. Under the **General** tab, there is a message about `influx` being blocked.
+   Click **Open Anyway**.
+
+We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
+{{% /warn %}}
+
+{{% /tab-content %}}
+<!--------------------------------- END macOS --------------------------------->
+
+<!-------------------------------- BEGIN Linux -------------------------------->
+{{% tab-content %}}
+
+#### Download influx CLI for Linux
+
+Click the button to download and install the `influx` CLI appropriate for your chipset.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_arm64.tar.gz" download >influx CLI (arm)</a>
+
+#### Place the binary in your $PATH
+
+Unpackage the downloaded archive and place the `influx` executable in your system `$PATH`.
+
+_**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
+
+```sh
+# Unpackage contents to the current working directory
+tar xvfz influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz
+
+# Copy the influx and influxd binary to your $PATH
+sudo cp influxdb_client_2.0.0-beta.12_linux_amd64/influx /usr/local/bin/
+```
+
+{{% note %}}
+If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
+{{% /note %}}
+
+{{% /tab-content %}}
+<!--------------------------------- END Linux --------------------------------->
+
+{{< /tabs-wrapper >}}
+
 ### Sign in
 
 Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email address and password.
