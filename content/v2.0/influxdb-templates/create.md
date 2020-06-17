@@ -141,8 +141,8 @@ influx export all \
 ```
 
 ### Export a stack
-To export a stack and all its associated resources in their current state as a template,
-use the `influx export stack` command.
+To export a stack and all its associated resources as a template, use the
+`influx export stack` command.
 Provide the following:
 
 - **Organization name** or **ID**

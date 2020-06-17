@@ -6,8 +6,8 @@ description: >
   to update a stack with a modified template.
   When applying a template to an existing stack, InfluxDB checks to see if the
   resources in the template match existing resources.
-  InfluxDB updates, adds, and removes resources to resolves differences between
-  current state of the stack and the newly applied template.
+  InfluxDB updates, adds, and removes resources to resolve differences between
+  the current state of the stack and the newly applied template.
 menu:
   v2_0:
     parent: InfluxDB stacks
@@ -30,13 +30,13 @@ Use the [`influx apply` command](/v2.0/reference/cli/influx/apply/)
 to update a stack with a modified template.
 When applying a template to an existing stack, InfluxDB checks to see if the
 resources in the template match existing resources.
-InfluxDB updates, adds, and removes resources to resolves differences between
-current state of the stack and the newly applied template.
+InfluxDB updates, adds, and removes resources to resolve differences between
+the current state of the stack and the newly applied template.
 
 Each stack is uniquely identified by a **stack ID**.
-For information about retrieving your stack ID, see [View stacks](/v2.0/influxdb-templates/stacks/view/)
+For information about retrieving your stack ID, see [View stacks](/v2.0/influxdb-templates/stacks/view/).
 
-**To update a stack, provide the following:**
+**Provide the following:**
 
 - Organization name or ID
 - Stack ID

@@ -1,5 +1,5 @@
 ---
-title: View InfluxDB Stacks
+title: View InfluxDB stacks
 list_title: View stacks
 description: >
   Use the [`influx stacks` command](/v2.0/reference/cli/influx/stacks/)
