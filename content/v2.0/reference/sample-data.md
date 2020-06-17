@@ -4,18 +4,19 @@ description: >
   Use sample data to familiarize yourself with time series data and InfluxDB.
   InfluxData provides many sample time series datasets to use with InfluxDB
   and InfluxDB Cloud.
+aliases:
+  - /v2.0/write-data/sample-data/
 menu:
   v2_0:
-    parent: Write data
+    parent: Reference
 weight: 105
 ---
 
 Use sample data to familiarize yourself with time series data and InfluxDB.
-InfluxData provides many sample time series datasets to use with **InfluxDB** and **InfluxDB Cloud**.
+InfluxData provides many sample time series datasets to use with **InfluxDB Cloud** and **InfluxDB**.
 
-{{< children hlevel="h2" >}}
-
----
+## InfluxDB Cloud demo data
+Use [InfluxDB Cloud demo data buckets](/v2.0/write-data/quick-start) for quick, free access to different types of sample data.
 
 ## Sample data sets
 The following sample data sets are used as examples in [InfluxDB query guides](/v2.0/query-data/flux)
