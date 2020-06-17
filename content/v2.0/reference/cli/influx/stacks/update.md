@@ -1,19 +1,19 @@
 ---
-title: influx stacks udpate
-description: The 'influx stacks udpate' command updates an InfluxDB stack.
+title: influx stacks update
+description: The 'influx stacks update' command updates an InfluxDB stack.
 menu:
   v2_0_ref:
-    name: influx stacks udpate
+    name: influx stacks update
     parent: influx stacks
 weight: 201
 v2.0/tags: [templates]
 ---
 
-The `influx stacks udpate` command updates an InfluxDB stack.
+The `influx stacks update` command updates an InfluxDB stack.
 
 ## Usage
 ```
-influx stacks udpate [flags]
+influx stacks update [flags]
 ```
 
 ## Flags
