@@ -9,7 +9,7 @@ aliases:
 menu:
   v2_0:
     name : Client libraries
-    parent: Write data
+    parent: Development tools
 ---
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.

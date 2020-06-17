@@ -6,10 +6,11 @@ weight: 103
 description: >
   Write data to InfluxDB using third-party technologies.
 aliases:
+  - /v2.0/write-data/#third-party-technologies
 menu:
   v2_0:
     name : Third-party technologies
-    parent: Agent-less options
+    parent: No-code solutions
 ---
 
 

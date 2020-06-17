@@ -9,7 +9,7 @@ aliases:
 menu:
   v2_0:
     name : InfluxDB API
-    parent: Write data
+    parent: Development tools
 ---
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
 Use the `POST` request method and include the following in your request:

@@ -9,7 +9,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf/manual-config
 menu:
   v2_0:
-    parent: Agent-based Telegraf
+    parent: Telegraf (agent-based)
 weight: 202
 v2.0/tags: [manually, plugin, mqtt]
 ---

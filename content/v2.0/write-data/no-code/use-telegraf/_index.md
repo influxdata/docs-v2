@@ -1,5 +1,5 @@
 ---
-title: Agent-based Telegraf
+title: Telegraf (agent-based)
 seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
@@ -11,8 +11,8 @@ aliases:
   - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
-    name : Agent-based Telegraf
-    parent: Write data
+    name : Telegraf (agent-based)
+    parent: No-code solutions
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's

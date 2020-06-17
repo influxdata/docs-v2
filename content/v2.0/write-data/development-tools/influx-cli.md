@@ -9,7 +9,7 @@ aliases:
 menu:
   v2_0:
     name : Influx CLI
-    parent: Write data
+    parent: Development tools
 ---
 
 From the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.

@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0:
     name: Write CSV data
-    parent: Write data
+    parent: Development tools
 weight: 104
 related:
   - /v2.0/reference/syntax/line-protocol/
