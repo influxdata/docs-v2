@@ -1,28 +1,52 @@
 ---
-title: Initialize an InfluxDB Stack
+title: Initialize an InfluxDB stack
 list_title: Initialize a stack
 description: >
-  Use the [`influx pkg stack init` command](/v2.0/reference/cli/influx/pkg/stack/init/)
-  to create or initialize a new InfluxDB Stack.
+  InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/v2.0/influxdb-templates/use/)
+  **without providing a stack ID**.
+  You can also use the [`influx stacks init` command](/v2.0/reference/cli/influx/stacks/init/)
+  to manually create or initialize a new stack.
 menu:
   v2_0:
-    parent: InfluxDB Stacks
+    parent: InfluxDB stacks
     name: Initialize a stack
 weight: 201
 related:
-  - /v2.0/reference/cli/influx/pkg/stack/init/
+  - /v2.0/reference/cli/influx/stacks/init/
 list_code_example: |
   ```sh
-  influx pkg stack init \
+  influx apply \
     -o example-org \
-    -n example-stack \
+    -f path/to/template.yml
+  ```
+  ```sh
+  influx stacks init \
+    -o example-org \
+    -n "Example Stack" \
     -d "InfluxDB stack for monitoring some awesome stuff" \
     -u https://example.com/template-1.yml \
     -u https://example.com/template-2.yml
   ```
 ---
 
-Use the [`influx pkg stack init` command](/v2.0/reference/cli/influx/pkg/stack/init/)
+InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/v2.0/influxdb-templates/use/)
+**without providing a stack ID**.
+You can also use the [`influx stacks init` command](/v2.0/reference/cli/influx/stacks/init/)
+to manually create or initialize a new stack.
+
+## Initialize a stack when applying a template
+To automatically create a new stack when [applying an InfluxDB template](/v2.0/influxdb-templates/use/)
+**don't provide a stack ID**.
+InfluxDB applies the templated resources to a new stack and provides the **stack ID** the output.
+
+```sh
+influx apply \
+  -o example-org \
+  -f path/to/template.yml
+```
+
+## Manually initialize a new stack
+Use the [`influx stacks init` command](/v2.0/reference/cli/influx/stacks/init/)
 to create or initialize a new InfluxDB Stack.
 
 **Provide the following:**
@@ -30,21 +54,21 @@ to create or initialize a new InfluxDB Stack.
 - Organization name or ID
 - Stack name
 - Stack description
-- InfluxDB template URLs (package URLs)
+- InfluxDB template URLs
 
 <!-- -->
 ```sh
 # Syntax
-influx pkg stack init \
+influx stacks init \
   -o <org-name> \
   -n <stack-name> \
   -d <stack-description \
   -u <package-url>
 
 # Example
-influx pkg stack init \
+influx stacks init \
   -o example-org \
-  -n example-stack \
+  -n "Example Stack" \
   -d "InfluxDB stack for monitoring some awesome stuff" \
   -u https://example.com/template-1.yml \
   -u https://example.com/template-2.yml

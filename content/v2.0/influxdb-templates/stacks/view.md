@@ -2,23 +2,23 @@
 title: View InfluxDB Stacks
 list_title: View stacks
 description: >
-  Use the [`influx pkg stack list` command](/v2.0/reference/cli/influx/pkg/stack/list/)
-  to view installed InfluxDB Stacks and their associated resources.
+  Use the [`influx stacks` command](/v2.0/reference/cli/influx/stacks/)
+  to view installed InfluxDB stacks and their associated resources.
 menu:
   v2_0:
-    parent: InfluxDB Stacks
+    parent: InfluxDB stacks
     name: View stacks
-weight: 202
+weight: 203
 related:
-  - /v2.0/reference/cli/influx/pkg/stack/list/
+  - /v2.0/reference/cli/influx/stacks/
 list_code_example: |
   ```sh
-  influx pkg stack list -o example-org
+  influx stacks -o example-org
   ```
 ---
 
-Use the [`influx pkg stack list` command](/v2.0/reference/cli/influx/pkg/stack/list/)
-to view installed InfluxDB Stacks and their associated resources.
+Use the [`influx stacks` command](/v2.0/reference/cli/influx/stacks/)
+to view installed InfluxDB stacks and their associated resources.
 
 **Provide the following:**
 
@@ -27,10 +27,10 @@ to view installed InfluxDB Stacks and their associated resources.
 <!-- -->
 ```sh
 # Syntax
-influx pkg stack list -o <org-name>
+influx stacks -o <org-name>
 
 # Example
-influx pkg stack list -o example-org
+influx stacks -o example-org
 ```
 
 ### Filter stacks
@@ -40,12 +40,12 @@ flags to filter output by stack names or stack IDs.
 ##### Filter by stack name
 ```sh
 # Syntax
-influx pkg stack list \
+influx stacks \
   -o <org-name> \
   --stack-name=<stack-name>
 
 # Example
-influx pkg stack list \
+influx stacks \
   -o example-org \
   --stack-name=stack1 \
   --stack-name=stack2
@@ -54,12 +54,12 @@ influx pkg stack list \
 ### Filter by stack ID
 ```sh
 # Syntax
-influx pkg stack list \
+influx stacks \
   -o <org-name> \
   --stack-id=<stack-id>
 
 # Example
-influx pkg stack list \
+influx stacks \
   -o example-org \
   --stack-id=12ab34cd56ef \
   --stack-id=78gh910i11jk

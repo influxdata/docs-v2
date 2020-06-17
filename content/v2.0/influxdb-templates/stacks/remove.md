@@ -1,27 +1,26 @@
 ---
-title: Remove an InfluxDB Stack
+title: Remove an InfluxDB stack
 list_title: Remove a stack
 description: >
-  Use the [`influx pkg stack remove` command](/v2.0/reference/cli/influx/pkg/stack/remove/)
-  to remove an InfluxDB Stack and all its associated resources.
+  Use the [`influx stacks remove` command](/v2.0/reference/cli/influx/stacks/remove/)
+  to remove an InfluxDB stack and all its associated resources.
 menu:
   v2_0:
-    parent: InfluxDB Stacks
+    parent: InfluxDB stacks
     name: Remove a stack
-weight: 203
+weight: 204
 related:
-  - /v2.0/reference/cli/influx/pkg/stack/remove/
+  - /v2.0/reference/cli/influx/stacks/remove/
 list_code_example: |
   ```sh
-  influx pkg stack remove \
+  influx stacks remove \
     -o example-org \
-    --stack-id=12ab34cd56ef \
-    --stack-id=78gh910i11jk
+    --stack-id=12ab34cd56ef
   ```
 ---
 
-Use the [`influx pkg stack remove` command](/v2.0/reference/cli/influx/pkg/stack/remove/)
-to remove an InfluxDB Stack and all its associated resources.
+Use the [`influx stacks remove` command](/v2.0/reference/cli/influx/stacks/remove/)
+to remove an InfluxDB stack and all its associated resources.
 
 **Provide the following:**
 
@@ -31,11 +30,10 @@ to remove an InfluxDB Stack and all its associated resources.
 <!-- -->
 ```sh
 # Syntax
-influx pkg stack remove -o <org-name> --stack-id=<stack-id>
+influx stacks remove -o <org-name> --stack-id=<stack-id>
 
 # Example
-influx pkg stack remove \
+influx stacks remove \
   -o example-org \
-  --stack-id=12ab34cd56ef \
-  --stack-id=78gh910i11jk
+  --stack-id=12ab34cd56ef
 ```

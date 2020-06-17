@@ -54,6 +54,13 @@ Include the following **resources** in a template:
 - tasks
 - Telegraf configurations
 
+## Stacks
+**InfluxDB stacks** are stateful InfluxDB templates.
+Any time you apply a template, InfluxDB associates the applied resources with a stack.
+Use stacks to gracefully add, update, and remove templated resources over time.
+
+For more information, see [InfluxDB Stacks](#influxdb-stacks) below.
+
 ---
 
 {{< children >}}
