@@ -16,6 +16,11 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.70.0 [unreleased]
+_placholder_
+
+---
+
 ## v0.69.2 [2020-06-10]
 
 ### Bug fixes
