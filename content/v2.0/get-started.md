@@ -109,6 +109,8 @@ Click the following button to download and install `influx` CLI for macOS.
 
 #### Unpackage the influx binary
 
+**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
+
 To unpackage the downloaded archive, **double click the archive file in Finder**
 or run the following command in a macOS command prompt application such
 **Terminal** or **[iTerm2](https://www.iterm2.com/)**:
@@ -121,10 +123,12 @@ tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.12_darwin_amd64.tar.gz
 #### (Optional) Place the binary in your $PATH
 
 If you choose, you can place `influx` in your `$PATH` or you can
-prefix the executable with `./` to run in place.
+prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
+
+**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
 
 ```sh
-# (Optional) Copy the influx binary to your $PATH
+# Copy the influx binary to your $PATH
 sudo cp influxdb_client_2.0.0-beta.12_darwin_amd64/influx /usr/local/bin/
 ```
 
@@ -132,21 +136,9 @@ sudo cp influxdb_client_2.0.0-beta.12_darwin_amd64/influx /usr/local/bin/
 If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
 {{% /note %}}
 
-{{% warn %}}
-
 ##### Run influx CLI on macOS Catalina
 
-macOS Catalina requires downloaded binaries to be signed by registered Apple developers.
-Currently, when you first attempt to run `influx`, macOS prevents it from running.
-To manually authorize the binary:
-
-1. Attempt to run the `influx`.
-2. Open **System Preferences** and click **Security & Privacy**.
-3. Under the **General** tab, there is a message about `influx` being blocked.
-   Click **Open Anyway**.
-
-We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
-{{% /warn %}}
+If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/v2.0/get-started/#run-influxdb-on-macos-catalina).
 
 Now, you're ready to [Use the influx CLI](#use-the-influx-cli).
 
@@ -158,21 +150,28 @@ Now, you're ready to [Use the influx CLI](#use-the-influx-cli).
 
 #### Download influx CLI for Linux
 
-Click the button to download and install the `influx` CLI appropriate for your chipset.
+Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_arm64.tar.gz" download >influx CLI (arm)</a>
 
-#### Place the binary in your $PATH
+#### Unpackage the influx binary
 
-Unpackage the downloaded archive and place the `influx` executable in your system `$PATH`.
-
-_**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
+**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
 
 ```sh
 # Unpackage contents to the current working directory
 tar xvfz influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz
+```
 
+#### (Optional) Place the binary in your $PATH
+
+If you choose, you can place `influx` in your `$PATH` or you can
+prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`). 
+
+**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
+
+```sh
 # Copy the influx and influxd binary to your $PATH
 sudo cp influxdb_client_2.0.0-beta.12_linux_amd64/influx /usr/local/bin/
 ```
