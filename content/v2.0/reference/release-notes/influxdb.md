@@ -12,6 +12,7 @@ weight: 101
 
 ### Features
 
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/v2.0/get-started/#optional-download-and-install-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
