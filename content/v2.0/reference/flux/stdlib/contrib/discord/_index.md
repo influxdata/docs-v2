@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0_ref:
     name: Discord
-    parent: User-contributed
+    parent: Contributed
 weight: 202
 v2.0/tags: [functions, discord, package]
 ---
