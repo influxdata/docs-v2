@@ -119,6 +119,14 @@ from your local filesystem or from URLs.
 - [Define environment references](#define-environment-references)
 - [Include a secret when installing a template](#include-a-secret-when-installing-a-template)
 
+{{% note %}}
+#### Apply templates to an existing stack
+To apply a template to an existing stack, include the stack ID when applying the template.
+Any time you apply a template without a stack ID, InfluxDB initializes a new stack
+and all new resources.
+For more information, see [InfluxDB stacks](/v2.0/influxdb-templates/stacks/).
+{{% /note %}}
+
 ### Apply a template from a file
 To install templates stored on your local machine, use the `-f` or `--file` flag
 to provide the **file path** of the template manifest.

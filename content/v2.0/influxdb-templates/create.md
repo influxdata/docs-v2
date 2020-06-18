@@ -56,8 +56,9 @@ Dashboard cells that use table visualization are not included in exported templa
 ## Export a template
 Do one of the following to export a template:
 
-1. Export all resources in an organization _(recommended)_
-2. Export specific resources in an organization
+- [Export all resources in an organization](#export-all-resources)
+- [Export specific resources in an organization](#export-specific-resources)
+- [Export a stack and its associated resources](#export-a-stack)
 
 ### Export all resources
 To export all templatable resources within an organization to a template manifest,
@@ -137,6 +138,35 @@ influx export all \
   --buckets=00x000ooo0xx0xx,o0xx0xx00x000oo \
   --dashboards=00000xX0x0X00x000 \
   --telegraf-configs=00000x0x000X0x0X0
+```
+
+### Export a stack
+To export a stack and all its associated resources as a template, use the
+`influx export stack` command.
+Provide the following:
+
+- **Organization name** or **ID**
+- **Authentication token** with read access to the organization
+- **Destination path and filename** for the template manifest.
+  The filename extension determines the template format—both **YAML** (`.yml`) and
+  **JSON** (`.json`) are supported.
+- **Stack ID**
+
+###### Export a stack as a template
+```sh
+# Syntax
+influx export stack \
+  -o <org-name> \
+  -t <token> \
+  -f <file-path> \
+  <stack-id>
+
+# Example
+influx export stack \
+  -o my-org \
+  -t mYSuP3RS3CreTt0K3n
+  -f ~/templates/awesome-template.yml \
+  05dbb791a4324000
 ```
 
 ## Include user-definable resource names
