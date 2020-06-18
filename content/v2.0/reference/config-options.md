@@ -1,7 +1,7 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by passing configuration flags with the
+  Customize your InfluxDB configuration by passing configuration flags to the
   [`influxd` daemon](/v2.0/reference/cli/influxd/), setting environment variables,
   or defining configuration options in a configuration file.
 menu:
@@ -13,20 +13,20 @@ related:
   - /v2.0/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using configuration flags with the
+Customize your InfluxDB configuration by using configuration flags to the
 [`influxd` daemon](/v2.0/reference/cli/influxd/), setting environment variables,
 or defining configuration options in a configuration file.
 
 ### Configuration precedence
-InfluxDB honors configurations settings using the following precedence:
+InfluxDB honors configuration settings using the following precedence:
 
-1. `influxd` daemon flags
+1. `influxd` flags
 2. Environment variables
 3. Settings defined in a configuration file
 
 ### InfluxDB configuration file
 When `influxd` starts, it checks for a **`config.yaml` in the current working directory**.
-To customize the file name or path of the configuration file, set the `INFLUXD_CONFIG_FILE`
+To customize the file name or path of the configuration file, set the `INFLUXD_CONFIG_PATH`
 environment variable to the custom name or path.
 InfluxDB supports YAML, TOML, and JSON configuration files.
 
