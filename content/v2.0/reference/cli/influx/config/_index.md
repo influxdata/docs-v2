@@ -19,6 +19,7 @@ have to manually enter a token to log into InfluxDB.
 ```
 influx config [flags]
 influx config [command]
+influx config <config-name>
 ```
 
 ##### Quickly switch between configurations
@@ -34,6 +35,15 @@ To quickly switch back to the previous configuration, use the following command:
 
 ```sh
 influx config -
+```
+
+## Examples
+```sh
+# Show the active connection configuration
+influx config
+
+# Set a connection configuration as active
+influx config local-config
 ```
 
 ## Subcommands

@@ -28,3 +28,20 @@ influx config create [flags]
 | `-u` | `--url`          | (**Required**) Connection URL for the new configuration.     | string      |                       |
 
 {{% cli/influx-global-flags %}}
+
+## Examples
+```sh
+# Create a connection configuration and set it active
+influx config create --active \
+  -n config-name \
+  -u http://localhost:9999 \
+  -t mySuP3rS3cr3tT0keN \
+  -o example-org
+
+# Create a connection configuration without setting it active
+influx config create \
+  -n config-name \
+  -u http://localhost:9999 \
+  -t mySuP3rS3cr3tT0keN \
+  -o example-org
+```
