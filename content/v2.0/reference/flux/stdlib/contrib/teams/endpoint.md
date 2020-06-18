@@ -66,7 +66,7 @@ crit_statuses
   |> endpoint(mapFn: (r) => ({
       title: "Disk Usage"
       text: "Disk usage is: **${r.status}**.",
-      summary: "Disk Usage is ${r.status}"
+      summary: "Disk usage is ${r.status}"
     })
   )
 ```

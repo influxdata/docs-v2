@@ -2,7 +2,7 @@
 title: teams.message() function
 description: >
   The `teams.message()` function sends a single message to a Microsoft Teams channel using
-  a [incoming webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
+  an [incoming webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
 menu:
   v2_0_ref:
     name: teams.message
@@ -67,7 +67,7 @@ teams.message(
   url: "https://outlook.office.com/webhook/example-webhook",
   title: "Disk Usage"
   text: "Disk usage is: *${lastReported.status}*.",
-  summary: "Disk Usage is ${lastReported.status}"
+  summary: "Disk usage is ${lastReported.status}"
 )
 ```
 
