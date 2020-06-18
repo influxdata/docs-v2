@@ -1,35 +1,35 @@
-| Flag |                                | Description                                                                                                       | Input type |
-|:---- |:---                            |:-----------                                                                                                       | :--------: |
-|      | `--assets-path`                | Override default assets by serving from a specific directory (developer mode)                                     | string     |
-|      | `--bolt-path`                  | Path to boltdb database (default `~/.influxdbv2/influxd.bolt`)                                                    | string     |
-|      | `--e2e-testing`                | Add /debug/flush endpoint to clear stores; used for end-to-end tests (default `false`)                            |            |
-|      | `--engine-path`                | Path to persistent engine files (default `~/.influxdbv2/engine`)                                                  | string     |
-| `-h` | `--help`                       | Help for the `influxd` command                                                                                    |            |
-|      | `--http-bind-address`          | Bind address for the REST HTTP API (default `:9999`)                                                              | string     |
-|      | `--log-level`                  | Supported log levels are debug, info, and error (default `info`)                                                  | string     |
-|      | `--new-meta-store`             | Enables the new meta store                                                                                        |            |
-|      | `--new-meta-store-read-only`   | Toggle read-only mode for the new meta store and duplicate reads between old and new store (default `true`)       |            |
-|      | `--no-tasks`                   | Disables the task scheduler                                                                                       |            |
-|      | `--query-concurrency`          | Number of queries allowed to execute concurrently (default `10`)                                                  | integer    |
-|      | `--query-initial-memory-bytes` | Initial bytes of memory allocated for a query (default = `query-memory-bytes`)                                    | integer    |
-|      | `--query-max-memory-bytes`     | Maximum total bytes of memory allowed for queries (default = `query-concurrency` × `query-memory-bytes`)          | integer    |
-|      | `--query-memory-bytes`         | Maximum bytes of memory allowed for a single query (default _unlimited_, must be >= `query-initial-memory-bytes`) | integer    |
-|      | `--query-queue-size`           | Maximum number of queries allowed in execution queue (default `10`)                                               | integer    |
-|      | `--reporting-disabled`         | Disable sending telemetry data to **https:<nolink>//telemetry.influxdata.com**                                    |            |
-|      | `--secret-store`               | Data store for secrets (bolt or vault) (default `bolt`)                                                           | string     |
-|      | `--session-length`             | TTL in minutes for newly created sessions (default `60`)                                                          | integer    |
-|      | `--session-renew-disabled`     | Disables automatically extending session TTL on request                                                           |            |
-|      | `--store`                      | Data store for REST resources (bolt or memory) (default `bolt`)                                                   | string     |
-|      | `--tls-cert`                   | Path to TLS certificate file                                                                                      | string     |
-|      | `--tls-key`                    | Path to TLS private key file                                                                                      | string     |
-|      | `--tracing-type`               | Supported tracing types (log or jaeger)                                                                           | string     |
-|      | `--vault-addr `                | Address of the Vault server (example: `https://127.0.0.1:8200/`)                                                  | string     |
-|      | `--vault-cacert`               | Path to a PEM-encoded CA certificate file                                                                         | string     |
-|      | `--vault-capath`               | Path to a directory of PEM-encoded CA certificate files                                                           | string     |
-|      | `--vault-client-cert`          | Path to a PEM-encoded client certificate                                                                          | string     |
-|      | `--vault-client-key`           | Path to an unencrypted, PEM-encoded private key which corresponds to the matching client certificate              | string     |
-|      | `--vault-max-retries`          | Maximum number of retries when encountering a 5xx error code (default `2`)                                        | integer    |
-|      | `--vault-client-timeout`       | Vault client timeout (default `60s`)                                                                              | duration   |
-|      | `--vault-skip-verify`          | Skip certificate verification when communicating with Vault                                                       |            |
-|      | `--vault-tls-server-name`      | Name to use as the SNI host when connecting to Vault via TLS                                                      | string     |
-|      | `--vault-token`                | Vault authentication token                                                                                        | string     |
+| Flag |                                | Description                                                                                                       | Input type | Mapped to                               |
+|:---- |:---                            |:-----------                                                                                                       | :--------: |:---------                               |
+|      | `--assets-path`                | Override default assets by serving from a specific directory (developer mode)                                     | string     | `INFLUXD_ASSETS_PATH`                   |
+|      | `--bolt-path`                  | Path to boltdb database (default `~/.influxdbv2/influxd.bolt`)                                                    | string     | `INFLUXD_BOLT_PATH`                     |
+|      | `--e2e-testing`                | Add /debug/flush endpoint to clear stores; used for end-to-end tests (default `false`)                            |            | `INFLUXD_E2E_TESTING`                   |
+|      | `--engine-path`                | Path to persistent engine files (default `~/.influxdbv2/engine`)                                                  | string     | `INFLUXD_ENGINE_PATH`                   |
+| `-h` | `--help`                       | Help for the `influxd` command                                                                                    |            |                                         |
+|      | `--http-bind-address`          | Bind address for the REST HTTP API (default `:9999`)                                                              | string     | `INFLUXD_HTTP_BIND_ADDRESSBIND_ADDRESS` |
+|      | `--log-level`                  | Supported log levels are debug, info, and error (default `info`)                                                  | string     | `INFLUXD_LOG_LEVEL`                     |
+|      | `--new-meta-store`             | Enables the new meta store                                                                                        |            | `INFLUXD_NEW_META_STORE`                |
+|      | `--new-meta-store-read-only`   | Toggle read-only mode for the new meta store and duplicate reads between old and new store (default `true`)       |            | `INFLUXD_NEW_META_STORE_READ_ONLY`      |
+|      | `--no-tasks`                   | Disables the task scheduler                                                                                       |            | `INFLUXD_NO_TASKS`                      |
+|      | `--query-concurrency`          | Number of queries allowed to execute concurrently (default `10`)                                                  | integer    | `INFLUXD_QUERY_CONCURRENCY`             |
+|      | `--query-initial-memory-bytes` | Initial bytes of memory allocated for a query (default = `query-memory-bytes`)                                    | integer    | `INFLUXD_QUERY_INITIAL_MEMORY_BYTES`    |
+|      | `--query-max-memory-bytes`     | Maximum total bytes of memory allowed for queries (default = `query-concurrency` × `query-memory-bytes`)          | integer    | `INFLUXD_QUERY_MAX_MEMORY_BYTES`        |
+|      | `--query-memory-bytes`         | Maximum bytes of memory allowed for a single query (default _unlimited_, must be >= `query-initial-memory-bytes`) | integer    | `INFLUXD_QUERY_MEMORY_BYTES`            |
+|      | `--query-queue-size`           | Maximum number of queries allowed in execution queue (default `10`)                                               | integer    | `INFLUXD_QUERY_QUEUE_SIZE`              |
+|      | `--reporting-disabled`         | Disable sending telemetry data to **https:<nolink>//telemetry.influxdata.com**                                    |            | `INFLUXD_REPORTING_DISABLED`            |
+|      | `--secret-store`               | Data store for secrets (bolt or vault) (default `bolt`)                                                           | string     | `INFLUXD_SECRET_STORE`                  |
+|      | `--session-length`             | TTL in minutes for newly created sessions (default `60`)                                                          | integer    | `INFLUXD_SESSION_LENGTH`                |
+|      | `--session-renew-disabled`     | Disables automatically extending session TTL on request                                                           |            | `INFLUXD_SESSION_RENEW_DISABLED`        |
+|      | `--store`                      | Data store for REST resources (bolt or memory) (default `bolt`)                                                   | string     | `INFLUXD_STORE`                         |
+|      | `--tls-cert`                   | Path to TLS certificate file                                                                                      | string     | `INFLUXD_TLS_CERT`                      |
+|      | `--tls-key`                    | Path to TLS private key file                                                                                      | string     | `INFLUXD_TLS_KEY`                       |
+|      | `--tracing-type`               | Supported tracing types (log or jaeger)                                                                           | string     | `INFLUXD_TRACING_TYPE`                  |
+|      | `--vault-addr `                | Address of the Vault server (example: `https://127.0.0.1:8200/`)                                                  | string     | `VAULT_ADDR`                            |
+|      | `--vault-cacert`               | Path to a PEM-encoded CA certificate file                                                                         | string     | `VAULT_CACERT`                          |
+|      | `--vault-capath`               | Path to a directory of PEM-encoded CA certificate files                                                           | string     | `VAULT_CAPATH`                          |
+|      | `--vault-client-cert`          | Path to a PEM-encoded client certificate                                                                          | string     | `VAULT_CLIENT_CERT`                     |
+|      | `--vault-client-key`           | Path to an unencrypted, PEM-encoded private key which corresponds to the matching client certificate              | string     | `VAULT_CLIENT_KEY`                      |
+|      | `--vault-max-retries`          | Maximum number of retries when encountering a 5xx error code (default `2`)                                        | integer    | `VAULT_MAX_RETRIES`                     |
+|      | `--vault-client-timeout`       | Vault client timeout (default `60s`)                                                                              | duration   | `VAULT_CLIENT_TIMEOUT`                  |
+|      | `--vault-skip-verify`          | Skip certificate verification when communicating with Vault                                                       |            | `VAULT_SKIP_VERIFY`                     |
+|      | `--vault-tls-server-name`      | Name to use as the SNI host when connecting to Vault via TLS                                                      | string     | `VAULT_TLS_SERVER_NAME`                 |
+|      | `--vault-token`                | Vault authentication token                                                                                        | string     | `VAULT_TOKEN`                           |
