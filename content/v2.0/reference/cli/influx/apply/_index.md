@@ -31,6 +31,7 @@ influx apply [flags]
 | `-e` | `--encoding`              | Encoding of the input stream                                                                | string     |                      |
 |      | `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                      |
 | `-f` | `--file`                  | Path to template file                                                                       | string     |                      |
+|      | `--filter`                | Resources to skip when applying the template (filter by `kind` or `resource`)               | string     |                      |
 |      | `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
 | `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
 |      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
@@ -78,4 +79,16 @@ influx apply \
   -f path/to/template.yml
   -f path/to/templates_directory
   -u https://example.com/template.json
+
+# Apply a template, but skip resources. The following example skips all buckets
+# and the dashboard whose metadata.name field matches "example-dashboard".
+
+# Filter format:
+#	--filter=kind=Bucket
+#	--filter=resource=Label:$Label_TMPL_NAME
+
+influx apply \
+	-f path/to/template.yml \
+	--filter kind=Bucket \
+	--filter resource=Dashboard:example-dashboard
 ```
