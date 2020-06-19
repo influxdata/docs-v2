@@ -25,10 +25,13 @@ InfluxDB honors configuration settings using the following precedence:
 3. Settings defined in a configuration file
 
 ### InfluxDB configuration file
-When `influxd` starts, it checks for a **`config.yaml` in the current working directory**.
-To customize the file name or path of the configuration file, set the `INFLUXD_CONFIG_PATH`
-environment variable to the custom name or path.
-InfluxDB supports YAML, TOML, and JSON configuration files.
+When `influxd` starts, it checks for a file named `config.*` (the file extension
+depends on the syntax) **in the current working directory**.
+To customize the file path of the configuration file, set the `INFLUXD_CONFIG_PATH`
+environment variable to your custom path.
+On startup, `influxd` will check for a `config.*` in the `INFLUXD_CONFIG_PATH`.
+
+InfluxDB supports **YAML** (`.yaml`, `.yml`), **TOML** (`.toml`), and **JSON** (`.json`) configuration files.
 
 ##### Example configuration file
 {{< code-tabs-wrapper >}}
