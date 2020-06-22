@@ -1,9 +1,9 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by passing configuration flags to the
-  [`influxd` daemon](/v2.0/reference/cli/influxd/), setting environment variables,
-  or defining configuration options in a configuration file.
+  Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+  configuration flags, setting environment variables, or defining configuration
+  options in a configuration file.
 menu:
   v2_0_ref:
     name: Configuration options
@@ -13,9 +13,9 @@ related:
   - /v2.0/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using configuration flags to the
-[`influxd` daemon](/v2.0/reference/cli/influxd/), setting environment variables,
-or defining configuration options in a configuration file.
+Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+configuration flags, setting environment variables, or defining configuration
+options in a configuration file.
 
 ### Configuration precedence
 InfluxDB honors configuration settings using the following precedence:
@@ -27,9 +27,9 @@ InfluxDB honors configuration settings using the following precedence:
 ### InfluxDB configuration file
 When `influxd` starts, it checks for a file named `config.*` (the file extension
 depends on the syntax) **in the current working directory**.
-To customize the file path of the configuration file, set the `INFLUXD_CONFIG_PATH`
+To customize the directory path of the configuration file, set the `INFLUXD_CONFIG_PATH`
 environment variable to your custom path.
-On startup, `influxd` will check for a `config.*` in the `INFLUXD_CONFIG_PATH`.
+On startup, `influxd` will check for a `config.*` in the `INFLUXD_CONFIG_PATH` directory.
 
 InfluxDB supports **YAML** (`.yaml`, `.yml`), **TOML** (`.toml`), and **JSON** (`.json`) configuration files.
 
@@ -64,7 +64,6 @@ tls-key = "/path/to/influxdb.key"
 ```json
 {
   "query-concurrency": 20,
-  "query-memory-bytes": null,
   "query-queue-size": 15,
   "secret-store": "vault",
   "session-length": 120,
@@ -197,18 +196,18 @@ export INFLUXD_BOLT_PATH=~/.influxdbv2/influxd.bolt
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-bolt-path: /usr/user/.influxdbv2/influxd.bolt
+bolt-path: /users/user/.influxdbv2/influxd.bolt
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-bolt-path = "/usr/user/.influxdbv2/influxd.bolt"
+bolt-path = "/users/user/.influxdbv2/influxd.bolt"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "bolt-path": "/usr/user/.influxdbv2/influxd.bolt"
+  "bolt-path": "/users/user/.influxdbv2/influxd.bolt"
 }
 ```
 {{% /code-tab-content %}}
@@ -291,18 +290,18 @@ export INFLUXD_ENGINE_PATH=~/.influxdbv2/engine
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-engine-path: /usr/user/.influxdbv2/engine
+engine-path: /users/user/.influxdbv2/engine
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-engine-path = "/usr/user/.influxdbv2/engine"
+engine-path = "/users/user/.influxdbv2/engine"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "engine-path": "/usr/user/.influxdbv2/engine"
+  "engine-path": "/users/user/.influxdbv2/engine"
 }
 ```
 {{% /code-tab-content %}}
