@@ -1,7 +1,9 @@
 ---
-title: Flux built-in aggregate functions
-list_title: Built-in aggregate functions
-description: Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
+title: Flux built-in aggregate transformations
+list_title: Built-in aggregate transformations
+description: >
+  Flux's aggregate transformations take values from an input table and aggregate them in some way.
+  Output tables contain a single row with the aggregated value.
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/
@@ -16,8 +18,8 @@ related:
   - /v2.0/query-data/flux/window-aggregate/
 ---
 
-Flux's built-in aggregate functions take values from an input table and aggregate them in some way.
-The output table contains a single row with the aggregated value.
+Flux's built-in aggregate transformations take values from an input tables and aggregate them in some way.
+Output tables contain a single row with the aggregated value.
 
 Aggregate operations output a table for every input table they receive.
 You must provide a column to aggregate.

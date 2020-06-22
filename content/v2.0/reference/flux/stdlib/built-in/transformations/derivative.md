@@ -32,9 +32,6 @@ derivative(
 )
 ```
 
-#### Output tables
-For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
-
 ## Parameters
 
 ### unit
@@ -60,6 +57,9 @@ The column containing time values.
 Defaults to `"_time"`.
 
 _**Data type:** String_
+
+## Output tables
+For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
 
 ## Examples
 ```js

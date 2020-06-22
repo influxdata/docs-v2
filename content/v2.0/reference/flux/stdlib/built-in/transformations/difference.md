@@ -29,9 +29,6 @@ difference(
 )
 ```
 
-#### Output tables
-For each input table with `n` rows, `difference()` outputs a table with `n - 1` rows.
-
 ## Parameters
 
 ### nonNegative
@@ -60,6 +57,8 @@ _**Data type:** Boolean_
 - Some value `v` minus `null` is `v` minus the last non-null value seen before `v`;
   or `null` if `v` is the first non-null value seen.
 
+## Output tables
+For each input table with `n` rows, `difference()` outputs a table with `n - 1` rows.
 
 ## Examples
 
