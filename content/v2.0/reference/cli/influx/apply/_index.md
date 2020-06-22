@@ -30,7 +30,8 @@ influx apply [flags]
 |      | `--disable-table-borders` | Disable table borders                                                                       |            |                      |
 | `-e` | `--encoding`              | Encoding of the input stream                                                                | string     |                      |
 |      | `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                      |
-| `-f` | `--file`                  | Path to template file                                                                       | string     |                      |
+| `-f` | `--file`                  | Path to template file (supports HTTP(S) URLs or file paths)                                 | string     |                      |
+|      | `--filter`                | Resources to skip when applying the template (filter by `kind` or `resource`)               | string     |                      |
 |      | `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
 | `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
 |      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
@@ -40,7 +41,6 @@ influx apply [flags]
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                      |
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
-| `-u` | `--template-url`          | URL of template file                                                                        | string     |                      |
 
 {{% cli/influx-global-flags %}}
 
@@ -48,6 +48,9 @@ influx apply [flags]
 ```sh
 # Apply a template from a file.
 influx apply -f path/to/template.json
+
+# Apply a template from a URL.
+influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
 
 # Apply a stack that has associated templates.
 influx apply --stack-id $STACK_ID
@@ -60,9 +63,6 @@ influx apply -f path/to/template.json --stack-id $STACK_ID
 influx apply \
   -f path/to/template_1.json \
   -f path/to/template_2.yml
-
-# Apply a template from a URL.
-influx apply -u https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
 
 # Apply a template from STDIN.
 cat template.json | influx apply --encoding json
@@ -78,4 +78,16 @@ influx apply \
   -f path/to/template.yml
   -f path/to/templates_directory
   -u https://example.com/template.json
+
+# Apply a template, but skip resources. The following example skips all buckets
+# and the dashboard whose metadata.name field matches "example-dashboard".
+
+# Filter format:
+#	--filter=kind=Bucket
+#	--filter=resource=Label:$Label_TMPL_NAME
+
+influx apply \
+	-f path/to/template.yml \
+	--filter kind=Bucket \
+	--filter resource=Dashboard:example-dashboard
 ```
