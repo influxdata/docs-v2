@@ -18,7 +18,7 @@ related:
   - /v2.0/query-data/flux/window-aggregate/
 ---
 
-Flux's built-in aggregate transformations take values from an input tables and aggregate them in some way.
+Flux's built-in aggregate transformations take values from an input table and aggregate them in some way.
 Output tables contain a single row with the aggregated value.
 
 Aggregate operations output a table for every input table they receive.
