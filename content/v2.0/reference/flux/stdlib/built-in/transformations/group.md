@@ -32,6 +32,13 @@ group(columns: ["_time"], mode:"except")
 group()
 ```
 
+{{% warn %}}
+#### Group does not guarantee sort order
+`group()` does not guarantee the sort order of output records.
+To ensure data is sorted correctly, use [`sort()`](/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
+after `group()`.
+{{% /warn %}}
+
 ## Parameters
 
 ### columns
