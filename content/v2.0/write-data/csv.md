@@ -349,7 +349,7 @@ to ignore columns when writing CSV data to InfluxDB.
 m,count,time,foo
 example,1,2020-01-01T00:00:00Z,bar
 example,4,2020-01-02T00:00:00Z,bar
-example,,2020-01-03T00:00:00Z,baz
+example,9,2020-01-03T00:00:00Z,baz
 example,18,2020-01-04T00:00:00Z,baz
 ```
 {{% /flex-content %}}
