@@ -86,6 +86,12 @@ If writing to a **SQLite** database, set `batchSize` to `999` or less.
 
 ## Examples
 
+- [MySQL](#write-data-to-a-mysql-database)
+- [Postgres](#write-data-to-a-postgres-database)
+- [Snowflake](#write-data-to-a-snowflake-database)
+- [SQLite](#write-data-to-an-sqlite-database)
+- [SQL Server](#write-data-to-a-sql-server-database)
+
 {{% note %}}
 The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
 sensitive connection credentials.
@@ -216,3 +222,8 @@ _For information about managed identities, see [Microsoft managed identities](ht
 ```
 azure auth=MSI
 ```
+
+{{% warn %}}
+### sql.to does not support Amazon Athena
+The `sql.to` function does not support writing data to [Amazon Athena](https://aws.amazon.com/athena/).
+{{% /warn %}}
