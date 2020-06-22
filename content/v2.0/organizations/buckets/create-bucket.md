@@ -42,7 +42,6 @@ There are two places you can create a bucket in the UI.
     - **Older than** to choose a specific retention policy.
 5. Click **Create** to create the bucket.
 
-
 ## Create a bucket using the influx CLI
 
 Use the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
@@ -50,7 +49,7 @@ to create a new bucket. A bucket requires the following:
 
 - bucket name
 - organization name or ID
-- retention period duration (`ns`, `us`, `ms`, `s`, or `h`)
+- retention period duration (`ns`, `us` (or `µs`), `ms`, `s`, `m` or `h`)
 
 ```sh
 # Syntax

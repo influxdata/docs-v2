@@ -21,7 +21,6 @@ Note that updating an bucket's name will affect any assets that reference the bu
 
 If you change a bucket name, be sure to update the bucket in the above places as well.
 
-
 ## Update a bucket's name in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
@@ -52,6 +51,7 @@ to update a bucket. Updating a bucket requires the following:
 - The name or ID of the organization the bucket belongs to.
 
 ##### Update the name of a bucket
+
 ```sh
 # Syntax
 influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
@@ -61,6 +61,9 @@ influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 ```
 
 ##### Update a bucket's retention policy
+
+Valid retention policy units are `ns`, `us` (or `µs`), `ms`, `s`, `m` or `h`.
+
 ```sh
 # Syntax
 influx bucket update -i <bucket-id> -r <retention period in nanoseconds>
