@@ -6,6 +6,7 @@ description: >
 weight: 2
 aliases:
   - /v2.0/write-data/quick-start/
+  - /v2.0/write-data/sample-data/demo-data/
 menu:
   v2_0:
     name: Write data
