@@ -11,7 +11,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
-    name : Telegraf (agent-based)
+    name: Telegraf (agent-based)
     parent: No-code solutions
 ---
 

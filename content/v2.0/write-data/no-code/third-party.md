@@ -9,7 +9,7 @@ aliases:
   - /v2.0/write-data/#third-party-technologies
 menu:
   v2_0:
-    name : Third-party technologies
+    name: Third-party technologies
     parent: No-code solutions
 ---
 

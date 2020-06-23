@@ -13,7 +13,7 @@ v2.0/tags: [scraper]
 menu:
   v2_0:
     name: Scrape data
-    parent: Agent-less options
+    parent: No-code solutions
 products: [oss]
 ---
 

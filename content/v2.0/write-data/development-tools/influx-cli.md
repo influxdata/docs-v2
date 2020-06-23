@@ -2,14 +2,13 @@
 title: Influx CLI
 seotitle: Write data with the influx CLI
 list_title: Write data with the influx CLI
-weight: 5
+weight: 205
 description: >
   Write data to InfluxDB using the `influx` CLI.
-aliases:
 menu:
   v2_0:
-    name : Influx CLI
-    parent: Development tools
+    name: Influx CLI
+    parent: Developer tools
 ---
 
 From the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write data to InfluxDB.

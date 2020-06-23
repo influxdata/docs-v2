@@ -7,8 +7,10 @@ description: >
 menu:
   v2_0:
     name: Write CSV data
-    parent: Development tools
-weight: 104
+    parent: Developer tools
+aliases:
+  - /v2.0/write-data/csv/
+weight: 204
 related:
   - /v2.0/reference/syntax/line-protocol/
   - /v2.0/reference/syntax/annotated-csv/
