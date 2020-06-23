@@ -62,7 +62,7 @@ influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 
 ##### Update a bucket's retention policy
 
-Valid retention policy units are `ns`, `us` (or `µs`), `ms`, `s`, `m` or `h`.
+Valid retention policy duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
 
 ```sh
 # Syntax

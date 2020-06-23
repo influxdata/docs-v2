@@ -27,7 +27,7 @@ influx setup [flags]
 | `-h` | `--help`      | Help for the `setup` command                                   |           |
 | `-o` | `--org`       | Primary organization name                                      | string    |
 | `-p` | `--password`  | Password for primary user                                      | string    |
-| `-r` | `--retention` | Duration bucket will retain data (0 is infinite, default is 0) | duration  |
+| `-r` | `--retention` | Duration the bucket will retain data (0 is infinite, default is 0). Valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).| duration  |
 | `-u` | `--username`  | Primary username                                               | string    |
 
 {{% cli/influx-global-flags %}}

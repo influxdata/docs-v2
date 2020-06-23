@@ -49,7 +49,15 @@ to create a new bucket. A bucket requires the following:
 
 - bucket name
 - organization name or ID
-- retention period duration (`ns`, `us` (or `µs`), `ms`, `s`, `m` or `h`)
+- retention period (duration to keep data) in one of the following units:
+  - nanoseconds (`ns`)
+  - microseconds (`us` or `µs`)
+  - milliseconds (`ms`)
+  - seconds (`s`)
+  - minutes (`m`)
+  - hours (`h`)
+  - days (`d`)
+  - weeks (`w`)
 
 ```sh
 # Syntax
