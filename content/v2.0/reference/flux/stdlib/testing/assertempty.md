@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: testing.assertEmpty
     parent: Testing
-    weight: 301
+weight: 301
 ---
 
 The `testing.assertEmpty()` function tests if an input stream is empty.

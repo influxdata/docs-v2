@@ -1,6 +1,6 @@
 ---
 title: influx config
-description: The 'influx config' command and subcommands manage multiple InfluxDB connection configurations.
+description: The `influx config` command and subcommands manage multiple InfluxDB connection configurations.
 menu:
   v2_0_ref:
     name: influx config
@@ -45,8 +45,8 @@ influx config -
 | [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
 ## Flags
-| Flag           | Description                   |
-|:----           |:-----------                   |
-| `-h`, `--help` | Help for the `config` command |
+| Flag |          | Description                   |
+|:---- |:---      |:-----------                   |
+| `-h` | `--help` | Help for the `config` command |
 
 {{% cli/influx-global-flags %}}

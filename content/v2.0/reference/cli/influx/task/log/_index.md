@@ -1,6 +1,8 @@
 ---
 title: influx task log
-description: The 'influx task log' and its subcommand 'list' output log information related related to a task.
+description: >
+  The `influx task log` and its subcommand, `list`, output log information
+  related to a task.
 menu:
   v2_0_ref:
     name: influx task log
@@ -23,8 +25,8 @@ influx task log [command]
 | [list](/v2.0/reference/cli/influx/task/log/list) | List logs for task |
 
 ## Flags
-| Flag           | Description                |
-|:----           |:-----------                |
-| `-h`, `--help` | Help for the `log` command |
+| Flag |          | Description                |
+|:---- |:---      |:-----------                |
+| `-h` | `--help` | Help for the `log` command |
 
 {{% cli/influx-global-flags %}}

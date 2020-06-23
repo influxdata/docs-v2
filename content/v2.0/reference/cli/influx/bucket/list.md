@@ -1,6 +1,6 @@
 ---
 title: influx bucket list
-description: The 'influx bucket list' command lists and searches for buckets in InfluxDB.
+description: The `influx bucket list` command lists and searches for buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket list
@@ -21,14 +21,14 @@ influx bucket list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag             | Description                           | Input type  | {{< cli/mapped >}}    |
-|:----             |:-----------                           |:----------: |:------------------    |
-| `-h`, `--help`   | Help for the `list` command           |             |                       |
-| `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
-| `-i`, `--id`     | Bucket ID                             | string      |                       |
-| `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
-| `-n`, `--name`   | Bucket name                           | string      | `INFLUX_BUCKET_NAME`  |
-| `-o`, `--org`    | Organization name                     | string      | `INFLUX_ORG`          |
-| `--org-id`       | Organization ID                       | string      | `INFLUX_ORG_ID`       |
+| Flag |                  | Description                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                           |:----------: |:------------------    |
+| `-h` | `--help`         | Help for the `list` command           |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
+| `-i` | `--id`           | Bucket ID                             | string      |                       |
+|      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`         | Bucket name                           | string      | `INFLUX_BUCKET_NAME`  |
+| `-o` | `--org`          | Organization name                     | string      | `INFLUX_ORG`          |
+|      | `--org-id`       | Organization ID                       | string      | `INFLUX_ORG_ID`       |
 
 {{% cli/influx-global-flags %}}

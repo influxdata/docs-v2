@@ -11,10 +11,36 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.66.1**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.69.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.69.2 [2020-06-10]
+
+### Bug fixes
+- Include a hash of sources for `libflux`.
+
+---
+
+## v0.69.1 [2020-06-09]
+
+### Bug fixes
+- Fix experimental `json.parse()` test.
+
+---
+
+## v0.69.0 [2020-06-08]
+
+### Features
+- Add [Discord package](/v2.0/reference/flux/stdlib/contrib/discord/)
+  _(contributed by [@chobbs](https://github.com/chobbs))_.
+- Add [`json.parse()` function](/v2.0/reference/flux/stdlib/experimental/json/parse/).
+
+### Bug fixes
+- Adjust error handling in Flux `date` package.
+
+---
 
 ## v0.68.0 [2020-05-28]
 This version of Flux introduces an updated type inference system that improves

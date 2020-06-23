@@ -63,7 +63,7 @@ foo/**/baz
 ```
 
 ## Flags
-| Flag                | Description                                                                |
-|:----                |:-----------                                                                |
-| `--find-duplicates` | Ignore dumping entries; only report keys in the WAL that are out of order. |
-| `-h`, `--help`      | Help for the `dumpwal` cinnabd.                                            |
+| Flag |                     | Description                                                                |
+|:---- |:---                 |:-----------                                                                |
+|      | `--find-duplicates` | Ignore dumping entries; only report keys in the WAL that are out of order. |
+| `-h` | `--help`            | Help for the `dumpwal` cinnabd.                                            |

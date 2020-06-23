@@ -1,7 +1,7 @@
 ---
 title: influx task run
 description: >
-  The 'influx task run' command and its subcommand 'list' output information
+  The `influx task run` command and its subcommand, `list` output information
   related to runs of a task.
 menu:
   v2_0_ref:
@@ -25,8 +25,8 @@ influx task run [command]
 | [retry](/v2.0/reference/cli/influx/task/run/retry) | Retry a task         |
 
 ## Flags
-| Flag           | Description                |
-|:----           |:-----------                |
-| `-h`, `--help` | Help for the `run` command |
+| Flag |          | Description                |
+|:---- |:---      |:-----------                |
+| `-h` | `--help` | Help for the `run` command |
 
 {{% cli/influx-global-flags %}}

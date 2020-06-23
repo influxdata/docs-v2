@@ -1,6 +1,6 @@
 ---
 title: influx secret
-description: The 'influx secret' command manages secrets.
+description: The `influx secret` command manages secrets.
 menu:
   v2_0_ref:
     name: influx secret
@@ -25,8 +25,8 @@ influx secret [subcommand]
 | [update](/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags
-| Flag           | Description                   |
-|:----           |:-----------                   |
-| `-h`, `--help` | Help for the `secret` command |
+| Flag |          | Description                   |
+|:---- |:---      |:-----------                   |
+| `-h` | `--help` | Help for the `secret` command |
 
 {{% cli/influx-global-flags %}}

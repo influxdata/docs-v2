@@ -1,7 +1,7 @@
 ---
 title: influx completion
 description: >
-  The 'influx completion' command outputs `influx` shell completion scripts for a
+  The `influx completion` command outputs `influx` shell completion scripts for a
   specified shell (`bash` or `zsh`).
 menu:
   v2_0_ref:
@@ -20,9 +20,9 @@ influx completion [bash|zsh] [flags]
 ```
 
 ## Flags
-| Flag           | Description                       |
-|:----           |:-----------                       |
-| `-h`, `--help` | Help for the `completion` command |
+| Flag |          | Description                       |
+|:---- |:---      |:-----------                       |
+| `-h` | `--help` | Help for the `completion` command |
 
 {{% cli/influx-global-flags %}}
 
@@ -56,4 +56,3 @@ $ source <(influx completion zsh)
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-

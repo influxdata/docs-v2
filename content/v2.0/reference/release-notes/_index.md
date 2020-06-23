@@ -4,7 +4,7 @@ description: Find important information about what's included in new versions of
 menu:
   v2_0_ref:
     name: Release notes
-    weight: 1
+weight: 1
 ---
 
 Find important information about what's included in new versions of our products:

@@ -47,12 +47,12 @@ in the following ways:
 - Number of tag values for each tag key.
 
 ## Flags
-| Flag           | Description                                                                                      | Input Type |
-|:----           |:-----------                                                                                      |:----------:|
-| `--bucket-id`  | Process only data belonging to bucket ID. _Requires `org-id` flag to be set._                    | string     |
-| `--data-dir`   | Use provided data directory (defaults to `~/.influxdbv2/engine/data`).                           | string     |
-| `--detailed`   | Emit series cardinality segmented by measurements, tag keys, and fields. _**May take a while**_. |            |
-| `--exact`      | Calculate an exact cardinality count. _**May use significant memory**_.                          |            |
-| `-h`, `--help` | Help for the `report-tsm` command.                                                               |            |
-| `--org-id`     | Process only data belonging to organization ID.                                                  | string     |
-| `--pattern`    | Only process TSM files containing pattern.                                                       | string     |
+| Flag |               | Description                                                                                      | Input Type |
+|:---- |:---           |:-----------                                                                                      |:----------:|
+|      | `--bucket-id` | Process only data belonging to bucket ID. _Requires `org-id` flag to be set._                    | string     |
+|      | `--data-dir`  | Use provided data directory (defaults to `~/.influxdbv2/engine/data`).                           | string     |
+|      | `--detailed`  | Emit series cardinality segmented by measurements, tag keys, and fields. _**May take a while**_. |            |
+|      | `--exact`     | Calculate an exact cardinality count. _**May use significant memory**_.                          |            |
+| `-h` | `--help`      | Help for the `report-tsm` command.                                                               |            |
+|      | `--org-id`    | Process only data belonging to organization ID.                                                  | string     |
+|      | `--pattern`   | Only process TSM files containing pattern.                                                       | string     |

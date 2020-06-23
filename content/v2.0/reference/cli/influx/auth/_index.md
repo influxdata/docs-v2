@@ -1,6 +1,6 @@
 ---
 title: influx auth
-description: The 'influx auth' command and its subcommands manage authorizations in InfluxDB.
+description: The `influx auth` command and its subcommands manage authorizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth
@@ -30,8 +30,8 @@ influx auth [command]
 | [inactive](/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
 
 ## Flags
-| Flag           | Description                 |
-|:----           |:-----------                 |
-| `-h`, `--help` | Help for the `auth` command |
+| Flag |          | Description                 |
+|:---- |:---      |:-----------                 |
+| `-h` | `--help` | Help for the `auth` command |
 
 {{% cli/influx-global-flags %}}

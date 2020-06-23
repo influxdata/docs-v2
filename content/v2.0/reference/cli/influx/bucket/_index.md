@@ -1,6 +1,6 @@
 ---
 title: influx bucket
-description: The 'influx bucket' command and its subcommands manage buckets in InfluxDB.
+description: The `influx bucket` command and its subcommands manage buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket
@@ -26,8 +26,8 @@ influx bucket [command]
 | [update](/v2.0/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags
-| Flag           | Description                   |
-|:----           |:-----------                   |
-| `-h`, `--help` | Help for the `bucket` command |
+| Flag |          | Description                   |
+|:---- |:---      |:-----------                   |
+| `-h` | `--help` | Help for the `bucket` command |
 
 {{% cli/influx-global-flags %}}

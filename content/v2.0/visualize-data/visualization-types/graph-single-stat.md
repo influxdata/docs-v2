@@ -55,7 +55,7 @@ the visualization dropdown.
 - **Y Tick Suffix**: Suffix to be added to y-value.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
-  - **Custom**: Manually specify the value range of the y-axis.
+  - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 - **Positioning**:

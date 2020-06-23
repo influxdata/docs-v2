@@ -1,6 +1,6 @@
 ---
 title: influx user
-description: The 'influx user' command and its subcommands manage user information in InfluxDB.
+description: The `influx user` command and its subcommands manage user information in InfluxDB.
 menu:
   v2_0_ref:
     name: influx user
@@ -27,8 +27,8 @@ influx user [command]
 | [update](/v2.0/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
-| Flag           | Description                 |
-|:----           |:-----------                 |
-| `-h`, `--help` | Help for the `user` command |
+| Flag |          | Description                 |
+|:---- |:---      |:-----------                 |
+| `-h` | `--help` | Help for the `user` command |
 
 {{% cli/influx-global-flags %}}

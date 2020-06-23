@@ -8,6 +8,58 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.12 [2020-06-12]
+
+### Features
+
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/v2.0/get-started/#optional-download-and-install-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/v2.0/reference/cli/influx/) works.
+- Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
+- Make all `influx apply` applications stateful through stacks.
+- Add ability to export a stack's existing resource state using `influx export`.
+- Update `influx apply` commands with improved usage and examples in long form.
+- Update `influx` CLI to include the `-version` command and return the User-Agent header.
+- Add `RedirectTo` functionality to ensure Cloud users are redirected to the page that they were trying access after logging into Cloud.
+- Maintain sort order on a dashboard after navigating away.
+- Allow tasks to open in new tabs.
+
+### Bug Fixes
+
+- Support organization name and ID in DBRP operations.
+- Prevent the CLI from failing when an unexpected flag is entered in the CLI.
+- `influx delete` now respects the configuration settings.
+- Store initialization for `pkger` enforced on reads.
+- Backfill missing `fillColumns` field for histograms in `pkger`.
+- Notify the user how to escape presentation mode when the feature is toggled.
+
+### UI Improvements
+
+- Display bucket ID in bucket list and enable 1-click copying.
+- Update Tokens list to be consistent with other resource lists.
+- Reduce the number of variables being hydrated when toggling variables.
+- Redesign dashboard cell loading indicator to be more obvious.
+
+## v2.0.0-beta.11 [2020-05-27]
+
+{{% warn %}}
+The beta 11 version was **not released**. Changes below are included in the beta 12 release.
+{{% /warn %}}
+
+### Features
+
+- Ability to set UTC time for a custom time range query.
+- Ability to set a minimum or maximum value for the y-axis visualization setting (rather than requiring both).
+- New `csv2lp` library for converting CSV (comma separated values) to InfluxDB line protocol.
+- Add influxdb version to the InfluxDB v2 API `/health` endpoint.
+
+### Bug Fixes
+
+- Automatically adjust the drop-down list width to ensure the longest item in a list is visible.
+- Fix bug in Graph + Single Stat visualizations to ensure `timeFormat` persists.
+- Authorizer now exposes the full permission set. This adds the ability to derive which organizations the Authorizer has access to read or write to without using a User Request Management (URM) service.
+- Fix issue causing variable selections to hydrate all variable values, decreasing the impact on network requests.
+- Resolve scrollbar issues to ensure datasets are visible and scrollable.
+- Check status now displays a warning if loading a large amount.
+
 ## v2.0.0-beta.10 [2020-05-07]
 
 ### Features

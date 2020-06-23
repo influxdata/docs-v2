@@ -19,7 +19,7 @@ _**Output data type:** Boolean_
 ```js
 import "strings"
 
-strings.hasPrefix(v: "go gopher", t: "go")
+strings.hasPrefix(v: "go gopher", prefix: "go")
 
 // returns true
 ```
@@ -31,7 +31,7 @@ The string value to search.
 
 _**Data type:** String_
 
-### t
+### prefix
 The prefix to search for.
 
 _**Data type:** String_
@@ -41,5 +41,5 @@ _**Data type:** String_
 import "strings"
 
 data
-  |> filter(fn:(r) => strings.hasPrefix(v: r.metric, t: "int_" ))
+  |> filter(fn:(r) => strings.hasPrefix(v: r.metric, prefix: "int_" ))
 ```

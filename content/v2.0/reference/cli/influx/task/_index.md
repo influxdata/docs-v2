@@ -1,6 +1,6 @@
 ---
 title: influx task
-description: The 'influx task' command and its subcommands manage tasks in InfluxDB.
+description: The `influx task` command and its subcommands manage tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task
@@ -28,8 +28,8 @@ influx task [command]
 | [update](/v2.0/reference/cli/influx/task/update) | Update task          |
 
 ### Flags
-| Flag           | Description                 |
-|:----           |:-----------                 |
-| `-h`, `--help` | Help for the `task` command |
+| Flag |          | Description                 |
+|:---- |:---      |:-----------                 |
+| `-h` | `--help` | Help for the `task` command |
 
 {{% cli/influx-global-flags %}}

@@ -1,6 +1,6 @@
 ---
 title: influx help
-description: The 'influx help' command provides help for any command in the `influx` command line interface.
+description: The `influx help` command provides help for any command in the `influx` command line interface.
 menu:
   v2_0_ref:
     name: influx help
@@ -16,8 +16,8 @@ influx help [command] [flags]
 ```
 
 ## Flags
-| Flag           | Description             |
-|:----           |:-----------             |
-| `-h`, `--help` | Help for the `help` command |
+| Flag |          | Description                 |
+|:---- |:---      |:-----------                 |
+| `-h` | `--help` | Help for the `help` command |
 
 {{% cli/influx-global-flags %}}

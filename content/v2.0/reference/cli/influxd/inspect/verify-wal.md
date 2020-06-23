@@ -34,7 +34,7 @@ After the verification is complete, it returns a summary with:
 - A list of files found to be corrupt.
 
 ## Flags
-| Flag           | Description                                                      | Input Type |
-|:----           |:-----------                                                      |:----------:|
-| `--data-dir`   | The data directory to scan (default `~/.influxdbv2/engine/wal`). | string     |
-| `-h`, `--help` | Help for the `verify-wal` command.                               |            |
+| Flag |              | Description                                                      | Input Type |
+|:---- |:---          |:-----------                                                      |:----------:|
+|      | `--data-dir` | The data directory to scan (default `~/.influxdbv2/engine/wal`). | string     |
+| `-h` | `--help`     | Help for the `verify-wal` command.                               |            |
