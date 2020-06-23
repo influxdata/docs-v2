@@ -1,17 +1,16 @@
 ---
-title: Development tools
-seotitle: Write data to InfluxDB with development tools
-list_title: Write data to InfluxDB with development tools
+title: Developer tools
+seotitle: Write data to InfluxDB with developer tools
+list_title: Use developer tools
 weight: 101
 description: >
-  Write data to InfluxDB with development tools.
-aliases:
+  Write data to InfluxDB with developer tools.
 menu:
   v2_0:
-    name : Development tools
+    name: Developer tools
     parent: Write data
 ---
 
-The following options let you write data to InfluxDB without writing any code.
+Write data to InfluxDB with development tools.
 
 {{< children >}}

@@ -463,7 +463,7 @@ For information about using the InfluxDB v2 API, `influx` CLI, and client librar
 see [Write data to InfluxDB](/v2.0/write-data/).
 
 #### Demo data
-If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/write-data/sample-data/demo-data/)
+If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/reference/sample-data/#influxdb-cloud-demo-data)
 for quick, **free** access to time series data.
 
 ### Query data

@@ -8,7 +8,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf/auto-config
 menu:
   v2_0:
-    parent: Agent-based Telegraf
+    parent: Telegraf (agent-based)
 weight: 201
 ---
 

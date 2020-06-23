@@ -10,7 +10,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
-    name : No-code solutions
+    name: No-code solutions
     parent: Write data
 ---
 

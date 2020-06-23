@@ -2,14 +2,13 @@
 title: Client libraries
 seotitle: Write data with client libraries
 list_title: Write data with client libraries
-weight: 4
+weight: 204
 description: >
   Write data to InfluxDB using client libraries.
-aliases:
 menu:
   v2_0:
-    name : Client libraries
-    parent: Development tools
+    name: Client libraries
+    parent: Developer tools
 ---
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.

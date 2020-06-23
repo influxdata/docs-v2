@@ -132,7 +132,7 @@ After adding a demo data bucket, view the pre-built dashboard specific to the de
 
 {{% note %}}
 #### Other sample data sets
-See [Sample data](/v2.0/write-data/sample-data) for more sample InfluxDB data sets.
+See [Sample data](/v2.0/reference/sample-data) for more sample InfluxDB data sets.
 {{% /note %}}
 
 ## Quick Start for InfluxDB OSS
