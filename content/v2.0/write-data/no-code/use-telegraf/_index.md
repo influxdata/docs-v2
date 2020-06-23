@@ -9,6 +9,7 @@ description: >
 aliases:
   - /v2.0/collect-data/advanced-telegraf
   - /v2.0/collect-data/use-telegraf
+  - /v2.0/write-data/use-telegraf/
 menu:
   v2_0:
     name: Telegraf (agent)
