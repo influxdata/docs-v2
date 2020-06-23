@@ -1,8 +1,8 @@
 ---
-title: Use Telegraf to collect data
-seotitle: Use Telegraf to collect and write data
-list_title: Use Telegraf
-weight: 102
+title: Telegraf (agent)
+seotitle: Use the Telegraf agent to collect and write data
+list_title: Use the Telegraf agent
+weight: 101
 description: >
   Use Telegraf to collect and write data to InfluxDB v2.0.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
@@ -11,8 +11,8 @@ aliases:
   - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
-    name : Use Telegraf
-    parent: Write data
+    name: Telegraf (agent)
+    parent: No-code solutions
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's
