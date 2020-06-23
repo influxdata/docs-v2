@@ -18,9 +18,8 @@ related:
   - /v2.0/reference/cli/influx/write
 ---
 
-Collect and write time series data to InfluxDB using [line protocol](/v2.0/reference/syntax/line-protocol),
-Telegraf, data scrapers, the InfluxDB v2 API, `influx` command line interface (CLI),
-the InfluxDB user interface (UI), client libraries, and third-party technologies.
+Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
+
 
 - [What you'll need](#what-you-ll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
@@ -86,6 +85,8 @@ Familiarize yourself with querying, visualizing, and processing data in InfluxDB
 ## Demo data for InfluxDB Cloud
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
 types of demo data that let you explore and familiarize yourself with InfluxDB Cloud.
+
+{{< youtube GSaByPC1Bdc >}}
 
 - [Add a demo data bucket](#add-a-demo-data-bucket)
 - [Explore demo data](#explore-demo-data)

@@ -14,6 +14,6 @@ menu:
     parent: Write data
 ---
 
-The following options let you write data to InfluxDB without writing any code.
+The following options let you write data to InfluxDB without writing any code. Some options require a minimal amount of configuration.
 
 {{< children >}}

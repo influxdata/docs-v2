@@ -1,5 +1,5 @@
 ---
-title: Telegraf (agent-based)
+title: Telegraf (agent)
 seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
@@ -11,7 +11,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf
 menu:
   v2_0:
-    name: Telegraf (agent-based)
+    name: Telegraf (agent)
     parent: No-code solutions
 ---
 

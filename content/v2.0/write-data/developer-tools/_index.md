@@ -11,6 +11,6 @@ menu:
     parent: Write data
 ---
 
-Write data to InfluxDB with development tools.
+Write data to InfluxDB with developer tools.
 
 {{< children >}}

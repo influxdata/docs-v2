@@ -7,7 +7,7 @@ aliases:
 menu:
   v2_0:
     name: Use Telegraf plugins
-    parent: Telegraf (agent-based)
+    parent: Telegraf (agent)
 weight: 202
 ---
 
