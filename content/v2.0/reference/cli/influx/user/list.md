@@ -1,6 +1,6 @@
 ---
 title: influx user list
-description: The 'influx user list' lists users in InfluxDB.
+description: The `influx user list` lists users in InfluxDB.
 menu:
   v2_0_ref:
     name: influx user list

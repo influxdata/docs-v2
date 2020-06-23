@@ -1,7 +1,7 @@
 ---
 title: influx completion
 description: >
-  The 'influx completion' command outputs `influx` shell completion scripts for a
+  The `influx completion` command outputs `influx` shell completion scripts for a
   specified shell (`bash` or `zsh`).
 menu:
   v2_0_ref:

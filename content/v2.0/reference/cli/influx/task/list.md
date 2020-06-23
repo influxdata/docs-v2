@@ -1,6 +1,6 @@
 ---
 title: influx task list
-description: The 'influx task list' command lists and searches for tasks in InfluxDB.
+description: The `influx task list` command lists and searches for tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task list

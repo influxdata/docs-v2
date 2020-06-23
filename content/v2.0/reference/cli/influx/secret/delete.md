@@ -1,6 +1,6 @@
 ---
 title: influx secret delete
-description: The 'influx secret delete' command deletes secrets.
+description: The `influx secret delete` command deletes secrets.
 menu:
   v2_0_ref:
     name: influx secret delete

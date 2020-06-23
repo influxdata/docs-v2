@@ -1,6 +1,6 @@
 ---
 title: influx task log list
-description: The 'influx task log list' command outputs log information related to a task.
+description: The `influx task log list` command outputs log information related to a task.
 menu:
   v2_0_ref:
     name: influx task log list

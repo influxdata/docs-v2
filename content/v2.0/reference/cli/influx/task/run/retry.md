@@ -1,6 +1,6 @@
 ---
 title: influx task run retry
-description: The 'influx task run retry' command retries to run a task in InfluxDB.
+description: The `influx task run retry` command retries to run a task in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task run retry

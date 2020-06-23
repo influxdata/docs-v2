@@ -1,6 +1,6 @@
 ---
 title: influx org members remove
-description: The 'influx org members remove' command removes a member from an organization in InfluxDB.
+description: The `influx org members remove` command removes a member from an organization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org members remove

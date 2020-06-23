@@ -1,6 +1,6 @@
 ---
 title: influx bucket create
-description: The 'influx bucket create' command creates a new bucket in InfluxDB.
+description: The `influx bucket create` command creates a new bucket in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket create

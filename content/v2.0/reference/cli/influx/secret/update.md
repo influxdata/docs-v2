@@ -1,6 +1,6 @@
 ---
 title: influx secret update
-description: The 'influx secret update' command adds and updates secrets.
+description: The `influx secret update` command adds and updates secrets.
 menu:
   v2_0_ref:
     name: influx secret update

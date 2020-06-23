@@ -1,6 +1,6 @@
 ---
 title: influx task
-description: The 'influx task' command and its subcommands manage tasks in InfluxDB.
+description: The `influx task` command and its subcommands manage tasks in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task

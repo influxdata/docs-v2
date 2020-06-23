@@ -1,6 +1,6 @@
 ---
-title: influx org members - Organization membership management commands
-description: The 'influx org members' command and its subcommands manage organization members in InfluxDB.
+title: influx org members
+description: The `influx org members` command and its subcommands manage organization members in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org members

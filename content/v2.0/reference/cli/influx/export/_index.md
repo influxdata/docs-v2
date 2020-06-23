@@ -1,6 +1,6 @@
 ---
 title: influx export
-description: The 'influx export' command exports existing resources as an InfluxDB template.
+description: The `influx export` command exports existing resources as an InfluxDB template.
 menu:
   v2_0_ref:
     parent: influx

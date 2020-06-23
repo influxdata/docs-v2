@@ -1,6 +1,6 @@
 ---
 title: influx org members list
-description: The 'influx org members list' command lists members within an organization in InfluxDB.
+description: The `influx org members list` command lists members within an organization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org members list

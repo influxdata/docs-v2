@@ -1,6 +1,6 @@
 ---
 title: influx org list
-description: The 'influx org list' lists and searches for organizations in InfluxDB.
+description: The `influx org list` lists and searches for organizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org list

@@ -1,6 +1,6 @@
 ---
 title: influx user
-description: The 'influx user' command and its subcommands manage user information in InfluxDB.
+description: The `influx user` command and its subcommands manage user information in InfluxDB.
 menu:
   v2_0_ref:
     name: influx user

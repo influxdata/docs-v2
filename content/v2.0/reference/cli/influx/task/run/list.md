@@ -1,6 +1,6 @@
 ---
 title: influx task run list
-description: The 'influx task run list' command outputs information related to runs of a task.
+description: The `influx task run list` command outputs information related to runs of a task.
 menu:
   v2_0_ref:
     name: influx task run list

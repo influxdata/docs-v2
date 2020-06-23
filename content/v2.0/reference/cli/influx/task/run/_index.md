@@ -1,7 +1,7 @@
 ---
 title: influx task run
 description: >
-  The 'influx task run' command and its subcommand 'list' output information
+  The `influx task run` command and its subcommand, `list` output information
   related to runs of a task.
 menu:
   v2_0_ref:

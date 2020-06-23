@@ -1,6 +1,6 @@
 ---
 title: influx org delete
-description: The 'influx org delete' command deletes an organization in InfluxDB.
+description: The `influx org delete` command deletes an organization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org delete

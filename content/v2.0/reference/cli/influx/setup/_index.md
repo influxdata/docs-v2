@@ -1,7 +1,7 @@
 ---
 title: influx setup
 description: >
-  The 'influx setup' command walks through the initial InfluxDB setup process,
+  The `influx setup` command walks through the initial InfluxDB setup process,
   creating a default user, organization, and bucket.
 menu:
   v2_0_ref:

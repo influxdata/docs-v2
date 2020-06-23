@@ -1,7 +1,7 @@
 ---
 title: influx export stack
 description: >
-  The 'influx export stack' command exports all resources associated with a stack as an InfluxDB template.
+  The `influx export stack` command exports all resources associated with a stack as an InfluxDB template.
 menu:
   v2_0_ref:
     parent: influx export

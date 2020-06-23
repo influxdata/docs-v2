@@ -1,6 +1,6 @@
 ---
 title: influx task create
-description: The 'influx task create' command creates a new task in InfluxDB.
+description: The `influx task create` command creates a new task in InfluxDB.
 menu:
   v2_0_ref:
     name: influx task create

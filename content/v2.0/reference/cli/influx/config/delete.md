@@ -1,6 +1,6 @@
 ---
 title: influx config delete
-description: The 'influx config delete' command deletes an InfluxDB connection configuration.
+description: The `influx config delete` command deletes an InfluxDB connection configuration.
 menu:
   v2_0_ref:
     name: influx config delete
