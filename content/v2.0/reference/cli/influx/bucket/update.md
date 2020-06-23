@@ -24,6 +24,10 @@ influx bucket update [flags]
 | `-i` | `--id`           | **(Required)** Bucket ID              | string      |                       |
 |      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`         | New bucket name                       | string      | `INFLUX_BUCKET_NAME`  |
-| `-r` | `--retention`    | New duration bucket will retain data  | duration    |                       |
+| `-r` | `--retention`    | New duration the bucket will retain data (0 is infinite, default is 0). | duration    |                       |
+
+{{% note %}}
+Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
+{{% /note %}}
 
 {{% cli/influx-global-flags %}}

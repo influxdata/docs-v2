@@ -533,8 +533,7 @@ influx setup
 3. **Confirm your password** by entering it again.
 4. Enter a name for your **primary organization**.
 5. Enter a name for your **primary bucket**.
-6. Enter a **retention period** (in hours) for your primary bucket.
-   Enter nothing for an infinite retention period.
+6. Enter a **retention period** for your primary bucket—valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
 InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/v2.0/reference/cli/influx/config) command.
