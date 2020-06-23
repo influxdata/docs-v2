@@ -112,12 +112,12 @@ date,sighted,loc
 {{% flex-content %}}
 ##### Resulting line protocol
 ```
-birds,loc=Boise sighted=12 1577836800000000000
-birds,loc=Boise sighted=78 1590969600000000000
-birds,loc=Seattle sighted=54 1577836800000000000
-birds,loc=Seattle sighted=112 1590969600000000000
-birds,loc=Detroit sighted=9 1577836800000000000
-birds,loc=Detroit sighted=135 1590969600000000000
+birds,loc=Boise sighted=12i 1577836800000000000
+birds,loc=Boise sighted=78i 1590969600000000000
+birds,loc=Seattle sighted=54i 1577836800000000000
+birds,loc=Seattle sighted=112i 1590969600000000000
+birds,loc=Detroit sighted=9i 1577836800000000000
+birds,loc=Detroit sighted=135i 1590969600000000000
 ```
 {{% /flex-content %}}
 {{< /flex >}}
@@ -157,12 +157,12 @@ date,sighted,loc
 
 ##### Resulting line protocol
 ```
-birds,loc=Boise sighted=12 1577836800000000000
-birds,loc=Boise sighted=78 1590969600000000000
-birds,loc=Seattle sighted=54 1577836800000000000
-birds,loc=Seattle sighted=112 1590969600000000000
-birds,loc=Detroit sighted=9 1577836800000000000
-birds,loc=Detroit sighted=135 1590969600000000000
+birds,loc=Boise sighted=12i 1577836800000000000
+birds,loc=Boise sighted=78i 1590969600000000000
+birds,loc=Seattle sighted=54i 1577836800000000000
+birds,loc=Seattle sighted=112i 1590969600000000000
+birds,loc=Detroit sighted=9i 1577836800000000000
+birds,loc=Detroit sighted=135i 1590969600000000000
 ```
 
 ## Skip annotation headers
@@ -228,6 +228,7 @@ Skipped rows are ignored and are not written to InfluxDB.
 
 - [Define constants](#define-constants)
 - [Annotation shorthand](#annotation-shorthand)
+- [Ignore columns](#ignore-columns)
 - [Use alternate numeric formats](#use-alternate-numeric-formats)
 - [Use alternate boolean format](#use-alternate-boolean-format)
 - [Use different timestamp formats](#use-different-timestamp-formats)
@@ -326,10 +327,39 @@ example,18,2020-01-04T00:00:00Z
 {{% flex-content %}}
 ##### Resulting line protocol
 ```
-example count=1 1577836800000000000
-example count=4 1577923200000000000
-example count=0 1578009600000000000
-example count=18 1578096000000000000
+example count=1i 1577836800000000000
+example count=4i 1577923200000000000
+example count=0i 1578009600000000000
+example count=18i 1578096000000000000
+```
+{{% /flex-content %}}
+{{< /flex >}}
+
+---
+
+### Ignore columns
+Use the Extended annotated CSV [`#datatype ignored` annotation](/v2.0/reference/syntax/annotated-csv/extended/#ignored)
+to ignore columns when writing CSV data to InfluxDB.
+
+{{< flex >}}
+{{% flex-content %}}
+##### CSV data with ignored column
+```
+#datatype measurement,long,time,ignored
+m,count,time,foo
+example,1,2020-01-01T00:00:00Z,bar
+example,4,2020-01-02T00:00:00Z,bar
+example,9,2020-01-03T00:00:00Z,baz
+example,18,2020-01-04T00:00:00Z,baz
+```
+{{% /flex-content %}}
+{{% flex-content %}}
+##### Resulting line protocol
+```
+m count=1i 1577836800000000000
+m count=4i 1577923200000000000
+m count=9i 1578009600000000000
+m count=18i 1578096000000000000
 ```
 {{% /flex-content %}}
 {{< /flex >}}
