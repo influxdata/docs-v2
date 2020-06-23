@@ -25,6 +25,10 @@ influx bucket create [flags]
 | `-n` | `--name`         | Bucket name                                                    | string      | `INFLUX_BUCKET_NAME`  |
 | `-o` | `--org`          | Organization name                                              | string      | `INFLUX_ORG`          |
 |      | `--org-id`       | Organization ID                                                | string      | `INFLUX_ORG_ID`       |
-| `-r` | `--retention`    | Duration the bucket will retain data (0 is infinite, default is 0). Valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). | duration    |                       |
+| `-r` | `--retention`    | Duration the bucket will retain data (0 is infinite, default is 0). | duration    |                       |
+
+{{% note %}}
+Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
+{{% /note %}}
 
 {{% cli/influx-global-flags %}}
