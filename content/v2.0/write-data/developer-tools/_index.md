@@ -2,7 +2,7 @@
 title: Developer tools
 seotitle: Write data to InfluxDB with developer tools
 list_title: Use developer tools
-weight: 101
+weight: 102
 description: >
   Write data to InfluxDB with developer tools.
 menu:
