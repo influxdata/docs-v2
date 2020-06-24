@@ -4,7 +4,7 @@ seotitle: Query using conditional logic in Flux
 list_title: Conditional logic
 description: >
   This guide describes how to use Flux conditional expressions, such as `if`,
-  `else`, and `then`, to query and transform data.
+  `else`, and `then`, to query and transform data. **Flux evaluates statements from left to right and stops evaluating once a condition matches.**
 v2.0/tags: [conditionals, flux]
 menu:
   v2_0:
@@ -47,6 +47,21 @@ Conditional expressions are most useful in the following contexts:
   [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
   [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/),
   [`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
+
+## Evaluating conditional expressions
+
+Flux evaluates statements in order and stops evaluating once a condition matches.
+
+For example, given the following statement:
+
+```js
+if r._value > 95.0000001 and r._value <= 100.0 then "critical"
+else if r._value > 85.0000001 and r._value <= 95.0 then "warning"
+else if r._value > 70.0000001 and r._value <= 85.0 then "high"
+else "normal"
+```
+
+When `r._value` is 96, the output is "critical" and the remaining conditions are not evaluated.
 
 ## Examples
 
