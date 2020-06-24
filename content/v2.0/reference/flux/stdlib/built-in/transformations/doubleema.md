@@ -6,16 +6,17 @@ description: >
   the rate of `exponentialMovingAverage()`.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
 menu:
   v2_0_ref:
     name: doubleEMA
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#double-exponential-moving-average, InfluxQL DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
@@ -23,7 +24,7 @@ The `doubleEMA()` function calculates the exponential moving average of values i
 the `_value` column grouped into `n` number of points, giving more weight to recent
 data at double the rate of [`exponentialMovingAverage()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/).
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 
 ```js
 doubleEMA(n: 5)

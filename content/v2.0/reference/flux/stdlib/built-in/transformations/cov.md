@@ -4,17 +4,18 @@ description: The `cov()` function computes the covariance between two streams by
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/cov
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
 menu:
   v2_0_ref:
     name: cov
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 ---
 
 The `cov()` function computes the covariance between two streams by first joining the streams,
 then performing the covariance operation.
 
-_**Function type:** Aggregate  
+_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js

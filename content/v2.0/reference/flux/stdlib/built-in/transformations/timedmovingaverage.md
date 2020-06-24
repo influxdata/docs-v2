@@ -5,23 +5,24 @@ description: >
   range at a specified frequency.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
 menu:
   v2_0_ref:
     name: timedMovingAverage
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 
 The `timedMovingAverage()` function calculates the mean of values in a defined time
 range at a specified frequency.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 
 ```js
 timedMovingAverage(

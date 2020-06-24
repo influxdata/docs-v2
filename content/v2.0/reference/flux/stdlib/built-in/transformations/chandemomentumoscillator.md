@@ -5,11 +5,12 @@ description: >
   developed by Tushar Chande.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/chandemomentumoscillator/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/chandemomentumoscillator/
 menu:
   v2_0_ref:
     name: chandeMomentumOscillator
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
 ---
@@ -17,7 +18,7 @@ related:
 The `chandeMomentumOscillator()` function applies the technical momentum indicator
 developed by Tushar Chande.
 
-_**Function type:** Aggregate_
+_**Function type:** Transformation_
 
 ```js
 chandeMomentumOscillator(
@@ -45,10 +46,16 @@ Defaults to `["_value"]`.
 
 _**Data type: Array of Strings**_
 
+## Output tables
+For each input table with `x` rows, `chandeMomentumOscillator()` outputs a table
+with `x - n` rows.
+
 ## Examples
 
 #### Table transformation with a ten point Chande Momentum Oscillator
 
+{{< flex >}}
+{{% flex-content %}}
 ###### Input table
 | _time | _value |
 |:-----:|:------:|
@@ -81,7 +88,9 @@ _**Data type: Array of Strings**_
 | 0027  | 3      |
 | 0028  | 2      |
 | 0029  | 1      |
+{{% /flex-content %}}
 
+{{% flex-content %}}
 ###### Query
 ```js
 // ...
@@ -110,3 +119,5 @@ _**Data type: Array of Strings**_
 | 0027  | -100   |
 | 0028  | -100   |
 | 0029  | -100   |
+{{% /flex-content %}}
+{{< /flex >}}
