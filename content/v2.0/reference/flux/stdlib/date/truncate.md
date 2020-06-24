@@ -63,7 +63,7 @@ date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1h)
 ```js
 import "date"
 
-option now = () => 2020-01-01T00:00:00Z
+option now = () => 2020-01-01T00:00:30.500000000Z
 
 date.truncate(t: -30s, unit: 1s)
 // Returns  2019-12-31T23:59:30.000000000Z
