@@ -57,7 +57,6 @@ date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1m)
 
 date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1h)
 // Returns  2019-06-03T13:00:00.000000000Z
-
 ```
 
 ##### Truncate time values using durations
@@ -74,5 +73,4 @@ date.truncate(t: -1m, unit: 1m)
 
 date.truncate(t: -1h, unit: 1h)
 // Returns  2019-12-31T23:00:00.000000000Z
-
 ```
