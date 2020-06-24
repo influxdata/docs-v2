@@ -20,11 +20,11 @@ start Telegraf using the generated configuration file.
 
 {{% note %}}
 Only a subset of plugins are configurable using the InfluxDB UI.
-To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config).
+To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/no-code/use-telegraf/manual-config).
 {{% /note %}}
 
 {{% note %}}
-_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
@@ -44,7 +44,7 @@ for using Telegraf with InfluxDB v2.0._
    To configure a plugin or access plugin documentation, click the plugin name.
 
    {{% note %}}
-   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/use-telegraf/manual-config/).
+   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/no-code/use-telegraf/manual-config/).
    {{% /note %}}
 
 8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.

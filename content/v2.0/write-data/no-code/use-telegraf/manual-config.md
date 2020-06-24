@@ -22,7 +22,7 @@ then start Telegraf using the custom configuration file.
 {{< youtube qFS2zANwIrc >}}
 
 {{% note %}}
-_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
