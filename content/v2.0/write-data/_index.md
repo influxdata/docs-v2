@@ -64,7 +64,7 @@ InfluxDB uses the current system time (UTC) of its host machine.
 
 The default precision for timestamps is in nanoseconds.
 If the precision of the timestamps is anything other than nanoseconds (`ns`),
-you must specify the precision in your [write request](#ways-to-write-data-into-influxdb).
+you must **specify the precision in your write request**.
 InfluxDB accepts the following precisions:
 
 - `ns` - Nanoseconds
@@ -170,7 +170,7 @@ that scrapes data from the `/metrics` endpoint.
 There are multiple options for writing data into InfluxDB, including both no-code and developer solutions.
 
   - [No-code solutions](/v2.0/write-data/no-code)
-  - [Development tools](/v2.0/write-data/development-tools)
+  - [Developer tools](/v2.0/write-data/developer-tools)
 
 ---
 

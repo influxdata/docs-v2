@@ -56,15 +56,24 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
 
 ##### In JMeter
 
-1. Create a [Backend Listener](https://jmeter.apache.org/usermanual/component_reference.html#Backend_Listener) using the _InfluxDBBackendListenerClient_ implementation.
-2. In the **Backend Listener implementation** field, enter _org.apache.jmeter.visualizers.backend.influxdb.influxdbBackendListenerClient_
+1. Create a [Backend Listener](https://jmeter.apache.org/usermanual/component_reference.html#Backend_Listener) using the _**InfluxDBBackendListenerClient**_ implementation.
+2. In the **Backend Listener implementation** field, enter:
+    ```
+    org.apache.jmeter.visualizers.backend.influxdb.influxdbBackendListenerClient
+    ```
 3. Under **Parameters**, specify the following:
-   - **influxdbMetricsSender**: _org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender_
-   - **influxdbUrl**: _http://localhost:9999/api/v2/write?org=my-org&bucket=jmeter_ (include the bucket and org you created in InfluxDB)
-   - **application**: _InfluxDB2_
-   - **influxdbToken**: _my-token_ (include the token you created in InfluxDB)
+   - **influxdbMetricsSender**:
+      ```
+      org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender
+      ```
+   - **influxdbUrl**: _(include the bucket and org you created in InfluxDB)_
+      ```
+      http://localhost:9999/api/v2/write?org=my-org&bucket=jmeter
+      ```
+   - **application**: `InfluxDB2`
+   - **influxdbToken**: _your InfluxDB authentication token_
    - Include additional parameters as needed.
-4. Click **Add** to add the _InfluxDBBackendListenerClient_ implementation.
+4. Click **Add** to add the _**InfluxDBBackendListenerClient**_ implementation.
 
 #### Configure FluentD
 

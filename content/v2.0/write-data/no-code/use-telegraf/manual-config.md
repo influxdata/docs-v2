@@ -7,6 +7,7 @@ description: >
   Start Telegraf using the custom configuration.
 aliases:
   - /v2.0/collect-data/use-telegraf/manual-config
+  - /v2.0/write-data/use-telegraf/manual-config
 menu:
   v2_0:
     parent: Telegraf (agent)
@@ -21,7 +22,7 @@ then start Telegraf using the custom configuration file.
 {{< youtube qFS2zANwIrc >}}
 
 {{% note %}}
-_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
