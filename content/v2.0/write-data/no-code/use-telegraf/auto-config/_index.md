@@ -6,6 +6,7 @@ description: >
   then start Telegraf using the generated configuration file.
 aliases:
   - /v2.0/collect-data/use-telegraf/auto-config
+  - /v2.0/write-data/use-telegraf/auto-config
 menu:
   v2_0:
     parent: Telegraf (agent)

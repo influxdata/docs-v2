@@ -7,6 +7,7 @@ description: >
   Start Telegraf using the custom configuration.
 aliases:
   - /v2.0/collect-data/use-telegraf/manual-config
+  - /v2.0/write-data/use-telegraf/manual-config
 menu:
   v2_0:
     parent: Telegraf (agent)
