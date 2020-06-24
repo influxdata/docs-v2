@@ -30,6 +30,8 @@ date.truncate(
 
 ### t
 The time to operate on.
+Use an absolute time or relative duration.
+Durations are relative to `now()`.
 
 _**Data type:** Time | Duration_
 
