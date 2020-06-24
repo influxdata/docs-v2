@@ -51,14 +51,14 @@ For example: `1s`, `1m`, `1h`.
 ```js
 import "date"
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1s)
-// Returns  2019-06-03T13:59:01.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1s)
+// Returns 2019-06-03T13:59:01.000000000Z
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1m)
-// Returns  2019-06-03T13:59:00.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1m)
+// Returns 2019-06-03T13:59:00.000000000Z
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1h)
-// Returns  2019-06-03T13:00:00.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1h)
+// Returns 2019-06-03T13:00:00.000000000Z
 ```
 
 ##### Truncate time values using durations
@@ -68,11 +68,11 @@ import "date"
 option now = () => 2020-01-01T00:00:30.500000000Z
 
 date.truncate(t: -30s, unit: 1s)
-// Returns  2019-12-31T23:59:30.000000000Z
+// Returns 2019-12-31T23:59:30.000000000Z
 
 date.truncate(t: -1m, unit: 1m)
-// Returns  2019-12-31T23:59:00.000000000Z
+// Returns 2019-12-31T23:59:00.000000000Z
 
 date.truncate(t: -1h, unit: 1h)
-// Returns  2019-12-31T23:00:00.000000000Z
+// Returns 2019-12-31T23:00:00.000000000Z
 ```

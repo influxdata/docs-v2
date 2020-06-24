@@ -29,5 +29,29 @@ date.millisecond(t: 2019-07-17T12:05:21.012934584Z)
 
 ### t
 The time to operate on.
+Use an absolute time or relative duration.
+Durations are relative to `now()`.
 
-_**Data type:** Time_
+_**Data type:** Time | Duration_
+
+## Examples
+
+##### Return the millisecond of a time value
+```js
+import "date"
+
+date.millisecond(t: 2020-02-11T12:21:03.293534940Z)
+
+// Returns 293
+```
+
+##### Return the millisecond of a relative duration
+```js
+import "date"
+
+option now = () => 2020-02-11T12:21:03.293534940Z
+
+date.millisecond(t: -150ms)
+
+// Returns 143
+```

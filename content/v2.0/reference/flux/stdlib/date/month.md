@@ -29,5 +29,29 @@ date.month(t: 2019-07-17T12:05:21.012Z)
 
 ### t
 The time to operate on.
+Use an absolute time or relative duration.
+Durations are relative to `now()`.
 
-_**Data type:** Time_
+_**Data type:** Time | Duration_
+
+## Examples
+
+##### Return the month of a time value
+```js
+import "date"
+
+date.month(t: 2020-02-11T12:21:03.293534940Z)
+
+// Returns 2
+```
+
+##### Return the month of a relative duration
+```js
+import "date"
+
+option now = () => 2020-02-11T12:21:03.293534940Z
+
+date.month(t: -3mo)
+
+// Returns 11
+```
