@@ -1016,7 +1016,7 @@ Related entries: [function](#function)
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/), [Manually configure Telegraf](/v2.0/write-data/use-telegraf/manual-config/), [Telegraf plugins](/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](/v2.0/write-data/use-telegraf/auto-config/view-telegraf-config/)
+Related entries: [Automatically configure Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/v2.0/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](/v2.0/write-data/use-telegraf/), [View a Telegraf configuration](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/)
 
 ### time (data type)
 
