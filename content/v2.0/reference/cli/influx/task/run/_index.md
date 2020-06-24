@@ -28,5 +28,3 @@ influx task run [command]
 | Flag |          | Description                |
 |:---- |:---      |:-----------                |
 | `-h` | `--help` | Help for the `run` command |
-
-{{% cli/influx-global-flags %}}

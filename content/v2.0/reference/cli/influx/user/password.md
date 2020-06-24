@@ -18,10 +18,11 @@ influx user password [flags]
 ```
 
 ## Flags
-| Flag |          | Description                     | Input type  |
-|:---- |:---      |:-----------                     |:----------: |
-| `-h` | `--help` | Help for the `password` command |             |
-| `-i` | `--id`   | User ID                         | string      |
-| `-n` | `--name` | Username                        | string      |
-
-{{% cli/influx-global-flags %}}
+| Flag |                 | Description                                                | Input type  | {{< cli/mapped >}} |
+|:---- |:---             |:-----------                                                |:----------: |:------------------ |
+| `-h` | `--help`        | Help for the `password` command                            |             |                    |
+|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`      |
+| `-i` | `--id`          | User ID                                                    | string      |                    |
+| `-n` | `--name`        | Username                                                   | string      |                    |
+|      | `--skip-verify` | Skip TLS certificate verification                          |             |                    |
+| `-t` | `--token`       | Authentication token                                       | string      | `INFLUX_TOKEN`     |

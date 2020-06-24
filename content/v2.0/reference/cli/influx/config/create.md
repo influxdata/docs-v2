@@ -27,8 +27,6 @@ influx config create [flags]
 |      | `--json`         | Output data as JSON (default `false`)                        |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`          | Organization name                                            | string      |                       |
 
-{{% cli/influx-global-flags %}}
-
 ## Examples
 ```sh
 # Create a connection configuration and set it active

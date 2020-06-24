@@ -34,5 +34,3 @@ influx template [command]
 | `-h` | `--help`                  | Help for the `template` command                                    |            |                      |
 |      | `--json`                  | Output data as JSON (default `false`)                              |            | `INFLUX_OUTPUT_JSON` |
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file` |            |                      |
-
-{{% cli/influx-global-flags %}}
