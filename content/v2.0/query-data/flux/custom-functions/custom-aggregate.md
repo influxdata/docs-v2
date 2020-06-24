@@ -53,11 +53,6 @@ in an input table.
 )
 ```
 
-{{% note %}}
-To preserve existing columns, [use the `with` operator](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#preserve-columns)
-when mapping values in the `r` object.
-{{% /note %}}
-
 To illustrate how this function works, take this simplified table for example:
 
 | _time                | _value |
