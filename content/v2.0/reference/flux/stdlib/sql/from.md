@@ -35,6 +35,7 @@ _**Data type:** String_
 
 The following drivers are available:
 
+- awsathena
 - mysql
 - postgres
 - snowflake
@@ -49,11 +50,15 @@ _**Data type:** String_
 
 ##### Driver dataSourceName examples
 ```sh
-# Postgres Driver DSN
-postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
+# Amazon Athena Driver DSN
+s3://myorgqueryresults/?accessID=AKIAJLO3F...&region=us-west-1&secretAccessKey=NnQ7MUMp9PYZsmD47c%2BSsXGOFsd%2F...
+s3://myorgqueryresults/?accessID=AKIAJLO3F...&db=dbname&missingAsDefault=false&missingAsEmptyString=false&region=us-west-1&secretAccessKey=NnQ7MUMp9PYZsmD47c%2BSsXGOFsd%2F...&WGRemoteCreation=false
 
 # MySQL Driver DSN
 username:password@tcp(localhost:3306)/dbname?param=value
+
+# Postgres Driver DSN
+postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 
 # Snowflake Driver DSNs
 username[:password]@accountname/dbname/schemaname?param1=value1&paramN=valueN
@@ -76,6 +81,13 @@ The query to run against the SQL database.
 _**Data type:** String_
 
 ## Examples
+
+- [MySQL](#query-a-mysql-database)
+- [Postgres](#query-a-postgres-database)
+- [Snowflake](#query-a-snowflake-database)
+- [SQLite](#query-an-sqlite-database)
+- [Amazon Athena](#query-an-amazon-athena-database)
+- [SQL Server](#query-a-sql-server-database)
 
 {{% note %}}
 The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
@@ -146,6 +158,37 @@ sql.from(
   query: "SELECT * FROM example_table"
 )
 ```
+
+### Query an Amazon Athena database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+region = us-west-1
+accessID = secrets.get(key: "ATHENA_ACCESS_ID")
+secretKey = secrets.get(key: "ATHENA_SECRET_KEY")
+
+sql.from(
+ driverName: "awsathena",
+ dataSourceName: "s3://myorgqueryresults/?accessID=${accessID}&region=${region}&secretAccessKey=${secretKey}",
+ query:"SELECT * FROM example_table"
+)
+```
+
+##### Athena connection string
+To query an Amazon Athena database, use the following query parameters in your Athena
+S3 connection string (DSN):
+
+<span class="req">\* Required</span>
+
+- **region** - AWS region <span class="req">\*</span>
+- **accessID** - AWS IAM access ID <span class="req">\*</span>
+- **secretAccessKey** - AWS IAM secret key <span class="req">\*</span>
+- **db** - database name
+- **WGRemoteCreation** - controls workgroup and tag creation
+- **missingAsDefault** - replace missing data with default values
+- **missingAsEmptyString** - replace missing data with empty strings
+
 
 ### Query a SQL Server database
 ```js

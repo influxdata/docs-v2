@@ -5,7 +5,7 @@ list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
   Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
-  SQLite, and Microsoft SQL Server.
+  SQLite, Microsoft SQL Server, and Amazon Athena.
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
@@ -32,8 +32,9 @@ The [Flux](/v2.0/reference/flux) `sql` package provides functions for working wi
 [`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 [Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
-and [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
-and use the results with InfluxDB dashboards, tasks, and other operations.
+[Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
+and [Amazon Athena](https://aws.amazon.com/athena/) and use the results with
+InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
