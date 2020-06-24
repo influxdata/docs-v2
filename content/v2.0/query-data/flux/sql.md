@@ -5,7 +5,7 @@ list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
   Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
-  SQLite, Microsoft SQL Server, Amazon Athena.
+  SQLite, Microsoft SQL Server, and Amazon Athena.
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
