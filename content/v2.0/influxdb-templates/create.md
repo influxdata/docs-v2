@@ -19,6 +19,8 @@ create InfluxDB templates.
 Add resources (buckets, Telegraf configurations, tasks, and more) in the InfluxDB
 UI and export the resources as a template.
 
+{{< youtube 714uHkxKM6U >}}
+
 {{% note %}}
 Templatable resources are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,

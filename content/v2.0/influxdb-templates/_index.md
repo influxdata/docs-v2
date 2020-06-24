@@ -19,6 +19,8 @@ dashboard configuration, or share your configuration with the InfluxData communi
 - Facilitate secure, portable, source-controlled InfluxDB platform states.
 - Simplify sharing and using pre-built InfluxDB solutions.
 
+{{< youtube 2JjW4Rym9XE >}}
+
 ## Template manifests
 A template consists of a single file known as a **manifest** that defines the
 InfluxDB state and associated [resources](#template-resources).

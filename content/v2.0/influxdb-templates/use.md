@@ -31,6 +31,8 @@ others in the InfluxData community.
 Apply community templates directly from GitHub using a template's download URL
 or download the template.
 
+{{< youtube 2JjW4Rym9XE >}}
+
 {{% note %}}
 When attempting to access the community templates via the URL, the templates use the following
 as the root of the URL:

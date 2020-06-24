@@ -18,6 +18,8 @@ Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into a
 This article describes how to enable the `influxdb_v2` output plugin in new and existing Telegraf configurations,
 then start Telegraf using the custom configuration file.
 
+{{< youtube qFS2zANwIrc >}}
+
 {{% note %}}
 _View the [requirements](/v2.0/write-data/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
