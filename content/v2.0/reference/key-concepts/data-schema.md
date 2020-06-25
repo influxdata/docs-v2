@@ -19,7 +19,7 @@ InfluxDB also provides a **tabular data schema** that includes the following:
 - [Annotation rows](#annotation-rows)
 - [Header row](#header-row)
 - [Data rows](#data-rows)
-- [Data columns](#data-columns)
+- [Other columns](#other-columns)
 - [Group keys](#group-keys)
 
 The **tabular data schema is used for the following**:
