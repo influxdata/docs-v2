@@ -7,7 +7,7 @@ description: >
 menu:
   v2_0_ref:
     name: Configuration options
-    weight: 3
+weight: 3
 products: [oss]
 related:
   - /v2.0/reference/cli/influxd

@@ -13,4 +13,6 @@ menu:
 Collaborate with others using these features.
 By default, each user has full permissions on resources in your organization.
 
+{{< youtube Qg7Zs3uM_wo >}}
+
 {{< children >}}

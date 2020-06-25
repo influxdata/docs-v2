@@ -1,6 +1,6 @@
 ---
 title: influx template
-description: The 'influx template' command summarizes the specified InfluxDB template.
+description: The `influx template` command summarizes the specified InfluxDB template.
 menu:
   v2_0_ref:
     name: influx template

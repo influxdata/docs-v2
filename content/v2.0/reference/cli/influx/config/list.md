@@ -1,6 +1,6 @@
 ---
 title: influx config list
-description: The 'influx config list' command lists all InfluxDB connection configurations.
+description: The `influx config list` command lists all InfluxDB connection configurations.
 menu:
   v2_0_ref:
     name: influx config list

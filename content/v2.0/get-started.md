@@ -88,6 +88,105 @@ References to the InfluxDB user interface (UI) or localhost:9999 refer to your
 {{< cloud-name >}} UI.
 {{% /cloud %}}
 
+### (Optional) Download and install the influx CLI
+
+To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance, complete the following steps:
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS](#)
+[Linux](#)
+{{% /tabs %}}
+
+<!-------------------------------- BEGIN macOS -------------------------------->
+{{% tab-content %}}
+
+#### Download influx CLI for macOS
+
+Click the following button to download and install `influx` CLI for macOS.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
+
+#### Unpackage the influx binary
+
+**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
+
+To unpackage the downloaded archive, **double click the archive file in Finder**
+or run the following command in a macOS command prompt application such
+**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
+
+```sh
+# Unpackage contents to the current working directory
+tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.12_darwin_amd64.tar.gz
+```
+
+#### (Optional) Place the binary in your $PATH
+
+If you choose, you can place `influx` in your `$PATH` or you can
+prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
+
+**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
+
+```sh
+# Copy the influx binary to your $PATH
+sudo cp influxdb_client_2.0.0-beta.12_darwin_amd64/influx /usr/local/bin/
+```
+
+{{% note %}}
+If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
+{{% /note %}}
+
+##### Run influx CLI on macOS Catalina
+
+If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/v2.0/get-started/#run-influxdb-on-macos-catalina).
+
+Now, you're ready to [Use the influx CLI](#use-the-influx-cli).
+
+{{% /tab-content %}}
+<!--------------------------------- END macOS --------------------------------->
+
+<!-------------------------------- BEGIN Linux -------------------------------->
+{{% tab-content %}}
+
+#### Download influx CLI for Linux
+
+Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.12_linux_arm64.tar.gz" download >influx CLI (arm)</a>
+
+#### Unpackage the influx binary
+
+**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
+
+```sh
+# Unpackage contents to the current working directory
+tar xvfz influxdb_client_2.0.0-beta.12_linux_amd64.tar.gz
+```
+
+#### (Optional) Place the binary in your $PATH
+
+If you choose, you can place `influx` in your `$PATH` or you can
+prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`). 
+
+**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
+
+```sh
+# Copy the influx and influxd binary to your $PATH
+sudo cp influxdb_client_2.0.0-beta.12_linux_amd64/influx /usr/local/bin/
+```
+
+{{% note %}}
+If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
+{{% /note %}}
+
+Now, you're ready to [Use the influx CLI](#use-the-influx-cli).
+
+{{% /tab-content %}}
+<!--------------------------------- END Linux --------------------------------->
+
+{{< /tabs-wrapper >}}
+
 ### Sign in
 
 Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email address and password.
@@ -95,6 +194,7 @@ Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email 
 <a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
 
 ### Start working with your time series data
+
 With {{< cloud-name "short" >}} setup, see [Next steps](#next-steps) for what to do next.
 
 ---
@@ -115,11 +215,13 @@ executables, and running the initial setup process.
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 ### Download and install InfluxDB v2.0 beta
+
 Download InfluxDB v2.0 beta for macOS.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
+
 To unpackage the downloaded archive, **double click the archive file in Finder**
 or run the following command in a macOS command prompt application such
 **Terminal** or **[iTerm2](https://www.iterm2.com/)**:
@@ -130,6 +232,7 @@ tar zxvf ~/Downloads/influxdb_2.0.0-beta.12_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
+
 If you choose, you can place `influx` and `influxd` in your `$PATH` or you can
 prefix the executables with `./` to run then in place.
 
@@ -146,10 +249,12 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 #### Networking ports
+
 By default, InfluxDB uses TCP port `9999` for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ### Start InfluxDB
+
 Start InfluxDB by running the `influxd` daemon:
 
 ```bash
@@ -157,6 +262,7 @@ influxd
 ```
 {{% warn %}}
 #### Run InfluxDB on macOS Catalina
+
 macOS Catalina requires downloaded binaries to be signed by registered Apple developers.
 Currently, when you first attempt to run `influxd` or `influx`, macOS will prevent it from running.
 To manually authorize the InfluxDB binaries:
@@ -179,6 +285,7 @@ To install `influx` shell completion scripts, see [`influx completion`](/v2.0/re
 
 {{% note %}}
 #### InfluxDB "phone home"
+
 By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
@@ -197,12 +304,14 @@ influxd --reporting-disabled
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 ### Download and install InfluxDB v2.0 beta
+
 Download the InfluxDB v2.0 beta package appropriate for your chipset.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.12_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
 
 ### Place the executables in your $PATH
+
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
 
 _**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
@@ -223,10 +332,12 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 {{% /note %}}
 
 #### Networking ports
+
 By default, InfluxDB uses TCP port `9999` for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
 
 ### Start InfluxDB
+
 Start InfluxDB by running the `influxd` daemon:
 
 ```bash
@@ -242,6 +353,7 @@ To install `influx` shell completion scripts, see [`influx completion`](/v2.0/re
 
 {{% note %}}
 #### InfluxDB "phone home"
+
 By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
@@ -260,6 +372,7 @@ influxd --reporting-disabled
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0 beta
+
 Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
 Expose port `9999`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/v2.0/reference/api/).
@@ -271,6 +384,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
 
 {{% note %}}
 #### InfluxDB "phone home"
+
 By default, InfluxDB sends telemetry data back to InfluxData.
 The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
 information about what data is collected and how it is used.
@@ -284,6 +398,7 @@ docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disable
 {{% /note %}}
 
 ### Console into the InfluxDB Container (Optional)
+
 To use the `influx` command line interface, console into the `influxdb` Docker container:
 
 ```bash
@@ -351,6 +466,7 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 {{< /tabs-wrapper >}}
 
 ## Set up InfluxDB
+
 The initial setup process for InfluxDB walks through creating a default organization,
 user, and bucket.
 The setup process is available in both the InfluxDB user interface (UI) and in
@@ -381,8 +497,9 @@ InfluxDB is now initialized with a primary user, organization, and bucket.
 You are ready to [write or collect data](/v2.0/write-data).
 
 {{% note %}}
-#### Using the influx CLI after setting up InfluxDB through the UI
-To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB through the UI, provide your [authentication token](/v2.0/users/tokens/), which is automatically generated during the setup process. For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).
+#### Use the influx CLI
+
+To use the [`influx` CLI](/v2.0/reference/cli/influx) after setting up InfluxDB, provide your [authentication token](/v2.0/users/tokens/), which is automatically generated during the setup process. For instructions on viewing your token via CLI or UI, see [View tokens](/v2.0/security/tokens/view-tokens/).
 
 Use one of the following methods to provide your authentication token to the CLI:
 
@@ -404,6 +521,7 @@ retrieving authentication tokens._
 <!------------------------------ BEGIN CLI Setup ------------------------------>
 {{% tab-content %}}
 ### Set up InfluxDB through the influx CLI
+
 Begin the InfluxDB setup process via the `influx` CLI by running:
 
 ```bash
@@ -415,11 +533,10 @@ influx setup
 3. **Confirm your password** by entering it again.
 4. Enter a name for your **primary organization**.
 5. Enter a name for your **primary bucket**.
-6. Enter a **retention period** (in hours) for your primary bucket.
-   Enter nothing for an infinite retention period.
+6. Enter a **retention period** for your primary bucket—valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. It has also create a config profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/v2.0/reference/cli/influx/config) command.
+InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/v2.0/reference/cli/influx/config) command.
 
 To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
 
@@ -463,7 +580,7 @@ For information about using the InfluxDB v2 API, `influx` CLI, and client librar
 see [Write data to InfluxDB](/v2.0/write-data/).
 
 #### Demo data
-If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/write-data/sample-data/demo-data/)
+If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/reference/sample-data/#influxdb-cloud-demo-data)
 for quick, **free** access to time series data.
 
 ### Query data

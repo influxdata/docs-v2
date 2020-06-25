@@ -1,6 +1,6 @@
 ---
 title: influx org update
-description: The 'influx org update' command updates information related to organizations in InfluxDB.
+description: The `influx org update` command updates information related to organizations in InfluxDB.
 menu:
   v2_0_ref:
     name: influx org update

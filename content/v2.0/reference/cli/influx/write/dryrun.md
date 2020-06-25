@@ -1,7 +1,7 @@
 ---
 title: influx write dryrun
 description: >
-  The 'influx write dryrun' command prints write output to stdout instead of writing
+  The `influx write dryrun` command prints write output to stdout instead of writing
   to InfluxDB. Use this command to test writing data.
 menu:
   v2_0_ref:

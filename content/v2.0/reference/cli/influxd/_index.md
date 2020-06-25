@@ -1,6 +1,6 @@
 ---
-title: influxd - InfluxDB daemon
-description: The influxd daemon starts and runs all the processes necessary for InfluxDB to function.
+title: influxd - InfluxDB service
+description: The `influxd` service starts and runs all the processes necessary for InfluxDB to function.
 v2.0/tags: [influxd, cli]
 menu:
   v2_0_ref:

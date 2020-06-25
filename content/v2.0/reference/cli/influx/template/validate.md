@@ -1,7 +1,7 @@
 ---
 title: influx template validate
 description: >
-  The 'influx template validate' command validates the provided InfluxDB template.
+  The `influx template validate` command validates the provided InfluxDB template.
 menu:
   v2_0_ref:
     parent: influx template

@@ -1,6 +1,6 @@
 ---
 title: influx delete
-description: The 'influx delete' command deletes points from an InfluxDB bucket.
+description: The `influx delete` command deletes points from an InfluxDB bucket.
 menu:
   v2_0_ref:
     name: influx delete

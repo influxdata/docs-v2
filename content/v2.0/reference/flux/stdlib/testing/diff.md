@@ -7,7 +7,7 @@ menu:
   v2_0_ref:
     name: testing.diff
     parent: Testing
-    weight: 301
+weight: 301
 ---
 
 The `testing.diff()` function produces a diff between two streams.

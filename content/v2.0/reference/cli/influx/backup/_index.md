@@ -1,6 +1,6 @@
 ---
 title: influx backup
-description: The 'influx backup' command backs up data stored in InfluxDB.
+description: The `influx backup` command backs up data stored in InfluxDB.
 menu:
   v2_0_ref:
     name: influx backup

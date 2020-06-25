@@ -1,7 +1,7 @@
 ---
 title: influx stacks
 description: >
-  The 'influx stacks' command and its subcommands list and manage InfluxDB stacks
+  The `influx stacks` command and its subcommands list and manage InfluxDB stacks
   and associated resources.
 menu:
   v2_0_ref:

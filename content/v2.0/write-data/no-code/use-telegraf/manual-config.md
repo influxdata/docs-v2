@@ -7,9 +7,10 @@ description: >
   Start Telegraf using the custom configuration.
 aliases:
   - /v2.0/collect-data/use-telegraf/manual-config
+  - /v2.0/write-data/use-telegraf/manual-config
 menu:
   v2_0:
-    parent: Use Telegraf
+    parent: Telegraf (agent)
 weight: 202
 v2.0/tags: [manually, plugin, mqtt]
 ---
@@ -18,8 +19,10 @@ Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into a
 This article describes how to enable the `influxdb_v2` output plugin in new and existing Telegraf configurations,
 then start Telegraf using the custom configuration file.
 
+{{< youtube qFS2zANwIrc >}}
+
 {{% note %}}
-_View the [requirements](/v2.0/write-data/use-telegraf#requirements)
+_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 

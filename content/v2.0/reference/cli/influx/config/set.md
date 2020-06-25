@@ -1,6 +1,6 @@
 ---
 title: influx config set
-description: The 'influx config set' command updates an InfluxDB connection configuration.
+description: The `influx config set` command updates an InfluxDB connection configuration.
 menu:
   v2_0_ref:
     name: influx config set

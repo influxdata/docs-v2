@@ -1716,7 +1716,7 @@ output:
   - name: Datadog
     id: datadog
     description: |
-      The Datadog output plugin writes to the [Datadog Metrics API](http://docs.datadoghq.com/api/#metrics)
+      The Datadog output plugin writes to the [Datadog Metrics API](http://docs.datadoghq.com/api/v1/metrics/)
       and requires an `apikey` which can be obtained [here](https://app.datadoghq.com/account/settings#api)
       for the account.
     introduced: 0.1.6

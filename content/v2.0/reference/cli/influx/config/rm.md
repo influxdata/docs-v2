@@ -1,6 +1,6 @@
 ---
 title: influx config rm
-description: The 'influx config rm' command removes an InfluxDB connection configuration.
+description: The `influx config rm` command removes an InfluxDB connection configuration.
 menu:
   v2_0_ref:
     name: influx config rm

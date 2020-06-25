@@ -1,6 +1,6 @@
 ---
 title: influx config create
-description: The 'influx config create' command creates a new InfluxDB connection configuration.
+description: The `influx config create` command creates a new InfluxDB connection configuration.
 menu:
   v2_0_ref:
     name: influx config create

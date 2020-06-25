@@ -1,6 +1,6 @@
 ---
 title: influx auth inactive
-description: The 'influx auth inactive' inactivates an authorization in InfluxDB.
+description: The `influx auth inactive` inactivates an authorization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth inactive

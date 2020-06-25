@@ -1,6 +1,6 @@
 ---
 title: influx bucket list
-description: The 'influx bucket list' command lists and searches for buckets in InfluxDB.
+description: The `influx bucket list` command lists and searches for buckets in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket list

@@ -1,6 +1,6 @@
 ---
 title: influx auth active
-description: The 'influx auth active' command activates an authorization.
+description: The `influx auth active` command activates an authorization.
 menu:
   v2_0_ref:
     name: influx auth active

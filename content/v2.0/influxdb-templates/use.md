@@ -31,6 +31,8 @@ others in the InfluxData community.
 Apply community templates directly from GitHub using a template's download URL
 or download the template.
 
+{{< youtube 2JjW4Rym9XE >}}
+
 {{% note %}}
 When attempting to access the community templates via the URL, the templates use the following
 as the root of the URL:
@@ -118,6 +120,14 @@ from your local filesystem or from URLs.
 - [Apply templates from both files and URLs](#apply-templates-from-both-files-and-urls)
 - [Define environment references](#define-environment-references)
 - [Include a secret when installing a template](#include-a-secret-when-installing-a-template)
+
+{{% note %}}
+#### Apply templates to an existing stack
+To apply a template to an existing stack, include the stack ID when applying the template.
+Any time you apply a template without a stack ID, InfluxDB initializes a new stack
+and all new resources.
+For more information, see [InfluxDB stacks](/v2.0/influxdb-templates/stacks/).
+{{% /note %}}
 
 ### Apply a template from a file
 To install templates stored on your local machine, use the `-f` or `--file` flag

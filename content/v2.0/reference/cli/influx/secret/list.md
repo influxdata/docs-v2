@@ -1,6 +1,6 @@
 ---
 title: influx secret list
-description: The 'influx secret list' command lists secret keys.
+description: The `influx secret list` command lists secret keys.
 menu:
   v2_0_ref:
     name: influx secret list

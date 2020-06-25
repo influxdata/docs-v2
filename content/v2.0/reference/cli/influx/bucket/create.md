@@ -1,6 +1,6 @@
 ---
 title: influx bucket create
-description: The 'influx bucket create' command creates a new bucket in InfluxDB.
+description: The `influx bucket create` command creates a new bucket in InfluxDB.
 menu:
   v2_0_ref:
     name: influx bucket create
@@ -29,3 +29,8 @@ influx bucket create [flags]
 | `-r` | `--retention`    | Duration bucket will retain data (0 is infinite, default is 0) | duration    |                       |
 |      | `--skip-verify`  | Skip TLS certificate verification                              |             |                       |
 | `-t` | `--token`        | Authentication token                                           | string      | `INFLUX_TOKEN`        |
+
+{{% note %}}
+Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
+milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
+{{% /note %}}

@@ -1,6 +1,6 @@
 ---
 title: influx auth create
-description: The 'influx auth create' creates an authorization in InfluxDB.
+description: The `influx auth create` creates an authorization in InfluxDB.
 menu:
   v2_0_ref:
     name: influx auth create

@@ -1,6 +1,6 @@
 ---
 title: influx config
-description: The 'influx config' command and subcommands manage multiple InfluxDB connection configurations.
+description: The `influx config` command and subcommands manage multiple InfluxDB connection configurations.
 menu:
   v2_0_ref:
     name: influx config
