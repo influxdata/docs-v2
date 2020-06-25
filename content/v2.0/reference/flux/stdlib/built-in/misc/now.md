@@ -12,7 +12,7 @@ related:
   - /v2.0/reference/flux/stdlib/system/time/
 ---
 
-The `now()` function returns the current time (UTC).
+The `now()` function returns the current time (UTC) or the time defined in the `now` option.
 
 _**Function type:** Date/Time_  
 _**Output data type:** Time_
@@ -22,9 +22,19 @@ now()
 ```
 
 ## Examples
+
+##### Use the current UTC time as a query boundary
 ```js
 data
   |> range(start: -10h, stop: now())
+```
+
+##### Return the now option time
+```js
+option now = () => 2020-01-01T00:00:00Z
+
+now()
+// Returns 2020-01-01T00:00:00.000000000Z
 ```
 
 {{% note %}}
