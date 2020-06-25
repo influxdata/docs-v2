@@ -26,7 +26,7 @@ Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on time series data.
 See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Flux.
 
-1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
+1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
     {{< nav-icon "data-explorer" >}}
 
@@ -40,6 +40,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 4. Use the **Functions** list to review the available Flux functions.
    Click a function from the list to add it to your query.
 5. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
+  To cancel your query while it's running, click **Cancel**.
 6. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
   * Click the eye icon on a tab to hide or show a query's visualization.
   * Click the name of the query in the tab to rename it.

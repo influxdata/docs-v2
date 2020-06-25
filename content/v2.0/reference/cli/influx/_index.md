@@ -76,5 +76,3 @@ To override environment variables, set the flag explicitly in your command.
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
-
-{{% cli/influx-global-flags %}}

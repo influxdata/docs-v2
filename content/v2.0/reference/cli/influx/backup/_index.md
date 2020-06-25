@@ -19,9 +19,10 @@ influx backup [flags]
 ```
 
 ## Flags
-| Flag |          | Description                             | Input type | {{< cli/mapped >}} |
-|:---- |:---      |:-----------                             |:----------:|:------------------ |
-| `-h` | `--help` | Help for the `backup` command           |            |                    |
-| `-p` | `--path` | Directory path to write backup files to | string     | `INFLUX_PATH`      |
-
-{{% cli/influx-global-flags %}}
+| Flag |                 | Description                                                | Input type | {{< cli/mapped >}} |
+|:---- |:---             |:-----------                                                |:----------:|:------------------ |
+| `-h` | `--help`        | Help for the `backup` command                              |            |                    |
+|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string     | `INFLUX_HOST`      |
+| `-p` | `--path`        | Directory path to write backup files to                    | string     | `INFLUX_PATH`      |
+|      | `--skip-verify` | Skip TLS certificate verification                          |            |                    |
+| `-t` | `--token`       | Authentication token                                       | string     | `INFLUX_TOKEN`     |

@@ -21,15 +21,16 @@ influx task run list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag |                  | Description                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                           |:----------: |:------------------    |
-|      | `--after`        | After-time for filtering              | string      |                       |
-|      | `--before`       | Before-time for filtering             | string      |                       |
-| `-h` | `--help`         | Help for the `list` command           |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--limit`        | Limit the number of results           | integer     |                       |
-|      | `--run-id`       | Run ID                                | string      |                       |
-|      | `--task-id`      | **(Required)** Task ID                | string      |                       |
-
-{{% cli/influx-global-flags %}}
+| Flag |                  | Description                                                | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                                                |:----------: |:------------------    |
+|      | `--after`        | After-time for filtering                                   | string      |                       |
+|      | `--before`       | Before-time for filtering                                  | string      |                       |
+| `-h` | `--help`         | Help for the `list` command                                |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                       |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`         |
+|      | `--json`         | Output data as JSON (default `false`)                      |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--limit`        | Limit the number of results                                | integer     |                       |
+|      | `--run-id`       | Run ID                                                     | string      |                       |
+|      | `--skip-verify`  | Skip TLS certificate verification                          |             |                       |
+|      | `--task-id`      | **(Required)** Task ID                                     | string      |                       |
+| `-t` | `--token`        | Authentication token                                       | string      | `INFLUX_TOKEN`        |

@@ -1,32 +1,29 @@
 ---
-title: influx stacks init
-description: The `influx stacks init` command initializes an InfluxDB stack.
+title: influx stacks update
+description: The 'influx stacks update' command updates an InfluxDB stack.
 menu:
   v2_0_ref:
-    name: influx stacks init
+    name: influx stacks update
     parent: influx stacks
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/pkg/stack/init/
 v2.0/tags: [templates]
 ---
 
-The `influx stacks init` command initializes an InfluxDB stack.
+The `influx stacks update` command updates an InfluxDB stack.
 
 ## Usage
 ```
-influx stacks init [flags]
+influx stacks update [flags]
 ```
 
 ## Flags
 | Flag |                       | Description                                                | Input type      | {{< cli/mapped >}}    |
 |:---- |:---                   |:-----------                                                |:----------:     |:------------------    |
-| `-h` | `--help`              | Help for the `init` command                                |                 |                       |
+| `-h` | `--help`              | Help for the `update` command                              |                 |                       |
 |      | `--hide-headers`      | Hide table headers (default `false`)                       |                 | `INFLUX_HIDE_HEADERS` |
 |      | `--host`              | HTTP address of InfluxDB (default `http://localhost:9999`) | string          | `INFLUX_HOST`         |
+| `-i` | `--stack-id`          | The stack ID to update                                     | string          |                       |
 |      | `--json`              | Output data as JSON (default `false`)                      |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`               | Organization name                                          | string          | `INFLUX_ORG`          |
-|      | `--org-id`            | Organization ID                                            | string          | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`       | Skip TLS certificate verification                          |                 |                       |
 | `-d` | `--stack-description` | Stack description                                          | string          |                       |
 | `-n` | `--stack-name`        | Stack name                                                 | string          |                       |
@@ -35,9 +32,16 @@ influx stacks init [flags]
 
 ## Examples
 ```sh
-# Initialize a stack with a name and description
-influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
+# Update a stack with a name and description
+influx stack update \
+  -i ab12cd34ef56 \
+  -n "New stack name" \
+  -d "New stack description"
 
-# Initialize a stack with a name and urls to associate with stack.
-influx stack init -n $STACK_NAME -u $PATH_TO_TEMPLATE
+# Update a stack with a name and urls to associate with stack.
+influx stack update \
+  -i ab12cd34ef56 \
+  -n "New stack name" \
+  --template-url https://example.com/template-1.yml \
+  --template-url https://example.com/template-2.yml
 ```

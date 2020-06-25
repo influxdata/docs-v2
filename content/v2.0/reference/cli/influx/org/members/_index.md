@@ -28,5 +28,3 @@ influx org members [command]
 | Flag |          | Description                    |
 |:---- |:---      |:-----------                    |
 | `-h` | `--help` | Help for the `members` command |
-
-{{% cli/influx-global-flags %}}

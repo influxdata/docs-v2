@@ -8,6 +8,35 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.13 [2020-06-25]
+
+## Features
+
+- Cancel submitted queries in the Data Explorer.
+- Extend templates with the source `file|url|reader`.
+- Collect stats on installed InfluxData community template usage.
+- Allow raw `github.com` host URLs for `yaml|json|jsonnet` URLs in InfluxDB templates.
+- Allow for remote files for all `influx template` commands.
+- Extend stacks API with update capability.
+- Add support for config files to `influxd` and any `cli.NewCommand` use case.
+- Extend `influx stacks` command with new `influx stacks update` command.
+- Skip resources in a template by kind or by `metadata.name`.
+- Extend `influx apply` with resource filter capabilities.
+- Provide active configuration when running `influx config` without arguments.
+- Enable `influxd` binary to look for a configuration file on startup.
+- Add environmental default values to the template parser.
+- Templates will store which dashboard variable should be selected by default.
+
+### Bug Fixes
+
+- Fix `uint` overflow during setup on 32bit systems.
+- Drop support for `--local` flag within `influx` CLI.
+- Fix issue where undefined queries in cells result in error in dashboard.
+- Add support for day and week time identifiers in the CLI for bucket and setup commands.
+- Cache dashboard cell query results to use as a reference for cell configurations.
+- Validate `host-url` for `influx config create` and `influx config set` commands.
+- Fix `influx` CLI flags to accurately depict flags for all commands.
+
 ## v2.0.0-beta.12 [2020-06-12]
 
 ### Features

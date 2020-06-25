@@ -33,5 +33,3 @@ influx org [command]
 | Flag |          | Description                |
 |:---- |:---      |:-----------                |
 | `-h` | `--help` | Help for the `org` command |
-
-{{% cli/influx-global-flags %}}

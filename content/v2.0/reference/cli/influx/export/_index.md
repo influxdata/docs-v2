@@ -29,22 +29,23 @@ influx export [command]
 
 ## Flags
 
-| Flag |                      | Description                                                                      | Input Type |
-|:---- |:---                  |:-----------                                                                      |:---------- |
-|      | `--buckets`          | Comma-separated list of bucket IDs                                               | string     |
-|      | `--checks`           | Comma-separated list of check IDs                                                | string     |
-|      | `--dashboards`       | Comma-separated list of dashboard IDs                                            | string     |
-|      | `--endpoints`        | Comma-separated list of notification endpoint IDs                                | string     |
-| `-f` | `--file`             | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |
-| `-h` | `--help`             | Help for the `export` command                                                    |            |
-|      | `--labels`           | Comma-separated list of label IDs                                                | string     |
-|      | `--resource-type`    | Resource type associated with all IDs via stdin                                  | string     |
-|      | `--rules`            | Comma-separated list of notification rule IDs                                    | string     |
-|      | `--tasks`            | Comma-separated list of task IDs                                                 | string     |
-|      | `--telegraf-configs` | Comma-separated list of Telegraf configuration IDs                               | string     |
-|      | `--variables`        | Comma-separated list of variable IDs                                             | string     |
-
-{{% cli/influx-global-flags %}}
+| Flag |                      | Description                                                                      | Input Type | {{< cli/mapped >}} |
+|:---- |:---                  |:-----------                                                                      |:---------- |:------------------ |
+|      | `--buckets`          | Comma-separated list of bucket IDs                                               | string     |                    |
+|      | `--checks`           | Comma-separated list of check IDs                                                | string     |                    |
+|      | `--dashboards`       | Comma-separated list of dashboard IDs                                            | string     |                    |
+|      | `--endpoints`        | Comma-separated list of notification endpoint IDs                                | string     |                    |
+| `-f` | `--file`             | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                    |
+| `-h` | `--help`             | Help for the `export` command                                                    |            |                    |
+|      | `--host`             | HTTP address of InfluxDB (default `http://localhost:9999`)                       | string     | `INFLUX_HOST`      |
+|      | `--labels`           | Comma-separated list of label IDs                                                | string     |                    |
+|      | `--resource-type`    | Resource type associated with all IDs via stdin                                  | string     |                    |
+|      | `--rules`            | Comma-separated list of notification rule IDs                                    | string     |                    |
+|      | `--skip-verify`      | Skip TLS certificate verification                                                |            |                    |
+|      | `--tasks`            | Comma-separated list of task IDs                                                 | string     |                    |
+|      | `--telegraf-configs` | Comma-separated list of Telegraf configuration IDs                               | string     |                    |
+| `-t` | `--token`            | Authentication token                                                             | string     | `INFLUX_TOKEN`     |
+|      | `--variables`        | Comma-separated list of variable IDs                                             | string     |                    |
 
 ## Examples
 ```sh

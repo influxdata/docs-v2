@@ -1,20 +1,26 @@
 ---
-title: influx config delete
-description: The `influx config delete` command deletes an InfluxDB connection configuration.
+title: influx config rm
+description: The `influx config rm` command removes an InfluxDB connection configuration.
 menu:
   v2_0_ref:
-    name: influx config delete
+    name: influx config rm
     parent: influx config
 weight: 201
+aliases:
+  - /v2.0/reference/cli/influx/config/delete/
 ---
 
-The `influx config delete` command deletes an InfluxDB connection configuration
+The `influx config rm` command removes an InfluxDB connection configuration
 from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage
 ```
-influx config delete [flags]
+influx config rm <config-name> [flags]
 ```
+
+#### Aliases
+`rm`, `remove`, `delete`
+
 
 ## Flags
 | Flag |                  | Description                                                        | Input type  | {{< cli/mapped >}}    |
@@ -22,6 +28,12 @@ influx config delete [flags]
 | `-h` | `--help`         | Help for the `delete` command                                      |             |                       |
 |      | `--hide-headers` | Hide table headers (default `false`)                               |             | `INFLUX_HIDE_HEADERS` |
 |      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`         | (**Required**) Name of InfluxDB connection configuration to delete | string      |                       |
 
-{{% cli/influx-global-flags %}}
+## Examples
+```sh
+# Delete a connection configuration
+influx config rm local-config
+
+# Delete multiple connection configurations
+influx config rm config-1 config-2
+```

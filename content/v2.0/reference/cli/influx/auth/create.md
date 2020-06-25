@@ -20,6 +20,7 @@ influx auth create [flags]
 |:---- |:---                  |:-----------                                                    |:----------: |:------------------    |
 | `-h` | `--help`             | Help for the `create` command                                  |             |                       |
 |      | `--hide-headers`     | Hide table headers (default `false`)                           |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`             | HTTP address of InfluxDB (default `http://localhost:9999`)     | string      | `INFLUX_HOST`         |
 |      | `--json`             | Output data as JSON (default `false`)                          |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`              | **(Required)** Organization name                               | string      | `INFLUX_ORG`          |
 |      | `--org-id`           | Organization ID                                                | string      | `INFLUX_ORG_ID`       |
@@ -30,6 +31,8 @@ influx auth create [flags]
 |      | `--read-tasks`       | Grants permission to read tasks                                |             |                       |
 |      | `--read-telegrafs`   | Grants permission to read Telegraf configurations              |             |                       |
 |      | `--read-user`        | Grants permission to read organization users                   |             |                       |
+|      | `--skip-verify`      | Skip TLS certificate verification                              |             |                       |
+| `-t` | `--token`            | Authentication token                                           | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`             | Username                                                       | string      |                       |
 |      | `--write-bucket`     | Bucket ID                                                      | stringArray |                       |
 |      | `--write-buckets`    | Grants permission to create and update organization buckets    |             |                       |
@@ -38,5 +41,3 @@ influx auth create [flags]
 |      | `--write-tasks`      | Grants permission to create and update tasks                   |             |                       |
 |      | `--write-telegrafs`  | Grants permission to create and update Telegraf configurations |             |                       |
 |      | `--write-user`       | Grants permission to create and update organization users      |             |                       |
-
-{{% cli/influx-global-flags %}}

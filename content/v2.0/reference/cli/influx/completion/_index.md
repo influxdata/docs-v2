@@ -24,8 +24,6 @@ influx completion [bash|zsh] [flags]
 |:---- |:---      |:-----------                       |
 | `-h` | `--help` | Help for the `completion` command |
 
-{{% cli/influx-global-flags %}}
-
 ## Install completion scripts
 
 Add the appropriate installation command below to your `.bashrc` or `.zshrc`.

@@ -20,6 +20,7 @@ It starts and runs all the processes necessary for InfluxDB to function.
 influxd run [flags]
 ```
 
+
 {{% note %}}
 Because `run` is the default command for `influxd`, the following commands are the same:
 
@@ -27,6 +28,11 @@ Because `run` is the default command for `influxd`, the following commands are t
 influxd
 influxd run
 ```
+{{% /note %}}
+
+{{% note %}}
+For information about other available InfluxDB configuration methods, see
+[InfluxDB configuration options](/v2.0/reference/config-options/).
 {{% /note %}}
 
 ## Flags

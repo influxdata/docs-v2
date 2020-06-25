@@ -29,5 +29,3 @@ influx bucket [command]
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `bucket` command |
-
-{{% cli/influx-global-flags %}}
