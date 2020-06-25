@@ -61,10 +61,10 @@ tls-key: /path/to/influxdb.key
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-query-concurrency = 20.0
-query-queue-size = 15.0
+query-concurrency = 20
+query-queue-size = 15
 secret-store = "vault"
-session-length = 120.0
+session-length = 120
 tls-cert = "/path/to/influxdb.crt"
 tls-key = "/path/to/influxdb.key"
 ```
