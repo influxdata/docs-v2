@@ -30,5 +30,3 @@ influx user [command]
 | Flag |          | Description                 |
 |:---- |:---      |:-----------                 |
 | `-h` | `--help` | Help for the `user` command |
-
-{{% cli/influx-global-flags %}}

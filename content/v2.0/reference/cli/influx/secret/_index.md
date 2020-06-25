@@ -28,5 +28,3 @@ influx secret [subcommand]
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `secret` command |
-
-{{% cli/influx-global-flags %}}

@@ -26,5 +26,3 @@ influx template validate [flags]
 | `-h` | `--help`         | Help for the `validate` command                                    |            |
 | `-R` | `--recurse`      | Recurse through files in the directory specified in `-f`, `--file` |            |
 | `-u` | `--template-url` | URL of template file to validate                                   | string     |
-
-{{% cli/influx-global-flags %}}

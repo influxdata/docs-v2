@@ -34,15 +34,16 @@ influx apply [flags]
 |      | `--filter`                | Resources to skip when applying the template (filter by `kind` or `resource`)               | string     |                      |
 |      | `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
 | `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
+|      | `--host`                  | HTTP address of InfluxDB (default `http://localhost:9999`)                                  | string     | `INFLUX_HOST`        |
 |      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
 | `-o` | `--org`                   | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`         |
 |      | `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`      |
 | `-q` | `--quiet`                 | Disable output printing                                                                     |            |                      |
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                      |
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
+|      | `--skip-verify`           | Skip TLS certificate verification                                                           |            |                      |
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
-
-{{% cli/influx-global-flags %}}
+| `-t` | `--token`                 | Authentication token                                                                        | string     | `INFLUX_TOKEN`       |
 
 ## Examples
 ```sh

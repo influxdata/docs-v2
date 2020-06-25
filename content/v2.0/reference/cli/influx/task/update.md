@@ -16,14 +16,14 @@ influx task update [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                           |:----------: |:------------------    |
-| `-f` | `--file`         | Path to Flux script file              | string      |                       |
-| `-h` | `--help`         | Help for the `update` command         |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)  |             | `INFLUX_HIDE_HEADERS` |
-| `-i` | `--id`           | **(Required)** Task ID                | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`) |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--status`       | Update task status                    | string      |                       |
-
-
-{{% cli/influx-global-flags %}}
+| Flag |                  | Description                                                | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                                                |:----------: |:------------------    |
+| `-f` | `--file`         | Path to Flux script file                                   | string      |                       |
+| `-h` | `--help`         | Help for the `update` command                              |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                       |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`         |
+| `-i` | `--id`           | **(Required)** Task ID                                     | string      |                       |
+|      | `--json`         | Output data as JSON (default `false`)                      |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--skip-verify`  | Skip TLS certificate verification                          |             |                       |
+|      | `--status`       | Update task status                                         | string      |                       |
+| `-t` | `--token`        | Authentication token                                       | string      | `INFLUX_TOKEN`        |

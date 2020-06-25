@@ -58,5 +58,3 @@ influx config local-config
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `config` command |
-
-{{% cli/influx-global-flags %}}

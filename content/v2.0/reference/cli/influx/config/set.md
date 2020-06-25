@@ -23,14 +23,12 @@ influx config set [flags]
 | Flag |                  | Description                                                     | Input type  | {{< cli/mapped >}}    |
 |:---- |:---              |:-----------                                                     |:----------: |:------------------    |
 | `-a` | --active`        | Set the specified connection to active                          |             |                       |
+| `-n` | --config-name`   | Name for the InfluxDB connection configuration to set or update | string      |                       |
 | `-h` | --help`          | Help for the `set` command                                      |             |                       |
 |      | `--hide-headers` | Hide table headers (default `false`)                            |             | `INFLUX_HIDE_HEADERS` |
+| `-u` | --host-url`      | URL for InfluxDB connection configuration to set or update      | string      |                       |
 |      | `--json`         | Output data as JSON (default `false`)                           |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | --name`          | Name for the InfluxDB connection configuration to set or update | string      |                       |
 | `-o` | `--org`          | Organization name for the connection configuration              | string      |                       |
-| `-u` | --url`           | URL for InfluxDB connection configuration to set or update      | string      |                       |
-
-{{% cli/influx-global-flags %}}
 
 ## Examples
 ```sh

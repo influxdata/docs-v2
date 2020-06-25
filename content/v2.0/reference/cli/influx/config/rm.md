@@ -29,8 +29,6 @@ influx config rm <config-name> [flags]
 |      | `--hide-headers` | Hide table headers (default `false`)                               |             | `INFLUX_HIDE_HEADERS` |
 |      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
 
-{{% cli/influx-global-flags %}}
-
 ## Examples
 ```sh
 # Delete a connection configuration

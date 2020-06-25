@@ -16,11 +16,12 @@ influx org members remove [flags]
 ```
 
 ## Flags
-| Flag |            | Description                   | Input type  | {{< cli/mapped >}} |
-|:---- |:---        |:-----------                   |:----------: |:------------------ |
-| `-h` | `--help`   | Help for the `remove` command |             |                    |
-| `-i` | `--id`     | Organization ID               | string      | `INFLUX_ORG_ID`    |
-| `-o` | `--member` | Member ID                     | string      |                    |
-| `-n` | `--name`   | Organization name             | string      | `INFLUX_ORG`       |
-
-{{% cli/influx-global-flags %}}
+| Flag |                 | Description                                                | Input type  | {{< cli/mapped >}} |
+|:---- |:---             |:-----------                                                |:----------: |:------------------ |
+| `-h` | `--help`        | Help for the `remove` command                              |             |                    |
+|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`      |
+| `-i` | `--id`          | Organization ID                                            | string      | `INFLUX_ORG_ID`    |
+| `-o` | `--member`      | Member ID                                                  | string      |                    |
+| `-n` | `--name`        | Organization name                                          | string      | `INFLUX_ORG`       |
+|      | `--skip-verify` | Skip TLS certificate verification                          |             |                    |
+| `-t` | `--token`       | Authentication token                                       | string      | `INFLUX_TOKEN`     |

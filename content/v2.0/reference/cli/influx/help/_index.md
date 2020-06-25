@@ -19,5 +19,3 @@ influx help [command] [flags]
 | Flag |          | Description                 |
 |:---- |:---      |:-----------                 |
 | `-h` | `--help` | Help for the `help` command |
-
-{{% cli/influx-global-flags %}}
