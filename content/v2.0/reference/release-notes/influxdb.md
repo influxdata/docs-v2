@@ -15,17 +15,17 @@ weight: 101
 - Cancel submitted queries in the Data Explorer.
 - Extend templates with the source `file|url|reader`.
 - Collect stats on installed InfluxData community template usage.
-- Allow raw `github.com` host URLs for `yaml|json|jsonnet` URLs in pkger.
-- Allow for remote files for all template commands.
+- Allow raw `github.com` host URLs for `yaml|json|jsonnet` URLs in InfluxDB templates.
+- Allow for remote files for all `influx template` commands.
 - Extend stacks API with update capability.
 - Add support for config files to `influxd` and any `cli.NewCommand` use case.
 - Extend `influx stacks` command with new `influx stacks update` command.
 - Skip resources in a template by kind or by `metadata.name`.
-- Extend `influx apply` with resource filter capabilities
+- Extend `influx apply` with resource filter capabilities.
 - Provide active configuration when running `influx config` without arguments.
 - Enable `influxd` binary to look for a configuration file on startup.
 - Add environmental default values to the template parser.
-- Add support for selected fields to variable. to templates.
+- Templates will store which dashboard variable should be selected by default.
 
 ### Bug Fixes
 
