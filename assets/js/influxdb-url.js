@@ -124,9 +124,9 @@ $('button.url-trigger, #callout-url-selector .close').click(function() {
   }
 })
 
-// Place cursor in custom URL field when custom radio is selected
-$('input#custom[type="radio"]').click(function(e) {
-  $('input#custom-url-field').focus()
+// Trigger radio button on custom URL field focus
+$('input#custom-url-field').focus(function(e) {
+  $('input#custom[type="radio"]').trigger('click')
 })
 
 $("#custom-url").submit(function(e) {
