@@ -20,6 +20,7 @@ influx stacks update [flags]
 | Flag |                       | Description                                                | Input type      | {{< cli/mapped >}}    |
 |:---- |:---                   |:-----------                                                |:----------:     |:------------------    |
 |      | `--addResource`       | Associate an existing resource with a stack                | string          |                       |
+| `-f` | `--export-file`       | Destination for exported template                          | string          |                       |
 | `-h` | `--help`              | Help for the `update` command                              |                 |                       |
 |      | `--hide-headers`      | Hide table headers (default `false`)                       |                 | `INFLUX_HIDE_HEADERS` |
 |      | `--host`              | HTTP address of InfluxDB (default `http://localhost:9999`) | string          | `INFLUX_HOST`         |
