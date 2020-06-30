@@ -1,0 +1,44 @@
+---
+title: http.pathEscape() function
+description: >
+  The `http.pathEscape()` function escapes special characters in a string (including `/`)
+  and replaces non-ASCII characters with hexadecimal representations (`%XX`).
+v2_0_ref:
+  name: http.pathEscape
+    parent: HTTP
+weight: 202
+---
+
+The `http.pathEscape()` function escapes special characters in a string (including `/`)
+and replaces non-ASCII characters with hexadecimal representations (`%XX`).
+
+_**Function type:** Transformation_
+
+```js
+import "http"
+
+http.pathEscape(
+  inputString: "/this/is/an/example-path.html"
+)
+
+// Returns %2Fthis%2Fis%2Fan%2Fexample-path.html
+```
+
+## Parameters
+
+### inputString
+The string to escape.
+
+_**Data type:** String_
+
+## Examples
+
+##### URL-encode strings in a stream of tables
+```js
+import "http"
+
+data
+  |> map(fn: (r) => ({ r with
+    path: httpEscape(inputString: r.path)
+  }))
+```
