@@ -14,6 +14,10 @@ weight: 202
 View authentication tokens using the InfluxDB user interface (UI) or the `influx`
 command line interface (CLI).
 
+{{% note %}}
+Tokens are visible only to the user who created them and stop working when the user is deactivated. We recommend creating a generic IT user to create and manage tokens for writing data.
+{{% note %}}
+
 ## View tokens in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
