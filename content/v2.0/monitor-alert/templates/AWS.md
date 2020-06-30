@@ -6,7 +6,7 @@ description: >
 menu:
   v2_0:
     parent: Monitor with templates
-weight: 1000
+weight: 101
 ---
 
 Use the AWS CloudWatch Monitoring template to monitor data from Amazon Web Services (AWS), Amazon Elastic Compute Cloud (EC2), and Amazon Elastic Load Balancing (ELB) with the AWS CloudWatch Service.
