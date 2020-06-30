@@ -19,7 +19,7 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Before you begin
    
-1. Install Go 1.3 or later](https://golang.org/doc/install)
+1. [Install Go 1.3 or later](https://golang.org/doc/install).
 2. Download the client package in your $GOPATH and build the package.
 
     ```sh
@@ -30,12 +30,11 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
     go build
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   If running InfluxDB locally, visit http://localhost:9999.
-   If using InfluxDB Cloud, visit your [InfluxDB Cloud URL](/v2.0/cloud/urls).
+   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/v2.0/reference/urls/).
 
 ## Boilerplate for the InfluxDB Go Client Library  
 
-Use the Go library to write and query data to and from InfluxDB.
+Use the Go library to write and query data from InfluxDB.
 
 In your Go program, import the necessary packages and specify the entry point of your executable program.
 
@@ -54,20 +53,20 @@ import (
 Next, define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
 ```go
-bucket := "<my-bucket>"
-org := "<my-org>"
-token := "<my-token>"
-//variable to store the url of your local or InfluxDB Cloud instance
-url := "<http://localhost:9999>"
+bucket := "example-bucket"
+org := "example-org"
+token := "example-token"
+// Store the URL of your InfluxDB instance
+url := "http://localhost:9999"
 ```
 
-To write data, create the the InfluxDB Go Client and pass in our named parameters: `url` and `token`.
+To write data, create the the InfluxDB Go Client and pass in the `url` and `token` parameters.
 
 ```go
 client := influxdb2.NewClient(url, token)
 ```
 
-Create a **write client** with the `WriteApiBlocking` method and pass in your other named parameters: `org` and `bucket`. 
+Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters. 
 
 ```go
 writeApi := client.WriteApiBlocking(org, bucket)
@@ -76,7 +75,7 @@ writeApi := client.WriteApiBlocking(org, bucket)
 To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
 
 ```go
-  queryApi := client.QueryApi(org)
+queryApi := client.QueryApi(org)
 ```
 
 ## Write data to InfluxDB with Go
@@ -98,11 +97,11 @@ client.Close()
 ### Complete example write script
 ```go
  func main() {
-  bucket := "<my-bucket>"
-  org := "<my-org>"
-  token := "<my-token>"
-  //variable to store the url of your local or InfluxDB Cloud instance
-  url := "<http://localhost:9999>"
+  bucket := "example-bucket"
+  org := "example-org"
+  token := "example-token"
+  // Store the URL of your InfluxDB instance
+  url := "http://localhost:9999"
 	// Create new client with default option for server url authenticate by token
 	client := influxdb2.NewClient(url, token)
 	// User blocking write client for writes to desired bucket
@@ -121,7 +120,7 @@ client.Close()
 ## Query data from InfluxDB with Go
 Use the Go library to query data to InfluxDB.
 
-Create a flux query and supply your `bucket` parameter. 
+Create a Flux query and supply your `bucket` parameter. 
 
 ```js
 from(bucket:"<bucket>")

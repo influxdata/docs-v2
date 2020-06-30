@@ -49,8 +49,8 @@ Next, we define a few variables with the name of your [bucket](/v2.0/organizatio
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
-#variable to store the url of your local or InfluxDB Cloud instance
-url="<http://localhost:9999>"
+# Store the URL of your InfluxDB instance
+url="http://localhost:9999"
 ```
 
 Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
@@ -86,8 +86,8 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
-#variable to store the url of your local or InfluxDB Cloud instance
-url="<http://localhost:9999>"
+# Store the URL of your InfluxDB instance
+url="http://localhost:9999"
 
 client = influxdb_client.InfluxDBClient(
     url=url,
@@ -108,13 +108,13 @@ To query data, instantiate the **query client**.
 query_api = client.query_api()
 ```
 
-Next, create a flux query. 
+Next, create a Flux query. 
 
 ```python
 query = ‘ from(bucket:"my-bucket")\
 |> range(start: -10m)\
-|> filter(fn:(r) => r._measurement == “my_measurement”)\
-|> filter(fn: (r) => r.location == Prague")\
+|> filter(fn:(r) => r._measurement == "my_measurement")\
+|> filter(fn: (r) => r.location == "Prague")\
 |> filter(fn:(r) => r._field == "temperature" )‘
 ```
 
@@ -127,6 +127,7 @@ result = client.query_api().query(org=org, query=query)
 Iterate through the tables and records in the Flux Object.
 Use the `get_value()` method to return values.
 Use the `get_field()` method to return fields.
+
 ```python
 results = []
 for table in result:
@@ -155,8 +156,8 @@ print(results)
 query_api = client.query_api()
 query = ‘ from(bucket:"my-bucket")\
 |> range(start: -10m)\
-|> filter(fn:(r) => r._measurement == “my_measurement”)\
-|> filter(fn: (r) => r.location == Prague")\
+|> filter(fn:(r) => r._measurement == "my_measurement")\
+|> filter(fn: (r) => r.location == "Prague")\
 |> filter(fn:(r) => r._field == "temperature" )‘
 result = client.query_api().query(org=org, query=query)
 results = []
