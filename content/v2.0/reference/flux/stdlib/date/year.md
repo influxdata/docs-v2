@@ -27,10 +27,11 @@ date.year(t: 2019-07-17T12:05:21.012Z)
 
 ### t
 The time to operate on.
-Use an absolute time or relative duration.
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
+Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration_
+_**Data type:** Time | Duration | Integer_
 
 ## Examples
 
@@ -52,4 +53,13 @@ option now = () => 2020-02-11T12:21:03.293534940Z
 date.year(t: -14y)
 
 // Returns 2006
+```
+
+##### Return the year for a nanosecond Unix timestamp
+```js
+import "date"
+
+date.year(t: 1581423663293534940)
+
+// Returns 2020
 ```
