@@ -22,16 +22,16 @@ The AWS CloudWatch Monitoring template includes the following:
 
 ## Apply the template
 
-1. In the influx CLI, run the following command:
+1. Use the [`influx` CLI]((/v2.0/reference/cli/influx/) to run the following command:
 
     ```sh
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/aws_cloudwatch/aws_cloudwatch.yml
     ```
     For more information, see [influx apply](/v2.0/reference/cli/influx/apply/).
 
-2. [Install Telegraf](/telegraf/v1.14/introduction/installation/).
+2. [Install Telegraf](/telegraf/latest/introduction/installation/) on a server with network access to both the CloudWatch API and [InfluxDB v2 API](/v2.0/reference/api/).
 3. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 4. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-5. Open your AWS dashboards, and then use the `v.bucket` variable to specify the bucket to store data in.
+5. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from.
