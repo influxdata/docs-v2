@@ -5,22 +5,23 @@ description: >
   values in an input table.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/relativestrengthindex/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/relativestrengthindex/
 menu:
   v2_0_ref:
     name: relativeStrengthIndex
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
 ---
 
 The `relativeStrengthIndex()` function measures the relative speed and change of
 values in an input table.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 
 ```js
 relativeStrengthIndex(
@@ -50,6 +51,10 @@ Columns to operate on. _Defaults to `["_value"]`_.
 
 _**Data type:** Array of Strings_
 
+## Output tables
+For each input table with `x` rows, `relativeStrengthIndex()` outputs a table
+with `x - n` rows.
+
 ## Examples
 
 #### Calculate a five point relative strength index
@@ -61,6 +66,8 @@ from(bucket: "example-bucket"):
 
 #### Table transformation with a ten point RSI
 
+{{< flex >}}
+{{% flex-content %}}
 ###### Input table:
 | _time | A    | B    | tag |
 |:-----:|:----:|:----:|:---:|
@@ -82,7 +89,8 @@ from(bucket: "example-bucket"):
 | 0016  | 16   | 16   | tv  |
 | 0017  | 17   | null | tv  |
 | 0018  | 18   | 17   | tv  |
-
+{{% /flex-content %}}
+{{% flex-content %}}
 ###### Query:
 ```js
 // ...
@@ -103,3 +111,5 @@ from(bucket: "example-bucket"):
 |  0016 |  90  |  90  |  tv |
 |  0017 |  81  |  90  |  tv |
 |  0018 | 72.9 |  81  |  tv |
+{{% flex-content %}}
+{{< /flex >}}

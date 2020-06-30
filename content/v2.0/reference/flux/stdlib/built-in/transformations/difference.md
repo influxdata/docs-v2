@@ -7,8 +7,10 @@ aliases:
 menu:
   v2_0_ref:
     name: difference
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
+aliases:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/difference
 related:
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
@@ -16,7 +18,7 @@ related:
 The `difference()` function computes the difference between subsequent records.  
 The user-specified columns of numeric type are subtracted while others are kept intact.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js
@@ -55,6 +57,8 @@ _**Data type:** Boolean_
 - Some value `v` minus `null` is `v` minus the last non-null value seen before `v`;
   or `null` if `v` is the first non-null value seen.
 
+## Output tables
+For each input table with `n` rows, `difference()` outputs a table with `n - 1` rows.
 
 ## Examples
 

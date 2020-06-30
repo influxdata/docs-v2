@@ -7,8 +7,10 @@ aliases:
 menu:
   v2_0_ref:
     name: derivative
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
+aliases:
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative
 related:
   - /v2.0/query-data/flux/rate/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
@@ -18,7 +20,7 @@ The `derivative()` function computes the rate of change per [`unit`](#unit) of t
 It assumes rows are ordered by the `_time` column.
 The output table schema is the same as the input table.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js
@@ -55,6 +57,9 @@ The column containing time values.
 Defaults to `"_time"`.
 
 _**Data type:** String_
+
+## Output tables
+For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
 
 ## Examples
 ```js

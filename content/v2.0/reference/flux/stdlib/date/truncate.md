@@ -30,8 +30,10 @@ date.truncate(
 
 ### t
 The time to operate on.
+Use an absolute time or relative duration.
+Durations are relative to `now()`.
 
-_**Data type:** Time_
+_**Data type:** Time | Duration_
 
 ### unit
 The unit of time to truncate to.
@@ -44,16 +46,33 @@ For example: `1s`, `1m`, `1h`.
 {{% /note %}}
 
 ## Examples
+
+##### Truncate time values
 ```js
 import "date"
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1s)
-// Returns  2019-06-03T13:59:01.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1s)
+// Returns 2019-06-03T13:59:01.000000000Z
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1m)
-// Returns  2019-06-03T13:59:00.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1m)
+// Returns 2019-06-03T13:59:00.000000000Z
 
-date.truncate(t: "2019-06-03T13:59:01.000000000Z", unit: 1h)
-// Returns  2019-06-03T13:00:00.000000000Z
+date.truncate(t: 2019-06-03T13:59:01.000000000Z, unit: 1h)
+// Returns 2019-06-03T13:00:00.000000000Z
+```
 
+##### Truncate time values using durations
+```js
+import "date"
+
+option now = () => 2020-01-01T00:00:30.500000000Z
+
+date.truncate(t: -30s, unit: 1s)
+// Returns 2019-12-31T23:59:30.000000000Z
+
+date.truncate(t: -1m, unit: 1m)
+// Returns 2019-12-31T23:59:00.000000000Z
+
+date.truncate(t: -1h, unit: 1h)
+// Returns 2019-12-31T23:00:00.000000000Z
 ```

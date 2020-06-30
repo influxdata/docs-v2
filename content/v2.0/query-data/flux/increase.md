@@ -3,7 +3,7 @@ title: Calculate the increase
 seotitle: Calculate the increase in Flux
 list_title: Increase
 description: >
-  Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/)
+  Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/increase/)
   to track increases across multiple columns in a table.
   This function is especially useful when tracking changes in counter values that
   wrap over time or periodically reset.
@@ -18,7 +18,7 @@ related:
 list_query_example: increase
 ---
 
-Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/)
+Use the [`increase()` function](/v2.0/reference/flux/stdlib/built-in/transformations/increase/)
 to track increases across multiple columns in a table.
 This function is especially useful when tracking changes in counter values that
 wrap over time or periodically reset.

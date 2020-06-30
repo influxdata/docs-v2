@@ -35,10 +35,12 @@ _**Data type:** String_
 
 The following drivers are available:
 
+- awsathena
 - mysql
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
+- sqlserver, mssql
 
 ### dataSourceName
 The data source name (DSN) or connection string used to connect to the SQL database.
@@ -48,11 +50,15 @@ _**Data type:** String_
 
 ##### Driver dataSourceName examples
 ```sh
-# Postgres Driver DSN
-postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
+# Amazon Athena Driver DSN
+s3://myorgqueryresults/?accessID=AKIAJLO3F...&region=us-west-1&secretAccessKey=NnQ7MUMp9PYZsmD47c%2BSsXGOFsd%2F...
+s3://myorgqueryresults/?accessID=AKIAJLO3F...&db=dbname&missingAsDefault=false&missingAsEmptyString=false&region=us-west-1&secretAccessKey=NnQ7MUMp9PYZsmD47c%2BSsXGOFsd%2F...&WGRemoteCreation=false
 
 # MySQL Driver DSN
 username:password@tcp(localhost:3306)/dbname?param=value
+
+# Postgres Driver DSN
+postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
 
 # Snowflake Driver DSNs
 username[:password]@accountname/dbname/schemaname?param1=value1&paramN=valueN
@@ -61,6 +67,12 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=ro
+
+# Microsoft SQL Server Driver DSNs
+sqlserver://username:password@localhost:1234?database=examplebdb
+server=localhost;user id=username;database=examplebdb;
+server=localhost;user id=username;database=examplebdb;azure auth=ENV
+server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;azure client id=58879ce8;azure client secret=0123456789
 ```
 
 ### query
@@ -69,6 +81,13 @@ The query to run against the SQL database.
 _**Data type:** String_
 
 ## Examples
+
+- [MySQL](#query-a-mysql-database)
+- [Postgres](#query-a-postgres-database)
+- [Snowflake](#query-a-snowflake-database)
+- [SQLite](#query-an-sqlite-database)
+- [Amazon Athena](#query-an-amazon-athena-database)
+- [SQL Server](#query-a-sql-server-database)
 
 {{% note %}}
 The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
@@ -138,4 +157,96 @@ sql.from(
   dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query: "SELECT * FROM example_table"
 )
+```
+
+### Query an Amazon Athena database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+region = us-west-1
+accessID = secrets.get(key: "ATHENA_ACCESS_ID")
+secretKey = secrets.get(key: "ATHENA_SECRET_KEY")
+
+sql.from(
+ driverName: "awsathena",
+ dataSourceName: "s3://myorgqueryresults/?accessID=${accessID}&region=${region}&secretAccessKey=${secretKey}",
+ query:"SELECT * FROM example_table"
+)
+```
+
+##### Athena connection string
+To query an Amazon Athena database, use the following query parameters in your Athena
+S3 connection string (DSN):
+
+<span class="req">\* Required</span>
+
+- **region** - AWS region <span class="req">\*</span>
+- **accessID** - AWS IAM access ID <span class="req">\*</span>
+- **secretAccessKey** - AWS IAM secret key <span class="req">\*</span>
+- **db** - database name
+- **WGRemoteCreation** - controls workgroup and tag creation
+- **missingAsDefault** - replace missing data with default values
+- **missingAsEmptyString** - replace missing data with empty strings
+
+
+### Query a SQL Server database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SQLSERVER_USER")
+password = secrets.get(key: "SQLSERVER_PASS")
+
+sql.from(
+  driverName: "sqlserver",
+  dataSourceName: "sqlserver://${username}:${password}@localhost:1234?database=examplebdb",
+  query: "GO SELECT * FROM Example.Table"
+)
+```
+
+#### SQL Server ADO authentication
+Use one of the following methods to provide SQL Server authentication credentials as
+[ActiveX Data Objects (ADO)](https://docs.microsoft.com/en-us/sql/ado/guide/ado-introduction?view=sql-server-ver15)
+connection string parameters:
+
+- [Retrieve authentication credentials from environment variables](#retrieve-authentication-credentials-from-environment-variables)
+- [Retrieve authentication credentials from a file](#retrieve-authentication-credentials-from-a-file)
+- [Specify authentication credentials in the connection string](#specify-authentication-credentials-in-the-connection-string)
+- [Use a Managed identity in an Azure VM](#use-a-managed-identity-in-an-azure-vm)
+
+##### Retrieve authentication credentials from environment variables
+```
+azure auth=ENV
+```
+
+##### Retrieve authentication credentials from a file
+{{% warn %}}
+**InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
+access to the underlying file system and do not support reading credentials from a file.
+To retrieve SQL Server credentials from a file, execute the query in the
+[Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
+{{% /warn %}}
+
+```powershel
+azure auth=C:\secure\azure.auth
+```
+
+##### Specify authentication credentials in the connection string
+```powershell
+# Example of providing tenant ID, client ID, and client secret token
+azure tenant id=77...;azure client id=58...;azure client secret=0cf123..
+
+# Example of providing tenant ID, client ID, certificate path and certificate password
+azure tenant id=77...;azure client id=58...;azure certificate path=C:\secure\...;azure certificate password=xY...
+
+# Example of providing tenant ID, client ID, and Azure username and password
+azure tenant id=77...;azure client id=58...;azure username=some@myorg;azure password=a1...
+```
+
+##### Use a managed identity in an Azure VM
+_For information about managed identities, see [Microsoft managed identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)._
+
+```
+azure auth=MSI
 ```

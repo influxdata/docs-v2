@@ -5,16 +5,17 @@ description: >
   in the `_value` column grouped into `n` number of points, giving more weight to recent data.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
 menu:
   v2_0_ref:
     name: exponentialMovingAverage
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
 ---
 

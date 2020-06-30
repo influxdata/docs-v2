@@ -5,7 +5,7 @@ description: >
   User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities.
 menu:
   v2_0_ref:
-    name: User-contributed
+    name: Contributed
     parent: Flux standard library
 weight: 202
 v2.0/tags: [contributed, functions, package]
