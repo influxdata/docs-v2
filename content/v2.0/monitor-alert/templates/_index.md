@@ -1,8 +1,7 @@
 ---
 title: Monitor with templates
-seotitle: Use templates to easily start monitoring data in many supporting environments, including AWS Cloudwatch, Redis, Apache, Nginx, and more.
 description: >
-  Use templates to easily start monitoring data in many supporting environments, including AWS Cloudwatch, Redis, Apache, Nginx, and more.
+  Use templates to start monitoring data in many supporting environments, including AWS Cloudwatch, Redis, Apache, Nginx, and more.
 menu:
   v2_0:
     parent: Monitor & alert
