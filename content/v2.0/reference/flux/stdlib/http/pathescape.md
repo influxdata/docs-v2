@@ -3,8 +3,9 @@ title: http.pathEscape() function
 description: >
   The `http.pathEscape()` function escapes special characters in a string (including `/`)
   and replaces non-ASCII characters with hexadecimal representations (`%XX`).
-v2_0_ref:
-  name: http.pathEscape
+menu:
+  v2_0_ref:
+    name: http.pathEscape
     parent: HTTP
 weight: 202
 ---
