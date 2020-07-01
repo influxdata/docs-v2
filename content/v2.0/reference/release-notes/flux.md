@@ -11,10 +11,20 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.69.2**.
+_The latest release of InfluxDB v2.0 OSS beta includes **Flux v0.69.2**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.71.0 [2020-06-30]
+
+### Features
+- Apply `Timeable` constraint to integer type to support integer values in
+  time-related function parameters.
+- Implement schema mutation functions without performing any copies.
+- Add [`http.pathEscape()` function](/v2.0/reference/flux/stdlib/http/pathescape/).
+
+---
 
 ## v0.70.0 [2020-06-29]
 ### Features
