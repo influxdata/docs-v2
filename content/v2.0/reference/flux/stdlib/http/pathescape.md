@@ -40,6 +40,6 @@ import "http"
 
 data
   |> map(fn: (r) => ({ r with
-    path: httpEscape(inputString: r.path)
+    path: http.pathEscape(inputString: r.path)
   }))
 ```
