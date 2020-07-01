@@ -29,10 +29,11 @@ date.yearDay(t: 2019-07-17T12:05:21.012Z)
 
 ### t
 The time to operate on.
-Use an absolute time or relative duration.
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
+Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration_
+_**Data type:** Time | Duration | Integer_
 
 ## Examples
 
@@ -54,4 +55,13 @@ option now = () => 2020-02-11T12:21:03.293534940Z
 date.yearDay(t: -1mo)
 
 // Returns 11
+```
+
+##### Return the day of the year for a nanosecond Unix timestamp
+```js
+import "date"
+
+date.yearDay(t: 1581423663293534940)
+
+// Returns 42
 ```
