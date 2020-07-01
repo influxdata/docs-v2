@@ -96,7 +96,7 @@ crit_statuses
       text: "Disk usage is **${r.status}**.",
       silent: true
     })
-  )
+  )()
 ```
 
 {{% note %}}

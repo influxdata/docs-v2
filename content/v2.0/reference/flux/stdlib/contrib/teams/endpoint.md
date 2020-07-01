@@ -68,7 +68,7 @@ crit_statuses
       text: "Disk usage is: **${r.status}**.",
       summary: "Disk usage is ${r.status}"
     })
-  )
+  )()
 ```
 
 {{% note %}}
