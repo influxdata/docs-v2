@@ -15,7 +15,7 @@ Use these tips to optimize performance and system overhead when writing data to 
 The following tools write to InfluxDB and employ write optimizations by default:
 
 - [Telegraf](/v2.0/write-data/use-telegraf/)
-- [InfluxDB scrapers](/v2.0/write-data/scrape-data/)
+- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/)
 - [InfluxDB client libraries](/v2.0/reference/api/client-libraries/)
 {{% /note %}}
 
