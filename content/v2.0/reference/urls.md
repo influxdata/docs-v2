@@ -47,7 +47,7 @@ influxd --http-bind-address :8080
 ```
 
 {{% note %}}
-#### DNS Routing
+#### Configure DNS routing
 You must configure DNS routing to successfully route requests to your custom hostname.
 Methods for configuring DNS routing vary depending on your operating system and
 network architecture and are not covered in this documentation.
