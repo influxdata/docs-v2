@@ -572,7 +572,7 @@ and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manu
 #### Scrape data
 
 **InfluxDB OSS** lets you scrape Prometheus-formatted metrics from HTTP endpoints.
-For details, see [Scrape data](/v2.0/write-data/scrape-data/).
+For details, see [Scrape data](/v2.0/write-data/no-code/scrape-data/).
 
 #### API, CLI, and client libraries
 
@@ -607,7 +607,7 @@ See [Monitor and alert](/v2.0/monitor-alert/).
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
-- [InfluxDB scrapers](/v2.0/write-data/scrape-data/) that collect data from specified
+- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 

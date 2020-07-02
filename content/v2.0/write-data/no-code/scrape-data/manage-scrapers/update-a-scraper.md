@@ -16,7 +16,7 @@ Update a scraper in the InfluxDB user interface (UI).
 
 {{% note %}}
 Scraper **Target URLs** and **Buckets** cannot be updated.
-To modify either, [create a new scraper](/v2.0/write-data/scrape-data/manage-scrapers/create-a-scraper).
+To modify either, [create a new scraper](/v2.0/write-data/no-code/scrape-data/manage-scrapers/create-a-scraper).
 {{% /note %}}
 
 ## Update a scraper in the InfluxDB UI
