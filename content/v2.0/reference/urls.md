@@ -37,7 +37,7 @@ when starting `influxd`.
 
 ```sh
 # Syntax
-influxd --http-bind-adress <custom-domain>:<custom-port>
+influxd --http-bind-address <custom-domain>:<custom-port>
 
 # Example - Run InfluxDB at http://example.com:8080
 influxd --http-bind-address example.com:8080
