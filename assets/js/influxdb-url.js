@@ -124,6 +124,8 @@ $('button.url-trigger, #callout-url-selector .close').click(function() {
   }
 })
 
+///////////////////////////////// CUSTOM URLs /////////////////////////////////
+
 // Trigger radio button on custom URL field focus
 $('input#custom-url-field').focus(function(e) {
   $('input#custom[type="radio"]').trigger('click')
@@ -156,3 +158,16 @@ if ( Cookies.get('influxdb_custom_url') != undefined ) {
 
 // Set active radio button on page load
 setRadioButton(getUrl())
+
+/////////////////////////// Dynamically update URLs ///////////////////////////
+
+// Extract the protocol and hostname of refferrer
+referrerHost = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0]
+
+// Check if the referrerHost is one of the cloud URLs
+// cloudUrls is built dynamically in layouts/partials/footer/javascript.html
+if (cloudUrls.includes(referrerHost)) {
+  storeUrl(referrerHost, getUrl())
+  updateUrls(getPrevUrl(), referrerHost)
+  setRadioButton(referrerHost)
+}
