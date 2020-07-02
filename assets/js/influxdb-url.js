@@ -161,7 +161,7 @@ setRadioButton(getUrl())
 
 /////////////////////////// Dynamically update URLs ///////////////////////////
 
-// Extract the protocol and hostname of refferer
+// Extract the protocol and hostname of referrer
 referrerHost = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0]
 
 // Check if the referrerHost is one of the cloud URLs
