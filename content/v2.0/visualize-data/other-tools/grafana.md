@@ -29,6 +29,8 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 7. Select **InfluxDB** from the list of available data sources.
 
 ## Configure your InfluxDB 2.0 connection
+In the Grafana UI, configure your InfluxDB data source:
+
 1. Enter a **name** for your InfluxDB data source.
 2. Under **Query Language**, select **Flux**.
 3. Under **Connection**, enter the following:
