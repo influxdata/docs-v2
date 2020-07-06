@@ -57,7 +57,7 @@ _Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timest
 
 ## Use gzip compression
 
-Enable gzip compression when writing to InfluxDB to speed up data ingestion.
+Use gzip compression to speed up writes to InfluxDB.
 Benchmarks have shown up to a 5x speed improvement when data is compressed.
 
 {{< tabs-wrapper >}}
