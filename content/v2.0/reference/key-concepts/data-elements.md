@@ -83,11 +83,13 @@ Tags include tag keys and tag values that are stored as strings and metadata.
 ### Tag key
 
 The tag keys in the sample data are `location` and `scientist`.
+_For information about tag key requirements, see [Line protocol – Tag set](/v2.0/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag value
 
 The tag key `location` has two tag values: `klamath` and `portland`.
 The tag key `scientist` also has two tag values: `anderson` and `mullen`.
+_For information about tag value requirements, see [Line protocol – Tag set](/v2.0/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag set
 
