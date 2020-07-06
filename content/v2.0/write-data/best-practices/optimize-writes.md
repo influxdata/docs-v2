@@ -11,15 +11,20 @@ v2.0/tags: [best practices, write]
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.
 
+- [Batch writes](#batch-writes)
+- [Sort tags by key](#sort-tags-by-key)
+- [Use the coarsest time precision possible](#use-the-coarsest-time-precision-possible)
+- [Use gzip compression](#use-gzip-compression)
+- [Synchronize hosts with NTP](#synchronize-hosts-with-ntp)
+- [Write multiple data points in one request](#write-multiple-data-points-in-one-request)
+
 {{% note %}}
-The following tools write to InfluxDB and employ write optimizations by default:
+The following tools write to InfluxDB and employ _most_ write optimizations by default:
 
 - [Telegraf](/v2.0/write-data/use-telegraf/)
-- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/)
 - [InfluxDB client libraries](/v2.0/reference/api/client-libraries/)
+- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/)
 {{% /note %}}
-
----
 
 ## Batch writes
 
@@ -49,6 +54,53 @@ However if your data isn't collected in nanoseconds, there is no need to write a
 For better performance, use the coarsest precision possible for timestamps.
 
 _Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timestamp-precision)._
+
+## Use gzip compression
+
+Enable gzip compression when writing to InfluxDB to speed up data ingestion.
+Benchmarks have shown up to a 5x speed improvement when data is compressed.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Telegraf](#)
+[Client libraries](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+### Enable gzip compression in Telegraf
+
+In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set the
+`content_encoding` option to `gzip`:
+
+```toml
+[[outputs.influxdb_v2]]
+  urls = ["http://localhost:9999"]
+  # ...
+  content_encoding = "gzip"
+```
+{{% /tab-content %}}
+{{% tab-content %}}
+### Enable gzip compression in InfluxDB client libraries
+
+Each [InfluxDB client library](/v2.0/reference/api/client-libraries/) provides
+options for compressing write requests or enforces compression by default.
+The method for enabling compression is different for each library.
+For specific instructions, see the [InfluxDB client libraries documentation](/v2.0/reference/api/client-libraries/).
+{{% /tab-content %}}
+{{% tab-content %}}
+### Use gzip compression with the InfluxDB API
+
+When using the InfluxDB API `/write` endpoint to write data, set the `Content-Encoding`
+header to `gzip` to compress the request data.
+
+```sh
+curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+  --header "Authorization: Token YOURAUTHTOKEN" \
+  --header "Content-Encoding: gzip" \
+  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+```
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Synchronize hosts with NTP
 
