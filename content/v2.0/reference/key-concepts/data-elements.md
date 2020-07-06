@@ -31,12 +31,12 @@ _Hover over highlighted terms to get acquainted with InfluxDB terminology and la
 
 **bucket:**  `my_bucket`
 
-| _time                                  | _measurement                                                         | <span class ="tooltip" data-tooltip-text ="Tag key">location</span> | <span class ="tooltip" data-tooltip-text ="Tag key">scientist</span> | _field                                                            | _value                                                            |
-|:-------------------                                                             |:------------                                                         |:-------                                                             |:------                                                               |:--                                                                |:------                                                            |
-| 2019-08-18T00:00:00Z                                                            | census                                                               | klamath                                                               | anderson                                                             | bees                                                              | 23                                                                |
-| 2019-08-18T00:00:00Z                                                            | census                                                               | portland                                                                | mullen                                                               | ants                                                              | 30                                                                |
-| 2019-08-18T00:06:00Z                                                            | census                                                               | klamath                                                                | anderson                                                             | bees                                                              | 28                                                                |
-| <span class="tooltip" data-tooltip-text="Timestamp">2019-08-18T00:06:00Z</span> | <span class="tooltip" data-tooltip-text="measurement"> census</span> | <span class ="tooltip" data-tooltip-text ="Tag value">portland</span>   | <span class ="tooltip" data-tooltip-text ="Tag value">mullen</span>  | <span class ="tooltip" data-tooltip-text ="Field key">ants</span> | <span class ="tooltip" data-tooltip-text ="Field value">32</span> |
+| _time                                              | _measurement                           | {{< tooltip "Tag key" "location" >}}    | {{< tooltip "Tag key" "scientist" >}} | _field                              | _value                             |
+|:-------------------                                |:------------                           |:-------                                |:------                                |:--                                  |:------                             |
+| 2019-08-18T00:00:00Z                               | census                                 | klamath                                | anderson                              | bees                                | 23                                 |
+| 2019-08-18T00:00:00Z                               | census                                 | portland                               | mullen                                | ants                                | 30                                 |
+| 2019-08-18T00:06:00Z                               | census                                 | klamath                                | anderson                              | bees                                | 28                                 |
+| {{< tooltip "Timestamp" "2019-08-18T00:06:00Z" >}} | {{< tooltip "measurement" "census" >}} | {{< tooltip "Tag value" "portland" >}} | {{< tooltip "Tag value" "mullen">}}   | {{< tooltip "Field key" "ants" >}} | {{< tooltip "Field value" "32" >}} |
 
 ## Timestamp
 
@@ -83,11 +83,13 @@ Tags include tag keys and tag values that are stored as strings and metadata.
 ### Tag key
 
 The tag keys in the sample data are `location` and `scientist`.
+_For information about tag key requirements, see [Line protocol – Tag set](/v2.0/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag value
 
 The tag key `location` has two tag values: `klamath` and `portland`.
 The tag key `scientist` also has two tag values: `anderson` and `mullen`.
+_For information about tag value requirements, see [Line protocol – Tag set](/v2.0/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag set
 
@@ -117,19 +119,19 @@ from(bucket: "bucket-name")
 
 InfluxDB scans every field value in the dataset for `bees` before the query returns a response. If our sample `census` data grew to millions of rows, to optimize your query, you could rearrange your [schema](/v2.0/reference/glossary/#schema) so the fields (`bees` and `ants`) becomes tags and the tags (`location` and `scientist`) become fields:
 
-| _time                | _measurement | <span class ="tooltip" data-tooltip-text ="Tag key">bees</span> | _field                                                                | _value                                                              |
-|:-------------------  |:------------ |:-------                                                         |:--                                                                    |:------                                                              |
-| 2019-08-18T00:00:00Z | census       | 23                                                              | location                                                              | klamath                                                             |
-| 2019-08-18T00:00:00Z | census       | 23                                                              | scientist                                                             | anderson                                                            |
-| 2019-08-18T00:06:00Z | census       | <span class ="tooltip" data-tooltip-text ="Tag value">28</span> | <span class ="tooltip" data-tooltip-text ="Field key">location</span> | <span class ="tooltip" data-tooltip-text ="Field value">klamath</span> |
-| 2019-08-18T00:06:00Z | census       | 28                                                              | scientist                                                             | anderson                                                            |
+| _time                | _measurement | {{< tooltip "Tag key" "bees" >}} | _field                                 | _value                                   |
+|:-------------------  |:------------ |:-------                          |:--                                     |:------                                   |
+| 2019-08-18T00:00:00Z | census       | 23                               | location                               | klamath                                  |
+| 2019-08-18T00:00:00Z | census       | 23                               | scientist                              | anderson                                 |
+| 2019-08-18T00:06:00Z | census       | {{< tooltip "Tag value" "28" >}} | {{< tooltip "Field key" "location" >}} | {{< tooltip "Field value" "klamath" >}}  |
+| 2019-08-18T00:06:00Z | census       | 28                               | scientist                              | anderson                                 |
 
-| _time                | _measurement | <span class ="tooltip" data-tooltip-text ="Tag key">ants</span> | _field                                                                | _value                                                              |
-|:-------------------  |:------------ |:-------                                                         |:--                                                                    |:------                                                              |
-| 2019-08-18T00:00:00Z | census       | 30                                                              | location                                                              | portland                                                            |
-| 2019-08-18T00:00:00Z | census       | 30                                                              | scientist                                                             | mullen                                                              |
-| 2019-08-18T00:06:00Z | census       | <span class ="tooltip" data-tooltip-text ="Tag value">32</span> | <span class ="tooltip" data-tooltip-text ="Field key">location</span> | <span class ="tooltip" data-tooltip-text ="Field value">portland</span>|
-| 2019-08-18T00:06:00Z | census       | 32                                                              | scientist                                                             | mullen                                                              |
+| _time                | _measurement | {{< tooltip "Tag key" "ants" >}} | _field                                 | _value                                   |
+|:-------------------  |:------------ |:-------                          |:--                                     |:------                                   |
+| 2019-08-18T00:00:00Z | census       | 30                               | location                               | portland                                 |
+| 2019-08-18T00:00:00Z | census       | 30                               | scientist                              | mullen                                   |
+| 2019-08-18T00:06:00Z | census       | {{< tooltip "Tag value" "32" >}} | {{< tooltip "Field key" "location" >}} | {{< tooltip "Field value" "portland" >}} |
+| 2019-08-18T00:06:00Z | census       | 32                               | scientist                              | mullen                                   |
 
 Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` and `_value` columns. This makes your queries faster.
 
@@ -137,10 +139,10 @@ Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` 
 
 Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series. A **series key** is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes two unique series keys:
 
-| _measurement  | tag set                                                                                      | _field               |
-|:------------- |:-------------------------------                                                              |:------               |
-| census        | <span class="tooltip" data-tooltip-text="Tag set">location=klamath,scientist=anderson</span> |<span class="tooltip" data-tooltip-text="Field key">bees</span>|
-| census        | location=portland,scientist=mullen                                                           | ants                |
+| _measurement  | tag set                                                         | _field                             |
+|:------------- |:-------------------------------                                 |:------                             |
+| census        | {{< tooltip "Tag set" "location=klamath,scientist=anderson" >}} | {{< tooltip "Field key" "bees" >}} |
+| census        | location=portland,scientist=mullen                              | ants                               |
 
 A **series** includes timestamps and field values for a given series key. From the sample data, here's a **series key** and the corresponding **series**:
 
