@@ -546,6 +546,18 @@ The following options are available:
 - third
 - quarter
 
+### Tooltips
+Use the `{{< tooltips >}}` shortcode to add tooltips to text.
+The **1st** argument is the text shown in the tooltip.
+The **2nd** argument is the highlighted text that triggers the tooltip.
+
+```md
+I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
+```
+
+The example above renders as "I like butterflies" with "butterflies" highlighted.
+When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
