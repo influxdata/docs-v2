@@ -20,7 +20,7 @@ influx transpile [InfluxQL query] [flags]
 ```
 
 {{% note %}}
-The provided InfluxQL query must contain a database and measurement and must be valid InfluxQL.
+The InfluxQL query must be valid and contain both a database and measurement.
 See the [InfluxQL documentation](https://docs.influxdata.com/influxdb/latest/query_language/) for more information.
 {{% /note %}}
 
