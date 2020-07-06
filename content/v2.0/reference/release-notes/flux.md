@@ -16,6 +16,13 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.71.1 [2020-07-03]
+
+### Bug fixes
+- Add a check to ensure `every` is non-negative.
+
+---
+
 ## v0.71.0 [2020-06-30]
 
 ### Features
