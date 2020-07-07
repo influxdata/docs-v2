@@ -27,6 +27,10 @@ reduce the amount of memory necessary to run a query.
 - [range()](/v2.0/reference/flux/stdlib/built-in/transformations/range/)
 - [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
 - [group()](/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+- [count()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
+- [sum()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
+- [first()](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
+- [last()](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/)
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
