@@ -8,9 +8,11 @@ menu:
     parent: Other visualization tools
 weight: 201
 v2.0/tags: [grafana]
+related:
+  - https://grafana.com/docs/, Grafana documentation
 ---
 
-Use [Grafana](https://grafana.com/) to visualize data from **InfluxDB 2.0** and **InfluxDB Cloud**.
+Use [Grafana](https://grafana.com/) to visualize data from **InfluxDB 2.0** and **{{< cloud-name "short" >}}**.
 
 {{% note %}}
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
@@ -55,5 +57,5 @@ In the Grafana UI, configure your InfluxDB data source:
 With your InfluxDB connection configured, use Grafana and Flux to query and
 visualize time series data stored in **InfluxDB 2.0** or **{{< cloud-name >}}**.
 
-[Grafana documentation](https://grafana.com/docs/grafana/latest/).
-If you're just learning Flux, see [Getting started with Flux](/v2.0/query-data/get-started/).
+For more information about using Grafana, see the [Grafana documentation](https://grafana.com/docs/).
+If you're just learning Flux, see [Get started with Flux](/v2.0/query-data/get-started/).
