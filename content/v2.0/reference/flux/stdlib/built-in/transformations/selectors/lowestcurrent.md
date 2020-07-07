@@ -24,6 +24,11 @@ lowestCurrent(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`lowestCurrent()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

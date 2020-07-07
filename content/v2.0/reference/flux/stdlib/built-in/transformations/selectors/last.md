@@ -23,6 +23,11 @@ _**Output data type:** Object_
 last()
 ```
 
+{{% warn %}}
+#### Empty tables
+`last()` drops empty tables.
+{{% /warn %}}
+
 ## Examples
 ```js
 from(bucket:"example-bucket")

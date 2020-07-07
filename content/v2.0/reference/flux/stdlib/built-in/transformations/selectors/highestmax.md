@@ -24,6 +24,11 @@ highestMax(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`highestMax()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

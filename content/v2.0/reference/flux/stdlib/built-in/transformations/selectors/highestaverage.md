@@ -24,6 +24,11 @@ highestAverage(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`highestAverage()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

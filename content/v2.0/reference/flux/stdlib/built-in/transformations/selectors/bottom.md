@@ -22,6 +22,11 @@ _**Output data type:** Object_
 bottom(n:10, columns: ["_value"])
 ```
 
+{{% warn %}}
+#### Empty tables
+`bottom()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

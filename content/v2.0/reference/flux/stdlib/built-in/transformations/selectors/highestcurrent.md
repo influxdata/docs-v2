@@ -24,6 +24,11 @@ highestCurrent(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`highestCurrent()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n
