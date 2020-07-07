@@ -20,6 +20,11 @@ _**Output data type:** Object_
 top(n:10, columns: ["_value"])
 ```
 
+{{% warn %}}
+#### Empty tables
+`top()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

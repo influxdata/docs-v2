@@ -21,6 +21,11 @@ _**Output data type:** Object_
 unique(column: "_value")
 ```
 
+{{% warn %}}
+#### Empty tables
+`unique()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### column

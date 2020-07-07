@@ -23,6 +23,11 @@ _**Output data type:** Object_
 first()
 ```
 
+{{% warn %}}
+#### Empty tables
+`first()` drops empty tables.
+{{% /warn %}}
+
 ## Examples
 ```js
 from(bucket:"example-bucket")

@@ -24,6 +24,11 @@ _**Output data type:** Object_
 distinct(column: "host")
 ```
 
+{{% warn %}}
+#### Empty tables
+`distinct()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### column

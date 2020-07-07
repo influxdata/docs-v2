@@ -22,6 +22,11 @@ _**Output data type:** Object_
 max(column: "_value")
 ```
 
+{{% warn %}}
+#### Empty tables
+`max()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### column

@@ -24,7 +24,7 @@ count(column: "_value")
 ```
 
 {{% note %}}
-#### Count empty tables
+#### Empty tables
 `count()` returns `0` for empty tables.
 To keep empty tables in your data, set the following parameters for the following functions:
 
