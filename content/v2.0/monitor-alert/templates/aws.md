@@ -32,7 +32,7 @@ The AWS CloudWatch Monitoring template includes the following:
 3. In your Telegraf configuration file (`telegraf.conf`), find the following example `influxdb_v2` output plugins, and then **replace** the `urls` to specify the servers to monitor:
 
    ```sh
-    ##k8s
+    ## k8s
     [[outputs.influxdb_v2]]
      urls = ["http://influxdb.monitoring:9999"]
      organization = "InfluxData"
