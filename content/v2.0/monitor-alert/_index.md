@@ -3,7 +3,7 @@ title: Monitor data and send alerts
 seotitle: Monitor data and send alerts
 description: >
   Monitor your time series data and send alerts by creating checks, notification
-  rules, and notification endpoints. Use a template to monitor supported environments.
+  rules, and notification endpoints. Or use community templates to monitor supported environments.
 menu:
   v2_0:
     name: Monitor & alert
@@ -12,7 +12,7 @@ v2.0/tags: [monitor, alert, checks, notification, endpoints]
 ---
 
 Monitor your time series data and send alerts by creating checks, notification
-rules, and notification endpoints.
+rules, and notification endpoints. Or use [community templates to monitor](/v2.0/monitor-alert/templates) supported environments.
 
 ## Overview
 
