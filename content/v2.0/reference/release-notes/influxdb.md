@@ -18,6 +18,11 @@ weight: 101
 - Add static builds for Linux.
 - Update Flux to v.0.71.1.
 
+## Bug Fixes
+- Don't overwrite build date set via `ldflags`.
+- Fix issue where define query was unusable after importing a Check.
+- Update documentation links
+
 ## v2.0.0-beta.13 [2020-06-25]
 
 ## Features
