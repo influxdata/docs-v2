@@ -14,7 +14,7 @@ influxdb/v2.0/tags: [monitor, alert, checks, notification, endpoints]
 ---
 
 Monitor your time series data and send alerts by creating checks, notification
-rules, and notification endpoints. Or use [community templates to monitor](/v2.0/monitor-alert/templates) supported environments.
+rules, and notification endpoints. Or use [community templates to monitor](/v2.0/monitor-alert/templates/) supported environments.
 
 ## Overview
 
