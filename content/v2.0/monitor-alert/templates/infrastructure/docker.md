@@ -9,7 +9,7 @@ menu:
 weight: 202
 ---
 
-Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
+Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers. First, [apply the template](apply-the-template), and then [view incoming data](view-incoming-data).
 This template uses the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
 
 The Docker Monitoring template includes the following:
@@ -43,7 +43,10 @@ The Docker Monitoring template includes the following:
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
 
 4. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
-5. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
+
+## View incoming data
+
+1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-6. Open the **Docker** dashboard to start monitoring.
+2. Open the **Docker** dashboard to start monitoring.
