@@ -35,12 +35,14 @@ The Docker Monitoring template includes the following:
    > **Note:** Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
 
 2. [Install Telegraf](/telegraf/latest/introduction/installation/) on a server with network access to both the Docker containers and [InfluxDB v2 API](/v2.0/reference/api/).
-3. In your Telegraf configuration file (`telegraf.conf`), do the following:
+3. In your [Telegraf configuration file (`telegraf.conf`)](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/), do the following:
     - Depending on how you run Docker, you may need to customize the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) configuration, for example, you may need to specify the `endpoint value`.
     - Set the following environment variables:
       - INFLUX_TOKEN: Token with the permissions to read Telegraf configurations and write data to the `telegraf` bucket. For example, use your master token to get started. See how to [view tokens](/v2.0/security/tokens/view-tokens/).
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/v2.0/organizations/view-orgs/).
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
+
+  
 4. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 5. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
