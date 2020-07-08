@@ -4,9 +4,23 @@ description: >
   Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
 menu:
   v2_0:
-    parent: Monitor with templates
+    parent: Infrastructure
     name: Docker
 weight: 202
+---
+
+---
+title: Create checks
+seotitle: Create monitoring checks in InfluxDB
+description: >
+  Create a check in the InfluxDB UI.
+menu:
+  v2_0:
+    parent: Manage checks
+weight: 201
+related:
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
