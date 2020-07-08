@@ -13,8 +13,8 @@ weight: 101
 ## Features
 
 - Extend `influx stacks update` command with ability to add resources without apply template.
-- Normalize InfluxDB templates under new /api/v2/templates and /api/v2/stacks public API.
-- Extend template Summary and Diff nested types with kind identifiers.
+- Consolidate all InfluxDB template and stack functionality into two new public APIs: `/api/v2/templates` and `/api/v2/stacks`.
+- Extend template `Summary` and `Diff` nested types with `kind` identifiers.
 
 ## v2.0.0-beta.13 [2020-06-25]
 
