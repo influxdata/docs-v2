@@ -18,20 +18,36 @@ The AWS CloudWatch Monitoring template includes the following:
   - **AWS CloudWatch Instance Monitoring**: Displays data from the `cloudwatch_aws_ec2` measurement
 - two labels: `inputs.cloudwatch`, `AWS`
 - one variable: `v.bucket`
-- one Telegraf input plugin: [AWS CloudWatch](/v2.0/reference/telegraf-plugins/#cloudwatch)
+- one Telegraf configuration: [AWS CloudWatch input plugin](/v2.0/reference/telegraf-plugins/#cloudwatch)
 
 ## Apply the template
 
-1. Use the [`influx` CLI]((/v2.0/reference/cli/influx/) to run the following command:
+1. Use the [`influx` CLI](/v2.0/reference/cli/influx/) to run the following command:
 
     ```sh
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/aws_cloudwatch/aws_cloudwatch.yml
     ```
     For more information, see [influx apply](/v2.0/reference/cli/influx/apply/).
-
 2. [Install Telegraf](/telegraf/latest/introduction/installation/) on a server with network access to both the CloudWatch API and [InfluxDB v2 API](/v2.0/reference/api/).
-3. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
-4. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
+3.In your Telegraf configuration file (`telegraf.conf`), find the following example `influxdb_v2` output plugins, and then **replace** the `urls` to specify the servers to monitor:
+
+   ```sh
+    ##k8s
+    [[outputs.influxdb_v2]]
+     urls = ["http://influxdb.monitoring:9999"]
+     organization = "InfluxData"
+     bucket = "kubernetes"
+     token = "secret-token"
+ 
+    ## cloudv2 sample
+    [[outputs.influxdb_v2]]
+     urls = ["$INFLUX_HOST"]
+     token = "$INFLUX_TOKEN"
+     organization = "$INFLUX_ORG"
+     bucket = “cloudwatch"
+   ```
+4. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
+5. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-5. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from.
+6. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from (`kubernetes` or `cloudwatch`).
