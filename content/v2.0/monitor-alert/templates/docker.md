@@ -42,7 +42,6 @@ The Docker Monitoring template includes the following:
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/v2.0/organizations/view-orgs/).
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
 
-  
 4. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 5. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
