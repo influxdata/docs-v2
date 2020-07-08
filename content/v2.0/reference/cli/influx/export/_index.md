@@ -42,6 +42,7 @@ influx export [command]
 |      | `--resource-type`    | Resource type associated with all IDs via stdin                                  | string     |                    |
 |      | `--rules`            | Comma-separated list of notification rule IDs                                    | string     |                    |
 |      | `--skip-verify`      | Skip TLS certificate verification                                                |            |                    |
+|      | `--stack-id`         | Stack ID to include resources from in export                                     | string     |                    |
 |      | `--tasks`            | Comma-separated list of task IDs                                                 | string     |                    |
 |      | `--telegraf-configs` | Comma-separated list of Telegraf configuration IDs                               | string     |                    |
 | `-t` | `--token`            | Authentication token                                                             | string     | `INFLUX_TOKEN`     |
@@ -57,4 +58,11 @@ influx export \
   --buckets=$BID1,$BID2,$BID3 \
   --labels=$LID1,$LID2,$LID3 \
   --dashboards=$DID1,$DID2,$DID3
+
+# Export all resources associated with a stack
+influx export --stack-id $STACK_ID
+
+# Export resources associated with a stack and resources
+# *not* associated with the stack
+influx export --stack-id $STACK_ID --buckets $BUCKET_ID
 ```
