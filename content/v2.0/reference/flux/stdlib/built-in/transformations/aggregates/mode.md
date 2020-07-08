@@ -27,6 +27,11 @@ If there are multiple modes, it returns all of them in a sorted table.
 Mode only considers non-null values.
 If there is no mode, `mode()` returns `null`.
 
+{{% warn %}}
+#### Empty tables
+`mode()` drops empty tables.
+{{% /warn %}}
+
 ##### Supported data types
 
 - String

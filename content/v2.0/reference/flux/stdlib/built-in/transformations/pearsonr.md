@@ -4,17 +4,18 @@ description: The `pearsonr()` function computes the Pearson R correlation coeffi
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/pearsonr
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/pearsonr/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/pearsonr/
 menu:
   v2_0_ref:
     name: pearsonr
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 ---
 
 The `pearsonr()` function computes the Pearson R correlation coefficient between two streams
 by first joining the streams, then performing the covariance operation normalized to compute R.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js

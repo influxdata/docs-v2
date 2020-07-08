@@ -22,6 +22,11 @@ _**Output data type:** Object_
 sample(n:5, pos: -1)
 ```
 
+{{% warn %}}
+#### Empty tables
+`sample()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

@@ -5,18 +5,19 @@ description: >
   derivative (TRIX) of input tables using `n` points.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleexponentialderivative/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleexponentialderivative/
 menu:
   v2_0_ref:
     name: tripleExponentialDerivative
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 v2.0/tags: [technical analysis]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-derivative, InfluxQL TRIPLE_EXPONENTIAL_DERIVATIVE()
 ---
 
@@ -24,7 +25,7 @@ The `tripleExponentialDerivative()` function calculates a triple exponential
 derivative ([TRIX](https://en.wikipedia.org/wiki/Trix_(technical_analysis))) of
 input tables using `n` points.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 
 ```js
 tripleExponentialDerivative(n: 5)

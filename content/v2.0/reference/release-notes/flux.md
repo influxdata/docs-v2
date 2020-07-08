@@ -11,10 +11,49 @@ aliases:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.71.1**.
+The latest release of InfluxDB v2.0 beta includes **Flux v0.71.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.71.1 [2020-07-03]
+
+### Bug fixes
+- Add a check to ensure `every` is non-negative.
+
+---
+
+## v0.71.0 [2020-06-30]
+
+### Features
+- Apply `Timeable` constraint to integer type to support integer values in
+  time-related function parameters.
+- Implement schema mutation functions without performing any copies.
+- Add [`http.pathEscape()` function](/v2.0/reference/flux/stdlib/http/pathescape/).
+
+---
+
+## v0.70.0 [2020-06-29]
+### Features
+- Update all `date` functions to accept time and duration types.
+- Add [Microsoft Teams package](/v2.0/reference/flux/stdlib/contrib/teams/).
+- Evaluate and store `now` in execution dependencies for `tableFind()`.
+- Add `Timeable` constraint for time and duration types.
+- Add [SQL Server support](/v2.0/reference/flux/stdlib/sql/from/#query-a-sql-server-database) to `sql` package.
+- Add [Telegram package](/v2.0/reference/flux/stdlib/contrib/telegram/).
+- Add [Amazon Athena support](/v2.0/reference/flux/stdlib/sql/from/#query-an-amazon-athena-database) to `sql` package.
+- Add support for macOS builds.
+
+### Bug fixes
+- Move semantic analysis to the finalize step.
+- Fix check for stream equality.
+- Fix the compiler's return type when `with` operator is used.
+- Include `stdlib` Flux dependencies from the Flux `build.rs`.
+- Include a hash of the sources for `libflux`.
+- Flux test for [experimental `json.parse()`](/v2.0/reference/flux/stdlib/experimental/json/parse/).
+- Reorder `go generate` call to `libflux` in `stdlib`.
+
+---
 
 ## v0.69.2 [2020-06-10]
 

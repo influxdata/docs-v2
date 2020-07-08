@@ -149,7 +149,7 @@ After [setting up InfluxDB v2.0](/v2.0/get-started/#set-up-influxdb),
 the "Let's start collecting data!" page displays options for collecting data.
 Click **Quick Start**.
 
-InfluxDB creates and configures a new [scraper](/v2.0/write-data/scrape-data/).
+InfluxDB creates and configures a new [scraper](/v2.0/write-data/no-code/scrape-data/).
 The target URL points to the `/metrics` HTTP endpoint of your local InfluxDB instance
 (for example, `http://localhost:9999/metrics`), which outputs internal InfluxDB
 metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).

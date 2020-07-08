@@ -58,7 +58,18 @@ function storeUrl(newUrl, prevUrl) {
   Cookies.set('influxdb_url', newUrl)
 }
 
-// Preserver URLs in codeblocks that come just after or are inside a div
+// Store custom URL session cookie – influxdb_custom_url
+function storeCustomUrl(customUrl) {
+  Cookies.set('influxdb_custom_url', customUrl)
+  $('input#custom[type=radio]').val(customUrl)
+}
+
+// Remove custom URL session cookie – influxdb_custom_url
+function removeCustomUrl() {
+  Cookies.remove('influxdb_custom_url')
+}
+
+// Preserve URLs in codeblocks that come just after or are inside a div
 // with the class, .keep-url
 function addPreserve() {
   $('.keep-url').each(function () {
@@ -88,9 +99,6 @@ updateUrls(defaultUrl, getUrl())
 // Append URL selector buttons to code blocks
 appendUrlSelector(getUrl())
 
-// Set active radio button on page load
-setRadioButton(getUrl())
-
 // Update URLs whenever you focus on the browser tab
 $(window).focus(function() {
   updateUrls(getPrevUrl(), getUrl())
@@ -115,3 +123,51 @@ $('button.url-trigger, #callout-url-selector .close').click(function() {
     $('#callout-url-selector').fadeOut(200)
   }
 })
+
+///////////////////////////////// CUSTOM URLs /////////////////////////////////
+
+// Trigger radio button on custom URL field focus
+$('input#custom-url-field').focus(function(e) {
+  $('input#custom[type="radio"]').trigger('click')
+})
+
+$("#custom-url").submit(function(e) {
+  e.preventDefault();
+  $('#modal-close').trigger('click')
+});
+
+// Store the custom InfluxDB URL when exiting the field
+$('#custom-url-field').blur(function() {
+  custUrl = $(this).val()
+  if (custUrl.length > 0 ) {
+    storeCustomUrl(custUrl)
+    updateUrls(getUrl(), custUrl)
+    storeUrl(custUrl, getPrevUrl())
+  } else {
+    $('input#custom').val('http://example.com:8080')
+    removeCustomUrl();
+    $('input[name="influxdb-loc"][value="' + defaultUrl + '"]').trigger('click')
+  }
+})
+
+// Populate the custom InfluxDB URL field on page load
+if ( Cookies.get('influxdb_custom_url') != undefined ) {
+  $('input#custom').val(Cookies.get('influxdb_custom_url'))
+  $('#custom-url-field').val(Cookies.get('influxdb_custom_url'))
+}
+
+// Set active radio button on page load
+setRadioButton(getUrl())
+
+/////////////////////////// Dynamically update URLs ///////////////////////////
+
+// Extract the protocol and hostname of referrer
+referrerHost = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0]
+
+// Check if the referrerHost is one of the cloud URLs
+// cloudUrls is built dynamically in layouts/partials/footer/javascript.html
+if (cloudUrls.includes(referrerHost)) {
+  storeUrl(referrerHost, getUrl())
+  updateUrls(getPrevUrl(), referrerHost)
+  setRadioButton(referrerHost)
+}

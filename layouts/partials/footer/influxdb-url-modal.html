@@ -14,16 +14,31 @@
               <div class="providers">
                 {{ range .providers }}
                   <div class="provider">
-                    <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
-                    <ul>
-                    {{ range .regions }}
-                      <li>
-                        <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
-                          <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
-                          <span class="radio"></span>
-                          {{ .name }}
-                        </label>
-                      </li>
+                    {{ if eq .name "Custom" }}
+                      <h5>Custom</h5>
+                      <ul>
+                        <li class="custom">
+                          <label for="{{ anchorize .name }}">
+                            <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                            <span class="radio"></span>
+                          </label>
+                          <form action="#" id="custom-url">
+                            <input type="text" name="custom-url-field" id="custom-url-field" placeholder="{{ .url }}">
+                          </form>
+                        </li>
+                      </ul>
+                    {{ else }}
+                      <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
+                      <ul>
+                      {{ range .regions }}
+                        <li>
+                          <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
+                            <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                            <span class="radio"></span>
+                            {{ .name }}
+                          </label>
+                        </li>
+                      {{ end }}
                     {{ end }}
                     </ul>
                   </div>

@@ -38,6 +38,7 @@ The following drivers are available:
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#write-data-to-an-sqlite-database)._
+- sqlserver, mssql
 
 ### dataSourceName
 The data source name (DSN) or connection string used to connect to the SQL database.
@@ -60,6 +61,12 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 
 # SQLite Driver DSN
 file:/path/to/test.db?cache=shared&mode=rw
+
+# Microsoft SQL Server Driver DSNs
+sqlserver://username:password@localhost:1234?database=examplebdb
+server=localhost;user id=username;database=examplebdb;
+server=localhost;user id=username;database=examplebdb;azure auth=ENV
+server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;azure client id=58879ce8;azure client secret=0123456789
 ```
 
 ### table
@@ -78,6 +85,12 @@ If writing to a **SQLite** database, set `batchSize` to `999` or less.
 {{% /note %}}
 
 ## Examples
+
+- [MySQL](#write-data-to-a-mysql-database)
+- [Postgres](#write-data-to-a-postgres-database)
+- [Snowflake](#write-data-to-a-snowflake-database)
+- [SQLite](#write-data-to-an-sqlite-database)
+- [SQL Server](#write-data-to-a-sql-server-database)
 
 {{% note %}}
 The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
@@ -148,3 +161,69 @@ sql.to(
   table: "example_table"
 )
 ```
+
+### Write data to a SQL Server database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SQLSERVER_USER")
+password = secrets.get(key: "SQLSERVER_PASS")
+
+sql.to(
+  driverName: "sqlserver",
+  dataSourceName: "sqlserver://${username}:${password}@localhost:1234?database=examplebdb",
+  table: "Example.Table"
+)
+```
+
+#### SQL Server ADO authentication
+Use one of the following methods to provide SQL Server authentication credentials as
+[ActiveX Data Objects (ADO)](https://docs.microsoft.com/en-us/sql/ado/guide/ado-introduction?view=sql-server-ver15)
+connection string parameters:
+
+- [Retrieve authentication credentials from environment variables](#retrieve-authentication-credentials-from-environment-variables)
+- [Retrieve authentication credentials from a file](#retrieve-authentication-credentials-from-a-file)
+- [Specify authentication credentials in the connection string](#specify-authentication-credentials-in-the-connection-string)
+- [Use a Managed identity in an Azure VM](#use-a-managed-identity-in-an-azure-vm)
+
+##### Retrieve authentication credentials from environment variables
+```
+azure auth=ENV
+```
+
+##### Retrieve authentication credentials from a file
+{{% warn %}}
+**InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
+access to the underlying file system and do not support reading credentials from a file.
+To retrieve SQL Server credentials from a file, execute the query in the
+[Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
+{{% /warn %}}
+
+```powershell
+azure auth=C:\secure\azure.auth
+```
+
+##### Specify authentication credentials in the connection string
+```powershell
+# Example of providing tenant ID, client ID, and client secret token
+azure tenant id=77...;azure client id=58...;azure client secret=0cf123..
+
+# Example of providing tenant ID, client ID, certificate path and certificate password
+azure tenant id=77...;azure client id=58...;azure certificate path=C:\secure\...;azure certificate password=xY...
+
+# Example of providing tenant ID, client ID, and Azure username and password
+azure tenant id=77...;azure client id=58...;azure username=some@myorg;azure password=a1...
+```
+
+##### Use a managed identity in an Azure VM
+_For information about managed identities, see [Microsoft managed identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)._
+
+```
+azure auth=MSI
+```
+
+{{% warn %}}
+### sql.to does not support Amazon Athena
+The `sql.to` function does not support writing data to [Amazon Athena](https://aws.amazon.com/athena/).
+{{% /warn %}}

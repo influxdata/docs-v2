@@ -16,7 +16,7 @@ menu:
     name: Rate
 v2.0/tags: [query, rate]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/derivative/
   - /v2.0/reference/flux/stdlib/experimental/aggregate/rate/
 list_query_example: rate_of_change
 ---

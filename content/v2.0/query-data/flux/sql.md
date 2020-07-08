@@ -4,7 +4,8 @@ seotitle: Query SQL data sources with InfluxDB
 list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
-  Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake, and SQLite.
+  Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
+  SQLite, Microsoft SQL Server, and Amazon Athena.
 v2.0/tags: [query, flux, sql]
 menu:
   v2_0:
@@ -30,8 +31,10 @@ list_code_example: |
 The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
-[Snowflake](https://www.snowflake.com/), and [SQLite](https://www.sqlite.org/index.html),
-and use the results with InfluxDB dashboards, tasks, and other operations.
+[Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
+[Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
+and [Amazon Athena](https://aws.amazon.com/athena/) and use the results with
+InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
@@ -57,6 +60,7 @@ To query a SQL data source:
 [MySQL](#)
 [Snowflake](#)
 [SQLite](#)
+[SQL Server](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -109,6 +113,21 @@ sql.from(
   query: "SELECT * FROM example_table"
 )
 ```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+import "sql"
+
+sql.from(
+  driverName: "sqlserver",
+  dataSourceName: "sqlserver://user:password@localhost:1234?database=examplebdb",
+  query: "GO SELECT * FROM Example.Table"
+)
+```
+
+_For information about authenticating with SQL Server using ADO-style parameters,
+see [SQL Server ADO authentication](/v2.0/reference/flux/stdlib/sql/from/#sql-server-ado-authentication)._
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 

@@ -22,6 +22,11 @@ _**Output data type:** Object_
 min(column: "_value")
 ```
 
+{{% warn %}}
+#### Empty tables
+`min()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### column

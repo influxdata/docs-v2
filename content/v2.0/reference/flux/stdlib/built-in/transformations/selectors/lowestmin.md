@@ -24,6 +24,11 @@ lowestMin(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`lowestMin()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

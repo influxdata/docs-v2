@@ -4,24 +4,25 @@ description: >
   The `movingAverage()` function calculates the mean of values grouped into `n` number of points.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
+  - /v2.0/reference/flux/functions/built-in/transformations/movingaverage/
 menu:
   v2_0_ref:
     name: movingAverage
-    parent: built-in-aggregates
-weight: 501
+    parent: built-in-transformations
+weight: 402
 related:
   - /v2.0/query-data/flux/moving-average/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 
 The `movingAverage()` function calculates the mean of values in the `_values` column
 grouped into `n` number of points.
 
-_**Function type:** Aggregate_  
+_**Function type:** Transformation_  
 
 ```js
 movingAverage(n: 5)

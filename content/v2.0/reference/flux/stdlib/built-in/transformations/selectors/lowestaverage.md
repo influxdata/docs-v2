@@ -24,6 +24,11 @@ lowestAverage(
 )
 ```
 
+{{% warn %}}
+#### Empty tables
+`lowestAverage()` drops empty tables.
+{{% /warn %}}
+
 ## Parameters
 
 ### n

@@ -50,11 +50,6 @@ In **InfluxDB Cloud**, your user account is an organization.
 
 4. Export the template _(see [below](#export-a-template))_.
 
-{{% warn %}}
-InfluxDB templates do not support the [table visualization type](/v2.0/visualize-data/visualization-types/table/).
-Dashboard cells that use table visualization are not included in exported templates.
-{{% /warn %}}
-
 ## Export a template
 Do one of the following to export a template:
 
