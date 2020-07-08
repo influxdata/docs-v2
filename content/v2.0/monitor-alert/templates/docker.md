@@ -10,14 +10,14 @@ weight: 202
 ---
 
 Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
-This template uses the Docker plugin to collect metrics stored in InfluxDB and display these metrics in a dashboard.
+This template uses the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
 
 The Docker Monitoring template includes the following:
 
 - one dashboard: **Docker**
 - one bucket: `docker, 7d retention`
 - labels: Telegraf plugin labels
-- one Telegraf configuration: [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker)
+- one Telegraf configuration: Docker input plugin
 - one variable: `bucket`
 - four alerts: `Container cpu`, `mem`, `disk`, `non-zero exit`
 - one notification endpoint: `Http Post`
