@@ -47,7 +47,10 @@ The AWS CloudWatch Monitoring template includes the following:
      bucket = “cloudwatch"
    ```
 4. [Start Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
-5. View the incoming data. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
+
+## View the incoming data
+
+1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-6. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from (`kubernetes` or `cloudwatch`).
+2. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from (`kubernetes` or `cloudwatch`).
