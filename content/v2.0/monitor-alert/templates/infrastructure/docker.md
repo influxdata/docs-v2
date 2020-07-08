@@ -20,8 +20,8 @@ The Docker Monitoring template includes the following:
 - one Telegraf configuration: Docker input plugin
 - one variable: `bucket`
 - four alerts: `Container cpu`, `mem`, `disk`, `non-zero exit`
-- one notification endpoint: `Http Post`
-- one notification rule: `Crit Alert`
+- one [notification endpoint](v2.0/reference/glossary/#notification-endpoint): `Http Post`
+- one [notification rule](/v2.0/reference/glossary/#notification-rule): `Crit Alert`
 
 ## Apply the template
 
