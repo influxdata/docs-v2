@@ -4,7 +4,7 @@ description: >
   Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
 menu:
   v2_0:
-    parent: Infrastructure
+    parent: Monitor infrastructure
     name: Docker
 weight: 202
 ---
