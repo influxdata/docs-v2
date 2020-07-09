@@ -17,7 +17,7 @@ The Docker Monitoring template includes the following:
 - one [dashboard](/v2.0/reference/glossary/#dashboard): **Docker**
 - one [bucket](/v2.0/reference/glossary/#bucket): `docker, 7d retention`
 - labels: Docker input plugin labels
-- one Telegraf configuration: Docker input plugin
+- one [Telegraf configuration](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/): Docker input plugin
 - one variable: `bucket`
 - four [checks](/v2.0/reference/glossary/#check): `Container cpu`, `mem`, `disk`, `non-zero exit`
 - one [notification endpoint](v2.0/reference/glossary/#notification-endpoint): `Http Post`
