@@ -14,14 +14,16 @@ This template uses the [Docker input plugin](/v2.0/reference/telegraf-plugins/#d
 
 The Docker Monitoring template includes the following:
 
-- one dashboard: **Docker**
-- one bucket: `docker, 7d retention`
-- labels: Telegraf plugin labels
+- one [dashboard](/v2.0/reference/glossary/#dashboard): **Docker**
+- one [bucket](/v2.0/reference/glossary/#bucket): `docker, 7d retention`
+- labels: Docker input plugin labels
 - one Telegraf configuration: Docker input plugin
 - one variable: `bucket`
-- four alerts: `Container cpu`, `mem`, `disk`, `non-zero exit`
+- four [checks](/v2.0/reference/glossary/#check): `Container cpu`, `mem`, `disk`, `non-zero exit`
 - one [notification endpoint](v2.0/reference/glossary/#notification-endpoint): `Http Post`
 - one [notification rule](/v2.0/reference/glossary/#notification-rule): `Crit Alert`
+
+For more information about how checks, notification endpoints, and notifications rules work together, see [monitor data and send alerts](/v2.0/monitor-alert/).
 
 ## Apply the template
 
@@ -36,9 +38,9 @@ The Docker Monitoring template includes the following:
 
 2. [Install Telegraf](/telegraf/latest/introduction/installation/) on a server with network access to both the Docker containers and [InfluxDB v2 API](/v2.0/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/), do the following:
-    - Depending on how you run Docker, you may need to customize the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) configuration, for example, you may need to specify the `endpoint value`.
+    - Depending on how you run Docker, you may need to customize the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) configuration, for example, you may need to specify the `endpoint` value.
     - Set the following environment variables:
-      - INFLUX_TOKEN: Token with the permissions to read Telegraf configurations and write data to the `telegraf` bucket. For example, use your master token to get started. See how to [view tokens](/v2.0/security/tokens/view-tokens/).
+      - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/v2.0/security/tokens/view-tokens/).
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/v2.0/organizations/view-orgs/).
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
 
