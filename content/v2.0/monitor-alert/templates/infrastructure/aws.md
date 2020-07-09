@@ -13,12 +13,13 @@ Use the [AWS CloudWatch Monitoring template](https://github.com/influxdata/commu
 
 The AWS CloudWatch Monitoring template includes the following:
 
-- two dashboards:
+- two [dashboards](/v2.0/reference/glossary/#dashboard):
   - **AWS CloudWatch NLB (Network Load Balancers) Monitoring**: Displays data from the `cloudwatch_aws_network_elb measurement`
   - **AWS CloudWatch Instance Monitoring**: Displays data from the `cloudwatch_aws_ec2` measurement
+- two [buckets](/v2.0/reference/glossary/#bucket): `kubernetes` and `cloudwatch`
 - two labels: `inputs.cloudwatch`, `AWS`
 - one variable: `v.bucket`
-- one Telegraf configuration: [AWS CloudWatch input plugin](/v2.0/reference/telegraf-plugins/#cloudwatch)
+- one [Telegraf configuration](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/): [AWS CloudWatch input plugin](/v2.0/reference/telegraf-plugins/#cloudwatch)
 
 ## Apply the template
 
