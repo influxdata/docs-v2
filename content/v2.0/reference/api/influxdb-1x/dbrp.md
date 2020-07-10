@@ -23,7 +23,7 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [compatibility API](/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
-[Create DBRP mappings automatically](#DBRP mapping behavior) with the `/write` compatibility endpoint or
+[Create DBRP mappings automatically](#dbrp-mapping-behavior) with the `/write` compatibility endpoint or
 [create DBRP mappings manually](#manually-create-and-manage-dbrp-mappings) using the `/api/v2/dbrps` API endpoint.
 
 - [DBRP mapping behavior](#dbrp-mapping-behavior)
@@ -63,10 +63,10 @@ the DBRP mapping service checks for the specified database and retention policy
 - If no mapped bucket exists, InfluxDB returns an error.
 
 ## Manually create and manage DBRP mappings
-If you have existing buckets that you want to map database and retention policies to,
-but they don't follow the **database/retention-policy** naming convention,
+If you have existing buckets that don't follow the **database/retention-policy** naming convention,
+but you want to map databases and retention policies to them,
 use the using the [`/api/v2/dbrps` API endpoint](/v2.0/api/#tag/DBRPs) to
-manually create and the manage DBRP mappings.
+manually create and manage DBRP mappings.
 
 **To create a DBRP mapping, provide the following:**
 
