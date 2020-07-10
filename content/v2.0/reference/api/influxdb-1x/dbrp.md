@@ -54,6 +54,11 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
   created with a DBRP mapping, and data is written to the bucket.
   If no retention policy is specified, `autogen` is used.
 
+    {{% note %}}
+To automatically create new buckets, the authentication token used for the
+write request must be an **All Access token**.
+    {{% /note %}}
+
 ### When querying data
 When querying data from InfluxDB 2.0 using the [`/query` compatibility endpoint](/v2.0/reference/api/influxdb-1x/query/),
 the DBRP mapping service checks for the specified database and retention policy
