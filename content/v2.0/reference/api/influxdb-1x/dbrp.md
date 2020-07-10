@@ -23,7 +23,7 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [compatibility API](/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
-[Create DBRP mappings automatically](#dbrp-mapping-behavior) with the `/write` compatibility endpoint or
+[Create DBRP mappings automatically](#dbrp-mapping-logic) with the `/write` compatibility endpoint or
 [create DBRP mappings manually](#manually-create-and-manage-dbrp-mappings) using the `/api/v2/dbrps` API endpoint.
 
 - [DBRP mapping behavior](#dbrp-mapping-behavior)
@@ -34,7 +34,7 @@ A database can have multiple retention policies with one set as default.
 If no retention policy is specified in a query or write request, InfluxDB uses
 the default retention policy for the specified database.
 
-## DBRP mapping behavior
+## DBRP mapping logic
 
 - [When writing data](#when-writing-data)
 - [When querying data](#when-querying-data)
