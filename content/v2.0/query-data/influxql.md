@@ -34,7 +34,7 @@ Provide the following:
 {{% /note %}}
 
 ```sh
-curl -XGET http://localhost:9999/query?db=db&rp=rp \
+curl -G http://localhost:9999/query?db=db&rp=rp \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```

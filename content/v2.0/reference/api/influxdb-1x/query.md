@@ -72,7 +72,7 @@ The following precisions are available:
 
 ##### Query using basic authentication
 ```sh
-curl -XGET http://localhost:9999/query \
+curl -G http://localhost:9999/query \
   -H "Authorization: Basic username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -80,7 +80,7 @@ curl -XGET http://localhost:9999/query \
 
 ##### Query a non-default retention policy
 ```sh
-curl -XGET http://localhost:9999/query \
+curl -G http://localhost:9999/query \
   -H "Authorization: Basic username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
@@ -89,7 +89,7 @@ curl -XGET http://localhost:9999/query \
 
 ##### Execute multiple queries
 ```sh
-curl -XGET http://localhost:9999/query \
+curl -G http://localhost:9999/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
@@ -97,7 +97,7 @@ curl -XGET http://localhost:9999/query \
 
 ##### Return query results with millisecond Unix timestamps
 ```sh
-curl -XGET http://localhost:9999/query \
+curl -G http://localhost:9999/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
@@ -107,7 +107,7 @@ curl -XGET http://localhost:9999/query \
 
 ##### Use curl to execute InfluxQL queries from a file
 ```sh
-curl -XGET http://localhost:9999/query \
+curl -G http://localhost:9999/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   -F "q=@path/to/influxql.txt"
