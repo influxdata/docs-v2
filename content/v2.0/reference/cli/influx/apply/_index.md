@@ -20,9 +20,6 @@ _For information about finding and using InfluxDB templates, see
 influx apply [flags]
 ```
 
-#### Aliases
-`apply`, `pkg` _(deprecated)_
-
 ## Flags
 | Flag |                           | Description                                                                                 | Input Type | {{< cli/mapped >}}   |
 |:---- |:---                       |:-----------------------------                                                               |:---------- |:------------------   |
