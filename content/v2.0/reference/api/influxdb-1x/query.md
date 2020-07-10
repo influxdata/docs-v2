@@ -11,9 +11,9 @@ weight: 301
 v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |
-  ```sh
-  GET http://localhost:9999/query
-  ```
+  <pre>
+  <span class="api get">GET</span> http://localhost:9999/query
+  </pre>
 related:
   - /v2.0/query-data/influxql
 ---
@@ -21,9 +21,9 @@ related:
 The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
-```sh
-GET http://localhost:9999/query
-```
+<pre>
+<span class="api get">GET</span> http://localhost:9999/query
+</pre>
 
 ## Authentication
 Use **basic authentication** or **token authentication**.
@@ -68,7 +68,7 @@ The following precisions are available:
 - [Query a non-default retention policy](#query-a-non-default-retention-policy)
 - [Execute multiple queries](#execute-multiple-queries)
 - [Return query results with millisecond Unix timestamps](#return-query-results-with-millisecond-unix-timestamps)
-- [Use curl to execute InfluxQL queries from a file](#use-curl-to-execute-influxql-queries-from-a-file)
+- [Use `curl` to execute InfluxQL queries from a file](#use-curl-to-execute-influxql-queries-from-a-file)
 
 ##### Query using basic authentication
 ```sh

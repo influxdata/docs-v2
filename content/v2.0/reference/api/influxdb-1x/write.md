@@ -12,9 +12,9 @@ weight: 301
 v2.0/tags: [write]
 products: [cloud]
 list_code_example: |
-  ```sh
-  POST http://localhost:9999/write
-  ```
+  <pre>
+  <span class="api post">POST</span> http://localhost:9999/write
+  </pre>
 related:
   - /v2.0/reference/syntax/line-protocol
 ---
@@ -24,9 +24,9 @@ InfluxDB 1.x `/write` API endpoint.
 Use the `POST` request method to write [line protocol](/v2.0/reference/syntax/line-protocol/)
 to the `/write` endpoint.
 
-```sh
-POST http://localhost:9999/write
-```
+<pre>
+<span class="api post">POST</span> http://localhost:9999/write
+</pre>
 
 ## Authentication
 Use **basic authentication** or **token authentication**.

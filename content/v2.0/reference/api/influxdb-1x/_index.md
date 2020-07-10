@@ -17,7 +17,7 @@ The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
 InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 
 ## Authentication
-InfluxDB requires all query and write requests to be authenticated.
+InfluxDB 2.0 requires all query and write requests to be authenticated.
 Use **basic authentication** or **token authentication** to authenticate requests to
 InfluxDB 1.x compatibility endpoints.
 

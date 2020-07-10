@@ -1,7 +1,7 @@
 ---
 title: Database and retention policy mapping
 description: >
-  The database and retention policy (DBRP) mapping services maps InfluxDB 1.x
+  The database and retention policy (DBRP) mapping service maps InfluxDB 1.x
   database and retention policy combinations to InfluxDB 2.0 buckets.
 menu:
   v2_0_ref:
@@ -56,7 +56,7 @@ the DBRP mapping service uses the specified database and retention policy to:
 
 ##### If no retention policy is specified:
 1. Check for the specified database in the DBRP mapping service.
-  - If database exists, get the default retention policy for the specified database, and then:
+  - If the database exists, get the default retention policy for the specified database, and then:
   - If the database doesn't exists, add the database, set its default retention policy as `autogen`, and then:
 2. Continue the [normal DBRP mapping behavior](#when-writing-data).
 
@@ -64,9 +64,10 @@ the DBRP mapping service uses the specified database and retention policy to:
 When querying data from InfluxDB 2.0 using the [`/query` compatibility endpoint](/v2.0/reference/api/influxdb-1x/query/),
 the DBRP mapping service uses the specified database and retention policy to:
 
-1. Check for a DBRP mapping that matches the database and retention policy.
-  - If a DBRP mapping exists, query data from the mapped bucket.
-  - If no mapping exists, return an error.
+Check for a DBRP mapping that matches the database and retention policy.
+
+- If a DBRP mapping exists, query data from the mapped bucket.
+- If no mapping exists, return an error.
 
 ##### If no retention policy is specified:
 1. Check for the specified database in the DBRP mapping service.
