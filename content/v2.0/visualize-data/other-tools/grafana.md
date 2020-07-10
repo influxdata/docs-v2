@@ -32,7 +32,7 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
    icon to expand the **Configuration** section. Click **Data Sources**.
 5. Click **Add data source**.
 6. Select **InfluxDB** from the list of available data sources.
-7. Enter a **name** for your InfluxDB data source.
+7. On the **Data Source configuration page**, enter a **name** for your InfluxDB data source.
 8. Under **Query Language**, select one of the following:
 
 {{< tabs-wrapper >}}
