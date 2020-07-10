@@ -16,6 +16,30 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.72.1 [2020-07-09]
+
+### Bug fixes
+- Correctly classify "duplicate yield" error.
+
+---
+
+## v0.72.0 [2020-07-09]
+
+### Features
+- Update `from()` to use `Timeable`.
+
+### Bug fixes
+- Fix appending an array of booleans with null values.
+- Pass the context to the planner when using the table object compiler.
+- Add `diff` output to release script on error.
+- Appending empty tables to a buffered builder normalizes the schema.
+- Remove `bad_sqlite_path1` test.
+- Classify spec build errors as user errors.
+- Verify index expression bounds in evaluation.
+- Substitute array element types correctly.
+
+---
+
 ## v0.71.1 [2020-07-03]
 
 ### Bug fixes
