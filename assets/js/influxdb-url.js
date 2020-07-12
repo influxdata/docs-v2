@@ -1,4 +1,6 @@
 var defaultUrl = "http://localhost:9999"
+var placeholderCloudUrl = "https://cloud2.influxdata.com"
+var defaultCloudUrl = "https://us-west-2-1.aws.cloud2.influxdata.com"
 var elementSelector = ".article--content pre:not(.preserve)"
 
 // Retrieve the selected URL from the influxdb_url session cookie
@@ -98,6 +100,16 @@ updateUrls(defaultUrl, getUrl())
 
 // Append URL selector buttons to code blocks
 appendUrlSelector(getUrl())
+
+// Append URL selector buttons to cloud-only code blocks
+appendUrlSelector(placeholderCloudUrl)
+
+// Update cloud-only URLs on load
+if (cloudUrls.includes(getUrl())) {
+  updateUrls(placeholderCloudUrl, getUrl())
+} else {
+  updateUrls(placeholderCloudUrl, defaultCloudUrl)
+}
 
 // Update URLs whenever you focus on the browser tab
 $(window).focus(function() {

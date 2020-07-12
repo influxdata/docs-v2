@@ -625,6 +625,19 @@ http://localhost:9999
 ```
 ~~~
 
+### Code examples only supported in InfluxDB Cloud
+Some functionality is only supported in InfluxDB Cloud and code examples should
+only use InfluxDB Cloud URLs. In these cases, use `https://cloud2.influxdata.com`
+as the placeholder in the code block. It will get updated on page load and when
+users select a Cloud region in the URL select modal.
+
+~~~
+```sh
+# This URL will get updated
+https://cloud2.influxdata.com
+```
+~~~
+
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.

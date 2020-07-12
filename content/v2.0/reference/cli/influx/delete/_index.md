@@ -11,6 +11,7 @@ v2.0/tags: [delete]
 
 The `influx delete` command deletes [points](/v2.0/reference/glossary/#point)
 from an InfluxDB bucket.
+Identify points to delete using [delete predicate syntax](/v2.0/reference/syntax/delete-predicate).
 
 ## Usage
 ```
