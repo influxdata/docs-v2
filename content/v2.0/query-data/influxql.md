@@ -34,7 +34,7 @@ Provide the following:
 {{% /note %}}
 
 ```sh
-curl -G http://localhost:9999/query?db=db&rp=rp \
+curl -G https://cloud2.influxdata.com/query?db=db&rp=rp \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```

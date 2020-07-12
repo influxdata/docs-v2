@@ -13,7 +13,7 @@ v2.0/tags: [write]
 products: [cloud]
 list_code_example: |
   <pre>
-  <span class="api post">POST</span> http://localhost:9999/write
+  <span class="api post">POST</span> https://cloud2.influxdata.com/write
   </pre>
 related:
   - /v2.0/reference/syntax/line-protocol
@@ -25,7 +25,7 @@ Use the `POST` request method to write [line protocol](/v2.0/reference/syntax/li
 to the `/write` endpoint.
 
 <pre>
-<span class="api post">POST</span> http://localhost:9999/write
+<span class="api post">POST</span> https://cloud2.influxdata.com/write
 </pre>
 
 ## Authentication
@@ -72,21 +72,21 @@ The following precisions are available:
 
 ##### Write data using basic authentication
 ```sh
-curl -XPOST http://localhost:9999/write?db=mydb \
+curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
   -H "Authorization: Basic username:YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write data to a non-default retention policy
 ```sh
-curl -XPOST http://localhost:9999/write?db=mydb&rp=customrp \
+curl -XPOST https://cloud2.influxdata.com/write?db=mydb&rp=customrp \
   -H "Authorization: Basic username:YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write multiple lines of line protocol
 ```sh
-curl -XPOST http://localhost:9999/write?db=mydb \
+curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
   -H "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
@@ -95,14 +95,14 @@ measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 
 ##### Write data with millisecond Unix timestamps
 ```sh
-curl -XPOST http://localhost:9999/write?db=mydb&precision=ms \
+curl -XPOST https://cloud2.influxdata.com/write?db=mydb&precision=ms \
   -H "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
 
 ##### Use curl to write data from a file
 ```sh
-curl -XPOST http://localhost:9999/write?db=mydb \
+curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
   -H "Authorization: Token YourAuthToken" \
   --data-binary @path/to/line-protocol.txt
 ```

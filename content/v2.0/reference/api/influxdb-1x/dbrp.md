@@ -84,7 +84,7 @@ manually create and manage DBRP mappings.
 
 <!--  -->
 ```sh
-curl -XPOST http://localhost:9999/api/v2/dbrps \
+curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
   -H "Authorization: Token YourAuthToken" \
   -H 'Content-type: application/json' \
   -d '{

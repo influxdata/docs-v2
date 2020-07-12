@@ -12,7 +12,7 @@ v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |
   <pre>
-  <span class="api get">GET</span> http://localhost:9999/query
+  <span class="api get">GET</span> https://cloud2.influxdata.com/query
   </pre>
 related:
   - /v2.0/query-data/influxql
@@ -22,7 +22,7 @@ The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
-<span class="api get">GET</span> `http://localhost:9999/query`
+<span class="api get">GET</span> https://cloud2.influxdata.com/query
 </pre>
 
 The `/query` compatibility endpoint use the **database** and **retention policy**
@@ -82,7 +82,7 @@ The following precisions are available:
 
 ##### Query using basic authentication
 ```sh
-curl -G http://localhost:9999/query \
+curl -G https://cloud2.influxdata.com/query \
   -u username:YourAuthToken \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -90,7 +90,7 @@ curl -G http://localhost:9999/query \
 
 ##### Query a non-default retention policy
 ```sh
-curl -G http://localhost:9999/query \
+curl -G https://cloud2.influxdata.com/query \
   -H "Authorization: Basic username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
@@ -99,7 +99,7 @@ curl -G http://localhost:9999/query \
 
 ##### Execute multiple queries
 ```sh
-curl -G http://localhost:9999/query \
+curl -G https://cloud2.influxdata.com/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
@@ -107,7 +107,7 @@ curl -G http://localhost:9999/query \
 
 ##### Return query results with millisecond Unix timestamps
 ```sh
-curl -G http://localhost:9999/query \
+curl -G https://cloud2.influxdata.com/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
@@ -117,7 +117,7 @@ curl -G http://localhost:9999/query \
 
 ##### Use curl to execute InfluxQL queries from a file
 ```sh
-curl -G http://localhost:9999/query \
+curl -G https://cloud2.influxdata.com/query \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   -F "q=@path/to/influxql.txt"
