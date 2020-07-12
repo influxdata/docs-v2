@@ -22,8 +22,18 @@ The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
-<span class="api get">GET</span> http://localhost:9999/query
+<span class="api get">GET</span> `http://localhost:9999/query`
 </pre>
+
+The `/query` compatibility endpoint use the **database** and **retention policy**
+specified in the query request to map the request to an InfluxDB 2.0 bucket.
+For more information, see [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp).
+
+{{% note %}}
+If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
+you **must** [manually create a database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/#manually-create-and-manage-dbrp-mappings)
+to query that bucket with the `/query` compatibility API.
+{{% /note %}}
 
 ## Authentication
 Use **basic authentication** or **token authentication**.
@@ -73,7 +83,7 @@ The following precisions are available:
 ##### Query using basic authentication
 ```sh
 curl -G http://localhost:9999/query \
-  -H "Authorization: Basic username:YourAuthToken" \
+  -u username:YourAuthToken \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```

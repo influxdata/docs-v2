@@ -68,12 +68,13 @@ the DBRP mapping service checks for the specified database and retention policy
 - If no mapped bucket exists, InfluxDB returns an error.
 
 ## Manually create and manage DBRP mappings
-If you have existing buckets that don't follow the **database/retention-policy** naming convention,
-but you want to map databases and retention policies to them,
-use the using the [`/api/v2/dbrps` API endpoint](/v2.0/api/#tag/DBRPs) to
+If you have an existing bucket that does't follow the **database/retention-policy**
+naming convention, you **must** manually create a database and retention policy
+mapping to query that bucket with the `/query` compatibility API.
+Use the using the [`/api/v2/dbrps` API endpoint](/v2.0/api/#tag/DBRPs) to
 manually create and manage DBRP mappings.
 
-**To create a DBRP mapping, provide the following:**
+**To manually create a DBRP mapping, provide the following:**
 
 - authentication token
 - organization name or ID
