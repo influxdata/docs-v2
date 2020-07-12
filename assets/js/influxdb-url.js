@@ -34,11 +34,11 @@ function updateUrls(currentUrl, newUrl) {
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB URL
-function appendUrlSelector(currentUrl) {
+function appendUrlSelector(currentUrl, selectorText) {
   $(elementSelector).each(function() {
     var code = $(this).html()
     if (code.includes(currentUrl)) {
-      $(this).after("<div class='select-url'><a class='url-trigger' href='#'>Cloud or OSS?</a></div>")
+      $(this).after("<div class='select-url'><a class='url-trigger' href='#'>" + selectorText + "</a></div>")
       $('.select-url').fadeIn(400)
     }
   });
@@ -99,10 +99,10 @@ addPreserve()
 updateUrls(defaultUrl, getUrl())
 
 // Append URL selector buttons to code blocks
-appendUrlSelector(getUrl())
+appendUrlSelector(getUrl(), "Cloud or OSS?")
 
 // Append URL selector buttons to cloud-only code blocks
-appendUrlSelector(placeholderCloudUrl)
+appendUrlSelector(placeholderCloudUrl, "InfluxDB Cloud Region")
 
 // Update cloud-only URLs on load
 if (cloudUrls.includes(getUrl())) {
