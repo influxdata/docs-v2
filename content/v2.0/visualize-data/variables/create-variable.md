@@ -15,6 +15,13 @@ Create dashboard variables in the Data Explorer, from the Settings section, or i
 There are multiple variable types that provide different means of populating your list of variable values.
 _For information about variable types, see [Variable types](/v2.0/visualize-data/variables/variable-types/)._
 
+{{% note %}}
+##### Reserved keywords
+
+The following names cannot be used as dashboard variables because they are reserved keywords in Flux:
+`and`, `import`, `not`, `return`, `option`, `test`, `empty`, `in`, `or`, `package`, and `builtin`.
+{{% /note %}}
+
 ## Create a variable in the Data Explorer
 
 {{% note %}}
