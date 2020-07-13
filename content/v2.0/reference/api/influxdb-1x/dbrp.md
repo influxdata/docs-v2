@@ -77,8 +77,8 @@ manually create and manage DBRP mappings.
 **To manually create a DBRP mapping, provide the following:**
 
 - authentication token
-- organization name or ID
-- target bucket ID
+- organization name or ID (organization or organization_id)
+- target bucket ID (bucket_id)
 - database to map
 - retention policy to map
 
@@ -88,8 +88,8 @@ curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
   -H "Authorization: Token YourAuthToken" \
   -H 'Content-type: application/json' \
   -d '{
-        "org": "example-org",
-        "bucketID": "12ab34cd56ef",
+        "organization": "example-org",
+        "bucket_id": "12ab34cd56ef",
         "database": "example-db",
         "retention_policy": "example-rp",
         "default": true
