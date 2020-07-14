@@ -27,7 +27,7 @@ import "strings"
 
 strings.trimRight(v: ".abc.", cutset: ".")
 
-// returns "abc."
+// returns ".abc"
 ```
 
 ## Parameters
