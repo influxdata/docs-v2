@@ -30,7 +30,7 @@ For more information about how checks, notification endpoints, and notifications
 1. Use the [`influx` CLI](/v2.0/reference/cli/influx/) to run the following command:
 
     ```sh
-    influx apply -f hhttps://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
+    influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
     ```
     For more information, see [influx apply](/v2.0/reference/cli/influx/apply/).
 
