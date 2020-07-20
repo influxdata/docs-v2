@@ -14,10 +14,7 @@ weight: 201
 Create authentication tokens using the InfluxDB user interface (UI) or the `influx`
 command line interface (CLI).
 
-
 Tokens are visible only to the user who created them and stop working when the user is deactivated. We recommend creating a generic IT user to create and manage tokens for writing data.
-
-##
 
 ## Create a token in the InfluxDB UI
 
