@@ -18,7 +18,7 @@ related:
   - /v2.0/reference/cli/influx/stacks/update/
 list_code_example: |
   ```sh
-  influx applyapply \
+  influx apply \
     -o example-org \
     -u http://example.com/template-1.yml \
     -u http://example.com/template-2.yml \
