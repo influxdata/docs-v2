@@ -16,6 +16,18 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.73.0 [2020-07-13]
+
+### Features
+- Add parameter for applying substitution to top-level environment.
+- Add MergeFilterRule to `universe.filter`
+
+### Bug fixes
+- Use query strings instead of AST for remote InfluxDB queries.
+  This lets you query remote InfluxDB instances in the Flux REPL.
+
+---
+
 ## v0.72.1 [2020-07-09]
 
 ### Bug fixes
