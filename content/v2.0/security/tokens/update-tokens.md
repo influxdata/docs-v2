@@ -1,7 +1,7 @@
 ---
 title: Update a token
 seotitle: Update authentication tokens in InfluxDB
-description: Update authentication tokens' descriptions in InfluxDB using the InfluxDB UI
+description: Update authentication tokens' descriptions in InfluxDB using the InfluxDB UI.
 aliases:
   - /v2.0/users/tokens/update-tokens
 menu:
