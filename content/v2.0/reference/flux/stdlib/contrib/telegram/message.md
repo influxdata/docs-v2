@@ -79,7 +79,7 @@ _**Data type:** Boolean_
 
 ## Examples
 
-##### Send the last reported status to a Microsoft Teams channel
+##### Send the last reported status to Telegram
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/telegram"

@@ -74,7 +74,7 @@ following fields:
 - `text`
 - `silent`
 
-_For more information, see [`telegram.message()`](/v2.0/reference/flux/stdlib/contrib/telegram/message/)._
+_For more information, see [`telegram.message()` parameters](/v2.0/reference/flux/stdlib/contrib/telegram/message/#parameters)._
 
 ## Examples
 
