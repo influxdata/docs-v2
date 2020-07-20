@@ -12,7 +12,7 @@ weight: 202
 related:
   - https://docs.sensu.io/sensu-go/latest/api/events/, Sensu Events API
   - https://docs.sensu.io/sensu-go/latest/api/apikeys/, Sensu APIKeys API
-  - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu Handlers
+  - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu handlers
 ---
 
 The `sensu.endpoint()` function sends an event to the
@@ -62,7 +62,7 @@ _**Data type:** String_
 
 ### entityName
 Event source.
-Use alpha-numeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
+Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 Default is `influxdb`.
 
