@@ -81,7 +81,7 @@ configure your InfluxDB connection:
     - **URL**: Your [InfluxDB URL](/v2.0/reference/urls/).
 
         ```sh
-        http://localhost:9999
+        https://cloud2.influxdata.com
         ```
     - **Access**: Server (default)
 
