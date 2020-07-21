@@ -14,9 +14,10 @@ Any section that is not currently implemented is commented with a **[IMPL#XXX]**
 **XXX** is an issue number tracking discussion and progress towards implementation.
 {{% /note %}}
 
-A _type_ defines the set of values and operations on those values.
-Types are never explicitly declared as part of the syntax.
+A **type** defines the set of values and operations on those values.
+Types are never explicitly declared as part of the syntax except as part of a [builtin statement](#system-built-ins).
 Types are always inferred from the usage of the value.
+Type inference follows a Hindley-Milner style inference system.
 
 ## Union types
 A union type defines a set of types.
@@ -154,3 +155,47 @@ The generated values may be of any other type, but must all be the same type.
 {{% note %}}
 [IMPL#658](https://github.com/influxdata/platform/query/issues/658) Implement Generators types.
 {{% /note %}}
+
+#### Polymorphism
+Flux types can be polymorphic, meaning that a type may take on many different types.
+Flux supports let-polymorphism and structural polymorphism.
+
+##### Let-polymorphism
+Let-polymorphism is the concept that each time an identifier is referenced, it may take on a different type.
+For example:
+
+```js
+add = (a,b) => a + b
+add(a:1,b:2) // 3
+add(a:1.5,b:2.0) // 3.5
+```
+
+The identifiers, `a` and `b`, in the body of the `add` function are used as both `int` and `float` types.
+
+##### Structural polymorphism
+Structural polymorphism is the concept that structures (objects in Flux) can be
+used by the same function even if the structures themselves are different.
+For example:
+
+```js
+john = {name:"John", lastName:"Smith"}
+jane = {name:"Jane", age:44}
+
+// John and Jane are objects with different types.
+// We can still define a function that can operate on both objects safely.
+
+// name returns the name of a person
+name = (person) => person.name
+
+name(person:john) // John
+name(person:jane) // Jane
+
+device = {id: 125325, lat: 15.6163, lon: 62.6623}
+
+name(person:device) // Type error, "device" does not have a property name.
+```
+
+Objects of differing types can be used as the same type so long as they both contain the necessary properties.
+Necessary properties are determined by the use of the object.
+This form of polymorphism means that checks are performed during type inference and not during runtime.
+Type errors are found and reported before runtime.

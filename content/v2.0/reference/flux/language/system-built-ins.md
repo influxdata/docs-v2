@@ -12,15 +12,35 @@ menu:
 weight: 206
 ---
 
+Flux contains many preassigned values. These preassigned values are defined in the source files for the various built-in packages.
+
 When a built-in value is not expressible in Flux, its value may be defined by the hosting environment.
 All such values must have a corresponding builtin statement to declare the existence and type of the built-in value.
 
 ```js
-BuiltinStatement = "builtin" identifier ":" TypeExpression .
+BuiltinStatement = "builtin" identifer ":" TypeExpression .
+TypeExpression   = MonoType ["where" Constraints] .
+
+MonoType = Tvar | Basic | Array | Record | Function .
+Tvar     = "A" … "Z" .
+Basic    = "int" | "uint" | "float" | "string" | "bool" | "time" | "duration" | "bytes" | "regexp" .
+Array    = "[" MonoType "]" .
+Record   = ( "{" [Properties] "}" ) | ( "{" Tvar "with" Properties "}" ) .
+Function = "(" [Parameters] ")" "=>" MonoType .
+
+Properties = Property { "," Property } .
+Property   = identifier ":" MonoType .
+
+Parameters = Parameter { "," Parameter } .
+Parameter  = [ "<-" | "?" ] identifier ":" MonoType .
+
+Constraints = Constraint { "," Constraint } .
+Constraint  = Tvar ":" Kinds .
+Kinds       = identifier { "+" identifier } .
 ```
 
 ##### Example
 
 ```js
-builtin from : (bucket: string, bucketID: string) -> stream
+builtin filter : (<-tables: [T], fn: (r: T) -> bool) -> [T]
 ```
