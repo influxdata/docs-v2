@@ -1,7 +1,7 @@
 ---
-title: Explore with Postman
+title: Explore API with Postman
 description: >
-  Postman
+  Use Postman to explore the InfluxDB API.
 menu:
   v2_0_ref:
     parent: InfluxDB v2 API
