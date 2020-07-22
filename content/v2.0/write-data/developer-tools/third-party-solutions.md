@@ -15,31 +15,35 @@ menu:
 
 A number of third-party technologies can be configured to send line protocol directly to InfluxDB.
 
-## AWS Lambda
+## AWS Lambda via CloudFormation template
 
-CloudFormation is AWS’ infrastructure as code service that lets you define almost any AWS component in a configuration file. The result is a service that provides a concrete, repeatable definition of your environment that can prove useful in many scenarios. For example, if someone accidentally deletes your Simple Queue Service topic or an EC2 instance, you can easily recreate them by running your CloudFormation template.
+Write to InfluxDB with AWS Lambda, Amazon Web Services' serverless offering. AWS Lambda is Amazon Web Services' serverless offering, letting you run code without managing a server. CloudFormation templates create AWS stacks that wrap the AWS components defined in the template.
 
-
+Outputs the line protocol into one or more influx targets.
 
 ### Pt. 1
 
-The template in this example pulls data from the [United States Geological Survey (USGS)](https://www.usgs.gov/) every hour and writes it to InfluxDB.
+The [template](https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml) in this example pulls data from the [United States Geological Survey (USGS)](https://www.usgs.gov/) every hour and writes it to InfluxDB.
 
-### Pt 2.
-And grabs it at recurring intervals. AWS has something built in to do this. Then it outputs the line protocol into one or more influx targets.
+The template contains the following sections:
+
+- Lines 1-20: Define variables that the template asks for when it's installed.
+- Lines 21-120: Handle a quirk of Lambda deployments that requires the Lambda assets to be in your region before deployment. As there is no elegant workaround, these 100 lines create an S3 bucket in your account in the region you're creating the stack and copies in these resources.
+- Lines 121-132: Define a role with basic permission to run the Lambda.
+- Lines 133-144: Define a Python library layer. This layer packages the Python HTTP library, a Python S2 Geometry library, and the InfluxDB Python client library.
+- Lines 145-165: Define the Lambda function, a short Python script zipped up in a file called `geo_lambda.zip`.
+- Lines 166-188: Define an event rule with permission to run the Lambda every hour.
+
 
 ### Deploy the template
 
-Cloud formation — script his code and how he got it into lambda and how to package up and deploy it.
-
-Now that we have explored the template, let’s deploy it.
 
 1. Log into your free AWS account and search for the CloudFormation service. Make sure you’re in the AWS region you want to deploy the Lambda to⁠.
 2. Click **Create Stack**.
 3. In the **Prerequisite - Prepare Template** section, select **Template is ready**.
 4. In the **Specify template** section:
   - Under **Template source**, select **Amazon S3 URL**.
-  - In the **Amazon S3 URL** field, enter the following URL: `https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml`
+  - In the **Amazon S3 URL** field, enter the CloudFormation template URL: `https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml`
 5. Click **Next**.  
 6. Enter a name in the **Stack name** field.  
 7. Enter the following InfluxDB details:
@@ -53,7 +57,9 @@ Now that we have explored the template, let’s deploy it.
 
 After a few minutes, the stack deploys to your region. To view the new Lambda, select **Services > AWS Lambda**. On the Lambda functions page, you should see your new Lambda. The `CopyZipsFunction` is the helper copy function, and the `GeoPythonLambda` does the data collection and writing work:
 
-<img>
+<cloudformation1.png>
+
+## Verify your setup
 
 `GeoPythonLambda` should run every hour based on the AWS Rule we set up, but you should test and confirm it works.  
 
@@ -63,4 +69,4 @@ After a few minutes, the stack deploys to your region. To view the new Lambda, s
 
 With the data points written, when you log into your InfluxDB UI, you’ll be able to explore the geolocation earthquake data:
 
-<img>
+{{< img-hd src="/img/cloudformation2.png" alt="GeoPythonLambda data in InfluxDB" />}}
