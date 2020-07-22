@@ -1286,12 +1286,12 @@ input:
     introduced: 0.10.3
     tags: [linux, macos, windows, servers, web]
 
-- name: Redfish
-  id: redfish
-  description: |
-    The Redfish input plugin gathers metrics and status information of hardware servers for which [DMTF's Redfish](https://redfish.dmtf.org/) is enabled.
-  introduced: 1.15.0
-  tags: [linux, macos, windows, servers, networking]
+  - name: Redfish
+    id: redfish
+    description: |
+      The Redfish input plugin gathers metrics and status information of hardware servers for which [DMTF's Redfish](https://redfish.dmtf.org/) is enabled.
+    introduced: 1.15.0
+    tags: [linux, macos, windows, servers, networking]
 
   - name: Redis
     id: redis
