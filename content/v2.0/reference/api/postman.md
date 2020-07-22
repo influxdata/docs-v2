@@ -34,6 +34,6 @@ Use the **Authorization** tab to include the credentials required when interacti
 4. For "Value", enter `Token [token string]`, replacing `token string` with the token generated in step 1.
 5. Ensure that the "Add to" option is set to "Header".
 
-To test the authentication, enter the address of a local or Cloud instance of InfluxDB into the address bar
-(e.g. http://localhost:9999, or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
+To test the authentication, enter the `/health` endpoint of a local or Cloud instance of InfluxDB into the address bar
+(e.g. http://localhost:9999/api/v2/health, or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
 and click **Send**.
