@@ -1291,7 +1291,7 @@ input:
   description: |
     The Redfish input plugin gathers metrics and status information of hardware servers for which [DMTF's Redfish](https://redfish.dmtf.org/) is enabled.
   introduced: 1.15.0
-  tags: [linux, macos, windows, servers]
+  tags: [linux, macos, windows, servers, networking]
 
   - name: Redis
     id: redis
