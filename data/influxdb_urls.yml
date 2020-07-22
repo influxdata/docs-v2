@@ -32,4 +32,3 @@ cloud:
         - name: West Europe
           location: Amsterdam, Netherlands
           url: https://westeurope-1.azure.cloud2.influxdata.com
-          status: beta
