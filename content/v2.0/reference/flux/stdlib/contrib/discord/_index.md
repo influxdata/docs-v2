@@ -2,7 +2,7 @@
 title: Flux Discord package
 list_title: Discord package
 description: >
-  The Flux Discord package provides functions for sending data to Discord.
+  The Flux Discord package provides functions for sending messages to Discord.
   Import the `contrib/chobbs/discord` package.
 menu:
   v2_0_ref:
@@ -12,7 +12,7 @@ weight: 202
 v2.0/tags: [functions, discord, package]
 ---
 
-The Flux Discord package provides functions for sending data to Discord.
+The Flux Discord package provides functions for sending messages to Discord.
 Import the `contrib/chobbs/discord` package:
 
 ```js

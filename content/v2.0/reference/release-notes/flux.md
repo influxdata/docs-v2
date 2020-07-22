@@ -16,6 +16,23 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.74.0 [2020-07-21]
+
+### Features
+- Add `discord.endpoint()` function.
+- Enhance the static table API.
+- Update `mod.rs` with `parse_type_expression` and other supporting functions.
+- Expose static table package and table diff functions.
+- `Find_var_type()` API.
+- Add `stringify` method for a table and a diff utility.
+- Added range to end-to-end tests.
+- Add types grammar to SPEC.
+
+### Bug fixes
+- Normalize Monotype.
+
+---
+
 ## v0.73.0 [2020-07-13]
 
 ### Features
