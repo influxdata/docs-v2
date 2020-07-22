@@ -29,6 +29,6 @@ cloud:
     - name: Microsoft Azure
       short_name: Azure
       regions:
-        - name: West Europe
+        - name: West Europe (Amsterdam)
           location: Amsterdam, Netherlands
           url: https://westeurope-1.azure.cloud2.influxdata.com
