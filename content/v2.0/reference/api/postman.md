@@ -25,15 +25,16 @@ brew cask install postman
 ## Send authenticated API requests with Postman
 
 All requests to the InfluxDB API must be authenticated.
-Postman allows the user to configure the headers and body of HTTP requests.
-Use the **Authorization** tab to include the credentials required when interacting with the InfluxDB API.
+Postman lets you configure the headers and body of HTTP requests.
+
+Use the **Authorization** tab in Postman to include the credentials required when interacting with the InfluxDB API.
 
 1. If you have not already, [create a token](/v2.0/security/tokens/create-token/).
 2. Select **API Key** in the **Type** dropdown.
-3. For "Key", enter `Authentication`.
-4. For "Value", enter `Token [token string]`, replacing `token string` with the token generated in step 1.
-5. Ensure that the "Add to" option is set to "Header".
+3. For **Key**, enter `Authentication`.
+4. For **Value**, enter `Token [token string]`, replacing `token string` with the token generated in step 1.
+5. Ensure that the **Add to** option is set to **Header**.
 
 To test the authentication, enter the `/health` endpoint of a local or Cloud instance of InfluxDB into the address bar
-(e.g. http://localhost:9999/api/v2/health, or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
-and click **Send**.
+(for example, http://localhost:9999/api/v2/health or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
+and then click **Send**.
