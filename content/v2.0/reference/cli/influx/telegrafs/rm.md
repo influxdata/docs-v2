@@ -1,7 +1,7 @@
 ---
 title: influx telegrafs rm
 description: >
- placeholder
+  The `influx telegrafs rm` command removes Telegraf configurations from InfluxDB.
 menu:
   v2_0_ref:
     name: influx telegrafs rm

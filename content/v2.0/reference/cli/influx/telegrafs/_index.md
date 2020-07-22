@@ -1,7 +1,8 @@
 ---
 title: influx telegrafs
 description: >
- placeholder
+  The `influx telegrafs` command lists Telegraf configurations.
+  Subcommands manage Telegraf configurations.
 menu:
   v2_0_ref:
     name: influx telegrafs
