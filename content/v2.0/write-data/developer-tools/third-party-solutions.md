@@ -12,20 +12,13 @@ menu:
     parent: Developer tools
 ---
 
-
-A number of third-party technologies can be configured to send line protocol directly to InfluxDB.
+Configure third-party technologies to send line protocol directly to InfluxDB.
 
 ## AWS Lambda via CloudFormation template
 
-Write to InfluxDB with AWS Lambda, Amazon Web Services' serverless offering. AWS Lambda is Amazon Web Services' serverless offering, letting you run code without managing a server. CloudFormation templates create AWS stacks that wrap the AWS components defined in the template.
+Write to InfluxDB with AWS Lambda, Amazon Web Services' serverless offering. This example provides a CloudFormation template that collects earthquake from the [United States Geological Survey (USGS)](https://www.usgs.gov/) every hour and outputs it as line protocol into an InfluxDB bucket.
 
-Outputs the line protocol into one or more influx targets.
-
-### Pt. 1
-
-The [template](https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml) in this example pulls data from the [United States Geological Survey (USGS)](https://www.usgs.gov/) every hour and writes it to InfluxDB.
-
-The template contains the following sections:
+The [template](https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml) contains the following sections:
 
 - Lines 1-20: Define variables that the template asks for when it's installed.
 - Lines 21-120: Handle a quirk of Lambda deployments that requires the Lambda assets to be in your region before deployment. As there is no elegant workaround, these 100 lines create an S3 bucket in your account in the region you're creating the stack and copies in these resources.
@@ -34,9 +27,7 @@ The template contains the following sections:
 - Lines 145-165: Define the Lambda function, a short Python script zipped up in a file called `geo_lambda.zip`.
 - Lines 166-188: Define an event rule with permission to run the Lambda every hour.
 
-
 ### Deploy the template
-
 
 1. Log into your free AWS account and search for the CloudFormation service. Make sure you’re in the AWS region you want to deploy the Lambda to⁠.
 2. Click **Create Stack**.
@@ -57,9 +48,9 @@ The template contains the following sections:
 
 After a few minutes, the stack deploys to your region. To view the new Lambda, select **Services > AWS Lambda**. On the Lambda functions page, you should see your new Lambda. The `CopyZipsFunction` is the helper copy function, and the `GeoPythonLambda` does the data collection and writing work:
 
-<cloudformation1.png>
+{{< img-hd src="/img/cloudformation1.png" alt="GeoPythonLambda data in InfluxDB" />}}
 
-## Verify your setup
+### Verify your setup
 
 `GeoPythonLambda` should run every hour based on the AWS Rule we set up, but you should test and confirm it works.  
 
