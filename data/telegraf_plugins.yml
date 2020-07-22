@@ -2240,7 +2240,7 @@ processor:
     id: starlark
     description: |
       The Starlark processor plugin calls a [Starlark function](https://github.com/google/starlark-go/blob/master/doc/spec.md) for each matched metric, allowing for custom programmatic metric processing.
-    introduced: 1.15
+    introduced: 1.15.0
     tags: [linux, macos, windows]
 
   - name: Strings
