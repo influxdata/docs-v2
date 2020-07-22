@@ -1,5 +1,5 @@
 ---
-title: Explore API with Postman
+title: Explore with Postman
 description: >
   Use Postman to explore the InfluxDB API.
 menu:
@@ -9,10 +9,22 @@ weight: 3
 v2.0/tags: [api, authentication]
 ---
 
-[Postman](https://www.postman.com/) is a popular tool for exploring a APIs.
+[Postman](https://www.postman.com/) is a popular tool for exploring APIs.
+Use it to interact with the [InfluxDB API](/v2.0/reference/api).
+
+## Install Postman
+
+Download Postman from the [official downloads page](https://www.postman.com/downloads/).
+
+Or to install with Homebrew on macOS, run the following command:
+
+```sh
+brew cask install postman
+```
 
 ## Send authenticated API requests with Postman
 
+All requests to the InfluxDB API must be authenticated.
 Postman allows the user to configure the headers and body of HTTP requests.
 Use the **Authorization** tab to include the credentials required when interacting with the InfluxDB API.
 
@@ -21,3 +33,7 @@ Use the **Authorization** tab to include the credentials required when interacti
 3. For "Key", enter `Authentication`.
 4. For "Value", enter `Token [token string]`, replacing `token string` with the token generated in step 1.
 5. Ensure that the "Add to" option is set to "Header".
+
+To test the authentication, enter the address of a local or Cloud instance of InfluxDB into the address bar
+(e.g. http://localhost:9999, or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
+and click **Send**.
