@@ -19,16 +19,17 @@ influx telegrafs create [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                        | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                        |:----------: |:------------------    |
-| `-d` | `--description`  | Telegraf configuration description | string      |                       |
-| `-f` | `--file`         | Path to Telegraf configuration     | string      |                       |
-| `-h` | `--help`         | Help for the `create` command      |             |                       |
-|      | `--hide-headers` | Hide table headers                 |             | `INFLUX_HIDE_HEADERS` |
-|      | `--json`         | Output data as JSON                |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`         | Telegraf configuration name        | string      |                       |
-| `-o` | `--org`          | Organization name                  | string      | `INFLUX_ORG`          |
-|      | `--org-id`       | Organization ID                    | string      | `INFLUX_ORG_ID`       |
+| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                                                           |:----------: |:------------------    |
+|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
+| `-d` | `--description`  | Telegraf configuration description                                    | string      |                       |
+| `-f` | `--file`         | Path to Telegraf configuration                                        | string      |                       |
+| `-h` | `--help`         | Help for the `create` command                                         |             |                       |
+|      | `--hide-headers` | Hide table headers                                                    |             | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON                                                   |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`         | Telegraf configuration name                                           | string      |                       |
+| `-o` | `--org`          | Organization name                                                     | string      | `INFLUX_ORG`          |
+|      | `--org-id`       | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 
 ## Examples
 ```sh

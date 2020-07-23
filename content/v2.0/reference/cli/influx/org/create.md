@@ -16,13 +16,14 @@ influx org create [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                |:----------: |:------------------    |
-| `-d` | `--description`  | Description of the organization                            |             |                       |
-| `-h` | `--help`         | Help for the `create` command                              |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                       |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`         |
-|      | `--json`         | Output data as JSON (default `false`)                      |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`         | Organization name                                          | string      |                       |
-|      | `--skip-verify`  | Skip TLS certificate verification                          |             |                       |
-| `-t` | `--token`        | Authentication token                                       | string      | `INFLUX_TOKEN`        |
+| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---              |:-----------                                                           |:----------: |:------------------    |
+|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
+| `-d` | `--description`  | Description of the organization                                       |             |                       |
+| `-h` | `--help`         | Help for the `create` command                                         |             |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`         |
+|      | `--json`         | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`         | Organization name                                                     | string      |                       |
+|      | `--skip-verify`  | Skip TLS certificate verification                                     |             |                       |
+| `-t` | `--token`        | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
