@@ -13,6 +13,10 @@ menu:
     parent: Telegraf (agent)
 weight: 202
 v2.0/tags: [manually, plugin, mqtt]
+related:
+  - /v2.0/reference/telegraf-plugins/
+  - /v2.0/telegraf-configs/create/
+  - /v2.0/telegraf-configs/update/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.
@@ -134,17 +138,24 @@ The example below illustrates an `influxdb_v2` configuration.
 ```
 
 {{% note %}}
-
 ##### Write to InfluxDB v1.x and v2.0
-
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
 enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.0 instances.
 {{% /note %}}
 
+## Add a custom Telegraf configuration to InfluxDB
+To add a custom or manually configured Telegraf configuration to your collection
+of Telegraf configurations in InfluxDB, use the [`influx telegrafs create`](/v2.0/reference/cli/influx/telegrafs/create/)
+or [`influx telegrafs update`](/v2.0/reference/cli/influx/telegrafs/update/) commands.
+For more information, see:
+
+- [Create a Telegraf configuration](/v2.0/telegraf-configs/create/#use-the-influx-cli)
+- [Update a Telegraf configuration](/v2.0/telegraf-configs/update/#use-the-influx-cli)
+
 ## Start Telegraf
 
-Start the Telegraf service using the `-config` flag to specify the location of your `telegraf.conf`.
+Start the Telegraf service using the `--config` flag to specify the location of your `telegraf.conf`.
 
 ```sh
-telegraf -config /path/to/custom/telegraf.conf
+telegraf --config /path/to/custom/telegraf.conf
 ```
