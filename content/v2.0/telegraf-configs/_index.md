@@ -12,19 +12,19 @@ related:
 
 InfluxDB lets you automatically generate Telegraf configurations or upload customized
 Telegraf configurations that collect metrics and write them to InfluxDB.
-Telegraf fetches the stored configurations from InfluxDB on startup.
+Telegraf retrieves configurations from InfluxDB on startup.
 
 ## Use InfluxDB Telegraf configurations
-With a Telegraf configuration stored in InfluxDB, the `telegraf` agent can fetch
-the configuration from an HTTP(S) endpoint made available by InfluxDB.
+With a Telegraf configuration stored in InfluxDB, the `telegraf` agent can retrieve
+the configuration from an InfluxDB HTTP(S) endpoint.
 
-- Ensure Telegraf must has network access to InfluxDB (OSS or Cloud).
+- Ensure Telegraf has network access to InfluxDB (OSS or Cloud).
 - Start the `telegraf` agent using the `--config` flag to provide the URL of the
-  InfluxDB Telegraf configuration.
+  InfluxDB Telegraf configuration. For example:
 
-```sh
-telegraf --config http://localhost:9999/api/v2/telegrafs/<telegraf-config-id>
-```
+    ```sh
+    telegraf --config http://localhost:9999/api/v2/telegrafs/<telegraf-config-id>
+    ```
 
 {{% note %}}
 _[Setup instructions](/v2.0/telegraf-configs/view/#view-setup-instructions) for

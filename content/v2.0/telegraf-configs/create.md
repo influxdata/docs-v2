@@ -1,8 +1,8 @@
 ---
 title: Create a Telegraf configuration
 description: >
-  Use the InfluxDB UI and the [`influx` CLI](/v2.0/reference/cli/influx/)
-  to create new InfluxDB Telegraf configurations.
+  Use the InfluxDB UI or the [`influx` CLI](/v2.0/reference/cli/influx/)
+  to create an Telegraf configuration.
 weight: 101
 menu:
   v2_0:
@@ -14,17 +14,19 @@ related:
   - /v2.0/telegraf-configs/update/
 ---
 
-Use the InfluxDB user interface (UI) and the [`influx` CLI](/v2.0/reference/cli/influx/)
-to create new InfluxDB Telegraf configurations.
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+to create a Telegraf configuration.
+
+To create a Telegraf configuration, do one of the following:
 
 - [Use the InfluxDB UI](#use-the-influxdb-ui)
 - [Use the `influx` CLI](#use-the-influx-cli)
-- [Create custom InfluxDB Telegraf configurations](#create-custom-influxdb-telegraf-configurations)
+- [Create a custom Telegraf configurations](#create-a-custom-telegraf-configurations)
 
 ## Use the InfluxDB UI
 Use the InfluxDB UI to automatically generate and store new Telegraf configurations in InfluxDB.
-The Telegraf configuration creation in the UI process lets you select from popular
-technologies and generates a Telegraf configuration to collect metrics from those technologies.
+Creating the configuration in the UI lets you select from a list of available technologies
+and generates a Telegraf configuration to collect metrics from those technologies.
 For more information, see [Automatically configure Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/).
 
 Telegraf has an extensive list of plugins for many different technologies and use cases.
@@ -61,8 +63,7 @@ influx telegrafs create \
   -f /path/to/telegraf.conf
 ```
 
-## Create custom InfluxDB Telegraf configurations
-To create and upload a custom Telegraf configuration to InfluxDB:
+## Create a custom Telegraf configurations
 
 1. Create a custom Telegraf configuration file that includes the `outputs.influxdb_v2`
    output plugin. _See [Manually configure Telegraf](/v2.0/write-data/no-code/use-telegraf/manual-config/)_
