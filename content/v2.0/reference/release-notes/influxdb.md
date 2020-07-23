@@ -8,9 +8,24 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-beta.15 [2020-07-23]
+
+### Features
+
+- Add event source to stacks.
+- Add ability to uninstall stacks.
+- Drop deprecated `influx pkg` commands.
+- Add Telegraf management commands to `influx` CLI.
+- Enable dynamic destination for the `influx` CLI configuration file.
+
+### Bug Fixes
+- Allow 0 to be the custom set minimum value for y domain.
+- Single Stat cells render properly in Safari.
+- Limit variable querying when submitting queries to used variables.
+
 ## v2.0.0-beta.14 [2020-07-08]
 
-## Features
+### Features
 
 - Extend `influx stacks update` command with ability to add resources without apply template.
 - Consolidate all InfluxDB template and stack functionality into two new public APIs: `/api/v2/templates` and `/api/v2/stacks`.
@@ -18,14 +33,14 @@ weight: 101
 - Add static builds for Linux.
 - Update Flux to v.0.71.1.
 
-## Bug Fixes
+### Bug Fixes
 - Don't overwrite build date set via `ldflags`.
 - Fix issue where define query was unusable after importing a Check.
 - Update documentation links
 
 ## v2.0.0-beta.13 [2020-06-25]
 
-## Features
+### Features
 
 - Cancel submitted queries in the Data Explorer.
 - Extend templates with the source `file|url|reader`.
