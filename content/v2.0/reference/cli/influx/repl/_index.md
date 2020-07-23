@@ -12,10 +12,10 @@ v2.0/tags: [query]
 ---
 
 {{% warn %}}
-## Removed in InfluxDB 2.0 beta-15
+#### Removed in InfluxDB 2.0 beta-15
 The `influx repl` command was removed in **InfluxDB 2.0 beta-15**.
 To use the Flux REPL, build the REPL from source.
-For more information, see the [Flux GitHub repository](https://github.com/influxdata/flux/).
+For more information, see the [Flux GitHub repository](https://github.com/influxdata/flux/#readme).
 {{% /warn %}}
 
 The `influx repl` command opens an interactive read-eval-print-loop (REPL)
