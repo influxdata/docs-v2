@@ -566,8 +566,8 @@ Use Telegraf to quickly write data to {{< cloud-name >}}.
 Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
 existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
 
-For details, see [Automatically configure Telegraf](/v2.0/write-data/use-telegraf/auto-config/#create-a-telegraf-configuration)
-and [Manually update Telegraf configurations](/v2.0/write-data/use-telegraf/manual-config/).
+For details, see [Automatically configure Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/)
+and [Manually update Telegraf configurations](/v2.0/write-data/no-code/use-telegraf/manual-config/).
 
 #### Scrape data
 

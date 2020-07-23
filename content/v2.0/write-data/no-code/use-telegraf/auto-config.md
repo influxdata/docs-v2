@@ -11,6 +11,8 @@ menu:
   v2_0:
     parent: Telegraf (agent)
 weight: 201
+related:
+  - /v2.0/telegraf-configs/create/
 ---
 
 The InfluxDB user interface (UI) can automatically create
@@ -108,7 +110,7 @@ export INFLUX_TOKEN=YourAuthenticationToken
 
 {{% code-tab-content %}}
 ```sh
-$env:INFLUX_TOKEN = “YourAuthenticationToken"
+$env:INFLUX_TOKEN = "YourAuthenticationToken"
 ```
 {{% /code-tab-content %}}
 
@@ -143,6 +145,5 @@ telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
 
 ## Manage Telegraf configurations
 
-Create, view, and manage Telegraf configurations in the InfluxDB UI.
-
-{{< children >}}
+For more information about managing Telegraf configurations in InfluxDB, see
+[Telegraf configurations](/v2.0/telegraf-configs/).
