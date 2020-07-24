@@ -19,6 +19,10 @@ free access to different types of sample data.
 
 {{< youtube GSaByPC1Bdc >}}
 
+{{% note %}}
+Demo data is not available for use with third-party integrations such as Grafana.
+{{% /note %}}
+
 ## Sample data sets
 The following sample data sets are used as examples in [InfluxDB query guides](/v2.0/query-data/flux)
 and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
