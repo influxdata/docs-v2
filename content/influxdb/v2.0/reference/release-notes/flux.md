@@ -16,6 +16,20 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.76.1 [2020-07-27]
+
+### Bug fixes
+- Fix data race in metadata.
+
+---
+
+## v0.76.0 [2020-07-27]
+
+### Features
+- Add query plan to query metadata.
+
+---
+
 ## v0.75.0 [2020-07-27]
 
 ###  Features
