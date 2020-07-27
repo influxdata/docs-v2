@@ -120,7 +120,7 @@ count = 12
     ```
     From ${r._check_name}:
     ${r._field} is ${r._level}.
-    Its value is ${string(v: r._value)}.
+    Its value is ${string(v: r.field_name)}.
     ```
 
     When a check generates a status, it stores the message in the `_message` column.
