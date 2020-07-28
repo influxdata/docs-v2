@@ -12,9 +12,9 @@ aliases:
   - /v2.0/influxdb-templates/use/
 v2.0/tags: [templates]
 related:
-  - /v2.0/reference/cli/influx/apply/
-  - /v2.0/reference/cli/influx/template/
-  - /v2.0/reference/cli/influx/template/validate/
+  - /influxdb/v2.0/reference/cli/influx/apply/
+  - /influxdb/v2.0/reference/cli/influx/template/
+  - /influxdb/v2.0/reference/cli/influx/template/validate/
 ---
 
 Use the `influx` command line interface (CLI) to summarize, validate, and apply

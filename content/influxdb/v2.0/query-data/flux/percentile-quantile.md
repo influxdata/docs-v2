@@ -14,7 +14,7 @@ menu:
     name: Percentile & quantile
 v2.0/tags: [query, percentile, quantile]
 related:
-  - /v2.0/query-data/flux/query-median/
+  - /influxdb/v2.0/query-data/flux/query-median/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_query_example: quantile
 ---

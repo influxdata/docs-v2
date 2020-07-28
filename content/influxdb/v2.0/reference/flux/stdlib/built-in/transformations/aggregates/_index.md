@@ -15,7 +15,7 @@ menu:
 weight: 401
 v2.0/tags: [aggregates, built-in, functions]
 related:
-  - /v2.0/query-data/flux/window-aggregate/
+  - /influxdb/v2.0/query-data/flux/window-aggregate/
 ---
 
 Flux's built-in aggregate transformations take values from an input table and aggregate them in some way.

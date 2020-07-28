@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/monitor-states/
+  - /influxdb/v2.0/query-data/flux/monitor-states/
 ---
 
 The `stateDuration()` function computes the duration of a given state.

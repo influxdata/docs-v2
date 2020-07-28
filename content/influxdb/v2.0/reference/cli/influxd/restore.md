@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /v2.0/reference/cli/influxd/restore/
 related:
-  - /v2.0/backup-restore/restore/
+  - /influxdb/v2.0/backup-restore/restore/
 products: [oss]
 ---
 

@@ -16,8 +16,8 @@ weight: 202
 aliases:
   - /v2.0/influxdb-templates/stacks/update/
 related:
-  - /v2.0/reference/cli/influx/apply
-  - /v2.0/reference/cli/influx/stacks/update/
+  - /influxdb/v2.0/reference/cli/influx/apply
+  - /influxdb/v2.0/reference/cli/influx/stacks/update/
 list_code_example: |
   ```sh
   influx apply \

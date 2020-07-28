@@ -12,7 +12,7 @@ menu:
     name: Scatter
     parent: Visualization types
 related:
-  - /v2.0/visualize-data/visualization-types/heatmap
+  - /influxdb/v2.0/visualize-data/visualization-types/heatmap
 ---
 
 The **Scatter** view uses a scatter plot to display time series data.

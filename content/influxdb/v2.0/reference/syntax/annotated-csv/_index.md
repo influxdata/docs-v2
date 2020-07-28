@@ -13,7 +13,7 @@ aliases:
   - /v2.0/reference/annotated-csv/
 related:
   - /v2.0/reference/flux/stdlib/csv/from/
-  - /v2.0/reference/syntax/annotated-csv/extended/
+  - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.

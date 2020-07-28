@@ -13,9 +13,9 @@ menu:
     parent: Query data
 products: [cloud]
 related:
-  - /v2.0/reference/api/influxdb-1x/
-  - /v2.0/reference/api/influxdb-1x/query
-  - /v2.0/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.0/reference/api/influxdb-1x/
+  - /influxdb/v2.0/reference/api/influxdb-1x/query
+  - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
 ---
 
 Use the [InfluxDB 1.x `/query` compatibility endpoint](/v2.0/reference/api/influxdb-1x/query)
