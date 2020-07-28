@@ -1,15 +1,15 @@
 ---
 title: influxd restore
 description: The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
-influxdb/v2.0/tags: [restore]
+v2.0/tags: [restore]
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: influxd
 weight: 201
 aliases:
   - /v2.0/reference/cli/influxd/restore/
 related:
-  - /influxdb/v2.0/backup-restore/restore/
+  - /v2.0/backup-restore/restore/
 products: [oss]
 ---
 

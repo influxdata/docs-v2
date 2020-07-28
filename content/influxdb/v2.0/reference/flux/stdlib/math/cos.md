@@ -4,7 +4,7 @@ description: The math.cos() function returns the cosine of the radian argument `
 aliases:
   - /v2.0/reference/flux/functions/math/cos/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.cos
     parent: Math
 weight: 301

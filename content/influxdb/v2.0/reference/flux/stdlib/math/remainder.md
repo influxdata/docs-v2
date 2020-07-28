@@ -4,7 +4,7 @@ description: The math.remainder() function returns the IEEE 754 floating-point r
 aliases:
   - /v2.0/reference/flux/functions/math/remainder/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.remainder
     parent: Math
 weight: 301

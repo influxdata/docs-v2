@@ -4,9 +4,9 @@ list_title: Explore your schema
 description: >
   Flux provides functions that let you explore the structure and schema of your
   data stored in InfluxDB.
-influxdb/v2.0/tags: [schema]
+v2.0/tags: [schema]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Explore your schema
     parent: Query with Flux
 weight: 206

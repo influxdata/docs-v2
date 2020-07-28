@@ -6,12 +6,12 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: getRecord
     parent: Stream & table
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `getRecord()` function extracts a record from a table given the record's index.

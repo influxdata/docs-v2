@@ -9,11 +9,11 @@ aliases:
   - /v2.0/write-data/use-telegraf/auto-config
   - /v2.0/write-data/no-code/use-telegraf/auto-config
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Telegraf (agent)
 weight: 201
 related:
-  - /influxdb/v2.0/telegraf-configs/create/
+  - /v2.0/telegraf-configs/create/
 ---
 
 The InfluxDB user interface (UI) can automatically create

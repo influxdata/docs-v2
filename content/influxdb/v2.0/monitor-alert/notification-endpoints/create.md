@@ -3,15 +3,15 @@ title: Create notification endpoints
 description: >
    Create notification endpoints to send alerts on your time series data.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create endpoints
     parent: Manage notification endpoints
 weight: 201
 aliases:
   - /v2.0/monitor-alert/notification-endpoints/create/
 related:
-  - /influxdb/v2.0/monitor-alert/checks/
-  - /influxdb/v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-rules/
 ---
 
 To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/v2.0/monitor-alert/notification-rules/create) to send alerts to third party services on [check statuses](/v2.0/monitor-alert/checks/create).

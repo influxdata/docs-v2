@@ -5,14 +5,14 @@ description: >
   Download and use the `influx` CLI to apply and manage InfluxDB templates with
   your InfluxDB Cloud account.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: InfluxDB templates
     name: Templates in Cloud
 weight: 101
 aliases:
   - /v2.0/influxdb-templates/get_started_cloud/
   - /v2.0/influxdb-templates/cloud/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 products: [cloud]
 ---
 

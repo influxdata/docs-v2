@@ -5,12 +5,12 @@ description: >
   Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB
   user interface and the 'influx' command line interface.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Query data
 weight: 3
 aliases:
   - /v2.0/query-data/
-influxdb/v2.0/tags: [query, flux]
+v2.0/tags: [query, flux]
 ---
 
 Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB

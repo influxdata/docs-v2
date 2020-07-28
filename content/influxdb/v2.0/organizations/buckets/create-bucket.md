@@ -3,7 +3,7 @@ title: Create a bucket
 seotitle: Create a bucket in InfluxDB
 description: Create buckets to store time series data in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create a bucket
     parent: Manage buckets
 weight: 201

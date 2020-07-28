@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/duplicate
   - /v2.0/reference/flux/functions/built-in/transformations/duplicate/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: duplicate
     parent: built-in-transformations
 weight: 402

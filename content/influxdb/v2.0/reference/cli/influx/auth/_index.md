@@ -2,13 +2,13 @@
 title: influx auth
 description: The `influx auth` command and its subcommands manage authorizations in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx auth
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/auth/
-influxdb/v2.0/tags: [authentication]
+v2.0/tags: [authentication]
 ---
 
 The `influx auth` command and its subcommands manage authorizations in InfluxDB.

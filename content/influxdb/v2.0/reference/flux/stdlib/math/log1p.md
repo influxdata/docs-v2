@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/math/log1p/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.log1p
     parent: Math
 weight: 301

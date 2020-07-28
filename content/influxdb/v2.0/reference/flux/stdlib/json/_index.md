@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/json/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: JSON
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, json, package]
+v2.0/tags: [functions, json, package]
 ---
 
 JSON Flux functions provide tools for working with JSON.

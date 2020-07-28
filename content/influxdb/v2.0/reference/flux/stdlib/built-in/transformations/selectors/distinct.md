@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/distinct
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: distinct
     parent: built-in-selectors
 weight: 501
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#distinct, InfluxQL – DISTINCT()
 ---
 
 The `distinct()` function returns the unique values for a given column.

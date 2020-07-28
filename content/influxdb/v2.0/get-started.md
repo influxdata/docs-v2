@@ -2,10 +2,10 @@
 title: Get started with InfluxDB
 description: Download, install, and setup InfluxDB, creating a default organization, user, and bucket.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Get started
-weight: 2
-influxdb/v2.0/tags: [get-started, install]
+weight: 1
+v2.0/tags: [get-started, install]
 aliases:
   - /v2.0/cloud/get-started
   - /v2.0/get-started

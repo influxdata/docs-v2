@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/severityfromlevel/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: pagerduty.severityFromLevel
     parent: PagerDuty
 weight: 202

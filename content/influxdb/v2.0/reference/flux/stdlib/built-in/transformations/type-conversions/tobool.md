@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tobool
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/tobool/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: toBool
     parent: built-in-type-conversions
 weight: 501

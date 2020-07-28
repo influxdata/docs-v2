@@ -2,13 +2,13 @@
 title: influx secret
 description: The `influx secret` command manages secrets.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx secret
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/secret/
-influxdb/v2.0/tags: [secrets]
+v2.0/tags: [secrets]
 ---
 
 The `influx secret` command manages secrets.

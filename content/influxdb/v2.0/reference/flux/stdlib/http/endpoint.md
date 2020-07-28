@@ -5,11 +5,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/http/endpoint/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: http.endpoint
     parent: HTTP
 weight: 202
-influxdb/v2.0/tags: [endpoints]
+v2.0/tags: [endpoints]
 ---
 
 The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.

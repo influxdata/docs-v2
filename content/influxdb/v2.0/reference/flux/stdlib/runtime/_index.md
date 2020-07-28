@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/runtime/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Runtime
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [runtime, functions, package]
+v2.0/tags: [runtime, functions, package]
 ---
 
 The Flux runtime package includes functions that provide information about the

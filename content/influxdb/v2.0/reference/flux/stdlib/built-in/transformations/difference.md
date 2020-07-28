@@ -5,14 +5,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/difference
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: difference
     parent: built-in-transformations
 weight: 402
 aliases:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/difference
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
 
 The `difference()` function computes the difference between subsequent records.  

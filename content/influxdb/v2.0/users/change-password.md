@@ -3,7 +3,7 @@ title: Change your password
 seotitle: Change your password in InfluxDB
 description: Change your password in InfluxDB using the influx CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Change your password
     parent: Manage users
 weight: 105

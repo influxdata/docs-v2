@@ -2,7 +2,7 @@
 title: Lexical elements
 description: Descriptions of Flux comments, tokens, identifiers, keywords, and other lexical elements.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Flux specification
     name: Lexical elements
 weight: 205

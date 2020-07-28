@@ -1,9 +1,9 @@
 ---
 title: Flux syntax basics
 description: An introduction to the basic elements of the Flux syntax with real-world application examples.
-influxdb/v2.0/tags: [flux, syntax]
+v2.0/tags: [flux, syntax]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Syntax basics
     parent: Get started with Flux
 weight: 203

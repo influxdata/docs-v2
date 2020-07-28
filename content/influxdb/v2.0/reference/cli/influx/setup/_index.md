@@ -4,13 +4,13 @@ description: >
   The `influx setup` command walks through the initial InfluxDB setup process,
   creating a default user, organization, and bucket.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx setup
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/setup/
-influxdb/v2.0/tags: [get-started]
+v2.0/tags: [get-started]
 ---
 
 The `influx setup` command walks through the initial InfluxDB setup process,

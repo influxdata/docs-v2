@@ -7,7 +7,7 @@ weight: 103
 aliases:
   - /v2.0/account-management/multi-user/invite-user
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Manage multiple users
     identifier: invite_user_cloud
 ---

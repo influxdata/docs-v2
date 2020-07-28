@@ -7,13 +7,13 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/math/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Math
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [math, functions]
+v2.0/tags: [math, functions]
 related:
-  - /influxdb/v2.0/query-data/flux/mathematic-operations/
+  - /v2.0/query-data/flux/mathematic-operations/
 ---
 
 The Flux math package provides basic constants and mathematical functions.

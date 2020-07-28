@@ -4,7 +4,7 @@ description: The math.copysign() function returns a value with the magnitude of 
 aliases:
   - /v2.0/reference/flux/functions/math/copysign/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.copysign
     parent: Math
 weight: 301

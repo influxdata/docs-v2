@@ -5,13 +5,13 @@ description: >
     **lat** and **lon** and adds an **s2_cell_id** tag.
     Use `geo.shapeData()` to ensure geo-temporal data meets the requirements of the Geo package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: geo.shapeData
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo]
+v2.0/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /v2.0/query-data/flux/geo/
 ---
 
 The `geo.shapeData()` function renames existing latitude and longitude fields to

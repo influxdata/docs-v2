@@ -2,7 +2,7 @@
 title: Flux data model
 description: Flux employs a basic data model built from basic data types. The data model consists of tables, records, columns and streams.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Data model
     parent: Flux specification
 weight: 201

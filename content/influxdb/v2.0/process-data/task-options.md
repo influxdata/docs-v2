@@ -5,13 +5,13 @@ description: >
   Task options define specific information about a task such as its name,
   the schedule on which it runs, execution delays, and others.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Task options
     parent: Process data
 weight: 105
 aliases:
   - /v2.0/process-data/task-options/
-influxdb/v2.0/tags: [tasks, flux]
+v2.0/tags: [tasks, flux]
 ---
 
 Task options define specific information about a task.

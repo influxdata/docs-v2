@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/dedupkey/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: pagerduty.dedupKey
     parent: PagerDuty
 weight: 202

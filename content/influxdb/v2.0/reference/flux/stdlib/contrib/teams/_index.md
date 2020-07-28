@@ -7,11 +7,11 @@ description: >
   channel using an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
   Import the `contrib/sranka/teams` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Teams
     parent: Contributed
 weight: 202
-influxdb/v2.0/tags: [functions, teams, microsoft, package]
+v2.0/tags: [functions, teams, microsoft, package]
 ---
 
 The Flux Microsoft Teams package provides functions for sending messages to a

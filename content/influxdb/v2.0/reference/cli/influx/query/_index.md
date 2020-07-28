@@ -4,13 +4,13 @@ description: >
   The `influx query` command executes a literal Flux query provided as a string
   or a literal Flux query contained in a file by specifying the file prefixed with an '@' sign.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx query
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/query/
-influxdb/v2.0/tags: [query]
+v2.0/tags: [query]
 ---
 
 The `influx query` command executes a literal Flux query provided as a string

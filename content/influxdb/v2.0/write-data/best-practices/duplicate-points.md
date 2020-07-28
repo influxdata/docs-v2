@@ -9,10 +9,10 @@ weight: 202
 aliases:
   - /v2.0/write-data/best-practices/duplicate-points/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Handle duplicate points
     parent: write-best-practices
-influxdb/v2.0/tags: [best practices, write]
+v2.0/tags: [best practices, write]
 ---
 
 InfluxDB identifies unique data points by their measurement, tag set, and timestamp

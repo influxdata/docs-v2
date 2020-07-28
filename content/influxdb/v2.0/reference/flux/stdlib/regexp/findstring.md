@@ -4,12 +4,12 @@ description: The `regexp.findString()` function returns the left-most regular ex
 aliases:
   - /v2.0/reference/flux/functions/regexp/findstring/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: regexp.findString
     parent: Regular expressions
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/splitregexp
+  - /v2.0/reference/flux/stdlib/regexp/splitregexp
 ---
 
 The `regexp.findString()` function returns the left-most regular expression match in a string.

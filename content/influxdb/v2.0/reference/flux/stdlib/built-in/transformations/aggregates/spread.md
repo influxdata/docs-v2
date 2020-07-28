@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/spread
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/spread/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: spread
     parent: built-in-aggregates
 weight: 501
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#spread, InfluxQL – SPREAD()
 ---
 
 The `spread()` function outputs the difference between the minimum and maximum values in a specified column.

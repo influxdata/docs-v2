@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/tests/assertequals
   - /v2.0/reference/flux/functions/testing/assertequals/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: testing.assertEquals
     parent: Testing
 weight: 301

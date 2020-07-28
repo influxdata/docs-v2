@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/inputs/from
   - /v2.0/reference/flux/functions/built-in/inputs/from/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: from
     parent: built-in-inputs
 weight: 401
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#from-clause, InfluxQL - FROM
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#from-clause, InfluxQL - FROM
 ---
 
 The `from()` function retrieves data from an InfluxDB data source.

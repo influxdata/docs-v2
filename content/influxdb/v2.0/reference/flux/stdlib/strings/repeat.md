@@ -4,7 +4,7 @@ description: The strings.repeat() function returns a string consisting of `i` co
 aliases:
   - /v2.0/reference/flux/functions/strings/repeat/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.repeat
     parent: Strings
 weight: 301

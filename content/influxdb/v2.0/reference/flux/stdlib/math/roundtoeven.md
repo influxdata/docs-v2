@@ -4,7 +4,7 @@ description: The math.roundtoeven() function returns the nearest integer, roundi
 aliases:
   - /v2.0/reference/flux/functions/math/roundtoeven/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.roundtoeven
     parent: Math
 weight: 301

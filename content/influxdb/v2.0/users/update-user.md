@@ -3,7 +3,7 @@ title: Update a user
 seotitle: Update a user in InfluxDB
 description: Update a user in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Update a user
     parent: Manage users
 weight: 103

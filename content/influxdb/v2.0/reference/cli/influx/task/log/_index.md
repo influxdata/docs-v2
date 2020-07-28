@@ -4,13 +4,13 @@ description: >
   The `influx task log` and its subcommand, `list`, output log information
   related to a task.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx task log
     parent: influx task
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/task/log/
-influxdb/v2.0/tags: [logs]
+v2.0/tags: [logs]
 ---
 
 The `influx task log` command and its subcommand `list` output log information related to a task.

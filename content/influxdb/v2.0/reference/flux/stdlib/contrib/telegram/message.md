@@ -4,7 +4,7 @@ description: >
   The `telegram.message()` function sends a single message to a Telegram channel using
   the [`sendMessage` method of the Telegram Bot API](https://core.telegram.org/bots/api#sendmessage).
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: telegram.message
     parent: Telegram
 weight: 202

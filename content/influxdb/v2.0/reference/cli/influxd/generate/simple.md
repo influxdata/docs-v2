@@ -3,9 +3,9 @@ title: influxd generate simple
 description: >
   The `influxd generate simple` command generates and writes a simple data set using
   reasonable defaults and CLI flags.
-influxdb/v2.0/tags: [sample-data]
+v2.0/tags: [sample-data]
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: influxd generate
 weight: 301
 aliases:

@@ -8,11 +8,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: InfluxDB v1
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, influxdb-v1, package]
+v2.0/tags: [functions, influxdb-v1, package]
 ---
 
 InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x

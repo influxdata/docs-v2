@@ -4,14 +4,14 @@ seotitle: Create a task for processing data in InfluxDB
 description: >
   Create a data processing task in InfluxDB using the InfluxDB UI or the `influx` CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create a task
     parent: Manage tasks
 weight: 201
 aliases:
   - /v2.0/process-data/manage-tasks/create-task/
 related:
-  - /influxdb/v2.0/reference/cli/influx/task/create
+  - /v2.0/reference/cli/influx/task/create
 ---
 
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)

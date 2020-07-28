@@ -6,14 +6,14 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: reduce
     parent: built-in-aggregates
 weight: 501
-influxdb/v2.0/tags: [exists]
+v2.0/tags: [exists]
 related:
-  - /influxdb/v2.0/query-data/flux/custom-functions/custom-aggregate/
-  - /influxdb/v2.0/query-data/flux/conditional-logic/
+  - /v2.0/query-data/flux/custom-functions/custom-aggregate/
+  - /v2.0/query-data/flux/conditional-logic/
 ---
 
 The `reduce()` function aggregates records in each table according to the reducer,

@@ -4,15 +4,15 @@ seotitle: View notification endpoint details and history
 description: >
   View notification endpoint details and history in the InfluxDB UI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: View endpoint history
     parent: Manage notification endpoints
 weight: 202
 aliases:
   - /v2.0/monitor-alert/notification-endpoints/view/
 related:
-  - /influxdb/v2.0/monitor-alert/checks/
-  - /influxdb/v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-rules/
 ---
 
 View notification endpoint details and history in the InfluxDB user interface (UI).

@@ -4,7 +4,7 @@ description: The `bytes()` function converts a single value to bytes.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/bytes/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: bytes
     parent: built-in-type-conversions
 weight: 502

@@ -6,12 +6,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations
   - /v2.0/reference/flux/functions/built-in/transformations/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Built-in
     name: Transformations
     identifier: built-in-transformations
 weight: 303
-influxdb/v2.0/tags: [transformations, built-in, functions]
+v2.0/tags: [transformations, built-in, functions]
 ---
 
 Flux's built-in transformation functions transform or shape your data in specific ways.

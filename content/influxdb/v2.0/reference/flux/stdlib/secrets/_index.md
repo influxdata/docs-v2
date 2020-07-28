@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/secrets/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: InfluxDB Secrets
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, secrets, package]
+v2.0/tags: [functions, secrets, package]
 ---
 
 InfluxDB Secrets Flux functions provide tools for working with sensitive secrets managed by InfluxDB.

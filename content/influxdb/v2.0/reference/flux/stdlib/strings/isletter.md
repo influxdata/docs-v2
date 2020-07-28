@@ -4,7 +4,7 @@ description: The strings.isLetter() function tests if a single character string 
 aliases:
   - /v2.0/reference/flux/functions/strings/isletter/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.isLetter
     parent: Strings
 weight: 301

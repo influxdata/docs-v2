@@ -2,13 +2,13 @@
 title: influx stacks update
 description: The 'influx stacks update' command updates an InfluxDB stack.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx stacks update
     parent: influx stacks
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/stacks/update/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 ---
 
 The `influx stacks update` command updates an InfluxDB stack.

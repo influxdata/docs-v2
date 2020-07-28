@@ -9,15 +9,15 @@ description: >
   InfluxDB updates, adds, and removes resources to resolve differences between
   the current state of the stack and the newly applied template.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: InfluxDB stacks
     name: Update a stack
 weight: 202
 aliases:
   - /v2.0/influxdb-templates/stacks/update/
 related:
-  - /influxdb/v2.0/reference/cli/influx/apply
-  - /influxdb/v2.0/reference/cli/influx/stacks/update/
+  - /v2.0/reference/cli/influx/apply
+  - /v2.0/reference/cli/influx/stacks/update/
 list_code_example: |
   ```sh
   influx apply \

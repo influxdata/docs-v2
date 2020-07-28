@@ -6,12 +6,12 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: tableFind
     parent: Stream & table
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `tableFind()` function extracts the first table in a stream of tables whose

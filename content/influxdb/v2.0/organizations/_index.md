@@ -5,10 +5,10 @@ description: Manage organizations in InfluxDB using the InfluxDB UI or the influ
 aliases:
   - /v2.0/organizations/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Manage organizations
 weight: 10
-influxdb/v2.0/tags: [organizations]
+v2.0/tags: [organizations]
 ---
 
 An **organization** is a workspace for a group of users.

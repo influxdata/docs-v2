@@ -4,7 +4,7 @@ description: The math.jn() function returns the order-n Bessel function of the f
 aliases:
   - /v2.0/reference/flux/functions/math/jn/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.jn
     parent: Math
 weight: 301

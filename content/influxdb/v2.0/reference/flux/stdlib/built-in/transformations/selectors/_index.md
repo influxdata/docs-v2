@@ -6,14 +6,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: built-in-transformations
     name: Selectors
     identifier: built-in-selectors
 weight: 401
-influxdb/v2.0/tags: [selectors, built-in, functions]
+v2.0/tags: [selectors, built-in, functions]
 related:
-  - /influxdb/v2.0/query-data/flux/window-aggregate/
+  - /v2.0/query-data/flux/window-aggregate/
 ---
 
 Flux's built-in selector functions return one or more records based on function logic.

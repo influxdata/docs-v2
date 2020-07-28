@@ -1,9 +1,9 @@
 ---
 title: Store and use secrets
 description: Use BoltDB or Vault to store secrets for InfluxDB.
-influxdb/v2.0/tags: [secrets, security]
+v2.0/tags: [secrets, security]
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Security & authorization
 weight: 102
 aliases:

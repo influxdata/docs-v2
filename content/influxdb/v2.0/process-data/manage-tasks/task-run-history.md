@@ -3,14 +3,14 @@ title: View task run history and logs
 description: >
   View task run histories and logs using the InfluxDB UI or the `influx` CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: View run history
     parent: Manage tasks
 weight: 203
 aliases:
   - /v2.0/process-data/manage-tasks/task-run-history/
 related:
-  - /influxdb/v2.0/reference/cli/influx/task/run/find
+  - /v2.0/reference/cli/influx/task/run/find
 ---
 
 When an InfluxDB task runs, a "run" record is created in the task's history.

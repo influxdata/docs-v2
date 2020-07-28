@@ -10,14 +10,14 @@ aliases:
   - /v2.0/write-data/use-telegraf/manual-config
   - /v2.0/write-data/no-code/use-telegraf/manual-config
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Telegraf (agent)
 weight: 202
-influxdb/v2.0/tags: [manually, plugin, mqtt]
+v2.0/tags: [manually, plugin, mqtt]
 related:
-  - /influxdb/v2.0/reference/telegraf-plugins/
-  - /influxdb/v2.0/telegraf-configs/create/
-  - /influxdb/v2.0/telegraf-configs/update/
+  - /v2.0/reference/telegraf-plugins/
+  - /v2.0/telegraf-configs/create/
+  - /v2.0/telegraf-configs/update/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.

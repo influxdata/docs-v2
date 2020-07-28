@@ -7,12 +7,12 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/chandemomentumoscillator/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/chandemomentumoscillator/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: chandeMomentumOscillator
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
 ---
 
 The `chandeMomentumOscillator()` function applies the technical momentum indicator

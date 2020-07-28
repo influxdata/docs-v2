@@ -4,7 +4,7 @@ description: The `now()` function returns the current time (UTC).
 aliases:
   - /v2.0/reference/flux/functions/built-in/misc/now/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: now
     parent: built-in-misc
 weight: 401

@@ -2,15 +2,15 @@
 title: influx backup
 description: The `influx backup` command backs up data stored in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx backup
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/backup/
-influxdb/v2.0/tags: [backup]
+v2.0/tags: [backup]
 related:
-  - /influxdb/v2.0/backup-restore/backup/
+  - /v2.0/backup-restore/backup/
 ---
 
 The `influx backup` command backs up data stored in InfluxDB.

@@ -6,10 +6,10 @@ weight: 7
 aliases:
   - /v2.0/reference/internals/storage-engine/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Storage engine
     parent: InfluxDB Internals
-influxdb/v2.0/tags: [storage, internals]
+v2.0/tags: [storage, internals]
 ---
 
 The InfluxDB storage engine ensures that:

@@ -6,16 +6,16 @@ description: >
 weight: 102
 aliases:
   - /v2.0/query-data/influxql/
-influxdb/v2.0/tags: [influxql, query]
+v2.0/tags: [influxql, query]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Query with InfluxQL
     parent: Query data
 products: [cloud]
 related:
-  - /influxdb/v2.0/reference/api/influxdb-1x/
-  - /influxdb/v2.0/reference/api/influxdb-1x/query
-  - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
+  - /v2.0/reference/api/influxdb-1x/
+  - /v2.0/reference/api/influxdb-1x/query
+  - /v2.0/reference/api/influxdb-1x/dbrp
 ---
 
 Use the [InfluxDB 1.x `/query` compatibility endpoint](/v2.0/reference/api/influxdb-1x/query)
@@ -45,8 +45,8 @@ By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## Database and retention policy mapping
-InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
-and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+InfluxDB 2.0 combines the 1.x concept of [databases](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#database)
+and [retention policies](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 into [buckets](/v2.0/reference/glossary/#bucket).
 To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.

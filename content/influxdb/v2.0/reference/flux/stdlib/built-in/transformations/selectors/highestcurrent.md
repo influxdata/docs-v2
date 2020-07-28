@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestcurrent
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestcurrent/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: highestCurrent
     parent: built-in-selectors
 weight: 501

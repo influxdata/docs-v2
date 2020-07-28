@@ -5,12 +5,12 @@ description: >
   The Flux experimental JSON package provides functions for working with JSON.
   Import the `experimental/json` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: JSON
     identifier: JSON-exp
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, json, package]
+v2.0/tags: [functions, json, package]
 ---
 
 Flux experimental JSON functions provide tools for working with JSON.

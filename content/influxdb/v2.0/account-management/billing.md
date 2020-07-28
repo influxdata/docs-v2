@@ -10,7 +10,7 @@ aliases:
   - /v2.0/account-management/billing
 weight: 103
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Account management
     name: Manage billing
 products: [cloud]

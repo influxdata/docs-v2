@@ -9,12 +9,12 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/
 weight: 401
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Stream & table
     parent: built-in-transformations
-influxdb/v2.0/tags: [transformations, built-in, functions, stream, table]
+v2.0/tags: [transformations, built-in, functions, stream, table]
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 Use stream and table functions to extract a table from a stream of tables and access its

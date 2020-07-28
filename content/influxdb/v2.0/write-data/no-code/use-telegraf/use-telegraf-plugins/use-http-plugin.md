@@ -8,7 +8,7 @@ aliases:
   - /v2.0/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
   - /v2.0/write-data/no-code/use-telegraf/use-telegraf-plugins/use-http-plugin/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: HTTP input plugin
     parent: Use Telegraf plugins
 weight: 202
@@ -99,7 +99,7 @@ The timezone We'll set this to the Unix TZ value where our bike data takes place
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/v1.14/introduction/getting-started/).
+[Start the Telegraf service](https://docs.influxdata.com/telegraf/v1.14/introduction/getting-started/).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 

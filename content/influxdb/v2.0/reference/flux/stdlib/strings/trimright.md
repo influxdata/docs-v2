@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/trimright/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.trimRight
     parent: Strings
 weight: 301

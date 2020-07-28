@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: lowestCurrent
     parent: built-in-selectors
 weight: 501

@@ -8,15 +8,15 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/columns
   - /v2.0/reference/flux/functions/built-in/transformations/columns/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: columns
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS  
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS  
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS  
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW SERIES
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS  
+  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW SERIES
 ---
 
 The `columns()` function lists the column labels of input tables.

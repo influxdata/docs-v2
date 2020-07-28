@@ -8,10 +8,10 @@ aliases:
   - /v2.0/reference/client-libraries/
   - /v2.0/reference/api/client-libraries/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Client libraries
     parent: InfluxDB v2 API
-influxdb/v2.0/tags: [client libraries]
+v2.0/tags: [client libraries]
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.

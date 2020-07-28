@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/misc/logarithmicbins
   - /v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: logarithmicBins
     parent: built-in-misc
 weight: 401

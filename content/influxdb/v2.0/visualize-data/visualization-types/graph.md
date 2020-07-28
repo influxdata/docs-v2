@@ -1,14 +1,14 @@
 ---
 title: Graph visualization
 list_title: Graph
-list_image: /img/influxdb/2-0-visualizations-line-graph-example.png
+list_image: /img/2-0-visualizations-line-graph-example.png
 description: >
   The Graph view lets you select from multiple graph types such as line graphs and bar graphs *(Coming)*.
 weight: 201
 aliases:
   - /v2.0/visualize-data/visualization-types/graph/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Graph
     parent: Visualization types
 ---
@@ -16,7 +16,7 @@ menu:
 The Graph visualization provides several types of graphs, each configured through
 the [Graph controls](#graph-controls).
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
+{{< img-hd src="/img/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
 
 Select the **Graph** option from the visualization dropdown in the upper right.
 
@@ -61,13 +61,13 @@ the visualization dropdown.
 ## Graph Examples
 
 ##### Graph with linear interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
+{{< img-hd src="/img/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
 
 ##### Graph with smooth interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-smooth-example-8.png" alt="Step-Plot Graph example" />}}
+{{< img-hd src="/img/2-0-visualizations-line-graph-smooth-example-8.png" alt="Step-Plot Graph example" />}}
 
 ##### Graph with step interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-step-example-8.png" alt="Step-Plot Graph example" />}}
+{{< img-hd src="/img/2-0-visualizations-line-graph-step-example-8.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Stacked Graph example
 {{< img-hd src="/img/2-0-visualizations-stacked-graph-example.png" alt="Stacked Graph example" />}} -->

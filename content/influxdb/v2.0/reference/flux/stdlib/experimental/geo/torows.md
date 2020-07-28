@@ -3,13 +3,13 @@ title: geo.toRows() function
 description: >
   The geo.toRows() function ...
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: geo.toRows
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo]
+v2.0/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /v2.0/query-data/flux/geo/
   - /v2.0/reference/flux/stdlib/built-in/transformations/pivot/
 ---
 

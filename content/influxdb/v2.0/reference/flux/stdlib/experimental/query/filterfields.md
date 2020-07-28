@@ -3,7 +3,7 @@ title: query.filterFields() function
 description: >
   The `query.filterFields()` function filters input data by field.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: query.filterFields
     parent: Query
 weight: 401

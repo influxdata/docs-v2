@@ -4,14 +4,14 @@ seotitle: Create monitoring checks in InfluxDB
 description: >
   Create a check in the InfluxDB UI.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Manage checks
 weight: 201
 aliases:
   - /v2.0/monitor-alert/checks/create/
 related:
-  - /influxdb/v2.0/monitor-alert/notification-rules/
-  - /influxdb/v2.0/monitor-alert/notification-endpoints/
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 Create a check in the InfluxDB user interface (UI).

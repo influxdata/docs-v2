@@ -5,9 +5,9 @@ list_title: Exists
 description: >
   Use the Flux `exists` operator to check if a record contains a key or if that
   key's value is `null`.
-influxdb/v2.0/tags: [exists]
+v2.0/tags: [exists]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Exists
     parent: Query with Flux
 weight: 220
@@ -15,7 +15,7 @@ aliases:
   - /v2.0/query-data/guides/exists/
   - /v2.0/query-data/flux/exists/
 related:
-  - /influxdb/v2.0/query-data/flux/query-fields/
+  - /v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
 list_code_example: |
   ##### Filter null values

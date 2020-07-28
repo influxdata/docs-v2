@@ -8,7 +8,7 @@ weight: 6
 aliases:
   - /v2.0/reference/urls/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: InfluxDB URLs
 ---
 

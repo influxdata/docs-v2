@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: doubleEMA
     parent: built-in-transformations
 weight: 402
@@ -17,7 +17,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#double-exponential-moving-average, InfluxQL DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#double-exponential-moving-average, InfluxQL DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
 The `doubleEMA()` function calculates the exponential moving average of values in

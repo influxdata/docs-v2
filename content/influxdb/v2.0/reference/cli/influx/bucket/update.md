@@ -2,7 +2,7 @@
 title: influx bucket update
 description: The `influx bucket update` command updates information associated with buckets in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx bucket update
     parent: influx bucket
 weight: 201

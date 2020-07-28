@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/language/programs
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Flux specification
     name: Packages
 weight: 207

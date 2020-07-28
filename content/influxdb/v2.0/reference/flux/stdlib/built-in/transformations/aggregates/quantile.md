@@ -6,13 +6,13 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: quantile
     parent: built-in-aggregates
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/percentile-quantile/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+  - /v2.0/query-data/flux/percentile-quantile/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 ---
 
 The `quantile()` function returns records from an input table with `_value`s that fall within

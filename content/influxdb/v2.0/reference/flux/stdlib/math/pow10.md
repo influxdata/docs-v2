@@ -4,7 +4,7 @@ description: The math.pow10() function returns `10**n`, the base-10 exponential 
 aliases:
   - /v2.0/reference/flux/functions/math/pow10/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.pow10
     parent: Math
 weight: 301

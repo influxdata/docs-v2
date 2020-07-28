@@ -4,7 +4,7 @@ description: The math.abs() function returns the absolute value of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/abs/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.abs
     parent: Math
 weight: 301

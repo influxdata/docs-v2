@@ -4,7 +4,7 @@ description: The math.tan() function returns the tangent of the radian argument 
 aliases:
   - /v2.0/reference/flux/functions/math/tan/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.tan
     parent: Math
 weight: 301

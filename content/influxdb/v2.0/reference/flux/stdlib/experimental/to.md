@@ -4,7 +4,7 @@ description: >
   The `experimental.to()` function writes data to an InfluxDB v2.0 bucket.
   The function structures data differently than the built-in `to()` function.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: experimental.to
     parent: Experimental
 weight: 302
