@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/fill/
+  - /influxdb/v2.0/query-data/flux/fill/
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#group-by-time-intervals-and-fill, InfluxQL – FILL
 ---
 

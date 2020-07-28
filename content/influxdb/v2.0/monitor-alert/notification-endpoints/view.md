@@ -11,8 +11,8 @@ weight: 202
 aliases:
   - /v2.0/monitor-alert/notification-endpoints/view/
 related:
-  - /v2.0/monitor-alert/checks/
-  - /v2.0/monitor-alert/notification-rules/
+  - /influxdb/v2.0/monitor-alert/checks/
+  - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
 View notification endpoint details and history in the InfluxDB user interface (UI).

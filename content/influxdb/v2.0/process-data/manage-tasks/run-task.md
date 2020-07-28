@@ -11,8 +11,8 @@ weight: 203
 aliases:
   - /v2.0/process-data/manage-tasks/run-task/
 related:
-  - /v2.0/reference/cli/influx/task/run
-  - /v2.0/reference/cli/influx/task/retry
+  - /influxdb/v2.0/reference/cli/influx/task/run
+  - /influxdb/v2.0/reference/cli/influx/task/retry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,

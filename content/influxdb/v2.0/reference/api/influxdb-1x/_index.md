@@ -12,7 +12,7 @@ aliases:
 v2.0/tags: [influxql, query, write]
 products: [cloud]
 related:
-  - /v2.0/query-data/influxql
+  - /influxdb/v2.0/query-data/influxql
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with

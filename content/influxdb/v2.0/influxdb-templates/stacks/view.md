@@ -12,7 +12,7 @@ weight: 203
 aliases:
   - /v2.0/influxdb-templates/stacks/views/
 related:
-  - /v2.0/reference/cli/influx/stacks/
+  - /influxdb/v2.0/reference/cli/influx/stacks/
 list_code_example: |
   ```sh
   influx stacks -o example-org

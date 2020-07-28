@@ -8,7 +8,7 @@ menu:
     parent: Aggregate
 weight: 301
 related:
-  - /v2.0/query-data/flux/rate/
+  - /influxdb/v2.0/query-data/flux/rate/
 ---
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.

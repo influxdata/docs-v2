@@ -13,7 +13,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/increase/
+  - /influxdb/v2.0/query-data/flux/increase/
 ---
 
 The `increase()` function calculates the cumulative sum of **non-negative** differences

@@ -9,8 +9,8 @@ menu:
   v2_0:
     parent: Manage notification rules
 related:
-  - /v2.0/monitor-alert/checks/
-  - /v2.0/monitor-alert/notification-endpoints/
+  - /influxdb/v2.0/monitor-alert/checks/
+  - /influxdb/v2.0/monitor-alert/notification-endpoints/
 ---
 
 ## Delete a notification rule in the UI

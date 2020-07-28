@@ -12,8 +12,8 @@ aliases:
   - /v2.0/influxdb-templates/create/
 v2.0/tags: [templates]
 related:
-  - /v2.0/reference/cli/influx/export/
-  - /v2.0/reference/cli/influx/export/all/
+  - /influxdb/v2.0/reference/cli/influx/export/
+  - /influxdb/v2.0/reference/cli/influx/export/all/
 ---
 
 Use the InfluxDB user interface (UI) and the `influx export` command to

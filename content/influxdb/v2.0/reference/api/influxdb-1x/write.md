@@ -18,7 +18,7 @@ list_code_example: |
   <span class="api post">POST</span> https://cloud2.influxdata.com/write
   </pre>
 related:
-  - /v2.0/reference/syntax/line-protocol
+  - /influxdb/v2.0/reference/syntax/line-protocol
 ---
 
 The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the

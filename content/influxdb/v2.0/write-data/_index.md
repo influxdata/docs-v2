@@ -13,11 +13,11 @@ menu:
     name: Write data
 v2.0/tags: [write, line protocol]
 related:
-  - /v2.0/write-data/use-telegraf/
-  - /v2.0/api/#tag/Write, InfluxDB API /write endpoint
-  - /v2.0/reference/syntax/line-protocol
-  - /v2.0/reference/syntax/annotated-csv
-  - /v2.0/reference/cli/influx/write
+  - /influxdb/v2.0/write-data/use-telegraf/
+  - /influxdb/v2.0/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb/v2.0/reference/syntax/line-protocol
+  - /influxdb/v2.0/reference/syntax/annotated-csv
+  - /influxdb/v2.0/reference/cli/influx/write
 ---
 
 Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.

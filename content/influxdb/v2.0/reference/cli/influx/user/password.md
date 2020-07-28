@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /v2.0/reference/cli/influx/user/password/
 related:
-  - /v2.0/users/change-password/
+  - /influxdb/v2.0/users/change-password/
 ---
 
 The `influx user password` command updates the password for a user in InfluxDB.

@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /v2.0/reference/cli/influxd/run/
 related:
-  - /v2.0/reference/config-options/
+  - /influxdb/v2.0/reference/config-options/
 products: [oss]
 ---
 
