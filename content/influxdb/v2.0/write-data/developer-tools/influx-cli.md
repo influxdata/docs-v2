@@ -12,7 +12,7 @@ menu:
     name: Influx CLI
     parent: Developer tools
 related:
-  - /v2.0/write-data/developer-tools/csv/
+  - /influxdb/v2.0/write-data/developer-tools/csv/
 ---
 
 To write data from the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/).

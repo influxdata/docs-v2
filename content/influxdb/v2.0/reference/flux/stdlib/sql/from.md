@@ -9,7 +9,7 @@ menu:
     parent: SQL
 weight: 202
 related:
-  - /v2.0/query-data/flux/sql/
+  - /influxdb/v2.0/query-data/flux/sql/
 ---
 
 The `sql.from()` function retrieves data from a SQL data source.

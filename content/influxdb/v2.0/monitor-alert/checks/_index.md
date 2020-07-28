@@ -11,8 +11,8 @@ aliases:
   - /v2.0/monitor-alert/checks/
 v2.0/tags: [monitor, checks, notifications, alert]
 related:
-  - /v2.0/monitor-alert/notification-rules/
-  - /v2.0/monitor-alert/notification-endpoints/
+  - /influxdb/v2.0/monitor-alert/notification-rules/
+  - /influxdb/v2.0/monitor-alert/notification-endpoints/
 ---
 
 Checks in InfluxDB query data and apply a status or level to each data point based on specified conditions.

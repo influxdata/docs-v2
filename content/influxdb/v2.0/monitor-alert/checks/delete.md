@@ -10,8 +10,8 @@ weight: 204
 aliases:
   - /v2.0/monitor-alert/checks/delete/
 related:
-  - /v2.0/monitor-alert/notification-rules/
-  - /v2.0/monitor-alert/notification-endpoints/
+  - /influxdb/v2.0/monitor-alert/notification-rules/
+  - /influxdb/v2.0/monitor-alert/notification-endpoints/
 ---
 
 If you no longer need a check, use the InfluxDB user interface (UI) to delete it.

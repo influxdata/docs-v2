@@ -13,9 +13,9 @@ aliases:
   - /v2.0/write-data/developer-tools/csv/
 weight: 204
 related:
-  - /v2.0/reference/syntax/line-protocol/
-  - /v2.0/reference/syntax/annotated-csv/
-  - /v2.0/reference/cli/influx/write/
+  - /influxdb/v2.0/reference/syntax/line-protocol/
+  - /influxdb/v2.0/reference/syntax/annotated-csv/
+  - /influxdb/v2.0/reference/cli/influx/write/
 ---
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data

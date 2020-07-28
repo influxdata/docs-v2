@@ -9,7 +9,7 @@ menu:
 weight: 401
 v2.0/tags: [functions, geo]
 related:
-  - /v2.0/query-data/flux/geo/
+  - /influxdb/v2.0/query-data/flux/geo/
 ---
 
 The `geo.groupByArea()` function groups rows by geographic area.

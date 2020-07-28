@@ -12,8 +12,8 @@ aliases:
 v2.0/tags: [grafana]
 related:
   - https://grafana.com/docs/, Grafana documentation
-  - /v2.0/query-data/get-started/
-  - /v2.0/query-data/influxql/
+  - /influxdb/v2.0/query-data/get-started/
+  - /influxdb/v2.0/query-data/influxql/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
