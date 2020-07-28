@@ -17,7 +17,7 @@ list_code_example: |
   <span class="api get">GET</span> https://cloud2.influxdata.com/query
   </pre>
 related:
-  - /v2.0/query-data/influxql
+  - /influxdb/v2.0/query-data/influxql
 ---
 
 The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.

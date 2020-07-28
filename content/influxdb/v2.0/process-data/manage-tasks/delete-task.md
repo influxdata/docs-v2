@@ -11,7 +11,7 @@ weight: 206
 aliases:
   - /v2.0/process-data/manage-tasks/delete-task/
 related:
-  - /v2.0/reference/cli/influx/task/delete
+  - /influxdb/v2.0/reference/cli/influx/task/delete
 ---
 
 ## Delete a task in the InfluxDB UI

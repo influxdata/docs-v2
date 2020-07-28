@@ -19,7 +19,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
   - /v2.0/reference/flux/language/operators/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
-  - /v2.0/query-data/flux/calculate-percentages/
+  - /influxdb/v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 

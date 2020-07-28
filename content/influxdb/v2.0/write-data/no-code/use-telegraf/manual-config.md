@@ -15,9 +15,9 @@ menu:
 weight: 202
 v2.0/tags: [manually, plugin, mqtt]
 related:
-  - /v2.0/reference/telegraf-plugins/
-  - /v2.0/telegraf-configs/create/
-  - /v2.0/telegraf-configs/update/
+  - /influxdb/v2.0/reference/telegraf-plugins/
+  - /influxdb/v2.0/telegraf-configs/create/
+  - /influxdb/v2.0/telegraf-configs/update/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.

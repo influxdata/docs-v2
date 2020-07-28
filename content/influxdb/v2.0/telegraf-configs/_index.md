@@ -8,8 +8,8 @@ v2.0/tags: [telegraf]
 aliases:
   - /v2.0/telegraf-configs/
 related:
-  - /v2.0/write-data/no-code/use-telegraf/manual-config/
-  - /v2.0/write-data/no-code/use-telegraf/auto-config/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/
 ---
 
 InfluxDB lets you automatically generate Telegraf configurations or upload customized

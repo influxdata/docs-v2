@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /v2.0/reference/cli/influx/bucket/delete/
 related:
-  - /v2.0/organizations/buckets/delete-bucket/
+  - /influxdb/v2.0/organizations/buckets/delete-bucket/
 ---
 
 The `influx bucket delete` command deletes a bucket from InfluxDB and all the data it contains.

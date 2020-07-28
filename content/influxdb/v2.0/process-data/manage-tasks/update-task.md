@@ -11,7 +11,7 @@ weight: 204
 aliases:
   - /v2.0/process-data/manage-tasks/update-task/
 related:
-  - /v2.0/reference/cli/influx/task/update
+  - /influxdb/v2.0/reference/cli/influx/task/update
 ---
 
 ## Update a task in the InfluxDB UI

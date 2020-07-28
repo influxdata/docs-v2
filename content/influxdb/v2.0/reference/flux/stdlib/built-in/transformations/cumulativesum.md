@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/cumulativesum/
+  - /influxdb/v2.0/query-data/flux/cumulativesum/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 ---
 

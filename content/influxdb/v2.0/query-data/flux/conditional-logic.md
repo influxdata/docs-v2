@@ -15,7 +15,7 @@ aliases:
   - /v2.0/query-data/guides/conditional-logic/
   - /v2.0/query-data/flux/conditional-logic/
 related:
-  - /v2.0/query-data/flux/query-fields/
+  - /influxdb/v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
   - /v2.0/reference/flux/stdlib/built-in/transformations/map/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/

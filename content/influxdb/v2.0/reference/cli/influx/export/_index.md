@@ -9,7 +9,7 @@ aliases:
   - /v2.0/reference/cli/influx/pkg/export/
   - /v2.0/reference/cli/influx/export/
 related:
-  - /v2.0/influxdb-templates/create/
+  - /influxdb/v2.0/influxdb-templates/create/
 ---
 
 The `influx export` command exports existing resources as an InfluxDB template.

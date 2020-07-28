@@ -11,8 +11,8 @@ weight: 102
 aliases:
   - /v2.0/monitor-alert/notification-endpoints/
 related:
-  - /v2.0/monitor-alert/checks/
-  - /v2.0/monitor-alert/notification-rules/
+  - /influxdb/v2.0/monitor-alert/checks/
+  - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
 Notification endpoints store information to connect to a third party service.

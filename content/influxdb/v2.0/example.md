@@ -8,8 +8,8 @@ weight: 1
 draft: true
 "v2.0/tags": [influxdb, functions]
 related:
-  - /v2.0/write-data/
-  - /v2.0/write-data/quick-start
+  - /influxdb/v2.0/write-data/
+  - /influxdb/v2.0/write-data/quick-start
   - https://influxdata.com, This is an external link
 products: [cloud, oss, enterprise]
 ---

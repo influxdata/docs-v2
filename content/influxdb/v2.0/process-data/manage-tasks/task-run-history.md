@@ -10,7 +10,7 @@ weight: 203
 aliases:
   - /v2.0/process-data/manage-tasks/task-run-history/
 related:
-  - /v2.0/reference/cli/influx/task/run/find
+  - /influxdb/v2.0/reference/cli/influx/task/run/find
 ---
 
 When an InfluxDB task runs, a "run" record is created in the task's history.

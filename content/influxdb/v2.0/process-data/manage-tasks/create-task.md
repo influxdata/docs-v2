@@ -11,7 +11,7 @@ weight: 201
 aliases:
   - /v2.0/process-data/manage-tasks/create-task/
 related:
-  - /v2.0/reference/cli/influx/task/create
+  - /influxdb/v2.0/reference/cli/influx/task/create
 ---
 
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)

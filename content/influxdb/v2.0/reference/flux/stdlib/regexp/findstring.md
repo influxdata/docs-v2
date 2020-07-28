@@ -9,7 +9,7 @@ menu:
     parent: Regular expressions
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/regexp/splitregexp
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/splitregexp
 ---
 
 The `regexp.findString()` function returns the left-most regular expression match in a string.

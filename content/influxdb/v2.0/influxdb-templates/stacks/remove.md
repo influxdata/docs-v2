@@ -12,7 +12,7 @@ weight: 204
 aliases:
   - /v2.0/influxdb-templates/stacks/remove/
 related:
-  - /v2.0/reference/cli/influx/stacks/remove/
+  - /influxdb/v2.0/reference/cli/influx/stacks/remove/
 list_code_example: |
   ```sh
   influx stacks remove \

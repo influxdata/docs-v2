@@ -13,7 +13,7 @@ weight: 201
 aliases:
   - /v2.0/influxdb-templates/stacks/init/
 related:
-  - /v2.0/reference/cli/influx/stacks/init/
+  - /influxdb/v2.0/reference/cli/influx/stacks/init/
 list_code_example: |
   ```sh
   influx apply \
