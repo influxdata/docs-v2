@@ -4,7 +4,7 @@ description: The math.sqrt() function returns the square root of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/sqrt/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.sqrt
     parent: Math
 weight: 301

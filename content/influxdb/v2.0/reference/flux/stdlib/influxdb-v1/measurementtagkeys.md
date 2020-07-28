@@ -4,7 +4,7 @@ description: The v1.measurementTagKeys() function returns a list of tag keys for
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.measurementTagKeys
     parent: InfluxDB v1
 weight: 301

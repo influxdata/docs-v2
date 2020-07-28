@@ -5,7 +5,7 @@ description: >
   removing deleted series.
 v2.0/tags: [inspect]
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
 aliases:

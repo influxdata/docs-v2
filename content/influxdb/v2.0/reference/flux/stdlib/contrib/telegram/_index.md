@@ -6,7 +6,7 @@ description: >
   [Telegram](https://telegram.org/) using the [Telegram Bot API](https://core.telegram.org/bots/api).
   Import the `contrib/sranka/telegram` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Telegram
     parent: Contributed
 weight: 202

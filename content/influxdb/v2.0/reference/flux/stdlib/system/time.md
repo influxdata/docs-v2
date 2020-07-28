@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/misc/systemtime
   - /v2.0/reference/flux/functions/system/time/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: system.time
     parent: System
 weight: 401

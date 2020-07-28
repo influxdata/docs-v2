@@ -2,7 +2,7 @@
 title: Common variable queries
 description: Useful queries to use to populate values in common dashboard variable use cases.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Use and manage variables
     name: Common variable queries
 weight: 208

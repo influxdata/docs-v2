@@ -2,7 +2,7 @@
 title: influx auth list
 description: The `influx auth list` command lists and searches authorizations in InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx auth list
     parent: influx auth
 weight: 201

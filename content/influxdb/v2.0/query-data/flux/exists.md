@@ -7,7 +7,7 @@ description: >
   key's value is `null`.
 v2.0/tags: [exists]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Exists
     parent: Query with Flux
 weight: 220

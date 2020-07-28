@@ -8,7 +8,7 @@ aliases:
     - /v2.0/cloud/account-management/offboarding
     - /v2.0/account-management/offboarding
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Account management
     name: Cancel InfluxDB Cloud
 products: [cloud]

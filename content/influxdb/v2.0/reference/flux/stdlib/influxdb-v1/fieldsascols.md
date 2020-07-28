@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/influxfieldsascols
   - /v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.fieldsAsCols
     parent: InfluxDB v1
 weight: 301

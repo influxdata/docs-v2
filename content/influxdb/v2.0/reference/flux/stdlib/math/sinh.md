@@ -4,7 +4,7 @@ description: The math.sinh() function returns the hyperbolic sine of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/sinh/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.sinh
     parent: Math
 weight: 301

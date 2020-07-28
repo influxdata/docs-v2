@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/cumulativesum
   - /v2.0/reference/flux/functions/built-in/transformations/cumulativesum/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: cumulativeSum
     parent: built-in-transformations
 weight: 402

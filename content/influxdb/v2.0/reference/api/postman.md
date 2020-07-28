@@ -3,7 +3,7 @@ title: Explore with Postman
 description: >
   Use Postman to explore the InfluxDB API.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: InfluxDB v2 API
 weight: 3
 aliases:

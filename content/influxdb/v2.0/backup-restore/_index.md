@@ -8,7 +8,7 @@ v2.0/tags: [backup, restore]
 aliases:
   - /v2.0/backup-restore
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Back up & restore data
 weight: 9
 products: [oss]

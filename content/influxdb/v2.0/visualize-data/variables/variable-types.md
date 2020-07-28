@@ -3,7 +3,7 @@ title: Variable types
 seotitle: Dashboard variable types
 description: Overview of the types of dashboard variables available in InfluxDB
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Use and manage variables
 weight: 207
 aliases:

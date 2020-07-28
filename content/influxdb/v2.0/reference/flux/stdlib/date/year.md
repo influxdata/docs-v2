@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/year/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: date.year
     parent: Date
 weight: 301

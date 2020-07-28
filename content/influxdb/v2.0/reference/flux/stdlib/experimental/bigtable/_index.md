@@ -5,7 +5,7 @@ description: >
   The Flux Bigtable package provides tools for working with data in Google Cloud Bigtable databases.
   Import the `experimental/bigtable` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Bigtable
     parent: Experimental
 weight: 301

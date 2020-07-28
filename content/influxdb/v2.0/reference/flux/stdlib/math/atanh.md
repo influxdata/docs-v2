@@ -4,7 +4,7 @@ description: The math.atanh() function returns the inverse hyperbolic tangent of
 aliases:
   - /v2.0/reference/flux/functions/math/atanh/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.atanh
     parent: Math
 weight: 301

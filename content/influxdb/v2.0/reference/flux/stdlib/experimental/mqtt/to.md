@@ -3,7 +3,7 @@ title: mqtt.to() function
 description: >
   The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: mqtt.to
     parent: MQTT
 weight: 401

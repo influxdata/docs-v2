@@ -4,7 +4,7 @@ description: The strings.toTitle() function converts all characters in a string 
 aliases:
   - /v2.0/reference/flux/functions/strings/totitle/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.toTitle
     parent: Strings
 weight: 301

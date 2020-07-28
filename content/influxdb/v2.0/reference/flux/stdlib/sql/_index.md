@@ -8,7 +8,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/sql/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: SQL
     parent: Flux standard library
 weight: 202

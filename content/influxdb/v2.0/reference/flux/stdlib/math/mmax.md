@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/math/m_max/
   - /v2.0/reference/flux/stdlib/math/m_max/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.mMax
     parent: Math
 weight: 301

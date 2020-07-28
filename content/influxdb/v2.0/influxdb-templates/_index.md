@@ -3,7 +3,7 @@ title: InfluxDB templates
 description: >
   InfluxDB templates are prepackaged InfluxDB configurations that contain everything
   from dashboards and Telegraf configurations to notifications and alerts.
-menu: v2_0
+menu: influxdb_2_0
 weight: 9
 aliases:
   - /v2.0/influxdb-templates

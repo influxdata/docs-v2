@@ -4,7 +4,7 @@ description: The math.asin() function returns the arcsine of `x` in radians.
 aliases:
   - /v2.0/reference/flux/functions/math/asin/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.asin
     parent: Math
 weight: 301

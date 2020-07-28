@@ -7,7 +7,7 @@ description: >
   `else`, and `then`, to query and transform data. **Flux evaluates statements from left to right and stops evaluating once a condition matches.**
 v2.0/tags: [conditionals, flux]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Conditional logic
     parent: Query with Flux
 weight: 220

@@ -4,7 +4,7 @@ description: >
   The `experimental.subDuration()` function subtracts a duration from a time value and
   returns a the resulting time value.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.subDuration
     parent: Experimental
 weight: 302

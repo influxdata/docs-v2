@@ -13,7 +13,7 @@ aliases:
   - /v2.0/write-data/no-code/scrape-data/
 v2.0/tags: [scraper]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Scrape data
     parent: No-code solutions
 products: [oss]

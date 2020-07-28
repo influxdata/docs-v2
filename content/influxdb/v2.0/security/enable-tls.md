@@ -7,7 +7,7 @@ weight: 101
 aliases:
   - /v2.0/security/enable-tls/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Security & authorization
 v2.0/tags: [security, authentication, tls, https, ssl]
 products: [oss]

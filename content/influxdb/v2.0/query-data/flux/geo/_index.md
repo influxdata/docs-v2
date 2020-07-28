@@ -4,7 +4,7 @@ list_title: Geo-temporal data
 description: >
   Use the Flux Geo package to filter geo-temporal data and group by geographic location or track.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Geo-temporal data
     parent: Query with Flux
 weight: 220

@@ -12,7 +12,7 @@ aliases:
   - /v2.0/write-data/use-telegraf/
   - /v2.0/write-data/no-code/use-telegraf/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Telegraf (agent)
     parent: No-code solutions
 ---

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/stateduration
   - /v2.0/reference/flux/functions/built-in/transformations/stateduration/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: stateDuration
     parent: built-in-transformations
 weight: 402

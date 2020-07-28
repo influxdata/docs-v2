@@ -4,7 +4,7 @@ seotitle: Update a task for processing data in InfluxDB
 description: >
   Update a data processing task in InfluxDB using the InfluxDB UI or the `influx` CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Update a task
     parent: Manage tasks
 weight: 204

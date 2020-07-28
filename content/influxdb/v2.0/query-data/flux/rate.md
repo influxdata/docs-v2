@@ -13,7 +13,7 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/rate/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
     name: Rate
 v2.0/tags: [query, rate]

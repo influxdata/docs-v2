@@ -4,7 +4,7 @@ description: The math.log10() function returns the decimal logarithm of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/log10/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.log10
     parent: Math
 weight: 301

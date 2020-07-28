@@ -3,7 +3,7 @@ title: experimental.alignTime() function
 description: >
   The `experimental.alignTime()` function aligns input tables to a common start time.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.alignTime
     parent: Experimental
 weight: 302

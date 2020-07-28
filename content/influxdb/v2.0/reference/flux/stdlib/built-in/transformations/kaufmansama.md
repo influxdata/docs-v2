@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: kaufmansAMA
     parent: built-in-transformations
 weight: 402

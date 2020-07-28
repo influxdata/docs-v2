@@ -4,7 +4,7 @@ description: >
   The `experimental.addDuration()` function adds a duration to a time value and
   returns the resulting time.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.addDuration
     parent: Experimental
 weight: 302

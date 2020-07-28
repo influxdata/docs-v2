@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/json/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: JSON
     parent: Flux standard library
 weight: 202

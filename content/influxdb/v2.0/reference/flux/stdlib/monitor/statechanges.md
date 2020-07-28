@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/monitor/statechanges/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: monitor.stateChanges
     parent: InfluxDB Monitor
 weight: 202

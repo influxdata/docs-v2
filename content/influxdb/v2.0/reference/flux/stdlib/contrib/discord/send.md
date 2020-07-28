@@ -4,7 +4,7 @@ description: >
   The `discord.send()` function sends a single message to a Discord channel using
   a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: discord.send
     parent: Discord
 weight: 202

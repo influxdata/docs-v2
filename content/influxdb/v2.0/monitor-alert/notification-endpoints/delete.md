@@ -3,7 +3,7 @@ title: Delete notification endpoints
 description: >
    Delete a notification endpoint in the InfluxDB UI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Delete endpoints
     parent: Manage notification endpoints
 weight: 204

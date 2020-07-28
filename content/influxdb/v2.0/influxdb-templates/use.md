@@ -4,7 +4,7 @@ description: >
   Use the `influx` command line interface (CLI) to summarize, validate, and apply
   templates from your local filesystem and from URLs.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: InfluxDB templates
     name: Use templates
 weight: 102

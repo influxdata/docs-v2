@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/difference
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: difference
     parent: built-in-transformations
 weight: 402

@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/relativestrengthindex/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/relativestrengthindex/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: relativeStrengthIndex
     parent: built-in-transformations
 weight: 402
