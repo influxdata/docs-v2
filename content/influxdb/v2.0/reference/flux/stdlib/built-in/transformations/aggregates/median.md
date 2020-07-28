@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/median
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: median
     parent: built-in-aggregates
 weight: 501

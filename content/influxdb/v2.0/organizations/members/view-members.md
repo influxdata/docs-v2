@@ -3,7 +3,7 @@ title: View members
 seotitle: View members of an organization in InfluxDB
 description: Review a list of members for an organization.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: View members
     parent: Manage members
 weight: 202

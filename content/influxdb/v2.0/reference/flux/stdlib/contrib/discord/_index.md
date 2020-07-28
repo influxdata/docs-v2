@@ -5,7 +5,7 @@ description: >
   The Flux Discord package provides functions for sending messages to Discord.
   Import the `contrib/chobbs/discord` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Discord
     parent: Contributed
 weight: 202

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/rename
   - /v2.0/reference/flux/functions/built-in/transformations/rename/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: rename
     parent: built-in-transformations
 weight: 402

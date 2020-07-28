@@ -3,7 +3,7 @@ title: pushbullet.pushData() function
 description: >
   The `pushbullet.pushData()` function sends a push notification to the Pushbullet API.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pushbullet.pushData
     parent: Pushbullet
 weight: 202

@@ -4,7 +4,7 @@ list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
 v2.0/tags: [regex]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Regular expressions
     parent: Query with Flux
 weight: 220

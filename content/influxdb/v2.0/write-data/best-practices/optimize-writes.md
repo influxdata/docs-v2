@@ -6,7 +6,7 @@ weight: 202
 aliases:
   - /v2.0/write-data/best-practices/optimize-writes/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: write-best-practices
 v2.0/tags: [best practices, write]
 ---

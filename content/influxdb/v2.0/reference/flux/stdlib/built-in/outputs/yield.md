@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/outputs/yield
   - /v2.0/reference/flux/functions/built-in/outputs/yield/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: yield
     parent: built-in-outputs
 weight: 401

@@ -5,7 +5,7 @@ description: >
   Dashboard variables allow you to alter specific components of cells' queries
   without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Visualize data
 weight: 103
 aliases:

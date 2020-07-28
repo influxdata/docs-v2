@@ -9,7 +9,7 @@ aliases:
   - /v2.0/process-data/get-started/
 v2.0/tags: [tasks]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Get started with tasks
     parent: Process data
 weight: 101

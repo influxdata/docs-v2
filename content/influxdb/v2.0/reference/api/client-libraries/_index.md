@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/client-libraries/
   - /v2.0/reference/api/client-libraries/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Client libraries
     parent: InfluxDB v2 API
 v2.0/tags: [client libraries]

@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/language/built-ins/system-built-ins/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: System built-ins
     parent: Flux specification
 weight: 206

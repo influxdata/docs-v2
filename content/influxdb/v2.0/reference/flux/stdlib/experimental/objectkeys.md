@@ -3,7 +3,7 @@ title: experimental.objectKeys() function
 description: >
   The `experimental.objectKeys()` function returns an array of keys in a specified object.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.objectKeys
     parent: Experimental
 weight: 302

@@ -4,7 +4,7 @@ description: The `v1.tagValues()` function returns a list unique values for a gi
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/tagvalues/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.tagValues
     parent: InfluxDB v1
 weight: 301

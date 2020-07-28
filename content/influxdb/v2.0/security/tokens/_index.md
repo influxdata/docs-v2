@@ -7,7 +7,7 @@ aliases:
   - /v2.0/security/tokens/
 v2.0/tags: [tokens, authentication, security]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Manage tokens
     parent: Security & authorization
 weight: 103

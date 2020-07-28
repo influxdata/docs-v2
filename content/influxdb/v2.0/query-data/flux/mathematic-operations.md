@@ -7,7 +7,7 @@ description: >
   to remap column values and apply mathematic operations.
 v2.0/tags: [math, flux]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Transform data with math
     parent: Query with Flux
 weight: 208

@@ -11,7 +11,7 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/increase/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
     name: Increase
 v2.0/tags: [query, increase, counters]

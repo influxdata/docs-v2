@@ -6,7 +6,7 @@ weight: 204
 description: >
   Write data to InfluxDB using client libraries.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Client libraries
     parent: Developer tools
 aliases:

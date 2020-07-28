@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/sample
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/sample/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: sample
     parent: built-in-selectors
 weight: 501

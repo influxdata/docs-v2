@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/math/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Math
     parent: Flux standard library
 weight: 202

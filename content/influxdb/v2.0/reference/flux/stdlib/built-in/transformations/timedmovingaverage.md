@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: timedMovingAverage
     parent: built-in-transformations
 weight: 402

@@ -4,7 +4,7 @@ list_title: Python
 description: >
   Use the Python client library to interact with InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Python
     parent: Client libraries
 v2.0/tags: [client libraries, python]

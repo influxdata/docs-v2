@@ -4,7 +4,7 @@ description: >
   The `telegram.endpoint()` function sends a message to a Telegram channel
   using data from table rows.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: telegram.endpoint
     parent: Telegram
 weight: 202

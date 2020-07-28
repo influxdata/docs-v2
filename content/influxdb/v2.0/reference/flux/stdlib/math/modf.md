@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/math/modf/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.modf
     parent: Math
 weight: 301

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/filter
   - /v2.0/reference/flux/functions/built-in/transformations/filter/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: filter
     parent: built-in-transformations
 weight: 402

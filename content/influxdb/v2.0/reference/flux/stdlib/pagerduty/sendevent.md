@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/sendevent/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pagerduty.sendEvent
     parent: PagerDuty
 weight: 202

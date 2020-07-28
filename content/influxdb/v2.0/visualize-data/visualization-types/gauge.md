@@ -8,7 +8,7 @@ weight: 206
 aliases:
   - /v2.0/visualize-data/visualization-types/gauge/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Gauge
     parent: Visualization types
 ---

@@ -4,7 +4,7 @@ description: >
   The `prometheus.scrape()` function retrieves Prometheus-formatted metrics
   from a specified URL.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: prometheus.scrape
     parent: Prometheus
 weight: 401

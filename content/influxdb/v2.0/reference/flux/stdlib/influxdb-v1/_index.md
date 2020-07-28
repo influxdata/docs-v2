@@ -8,7 +8,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: InfluxDB v1
     parent: Flux standard library
 weight: 202

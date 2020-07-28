@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/outputs
   - /v2.0/reference/flux/functions/built-in/outputs/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Built-in
     name: Outputs
     identifier: built-in-outputs

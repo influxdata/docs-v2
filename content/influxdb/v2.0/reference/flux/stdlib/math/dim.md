@@ -4,7 +4,7 @@ description: The math.dim() function returns the maximum of `x`-`y` or 0.
 aliases:
   - /v2.0/reference/flux/functions/math/dim/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.dim
     parent: Math
 weight: 301

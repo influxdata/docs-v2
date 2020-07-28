@@ -4,7 +4,7 @@ description: The `strings.lastIndexAny()` function returns the index of the last
 aliases:
   - /v2.0/reference/flux/functions/strings/lastindexany/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.lastIndexAny
     parent: Strings
 weight: 301

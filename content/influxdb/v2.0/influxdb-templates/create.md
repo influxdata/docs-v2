@@ -3,7 +3,7 @@ title: Create an InfluxDB template
 description: >
   Use the InfluxDB UI and the `influx export` command to create InfluxDB templates.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: InfluxDB templates
     name: Create a template
     identifier: Create an InfluxDB template

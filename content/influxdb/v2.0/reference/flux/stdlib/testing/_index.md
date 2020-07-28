@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/testing/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Testing
     parent: Flux standard library
 weight: 202

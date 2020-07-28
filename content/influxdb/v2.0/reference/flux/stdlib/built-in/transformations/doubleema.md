@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: doubleEMA
     parent: built-in-transformations
 weight: 402

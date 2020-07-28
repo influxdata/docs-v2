@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/slack/message/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: slack.message
     parent: Slack
 weight: 202

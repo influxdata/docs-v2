@@ -9,7 +9,7 @@ weight: 204
 aliases:
   - /v2.0/visualize-data/visualization-types/histogram/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Histogram
     parent: Visualization types
 ---

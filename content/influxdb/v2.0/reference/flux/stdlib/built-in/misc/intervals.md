@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/misc/intervals
   - /v2.0/reference/flux/functions/built-in/misc/intervals/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: intervals
     parent: built-in-misc
 weight: 401

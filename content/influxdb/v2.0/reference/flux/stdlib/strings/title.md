@@ -4,7 +4,7 @@ description: The strings.title() function converts a string to title case.
 aliases:
   - /v2.0/reference/flux/functions/strings/title/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.title
     parent: Strings
 weight: 301

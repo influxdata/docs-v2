@@ -4,7 +4,7 @@ description: >
   The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
   and sends a notification of type `note`.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pushbullet.endpoint
     parent: Pushbullet
 weight: 202

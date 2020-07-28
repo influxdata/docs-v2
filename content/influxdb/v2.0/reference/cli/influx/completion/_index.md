@@ -4,7 +4,7 @@ description: >
   The `influx completion` command outputs `influx` shell completion scripts for a
   specified shell (`bash` or `zsh`).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx completion
     parent: influx
 weight: 101

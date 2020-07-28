@@ -59,7 +59,7 @@ seotitle: # Page title used in the html <head> title and used in search engine r
 list_title: # Title used in article lists generated using the {{< children >}} shortcode
 description: # Page description displayed in search engine results
 menu:
-  v2_0:
+  influxdb_2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
@@ -577,7 +577,7 @@ menu:
 
 # Example
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     # ...
 ```
 ### Image naming conventions

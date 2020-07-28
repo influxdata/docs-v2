@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/endpoint/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pagerduty.endpoint
     parent: PagerDuty
 weight: 202

@@ -6,7 +6,7 @@ description: >
   such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Geo
     parent: Experimental
 weight: 301

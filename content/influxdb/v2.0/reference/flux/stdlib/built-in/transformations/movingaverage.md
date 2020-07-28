@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
   - /v2.0/reference/flux/functions/built-in/transformations/movingaverage/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: movingAverage
     parent: built-in-transformations
 weight: 402

@@ -4,7 +4,7 @@ description: The strings.containsStr() function reports whether a string contain
 aliases:
   - /v2.0/reference/flux/functions/strings/containsstr/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.containsStr
     parent: Strings
 weight: 301

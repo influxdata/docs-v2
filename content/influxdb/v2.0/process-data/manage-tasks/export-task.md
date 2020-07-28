@@ -3,7 +3,7 @@ title: Export a task
 seotitle: Export an InfluxDB task
 description: Export a data processing task from InfluxDB using the InfluxDB UI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Export a task
     parent: Manage tasks
 weight: 205

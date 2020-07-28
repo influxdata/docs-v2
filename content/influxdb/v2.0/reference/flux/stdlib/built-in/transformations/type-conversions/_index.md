@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: built-in-transformations
     name: Type conversions
     identifier: built-in-type-conversions

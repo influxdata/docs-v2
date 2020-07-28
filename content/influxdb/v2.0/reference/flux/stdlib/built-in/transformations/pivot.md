@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/pivot
   - /v2.0/reference/flux/functions/built-in/transformations/pivot/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pivot
     parent: built-in-transformations
 weight: 402

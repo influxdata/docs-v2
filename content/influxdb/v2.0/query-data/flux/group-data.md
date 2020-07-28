@@ -6,7 +6,7 @@ description: >
   to group data with common values in specific columns.
 v2.0/tags: [group]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Group
     parent: Query with Flux
 weight: 202

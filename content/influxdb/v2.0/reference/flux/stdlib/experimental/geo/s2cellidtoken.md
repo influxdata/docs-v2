@@ -3,7 +3,7 @@ title: geo.s2CellIDToken() function
 description: >
   The `geo.s2CellIDToken()` function returns an S2 cell ID token.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.s2CellIDToken
     parent: Geo
 weight: 401

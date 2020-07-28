@@ -5,7 +5,7 @@ description: >
   The `influx` CLI includes commands to manage many aspects of InfluxDB,
   including buckets, organizations, users, tasks, etc.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx
     parent: Command line tools
 weight: 101

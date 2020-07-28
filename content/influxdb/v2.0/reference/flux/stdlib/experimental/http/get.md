@@ -4,7 +4,7 @@ description: >
   The `http.get()` function submits an HTTP GET request to the specified URL and
   returns the HTTP status code, response body, and response headers.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: http.get
     parent: HTTP-exp
 weight: 401

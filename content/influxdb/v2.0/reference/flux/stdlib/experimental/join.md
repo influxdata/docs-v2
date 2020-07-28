@@ -4,7 +4,7 @@ description: >
   The `experimental.join()` function joins two streams of tables on the
   group key with the addition of the `_time` column.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.join
     parent: Experimental
 weight: 302

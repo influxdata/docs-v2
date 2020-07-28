@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/monitor/logs/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: monitor.logs
     parent: InfluxDB Monitor
 weight: 202

@@ -6,7 +6,7 @@ description: >
   or write data to InfluxDB using annotated CSV and the `influx write` command.
 weight: 103
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Syntax
 v2.0/tags: [csv, syntax]
 aliases:

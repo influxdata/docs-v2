@@ -5,7 +5,7 @@ description: >
   Monitor your time series data and send alerts by creating checks, notification
   rules, and notification endpoints.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Monitor & alert
 weight: 6
 aliases:

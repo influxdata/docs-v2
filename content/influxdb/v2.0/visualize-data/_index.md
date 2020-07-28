@@ -5,7 +5,7 @@ description: >
   Create custom dashboards with flexible queries and visualization types.
 v2.0/tags: [visualize]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Visualize data
 weight: 5
 aliases:
