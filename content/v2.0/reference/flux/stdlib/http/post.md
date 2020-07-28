@@ -39,6 +39,15 @@ Headers to include with the POST request.
 
 _**Data type:** Object_
 
+{{% note %}}
+##### Header keys with special characters
+Wrap header keys that contain special characters in double quotes (`""`).
+
+```js
+{"key-1": "value 1", "key#2": "value 2" }
+```
+{{% /note %}}
+
 ### data
 The data body to include with the POST request.
 
@@ -56,12 +65,14 @@ lastReported =
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
-    |> tableFind(fn: (key) => exists key._level)
-    |> getColumn(column: "_level")
+    |> findColumn(fn: (key) => true, column: "_level")
 
 http.post(
   url: "http://myawsomeurl.com/api/notify",
-  headers: {Authorization: "Bearer mySuPerSecRetTokEn"},
-  data: bytes(v: lastReported[0])
+  headers: {
+    Authorization: "Bearer mySuPerSecRetTokEn",
+    "Content-type": "application/json"
+  },
+  data: json.encode(v: lastReported[0])
 )
 ```
