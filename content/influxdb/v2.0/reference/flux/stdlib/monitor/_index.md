@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/monitor/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: InfluxDB Monitor
     parent: Flux standard library
 weight: 202

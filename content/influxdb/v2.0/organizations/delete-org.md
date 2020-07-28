@@ -5,7 +5,7 @@ description: Delete an existing organization from InfluxDB using the InfluxDB UI
 aliases:
   - /v2.0/organizations/delete-org/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Delete an organization
     parent: Manage organizations
 weight: 104

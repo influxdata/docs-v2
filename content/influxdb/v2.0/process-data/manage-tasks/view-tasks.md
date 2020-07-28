@@ -4,7 +4,7 @@ seotitle: View created tasks that process data in InfluxDB
 description: >
   View existing data processing tasks using the InfluxDB UI or the `influx` CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: View tasks
     parent: Manage tasks
 weight: 202

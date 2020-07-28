@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/language/built-ins/time-constants/
   - /v2.0/reference/flux/functions/date/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Date
     parent: Flux standard library
 weight: 202

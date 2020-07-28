@@ -4,7 +4,7 @@ description: The `contains()` function tests whether a value is a member of a se
 aliases:
   - /v2.0/reference/flux/functions/built-in/tests/contains/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: contains
     parent: built-in-tests
 weight: 401

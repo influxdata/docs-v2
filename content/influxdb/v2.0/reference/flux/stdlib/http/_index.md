@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/http/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: HTTP
     parent: Flux standard library
 weight: 202

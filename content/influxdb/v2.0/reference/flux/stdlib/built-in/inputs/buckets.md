@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/inputs/buckets
   - /v2.0/reference/flux/functions/built-in/inputs/buckets/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: buckets
     parent: built-in-inputs
 weight: 401

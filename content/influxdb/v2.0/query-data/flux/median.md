@@ -9,7 +9,7 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/median/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
     name: Median
 v2.0/tags: [query, median]

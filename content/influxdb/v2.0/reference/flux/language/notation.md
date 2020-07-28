@@ -2,7 +2,7 @@
 title: Notation
 description: Notation principles for the Flux functional data scripting language.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Flux specification
     name: Notation
 weight: 206

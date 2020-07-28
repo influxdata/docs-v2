@@ -8,7 +8,7 @@ weight: 201
 aliases:
   - /v2.0/visualize-data/visualization-types/graph/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Graph
     parent: Visualization types
 ---

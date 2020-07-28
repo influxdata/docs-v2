@@ -7,7 +7,7 @@ aliases:
   - /v2.0/monitor-alert/notification-rules/
 v2.0/tags: [monitor, notifications, alert]
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Monitor & alert
 related:
   - /influxdb/v2.0/monitor-alert/checks/

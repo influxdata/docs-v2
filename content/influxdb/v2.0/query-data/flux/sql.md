@@ -8,7 +8,7 @@ description: >
   SQLite, Microsoft SQL Server, and Amazon Athena.
 v2.0/tags: [query, flux, sql]
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
     list_title: SQL data
 weight: 220

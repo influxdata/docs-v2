@@ -4,7 +4,7 @@ description: >
   The `influx telegrafs` command lists Telegraf configurations.
   Subcommands manage Telegraf configurations.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx telegrafs
     parent: influx
 weight: 101

@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: tableFind
     parent: Stream & table
 weight: 501

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/count
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: count
     parent: built-in-aggregates
 weight: 501

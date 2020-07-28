@@ -8,7 +8,7 @@ description: >
 aliases:
   - /v2.0/write-data/no-code/third-party/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Third-party technologies
     parent: No-code solutions
 ---

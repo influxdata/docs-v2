@@ -4,7 +4,7 @@ description: >
   The `influx stacks` command and its subcommands list and manage InfluxDB stacks
   and associated resources.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx stacks
     parent: influx
 weight: 101

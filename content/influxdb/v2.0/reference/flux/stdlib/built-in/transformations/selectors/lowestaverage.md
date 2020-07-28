@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestaverage
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/lowestaverage/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: lowestAverage
     parent: built-in-selectors
 weight: 501

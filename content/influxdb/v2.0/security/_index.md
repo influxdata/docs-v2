@@ -8,7 +8,7 @@ weight: 12
 aliases:
   - /v2.0/security/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Security & authorization
 v2.0/tags: [security, authentication]
 ---

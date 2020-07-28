@@ -2,7 +2,7 @@
 title: InfluxDB v2.0 release notes
 description: Important changes and and what's new in each version of InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: InfluxDB
     parent: Release notes
 weight: 101

@@ -4,7 +4,7 @@ description: The `json.encode()` function converts a value into JSON bytes.
 aliases:
   - /v2.0/reference/flux/functions/json/encode/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: json.encode
     parent: JSON
 weight: 202

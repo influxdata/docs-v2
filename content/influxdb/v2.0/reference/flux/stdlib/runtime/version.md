@@ -4,7 +4,7 @@ description: The `runtime.version()` function returns the current Flux version.
 aliases:
   - /v2.0/reference/flux/functions/runtime/version/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: runtime.version
     parent: Runtime
 weight: 401

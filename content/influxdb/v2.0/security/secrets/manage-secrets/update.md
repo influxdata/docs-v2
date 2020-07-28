@@ -3,7 +3,7 @@ title: Update secrets
 description: Update secrets using the `influx` CLI or the InfluxDB API.
 v2.0/tags: [secrets, security]
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Manage secrets
 weight: 303
 aliases:

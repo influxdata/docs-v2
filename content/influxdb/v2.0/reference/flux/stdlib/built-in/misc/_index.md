@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/functions/misc
   - /v2.0/reference/flux/functions/built-in/misc/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Built-in
     name: Miscellaneous
     identifier: built-in-misc

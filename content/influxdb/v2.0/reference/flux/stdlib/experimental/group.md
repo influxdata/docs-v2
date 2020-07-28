@@ -4,7 +4,7 @@ description: >
   The `experimental.group()` function introduces an `extend` mode to the existing
   `group()` function.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.group
     parent: Experimental
 weight: 302

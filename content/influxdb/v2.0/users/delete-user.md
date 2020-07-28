@@ -3,7 +3,7 @@ title: Delete a user
 seotitle: Delete a user from InfluxDB
 description: Delete a user from InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Delete a user
     parent: Manage users
 weight: 103

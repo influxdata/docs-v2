@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: holtWinters
     parent: built-in-transformations
 weight: 402

@@ -6,7 +6,7 @@ description: >
   using HTTP protocol.
   Import the `experimental/http` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: HTTP
     identifier: HTTP-exp
     parent: Experimental

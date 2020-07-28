@@ -3,7 +3,7 @@ title: InfluxDB 1.x compatibility API
 description: >
   placeholder
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: 1.x compatibility
     parent: InfluxDB v2 API
 weight: 104

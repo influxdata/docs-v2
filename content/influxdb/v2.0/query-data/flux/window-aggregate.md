@@ -6,7 +6,7 @@ description: >
   This guide walks through windowing and aggregating data with Flux and outlines
   how it shapes your data in the process.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Window & aggregate
     parent: Query with Flux
 weight: 204

@@ -3,7 +3,7 @@ title: Use Grafana with InfluxDB
 description: >
   Use [Grafana](https://grafana.com/) to visualize data from **InfluxDB 2.0** and **InfluxDB Cloud**.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Use Grafana
     parent: Other visualization tools
 weight: 201

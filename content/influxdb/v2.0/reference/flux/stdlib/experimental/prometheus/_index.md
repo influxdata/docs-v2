@@ -5,7 +5,7 @@ description: >
   The Flux Prometheus package provides functions for working with Prometheus-formatted metrics.
   Import the `experimental/prometheus` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Prometheus
     parent: Experimental
 weight: 301

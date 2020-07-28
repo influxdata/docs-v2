@@ -4,7 +4,7 @@ description: The math.erfinv() function returns the inverse error function of `x
 aliases:
   - /v2.0/reference/flux/functions/math/erfinv/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.erfinv
     parent: Math
 weight: 301

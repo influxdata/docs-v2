@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/stddev
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: stddev
     parent: built-in-aggregates
 weight: 501

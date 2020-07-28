@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/write-data/sample-data/
   - /v2.0/reference/sample-data/
-menu: v2_0_ref
+menu: influxdb_2_0_ref
 weight: 7
 ---
 

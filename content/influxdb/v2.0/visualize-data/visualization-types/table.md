@@ -9,7 +9,7 @@ weight: 207
 aliases:
   - /v2.0/visualize-data/visualization-types/table/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Table
     parent: Visualization types
 ---

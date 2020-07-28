@@ -9,7 +9,7 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/fill/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
     name: Fill
 v2.0/tags: [query, fill]
