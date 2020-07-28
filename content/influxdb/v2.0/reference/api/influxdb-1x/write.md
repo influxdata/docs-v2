@@ -5,20 +5,20 @@ description: >
   The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the
   InfluxDB 1.x `/write` API endpoint.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: /write
     parent: 1.x compatibility
 weight: 301
 aliases:
   - /v2.0/reference/api/influxdb-1x/write/
-influxdb/v2.0/tags: [write]
+v2.0/tags: [write]
 products: [cloud]
 list_code_example: |
   <pre>
   <span class="api post">POST</span> https://cloud2.influxdata.com/write
   </pre>
 related:
-  - /influxdb/v2.0/reference/syntax/line-protocol
+  - /v2.0/reference/syntax/line-protocol
 ---
 
 The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the

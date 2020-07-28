@@ -2,9 +2,9 @@
 title: Create custom Flux functions
 description: Create your own custom Flux functions to transform and manipulate data.
 list_title: Custom functions
-influxdb/v2.0/tags: [functions, custom, flux]
+v2.0/tags: [functions, custom, flux]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Custom functions
     parent: Query with Flux
 weight: 220

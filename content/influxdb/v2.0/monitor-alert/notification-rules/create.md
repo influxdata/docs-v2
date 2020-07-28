@@ -6,11 +6,11 @@ weight: 201
 aliases:
   - /v2.0/monitor-alert/notification-rules/create/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Manage notification rules
 related:
-  - /influxdb/v2.0/monitor-alert/checks/
-  - /influxdb/v2.0/monitor-alert/notification-endpoints/
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.

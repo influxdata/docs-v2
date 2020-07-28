@@ -4,12 +4,12 @@ description: The strings.hasSuffix() function indicates if a string ends with a 
 aliases:
   - /v2.0/reference/flux/functions/strings/hassuffix/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.hasSuffix
     parent: Strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/hasprefix
+  - /v2.0/reference/flux/stdlib/strings/hasprefix
 ---
 
 The `strings.hasSuffix()` function indicates if a string ends with a specified suffix.

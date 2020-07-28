@@ -5,13 +5,13 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/last
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/last/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: last
     parent: built-in-selectors
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/first-last/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#last, InfluxQL – LAST()
+  - /v2.0/query-data/flux/first-last/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#last, InfluxQL – LAST()
 ---
 
 The `last()` function selects the last non-null record from an input table.

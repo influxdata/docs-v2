@@ -10,10 +10,10 @@ aliases:
   - /v2.0/collect-data/scrape-data/scrapable-endpoints
   - /v2.0/write-data/no-code/scrape-data/scrapable-endpoints/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Scrape data
 weight: 202
-influxdb/v2.0/tags: [scraper]
+v2.0/tags: [scraper]
 ---
 
 InfluxDB scrapers can collect data from any HTTP(S)-accessible endpoint that returns data

@@ -2,13 +2,13 @@
 title: influx secret delete
 description: The `influx secret delete` command deletes secrets.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx secret delete
     parent: influx secret
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/secret/delete/
-influxdb/v2.0/tags: [secrets]
+v2.0/tags: [secrets]
 ---
 
 The `influx secret delete` command deletes secrets.

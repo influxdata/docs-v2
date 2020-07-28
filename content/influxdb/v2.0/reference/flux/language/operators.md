@@ -2,11 +2,11 @@
 title: Operators in the Flux language
 description: Flux supports many types of operators including arithmetic operators, comparison operators, function operators, and others.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Operators
     parent: Flux specification
 weight: 215
-influxdb/v2.0/tags: [operators]
+v2.0/tags: [operators]
 ---
 
 Flux includes the following types of operators:

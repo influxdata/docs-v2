@@ -10,10 +10,10 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/first-last/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Query with Flux
     name: First & last
-influxdb/v2.0/tags: [query]
+v2.0/tags: [query]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/

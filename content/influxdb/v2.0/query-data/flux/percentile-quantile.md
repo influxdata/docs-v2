@@ -9,12 +9,12 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/percentile-quantile/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Query with Flux
     name: Percentile & quantile
-influxdb/v2.0/tags: [query, percentile, quantile]
+v2.0/tags: [query, percentile, quantile]
 related:
-  - /influxdb/v2.0/query-data/flux/query-median/
+  - /v2.0/query-data/flux/query-median/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_query_example: quantile
 ---

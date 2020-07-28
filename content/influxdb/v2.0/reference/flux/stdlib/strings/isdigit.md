@@ -4,7 +4,7 @@ description: The strings.isDigit() function tests if a single character string i
 aliases:
   - /v2.0/reference/flux/functions/strings/isdigit/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.isDigit
     parent: Strings
 weight: 301

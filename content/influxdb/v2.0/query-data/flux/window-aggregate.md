@@ -6,11 +6,11 @@ description: >
   This guide walks through windowing and aggregating data with Flux and outlines
   how it shapes your data in the process.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Window & aggregate
     parent: Query with Flux
 weight: 204
-influxdb/v2.0/tags: [flux, aggregates]
+v2.0/tags: [flux, aggregates]
 aliases:
   - /v2.0/query-data/guides/window-aggregate/
   - /v2.0/query-data/flux/window-aggregate/
@@ -187,7 +187,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 
 When visualized in the InfluxDB UI, each window table is displayed in a different color.
 
-![Windowed data](/img/flux/simple-windowed-data.png)
+![Windowed data](/img/simple-windowed-data.png)
 
 ## Aggregate data
 [Aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates) take the values
@@ -249,7 +249,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 Because each data point is contained in its own table, when visualized,
 they appear as single, unconnected points.
 
-![Aggregated windowed data](/img/flux/simple-windowed-aggregate-data.png)
+![Aggregated windowed data](/img/simple-windowed-aggregate-data.png)
 
 ### Recreate the time column
 **Notice the `_time` column is not in the [aggregated output tables](#mean-output-tables).**
@@ -343,7 +343,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 
 With the aggregate values in a single table, data points in the visualization are connected.
 
-![Unwindowed aggregate data](/img/flux/simple-unwindowed-data.png)
+![Unwindowed aggregate data](/img/simple-unwindowed-data.png)
 
 ## Summing up
 You have now created a Flux query that windows and aggregates data.

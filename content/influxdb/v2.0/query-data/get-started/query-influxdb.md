@@ -1,16 +1,16 @@
 ---
 title: Query InfluxDB with Flux
 description: Learn the basics of using Flux to query data from InfluxDB.
-influxdb/v2.0/tags: [query, flux]
+v2.0/tags: [query, flux]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201
 aliases:
   - /v2.0/query-data/get-started/query-influxdb/
 related:
-  - /influxdb/v2.0/query-data/flux/
+  - /v2.0/query-data/guides/
   - /v2.0/reference/flux/stdlib/built-in/inputs/from
   - /v2.0/reference/flux/stdlib/built-in/transformations/range
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter

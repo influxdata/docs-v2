@@ -10,7 +10,7 @@ aliases:
   - /v2.0/collect-data/use-telegraf
   - /v2.0/write-data/no-code/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: No-code solutions
     parent: Write data
 ---

@@ -1,9 +1,9 @@
 ---
 title: Create custom aggregate functions
 description: Create your own custom aggregate functions in Flux using the `reduce()` function.
-influxdb/v2.0/tags: [functions, custom, flux, aggregates]
+v2.0/tags: [functions, custom, flux, aggregates]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Custom aggregate functions
     parent: Custom functions
 weight: 301

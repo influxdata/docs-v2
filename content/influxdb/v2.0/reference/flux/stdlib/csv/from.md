@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/inputs/fromcsv
   - /v2.0/reference/flux/functions/csv/from/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: csv.from
     parent: CSV
 weight: 202

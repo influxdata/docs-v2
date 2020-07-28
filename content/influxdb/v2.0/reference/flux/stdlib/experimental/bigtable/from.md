@@ -3,7 +3,7 @@ title: bigtable.from() function
 description: >
   The `bigtable.from()` function retrieves data from a Google Cloud Bigtable data source.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: bigtable.from
     parent: Bigtable
 weight: 401

@@ -4,7 +4,7 @@ description: The math.log() function returns the natural logarithm of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/log/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.log
     parent: Math
 weight: 301

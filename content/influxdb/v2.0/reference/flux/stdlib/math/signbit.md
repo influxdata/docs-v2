@@ -4,7 +4,7 @@ description: The math.signbit() function reports whether `x` is negative or nega
 aliases:
   - /v2.0/reference/flux/functions/math/signbit/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.signbit
     parent: Math
 weight: 301

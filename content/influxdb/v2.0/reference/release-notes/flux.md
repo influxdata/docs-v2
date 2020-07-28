@@ -3,7 +3,7 @@ title: Flux release notes
 description: Important changes and and what's new in each version of Flux.
 weight: 102
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Release notes
     name: Flux
 aliases:
@@ -15,31 +15,6 @@ The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
-
-## v0.82.2 [2020-08-25]
-
-### Features
-- Replace [satori/go.uuid](https://github.com/satori/go.uuid) with [gofrs/uuid](https://github.com/gofrs/uuid) in Golang dependencies.
-
----
-
-## v0.82.1 [2020-08-25]
-
-Internal code cleanup.
-
----
-
-## v0.82.0 [2020-08-24]
-
-### Features
-- Add validation for InfluxDB schema compatibility.
-- Add a documentation URL field to Flux errors to help provide more informative error messages in the future.
-- Add the `profiler` package.
-
-### Bug fixes
-- Fix a panic involving invalid types in map object property.
-
----
 
 ## v0.81.0 [2020-08-17]
 

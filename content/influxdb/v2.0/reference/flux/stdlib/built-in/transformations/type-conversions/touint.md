@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/touint
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/touint/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: toUInt
     parent: built-in-type-conversions
 weight: 501

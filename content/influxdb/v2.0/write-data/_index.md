@@ -9,16 +9,15 @@ aliases:
   - /v2.0/write-data/sample-data/demo-data/
   - /v2.0/write-data/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Write data
-influxdb/v2.0/tags: [write, line protocol]
+v2.0/tags: [write, line protocol]
 related:
   - /v2.0/write-data/use-telegraf/
   - /v2.0/api/#tag/Write, InfluxDB API /write endpoint
   - /v2.0/reference/syntax/line-protocol
   - /v2.0/reference/syntax/annotated-csv
   - /v2.0/reference/cli/influx/write
-  - /v2.0/write-data/bulk-ingest-cloud
 ---
 
 Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
@@ -119,7 +118,7 @@ Choose from the following demo data sets:
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Explore demo data
-Use the [Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/)
+Use the [Data Explorer](https://v2.docs.influxdata.com/v2.0/visualize-data/explore-metrics/)
 to query and visualize data in demo data buckets.
 
 In the navigation menu on the left, click **Explore (Data Explorer)**.

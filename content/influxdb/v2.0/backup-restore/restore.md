@@ -4,15 +4,15 @@ seotitle: Restore data in InfluxDB
 description: >
   Use the `influxd restore` command to restore backup data and metadata from InfluxDB.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Back up & restore data
 weight: 101
-influxdb/v2.0/tags: [restore]
+v2.0/tags: [restore]
 aliases:
   - /v2.0/backup-restore/restore
 related:
-  - /influxdb/v2.0/backup-restore/backup/
-  - /influxdb/v2.0/reference/cli/influxd/restore/
+  - /v2.0/backup-restore/backup/
+  - /v2.0/reference/cli/influxd/restore/
 products: [oss]
 ---
 

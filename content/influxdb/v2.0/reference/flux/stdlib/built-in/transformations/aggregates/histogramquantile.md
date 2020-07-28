@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/histogramquantile
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/histogramquantile/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: histogramQuantile
     parent: built-in-aggregates
 weight: 501

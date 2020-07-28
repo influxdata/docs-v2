@@ -4,7 +4,7 @@ description: The math.acosh() function returns the inverse hyperbolic cosine of 
 aliases:
   - /v2.0/reference/flux/functions/math/acosh/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.acosh
     parent: Math
 weight: 301

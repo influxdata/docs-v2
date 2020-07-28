@@ -2,7 +2,7 @@
 title: Side effects
 description: A summary of side effects in the Flux functional data scripting language.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Flux specification
     name: Side effects
 weight: 210

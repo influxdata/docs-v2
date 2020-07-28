@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/set
   - /v2.0/reference/flux/functions/built-in/transformations/set/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: set
     parent: built-in-transformations
 weight: 402

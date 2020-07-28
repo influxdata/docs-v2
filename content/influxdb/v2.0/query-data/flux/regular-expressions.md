@@ -2,9 +2,9 @@
 title: Use regular expressions in Flux
 list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
-influxdb/v2.0/tags: [regex]
+v2.0/tags: [regex]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Regular expressions
     parent: Query with Flux
 weight: 220
@@ -12,7 +12,7 @@ aliases:
   - /v2.0/query-data/guides/regular-expressions/
   - /v2.0/query-data/flux/regular-expressions/
 related:
-  - /influxdb/v2.0/query-data/flux/query-fields/
+  - /v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/regexp/
 list_query_example: regular_expressions
 ---

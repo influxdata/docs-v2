@@ -8,13 +8,13 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/sql/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: SQL
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, sql, package, mysql, postgres]
+v2.0/tags: [functions, sql, package, mysql, postgres]
 related:
-  - /influxdb/v2.0/query-data/flux/sql/
+  - /v2.0/query-data/flux/sql/
 ---
 
 SQL Flux functions provide tools for working with data in SQL databases such as:

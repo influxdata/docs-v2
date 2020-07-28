@@ -2,7 +2,7 @@
 title: influx user delete
 description: The `influx user delete` command deletes a specified user.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx user delete
     parent: influx user
 weight: 201

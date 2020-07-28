@@ -5,7 +5,7 @@ description: Create an organization in InfluxDB using the InfluxDB UI or the inf
 aliases:
   - /v2.0/organizations/create-org/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create an organization
     parent: Manage organizations
 weight: 101

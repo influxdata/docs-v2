@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/outputs/to
   - /v2.0/reference/flux/functions/built-in/outputs/to/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: to
     parent: built-in-outputs
 weight: 401
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-into-clause, InfluxQL – SELECT INTO
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-into-clause, InfluxQL – SELECT INTO
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.

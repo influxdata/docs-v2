@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/minute/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: date.minute
     parent: Date
 weight: 301

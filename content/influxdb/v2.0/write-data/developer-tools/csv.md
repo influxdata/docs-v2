@@ -5,7 +5,7 @@ description: >
   to InfluxDB. Include annotations with the CSV data to determine how the data translates
   into [line protocol](/v2.0/reference/syntax/line-protocol/).
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Write CSV data
     parent: Developer tools
 aliases:
@@ -13,9 +13,9 @@ aliases:
   - /v2.0/write-data/developer-tools/csv/
 weight: 204
 related:
-  - /influxdb/v2.0/reference/syntax/line-protocol/
-  - /influxdb/v2.0/reference/syntax/annotated-csv/
-  - /influxdb/v2.0/reference/cli/influx/write/
+  - /v2.0/reference/syntax/line-protocol/
+  - /v2.0/reference/syntax/annotated-csv/
+  - /v2.0/reference/cli/influx/write/
 ---
 
 Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data

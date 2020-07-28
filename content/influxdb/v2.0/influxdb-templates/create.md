@@ -3,17 +3,17 @@ title: Create an InfluxDB template
 description: >
   Use the InfluxDB UI and the `influx export` command to create InfluxDB templates.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: InfluxDB templates
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
 aliases:
   - /v2.0/influxdb-templates/create/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 related:
-  - /influxdb/v2.0/reference/cli/influx/export/
-  - /influxdb/v2.0/reference/cli/influx/export/all/
+  - /v2.0/reference/cli/influx/export/
+  - /v2.0/reference/cli/influx/export/all/
 ---
 
 Use the InfluxDB user interface (UI) and the `influx export` command to

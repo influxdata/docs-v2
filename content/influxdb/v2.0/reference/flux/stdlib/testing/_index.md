@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/testing/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Testing
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [testing, functions, package]
+v2.0/tags: [testing, functions, package]
 ---
 
 Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.

@@ -8,12 +8,12 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/increase/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: increase
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/increase/
+  - /v2.0/query-data/flux/increase/
 ---
 
 The `increase()` function calculates the cumulative sum of **non-negative** differences

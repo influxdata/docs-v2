@@ -4,7 +4,7 @@ description: The math.log2() function returns the binary logarithm of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/log2/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.log2
     parent: Math
 weight: 301

@@ -6,10 +6,10 @@ weight: 102
 aliases:
   - /v2.0/reference/key-concepts/data-elements/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Key concepts
     name: Data elements
-influxdb/v2.0/tags: [key concepts, schema]
+v2.0/tags: [key concepts, schema]
 ---
 
 InfluxDB 2.0 includes the following data elements:

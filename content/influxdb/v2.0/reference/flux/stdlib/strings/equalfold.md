@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/equalfold/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.equalFold
     parent: Strings
 weight: 301

@@ -4,7 +4,7 @@ description: >
   The `teams.endpoint()` function sends a message to a Microsoft Teams channel
   using data from table rows.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: teams.endpoint
     parent: Teams
 weight: 202

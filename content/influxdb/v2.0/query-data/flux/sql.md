@@ -6,9 +6,9 @@ description: >
   The Flux `sql` package provides functions for working with SQL data sources.
   Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
   SQLite, Microsoft SQL Server, and Amazon Athena.
-influxdb/v2.0/tags: [query, flux, sql]
+v2.0/tags: [query, flux, sql]
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Query with Flux
     list_title: SQL data
 weight: 220
@@ -184,7 +184,7 @@ sql.from(
 
 Use the variable to manipulate queries in your dashboards.
 
-{{< img-hd src="/img/influxdb/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
+{{< img-hd src="/img/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
 
 ---
 

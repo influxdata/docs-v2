@@ -5,11 +5,11 @@ description: >
   The Flux Experimental package includes experimental functions that perform various tasks.
   Experimental functions are subject to change at any time and are not recommended for production use.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Experimental
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, experimental, package]
+v2.0/tags: [functions, experimental, package]
 ---
 
 The Flux Experimental package includes experimental functions that perform various tasks.

@@ -7,18 +7,18 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleexponentialderivative/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleexponentialderivative/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: tripleExponentialDerivative
     parent: built-in-transformations
 weight: 402
-influxdb/v2.0/tags: [technical analysis]
+v2.0/tags: [technical analysis]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-derivative, InfluxQL TRIPLE_EXPONENTIAL_DERIVATIVE()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-derivative, InfluxQL TRIPLE_EXPONENTIAL_DERIVATIVE()
 ---
 
 The `tripleExponentialDerivative()` function calculates a triple exponential

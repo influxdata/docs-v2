@@ -1,21 +1,21 @@
 ---
 title: Single Stat visualization
 list_title: Single stat
-list_image: /img/influxdb/2-0-visualizations-single-stat-example.png
+list_image: /img/2-0-visualizations-single-stat-example.png
 description: >
   The Single Stat view displays the most recent value of the specified time series as a numerical value.
 weight: 205
 aliases:
   - /v2.0/visualize-data/visualization-types/single-stat/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Single Stat
     parent: Visualization types
 ---
 
 The **Single Stat** view displays the most recent value of the specified time series as a numerical value.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-single-stat-example-8.png" alt="Single stat example" />}}
+{{< img-hd src="/img/2-0-visualizations-single-stat-example-8.png" alt="Single stat example" />}}
 
 Select the **Single Stat** option from the visualization dropdown in the upper right.
 
@@ -64,4 +64,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Memory usage as a single stat
-{{< img-hd src="/img/influxdb/2-0-visualizations-single-stat-example-8.png" alt="Graph + Single Stat Memory Usage Example" />}}
+{{< img-hd src="/img/2-0-visualizations-single-stat-example-8.png" alt="Graph + Single Stat Memory Usage Example" />}}

@@ -4,7 +4,7 @@ description: The math.NaN() function returns an IEEE 754 “not-a-number” valu
 aliases:
   - /v2.0/reference/flux/functions/math/nan/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.NaN
     parent: Math
 weight: 301

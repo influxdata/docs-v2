@@ -9,12 +9,12 @@ weight: 210
 aliases:
   - /v2.0/query-data/flux/median/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Query with Flux
     name: Median
-influxdb/v2.0/tags: [query, median]
+v2.0/tags: [query, median]
 related:
-  - /influxdb/v2.0/query-data/flux/percentile-quantile/
+  - /v2.0/query-data/flux/percentile-quantile/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_query_example: median

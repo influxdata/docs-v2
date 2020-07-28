@@ -4,7 +4,7 @@ description: >
   The `prometheus.histogramQuantile()` function calculates quantiles on a set of values
   assuming the given histogram data is scraped or read from a Prometheus data source.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: prometheus.histogramQuantile
     parent: Prometheus
 weight: 401

@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/actionfromseverity/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: pagerduty.actionFromSeverity
     parent: PagerDuty
 weight: 202

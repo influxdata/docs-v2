@@ -1,7 +1,7 @@
 ---
 title: Heatmap visualization
 list_title: Heatmap
-list_image: /img/influxdb/2-0-visualizations-heatmap-example.png
+list_image: /img/2-0-visualizations-heatmap-example.png
 description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.
@@ -9,17 +9,17 @@ weight: 203
 aliases:
   - /v2.0/visualize-data/visualization-types/heatmap/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Heatmap
     parent: Visualization types
 related:
-  - /influxdb/v2.0/visualize-data/visualization-types/scatter
+  - /v2.0/visualize-data/visualization-types/scatter
 ---
 
 A **Heatmap** displays the distribution of data on an x and y axes where color
 represents different concentrations of data points.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
 
 Select the **Heatmap** option from the visualization dropdown in the upper right.
 
@@ -98,7 +98,7 @@ and `_value_mem` is selected as the [Y Column](#data).
 The domain for each axis is also customized to account for the scale difference
 between column values.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-correlation.png" alt="Heatmap correlation example" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-correlation.png" alt="Heatmap correlation example" />}}
 
 
 ## Important notes
@@ -110,7 +110,7 @@ However, in certain cases, heatmaps provide better visibility into point density
 
 For example, the dashboard cells below visualize the same query results:
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
 
 The heatmap indicates isolated high point density, which isn't visible in the scatter plot.
 In the scatter plot visualization, points that share the same X and Y coordinates

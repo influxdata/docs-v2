@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toduration
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/toduration/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: toDuration
     parent: built-in-type-conversions
 weight: 501

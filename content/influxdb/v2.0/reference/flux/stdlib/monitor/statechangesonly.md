@@ -4,7 +4,7 @@ description: >
   The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
   column and returns a stream of tables where each record represents a state change.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: monitor.stateChangesOnly
     parent: InfluxDB Monitor
 weight: 202

@@ -2,9 +2,9 @@
 title: Create a template
 seotitle: Create an InfluxDB dashboard template
 description: Create an InfluxDB dashboard template in the InfluxDB user interface (UI).
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create a template
     parent: Manage dashboard templates
 weight: 201
@@ -35,7 +35,7 @@ Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) 
 
 3. Select **User Templates**.
 
-    {{< img-hd src="/img/influxdb/2-0-templates-type-select.png" alt="Select User Templates" />}}
+    {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
 
 4. Hover over the template you want to clone and click **{{< icon "clone" >}}**.
 5. Click **Clone** to confirm. The cloned template appears in your list.

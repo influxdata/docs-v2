@@ -2,7 +2,7 @@
 title: influx auth create
 description: The `influx auth create` creates an authorization in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx auth create
     parent: influx auth
 weight: 201

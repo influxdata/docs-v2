@@ -2,14 +2,14 @@
 title: influx stacks init
 description: The `influx stacks init` command initializes an InfluxDB stack.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx stacks init
     parent: influx stacks
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/pkg/stack/init/
   - /v2.0/reference/cli/influx/stacks/init/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 ---
 
 The `influx stacks init` command initializes an InfluxDB stack.
@@ -36,23 +36,10 @@ influx stacks init [flags]
 | `-t` | `--token`             | Authentication token                                                  | string          | `INFLUX_TOKEN`        |
 
 ## Examples
-
-### Initialize a stack with a name and description
-
 ```sh
-# Use environment variables
+# Initialize a stack with a name and description
 influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
 
-# Use strings
-influx stack init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
-```
-
-### Initialize a stack with a name and URLs to associate with the stack
-
-```sh
-# Use environment variables
+# Initialize a stack with a name and urls to associate with stack.
 influx stack init -n $STACK_NAME -u $PATH_TO_TEMPLATE
-
-# Use strings
-influx stack init -n "Example Stack" -u https://example.com/template-1.yml
 ```

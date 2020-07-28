@@ -5,9 +5,9 @@ description: >
   that retrieve, transform, process, and output data.
 aliases:
   - /v2.0/reference/flux/functions/
-influxdb/v2.0/tags: [flux, functions, package]
+v2.0/tags: [flux, functions, package]
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Flux language
 weight: 102
 ---

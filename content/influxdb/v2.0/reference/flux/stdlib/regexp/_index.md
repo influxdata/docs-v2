@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/regexp/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Regular expressions
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [regex, functions]
+v2.0/tags: [regex, functions]
 ---
 
 The Flux regular expressions package includes functions that provide enhanced

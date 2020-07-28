@@ -4,7 +4,7 @@ description: The `sql.to()` function writes data to a SQL database.
 aliases:
   - /v2.0/reference/flux/functions/sql/to/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: sql.to
     parent: SQL
 weight: 202

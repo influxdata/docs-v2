@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/math/hypot/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.hypot
     parent: Math
 weight: 301

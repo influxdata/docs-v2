@@ -4,20 +4,20 @@ list_title: /query
 description: >
   The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: /query
     parent: 1.x compatibility
 weight: 301
 aliases:
   - /v2.0/reference/api/influxdb-1x/query/
-influxdb/v2.0/tags: [influxql, query]
+v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |
   <pre>
   <span class="api get">GET</span> https://cloud2.influxdata.com/query
   </pre>
 related:
-  - /influxdb/v2.0/query-data/influxql
+  - /v2.0/query-data/influxql
 ---
 
 The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.

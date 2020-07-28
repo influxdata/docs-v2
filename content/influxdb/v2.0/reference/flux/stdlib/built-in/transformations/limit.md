@@ -5,14 +5,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/limit
   - /v2.0/reference/flux/functions/built-in/transformations/limit/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: limit
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/sort-limit/
+  - /v2.0/query-data/flux/sort-limit/
   - /v2.0/reference/flux/stdlib/built-in/transformations/tail/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 ---
 
 The `limit()` function limits each output table to the first [`n`](#n) records.

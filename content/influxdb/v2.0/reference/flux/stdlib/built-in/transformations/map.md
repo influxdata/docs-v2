@@ -5,11 +5,11 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/map
   - /v2.0/reference/flux/functions/built-in/transformations/map/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: map
     parent: built-in-transformations
 weight: 402
-influxdb/v2.0/tags: [exists]
+v2.0/tags: [exists]
 related:
   - /v2.0/query-data/flux/conditional-logic/
   - /v2.0/query-data/flux/mathematic-operations/

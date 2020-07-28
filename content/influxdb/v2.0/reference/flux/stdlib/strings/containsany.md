@@ -6,12 +6,12 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/containsany/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.containsAny
     parent: Strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/containsstr
+  - /v2.0/reference/flux/stdlib/strings/containsstr
 ---
 
 The `strings.containsAny()` function reports whether a specified string contains

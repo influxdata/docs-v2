@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/monitor/deadman/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: monitor.deadman
     parent: InfluxDB Monitor
 weight: 202

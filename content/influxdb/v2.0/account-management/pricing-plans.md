@@ -9,7 +9,7 @@ aliases:
   - /v2.0/account-management/pricing-plans
 weight: 102
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Account management
     name: Pricing plans
 products: [cloud]
@@ -19,7 +19,7 @@ v2.0/tags: [VPC]
 InfluxDB Cloud 2.0 offers two pricing plans:
 
 - [Free Plan](#free-plan)
-- [Usage-Based Plan](#usage-based-plan)
+- [Usage-based Plan](#usage-based-plan)
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/v2.0/account-management/pricing-calculator/). -->
 
@@ -30,7 +30,7 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
 
 #### Free Plan rate limits
 
-- **Data In:** 5.1MB every 5 minutes
+- **Writes:** 5.1MB every 5 minutes
 - **Query:** 300MB every 5 minutes
 - **Storage:** 30-day data retention
 {{% note %}}
@@ -48,24 +48,15 @@ Data retention is determined by the time at which data is written to InfluxDB; n
 
 _To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/account-management/billing/#upgrade-to-usage-based-plan)._
 
-## Usage-Based Plan
+## Usage-based Plan
 
-The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/v2.0/account-management/data-usage/).
+The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/v2.0/account-management/data-usage/).
 
-### Pricing vectors
+#### Usage-based Plan rate limits
 
-The following two vectors determine pricing:
+To protect against any intentional or unintentional harm, Usage-based Plans include soft rate limits:
 
-- **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
-- **Query count** is the total number of individual query operations. Each individual operation — including
-queries, tasks, alert checks, notifications, and Data Explorer activity — is one billable query operation. Refreshing a dashboard with multiple cells counts as one query operation per cell. A query run through an API request counts as an operation. Failed query or task executions do not add to your query count.
-
-
-### Usage-Based Plan rate limits
-
-To protect against any intentional or unintentional harm, Usage-Based Plans include soft rate limits:
-
-- **Data In:** Write 300MB every 5 minutes
+- **Writes:** 300MB every 5 minutes
 - **Ingest batch size:** 50MB
 - **Queries:** 3000MB every 5 minutes
 - **Storage:** Unlimited retention

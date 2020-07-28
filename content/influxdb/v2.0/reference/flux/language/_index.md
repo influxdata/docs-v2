@@ -4,11 +4,11 @@ description: >
   Covers the current and future Flux functional data scripting language,
   which is designed for querying, analyzing, and acting on data.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Flux specification
     parent: Flux language
 weight: 103
-influxdb/v2.0/tags: [flux]
+v2.0/tags: [flux]
 ---
 
 The following document specifies the Flux language and query execution.

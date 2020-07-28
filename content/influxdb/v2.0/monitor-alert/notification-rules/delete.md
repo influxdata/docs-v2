@@ -6,11 +6,11 @@ weight: 204
 aliases:
   - /v2.0/monitor-alert/notification-rules/delete/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Manage notification rules
 related:
-  - /influxdb/v2.0/monitor-alert/checks/
-  - /influxdb/v2.0/monitor-alert/notification-endpoints/
+  - /v2.0/monitor-alert/checks/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 ## Delete a notification rule in the UI

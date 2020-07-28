@@ -6,7 +6,7 @@ weight: 4
 aliases:
   - /v2.0/account-management/multi-user
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Account management
     name: Manage multiple users
 ---

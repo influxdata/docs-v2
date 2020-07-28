@@ -5,9 +5,9 @@ list_title: Transform data with math
 description: >
   Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map)
   to remap column values and apply mathematic operations.
-influxdb/v2.0/tags: [math, flux]
+v2.0/tags: [math, flux]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Transform data with math
     parent: Query with Flux
 weight: 208
@@ -19,7 +19,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
   - /v2.0/reference/flux/language/operators/
   - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
-  - /influxdb/v2.0/query-data/flux/calculate-percentages/
+  - /v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 

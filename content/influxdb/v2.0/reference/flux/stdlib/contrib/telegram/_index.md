@@ -6,11 +6,11 @@ description: >
   [Telegram](https://telegram.org/) using the [Telegram Bot API](https://core.telegram.org/bots/api).
   Import the `contrib/sranka/telegram` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Telegram
     parent: Contributed
 weight: 202
-influxdb/v2.0/tags: [functions, teams, microsoft, package]
+v2.0/tags: [functions, teams, microsoft, package]
 ---
 
 The Flux Telegram package provides functions for sending messages to

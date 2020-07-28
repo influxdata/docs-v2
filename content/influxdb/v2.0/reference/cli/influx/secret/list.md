@@ -2,13 +2,13 @@
 title: influx secret list
 description: The `influx secret list` command lists secret keys.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx secret list
     parent: influx secret
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/secret/list/
-influxdb/v2.0/tags: [secrets]
+v2.0/tags: [secrets]
 ---
 
 The `influx secret list` command lists secret keys.

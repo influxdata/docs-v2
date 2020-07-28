@@ -8,11 +8,11 @@ description: >
 aliases:
   - /v2.0/write-data/developer-tools/influx-cli/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Influx CLI
     parent: Developer tools
 related:
-  - /influxdb/v2.0/write-data/developer-tools/csv/
+  - /v2.0/write-data/developer-tools/csv/
 ---
 
 To write data from the command line, use the [`influx write` command](/v2.0/reference/cli/influx/write/).

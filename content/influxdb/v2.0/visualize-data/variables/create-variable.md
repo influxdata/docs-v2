@@ -3,12 +3,12 @@ title: Create a variable
 seotitle: Create a dashboard variable
 description: Create dashboard variables in the Data Explorer, from the Organization page, or import a variable.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Use and manage variables
 weight: 201
 aliases:
   - /v2.0/visualize-data/variables/create-variable/
-influxdb/v2.0/tags: [variables]
+v2.0/tags: [variables]
 ---
 
 Create dashboard variables in the Data Explorer, from the Settings section, or import a variable.

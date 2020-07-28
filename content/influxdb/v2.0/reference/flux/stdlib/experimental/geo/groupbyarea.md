@@ -3,13 +3,13 @@ title: geo.groupByArea() function
 description: >
   The geo.groupByArea() function groups rows by geographic area.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: geo.groupByArea
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo]
+v2.0/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /v2.0/query-data/flux/geo/
 ---
 
 The `geo.groupByArea()` function groups rows by geographic area.

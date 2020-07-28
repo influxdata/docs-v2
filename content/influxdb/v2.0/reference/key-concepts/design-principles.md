@@ -6,10 +6,10 @@ weight: 104
 aliases:
   - /v2.0/reference/key-concepts/design-principles/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Key concepts
     name: Design principles
-influxdb/v2.0/tags: [key concepts, design principles]
+v2.0/tags: [key concepts, design principles]
 ---
 
 InfluxDB implements optimal design principles for time series data. Some of these design principles may have associated tradeoffs in performance.

@@ -4,7 +4,7 @@ description: The strings.compare() function compares the lexicographical order o
 aliases:
   - /v2.0/reference/flux/functions/strings/compare/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.compare
     parent: Strings
 weight: 301

@@ -2,7 +2,7 @@
 title: influx auth active
 description: The `influx auth active` command activates an authorization.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx auth active
     parent: influx auth
 weight: 201

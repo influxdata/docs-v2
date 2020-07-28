@@ -4,7 +4,7 @@ description: The math.nextafter() function returns the next representable float 
 aliases:
   - /v2.0/reference/flux/functions/math/nextafter/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.nextafter
     parent: Math
 weight: 301

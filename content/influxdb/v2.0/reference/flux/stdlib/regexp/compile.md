@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/regexp/compile/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: regexp.compile
     parent: Regular expressions
 weight: 301

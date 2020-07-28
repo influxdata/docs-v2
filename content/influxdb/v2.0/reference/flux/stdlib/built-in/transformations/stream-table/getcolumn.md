@@ -6,12 +6,12 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: getColumn
     parent: Stream & table
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `getColumn()` function extracts a column from a table given its label.

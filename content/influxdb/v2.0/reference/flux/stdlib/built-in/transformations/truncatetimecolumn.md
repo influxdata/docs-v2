@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/truncatetimecolumn/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: truncateTimeColumn
     parent: built-in-transformations
 weight: 402

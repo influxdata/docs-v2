@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/substring/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.substring
     parent: Strings
 weight: 301

@@ -5,7 +5,7 @@ description: Delete an authentication token from InfluxDB using the InfluxDB UI 
 aliases:
   - /v2.0/users/tokens/delete-token
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Delete a token
     parent: Manage tokens
 weight: 204

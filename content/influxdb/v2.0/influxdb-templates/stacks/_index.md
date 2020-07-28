@@ -6,13 +6,13 @@ description: >
   when applying the same or similar templates more than once, and apply
   changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: InfluxDB templates
 weight: 105
 aliases:
   - /v2.0/influxdb-templates/stacks/
 related:
-  - /influxdb/v2.0/reference/cli/stacks/
+  - /v2.0/reference/cli/influx/pkg/stack/
 ---
 
 **InfluxDB stacks** are **stateful [InfluxDB templates](/v2.0/influxdb-templates)**

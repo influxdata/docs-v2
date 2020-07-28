@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/nanosecond/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: date.nanosecond
     parent: Date
 weight: 301

@@ -5,7 +5,7 @@ description: Update authentication tokens' descriptions in InfluxDB using the In
 aliases:
   - /v2.0/users/tokens/update-tokens
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Update a token
     parent: Manage tokens
 weight: 203

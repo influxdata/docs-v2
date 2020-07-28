@@ -5,7 +5,7 @@ description: Create an authentication token in InfluxDB using the InfluxDB UI or
 aliases:
   - /v2.0/users/tokens/create-token/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Create a token
     parent: Manage tokens
 weight: 201

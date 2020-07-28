@@ -4,7 +4,7 @@ description: The math.floor() function returns the greatest integer value less t
 aliases:
   - /v2.0/reference/flux/functions/math/floor/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.floor
     parent: Math
 weight: 301

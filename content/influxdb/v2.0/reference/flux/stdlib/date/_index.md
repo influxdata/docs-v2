@@ -8,11 +8,11 @@ aliases:
   - /v2.0/reference/flux/language/built-ins/time-constants/
   - /v2.0/reference/flux/functions/date/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Date
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [date, time, functions]
+v2.0/tags: [date, time, functions]
 ---
 
 The Flux date package provides date and time constants and functions.

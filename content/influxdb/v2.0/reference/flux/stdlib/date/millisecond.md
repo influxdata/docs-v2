@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/millisecond/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: date.millisecond
     parent: Date
 weight: 301

@@ -4,7 +4,7 @@ description: The math.float64bits() function returns the IEEE 754 binary represe
 aliases:
   - /v2.0/reference/flux/functions/math/float64bits/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.float64bits
     parent: Math
 weight: 301

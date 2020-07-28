@@ -3,16 +3,16 @@ title: InfluxDB 1.x compatibility API
 description: >
   placeholder
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: 1.x compatibility
     parent: InfluxDB v2 API
 weight: 104
 aliases:
   - /v2.0/reference/api/influxdb-1x/
-influxdb/v2.0/tags: [influxql, query, write]
+v2.0/tags: [influxql, query, write]
 products: [cloud]
 related:
-  - /influxdb/v2.0/query-data/influxql
+  - /v2.0/query-data/influxql
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with

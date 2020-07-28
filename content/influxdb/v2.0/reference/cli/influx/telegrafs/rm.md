@@ -3,7 +3,7 @@ title: influx telegrafs rm
 description: >
   The `influx telegrafs rm` command removes Telegraf configurations from InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx telegrafs rm
     parent: influx telegrafs
 weight: 201

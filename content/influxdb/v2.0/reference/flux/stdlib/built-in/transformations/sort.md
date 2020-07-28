@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/sort
   - /v2.0/reference/flux/functions/built-in/transformations/sort/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: sort
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/sort-limit/
+  - /v2.0/query-data/flux/sort-limit/
 ---
 
 The `sort()` function orders the records within each table.

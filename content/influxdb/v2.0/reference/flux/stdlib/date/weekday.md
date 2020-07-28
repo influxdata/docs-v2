@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/weekday/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: date.weekDay
     parent: Date
 weight: 301

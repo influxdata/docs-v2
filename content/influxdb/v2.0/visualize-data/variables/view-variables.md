@@ -3,12 +3,12 @@ title: View variables
 seotitle: View dashboard variables
 description: View dashboard variables in the InfluxDB user interface.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Use and manage variables
 weight: 203
 aliases:
   - /v2.0/visualize-data/variables/view-variables/
-influxdb/v2.0/tags: [variables]
+v2.0/tags: [variables]
 ---
 
 View a list of dashboard variables in the InfluxDB user interface (UI) from an organization or from the Data Explorer.
@@ -30,4 +30,4 @@ View a list of dashboard variables in the InfluxDB user interface (UI) from an o
 2. Switch to **Script Editor**.
 3. Click the **Variables** tab to the right of the script editor.
 
-  {{< img-hd src="/img/influxdb/2-0-variables-data-explorer-view.png" />}}
+  {{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}

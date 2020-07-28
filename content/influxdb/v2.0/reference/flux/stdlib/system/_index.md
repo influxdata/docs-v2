@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/system/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: System
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [system, functions, package]
+v2.0/tags: [system, functions, package]
 ---
 
 The Flux system package provides functions for reading values from the system.

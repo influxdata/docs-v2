@@ -2,14 +2,14 @@
 title: influx apply
 description: The `influx apply` command applies InfluxDB templates.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx apply
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/pkg/
   - /v2.0/reference/cli/influx/apply/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 ---
 
 The `influx apply` command applies InfluxDB templates.

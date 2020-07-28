@@ -6,12 +6,12 @@ aliases:
   - /v2.0/reference/flux/functions/inputs  
   - /v2.0/reference/flux/functions/built-in/inputs/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Built-in
     name: Inputs
     identifier: built-in-inputs
 weight: 301
-influxdb/v2.0/tags: [inputs, built-in, functions]
+v2.0/tags: [inputs, built-in, functions]
 ---
 
 Flux's built-in input functions define sources of data or display information about data sources.

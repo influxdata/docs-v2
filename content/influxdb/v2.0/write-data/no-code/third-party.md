@@ -8,7 +8,7 @@ description: >
 aliases:
   - /v2.0/write-data/no-code/third-party/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Third-party technologies
     parent: No-code solutions
 ---
@@ -18,7 +18,7 @@ A number of third-party technologies can be configured to send line protocol dir
 
 If you're using any of the following technologies, check out the handy links below to configure these technologies to write data to InfluxDB (**no additional software to download or install**):
 
-- (Write metrics and log events only) [Vector 0.9 or later](#configure-vector)
+- (Write metrics only) [Vector 0.9 or later](#configure-vector)
 
 - [Apache NiFi 1.8 or later](#configure-apache-nifi)
 
@@ -30,13 +30,9 @@ If you're using any of the following technologies, check out the handy links bel
 
 #### Configure Vector
 
-1. View the **Vector documentation**:
-  - For write metrics, [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/)
-  - For log events, [InfluxDB Logs Sink](https://vector.dev/docs/reference/sinks/influxdb_logs/)
+1. On the Vector.dev docs site, see the [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/) page.
 2. Under **Configuration**, click **v2** to view configuration settings.
-3. Scroll down to **How It Works** for more detail:
-  - [InfluxDB Metrics Sink – How It Works ](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works)
-  - [InfluxDB Logs Sink – How It Works](https://vector.dev/docs/reference/sinks/influxdb_logs/#how-it-works)
+3. Scroll down to [How It Works](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works) for more detail.
 
 #### Configure Apache NiFi
 
@@ -54,9 +50,9 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
 
 ##### In InfluxDB
 
-1. [Find the name of your organization](/influxdb/v2.0/organizations/view-orgs/) (needed to create a bucket and token).
-2. [Create a bucket using the influx CLI](/influxdb/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influx-cli) and name it `jmeter`.
-3. [Create a token](/influxdb/v2.0/security/tokens/create-token/).
+1. [Find the name of your organization](https://v2.docs.influxdata.com/v2.0/organizations/view-orgs/) (needed to create a bucket and token).
+2. [Create a bucket using the influx CLI](https://v2.docs.influxdata.com/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influx-cli) and name it `jmeter`.
+3. [Create a token](https://v2.docs.influxdata.com/v2.0/security/tokens/create-token/).
 
 ##### In JMeter
 

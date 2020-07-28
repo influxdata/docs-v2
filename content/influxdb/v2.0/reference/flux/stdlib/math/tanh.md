@@ -4,7 +4,7 @@ description: The math.tanh() function returns the hyperbolic tangent of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/tanh/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.tanh
     parent: Math
 weight: 301

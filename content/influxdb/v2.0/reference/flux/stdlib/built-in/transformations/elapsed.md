@@ -4,7 +4,7 @@ description: The `elapsed()` function returns the time between subsequent record
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/elapsed/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: elapsed
     parent: built-in-transformations
 weight: 402

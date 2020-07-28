@@ -1,16 +1,16 @@
 ---
 title: influxd - InfluxDB service
 description: The `influxd` service starts and runs all the processes necessary for InfluxDB to function.
-influxdb/v2.0/tags: [influxd, cli]
+v2.0/tags: [influxd, cli]
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influxd
     parent: Command line tools
 weight: 102
 aliases:
   - /v2.0/reference/cli/influxd/
 related:
-  - /influxdb/v2.0/reference/config-options/
+  - /v2.0/reference/config-options/
 products: [oss]
 ---
 

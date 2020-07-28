@@ -4,9 +4,9 @@ description: >
   The `influxd inspect report-tsm` command analyzes Time-Structured Merge Tree (TSM)
   files within a storage engine directory and reports the cardinality within the files
   and the time range the data covers.
-influxdb/v2.0/tags: [tsm, cardinality, inspect]
+v2.0/tags: [tsm, cardinality, inspect]
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: influxd inspect
 weight: 301
 aliases:

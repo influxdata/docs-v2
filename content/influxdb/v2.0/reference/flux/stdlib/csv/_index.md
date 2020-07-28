@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/csv/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: CSV
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, csv, package]
+v2.0/tags: [functions, csv, package]
 ---
 
 CSV Flux functions provide tools for working with data in [annotated CSV format](https://github.com/influxdata/flux/blob/master/docs/SPEC.md#csv).

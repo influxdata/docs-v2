@@ -3,7 +3,7 @@ title: json.parse() function
 description: >
   The `json.parse()` function takes JSON data as bytes and returns a value.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: json.parse
     parent: JSON-exp
 weight: 401
