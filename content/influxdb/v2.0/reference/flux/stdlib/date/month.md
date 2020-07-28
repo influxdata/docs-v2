@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/month/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: date.month
     parent: Date
 weight: 301

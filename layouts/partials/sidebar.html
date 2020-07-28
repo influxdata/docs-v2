@@ -1,5 +1,7 @@
 {{ $currentPage := . }}
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
   <div class="search-and-nav-toggle">
@@ -21,8 +23,8 @@
   </div>
   <ul id="nav-tree">
 
-  {{ $mainMenu := (index .Site.Menus (replaceRE "[.]" "_" $currentVersion)) }}
-  {{ $refMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_ref")) }}
+  {{ $mainMenu := (index .Site.Menus (print $product (replaceRE "[v.]" "_" $currentVersion))) }}
+  {{ $refMenu := (index .Site.Menus (print $product (replaceRE "[v.]" "_" $currentVersion) "_ref")) }}
 
   <!-- Main Section -->
   {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}

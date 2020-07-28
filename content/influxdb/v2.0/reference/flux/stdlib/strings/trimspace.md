@@ -4,7 +4,7 @@ description: The strings.trimSpace() function removes leading and trailing space
 aliases:
   - /v2.0/reference/flux/functions/strings/trimspace/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.trimSpace
     parent: Strings
 weight: 301

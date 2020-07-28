@@ -7,7 +7,7 @@ aliases:
   - /v2.0/write-data/scrape-data/manage-scrapers/update-a-scraper
   - /v2.0/write-data/no-code/scrape-data/manage-scrapers/update-a-scraper
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Manage scrapers
 weight: 302
 products: [oss]

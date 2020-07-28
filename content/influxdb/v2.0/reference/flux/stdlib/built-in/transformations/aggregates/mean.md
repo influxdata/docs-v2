@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/mean
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: mean
     parent: built-in-aggregates
 weight: 501

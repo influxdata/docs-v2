@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/math/m_inf/
   - /v2.0/reference/flux/stdlib/math/m_inf/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.mInf
     parent: Math
 weight: 301

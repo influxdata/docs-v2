@@ -8,7 +8,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: built-in-transformations
     name: Aggregates
     identifier: built-in-aggregates

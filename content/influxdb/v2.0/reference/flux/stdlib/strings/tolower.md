@@ -4,7 +4,7 @@ description: The strings.toLower() function converts a string to lowercase.
 aliases:
   - /v2.0/reference/flux/functions/strings/tolower/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.toLower
     parent: Strings
 weight: 301

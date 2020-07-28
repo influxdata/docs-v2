@@ -9,7 +9,7 @@ weight: 203
 aliases:
   - /v2.0/visualize-data/visualization-types/heatmap/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Heatmap
     parent: Visualization types
 related:

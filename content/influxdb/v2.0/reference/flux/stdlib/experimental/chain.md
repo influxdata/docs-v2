@@ -4,7 +4,7 @@ description: >
   The `experimental.chain()` function runs two queries in a single Flux script
   sequentially and outputs the results of the second query.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: experimental.chain
     parent: Experimental
 weight: 302

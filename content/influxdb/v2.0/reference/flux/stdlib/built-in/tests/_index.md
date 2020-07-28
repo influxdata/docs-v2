@@ -5,7 +5,7 @@ description: Flux's built-in testing functions test various aspects of piped-for
 aliases:
   - /v2.0/reference/flux/functions/built-in/tests/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Tests
     identifier: built-in-tests
     parent: Built-in

@@ -2,7 +2,7 @@
 title: influx bucket
 description: The `influx bucket` command and its subcommands manage buckets in InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx bucket
     parent: influx
 weight: 101

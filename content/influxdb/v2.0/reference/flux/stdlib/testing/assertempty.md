@@ -4,7 +4,7 @@ description: The testing.assertEmpty() function tests if an input stream is empt
 aliases:
   - /v2.0/reference/flux/functions/testing/assertempty/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: testing.assertEmpty
     parent: Testing
 weight: 301

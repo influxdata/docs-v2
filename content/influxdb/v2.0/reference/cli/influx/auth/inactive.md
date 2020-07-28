@@ -2,7 +2,7 @@
 title: influx auth inactive
 description: The `influx auth inactive` inactivates an authorization in InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx auth inactive
     parent: influx auth
 weight: 201

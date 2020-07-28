@@ -7,7 +7,7 @@ weight: 101
 aliases:
   - /v2.0/telegraf-configs/create/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Create a config
     parent: Telegraf configurations
 related:

@@ -4,7 +4,7 @@ seotitle: Back up data in InfluxDB
 description: >
   Use the `influx backup` command to back up data and metadata stored in InfluxDB.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Back up & restore data
 weight: 101
 aliases:

@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/quarter/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: date.quarter
     parent: Date
 weight: 301

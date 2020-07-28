@@ -4,7 +4,7 @@ description: The math.yn() function returns the order-n Bessel function of the s
 aliases:
   - /v2.0/reference/flux/functions/math/yn/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.yn
     parent: Math
 weight: 301

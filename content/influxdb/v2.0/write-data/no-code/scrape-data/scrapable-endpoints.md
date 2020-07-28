@@ -10,7 +10,7 @@ aliases:
   - /v2.0/collect-data/scrape-data/scrapable-endpoints
   - /v2.0/write-data/no-code/scrape-data/scrapable-endpoints/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Scrape data
 weight: 202
 v2.0/tags: [scraper]

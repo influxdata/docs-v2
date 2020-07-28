@@ -3,7 +3,7 @@ title: Flux data scripting language
 description: Reference articles for Flux functions and the Flux language specification.
 v2.0/tags: [flux]
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Flux language
 weight: 3
 ---

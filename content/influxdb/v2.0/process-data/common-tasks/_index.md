@@ -6,7 +6,7 @@ description: >
   This collection of articles walks through common use cases for InfluxDB tasks.
 v2.0/tags: [tasks]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Common tasks
     parent: Process data
 weight: 104

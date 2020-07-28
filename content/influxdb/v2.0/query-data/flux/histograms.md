@@ -6,7 +6,7 @@ description: >
   to create cumulative histograms with Flux.
 v2.0/tags: [histogram]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Histograms
     parent: Query with Flux
 weight: 210

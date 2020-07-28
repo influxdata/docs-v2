@@ -3,7 +3,7 @@ title: geo.groupByArea() function
 description: >
   The geo.groupByArea() function groups rows by geographic area.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.groupByArea
     parent: Geo
 weight: 401

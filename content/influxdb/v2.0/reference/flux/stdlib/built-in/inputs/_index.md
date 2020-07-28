@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/inputs  
   - /v2.0/reference/flux/functions/built-in/inputs/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Built-in
     name: Inputs
     identifier: built-in-inputs

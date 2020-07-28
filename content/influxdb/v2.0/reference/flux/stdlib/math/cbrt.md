@@ -4,7 +4,7 @@ description: The math.cbrt() function returns the cube root of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/cbrt/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.cbrt
     parent: Math
 weight: 301

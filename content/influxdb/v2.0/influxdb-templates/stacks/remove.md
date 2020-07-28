@@ -5,7 +5,7 @@ description: >
   Use the [`influx stacks remove` command](/v2.0/reference/cli/influx/stacks/remove/)
   to remove an InfluxDB stack and all its associated resources.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: InfluxDB stacks
     name: Remove a stack
 weight: 204

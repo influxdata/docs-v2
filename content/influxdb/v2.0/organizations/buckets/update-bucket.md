@@ -3,7 +3,7 @@ title: Update a bucket
 seotitle: Update a bucket in InfluxDB
 description: Update a bucket's name or retention policy in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Update a bucket
     parent: Manage buckets
 weight: 202

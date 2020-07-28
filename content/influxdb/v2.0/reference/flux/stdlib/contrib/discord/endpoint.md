@@ -5,7 +5,7 @@ description: >
   a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
   and data from table rows.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: discord.endpoint
     parent: Discord
 weight: 202

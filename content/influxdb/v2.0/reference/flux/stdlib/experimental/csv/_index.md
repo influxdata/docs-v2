@@ -5,7 +5,7 @@ description: >
   The Flux Experimental CSV package provides functions for retrieving annotated CSV.
   Import the `experimental/csv` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: CSV
     identifier: CSV-exp
     parent: Experimental

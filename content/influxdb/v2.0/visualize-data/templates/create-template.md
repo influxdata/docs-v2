@@ -4,7 +4,7 @@ seotitle: Create an InfluxDB dashboard template
 description: Create an InfluxDB dashboard template in the InfluxDB user interface (UI).
 v2.0/tags: [templates]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Create a template
     parent: Manage dashboard templates
 weight: 201

@@ -4,7 +4,7 @@ description: The `regexp.getString()` function returns the source string used to
 aliases:
   - /v2.0/reference/flux/functions/regexp/getstring/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: regexp.getString
     parent: Regular expressions
 weight: 301

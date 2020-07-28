@@ -5,7 +5,7 @@ description: >
     **lat** and **lon** and adds an **s2_cell_id** tag.
     Use `geo.shapeData()` to ensure geo-temporal data meets the requirements of the Geo package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.shapeData
     parent: Geo
 weight: 401

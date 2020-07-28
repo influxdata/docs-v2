@@ -2,7 +2,7 @@
 title: influx export
 description: The `influx export` command exports existing resources as an InfluxDB template.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: influx
 weight: 101
 aliases:

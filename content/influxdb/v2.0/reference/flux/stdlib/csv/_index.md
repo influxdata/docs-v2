@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/csv/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: CSV
     parent: Flux standard library
 weight: 202

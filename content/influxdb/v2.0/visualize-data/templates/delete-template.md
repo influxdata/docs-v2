@@ -4,7 +4,7 @@ seotitle: Delete InfluxDB templates
 description: Delete templates in the InfluxDB user interface (UI).
 v2.0/tags: [templates]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Delete a template
     parent: Manage dashboard templates
 weight: 203

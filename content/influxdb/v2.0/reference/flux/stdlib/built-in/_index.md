@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Built-in
     parent: Flux standard library
 weight: 201

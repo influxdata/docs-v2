@@ -4,7 +4,7 @@ description: The v1.measurements() function returns a list of measurements in a 
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/measurements/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.measurements
     parent: InfluxDB v1
 weight: 301

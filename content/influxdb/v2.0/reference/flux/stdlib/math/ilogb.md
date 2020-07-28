@@ -4,7 +4,7 @@ description: The math.ilogb() function returns the binary exponent of `x` as an 
 aliases:
   - /v2.0/reference/flux/functions/math/ilogb/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.ilogb
     parent: Math
 weight: 301

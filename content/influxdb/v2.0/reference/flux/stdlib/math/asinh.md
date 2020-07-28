@@ -4,7 +4,7 @@ description: The math.asinh() function returns the inverse hyperbolic sine of `x
 aliases:
   - /v2.0/reference/flux/functions/math/asinh/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.asinh
     parent: Math
 weight: 301

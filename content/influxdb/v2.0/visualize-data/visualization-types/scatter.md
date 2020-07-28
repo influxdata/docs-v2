@@ -8,7 +8,7 @@ weight: 208
 aliases:
   - /v2.0/visualize-data/visualization-types/scatter/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Scatter
     parent: Visualization types
 related:

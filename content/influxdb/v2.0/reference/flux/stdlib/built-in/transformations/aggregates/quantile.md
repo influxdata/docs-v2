@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: quantile
     parent: built-in-aggregates
 weight: 501

@@ -5,7 +5,7 @@ description: >
   Use an InfluxDB dashboard template to create a new InfluxDB dashboard.
 v2.0/tags: [templates]
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Manage dashboard templates
 weight: 202
 aliases:

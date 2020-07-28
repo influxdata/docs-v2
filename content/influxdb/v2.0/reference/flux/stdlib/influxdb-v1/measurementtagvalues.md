@@ -4,7 +4,7 @@ description: The v1.measurementTagValues() function returns a list of tag values
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.measurementTagValues
     parent: InfluxDB v1
 weight: 301

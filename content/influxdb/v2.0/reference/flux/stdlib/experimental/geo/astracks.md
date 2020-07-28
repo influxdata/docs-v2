@@ -3,7 +3,7 @@ title: geo.asTracks() function
 description: >
   The geo.asTracks() function groups rows into tracks (sequential, related data points).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.asTracks
     parent: Geo
 weight: 401
