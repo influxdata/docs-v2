@@ -25,11 +25,11 @@
   {{ $refMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_ref")) }}
 
   <!-- Main Section -->
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) }}
+  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}
 
   <!-- Reference Section -->
   <h4 class="reference">Reference</h4>
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) }}
+  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
 
   </ul>
 </aside>
