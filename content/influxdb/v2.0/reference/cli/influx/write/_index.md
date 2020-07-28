@@ -12,8 +12,8 @@ v2.0/tags: [write]
 aliases:
   - /v2.0/reference/cli/influx/write/
 related:
-  - /v2.0/write-data/
-  - /v2.0/write-data/csv/
+  - /influxdb/v2.0/write-data/
+  - /influxdb/v2.0/write-data/csv/
 ---
 
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.

@@ -12,7 +12,7 @@ aliases:
   - /v2.0/reference/config-options/
 products: [oss]
 related:
-  - /v2.0/reference/cli/influxd
+  - /influxdb/v2.0/reference/cli/influxd
 ---
 
 Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)

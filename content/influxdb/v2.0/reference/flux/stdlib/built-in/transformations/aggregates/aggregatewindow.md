@@ -10,7 +10,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /v2.0/query-data/flux/window-aggregate/
+  - /influxdb/v2.0/query-data/flux/window-aggregate/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations, InfluxQL – Aggregate functions
   - https://docs.influxdata.com/influxdb/latest/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---

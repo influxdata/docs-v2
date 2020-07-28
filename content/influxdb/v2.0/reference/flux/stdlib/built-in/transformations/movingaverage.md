@@ -11,7 +11,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/moving-average/
+  - /influxdb/v2.0/query-data/flux/moving-average/
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/

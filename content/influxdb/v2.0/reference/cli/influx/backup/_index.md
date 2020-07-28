@@ -10,7 +10,7 @@ aliases:
   - /v2.0/reference/cli/influx/backup/
 v2.0/tags: [backup]
 related:
-  - /v2.0/backup-restore/backup/
+  - /influxdb/v2.0/backup-restore/backup/
 ---
 
 The `influx backup` command backs up data stored in InfluxDB.

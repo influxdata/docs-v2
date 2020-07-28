@@ -11,10 +11,10 @@ menu:
 weight: 201
 v2.0/tags: [csv, syntax, write]
 related:
-  - /v2.0/write-data/csv/
-  - /v2.0/reference/cli/influx/write/
-  - /v2.0/reference/syntax/line-protocol/
-  - /v2.0/reference/syntax/annotated-csv/
+  - /influxdb/v2.0/write-data/csv/
+  - /influxdb/v2.0/reference/cli/influx/write/
+  - /influxdb/v2.0/reference/syntax/line-protocol/
+  - /influxdb/v2.0/reference/syntax/annotated-csv/
 ---
 
 **Extended annotated CSV** provides additional annotations and options that specify
