@@ -9,7 +9,7 @@ aliases:
   - /v2.0/account-management/pricing-plans
 weight: 102
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Account management
     name: Pricing plans
 products: [cloud]

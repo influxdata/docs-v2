@@ -6,10 +6,10 @@ weight: 104
 aliases:
   - /v2.0/query-data/optimize-queries/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Optimize queries
     parent: Query data
-influxdb/v2.0/tags: [query]
+v2.0/tags: [query]
 ---
 
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.

@@ -3,13 +3,13 @@ title: Manage buckets
 seotitle: Manage buckets in InfluxDB
 description: Manage buckets in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Manage buckets
     parent: Manage organizations
 weight: 105
 aliases:
   - /v2.0/organizations/create-org/buckets/
-influxdb/v2.0/tags: [buckets]
+v2.0/tags: [buckets]
 ---
 
 A **bucket** is a named location where time series data is stored.

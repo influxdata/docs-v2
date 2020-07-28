@@ -7,13 +7,13 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: kaufmansAMA
     parent: built-in-transformations
 weight: 402
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/kaufmanser/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 ---
 
 The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)

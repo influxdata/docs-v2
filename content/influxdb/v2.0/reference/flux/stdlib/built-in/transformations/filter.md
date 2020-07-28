@@ -5,16 +5,16 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/filter
   - /v2.0/reference/flux/functions/built-in/transformations/filter/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: filter
     parent: built-in-transformations
 weight: 402
-influxdb/v2.0/tags: [exists]
+v2.0/tags: [exists]
 related:
-  - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/query-data/flux/conditional-logic/
-  - /influxdb/v2.0/query-data/flux/exists/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
+  - /v2.0/query-data/flux/query-fields/
+  - /v2.0/query-data/flux/conditional-logic/
+  - /v2.0/query-data/flux/exists/
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).

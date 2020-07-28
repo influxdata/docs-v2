@@ -8,7 +8,7 @@ aliases:
     - /v2.0/cloud/account-management/data-usage
     - /v2.0/account-management/data-usage
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Account management
     name: View data usage
 products: [cloud]
@@ -29,7 +29,7 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Rate Limits over the specified time period:** A list of rate limit events over
   the specified time period.
 
-{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
+{{< img-hd src="/img/2-0-cloud-usage.png" />}}
 
 ## Exceeded rate limits
 

@@ -7,9 +7,9 @@ weight: 5
 aliases:
   - /v2.0/reference/release-notes/syntax/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Syntax
-influxdb/v2.0/tags: [syntax]
+v2.0/tags: [syntax]
 ---
 
 InfluxDB uses a handful of languages and syntaxes to perform tasks such as

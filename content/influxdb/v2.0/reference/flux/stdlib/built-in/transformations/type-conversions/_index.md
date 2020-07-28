@@ -6,12 +6,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: built-in-transformations
     name: Type conversions
     identifier: built-in-type-conversions
 weight: 401
-influxdb/v2.0/tags: [type-conversions, built-in, functions]
+v2.0/tags: [type-conversions, built-in, functions]
 ---
 
 Flux's built-in type conversion functions convert columns of the input table into a specific data type.

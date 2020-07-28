@@ -8,7 +8,7 @@ aliases:
 description: >
   Write data to InfluxDB with developer tools.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Developer tools
     parent: Write data
 ---

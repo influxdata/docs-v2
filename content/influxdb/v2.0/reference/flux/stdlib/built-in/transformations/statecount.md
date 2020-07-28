@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/statecount
   - /v2.0/reference/flux/functions/built-in/transformations/statecount/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: stateCount
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/monitor-states/
+  - /v2.0/query-data/flux/monitor-states/
 ---
 
 The `stateCount()` function computes the number of consecutive records in a given state.

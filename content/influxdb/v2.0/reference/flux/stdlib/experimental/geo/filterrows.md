@@ -4,15 +4,15 @@ description: >
   The geo.filterRows() function filters data by a specified geographic region with
   the option of strict filtering.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: geo.filterRows
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo]
+v2.0/tags: [functions, geo]
 related:
   - /v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
   - /v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /v2.0/query-data/flux/geo/
 ---
 
 The `geo.filterRows()` function filters data by a specified geographic region with

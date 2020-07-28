@@ -4,14 +4,14 @@ seotitle: Update monitoring checks in InfluxDB
 description: >
   Update, rename, enable or disable checks in the InfluxDB UI.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Manage checks
 weight: 203
 aliases:
   - /v2.0/monitor-alert/checks/update/
 related:
-  - /influxdb/v2.0/monitor-alert/notification-rules/
-  - /influxdb/v2.0/monitor-alert/notification-endpoints/
+  - /v2.0/monitor-alert/notification-rules/
+  - /v2.0/monitor-alert/notification-endpoints/
 ---
 
 Update checks in the InfluxDB user interface (UI).

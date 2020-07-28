@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/count
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: count
     parent: built-in-aggregates
 weight: 501
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#count, InfluxQL – COUNT()
 ---
 
 The `count()` function outputs the number of records in a column.

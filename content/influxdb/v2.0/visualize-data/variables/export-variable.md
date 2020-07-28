@@ -3,12 +3,12 @@ title: Export a variable
 seotitle: Export a dashboard variable
 description: Export a dashboard variable in the InfluxDB user interface.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Use and manage variables
 weight: 204
 aliases:
   - /v2.0/visualize-data/variables/export-variable/
-influxdb/v2.0/tags: [variables]
+v2.0/tags: [variables]
 ---
 Export dashboard variables from the InfluxDB user interface (UI).
 Variables are exported as downloadable JSON files.

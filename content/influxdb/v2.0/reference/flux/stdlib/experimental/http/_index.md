@@ -6,12 +6,12 @@ description: >
   using HTTP protocol.
   Import the `experimental/http` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: HTTP
     identifier: HTTP-exp
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, http, package]
+v2.0/tags: [functions, http, package]
 ---
 
 The Flux Experimental HTTP package provides functions for transferring data

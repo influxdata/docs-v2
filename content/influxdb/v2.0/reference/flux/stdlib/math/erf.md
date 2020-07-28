@@ -4,7 +4,7 @@ description: The math.erf() function returns the error function of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/erf/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.erf
     parent: Math
 weight: 301

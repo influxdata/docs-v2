@@ -5,9 +5,9 @@ list_title: Manage tasks
 description: >
   InfluxDB provides options for creating, reading, updating, and deleting tasks
   using both the `influx` CLI and the InfluxDB UI.
-influxdb/v2.0/tags: [tasks]
+v2.0/tags: [tasks]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Manage tasks
     parent: Process data
 weight: 102

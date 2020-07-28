@@ -5,15 +5,15 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/map
   - /v2.0/reference/flux/functions/built-in/transformations/map/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: map
     parent: built-in-transformations
 weight: 402
-influxdb/v2.0/tags: [exists]
+v2.0/tags: [exists]
 related:
-  - /influxdb/v2.0/query-data/flux/conditional-logic/
-  - /influxdb/v2.0/query-data/flux/mathematic-operations/
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/
+  - /v2.0/query-data/flux/conditional-logic/
+  - /v2.0/query-data/flux/mathematic-operations/
+  - /v2.0/reference/flux/stdlib/contrib/rows/map/
 ---
 
 The `map()` function applies a function to each record in the input tables.

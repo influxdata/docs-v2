@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/secrets/get/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: secrets.get
     parent: InfluxDB Secrets
 weight: 202

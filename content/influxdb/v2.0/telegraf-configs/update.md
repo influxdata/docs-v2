@@ -5,7 +5,7 @@ description: >
   to update InfluxDB Telegraf configurations.
 weight: 103
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Update a config
     parent: Telegraf configurations
 aliases:

@@ -6,13 +6,13 @@ description: >
   such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Geo
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, package, geo]
+v2.0/tags: [functions, package, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /v2.0/query-data/flux/geo/
 ---
 
 The Flux Geo package provides tools for working with geo-temporal data,

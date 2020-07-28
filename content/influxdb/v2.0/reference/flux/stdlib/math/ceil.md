@@ -4,7 +4,7 @@ description: The math.ceil() function returns the least integer value greater th
 aliases:
   - /v2.0/reference/flux/functions/math/ceil/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.ceil
     parent: Math
 weight: 301

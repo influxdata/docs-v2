@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/regexp/matchregexpstring/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: regexp.matchRegexpString
     parent: Regular expressions
 weight: 301

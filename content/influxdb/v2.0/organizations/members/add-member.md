@@ -3,7 +3,7 @@ title: Add a member
 seotitle: Add a member to an organization in InfluxDB
 description: Add a member to an organization.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Add a member
     parent: Manage members
 weight: 201

@@ -5,12 +5,12 @@ description: >
   Dashboard variables allow you to alter specific components of cells' queries
   without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: Visualize data
 weight: 103
 aliases:
   - /v2.0/visualize-data/variables/
-influxdb/v2.0/tags: [variables]
+v2.0/tags: [variables]
 ---
 
 Dashboard variables let you alter specific components of cells' queries without having to edit the queries,
@@ -33,7 +33,7 @@ from(bucket: v.bucket)
 When building Flux queries for dashboard cells, view available dashboard variables
 in the **Variables** tab next to the Functions tab.
 
-{{< img-hd src="/img/influxdb/2-0-variables-data-explorer-view.png" />}}
+{{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
 
 Click a variable name to add it to your query and select a value from the **Value** dropdown.
 

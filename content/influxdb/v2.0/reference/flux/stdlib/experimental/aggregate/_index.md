@@ -5,11 +5,11 @@ description: >
   The Flux Aggregate package provides functions to simplify common aggregate operations.
   Import the `experimental/aggregate` package.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Aggregate
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [package]
+v2.0/tags: [package]
 ---
 
 The Flux Aggregate package provides functions to simplify common aggregate operations.

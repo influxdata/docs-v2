@@ -7,13 +7,13 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/median
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: median
     parent: built-in-aggregates
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/median/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()
+  - /v2.0/query-data/flux/median/
+  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#median, InfluxQL – MEDIAN()
 ---
 
 The `median()` function is a special application of the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)

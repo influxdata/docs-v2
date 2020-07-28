@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestaverage
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestaverage/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: highestAverage
     parent: built-in-selectors
 weight: 501

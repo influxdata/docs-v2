@@ -3,11 +3,11 @@ title: InfluxDB v2 API
 description: >
   The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
   Access the InfluxDB API using the `/api/v2/` endpoint.
-menu: influxdb_2_0_ref
+menu: v2_0_ref
 weight: 3
 aliases:
   - /v2.0/reference/api/
-influxdb/v2.0/tags: [api]
+v2.0/tags: [api]
 ---
 
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/skew
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/skew/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: skew
     parent: built-in-aggregates
 weight: 501

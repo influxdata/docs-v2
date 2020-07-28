@@ -4,7 +4,7 @@ description: The math.sincos() function returns the values of `math.sin(x:x)` an
 aliases:
   - /v2.0/reference/flux/functions/math/sincos/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.sincos
     parent: Math
 weight: 301

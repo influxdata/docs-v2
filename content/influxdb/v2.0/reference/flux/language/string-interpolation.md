@@ -4,7 +4,7 @@ description: >
   Flux string interpolation evaluates string literals containing one or more placeholders
   and returns a result with placeholders replaced with their corresponding values.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: Flux specification
     name: String interpolation
 weight: 211

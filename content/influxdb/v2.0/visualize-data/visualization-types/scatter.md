@@ -1,23 +1,23 @@
 ---
 title: Scatter visualization
 list_title: Scatter
-list_image: /img/influxdb/2-0-visualizations-scatter-example.png
+list_image: /img/2-0-visualizations-scatter-example.png
 description: >
   The Scatter view uses a scatter plot to display time series data.
 weight: 208
 aliases:
   - /v2.0/visualize-data/visualization-types/scatter/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Scatter
     parent: Visualization types
 related:
-  - /influxdb/v2.0/visualize-data/visualization-types/heatmap
+  - /v2.0/visualize-data/visualization-types/heatmap
 ---
 
 The **Scatter** view uses a scatter plot to display time series data.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
+{{< img-hd src="/img/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
 
 Select the **Scatter** option from the visualization dropdown in the upper right.
 
@@ -93,7 +93,7 @@ union(tables: [cpu, mem])
 ###### Use a scatter plot to visualize correlation
 In the Scatter visualization controls, points are differentiated based on their group keys.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-scatter-correlation.png" alt="Heatmap correlation example" />}}
+{{< img-hd src="/img/2-0-visualizations-scatter-correlation.png" alt="Heatmap correlation example" />}}
 
 ## Important notes
 
@@ -104,7 +104,7 @@ However, in certain cases, scatterplots can "hide" points if they share the same
 
 For example, the dashboard cells below visualize the same query results:
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
+{{< img-hd src="/img/2-0-visualizations-heatmap-vs-scatter.png" alt="Heatmap vs Scatter plot" />}}
 
 The heatmap indicates isolated high point density, which isn't visible in the scatter plot.
 In the scatter plot visualization, points that share the same X and Y coordinates

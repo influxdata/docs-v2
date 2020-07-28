@@ -4,7 +4,7 @@ description: The math.exp() function returns `e**x`, the base-e exponential of `
 aliases:
   - /v2.0/reference/flux/functions/math/exp/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.exp
     parent: Math
 weight: 301

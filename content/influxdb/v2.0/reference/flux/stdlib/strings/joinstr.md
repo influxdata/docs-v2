@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/joinstr/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.joinStr
     parent: Strings
 weight: 301

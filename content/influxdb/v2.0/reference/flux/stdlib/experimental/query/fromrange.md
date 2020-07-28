@@ -4,7 +4,7 @@ description: >
   The `query.fromRange()` function returns all data from a specified bucket within
   given time bounds.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: query.fromRange
     parent: Query
 weight: 401

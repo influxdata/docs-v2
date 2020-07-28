@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/range
   - /v2.0/reference/flux/functions/built-in/transformations/range/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: range
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
 ---
 
 The `range()` function filters records based on time bounds.

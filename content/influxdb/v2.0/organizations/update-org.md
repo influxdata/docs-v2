@@ -5,7 +5,7 @@ description: Update an organization's name and assets in InfluxDB using the Infl
 aliases:
   - /v2.0/organizations/update-org/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Update an organization
     parent: Manage organizations
 weight: 103

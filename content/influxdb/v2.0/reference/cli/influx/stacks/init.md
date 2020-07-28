@@ -2,14 +2,14 @@
 title: influx stacks init
 description: The `influx stacks init` command initializes an InfluxDB stack.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx stacks init
     parent: influx stacks
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/pkg/stack/init/
   - /v2.0/reference/cli/influx/stacks/init/
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 ---
 
 The `influx stacks init` command initializes an InfluxDB stack.

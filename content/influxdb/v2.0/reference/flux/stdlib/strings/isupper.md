@@ -4,7 +4,7 @@ description: The strings.isUpper() function tests if a single character string i
 aliases:
   - /v2.0/reference/flux/functions/strings/isupper/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.isUpper
     parent: Strings
 weight: 301

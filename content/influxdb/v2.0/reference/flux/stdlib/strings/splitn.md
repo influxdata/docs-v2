@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/splitn/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.splitN
     parent: Strings
 weight: 301

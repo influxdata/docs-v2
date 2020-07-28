@@ -3,7 +3,7 @@ title: csv.from() function
 description: >
   The experimental `csv.from()` function retrieves annotated CSV from a URL.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: csv.from *
     parent: CSV-exp
 weight: 401

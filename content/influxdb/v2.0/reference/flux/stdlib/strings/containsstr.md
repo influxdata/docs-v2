@@ -4,12 +4,12 @@ description: The strings.containsStr() function reports whether a string contain
 aliases:
   - /v2.0/reference/flux/functions/strings/containsstr/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.containsStr
     parent: Strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/containsany
+  - /v2.0/reference/flux/stdlib/strings/containsany
 ---
 
 The `strings.containsStr()` function reports whether a string contains a specified substring.

@@ -5,13 +5,13 @@ description: >
   How to create a task that downsamples data much like continuous queries
   in previous versions of InfluxDB.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Downsample data
     parent: Common tasks
 weight: 201
 aliases:
   - /v2.0/process-data/common-tasks/downsample-data/
-influxdb/v2.0/tags: [tasks]
+v2.0/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce

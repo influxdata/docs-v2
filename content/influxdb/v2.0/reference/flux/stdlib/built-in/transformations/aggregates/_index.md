@@ -8,14 +8,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: built-in-transformations
     name: Aggregates
     identifier: built-in-aggregates
 weight: 401
-influxdb/v2.0/tags: [aggregates, built-in, functions]
+v2.0/tags: [aggregates, built-in, functions]
 related:
-  - /influxdb/v2.0/query-data/flux/window-aggregate/
+  - /v2.0/query-data/flux/window-aggregate/
 ---
 
 Flux's built-in aggregate transformations take values from an input table and aggregate them in some way.

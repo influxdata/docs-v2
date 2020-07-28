@@ -6,9 +6,9 @@ weight: 8
 aliases:
   - /v2.0/reference/glossary/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Glossary
-influxdb/v2.0/tags: [glossary]
+v2.0/tags: [glossary]
 ---
 
 [A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
@@ -860,7 +860,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
 
-<!--See [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
+<!--See [SHOW CARDINALITY](/influxdb/latest/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
@@ -910,7 +910,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/influxdb/latest/query_language/database_management/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -1057,7 +1057,7 @@ To enable tracing or set other InfluxDB configuration options, see [InfluxDB con
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL functions](/{{< latest "influxdb" "v1" >}}/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](http://docs.influxdata.com/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
@@ -1072,7 +1072,7 @@ The Time Series Logs (TSL) extension (`.tsl`) identifies Time Series Index (TSI)
 ### TSM (Time Structured Merge tree)
 
 A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations.
-For more information, see [Storage engine](/{{< latest "influxdb" "v1" >}}/concepts/storage_engine/).
+For more information, see [Storage engine](http://docs.influxdata.com/influxdb/latest/concepts/storage_engine/).
 
 Related entries: [TSI](#tsi-time-series-index)
 

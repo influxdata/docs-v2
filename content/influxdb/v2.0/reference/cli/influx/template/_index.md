@@ -2,11 +2,11 @@
 title: influx template
 description: The `influx template` command summarizes the specified InfluxDB template.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx template
     parent: influx
 weight: 101
-influxdb/v2.0/tags: [templates]
+v2.0/tags: [templates]
 aliases:
   - /v2.0/reference/cli/influx/pkg/summary/
   - /v2.0/reference/cli/influx/template/

@@ -3,12 +3,12 @@ title: Explore with Postman
 description: >
   Use Postman to explore the InfluxDB API.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     parent: InfluxDB v2 API
 weight: 3
 aliases:
   - /v2.0/reference/api/postman/
-influxdb/v2.0/tags: [api, authentication]
+v2.0/tags: [api, authentication]
 ---
 
 [Postman](https://www.postman.com/) is a popular tool for exploring APIs.

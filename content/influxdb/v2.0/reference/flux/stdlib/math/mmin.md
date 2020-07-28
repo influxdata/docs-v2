@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/math/m_min/
   - /v2.0/reference/flux/stdlib/math/m_min/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.mMin
     parent: Math
 weight: 301

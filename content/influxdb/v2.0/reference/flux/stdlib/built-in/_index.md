@@ -7,11 +7,11 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: Built-in
     parent: Flux standard library
 weight: 201
-influxdb/v2.0/tags: [built-in, functions, package]
+v2.0/tags: [built-in, functions, package]
 ---
 
 Built-in functions provide a foundation for working with data using Flux.

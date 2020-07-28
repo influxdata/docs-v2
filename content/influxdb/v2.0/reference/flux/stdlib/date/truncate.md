@@ -5,7 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/date/truncate/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: date.truncate
     parent: Date
 weight: 301

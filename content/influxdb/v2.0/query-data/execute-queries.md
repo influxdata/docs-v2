@@ -6,10 +6,10 @@ weight: 103
 aliases:
   - /v2.0/query-data/execute-queries/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Execute queries
     parent: Query data
-influxdb/v2.0/tags: [query]
+v2.0/tags: [query]
 ---
 
 There are multiple ways to execute queries with InfluxDB.
@@ -23,7 +23,7 @@ This guide covers the different options:
 ## Data Explorer
 Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 
-![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
+![Data Explorer with Flux](/img/data-explorer-beta-8.png)
 
 ## Influx REPL
 The [`influx repl` command](/v2.0/reference/cli/influx/repl) starts an interactive

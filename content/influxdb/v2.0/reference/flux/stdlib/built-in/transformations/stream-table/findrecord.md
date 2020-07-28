@@ -4,12 +4,12 @@ description: >
   The `findRecord()` function returns a record at a specified index from the first
   table in a stream of tables where the group key values match the specified predicate.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: findRecord
     parent: Stream & table
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `findRecord()` function returns a record at a specified index from the first

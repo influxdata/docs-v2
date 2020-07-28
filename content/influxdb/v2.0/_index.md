@@ -1,13 +1,11 @@
 ---
-title: InfluxDB v2.0 documentation
 description: >
   InfluxDB is an open source time series database designed to handle high write and query loads.
   Learn how to use and leverage InfluxDB in use cases such as monitoring metrics, IoT data, and events.
 layout: version-landing
 menu:
-  influxdb_2_0:
-    name: InfluxDB 2.0 home
-weight: 1
+  versions:
+    name: v2.0
 aliases:
   - /v2.0/
 ---

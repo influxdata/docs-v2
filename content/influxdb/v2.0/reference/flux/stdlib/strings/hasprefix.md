@@ -4,12 +4,12 @@ description: The strings.hasPrefix() function indicates if a string begins with 
 aliases:
   - /v2.0/reference/flux/functions/strings/hasprefix/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: strings.hasPrefix
     parent: Strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/hassuffix
+  - /v2.0/reference/flux/stdlib/strings/hassuffix
 ---
 
 The `strings.hasPrefix()` function indicates if a string begins with a specified prefix.

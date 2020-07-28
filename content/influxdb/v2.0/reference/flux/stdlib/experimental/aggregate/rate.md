@@ -3,12 +3,12 @@ title: aggregate.rate() function
 description: >
   The `aggregate.rate()` function calculates the rate of change per windows of time.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: aggregate.rate
     parent: Aggregate
 weight: 301
 related:
-  - /influxdb/v2.0/query-data/flux/rate/
+  - /v2.0/query-data/flux/rate/
 ---
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.

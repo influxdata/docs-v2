@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/stateduration
   - /v2.0/reference/flux/functions/built-in/transformations/stateduration/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: stateDuration
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/monitor-states/
+  - /v2.0/query-data/flux/monitor-states/
 ---
 
 The `stateDuration()` function computes the duration of a given state.

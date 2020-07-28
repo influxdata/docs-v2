@@ -5,14 +5,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/window
   - /v2.0/reference/flux/functions/built-in/transformations/window/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: window
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/window-aggregate/
+  - /v2.0/query-data/flux/window-aggregate/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `window()` function groups records based on a time value.

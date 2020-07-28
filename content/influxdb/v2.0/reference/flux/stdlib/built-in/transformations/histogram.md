@@ -5,12 +5,12 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/histogram
   - /v2.0/reference/flux/functions/built-in/transformations/histogram/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: histogram
     parent: built-in-transformations
 weight: 402
 related:
-  - /influxdb/v2.0/query-data/flux/histograms/
+  - /v2.0/query-data/flux/histograms/
 ---
 
 The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.

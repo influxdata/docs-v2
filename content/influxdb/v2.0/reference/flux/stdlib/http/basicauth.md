@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/http/basicauth/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: http.basicAuth
     parent: HTTP
 weight: 202

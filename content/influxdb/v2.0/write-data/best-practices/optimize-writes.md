@@ -6,9 +6,9 @@ weight: 202
 aliases:
   - /v2.0/write-data/best-practices/optimize-writes/
 menu:
-  influxdb_2_0:
+  v2_0:
     parent: write-best-practices
-influxdb/v2.0/tags: [best practices, write]
+v2.0/tags: [best practices, write]
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.

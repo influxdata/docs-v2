@@ -4,12 +4,12 @@ description: >
   The `findColumn()` function returns an array of values in a specified column from the
   first table in a stream of tables where group key values match the specified predicate.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: findColumn
     parent: Stream & table
 weight: 501
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /v2.0/query-data/flux/scalar-values/
 ---
 
 The `findColumn()` function returns an array of values in a specified column from the

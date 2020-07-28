@@ -3,7 +3,7 @@ title: experimental.set() function
 description: >
   The `experimental.set()` function sets multiple static column values on all records.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: experimental.set
     parent: Experimental
 weight: 302

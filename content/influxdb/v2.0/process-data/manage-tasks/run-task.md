@@ -4,15 +4,15 @@ seotitle: Run an InfluxDB task
 description: >
   Run a data processing task using the InfluxDB UI or the `influx` CLI.
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Run a task
     parent: Manage tasks
 weight: 203
 aliases:
   - /v2.0/process-data/manage-tasks/run-task/
 related:
-  - /influxdb/v2.0/reference/cli/influx/task/run
-  - /influxdb/v2.0/reference/cli/influx/task/retry
+  - /v2.0/reference/cli/influx/task/run
+  - /v2.0/reference/cli/influx/task/retry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,

@@ -4,7 +4,7 @@ description: The math.exp2() function returns `2**x`, the base-2 exponential of 
 aliases:
   - /v2.0/reference/flux/functions/math/exp2/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: math.exp2
     parent: Math
 weight: 301

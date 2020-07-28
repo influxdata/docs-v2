@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: cov
     parent: built-in-transformations
 weight: 402

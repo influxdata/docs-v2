@@ -12,7 +12,7 @@ aliases:
   - /v2.0/write-data/use-telegraf/
   - /v2.0/write-data/no-code/use-telegraf/
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Telegraf (agent)
     parent: No-code solutions
 ---
@@ -28,7 +28,7 @@ For a list of available plugins, see [Telegraf plugins](/v2.0/reference/telegraf
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
+  [Telegraf Installation instructions](https://docs.influxdata.com/telegraf/latest/introduction/installation/)._
 
 {{< youtube qFS2zANwIrc >}}
 

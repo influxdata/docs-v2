@@ -5,7 +5,7 @@ list_title: JavaScript
 description: >
   Use the JavaScript client library to interact with InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: JavaScript
     parent: Client libraries
 v2.0/tags: [client libraries, JavaScript]

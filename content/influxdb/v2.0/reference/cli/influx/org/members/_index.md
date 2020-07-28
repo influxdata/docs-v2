@@ -2,13 +2,13 @@
 title: influx org members
 description: The `influx org members` command and its subcommands manage organization members in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx org members
     parent: influx org
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/org/members/
-influxdb/v2.0/tags: [members, organizations]
+v2.0/tags: [members, organizations]
 ---
 
 The `influx org members` command and its subcommands manage organization members in InfluxDB.

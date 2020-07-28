@@ -1,9 +1,9 @@
 ---
 title: Manage InfluxDB dashboards
 description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
-influxdb/v2.0/tags: [dashboards]
+v2.0/tags: [dashboards]
 menu:
-  influxdb_2_0:
+  v2_0:
     name: Manage dashboards
     parent: Visualize data
 weight: 102
@@ -15,9 +15,7 @@ Create, edit, and manage dashboards from the **Dashboards** tab in the left navi
 
 {{< children >}}
 
-
 ## View your dashboard ID
-
 Use the InfluxDB UI or `influx` CLI to view your dashboard ID.
 
 ### Dashboard ID in the UI
@@ -33,6 +31,7 @@ Use [`influx dashboards`](/v2.0/reference/cli/influx/dashboards/) to view a list
 
 ```sh
 > influx dashboards
+
 ID                  Name
 03a2bbf46249a000    dashboard-1
 03ace3a859669000    dashboard-2

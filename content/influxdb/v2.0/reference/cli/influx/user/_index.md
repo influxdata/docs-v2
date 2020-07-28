@@ -2,13 +2,13 @@
 title: influx user
 description: The `influx user` command and its subcommands manage user information in InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: influx user
     parent: influx
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/user/
-influxdb/v2.0/tags: [users]
+v2.0/tags: [users]
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.

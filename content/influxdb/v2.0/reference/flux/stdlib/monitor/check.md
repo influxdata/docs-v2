@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/monitor/check/
 menu:
-  influxdb_2_0_ref:
+  v2_0_ref:
     name: monitor.check
     parent: InfluxDB Monitor
 weight: 202
