@@ -10,7 +10,7 @@ menu:
     parent: built-in-selectors
 weight: 501
 related:
-  - /v2.0/query-data/flux/first-last/
+  - /influxdb/v2.0/query-data/flux/first-last/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#last, InfluxQL – LAST()
 ---
 

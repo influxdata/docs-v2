@@ -14,7 +14,7 @@ menu:
 weight: 202
 v2.0/tags: [functions, sql, package, mysql, postgres]
 related:
-  - /v2.0/query-data/flux/sql/
+  - /influxdb/v2.0/query-data/flux/sql/
 ---
 
 SQL Flux functions provide tools for working with data in SQL databases such as:

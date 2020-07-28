@@ -12,7 +12,7 @@ weight: 105
 aliases:
   - /v2.0/influxdb-templates/stacks/
 related:
-  - /v2.0/reference/cli/influx/pkg/stack/
+  - /influxdb/v2.0/reference/cli/stacks/
 ---
 
 **InfluxDB stacks** are **stateful [InfluxDB templates](/v2.0/influxdb-templates)**

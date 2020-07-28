@@ -11,9 +11,9 @@ menu:
 weight: 402
 v2.0/tags: [exists]
 related:
-  - /v2.0/query-data/flux/query-fields/
-  - /v2.0/query-data/flux/conditional-logic/
-  - /v2.0/query-data/flux/exists/
+  - /influxdb/v2.0/query-data/flux/query-fields/
+  - /influxdb/v2.0/query-data/flux/conditional-logic/
+  - /influxdb/v2.0/query-data/flux/exists/
   - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
 ---
 

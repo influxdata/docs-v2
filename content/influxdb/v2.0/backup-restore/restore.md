@@ -11,8 +11,8 @@ v2.0/tags: [restore]
 aliases:
   - /v2.0/backup-restore/restore
 related:
-  - /v2.0/backup-restore/backup/
-  - /v2.0/reference/cli/influxd/restore/
+  - /influxdb/v2.0/backup-restore/backup/
+  - /influxdb/v2.0/reference/cli/influxd/restore/
 products: [oss]
 ---
 

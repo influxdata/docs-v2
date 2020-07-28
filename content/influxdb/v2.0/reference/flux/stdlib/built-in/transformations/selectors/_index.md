@@ -13,7 +13,7 @@ menu:
 weight: 401
 v2.0/tags: [selectors, built-in, functions]
 related:
-  - /v2.0/query-data/flux/window-aggregate/
+  - /influxdb/v2.0/query-data/flux/window-aggregate/
 ---
 
 Flux's built-in selector functions return one or more records based on function logic.

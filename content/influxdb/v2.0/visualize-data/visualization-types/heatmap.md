@@ -13,7 +13,7 @@ menu:
     name: Heatmap
     parent: Visualization types
 related:
-  - /v2.0/visualize-data/visualization-types/scatter
+  - /influxdb/v2.0/visualize-data/visualization-types/scatter
 ---
 
 A **Heatmap** displays the distribution of data on an x and y axes where color

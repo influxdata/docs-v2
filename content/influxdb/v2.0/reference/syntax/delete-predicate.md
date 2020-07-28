@@ -13,7 +13,7 @@ aliases:
   - /v2.0/reference/release-notes/syntax/delete-predicate/
 v2.0/tags: [syntax, delete]
 related:
-  - /v2.0/reference/cli/influx/delete/
+  - /influxdb/v2.0/reference/cli/influx/delete/
 ---
 
 The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine

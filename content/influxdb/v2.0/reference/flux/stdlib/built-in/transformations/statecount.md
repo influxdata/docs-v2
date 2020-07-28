@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/query-data/flux/monitor-states/
+  - /influxdb/v2.0/query-data/flux/monitor-states/
 ---
 
 The `stateCount()` function computes the number of consecutive records in a given state.

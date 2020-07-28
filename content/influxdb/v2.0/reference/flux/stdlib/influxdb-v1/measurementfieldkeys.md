@@ -8,7 +8,7 @@ menu:
 weight: 301
 v2.0/tags: [fields]
 related:
-  - /v2.0/query-data/flux/explore-schema/
+  - /influxdb/v2.0/query-data/flux/explore-schema/
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
 ---
 

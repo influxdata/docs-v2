@@ -12,7 +12,7 @@ weight: 402
 aliases:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative
 related:
-  - /v2.0/query-data/flux/rate/
+  - /influxdb/v2.0/query-data/flux/rate/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
 ---
 

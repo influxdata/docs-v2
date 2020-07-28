@@ -14,7 +14,7 @@ aliases:
  - /v2.0/query-data/guides/calculate-percentages/
  - /v2.0/query-data/flux/calculate-percentages/
 related:
-  - /v2.0/query-data/flux/mathematic-operations
+  - /influxdb/v2.0/query-data/flux/mathematic-operations
   - /v2.0/reference/flux/stdlib/built-in/transformations/map
   - /v2.0/reference/flux/stdlib/built-in/transformations/pivot
   - /v2.0/reference/flux/stdlib/built-in/transformations/join

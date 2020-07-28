@@ -10,7 +10,7 @@ weight: 201
 aliases:
   - /v2.0/query-data/get-started/query-influxdb/
 related:
-  - /v2.0/query-data/guides/
+  - /influxdb/v2.0/query-data/flux/
   - /v2.0/reference/flux/stdlib/built-in/inputs/from
   - /v2.0/reference/flux/stdlib/built-in/transformations/range
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter

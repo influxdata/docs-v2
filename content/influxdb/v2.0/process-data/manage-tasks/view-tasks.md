@@ -11,7 +11,7 @@ weight: 202
 aliases:
   - /v2.0/process-data/manage-tasks/view-tasks/
 related:
-  - /v2.0/reference/cli/influx/task/list
+  - /influxdb/v2.0/reference/cli/influx/task/list
 ---
 
 ## View tasks in the InfluxDB UI

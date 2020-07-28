@@ -11,9 +11,9 @@ menu:
     name: Create a config
     parent: Telegraf configurations
 related:
-  - /v2.0/write-data/no-code/use-telegraf/manual-config/
-  - /v2.0/write-data/no-code/use-telegraf/auto-config/
-  - /v2.0/telegraf-configs/update/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/
+  - /influxdb/v2.0/telegraf-configs/update/
 ---
 
 Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)

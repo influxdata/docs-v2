@@ -11,8 +11,8 @@ menu:
 weight: 402
 v2.0/tags: [exists]
 related:
-  - /v2.0/query-data/flux/conditional-logic/
-  - /v2.0/query-data/flux/mathematic-operations/
+  - /influxdb/v2.0/query-data/flux/conditional-logic/
+  - /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 The `map()` function applies a function to each record in the input tables.

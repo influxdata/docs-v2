@@ -12,7 +12,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /v2.0/query-data/flux/median/
+  - /influxdb/v2.0/query-data/flux/median/
   - https://docs.influxdata.com/influxdb/latest/query_language/functions/#median, InfluxQL – MEDIAN()
 ---
 
