@@ -2,7 +2,7 @@
 title: influx org
 description: The `influx org` command and its subcommands manage organization information in InfluxDB.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx org
     parent: influx
 weight: 101

@@ -4,7 +4,7 @@ description: The `int()` function converts a single value to an integer.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/int/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: int
     parent: built-in-type-conversions
 weight: 502

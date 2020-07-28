@@ -4,7 +4,7 @@ seotitle: Manage users in InfluxDB
 description: Manage users in InfluxDB using the InfluxDB UI or the influx CLI.
 v2.0/tags: [users, authentication]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Manage users
 weight: 11
 aliases:

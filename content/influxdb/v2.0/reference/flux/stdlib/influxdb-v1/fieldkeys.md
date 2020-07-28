@@ -2,7 +2,7 @@
 title: v1.fieldKeys() function
 description: The `v1.fieldKeys()` function returns field keys in a bucket.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.fieldKeys
     parent: InfluxDB v1
 weight: 301

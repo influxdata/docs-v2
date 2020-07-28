@@ -5,7 +5,7 @@ description: >
   in the InfluxDB UI. View and manage labels in the InfluxDB user interface.
 v2.0/tags: [labels]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Manage labels
     parent: Visualize data
 weight: 104

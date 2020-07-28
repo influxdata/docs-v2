@@ -8,7 +8,7 @@ v2.0/tags: [cli]
 aliases:
   - /v2.0/reference/cli/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Command line tools
 weight: 4
 ---

@@ -3,7 +3,7 @@ title: Manage InfluxDB dashboard templates
 description: Create, edit, and manage dashboard templates in the InfluxDB user interface (UI).
 v2.0/tags: [templates]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Manage dashboard templates
     parent: Visualize data
 weight: 104

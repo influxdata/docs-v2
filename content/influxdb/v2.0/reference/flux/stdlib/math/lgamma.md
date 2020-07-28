@@ -4,7 +4,7 @@ description: The math.lgamma() function returns the natural logarithm and sign (
 aliases:
   - /v2.0/reference/flux/functions/math/lgamma/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.lgamma
     parent: Math
 weight: 301

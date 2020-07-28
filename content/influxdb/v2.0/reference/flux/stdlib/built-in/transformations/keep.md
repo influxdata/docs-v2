@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/keep
   - /v2.0/reference/flux/functions/built-in/transformations/keep/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: keep
     parent: built-in-transformations
 weight: 402

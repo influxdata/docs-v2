@@ -4,7 +4,7 @@ description: The math.isNaN() function reports whether `f` is an IEEE 754 “not
 aliases:
   - /v2.0/reference/flux/functions/math/isnan/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.isNaN
     parent: Math
 weight: 301

@@ -3,7 +3,7 @@ title: View task run history and logs
 description: >
   View task run histories and logs using the InfluxDB UI or the `influx` CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: View run history
     parent: Manage tasks
 weight: 203

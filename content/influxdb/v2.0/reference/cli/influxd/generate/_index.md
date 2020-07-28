@@ -5,7 +5,7 @@ description: >
   a schema defined in a TOML file.
 v2.0/tags: [sample-data]
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: influxd
 weight: 201
 aliases:

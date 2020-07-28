@@ -4,7 +4,7 @@ description: >
   The `teams.message()` function sends a single message to a Microsoft Teams channel using
   an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: teams.message
     parent: Teams
 weight: 202

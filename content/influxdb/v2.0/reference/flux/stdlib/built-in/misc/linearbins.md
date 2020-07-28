@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/misc/linearbins
   - /v2.0/reference/flux/functions/built-in/misc/linearbins/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: linearBins
     parent: built-in-misc
 weight: 401

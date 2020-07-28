@@ -8,7 +8,7 @@ aliases:
   - /v2.0/query-data/get-started/
 v2.0/tags: [query, flux, get-started]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Get started with Flux
     parent: Query data
 related:

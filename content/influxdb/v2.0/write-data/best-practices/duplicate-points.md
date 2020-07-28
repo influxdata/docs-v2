@@ -9,7 +9,7 @@ weight: 202
 aliases:
   - /v2.0/write-data/best-practices/duplicate-points/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Handle duplicate points
     parent: write-best-practices
 v2.0/tags: [best practices, write]

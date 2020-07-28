@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/spread
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/spread/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: spread
     parent: built-in-aggregates
 weight: 501

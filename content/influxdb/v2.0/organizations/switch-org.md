@@ -5,7 +5,7 @@ description: Switch from one organization to another in the InfluxDB UI
 aliases:
   - /v2.0/organizations/switch-org/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Switch organizations
     parent: Manage organizations
 weight: 105

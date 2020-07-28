@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/tofloat
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/tofloat/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: toFloat
     parent: built-in-type-conversions
 weight: 501

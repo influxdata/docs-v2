@@ -5,7 +5,7 @@ description: >
   The InfluxDB user interface (UI) allows you to move seamlessly between using the
   Flux builder and manually editing the query.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Explore metrics
     parent: Visualize data
 weight: 101

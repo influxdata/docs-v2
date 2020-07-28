@@ -3,7 +3,7 @@ title: Remove a member
 seotitle: Remove a member from an organization in InfluxDB
 description: Remove a member from an organization.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Remove a member
     parent: Manage members
 weight: 203

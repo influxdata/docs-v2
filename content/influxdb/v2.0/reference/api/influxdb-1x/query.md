@@ -4,7 +4,7 @@ list_title: /query
 description: >
   The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: /query
     parent: 1.x compatibility
 weight: 301

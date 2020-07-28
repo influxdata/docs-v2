@@ -2,7 +2,7 @@
 title: length() function
 description: The `length()` function returns the number of items in an array.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: length
     parent: built-in-misc
 weight: 401

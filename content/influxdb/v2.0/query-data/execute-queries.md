@@ -6,7 +6,7 @@ weight: 103
 aliases:
   - /v2.0/query-data/execute-queries/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Execute queries
     parent: Query data
 v2.0/tags: [query]

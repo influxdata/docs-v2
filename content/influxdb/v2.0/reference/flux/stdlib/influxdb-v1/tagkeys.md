@@ -4,7 +4,7 @@ description: The v1.tagKeys() function returns a list of tag keys for all series
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/tagkeys/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.tagKeys
     parent: InfluxDB v1
 weight: 301

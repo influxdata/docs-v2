@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/strings/strlen/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.strlen
     parent: Strings
 weight: 301

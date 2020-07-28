@@ -6,7 +6,7 @@ weight: 2
 aliases:
   - /v2.0/reference/key-concepts/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Key concepts
 v2.0/tags: [key concepts]
 ---

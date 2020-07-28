@@ -8,7 +8,7 @@ aliases:
     - /v2.0/cloud/account-management/data-usage
     - /v2.0/account-management/data-usage
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Account management
     name: View data usage
 products: [cloud]

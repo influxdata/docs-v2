@@ -5,7 +5,7 @@ description: >
   between the TSM index and the blocks.
 v2.0/tags: [tsm, inspect]
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
 aliases:

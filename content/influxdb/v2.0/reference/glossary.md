@@ -6,7 +6,7 @@ weight: 8
 aliases:
   - /v2.0/reference/glossary/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Glossary
 v2.0/tags: [glossary]
 ---

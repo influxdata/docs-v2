@@ -4,7 +4,7 @@ description: >
   The `pushbullet.pushNote()` function sends a push notification of type `note`
   to the Pushbullet API.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: pushbullet.pushNote
     parent: Pushbullet
 weight: 202

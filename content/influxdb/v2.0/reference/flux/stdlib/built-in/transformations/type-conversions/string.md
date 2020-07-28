@@ -4,7 +4,7 @@ description: The `string()` function converts a single value to a string.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/string/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: string
     parent: built-in-type-conversions
 weight: 502

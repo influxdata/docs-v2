@@ -2,7 +2,7 @@
 title: Statements
 description: Statements control execution in the Flux functional data scripting language.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Flux specification
     name: Statements
 weight: 211

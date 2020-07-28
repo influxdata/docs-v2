@@ -4,7 +4,7 @@ description: The math.isInf() function reports whether `f` is an infinity, accor
 aliases:
   - /v2.0/reference/flux/functions/math/isinf/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.isInf
     parent: Math
 weight: 301

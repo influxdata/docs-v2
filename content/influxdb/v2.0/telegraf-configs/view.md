@@ -5,7 +5,7 @@ description: >
   to view and download InfluxDB Telegraf configurations.
 weight: 102
 menu:
-  v2_0:
+  influxdb_2_0:
     name: View configs
     parent: Telegraf configurations
 aliases:

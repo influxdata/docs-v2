@@ -6,7 +6,7 @@ description: >
   when applying the same or similar templates more than once, and apply
   changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: InfluxDB templates
 weight: 105
 aliases:

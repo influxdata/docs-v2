@@ -6,7 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: reduce
     parent: built-in-aggregates
 weight: 501

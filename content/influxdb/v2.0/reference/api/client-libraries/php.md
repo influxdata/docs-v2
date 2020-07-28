@@ -4,7 +4,7 @@ list_title: PHP
 description: Use the PHP client library to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-php
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: PHP
     parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-php

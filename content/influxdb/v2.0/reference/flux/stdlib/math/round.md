@@ -4,7 +4,7 @@ description: The math.round() function returns the nearest integer, rounding hal
 aliases:
   - /v2.0/reference/flux/functions/math/round/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.round
     parent: Math
 weight: 301

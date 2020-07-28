@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: built-in-transformations
     name: Selectors
     identifier: built-in-selectors

@@ -4,7 +4,7 @@ description: The strings.toUpper() function converts a string to uppercase.
 aliases:
   - /v2.0/reference/flux/functions/strings/toupper/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.toUpper
     parent: Strings
 weight: 301

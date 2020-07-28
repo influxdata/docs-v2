@@ -4,7 +4,7 @@ description: The strings.hasSuffix() function indicates if a string ends with a 
 aliases:
   - /v2.0/reference/flux/functions/strings/hassuffix/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: strings.hasSuffix
     parent: Strings
 weight: 301
