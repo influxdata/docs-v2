@@ -5,7 +5,7 @@ description: >
   Create, read, update, and delete endpoints in the InfluxDB UI.
 v2.0/tags: [monitor, endpoints, notifications, alert]
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Monitor & alert
 weight: 102
 aliases:

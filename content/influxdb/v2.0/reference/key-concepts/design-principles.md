@@ -6,7 +6,7 @@ weight: 104
 aliases:
   - /v2.0/reference/key-concepts/design-principles/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Key concepts
     name: Design principles
 v2.0/tags: [key concepts, design principles]

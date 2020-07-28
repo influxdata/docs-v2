@@ -4,7 +4,7 @@ description: The math.erfc() function returns the complementary error function o
 aliases:
   - /v2.0/reference/flux/functions/math/erfc/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.erfc
     parent: Math
 weight: 301

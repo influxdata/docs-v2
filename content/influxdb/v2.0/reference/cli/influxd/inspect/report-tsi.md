@@ -5,7 +5,7 @@ description: >
   in a storage directory and reports the cardinality of data stored in the files.
 v2.0/tags: [tsi, cardinality, inspect]
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
 aliases:

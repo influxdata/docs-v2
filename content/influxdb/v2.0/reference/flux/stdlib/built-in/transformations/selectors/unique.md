@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/unique
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/unique/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: unique
     parent: built-in-selectors
 weight: 501

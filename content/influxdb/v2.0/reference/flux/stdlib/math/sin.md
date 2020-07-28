@@ -4,7 +4,7 @@ description: The math.sin() function returns the sine of the radian argument `x`
 aliases:
   - /v2.0/reference/flux/functions/math/sin/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.sin
     parent: Math
 weight: 301

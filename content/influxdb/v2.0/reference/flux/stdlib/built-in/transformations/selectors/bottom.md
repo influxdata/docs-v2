@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/bottom
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: bottom
     parent: built-in-selectors
 weight: 501

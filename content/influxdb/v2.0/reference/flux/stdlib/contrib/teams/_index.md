@@ -7,7 +7,7 @@ description: >
   channel using an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
   Import the `contrib/sranka/teams` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Teams
     parent: Contributed
 weight: 202

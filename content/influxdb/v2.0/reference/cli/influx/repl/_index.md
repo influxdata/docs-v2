@@ -4,7 +4,7 @@ description: >
   The `influx repl` command opens an interactive read-eval-print-loop (REPL)
   from which you can run Flux commands.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: influx repl
     parent: influx
 weight: 101

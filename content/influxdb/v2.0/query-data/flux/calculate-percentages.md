@@ -6,7 +6,7 @@ description: >
   and the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
   to align operand values into rows and calculate a percentage.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Calculate percentages
     parent: Query with Flux
 weight: 209

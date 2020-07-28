@@ -9,7 +9,7 @@ weight: 202
 aliases:
   - /v2.0/visualize-data/visualization-types/graph-single-stat/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Graph + Single Stat
     parent: Visualization types
 related:

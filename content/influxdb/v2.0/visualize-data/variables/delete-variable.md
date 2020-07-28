@@ -3,7 +3,7 @@ title: Delete a variable
 seotitle: Delete a dashboard variable
 description: Delete a dashboard variable in the InfluxDB user interface.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Use and manage variables
 weight: 205
 aliases:

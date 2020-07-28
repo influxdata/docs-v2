@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations
   - /v2.0/reference/flux/functions/built-in/transformations/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Built-in
     name: Transformations
     identifier: built-in-transformations

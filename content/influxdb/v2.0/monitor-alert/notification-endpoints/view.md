@@ -4,7 +4,7 @@ seotitle: View notification endpoint details and history
 description: >
   View notification endpoint details and history in the InfluxDB UI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: View endpoint history
     parent: Manage notification endpoints
 weight: 202

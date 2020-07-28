@@ -3,7 +3,7 @@ title: geo.toRows() function
 description: >
   The geo.toRows() function ...
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.toRows
     parent: Geo
 weight: 401

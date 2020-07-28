@@ -7,7 +7,7 @@ weight: 2
 aliases:
   - /v2.0/account-management/pricing-calculator
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Pricing calculator
 products: [cloud]
 draft: true

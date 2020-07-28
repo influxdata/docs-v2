@@ -7,7 +7,7 @@ weight: 5
 aliases:
   - /v2.0/reference/release-notes/syntax/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Syntax
 v2.0/tags: [syntax]
 ---

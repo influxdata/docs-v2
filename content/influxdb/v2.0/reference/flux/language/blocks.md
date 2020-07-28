@@ -2,7 +2,7 @@
 title: Blocks
 description: A block is a possibly empty sequence of statements within matching braces ({}).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Flux specification
     name: Blocks
 weight: 203

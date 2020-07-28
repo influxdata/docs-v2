@@ -4,7 +4,7 @@ description: >
   Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
   It supports four categories of plugins including input, output, aggregator, and processor.
   View and search all available Telegraf plugins.
-menu: v2_0_ref
+menu: influxdb_2_0_ref
 weight: 6
 aliases:
   - /v2.0/reference/telegraf-plugins/

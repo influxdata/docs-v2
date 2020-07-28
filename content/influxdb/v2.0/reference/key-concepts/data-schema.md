@@ -7,7 +7,7 @@ aliases:
   - /v2.0/reference/key-concepts/data-schema/
 weight: 103
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Key concepts
     name: Data schema
 v2.0/tags: [key concepts]

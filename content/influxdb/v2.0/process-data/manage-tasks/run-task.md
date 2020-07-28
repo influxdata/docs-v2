@@ -4,7 +4,7 @@ seotitle: Run an InfluxDB task
 description: >
   Run a data processing task using the InfluxDB UI or the `influx` CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Run a task
     parent: Manage tasks
 weight: 203

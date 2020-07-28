@@ -5,7 +5,7 @@ description: >
   Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB
   user interface and the 'influx' command line interface.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Query data
 weight: 3
 aliases:

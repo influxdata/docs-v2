@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/join
   - /v2.0/reference/flux/functions/built-in/transformations/join/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: join
     parent: built-in-transformations
 weight: 402

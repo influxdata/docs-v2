@@ -4,7 +4,7 @@ description: The `sleep()` function delays execution by a specified duration.
 aliases:
   - /v2.0/reference/flux/functions/built-in/misc/sleep/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: sleep
     parent: built-in-misc
 weight: 401

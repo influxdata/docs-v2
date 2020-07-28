@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /v2.0/query-data/flux/query-fields/
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Query with Flux
 v2.0/tags: [query, select, where]
 related:

@@ -8,7 +8,7 @@ description: >
 aliases:
   - /v2.0/write-data/developer-tools/influx-cli/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Influx CLI
     parent: Developer tools
 related:

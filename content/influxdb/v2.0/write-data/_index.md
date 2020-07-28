@@ -9,7 +9,7 @@ aliases:
   - /v2.0/write-data/sample-data/demo-data/
   - /v2.0/write-data/
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Write data
 v2.0/tags: [write, line protocol]
 related:

@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/integral
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: integral
     parent: built-in-aggregates
 weight: 501

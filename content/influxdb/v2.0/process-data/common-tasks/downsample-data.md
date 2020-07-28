@@ -5,7 +5,7 @@ description: >
   How to create a task that downsamples data much like continuous queries
   in previous versions of InfluxDB.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Downsample data
     parent: Common tasks
 weight: 201

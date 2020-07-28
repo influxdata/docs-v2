@@ -6,7 +6,7 @@ aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/covariance/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: covariance
     parent: built-in-transformations
 weight: 402

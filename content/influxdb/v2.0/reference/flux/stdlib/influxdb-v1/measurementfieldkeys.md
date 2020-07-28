@@ -2,7 +2,7 @@
 title: v1.measurementFieldKeys() function
 description: The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: v1.measurementFieldKeys
     parent: InfluxDB v1
 weight: 301

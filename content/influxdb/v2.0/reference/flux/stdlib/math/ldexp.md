@@ -4,7 +4,7 @@ description: The math.ldexp() function is the inverse of `math.frexp()`. It retu
 aliases:
   - /v2.0/reference/flux/functions/math/ldexp/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: math.ldexp
     parent: Math
 weight: 301

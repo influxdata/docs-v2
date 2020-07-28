@@ -8,7 +8,7 @@ aliases:
   - /v2.0/query-data/influxql/
 v2.0/tags: [influxql, query]
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Query with InfluxQL
     parent: Query data
 products: [cloud]

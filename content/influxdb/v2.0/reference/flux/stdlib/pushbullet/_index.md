@@ -5,7 +5,7 @@ description: >
   The Flux Pushbullet package provides functions for sending data to Pushbullet.
   Import the `pushbullet` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Pushbullet
     parent: Flux standard library
 weight: 202

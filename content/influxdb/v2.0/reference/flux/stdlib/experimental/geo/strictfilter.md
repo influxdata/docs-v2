@@ -3,7 +3,7 @@ title: geo.strictFilter() function
 description: >
   The geo.strictFilter() function filters data by latitude and longitude.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: geo.strictFilter
     parent: Geo
 weight: 401

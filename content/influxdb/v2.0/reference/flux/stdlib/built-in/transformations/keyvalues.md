@@ -5,7 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/keyvalues
   - /v2.0/reference/flux/functions/built-in/transformations/keyvalues/
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: keyValues
     parent: built-in-transformations
 weight: 402

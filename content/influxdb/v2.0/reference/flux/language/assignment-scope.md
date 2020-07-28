@@ -2,7 +2,7 @@
 title: Assignment and scope
 description: An assignment binds an identifier to a variable, option, or function. Every identifier in a program must be assigned.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     parent: Flux specification
     name: Assignment and scope
 weight: 202

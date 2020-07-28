@@ -3,7 +3,7 @@ title: Manage organization members
 seotitle: Manage members of an organization in InfluxDB
 description: Manage members of an organization in InfluxDB using the InfluxDB UI or CLI.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Manage members
     parent: Manage organizations
 weight: 106
