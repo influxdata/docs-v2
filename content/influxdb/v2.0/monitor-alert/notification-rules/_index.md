@@ -5,7 +5,7 @@ description: >
 weight: 103
 aliases:
   - /v2.0/monitor-alert/notification-rules/
-v2.0/tags: [monitor, notifications, alert]
+influxdb/v2.0/tags: [monitor, notifications, alert]
 menu:
   influxdb_2_0:
     parent: Monitor & alert

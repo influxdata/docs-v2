@@ -9,7 +9,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Cumulative sum
-v2.0/tags: [query, cumulative sum]
+influxdb/v2.0/tags: [query, cumulative sum]
 aliases:
   - /v2.0/query-data/flux/cumulativesum/
 related:

@@ -10,7 +10,7 @@ menu:
     name: Telegram
     parent: Contributed
 weight: 202
-v2.0/tags: [functions, teams, microsoft, package]
+influxdb/v2.0/tags: [functions, teams, microsoft, package]
 ---
 
 The Flux Telegram package provides functions for sending messages to

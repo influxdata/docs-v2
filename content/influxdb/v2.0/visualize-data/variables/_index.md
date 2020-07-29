@@ -10,7 +10,7 @@ menu:
 weight: 103
 aliases:
   - /v2.0/visualize-data/variables/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 Dashboard variables let you alter specific components of cells' queries without having to edit the queries,

@@ -9,7 +9,7 @@ menu:
     name: pagerduty.endpoint
     parent: PagerDuty
 weight: 202
-v2.0/tags: [endpoints]
+influxdb/v2.0/tags: [endpoints]
 ---
 
 The `pagerduty.endpoint()` function sends a message to PagerDuty that includes output data.

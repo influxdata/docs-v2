@@ -10,7 +10,7 @@ menu:
 weight: 6
 aliases:
   - /v2.0/monitor-alert/
-v2.0/tags: [monitor, alert, checks, notification, endpoints]
+influxdb/v2.0/tags: [monitor, alert, checks, notification, endpoints]
 ---
 
 Monitor your time series data and send alerts by creating checks, notification

@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: Syntax
-v2.0/tags: [syntax]
+influxdb/v2.0/tags: [syntax]
 ---
 
 InfluxDB uses a handful of languages and syntaxes to perform tasks such as

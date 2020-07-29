@@ -5,7 +5,7 @@ list_title: Exists
 description: >
   Use the Flux `exists` operator to check if a record contains a key or if that
   key's value is `null`.
-v2.0/tags: [exists]
+influxdb/v2.0/tags: [exists]
 menu:
   influxdb_2_0:
     name: Exists

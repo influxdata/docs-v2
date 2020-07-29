@@ -11,7 +11,7 @@ menu:
   influxdb_2_0_ref:
     name: Client libraries
     parent: InfluxDB v2 API
-v2.0/tags: [client libraries]
+influxdb/v2.0/tags: [client libraries]
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.

@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/setup/
-v2.0/tags: [get-started]
+influxdb/v2.0/tags: [get-started]
 ---
 
 The `influx setup` command walks through the initial InfluxDB setup process,

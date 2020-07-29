@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/backup/
-v2.0/tags: [backup]
+influxdb/v2.0/tags: [backup]
 related:
   - /influxdb/v2.0/backup-restore/backup/
 ---

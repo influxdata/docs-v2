@@ -11,7 +11,7 @@ menu:
 weight: 104
 aliases:
   - /v2.0/reference/release-notes/syntax/delete-predicate/
-v2.0/tags: [syntax, delete]
+influxdb/v2.0/tags: [syntax, delete]
 related:
   - /influxdb/v2.0/reference/cli/influx/delete/
 ---

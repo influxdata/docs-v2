@@ -12,7 +12,7 @@ weight: 101
 aliases:
   - /v2.0/influxdb-templates/get_started_cloud/
   - /v2.0/influxdb-templates/cloud/
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 products: [cloud]
 ---
 

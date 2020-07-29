@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/bucket/
-v2.0/tags: [buckets]
+influxdb/v2.0/tags: [buckets]
 ---
 
 The `influx bucket` command and its subcommands manage buckets in InfluxDB.

@@ -9,7 +9,7 @@ weight: 101
 aliases:
   - /v2.0/reference/cli/influx/pkg/
   - /v2.0/reference/cli/influx/apply/
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 ---
 
 The `influx apply` command applies InfluxDB templates.

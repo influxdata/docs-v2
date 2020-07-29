@@ -11,7 +11,7 @@ menu:
     name: InfluxDB Monitor
     parent: Flux standard library
 weight: 202
-v2.0/tags: [functions, monitor, alerts, package]
+influxdb/v2.0/tags: [functions, monitor, alerts, package]
 ---
 
 The Flux monitor package provides tools for monitoring and alerting with InfluxDB.

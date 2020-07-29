@@ -1,4 +1,6 @@
-  {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) | default "v2.0" }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 | default "v2.0"}}
 
   <!-- InfluxDB URL modal -->
   {{ partial "footer/influxdb-url-modal.html" . }}
@@ -15,7 +17,7 @@
     // Set debug to true if you want to inspect the dropdown
     debug: true,
     algoliaOptions: {
-    'facetFilters': ["version:{{ $currentVersion }}"]
+      'facetFilters': ["version:{{ $currentVersion }}"]
   },
   });
   </script>

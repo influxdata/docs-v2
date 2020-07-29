@@ -7,7 +7,7 @@ menu:
   influxdb_2_0_ref:
     parent: Syntax
 weight: 102
-v2.0/tags: [write, line protocol, syntax]
+influxdb/v2.0/tags: [write, line protocol, syntax]
 aliases:
   - /v2.0/reference/line-protocol
   - /v2.0/reference/syntax/line-protocol/

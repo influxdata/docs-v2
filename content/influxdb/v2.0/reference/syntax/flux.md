@@ -11,7 +11,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/release-notes/syntax/flux/
-v2.0/tags: [syntax, flux]
+influxdb/v2.0/tags: [syntax, flux]
 ---
 
 Flux is a functional data scripting language designed for querying, analyzing, and acting on data.

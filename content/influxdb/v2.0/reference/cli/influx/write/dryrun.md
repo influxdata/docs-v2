@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/write/dryrun/
-v2.0/tags: [write]
+influxdb/v2.0/tags: [write]
 ---
 
 The `influx write dryrun` command prints write output to stdout instead of writing

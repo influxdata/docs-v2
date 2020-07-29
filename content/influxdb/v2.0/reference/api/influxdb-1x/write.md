@@ -11,7 +11,7 @@ menu:
 weight: 301
 aliases:
   - /v2.0/reference/api/influxdb-1x/write/
-v2.0/tags: [write]
+influxdb/v2.0/tags: [write]
 products: [cloud]
 list_code_example: |
   <pre>

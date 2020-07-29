@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/telegrafs/
-v2.0/tags: [telegraf]
+influxdb/v2.0/tags: [telegraf]
 ---
 
 The `influx telegrafs` command lists Telegraf configurations.

@@ -11,7 +11,7 @@ menu:
 weight: 105
 aliases:
   - /v2.0/process-data/task-options/
-v2.0/tags: [tasks, flux]
+influxdb/v2.0/tags: [tasks, flux]
 ---
 
 Task options define specific information about a task.

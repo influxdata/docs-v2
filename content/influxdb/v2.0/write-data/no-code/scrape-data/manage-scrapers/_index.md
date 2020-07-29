@@ -11,7 +11,7 @@ menu:
     name: Manage scrapers
     parent: Scrape data
 weight: 201
-v2.0/tags: [scraper]
+influxdb/v2.0/tags: [scraper]
 products: [oss]
 ---
 

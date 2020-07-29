@@ -2,7 +2,7 @@
 title: influxd inspect dumpwal
 description: >
   The `influxd inspect dumpwal` command outputs data from WAL files.
-v2.0/tags: [wal, inspect]
+influxdb/v2.0/tags: [wal, inspect]
 menu:
   influxdb_2_0_ref:
     parent: influxd inspect

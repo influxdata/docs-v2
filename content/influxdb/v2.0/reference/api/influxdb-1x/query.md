@@ -10,7 +10,7 @@ menu:
 weight: 301
 aliases:
   - /v2.0/reference/api/influxdb-1x/query/
-v2.0/tags: [influxql, query]
+influxdb/v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |
   <pre>

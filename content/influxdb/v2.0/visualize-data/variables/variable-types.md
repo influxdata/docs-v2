@@ -8,7 +8,7 @@ menu:
 weight: 207
 aliases:
   - /v2.0/visualize-data/variables/variable-types/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 Variable types determine how a variable's list of possible values is populated.

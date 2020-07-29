@@ -16,7 +16,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Rate
-v2.0/tags: [query, rate]
+influxdb/v2.0/tags: [query, rate]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/derivative/
   - /v2.0/reference/flux/stdlib/experimental/aggregate/rate/

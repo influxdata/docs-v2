@@ -1,7 +1,7 @@
 ---
 title: influxd - InfluxDB service
 description: The `influxd` service starts and runs all the processes necessary for InfluxDB to function.
-v2.0/tags: [influxd, cli]
+influxdb/v2.0/tags: [influxd, cli]
 menu:
   influxdb_2_0_ref:
     name: influxd

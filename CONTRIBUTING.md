@@ -660,22 +660,24 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 3. Duplicate the most recent version's content directory:
    ```sh
    # From the root of the project
-   cp content/v2.0 content/v2.1
+   cp content/influxdb/v2.0 content/influxdb/v2.1
    ```
 
 4. Find and replace all instances of the old version number with the new version
    **(only within the new version directory)**.
    Be sure to find and replace both the following forms of the version number:
+
    ```
    v2.0 -> v2.1
    v2_0 -> v2_1
    ```
 
-5. Add the new version tag taxonomy to the `config.toml` in the root of the project.
+5. Add the new product and version tag taxonomy to the `config.toml` in the root of the project.
+
    ```toml
    [taxonomies]
-     "v2.0/tag" = "v2.0/tags"
-     "v2.1/tag" = "v2.1/tags"
+     "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+     "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
 6. Update the `latest_version` in `data/version.yaml`:

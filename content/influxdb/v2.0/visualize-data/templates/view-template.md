@@ -2,7 +2,7 @@
 title: View templates
 seotitle: View InfluxDB templates
 description: View templates in the InfluxDB user interface (UI).
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 menu:
   influxdb_2_0:
     name: View templates

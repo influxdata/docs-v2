@@ -1,7 +1,7 @@
 ---
 title: Add secrets
 description: Add secrets using the `influx` CLI or the InfluxDB API.
-v2.0/tags: [secrets, security]
+influxdb/v2.0/tags: [secrets, security]
 menu:
   influxdb_2_0:
     parent: Manage secrets

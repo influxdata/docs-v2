@@ -9,7 +9,7 @@ menu:
   influxdb_2_0_ref:
     parent: Key concepts
     name: Data elements
-v2.0/tags: [key concepts, schema]
+influxdb/v2.0/tags: [key concepts, schema]
 ---
 
 InfluxDB 2.0 includes the following data elements:
