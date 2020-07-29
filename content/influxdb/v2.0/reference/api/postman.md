@@ -8,7 +8,7 @@ menu:
 weight: 3
 aliases:
   - /v2.0/reference/api/postman/
-v2.0/tags: [api, authentication]
+influxdb/v2.0/tags: [api, authentication]
 ---
 
 [Postman](https://www.postman.com/) is a popular tool for exploring APIs.

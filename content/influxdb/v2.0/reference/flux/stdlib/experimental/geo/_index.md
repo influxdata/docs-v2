@@ -10,7 +10,7 @@ menu:
     name: Geo
     parent: Experimental
 weight: 301
-v2.0/tags: [functions, package, geo]
+influxdb/v2.0/tags: [functions, package, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
 ---

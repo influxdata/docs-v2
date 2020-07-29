@@ -14,7 +14,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Increase
-v2.0/tags: [query, increase, counters]
+influxdb/v2.0/tags: [query, increase, counters]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
 list_query_example: increase

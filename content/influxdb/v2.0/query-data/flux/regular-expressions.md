@@ -2,7 +2,7 @@
 title: Use regular expressions in Flux
 list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
-v2.0/tags: [regex]
+influxdb/v2.0/tags: [regex]
 menu:
   influxdb_2_0:
     name: Regular expressions

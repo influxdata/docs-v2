@@ -12,7 +12,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Median
-v2.0/tags: [query, median]
+influxdb/v2.0/tags: [query, median]
 related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/

@@ -3,7 +3,7 @@ title: influxd generate help-schema
 description: >
   The `influxd generate help-schema` command outputs an example TOML schema to stdout
   that includes documentation describing the available options.
-v2.0/tags: [sample-data]
+influxdb/v2.0/tags: [sample-data]
 menu:
   influxdb_2_0_ref:
     parent: influxd generate

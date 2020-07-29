@@ -9,7 +9,7 @@ menu:
     name: filter
     parent: built-in-transformations
 weight: 402
-v2.0/tags: [exists]
+influxdb/v2.0/tags: [exists]
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
   - /influxdb/v2.0/query-data/flux/conditional-logic/

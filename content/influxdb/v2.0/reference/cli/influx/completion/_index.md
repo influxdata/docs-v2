@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/completion/
-v2.0/tags: [cli, tools]
+influxdb/v2.0/tags: [cli, tools]
 ---
 
 The `influx completion` command outputs `influx` shell completion scripts for a

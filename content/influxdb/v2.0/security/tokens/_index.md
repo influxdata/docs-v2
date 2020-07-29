@@ -5,7 +5,7 @@ description: Manage authentication tokens in InfluxDB using the InfluxDB UI or t
 aliases:
   - /v2.0/users/tokens
   - /v2.0/security/tokens/
-v2.0/tags: [tokens, authentication, security]
+influxdb/v2.0/tags: [tokens, authentication, security]
 menu:
   influxdb_2_0:
     name: Manage tokens

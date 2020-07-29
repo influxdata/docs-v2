@@ -9,7 +9,7 @@ menu:
   influxdb_2_0_ref:
     name: Storage engine
     parent: InfluxDB Internals
-v2.0/tags: [storage, internals]
+influxdb/v2.0/tags: [storage, internals]
 ---
 
 The InfluxDB storage engine ensures that:

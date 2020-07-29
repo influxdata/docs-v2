@@ -11,7 +11,7 @@ weight: 101
 aliases:
   - /v2.0/reference/cli/influx/pkg/stack/list/
   - /v2.0/reference/cli/influx/stacks/
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 ---
 
 The `influx stacks` command and its subcommands list and manage InfluxDB stacks

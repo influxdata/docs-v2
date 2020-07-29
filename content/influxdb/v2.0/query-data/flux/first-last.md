@@ -13,7 +13,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: First & last
-v2.0/tags: [query]
+influxdb/v2.0/tags: [query]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
   - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/

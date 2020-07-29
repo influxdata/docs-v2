@@ -4,7 +4,7 @@ description: >
   placeholder
 weight: 12
 menu: influxdb_2_0
-v2.0/tags: [telegraf]
+influxdb/v2.0/tags: [telegraf]
 aliases:
   - /v2.0/telegraf-configs/
 related:
