@@ -1,0 +1,9 @@
+{{ $expandLabel := .Get 0 }}
+<div class="expand">
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      {{ .Inner | safeHTML}}
+  </div>
+</div>

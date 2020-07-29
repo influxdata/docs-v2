@@ -87,6 +87,12 @@ $(".truncate-toggle").click(function(e) {
   $(this).closest('.truncate').toggleClass('closed');
 })
 
+////////////////////////////// Expand Accordians ///////////////////////////////
+$('.expand-label').click(function() {
+  $(this).children('.expand-toggle').toggleClass('open')
+  $(this).next('.expand-content').slideToggle(200)
+})
+
 //////////////////// Replace Missing Images with Placeholder ///////////////////
 
 $(".article--content img").on("error", function() {
