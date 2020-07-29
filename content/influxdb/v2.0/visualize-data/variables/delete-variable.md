@@ -8,7 +8,7 @@ menu:
 weight: 205
 aliases:
   - /v2.0/visualize-data/variables/delete-variable/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 Delete an existing variable in the InfluxDB user interface (UI).

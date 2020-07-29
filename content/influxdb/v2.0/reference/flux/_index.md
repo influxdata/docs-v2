@@ -1,7 +1,7 @@
 ---
 title: Flux data scripting language
 description: Reference articles for Flux functions and the Flux language specification.
-v2.0/tags: [flux]
+influxdb/v2.0/tags: [flux]
 menu:
   influxdb_2_0_ref:
     name: Flux language

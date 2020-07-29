@@ -9,7 +9,7 @@ menu:
     name: Extract scalar values
     parent:  Query with Flux
 weight: 220
-v2.0/tags: [scalar]
+influxdb/v2.0/tags: [scalar]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
 aliases:

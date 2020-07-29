@@ -11,7 +11,7 @@ menu:
 weight: 201
 aliases:
   - /v2.0/process-data/common-tasks/downsample-data/
-v2.0/tags: [tasks]
+influxdb/v2.0/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce

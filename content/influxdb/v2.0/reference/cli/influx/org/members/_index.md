@@ -8,7 +8,7 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/org/members/
-v2.0/tags: [members, organizations]
+influxdb/v2.0/tags: [members, organizations]
 ---
 
 The `influx org members` command and its subcommands manage organization members in InfluxDB.

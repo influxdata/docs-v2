@@ -8,7 +8,7 @@ weight: 103
 menu:
   influxdb_2_0_ref:
     parent: Syntax
-v2.0/tags: [csv, syntax]
+influxdb/v2.0/tags: [csv, syntax]
 aliases:
   - /v2.0/reference/annotated-csv/
 related:

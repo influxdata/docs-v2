@@ -9,7 +9,7 @@ menu:
 weight: 106
 aliases:
   - /v2.0/organizations/create-org/members/
-v2.0/tags: [members]
+influxdb/v2.0/tags: [members]
 ---
 
 A **member** is a user that belongs to an organization.

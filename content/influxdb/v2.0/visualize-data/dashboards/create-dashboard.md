@@ -4,7 +4,7 @@ seotitle: Create an InfluxDB dashboard
 description: >
   Create a new dashboard or import an existing dashboard in the
   InfluxDB user interface (UI).
-v2.0/tags: [dashboards]
+influxdb/v2.0/tags: [dashboards]
 menu:
   influxdb_2_0:
     name: Create a dashboard

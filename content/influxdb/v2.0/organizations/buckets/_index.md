@@ -9,7 +9,7 @@ menu:
 weight: 105
 aliases:
   - /v2.0/organizations/create-org/buckets/
-v2.0/tags: [buckets]
+influxdb/v2.0/tags: [buckets]
 ---
 
 A **bucket** is a named location where time series data is stored.

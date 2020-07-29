@@ -7,7 +7,7 @@ menu:
     name: geo.toRows
     parent: Geo
 weight: 401
-v2.0/tags: [functions, geo]
+influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
   - /v2.0/reference/flux/stdlib/built-in/transformations/pivot/

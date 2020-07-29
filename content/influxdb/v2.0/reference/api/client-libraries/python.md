@@ -7,7 +7,7 @@ menu:
   influxdb_2_0_ref:
     name: Python
     parent: Client libraries
-v2.0/tags: [client libraries, python]
+influxdb/v2.0/tags: [client libraries, python]
 aliases:
   - /v2.0/reference/api/client-libraries/python-cl-guide/
   - /v2.0/reference/api/client-libraries/python/

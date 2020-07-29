@@ -9,7 +9,7 @@ menu:
   influxdb_2_0:
     name: Optimize queries
     parent: Query data
-v2.0/tags: [query]
+influxdb/v2.0/tags: [query]
 ---
 
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.

@@ -12,7 +12,7 @@ menu:
     name: SQL
     parent: Flux standard library
 weight: 202
-v2.0/tags: [functions, sql, package, mysql, postgres]
+influxdb/v2.0/tags: [functions, sql, package, mysql, postgres]
 related:
   - /influxdb/v2.0/query-data/flux/sql/
 ---

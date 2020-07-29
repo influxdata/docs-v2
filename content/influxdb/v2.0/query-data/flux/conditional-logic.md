@@ -5,7 +5,7 @@ list_title: Conditional logic
 description: >
   This guide describes how to use Flux conditional expressions, such as `if`,
   `else`, and `then`, to query and transform data. **Flux evaluates statements from left to right and stops evaluating once a condition matches.**
-v2.0/tags: [conditionals, flux]
+influxdb/v2.0/tags: [conditionals, flux]
 menu:
   influxdb_2_0:
     name: Conditional logic

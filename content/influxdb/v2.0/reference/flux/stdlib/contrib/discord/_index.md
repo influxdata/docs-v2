@@ -9,7 +9,7 @@ menu:
     name: Discord
     parent: Contributed
 weight: 202
-v2.0/tags: [functions, discord, package]
+influxdb/v2.0/tags: [functions, discord, package]
 ---
 
 The Flux Discord package provides functions for sending messages to Discord.

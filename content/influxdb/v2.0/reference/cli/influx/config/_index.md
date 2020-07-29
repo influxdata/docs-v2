@@ -6,7 +6,7 @@ menu:
     name: influx config
     parent: influx
 weight: 101
-v2.0/tags: [config]
+influxdb/v2.0/tags: [config]
 aliases:
   - /v2.0/reference/cli/influx/config/
 ---

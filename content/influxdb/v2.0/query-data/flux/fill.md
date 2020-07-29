@@ -12,7 +12,7 @@ menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Fill
-v2.0/tags: [query, fill]
+influxdb/v2.0/tags: [query, fill]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/fill/
 list_query_example: fill_null

@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/delete/
-v2.0/tags: [delete]
+influxdb/v2.0/tags: [delete]
 ---
 
 The `influx delete` command deletes [points](/v2.0/reference/glossary/#point)
