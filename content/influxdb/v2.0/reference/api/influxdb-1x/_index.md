@@ -9,7 +9,7 @@ menu:
 weight: 104
 aliases:
   - /v2.0/reference/api/influxdb-1x/
-v2.0/tags: [influxql, query, write]
+influxdb/v2.0/tags: [influxql, query, write]
 products: [cloud]
 related:
   - /influxdb/v2.0/query-data/influxql

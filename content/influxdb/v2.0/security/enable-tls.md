@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0:
     parent: Security & authorization
-v2.0/tags: [security, authentication, tls, https, ssl]
+influxdb/v2.0/tags: [security, authentication, tls, https, ssl]
 products: [oss]
 ---
 

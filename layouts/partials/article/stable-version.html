@@ -2,14 +2,14 @@
 {{ $stableVersion := $.Site.Data.versions.stable_version }}
 {{ $stableVersionURL := replaceRE "[^/]+.*?[0]" $stableVersion .RelPermalink }}
 {{ if lt $currentVersion $stableVersion }}
-  <div class="warn old-version">
+  <div class="warn block old-version">
     <p>
       This page documents an earlier version of InfluxDB. InfluxDB {{ $stableVersion }} is the latest stable version.<br/>
       <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
     </p>
   </div>
 {{ else if gt $currentVersion $stableVersion }}
-  <div class="note old-version">
+  <div class="note block old-version">
     <p>
       This page documents a pre-release version of InfluxDB. InfluxDB {{ $stableVersion }} is the latest stable version.<br/>
       <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.

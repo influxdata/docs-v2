@@ -7,7 +7,7 @@ description: >
 aliases:
   - /v2.0/process-data/write-a-task/
   - /v2.0/process-data/get-started/
-v2.0/tags: [tasks]
+influxdb/v2.0/tags: [tasks]
 menu:
   influxdb_2_0:
     name: Get started with tasks

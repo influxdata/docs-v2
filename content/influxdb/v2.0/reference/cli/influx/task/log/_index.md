@@ -10,7 +10,7 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/task/log/
-v2.0/tags: [logs]
+influxdb/v2.0/tags: [logs]
 ---
 
 The `influx task log` command and its subcommand `list` output log information related to a task.

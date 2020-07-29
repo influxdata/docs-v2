@@ -1,7 +1,10 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
+{{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $searchPlaceholder := cond (eq $product "influxdb") "InfluxDB 2.0 OSS, Cloud, & Flux" (print "Search " $productName " " $currentVersion) }}
+
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
   <div class="search-and-nav-toggle">
@@ -15,7 +18,7 @@
               autocapitalize="off"
               spellcheck="false"
               dir="auto"
-              placeholder="Search {{ $currentVersion }}">
+              placeholder='{{ $searchPlaceholder }}'>
     </div>
     <a id="contents-toggle-btn" href="#">
       <span class="toggle-hamburger"></span>

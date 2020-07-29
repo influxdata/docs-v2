@@ -8,7 +8,7 @@ menu:
     name: Flux specification
     parent: Flux language
 weight: 103
-v2.0/tags: [flux]
+influxdb/v2.0/tags: [flux]
 ---
 
 The following document specifies the Flux language and query execution.

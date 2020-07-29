@@ -8,7 +8,7 @@ menu:
 weight: 204
 aliases:
   - /v2.0/visualize-data/variables/export-variable/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 Export dashboard variables from the InfluxDB user interface (UI).
 Variables are exported as downloadable JSON files.

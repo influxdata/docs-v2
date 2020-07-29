@@ -10,7 +10,7 @@ menu:
 weight: 3
 aliases:
   - /v2.0/query-data/
-v2.0/tags: [query, flux]
+influxdb/v2.0/tags: [query, flux]
 ---
 
 Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB

@@ -1,9 +1,21 @@
-enterprise:
-  name: "InfluxDB Enterprise 2"
-  shortname: "InfluxDB Enterprise"
-  link: "#"
+influxdb:
+  name: InfluxDB
+  cloud:
+    name: "InfluxDB Cloud 2.0"
+    shortname: "InfluxDB Cloud"
+    link: "https://cloud2.influxdata.com/signup"
 
-cloud:
-  name: "InfluxDB Cloud 2.0"
-  shortname: "InfluxDB Cloud"
-  link: "https://cloud2.influxdata.com/signup"
+telegraf:
+  name: Telegraf
+
+chronograf:
+  name: Chronograf
+
+kapacitor:
+  name: Kapacitor
+
+enterprise_influxdb:
+  name: "InfluxDB Enterprise"
+
+enterprise_kapacitor:
+  name: "Kapacitor Enterprise"

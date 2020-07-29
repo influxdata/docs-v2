@@ -8,7 +8,7 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/stacks/update/
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 ---
 
 The `influx stacks update` command updates an InfluxDB stack.

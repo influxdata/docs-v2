@@ -8,7 +8,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: Key concepts
-v2.0/tags: [key concepts]
+influxdb/v2.0/tags: [key concepts]
 ---
 
 Before working with InfluxDB 2.0, it's helpful to learn a few key concepts. Browse the topics below to learn more.

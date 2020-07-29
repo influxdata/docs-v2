@@ -4,7 +4,7 @@ list_title: Group
 description: >
   Use the [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group)
   to group data with common values in specific columns.
-v2.0/tags: [group]
+influxdb/v2.0/tags: [group]
 menu:
   influxdb_2_0:
     name: Group

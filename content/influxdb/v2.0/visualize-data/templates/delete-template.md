@@ -2,7 +2,7 @@
 title: Delete a dashboard template
 seotitle: Delete InfluxDB templates
 description: Delete templates in the InfluxDB user interface (UI).
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 menu:
   influxdb_2_0:
     name: Delete a template

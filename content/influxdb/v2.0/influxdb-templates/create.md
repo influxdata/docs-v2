@@ -10,7 +10,7 @@ menu:
 weight: 103
 aliases:
   - /v2.0/influxdb-templates/create/
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 related:
   - /influxdb/v2.0/reference/cli/influx/export/
   - /influxdb/v2.0/reference/cli/influx/export/all/

@@ -7,7 +7,7 @@ menu:
     name: influx transpile
     parent: influx
 weight: 101
-v2.0/tags: [influxql, flux]
+influxdb/v2.0/tags: [influxql, flux]
 aliases:
   - /v2.0/reference/cli/influx/transpile/
 ---

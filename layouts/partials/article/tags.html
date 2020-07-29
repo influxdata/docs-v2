@@ -1,5 +1,7 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
-{{ $tagSet := print $currentVersion "/tags" }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $tagSet := print $product "/" $currentVersion "/tags" }}
 {{ if isset .Params $tagSet }}
   <div class="tags">
     {{ range .Param $tagSet }}
