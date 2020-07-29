@@ -4,7 +4,7 @@ description: >
   Learn how to use and leverage InfluxDB in use cases such as monitoring metrics, IoT data, and events.
 layout: version-landing
 menu:
-  versions:
+  influxdb:
     name: v2.0
 aliases:
   - /v2.0/
