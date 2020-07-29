@@ -7,7 +7,7 @@ description: >
   to order records within each table by specific columns and the
   [`limit()` function](/v2.0/reference/flux/stdlib/built-in/transformations/limit)
   to limit the number of records in output tables to a fixed number, `n`.
-v2.0/tags: [sort, limit]
+influxdb/v2.0/tags: [sort, limit]
 menu:
   influxdb_2_0:
     name: Sort and limit

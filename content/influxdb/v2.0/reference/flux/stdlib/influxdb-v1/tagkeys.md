@@ -8,7 +8,7 @@ menu:
     name: v1.tagKeys
     parent: InfluxDB v1
 weight: 301
-v2.0/tags: [tags]
+influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL

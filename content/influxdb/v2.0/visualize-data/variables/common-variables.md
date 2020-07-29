@@ -8,7 +8,7 @@ menu:
 weight: 208
 aliases:
   - /v2.0/visualize-data/variables/common-variables/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 ## List buckets

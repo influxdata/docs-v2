@@ -6,7 +6,7 @@ description: >
 weight: 102
 aliases:
   - /v2.0/query-data/influxql/
-v2.0/tags: [influxql, query]
+influxdb/v2.0/tags: [influxql, query]
 menu:
   influxdb_2_0:
     name: Query with InfluxQL

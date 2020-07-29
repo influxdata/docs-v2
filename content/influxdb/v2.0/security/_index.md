@@ -10,7 +10,7 @@ aliases:
 menu:
   influxdb_2_0:
     name: Security & authorization
-v2.0/tags: [security, authentication]
+influxdb/v2.0/tags: [security, authentication]
 ---
 
 Security, access control, and sensitive secret handling are incredibly important

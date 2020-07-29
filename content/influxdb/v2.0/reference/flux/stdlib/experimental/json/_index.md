@@ -10,7 +10,7 @@ menu:
     identifier: JSON-exp
     parent: Experimental
 weight: 301
-v2.0/tags: [functions, json, package]
+influxdb/v2.0/tags: [functions, json, package]
 ---
 
 Flux experimental JSON functions provide tools for working with JSON.

@@ -8,7 +8,7 @@ menu:
 weight: 203
 aliases:
   - /v2.0/visualize-data/variables/update-variable/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 Update an existing dashboard variable's name or JSON content in the InfluxDB user interface (UI).

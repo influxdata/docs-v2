@@ -11,7 +11,7 @@ menu:
     name: Slack
     parent: Flux standard library
 weight: 202
-v2.0/tags: [functions, slack, package]
+influxdb/v2.0/tags: [functions, slack, package]
 ---
 
 The Flux Slack package provides functions for sending data to Slack.

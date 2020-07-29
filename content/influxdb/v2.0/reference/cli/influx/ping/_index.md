@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/ping/
-v2.0/tags: [ping, health]
+influxdb/v2.0/tags: [ping, health]
 ---
 
 The `influx ping` command checks the health of a running InfluxDB instance by

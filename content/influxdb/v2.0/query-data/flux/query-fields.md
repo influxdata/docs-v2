@@ -11,7 +11,7 @@ aliases:
 menu:
   influxdb_2_0:
     parent: Query with Flux
-v2.0/tags: [query, select, where]
+influxdb/v2.0/tags: [query, select, where]
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
   - /influxdb/v2.0/query-data/flux/conditional-logic/

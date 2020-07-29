@@ -3,7 +3,7 @@ title: Use a template
 seotitle: Use an InfluxDB dashboard template
 description: >
   Use an InfluxDB dashboard template to create a new InfluxDB dashboard.
-v2.0/tags: [templates]
+influxdb/v2.0/tags: [templates]
 menu:
   influxdb_2_0:
     parent: Manage dashboard templates

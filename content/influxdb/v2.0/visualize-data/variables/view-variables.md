@@ -8,7 +8,7 @@ menu:
 weight: 203
 aliases:
   - /v2.0/visualize-data/variables/view-variables/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 View a list of dashboard variables in the InfluxDB user interface (UI) from an organization or from the Data Explorer.

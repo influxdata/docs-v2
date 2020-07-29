@@ -11,7 +11,7 @@ menu:
     name: Transformations
     identifier: built-in-transformations
 weight: 303
-v2.0/tags: [transformations, built-in, functions]
+influxdb/v2.0/tags: [transformations, built-in, functions]
 ---
 
 Flux's built-in transformation functions transform or shape your data in specific ways.

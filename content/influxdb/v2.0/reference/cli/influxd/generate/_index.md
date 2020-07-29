@@ -3,7 +3,7 @@ title: influxd generate
 description: >
   The `influxd generate` command generates time series data direct to disk using
   a schema defined in a TOML file.
-v2.0/tags: [sample-data]
+influxdb/v2.0/tags: [sample-data]
 menu:
   influxdb_2_0_ref:
     parent: influxd
