@@ -1,7 +1,7 @@
 ---
 title: Hardware sizing guidelines
 menu:
-  influxdb_1_8:
+  influxdb_1_7:
     weight: 40
     parent: Guides
 ---
@@ -24,12 +24,9 @@ If your InfluxDB performance requires any of the following, a single node (Influ
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))
-- more than 10,000,000 [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality)
+- more than 10,000,000 [series cardinality](/influxdb/v1.7/concepts/glossary/#series-cardinality)
 
-We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster) across multiple server cores.
-InfluxDB Enterprise distributes multiple copies of your data across a cluster,
-providing high-availability and redundancy, so an unavailable node doesn’t significantly impact the cluster.
-Please [contact us](https://www.influxdata.com/contact-sales/) for assistance tuning your system.
+ We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster) across multiple server cores. InfluxDB Enterprise distributes multiple copies of your data across a cluster, providing high-availability and redundancy, so an unavailable node doesn't significantly impact the cluster. Please contact <presales-support@influxdata.com> for assistance tuning your system.
 
 If you want a single node instance of InfluxDB that's fully open source, requires fewer writes, queries, and unique series than listed above, and do **not require** redundancy, we recommend InfluxDB OSS.
 
@@ -57,7 +54,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 
 Run InfluxDB on locally attached solid state drives (SSDs). Other storage configurations have lower performance and may not be able to recover from small interruptions in normal processing.
 
-Estimated guidelines include writes per second, queries per second, and number of unique [series](/influxdb/v1.8/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
+Estimated guidelines include writes per second, queries per second, and number of unique [series](/influxdb/v1.7/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
 
 | vCPU or CPU |   RAM   |   IOPS   | Writes per second | Queries* per second | Unique series |
 | ----------: | ------: | -------: | ----------------: | ------------------: | ------------: |
@@ -66,6 +63,8 @@ Estimated guidelines include writes per second, queries per second, and number o
 |    8+ cores |  32+ GB |    1000+ |         > 250,000 |                > 25 |   > 1,000,000 |
 
 * **Queries per second for moderate queries.** Queries vary widely in their impact on the system. For simple or complex queries, we recommend testing and adjusting the suggested requirements as needed. See [query guidelines](#query-guidelines) for details.
+
+> We recommend no more than 50 databases per host to prevent OS file handler issues. Please contact <presales-support@influxdata.com> for assistance tuning your system.
 
 ## InfluxDB Enterprise cluster guidelines
 
@@ -93,9 +92,9 @@ The InfluxDB Enterprise web server is primarily an HTTP server with similar load
 
 ### Data nodes
 
-A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
+A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1.7/concepts/glossary/#replication-factor) on the retention policy the data is written to. To ensure data is successfully replicated across a cluster, the number of data nodes in a cluster **must be evenly divisible** by the replication factor.
 
->**Note:** For optimal data distribution within the cluster, use an even number of data nodes.
+>**Note:** If data nodes aren’t divisible by the replication factor, data may be distributed unevenly across the cluster, causing poor performance.
 
 Guidelines vary by writes per second per node, moderate queries per second per node, and the number of unique series per node.
 
@@ -107,25 +106,29 @@ Guidelines vary by writes per second per node, moderate queries per second per n
 |   4-6 cores | 16-32 GB | 1000+ |         < 100,000 |                < 25 |   < 1,000,000 |
 |    8+ cores |   32+ GB | 1000+ |         > 100,000 |                > 25 |   > 1,000,000 |
 
-* Guidelines are provided for moderate queries. Queries vary widely in their impact on the system. For simple or complex queries, we recommend testing and adjusting the suggested requirements as needed. See [query guidelines](#query-guidelines) for detail.
+Guidelines are provided for moderate queries. Queries vary widely in their impact on the system. For simple or complex queries, we recommend testing and adjusting the suggested requirements as needed. See [query guidelines](#query-guidelines) for detail.
 
 ## When do I need more RAM?
 
-In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/influxdb/v1.8/concepts/glossary/#schema).
+Start with the recommended RAM, and then adjust as needed:
 
-The increase in RAM needs relative to series cardinality is exponential where the exponent is between one and two:
+- For InfluxDB OSS, determine your unique number of series, and then refer to [InfluxDB OSS guidelines](#influxdb-oss-guidelines).
+- For InfluxDB Enterprise, consider your server cores (AWS EC2 R4 instances or equivalent), and then refer to [guidelines per cluster](#guidelines-per-cluster).
 
-![Series Cardinality](/img/influxdb/series-cardinality.png)
+In general, more RAM improves query speed. Your RAM requirements are primarily determined by series cardinality. Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/influxdb/v1.7/concepts/glossary/#schema).
 
 ## Guidelines per cluster
 
 InfluxDB Enterprise guidelines vary by writes and queries per second, series cardinality, replication factor, and infrastructure-AWS EC2 R4 instances or equivalent:
-- R4.xlarge (4 cores)
-- R4.2xlarge (8 cores)
-- R4.4xlarge (16 cores)
-- R4.8xlarge (32 cores)
+
+- R4.xlarge (4 cores); 30.5 GB RAM
+- R4.2xlarge (8 cores); 61 GB RAM
+- R4.4xlarge (16 cores); 122 GB RAM
+- R4.8xlarge (32 cores); 244 GB RAM
 
 > Guidelines stem from a DevOps monitoring use case: maintaining a group of computers and monitoring server metrics (such as CPU, kernel, memory, disk space, disk I/O, network, and so on).
+
+> We recommend no more than 50 databases per cluster to prevent file handler issues on your OS. Please contact [presales-support@influxdata.com](mailto:presales-support@influxdata.com)<presales-support@influxdata.com> for assistance tuning your system.
 
 ### Recommended cluster configurations
 
@@ -134,6 +137,10 @@ Cluster configurations guidelines are organized by:
 - Series cardinality in your data set: 10,000, 100,000, 1,000,000, or 10,000,000
 - Number of data nodes
 - Number of server cores
+
+> Cluster configurations were tested against Time Series Index (TSI) (`tsi1`). To prevent multiple index types (`tsi1` and the earlier `inmem`) from being used simultaneously, TSI isn't enabled by default.
+
+> We recommend enabling TSI; for more information, see [TSI details](/influxdb/v1.7/concepts/tsi-details/). For `inmem`, use the guidelines below as a benchmark and adjust as needed.
 
 For each cluster configuration, you'll find guidelines for the following:
 
@@ -465,10 +472,10 @@ See your cloud provider documentation for IOPS detail on your storage volumes.
 
 ### Bytes and compression
 
-Database names, [measurements](/influxdb/v1.8/concepts/glossary/#measurement), [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key), [field keys](/influxdb/v1.8/concepts/glossary/#field-key), and [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/influxdb/v1.8/concepts/glossary/#field-value) and [timestamps](/influxdb/v1.8/concepts/glossary/#timestamp) are stored for every point.
+Database names, [measurements](/influxdb/v1.7/concepts/glossary/#measurement), [tag keys](/influxdb/v1.7/concepts/glossary/#tag-key), [field keys](/influxdb/v1.7/concepts/glossary/#field-key), and [tag values](/influxdb/v1.7/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/influxdb/v1.7/concepts/glossary/#field-value) and [timestamps](/influxdb/v1.7/concepts/glossary/#timestamp) are stored for every point.
 
 Non-string values require approximately three bytes. String values require variable space, determined by string compression.
 
 ### Separate `wal` and `data` directories
 
-When running InfluxDB in a production environment, store the `wal` directory and the `data` directory on separate storage devices. This optimization significantly reduces disk contention under heavy write load──an important consideration if the write load is highly variable. If the write load does not vary by more than 15%, the optimization is probably not necessary.
+When running InfluxDB in a production environment, store the `wal` directory and the `data` directory on separate storage devices. This optimization significantly reduces disk contention under heavy write load──an important consideration if the write load is highly variable. If the write load does not vary by more than 15%, this optimization is probably not necessary.
