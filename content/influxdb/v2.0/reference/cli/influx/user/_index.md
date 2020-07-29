@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/user/
-v2.0/tags: [users]
+influxdb/v2.0/tags: [users]
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.

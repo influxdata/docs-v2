@@ -5,7 +5,7 @@ menu:
   influxdb_2_0:
     name: Get started
 weight: 1
-v2.0/tags: [get-started, install]
+influxdb/v2.0/tags: [get-started, install]
 aliases:
   - /v2.0/cloud/get-started
   - /v2.0/get-started

@@ -10,7 +10,7 @@ menu:
 weight: 4
 aliases:
   - /v2.0/process-data/
-v2.0/tags: [tasks]
+influxdb/v2.0/tags: [tasks]
 ---
 
 Process and analyze your data with tasks in the InfluxDB **task engine**. Use tasks (scheduled Flux queries)

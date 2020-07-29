@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/query/
-v2.0/tags: [query]
+influxdb/v2.0/tags: [query]
 ---
 
 The `influx query` command executes a literal Flux query provided as a string

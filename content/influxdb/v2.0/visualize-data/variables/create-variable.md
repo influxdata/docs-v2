@@ -8,7 +8,7 @@ menu:
 weight: 201
 aliases:
   - /v2.0/visualize-data/variables/create-variable/
-v2.0/tags: [variables]
+influxdb/v2.0/tags: [variables]
 ---
 
 Create dashboard variables in the Data Explorer, from the Settings section, or import a variable.

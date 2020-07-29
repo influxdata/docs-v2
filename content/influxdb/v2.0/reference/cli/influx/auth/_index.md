@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/auth/
-v2.0/tags: [authentication]
+influxdb/v2.0/tags: [authentication]
 ---
 
 The `influx auth` command and its subcommands manage authorizations in InfluxDB.

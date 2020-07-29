@@ -10,7 +10,7 @@ menu:
     name: reduce
     parent: built-in-aggregates
 weight: 501
-v2.0/tags: [exists]
+influxdb/v2.0/tags: [exists]
 related:
   - /influxdb/v2.0/query-data/flux/custom-functions/custom-aggregate/
   - /influxdb/v2.0/query-data/flux/conditional-logic/

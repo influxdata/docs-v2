@@ -8,7 +8,7 @@ menu:
     name: influx write
     parent: influx
 weight: 101
-v2.0/tags: [write]
+influxdb/v2.0/tags: [write]
 aliases:
   - /v2.0/reference/cli/influx/write/
 related:

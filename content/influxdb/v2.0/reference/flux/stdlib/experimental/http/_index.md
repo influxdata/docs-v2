@@ -11,7 +11,7 @@ menu:
     identifier: HTTP-exp
     parent: Experimental
 weight: 301
-v2.0/tags: [functions, http, package]
+influxdb/v2.0/tags: [functions, http, package]
 ---
 
 The Flux Experimental HTTP package provides functions for transferring data

@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/secret/update/
-v2.0/tags: [secrets]
+influxdb/v2.0/tags: [secrets]
 ---
 
 The `influx secret update` command adds and updates secrets.

@@ -8,7 +8,7 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/task/
-v2.0/tags: [tasks]
+influxdb/v2.0/tags: [tasks]
 ---
 
 The `influx task` command and its subcommands manage tasks in InfluxDB.
