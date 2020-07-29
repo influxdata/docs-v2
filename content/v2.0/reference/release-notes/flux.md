@@ -16,6 +16,38 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.76.1 [2020-07-27]
+
+### Bug fixes
+- Fix data race in metadata.
+
+---
+
+## v0.76.0 [2020-07-27]
+
+### Features
+- Add query plan to query metadata.
+
+---
+
+## v0.75.0 [2020-07-27]
+
+###  Features
+- Update `parse_record` to return `MonoType` for consistent results from functions
+  used by `parse_monotype`.
+- Internal command utility for comparing CSV tables.
+- Update `mod.rs` with `parse_record`.
+- Add planner tests for window min and max.
+- CRUD options and properties.
+- Update `mod.rs` with `parse_constraints`.
+- Update `mod.rs` with `ArrayType` and add `Array` to the `Monotype` enumeration.
+
+### Bug fixes
+- Statuses are always sorted by source timestamp.
+- Multiple `do` calls will fail with an empty table.
+
+---
+
 ## v0.74.0 [2020-07-21]
 
 ### Features
