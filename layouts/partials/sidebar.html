@@ -33,8 +33,10 @@
   {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}
 
   <!-- Reference Section -->
-  <h4 class="reference">Reference</h4>
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+  {{ if gt (len $refMenu) 0 }}
+    <h4 class="reference">Reference</h4>
+    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+  {{ end }}
 
   </ul>
 </aside>
