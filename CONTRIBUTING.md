@@ -339,6 +339,25 @@ Truncated markdown content here.
 {{% /truncate %}}
 ```
 
+### Expandable accordion content blocks
+Use the `{{% expand "Item label" %}}` shortcode to create expandable, accordion-style content blocks.
+Each expandable block needs a label that users can click to expand or collpase the content block.
+Pass the label as a string to the shortcode.
+
+```md
+{{% expand "Lable 1"}}
+Markdown content associated with label 1.
+{{% /expand %}}
+
+{{% expand "Lable 2"}}
+Markdown content associated with label 2.
+{{% /expand %}}
+
+{{% expand "Lable 3"}}
+Markdown content associated with label 3.
+{{% /expand %}}
+```
+
 ### Generate a list of children articles
 Section landing pages often contain just a list of articles with links and descriptions for each.
 This can be cumbersome to maintain as content is added.
