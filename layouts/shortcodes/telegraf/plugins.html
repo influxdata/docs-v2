@@ -1,20 +1,24 @@
 {{ $type := .Get "type" }}
-{{ $telegrafVersion := replaceRE `\.[^.]*$` "" .Site.Data.versions.telegraf_version }}
+{{ $pathData := findRE "[^/]+.*?" .Page.RelPermalink }}
+{{ $currentTelegrafVersion := replaceRE `v` "" (index $pathData 1) }}
 
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}
   {{ $minorVer := replaceRE `\.[^.]*$` "" .introduced }}
-  <div class="plugin-card visible{{ if eq $minorVer $telegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $telegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
-    <div class="info">
-      <h3 id="{{ .id }}">{{ .name }}</h3>
-      <p class="meta">
-        Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
-        Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}
-      </p>
-      <p>{{ .description | markdownify | safeHTML }}</p>
+  <!-- Only include plugins available for the current viewed version -->
+  {{ if ge $currentTelegrafVersion $minorVer}}
+    <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
+      <div class="info">
+        <h3 id="{{ .id }}">{{ .name }}</h3>
+        <p class="meta">
+          Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
+          Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}
+        </p>
+        <p>{{ .description | markdownify | safeHTML }}</p>
+      </div>
+      <a class="btn github-link" href="{{ if .link }}{{ .link }}{{ else }}https://github.com/influxdata/telegraf/blob/release-{{ $currentTelegrafVersion }}/plugins/{{ $type }}s/{{ .id }}/README.md{{ end }}" target="_blank">
+        <span class="icon-github"></span> <span class="hide">View</span>
+      </a>
     </div>
-    <a class="btn github-link" href="{{ if .link }}{{ .link }}{{ else }}https://github.com/influxdata/telegraf/blob/release-{{ $telegrafVersion }}/plugins/{{ $type }}s/{{ .id }}/README.md{{ end }}" target="_blank">
-      <span class="icon-github"></span> <span class="hide">View</span>
-    </a>
-  </div>
+  {{ end }}
 {{ end }}
