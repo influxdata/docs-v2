@@ -30,13 +30,13 @@ If you're using any of the following technologies, check out the handy links bel
 
 #### Configure Vector
 
-1. On the Vector.dev docs site, view one of the following:
+1. View the **Vector documentation**:
   - For write metrics, [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/)
   - For log events, [InfluxDB Logs Sink](https://vector.dev/docs/reference/sinks/influxdb_logs/)
 2. Under **Configuration**, click **v2** to view configuration settings.
 3. Scroll down to **How It Works** for more detail:
-  - [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works)
-  - [InfluxDB Logs Sink](https://vector.dev/docs/reference/sinks/influxdb_logs/#how-it-works)
+  - [InfluxDB Metrics Sink – How It Works ](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works)
+  - [InfluxDB Logs Sink – How It Works](https://vector.dev/docs/reference/sinks/influxdb_logs/#how-it-works)
 
 #### Configure Apache NiFi
 
