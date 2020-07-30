@@ -139,7 +139,7 @@
 
     &:after {
       content: attr(data-count);
-      margin-left: .25rem;
+      margin-left: 0;
       font-size: .85rem;
       opacity: .5;
     }
