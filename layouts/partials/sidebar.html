@@ -1,9 +1,25 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
-{{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $searchPlaceholder := cond (eq $product "influxdb") "InfluxDB 2.0 OSS, Cloud, & Flux" (print "Search " $productName " " $currentVersion) }}
+
+<!-- Search placeholder -->
+{{ $scratch := newScratch }}
+{{ $scratch.Set "searchPlaceholder" "Search"}}
+
+{{ if and (eq $currentVersion nil) (eq (len (findRE `v[1-2]\.` $currentVersion nil)) 0) }}
+  {{ $scratch.Set "searchPlaceholder" "Search the docs" }}
+{{ else if (eq $currentVersion nil) }}
+  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
+{{ else if (and (eq $product "influxdb") (or (eq $currentVersion "v1.7") (eq $currentVersion "v1.8")) ) }}
+  {{ $scratch.Set "searchPlaceholder"  (print (index .Site.Data.products $product).name " " $currentVersion " & Flux") }}
+{{ else if (and (eq $product "influxdb") (in $currentVersion "v2") )}}
+  {{ $scratch.Set "searchPlaceholder"  (print "InfluxDB Cloud, OSS, & Flux") }}
+{{ else }}
+  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+{{ end }}
+
+{{ $searchPlaceholder := $scratch.Get "searchPlaceholder" }}
 
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
@@ -29,10 +45,10 @@
   {{ $mainMenu := (index .Site.Menus (print $product (replaceRE "[v.]" "_" $currentVersion))) }}
   {{ $refMenu := (index .Site.Menus (print $product (replaceRE "[v.]" "_" $currentVersion) "_ref")) }}
 
-  <!-- Main Section -->
+  <!-- Product Main Navigation -->
   {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}
 
-  <!-- Reference Section -->
+  <!-- Product Reference Navigation -->
   {{ if gt (len $refMenu) 0 }}
     <h4 class="reference">Reference</h4>
     {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}

@@ -5,7 +5,10 @@
     <a class="docs-home" href="/{{ $.Site.Data.versions.stable_version }}">InfluxDB Docs</a>
   </div>
   <div class="topnav--right">
-    {{ partial "topnav/version-selector.html" . }}
+    <div class="selector-dropdowns">      
+      {{ partial "topnav/product-selector.html" . }}
+      {{ partial "topnav/version-selector.html" . }}
+    </div>
     <button id="search-btn" onclick="toggle_sidebar('sidebar-open');document.getElementById('algolia-search-input').focus();return false;"><span class="icon-search"></span></button>
     <button class="url-trigger" href="#"><span class="icon-ui-cog-thick"></span></button>
     <button class="theme-switcher" id="theme-switch-light" onclick="switch_style('light-theme');return false;"><span class="icon-sun1"></span></button>

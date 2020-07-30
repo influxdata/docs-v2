@@ -1,0 +1,18 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+
+{{ if or (eq $product nil) (eq $currentVersion nil) }}
+{{ else }}
+<div class="dropdown">
+  <p class="selected">{{ $currentVersion }}</p>
+  <ul class="item-list">
+    <li><a href="https://github.com/influxdata/docs.influxdata.com" class="legacy" target="_blank">older</a></li>
+    {{ range (index .Site.Data.products $product).versions }}
+      <li>
+        <a href="/{{ $product }}/{{ . }}" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ . }}</a>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
