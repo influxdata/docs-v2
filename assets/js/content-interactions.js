@@ -88,6 +88,7 @@ $(".truncate-toggle").click(function(e) {
 })
 
 ////////////////////////////// Expand Accordians ///////////////////////////////
+
 $('.expand-label').click(function() {
   $(this).children('.expand-toggle').toggleClass('open')
   $(this).next('.expand-content').slideToggle(200)

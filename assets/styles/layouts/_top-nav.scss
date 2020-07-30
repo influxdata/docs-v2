@@ -35,19 +35,27 @@
     }
   }
 
-  .version-selector {
+  .selector-dropdowns {
+    display: flex;
+    position: absolute;
+    z-index: 100;
+    right: 5.5rem;
+    transition: right .2s;
+  }
+
+  .dropdown {
   display: inline-block;
-  position: absolute;
-  z-index: 100;
-  right: 5.5rem;
+  position: relative;
+  align-self: flex-start;
+  margin-left: .5rem;
   color: $g20-white;
   height: 2rem;
   @include gradient($version-selector-gradient);
+  background-attachment: local;
   font-weight: $medium;
   border-radius: $radius;
   overflow: hidden;
   cursor: pointer;
-  transition: right .2s;
 
     .selected {
       padding: 0 1.75rem 0 .75rem;
@@ -70,7 +78,7 @@
       }
     }
 
-    ul.version-list {
+    ul.item-list {
       padding: 0;
       margin: 0;
       list-style: none;
