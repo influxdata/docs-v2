@@ -14,12 +14,12 @@
     <div class="version-selector">
       <p class="selected">{{ $currentVersion }}</p>
       <ul class="version-list">
-        {{ range (index .Site.Menus $product).ByName.Reverse }}
+        <li><a href="https://github.com/influxdata/docs.influxdata.com" class="legacy" target="_blank">older</a></li>
+        {{ range (index .Site.Data.products $product).versions }}
           <li>
-            <a href="{{ .URL }}">{{ .Name }}</a>
+            <a href="/{{ $product }}/{{ . }}" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ . }}</a>
           </li>
         {{ end }}
-        <li><a href="https://github.com/influxdata/docs.influxdata.com" class="legacy" target="_blank">v0.x</a></li>
       </ul>
     </div>
     {{ end }}
