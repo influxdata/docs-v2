@@ -73,7 +73,7 @@ To protect against any intentional or unintentional harm, Usage-based Plans incl
 _To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
 
 {{% cloud %}}
-#### VPC and other plans
+#### VPC peering
 
-If you are interested in adding virtual private cloud (VPC) peering to your Cloud account, please [contact sales](mailto:sales@influxdata.com) to discuss the options and associated pricing.
+If you are interested in adding virtual private cloud (VPC) peering to your Cloud account, please [contact sales](https://www.influxdata.com/contact-sales/) to discuss the options and associated pricing.
 {{% /cloud %}}
