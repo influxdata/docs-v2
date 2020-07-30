@@ -1,7 +1,5 @@
 ---
 title: About the InfluxDB OSS project
-alias:
-  -/docs/v1.5/about/
 menu:
   influxdb_1_5:
     name: About the project
