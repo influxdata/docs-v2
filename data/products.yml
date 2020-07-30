@@ -1,7 +1,12 @@
 influxdb:
   name: InfluxDB
+  altname: InfluxDB Cloud & OSS
+  namespace: influxdb
+  list_order: 1
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0]
-  stable: v2.0
+  latest: v2.0
+
+  # Used in cloud-name and cloud-link shortcodes
   cloud:
     name: "InfluxDB Cloud 2.0"
     shortname: "InfluxDB Cloud"
@@ -9,20 +14,28 @@ influxdb:
 
 telegraf:
   name: Telegraf
+  namespace: telegraf
+  list_order: 2
   versions: [v1.9, v1.10, v1.11, v1.12, v1.13, v1.14, v1.15]
-  stable: v1.15
+  latest: v1.15
 
 chronograf:
   name: Chronograf
+  namespace: chronograf
+  list_order: 3
   versions: [v1.6, v1.7, v1.8]
-  stable: v1.8
+  latest: v1.8
 
 kapacitor:
   name: Kapacitor
+  namespace: kapacitor
+  list_order: 4
   versions: [v1.4, v1.5]
-  stable: v1.5
+  latest: v1.5
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
+  namespace: enterprise_influxdb
+  list_order: 5
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8]
-  stable: v1.8
+  latest: v1.8

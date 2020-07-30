@@ -1,0 +1,20 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+
+<div class="dropdown">
+  {{ if (eq $product nil) }}
+    <p class="selected">Select a product</p>
+  {{ else if and (eq $product "influxdb") (in $currentVersion "v2")}}
+    <p class="selected">{{ (index .Site.Data.products $product).altname }}</p>
+  {{ else }}
+    <p class="selected">{{ (index .Site.Data.products $product).name }}</p>
+  {{ end }}
+  <ul class="item-list">
+    {{ range sort .Site.Data.products "list_order" "desc" }}
+      <li>
+        <a href="/{{ .namespace }}/{{ .latest }}" {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
+      </li>
+    {{ end }}
+  </ul>
+</div>
