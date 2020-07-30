@@ -74,6 +74,8 @@
       padding: 0;
       margin: 0;
       list-style: none;
+      display: flex;
+      flex-direction: column-reverse;
     }
     a {
       display: block;
@@ -81,9 +83,8 @@
       color: $g20-white;
       padding: .5rem 1.5rem .5rem .75rem;
       background: rgba($g20-white, 0);
-      &:hover {
-        background: rgba($g20-white, .2)
-      }
+      &:hover { background: rgba($g20-white, .2) }
+      &.active { background: rgba($g20-white, .2) }
       &:last-child {
         border-radius: 0 0 $radius $radius;
         position: relative;

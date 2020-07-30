@@ -1,5 +1,7 @@
 influxdb:
   name: InfluxDB
+  versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0]
+  stable: v2.0
   cloud:
     name: "InfluxDB Cloud 2.0"
     shortname: "InfluxDB Cloud"
@@ -7,15 +9,20 @@ influxdb:
 
 telegraf:
   name: Telegraf
+  versions: [v1.9, v1.10, v1.11, v1.12, v1.13, v1.14, v1.15]
+  stable: v1.15
 
 chronograf:
   name: Chronograf
+  versions: [v1.6, v1.7, v1.8]
+  stable: v1.8
 
 kapacitor:
   name: Kapacitor
+  versions: [v1.4, v1.5]
+  stable: v1.5
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
-
-enterprise_kapacitor:
-  name: "Kapacitor Enterprise"
+  versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8]
+  stable: v1.8
