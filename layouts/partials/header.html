@@ -15,7 +15,7 @@
     {{ else if eq (len $productPathData) 2 }}
       <title>{{ (index .Site.Data.products $product).name }} {{ $currentVersion }} Documentation</title>
     {{ else }}
-      <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}InfluxDB {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
+      <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}{{ (index .Site.Data.products $product).name }} {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
     {{ end }}
     <meta name="description" content="{{ if .Description }}{{ .Description | markdownify | plainify }}{{else}}{{ .Summary | markdownify | plainify }}{{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
