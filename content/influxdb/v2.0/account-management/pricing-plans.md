@@ -13,6 +13,7 @@ menu:
     parent: Account management
     name: Pricing plans
 products: [cloud]
+v2.0/tags: [VPC]
 ---
 
 InfluxDB Cloud 2.0 offers two pricing plans:
@@ -70,3 +71,9 @@ To protect against any intentional or unintentional harm, Usage-based Plans incl
   - Unlimited PagerDuty, Slack, and HTTP notification endpoints
 
 _To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
+
+{{% cloud %}}
+#### VPC and other plans
+
+If you are interested in adding virtual private cloud (VPC) peering to your Cloud account, please [contact sales](mailto:sales@influxdata.com) to discuss the options and associated pricing.
+{{% /cloud %}}
