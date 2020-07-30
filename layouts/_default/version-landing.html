@@ -1,4 +1,5 @@
 {{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
 
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
