@@ -1,7 +1,3 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
-
 <div class="topnav">
   <div class="topnav-left">
     <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
