@@ -29,5 +29,5 @@
 
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
-  <body>
+  <body class='{{if ne $product nil}}{{ $product }}{{ end }}{{ if in $currentVersion "v1" }} v1{{ end }}'>
     {{ partial "header/google-analytics-body.html" }}

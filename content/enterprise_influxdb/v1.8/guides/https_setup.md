@@ -12,9 +12,9 @@ When configured with a signed certificate, HTTPS can also verify the authenticit
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
 
-<dt>
+{{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
-</dt>
+{{% /warn %}}
 
 {{% note %}}
 These steps have been tested on Debian-based Linux distributions.
@@ -212,7 +212,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
     ID   TCP Address               Version
     4    enterprise-data-01:8088   1.x.y-c1.x.y
     5    enterprise-data-02:8088   1.x.y-c1.x.y
-    
+
     Meta Nodes
     ==========
     TCP Address               Version
@@ -228,7 +228,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
     ```
 
     If using a self-signed certificate, use
-    
+
     ```sh
     influx -ssl -unsafeSsl -host <domain_name>.com
     ```
