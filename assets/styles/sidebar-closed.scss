@@ -23,8 +23,10 @@
 }
 
 .topnav {
-  #search-btn {
+  .search-btn {
     opacity: 1;
+    width: 30px;
+    transition: width .2s, opacity .2s .2s;
   }
   .selector-dropdowns {
     right: 7.5rem;
@@ -48,7 +50,7 @@
     white-space: normal;
   }
   .topnav {
-    #search-btn {
+    .search-btn {
       opacity: 0;
     }
     .selector-dropdowns {
