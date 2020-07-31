@@ -2,6 +2,8 @@
   display: flex;
   padding: .75rem .75rem .65rem;
   justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
 
   .influx-home {
     font-family: 'icomoon';
@@ -35,12 +37,21 @@
     }
   }
 
-  .selector-dropdowns {
+  .topnav-left {
+    z-index: 1;
+  }
+
+  .topnav-right {
     display: flex;
     position: absolute;
+    right: .75rem;
+    top: .75rem;
+  }
+
+  .selector-dropdowns {
+    display: flex;
     z-index: 100;
     right: 5.5rem;
-    transition: right .2s;
   }
 
   .dropdown {
@@ -110,6 +121,11 @@
     }
   }
 
+  .buttons {
+    display: flex;
+    margin-left: .5rem;
+  }
+
   .theme-switcher, #search-btn, .url-trigger {
     display: inline-block;
     padding: 0;
@@ -138,9 +154,12 @@
     font-size: 1.1rem;
     vertical-align: top;
     margin: .1rem 0 0 0;
+    z-index: 1;
   }
 
-  #search-btn {
+  .search-btn {
+    margin-top: .15rem;
+    width: 0;
     opacity: 0;
   }
 }
@@ -149,6 +168,27 @@
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+@include media(medium){
+  .docs-home {
+    .long { display: none; }
+    .short:after { content: "s" }
+  }
+}
+
 @include media(small) {
   .icon-influx-logotype { display: none; }
+
+  .topnav { min-height: 5.5rem; }
+  .topnav-right {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    width: 94%;
+  }
+  .search-btn { display: none; }
+
+  .selector-dropdowns {
+    width: 100%;
+    margin-top: .35rem;
+    .dropdown { flex-grow: 1; }
+  }
 }
