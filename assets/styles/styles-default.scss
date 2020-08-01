@@ -25,3 +25,8 @@
         "layouts/url-selector",
         "layouts/feature-callouts",
         "layouts/v1-overrides";
+
+// Import Product-specifc color schemes
+@import "product-overrides/telegraf",
+        "product-overrides/chronograf",
+        "product-overrides/kapacitor";

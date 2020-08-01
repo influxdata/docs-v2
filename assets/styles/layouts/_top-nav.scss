@@ -61,8 +61,8 @@
   margin-left: .25rem;
   color: $g20-white;
   height: 2rem;
-  @include gradient($version-selector-gradient);
-  background-attachment: local;
+  @include gradient($default-dropdown-gradient);
+  background-attachment: local !important;
   font-weight: $medium;
   border-radius: $radius;
   overflow: hidden;
