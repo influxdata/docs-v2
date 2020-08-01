@@ -64,9 +64,9 @@
       text-align: center;
       color: $error-page-btn-text;
       transition: background-color .2s;
-      @include gradient($grad-blue);
+      @include gradient($article-btn-gradient);
       &:hover {
-        @include gradient($grad-blue);
+        @include gradient($article-btn-gradient-hover);
       }
       &.back:before {
         content: "\e90a";

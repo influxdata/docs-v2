@@ -5,11 +5,11 @@ a.btn {
   display: inline-block;
   margin: .5rem .25rem .5rem 0;
   padding: .5rem 1rem;
-  color: $article-btn-text;
+  color: $article-btn-text !important;
   border-radius: $radius;
   font-size: .95rem;
   z-index: 1;
-  @include gradient($grad-blue);
+  @include gradient($article-btn-gradient);
 
   &:after {
     content: "";
@@ -20,7 +20,7 @@ a.btn {
     width: 100%;
     height: 100%;
     border-radius: $radius;
-    @include gradient($grad-blue-light);
+    @include gradient($article-btn-gradient-hover);
     opacity: 0;
     transition: opacity .2s;
     z-index: -1;

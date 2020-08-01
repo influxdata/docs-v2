@@ -6,7 +6,7 @@ code,pre {
   color: $article-code;
 }
 
-p,li,table,h2,h3,h4,h5,h6 {
+p,li,table {
   code {
     padding: .1rem .4rem .2rem;
     border-radius: $radius;
@@ -14,6 +14,18 @@ p,li,table,h2,h3,h4,h5,h6 {
     white-space: nowrap;
     font-size: .95rem;
     font-style: normal;
+  }
+}
+
+// Don't allow code formatting in headings
+h1,h2,h3,h4,h5,h6 {
+  code {
+    padding: inherit !important;
+    background: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-family: $rubik;
+    color: inherit !important;
   }
 }
 
