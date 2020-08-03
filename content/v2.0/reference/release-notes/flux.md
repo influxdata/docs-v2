@@ -26,7 +26,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.77.0 [2020-08-03]
 
 ### Features
-- Add a faster `map()` function _(user-contributed)_.
+- Add a faster [`map()` function](/v2.0/reference/flux/stdlib/contrib/rows/map/) _(user-contributed)_.
 - Add an `influxdb.select()` function _(user-contributed)_.
 - Flatbuffer deserialization for type expression AST nodes.
 - Flatbuffer types for monotype and type expression AST nodes.
