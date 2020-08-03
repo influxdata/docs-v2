@@ -274,7 +274,7 @@
       }
     }
 
-    // Reference title styles
+    // Nav section title styles
     h4 {
       margin: 2rem 0 0 -1rem;
       color: rgba($article-heading-alt, .6);
@@ -283,6 +283,15 @@
       text-transform: uppercase;
       font-size: .85rem;
       letter-spacing: .08rem;
+
+      &.platform:after {
+        content: "\e911";
+        font-family: "icomoon";
+        font-style: normal;
+        font-size: 1rem;
+        opacity: .4;
+        margin-left: .25rem;
+      }
     }
   }
 }
