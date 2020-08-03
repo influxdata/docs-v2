@@ -16,6 +16,30 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.77.1 [2020-08-03]
+
+### Bug fixes
+- Write tests and fix issues with `rows.map`.
+
+---
+
+## v0.77.0 [2020-08-03]
+
+### Features
+- Add a faster `map()` function _(user-contributed)_.
+- Add an `influxdb.select()` function _(user-contributed)_.
+- Flatbuffer deserialization for type expression AST nodes.
+- Flatbuffer types for monotype and type expression AST nodes.
+- Go AST nodes for type expression syntax.
+- Get all options and properties.
+- Add `parse_function` in `parser/mod.rs`.
+- Add an alternative aggregate package to user-contributed packages.
+
+### Bug fixes
+- Fix string interpolation in arrays.
+
+---
+
 ## v0.76.1 [2020-07-27]
 
 ### Bug fixes
