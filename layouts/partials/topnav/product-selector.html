@@ -3,8 +3,8 @@
 {{ $currentVersion := index $productPathData 1 }}
 
 <div class="dropdown">
-  {{ if (eq $product nil) }}
-    <p class="selected">Select a product</p>
+  {{ if or (eq $product nil) (eq $product "platform") }}
+    <p class="selected">Select component</p>
   {{ else if and (eq $product "influxdb") (in $currentVersion "v2")}}
     <p class="selected">{{ (index .Site.Data.products $product).altname }}</p>
   {{ else }}
