@@ -18,9 +18,9 @@ right corner of your {{< cloud-name "short" >}} user interface (UI) and select *
 
 Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
-- **Writes:** Total data in MB written to your {{< cloud-name "short" >}} instance.
-- **Reads:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
-- **Query Duration:** Total time spent processing queries in seconds.
+- **Data Out:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+- **Data In:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
+- **Query Count:** Total number of events.
 - **Storage Usage:** Total disk usage in gigabytes.
 - **API Request Count:** The total number of query and write API requests received
   during the specified time frame.
