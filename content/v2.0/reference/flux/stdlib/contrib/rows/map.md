@@ -15,7 +15,8 @@ related:
 
 The `rows.map()` function is an alternate implementation of [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
 that is faster, but more limited than `map()`.
-`rows.map()` cannot modify table groups key and, therefore, does not need to regroup tables.
+`rows.map()` cannot modify [groups keys](/v2.0/reference/glossary/#group-key) and,
+therefore, does not need to regroup tables.
 **Attempts to change columns in the group key are ignored.**
 
 _**Function type:** Transformation_
