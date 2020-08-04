@@ -42,7 +42,10 @@ explicitly mapped in the operation.
 {{% /note %}}
 
 ## Examples
-The examples below use a `data` variable that represents the following input tables:
+
+- [Perform mathemtical operations on column values](#perform-mathemtical-operations-on-column-values)
+- [Preserve all columns in the operation](#preserve-all-columns-in-the-operation)
+- [Attempt to remap columns in the group key](#attempt-to-remap-columns-in-the-group-key)
 
 ---
 
