@@ -13,6 +13,7 @@ v2.0/tags: [exists]
 related:
   - /v2.0/query-data/flux/conditional-logic/
   - /v2.0/query-data/flux/mathematic-operations/
+  - /v2.0/reference/flux/stdlib/contrib/rows/map/
 ---
 
 The `map()` function applies a function to each record in the input tables.
@@ -22,8 +23,7 @@ The output tables are the result of applying the map function to each record of 
 When the output record contains a different value for the group key, the record is regrouped into the appropriate table.
 When the output record drops a column that was part of the group key, that column is removed from the group key.
 
-_**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Function type:** Transformation_
 
 ```js
 map(fn: (r) => ({ _value: r._value * r._value }))
@@ -37,7 +37,7 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 
 ### fn
 
-A single argument function that to apply to each record.
+A single argument function to apply to each record.
 The return value must be an object.
 
 _**Data type:** Function_
