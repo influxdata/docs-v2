@@ -14,11 +14,12 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/inputs/from/
   - /v2.0/reference/flux/stdlib/built-in/transformations/range/
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
   - /v2.0/reference/flux/stdlib/built-in/transformations/pivot/
 ---
 
 The `influxdb.select()` function is an alternate implementation of `from()`, `range()`, `filter()`
-and `pivot()` that returns pivoted query results and masks the `_start` and `_stop` columns.
+and `pivot()` that returns pivoted query results and masks the `_measurement`, `_start`, and `_stop` columns.
 Results are similar to those returned by InfluxQL `SELECT` statements.
 
 _**Function type:** Input_
@@ -77,13 +78,15 @@ _**Data type:** String_
 
 ### fields
 List of fields to query.
+Returns all fields when list is empty or unspecified.
+Defaults to `[]`.
 
 _**Data type:** Array of Strings_
 
 ### where
 A single argument predicate function that evaluates true or false and filters results based on tag values.
-Records are passed to the function.
-Those that evaluate to true are included in the output tables.
+Records are passed to the function **before fields are pivoted into columns**.
+Records that evaluate to true are included in the output tables.
 Records that evaluate to _null_ or false are not included in the output tables.
 Defaults to `(r) => true`.
 
