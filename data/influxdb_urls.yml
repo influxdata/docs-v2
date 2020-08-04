@@ -35,3 +35,4 @@ cloud:
         - name: East US (Virginia)
           location: Virginia, USA
           url: https://eastus-1.azure.cloud2.influxdata.com
+          status: beta
