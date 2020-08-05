@@ -1,7 +1,7 @@
 ---
 title: Histogram visualization
 list_title: Histogram
-list_image: /img/2-0-visualizations-histogram-example.png
+list_image: /img/influxdb/2-0-visualizations-histogram-example.png
 description: >
   A histogram is a way to view the distribution of data.
   The y-axis is dedicated to count, and the x-axis is divided into bins.
@@ -17,7 +17,7 @@ menu:
 A histogram is a way to view the distribution of data.
 The y-axis is dedicated to count, and the X-axis is divided into bins.
 
-{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
 Select the **Histogram** option from the visualization dropdown in the upper right.
 
@@ -79,4 +79,4 @@ from(bucket: "example-bucket")
 In the Histogram visualization options, select `_time` as the [X Column](#data)
 and `severity` as the [Group By](#data) option:
 
-{{< img-hd src="/img/2-0-visualizations-histogram-errors.png" alt="Errors histogram" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-histogram-errors.png" alt="Errors histogram" />}}

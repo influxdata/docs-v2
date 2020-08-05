@@ -27,7 +27,7 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
 - **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
 
-{{< img-hd src="/img/2-0-cloud-usage.png" />}}
+{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
 
 ## Exceeded rate limits
 

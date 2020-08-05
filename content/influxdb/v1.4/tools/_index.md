@@ -18,7 +18,7 @@ HTTP API that comes with every InfluxDB package.
 Use `influx` to write data (manually or from a file), query data interactively,
 and view query output in different formats:
 
-![CLI GIF](/img/influxdb/cli-1.0-beta.gif)
+![CLI GIF](/img/influxdb/1-3-cli-1-0-beta.gif)
 
 Go straight to the documentation on:
 

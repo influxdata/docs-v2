@@ -113,4 +113,4 @@ citibikenyc,id=304,stationName=Broadway\ &\ Battery\ Pl statusValue="In Service"
 
 Now, you can explore and query the Citi Bike data in InfluxDB. The example below is an InfluxQL query and visualization showing the number of available bikes over the past 15 minutes at the Broadway and West 29th Street station.
 
-![Citi Bike visualization](/img/citibike_query.png)
+![Citi Bike visualization](/img/telegraf/1-13-citibike_query.png)

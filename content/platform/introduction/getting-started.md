@@ -8,7 +8,7 @@ menu:
 ---
 ## Overview
 
-![Getting started setup](/img/chronograf/v1.6/intro-gs-diagram.png)
+![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
 
 Before following the steps below, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/).
 

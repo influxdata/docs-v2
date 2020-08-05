@@ -157,7 +157,7 @@ A series cardinality around or above 10 million can cause OOM failures even with
 
 The increase in RAM needs relative to series cardinality is exponential where the exponent is between one and two:
 
-![Series Cardinality](/img/influxdb/series-cardinality.png)
+![Series Cardinality](/img/influxdb/1-3-series-cardinality.png)
 
 # What kind of storage do I need?
 InfluxDB is designed to run on SSDs. InfluxData does not test on HDDs or networked storage devices, and we do not recommend them for production.  Performance is an order of magnitude lower on spinning disk drives and the system may break down under even moderate load. For best results InfluxDB servers must have at least 1000 IOPS on the storage system.
