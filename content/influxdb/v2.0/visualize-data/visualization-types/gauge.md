@@ -1,7 +1,7 @@
 ---
 title: Gauge visualization
 list_title: Gauge
-list_image: /img/2-0-visualizations-gauge-example.png
+list_image: /img/influxdb/2-0-visualizations-gauge-example.png
 description: >
   The Gauge view displays the single value most recent value for a time series in a gauge view.
 weight: 206
@@ -15,7 +15,7 @@ menu:
 
 The **Gauge** visualization displays the most recent value for a time series in a gauge.
 
-{{< img-hd src="/img/2-0-visualizations-gauge-example-8.png" alt="Gauge example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-gauge-example-8.png" alt="Gauge example" />}}
 
 Select the **Gauge** option from the visualization dropdown in the upper right.
 
@@ -66,4 +66,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Visualization options for pressure gauge
-{{< img-hd src="/img/2-0-visualizations-gauge-pressure-8.png" alt="Pressure guage example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-gauge-pressure-8.png" alt="Pressure guage example" />}}

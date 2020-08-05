@@ -1,7 +1,7 @@
 ---
 title: Table visualization
 list_title: Table
-list_image: /img/2-0-visualizations-table-example.png
+list_image: /img/influxdb/2-0-visualizations-table-example.png
 description: >
   The Table option displays the results of queries in a tabular view, which is
   sometimes easier to analyze than graph views of data.
@@ -17,7 +17,7 @@ menu:
 The **Table** option displays the results of queries in a tabular view, which is
 sometimes easier to analyze than graph views of data.
 
-{{< img-hd src="/img/2-0-visualizations-table-example.png" alt="Table example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-table-example.png" alt="Table example" />}}
 
 Select the **Table** option from the visualization dropdown in the upper right.
 
@@ -82,4 +82,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Cluster metrics in a table
-{{< img-hd src="/img/2-0-visualizations-table-human-readable.png" alt="Human readable metrics in a table" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-table-human-readable.png" alt="Human readable metrics in a table" />}}

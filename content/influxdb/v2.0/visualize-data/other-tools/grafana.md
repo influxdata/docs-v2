@@ -61,7 +61,7 @@ configure your InfluxDB connection:
     - **Default Bucket**: The default [bucket](/v2.0/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
-    {{< img-hd src="/img/2-0-visualize-grafana.png" />}}
+    {{< img-hd src="/img/influxdb/2-0-visualize-grafana.png" />}}
 
 2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
    and returns the results of the test.
@@ -100,7 +100,7 @@ configure your InfluxDB connection:
     - **HTTP Method**: Select **GET**.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
-    {{< img-hd src="/img/2-0-visualize-grafana-influxql.png" />}}
+    {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
 
 5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
    and returns the results of the test.
