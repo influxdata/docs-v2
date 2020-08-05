@@ -20,7 +20,7 @@ The following screenshot of five graph views displays annotations for a single p
 The text and timestamp for the single point in time can be seem above the annotation line in the graph view on the lower right.
 The annotation displays "`Deploy v3.8.1-2`" and the time "`2018/28/02 15:59:30:00`".
 
-![Annotations on multiple graph views](/img/chronograf/chrono-annotations-example.png)
+![Annotations on multiple graph views](/img/chronograf/1-6-annotations-example.png)
 
 
 **To add an annotation using the Chronograf user interface:**

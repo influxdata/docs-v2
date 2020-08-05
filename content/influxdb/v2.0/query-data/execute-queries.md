@@ -23,7 +23,7 @@ This guide covers the different options:
 ## Data Explorer
 Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 
-![Data Explorer with Flux](/img/data-explorer-beta-8.png)
+![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
 ## Influx REPL
 The [`influx repl` command](/v2.0/reference/cli/influx/repl) starts an interactive

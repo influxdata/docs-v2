@@ -6010,7 +6010,7 @@ The example focuses the following subsample of the [`NOAA_water_database` data](
 SELECT "water_level" FROM "NOAA_water_database"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2015-08-22 22:12:00' AND time <= '2015-08-28 03:00:00'
 ```
 
-![Raw Data](/img/influxdb/hw-raw-data-1-2.png)
+![Raw Data](/img/influxdb/1-3-hw-raw-data-1-2.png)
 
 ##### Step 1: Match the Trends of the Raw Data
 <br>
@@ -6030,7 +6030,7 @@ match the time range of the raw data.
 
 The blue line shows the results of the query:
 
-![First step](/img/influxdb/hw-first-step-1-2.png)
+![First step](/img/influxdb/1-3-hw-first-step-1-2.png)
 
 ##### Step 2: Determine the Seasonal Pattern
 <br>
@@ -6040,7 +6040,7 @@ query in step 1.
 Focusing on the blue line in the graph below, the pattern in the `water_level` data repeats about every 25 hours and 15 minutes.
 There are four data points per season, so `4` is the seasonal pattern argument.
 
-![Second step](/img/influxdb/hw-second-step-1-2.png)
+![Second step](/img/influxdb/1-3-hw-second-step-1-2.png)
 
 ##### Step 3: Apply the HOLT_WINTERS() function
 <br>
@@ -6057,7 +6057,7 @@ The second argument in the `HOLT_WINTERS_WITH_FIT()` function (`4`) is the seaso
 
 The blue line shows the results of the query:
 
-![Third step](/img/influxdb/hw-third-step-1-2.png)
+![Third step](/img/influxdb/1-3-hw-third-step-1-2.png)
 
 ### Common Issues with `HOLT_WINTERS()`
 

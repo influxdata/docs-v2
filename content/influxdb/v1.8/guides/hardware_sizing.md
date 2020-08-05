@@ -115,7 +115,7 @@ In general, more RAM helps queries return faster. Your RAM requirements are prim
 
 The increase in RAM needs relative to series cardinality is exponential where the exponent is between one and two:
 
-![Series Cardinality](/img/influxdb/series-cardinality.png)
+![Series Cardinality](/img/influxdb/1-3-series-cardinality.png)
 
 ## Guidelines per cluster
 

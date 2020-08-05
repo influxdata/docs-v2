@@ -228,7 +228,7 @@ FROM "apple_stand"."autogen"."variety"'>
 If visualized as a [stacked graph](/chronograf/v1.8/guides/visualization-types/#stacked-graph)
 in Chronograf, it would look like:
 
-![Percentage of total per apple variety](/img/influxdb/calc-percentage-apple-variety.png)
+![Percentage of total per apple variety](/img/influxdb/1-5-calc-percentage-apple-variety.png)
 
 ### Calculating aggregate percentage per variety
 
@@ -258,7 +258,7 @@ _**Note the following about this query:**_
 If visualized as a [stacked graph](/chronograf/v1.8/guides/visualization-types/#stacked-graph)
 in Chronograf, it would look like:
 
-![Hourly average percentage of total per apple variety](/img/influxdb/calc-percentage-hourly-apple-variety.png)
+![Hourly average percentage of total per apple variety](/img/influxdb/1-5-calc-percentage-hourly-apple-variety.png)
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

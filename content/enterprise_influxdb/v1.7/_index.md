@@ -17,19 +17,19 @@ Use InfluxDB Enterprise to:
 
 * Monitor your cluster
 
-    ![Overview page](/img/chronograf/overview-chrono.png)
+    ![Overview page](/img/chronograf/1-5-overview-chrono.png)
 
 * Manage queries
 
-    ![Query management](/img/chronograf/manage-queries-chrono.png)
+    ![Query management](/img/chronograf/1-5-manage-queries-chrono.png)
 
 * Manage users
 
-    ![User page](/img/chronograf/chrono-admin-usermanagement-cluster.png)
+    ![User page](/img/chronograf/1-6-admin-usermanagement-cluster.png)
 
 * Explore and visualize your data
 
-    ![Data Explorer](/img/chronograf/data-explorer-chrono.png)
+    ![Data Explorer](/img/chronograf/1-6-data-explorer.png)
 
 If you're interested in working with InfluxDB Enterprise, visit
 [InfluxPortal](https://portal.influxdata.com/) to sign up, get a license key,

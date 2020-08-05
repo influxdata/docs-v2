@@ -14,7 +14,7 @@ This guide shows you how to create custom Chronograf dashboards.
 
 By the end of this guide, you'll be aware of the tools available to you for creating dashboards similar to this example:
 
-![Oh, the Chronobilities](/img/chronograf/v1.6/g-dashboard-possibilities.png)
+![Oh, the Chronobilities](/img/chronograf/1-6-g-dashboard-possibilities.png)
 
 ## Requirements
 
@@ -36,7 +36,7 @@ Click **Name This Dashboard** and type a new name. In this guide, "ChronoDash" i
 In the first cell, titled "Untitled Cell", click **Edit**
 to open the cell editor mode.
 
-![Edit your cell](/img/chronograf/g-dashboard-cell-edit.png)
+![Edit your cell](/img/chronograf/1-6-g-dashboard-cell-edit.png)
 
 ### Step 3: Create your query
 
@@ -51,13 +51,13 @@ Those defaults are configurable using the query builder or by manually editing t
 
 In addition, the time range (`:dashboardTime:`) is [configurable on the dashboard](#step-6-configure-your-dashboard).
 
-![Build your query](/img/chronograf/v1.6/g-dashboard-builder.png)
+![Build your query](/img/chronograf/1-6-g-dashboard-builder.png)
 
 ### Step 4: Choose your visualization type
 
 Chronograf supports many different [visualization types](/chronograf/latest/guides/visualization-types/). To choose a visualization type, click **Visualization** and select **Step-Plot Graph**.
 
-![Visualization type](/img/chronograf/v1.6/g-dashboard-visualization.png)
+![Visualization type](/img/chronograf/1-6-g-dashboard-visualization.png)
 
 ### Step 5: Save your cell
 Click **Save** (the green checkmark icon) to save your cell.
