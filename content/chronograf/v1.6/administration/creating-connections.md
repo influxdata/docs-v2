@@ -17,11 +17,11 @@ To create an InfluxDB connection in the Chronograf UI:
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
 2. Click **Add Connection**.
 
-  ![Chronograf connections landing page](/img/chronograf/v1.6/connection-landing-page.png)
+  ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
 
 3. Enter values for the following fields:
 
-    ![InfluxDB connection credentials](/img/chronograf/v1.6/connection-influxdb.png)
+    ![InfluxDB connection credentials](/img/chronograf/1-6-connection-influxdb.png)
 
     * **Connection String**: Enter the hostname or IP address of the InfluxDB instance and the port. The field is prefilled with  `http://localhost:8086`.
     * **Name**: Enter the name for this connection.
@@ -134,11 +134,11 @@ To create a Kapacitor connection using the Chronograf UI:
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
 2. Next to an existing [InfluxDB connection](#managing-influxdb-connections-using-the-chronograf-ui), click **Add Kapacitor Connection** if there are no existing Kapacitor connections or select **Add Kapacitor Connection** in the **Kapacitor Connection** dropdown list.
 
-![Add a new Kapacitor connection in Chronograf](/img/chronograf/v1.6/connection-kapacitor.png)
+![Add a new Kapacitor connection in Chronograf](/img/chronograf/1-6-connection-kapacitor.png)
 
 3. In the **Connection Details** section, enter values for the following fields:
 
-    ![Add a new Kapacitor connection details in Chronograf](/img/chronograf/v1.6/connection-kapacitor-details.png)
+    ![Add a new Kapacitor connection details in Chronograf](/img/chronograf/1-6-connection-kapacitor-details.png)
 
     * **Kapacitor URL**: Enter the hostname or IP address of the Kapacitor instance and the port. The field is prefilled with  `http://localhost:9092`.
     * **Name**: Enter the name for this connection.

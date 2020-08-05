@@ -33,7 +33,7 @@ from(bucket: v.bucket)
 When building Flux queries for dashboard cells, view available dashboard variables
 in the **Variables** tab next to the Functions tab.
 
-{{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
+{{< img-hd src="/img/influxdb/2-0-variables-data-explorer-view.png" />}}
 
 Click a variable name to add it to your query and select a value from the **Value** dropdown.
 

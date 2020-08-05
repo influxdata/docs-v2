@@ -58,7 +58,7 @@ For example, Chronograf's Slack integration allows users to specify a default ch
 Configure Chronograf to send alert messages to a HipChat room.
 The sections below describe each configuration option.
 
-![HipChat configuration](/img/chronograf/v1.6/g-eventhandlers-hipchat.png)
+![HipChat configuration](/img/chronograf/1-6-g-eventhandlers-hipchat.png)
 
 #### Subdomain
 
@@ -88,7 +88,7 @@ The following steps describe how to create the API access token:
 
 Your token appears in the table just above the **Create new token** section:
 
-![HipChat token](/img/chronograf/v1.6/g-eventhandlers-hipchattoken.png)
+![HipChat token](/img/chronograf/1-6-g-eventhandlers-hipchattoken.png)
 
 
 ### Kafka
@@ -226,7 +226,7 @@ Click **Add Another Config** to add additional Slack alert endpoints. Each addit
 Configure Chronograf to send alert messages to an existing Telegram bot.
 The sections below describe each configuration option.
 
-![Telegram configuration](/img/chronograf/v1.6/g-eventhandlers-telegram.png)
+![Telegram configuration](/img/chronograf/1-6-g-eventhandlers-telegram.png)
 
 #### Telegram bot
 

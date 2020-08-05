@@ -1,7 +1,7 @@
 ---
 title: Graph + Single Stat visualization
 list_title: Graph + Single Stat
-list_image: /img/2-0-visualizations-line-graph-single-stat-example.png
+list_image: /img/influxdb/2-0-visualizations-line-graph-single-stat-example.png
 description: >
   The Graph + Single Stat view displays the specified time series in a line graph
   and overlays the single most recent value as a large numeric value.
@@ -20,7 +20,7 @@ related:
 The **Graph + Single Stat** view displays the specified time series in a line graph
 and overlays the single most recent value as a large numeric value.
 
-{{< img-hd src="/img/2-0-visualizations-line-graph-single-stat-example-8.png" alt="Line Graph + Single Stat example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-single-stat-example-8.png" alt="Line Graph + Single Stat example" />}}
 
 Select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
 
@@ -95,4 +95,4 @@ from(bucket: "example-bucket")
   )
 ```
 ###### Memory allocations visualization
-{{< img-hd src="/img/2-0-visualizations-graph-single-stat-mem-8.png" alt="Graph + Single Stat Memory Usage Example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-single-stat-mem-8.png" alt="Graph + Single Stat Memory Usage Example" />}}

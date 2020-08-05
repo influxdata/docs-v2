@@ -83,7 +83,7 @@ from(bucket:"example-bucket")
 As data is gathered into windows of time, each window is output as its own table.
 When visualized, each table is assigned a unique color.
 
-![Windowed data tables](/img/flux-windowed-data.png)
+![Windowed data tables](/img/flux/windowed-data.png)
 
 ## Aggregate windowed data
 Flux aggregate functions take the `_value`s in each table and aggregate them in some way.
@@ -104,7 +104,7 @@ from(bucket:"example-bucket")
 As rows in each window are aggregated, their output table contains only a single row with the aggregate value.
 Windowed tables are all still separate and, when visualized, will appear as single, unconnected points.
 
-![Windowed aggregate data](/img/flux-windowed-aggregates.png)
+![Windowed aggregate data](/img/flux/windowed-aggregates.png)
 
 ## Add times to your aggregates
 As values are aggregated, the resulting tables do not have a `_time` column because
@@ -150,7 +150,7 @@ from(bucket:"example-bucket")
 
 Once ungrouped and combined into a single table, the aggregate data points will appear connected in your visualization.
 
-![Unwindowed aggregate data](/img/flux-windowed-aggregates-ungrouped.png)
+![Unwindowed aggregate data](/img/flux/windowed-aggregates-ungrouped.png)
 
 ## Helper functions
 This may seem like a lot of coding just to build a query that aggregates data, however going through the

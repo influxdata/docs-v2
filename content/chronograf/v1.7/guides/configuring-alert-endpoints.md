@@ -253,7 +253,7 @@ Click **Add Another Config** to add additional Slack alert endpoints. Each addit
 Configure Chronograf to send alert messages to an existing Telegram bot.
 The sections below describe each configuration option.
 
-![Telegram configuration](/img/chronograf/v1.7/g-eventhandlers-telegram.png)
+![Telegram configuration](/img/chronograf/1-6-g-eventhandlers-telegram.png)
 
 #### Telegram bot
 
