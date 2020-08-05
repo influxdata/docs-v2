@@ -600,7 +600,9 @@ menu:
     # ...
 ```
 ### Image naming conventions
-Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
+Save images using the following naming format: `project/version-context-description.png`.
+For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
+Specify a version other than 2.0 only if the image is specific to that version.
 
 ## InfluxDB API documentation
 InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
