@@ -33,6 +33,10 @@ products: [cloud]
 Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
 
 ## Access billing details
+
+<< add links to marketplaces>>
+
+
 1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
    navigation menu, and select **Billing**.
 
