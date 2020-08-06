@@ -12,11 +12,13 @@ aliases:
 
 ## v2.0.0-beta.16 [2020-08-06]
 
-### Breaking
-
+{{% warn %}}
+This release includes breaking changes:
+- Remove `influx repl` command. To use the Flux REPL, build the REPL from source.
 - Drop deprecated `/packages` route tree.
 - Support more types for template `envRef` default value and require explicit default values.
 - Remove orgs/labels nested routes from the API.
+{{% /warn %}}
 
 ### Features
 
