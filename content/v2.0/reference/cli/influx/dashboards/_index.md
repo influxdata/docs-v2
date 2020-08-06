@@ -33,9 +33,9 @@ influx dashboards [flags]
 
 ## Examples
 ```sh
-# List all known dashboards
+# List all dashboards
 influx dashboards
 
-# List all known dashboards matching IDs
+# List all dashboards matching IDs
 influx dashboards -i $ID1 -i $ID2
 ```
