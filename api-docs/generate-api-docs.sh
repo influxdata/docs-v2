@@ -38,5 +38,5 @@ weight: 102
 
   # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html
-  mv $version.tmp ../content/$version/api.html
+  mv $version.tmp ../content/influxdb/$version/api.html
 done
