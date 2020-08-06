@@ -15,7 +15,6 @@ The `influx dashboards` command lists existing InfluxDB dashboards.
 ## Usage
 ```sh
 influx dashboards [flags]
-influx dashboards [command]
 ```
 
 ## Flags
