@@ -10,6 +10,34 @@ aliases:
   - /v2.0/reference/release-notes/influxdb/
 ---
 
+## v2.0.0-beta.16 [2020-08-06]
+
+### Breaking
+
+- Drop deprecated `/packages` route tree.
+- Support more types for template `envRef` default value and require explicit default values.
+- Remove orgs/labels nested routes from the API.
+
+### Features
+
+- Add resource links to a stack's resources from public HTTP API list/read calls.
+- Enhance resource creation experience when limits are reached.
+- Add `dashboards` command to `influx` CLI.
+- Allow user onboarding to optionally set passwords.
+- Limit query response sizes for queries built in QueryBuilder by requiring an aggregate window.
+
+### Bug Fixes
+
+- Require all `influx` CLI flag arguments to be valid.
+- Dashboard cells correctly map results when multiple queries exist.
+- Dashboard cells and overlay use UTC as query time when toggling to UTC timezone.
+- Bucket names may not include quotation marks.
+
+### UI Improvements
+
+- Alerts page filter inputs now have tab indices for keyboard navigation.
+
+
 ## v2.0.0-beta.15 [2020-07-23]
 
 ### Features
@@ -21,6 +49,7 @@ aliases:
 - Enable dynamic destination for the `influx` CLI configuration file.
 
 ### Bug Fixes
+
 - Allow 0 to be the custom set minimum value for y domain.
 - Single Stat cells render properly in Safari.
 - Limit variable querying when submitting queries to used variables.
@@ -36,6 +65,7 @@ aliases:
 - Update Flux to v.0.71.1.
 
 ### Bug Fixes
+
 - Don't overwrite build date set via `ldflags`.
 - Fix issue where define query was unusable after importing a Check.
 - Update documentation links
