@@ -13,7 +13,7 @@ Presentation mode allows you to view Chronograf in full screen, hiding the left 
 ## Entering presentation mode manually
 To enter presentation mode manually, click the icon in the upper right:
 
-<img src="/img/chronograf/chronograf-presentation-mode.png" style="width:100%; max-width:500px"/>
+<img src="/img/chronograf/1-6-presentation-mode.png" style="width:100%; max-width:500px"/>
 
 To exit presentation mode, press `ESC`.
 

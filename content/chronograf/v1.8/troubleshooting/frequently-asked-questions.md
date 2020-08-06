@@ -15,7 +15,7 @@ When you enter the InfluxDB HTTP bind address in the `Connection String` input, 
 If it is a data node, Chronograf automatically adds the `Meta Service Connection URL` input to the connection details form.
 Enter the HTTP bind address of one of your cluster's meta nodes into that input and Chronograf takes care of the rest.
 
-![Cluster connection details](/img/chronograf/v1.8/faq-cluster-connection.png)
+![Cluster connection details](/img/chronograf/1-6-faq-cluster-connection.png)
 
 Note that the example above assumes that you do not have authentication enabled.
 If you have authentication enabled, the form requires username and password information.

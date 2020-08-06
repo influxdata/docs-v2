@@ -30,4 +30,4 @@ View a list of dashboard variables in the InfluxDB user interface (UI) from an o
 2. Switch to **Script Editor**.
 3. Click the **Variables** tab to the right of the script editor.
 
-  {{< img-hd src="/img/2-0-variables-data-explorer-view.png" />}}
+  {{< img-hd src="/img/influxdb/2-0-variables-data-explorer-view.png" />}}
