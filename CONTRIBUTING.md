@@ -591,7 +591,7 @@ When defining the menu for reference content, use the following pattern:
 ```yaml
 # Pattern
 menu:
-  v<major-version-number>_<minor-version-number>_ref:
+  <project>_<major-version-number>_<minor-version-number>_ref:
     # ...
 
 # Example
