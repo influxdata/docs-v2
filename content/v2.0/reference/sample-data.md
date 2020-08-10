@@ -48,7 +48,7 @@ and represents animal migratory movements throughout 2019.
 Use the [Flux Geo package](https://v2.docs.influxdata.com/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements)
 to query and analyze the geo-temporal data in this sample data set.
 
-<a class="btn" href="https://github.com/influxdata/influxdb2-sample-data/tree/master/air-sensor-data" target="\_blank">
+<a class="btn" href="https://github.com/influxdata/influxdb2-sample-data/tree/master/bird-migration-data" target="\_blank">
  <span class="icon-github"></span> View bird migration sample data
 </a>
 
