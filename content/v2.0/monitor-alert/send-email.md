@@ -15,7 +15,7 @@ Send an alert email using a third party service, such as SendGrid, AWS SES, or M
 
 To send an alert email, do the following:
 
-1. [Create a check](/v2.0/monitor-alert/checks/create/#create-a-check-in-the-influxdb-ui) to identify the data to monitor and status to alert on.
+1. [Create a check](/v2.0/monitor-alert/checks/create/#create-a-check-in-the-influxdb-ui) to identify the data to monitor and the status to alert on.
 2. Set up your preferred email service:
    - **SendGrid**: See [Getting Started With the SendGrid API](https://sendgrid.com/docs/API_Reference/api_getting_started.html) and complete the prerequisites.
    - **AWS Simple Email Service (SES)**: See [Using the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email.html).
@@ -37,7 +37,7 @@ To send an alert email, do the following:
 4. In the right panel, enter your **task script** with the **following detail**:
    - Import the [Flux HTTP package](/v2.0/reference/flux/stdlib/http/).
    - Specify the `_monitoring` bucket and `statuses` measurement. InfluxDB stores all [check](/v2.0/reference/glossary/#check) output data in this bucket and measurement.
-   - Specify the time range to monitor—use the same interval that the task is scheduled to run.
+   - Specify the time range to monitor; use the same interval that the task is scheduled to run.
    - Specify the `TARGET` as `EMAIL`.
    - Specify the `_field_` as `_message`.
    - Set the `_level` to alert on, for example, `crit`, `warn`, `info`, or `ok`.
@@ -85,7 +85,8 @@ numberOfCrits
 
 The example below uses the AWS SES API v2 to send an alert email when more than 3 critical statuses occur within 10 minutes.
 
-{{% note}} Your AWS SES request, including the url (endpoint), authentication, and the structure of the request may vary. For more information, see [Amazon SES API requests](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-requests.html), [Authenticating requests to the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-authentication.html), 
+{{% note %}} Your AWS SES request, including the url (endpoint), authentication, and the structure of the request may vary. For more information, see [Amazon SES API requests](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-requests.html) and [Authenticating requests to the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-authentication.html).
+{{% /note %}} 
 
 We recommend signing your AWS API requests depend on https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html
 
