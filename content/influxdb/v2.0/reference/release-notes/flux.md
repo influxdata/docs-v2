@@ -16,6 +16,19 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.78.0 [2020-08-10]
+
+### Features
+- Add functions to convert semantic monotype to AST type.
+- Add BigQuery support.
+- Rust flatbuffer serialization for `MonoType` and `TypeExpression`.
+- Extend with Geo package functions and add unit support.
+
+### Bug fixes
+- String interpolation in arrays.
+
+---
+
 ## v0.77.1 [2020-08-03]
 
 ### Bug fixes
