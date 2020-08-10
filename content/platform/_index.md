@@ -2,7 +2,7 @@
 title: Introduction to the InfluxData platform
 description: The InfluxData platform is the leading modern time-series platform built for metrics and events.
 aliases:
-  - /platform
+  - /platform/introduction
 menu:
   platform:
     name: Introduction
@@ -136,11 +136,7 @@ Data is passed between InfluxDB and Kapacitor via subscriptions.
 Kapacitor Enterprise includes configuration options that let you encrypt
 communication between your Kapacitor Enterprise and InfluxDB Enterprise clusters.
 
-<div style="display:inline-block;padding:.25em;margin:1em 0 2em; color:#fff;background:#4ed8a0;background:linear-gradient(to right,#4ed8a0 0,#22adf6 100%);border-radius:3px;">
-  <a href="https://portal.influxdata.com/" target="\_blank" class="sidebar--support-ad--cta" style="color:#fff;text-align:center;">
-    Try InfluxData Platform Enterprise
-  </a>
-</div>
+<a class="btn" href="https://portal.influxdata.com/" target="\_blank">Try InfluxData Platform Enterprise</a>
 
 ## Get started
 
