@@ -1,6 +1,8 @@
 ---
 title: Get started with the InfluxData Platform
 description: placeholder
+aliases:
+  - /platform/introduction/getting-started
 menu:
   platform:
     name: Get started
