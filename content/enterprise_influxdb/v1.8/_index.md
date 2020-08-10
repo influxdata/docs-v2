@@ -4,10 +4,9 @@ description: Technical documentation for InfluxDB Enterprise, which adds cluster
 aliases:
     - /enterprise/v1.8/
 menu:
-  enterprise_influxdb:
-    name: v1.8
-    identifier: enterprise_influxdb_1_8
-    weight: 6
+  enterprise_influxdb_1_8:
+    name: InfluxDB Enterprise v1.8
+weight: 1
 ---
 
 InfluxDB Enterprise offers highly scalable InfluxDB Enterprise clusters on your infrastructure

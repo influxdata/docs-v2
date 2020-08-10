@@ -2,10 +2,9 @@
 title: InfluxDB 1.6 documentation
 
 menu:
-  influxdb:
-    name: v1.6
-    identifier: influxdb_1_6
-    weight: 9
+  influxdb_1_6:
+    name: InfluxDB v1.6
+weight: 1
 ---
 
 InfluxDB is a [time series database](https://www.influxdata.com/time-series-database/) designed to handle high write and query loads.
