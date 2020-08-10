@@ -123,6 +123,7 @@ numberOfCrits
 The example below uses the Mailjet Send API to send an alert email when more than 1 critical statuses occurs within 10 minutes.
 
 {{% note %}} To view your Mailjet API credentials, sign in to Mailjet and open the [API Key Management page](https://app.mailjet.com/account/api_keys).
+{{% /note %}}
 
 ```sh
 import "http"
