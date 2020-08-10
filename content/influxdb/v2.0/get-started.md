@@ -4,7 +4,7 @@ description: Download, install, and setup InfluxDB, creating a default organizat
 menu:
   influxdb_2_0:
     name: Get started
-weight: 1
+weight: 2
 influxdb/v2.0/tags: [get-started, install]
 aliases:
   - /v2.0/cloud/get-started

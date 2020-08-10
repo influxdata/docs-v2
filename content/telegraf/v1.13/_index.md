@@ -2,10 +2,9 @@
 title: Telegraf 1.13 documentation
 description: Documentation for Telegraf, the plugin-driven server agent of the InfluxData time series platform, used to collect and report metrics. Telegraf supports four categories of plugins -- input, output, aggregator, and processor.
 menu:
-  telegraf:
-    name: v1.13
-    identifier: telegraf_1_13
-    weight: 8
+  telegraf_1_13:
+    name: Telegraf v1.13
+weight: 1
 ---
 
 Telegraf is a plugin-driven server agent for collecting & reporting metrics,

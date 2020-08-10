@@ -5,10 +5,9 @@ aliases:
     - /enterprise/v1.6/
 
 menu:
-  enterprise_influxdb:
-    name: v1.6
-    identifier: enterprise_influxdb_1_6
-    weight: 8
+  enterprise_influxdb_1_6:
+    name: InfluxDB Enterprise v1.6
+weight: 1
 ---
 
 InfluxDB Enterprise offers highly scalable InfluxDB Enterprise clusters on your infrastructure
