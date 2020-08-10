@@ -2,11 +2,11 @@
 title: Introduction to the InfluxData platform
 description: The InfluxData platform is the leading modern time-series platform built for metrics and events.
 aliases:
-  - /platform/
+  - /platform
 menu:
   platform:
     name: Introduction
-    weight: 10
+weight: 1
 ---
 
 **InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events. Explore both versions of our platform below--[**InfluxData 1.x**](#influxdata-1-x) and [**InfluxDB 2.0**](#influxdb-2-0).

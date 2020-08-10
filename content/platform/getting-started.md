@@ -4,7 +4,7 @@ description: placeholder
 menu:
   platform:
     name: Get started
-    parent: Introduction
+weight: 2
 ---
 ## Overview
 

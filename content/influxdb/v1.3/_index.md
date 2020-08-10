@@ -2,10 +2,9 @@
 title: InfluxDB 1.3 documentation
 
 menu:
-  influxdb:
-    name: v1.3
-    identifier: influxdb_1_3
-    weight: 30
+  influxdb_1_3:
+    name: InfluxDB v1.3
+weight: 1
 ---
 
 InfluxDB is a [time series database](https://en.wikipedia.org/wiki/Time_series_database) built from the ground up to handle high write and query loads.
