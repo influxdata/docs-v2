@@ -11,7 +11,7 @@ related:
   - /v2.0/monitor-alert/checks/
 ---
 
-Send an alert email using a third party service, such as SendGrid, AWS SES, or MailChimp.
+Send an alert email using a third party service, such as SendGrid, AWS SES, or Mailjet.
 
 To send an alert email, do the following:
 
@@ -19,8 +19,7 @@ To send an alert email, do the following:
 2. Set up your preferred email service:
    - **SendGrid**: See [Getting Started With the SendGrid API](https://sendgrid.com/docs/API_Reference/api_getting_started.html) and complete the prerequisites.
    - **AWS Simple Email Service (SES)**: See [Using the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email.html). {{% note %}} Your AWS SES request, including the url (endpoint), authentication, and the structure of the request may vary. For more information, see [Amazon SES API requests](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-requests.html) and [Authenticating requests to the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-authentication.html).
-{{% /note %}}
-   - **MailJet**: See [Getting Started](https://dev.mailjet.com/email/guides/getting-started/)
+   - **Mailjet**: See [Getting Started](https://dev.mailjet.com/email/guides/getting-started/).
 3. [Create an alert email task](#create-an-alert-email-task) to call your email service and send an alert email.
 
     {{% note %}} In the procedure below, we use the **Task UI** to create a task. Explore other ways to [create a task](/v2.0/process-data/manage-tasks/create-task/).
@@ -139,18 +138,12 @@ numberOfCrits = from(bucket: "_monitoring")
 numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailjet.com/v3.1/send", headers: {"Content-type": "application/json", Authorization: "Basic <your-api-key>:<your-secret-key"}, data: bytes(v: "{
-                \"personalizations\": [{
-                    \"to\": [{
-                        \"email\": \”jane.doe@example.com\"
-                    }],
-                    \"subject\": \”InfluxData critical alert\"
-                }],
-                \"from\": {
-                    \"email\": \"john.doe@example.com\"
-                },
-                \"content\": [{
-                    \"type\": \"text/plain\",
-                    \"value\": \”Example alert text\"
-                }]
+                \"Messages\": [{
+                    \"From\": {\"Email\": \”jane.doe@example.com\"},
+                    \"To\": [{\"Email\": \"john.doe@example.com\"]},
+                    \"Subject\": \”InfluxData critical alert\",
+                    \"TextPart\": \”Example alert text\"
+                    \"HTMLPart\":  `"<h3>Hello, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />}]}'
+              
                 }\""))} else {r with _value: 0}))
 ```
