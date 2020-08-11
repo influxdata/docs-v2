@@ -18,6 +18,9 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ## v0.78.0 [2020-08-10]
 
+### Breaking changes
+- Removed `correlationKey` parameter from `geo.toRows` and `geo.shapeData`.
+
 ### Features
 - Add functions to convert semantic monotype to AST type.
 - Add BigQuery support.
