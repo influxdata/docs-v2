@@ -49,7 +49,7 @@ _See [GIS geometry definitions](/v2.0/reference/flux/stdlib/experimental/geo/#gi
 _**Data type:** Object_
 
 ### distance
-Maximum allowed distance between the region and geometry.
+Maximum distance allowed between the region and geometry.
 _Define distance units with the [`geo.units` option](/v2.0/reference/flux/stdlib/experimental/geo/#define-distance-units)._
 
 _**Data type:** Float_
