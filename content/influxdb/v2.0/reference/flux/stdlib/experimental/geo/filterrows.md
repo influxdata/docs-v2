@@ -196,19 +196,30 @@ filterRows = (
   maxSize=-1,
   level=-1,
   s2cellIDLevel=-1,
-  correlationKey=["_time"],
   strict=true
 ) => {
+  _columns =
+    |> columns(column: "_value")
+    |> tableFind(fn: (key) => true )
+    |> getColumn(column: "_value")
   _rows =
-    tables
-      |> gridFilter(
-        region,
-        minSize: minSize,
-        maxSize: maxSize,
-        level: level,
-        s2cellIDLevel: s2cellIDLevel
-      )
-      |> toRows(correlationKey)
+    if contains(value: "lat", set: _columns) then
+      tables
+        |> gridFilter(
+          region: region,
+          minSize: minSize,
+          maxSize: maxSize,
+          level: level,
+          s2cellIDLevel: s2cellIDLevel)
+    else
+      tables
+        |> gridFilter(
+          region: region,
+          minSize: minSize,
+          maxSize: maxSize,
+          level: level,
+          s2cellIDLevel: s2cellIDLevel)
+        |> toRows()
   _result =
     if strict then
       _rows

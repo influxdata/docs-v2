@@ -32,8 +32,7 @@ import "experimental/geo"
 geo.shapeData(
   latField: "latitude",
   lonField: "longitude",
-  level: 10,
-  correlationKey: ["_time"]
+  level: 10
 )
 ```
 
@@ -56,12 +55,6 @@ _**Data type:** String_
 when generating the S2 cell ID token.
 
 _**Data type:** Integer_
-
-### correlationKey
-List of columns used to uniquely identify a row for output.
-Default is `["_time"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 
