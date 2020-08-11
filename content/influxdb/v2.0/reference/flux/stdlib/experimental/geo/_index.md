@@ -118,7 +118,7 @@ Define a circular region by specifying an object containing the following proper
 ```
 
 ### point
-Define a point region by specifying and object containing the following properties:
+Define a point region by specifying an object containing the following properties:
 
 - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude in decimal degrees (WGS 84) _(Float)_
