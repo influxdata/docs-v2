@@ -74,6 +74,14 @@ to add `s2_cell_id` tags to data that includes fields with latitude and longitud
   )
 ```
 
+## Latitude and longitude values
+Flux supports latitude and longitude values in **decimal degrees** (WGS 84).
+
+| Coordinate | Minimum | Maximum |
+|:---------- | -------:| -------:|
+| Latitude   | -90.0   | 90.0    |
+| Longitude  | -180.0  | 180.0   |
+
 ## Region definitions
 Many functions in the Geo package filter data based on geographic region.
 Define geographic regions using the following shapes:
@@ -162,7 +170,7 @@ Define GIS geometry using the following:
 ### linestring
 Define a geographic linestring path using an object containing the following properties:
 
-- **linestring**: string containing comma-separatedlongitude and latitude
+- **linestring**: string containing comma-separated longitude and latitude
   coordinate pairs (`lon lat,`):
 
 ```js
