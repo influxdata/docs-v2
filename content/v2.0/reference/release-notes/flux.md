@@ -18,11 +18,15 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ## v0.78.0 [2020-08-10]
 
+### Breaking changes
+- Removed `correlationKey` parameter from `geo.toRows` and `geo.shapeData`.
+
 ### Features
 - Add functions to convert semantic monotype to AST type.
 - Add BigQuery support.
 - Rust flatbuffer serialization for `MonoType` and `TypeExpression`.
-- Extend with Geo package functions and add unit support.
+- Extend with Geo package with GIS functions and
+  [unit support](/v2.0/reference/flux/stdlib/experimental/geo/#distance-units).
 
 ### Bug fixes
 - String interpolation in arrays.

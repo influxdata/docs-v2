@@ -22,18 +22,8 @@ _**Function type:** Transformation_
 ```js
 import "experimental/geo"
 
-geo.toRows(
-  correlationKey: ["_time"]
-)
+geo.toRows()
 ```
-
-## Parameters
-
-### correlationKey
-List of columns used to uniquely identify a row for output.
-Default is `["_time"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js
@@ -49,9 +39,5 @@ from(bucket: "example-bucket")
 ```js
 toRows = (tables=<-, correlationKey=["_time"]) =>
   tables
-    |> pivot(
-      rowKey: correlationKey,
-      columnKey: ["_field"],
-      valueColumn: "_value"
-    )
+    |> v1.fieldsAsCols()
 ```
