@@ -34,8 +34,8 @@ The [Flux](/v2.0/reference/flux) `sql` package provides functions for working wi
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 [Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
 [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
-and [Amazon Athena](https://aws.amazon.com/athena/) and use the results with
-InfluxDB dashboards, tasks, and other operations.
+[Amazon Athena](https://aws.amazon.com/athena/) and [Google BigQuery](https://cloud.google.com/bigquery)
+and use the results with InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
@@ -62,6 +62,8 @@ To query a SQL data source:
 [Snowflake](#)
 [SQLite](#)
 [SQL Server](#)
+[Athena](#)
+[BigQuery](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -129,6 +131,34 @@ sql.from(
 
 _For information about authenticating with SQL Server using ADO-style parameters,
 see [SQL Server ADO authentication](/v2.0/reference/flux/stdlib/sql/from/#sql-server-ado-authentication)._
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+import "sql"
+
+sql.from(
+  driverName: "awsathena",
+  dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
+  query: "GO SELECT * FROM Example.Table"
+)
+```
+
+_For information about parameters to include in the Athena DSN,
+see [Athena connection string](/v2.0/reference/flux/stdlib/sql/from/#athena-connection-string)._
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+import "sql"
+
+sql.from(
+  driverName: "bigquery",
+  dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+  query: "SELECT * FROM exampleTable"
+)
+```
+
+_For information about authenticating with BigQuery, see
+[BigQuery authentication parameters](/v2.0/reference/flux/stdlib/sql/from/#bigquery-authentication-parameters)._
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
