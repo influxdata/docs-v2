@@ -80,6 +80,7 @@ Define geographic regions using the following shapes:
 
 - [box](#box)
 - [circle](#circle)
+- [point](#point)
 - [polygon](#polygon)
 
 ### box
@@ -116,6 +117,20 @@ Define a circular region by specifying an object containing the following proper
 }
 ```
 
+### point
+Define a point region by specifying and object containing the following properties:
+
+- **lat**: latitude in decimal degrees (WGS 84) _(Float)_
+- **lon**: longitude in decimal degrees (WGS 84) _(Float)_
+
+##### Example point region
+```js
+{
+  lat: 40.671659,
+  lon: -73.936631
+}
+```
+
 ### polygon
 Define a custom polygon region using an object containing the following properties:
 
@@ -135,4 +150,39 @@ Define a custom polygon region using an object containing the following properti
     {lat: 40.791333, lon: -73.880327}
   ]
 }
+```
+
+## GIS geometry definitions
+Many functions in the Geo package manipulate data based on geographic information system (GIS) data.
+Define GIS geometry using the following:
+
+- Any [region type](#region-definitions) _(typically [point](#point))_
+- [linestring](#linestring)
+
+### linestring
+Define a geographic linestring path using an object containing the following properties:
+
+- **linestring**: string containing comma-separatedlongitude and latitude
+  coordinate pairs (`lon lat,`):
+
+```js
+{
+  linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"
+}
+```
+
+## Distance units
+The Geo package supports the following units of measurement for distance:
+
+- `m` - meters
+- `km` - kilometers _(default)_
+- `mile` - miles
+
+### Define distance units
+Use the Geo package `units` option to define custom units of measurement:
+
+```js
+import "experimental/geo"
+
+option geo.units = {distance: "mile"}
 ```
