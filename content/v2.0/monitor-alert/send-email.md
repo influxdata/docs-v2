@@ -209,7 +209,7 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
 	|> map(fn: (r) =>
-		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages", headers: {Authorization: "Basic api:<your-private-api-key"}, data: bytes(v: "{
+		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages", headers: {Authorization: "Basic api:your-private-api-key"}, data: bytes(v: "{
           from='Excited User <mailgun@YOUR_DOMAIN_NAME>' \
           to=YOU@YOUR_DOMAIN_NAME \
           to=bar@example.com \
