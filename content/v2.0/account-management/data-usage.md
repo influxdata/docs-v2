@@ -22,11 +22,9 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 - **Query Count:** Total number of events.
 - **Storage Usage:** Total disk usage in gigabytes.
-- **API Request Count:** The total number of query and write API requests received
-  during the specified time frame.
+- **API Request Count:** The total number of query and write API requests received during the specified time frame.
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
-- **Rate Limits over the specified time period:** A list of rate limit events over
-  the specified time period.
+- **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
 
 {{< img-hd src="/img/2-0-cloud-usage.png" />}}
 

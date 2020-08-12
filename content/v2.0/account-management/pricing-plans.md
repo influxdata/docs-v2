@@ -48,20 +48,20 @@ _To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/account-management
 
 ## Usage-Based Plan
 
-The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/v2.0/account-management/data-usage/).
+The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/v2.0/account-management/data-usage/).
 
-### pricing parameters
+### Pricing vectors
 
-The following vectors determine pricing:
+The following two vectors determine pricing:
 
-- **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query. AKA data transfer costs.
-- **Query count** is the total number of individual query operations. Each individual operation, including
-queries, tasks, alert checks, notifications, and Data Explorer activity, is one billable query operation. Refreshing a dashboard with multiple cells counts as multiple query operations. Failed query/task executions do not count.
+- **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
+- **Query count** is the total number of individual query operations. Each individual operation — including
+queries, tasks, alert checks, notifications, and Data Explorer activity — is one billable query operation. Refreshing a dashboard with multiple cells counts as multiple query operations. Failed query or task executions do not add to your query count.
 
 
 ### Usage-Based Plan rate limits
 
-To protect against any intentional or unintentional harm, Usage-based Plans include soft rate limits:
+To protect against any intentional or unintentional harm, Usage-Based Plans include soft rate limits:
 
 - **Data In:** Write 300MB every 5 minutes
 - **Ingest batch size:** 50MB
