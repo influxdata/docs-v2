@@ -250,7 +250,7 @@ sql.to(
 ```
 
 #### Common BigQuery URL parameters
-- **dataset** - BigQuery dataset ID. When set, you can use unqualified tables names in queries.
+- **dataset** - BigQuery dataset ID. When set, you can use unqualified table names in queries.
 
 #### BigQuery authentication parameters
 The Flux BigQuery implementation uses the Google Cloud Go SDK.
