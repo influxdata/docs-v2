@@ -181,7 +181,6 @@ numberOfCrits
 
 <!-------------------------------- BEGIN Mailgun ---------------------------->
 
-
 {{% tab-content %}}
 
 The example below uses the Mailgun API to send an alert email when more than 3 critical statuses occur within 10 minutes.
