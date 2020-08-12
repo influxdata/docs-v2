@@ -16,6 +16,16 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.79.0 [2020-08-11]
+
+### Features
+- Add `array.from()` function to convert Flux values into a table.
+
+### Bug fixes
+- Add bounds to Geo package end-to-end tests.
+
+---
+
 ## v0.78.0 [2020-08-10]
 
 ### Breaking changes
