@@ -36,7 +36,6 @@ _**Data type:** String_
 The following drivers are available:
 
 - awsathena
-- bigquery
 - mysql
 - postgres
 - snowflake
@@ -74,10 +73,6 @@ sqlserver://username:password@localhost:1234?database=examplebdb
 server=localhost;user id=username;database=examplebdb;
 server=localhost;user id=username;database=examplebdb;azure auth=ENV
 server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;azure client id=58879ce8;azure client secret=0123456789
-
-# Google BigQuery DSNs
-bigquery://projectid/?param1=value&param2=value
-bigquery://projectid/location?param1=value&param2=value
 ```
 
 ### query
@@ -93,7 +88,6 @@ _**Data type:** String_
 - [SQLite](#query-an-sqlite-database)
 - [Amazon Athena](#query-an-amazon-athena-database)
 - [SQL Server](#query-a-sql-server-database)
-- [Google BigQuery](#query-a-bigquery-database)
 
 {{% note %}}
 The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
@@ -256,42 +250,3 @@ _For information about managed identities, see [Microsoft managed identities](ht
 ```
 azure auth=MSI
 ```
-
-### Query a BigQuery database
-```js
-import "sql"
-import "influxdata/influxdb/secrets"
-
-projectID = secrets.get(key: "BIGQUERY_PROJECT_ID")
-apiKey = secrets.get(key: "BIGQUERY_APIKEY")
-
-sql.from(
- driverName: "bigquery",
- dataSourceName: "bigquery://${projectID}/?apiKey=${apiKey}",
- query:"SELECT * FROM exampleTable"
-)
-```
-
-#### Common BigQuery URL parameters
-- **dataset** - BigQuery dataset ID. When set, you can use unqualified table names in queries.
-
-#### BigQuery authentication parameters
-The Flux BigQuery implementation uses the Google Cloud Go SDK.
-Provide your authentication credentials using one of the following methods:
-
-- The `GOOGLE_APPLICATION_CREDENTIALS` environment variable that identifies the
-  location of your credential JSON file.
-- Provide your BigQuery API key using the **apiKey** URL parameter in your BigQuery DSN.
-
-    ###### Example apiKey URL parameter
-    ```
-    bigquery://projectid/?apiKey=AIzaSyB6XK8IO5AzKZXoioQOVNTFYzbDBjY5hy4
-    ```
-
-- Provide your base-64 encoded service account, refresh token, or JSON credentials
-  using the **credentials** URL parameter in your BigQuery DSN.
-
-    ###### Example credentials URL parameter
-    ```
-    bigquery://projectid/?credentials=eyJ0eXBlIjoiYXV0...
-    ```
