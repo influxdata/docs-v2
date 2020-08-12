@@ -56,8 +56,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ### Features
 - Add functions to convert semantic monotype to AST type.
-- Add [Google BigQuery](https://cloud.google.com/bigquery) support to
-  [SQL package](/v2.0/reference/flux/stdlib/sql/).
+- Add BigQuery support.
 - Rust flatbuffer serialization for `MonoType` and `TypeExpression`.
 - Extend with Geo package with GIS functions and
   [unit support](/v2.0/reference/flux/stdlib/experimental/geo/#distance-units).
