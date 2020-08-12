@@ -181,6 +181,9 @@ numberOfCrits
 
 <!-------------------------------- BEGIN Mailgun ---------------------------->
 
+
+{{% tab-content %}}
+
 The example below uses the Mailgun API to send an alert email when more than 3 critical statuses occur within 10 minutes.
 
 {{% note %}} To view your Mailgun API keys, sign in to Mailjet and open [Account Security - API security](https://app.mailgun.com/app/account/security/api_keys). Mailgun requires that you specify a domain via Mailgun. For domains created in the US region, use `https://api.mailgun.net/v3`. For domains created in the EU region, use `https://api.eu.mailgun.net/v3`. Mailgun currently validates emails for the US region only. If you're using a free version of Mailgun, a domain is created when you set up your account and you can set up a maximum of five authorized recipients. To view your Mailgun domains, sign in to Mailgun and view the [Domains page](https://app.mailgun.com/app/sending/domains). 
