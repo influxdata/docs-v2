@@ -80,17 +80,17 @@ numberOfCrits
 		(if r._value > 3 then {r with _value: http.post(url: "https://api.sendgrid.com/v3/mail/send",
         headers: {"Content-Type": "application/json", "Authorization": "Bearer ${SENDGRID_APIKEY}",
         data: bytes(v: "{
-            \"personalizations\": [{
-              \"to\": [{
-              \"email\": \”jane.doe@example.com\"}],
-              \"subject\": \”InfluxData critical alert\"
-                }],
-                \"from\": {\"email\": \"john.doe@example.com\"},
-                \"content\": [{
-                    \"type\": \"text/plain\",
-                    \"value\": \”Example alert text\"
-                }]
-                }\""))} else {r with _value: 0}))
+          \"personalizations\": [{
+            \"to\": [{
+            \"email\": \”jane.doe@example.com\"}],
+            \"subject\": \”InfluxData critical alert\"
+            }],
+            \"from\": {\"email\": \"john.doe@example.com\"},
+            \"content\": [{
+              \"type\": \"text/plain\",
+              \"value\": \”Example alert text\"
+            }]
+        }\""))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
@@ -124,17 +124,17 @@ numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 3 then {r with _value: http.post(url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails", headers: {"Content-Type": "application/json", "Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE,SignedHeaders=Datex-amz-date,Signature=9d63c3b5b7623d1fa3dc7fd1547313b9546c6d0fbbb6773a420613b7EXAMPLE"},
         data: bytes(v: "{
-            \"personalizations\": [{
-              \"to\": [{
-              \"email\": \”jane.doe@example.com\"}],
-              \"subject\": \”InfluxData critical alert\"
-                }],
-                \"from\": {\"email\": \"john.doe@example.com\"},
-                \"content\": [{
-                    \"type\": \"text/plain\",
-                    \"value\": \”Example alert text\"
-                }]
-                }\""))} else {r with _value: 0}))
+          \"personalizations\": [{
+            \"to\": [{
+            \"email\": \”jane.doe@example.com\"}],
+            \"subject\": \”InfluxData critical alert\"
+            }],
+            \"from\": {\"email\": \"john.doe@example.com\"},
+            \"content\": [{
+              \"type\": \"text/plain\",
+              \"value\": \”Example alert text\"
+            }]
+        }\""))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
@@ -167,14 +167,14 @@ numberOfCrits = from(bucket: "_monitoring")
 numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 3 then {r with _value: http.post(url: "https://api.mailjet.com/v3.1/send", headers: {"Content-type": "application/json", Authorization: "Basic <your-api-key>:<your-secret-key"}, data: bytes(v: "{
-                \"Messages\": [{
-                    \"From\": {\"Email\": \”jane.doe@example.com\"},
-                    \"To\": [{\"Email\": \"john.doe@example.com\"]},
-                    \"Subject\": \”InfluxData critical alert\",
-                    \"TextPart\": \”Example alert text\"
-                    \"HTMLPart\":  `"<h3>Hello, to review critical alerts, review your <a href=\"https://www.example-dashboard.com/\">Critical Alert Dashboard</a></h3>}]}'
+        \"Messages\": [{
+          \"From\": {\"Email\": \”jane.doe@example.com\"},
+          \"To\": [{\"Email\": \"john.doe@example.com\"]},
+          \"Subject\": \”InfluxData critical alert\",
+          \"TextPart\": \”Example alert text\"
+          \"HTMLPart\":  `"<h3>Hello, to review critical alerts, review your <a href=\"https://www.example-dashboard.com/\">Critical Alert Dashboard</a></h3>}]}'
               
-                }\""))} else {r with _value: 0}))
+        }\""))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
@@ -209,13 +209,13 @@ numberOfCrits = from(bucket: "_monitoring")
 numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages", headers: {Authorization: "Basic api:<your-private-api-key"}, data: bytes(v: "{
-                from='Excited User <mailgun@YOUR_DOMAIN_NAME>' \
-                to=YOU@YOUR_DOMAIN_NAME \
-                to=bar@example.com \
-                subject='Hello' \
-                text='Testing some Mailgun awesomeness!’
+          from='Excited User <mailgun@YOUR_DOMAIN_NAME>' \
+          to=YOU@YOUR_DOMAIN_NAME \
+          to=bar@example.com \
+          subject='Hello' \
+          text='Testing some Mailgun awesomeness!’
               
-                }\""))} else {r with _value: 0}))
+        }\""))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
