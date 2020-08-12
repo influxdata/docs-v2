@@ -50,6 +50,7 @@ Send an alert email using a third party service, such as SendGrid, AWS Simple Em
 [SendGrid](#)
 [AWS SES](#)
 [Mailjet](#)
+[Mailgun](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN SendGrid -------------------------------->
@@ -178,15 +179,11 @@ numberOfCrits
 
 {{% /tab-content %}}
 
-{{< /tabs-wrapper >}}
-
----
-
 <!-------------------------------- BEGIN Mailgun ---------------------------->
 
-<!--The example below uses the Mailgun Send API to send an alert email when more than 3 critical statuses occur within 10 minutes.
+The example below uses the Mailgun API to send an alert email when more than 3 critical statuses occur within 10 minutes.
 
-{{% note %}} To view your Mailgun API keys, sign in to Mailjet and open [Account Security - API security](https://app.mailgun.com/app/account/security/api_keys). Mailgun requires that you specify a domain via Mailgun. If you're using a free version of Mailgun, a domain is created when you set up your account. To view your Mailgun domains, sign in to Mailgun and view the [Domains page](https://app.mailgun.com/app/sending/domains). For domains created in the US region, use `https://api.mailgun.net/v3`. For domains created in the EU region, use `https://api.eu.mailgun.net/v3`. Mailgun currently validates emails for the US region only.
+{{% note %}} To view your Mailgun API keys, sign in to Mailjet and open [Account Security - API security](https://app.mailgun.com/app/account/security/api_keys). Mailgun requires that you specify a domain via Mailgun. For domains created in the US region, use `https://api.mailgun.net/v3`. For domains created in the EU region, use `https://api.eu.mailgun.net/v3`. Mailgun currently validates emails for the US region only. If you're using a free version of Mailgun, a domain is created when you set up your account and you can set up a maximum of five authorized recipients. To view your Mailgun domains, sign in to Mailgun and view the [Domains page](https://app.mailgun.com/app/sending/domains). 
 {{% /note %}}
 
 ```js
@@ -209,15 +206,13 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
 	|> map(fn: (r) =>
-		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages", headers: {Authorization: "Basic api:<your-private-api-key"}, data: bytes(v: "{
-                from='Excited User <mailgun@YOUR_DOMAIN_NAME>' \
-                to=YOU@YOUR_DOMAIN_NAME \
-                to=bar@example.com \
-                subject='Hello' \
-                text='Testing some Mailgun awesomeness!’
-              
+		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages&from=YOU@YOUR_DOMAIN_NAME&to=AuthorizedRecipient@example.com&subject=InfluxData%20Critical%20Errors&text=Review%20trecent%20critical%20errors.", headers: {"Content-type": "application/x-www-form-urlencoded", Authorization: "Basic api:<your-private-api-key"}, data: bytes(v: "{  
+                        
                 }\""))} else {r with _value: 0}))
 ```
 
----->
+{{% /tab-content %}}
 
+{{< /tabs-wrapper >}}
+
+---
