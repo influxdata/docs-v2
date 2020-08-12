@@ -11,10 +11,21 @@ aliases:
 ---
 
 {{% note %}}
-The latest release of InfluxDB v2.0 beta includes **Flux v0.71.1**.
+The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.80.0 [2020-08-12]
+
+### Features
+- Add `nulls` parameter to `gen.tables()`.
+
+### Bug fixes
+- Revert the timeable constraint for integer.
+- Make socket/sql URL test robust.
+
+---
 
 ## v0.79.0 [2020-08-11]
 
