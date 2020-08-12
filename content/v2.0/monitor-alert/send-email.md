@@ -78,7 +78,7 @@ numberOfCrits = from(bucket: "_monitoring")
 numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 3 then {r with _value: http.post(url: "https://api.sendgrid.com/v3/mail/send",
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer ${SENDGRID_APIKEY}",
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer ${SENDGRID_APIKEY}", 
         data: bytes(v: "{
           \"personalizations\": [{
             \"to\": [{
@@ -122,7 +122,8 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
 	|> map(fn: (r) =>
-		(if r._value > 3 then {r with _value: http.post(url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails", headers: {"Content-Type": "application/json", "Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE,SignedHeaders=Datex-amz-date,Signature=9d63c3b5b7623d1fa3dc7fd1547313b9546c6d0fbbb6773a420613b7EXAMPLE"},
+		(if r._value > 3 then {r with _value: http.post(url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails", 
+        headers: {"Content-Type": "application/json", "Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE,SignedHeaders=Datex-amz-date,Signature=9d63c3b5b7623d1fa3dc7fd1547313b9546c6d0fbbb6773a420613b7EXAMPLE"},
         data: bytes(v: "{
           \"personalizations\": [{
             \"to\": [{
