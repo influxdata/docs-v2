@@ -30,12 +30,6 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ## v0.80.0 [2020-08-12]
 
-{{% warn %}}
-#### Breaking change
-`range()` and `date` package functions no longer support integer values
-(nanosecond Unix timestamps).
-{{% /warn %}}
-
 ### Features
 - Add `nulls` parameter to `gen.tables()`.
 
