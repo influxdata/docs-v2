@@ -14,17 +14,15 @@ Create, edit, and manage dashboards from the **Dashboards** tab in the left navi
 {{< children >}}
 
 ## View your dashboard ID
-Use the InfluxDB UI or `influx` CLI to view your organization ID.
+Use the InfluxDB UI or `influx` CLI to view your dashboard ID.
 
 ### Dashboard ID in the UI
 
-When viewing a dashboard in the InfluxDB UI, your organization ID appears in the URL.
-
+When viewing a dashboard in the InfluxDB UI, your dashboard ID appears in the URL.
 
 <pre class="highlight">
 http://localhost:9999/orgs/03a2bbf46249a000/dashboards/<span class="bp" style="font-weight:bold;margin:0 .15rem">04b6b15034cc000</span>/...
 </pre>
-
 
 ### Dashboard ID in the CLI
 Use [`influx dashboards`](/v2.0/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
