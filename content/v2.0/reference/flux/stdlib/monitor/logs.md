@@ -34,17 +34,19 @@ The earliest time to include in results.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to `now()`.
+Integers are nanosecond Unix timestamps.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 ### stop
 The latest time to include in results.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to `now()`.
+Integers are nanosecond Unix timestamps.
 Defaults to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 {{% note %}}
 Time values in Flux must be in [RFC3339 format](/v2.0/reference/flux/language/types#timestamp-format).
