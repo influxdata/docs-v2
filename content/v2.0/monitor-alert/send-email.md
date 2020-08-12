@@ -32,13 +32,13 @@ Send an alert email using a third party service, such as SendGrid, AWS Simple Em
     {{< nav-icon "tasks" >}}
 
 2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
-3. In the **Name** field, enter a descriptive name, for example, **Send alert email**, and then schedule how often to run the task, for example, every `10m`. For more detail, such as using cron syntax or including an offset, see [Task configuration options](/v2.0/process-data/task-options/).
+3. In the **Name** field, enter a descriptive name, for example, **Send alert email**, and then enter how often to run the task in the **Every** field, for example, `10m`. For more detail, such as using cron syntax or including an offset, see [Task configuration options](/v2.0/process-data/task-options/).
 
 4. In the right panel, enter the following detail in your **task script** (see [examples below](#examples)):
    - Import the [Flux HTTP package](/v2.0/reference/flux/stdlib/http/).
    - (Optional) Store your API key as a secret for reuse. First, import the [Flux InfluxDB Secrets package](/v2.0/reference/flux/stdlib/secrets/), and then [add your API key as a secret](/v2.0/security/secrets/manage-secrets/add/).
    - Specify the `_monitoring` bucket and `statuses` measurement. InfluxDB stores all [check](/v2.0/reference/glossary/#check) output data in this bucket and measurement.
-   - Set the time range to monitor; use the same interval that the task is scheduled to run.
+   - Set the time range to monitor; use the same interval that the task is scheduled to run. For example, `range (start: -task.every)`.
    - Set the `_level` to alert on, for example, `crit`, `warn`, `info`, or `ok`.
    - Use the `map()` function to evaluate the criteria to send an alert using `http.post()`.
    - Specify your email service `url` (endpoint), include applicable request `headers`, and verify your request `data` format follows the format specified for your email service.
