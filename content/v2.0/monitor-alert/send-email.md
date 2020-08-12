@@ -193,7 +193,6 @@ Mailgun requires that a domain be specified via Mailgun. A domain is automatical
 ```js
 import "http"
 
-
 // Import the Secrets package if you store your API key as a secret.
 // For detail on how to do this, see Step 4 above.
 import "influxdata/influxdb/secrets"
