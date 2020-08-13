@@ -94,7 +94,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/chronograf/latest/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/latest/guides/using-precreated-dashboards) and [exported dashboard](/chronograf/latest/administration/import-export-dashboards/#export-a-dashboard) (.dashboard) files.
 
 Default value: `/usr/share/chronograf/canned`
 
@@ -102,7 +102,7 @@ Environment variable: `$CANNED_PATH`
 
 #### `--resources-path=`
 
-Path to directory of canned dashboards, sources, Kapacitor connections, and organizations.
+Path to directory of sources (.src files), Kapacitor connections (.kap files), and organizations (.org files).
 
 Default value: `/usr/share/chronograf/resources`
 
