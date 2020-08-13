@@ -8,15 +8,9 @@
     {{ partial "header/google-analytics-head.html" }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    {{ if eq $product nil }}
-      <title>InfluxData Documentation</title>
-    {{ else if eq $currentVersion nil}}
-      <title>{{ (index .Site.Data.products $product).name }} Documentation</title>
-    {{ else if eq (len $productPathData) 2 }}
-      <title>{{ (index .Site.Data.products $product).name }} {{ $currentVersion }} Documentation</title>
-    {{ else }}
-      <title>{{ if .Params.seotitle }} {{ print .Params.seotitle " | " }} {{ else if .Title }} {{ print .Title  " | " }} {{ end }}{{ (index .Site.Data.products $product).name }} {{ if $currentVersion }}{{print $currentVersion " " }}{{ end }}Documentation</title>
-    {{ end }}
+
+    {{ partial "header/title" . }}
+
     <meta name="description" content="{{ if .Description }}{{ .Description | markdownify | plainify }}{{else}}{{ .Summary | markdownify | plainify }}{{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
