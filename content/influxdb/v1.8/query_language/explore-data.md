@@ -713,7 +713,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
 The order of the [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) is irrelevant.
 
 If the query includes a [`WHERE` clause](#the-where-clause) the `GROUP BY`
-clause must appear after the `WHERE` clause.
+clause must appear after the `WHERE` clause. 
 
 Other supported features: [Regular Expressions](#regular-expressions)
 
@@ -3140,6 +3140,16 @@ Use a subquery to apply a query as a condition in the enclosing query.
 Subqueries offer functionality similar to nested functions and SQL
 [`HAVING` clauses](https://en.wikipedia.org/wiki/Having_%28SQL%29).
 
+{{% warn %}}
+Subqueries **do not support** WHERE or OFFSET. Include **WHERE or OFFSET outside a subquery**. For example:
+
+```sh
+SELECT process, addCount
+FROM (SELECT_statement) [subqueries]
+WHERE time > '2020-04-01T00:00:00Z' AND time <= '2020-04-15T23:23:59Z'
+```
+{{% /warn %}}
+
 ### Syntax
 
 ```sql
@@ -3324,3 +3334,13 @@ SELECT_clause FROM (SELECT_statement; SELECT_statement) [...]
 ```
 
 The system returns a parsing error if a subquery includes multiple `SELECT` statements.
+
+#### WHERE or OFFSET clause in a subquery
+
+Including the WHERE or OFFSET clause in a subquery can return incorrect results.
+InfluxQL supports the WHERE and OFFSET in main queries only. For example:
+
+```sh
+SELECT_clause FROM (SELECT_statement) [subqueries...]
+WHERE time > '2020-04-01T00:00:00Z' AND time <= '2020-04-15T23:23:59Z'
+```
