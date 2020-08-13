@@ -973,6 +973,10 @@ ID  Database             Retention Policy  Desired Replicas  Shard Group  Start 
 
 ### `update-data`
 
+{{% note %}}
+We do **not** recommend using this command on data nodes with more than ≈20 GB on disk.
+{{% /note %}}
+
 Updates a data node's address in the [meta store](/enterprise_influxdb/v1.8/concepts/glossary/#meta-service).
 
 #### Syntax
