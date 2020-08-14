@@ -15,7 +15,9 @@ Create, edit, and manage dashboards from the **Dashboards** tab in the left navi
 
 {{< children >}}
 
+
 ## View your dashboard ID
+
 Use the InfluxDB UI or `influx` CLI to view your dashboard ID.
 
 ### Dashboard ID in the UI
@@ -31,7 +33,6 @@ Use [`influx dashboards`](/v2.0/reference/cli/influx/dashboards/) to view a list
 
 ```sh
 > influx dashboards
-
 ID                  Name
 03a2bbf46249a000    dashboard-1
 03ace3a859669000    dashboard-2
