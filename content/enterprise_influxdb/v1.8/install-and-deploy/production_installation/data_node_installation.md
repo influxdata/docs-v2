@@ -89,8 +89,7 @@ servers are resolvable. Here is an example set of shell commands using `ping`:
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
-A healthy cluster requires that every meta node can communicate with every other
-meta node.
+A healthy cluster requires that every meta node and data node in a cluster be able to communicate.
 
 ## Step 2: Set up, configure, and start the data node services
 
