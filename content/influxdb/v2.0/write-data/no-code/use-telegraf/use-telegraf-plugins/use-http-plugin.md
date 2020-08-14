@@ -25,7 +25,7 @@ To retrieve data from the Citi Bike URL endpoint, enable the `inputs.http` input
 Specify the following options:
 
 ### `urls`
-One or more URLs to read metrics from. For this example,  use `https://feeds.citibikenyc.com/stations/stations.json`.
+One or more URLs to read metrics from. For this example,  use `https://gbfs.citibikenyc.com/gbfs/en/station_status.json`.
 
 ### `data_format`
 The format of the data in the HTTP endpoints that Telegraf will ingest. For this example, use JSON.
