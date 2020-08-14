@@ -45,7 +45,7 @@ influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
 influx stack init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
 ```
 
-### Initialize a stack with a name and urls to associate with the stack
+### Initialize a stack with a name and URLs to associate with the stack
 
 ```sh
 # Use environment variables
