@@ -16,7 +16,8 @@ There are multiple variable types that provide different means of populating you
 _For information about variable types, see [Variable types](/v2.0/visualize-data/variables/variable-types/)._
 
 {{% note %}}
-##### Reserved keywords
+##### Variable name restrictions
+Variable names must begin with a letter or underscore (`_`).
 
 The following names cannot be used as dashboard variables because they are reserved keywords in Flux:
 `and`, `import`, `not`, `return`, `option`, `test`, `empty`, `in`, `or`, `package`, and `builtin`.
