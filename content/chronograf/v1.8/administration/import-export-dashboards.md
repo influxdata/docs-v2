@@ -1,6 +1,6 @@
 ---
-title: Importing and exporting Chronograf dashboards
-description: A step-by-step guide that walks through both exporting and importing Chrongraf dashboards.
+title: Import and export Chronograf dashboards
+description: Import and export Chronograf dashboards.
 menu:
   chronograf_1_8:
     weight: 120

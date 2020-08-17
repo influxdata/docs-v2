@@ -1,9 +1,9 @@
 ---
-title: Creating InfluxDB and Kapacitor connections
-description: Creating and managing InfluxDB and Kapacitor connections for use with Chronograf.
+title: Create InfluxDB and Kapacitor connections
+description: Create and manage InfluxDB and Kapacitor connections for use with Chronograf.
 menu:
   chronograf_1_8:
-    name: Creating InfluxDB and Kapacitor connections
+    name: Create InfluxDB and Kapacitor connections
     weight: 50
     parent: Administration
 ---

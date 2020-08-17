@@ -1,9 +1,9 @@
 ---
-title: Managing Chronograf users
-description: Managing Chronograf users and roles, SuperAdmin status, and InfluxDB and Kapacitor users.
+title: Manage Chronograf users
+description: Manage users and roles in Chronograf.
 menu:
   chronograf_1_8:
-    name: Managing Chronograf users
+    name: Manage Chronograf users
     weight: 90
     parent: Administration
 ---

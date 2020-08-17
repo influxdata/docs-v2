@@ -1,14 +1,12 @@
 ---
-title: Upgrading Chronograf
-description: Covers upgrading Chronograf to the latest version.
+title: Upgrade Chronograf
+description: Upgrade to the latest version of Chronograf.
 menu:
   chronograf_1_8:
-    name: Upgrading
+    name: Upgrade
     weight: 10
     parent: Administration
 ---
-
-## Upgrading to Chronograf 1.8
 
 If you're upgrading from Chronograf 1.3.x, first install 1.7.x, and then install 1.8.
 

@@ -1,6 +1,6 @@
 ---
-title: Restoring a Chronograf database
-description: 'An outline of the process required to roll the Chronoraf internal database back to a previous version and/or rerun update migrations.'
+title: Restore a Chronograf database
+description: If you're rolling back to a previous version of Chronograf, restore your internal database.  
 menu:
   chronograf_1_8:
     weight: 110
