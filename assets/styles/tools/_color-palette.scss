@@ -142,3 +142,7 @@ $grad-ScotchBonnet:       $y-pineapple,$r-curacao;
 // New gradients
 $grad-PurpleFog:          $p-potassium, $cp-munchkin;
 $grad-PurpleRain:         $p-void, $cp-marguerite;
+
+// Transparent gradients
+$grad-purpleFade:         $br-pulsar, rgba($br-pulsar, 0);
+$grad-blueFade:           $b-ocean, rgba($b-ocean, 0);

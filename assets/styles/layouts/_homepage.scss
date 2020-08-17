@@ -1,0 +1,132 @@
+///  Styles for the placeholder homepage only viewalbe with running locally ///
+.home {
+  display: flex;
+  flex-direction: column;
+
+  h2 {font-weight: $medium;}
+
+  .section {
+    display: flex;
+
+    &.row{
+      flex-direction: row;
+    }
+
+    .card {
+      padding: 1.5rem;
+    }
+
+    .half { width: 50%; }
+    .third { width: 33.33%; }
+    .two-thirds { width: 66.67%; }
+
+    span.version {
+      font-size: 1.15rem;
+      opacity: .65;
+    }
+  }
+
+  ///////////////////////////// HERO SECTION STYLES ////////////////////////////
+
+  .hero {
+    position: relative;
+    padding: 3.5rem 3rem 4.5rem;
+    @include gradient($grad-WarpSpeed)
+    color: $g20-white;
+    z-index: 0;
+    // overflow: hidden;
+
+    h2 {
+      margin: 1.5rem 0 .5rem;
+      font-weight: 300;
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.85rem;
+    }
+
+    #hero-img {
+      position: absolute;
+      max-width: 50%;
+      max-height: 135%;
+      bottom: -25%;
+      right: 0;
+    }
+
+    a.btn {
+      position: relative;
+      display: inline-block;
+      margin: .5rem .25rem .5rem 0;
+      padding: 1rem 2rem;
+      color: $article-btn-text !important;
+      border-radius: $radius;
+      font-weight: $medium;
+      text-decoration: none;
+      text-align: center;
+      z-index: 1;
+      @include gradient($article-btn-gradient);
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $radius;
+        @include gradient($article-btn-gradient-hover);
+        opacity: 0;
+        transition: opacity .2s;
+        z-index: -1;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  //////////////////////////// SEARCH SECTION STYLES ///////////////////////////
+  .search {
+    padding: 2rem 3rem;
+
+    .sidebar--search {
+      max-width: 55%;
+      font-size: 1.1rem;
+
+      input {
+        padding: .75em 2.35rem .75rem 1rem
+      }
+
+      &:after {
+        font-size: 2rem;
+        top: .35rem;
+        right: .45rem;
+      }
+      .algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu {
+        top: auto !important;
+        left: auto !important;
+        margin-bottom: 1.5rem;
+
+        &:after {
+          content: "";
+          box-shadow: 2px 2px 10px $sidebar-search-shadow;
+          height: 100%;
+          width: 100%;
+          mix-blend-mode: multiply;
+        }
+      }
+    }
+  }
+
+  .telegraf {@include gradient($telegraf-dropdown-gradient); color: $g20-white;}
+  .influxdb {@include gradient($default-dropdown-gradient); color: $g20-white;}
+  .chronograf {@include gradient($chronograf-dropdown-gradient); color: $g20-white;}
+  .kapacitor {@include gradient($kapacitor-dropdown-gradient); color: $g20-white;}
+}
