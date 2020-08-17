@@ -1,6 +1,6 @@
 ---
 title: Administering Chronograf
-description: Learn about Chronograf administration, including configuration, InfluxDB Enterprise clusters, Kapacitor and InfluxDB connections, user and organization management, security, and upgrading.
+description: Learn how to administer Chronograf.
 menu:
   chronograf_1_8:
     name: Administration

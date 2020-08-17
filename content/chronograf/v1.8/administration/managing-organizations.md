@@ -1,9 +1,9 @@
 ---
-title: Managing Chronograf organizations
-description: "Managing multiple organizations or groups: creating, configuring, mapping, and removing organizations."
+title: Manage Chronograf organizations
+description: Manage organizations in Chronograf.
 menu:
   chronograf_1_8:
-    name: Managing Chronograf organizations
+    name: Manage Chronograf organizations
     weight: 80
     parent: Administration
 ---
@@ -20,7 +20,7 @@ menu:
 
 ## About Chronograf organizations
 
-> ***Note:*** Support for organizations and user roles is available in Chronograf 1.4 or later. 
+> ***Note:*** Support for organizations and user roles is available in Chronograf 1.4 or later.
 First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).
 For more information, see [managing security](/chronograf/v1.8/administration/managing-security/).
 

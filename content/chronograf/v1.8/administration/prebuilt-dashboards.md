@@ -1,6 +1,6 @@
 ---
 title: Prebuilt dashboards in Chronograf
-description: Prebuilt dashboards available to import based on Telegraf input plugins.
+description: Import prebuilt dashboards into Chronograf based on Telegraf plugins.
 menu:
   chronograf_1_8:
     name: Prebuilt dashboards in Chronograf

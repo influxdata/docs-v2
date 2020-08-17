@@ -1,11 +1,11 @@
 ---
-title: Managing InfluxDB users in Chronograf
-description: Using Chronograf to enable authentication and manage InfluxDB OSS and InfluxDB Enterprise users.
+title: Manage InfluxDB users in Chronograf
+description: Enable authentication and manage InfluxDB OSS and InfluxDB Enterprise users in Chronograf.
 aliases:
   - /chronograf/v1.8/administration/user-management/
 menu:
   chronograf_1_8:
-    name: Managing InfluxDB users
+    name: Manage InfluxDB users
     weight: 60
     parent: Administration
 ---
