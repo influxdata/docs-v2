@@ -63,7 +63,7 @@ setting in the meta node configuration file.
 
 #### User account
 
-The installation package creates user `influxdb` that is used to run the influxdb meta service.  `influxdb` user also owns  certain files that are needed for the service to start successfully.  In some cases, local policies may prevent the local user account from being created and the service fails to start.  Contact your systems administrator for assistance with this requirement.
+The installation package creates an `influxdb` user used to run the influxdb meta service. The `influxdb` user also owns certain files needed to start the service. In some cases, local policies may prevent the local user account from being created and the service fails to start. Contact your systems administrator for assistance with this requirement.
 
 <br>
 # Meta node setup
