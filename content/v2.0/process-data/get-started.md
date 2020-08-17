@@ -22,7 +22,7 @@ data and stores it in a new bucket.
 
 ## Components of a task
 Every InfluxDB task needs the following four components.
-Their form and order can vary, but the are all essential parts of a task.
+Their form and order can vary, but they are all essential parts of a task.
 
 - [Task options](#define-task-options)
 - [A data source](#define-a-data-source)
