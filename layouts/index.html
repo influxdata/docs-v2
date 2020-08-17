@@ -1,14 +1,81 @@
-{{ partial "header.html" . }}
+{{ $influxdbVersionV2 := .Site.Data.products.influxdb.latest }}
+{{ $influxdbVersionV1 := (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
+{{ $enterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
+{{ $telegrafVersion := .Site.Data.products.telegraf.latest }}
+{{ $chronografVersion := .Site.Data.products.chronograf.latest }}
+{{ $kapacitorVersion := .Site.Data.products.kapacitor.latest }}
 
-<div class="home-placeholder">
-  <p class="welcome">
-    Welcome to the InfluxDB v2.x documentation
-  </p>
-  <p>
-    This page is never actually shown on the live docs since visiting the docs domain will redirect to the latest stable version.
-    Select your desired version from the dropdown above or go straight to the
-    <a href="/influxdb/{{ $.Site.Data.products.influxdb.latest }}">latest stable version</a>.
-  </p>
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+<div class="home">
+  <div class="section hero">
+
+    {{ partial "svgs/homepage-hero.svg" }}
+
+    <div class="half">
+      <h2>InfluxDB Cloud & <br />InfluxDB {{ $influxdbVersionV2 }} OSS</h2>
+      <p>
+        The most powerful time series database designed to handle high write and query loads.
+        Run in the cloud with <strong>InfluxDB Cloud</strong> or on your own hardware with <strong>InfluxDB {{ $influxdbVersionV2 }} OSS</strong>.
+      </p>
+      <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}">View InfluxDB {{ $influxdbVersionV2 }} Documentation</a>
+    </div>
+  </div>
+  <div class="section search">
+    <div class="sidebar--search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search the docs'>
+    </div>
+  </div>
+  <div class="section row">
+
+    <div class="card">
+      <h2>InfluxData Platform</h2>
+      <p>Some marketing description about the TICK Stack</p>
+      <a href="/platform/">Learn more about the platform</a>
+    </div>
+    <div class="card telegraf">
+      <h2>Telegraf <span class="version">{{ $telegrafVersion }}</span></h2>
+      <p>Open source server agent to collect metrics from stacks, sensors and systems.</p>
+      <a href="/telegraf/{{ $telegrafVersion }}/"></a>
+    </div>
+    <div class="card influxdb">
+      <h2>InfluxDB <span class="version">{{ $influxdbVersionV1 }}</span></h2>
+      <p>The time series database designed to handle high write and query loads.</p>
+      <a href="/influxdb/{{ $influxdbVersionV1 }}/"></a>
+    </div>
+    <div class="card chronograf">
+      <h2>Chronograf <span class="version">{{ $chronografVersion }}</span></h2>
+      <p>The administrative user interface and visualization engine for InfluxDB.</p>
+      <a href="/chronograf/{{ $chronografVersion }}/"></a>
+    </div>
+    <div class="card kapacitor">
+      <h2>Kapacitor <span class="version">{{ $kapacitorVersion }}</span></h2>
+      <p>Process and alert on stream and batch data from InfluxDB.</p>
+      <a href="/kapacitor/{{ $kapacitorVersion }}/"></a>
+    </div>
+  </div>
+
+  <div class="section row">
+    <div class="card">
+      <h2>InfluxData Enterprise offerings</h2>
+      <p>Some marketing description about Enterprise</p>
+    </div>
+    <div class="card influxdb">
+      <h2>InfluxDB Enterprise <span class="version">{{ $enterpriseVersion }}</span></h2>
+      <p>A production-ready InfluxDB cluster that can run anywhere.</p>
+      <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/"></a>
+    </div>
+  <div>
 </div>
 
 {{ partial "footer.html" . }}
