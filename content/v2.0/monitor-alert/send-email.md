@@ -128,18 +128,22 @@ numberOfCrits
       r with _value: http.post(url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
       headers: {"Content-Type": "application/json", Authorization: "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"},
         data: bytes(v: "{
-          \"personalizations\": [{
+          \"personalizations\": [
+            {
             \"to\": [{
             \"email\": \”jane.doe@example.com\"}],
             \"subject\": \”InfluxData critical alert\"
             }],
             \"from\": {\"email\": \"john.doe@example.com\"},
-            \"content\": [{
+            \"content\": [
+              {
               \"type\": \"text/plain\",
               \"value\": \”Example alert text\"
             }]
         }\""))} else {r with _value: 0}))
 ```
+
+For details on the =request syntax, see [SendEmail API v2 reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html).
 
 {{% /tab-content %}}
 
