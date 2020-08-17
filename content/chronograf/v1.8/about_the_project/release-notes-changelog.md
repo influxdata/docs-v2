@@ -1,6 +1,6 @@
 ---
 title: Chronograf 1.8 release notes
-description: Features, breaking features, user interface improvements, and bug fixes for the latest and earlier Chronograf releases for the InfluxData time series platform.
+description: Important changes and and what's new in each version of Chronograf.
 menu:
   chronograf_1_8:
     name: Release notes

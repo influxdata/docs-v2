@@ -1,9 +1,9 @@
 ---
-title: Configuring Chronograf
-description: Configuration of Chronograf, including custom default settings, security, multiple users, and multiple organizations.
+title: Configure Chronograf
+description: Configure Chronograf, including security, multiple users, and multiple organizations.
 menu:
   chronograf_1_8:
-    name: Configuring
+    name: Configure
     weight: 20
     parent: Administration
 ---
@@ -20,7 +20,7 @@ Use one of the following commands to start Chronograf:
 
 - **If you installed Chronograf using an official Debian or RPM package and are running a distro with `systemd`. For example, Ubuntu 15 or later.**
 
-  ```sh 
+  ```sh
   systemctl start chronograf
   ```
 

@@ -1,8 +1,8 @@
 ---
-title: Contributing to Chronograf
+title: Contribute to Chronograf
 menu:
   chronograf_1_7:
-    name: Contributing
+    name: Contribute
     weight: 20
     parent: About the project
     url: https://github.com/influxdata/chronograf/blob/master/CONTRIBUTING.md

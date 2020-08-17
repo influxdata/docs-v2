@@ -1,6 +1,6 @@
 ---
 title: About the Chronograf project
-description: Chronograf is the UI component of the InfluxData time series platform. This section includes documentation about the Chronograf project, release notes and changelogs, what's new, contributing, and licenses.
+description: Learn about Chronograf, the UI component for InfluxDB.
 menu:
   chronograf_1_7:
     name: About the project
