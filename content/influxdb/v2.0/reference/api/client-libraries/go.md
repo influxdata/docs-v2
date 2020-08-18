@@ -29,7 +29,7 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
     # Build the package
     go build
     ```
-3. Ensure that InfluxDB is running and you can connect to it.
+3. Ensure that InfluxDB is running **and you can connect to it**.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/v2.0/reference/urls/).
 
 ## Boilerplate for the InfluxDB Go Client Library  
