@@ -61,7 +61,7 @@ We are going to write some data in [line protocol](/v2.0/reference/syntax/line-p
       org=org
    )
    ```
-  The `InfluxDBClient` object has a `write_api` method used for configuration.
+    The `InfluxDBClient` object has a `write_api` method used for configuration.
   
 4. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
 
