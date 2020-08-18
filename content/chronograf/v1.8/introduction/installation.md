@@ -1,8 +1,9 @@
 ---
-title: Installing Chronograf
+title: Install Chronograf
+description: Download and install Chronograf.
 menu:
   chronograf_1_8:
-    name: Installing
+    name: Install
     weight: 20
     parent: Introduction
 ---
