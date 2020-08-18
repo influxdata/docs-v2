@@ -1,9 +1,9 @@
 ---
-title: Using annotations in Chronograf views
-description: Annotations provide contextual information by adding explanatory notes or comments to Chronograf graph views and charts in the user interface and dashboards.
+title: Use annotations in Chronograf views
+description: Add contextual information to Chronograf dashboards with annotations.
 menu:
   chronograf_1_8:
-    name: Using annotations
+    name: Use annotations
     weight: 50
     parent: Guides
 ---

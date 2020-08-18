@@ -1,9 +1,9 @@
 ---
-title: Creating Chronograf dashboards
-description: This tutorial guides you quickly through the essential steps required to create custom Chronograf dashboards for use with InfluxDB and the InfluxData Platform.
+title: Create Chronograf dashboards
+description: Create custom Chronograf dashboards to visualize your data.
 menu:
   chronograf_1_8:
-    name: Creating dashboards
+    name: Create dashboards
     weight: 30
     parent: Guides
 ---
