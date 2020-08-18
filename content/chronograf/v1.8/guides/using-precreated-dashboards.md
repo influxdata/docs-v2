@@ -1,9 +1,9 @@
 ---
-title: Using pre-created dashboards in Chronograf
-description: Preconfigured dashboards can quickly be used to display metrics for popular applications, including Apache, Consul, Docker, Elasticsearch, InfluxDB, Mesos, MySQL, NGINX, PostgreSQL, RabbitMQ, Redis, and more
+title: Use pre-created dashboards in Chronograf
+description: Use preconfigured dashboards in Chronograf to display metrics for popular third-party applications.
 menu:
   chronograf_1_8:
-    name: Using pre-created dashboards
+    name: Use pre-created dashboards
     weight: 10
     parent: Guides
 ---

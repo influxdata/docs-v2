@@ -1,6 +1,6 @@
 ---
-title: Creating a live leaderboard for game scores
-description: Tutorial on using Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
+title: Create a live leaderboard for game scores
+description: This examples uses Chronograf to build a leaderboard for gamers to be able to see player scores in realtime.
 menu:
   chronograf_1_8:
     name: Live leaderboard of game scores

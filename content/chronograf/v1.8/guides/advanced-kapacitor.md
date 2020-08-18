@@ -1,6 +1,6 @@
 ---
 title: Advanced Kapacitor usage
-description: Learn how Kapacitor can be used with Chronograf for alert history and TICKscript management.
+description: Use Kapacitor with Chronograf for alert history and TICKscript management.
 menu:
   chronograf_1_8:
     weight: 100
