@@ -26,7 +26,7 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Easiest way to get started 
 1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo. 
-2. Navigate to `examples` directory and install dependencies. 
+2. Navigate to the `examples` directory and install dependencies. 
 
     {{< code-tabs-wrapper >}}
     {{% code-tabs %}}
@@ -59,7 +59,7 @@ yarn install
     npm run browser
     ```
 
-## Boilerplate for the InfluxDB Javascript Client Library  
+## Boilerplate for the InfluxDB Javascript client library  
 Use the Javascript library to write data to and query data from InfluxDB.
 
 To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
@@ -68,7 +68,7 @@ To write a data point to InfluxDB using the JavaScript library, import the lates
 import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
 ```
 
-Next, define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which  relies on a proxy to forward requests to the target InfluxDB instance. 
+Next, define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance. 
 
 
 ```js
@@ -78,7 +78,7 @@ const org = 'example-org'
 const bucket = 'example-bucket'
 ```
 
-Instantiate the InfluxDB JavaScript Client and pass in the`proxy` and `token` parameters.
+Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
 
 ```js
 const InfluxDB = new InfluxDB({proxy, token})
@@ -168,7 +168,7 @@ queryApi.queryRows(fluxQuery, {
     const o = tableMeta.toObject(row)
     // console.log(JSON.stringify(o, null, 2))
     console.log(
-      `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
+      '${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
     )
   },
   error(error: Error) {
