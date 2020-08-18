@@ -9,10 +9,9 @@
 {{ partial "topnav.html" . }}
 
 <div class="home">
+
   <div class="section hero">
-
     {{ partial "svgs/homepage-hero.svg" }}
-
     <div class="half">
       <h2>InfluxDB Cloud & <br />InfluxDB {{ $influxdbVersionV2 }} OSS</h2>
       <p>
@@ -36,46 +35,55 @@
               placeholder='Search the docs'>
     </div>
   </div>
-  <div class="section row">
 
-    <div class="card">
-      <h2>InfluxData Platform</h2>
-      <p>Some marketing description about the TICK Stack</p>
-      <a href="/platform/">Learn more about the platform</a>
-    </div>
-    <div class="card telegraf">
-      <h2>Telegraf <span class="version">{{ $telegrafVersion }}</span></h2>
-      <p>Open source server agent to collect metrics from stacks, sensors and systems.</p>
-      <a href="/telegraf/{{ $telegrafVersion }}/"></a>
-    </div>
-    <div class="card influxdb">
-      <h2>InfluxDB <span class="version">{{ $influxdbVersionV1 }}</span></h2>
-      <p>The time series database designed to handle high write and query loads.</p>
-      <a href="/influxdb/{{ $influxdbVersionV1 }}/"></a>
-    </div>
-    <div class="card chronograf">
-      <h2>Chronograf <span class="version">{{ $chronografVersion }}</span></h2>
-      <p>The administrative user interface and visualization engine for InfluxDB.</p>
-      <a href="/chronograf/{{ $chronografVersion }}/"></a>
-    </div>
-    <div class="card kapacitor">
-      <h2>Kapacitor <span class="version">{{ $kapacitorVersion }}</span></h2>
-      <p>Process and alert on stream and batch data from InfluxDB.</p>
-      <a href="/kapacitor/{{ $kapacitorVersion }}/"></a>
+  <div id="tick-stack" class="section row">
+    <div class="group-wrapper">
+      <div id="platform" class="card quarter">
+        <h2><a href="/platform/">InfluxData TICK Stack</a></h2>
+        <p>The leading modern time series platform, built for metrics and events.</p>
+        <p><a href="/platform/">Learn more about the platform</a></p>
+      </div>
+      <div id="tick-cards" class="three-quarters row">
+        <div class="card telegraf">
+          <h2><a href="/telegraf/{{ $telegrafVersion }}/">Telegraf <span class="version">{{ $telegrafVersion }}</span></a></h2>
+          <p>Collect metrics from stacks, sensors and systems.</p>
+          <p><a href="/telegraf/{{ $telegrafVersion }}/">Telegraf documentation</a></p>
+        </div>
+        <div class="card influxdb">
+          <h2><a href="/influxdb/{{ $influxdbVersionV1 }}/">InfluxDB <span class="version">{{ $influxdbVersionV1 }}</span></a></h2>
+          <p>Write and query time series data.</p>
+          <p><a href="/influxdb/{{ $influxdbVersionV1 }}/">InfluxDB  documentation</a></p>
+        </div>
+        <div class="card chronograf">
+          <h2><a href="/chronograf/{{ $chronografVersion }}/">Chronograf <span class="version">{{ $chronografVersion }}</span></a></h2>
+          <p>Visualize and manage time series data.</p>
+          <p><a href="/chronograf/{{ $chronografVersion }}/">Chronograf documentation</a></p>
+        </div>
+        <div class="card kapacitor">
+          <h2><a href="/kapacitor/{{ $kapacitorVersion }}/">Kapacitor <span class="version">{{ $kapacitorVersion }}</span></a></h2>
+          <p>Process and alert on time series data.</p>
+          <p><a href="/kapacitor/{{ $kapacitorVersion }}/">Kapacitor documentation</a></p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="section row">
-    <div class="card">
-      <h2>InfluxData Enterprise offerings</h2>
-      <p>Some marketing description about Enterprise</p>
+  <div id="enterprise" class="section row">
+    <div class="group-wrapper">
+      <div class="card quarter">
+        <h2>Enterprise offerings</h2>
+        <p>Enterprise tools to meet your business needs.</p>
+        <p><a href="https://www.influxdata.com/contact-sales/">Contact Sales</a></p>
+      </div>
+      <div id="tick-cards" class="three-quarters row">
+        <div class="card influxdb">
+          <h2><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise <span class="version">{{ $enterpriseVersion }}</span></a></h2>
+          <p>A scalable InfluxDB cluster designed for heavy workloads. Run InfluxDB Enterprise on your own infrastructure — on-premise, private cloud, public cloud, or on the edge.</p>
+          <p><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise documentation</a></p>
+        </div>
+      </div>
     </div>
-    <div class="card influxdb">
-      <h2>InfluxDB Enterprise <span class="version">{{ $enterpriseVersion }}</span></h2>
-      <p>A production-ready InfluxDB cluster that can run anywhere.</p>
-      <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/"></a>
-    </div>
-  <div>
+  </div>
 </div>
 
 {{ partial "footer.html" . }}
