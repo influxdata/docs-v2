@@ -36,65 +36,67 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 Use the Go library to write and query data from InfluxDB.
 
-In your Go program, import the necessary packages and specify the entry point of your executable program.
+1. In your Go program, import the necessary packages and specify the entry point of your executable program.
 
-```go
-package main
+   ```go
+   package main
 
-import (
+   import (
 	"context"
 	"fmt"
 	"time"
 
 	influxdb2 "github.com/influxdata/influxdb-client-go"
-)
-```
+        )
+   ```
 
-Next, define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
+2. Define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
-```go
-bucket := "example-bucket"
-org := "example-org"
-token := "example-token"
-// Store the URL of your InfluxDB instance
-url := "http://localhost:9999"
-```
+   ```go
+   bucket := "example-bucket"
+   org := "example-org"
+   token := "example-token"
+   // Store the URL of your InfluxDB instance
+   url := "http://localhost:9999"
+   ```
 
-To write data, create the the InfluxDB Go Client and pass in the `url` and `token` parameters.
+3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
 
-```go
-client := influxdb2.NewClient(url, token)
-```
+   ```go
+   client := influxdb2.NewClient(url, token)
+   ```
 
-Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters. 
+4. Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters. 
 
-```go
-writeApi := client.WriteApiBlocking(org, bucket)
-```
+   ```go
+   writeApi := client.WriteApiBlocking(org, bucket)
+   ```
 
-To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
+5. To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
 
-```go
-queryApi := client.QueryApi(org)
-```
+   ```go
+   queryApi := client.QueryApi(org)
+   ```
 
 ## Write data to InfluxDB with Go
 
 Use the Go library to write data to InfluxDB.
 
-Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
-Close the client to flush all pending writes and finish. 
+1. Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 
-```go
-p := influxdb2.NewPoint("stat",
-  map[string]string{"unit": "temperature"},
-  map[string]interface{}{"avg": 24.5, "max": 45},
-  time.Now())
-writeApi.WritePoint(context.Background(), p)
-client.Close()
-```
+2. Close the client to flush all pending writes and finish. 
+
+   ```go
+   p := influxdb2.NewPoint("stat",
+     map[string]string{"unit": "temperature"},
+     map[string]interface{}{"avg": 24.5, "max": 45},
+     time.Now())
+   writeApi.WritePoint(context.Background(), p)
+   client.Close()
+   ```
 
 ### Complete example write script
+
 ```go
  func main() {
   bucket := "example-bucket"
@@ -120,15 +122,15 @@ client.Close()
 ## Query data from InfluxDB with Go
 Use the Go library to query data to InfluxDB.
 
-Create a Flux query and supply your `bucket` parameter. 
+1. Create a Flux query and supply your `bucket` parameter. 
 
-```js
-from(bucket:"<bucket>")
-|> range(start: -1h)
-|> filter(fn: (r) => r._measurement == "stat")
-```
+   ```js
+   from(bucket:"<bucket>")
+   |> range(start: -1h)
+   |> filter(fn: (r) => r._measurement == "stat")
+   ```
 
-The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
+   The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
 
 **The query client includes the following methods:**
 
@@ -166,7 +168,6 @@ The query client sends the Flux query to InfluxDB and returns the results as a F
 - `Measurement()`: Returns the measurement name of the record.
 - `Values()`: Returns a map of column values.
 - `ValueByKey(<your_tags>)`: Returns a value from the record for given column key.
-
 
 ### Complete example query script
 
