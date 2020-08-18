@@ -28,8 +28,8 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo. 
 2. Navigate to the `examples` directory and install dependencies. 
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
 [npm](#)
 [yarn](#)
     {{% /code-tabs %}}
@@ -62,48 +62,47 @@ yarn install
 ## Boilerplate for the InfluxDB Javascript client library  
 Use the Javascript library to write data to and query data from InfluxDB.
 
-To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
+1. To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
 
-```js
-import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
-```
+   ```js
+   import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
+   ```
 
-Next, define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance. 
+2. Define constants for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance. 
 
+   ```js
+   const proxy = '/influx' 
+   const token = 'example-token'
+   const org = 'example-org'
+   const bucket = 'example-bucket'
+   ```
 
-```js
-const proxy = '/influx' 
-const token = 'example-token'
-const org = 'example-org'
-const bucket = 'example-bucket'
-```
+3. Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
 
-Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
-
-```js
-const InfluxDB = new InfluxDB({proxy, token})
-```
+   ```js
+   const InfluxDB = new InfluxDB({proxy, token})
+   ```
 
 ## Write data to InfluxDB with JavaScript
 Use the Javascript library to write data to InfluxDB.
 
-Use the `getWriteApi` method of the InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
+1. Use the `getWriteApi` method of the InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
 
-```js
-const writeApi = InfluxDB.getWriteApi(org, bucket)
-```
+  ```js
+  const writeApi = InfluxDB.getWriteApi(org, bucket)
+  ```
 
-The `useDefaultTags` method instructs the write api to use default tags when writing points. Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint` method. The `tag` and `floatField` methods add key value pairs for the tags and fields, respectively.  Close the client to flush all pending writes and finish. 
+   The `useDefaultTags` method instructs the write api to use default tags when writing points. Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint` method. The `tag` and `floatField` methods add key value pairs for the tags and fields, respectively.  Close the client to flush all pending writes and finish. 
 
-```js
-writeApi.useDefaultTags({location: 'browser'})
-const point1 = new Point('temperature')
+   ```js
+   writeApi.useDefaultTags({location: 'browser'})
+   const point1 = new Point('temperature')
           .tag('example', 'index.html')
           .floatField('value', 24)
         writeApi.writePoint(point1)
         console.log(`${point1}`)
-writeApi.close()
-```
+   writeApi.close()
+   ```
 
 ### Complete example write script
 
@@ -128,35 +127,36 @@ writeApi
 ## Query data from InfluxDB with JavaScript
 Use the Javascript library to query data from InfluxDB.
 
-Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`. 
+1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`. 
 
-```js
-const queryApi = influxDB.getQueryApi(org)
-```
+   ```js
+   const queryApi = influxDB.getQueryApi(org)
+   ```
 
-Create a Flux query (including your `bucket` parameter).
+2. Create a Flux query (including your `bucket` parameter).
 
-```js
-const fluxQuery =
-  'from(bucket:"<my-bucket>") 
-  |> range(start: 0) 
-  |> filter(fn: (r) => r._measurement == "temperature")'
-```
+   ```js
+   const fluxQuery =
+     'from(bucket:"<my-bucket>") 
+     |> range(start: 0) 
+     |> filter(fn: (r) => r._measurement == "temperature")'
+   ```
 
-The **query client** sends the Flux query to InfluxDB and returns line table metadata and rows.
-Use the `next` method to iterate over the rows.
+   The **query client** sends the Flux query to InfluxDB and returns line table metadata and rows.
 
-```js
-queryApi.queryRows(fluxQuery, {
-  next(row: string[], tableMeta: FluxTableMetaData) {
-    const o = tableMeta.toObject(row)
-    // console.log(JSON.stringify(o, null, 2))
-    console.log(
-      `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
-    )
-  }
-}
-```
+3. Use the `next` method to iterate over the rows.
+
+   ```js
+   queryApi.queryRows(fluxQuery, {
+     next(row: string[], tableMeta: FluxTableMetaData) {
+       const o = tableMeta.toObject(row)
+       // console.log(JSON.stringify(o, null, 2))
+       console.log(
+         `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
+       )
+     }
+   }
+   ```
 
 ### Complete example query script
 
