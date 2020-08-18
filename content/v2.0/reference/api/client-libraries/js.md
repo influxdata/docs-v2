@@ -28,26 +28,26 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo. 
 2. Navigate to the `examples` directory and install dependencies. 
 
-    {{< code-tabs-wrapper >}}
-    {{% code-tabs %}}
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
 [npm](#)
 [yarn](#)
     {{% /code-tabs %}}
     {{% code-tab-content %}}
     ```sh
-# Navigate into examples directory
+### Navigate into examples directory
 cd examples 
 
-# Install dependencies
+### Install dependencies
 npm install
     ```
     {{% /code-tab-content %}}
     {{% code-tab-content %}}
     ```sh
-# Navigate into examples directory
+### Navigate into examples directory
 cd examples 
 
-# Install dependencies
+### Install dependencies
 yarn install
     ```
     {{% /code-tab-content %}}
