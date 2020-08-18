@@ -143,8 +143,8 @@ const fluxQuery =
   |> filter(fn: (r) => r._measurement == "temperature")'
 ```
 
-The query client performs the api and returns line table metadata and rows.
-The `next` method iterates over the rows. 
+The **query client** sends the Flux query to InfluxDB and returns line table metadata and rows.
+Use the `next` method to iterate over the rows.
 
 ```js
 queryApi.queryRows(fluxQuery, {
