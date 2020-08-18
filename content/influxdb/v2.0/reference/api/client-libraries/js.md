@@ -26,32 +26,18 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Easiest way to get started 
 1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo. 
-2. Navigate to the `examples` directory and install dependencies. 
+2. Navigate to the `examples` directory:
 
-   {{< code-tabs-wrapper >}}
-   {{% code-tabs %}}
-[npm](#)
-[yarn](#)
-    {{% /code-tabs %}}
-    {{% code-tab-content %}}
-    ```sh
-### Navigate into examples directory
-cd examples 
+  ```js
+    cd examples
+  ```
+3. Install `yarn` or `npm` dependencies as needed:
 
-### Install dependencies
-npm install
-    ```
-    {{% /code-tab-content %}}
-    {{% code-tab-content %}}
-    ```sh
-### Navigate into examples directory
-cd examples 
+```js
+   yarn install
+   npm install
+```
 
-### Install dependencies
-yarn install
-    ```
-    {{% /code-tab-content %}}
-    {{< /code-tabs-wrapper >}}
 3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), [token](/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB. 
 4. Run the following command to run the application at [http://localhost:3001/examples/index.html]()
 
