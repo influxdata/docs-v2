@@ -117,7 +117,7 @@ write_api.write(bucket=bucket, org=org, record=p)
    |> filter(fn:(r) => r._field == "temperature" )‘
    ```
 
-  The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure. 
+    The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure. 
   
 3. Pass the `query()` method two named parameters:`org` and `query`.  
 
