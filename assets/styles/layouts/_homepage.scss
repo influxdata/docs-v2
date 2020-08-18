@@ -1,36 +1,33 @@
-///  Styles for the placeholder homepage only viewalbe with running locally ///
+//////////////////////////////// HOMEPAGE STYLES ///////////////////////////////
+
 .home {
   display: flex;
   flex-direction: column;
-
-  h2 {font-weight: $medium;}
+  align-items: flex-start;
 
   .section {
     display: flex;
+    width: 100%;
+    padding: 0rem 3rem;
+    flex-grow: 1;
 
-    &.row{
+    .row{
       flex-direction: row;
-    }
-
-    .card {
-      padding: 1.5rem;
     }
 
     .half { width: 50%; }
     .third { width: 33.33%; }
+    .quarter { width: 25%; }
     .two-thirds { width: 66.67%; }
-
-    span.version {
-      font-size: 1.15rem;
-      opacity: .65;
-    }
+    .three-quarters { width: 75%; }
   }
 
   ///////////////////////////// HERO SECTION STYLES ////////////////////////////
 
   .hero {
     position: relative;
-    padding: 3.5rem 3rem 4.5rem;
+    padding-top: 3.5rem;
+    padding-bottom: 4.5rem;
     @include gradient($grad-WarpSpeed)
     color: $g20-white;
     z-index: 0;
@@ -94,7 +91,8 @@
 
   //////////////////////////// SEARCH SECTION STYLES ///////////////////////////
   .search {
-    padding: 2rem 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2.25rem;
 
     .sidebar--search {
       max-width: 55%;
@@ -109,24 +107,203 @@
         top: .35rem;
         right: .45rem;
       }
-      .algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu {
-        top: auto !important;
-        left: auto !important;
-        margin-bottom: 1.5rem;
+      .algolia-autocomplete.algolia-autocomplete-left, .algolia-autocomplete.algolia-autocomplete-right {
+        .ds-dropdown-menu {
+          top: auto !important;
+          left: 0 !important;
+          margin-bottom: 1.5rem;
 
-        &:after {
-          content: "";
-          box-shadow: 2px 2px 10px $sidebar-search-shadow;
-          height: 100%;
-          width: 100%;
-          mix-blend-mode: multiply;
+          &:after {
+            content: "";
+            box-shadow: 2px 2px 10px $sidebar-search-shadow;
+            height: 100%;
+            width: 100%;
+            mix-blend-mode: multiply;
+          }
         }
       }
     }
   }
 
-  .telegraf {@include gradient($telegraf-dropdown-gradient); color: $g20-white;}
-  .influxdb {@include gradient($default-dropdown-gradient); color: $g20-white;}
-  .chronograf {@include gradient($chronograf-dropdown-gradient); color: $g20-white;}
-  .kapacitor {@include gradient($kapacitor-dropdown-gradient); color: $g20-white;}
+  /////////////////////////////// PRODUCT CARDS ////////////////////////////////
+
+  .group-wrapper {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    border-radius: $radius;
+    background-color: $sidebar-search-bg;
+    box-shadow: 2px 2px 10px $sidebar-search-shadow;
+    overflow: hidden;
+    color: $article-text;
+
+    h2 {
+      margin-top: .5rem;
+      font-weight: $medium;
+      color: $article-heading-alt;
+      a {color: inherit; &:hover{color: inherit;}}
+    }
+    p {
+      line-height: 1.45rem;
+      max-width: 700px;
+    }
+    a {
+      color: $article-link;
+      text-decoration: none;
+      font-weight: $medium;
+      &:hover{ color: $article-link-hover; }
+    }
+  }
+
+  .card {
+    padding: 1.5rem 1.5rem 1rem;
+    flex: 1 0;
+
+    span.version {
+      font-size: 1.15rem;
+      opacity: .65;
+    }
+  }
+
+  #tick-cards {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    color: $g20-white;
+    a {
+      display: inline-block;
+      position: relative;
+      color: $g20-white;
+      &:after{
+        content: "";
+        margin-top: .15rem;
+        width: 0;
+        display: block;
+        height: 2px;
+        @include gradient($grad-whiteFade)
+        transition: width .2s;
+      }
+      &:hover{
+        &:after { width: 100%; }
+      }
+    }
+  }
+
+  #platform {
+
+  }
+  .telegraf {@include gradient($telegraf-dropdown-gradient);}
+  .influxdb {@include gradient($default-dropdown-gradient);}
+  .chronograf {@include gradient($chronograf-dropdown-gradient);}
+  .kapacitor {@include gradient($kapacitor-dropdown-gradient);}
+
+  #enterprise {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  //////////////////////////// HOMEPAGE MEDIA QUERIES ////////////////////////////
+
+  @include media(large) {
+    overflow-x: hidden;
+    .hero #hero-img{
+      max-height: 130%;
+      max-width: 70%;
+      right: -20%;
+      bottom: -30%;
+    }
+  }
+
+  @media (max-width: 1020px) {
+    #tick-stack #tick-cards .card { width: 50%; flex: none;}
+    .section {
+      .quarter { width: 33.33%; }
+      .three-quarters { width: 66.64%; }
+    }
+  }
+
+  @media (max-width: 920px) {
+    .section {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      &.hero { padding-top: 2rem; padding-bottom: 3rem;}
+      &.search,
+      &#enterprise { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    }
+    .hero {
+      #hero-img{ display: none; }
+      .half { width: 100%; }
+    }
+    .search {
+      .sidebar--search { max-width: 100%; }
+    }
+  }
+
+  @include media(medium) {
+    .search .algolia-autocomplete.algolia-autocomplete-right, .algolia-autocomplete.algolia-autocomplete-right {
+      .ds-dropdown-menu {
+        width: 100%;
+      }
+    }
+  }
+
+  @include media(small) {
+    .section {
+
+      .quarter, .three-quarters { width: 100%; }
+
+      &.hero {
+        order: 2;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+        h2 { font-size: 2rem; margin-top: .5rem; }
+        p { font-size: 1rem; line-height: 1.5rem; }
+      }
+      &.search {
+        order: 1;
+        padding: 0 1rem .5rem;
+        width: 100%;
+
+        .sidebar--search {
+          max-width: 100%;
+          font-size: 1rem;
+
+          input {
+            padding: .5em 2.15rem .5rem .75rem
+          }
+
+          &:after {
+            top: .15rem;
+            right: .25rem;
+            font-size: 1.75rem;
+          }
+          .algolia-autocomplete.algolia-autocomplete-right, .algolia-autocomplete.algolia-autocomplete-right {
+            .ds-dropdown-menu {
+              width: 100vw;
+              left: -1rem !important;
+              right: inherit;
+            }
+          }
+        }
+      }
+      &#tick-stack {
+        order: 3;
+        padding-left: 0;
+        padding-right: 0;
+        #tick-cards {
+          flex-direction: column;
+          .card { width: 100%; }
+        }
+      }
+      &#enterprise { order: 4; padding-left: 0; padding-right: 0; }
+    }
+    .group-wrapper {flex-direction: column;}
+    .row {
+      flex-direction: column;
+    }
+    .card {
+
+    }
+  }
+
 }
