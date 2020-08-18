@@ -36,46 +36,46 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 We are going to write some data in [line protocol](/v2.0/reference/syntax/line-protocol/) using the Python library.
 
-In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
+1. In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
 
-```python
-import influxdb_client
-from influxdb_client.client.write_api import SYNCHRONOUS
-```
+  ```python
+  import influxdb_client
+  from influxdb_client.client.write_api import SYNCHRONOUS
+  ```
 
-Next, we define a few variables with the name of your [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
+2. Define a few variables with the name of your [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
 
-```python
-bucket = "<my-bucket>"
-org = "<my-org>"
-token = "<my-token>"
-# Store the URL of your InfluxDB instance
-url="http://localhost:9999"
-```
+  ```python
+  bucket = "<my-bucket>"
+  org = "<my-org>"
+  token = "<my-token>"
+  # Store the URL of your InfluxDB instance
+  url="http://localhost:9999"
+  ```
 
-Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
+3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
 
-```python
-client = InfluxDBClient(
-    url=url,
-    token=token,
-    org=org
-)
-```
-The `InfluxDBClient` object has a `write_api` method, used for configuration. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
+  ```python
+  client = InfluxDBClient(
+      url=url,
+      token=token,
+      org=org
+  )
+  ```
+  The `InfluxDBClient` object has a `write_api` method used for configuration.
+  
+4. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
 
-```python
-write_api = client.write_api(write_options=SYNCHRONOUS)
-```
+  ```python
+  write_api = client.write_api(write_options=SYNCHRONOUS)
+  ```
 
-We need two more lines for our program to write data.
-Create a [point](/v2.0/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object.
-The write method requires three parameters: `bucket`, `org`, and `record`.
+5. Create a [point](/v2.0/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
 
-```python
-p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
-write_api.write(bucket=bucket, org=org, record=p)
-```
+  ```python
+  p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
+  write_api.write(bucket=bucket, org=org, record=p)
+  ```
 
 ### Complete example write script
 
@@ -102,31 +102,33 @@ write_api.write(bucket=bucket, org=org, record=p)
 ```
 ## Query data from InfluxDB with Python
 
-To query data, instantiate the **query client**. 
+1. Instantiate the **query client**. 
 
-```python
-query_api = client.query_api()
-```
+  ```python
+  query_api = client.query_api()
+  ```
 
-Next, create a Flux query. 
+2. Create a Flux query. 
 
-```python
-query = ‘ from(bucket:"my-bucket")\
-|> range(start: -10m)\
-|> filter(fn:(r) => r._measurement == "my_measurement")\
-|> filter(fn: (r) => r.location == "Prague")\
-|> filter(fn:(r) => r._field == "temperature" )‘
-```
+  ```python
+  query = ‘ from(bucket:"my-bucket")\
+  |> range(start: -10m)\
+  |> filter(fn:(r) => r._measurement == "my_measurement")\
+  |> filter(fn: (r) => r.location == "Prague")\
+  |> filter(fn:(r) => r._field == "temperature" )‘
+  ```
 
-The query client sends the Flux query to InfluxDB and returns a Flux Object with a table structure. The `query()` method takes two named parameters:`org` and `query`.  
+  The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure. 
+  
+3. Pass the `query()` method two named parameters:`org` and `query`.  
 
-```python
-result = client.query_api().query(org=org, query=query)
-```
+  ```python
+  result = client.query_api().query(org=org, query=query)
+  ```
 
-Iterate through the tables and records in the Flux Object.
-Use the `get_value()` method to return values.
-Use the `get_field()` method to return fields.
+4. Iterate through the tables and records in the Flux object.
+   - Use the `get_value()` method to return values.
+   - Use the `get_field()` method to return fields.
 
 ```python
 results = []
@@ -138,7 +140,7 @@ print(results)
 [(temperature, 25.3)]
 ```
 
-**The Flux Object provides the following methods for accessing your data:**
+**The Flux object provides the following methods for accessing your data:**
 
 - `get_measurement()`: Returns the measurement name of the record.
 - `get_field()`: Returns the field name.
