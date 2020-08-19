@@ -60,7 +60,7 @@ Requires an `r` parameter.
 
 _**Data type:** Function_
 
-`mapFn` accepts a table row (`r`) and returns an record that must include the
+`mapFn` accepts a table row (`r`) and returns a record that must include the
 following field:
 
 - `content`
