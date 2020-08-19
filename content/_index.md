@@ -1,6 +1,6 @@
 ---
 # Meta information for the documentation homepage
-title: InfluxData Documentation
+title: InfluxData documentation
 description: >
  InfluxData provides the industry leading time series platform.
  Store, process, and alert on time series data with InfluxDB and InfluxDB Cloud.
