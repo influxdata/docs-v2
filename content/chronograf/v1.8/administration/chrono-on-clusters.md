@@ -1,6 +1,6 @@
 ---
 title: Connecting Chronograf to InfluxDB Enterprise clusters
-description: Connect Chronograf to InfluxDB Enterprise.
+description: Connect Chronograf to InfluxDB Enterprise clusters.
 menu:
   chronograf_1_8:
     name: Connecting Chronograf to InfluxDB Enterprise
