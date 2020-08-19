@@ -31,6 +31,6 @@ This is useful for series files that grow quickly, for example, when series are 
 
 4. **_(InfluxDB Enterprise only)_** On each data node:
     1. Complete steps 1-3.
-    2. Wait for the [hinted handoff queue (HHQ)](/enterprise_influxdb/latest/concepts/clustering/#hinted-handoff)
+    2. Wait for the [hinted handoff queue (HHQ)](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/#hinted-handoff)
        to write all missed data to the node.
     3. Continue to the next data node.

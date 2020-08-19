@@ -10,7 +10,7 @@ menu:
     parent: built-in-selectors
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#distinct, InfluxQL – DISTINCT()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
 ---
 
 The `distinct()` function returns the unique values for a given column.

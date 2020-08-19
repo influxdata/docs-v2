@@ -215,7 +215,7 @@ curl -XGET "http://localhost:8086/query?db=demodb" \
 
 ## Authenticate Telegraf requests to InfluxDB
 
-Authenticating [Telegraf](/telegraf/latest/) requests to an InfluxDB instance with
+Authenticating [Telegraf](/{{< latest "telegraf" >}}/) requests to an InfluxDB instance with
 authentication enabled requires some additional steps.
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), uncomment
 and edit the `username` and `password` settings.

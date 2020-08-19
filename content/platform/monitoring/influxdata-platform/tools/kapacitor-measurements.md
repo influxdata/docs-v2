@@ -92,8 +92,8 @@ Kapacitor exposes the following measurements and fields through the
 
 ### kapacitor
 The `kapacitor` measurement stores fields with information related to
-[Kapacitor tasks](/kapacitor/latest/introduction/getting-started/#kapacitor-tasks)
-and [subscriptions](/kapacitor/latest/administration/subscription-management/).
+[Kapacitor tasks](/{{< latest "kapacitor" >}}/introduction/getting-started/#kapacitor-tasks)
+and [subscriptions](/{{< latest "kapacitor" >}}/administration/subscription-management/).
 
 #### num_enabled_tasks
 The number of enabled Kapacitor tasks.
@@ -108,7 +108,7 @@ The total number of Kapacitor tasks.
 
 ### kapacitor_edges
 The `kapacitor_edges` measurement stores fields with information related to
-[edges](/kapacitor/latest/tick/introduction/#pipelines)
+[edges](/{{< latest "kapacitor" >}}/tick/introduction/#pipelines)
 in Kapacitor TICKscripts.
 
 #### collected
@@ -130,7 +130,7 @@ The number of points received by Kapacitor.
 
 ### kapacitor_load
 The `kapacitor_load` measurement stores fields with information related to the
-[Kapacitor Load Directory service](/kapacitor/latest/guides/load_directory/).
+[Kapacitor Load Directory service](/{{< latest "kapacitor" >}}/guides/load_directory/).
 
 #### errors
 The number of errors reported from the load directory service.
@@ -225,7 +225,7 @@ The total number of bytes allocated, even if freed.
 
 ### kapacitor_nodes
 The `kapacitor_nodes` measurement stores fields related to events that occur in
-[TICKscript nodes](/kapacitor/latest/nodes/).
+[TICKscript nodes](/{{< latest "kapacitor" >}}/nodes/).
 
 #### alerts_inhibited
 The total number of alerts inhibited by TICKscripts.
@@ -264,7 +264,7 @@ The number of errors that occurred when writing to InfluxDB or other write endpo
 
 ### kapacitor_topics
 The `kapacitor_topics` measurement stores fields related to
-[Kapacitor topics](/kapacitor/latest/working/using_alert_topics/).
+[Kapacitor topics](/{{< latest "kapacitor" >}}/working/using_alert_topics/).
 
 #### collected
 The number of events collected by Kapacitor topics.  

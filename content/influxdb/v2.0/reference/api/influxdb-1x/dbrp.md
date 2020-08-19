@@ -17,8 +17,8 @@ related:
   - /influxdb/v2.0/api/#tag/DBRPs, InfluxDB 2.0 API /dbrps endpoint
 ---
 
-The InfluxDB 1.x data model includes [databases](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#database)
-and [retention policies](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
+and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
 InfluxDB 2.0 replaces both with [buckets](/v2.0/reference/glossary/#bucket).
 To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.

@@ -292,7 +292,7 @@ Related entries: [database](/influxdb/v1.8/concepts/glossary/#database), [retent
 
 ## subscription
 
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
@@ -348,7 +348,7 @@ Related entries: [aggregation](/influxdb/v1.8/concepts/glossary/#aggregation), [
 
 ## TSM (Time Structured Merge tree)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.8/concepts/storage_engine/) for more.
+The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/influxdb/v1.8/concepts/storage_engine/) for more.
 
 ## user
 

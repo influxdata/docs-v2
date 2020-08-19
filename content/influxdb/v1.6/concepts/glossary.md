@@ -253,7 +253,7 @@ The interval spanned by each shard group is the shard duration.
 Related entries: [database](/influxdb/v1.6/concepts/glossary/#database), [retention policy](/influxdb/v1.6/concepts/glossary/#retention-policy-rp), [series](/influxdb/v1.6/concepts/glossary/#series), [shard](/influxdb/v1.6/concepts/glossary/#shard), [shard duration](/influxdb/v1.6/concepts/glossary/#shard-duration)
 
 ## subscription
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
@@ -302,7 +302,7 @@ See [InfluxQL Functions](/influxdb/v1.6/query_language/functions/#transformation
 Related entries: [aggregation](/influxdb/v1.6/concepts/glossary/#aggregation), [function](/influxdb/v1.6/concepts/glossary/#function), [selector](/influxdb/v1.6/concepts/glossary/#selector)
 
 ## tsm (Time Structured Merge tree)
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.6/concepts/storage_engine/) for more.
+The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/influxdb/v1.6/concepts/storage_engine/) for more.
 
 ## user
 There are two kinds of users in InfluxDB:

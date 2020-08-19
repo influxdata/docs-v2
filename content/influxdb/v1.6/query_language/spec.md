@@ -424,7 +424,7 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHAR
 
 ### CREATE SUBSCRIPTION
 
-Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/kapacitor/latest/introduction/).
+Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/{{< latest "kapacitor" >}}/introduction/).
 
 ```
 create_subscription_stmt = "CREATE SUBSCRIPTION" subscription_name "ON" db_name "." retention_policy "DESTINATIONS" ("ANY"|"ALL") host { "," host} .

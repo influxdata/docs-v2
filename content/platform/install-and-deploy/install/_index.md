@@ -17,9 +17,9 @@ Install and configure the InfluxData platform (TICK stack) using one of the foll
   - [Install the open source version of InfluxData 1.x platform](/platform/install-and-deploy/install/oss-install)
   - Install InfluxData 1.x Enterprise:
 
-        a. [Install Telegraf](/telegraf/latest/introduction/installation/)
+        a. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/)
 
-        b. [Install InfluxDB Enterprise](/enterprise_influxdb/latest/install-and-deploy/)
+        b. [Install InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/install-and-deploy/)
 
         c. [Install Kapacitor Enterprise](/enterprise_kapacitor/latest/introduction/installation_guide/)
 
