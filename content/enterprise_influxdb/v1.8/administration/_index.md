@@ -1,6 +1,6 @@
 ---
 title: Administer InfluxDB Enterprise
-description: Covers InfluxDB Enterprise administration, including backup and restore, configuration, logs, security, and upgrading.
+description: Learn how to administer InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_8:
     name: Administration

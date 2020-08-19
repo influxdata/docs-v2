@@ -1,6 +1,6 @@
 ---
 title: Log and trace InfluxDB Enterprise operations
-description: Covers logging locations, redirecting HTTP request logging, structured logging, and tracing.
+description: Log and trace InfluxDB Enterprise operations. Learn about logging locations, redirecting HTTP request logging, structured logging, and tracing.
 menu:
   enterprise_influxdb_1_8:
     name: Log and trace

@@ -1,5 +1,6 @@
 ---
 title: About the project
+description: Learn about InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_8:
     weight: 10
