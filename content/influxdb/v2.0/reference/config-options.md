@@ -1056,7 +1056,7 @@ store = "bolt"
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -1104,7 +1104,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |

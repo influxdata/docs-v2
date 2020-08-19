@@ -13,7 +13,7 @@ aliases:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative
 related:
   - /influxdb/v2.0/query-data/flux/rate/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
 ---
 
 The `derivative()` function computes the rate of change per [`unit`](#unit) of time between subsequent non-null records.
