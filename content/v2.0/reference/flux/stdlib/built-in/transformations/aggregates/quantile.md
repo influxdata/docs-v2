@@ -20,7 +20,7 @@ a specified quantile or it returns the record with the `_value` that represents 
 Which it returns depends on the [method](#method) used.
 
 _**Function type:** Aggregate or Selector_  
-_**Output data type:** Float or Object_
+_**Output data type:** Float | Record_
 
 ```js
 quantile(

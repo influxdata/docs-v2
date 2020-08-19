@@ -17,7 +17,7 @@ When a dropped column is part of the group key, it will be removed from the key.
 If a specified column is not present in a table, it will return an error.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 drop(columns: ["col1", "col2"])

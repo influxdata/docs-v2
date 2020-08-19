@@ -21,7 +21,7 @@ The output schemas of the `union()` function is the union of all input schemas.
 A sort operation may be added if a specific sort order is needed.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 union(tables: [table1, table2])

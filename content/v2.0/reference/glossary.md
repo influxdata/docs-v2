@@ -513,7 +513,7 @@ See a list of [Flux keywords](/v2.0/reference/flux/language/lexical-elements/#ke
 
 ### literal
 
-A literal is value in an expression, a number, character, string, function, object, or array.
+A literal is value in an expression, a number, character, string, function, record, or array.
 Literal values are interpreted as defined.
 
 See examples of [Flux literals](/v2.0/reference/flux/language/expressions/#examples-of-function-literals).
@@ -763,7 +763,7 @@ See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-
 
 ### record
 
-A tuple of named values represented using an object type.
+A tuple of named values represented using a record type.
 
 ### regular expressions
 

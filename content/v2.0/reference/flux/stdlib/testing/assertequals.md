@@ -38,12 +38,12 @@ _**Data type:** String_
 The stream containing data to test.
 Defaults to piped-forward data (`<-`).
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### want
 The stream that contains the expected data to test against.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 
 ## Examples

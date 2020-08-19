@@ -50,7 +50,7 @@ Define a geographic region using one of the the following shapes:
 - [polygon](#polygon)
 
 ### box
-Define a box-shaped region by specifying an object containing the following properties:
+Define a box-shaped region by specifying a record containing the following properties:
 
 - **minLat:** minimum latitude in decimal degrees (WGS 84) _(Float)_
 - **maxLat:** maximum latitude in decimal degrees (WGS 84) _(Float)_
@@ -68,7 +68,7 @@ Define a box-shaped region by specifying an object containing the following prop
 ```
 
 ### circle
-Define a circular region by specifying an object containing the following properties:
+Define a circular region by specifying a record containing the following properties:
 
 - **lat**: latitude of the circle center in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude of the circle center in decimal degrees (WGS 84) _(Float)_
@@ -84,12 +84,12 @@ Define a circular region by specifying an object containing the following proper
 ```
 
 ### polygon
-Define a polygonal region with an object containing the latitude and longitude for
+Define a polygonal region with a record containing the latitude and longitude for
 each point in the polygon:
 
-- **points**: points that define the custom polygon _(Array of objects)_
+- **points**: points that define the custom polygon _(Array of records)_
 
-    Define each point with an object containing the following properties:
+    Define each point with a record containing the following properties:
 
       - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
       - **lon**: longitude in decimal degrees (WGS 84) _(Float)_

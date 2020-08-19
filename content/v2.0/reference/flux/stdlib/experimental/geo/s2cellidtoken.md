@@ -30,9 +30,9 @@ geo.s2CellIDToken(
 ### point
 Longitude and latitude in **decimal degrees** (WGS 84) to use when generating
 the S2 cell ID token.
-Object must contain `lat` and `lon` properties.
+Record must contain `lat` and `lon` properties.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### token
 S2 cell ID token to update.

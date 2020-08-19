@@ -20,7 +20,7 @@ Each input table's group key value is modified to fit within the time bounds.
 Tables where all records exists outside the time bounds are filtered entirely.
 
 _**Function type:** Transformation_  
-_**Output data type:* Object_
+_**Output data type:* Record_
 
 ```js
 range(start: -15m, stop: now())

@@ -37,7 +37,7 @@ _**Data type:** String_
 ### headers
 Headers to include with the POST request.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 {{% note %}}
 ##### Header keys with special characters

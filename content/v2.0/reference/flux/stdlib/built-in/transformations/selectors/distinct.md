@@ -18,7 +18,7 @@ The `_value` of each output record is set to the distinct value in the specified
 `null` is considered its own distinct value if it is present.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 distinct(column: "host")

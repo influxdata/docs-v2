@@ -70,10 +70,10 @@ data = from(bucket: "telegraf/default")
 
 {{% note %}}
 #### Using task options in your Flux script
-Task options are passed as part of a `task` object and can be referenced in your Flux script.
+Task options are passed as part of a `task` option record and can be referenced in your Flux script.
 In the example above, the time range is defined as `-task.every`.
 
-`task.every` is dot notation that references the `every` property of the `task` object.
+`task.every` is dot notation that references the `every` property of the `task` option record.
 `every` is defined as `1h`, therefore `-task.every` equates to `-1h`.
 
 Using task options to define values in your Flux script can make reusing your task easier.

@@ -37,7 +37,7 @@ Can be either point or linestring geometry.
 Points will always return `0.0`.
 _See [GIS geometry definitions](/v2.0/reference/flux/stdlib/experimental/geo/#gis-geometry-definitions)._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

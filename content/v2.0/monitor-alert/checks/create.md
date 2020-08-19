@@ -103,7 +103,7 @@ count = 12
 ```
     {{% /note %}}
 
-    Check data is represented as an object, `r`.
+    Check data is represented as a record, `r`.
     Access specific column values using dot notation: `r.columnName`.
 
     Use data from the following columns:

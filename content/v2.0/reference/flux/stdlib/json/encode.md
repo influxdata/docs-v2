@@ -33,7 +33,7 @@ This function encodes [Flux types](/v2.0/reference/flux/language/types/) as foll
 ### v
 The value to convert.
 
-_**Data type:** Object | Array | Boolean | Duration | Float | Integer | String | Time | UInteger_
+_**Data type:** Record | Array | Boolean | Duration | Float | Integer | String | Time | UInteger_
 
 ## Examples
 

@@ -108,7 +108,7 @@ Because tags are indexed, queries on tags are faster than queries on fields. Thi
 {{% /note %}}
 
 {{% note %}}
-Tags containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of unique series in the database, known as **high series cardinality**. High series cardinality is a primary driver of high memory usage for many database workloads. See [series cardinality](v2.0/reference/glossary/#series-cardinality) for more information.   
+Tags containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of unique series in the database, known as **high series cardinality**. High series cardinality is a primary driver of high memory usage for many database workloads. See [series cardinality](/v2.0/reference/glossary/#series-cardinality) for more information.   
 {{% /note %}}
 
 

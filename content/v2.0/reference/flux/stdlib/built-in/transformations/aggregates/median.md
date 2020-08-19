@@ -21,7 +21,7 @@ that returns the median `_value` of an input table or all non-null records in th
 with values that fall within the `0.5` quantile (50th percentile) depending on the [method](#method) used.
 
 _**Function type:** Selector or Aggregate_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 
 ```js

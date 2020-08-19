@@ -17,7 +17,7 @@ The `math.frexp()` function breaks `f` into a normalized fraction and an integra
 It returns `frac` and `exp` satisfying `f == frac × 2**exp`, with the absolute value
 of `frac` in the interval `[½, 1)`.
 
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 import "math"

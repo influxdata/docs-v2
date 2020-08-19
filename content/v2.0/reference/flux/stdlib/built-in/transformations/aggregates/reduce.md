@@ -19,7 +19,7 @@ related:
 The `reduce()` function aggregates records in each table according to the reducer,
 `fn`, providing a way to create custom aggregations.
 The output for each table is the group key of the table with columns corresponding
-to each field in the reducer object.
+to each field in the reducer record.
 
 _**Function type:** Transformation_
 
@@ -41,7 +41,7 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 {{% /note %}}
 
 ### fn
-Function to apply to each record with a reducer object ([`identity`](#identity)).
+Function to apply to each record with a reducer record ([`identity`](#identity)).
 
 _**Data type:** Function_
 
@@ -55,27 +55,27 @@ fn: (r, accumulator) => ({ sum: r._value + accumulator.sum })
 ```
 
 {{% note %}}
-#### Matching output object keys and types
-The output object from `fn` must have the same key names and value types as the [`identity`](#identity).
-After operating on a record, the output object is given back to `fn` as the input accumulator.
-If the output object keys and value types do not match the `identity` keys and value types,
+#### Matching output record keys and types
+The output record from `fn` must have the same key names and value types as the [`identity`](#identity).
+After operating on a record, the output record is given back to `fn` as the input accumulator.
+If the output record keys and value types do not match the `identity` keys and value types,
 it will return a type error.
 {{% /note %}}
 
 #### r
-Object representing each row or record.
+Record representing each row or record.
 
 #### accumulator
-Reducer object defined by [`identity`](#identity).
+Reducer record defined by [`identity`](#identity).
 
 ### identity
-Defines the reducer object and provides initial values to use when creating a reducer.
+Defines the reducer record and provides initial values to use when creating a reducer.
 May be used more than once in asynchronous processing use cases.
-_The data type of values in the `identity` object determine the data type of output values._
+_The data type of values in the `identity` record determine the data type of output values._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
-###### identity object syntax
+###### identity record syntax
 ```js
 // Pattern
 identity: {identityKey1: value1, identityKey2: value2}
