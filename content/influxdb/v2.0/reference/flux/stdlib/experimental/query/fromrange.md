@@ -38,7 +38,6 @@ Results **include** points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`..
 Durations are relative to `now()`.
-Integers are nanosecond Unix timestamps.
 
 _**Data type:** Duration | Time | Integer_
 
@@ -48,7 +47,6 @@ Results **exclude** points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
-Integers are nanosecond Unix timestamps.
 Defaults to `now()`.
 
 _**Data type:** Duration | Time | Integer_
