@@ -1,8 +1,8 @@
 ---
-title: Chronograf frequently asked questions (FAQ)
+title: Chronograf frequently asked questions (FAQs)
 menu:
   chronograf_1_8:
-    name: Frequently asked questions (FAQ)
+    name: Frequently asked questions (FAQs)
     weight: 10
     parent: Troubleshooting
 ---
