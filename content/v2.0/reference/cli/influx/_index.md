@@ -58,7 +58,6 @@ retrieving authentication tokens._
 | [org](/v2.0/reference/cli/influx/org)               | Organization management commands                     |
 | [ping](/v2.0/reference/cli/influx/ping)             | Check the InfluxDB `/health` endpoint                |
 | [query](/v2.0/reference/cli/influx/query)           | Execute a Flux query                                 |
-| [repl](/v2.0/reference/cli/influx/repl)             | Interactive REPL (read-eval-print-loop)              |
 | [secret](/v2.0/reference/cli/influx/secret)         | Manage secrets                                       |
 | [setup](/v2.0/reference/cli/influx/setup)           | Create default username, password, org, bucket, etc. |
 | [stacks](/v2.0/reference/cli/influx/stacks)         | Manage InfluxDB stacks                               |
