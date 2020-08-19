@@ -19,7 +19,7 @@ Pre-created dashboards are delivered with Chronograf depending on which Telegraf
 
 The pre-created dashboards automatically appear in the Host List page to the right of hosts based on which Telegraf input plugins you have enabled. Check the list below for applications that you are interested in using and make sure that you have the required Telegraf input plugins enabled.
 
-## Using pre-created dashboards
+## Use pre-created dashboards
 
 Pre-created dashboards are delivered in Chronograf installations and are ready to be used when you have the required Telegraf input plugins enabled.
 
@@ -29,7 +29,7 @@ Pre-created dashboards are delivered in Chronograf installations and are ready t
 2. Select an application listed under **Apps**. By default, the system `app` should be listed next to a host listing. Other apps appear depending on the Telegraf input plugins that you have enabled.
    The selected application appears showing pre-created cells, based on available measurements.
 
-## Creating or editing dashboards
+## Create or edit dashboards
 
 Find a list of apps (pre-created dashboards) available to use with Chronograf below. For each app, you'll find:
 

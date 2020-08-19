@@ -1,6 +1,6 @@
 ---
 title: Chronograf configuration options
-description: Options available in the Chronograf configuration file and environment variables. 
+description: Options available in the Chronograf configuration file and environment variables.
 menu:
   chronograf_1_8:
     name: Configuration options
@@ -135,7 +135,7 @@ $ chronograf -v
 ## InfluxDB connection options
 
 > InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.src` file](/chronograf/v1.8/administration/creating-connections/#managing-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.src` file](/chronograf/v1.8/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
 
 ### `--influxdb-url=`
 
@@ -160,7 +160,7 @@ Environment variable: `$INFLUXDB_PASSWORD`
 ## Kapacitor connection options
 
 > Kapacitor connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.kap` file](/chronograf/v1.8/administration/creating-connections/#managing-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.kap` file](/chronograf/v1.8/administration/creating-connections/#manage-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
 
 ### `--kapacitor-url=`
 

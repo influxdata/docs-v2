@@ -17,11 +17,11 @@ The **Chronograf Admin** provides InfluxDB user management for InfluxDB OSS and 
 
 **On this page:**
 
-* [Enabling authentication](#enabling-authentication)
+* [Enable authentication](#enable-authentication)
 * [InfluxDB OSS user management](#influxdb-oss-user-management)
 * [InfluxDB Enterprise user management](#influxdb-enterprise-user-management)
 
-## Enabling authentication
+## Enable authentication
 
 Follow the steps below to enable authentication.
 The steps are the same for InfluxDB OSS instances and InfluxEnterprise clusters.
