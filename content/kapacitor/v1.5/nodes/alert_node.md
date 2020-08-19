@@ -13,7 +13,7 @@ menu:
 
 The `alert` node triggers an event of varying severity levels and passes the
 event to [event handlers](/kapacitor/v1.5/event_handlers/). The criteria for
-triggering an alert is specified via a [lambda expression](/kapacitor/latest/tick/expr/).
+triggering an alert is specified via a [lambda expression](/{{< latest "kapacitor" >}}/tick/expr/).
 See [AlertNode.Info](/kapacitor/v1.5/nodes/alert_node/#info),
 [AlertNode.Warn](/kapacitor/v1.5/nodes/alert_node/#warn),
 and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
@@ -1629,7 +1629,7 @@ Returns: [GroupByNode](/kapacitor/v1.5/nodes/group_by_node/)
 
 ### HoltWinters
 
-Compute the Holt-Winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 
 ```js
 alert|holtWinters(field string, h int64, m int64, interval time.Duration)
@@ -1641,7 +1641,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.5/nodes/influx_q_l_node/)
 
 ### HoltWintersWithFit
 
-Compute the Holt-Winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 This method also outputs all the points used to fit the data in addition to the forecasted data.
 
 ```js

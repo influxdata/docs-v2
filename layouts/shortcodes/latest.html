@@ -1,0 +1,14 @@
+{{- $scratch := newScratch }}
+{{- $product := .Get 0 -}}
+{{- $majorVersion := .Get 1 | default "" -}}
+{{- $minorVersions := (index .Site.Data.products $product).versions -}}
+{{- $scratch.Set "latestVersion" (index .Site.Data.products $product).latest -}}
+{{- if gt (len $majorVersion) 0 -}}
+  {{- if eq $majorVersion "v1" -}}
+    {{- $scratch.Set "latestVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) -}}
+  {{- else if eq $majorVersion "v2" -}}
+    {{- $scratch.Set "latestVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) -}}
+  {{- end -}}
+{{- end -}}
+{{- $latestVersion := $scratch.Get "latestVersion" -}}
+{{ $product }}/{{ $latestVersion }}

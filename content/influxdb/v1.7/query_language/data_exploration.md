@@ -1959,7 +1959,7 @@ with the most recent timestamps first.
 InfluxQL returns series in sorted order,
 which lets you limit or offset query results by series (rather than by row) using
 [slimit](/influxdb/v1.7/query_language/data_exploration/#the-slimit-clause) and
-[soffset](https://docs.influxdata.com/influxdb/v1.7/query_language/data_exploration/#the-soffset-clause).
+[soffset](/influxdb/v1.7/query_language/data_exploration/#the-soffset-clause).
 This is useful for paging through results by time.
 
 

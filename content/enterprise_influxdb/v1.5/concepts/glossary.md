@@ -72,6 +72,6 @@ query capacity within the cluster.
 
 Legacy user interface for the InfluxEnterprise cluster.
 
-This has been deprecated and the suggestion is to use [Chronograf](/chronograf/latest/introduction/).
+This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
 
-If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/chronograf/latest/guides/transition-web-admin-interface/) is available.
+If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/{{< latest "chronograf" >}}/guides/transition-web-admin-interface/) is available.

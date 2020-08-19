@@ -16,4 +16,4 @@ If you're upgrading from Chronograf 1.4 or later, [download and install](https:/
 
 > ***Note:*** Installing a new version of Chronograf automatically clears the localStorage settings.
 
-After upgrading, see [Getting Started](/chronograf/latest/introduction/getting-started/) to get up and running.
+After upgrading, see [Getting Started](/{{< latest "chronograf" >}}/introduction/getting-started/) to get up and running.

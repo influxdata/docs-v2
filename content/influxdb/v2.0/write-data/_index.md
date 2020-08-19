@@ -117,7 +117,7 @@ Choose from the following demo data sets:
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Explore demo data
-Use the [Data Explorer](https://v2.docs.influxdata.com/v2.0/visualize-data/explore-metrics/)
+Use the [Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/)
 to query and visualize data in demo data buckets.
 
 In the navigation menu on the left, click **Explore (Data Explorer)**.

@@ -9,7 +9,7 @@ weight: 301
 influxdb/v2.0/tags: [fields]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
 ---
 
 The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
