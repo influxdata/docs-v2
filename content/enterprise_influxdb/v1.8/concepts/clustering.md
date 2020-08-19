@@ -1,5 +1,6 @@
 ---
 title: Clustering in InfluxDB Enterprise
+description: Learn how clustering works in InfluxDB Enterprise. 
 aliases:
     - /enterprise/v1.8/concepts/clustering/
 menu:

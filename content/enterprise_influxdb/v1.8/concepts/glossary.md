@@ -1,5 +1,6 @@
 ---
 title: Glossary
+description: Terms related to InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/glossary/
 menu:
