@@ -11,7 +11,7 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
 The `v1.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).

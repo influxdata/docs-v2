@@ -11,7 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/cumulativesum/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 ---
 
 The `cumulativeSum()` function computes a running sum for non-null records in the table.
