@@ -1,6 +1,6 @@
 ---
 title: Introducing InfluxDB Enterprise
-
+description: Tasks required to get started up and running with InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/introduction/
 
