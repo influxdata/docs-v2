@@ -1,7 +1,7 @@
 ---
 title: Contribute to Chronograf
 description: >
-  Learn how to contribute to the Chronograf project.
+  Contribute to the Chronograf project.
 menu:
   chronograf_1_8:
     name: Contribute

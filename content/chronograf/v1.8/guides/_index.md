@@ -1,6 +1,6 @@
 ---
 title: Guides for Chronograf
-description: Find step-by-step instructions for using Chronograf's features.
+description: Step-by-step instructions for using Chronograf's features.
 menu:
   chronograf_1_8:
     name: Guides

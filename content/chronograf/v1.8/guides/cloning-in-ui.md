@@ -1,6 +1,6 @@
 ---
 title: Clone dashboards and cells
-description: Dashboards and their cells can be cloned, or copied, to be used as templates for easily creating new dashboards and cells.
+description: Clone, or duplicate, a dashboard or a cell to use as starting points for creating dashboards or cells using the copy as a template.
 menu:
   chronograf_1_8:
     weight: 70
