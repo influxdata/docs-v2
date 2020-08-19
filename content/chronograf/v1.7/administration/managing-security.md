@@ -20,8 +20,8 @@ To enhance security, configure Chronograf to authenticate and authorize with [OA
 ## Configure OAuth 2.0
 
 > After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.
-> You can then set up [multiple organizations](https://docs.influxdata.com/chronograf/latest/administration/managing-organizations/)
-> and [users](https://docs.influxdata.com/chronograf/latest/administration/managing-influxdb-users/).
+> You can then set up [multiple organizations](/{{< latest "chronograf" >}}/administration/managing-organizations/)
+> and [users](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
 
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 

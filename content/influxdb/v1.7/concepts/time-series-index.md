@@ -8,7 +8,7 @@ menu:
     parent: Concepts
 ---
 
-Find overview and background information on Time Series Index (TSI) in this topic. For detail, including how to enable and configure TSI, see [Time Series Index (TSI) details](https://docs.influxdata.com/influxdb/v1.7/concepts/tsi-details/).
+Find overview and background information on Time Series Index (TSI) in this topic. For detail, including how to enable and configure TSI, see [Time Series Index (TSI) details](/influxdb/v1.7/concepts/tsi-details/).
 
 ## Overview
 

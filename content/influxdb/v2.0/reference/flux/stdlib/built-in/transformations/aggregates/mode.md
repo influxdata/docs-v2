@@ -11,7 +11,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#mode, InfluxQL – MODE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a

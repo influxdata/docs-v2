@@ -12,7 +12,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
 ---
 
 The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.

@@ -21,7 +21,7 @@ It creates unnecessary overhead, particularly for busy clusters, that can overlo
 Metrics stored in the `_internal` database primarily measure workload performance
 and should only be tested in non-production environments.
 
-To disable the `_internal` database, set [`store-enabled`](/influxdb/latest/administration/config/#monitoring-settings-monitor)
+To disable the `_internal` database, set [`store-enabled`](/{{< latest "influxdb" "v1" >}}/administration/config/#monitoring-settings-monitor)
 to `false` under the `[monitor]` section of your **InfluxDB configuration file**.
 
 ```toml
@@ -365,7 +365,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/latest/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/{{< latest "enterprise_influxdb" >}}/administration/configuration/#retry-concurrency-20) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later. This was not the intended behavior of this stat.
@@ -438,7 +438,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/latest/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/{{< latest "enterprise_influxdb" >}}/administration/configuration/#retry-concurrency-20) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later.

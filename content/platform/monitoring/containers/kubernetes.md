@@ -21,7 +21,7 @@ The [kube-influxdb](https://github.com/influxdata/kube-influxdb) project is a se
 
 ### Collect Kubernetes metrics with Telegraf
 
-The [Telegraf metrics collection agent](https://docs.influxdata.com/telegraf/v1.9/introduction/getting-started/) can collect many types of metrics in a Kubernetes cluster, like [Docker container metrics](https://github.com/influxdata/telegraf/blob/release-1.9/plugins/inputs/docker/README.md) and [stats from kubelets](https://github.com/influxdata/telegraf/tree/release-1.9/plugins/inputs/kubernetes). It can even scrape [Prometheus metrics API endpoints](https://github.com/influxdata/telegraf/tree/release-1.9/plugins/inputs/prometheus). Telegraf is used in the [kube-influxdb project](#kube-influxdb-kubernetes-monitoring-project) to collect metrics.
+The [Telegraf metrics collection agent](/telegraf/v1.9/introduction/getting-started/) can collect many types of metrics in a Kubernetes cluster, like [Docker container metrics](https://github.com/influxdata/telegraf/blob/release-1.9/plugins/inputs/docker/README.md) and [stats from kubelets](https://github.com/influxdata/telegraf/tree/release-1.9/plugins/inputs/kubernetes). It can even scrape [Prometheus metrics API endpoints](https://github.com/influxdata/telegraf/tree/release-1.9/plugins/inputs/prometheus). Telegraf is used in the [kube-influxdb project](#kube-influxdb-kubernetes-monitoring-project) to collect metrics.
 
 [Read about setting up a Kubernetes monitoring architecture using Telegraf](https://www.influxdata.com/blog/monitoring-kubernetes-architecture/)
 
@@ -29,4 +29,4 @@ The [Telegraf metrics collection agent](https://docs.influxdata.com/telegraf/v1.
 
 InfluxDB supports the Prometheus remote read and write API for clusters already using Prometheus for metrics collection, but need require a more flexible time series data store.
 
-[Read about the Prometheus remote read and write API support in InfluxDB](https://docs.influxdata.com/influxdb/v1.7/supported_protocols/prometheus/)
+[Read about the Prometheus remote read and write API support in InfluxDB](/influxdb/v1.7/supported_protocols/prometheus/)
