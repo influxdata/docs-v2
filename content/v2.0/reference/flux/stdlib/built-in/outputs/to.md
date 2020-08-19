@@ -108,13 +108,13 @@ identified by [`fieldFn`](#fieldfn).
 _**Data type:** Array of strings_
 
 ### fieldFn
-Function that takes a record from the input table and returns an object.
-For each record from the input table, `fieldFn` returns an object that maps the
+Function that takes a record from the input table and returns a record.
+For each record from the input table, `fieldFn` returns a record that maps the
 output field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
 
 _**Data type:** Function_
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 {{% note %}}
 Make sure `fieldFn` parameter names match each specified parameter.

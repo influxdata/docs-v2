@@ -15,7 +15,7 @@ The `pivot()` function collects values stored vertically (column-wise) in a tabl
 and aligns them horizontally (row-wise) into logical sets.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")

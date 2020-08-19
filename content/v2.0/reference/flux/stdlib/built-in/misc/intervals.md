@@ -14,7 +14,7 @@ draft: true
 
 The `intervals()` function generates a set of time intervals over a range of time.
 
-An interval is an object with `start` and `stop` properties that correspond to the inclusive start and exclusive stop times of the time interval.
+An interval is a record with `start` and `stop` properties that correspond to the inclusive start and exclusive stop times of the time interval.
 The return value of intervals is another function that accepts start and stop time parameters and returns an interval generator.
 The generator is then used to produce the set of intervals.
 The set of intervals includes all intervals that intersect with the initial range of time.
@@ -28,7 +28,7 @@ By default the end boundary of an interval will align with the Unix epoch (zero 
 modified by the offset of the `location` option.
 
 _**Function type:** Miscellaneous_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 intervals()
@@ -59,7 +59,7 @@ Defaults to `0`, which will align window end boundaries with the `every` duratio
 _**Data type:** Duration_
 
 ### filter
-A function that accepts an interval object and returns a boolean value.
+A function that accepts an interval record and returns a boolean value.
 Each potential interval is passed to the filter function.
 When the function returns false, that interval is excluded from the set of intervals.
 Defaults to include all intervals.

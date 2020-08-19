@@ -42,5 +42,5 @@ Kinds       = identifier { "+" identifier } .
 ##### Example
 
 ```js
-builtin filter : (<-tables: [T], fn: (r: T) -> bool) -> [T]
+builtin filter : (<-tables: [T], fn: (r: T) => bool) => [T]
 ```

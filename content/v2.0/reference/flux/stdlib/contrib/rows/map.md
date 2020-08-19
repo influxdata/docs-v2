@@ -32,7 +32,7 @@ rows.map( fn: (r) => ({_value: r._value * 100.0}))
 ### fn
 
 A single argument function to apply to each record.
-The return value must be an object.
+The return value must be a record.
 
 _**Data type:** Function_
 

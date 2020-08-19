@@ -12,7 +12,7 @@ weight: 301
 
 The `math.sincos()` function returns the values of `math.sin(x:x)` and `math.cos(x:x)`.
 
-_**Output data format:** Object_
+_**Output data format:** Record_
 
 ```js
 import "math"

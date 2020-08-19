@@ -38,12 +38,12 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 ### fn
 
 A single argument function to apply to each record.
-The return value must be an object.
+The return value must be a record.
 
 _**Data type:** Function_
 
 {{% note %}}
-Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
+Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
 ## Important notes
@@ -57,7 +57,7 @@ By default, `map()` drops any columns that:
 
 This often results in the `_time` column being dropped.
 To preserve the `_time` column and other columns that do not meet the criteria above,
-use the `with` operator to map values in the `r` object.
+use the `with` operator to map values in the `r` record.
 The `with` operator updates a column if it already exists,
 creates a new column if it doesn't exist, and includes all existing columns in
 the output table.

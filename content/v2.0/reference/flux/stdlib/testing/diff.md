@@ -41,12 +41,12 @@ _The `testing.diff()` function can be used to perform in-line diffs in a query._
 Stream containing data to test.
 _Defaults to piped-forward data (`<-`)._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### want
 Stream that contains the expected data to test against.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### epsilon
 Specifies how far apart two **float** values can be, but still considered equal.

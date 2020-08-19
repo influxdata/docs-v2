@@ -40,7 +40,7 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 A map of columns to rename and their corresponding new names.
 Cannot be used with `fn`.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### fn
 

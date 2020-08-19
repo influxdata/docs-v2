@@ -14,7 +14,7 @@ weight: 501
 The `top()` function sorts a table by columns and keeps only the top `n` records.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 top(n:10, columns: ["_value"])

@@ -32,7 +32,7 @@ The URL to POST to.
 _**Data type:** String_
 
 ### mapFn
-A function that builds the object used to generate the POST request.
+A function that builds the record used to generate the POST request.
 
 {{% note %}}
 _You should rarely need to override the default `mapFn` parameter.
@@ -42,7 +42,7 @@ To see the default `mapFn` value or for insight into possible overrides, view th
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+The returned record must include the following fields:
 
 - `headers`
 - `data`

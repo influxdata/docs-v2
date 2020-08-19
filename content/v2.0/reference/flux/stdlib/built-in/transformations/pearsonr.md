@@ -27,12 +27,12 @@ pearsonr(x: stream1, y: stream2, on: ["_time", "_field"])
 ### x
 First input stream used in the operation.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### y
 Second input stream used in the operation.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### on
 The list of columns on which to join.

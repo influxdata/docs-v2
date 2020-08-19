@@ -15,7 +15,7 @@ weight: 301
 The `math.modf()` function returns integer and fractional floating-point numbers that sum to `f`.
 Both values have the same sign as `f`.
 
-_**Output data format:** Object_
+_**Output data format:** Record_
 
 ```js
 import "math"

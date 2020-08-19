@@ -62,10 +62,10 @@ In most cases, the specified geographic region does not perfectly align with S2 
 
 ### region
 The region containing the desired data points.
-Specify object properties for the shape.
+Specify record properties for the shape.
 _See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

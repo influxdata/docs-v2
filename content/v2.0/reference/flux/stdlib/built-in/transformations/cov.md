@@ -27,12 +27,12 @@ cov(x: table1, y: table2, on: ["_time", "_field"], pearsonr: false)
 ### x
 One input stream used to calculate the covariance.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### y
 The other input table used to calculate the covariance.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### on
 The list of columns on which to join.

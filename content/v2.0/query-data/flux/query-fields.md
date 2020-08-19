@@ -45,13 +45,13 @@ Rows that evaluate to `false` are **excluded** from the output data.
 
 The `fn` predicate function requires an `r` argument, which represents each row
 as `filter()` iterates over input data.
-Key-value pairs in the row object represent columns and their values.
+Key-value pairs in the row record represent columns and their values.
 Use **dot notation** or **bracket notation** to reference specific column values in the predicate function.
 Use [logical operators](/v2.0/reference/flux/language/operators/#logical-operators)
 to chain multiple predicate expressions together.
 
 ```js
-// Row object
+// Row record
 r = {foo: "bar", baz: "quz"}
 
 // Example predicate function
