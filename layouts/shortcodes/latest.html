@@ -1,0 +1,3 @@
+{{- $product := .Get 0 -}}
+{{- $latestVersion := (index .Site.Data.products $product).latest -}}
+{{ $product }}/{{ $latestVersion }}
