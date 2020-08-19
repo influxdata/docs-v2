@@ -78,7 +78,7 @@ numberOfCrits
   |> map(fn: (r) => (if r._value > 3 then {
     r with _value: http.post(
       url: "https://api.sendgrid.com/v3/mail/send",
-      headers: {"Content-Type": "application/json", Authorization: "Bearer ${SENDGRID_APIKEY}",
+      headers: {"Content-Type": "application/json", Authorization: "Bearer ${SENDGRID_APIKEY}"},
       data: bytes(v: "{
         \"personalizations\": [{
           \"to\": [{
@@ -233,5 +233,3 @@ numberOfCrits
 {{% /tab-content %}}
 
 {{< /tabs-wrapper >}}
-
----
