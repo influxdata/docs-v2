@@ -209,6 +209,31 @@ If all content in an article is OSS-specific, include `oss` in the `products` fr
 products: [oss]
 ```
 
+### Latest links
+Each of the InfluxData projects have different "latest" versions.
+Use the `{{< latest >}}` shortcode to populate link paths with the latest version
+for the specified project.
+
+```md
+[Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
+```
+
+`{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
+
+Use the following for project names:
+
+- influxdb
+- telegraf
+- chronograf
+- kapacitor
+- enterprise_influxdb
+
+**Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
+
+```md
+/{{< latest "influxdb" >}}/
+```
+
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
 Ther following three must be used:
