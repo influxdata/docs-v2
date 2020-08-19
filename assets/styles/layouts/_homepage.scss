@@ -156,8 +156,13 @@
   }
 
   .card {
-    padding: 1.5rem 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem .75rem;
     flex: 1 0;
+
+    .card-content p { margin-bottom: 0; }
 
     span.version {
       font-size: 1.15rem;
@@ -189,9 +194,6 @@
     }
   }
 
-  #platform {
-
-  }
   .telegraf {@include gradient($telegraf-dropdown-gradient);}
   .influxdb {@include gradient($default-dropdown-gradient);}
   .chronograf {@include gradient($chronograf-dropdown-gradient);}
