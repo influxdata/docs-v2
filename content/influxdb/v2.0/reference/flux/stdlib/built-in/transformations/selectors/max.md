@@ -16,7 +16,7 @@ related:
 The `max()` function selects record with the highest `_value` from the input table.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 max(column: "_value")

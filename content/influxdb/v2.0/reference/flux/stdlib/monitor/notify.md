@@ -37,7 +37,7 @@ _**Data type:** Function_
 Data to append to the output.
 **InfluxDB populates notification data.**
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

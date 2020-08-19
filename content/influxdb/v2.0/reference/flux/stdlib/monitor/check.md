@@ -70,7 +70,7 @@ Meta data used to identify this check.
 
 **InfluxDB populates check data.**
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

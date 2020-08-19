@@ -92,7 +92,7 @@ Define geographic regions using the following shapes:
 - [polygon](#polygon)
 
 ### box
-Define a box-shaped region by specifying an object containing the following properties:
+Define a box-shaped region by specifying a record containing the following properties:
 
 - **minLat:** minimum latitude in decimal degrees (WGS 84) _(Float)_
 - **maxLat:** maximum latitude in decimal degrees (WGS 84) _(Float)_
@@ -110,7 +110,7 @@ Define a box-shaped region by specifying an object containing the following prop
 ```
 
 ### circle
-Define a circular region by specifying an object containing the following properties:
+Define a circular region by specifying a record containing the following properties:
 
 - **lat**: latitude of the circle center in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude of the circle center in decimal degrees (WGS 84) _(Float)_
@@ -126,7 +126,7 @@ Define a circular region by specifying an object containing the following proper
 ```
 
 ### point
-Define a point region by specifying an object containing the following properties:
+Define a point region by specifying a record containing the following properties:
 
 - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude in decimal degrees (WGS 84) _(Float)_
@@ -140,11 +140,11 @@ Define a point region by specifying an object containing the following propertie
 ```
 
 ### polygon
-Define a custom polygon region using an object containing the following properties:
+Define a custom polygon region using a record containing the following properties:
 
-- **points**: points that define the custom polygon _(Array of objects)_
+- **points**: points that define the custom polygon _(Array of records)_
 
-    Define each point with an object containing the following properties:
+    Define each point with a record containing the following properties:
 
       - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
       - **lon**: longitude in decimal degrees (WGS 84) _(Float)_
@@ -168,7 +168,7 @@ Define GIS geometry using the following:
 - [linestring](#linestring)
 
 ### linestring
-Define a geographic linestring path using an object containing the following properties:
+Define a geographic linestring path using a record containing the following properties:
 
 - **linestring**: string containing comma-separated longitude and latitude
   coordinate pairs (`lon lat,`):

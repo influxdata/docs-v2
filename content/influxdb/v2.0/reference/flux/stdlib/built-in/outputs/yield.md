@@ -18,7 +18,7 @@ Yield outputs the input stream unmodified.
 A query may have multiple results, each identified by the name provided to the `yield()` function.
 
 _**Function type:** Output_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 yield(name: "custom-name")

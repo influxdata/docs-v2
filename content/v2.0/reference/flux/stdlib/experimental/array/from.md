@@ -1,7 +1,7 @@
 ---
 title: array.from() function
 description: >
-  The experimental `array.from()` function constructs a table from an array of objects.
+  The experimental `array.from()` function constructs a table from an array of records.
 menu:
   v2_0_ref:
     name: array.from
@@ -9,8 +9,8 @@ menu:
 weight: 401
 ---
 
-The experimental `array.from()` function constructs a table from an array of objects.
-Each object in the array is converted into an output row or record.
+The experimental `array.from()` function constructs a table from an array of records.
+Each record in the array is converted into an output row or record.
 All records must have the same keys and data types.
 
 _**Function type:** Input_
@@ -31,7 +31,7 @@ array.from(rows: [
 ### rows
 Array of records to construct a table with.
 
-_**Data type:** Array of objects_
+_**Data type:** Array of records_
 
 ## Examples
 

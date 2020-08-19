@@ -15,7 +15,7 @@ The `unique()` function returns all records containing unique values in a specif
 Group keys, record columns, and values are **not** modified.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 unique(column: "_value")

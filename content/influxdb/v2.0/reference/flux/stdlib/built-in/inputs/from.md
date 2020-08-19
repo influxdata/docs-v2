@@ -19,7 +19,7 @@ Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
 _**Function type:** Input_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 from(
