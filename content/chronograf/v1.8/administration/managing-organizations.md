@@ -72,7 +72,7 @@ See the following pages for more information about managing Chronograf users and
 * [Manage Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/)
 * [Manage security](/chronograf/v1.8/administration/managing-security/)
 
-## Mapping organizations
+## Map organizations
 
 **To create an organization mapping:**
 
