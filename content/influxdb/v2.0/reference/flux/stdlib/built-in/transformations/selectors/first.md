@@ -11,7 +11,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/first-last/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#first, InfluxQL – FIRST()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#first, InfluxQL – FIRST()
 ---
 
 The `first()` function selects the first non-null record from an input table.

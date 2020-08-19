@@ -10,7 +10,7 @@ menu:
     parent: built-in-selectors
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#min, InfluxQL – MIN()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#min, InfluxQL – MIN()
 ---
 
 The `min()` function selects record with the lowest `_value` from the input table.

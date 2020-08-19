@@ -10,7 +10,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#count, InfluxQL – COUNT()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
 ---
 
 The `count()` function outputs the number of records in a column.

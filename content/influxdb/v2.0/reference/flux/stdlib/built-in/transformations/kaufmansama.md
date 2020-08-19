@@ -13,7 +13,7 @@ menu:
 weight: 402
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/kaufmanser/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 ---
 
 The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
