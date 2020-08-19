@@ -38,7 +38,7 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 ### fn
 
 A single argument function to apply to each record.
-The return value must be an record.
+The return value must be a record.
 
 _**Data type:** Function_
 

@@ -109,7 +109,7 @@ _**Data type:** Array of strings_
 
 ### fieldFn
 Function that takes a record from the input table and returns a record.
-For each record from the input table, `fieldFn` returns an record that maps the
+For each record from the input table, `fieldFn` returns a record that maps the
 output field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
 

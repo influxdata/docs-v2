@@ -58,7 +58,7 @@ this is a string
 ```
 
 ### Records
-Flux also supports records. Each value in an record can be a different data type.
+Flux also supports records. Each value in a record can be a different data type.
 
 ```js
 > o = {name:"Jim", age: 42, "favorite color": "red"}
