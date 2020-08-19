@@ -99,11 +99,11 @@ A successful `CREATE USER` query returns a blank result:
 Perform the following steps on each data node in your cluster.
 You'll return to your InfluxDB instance at the end of this section.
 
-#### Step 1: Download and install Telegraf.
+#### Step 1: Download and install Telegraf
 
 Telegraf can be downloaded from the [InfluxData downloads page](https://portal.influxdata.com/downloads).
 
-#### Step 2: Configure Telegraf.
+#### Step 2: Configure Telegraf
 
 Configure Telegraf to write monitoring data to your InfluxDB OSS instance.
 The Telegraf configuration file is located in `/etc/telegraf/telegraf.conf`.
@@ -160,7 +160,7 @@ Enabled input plugins are configured in the `INPUT PLUGINS` section of the confi
   collect_cpu_time = false
 ```
 
-#### Step 3: Restart the Telegraf service.
+#### Step 3: Restart the Telegraf service
 
 Restart the Telegraf service so that your configuration changes take effect:
 
@@ -184,7 +184,7 @@ systemctl restart telegraf
 
 Repeat steps one through four for each data node in your cluster.
 
-#### Step 4: Confirm the Telegraf setup.
+#### Step 4: Confirm the Telegraf setup
 
 To verify Telegraf is successfully collecting and writing data, use one of the following methods to query your InfluxDB OSS instance:
 

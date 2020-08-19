@@ -10,7 +10,7 @@ menu:
 
 **On this page**
 
-* [Managing Chronograf users and roles](#managing-chronograf-users-and-roles)
+* [Manage Chronograf users and roles](#manage-chronograf-users-and-roles)
 * [Organization-bound users](#organization-bound-users)
   * [InfluxDB and Kapacitor users within Chronograf](#influxdb-and-kapacitor-users-within-chronograf)
   * [Chronograf-owned resources](#chronograf-owned-resources)
@@ -21,15 +21,15 @@ menu:
   * [Admins](#admins-role-admin)
 * [Cross-organization SuperAdmin status](#cross-organization-superadmin-status)
   * [All New Users are SuperAdmins configuration option](#all-new-users-are-superadmins-configuration-option)
-* [Creating users](#creating-users)
-* [Updating users](#updating-users)
-* [Removing users](#removing-users)
-* [Navigating organizations](#navigating-organizations)
-  * [Logging in and logging out](#logging-in-and-logging-out)
-  * [Switching the current organization](#switching-the-current-organization)
+* [Create users](#create-users)
+* [Update users](#update-users)
+* [Remove users](#remove-users)
+* [Navigate organizations](#navigate-organizations)
+  * [Log in and log out](#log-in-and-log-out)
+  * [Switch the current organization](#switch-the-current-organization)
   * [Purgatory](#purgatory)
 
-## Managing Chronograf users and roles
+## Manage Chronograf users and roles
 
 > ***Note:*** Support for organizations and user roles is available in Chronograf 1.4 or later. First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu). For more information, see [Managing security] (https://docs.influxdata.com/chronograf/v1.8/administration/managing-security/).
 
@@ -184,7 +184,7 @@ Important SuperAdmin behaviors:
 
 By default, the **Config** setting for "**All new users are SuperAdmins"** is **On**. Any user with SuperAdmin status can toggle this under the **Admin > Chronograf > Organizations** tab. If this setting is **On**, any new user (who is created or who authenticates) will_ automatically have SuperAdmin status. If this setting is **Off**, any new user (who is created or who authenticates) will _not_ have SuperAdmin status unless they are explicitly granted it later by another user with SuperAdmin status.
 
-### Creating users
+### Create users
 
 Role required: `admin`
 
@@ -199,7 +199,7 @@ Role required: `admin`
    * **Scheme**: Displays `oauth2`, which is the only supported authentication scheme in this release.
 4. Click **Save** to finish creating the user.
 
-### Updating users
+### Update users
 
 Role required: `admin`
 
@@ -211,7 +211,7 @@ Only a user's role can be updated. A user's username, provider, and scheme canno
 2. Click the **Users** tab to display the list of users within the current organization.
 3. Select a new role for the user. The update is automatically persisted.
 
-### Removing users
+### Remove users
 
 Role required: `admin`
 
@@ -221,17 +221,17 @@ Role required: `admin`
 2. Click the **Users** tab to display the list of users.
 3. Hover your cursor over the user you want to remove and then click **Remove** and **Confirm**.
 
-### Navigating organizations
+### Navigate organizations
 
 Chronograf is always used in the context of an organization. When a user logs in to Chronograf, that user will access only the resources owned by their current organization. The only exception to this is that users with SuperAdmin status will also be able to [manage organizations](/chronograf/v1.8/administration/managing-organizations/) in the Chronograf Admin page.
 
-#### Logging in and logging out
+#### Log in and log out
 
 A user can log in from the Chronograf homepage using any configured OAuth 2.0 provider.
 
 A user can log out by hovering over the **User (person icon)** in the left navigation bar and clicking **Log out**.
 
-#### Switching the current organization
+#### Switch the current organization
 
 A user's current organization and role is highlighted in the **Switch Organizations** list, which can be found by hovering over the **User (person icon)** in the left navigation bar.
 

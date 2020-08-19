@@ -10,24 +10,24 @@ menu:
 Follow the links below to explore Chronograf's features.
 
 
-## [Exploring data in Chronograf](/chronograf/v1.8/guides/querying-data)
+## [Explore data in Chronograf](/chronograf/v1.8/guides/querying-data)
 
 Use Chronograf's Data Explorer to query and visualize your time series data.
 
-## [Using pre-created dashboards](/chronograf/v1.8/guides/using-precreated-dashboards/)
+## [Use pre-created dashboards](/chronograf/v1.8/guides/using-precreated-dashboards/)
 
 Pre-created dashboards are available when the required Telegraf input plugins are enabled. These dashboards include cells with data visualizations for metrics that are relevant to data sources you are likely to be using.   
 
-## [Using the TICKscript editor](/chronograf/v1.8/guides/tickscript-logging/)
+## [Use the TICKscript editor](/chronograf/v1.8/guides/tickscript-logging/)
 
 Using the TICKscript editor in Chronograf to create, test, and debug Kapacitor TICKscripts.
 
-## [Creating dashboards](/chronograf/latest/guides/create-a-dashboard/)
+## [Create dashboards](/chronograf/latest/guides/create-a-dashboard/)
 
 Chronograf offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
 Learn how to create customized dashboards in Chronograf.
 
-## [Cloning dashboards and cells](/chronograf/v1.8/guides/cloning-in-ui/)
+## [Clone dashboards and cells](/chronograf/v1.8/guides/cloning-in-ui/)
 
 Use Chronograf's cloning functionality to make copies of dashboards and cells.
 
@@ -35,26 +35,26 @@ Use Chronograf's cloning functionality to make copies of dashboards and cells.
 
 Describes the visualization types available to display in Chronograf views in dashboards.
 
-## [Adding annotations in Chronograf views](/chronograf/v1.8/guides/annotations/)
+## [Add annotations in Chronograf views](/chronograf/v1.8/guides/annotations/)
 
 Describes how to add annotations to Chronograf views with the user interface or using the command line interface.
 
-## [Creating Chronograf alert rules](/chronograf/v1.8/guides/create-alert-rules/)
+## [Create Chronograf alert rules](/chronograf/v1.8/guides/create-alert-rules/)
 
 Learn how to create alert rules in Chronograf.
 
-## [Configuring Chronograf alert endpoints](/chronograf/v1.8/guides/configuring-alert-endpoints/)
+## [Configure Chronograf alert endpoints](/chronograf/v1.8/guides/configuring-alert-endpoints/)
 
 Chronograf works with Kapacitor to send alert messages to supported event handlers.
 Use Chronograf to send alert messages to specific URLs as well as to applications like Slack and HipChat.
 Learn how to set up event handlers in Chronograf.
 
-## [Monitoring InfluxDB Enterprise clusters](/chronograf/v1.8/guides/monitoring-influxenterprise-clusters/)
+## [Monitor InfluxDB Enterprise clusters](/chronograf/v1.8/guides/monitoring-influxenterprise-clusters/)
 
 InfluxDB Enterprise offers high availability and a highly-scalable clustering solution for your time series data needs.
 Learn how to use Chronograf to assess your cluster’s health and monitor the infrastructure behind your project.
 
-## [Using dashboard template variables](/chronograf/v1.8/guides/dashboard-template-variables/)
+## [Use dashboard template variables](/chronograf/v1.8/guides/dashboard-template-variables/)
 
 Learn how to use Chronograf's dashboard template variables to interact with your dashboards and gain insights into your data.
 

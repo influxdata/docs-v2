@@ -24,7 +24,7 @@ To perform the tasks in this guide, you must have a working Chronograf instance 
 Data is accessed using the Telegraf [system ](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugins.
 For more information, see [Configuring Chronograf](/chronograf/latest/administration/configuration).
 
-## Build a Dashboard
+## Build a dashboard
 
 Click **Dashboards** in the navigation bar and then click the **Create Dashboard** button.
 A new dashboard is created and ready to begin adding cells.

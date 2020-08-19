@@ -11,11 +11,11 @@ menu:
 **On this page:**
 
 * [About Chronograf organizations](#about-chronograf-organizations)
-* [Using the Default organization](#using-the-default-organization)
-* [Creating organizations](#creating-organizations)
-* [Configuring organizations](#configuring-organizations)
-* [Mapping organizations](#mapping-organizations)
-* [Removing organizations](#removing-organizations)
+* [Use the Default organization](#use-the-default-organization)
+* [Create organizations](#create-organizations)
+* [Configure organizations](#configure-organizations)
+* [Map organizations](#map-organizations)
+* [Remove organizations](#remove-organizations)
 
 
 ## About Chronograf organizations
@@ -30,7 +30,7 @@ A Chronograf organization is a collection of Chronograf users who share common C
 
 > ***Note:*** Only users with SuperAdmin status can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin status.
 
-## Using the Default organization
+## Use the Default organization
 
 >***Note:*** The Default organization can be used to support Chronograf as configured in versions earlier than 1.4.
 > Upon upgrading, any Chronograf resources that existed prior to 1.4 automatically become owned by the Default organization.
@@ -51,7 +51,7 @@ Your company, organizational units, teams, and projects may require the creation
 4) Under **Default Role**, select the default role for new users within that organization. Valid options include `member` (default), `viewer`, `editor`, and `admin`.
 5) Click **Save**.
 
-## Configuring organizations
+## Configure organizations
 
 **Required status:** SuperAdmin
 
@@ -69,8 +69,8 @@ You can configure existing and new organizations in the **Organizations** tab of
 
 See the following pages for more information about managing Chronograf users and security:
 
-* [Managing Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/)
-* [Managing security](/chronograf/v1.8/administration/managing-security/)
+* [Manage Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/)
+* [Manage security](/chronograf/v1.8/administration/managing-security/)
 
 ## Mapping organizations
 
@@ -96,7 +96,7 @@ See the following pages for more information about managing Chronograf users and
 2) Click the **Org Mappings** tab to view a list of organization mappings.
 3) To remove an organization mapping, click the **Delete** button at the end of the mapping row you want to remove, and then confirm the action.
 
-## Removing organizations
+## Remove organizations
 
 When an organization is removed:
 

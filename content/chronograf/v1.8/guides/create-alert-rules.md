@@ -34,7 +34,7 @@ This guide walks through creating a Chronograf alert rule that sends an alert me
 * Slack is available and configured as an [event handler](/chronograf/latest/troubleshooting/frequently-asked-questions/#what-kapacitor-event-handlers-are-supported-in-chronograf) in Chronograf.
 See the [Configuring Kapacitor Event Handlers](/chronograf/latest/guides/configuring-alert-endpoints/) guide for detailed configuration instructions.
 
-## Configuring Chronograf alert rules
+## Configure Chronograf alert rules
 
 Navigate to the **Manage Tasks** page under **Alerting** in the left navigation, then click **+ Build Alert Rule** in the top right corner.
 
@@ -124,7 +124,7 @@ Notice that you can easily enable and disable the rule by toggling the checkbox 
 
 Next, move on to the section below to experience your alert rule in action.
 
-## Viewing alerts in practice
+## View alerts in practice
 
 ### Step 1: Create some load on your system
 
