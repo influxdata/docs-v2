@@ -1,6 +1,6 @@
 ---
 title: TCP and UDP ports used in InfluxDB Enterprise
-
+description: Configure TCP and UDP ports in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_8:
     name: Configure TCP and UDP Ports

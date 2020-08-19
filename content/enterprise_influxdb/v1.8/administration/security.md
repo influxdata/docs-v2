@@ -1,5 +1,6 @@
 ---
 title: Manage security in InfluxDB Enterprise
+description: Protect the data in your InfluxDB Enterprise instance.
 menu:
   enterprise_influxdb_1_8:
     name: Manage security
