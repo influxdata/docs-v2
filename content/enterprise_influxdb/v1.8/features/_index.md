@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise features
+description: Overview of InfluxDB Enterprise features.
 aliases:
     - /enterprise/v1.8/features/
 menu:

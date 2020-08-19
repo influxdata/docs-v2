@@ -1,5 +1,6 @@
 ---
 title: Fine-grained authorization in InfluxDB Enterprise
+description: Fine-grained authorization (FGA) in InfluxDB Enterprise controls user access at the database, measurement, and series levels.
 alias:
   -/docs/v1.5/administration/fga
 menu:
