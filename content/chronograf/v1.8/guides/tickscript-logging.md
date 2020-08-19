@@ -1,6 +1,6 @@
 ---
 title: Edit TICKscripts in Chronograf
-description: Editing and viewing TICKscript logs in Chronograf
+description: View and edit TICKscript logs in Chronograf.
 menu:
   chronograf_1_8:
     weight: 20
