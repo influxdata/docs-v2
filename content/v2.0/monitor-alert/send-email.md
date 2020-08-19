@@ -142,14 +142,14 @@ numberOfCrits
         }\""))} else {r with _value: 0}))
 ```
 
-For details on the =request syntax, see [SendEmail API v2 reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html).
+For details on the request syntax, see [SendEmail API v2 reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html).
 
 {{% /tab-content %}}
 
 <!-------------------------------- BEGIN Mailjet ------------------------------->
 {{% tab-content %}}
 
-The example below uses the Mailjet Send API to send an alert email when more than 3 critical statuses since the last task run.
+The example below uses the Mailjet Send API to send an alert email when more than 3 critical statuses occur since the last task run.
 
 {{% note %}}
 To view your Mailjet API credentials, sign in to Mailjet and open the [API Key Management page](https://app.mailjet.com/account/api_keys).
