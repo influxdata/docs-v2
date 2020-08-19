@@ -16,6 +16,18 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.81.0 [2020-08-17]
+
+### Features
+- Delete old parser.
+- Add function to indicate duplicate option assignments.
+
+### Bug fixes
+- Calculate distinct key values.
+- Handle pipe arguments inside of compiler.
+
+---
+
 ## v0.80.0 [2020-08-12]
 
 ### Features
