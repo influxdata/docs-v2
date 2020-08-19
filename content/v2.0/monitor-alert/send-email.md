@@ -17,7 +17,7 @@ Send an alert email using a third party service, such as [SendGrid](https://send
 2. Set up your preferred email service (sign up, retrieve API credentials, and send test email):
    - **SendGrid**: See [Getting Started With the SendGrid API](https://sendgrid.com/docs/API_Reference/api_getting_started.html)
    - **AWS Simple Email Service (SES)**: See [Using the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email.html). Your AWS SES request, including the `url` (endpoint), authentication, and the structure of the request may vary. For more information, see [Amazon SES API requests](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-requests.html) and [Authenticating requests to the Amazon SES API](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/using-ses-api-authentication.html).
-   - **Mailjet**: See [Getting Started](https://dev.mailjet.com/email/guides/getting-started/)
+   - **Mailjet**: See [Getting Started with Mailjet](https://dev.mailjet.com/email/guides/getting-started/)
    - **Mailgun**: See [Mailgun Signup](https://signup.mailgun.com/new/signup)
 3. [Create an alert email task](#create-an-alert-email-task) to call your email service and send an alert email.
 
@@ -78,18 +78,18 @@ numberOfCrits
   |> map(fn: (r) => (if r._value > 3 then {
     r with _value: http.post(
       url: "https://api.sendgrid.com/v3/mail/send",
-        headers: {"Content-Type": "application/json", Authorization: "Bearer ${SENDGRID_APIKEY}",
-        data: bytes(v: "{
-          \"personalizations\": [{
-            \"to\": [{
-            \"email\": \”jane.doe@example.com\"}],
-            \"subject\": \”InfluxData critical alert\"
+      headers: {"Content-Type": "application/json", Authorization: "Bearer ${SENDGRID_APIKEY}",
+      data: bytes(v: "{
+        \"personalizations\": [{
+          \"to\": [{
+           \"email\": \”jane.doe@example.com\"}],
+           \"subject\": \”InfluxData critical alert\"
             }],
-            \"from\": {\"email\": \"john.doe@example.com\"},
-            \"content\": [{
-              \"type\": \"text/plain\",
-              \"value\": \”Example alert text\"
-            }]
+          \"from\": {\"email\": \"john.doe@example.com\"},
+          \"content\": [{
+            \"type\": \"text/plain\",
+             \"value\": \”Example alert text\"
+        }]
         }\""))} else {r with _value: 0}))
 ```
 
@@ -125,8 +125,9 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
   |> map(fn: (r) => (if r._value > 3 then {
-      r with _value: http.post(url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
-      headers: {"Content-Type": "application/json", Authorization: "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"},
+      r with _value: http.post(
+        url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
+        headers: {"Content-Type": "application/json", Authorization: "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"},
         data: bytes(v: "{
           \"personalizations\": [{
             \"to\": [{
@@ -173,16 +174,16 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
 	|> map(fn: (r) => (if r._value > 3 then {
-    r with _value: http.post(url: "https://api.mailjet.com/v3.1/send",
-    headers: {"Content-type": "application/json", Authorization: "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"},
-    data: bytes(v: "{
+    r with _value: http.post(  
+      url: "https://api.mailjet.com/v3.1/send",
+      headers: {"Content-type": "application/json", Authorization: "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"},
+      data: bytes(v: "{
         \"Messages\": [{
           \"From\": {\"Email\": \”jane.doe@example.com\"},
           \"To\": [{\"Email\": \"john.doe@example.com\"]},
           \"Subject\": \”InfluxData critical alert\",
           \"TextPart\": \”Example alert text\"
           \"HTMLPart\":  `"<h3>Hello, to review critical alerts, review your <a href=\"https://www.example-dashboard.com/\">Critical Alert Dashboard</a></h3>}]}'
-              
         }\""))} else {r with _value: 0}))
 ```
 
@@ -195,8 +196,7 @@ numberOfCrits
 The example below uses the Mailgun API to send an alert email when more than 3 critical statuses occur since the last task run.
 
 {{% note %}}
-To view your Mailgun API keys, sign in to Mailjet and open [Account Security - API security](https://app.mailgun.com/app/account/security/api_keys). <br> 
-Mailgun requires that a domain be specified via Mailgun. A domain is automatically created for you when you first set up your account. You must include this domain in your `url` endpoint (for example, `https://api.mailgun.net/v3/YOUR_DOMAIN` or `https://api.eu.mailgun.net/v3/YOUR_DOMAIN`. If you're using a free version of Mailgun, you can set up a maximum of five authorized recipients (to receive email alerts) for your domain. To view your Mailgun domains, sign in to Mailgun and view the [Domains page](https://app.mailgun.com/app/sending/domains).
+To view your Mailgun API keys, sign in to Mailjet and open [Account Security - API security](https://app.mailgun.com/app/account/security/api_keys). Mailgun requires that a domain be specified via Mailgun. A domain is automatically created for you when you first set up your account. You must include this domain in your `url` endpoint (for example, `https://api.mailgun.net/v3/YOUR_DOMAIN` or `https://api.eu.mailgun.net/v3/YOUR_DOMAIN`. If you're using a free version of Mailgun, you can set up a maximum of five authorized recipients (to receive email alerts) for your domain. To view your Mailgun domains, sign in to Mailgun and view the [Domains page](https://app.mailgun.com/app/sending/domains).
 {{% /note %}}
 
 ```js
@@ -218,13 +218,15 @@ numberOfCrits = from(bucket: "_monitoring")
 
 numberOfCrits
 	|> map(fn: (r) =>
-		(if r._value > 1 then {r with _value: http.post(url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages", headers: {"Content-type": "application/json", Authorization: "Basic api:${MAILGUN_APIKEY}"}, data: bytes(v: "{
+		(if r._value > 1 then {r with _value: http.post(
+      url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
+      headers: {"Content-type": "application/json", Authorization: "Basic api:${MAILGUN_APIKEY}"},
+      data: bytes(v: "{
           \"from\": \"Username <mailgun@YOUR_DOMAIN_NAME>\",
           \"to\"=\"YOU@YOUR_DOMAIN_NAME\",
           \"to\"=\"email@example.com\",
           \"subject\"=\"Critical InfluxData alert\",
           \"text\"=\"You have critical alerts to review\"
-              
         }\""))} else {r with _value: 0}))
 ```
 
