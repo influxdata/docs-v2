@@ -10,7 +10,7 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#mean, InfluxQL – MEAN()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mean, InfluxQL – MEAN()
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.

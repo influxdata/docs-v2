@@ -11,8 +11,8 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations, InfluxQL – Aggregate functions
-  - https://docs.influxdata.com/influxdb/latest/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#aggregations, InfluxQL – Aggregate functions
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function

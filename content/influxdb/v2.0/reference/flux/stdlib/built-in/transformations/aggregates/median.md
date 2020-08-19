@@ -13,7 +13,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/median/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#median, InfluxQL – MEDIAN()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()
 ---
 
 The `median()` function is a special application of the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)

@@ -119,7 +119,7 @@ InfluxDB supports three types of TLS certificates:
 
 ## Connect Telegraf to a secured InfluxDB instance
 
-To connect [Telegraf](https://docs.influxdata.com/telegraf/latest/) to an InfluxDB 2.0 instance with TLS enabled,
+To connect [Telegraf](/{{< latest "telegraf" >}}/) to an InfluxDB 2.0 instance with TLS enabled,
 update the following `influxdb_v2` output settings in your Telegraf configuration file:
 
 - Update URLs to use HTTPS instead of HTTP.

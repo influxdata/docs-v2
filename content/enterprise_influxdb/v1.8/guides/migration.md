@@ -40,7 +40,7 @@ Complete the following tasks:
 ## Upgrade InfluxDB to the latest version
 Upgrade InfluxDB to the latest stable version before proceeding.
 
-- [Upgrade InfluxDB OSS](/influxdb/latest/administration/upgrading/)
+- [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
 - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/upgrading/)
 
 ## Set up InfluxDB Enterprise meta nodes
@@ -276,4 +276,4 @@ It may take a few minutes before the existing data is available.
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.8/guides/rebalance/)
    to meet the desired replication factor for existing shards.
-3. If you were using [Chronograf](/chronograf/latest/), add your Enterprise instance as a new data source.
+3. If you were using [Chronograf](/{{< latest "chronograf" >}}/), add your Enterprise instance as a new data source.

@@ -12,7 +12,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 ---
 
 The `quantile()` function returns records from an input table with `_value`s that fall within

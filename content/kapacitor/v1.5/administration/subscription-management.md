@@ -8,7 +8,7 @@ menu:
     weight: 100
 ---
 
-Kapacitor is tightly integrated with InfluxDB through the use of [InfluxDB subscriptions](/influxdb/latest/administration/subscription-management/),
+Kapacitor is tightly integrated with InfluxDB through the use of [InfluxDB subscriptions](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/),
 local or remote endpoints to which all data written to InfluxDB is copied.
 Kapacitor subscribes to InfluxDB allowing it to capture, manipulate, and act on your data.
 
@@ -36,7 +36,7 @@ in the `kapacitor.conf`._
 > do not persist between container stops and restarts.
 > If `/var/lib/kapacitor/` is not persisted, Kapacitor will create a new InfluxDB subscription
 > on startup, resulting in unnecessary "duplicate" subscriptions.
-> You will then need to manually [drop the unnecessary subscriptions](/influxdb/latest/administration/subscription-management/#remove-subscriptions).
+> You will then need to manually [drop the unnecessary subscriptions](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/#remove-subscriptions).
 >
 > To avoid this, InfluxData recommends that you persist the `/var/lib/kapacitor` directory.
 > Many persistence strategies are available and which to use depends on your
@@ -144,4 +144,4 @@ There are two ways to view your Kapacitor server or cluster ID:
 Duplicate Kapacitor subscriptions are often caused by the contents of `/var/lib/kapacitor`
 not persisting between restarts as described [above](#kapacitor-ids-in-containerized-or-ephemeral-filesystems).
 The solution is to ensure the contents of this director are persisted.
-Any duplicate Kapacitor subscriptions already created will need to be [manually removed](/influxdb/latest/administration/subscription-management/#remove-subscriptions).
+Any duplicate Kapacitor subscriptions already created will need to be [manually removed](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/#remove-subscriptions).

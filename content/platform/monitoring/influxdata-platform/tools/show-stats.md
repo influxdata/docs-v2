@@ -12,7 +12,7 @@ menu:
 
 ## Using the `SHOW STATS` statement
 
-The InfluxQL [`SHOW STATS`](https://docs.influxdata.com/influxdb/v1.6/query_language/spec#show-stats)
+The InfluxQL [`SHOW STATS`](/influxdb/v1.6/query_language/spec#show-stats)
 statement returns detailed measurement statistics on InfluxDB servers and available (enabled) components.
 Each component exporting statistics exports a measurement named after the module and various series that are associated with the measurement.
 To monitor InfluxDB system measurements over time, you can use the `_internal` database.

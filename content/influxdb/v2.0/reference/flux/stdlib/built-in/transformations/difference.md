@@ -12,7 +12,7 @@ weight: 402
 aliases:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/difference
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference, InfluxQL – DIFFERENCE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
 
 The `difference()` function computes the difference between subsequent records.  
