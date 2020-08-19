@@ -218,7 +218,15 @@ for the specified project.
 [Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
 ```
 
+To constrain the latest link to a major version, include a second argument with
+the major version:
+
+```md
+[Link to latest InfluxDB 1.x](/{{< latest "influxdb" "v1" >}}/path/to/doc/)]
+```
+
 `{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
+`{{< latest "influxdb" "v1" >}}` is replaced with `influxdb/v1.8` (or whatever the latest v1.x version is).
 
 Use the following for project names:
 
@@ -231,7 +239,7 @@ Use the following for project names:
 **Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
 
 ```md
-/{{< latest "influxdb" >}}/
+/{{< latest "telegraf" >}}/
 ```
 
 ### Tabbed Content

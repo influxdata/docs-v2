@@ -1,3 +1,4 @@
+{{ $scratch := newScratch }}
 {{ if .Params.related }}
   <div class="related">
     <h4 id="related-articles">Related articles</h4>
@@ -7,6 +8,34 @@
         {{ $link := replaceRE `\,\s(.*)$` "" . }}
         {{ $title := replaceRE `^(\S*\,\s)` "" . }}
         <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
+      {{ else if (in . "{{< latest") }}
+        {{ $product := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .) 0) }}
+        {{ $majorVersion := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .) 1) }}
+        {{ $minorVersions := (index $.Site.Data.products $product).versions }}
+
+        {{ $scratch.Set "latestVersion" (index $.Site.Data.products $product).latest }}
+        {{ if gt (len $majorVersion) 0 }}
+          {{ if eq $majorVersion "v1" }}
+            {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+          {{ else if eq $majorVersion "v2" }}
+            {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+          {{ end }}
+        {{ end }}
+
+        {{ $productLatestVersion := $scratch.Get "latestVersion" }}
+        {{ $replaceLatest := replaceRE `\{\{\< latest \".*\" \>\}\}` (print $product "/" $productLatestVersion) . }}
+
+        {{ $link := replaceRE `\,\s(.*)$` "" $replaceLatest }}
+        {{ $title := replaceRE `^(\S*\,\s)` "" $replaceLatest }}
+
+        {{ if gt (len $title) 0 }}
+          <li><a href="{{ $link }}">{{ $title }}</a></li>
+        {{ else }}
+          {{ $sanitizedPath := replaceRE `\/$` "" (print $replaceLatest) }}
+          {{ with $.Page.GetPage $sanitizedPath }}
+            <li><a href="{{ .RelPermalink }}" >{{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
       {{ else }}
         {{ $sanitizedPath := replaceRE `\/$` "" (print .) }}
         {{ with $.Page.GetPage $sanitizedPath }}
