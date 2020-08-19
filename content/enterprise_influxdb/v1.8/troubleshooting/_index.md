@@ -1,11 +1,11 @@
 ---
-title: Troubleshooting InfluxDB Enterprise
-
+title: Troubleshoot InfluxDB Enterprise
+description: Troubleshoot InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/troubleshooting/
 menu:
   enterprise_influxdb_1_8:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 90
 ---
 

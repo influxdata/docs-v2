@@ -1,5 +1,6 @@
 ---
-title: Reporting issues
+title: Report issues
+description: Report issues with InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/troubleshooting/reporting-issues/
 menu:
