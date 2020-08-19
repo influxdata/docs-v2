@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Enterprise 1.8 release notes
-description: 
+description: Important changes and and what's new in each version InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_8:
     name: Release notes
