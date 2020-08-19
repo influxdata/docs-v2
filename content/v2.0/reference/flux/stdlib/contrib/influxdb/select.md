@@ -94,7 +94,7 @@ Defaults to `(r) => true`.
 _**Data type:** Function_
 
 {{% note %}}
-Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
+Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
 ### host
