@@ -1,9 +1,9 @@
 ---
-title: Troubleshooting Chronograf
-
+title: Troubleshoot Chronograf
+Description: Troubleshoot Chronograf.
 menu:
   chronograf_1_8:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 50
 ---
 

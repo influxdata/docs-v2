@@ -4,7 +4,7 @@ menu:
   chronograf_1_8:
     name: Frequently asked questions (FAQs)
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 ## How do I connect Chronograf to an InfluxEnterprise cluster?
