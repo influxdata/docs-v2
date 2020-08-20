@@ -230,7 +230,7 @@ To retrieve SQL Server credentials from a file, execute the query in the
 {{% /warn %}}
 
 ```powershel
-azure auth=C:\securezure.auth
+azure auth=C:\secure\azure.auth
 ```
 
 ##### Specify authentication credentials in the connection string
