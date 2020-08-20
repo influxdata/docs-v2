@@ -290,16 +290,15 @@ Within the quotes any character may appear except an unescaped double quote.
 String literals support several escape sequences.
 
 ```
-
-   U+000A line feed or newline
-   U+000D carriage return
-	   U+0009 horizontal tab
+\n   U+000A line feed or newline
+\r   U+000D carriage return
+\t   U+0009 horizontal tab
 \"   U+0022 double quote
-\   U+005C backslash
+\\   U+005C backslash
 \${  U+0024 U+007B dollar sign and opening curly bracket
 ```
 
-Additionally, any byte value may be specified via a hex encoding using ` ` as the prefix.
+Additionally, any byte value may be specified via a hex encoding using `\x ` as the prefix.
 
 ```
 string_lit       = `"` { unicode_value | byte_value | StringExpression | newline } `"` .
@@ -315,9 +314,9 @@ StringExpression = "${" Expression "}" .
 ```js
 "abc"
 "string with double \" quote"
-"string with backslash \"
+"string with backslash \\"
 "日本語"
-"日本語" // the explicit UTF-8 encoding of the previous line
+"\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e" // the explicit UTF-8 encoding of the previous line
 ```
 
 String literals are also interpolated for embedded expressions to be evaluated as strings.
@@ -349,13 +348,13 @@ n = 42
 
 A _regular expression literal_ represents a regular expression pattern, enclosed in forward slashes.
 Within the forward slashes, any unicode character may appear except for an unescaped forward slash.
-The ` ` hex byte value representation from string literals may also be present.
+The ` \x` hex byte value representation from string literals may also be present.
 
 Regular expression literals support only the following escape sequences:
 
 ```
-  \/   U+002f forward slash
-  \   U+005c backslash
+\/   U+002f forward slash
+\\   U+005c backslash
 ```
 
 ```
@@ -368,9 +367,9 @@ regexp_escape_char = `\` (`/` | `\`)
 ```js
 /.*/
 /http:\/\/localhost:9999/
-/^日本語(ZZ)?$/
+/^\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e(ZZ)?$/
 /^日本語(ZZ)?$/ // the above two lines are equivalent
-/\xZZ/ // this becomes the literal pattern " ZZ"
+/\\xZZ/ // this becomes the literal pattern "\xZZ"
 ```
 
 The regular expression syntax is defined by [RE2](https://github.com/google/re2/wiki/Syntax).
