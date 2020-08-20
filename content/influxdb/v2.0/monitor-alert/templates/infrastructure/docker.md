@@ -1,7 +1,7 @@
 ---
 title: Monitor Docker
 description: >
-  Use the [Docker Monitoring template](https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
+  Use the [Docker Monitoring template](https://https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers.
 menu:
   influxdb_2_0:
     parent: Monitor infrastructure
