@@ -3,7 +3,7 @@ title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/v2.0/reference/api/influxdb-1x/query)
   to query data in InfluxDB 2.0 with **InfluxQL**.
-weight: 10
+weight: 102
 aliases:
   - /v2.0/query-data/influxql/
 influxdb/v2.0/tags: [influxql, query]
