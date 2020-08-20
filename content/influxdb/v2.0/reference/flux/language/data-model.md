@@ -6,6 +6,8 @@ menu:
     name: Data model
     parent: Flux specification
 weight: 201
+aliases:
+  - /v2.0/reference/flux/language/data-model/
 ---
 
 {{% note %}}

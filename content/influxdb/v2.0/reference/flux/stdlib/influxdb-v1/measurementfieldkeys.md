@@ -1,6 +1,8 @@
 ---
 title: v1.measurementFieldKeys() function
 description: The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
+aliases:
+  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys
 menu:
   influxdb_2_0_ref:
     name: v1.measurementFieldKeys

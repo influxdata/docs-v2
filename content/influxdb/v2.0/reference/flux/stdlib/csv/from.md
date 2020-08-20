@@ -5,6 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/inputs/fromcsv
   - /v2.0/reference/flux/functions/built-in/inputs/fromcsv
   - /v2.0/reference/flux/functions/csv/from/
+  - /v2.0/reference/flux/stdlib/csv/from
 menu:
   influxdb_2_0_ref:
     name: csv.from

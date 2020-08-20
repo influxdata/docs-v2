@@ -5,6 +5,7 @@ description: >
   outputs records that change from `fromLevel` to `toLevel`.
 aliases:
   - /v2.0/reference/flux/functions/monitor/statechanges/
+  - /v2.0/reference/flux/stdlib/monitor/statechanges
 menu:
   influxdb_2_0_ref:
     name: monitor.stateChanges

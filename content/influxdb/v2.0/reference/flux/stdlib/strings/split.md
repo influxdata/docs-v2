@@ -5,6 +5,7 @@ description: >
   an array of substrings.
 aliases:
   - /v2.0/reference/flux/functions/strings/split/
+  - /v2.0/reference/flux/stdlib/strings/split
 menu:
   influxdb_2_0_ref:
     name: strings.split

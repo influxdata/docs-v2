@@ -5,6 +5,7 @@ description: >
   The magnitude of the result is less than `y` and its sign agrees with that of `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/mod/
+  - /v2.0/reference/flux/stdlib/math/mod
 menu:
   influxdb_2_0_ref:
     name: math.mod

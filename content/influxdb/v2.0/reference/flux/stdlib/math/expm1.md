@@ -5,6 +5,7 @@ description: >
   It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
 aliases:
   - /v2.0/reference/flux/functions/math/expm1/
+  - /v2.0/reference/flux/stdlib/math/expm1
 menu:
   influxdb_2_0_ref:
     name: math.expm1

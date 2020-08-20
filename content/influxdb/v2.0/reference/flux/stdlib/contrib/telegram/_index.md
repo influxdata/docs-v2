@@ -5,6 +5,8 @@ description: >
   The Flux Telegram package provides functions for sending messages to
   [Telegram](https://telegram.org/) using the [Telegram Bot API](https://core.telegram.org/bots/api).
   Import the `contrib/sranka/telegram` package.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/telegram/
 menu:
   influxdb_2_0_ref:
     name: Telegram

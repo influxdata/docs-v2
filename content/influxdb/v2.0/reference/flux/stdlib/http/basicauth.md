@@ -5,6 +5,7 @@ description: >
   header using a specified username and password combination.
 aliases:
   - /v2.0/reference/flux/functions/http/basicauth/
+  - /v2.0/reference/flux/stdlib/http/basicauth
 menu:
   influxdb_2_0_ref:
     name: http.basicAuth

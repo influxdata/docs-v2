@@ -2,6 +2,8 @@
 title: geo.strictFilter() function
 description: >
   The geo.strictFilter() function filters data by latitude and longitude.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/geo/strictfilter
 menu:
   influxdb_2_0_ref:
     name: geo.strictFilter

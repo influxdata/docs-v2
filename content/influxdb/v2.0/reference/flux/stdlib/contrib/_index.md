@@ -3,6 +3,8 @@ title: Flux user-contributed functions
 list_title: User-contributed functions
 description: >
   User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/
 menu:
   influxdb_2_0_ref:
     name: Contributed

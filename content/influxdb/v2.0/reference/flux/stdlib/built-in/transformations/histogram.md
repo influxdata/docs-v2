@@ -4,6 +4,7 @@ description: The `histogram()` function approximates the cumulative distribution
 aliases:
   - /v2.0/reference/flux/functions/transformations/histogram
   - /v2.0/reference/flux/functions/built-in/transformations/histogram/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
 menu:
   influxdb_2_0_ref:
     name: histogram

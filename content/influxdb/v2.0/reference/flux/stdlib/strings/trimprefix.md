@@ -5,6 +5,7 @@ description: >
   Strings that do not start with the prefix are returned unchanged.
 aliases:
   - /v2.0/reference/flux/functions/strings/trimprefix/
+  - /v2.0/reference/flux/stdlib/strings/trimprefix
 menu:
   influxdb_2_0_ref:
     name: strings.trimPrefix

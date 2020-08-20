@@ -5,6 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/cov
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/cov
 menu:
   influxdb_2_0_ref:
     name: cov

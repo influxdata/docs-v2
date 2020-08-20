@@ -3,6 +3,7 @@ title: regexp.getString() function
 description: The `regexp.getString()` function returns the source string used to compile a regular expression.
 aliases:
   - /v2.0/reference/flux/functions/regexp/getstring/
+  - /v2.0/reference/flux/stdlib/regexp/getstring
 menu:
   influxdb_2_0_ref:
     name: regexp.getString

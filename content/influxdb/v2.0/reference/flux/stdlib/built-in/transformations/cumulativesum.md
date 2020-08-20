@@ -4,6 +4,7 @@ description: The `cumulativeSum()` function computes a running sum for non-null 
 aliases:
   - /v2.0/reference/flux/functions/transformations/cumulativesum
   - /v2.0/reference/flux/functions/built-in/transformations/cumulativesum/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum
 menu:
   influxdb_2_0_ref:
     name: cumulativeSum

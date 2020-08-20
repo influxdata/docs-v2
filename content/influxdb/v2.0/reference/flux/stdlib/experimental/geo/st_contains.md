@@ -3,6 +3,8 @@ title: geo.ST_Contains() function
 description: >
   The `geo.ST_Contains()` function tests if the specified region contains the specified
   GIS geometry and returns `true` or `false`.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/geo/st_contains
 menu:
   influxdb_2_0_ref:
     name: geo.ST_Contains

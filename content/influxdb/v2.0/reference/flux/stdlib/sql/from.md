@@ -3,6 +3,7 @@ title: sql.from() function
 description: The `sql.from()` function retrieves data from a SQL data source.
 aliases:
   - /v2.0/reference/flux/functions/sql/from/
+  - /v2.0/reference/flux/stdlib/sql/from
 menu:
   influxdb_2_0_ref:
     name: sql.from
@@ -229,7 +230,7 @@ To retrieve SQL Server credentials from a file, execute the query in the
 {{% /warn %}}
 
 ```powershel
-azure auth=C:\secure\azure.auth
+azure auth=C:\securezure.auth
 ```
 
 ##### Specify authentication credentials in the connection string

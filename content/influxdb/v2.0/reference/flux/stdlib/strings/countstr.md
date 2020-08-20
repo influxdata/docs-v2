@@ -5,6 +5,7 @@ description: >
   of a substring appears in a string.
 aliases:
   - /v2.0/reference/flux/functions/strings/countstr/
+  - /v2.0/reference/flux/stdlib/strings/countstr
 menu:
   influxdb_2_0_ref:
     name: strings.countStr

@@ -3,6 +3,7 @@ title: math.ilogb() function
 description: The math.ilogb() function returns the binary exponent of `x` as an integer.
 aliases:
   - /v2.0/reference/flux/functions/math/ilogb/
+  - /v2.0/reference/flux/stdlib/math/ilogb
 menu:
   influxdb_2_0_ref:
     name: math.ilogb

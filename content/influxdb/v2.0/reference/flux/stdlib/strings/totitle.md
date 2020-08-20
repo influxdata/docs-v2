@@ -3,6 +3,7 @@ title: strings.toTitle() function
 description: The strings.toTitle() function converts all characters in a string to title case.
 aliases:
   - /v2.0/reference/flux/functions/strings/totitle/
+  - /v2.0/reference/flux/stdlib/strings/totitle
 menu:
   influxdb_2_0_ref:
     name: strings.toTitle

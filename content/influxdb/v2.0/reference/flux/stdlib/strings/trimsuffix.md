@@ -5,6 +5,7 @@ description: >
   Strings that do not end with the suffix are returned unchanged.
 aliases:
   - /v2.0/reference/flux/functions/strings/trimsuffix/
+  - /v2.0/reference/flux/stdlib/strings/trimsuffix
 menu:
   influxdb_2_0_ref:
     name: strings.trimSuffix
