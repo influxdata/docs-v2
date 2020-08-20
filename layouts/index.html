@@ -1,4 +1,4 @@
-{{ $influxdbVersionV2 := .Site.Data.products.influxdb.latest }}
+{{ $influxdbVersionV2 := (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
 {{ $influxdbVersionV1 := (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
 {{ $enterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
 {{ $telegrafVersion := .Site.Data.products.telegraf.latest }}

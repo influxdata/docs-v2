@@ -13,7 +13,7 @@
   <ul class="item-list">
     {{ range sort .Site.Data.products "list_order" "desc" }}
       <li>
-        <a href="/{{ .namespace }}/{{ .latest }}" {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
+        <a href='/{{ .namespace }}/{{ cond (isset . "latest_override") .latest_override .latest }}' {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
       </li>
     {{ end }}
   </ul>
