@@ -6,6 +6,8 @@ menu:
     parent: Flux specification
     name: Lexical elements
 weight: 205
+aliases:
+  - /v2.0/reference/flux/language/lexical-elements
 ---
 
 {{% note %}}
@@ -351,8 +353,8 @@ The `\x` hex byte value representation from string literals may also be present.
 Regular expression literals support only the following escape sequences:
 
 ```
-  \/   U+002f forward slash
-  \\   U+005c backslash
+\/   U+002f forward slash
+\\   U+005c backslash
 ```
 
 ```

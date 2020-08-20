@@ -5,6 +5,7 @@ description: >
   group key values match a predicate. If no table is found, the function errors.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind
 menu:
   influxdb_2_0_ref:
     name: tableFind

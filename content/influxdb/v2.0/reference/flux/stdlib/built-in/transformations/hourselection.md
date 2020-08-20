@@ -6,6 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/transformations/hourselection
   - /v2.0/reference/flux/functions/built-in/transformations/hourselection/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/hourselection
 menu:
   influxdb_2_0_ref:
     name: hourSelection

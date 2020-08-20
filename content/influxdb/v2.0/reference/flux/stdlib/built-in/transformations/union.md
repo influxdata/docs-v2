@@ -4,6 +4,7 @@ description: The `union()` function concatenates two or more input streams into 
 aliases:
   - /v2.0/reference/flux/functions/transformations/union
   - /v2.0/reference/flux/functions/built-in/transformations/union/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/union
 menu:
   influxdb_2_0_ref:
     name: union

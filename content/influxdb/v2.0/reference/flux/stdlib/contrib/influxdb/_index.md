@@ -4,6 +4,8 @@ list_title: InfluxDB package
 description: >
   The Flux InfluxDB package provides additional functions for querying data from InfluxDB.
   Import the `contrib/jsternberg/influxdb` package.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/influxdb/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB

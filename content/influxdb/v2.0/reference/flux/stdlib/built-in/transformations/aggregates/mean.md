@@ -4,6 +4,7 @@ description: The `mean()` function computes the mean or average of non-null reco
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/mean
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean
 menu:
   influxdb_2_0_ref:
     name: mean

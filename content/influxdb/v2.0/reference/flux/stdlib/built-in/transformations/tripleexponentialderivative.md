@@ -6,6 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleexponentialderivative/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleexponentialderivative/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleexponentialderivative
 menu:
   influxdb_2_0_ref:
     name: tripleExponentialDerivative

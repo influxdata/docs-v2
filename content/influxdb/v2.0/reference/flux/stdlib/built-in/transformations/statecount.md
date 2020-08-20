@@ -4,6 +4,7 @@ description: The `stateCount()` function computes the number of consecutive reco
 aliases:
   - /v2.0/reference/flux/functions/transformations/statecount
   - /v2.0/reference/flux/functions/built-in/transformations/statecount/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/statecount
 menu:
   influxdb_2_0_ref:
     name: stateCount

@@ -4,6 +4,7 @@ description: The `range()` function filters records based on time bounds.
 aliases:
   - /v2.0/reference/flux/functions/transformations/range
   - /v2.0/reference/flux/functions/built-in/transformations/range/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/range
 menu:
   influxdb_2_0_ref:
     name: range

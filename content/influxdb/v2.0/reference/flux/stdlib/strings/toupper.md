@@ -3,6 +3,7 @@ title: strings.toUpper() function
 description: The strings.toUpper() function converts a string to uppercase.
 aliases:
   - /v2.0/reference/flux/functions/strings/toupper/
+  - /v2.0/reference/flux/stdlib/strings/toupper
 menu:
   influxdb_2_0_ref:
     name: strings.toUpper

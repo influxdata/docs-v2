@@ -9,6 +9,8 @@ menu:
     parent: Flux language
 weight: 103
 influxdb/v2.0/tags: [flux]
+aliases:
+  - /v2.0/reference/flux/language/
 ---
 
 The following document specifies the Flux language and query execution.

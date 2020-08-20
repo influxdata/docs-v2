@@ -3,6 +3,7 @@ title: strings.isLower() function
 description: The strings.isLower() function tests if a single-character string is lowercase.
 aliases:
   - /v2.0/reference/flux/functions/strings/islower/
+  - /v2.0/reference/flux/stdlib/strings/islower
 menu:
   influxdb_2_0_ref:
     name: strings.isLower

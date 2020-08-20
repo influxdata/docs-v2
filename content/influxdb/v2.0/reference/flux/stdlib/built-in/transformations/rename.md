@@ -4,6 +4,7 @@ description: The `rename()` function renames specified columns in a table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/rename
   - /v2.0/reference/flux/functions/built-in/transformations/rename/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/rename
 menu:
   influxdb_2_0_ref:
     name: rename

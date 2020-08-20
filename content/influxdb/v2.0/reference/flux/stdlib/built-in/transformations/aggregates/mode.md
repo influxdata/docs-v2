@@ -5,6 +5,7 @@ description: >
   specified column in the input table.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/mode/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mode
 menu:
   influxdb_2_0_ref:
     name: mode

@@ -4,6 +4,7 @@ description: >
   The strings.trimRight() function removes trailing characters specified in the cutset from a string.
 aliases:
   - /v2.0/reference/flux/functions/strings/trimright/
+  - /v2.0/reference/flux/stdlib/strings/trimright
 menu:
   influxdb_2_0_ref:
     name: strings.trimRight

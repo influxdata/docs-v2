@@ -4,6 +4,7 @@ description: The `join()` function merges two or more input streams whose values
 aliases:
   - /v2.0/reference/flux/functions/transformations/join
   - /v2.0/reference/flux/functions/built-in/transformations/join/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/join
 menu:
   influxdb_2_0_ref:
     name: join
