@@ -1,7 +1,7 @@
 ---
 title: Monitor HAProxy
 description: >
-  Use the [HAProxy for InfluxDB v2 template](https://https://github.com/influxdata/community-templates/tree/master/haproxy) to monitor your HAProxy instance.
+  Use the [HAProxy for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/haproxy) to monitor your HAProxy instance.
 menu:
   influxdb_2_0:
     parent: Monitor networks
