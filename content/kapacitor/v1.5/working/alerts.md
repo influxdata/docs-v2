@@ -1,6 +1,6 @@
 ---
 title: Kapacitor alerts overview
-
+description: Handle alert messages with Kapacitor.
 menu:
   kapacitor_1_5:
     name: Alerts overview

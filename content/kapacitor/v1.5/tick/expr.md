@@ -1,6 +1,7 @@
 ---
 title: Lambda expressions
-
+description: TICKscript uses lambda expressions  to define transformations on data points as
+well as define Boolean conditions that act as filters.
 menu:
   kapacitor_1_5_ref:
     identifier: expr

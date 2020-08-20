@@ -1,5 +1,6 @@
 ---
 title: Kapacitor as a Continuous Query engine
+description: Use Kapacitor for Continuous Queries (CQs).
 aliases:
     - kapacitor/v1.5/examples/continuous_queries/
 menu:

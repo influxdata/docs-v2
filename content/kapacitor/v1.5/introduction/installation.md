@@ -1,5 +1,5 @@
 ---
-title: Installing Kapacitor
+title: Install Kapacitor
 weight: 10
 menu:
   kapacitor_1_5:
