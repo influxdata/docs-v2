@@ -8,7 +8,7 @@ menu:
     parent: Visualize data
 weight: 102
 aliases:
-  - /v2.0/visualize-data/dashboards/
+  - /influxdb/v2.0/visualize-data/dashboards/
 ---
 
 Create, edit, and manage dashboards from the **Dashboards** tab in the left navigation.

@@ -20,7 +20,7 @@ Use `geo.shapeData()` to ensure geo-temporal data meets the
 [requirements of the Geo package](/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements):
 
 1. Rename existing latitude and longitude fields to `lat` and `lon`.
-2. Pivot data into row-wise sets based on the [`correlationKey`](#correlationkey).
+2. Pivot data into row-wise sets based on `_time`.
 3. Generate `s2_cell_id` tags using `lat` and `lon` values and a specified
    [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html).
 
@@ -32,8 +32,7 @@ import "experimental/geo"
 geo.shapeData(
   latField: "latitude",
   lonField: "longitude",
-  level: 10,
-  correlationKey: ["_time"]
+  level: 10
 )
 ```
 
@@ -56,12 +55,6 @@ _**Data type:** String_
 when generating the S2 cell ID token.
 
 _**Data type:** Integer_
-
-### correlationKey
-List of columns used to uniquely identify a row for output.
-Default is `["_time"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 

@@ -22,7 +22,7 @@ The output table has the same group key as the input table.
 Columns not part of the group key are removed and an upper bound column and a count column are added.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 histogram(column: "_value", upperBoundColumn: "le", countColumn: "_value", bins: [50.0, 75.0, 90.0], normalize: false)

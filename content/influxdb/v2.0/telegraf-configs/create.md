@@ -33,7 +33,7 @@ For more information, see [Automatically configure Telegraf](/v2.0/write-data/no
 
 Telegraf has an extensive list of plugins for many different technologies and use cases.
 Not all plugins are available through the InfluxDB UI, but you can
-[create and upload custom Telegraf configurations](#create-custom-influxdb-telegraf-configuration)
+[create and upload custom Telegraf configurations](#create-a-custom-telegraf-configuration)
 that include any of the available [Telegraf plugins](/v2.0/reference/telegraf-plugins).
 
 ## Use the influx CLI

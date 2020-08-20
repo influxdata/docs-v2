@@ -20,7 +20,7 @@ Each input table's group key value is modified to fit within the time bounds.
 Tables where all records exists outside the time bounds are filtered entirely.
 
 _**Function type:** Transformation_  
-_**Output data type:* Object_
+_**Output data type:* Record_
 
 ```js
 range(start: -15m, stop: now())
@@ -31,21 +31,21 @@ range(start: -15m, stop: now())
 ### start
 The earliest time to include in results.
 Results **include** points that match the specified start time.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 ### stop
 The latest time to include in results.
 Results **exclude** points that match the specified stop time.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 Defaults to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 {{% note %}}
 Time values in Flux must be in [RFC3339 format](/v2.0/reference/flux/language/types#timestamp-format).
@@ -56,20 +56,27 @@ Time values in Flux must be in [RFC3339 format](/v2.0/reference/flux/language/ty
 ###### Time range relative to now
 ```js
 from(bucket:"example-bucket")
-  |> range(start:-12h)
+  |> range(start: -12h)
   // ...
 ```
 
 ###### Relative time range
 ```js
 from(bucket:"example-bucket")
-  |> range(start:-12h, stop: -15m)
+  |> range(start: -12h, stop: -15m)
   // ...
 ```
 
 ###### Absolute time range
 ```js
 from(bucket:"example-bucket")
-  |> range(start:2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
+  |> range(start: 2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
+  // ...
+```
+
+###### Absolute time range with Unix timestamps
+```js
+from(bucket:"example-bucket")
+  |> range(start: 1527031800, stop: 1527033600)
   // ...
 ```

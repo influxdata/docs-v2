@@ -16,7 +16,7 @@ related:
 The `sample()` function selects a subset of the records from the input table.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 sample(n:5, pos: -1)

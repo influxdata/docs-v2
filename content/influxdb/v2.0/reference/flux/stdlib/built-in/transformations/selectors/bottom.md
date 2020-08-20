@@ -16,7 +16,7 @@ related:
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 bottom(n:10, columns: ["_value"])

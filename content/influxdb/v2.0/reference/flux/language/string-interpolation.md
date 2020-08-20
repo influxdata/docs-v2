@@ -41,10 +41,10 @@ count = 12
 {{% /note %}}
 
 
-## Use dot notation to interpolate object values
-[Objects](/v2.0/reference/flux/language/expressions/#object-literals) consist of key-value pairs.
+## Use dot notation to interpolate record values
+[Records](/v2.0/reference/flux/language/expressions/#record-literals) consist of key-value pairs.
 Use [dot notation](/v2.0/reference/flux/language/expressions/#member-expressions)
-to interpolate values from an object.
+to interpolate values from a record.
 
 ```js
 person = {
@@ -57,9 +57,9 @@ person = {
 // My name is John and I'm 42 years old.
 ```
 
-Flux returns each record in query results as an object.
-In Flux row functions, each row object is represented by `r`.
-Use dot notation to interpolate specific column values from the `r` object.
+Flux returns each record in query results as a record.
+In Flux row functions, each row record is represented by `r`.
+Use dot notation to interpolate specific column values from the `r` record.
 
 ##### Use string interpolation to add a human-readable message
 ```js

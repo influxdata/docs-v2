@@ -40,6 +40,7 @@ To write data into InfluxDB, you need the following:
   instructions on viewing your bucket ID._
 - **authentication token** – _See [View tokens](/v2.0/security/tokens/view-tokens/)
   for instructions on viewing your authentication token._
+- **InfluxDB URL** – _See [InfluxDB URLs](https://v2.docs.influxdata.com/v2.0/reference/urls/)_.
 
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 

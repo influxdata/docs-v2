@@ -25,7 +25,7 @@ By default the start boundary of a window will align with the Unix epoch (zero t
 modified by the offset of the `location` option.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 window(

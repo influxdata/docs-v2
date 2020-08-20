@@ -1,6 +1,7 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
+{{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $scratch := newScratch }}
 

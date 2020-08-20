@@ -53,9 +53,9 @@ Second of two streams of tables to join.
 _**Data type:** Stream of tables_
 
 ### fn
-A function with `left` and `right` arguments that maps a new output object
-using values from the `left` and `right` input objects.
-The return value must be an object.
+A function with `left` and `right` arguments that maps a new output record
+using values from the `left` and `right` input records.
+The return value must be a record.
 
 _**Data type:** Function_
 

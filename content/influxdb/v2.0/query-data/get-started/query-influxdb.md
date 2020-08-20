@@ -79,13 +79,13 @@ The `filter()` function has one parameter, `fn`, which expects an anonymous func
 with logic that filters data based on columns or attributes.
 
 Flux's anonymous function syntax is similar to Javascript's.
-Records or rows are passed into the `filter()` function as an object (`r`).
-The anonymous function takes the object and evaluates it to see if it matches the defined filters.
+Records or rows are passed into the `filter()` function as a record (`r`).
+The anonymous function takes the record and evaluates it to see if it matches the defined filters.
 Use the `and` relational operator to chain multiple filters.
 
 ```js
 // Pattern
-(r) => (r.objectProperty comparisonOperator comparisonExpression)
+(r) => (r.recordProperty comparisonOperator comparisonExpression)
 
 // Example with single filter
 (r) => (r._measurement == "cpu")

@@ -3,7 +3,7 @@ title: Check if a value exists
 seotitle: Use Flux to check if a value exists
 list_title: Exists
 description: >
-  Use the Flux `exists` operator to check if an object contains a key or if that
+  Use the Flux `exists` operator to check if a record contains a key or if that
   key's value is `null`.
 influxdb/v2.0/tags: [exists]
 menu:
@@ -25,7 +25,7 @@ list_code_example: |
   ```
 ---
 
-Use the Flux `exists` operator to check if an object contains a key or if that
+Use the Flux `exists` operator to check if a record contains a key or if that
 key's value is `null`.
 
 ```js

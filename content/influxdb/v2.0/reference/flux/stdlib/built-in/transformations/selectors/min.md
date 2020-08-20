@@ -16,7 +16,7 @@ related:
 The `min()` function selects record with the lowest `_value` from the input table.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 min(column: "_value")

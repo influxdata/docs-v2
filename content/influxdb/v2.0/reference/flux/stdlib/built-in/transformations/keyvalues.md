@@ -21,21 +21,25 @@ The `keyValues()` function returns a table with the input table's group key plus
 `_key` and `_value`, that correspond to unique column + value pairs from the input table.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
 
 ```js
 keyValues(keyColumns: ["usage_idle", "usage_user"])
+```
 
+<!--
+```js
 // OR
 
 keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))
-```
+``` -->
 
 ## Parameters
 
+<!--
 {{% note %}}
 `keyColumns` and `fn` are mutually exclusive. Only one may be used at a time.
 {{% /note %}}
+-->
 
 ### keyColumns
 
@@ -45,6 +49,7 @@ Each input table must have all of the columns listed by the `keyColumns` paramet
 
 _**Data type:** Array of strings_
 
+<!--
 ### fn
 
 Function used to identify a set of columns.
@@ -61,6 +66,7 @@ _**Data type:** Function_
 - Only one of `keyColumns` or `fn` may be used in a single call.
 - All columns indicated must be of the same type.
 - Each input table must have all of the columns listed by the `keyColumns` parameter.
+-->
 
 ## Examples
 
@@ -73,6 +79,7 @@ from(bucket: "example-bucket")
   |> keyValues(keyColumns: ["usage_idle", "usage_user"])
 ```
 
+<!--
 ##### Get key values from columns matching a regular expression
 
 ```js
@@ -80,4 +87,5 @@ from(bucket: "example-bucket")
   |> range(start: -30m)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))
-```  
+```
+ -->

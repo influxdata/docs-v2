@@ -31,9 +31,8 @@ date.minute(t: 2019-07-17T12:05:21.012Z)
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration | Integer_
+_**Data type:** Time | Duration_
 
 ## Examples
 
@@ -55,13 +54,4 @@ option now = () => 2020-02-11T12:21:03.293534940Z
 date.minute(t: -45m)
 
 // Returns 36
-```
-
-##### Return the minute of a nanosecond Unix timestamp
-```js
-import "date"
-
-date.minute(t: 1581423663293534940)
-
-// Returns 21
 ```

@@ -16,7 +16,7 @@ The key may modify an existing column or add a new column to the tables.
 If the modified column is part of the group key, the output tables are regrouped as needed.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 set(key: "myKey",value: "myValue")

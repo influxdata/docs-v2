@@ -55,12 +55,12 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the Discord webhook request.
+A function that builds the record used to generate the Discord webhook request.
 Requires an `r` parameter.
 
 _**Data type:** Function_
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
+`mapFn` accepts a table row (`r`) and returns a record that must include the
 following field:
 
 - `content`

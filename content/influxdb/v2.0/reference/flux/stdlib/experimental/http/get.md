@@ -35,7 +35,7 @@ _**Data type:** String_
 ### headers
 Headers to include with the GET request.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### timeout
 Timeout for the GET request.
@@ -44,7 +44,7 @@ Default is `30s`.
 _**Data type:** Duration_
 
 ## Response format
-`http.get` returns an object that contains the following:
+`http.get` returns a record that contains the following:
 
 - [statusCode](#statuscode)
 - [body](#body)
@@ -63,7 +63,7 @@ _**Data type:** Byte Array_
 ### headers
 Headers included with the response.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 
