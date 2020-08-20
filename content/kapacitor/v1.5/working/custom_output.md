@@ -1,5 +1,6 @@
 ---
 title: Contributing new Kapacitor output nodes
+description: Contribute a new node to Kapacitor to output data to a custom endpoint.
 aliases:
     - kapacitor/v1.5/contributing/custom_output/
     - kapacitor/v1.5/about_the_project/custom_output/

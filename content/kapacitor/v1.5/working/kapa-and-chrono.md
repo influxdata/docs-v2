@@ -1,6 +1,6 @@
 ---
 title: Using Kapacitor in Chronograf
-
+description: Use Kapacitor in the Chronograf user interface (UI).
 menu:
   kapacitor_1_5:
     weight: 2

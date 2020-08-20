@@ -1,5 +1,6 @@
 ---
 title: Release Notes/Changelog
+description: Important features and changes in the latest version of Kapacitor.
 menu:
   kapacitor_1_5_ref:
     parent: About the project

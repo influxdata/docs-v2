@@ -1,9 +1,9 @@
 ---
-title: Working with Kapacitor
+title: Work with Kapacitor
 
 menu:
   kapacitor_1_5:
-    name: Working with Kapacitor
+    name: Work with Kapacitor
     identifier: work-w-kapacitor
     weight: 30
 ---

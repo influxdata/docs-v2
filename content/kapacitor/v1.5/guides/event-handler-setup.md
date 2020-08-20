@@ -1,6 +1,6 @@
 ---
-title: Event handler setup
-
+title: Set up event handler
+description:
 menu:
   kapacitor_1_5:
     weight: 70
