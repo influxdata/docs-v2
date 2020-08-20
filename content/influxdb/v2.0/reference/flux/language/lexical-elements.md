@@ -298,7 +298,7 @@ String literals support several escape sequences.
 \${  U+0024 U+007B dollar sign and opening curly bracket
 ```
 
-Additionally, any byte value may be specified via a hex encoding using `\x ` as the prefix.
+Additionally, any byte value may be specified via a hex encoding using `\x` as the prefix.
 
 ```
 string_lit       = `"` { unicode_value | byte_value | StringExpression | newline } `"` .
@@ -348,7 +348,7 @@ n = 42
 
 A _regular expression literal_ represents a regular expression pattern, enclosed in forward slashes.
 Within the forward slashes, any unicode character may appear except for an unescaped forward slash.
-The ` \x` hex byte value representation from string literals may also be present.
+The `\x` hex byte value representation from string literals may also be present.
 
 Regular expression literals support only the following escape sequences:
 
