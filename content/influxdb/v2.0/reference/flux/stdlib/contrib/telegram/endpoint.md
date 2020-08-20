@@ -3,6 +3,8 @@ title: telegram.endpoint() function
 description: >
   The `telegram.endpoint()` function sends a message to a Telegram channel
   using data from table rows.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/telegram/endpoint
 menu:
   influxdb_2_0_ref:
     name: telegram.endpoint

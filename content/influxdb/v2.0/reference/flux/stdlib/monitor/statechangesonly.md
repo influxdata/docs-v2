@@ -3,6 +3,8 @@ title: monitor.stateChangesOnly() function
 description: >
   The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
   column and returns a stream of tables where each record represents a state change.
+aliases:
+  - /v2.0/reference/flux/stdlib/monitor/statechangesonly
 menu:
   influxdb_2_0_ref:
     name: monitor.stateChangesOnly

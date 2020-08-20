@@ -3,6 +3,8 @@ title: experimental.subDuration() function
 description: >
   The `experimental.subDuration()` function subtracts a duration from a time value and
   returns a the resulting time value.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/subduration
 menu:
   influxdb_2_0_ref:
     name: experimental.subDuration

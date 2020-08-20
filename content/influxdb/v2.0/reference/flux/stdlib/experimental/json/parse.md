@@ -2,6 +2,8 @@
 title: json.parse() function
 description: >
   The `json.parse()` function takes JSON data as bytes and returns a value.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/json/parse
 menu:
   influxdb_2_0_ref:
     name: json.parse

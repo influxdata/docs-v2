@@ -5,6 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/misc/systemtime
   - /v2.0/reference/flux/functions/built-in/misc/systemtime
   - /v2.0/reference/flux/functions/system/time/
+  - /v2.0/reference/flux/stdlib/system/time
 menu:
   influxdb_2_0_ref:
     name: system.time

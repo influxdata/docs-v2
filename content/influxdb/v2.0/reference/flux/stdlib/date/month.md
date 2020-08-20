@@ -5,6 +5,7 @@ description: >
   Results range from `[1-12]`.
 aliases:
   - /v2.0/reference/flux/functions/date/month/
+  - /v2.0/reference/flux/stdlib/date/month
 menu:
   influxdb_2_0_ref:
     name: date.month

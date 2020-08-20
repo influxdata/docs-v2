@@ -3,6 +3,7 @@ title: sql.to() function
 description: The `sql.to()` function writes data to a SQL database.
 aliases:
   - /v2.0/reference/flux/functions/sql/to/
+  - /v2.0/reference/flux/stdlib/sql/to
 menu:
   influxdb_2_0_ref:
     name: sql.to
@@ -201,7 +202,7 @@ To retrieve SQL Server credentials from a file, execute the query in the
 {{% /warn %}}
 
 ```powershell
-azure auth=C:\secure\azure.auth
+azure auth=C:\securezure.auth
 ```
 
 ##### Specify authentication credentials in the connection string

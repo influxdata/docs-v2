@@ -5,6 +5,7 @@ description: >
   regular expression matches and returns an array of `i` substrings between matches.
 aliases:
   - /v2.0/reference/flux/functions/regexp/splitregexp/
+  - /v2.0/reference/flux/stdlib/regexp/splitregexp
 menu:
   influxdb_2_0_ref:
     name: regexp.splitRegexp

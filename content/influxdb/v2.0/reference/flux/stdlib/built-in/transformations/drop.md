@@ -4,6 +4,7 @@ description: The `drop()` function removes specified columns from a table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/drop
   - /v2.0/reference/flux/functions/built-in/transformations/drop/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/drop
 menu:
   influxdb_2_0_ref:
     name: drop

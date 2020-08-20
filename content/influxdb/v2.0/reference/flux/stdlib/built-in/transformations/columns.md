@@ -7,6 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/transformations/columns
   - /v2.0/reference/flux/functions/built-in/transformations/columns/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/columns
 menu:
   influxdb_2_0_ref:
     name: columns

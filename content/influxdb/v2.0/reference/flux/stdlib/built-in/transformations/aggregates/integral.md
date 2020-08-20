@@ -4,6 +4,7 @@ description: The `integral()` function computes the area under the curve per uni
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/integral
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral
 menu:
   influxdb_2_0_ref:
     name: integral

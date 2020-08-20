@@ -2,6 +2,8 @@
 title: array.from() function
 description: >
   The experimental `array.from()` function constructs a table from an array of records.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/array/from
 menu:
   influxdb_2_0_ref:
     name: array.from

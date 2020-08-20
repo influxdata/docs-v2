@@ -4,6 +4,7 @@ description: >
   The `secrets.get()` function retrieves a secret from the InfluxDB secret store.
 aliases:
   - /v2.0/reference/flux/functions/secrets/get/
+  - /v2.0/reference/flux/stdlib/secrets/get
 menu:
   influxdb_2_0_ref:
     name: secrets.get

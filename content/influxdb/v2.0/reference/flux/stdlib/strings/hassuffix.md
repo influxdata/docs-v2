@@ -3,6 +3,7 @@ title: strings.hasSuffix() function
 description: The strings.hasSuffix() function indicates if a string ends with a specified suffix.
 aliases:
   - /v2.0/reference/flux/functions/strings/hassuffix/
+  - /v2.0/reference/flux/stdlib/strings/hassuffix
 menu:
   influxdb_2_0_ref:
     name: strings.hasSuffix

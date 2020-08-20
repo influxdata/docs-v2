@@ -4,6 +4,7 @@ description: The `yield()` function indicates the input tables received should b
 aliases:
   - /v2.0/reference/flux/functions/outputs/yield
   - /v2.0/reference/flux/functions/built-in/outputs/yield/
+  - /v2.0/reference/flux/stdlib/built-in/outputs/yield
 menu:
   influxdb_2_0_ref:
     name: yield

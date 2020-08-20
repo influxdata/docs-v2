@@ -3,6 +3,8 @@ title: query.inBucket() function
 description: >
   The `query.inBucket()` function queries data from a specified bucket within given
   time bounds, filters data by measurement, field, and optional predicate expressions.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/query/inbucket
 menu:
   influxdb_2_0_ref:
     name: query.inBucket

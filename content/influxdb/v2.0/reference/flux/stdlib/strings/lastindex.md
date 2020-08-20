@@ -5,6 +5,7 @@ description: >
   in a string or `-1` if substring is not present.
 aliases:
   - /v2.0/reference/flux/functions/strings/lastindex/
+  - /v2.0/reference/flux/stdlib/strings/lastindex
 menu:
   influxdb_2_0_ref:
     name: strings.lastIndex

@@ -3,6 +3,8 @@ title: rows.map() function
 description: >
   The `rows.map()` function is an alternate implementation of [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
   that is faster, but more limited than `map()`.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/rows/map
 menu:
   influxdb_2_0_ref:
     name: rows.map

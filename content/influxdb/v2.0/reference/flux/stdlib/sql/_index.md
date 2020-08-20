@@ -7,6 +7,7 @@ description: >
   Import the `sql` package.
 aliases:
   - /v2.0/reference/flux/functions/sql/
+  - /v2.0/reference/flux/stdlib/sql/
 menu:
   influxdb_2_0_ref:
     name: SQL

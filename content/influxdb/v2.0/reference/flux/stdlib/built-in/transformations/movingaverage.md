@@ -5,6 +5,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
   - /v2.0/reference/flux/functions/built-in/transformations/movingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage
 menu:
   influxdb_2_0_ref:
     name: movingAverage
