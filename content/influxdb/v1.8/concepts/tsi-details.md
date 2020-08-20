@@ -1,6 +1,6 @@
 ---
 title: Time Series Index (TSI) details
-
+description: Enable and understand the Time Series Index (TSI).
 menu:
   influxdb_1_8:
     name: Time Series Index (TSI) details

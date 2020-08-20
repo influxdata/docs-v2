@@ -1,5 +1,6 @@
 ---
 title: Influx Query Language (InfluxQL) reference
+description: List of resources for Influx Query Language (InfluxQL).
 menu:
   influxdb_1_8:
     name: InfluxQL reference

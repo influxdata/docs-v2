@@ -1,5 +1,6 @@
 ---
 title: Get started with InfluxDB OSS
+description: Get started with InfluxDB OSS.
 aliases:
   - /influxdb/v1.8/introduction/getting_started/
   - /influxdb/v1.8/introduction/getting-started/

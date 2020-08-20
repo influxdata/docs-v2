@@ -1,6 +1,6 @@
 ---
 title: Grafana graphs and dashboards
-
+description: See Grafana's documentation for details about Grafana graphs and dashboards.
 menu:
   influxdb_1_8:
     url: "https://grafana.com/docs/grafana/latest/features/datasources/influxdb/"

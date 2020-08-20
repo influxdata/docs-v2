@@ -1,5 +1,6 @@
 ---
 title: Downsample and retain data
+description: Downsample data to keep high precision while preserving storage.
 menu:
   influxdb_1_8:
     weight: 30

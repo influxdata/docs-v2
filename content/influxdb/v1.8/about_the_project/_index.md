@@ -1,5 +1,6 @@
 ---
 title: About InfluxDB OSS
+description: Learn about InfluxDB OSS.
 alias:
   -/docs/v1.8/about/
 menu:

@@ -5,7 +5,7 @@ menu:
   influxdb_1_8:
     name: Error messages
     weight: 30
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page documents errors, their descriptions, and, where applicable,

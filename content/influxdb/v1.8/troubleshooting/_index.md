@@ -1,8 +1,9 @@
 ---
-title: Troubleshooting InfluxDB
+title: Troubleshoot InfluxDB
+description: Troubleshoot issues with InfluxDB.
 menu:
   influxdb_1_8:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 110
 ---
 

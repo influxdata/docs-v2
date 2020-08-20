@@ -1,6 +1,6 @@
 ---
 title: Write data with the InfluxDB API
-
+description: Write data into InfluxDB with the API.
 menu:
   influxdb_1_8:
     weight: 10

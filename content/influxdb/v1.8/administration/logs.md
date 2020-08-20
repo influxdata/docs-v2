@@ -1,6 +1,6 @@
 ---
 title: Log and trace with InfluxDB
-
+description: Log and trace in InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Log and trace

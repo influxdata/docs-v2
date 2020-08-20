@@ -1,5 +1,6 @@
 ---
 title: Learn about InfluxDB OSS
+description: Tasks to complete to get up and running with InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Introduction

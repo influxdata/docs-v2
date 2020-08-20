@@ -1,5 +1,6 @@
 ---
 title: InfluxDB glossary
+description: Terms related to InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Glossary

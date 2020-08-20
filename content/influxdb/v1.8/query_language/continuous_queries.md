@@ -1,6 +1,9 @@
 ---
 title: InfluxQL Continuous Queries
-
+description: >
+Continuous queries (CQ) are InfluxQL queries that run automatically and
+periodically on realtime data and store query results in a
+specified measurement.
 menu:
   influxdb_1_8:
     name: Continuous Queries
@@ -405,7 +408,7 @@ See [ Description of Basic Syntax](/influxdb/v1.8/query_language/continuous_quer
 ##### Scheduling and coverage
 
 CQs operate on real-time data. With the advanced syntax, CQs use the local
-server’s timestamp, the information in the `RESAMPLE` clause, and the InfluxDB 
+server’s timestamp, the information in the `RESAMPLE` clause, and the InfluxDB
 server's preset time boundaries to determine when to execute and what time range to
 cover in the query.
 

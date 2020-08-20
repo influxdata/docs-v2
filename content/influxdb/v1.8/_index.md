@@ -1,6 +1,6 @@
 ---
 title: InfluxDB 1.8 documentation
-
+description: Overview of documentation available for InfluxDB.
 menu:
   influxdb_1_8:
     name: InfluxDB v1.8
