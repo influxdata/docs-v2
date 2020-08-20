@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     name: Go
     parent: Client libraries
-v2.0/tags: [client libraries, Go]
+influxdb/v2.0/tags: [client libraries, Go]
 weight: 201
 ---
 

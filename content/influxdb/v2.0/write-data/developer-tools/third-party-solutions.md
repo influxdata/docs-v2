@@ -7,7 +7,7 @@ description: >
   Write data to InfluxDB using third-party developer tools.
 aliases:
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Third-party developer tools
     parent: Developer tools
 ---
@@ -48,7 +48,7 @@ The [template](https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml) contain
 
 After a few minutes, the stack deploys to your region. To view the new Lambda, select **Services > AWS Lambda**. On the Lambda functions page, you should see your new Lambda. The `CopyZipsFunction` is the helper copy function, and the `GeoPythonLambda` does the data collection and writing work:
 
-{{< img-hd src="static/img/influxdb/cloudformation1.png" alt="GeoPythonLambda data in InfluxDB" />}}
+{{< img-hd src="/img/cloudformation1.png" alt="GeoPythonLambda data in InfluxDB" />}}
 
 ### Verify your setup
 
@@ -60,4 +60,4 @@ After a few minutes, the stack deploys to your region. To view the new Lambda, s
 
 With the data points written, when you log into your InfluxDB UI, you’ll be able to explore the geolocation earthquake data:
 
-{{< img-hd src="static/img/influxdb/cloudformation2.png" alt="GeoPythonLambda data in InfluxDB" />}}
+{{< img-hd src="/img/cloudformation2.png" alt="GeoPythonLambda data in InfluxDB" />}}

@@ -13,7 +13,7 @@ menu:
     parent: Account management
     name: Pricing plans
 products: [cloud]
-v2.0/tags: [VPC]
+influxdb/v2.0/tags: [VPC]
 ---
 
 InfluxDB Cloud 2.0 offers two pricing plans:

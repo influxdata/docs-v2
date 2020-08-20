@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     name: JavaScript
     parent: Client libraries
-v2.0/tags: [client libraries, JavaScript]
+influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 ---
 
