@@ -76,7 +76,7 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 The [Histogram visualization type](/v2.0/visualize-data/visualization-types/histogram/)
 automatically converts query results into a binned and segmented histogram.
 
-{{< img-hd src="/img/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
 
 Use the [Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
 to specify the number of bins and define groups in bins.
@@ -190,4 +190,4 @@ from(bucket: "example-bucket")
 In the Histogram visualization options, select `_time` as the **X Column**
 and `severity` as the **Group By** option:
 
-{{< img-hd src="/img/2-0-visualizations-histogram-errors.png" alt="Logs by severity histogram" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-histogram-errors.png" alt="Logs by severity histogram" />}}

@@ -184,7 +184,7 @@ sql.from(
 
 Use the variable to manipulate queries in your dashboards.
 
-{{< img-hd src="/img/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
+{{< img-hd src="/img/influxdb/2-0-sql-dashboard-variable.png" alt="Dashboard variable from SQL query results" />}}
 
 ---
 
