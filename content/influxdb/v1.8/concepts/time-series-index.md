@@ -1,6 +1,6 @@
 ---
 title: Time Series Index (TSI) overview
-
+description: Overview of the Time Series Index (TSI) storage engine.
 menu:
   influxdb_1_8:
     name: Time Series Index (TSI) overview

@@ -1,6 +1,6 @@
 ---
 title: Manage subscriptions in InfluxDB
-description: InfluxDB uses subscriptions to copy all written data to a local or remote endpoint. This article walks through how InfluxDB subscriptions work, how to configure them, and how to manage them.
+description: Manage subscriptions, which copy all written data to a local or remote endpoint, in InfluxDB OSS.
 menu:
   influxdb_1_8:
     parent: Administration

@@ -1,6 +1,6 @@
 ---
 title: Additional InfluxDB resources
-description: InfluxDB resources, including InfluxData blog, technical papers, meetup and training videos, and upcoming virtual training and other events.
+description: View additional resources for InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Additional resources

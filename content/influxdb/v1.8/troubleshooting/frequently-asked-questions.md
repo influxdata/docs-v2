@@ -5,9 +5,9 @@ aliases:
 
 menu:
   influxdb_1_8:
-    name: Frequently asked questions (FAQ)
+    name: Frequently asked questions (FAQs)
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page addresses frequent sources of confusion and places where InfluxDB behaves in an unexpected way relative to other database systems.

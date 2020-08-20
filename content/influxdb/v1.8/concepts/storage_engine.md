@@ -1,6 +1,6 @@
 ---
 title: In-memory indexing and the Time-Structured Merge Tree (TSM)
-
+description: Overview of in-memory indexing and the Time-Structured Merge Tree (TSM) in InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: In-memory indexing with TSM

@@ -1,6 +1,6 @@
 ---
 title: High availability with InfluxDB Enterprise
-
+description: High availability clustering is available with InfluxDB Enterprise only.
 menu:
   influxdb_1_8:
     name: High availability

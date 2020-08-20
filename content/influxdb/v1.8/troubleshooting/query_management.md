@@ -1,11 +1,11 @@
 ---
 title: InfluxQL query management
-
+description: Manage queries in InfluxQL.
 menu:
   influxdb_1_8:
     name: Query management
     weight: 20
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 Manage your InfluxQL queries using the following:

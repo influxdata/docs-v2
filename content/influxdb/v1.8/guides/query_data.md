@@ -1,5 +1,6 @@
 ---
 title: Query data with the InfluxDB API
+desription: Query data with the InfluxDB API.
 alias:
   -/docs/v1.8/query_language/querying_data/
 menu:

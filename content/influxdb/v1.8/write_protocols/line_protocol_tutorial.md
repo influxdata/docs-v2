@@ -1,5 +1,6 @@
 ---
 title: InfluxDB line protocol tutorial
+description: Tutorial for using InfluxDB line protocol. 
 aliases:
     - /influxdb/v1.8/write_protocols/line/
 menu:

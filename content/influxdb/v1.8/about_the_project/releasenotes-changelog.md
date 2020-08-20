@@ -1,5 +1,6 @@
 ---
 title: InfluxDB 1.8 release notes
+description: Important changes and and what's new in each version of InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Release notes

@@ -202,21 +202,21 @@ You must use a backslash character `\` to escape the following special character
   * backslash character
 
 For example, `\"` escapes double quote.
-   
+
 >#### Note on backslashes:
 >
 * If you use multiple backslashes, they must be escaped. Influx interprets backslashes as follows:
-  *	`\` or `\\` interpreted as `\` 
-  *	`\\\` or `\\\\` interpreted as `\\` 
+  *	`\` or `\\` interpreted as `\`
+  *	`\\\` or `\\\\` interpreted as `\\`
   * `\\\\\` or `\\\\\\` interpreted as `\\\`, and so on
 
-* In tag keys, tag values, and field keys, you must escape: 
+* In tag keys, tag values, and field keys, you must escape:
   * commas
   * equal signs
   * spaces
 
 For example, `\,` escapes a comma.
-    
+
 * In measurements, you must escape:
   * commas  
   * spaces

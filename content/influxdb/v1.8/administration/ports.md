@@ -1,6 +1,6 @@
 ---
 title: InfluxDB ports
-
+description: Overview of ports in InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Ports
