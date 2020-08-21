@@ -36,7 +36,7 @@ For more information about how checks, notification endpoints, and notifications
 
     > **Note:** Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
-2. [Install Telegraf](/telegraf/latest/introduction/installation/) on a server with network access to both the Docker containers and [InfluxDB v2 API](/v2.0/reference/api/).
+2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the Docker containers and [InfluxDB v2 API](/v2.0/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/), do the following:
     - Depending on how you run Docker, you may need to customize the [Docker input plugin](/v2.0/reference/telegraf-plugins/#docker) configuration, for example, you may need to specify the `endpoint` value.
     - Set the following environment variables:
