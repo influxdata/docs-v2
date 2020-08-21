@@ -7,7 +7,16 @@ menu:
     parent: About the project
 ---
 
+## v1.8.2 [2020-08-13]
+
+### Bug fixes
+
+- Revert configuration change to `DefaultSeriesIDSetCacheSize` that caused some environments to experience increased memory usage.
+
 ## v1.8.1 [2020-07-14]
+
+{{% warn %}} **Warning:** Bug that potentially increased memory usage was introduced in 1.8.1. **If you installed this release**, install [v1.8.2](#v1-8-2-2020-08-13), which includes the features, performance improvements, and bug fixes below.
+{{% /warn %}}
 
 ### Features
 
