@@ -21,7 +21,6 @@ This article outlines many of the tasks possible with Flux but not InfluxQL and 
 - [Math across measurements](#math-across-measurements)
 - [Sort by tags](#sort-by-tags)
 - [Group by any column](#group-by-any-column)
-- [Window by calendar months and years](#window-by-calendar-months-and-years)
 - [Work with multiple data sources](#work-with-multiple-data-sources)
 - [DatePart-like queries](#datepart-like-queries)
 - [Pivot](#pivot)
@@ -29,7 +28,6 @@ This article outlines many of the tasks possible with Flux but not InfluxQL and 
 - [Covariance](#covariance)
 - [Cast booleans to integers](#cast-booleans-to-integers)
 - [String manipulation and data shaping](#string-manipulation-and-data-shaping)
-- [Work with geo-temporal data](#work-with-geo-temporal-data)
 
 ### Joins
 InfluxQL has never supported joins. They can be accomplished using [TICKscript](/kapacitor/latest/tick/introduction/),
