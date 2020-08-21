@@ -24,9 +24,8 @@ list_code_example: |
 
 The [Flux](/flux/v0.65) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/sql/from/) lets you query SQL data sources
-like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
-and [SQLite](https://www.sqlite.org/index.html), and use the results with InfluxDB
-dashboards, tasks, and other operations.
+like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/),
+and use the results with InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
@@ -43,7 +42,6 @@ To query a SQL data source:
 {{% code-tabs %}}
 [PostgreSQL](#)
 [MySQL](#)
-[SQLite](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -65,21 +63,6 @@ import "sql"
 sql.from(
   driverName: "mysql",
   dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
-)
-```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```js
-// NOTE: InfluxDB OSS and InfluxDB Cloud do not have access to
-// the local filesystem and cannot query SQLite data sources.
-// Use the Flux REPL to query an SQLite data source.
-
-import "sql"
-sql.from(
-  driverName: "sqlite3",
-  dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
   query: "SELECT * FROM example_table"
 )
 ```
