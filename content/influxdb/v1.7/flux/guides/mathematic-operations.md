@@ -13,7 +13,7 @@ list_query_example: map_math
 ---
 
 Flux supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/flux/v0.65/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/{{< latest "influxdb" "v2" >}}/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:

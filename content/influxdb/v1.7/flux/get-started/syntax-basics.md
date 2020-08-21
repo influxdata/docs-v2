@@ -64,35 +64,35 @@ this is a string
 2
 ```
 
-### Objects
-Flux also supports objects. Each value in an object can be a different data type.
+### Records
+Flux also supports records. Each value in an record can be a different data type.
 
 ```js
-> o = {name:"Jim", age: 42, "favorite color": "red"}
+> rec = {name:"Jim", age: 42, "favorite color": "red"}
 ```
 
-Use **dot notation** to access a properties of an object:
+Use **dot notation** to access a properties of an record:
 
 ```js
-> o.name
+> rec.name
 Jim
-> o.age
+> rec.age
 42
 ```
 
 Or **bracket notation**:
 
 ```js
-> o["name"]
+> rec["name"]
 Jim
-> o["age"]
+> rec["age"]
 42
-> o["favorite color"]
+> rec["favorite color"]
 red
 ```
 
 {{% note %}}
-Use bracket notation to reference object properties with special or
+Use bracket notation to reference record properties with special or
 white space characters in the property key.
 {{% /note %}}
 

@@ -57,7 +57,7 @@ You still must extract that table from the stream.
 Use [`tableFind()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
 to extract the **first** table whose [group key](/influxdb/v1.7/flux/get-started/#group-keys)
 values match the `fn` **predicate function**.
-The predicate function requires a `key` object, which represents the group key of
+The predicate function requires a `key` record, which represents the group key of
 each table.
 
 ```js
@@ -130,7 +130,7 @@ SFOTemps[2]
 Use the [`getRecord()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
-The function outputs an object with key-value pairs for each column.
+The function outputs a record with key-value pairs for each column.
 
 ```js
 sampleData
@@ -148,10 +148,10 @@ sampleData
 // }
 ```
 
-### Use an extracted row object
-Use a variable to store the extracted row object.
+### Use an extracted row record
+Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot notation](/influxdb/v1.7/flux/get-started/syntax-basics/#objects) to reference
+Use [dot notation](/influxdb/v1.7/flux/get-started/syntax-basics/#records) to reference
 keys in the object.
 
 ```js
@@ -202,7 +202,7 @@ lastJFKTemp
 
 ##### Extract scalar row data
 ```js
-// Define a helper function to extract a row as an object
+// Define a helper function to extract a row as a record
 getRow = (tables=<-, field, idx=0) => {
   extract = tables
     |> tableFind(fn: (key) => true)
