@@ -22,7 +22,7 @@ list_code_example: |
   ```
 ---
 
-The [Flux](/flux/v0.65) `sql` package provides functions for working with SQL data sources.
+The Flux `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/) and [MySQL](https://www.mysql.com/),
 and use the results with InfluxDB dashboards, tasks, and other operations.
