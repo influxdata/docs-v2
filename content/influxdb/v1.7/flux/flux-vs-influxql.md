@@ -132,18 +132,6 @@ from(bucket:"telegraf/autogen")
   |> group(columns:["host", "_value"])
 ```
 
-### Window by calendar months and years
-InfluxQL does not support windowing data by calendar months and years due to their varied lengths.
-Flux supports calendar month and year duration units (`1mo`, `1y`) and lets you
-window and aggregate data by calendar month and year.
-
-```js
-from(bucket:"telegraf/autogen")
-  |> range(start:-1y)
-  |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
-  |> aggregateWindow(every: 1mo, fn: mean)
-```
-
 ### Work with multiple data sources
 InfluxQL can only query data stored in InfluxDB.
 Flux can query data from other data sources such as CSV, PostgreSQL, MySQL, Google BigTable, and more.
@@ -307,26 +295,6 @@ from(bucket: "telegraf/autogen")
     status: strings.substring(v: r.status, start: 0, end: 8)
   }))
 ```
-
-### Work with geo-temporal data
-InfluxQL doesn't provide functionality for working with geo-temporal data.
-The [Flux Geo package](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/) is a collection of functions that
-let you shape, filter, and group geo-temporal data.
-
-```js
-import "experimental/geo"
-
-from(bucket: "geo/autogen")
-  |> range(start: -1w)
-  |> filter(fn: (r) => r._measurement == "taxi")
-  |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 20)
-  |> geo.filterRows(
-    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
-    strict: true
-  )
-  |> geo.asTracks(groupBy: ["fare-id"])
-```
-
 
 ## InfluxQL and Flux parity
 Flux is working towards complete parity with InfluxQL and new functions are being added to that end.
