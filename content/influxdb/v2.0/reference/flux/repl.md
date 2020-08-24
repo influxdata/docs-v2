@@ -8,18 +8,17 @@ menu:
 weight: 104
 ---
 
-Use the Flux REPL (Read–Eval–Print Loop) to test Flux code and interact with InfluxDB and other data sources.
-
-The REPL must be built from the Flux source code.
+Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interact with InfluxDB and other data sources.
+[Build the REPL](#build-the-repl) from the Flux source code.
 
 ## Build the REPL
 
 See the [Flux repository README](https://github.com/influxdata/flux#requirements) for instructions on building the REPL.
 
-Once built, the REPL can be run with
+Once built, open a new REPL session with:
 
 ```sh
-$ ./flux repl
+./flux repl
 ```
 
 ## Use the REPL
