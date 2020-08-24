@@ -1,4 +1,5 @@
 {{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -10,8 +11,10 @@
         <h1>{{ .Title }}</h1>
         <ul class="list-links">
 
-          {{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
-          {{ $tagSet := print $currentVersion "/tags" }}
+          {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+          {{ $product := index $productPathData 0 }}
+          {{ $currentVersion := index $productPathData 1 }}
+          {{ $tagSet := print $product "/" $currentVersion "/tags" }}
           {{ range $key, $value := index .Site.Taxonomies $tagSet }}
           	<li><a href="{{ $key | urlize  }}">{{ $key }}</a> ({{ len $value }})</li>
           {{ end }}

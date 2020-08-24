@@ -1,0 +1,27 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $latestV2 := (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
+
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+docsearch({
+  apiKey: 'ba4435a9d456ac0d954cc276206eac06',
+  appId: 'WHM9UWMP6M',
+  indexName: 'influxdata',
+  inputSelector: '#algolia-search-input',
+  // Set debug to true if you want to inspect the dropdown
+  debug: true,
+  algoliaOptions: {
+    'facetFilters': [
+      {{ if or (eq $product "platform") (le (len $productPathData) 1) }}
+        'latest:true'
+      {{ else if and (eq $product "influxdb") (gt (len (findRE `v1\.[7,8]` $currentVersion)) 0) }}
+        ['project: influxdb', 'flux:true'], ['version: {{ $currentVersion }}', 'version: {{ $latestV2 }}']
+      {{ else }}
+        'project: {{ $product }}', 'version: {{ $currentVersion }}'
+      {{ end }}
+    ]
+  },
+});
+</script>

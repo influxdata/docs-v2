@@ -1,0 +1,88 @@
+.chronograf {
+
+  .topnav {
+    .docs-home, .influx-home {
+      &:hover { color: $chronograf-topnav-link-hover; }
+    }
+    .dropdown { @include gradient($chronograf-dropdown-gradient) }
+  }
+
+  .sidebar {
+    &--search input {
+      &:focus {
+        border-color: $chronograf-sidebar-search-highlight;
+        box-shadow: 1px 1px 10px rgba($chronograf-sidebar-search-highlight, .5);
+      }
+    }
+
+    #nav-tree {
+      li {
+        &.active {
+          &:before { background: $chronograf-nav-active; }
+          & > a {
+            color: $chronograf-nav-active;
+            &:hover { color: $chronograf-nav-active; }
+          }
+          & > .children-toggle {
+            background: $chronograf-nav-active;
+            &:before, &:after { background: $body-bg; }
+          }
+          & > ul { border-left: 2px solid $chronograf-nav-active; }
+        }
+      }
+
+      .nav-category > a {
+        color: $chronograf-nav-category;
+        &:hover { color: $chronograf-nav-category-hover; }
+      }
+      .nav-item > a:hover { color: $chronograf-nav-item-hover; }
+      .children-toggle:hover { background: $chronograf-nav-toggle-bg-hover; }
+    }
+  }
+
+  .article--content{
+    h1,h2,h3,h4,h5,h6 { color: $chronograf-article-heading; }
+    h2,h4 {
+      color: $chronograf-article-heading-alt;
+    }
+
+    a {
+      color: $chronograf-article-link;
+      &:hover { color: $chronograf-article-link-hover; }
+      &.btn {
+        @include gradient($chronograf-btn-gradient);
+        &:after { @include gradient($chronograf-btn-gradient-hover); }
+      }
+    }
+
+    .children-links, .list-links {
+      h2,h3,h4 {
+        a a:after { color: rgba($chronograf-article-heading, .35);        }
+        a:hover:after { color: $chronograf-article-link; }
+      }
+    }
+
+    .expand-label:hover .expand-toggle { background: $chronograf-article-link; }
+
+    .tabs a {
+      &:after { @include gradient($chronograf-btn-gradient); }
+      &:hover { color: $chronograf-article-tab-active-text; }
+      &.is-active {
+        color: $chronograf-article-tab-active-text;
+        &:after {
+          @include gradient($chronograf-btn-gradient)
+        }
+      }
+    }
+
+    table thead { @include gradient($chronograf-article-table-header, 90deg); }
+
+    .tags .tag :after { @include gradient($grad-MilkyWay) }
+
+    .truncate a.truncate-toggle:hover { color: $chronograf-article-link; }
+
+  }
+
+  .algolia-autocomplete .algolia-docsearch-suggestion--highlight { color: $chronograf-article-link; }
+
+}

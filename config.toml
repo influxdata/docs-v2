@@ -18,7 +18,7 @@ hrefTargetBlank = true
 smartDashes = false
 
 [taxonomies]
-  "v2.0/tag" = "v2.0/tags"
+  "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
 
 [markup]
   [markup.goldmark]

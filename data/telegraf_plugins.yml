@@ -585,7 +585,7 @@ input:
   - name: InfiniBand
     id: infiniband
     description: |
-      The InfiniBand input plugin gathers statistics for all InfiniBand devices and ports on the system. 
+      The InfiniBand input plugin gathers statistics for all InfiniBand devices and ports on the system.
       Counters are stored in `/sys/class/infiniband/<dev>/port/<port>/counters/`.
     introduced: 1.14.0
     tags: [linux, systems]
@@ -609,12 +609,13 @@ input:
 
       To collect data on an InfluxDB 2.x instance running on localhost, the configuration for the
       Prometheus input plugin would be:
-
-      ```
+      <div class="keep-url">
+      ```toml
       [[inputs.prometheus]]
-      ## An array of urls to scrape metrics from.
-      urls = ["http://localhost:9999/metrics"]
+        ## An array of urls to scrape metrics from.
+        urls = ["http://localhost:9999/metrics"]
       ```
+      </div>
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
@@ -919,8 +920,8 @@ input:
   - name: Monit
     id: monit
     description: |
-      The Monit input plugin gathers metrics and status information about local processes, remote hosts, files, 
-      file systems, directories, and network interfaces managed and watched by Monit. To use this plugin, 
+      The Monit input plugin gathers metrics and status information about local processes, remote hosts, files,
+      file systems, directories, and network interfaces managed and watched by Monit. To use this plugin,
       enable the [HTTPD TCP port](https://mmonit.com/monit/documentation/monit.html#TCP-PORT) in Monit.
     introduced: 1.14.0
     tags: [linux, macos, windows, systems, networking]
@@ -931,7 +932,7 @@ input:
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
       Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
     introduced: 0.10.3
-    tags: [linux, macos, windows, messaging]
+    tags: [linux, macos, windows, messaging, IoT]
 
   - name: Multifile
     id: multifile
@@ -1044,6 +1045,13 @@ input:
     description: |
       The NGINX Plus API input plugin gathers advanced status information for NGINX Plus servers.
     introduced: 1.9.0
+    tags: [linux, macos, windows, servers, web]
+
+  - name: NGINX Stream STS
+    id: nginx_sts
+    description: |
+        The NGINX Plus API input plugin gathers NGINX status using external virtual host traffic status.
+    introduced: 1.15.0
     tags: [linux, macos, windows, servers, web]
 
   - name: NGINX Upstream Check
@@ -1277,6 +1285,13 @@ input:
       URI and adds the statistics to InfluxDB.
     introduced: 0.10.3
     tags: [linux, macos, windows, servers, web]
+
+  - name: Redfish
+    id: redfish
+    description: |
+      The Redfish input plugin gathers metrics and status information of hardware servers for which [DMTF's Redfish](https://redfish.dmtf.org/) is enabled.
+    introduced: 1.15.0
+    tags: [linux, macos, windows, servers, networking]
 
   - name: Redis
     id: redis
@@ -1715,7 +1730,7 @@ output:
   - name: Datadog
     id: datadog
     description: |
-      The Datadog output plugin writes to the [Datadog Metrics API](http://docs.datadoghq.com/api/#metrics)
+      The Datadog output plugin writes to the [Datadog Metrics API](http://docs.datadoghq.com/api/v1/metrics/)
       and requires an `apikey` which can be obtained [here](https://app.datadoghq.com/account/settings#api)
       for the account.
     introduced: 0.1.6
@@ -1743,6 +1758,13 @@ output:
     description: |
       The Exec output plugin sends Telegraf metrics to an external application over `stdin`.
     introduced: 1.12.0
+    tags: [linux, macos, windows, systems]
+
+  - name: Execd
+    id: exec
+    description: |
+        The Execd output plugin runs an external program as a daemon.
+    introduced: 1.15.0
     tags: [linux, macos, windows, systems]
 
   - name: File
@@ -1863,7 +1885,7 @@ output:
       The MQTT Producer output plugin writes to the MQTT server using
       [supported output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output/).
     introduced: 0.2.0
-    tags: [linux, macos, windows, messaging]
+    tags: [linux, macos, windows, messaging, IoT]
 
   - name: NATS Output
     id: nats
@@ -1871,6 +1893,13 @@ output:
       The NATS Output output plugin writes to a (list of) specified NATS instance(s).
     introduced: 1.1.0
     tags: [linux, macos, windows, messaging]
+
+  - name: New Relic
+    id: newrelic
+    description: |
+      The New Relic output plugin writes to New Relic insights using the [Metric API](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/metric-api/introduction-metric-api).
+    introduced: 1.15.0
+    tags: [linux, macos, windows, applications, web]
 
   - name: NSQ
     id: nsq
@@ -2079,6 +2108,13 @@ processor:
     introduced: 1.14.0
     tags: [linux, macos, windows]
 
+  - name: Defaults
+    id: defaults
+    description: |
+      The Defaults processor plugin allows you to ensure certain fields will always exist with a specified default value on your metrics.
+    introduced: 1.15.0
+    tags: [linux, macos, windows]
+
   - name: Enum
     id: enum
     description: |
@@ -2091,6 +2127,27 @@ processor:
       The processor supports explicit configuration of a destination field.
       By default the source field is overwritten.
     introduced: 1.8.0
+    tags: [linux, macos, windows]
+
+  - name: Execd
+    id: execd
+    description: |
+      The `execd` processor plugin aruns an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
+    introduced: 1.15.0
+    tags: [linux, macos, windows]
+
+  - name: Filepath
+    id: filepath
+    description: |
+      The `filepath` processor plugin maps certain Go functions from [path/filepath](https://golang.org/pkg/path/filepath/) onto tag and field values.
+    introduced: 1.15.0
+    tags: [linux, macos, windows]
+
+  - name: Network Interface Name
+    id: ifname
+    description: |
+      The Network Interface Name processor plugin looks up network interface names using SNMP.
+    introduced: 1.15.0
     tags: [linux, macos, windows]
 
   - name: Override
@@ -2134,6 +2191,13 @@ processor:
     introduced: 1.12.0
     tags: [linux, macos, windows]
 
+  - name: Port Name Lookup
+    id: port_name
+    description: |
+      The Port Name Lookup processor plugin converts a tag containing a well-known port number to the registered service name.
+    introduced: 1.15.0
+    tags: [linux, macos, windows]
+
   - name: Printer
     id: printer
     description: |
@@ -2156,13 +2220,27 @@ processor:
     introduced: 1.8.0
     tags: [linux, macos, windows]
 
+  - name: Reverse DNS
+    id: reverse_dns
+    description: |
+      The Reverse DNS processor plugin processor does a reverse-dns lookup on tags (or fields) with IPs in them.
+    introduced: 1.15.0
+    tags: [linux, macos, windows]
+
   - name: S2 Geo
     id: s2geo
     description: |
       The S2 Geo processor plugin adds tags with an S2 cell ID token of a specified [cell level](https://s2geometry.io/resources/s2cell_statistics.html).
-      Tags are used in Flux `experimental/geo` functions. 
+      Tags are used in Flux `experimental/geo` functions.
       Specify `lat` and `lon` field values with WGS-84 coordinates in decimal degrees.
     introduced: 1.14.0
+    tags: [linux, macos, windows]
+
+  - name: Starlark
+    id: starlark
+    description: |
+      The Starlark processor plugin calls a [Starlark function](https://github.com/google/starlark-go/blob/master/doc/spec.md) for each matched metric, allowing for custom programmatic metric processing.
+    introduced: 1.15.0
     tags: [linux, macos, windows]
 
   - name: Strings
@@ -2204,7 +2282,7 @@ processor:
   - name: Template
     id: template
     description: |
-      The Template processor plugin applies a Go template to metrics to generate a new tag. 
+      The Template processor plugin applies a Go template to metrics to generate a new tag.
       Primarily used to create a tag for dynamic routing to multiple output plugins
       or to an output specific routing option. The template has access to each metric's measurement name,
       tags, fields, and timestamp using the interface in [template_metric.go](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/template/template_metric.go).

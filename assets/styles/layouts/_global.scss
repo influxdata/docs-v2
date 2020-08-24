@@ -8,15 +8,12 @@ $bold: 700;
 
 html {
   height: 100%;
-  background: $body-bg;
 }
 
 body {
   min-height: 100%;
   font-family: 'Rubik', sans-serif;
-  background: radial-gradient(circle at 100% 0%, $body-gradient-top 0%, $body-gradient-bottom) 30%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: $body-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,41 +23,12 @@ body {
 }
 
 a {
-  transition: all .2s;
+  transition: color .2s, background-color .2s;
 }
 
 .page-wrapper {
   display: flex;
   flex-grow: 1;
-}
-
-///  Styles for the placeholder homepage only viewalbe with running locally ///
-.home-placeholder {
-  max-width: 480px;
-  padding: 0 1.5rem;
-  margin: 20vh auto 0;
-  color: $article-text;
-  text-align:center;
-  font-style:italic;
-
-  .welcome {
-    text-align:center;
-    font-weight: bold;
-    color: $article-heading;
-    font-size: 1.1rem;
-  }
-  p {
-    margin-top: 1rem;
-    line-height: 1.25rem;
-  }
-  a {
-    color: $article-link;
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      color: $article-link-hover;
-    }
-  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

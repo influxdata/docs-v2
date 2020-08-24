@@ -1,4 +1,26 @@
-{{ $stableVersion := $.Site.Data.versions.stable_version }}
-{{ $canonicalURL := print (replaceRE `\/$` "" .Site.BaseURL) (replaceRE "[^/]+.*?[0]" $stableVersion .RelPermalink) }}
+{{ $scratch := newScratch }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 | default "influxdb" }}
+{{ $minorVersions := (index .Site.Data.products $product).versions }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $latestVersion := (index .Site.Data.products $product).latest }}
+{{ $majorVersion := index (findRE `v[0-9]` $currentVersion) 0 }}
+
+{{ $scratch.Set "latestMinorVersion" "" }}
+{{ if eq $majorVersion "v1"}}
+  {{ $scratch.Set "latestMinorVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+{{ else if eq $majorVersion "v2" }}
+  {{ $scratch.Set "latestMinorVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+{{ end }}
+
+{{ $latestMinorVersion := $scratch.Get "latestMinorVersion" }}
+{{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
+
+{{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
+{{ if ge (len (findRE "[^/]+.*?" .RelPermalink)) 2 }}
+  {{ $scratch.Set "canonicalURL" (print $baseURL (replaceRE `v[0-9]\.[0-9]{1,2}` $latestMinorVersion .RelPermalink))}}
+{{ end }}
+
+{{ $canonicalURL := $scratch.Get "canonicalURL" }}
 
 <link rel="canonical" href="{{ $canonicalURL }}" />

@@ -1,120 +1,147 @@
 // Influx Color Palette
 
-// Greys (Dark to Light)
-$g0-obsidian:     #0F0E15;
-$g1-raven:        #1C1C21;
-$g2-kevlar:       #202028;
-$g3-castle:       #292933;
-$g4-onyx:         #2C2C38;
-$g5-pepper:       #383846;
-$g6-smoke:        #434453;
-$g7-graphite:     #545667;
-$g8-storm:        #676978;
-$g9-mountain:     #757888;
-$g10-wolf:        #8E91A1;
-$g11-sidewalk:    #999DAB;
-$g12-forge:       #A4A8B6;
-$g13-mist:        #BEC2CC;
-$g14-chromium:    #C6CAD3;
-$g15-platinum:    #D4D7DD;
-$g16-pearl:       #E7E8EB;
-$g17-whisper:     #EEEFF2;
-$g18-cloud:       #F2F2F5;
-$g19-ghost:       #FAFAFC;
-$g20-white:       #FFFFFF; // Brand color
+// Brand Colors
+$br-chartreuse: #D6F622;
+$br-deeppurple: #13002D;
+$br-magenta:    #BF2FE5;
+$br-galaxy:     #9394FF;
+$br-pulsar:     #513CC6;
 
-// Warm Purples - Magentas
-$wp-jaguar:       #1d0135;
-$wp-telopea:      #23043E;
-$wp-violentdark:  #2d0749;
-$wp-violet:       #32094E;
-$wp-jagger:       #420D5F;
-$wp-jango:        #521170;
-$wp-seance:       #611581;
-$wp-trance:       #801EA2;
-$wp-heart:        #A026C4;
-$m-magenta:       #BF2FE5; // Brand color
-$m-lavander:      #CA52E9;
-$m-heliotrope:    #D474EE;
-$m-perfume:       #DF97F2;
-$m-pinkmist:      #EABAF6;
-$m-selago:        #F4DCFB;
-
-// Cool Purples
-$cp-jakarta:      #322368;
-$cp-minsk:        #423681;
-$cp-victoria:     #52499A;
-$cp-blueviolet:   #625CB3;
-$cp-marguerite:   #736ECD;
-$cp-purple:       #8381E6;
-$cp-comet:        #9394ff; // Brand color
-$cp-melrose:      #A5A6FF;
-$cp-munchkin:     #B7B8FF;
-$cp-periwinkle:   #C9CAFF;
-$cp-coolfog:      #DBDBFF;
-$cp-titan:        #EDEDFF;
-
-// Neutral Purples
-$np-deepnight:    #13002d; // Brand color
-$np-valhalla:     #27153F;
-$np-martinique:   #3A2B50;
-$np-wine:         #4E4062;
-$np-smokey:       #625573;
-$np-rum:          #756A85;
-$np-mobster:      #898096;
-$np-amethyst:     #9D95A7;
-$np-pearl:        #B0AAB9;
-$np-greysuit:     #C4BFCA;
-$np-mischka:      #D8D4DC;
-$np-athens:       #EBEAED;
+// Greys
+$g0-obsidian:   #0F0E15;
+$g1-raven:      #181820;
+$g2-kevlar:     #202028;
+$g3-castle:     #292933;
+$g4-onyx:       #31313D;
+$g5-pepper:     #383846;
+$g6-smoke:      #434453;
+$g7-graphite:   #545667;
+$g8-storm:      #676978;
+$g9-mountain:   #757888;
+$g10-wolf:      #8E91A1;
+$g11-sidewalk:  #999DAB;
+$g12-forge:     #A4A8B6;
+$g13-mist:      #BEC2CC;
+$g14-chromium:  #C6CAD3;
+$g15-platinum:  #D4D7DD;
+$g16-pearl:     #E7E8EB;
+$g17-whisper:   #EEEFF2;
+$g18-cloud:     #F6F6F8;
+$g19-ghost:     #FAFAFC;
+$g20-white:     #FFFFFF;
 
 // Blues
-$b-tiber:         #0A3044;
-$b-deepsea:       #0E4562;
-$b-chathams:      #125A7F;
-$b-matisse:       #166F9D;
-$b-eastern:       #1A83BB;
-$b-curious:       #1E98D8;
-$b-dodger:        #2AA3FF;
-$b-pool:          #22ADF6; // Brand color
-$b-laser:         #47BBF8;
-$b-malibu:        #6CC8F9;
-$b-horizon:       #91D6FB;
-$b-fleur:         #B5E4FC;
-$b-hawkeye:       #DAF1FD;
+$b-abyss:       #120653;
+$b-sapphire:    #0B3A8D;
+$b-ocean:       #066FC5;
+$b-dodger:      #2AA3FF;
+$b-pool:        #00A3FF;
+$b-laser:       #00C9FF;
+$b-hydrogen:    #6BDFFF;
+$b-neutrino:    #BEF0FF;
+$b-yeti:        #F0FCFF;
 
-// Chartreuses
-$ch-olive:        #3B440A;
-$ch-saratoga:     #55620E;
-$ch-olivetone:    #6F7F12;
-$ch-trendy:       #899D16;
-$ch-citron:       #A2BB1A;
-$ch-keylime:      #BCD81E;
-$ch-chartreuse:   #D6F622; // Brand color
-$ch-canary:       #E4F96C;
-$ch-primrose:     #F1FCB5;
+// Purples
+$p-shadow:      #2B007E;
+$p-void:        #5C10A0;
+$p-amethyst:    #8E1FC3;
+$p-star:        #BE2EE4;
+$p-comet:       #CE58EB;
+$p-potassium:   #DD84F1;
+$p-moonstone:   #EBADF8;
+$p-twilight:    #FAD9FF;
 
 // Greens
-$gr-gypsy:        #152B2D;
-$gr-grass:        #2B6058;
-$gr-emerald:      #108174;
-$gr-viridian:     #32B08C;
-$gr-canopy:       #20B76F;
-$gr-rainforest:   #4ED8A0;
-$gr-honeydew:     #7CE490;
-$gr-krypton:      #A5F3B4;
-$gr-wasabi:       #C6FFD0;
-$gr-forestfog:    #CFE6E1;
-$gr-mint:         #F2FFF4;
+$gr-gypsy:      #003E34;
+$gr-emerald:    #006F49;
+$gr-viridian:   #009F5F;
+$gr-rainforest: #34BB55;
+$gr-honeydew:   #67D74E;
+$gr-krypton:    #9BF445;
+$gr-wasabi:     #C6F98E;
+$gr-mint:       #F3FFD6;
 
-// Oranges
-$o-basalt:        #2F1F29;
-$o-ember:         #6F3943;
-$o-ruby:          #BF3D5E;
-$o-fire:          #DC4E58;
-$o-curacao:       #F95F53;
-$o-dreamsicle:    #FF8564;
-$o-tungsten:      #FFB6A0;
-$o-marmelade:     #FFDCCF;
-$o-orangecream:   #EADAD8;
-$o-flan:          #FFF7F4;
+// Yellows
+$y-oak:         #3F241F;
+$y-topaz:       #E85B1C;
+$y-tiger:       #F48D38;
+$y-pineapple:   #FFB94A;
+$y-thunder:     #FFD255;
+$y-sulfur:      #FFE480;
+$y-daisy:       #FFF6B8;
+$y-banana:      #FFFDDE;
+
+// Reds
+$r-basalt:      #2F1F29;
+$r-ruby:        #BF3D5E;
+$r-fire:        #DC4E58;
+$r-curacao:     #F95F53;
+$r-dreamsicle:  #FF8564;
+$r-tungsten:    #FFB6A0;
+$r-marmelade:   #FFDCCF;
+$r-flan:        #FFF7F4;
+
+// Code (Light theme)
+$cp-marguerite: #736ECD;
+$cp-melrose:    #A5A6FF;
+$cp-munchkin:   #B7B8FF;
+$cp-periwinkle: #C9CAFF;
+$cp-titan:      #EDEDFF;
+
+
+/////////////////////////////////// Gradients //////////////////////////////////
+
+// Brand Gradients
+$grad-WarpSpeed:          $br-deeppurple, $p-void;
+$grad-PowerStone:         $p-void, $br-magenta;
+$grad-MilkyWay:           $br-magenta, $br-galaxy;
+$grad-LazyAfternoon:      $b-pool, $br-galaxy;
+$grad-NineteenEightyFour: $b-pool, $br-magenta;
+$grad-RadioactiveWarning: $b-pool, $br-chartreuse;
+$grad-LostGalaxy:         $br-deeppurple, $br-pulsar;
+$grad-GrapeSoda:          $br-deeppurple, $p-amethyst;
+$grad-LavenderLatte:      $br-deeppurple, $p-star;
+$grad-OminousFog:         $br-pulsar, $br-galaxy;
+
+// Single Hue Gradient
+$grad-grey-light:         $g13-mist, $g18-cloud;
+$grad-grey:               $g10-wolf, $g13-mist;
+$grad-grey-dark:          $g3-castle, $g6-smoke;
+
+$grad-blue-light:         $b-pool, $b-hydrogen;
+$grad-blue:               $b-ocean, $b-pool;
+$grad-blue-dark:          $b-sapphire, $b-ocean;
+
+$grad-purple-light:       $p-comet, $p-moonstone;
+$grad-purple:             $p-star, $p-comet;
+$grad-purple-dark:        $p-void, $p-amethyst;
+
+$grad-green-light:        $gr-honeydew, $gr-krypton;
+$grad-green:              $gr-rainforest, $gr-honeydew;
+$grad-green-shade:        $gr-viridian, $gr-rainforest;
+$grad-green-dark:         $gr-emerald, $gr-viridian;
+
+$grad-yellow-light:       $y-thunder, $y-sulfur;
+$grad-yellow:             $y-pineapple, $y-thunder;
+$grad-yellow-dark:        $y-topaz, $y-tiger;
+
+$grad-red-light:          $r-dreamsicle, $r-tungsten;
+$grad-red:                $r-curacao, $r-dreamsicle;
+$grad-red-dark:           $r-ruby, $r-fire;
+
+// Multi-Hue Gradients
+$grad-GundamPilot:        $p-amethyst, $b-ocean;
+$grad-Miyazakisky:        $p-star, $b-pool;
+$grad-PastelGothic:       $p-comet, $b-laser;
+$grad-GarageBand:         $b-pool, $gr-rainforest;
+$grad-LowDifficulty:      $b-pool, $gr-honeydew;
+$grad-DesertFestival:     $r-curacao, $p-star;
+$grad-SavannaHeat:        $y-topaz, $r-ruby;
+$grad-ScotchBonnet:       $y-pineapple,$r-curacao;
+
+// New gradients
+$grad-PurpleFog:          $p-potassium, $cp-munchkin;
+$grad-PurpleRain:         $p-void, $cp-marguerite;
+
+// Transparent gradients
+$grad-whiteFade:         rgba($g20-white, .75), rgba($g20-white, 0);

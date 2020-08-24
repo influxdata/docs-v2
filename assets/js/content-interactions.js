@@ -16,7 +16,8 @@ var elementWhiteList = [
   ".code-tabs p a",
   ".truncate-toggle",
   ".children-links a",
-  ".list-links a"
+  ".list-links a",
+  "a.url-trigger"
 ]
 
 $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
@@ -84,6 +85,13 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 $(".truncate-toggle").click(function(e) {
   e.preventDefault()
   $(this).closest('.truncate').toggleClass('closed');
+})
+
+////////////////////////////// Expand Accordians ///////////////////////////////
+
+$('.expand-label').click(function() {
+  $(this).children('.expand-toggle').toggleClass('open')
+  $(this).next('.expand-content').slideToggle(200)
 })
 
 //////////////////// Replace Missing Images with Placeholder ///////////////////

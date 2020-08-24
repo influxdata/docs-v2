@@ -6,7 +6,7 @@ code,pre {
   color: $article-code;
 }
 
-p,li,table,h2,h3,h4,h5,h6 {
+p,li,table {
   code {
     padding: .1rem .4rem .2rem;
     border-radius: $radius;
@@ -14,6 +14,18 @@ p,li,table,h2,h3,h4,h5,h6 {
     white-space: nowrap;
     font-size: .95rem;
     font-style: normal;
+  }
+}
+
+// Don't allow code formatting in headings
+h1,h2,h3,h4,h5,h6 {
+  code {
+    padding: inherit !important;
+    background: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-family: $rubik;
+    color: inherit !important;
   }
 }
 
@@ -58,6 +70,18 @@ pre {
     line-height: 1.5rem;
     white-space: pre;
   }
+}
+
+pre .api {
+  margin-right: .35rem;
+  padding: .15rem .5rem .25rem;
+  border-radius: $radius;
+  color: $g20-white;
+  font-weight: bold;
+  font-size: .9rem;
+
+  &.get { background: $gr-rainforest; }
+  &.post { background: $b-ocean; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

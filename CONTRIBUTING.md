@@ -59,15 +59,11 @@ seotitle: # Page title used in the html <head> title and used in search engine r
 list_title: # Title used in article lists generated using the {{< children >}} shortcode
 description: # Page description displayed in search engine results
 menu:
-  v2_0:
+  influxdb_2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
-enterprise_all: # If true, specifies the doc as a whole is specific to InfluxDB Enterprise
-enterprise_some: # If true, specifies the doc includes some content specific to InfluxDB Enterprise
-cloud_all: # If true, specifies the doc as a whole is specific to InfluxDB Cloud
-cloud_some: # If true, specifies the doc includes some content specific to InfluxDB Cloud
 v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
 related: # Creates links to specific internal and external content at the bottom of the page
   - /path/to/related/article
@@ -76,6 +72,9 @@ external_url: # Used in children shortcode type="list" for page links that are e
 list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
+list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
+  # References to examples in data/query_examples
+products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
 ```
 
 #### Title usage
@@ -124,32 +123,19 @@ Insert warning markdown content here.
 ```
 
 ### Enterprise Content
-Many articles are unique to InfluxDB enterprise or at least contain some information specific to InfluxDB Enterprise.
-There are frontmatter options and an enterprise shortcode that help to properly identify this content.
-
-#### All content is Enterprise-specific
-If all content in an article is Enterprise-specific, set the `enterprise_all` frontmatter to `true`.
-
-```yaml
-enterprise_all: true
-```
-
-This will display a message at the top of page indicating that the things discussed are unique to InfluxDB Enterprise.
-
-#### Only some content is Enterprise-specific
-If only some content in the article is enterprise specific, set the `enterprise_some` frontmatter to `true`.
-
-```yaml
-enterprise_some: true
-```
-
-This will display a message at the top of page indicating some things are unique to InfluxDB Enterprise.
-To format Enterprise-specific content, wrap it in the `{{% enterprise %}}` shortcode:
+For sections content that relate specifically to InfluxDB Enterprise, use the `{{% enterprise %}}` shortcode.
 
 ```md
 {{% enterprise %}}
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
+```
+
+#### All content is Enterprise-specific
+If all content in an article is Enterprise-specific, include `enterprise`in the `products` frontmatter.
+
+```yaml
+products: [enterprise]
 ```
 
 #### Enterprise name
@@ -177,47 +163,19 @@ Find more info [here][{{< enterprise-link >}}]
 ```
 
 ### InfluxDB Cloud Content
-Some articles are unique to InfluxDB Cloud or at least contain some information specific to InfluxDB Cloud.
-There are frontmatter options and an cloud shortcode that help to properly identify this content.
-
-#### All content is cloud-specific
-If all content in an article is cloud-specific, set the menu in the frontmatter to `v2_0_cloud`
-(change the version number for the specific version of InfluxDB Cloud).
-
-```yaml
-menu:
-  v2_0_cloud:
-    name: Menu item name
-    # ...
-```
-
-The pages `parent` depends on where it fits in the hierarchy of the cloud documentation.
-
-#### Only some content is cloud-specific
-If only some content in the article is cloud-specific, set the `cloud_some` frontmatter to `true`.
-
-```yaml
-cloud_some: true
-```
-
-This will display a message at the top of page indicating some things are unique to InfluxDB Cloud.
-To format cloud-specific content, wrap it in the `{{% cloud %}}` shortcode:
+For sections content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
 
 ```md
 {{% cloud %}}
-Insert Cloud-specific markdown content here.
+Insert cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
-#### InfluxDB Cloud content block
-The `{{ cloud-msg }}` shortcode creates a highlighted block of text specific to
-InfluxDB Cloud meant to stand out from the rest of the article content.
-It's format is similar to note and warning blocks.
+#### All content is cloud-specific
+If all content in an article is cloud-specific, include `cloud` in the `products` frontmatter.
 
-```md
-{{% cloud-msg %}}
-Insert Cloud-specific markdown content here.
-{{% /cloud-msg %}}
+```yaml
+products: [cloud]
 ```
 
 #### InfluxDB Cloud name
@@ -242,6 +200,46 @@ InfluxDB Cloud.
 
 ```
 Find more info [here][{{< cloud-link >}}]
+```
+
+### InfluxDB OSS Content
+If all content in an article is OSS-specific, include `oss` in the `products` frontmatter.
+
+```yaml
+products: [oss]
+```
+
+### Latest links
+Each of the InfluxData projects have different "latest" versions.
+Use the `{{< latest >}}` shortcode to populate link paths with the latest version
+for the specified project.
+
+```md
+[Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
+```
+
+To constrain the latest link to a major version, include a second argument with
+the major version:
+
+```md
+[Link to latest InfluxDB 1.x](/{{< latest "influxdb" "v1" >}}/path/to/doc/)]
+```
+
+`{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
+`{{< latest "influxdb" "v1" >}}` is replaced with `influxdb/v1.8` (or whatever the latest v1.x version is).
+
+Use the following for project names:
+
+- influxdb
+- telegraf
+- chronograf
+- kapacitor
+- enterprise_influxdb
+
+**Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
+
+```md
+/{{< latest "telegraf" >}}/
 ```
 
 ### Tabbed Content
@@ -374,6 +372,25 @@ Truncated markdown content here.
 {{% /truncate %}}
 ```
 
+### Expandable accordion content blocks
+Use the `{{% expand "Item label" %}}` shortcode to create expandable, accordion-style content blocks.
+Each expandable block needs a label that users can click to expand or collpase the content block.
+Pass the label as a string to the shortcode.
+
+```md
+{{% expand "Lable 1"}}
+Markdown content associated with label 1.
+{{% /expand %}}
+
+{{% expand "Lable 2"}}
+Markdown content associated with label 2.
+{{% /expand %}}
+
+{{% expand "Lable 3"}}
+Markdown content associated with label 3.
+{{% /expand %}}
+```
+
 ### Generate a list of children articles
 Section landing pages often contain just a list of articles with links and descriptions for each.
 This can be cumbersome to maintain as content is added.
@@ -405,7 +422,25 @@ The following list types are available:
 - **articles:** lists article titles as headers with the description or summary
   of the article as a paragraph. Article headers link to the articles.
 - **list:** lists children article links in an unordered list.
+- **anchored-list:** lists anchored children article links in an unordered list
+  meant to act as a page navigation and link to children header.
 - **functions:** a special use-case designed for listing Flux functions.
+
+#### Include a "Read more" link
+To include a "Read more" link with each child summary, set `readmore=true`.
+_Only the `articles` list type supports "Read more" links._
+
+```md
+{{< children readmore=true >}}
+```
+
+#### Include a horizontal rule
+To include a horizontal rule after each child summary, set `hr=true`.
+_Only the `articles` list type supports horizontal rules._
+
+```md
+{{< children readmore=true >}}
+```
 
 #### Include a code example with a child summary
 Use the `list_code_example` frontmatter to provide a code example with an article
@@ -418,18 +453,28 @@ list_code_example: |
   ```
 ~~~
 
+#### Reference a query example in children
+To include a query example with the children in your list, update `data/query_examples.yml`
+with the example code, input, and output, and use the `list_query_example`
+frontmatter to reference the corresponding example.
+
+```yaml
+list_query_example: cumulative_sum
+```
+
 #### Children frontmatter
 Each children list `type` uses [frontmatter properties](#page-frontmatter) when generating the list of articles.
 The following table shows which children types use which frontmatter properties:
 
-| Frontmatter         | articles | list | functions |
-|:-----------         |:--------:|:----:|:---------:|
-| `list_title`        | ✓        | ✓    | ✓         |
-| `description`       | ✓        |      |           |
-| `external_url`      | ✓        | ✓    |           |
-| `list_image`        | ✓        |      |           |
-| `list_note`         |          | ✓    |           |
-| `list_code_example` | ✓        |      |           |
+| Frontmatter          | articles | list | functions |
+|:-----------          |:--------:|:----:|:---------:|
+| `list_title`         | ✓        | ✓    | ✓         |
+| `description`        | ✓        |      |           |
+| `external_url`       | ✓        | ✓    |           |
+| `list_image`         | ✓        |      |           |
+| `list_note`          |          | ✓    |           |
+| `list_code_example`  | ✓        |      |           |
+| `list_query_example` | ✓        |      |           |
 
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
@@ -521,29 +566,6 @@ The following case insensitive values are supported:
 - settings
 - feedback
 
-### InfluxDB UI notification messages
-In some cases, documentation references a notification message that appears in
-the top-right corner of the InfluxDB UI.
-Rather than taking a screenshot of the message (that can be hard to maintain over time),
-use the `{{< ui-message >}}` shortcode.
-
-It expects two parameters:
-
-**`text`** (Required)  
-The message displayed.
-
-**`color`** (Optional)  
-Sets the background color and icons used in the message.
-The following options are available:
-
-- green _(default)_
-- blue
-- red
-
-```
-{{< ui-message color="green" text="The message displayed in the notification.">}}
-```
-
 ### Flexbox-formatted content blocks
 CSS Flexbox formatting lets you create columns in article content that adjust and
 flow based on the viewable width.
@@ -576,6 +598,18 @@ The following options are available:
 - third
 - quarter
 
+### Tooltips
+Use the `{{< tooltips >}}` shortcode to add tooltips to text.
+The **1st** argument is the text shown in the tooltip.
+The **2nd** argument is the highlighted text that triggers the tooltip.
+
+```md
+I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
+```
+
+The example above renders as "I like butterflies" with "butterflies" highlighted.
+When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
@@ -590,16 +624,18 @@ When defining the menu for reference content, use the following pattern:
 ```yaml
 # Pattern
 menu:
-  v<major-version-number>_<minor-version-number>_ref:
+  <project>_<major-version-number>_<minor-version-number>_ref:
     # ...
 
 # Example
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     # ...
 ```
 ### Image naming conventions
-Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
+Save images using the following naming format: `project/version-context-description.png`.
+For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
+Specify a version other than 2.0 only if the image is specific to that version.
 
 ## InfluxDB API documentation
 InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
@@ -607,6 +643,54 @@ InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
+
+## InfluxDB URLs
+When a user selects an InfluxDB product and region, example URLs in code blocks
+throughout the documentation are updated to match their product and region.
+InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
+
+By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:9999`.
+Use this URL in all code examples that should be updated with a selected provider and region.
+
+For example:
+
+~~~
+```sh
+# This URL will get updated
+http://localhost:9999
+
+# This URL will NOT get updated
+http://example.com
+```
+~~~
+
+If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:9999`
+in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
+
+### Exempt URLs from getting updated
+To exempt a code block from being updated, include the `{{< keep-url >}}` shortcode
+just before the code block.
+
+~~~
+{{< keep-url >}}
+```
+// This URL won't get updated
+http://localhost:9999
+```
+~~~
+
+### Code examples only supported in InfluxDB Cloud
+Some functionality is only supported in InfluxDB Cloud and code examples should
+only use InfluxDB Cloud URLs. In these cases, use `https://cloud2.influxdata.com`
+as the placeholder in the code block. It will get updated on page load and when
+users select a Cloud region in the URL select modal.
+
+~~~
+```sh
+# This URL will get updated
+https://cloud2.influxdata.com
+```
+~~~
 
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
@@ -630,22 +714,24 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 3. Duplicate the most recent version's content directory:
    ```sh
    # From the root of the project
-   cp content/v2.0 content/v2.1
+   cp content/influxdb/v2.0 content/influxdb/v2.1
    ```
 
 4. Find and replace all instances of the old version number with the new version
    **(only within the new version directory)**.
    Be sure to find and replace both the following forms of the version number:
+
    ```
    v2.0 -> v2.1
    v2_0 -> v2_1
    ```
 
-5. Add the new version tag taxonomy to the `config.toml` in the root of the project.
+5. Add the new product and version tag taxonomy to the `config.toml` in the root of the project.
+
    ```toml
    [taxonomies]
-     "v2.0/tag" = "v2.0/tags"
-     "v2.1/tag" = "v2.1/tags"
+     "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+     "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
 6. Update the `latest_version` in `data/version.yaml`:

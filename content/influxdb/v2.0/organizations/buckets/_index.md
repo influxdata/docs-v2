@@ -1,0 +1,21 @@
+---
+title: Manage buckets
+seotitle: Manage buckets in InfluxDB
+description: Manage buckets in InfluxDB using the InfluxDB UI or the influx CLI.
+menu:
+  influxdb_2_0:
+    name: Manage buckets
+    parent: Manage organizations
+weight: 105
+aliases:
+  - /v2.0/organizations/create-org/buckets/
+influxdb/v2.0/tags: [buckets]
+---
+
+A **bucket** is a named location where time series data is stored.
+All buckets have a **retention policy**, a duration of time that each data point persists.
+A bucket belongs to an organization.
+
+The following articles provide information about managing buckets:
+
+{{< children >}}
