@@ -761,7 +761,7 @@ See [Query data in InfluxDB](/v2.0/query-data/).
 ### REPL
 
 A read-eval-print-loop (REPL) is an interactive programming environment where you type a command and immediately see the result.
-See [Use the influx CLI's REPL](#NEW-REPL-DOC).
+See [Flux REPL](/v2.0/reference/flux/repl/) for on building and using the REPL.
 
 ### record
 
