@@ -6,6 +6,8 @@ menu:
     name: Transform your data
     parent: get-started
     weight: 2
+aliases:
+  - /influxdb/v1.7/flux/getting-started/transform-data/
 ---
 
 When [querying data from InfluxDB](/influxdb/v1.7/flux/get-started/query-influxdb),

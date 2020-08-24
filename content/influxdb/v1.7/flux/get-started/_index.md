@@ -9,6 +9,8 @@ menu:
     identifier: get-started
     parent: Flux
     weight: 2
+aliases:
+  - /influxdb/v1.7/flux/getting-started/
 ---
 
 Flux is InfluxData's new functional data scripting language designed for querying,

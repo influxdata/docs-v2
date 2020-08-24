@@ -6,6 +6,8 @@ menu:
     name: Syntax basics
     parent: get-started
     weight: 3
+aliases:
+  - /influxdb/v1.8/flux/getting-started/syntax-basics/
 ---
 
 
