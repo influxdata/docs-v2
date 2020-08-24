@@ -44,9 +44,6 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
   Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
   scalar values to output data.
-- The [Flux REPL](/v2.0/reference/flux/repl/) does not currently support
-  Flux stream and table functions (also known as "dynamic queries").
-  See [#15321](https://github.com/influxdata/influxdb/issues/15231).
 {{% /warn %}}
 
 ## Table extraction
