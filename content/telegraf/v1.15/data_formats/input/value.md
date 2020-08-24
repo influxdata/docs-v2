@@ -1,6 +1,6 @@
 ---
 title: Value input data format
-description: Use the "value" input data format to parse single values into Telegraf metrics.
+description: Use the `value` input data format to parse single values into Telegraf metrics.
 menu:
   telegraf_1_15:
     name: Value
