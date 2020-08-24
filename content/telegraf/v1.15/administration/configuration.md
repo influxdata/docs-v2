@@ -1,6 +1,6 @@
 ---
 title: Configuring Telegraf
-
+description: Overview of the Telegraf configuration file, enabling plugins, and setting environment variables.
 menu:
   telegraf_1_15:
     name: Configuring
@@ -42,7 +42,7 @@ configuration files.
 ## Set environment variables
 
 Add environment variables anywhere in the configuration file by prepending them with `$`.
-For strings, variables must be in quotes (for example, `"$STR_VAR"`). 
+For strings, variables must be in quotes (for example, `"$STR_VAR"`).
 For numbers and Booleans, variables must be unquoted (for example, `$INT_VAR`, `$BOOL_VAR`).
 
 You can also set environment variables using the Linux `export` command: `export password=mypassword`

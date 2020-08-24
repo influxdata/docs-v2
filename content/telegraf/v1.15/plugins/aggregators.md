@@ -1,6 +1,6 @@
 ---
 title: Telegraf aggregator plugins
-description: Use the Telegraf aggregator plugins with the InfluxData time series platfrom to create aggregate metrics (for example, mean, min, max, quantiles, etc.) collected by the input plugins. Aggregator plugins support basic statistics, histograms, and min/max values.
+description: Telegraf aggregator plugins create aggregate metrics (for example, mean, min, max, quantiles, etc.) collected by the input plugins. Aggregator plugins support basic statistics, histograms, and min/max values.
 menu:
   telegraf_1_15:
     name: Aggregator
