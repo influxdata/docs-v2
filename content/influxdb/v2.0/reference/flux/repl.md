@@ -2,7 +2,7 @@
 title: Flux REPL
 description: Use the Flux REPL to test queries and interact with data.
 aliases:
-  - /v2.0/reference/flux/
+  - /v2.0/reference/flux/repl/
 influxdb/v2.0/tags: [flux]
 menu:
   influxdb_2_0_ref:
