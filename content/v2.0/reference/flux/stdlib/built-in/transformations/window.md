@@ -50,6 +50,7 @@ including **calendar months (`1mo`)** and **years (`1y`)**.
 ### every
 Duration of time between windows.
 Defaults to `period` value.
+Must be a positive, nonzero duration value.
 
 _**Data type:** Duration_
 
