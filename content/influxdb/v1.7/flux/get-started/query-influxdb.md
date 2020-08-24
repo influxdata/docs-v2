@@ -6,6 +6,8 @@ menu:
     name: Query InfluxDB
     parent: get-started
     weight: 1
+aliases:
+  - /influxdb/v1.7/flux/getting-started/query-influxdb/
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
