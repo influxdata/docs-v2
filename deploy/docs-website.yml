@@ -281,7 +281,7 @@ Resources:
       Handler: index.handler
       MemorySize: 128
       Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       Tags:
         - Key: Domain
           Value: !Ref DomainName
