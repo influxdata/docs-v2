@@ -22,3 +22,5 @@ Once built, open a new REPL session with:
 ```
 
 ## Use the REPL
+
+To query data from InfluxDB, provide the organization, token, and host parameters to the [`from()` function](/v2.0/reference/flux/stdlib/built-in/inputs/from/).
