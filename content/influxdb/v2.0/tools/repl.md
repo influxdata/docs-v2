@@ -1,5 +1,6 @@
 ---
-title: Flux REPL
+title: Interactive Flux REPL
+seotitle: Interactive Flux REPL
 description: Use the Flux REPL to test queries and interact with data.
 influxdb/v2.0/tags: [flux]
 menu:
@@ -15,12 +16,16 @@ Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interac
 
 See the [Flux repository README](https://github.com/influxdata/flux#requirements) for instructions on building the REPL.
 
+## Use the REPL
+
 Once built, open a new REPL session with:
 
 ```sh
 ./flux repl
 ```
 
-## Use the REPL
-
 To query data from InfluxDB, provide the organization, token, and host parameters to the [`from()` function](/v2.0/reference/flux/stdlib/built-in/inputs/from/).
+
+<!-- Variables in the REPL are immutable in the current session. -->
+
+Exit the REPL by pressing **Control + D**.
