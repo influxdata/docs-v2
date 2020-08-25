@@ -3,8 +3,8 @@ title: Flux REPL
 description: Use the Flux REPL to test queries and interact with data.
 influxdb/v2.0/tags: [flux]
 menu:
-  influxdb_2_0_ref:
-    parent: Flux language
+  influxdb_2_0:
+    parent: Tools
 weight: 104
 ---
 
