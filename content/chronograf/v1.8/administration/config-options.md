@@ -1,6 +1,7 @@
 ---
 title: Chronograf configuration options
-description: Options available in the Chronograf configuration file and environment variables.
+description: >
+  Options available in the Chronograf configuration file and environment variables.
 menu:
   chronograf_1_8:
     name: Configuration options

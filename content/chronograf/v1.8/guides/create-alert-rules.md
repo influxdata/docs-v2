@@ -1,6 +1,7 @@
 ---
 title: Create Chronograf alert rules
-description: Create Kapacitor alert rules in the Chronograf UI.
+description: >
+  Trigger alerts by building Kapacitor alert rules in the Chronograf user interface (UI).
 aliases:
   - /chronograf/v1.8/guides/create-a-kapacitor-alert/
 menu:

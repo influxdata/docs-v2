@@ -1,6 +1,7 @@
 ---
 title: Use pre-created dashboards in Chronograf
-description: Use preconfigured dashboards in Chronograf to display metrics for popular third-party applications.
+description: >
+  Display metrics for popular third-party applications with preconfigured dashboards in Chronograf.
 menu:
   chronograf_1_8:
     name: Use pre-created dashboards

@@ -1,6 +1,6 @@
 ---
 title: Administer InfluxDB
-description: Learn to administer InfluxDB OSS.
+description: Configure, upgrade, and manage security for InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Administration

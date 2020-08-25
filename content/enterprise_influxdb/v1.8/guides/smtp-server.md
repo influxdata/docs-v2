@@ -1,6 +1,7 @@
 ---
 title: Set up an SMTP server for InfluxDB Enterprise
-description: Set up an SMTP server to invite users to the console in InfluxDB Enterprise.
+description: >
+  Invite users to the console in InfluxDB Enterprise by setting up an SMTP server.
 aliases:
     - /enterprise/v1.8/guides/smtp-server/
 menu:

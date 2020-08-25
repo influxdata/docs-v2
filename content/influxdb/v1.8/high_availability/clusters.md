@@ -1,5 +1,6 @@
 ---
 title: Create an InfluxDB Enterprise cluster
+description: Clustering is available with InfluxDB Enterprise only.
 aliases:
     - /influxdb/v1.8/clustering/
     - /influxdb/v1.8/clustering/cluster_setup/

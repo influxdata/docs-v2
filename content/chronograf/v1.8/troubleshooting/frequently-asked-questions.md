@@ -1,5 +1,6 @@
 ---
 title: Chronograf frequently asked questions (FAQs)
+description: Common issues with Chronograf
 menu:
   chronograf_1_8:
     name: Frequently asked questions (FAQs)

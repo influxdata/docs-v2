@@ -1,5 +1,6 @@
 ---
 title: Explore your schema using InfluxQL
+description: Useful query syntax for exploring schema in InfluxQL.
 menu:
   influxdb_1_8:
     name: Explore your schema

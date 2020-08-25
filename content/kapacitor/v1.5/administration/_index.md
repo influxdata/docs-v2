@@ -1,6 +1,6 @@
 ---
 title: Administration
-description: Administer Kapacitor.
+description: Configure, upgrade, and manage security in Kapacitor. 
 menu:
   kapacitor_1_5:
     name: Administration

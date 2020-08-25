@@ -1,6 +1,7 @@
 ---
 title: Calculate rates across joined series + backfill
-description: Use a prepared data generator to calculate rates across joined series and backfill.
+description: >
+  Use a prepared data generator to calculate rates across joined series and backfill.
 aliases:
     - kapacitor/v1.5/examples/join_backfill/
 menu:

@@ -1,5 +1,7 @@
 ---
 title: InfluxDB line protocol reference
+description: >
+  InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 aliases:
     - /influxdb/v1.8/write_protocols/write_syntax/
 menu:
@@ -9,7 +11,7 @@ menu:
     parent: Write protocols
 ---
 
-InfluxDB line protocol is a text based format for writing points to InfluxDB.
+InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 
 ## Line protocol syntax
 

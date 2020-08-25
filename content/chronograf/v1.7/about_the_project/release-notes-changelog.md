@@ -1,6 +1,6 @@
 ---
 title: Chronograf 1.7 release notes
-description: Important changes and and what's new in each version of Chronograf.
+description: Important changes and what's new in each version of Chronograf.
 menu:
   chronograf_1_7:
     name: Release notes

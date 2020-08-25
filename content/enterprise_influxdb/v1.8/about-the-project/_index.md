@@ -1,6 +1,7 @@
 ---
 title: About the project
-description: Learn about InfluxDB Enterprise.
+description: >
+  Release notes, licenses, and third-party software details for InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_8:
     weight: 10

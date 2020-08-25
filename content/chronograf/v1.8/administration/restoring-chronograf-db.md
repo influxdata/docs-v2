@@ -1,6 +1,7 @@
 ---
 title: Restore a Chronograf database
-description: If you're rolling back to a previous version of Chronograf, restore your internal database.  
+description: >
+  If you're rolling back to a previous version of Chronograf, restore your internal database.  
 menu:
   chronograf_1_8:
     weight: 110

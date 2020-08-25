@@ -1,7 +1,7 @@
 ---
 title: Visualization types in Chronograf
-descriptions: Chronograf provides multiple visualization types to visualize your data in
-a format that makes to the most sense for your use case. 
+descriptions: >
+  Chronograf provides multiple visualization types to visualize your data in a format that makes to the most sense for your use case. 
 menu:
   chronograf_1_8:
     name: Visualization types

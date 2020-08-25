@@ -1,6 +1,7 @@
 ---
 title: Talk event handler
-description: The Talk event handler allows you to send Kapacitor alerts to Talk. This page includes configuration options and usage examples.
+description: >
+  The Talk event handler allows you to send Kapacitor alerts to Talk. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Talk

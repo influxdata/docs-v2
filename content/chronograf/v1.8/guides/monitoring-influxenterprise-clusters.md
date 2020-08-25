@@ -286,4 +286,4 @@ In the image below, the Chronograf query editor is used to visualize the idle CP
 Create more customized graphs and save them to a dashboard on the Dashboard page in Chronograf.
 See the [Creating Chronograf dashboards](/{{< latest "chronograf" >}}/guides/create-a-dashboard/) guide for more information.
 
-That's it! You've successfully configured Telegraf to collect and write data, InfluxDB to store those data, and Chonograf to use those data for monitoring and visualization purposes.
+That's it! You've successfully configured Telegraf to collect and write data, InfluxDB to store those data, and Chronograf to use those data for monitoring and visualization purposes.

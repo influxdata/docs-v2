@@ -1,7 +1,7 @@
 ---
 title: Manage your database using InfluxQL
 description: >
-Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.
+  Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.
 menu:
   influxdb_1_8:
     name: Manage your database

@@ -2,7 +2,7 @@
 title: Configure Chronograf alert endpoints
 aliases:
   - /chronograf/v1.8/guides/configure-kapacitor-event-handlers/
-description: Use Chronograf alert endpoints to send alert messages.
+description: Send alert messages with Chronograf alert endpoints.
 menu:
   chronograf_1_8:
     name: Configure alert endpoints

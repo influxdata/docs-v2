@@ -1,6 +1,6 @@
 ---
 title: InfluxQL mathematical operators
-descriptions: Use mathematical operators in InfluxQL.
+descriptions: Query data with mathematical operators in InfluxQL.
 menu:
   influxdb_1_8:
     name: Mathematical operators

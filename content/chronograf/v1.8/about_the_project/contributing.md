@@ -1,7 +1,6 @@
 ---
 title: Contribute to Chronograf
-description: >
-  Contribute to the Chronograf project.
+description: Contribute to the Chronograf project.
 menu:
   chronograf_1_8:
     name: Contribute

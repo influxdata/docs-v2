@@ -1,5 +1,6 @@
 ---
 title: InfluxDB frequently asked questions
+description: Common issues with InfluxDB OSS.
 aliases:
   - /influxdb/v1.8/troubleshooting/frequently_encountered_issues/
 

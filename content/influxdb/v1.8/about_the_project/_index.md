@@ -1,6 +1,7 @@
 ---
 title: About InfluxDB OSS
-description: Learn about InfluxDB OSS.
+description: >
+  Release notes, licenses, contribution guidelines, and third-party software details for InfluxDB. 
 alias:
   -/docs/v1.8/about/
 menu:

@@ -1,6 +1,6 @@
 ---
 title: InfluxQL query management
-description: Manage queries in InfluxQL.
+description: Show, kill, and manage queries in InfluxQL.
 menu:
   influxdb_1_8:
     name: Query management
