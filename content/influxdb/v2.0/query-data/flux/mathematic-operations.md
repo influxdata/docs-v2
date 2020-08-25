@@ -46,7 +46,7 @@ If you're just getting started with Flux queries, check out the following:
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/v2.0/reference/flux/repl/">Flux read-eval-print-loop (REPL)</a>.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v2.0/tools/repl/">Flux read-eval-print-loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type

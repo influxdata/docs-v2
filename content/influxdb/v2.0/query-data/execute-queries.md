@@ -26,7 +26,7 @@ Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
 ## Influx REPL
-The [Flux REPL](/v2.0/reference/flux/repl/) starts an interactive
+The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
 read-eval-print-loop (REPL) where you can write and execute Flux queries.
 
 <!-- TODO: is this still accurate? -->

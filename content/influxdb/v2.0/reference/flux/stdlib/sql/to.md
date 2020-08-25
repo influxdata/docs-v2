@@ -149,7 +149,7 @@ sql.to(
 {{% warn %}}
 **InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
 and cannot write to SQLite data sources.
-Use the [Flux REPL](/v2.0/reference/flux/repl/) to write to an SQLite data
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to write to an SQLite data
 source on your local filesystem.
 {{% /warn %}}
 
@@ -198,7 +198,7 @@ azure auth=ENV
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
 access to the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/v2.0/reference/flux/repl/) on your local machine.
+[Flux REPL](/influxdb/v2.0/tools/repl/) on your local machine.
 {{% /warn %}}
 
 ```powershell
