@@ -1,7 +1,7 @@
 ---
 title: Tools
 description: >
-  placeholder
+  Tools for working with InfluxDB
 weight: 13
 menu: 
   influxdb_2_0:
