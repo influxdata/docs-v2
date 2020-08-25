@@ -1,6 +1,7 @@
 ---
 title: chronoctl list-users
-description: The `list-users` command lists all users in the Chronograf data store.
+description: >
+  The `list-users` command lists all users in the Chronograf data store.
 
 menu:
   chronograf_1_8:

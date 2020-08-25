@@ -1,6 +1,6 @@
 ---
 title: About the Chronograf project
-description: Learn about Chronograf, the UI component for InfluxDB.
+description: Learn about Chronograf, the user interface (UI) for InfluxDB.
 menu:
   chronograf_1_7:
     name: About the project

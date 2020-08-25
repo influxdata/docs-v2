@@ -1,6 +1,6 @@
 ---
 title: Create Chronograf dashboards
-description: Create custom Chronograf dashboards to visualize your data.
+description: Visualize your data with custom Chronograf dashboards.
 menu:
   chronograf_1_8:
     name: Create dashboards

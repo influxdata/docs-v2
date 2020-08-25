@@ -1,6 +1,6 @@
 ---
 title: Work with Kapacitor
-
+description: Key features of the Kapacitor daemon and client.
 menu:
   kapacitor_1_5:
     name: Work with Kapacitor

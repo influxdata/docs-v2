@@ -1,7 +1,7 @@
 ---
 title: Use dashboard template variables
-description: Dashboard variables allow you to alter specific components of cells' queries
-without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+description: >
+  Dashboard variables let you to alter specific components of cells' queries without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 aliases:
   - /chronograf/v1.8/introduction/templating/
   - /chronograf/v1.8/templating/
@@ -11,7 +11,7 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables allow you to alter specific components of cells' queries
+Chronograf's dashboard template variables let you to alter specific components of cells' queries
 without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 
 ## Use template variables
@@ -284,7 +284,7 @@ The customer names would populate your template variable dropdown rather than th
 
 ### Custom Meta Query
 Vary part of a query with a customized meta query that pulls a specific array of values from InfluxDB.
-These variables allow you to pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filter-template-variables-with-other-template-variables).
+These variables let you pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filter-template-variables-with-other-template-variables).
 
 <img src="/img/chronograf/1-6-template-vars-custom-meta-query.png" style="width:100%;max-width:667px;" alt="Custom meta query"/>
 

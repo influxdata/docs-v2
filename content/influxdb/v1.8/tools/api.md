@@ -1,6 +1,7 @@
 ---
 title: InfluxDB API reference
-description: Use the InfluxDB API endpoints to run queries, write data, check server status, and troubleshoot by tracking HTTP client requests, collecting server statistics, and using Go "pprof" profiles.
+description: >
+  Use the InfluxDB API endpoints to run queries, write data, check server status, and troubleshoot by tracking HTTP client requests, collecting server statistics, and using Go "pprof" profiles.
 aliases:
     - /influxdb/v1.8/concepts/api/
 menu:

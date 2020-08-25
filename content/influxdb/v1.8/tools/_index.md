@@ -1,5 +1,6 @@
 ---
 title: InfluxDB tools
+description: Tools and utilities for interacting with InfluxDB.
 aliases:
     - /influxdb/v1.8/clients/
     - /influxdb/v1.8/write_protocols/json/

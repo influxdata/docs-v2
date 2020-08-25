@@ -1,6 +1,7 @@
 ---
 title: Manage Chronograf users
-description: Manage users and roles in Chronograf.
+description: >
+  Manage users and roles, including SuperAdmin status and organization-bound users.
 menu:
   chronograf_1_8:
     name: Manage Chronograf users

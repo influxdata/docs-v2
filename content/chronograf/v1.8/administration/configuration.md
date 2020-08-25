@@ -1,6 +1,7 @@
 ---
 title: Configure Chronograf
-description: Configure Chronograf, including security, multiple users, and multiple organizations.
+description: >
+  Configure Chronograf, including security, multiple users, and multiple organizations.
 menu:
   chronograf_1_8:
     name: Configure

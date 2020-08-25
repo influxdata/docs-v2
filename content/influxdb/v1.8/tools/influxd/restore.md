@@ -1,6 +1,7 @@
 ---
 title: influxd restore
-description: The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
+description: >
+  The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
 menu:
   influxdb_1_8:
     name: influxd restore

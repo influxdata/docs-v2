@@ -1,6 +1,7 @@
 ---
 title: Chronograf Tools
-description: Chronograf provides command line tools designed to aid in managing and working with Chronograf from the command line.
+description: >
+  Chronograf provides command line tools designed to aid in managing and working with Chronograf from the command line.
 menu:
   chronograf_1_8:
     name: Tools

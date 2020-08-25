@@ -1,6 +1,7 @@
 ---
 title: Use annotations in Chronograf views
-description: Add contextual information to Chronograf dashboards with annotations.
+description: >
+  Add contextual information to Chronograf dashboards with annotations.
 menu:
   chronograf_1_8:
     name: Use annotations

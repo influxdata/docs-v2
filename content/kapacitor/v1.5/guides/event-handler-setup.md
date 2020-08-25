@@ -1,6 +1,7 @@
 ---
 title: Set up event handler
-description:
+description: >
+  Set up Kapacitor event handlers to send alerts and notifications to third-party endpoints.
 menu:
   kapacitor_1_5:
     weight: 70

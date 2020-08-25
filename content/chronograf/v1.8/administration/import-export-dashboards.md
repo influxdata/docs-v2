@@ -1,6 +1,6 @@
 ---
 title: Import and export Chronograf dashboards
-description: Import and export Chronograf dashboards.
+description: Share dashboard JSON files between Chronograf instances. 
 menu:
   chronograf_1_8:
     weight: 120

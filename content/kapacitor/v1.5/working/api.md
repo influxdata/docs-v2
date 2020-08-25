@@ -1,6 +1,7 @@
 ---
 title: Kapacitor HTTP API reference documentation
-description: Use the Kapacitor HTTP API endpoints to control task execution, query statues, and collect troubleshooting data.
+description: >
+  Use the Kapacitor HTTP API endpoints to control task execution, query statues, and collect troubleshooting data.
 aliases:
   - /kapacitor/v1.5/api
   - /kapacitor/v1.5/api/api

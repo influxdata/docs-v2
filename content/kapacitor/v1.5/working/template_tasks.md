@@ -1,6 +1,7 @@
 ---
 title: Template tasks
-description: Create Kapacitor task and TICKscript templates that can be used to quickly create new tasks and TICKscripts.
+description: >
+  Create Kapacitor task and TICKscript templates that can be used to quickly create new tasks and TICKscripts.
 aliases:
   - /kapacitor/v1.5/examples/template_tasks/
   - /kapacitor/v1.5/guides/template_tasks/

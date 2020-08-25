@@ -1,6 +1,7 @@
 ---
 title: Write protocols in InfluxDB
-description: Covers the InfluxDB line protocol and a tutorial using line protocol to write data to InfluxDB.
+description: >
+  Covers the InfluxDB line protocol and a tutorial using line protocol to write data to InfluxDB.
 menu:
   influxdb_1_8:
     name: Write protocols

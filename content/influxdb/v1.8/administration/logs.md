@@ -1,6 +1,7 @@
 ---
 title: Log and trace with InfluxDB
-description: Log and trace in InfluxDB OSS.
+description: >
+  Structured logging, access logging, tracing, and logging locations in InfluxDB.
 menu:
   influxdb_1_8:
     name: Log and trace

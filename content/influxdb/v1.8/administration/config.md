@@ -1,6 +1,7 @@
 ---
 title: Configure InfluxDB OSS
-description: Learn about InfluxDB OSS configuration settings and environment variables.
+description: >
+  Learn about InfluxDB OSS configuration settings and environment variables.
 menu:
   influxdb_1_8:
     name: Configure InfluxDB

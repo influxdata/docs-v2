@@ -1,6 +1,6 @@
 ---
 title: Manage Chronograf organizations
-description: Manage organizations in Chronograf.
+description: Create, configure, map, and remove organizations in Chronograf.
 menu:
   chronograf_1_8:
     name: Manage Chronograf organizations
@@ -11,7 +11,7 @@ menu:
 **On this page:**
 
 * [About Chronograf organizations](#about-chronograf-organizations)
-* [Use the Default organization](#use-the-default-organization)
+* [Use the default organization](#use-the-default-organization)
 * [Create organizations](#create-organizations)
 * [Configure organizations](#configure-organizations)
 * [Map organizations](#map-organizations)
@@ -30,12 +30,12 @@ A Chronograf organization is a collection of Chronograf users who share common C
 
 > ***Note:*** Only users with SuperAdmin status can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin status.
 
-## Use the Default organization
+## Use the default organization
 
->***Note:*** The Default organization can be used to support Chronograf as configured in versions earlier than 1.4.
+>***Note:*** The default organization can be used to support Chronograf as configured in versions earlier than 1.4.
 > Upon upgrading, any Chronograf resources that existed prior to 1.4 automatically become owned by the Default organization.
 
-Upon installation, the Default organization is ready for use and allows Chronograf to be used as-is.
+Upon installation, the default organization is ready for use and allows Chronograf to be used as-is.
 
 ## Creating organizations
 

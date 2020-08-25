@@ -1,6 +1,7 @@
 ---
 title: ChangeDetectNode (Kapacitor TICKscript node)
-description: ChangeDetectNode creates a new node that only emits new points if different from the previous point.
+description: >
+  ChangeDetectNode creates a new node that only emits new points if different from the previous point.
 
 menu:
   kapacitor_1_5_ref:

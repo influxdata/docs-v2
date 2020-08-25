@@ -1,9 +1,7 @@
 ---
 title: InfluxQL Continuous Queries
 description: >
-Continuous queries (CQ) are InfluxQL queries that run automatically and
-periodically on realtime data and store query results in a
-specified measurement.
+  Continuous queries (CQ) are InfluxQL queries that run automatically and periodically on realtime data and store query results in a specified measurement.
 menu:
   influxdb_1_8:
     name: Continuous Queries

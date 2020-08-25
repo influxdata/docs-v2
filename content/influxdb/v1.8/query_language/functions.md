@@ -1,6 +1,7 @@
 ---
 title: InfluxQL functions
-
+description: >
+  Aggregate, select, transform, and predict data with InfluxQL functions.
 menu:
   influxdb_1_8:
     name: Functions

@@ -1,6 +1,7 @@
 ---
 title: Manage subscriptions in InfluxDB
-description: Manage subscriptions, which copy all written data to a local or remote endpoint, in InfluxDB OSS.
+description: >
+  Manage subscriptions, which copy all written data to a local or remote endpoint, in InfluxDB OSS.
 menu:
   influxdb_1_8:
     parent: Administration

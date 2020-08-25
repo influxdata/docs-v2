@@ -1,6 +1,7 @@
 ---
 title: InfluxDB Enterprise 1.8 documentation
-description: Documentation for InfluxDB Enterprise, which adds clustering, high availability, fine-grained authorization, and more to InfluxDB OSS.
+description: >
+  Documentation for InfluxDB Enterprise, which adds clustering, high availability, fine-grained authorization, and more to InfluxDB OSS.
 aliases:
     - /enterprise/v1.8/
 menu:

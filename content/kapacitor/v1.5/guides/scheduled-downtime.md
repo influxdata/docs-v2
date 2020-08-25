@@ -1,6 +1,7 @@
 ---
 title: Handle Kapacitor alerts during scheduled downtime
-description: TBuild Kapacitor TICKscripts that gracefully handle scheduled downtime without triggering unnecessary alerts.
+description: >
+  Build Kapacitor TICKscripts that gracefully handle scheduled downtime without triggering unnecessary alerts.
 menu:
   kapacitor_1_5:
     name: Handle scheduled downtime

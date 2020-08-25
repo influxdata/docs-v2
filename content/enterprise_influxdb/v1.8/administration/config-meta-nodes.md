@@ -1,6 +1,7 @@
 ---
 title: Configure InfluxDB Enterprise meta modes
-description: Configure InfluxDB Enterprise data node settings and environmental variables.
+description: >
+  Configure InfluxDB Enterprise data node settings and environmental variables.
 menu:
   enterprise_influxdb_1_8:
     name: Configure meta nodes

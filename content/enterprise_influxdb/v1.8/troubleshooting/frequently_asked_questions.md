@@ -1,6 +1,6 @@
 ---
 title: Frequently asked questions for InfluxDB Enterprise
-description:  Frequently asked questions (FAQs) for InfluxDB Enterprise.
+description: Common issues with InfluxDB Enterprise.
 aliases:
     - /enterprise_influxdb/v1.8/troubleshooting/frequently-asked-questions/
     - /enterprise/v1.8/troubleshooting/frequently_asked_questions/

@@ -1,6 +1,7 @@
 ---
 title: Back up and restore InfluxDB OSS
-description: Back up and restore InfluxDB OSS instances in case of unexpected data loss.
+description: >
+  To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
   - /influxdb/v1.8/administration/backup-and-restore/
 menu:
