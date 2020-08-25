@@ -7,7 +7,7 @@ exports.handler = (event, context, callback) => {
   const { request } = event.Records[0].cf;
   const { uri } = request;
   const parsedPath = path.parse(uri);
-  
+
   const indexPath = 'index.html';
   const validExtension = {
     'html': true,
@@ -15,7 +15,13 @@ exports.handler = (event, context, callback) => {
     'js': true,
     'xml': true,
     'png': true,
+    'gif': true,
+    'jpg': true,
     'svg': true,
+    'csv': true,
+    'txt': true,
+    'lp': true,
+    'json': true,
   };
 
   // Do not alter any requests with a valid file extension.
@@ -24,18 +30,18 @@ exports.handler = (event, context, callback) => {
   }
 
   // Redirect root path to v2 docs.
-  if (uri == '/') {
-    callback(null, {
-        status: '302',
-        statusDescription: 'Found',
-        headers: {
-          location: [{
-            key: 'Location',
-            value: '/v2.0/',
-          }],
-        }
-      });
-  }
+  // if (uri == '/') {
+  //   callback(null, {
+  //       status: '302',
+  //       statusDescription: 'Found',
+  //       headers: {
+  //         location: [{
+  //           key: 'Location',
+  //           value: '/v2.0/',
+  //         }],
+  //       }
+  //     });
+  // }
 
   // Redirect to slash path.
   if (!uri.endsWith('/')) {
