@@ -28,6 +28,7 @@ influx config create [flags]
 | `-u` | `--host-url`     | (**Required**) Connection URL for the new configuration.     | string      |                       |
 |      | `--json`         | Output data as JSON (default `false`)                        |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`          | Organization name                                            | string      |                       |
+| `-t` | `--token`        | Authentication token                                         | string      | `INFLUX_TOKEN`         |
 
 ## Examples
 ```sh
