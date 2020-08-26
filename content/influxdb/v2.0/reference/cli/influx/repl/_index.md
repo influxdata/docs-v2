@@ -1,7 +1,7 @@
 ---
 title: influx repl
 description: >
-  The `influx repl` command opens an interactive read-eval-print-loop (REPL)
+  The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
   from which you can run Flux commands.
 aliases:
   - /v2.0/reference/cli/influx/repl/
@@ -15,7 +15,7 @@ To use the Flux REPL, build the REPL from source.
 For more information, see the [Flux GitHub repository](https://github.com/influxdata/flux/#readme).
 {{% /warn %}}
 
-The `influx repl` command opens an interactive read-eval-print-loop (REPL)
+The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
 from which you can run Flux commands.
 
 ## Usage

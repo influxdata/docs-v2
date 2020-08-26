@@ -27,7 +27,7 @@ Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 
 ## Influx REPL
 The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
-read-eval-print-loop (REPL) where you can write and execute Flux queries.
+Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 
 <!-- TODO: is this still accurate? -->
 <!-- ```bash -->
