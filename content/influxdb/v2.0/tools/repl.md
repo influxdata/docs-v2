@@ -38,7 +38,7 @@ from(bucket: "example-bucket",
 
 {{% note %}}
 ##### Multi-line entries
-Multi-line scripts like the example above will work when pasted into the REPL.
+Multi-line scripts like the example above work when pasted into the REPL.
 Pasting newlines from the clipboard is allowed.
 However, you cannot enter newline characters directly from the keyboard.
 {{% /note %}}
