@@ -12,8 +12,8 @@ menu:
 products: [cloud]
 ---
 
-The InfluxDB API is the way to feed ongoing the collection of data into InfluxDB Cloud.
-However, you might want to upload a large amount of previously existing *historical* data into InluxDB cloud.
+The InfluxDB API is the way to feed ongoing collection of data into InfluxDB.
+However, you might want to upload a large amount of previously existing *historical* data into InluxDB Cloud.
 Given our usage-based pricing and the fact that the API is optimized for batched writing, the API is not recommended in the case of bulk data.
 
 Users who need to ingest bulk data chould contact support to review the limits, volume, and coordinate their efforts.
