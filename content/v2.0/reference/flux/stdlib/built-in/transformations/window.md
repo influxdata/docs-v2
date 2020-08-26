@@ -45,6 +45,8 @@ window(
 #### Calendar months and years
 `every`, `period`, and `offset` support all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
+
+Calendar duration units (`1y` and `1mo`) cannot be mixed with normal duration units (`1m`, `1h`, etc).
 {{% /note %}}
 
 ### every
@@ -109,4 +111,54 @@ from(bucket:"example-bucket")
   |> range(start: -1y)
   |> window(every: 1mo)
   // ...
+```
+
+## Troubleshooting
+
+### Missing time column
+
+The `window()` transformation requires a time column to divide rows into windows (time-based groups).
+The default time column is `_time`.
+
+**Common cause:** using an aggregate function without creating a new time column.
+[Aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/) drop columns not included in the group key.
+Time columns are typically not part of the group key.
+
+```js
+from(bucket: "telegraf")
+    |> range(start: -5m)
+    |> window(every: 1m)
+    |> mean()
+    |> window(every: inf) // error, no _time column because mean removed it
+```
+
+**Solution:** use `duplicate()` to create a `_time` column from existing `_start` or `_stop` columns.
+
+```js
+from(bucket: "telegraf")
+    |> range(start: -5m)
+    |> window(every: 1m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
+    |> window(every: inf)
+```
+
+### Nil bounds passed to window
+
+**Common cause:** using `window()` with a non-InfluxDB data source.
+`window()` requires time bounds set by `range()` and `range()` is only required when querying InfluxDB.
+
+**Solution:** call `range()` before `window()` to set the window range.
+
+```js
+import "experimental/array"
+
+array.from(rows: [
+    {_time: 2020-08-25T09:00:00Z, _value: 2.0},
+    {_time: 2020-08-25T09:30:00Z, _value: 3.0},
+    {_time: 2020-08-25T10:00:00Z, _value: 4.0},
+    {_time: 2020-08-25T10:30:00Z, _value: 5.0},
+])
+    |> range(start: 2020-08-25T09:00:00Z, stop: 2020-08-25T11:00:00Z) // required
+    |> window(every: 1h)
 ```
