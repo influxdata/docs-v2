@@ -1,7 +1,7 @@
 ---
 title: Bulk ingest
-seotitle: Write bulk data to InfluxDB cloud.
-list_title: Write bulk data to InfluxDB cloud.
+seotitle: Write bulk data to InfluxDB Cloud.
+list_title: Write bulk data to InfluxDB Cloud.
 weight: 105
 description: >
   Write existing data to InfluxDB Cloud in bulk.
