@@ -17,8 +17,8 @@ related:
 Flux, at its core, is a scripting language designed specifically for working with data.
 This guide walks through a handful of simple expressions and how they are handled in Flux.
 
-## Use the influx CLI's REPL
-Use the `influx repl` command to open the interactive read-eval-print-loop (REPL).
+## Use the Flux REPL
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to open the interactive Read-Eval-Print Loop (REPL).
 Run the commands provided in this guide in the REPL.
 
 ##### Start in the influx CLI in Flux mode
