@@ -146,7 +146,7 @@ sql.from(
 {{% warn %}}
 **InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
 and cannot query SQLite data sources.
-Use the [Flux REPL](/v2.0/reference/cli/influx/repl/) to query a SQLite data source
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to query a SQLite data source
 on your local filesystem.
 {{% /warn %}}
 
@@ -226,7 +226,7 @@ azure auth=ENV
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
 access to the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
+[Flux REPL](/influxdb/v2.0/tools/repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel

@@ -26,12 +26,13 @@ Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 ![Data Explorer with Flux](/img/data-explorer-beta-8.png)
 
 ## Influx REPL
-The [`influx repl` command](/v2.0/reference/cli/influx/repl) starts an interactive
-read-eval-print-loop (REPL) where you can write and execute Flux queries.
+The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
+Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 
-```bash
-influx repl --org org-name
-```
+<!-- TODO: is this still accurate? -->
+<!-- ```bash -->
+<!-- ./flux repl --org org-name -->
+<!-- ``` -->
 
 {{% note %}}
 `ctrl-d` will close the REPL.
