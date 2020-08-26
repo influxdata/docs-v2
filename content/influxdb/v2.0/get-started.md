@@ -520,15 +520,17 @@ the `influx` command line interface (CLI).
 InfluxDB is now initialized with a primary user, organization, and bucket.
 You are ready to [write or collect data](/v2.0/write-data).
 
-{{% note %}}
-#### Use the influx CLI
+### (Optional) Set up and use the influx CLI
 
 If you set up InfluxDB through the UI and want to use the [`influx` CLI](/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
 
-1. In a terminal, run the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
+1. In a terminal, run the following command: 
+  ```sh
+  influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a
+  ```
    This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 
-   For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/)
+    For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
 
