@@ -39,8 +39,8 @@ from(bucket: "example-bucket",
 {{% note %}}
 ##### Multi-line entries
 Multi-line scripts like the example above will work when pasted into the REPL.
-(Pasting in newlines in from the clipboard is allowed.)
-However, there is no way to enter a newline character directly from the keyboard.
+Pasting newlines from the clipboard is allowed.
+However, you cannot enter newline characters directly from the keyboard.
 {{% /note %}}
 
 Exit the REPL by pressing **Control + D**.
