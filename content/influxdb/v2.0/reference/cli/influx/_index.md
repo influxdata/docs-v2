@@ -18,33 +18,25 @@ The `influx` command line interface (CLI) includes commands to manage many aspec
 including buckets, organizations, users, tasks, etc.
 
 ## Usage
+
 ```
 influx [flags]
 influx [command]
 ```
 
 {{% note %}}
-#### Store your InfluxDB authentication token
-To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/)
-with each `influx` command, use one of the following methods to store your token:
+#### Set your credentials
 
-1.  Set the `INFLUX_TOKEN` environment variable using your token.
+1. To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile if you haven't already.
+2. To see if you have a configuration profile, run `influx config`. If nothing is displayed, you don't have a configuration profile.
+3. To configure a profile, use the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
+   This configures a new profile named `default` and makes the profile active so commands run against this instance.
+   For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
 
-    ```bash
-    export INFLUX_TOKEN=oOooYourAuthTokenOoooOoOO==
-    ```
-
-2.  Store your token in `~/.influxdbv2/credentials`.
-    _The content of the `credentials` file should be only your token._
-
-If you [set up InfluxDB using the CLI](/v2.0/reference/cli/influx/setup),
-InfluxDB stores your token in the credentials files automatically.
-
-_See [View tokens](/v2.0/security/tokens/view-tokens/) for information about
-retrieving authentication tokens._
 {{% /note %}}
 
 ## Commands
+
 | Command                                             | Description                                          |
 |:-------                                             |:-----------                                          |
 | [apply](/v2.0/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
@@ -72,11 +64,13 @@ retrieving authentication tokens._
 | [write](/v2.0/reference/cli/influx/write)           | Write points to InfluxDB                             |
 
 ## Mapped environment variables
+
 Some `influx` CLI flags are mapped to environment variables.
 Mapped flags get the value of the environment variable.
 To override environment variables, set the flag explicitly in your command.
 
 ## Flags
+
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
