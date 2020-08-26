@@ -102,13 +102,13 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 
-#### Step 1 Download influx CLI for macOS
+#### Step 1: Download influx CLI for macOS
 
 Click the following button to download and install `influx` CLI for macOS.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
 
-#### Step 2 Unpackage the influx binary
+#### Step 2: Unpackage the influx binary
 
 **Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
 
@@ -121,7 +121,7 @@ or run the following command in a macOS command prompt application such
 tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz
 ```
 
-#### Step 3 (Optional) Place the binary in your $PATH
+#### Step 3: (Optional) Place the binary in your $PATH
 
 If you choose, you can place `influx` in your `$PATH` or you can
 prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
@@ -137,20 +137,20 @@ sudo cp influxdb_client_2.0.0-beta.16_darwin_amd64/influx /usr/local/bin/
 If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
 {{% /note %}}
 
-#### Step 4 (macOS Catalina only) Authorize InfluxDB binaries
+#### Step 4: (macOS Catalina only) Authorize InfluxDB binaries
 
 If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/v2.0/get-started/#run-influxdb-on-macos-catalina).
 
-#### Step 5 Set up a configuration profile
+#### Step 5: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, complete the following steps to set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
-1. In a terminal, run the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
+-  In a terminal, run the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
    This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 
-   For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/)
+    For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
 
-#### Step 6 Learn `influx` CLI commands
+#### Step 6: Learn `influx` CLI commands
 
 To see all available `influx` commands, check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
 
@@ -160,14 +160,14 @@ To see all available `influx` commands, check out [influx - InfluxDB command lin
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
-#### Download influx CLI for Linux
+#### Step 1: Download influx CLI for Linux
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_arm64.tar.gz" download >influx CLI (arm)</a>
 
-#### Unpackage the influx binary
+#### Step 2: Unpackage the influx binary
 
 **Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
 
@@ -176,7 +176,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 tar xvfz influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz
 ```
 
-#### (Optional) Place the binary in your $PATH
+#### Step 3: (Optional) Place the binary in your $PATH
 
 If you choose, you can place `influx` in your `$PATH` or you can
 prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
@@ -192,7 +192,19 @@ sudo cp influxdb_client_2.0.0-beta.16_linux_amd64/influx /usr/local/bin/
 If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
 {{% /note %}}
 
-Now, you're ready to [Use the influx CLI](#use-the-influx-cli).
+#### Step 4: Set up a configuration profile
+
+To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+
+-  In a terminal, run the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
+   This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
+
+    For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
+
+#### Step 5: Learn `influx` CLI commands
+
+To see all available `influx` commands, check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
+
 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
