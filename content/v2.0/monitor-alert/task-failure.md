@@ -1,17 +1,16 @@
 ---
-title: Notify on failed tasks
-seotitle: Notify on failed tasks.
+title: Alert on failed tasks
+seotitle: Alert on failed tasks.
 description: >
-  How to create a task to send a notification if a specific task fails.
+  Create an alert when a task fails.
 menu:
-  influxdb_2_0:
-    name: Notify on failed tasks
-    parent: Common tasks
+  v2_0:
+    parent: Monitor & alert
 weight: 201
 v2.0/tags: [tasks]
 ---
 
-Use a task to monitor other tasks and receive alerts on failure.
+Use a task to receive alerts when a task fails.
 
 ## Example alert task script
 
