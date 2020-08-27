@@ -8,7 +8,6 @@ menu:
     name: Get started
 weight: 2
 ---
-## Overview
 
 ![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
 

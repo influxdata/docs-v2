@@ -5,7 +5,7 @@ draft: true
 menu:
   platform:
     name: Log analysis
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 6
 ---
 

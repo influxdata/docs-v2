@@ -1,11 +1,11 @@
 ---
 title: InfluxData Platform use cases
-description: Use-case-focused guides on how to use InfluxData's TICK stack to accomplish different tasks. 
-draft: true
+description: Use-case-focused guides on how to use InfluxData's TICK stack to accomplish different tasks.
 menu:
   platform:
     name: Use cases
     weight: 60
+draft: true
 ---
 
 Explore many ways to use the InfluxData Platform and its TICK stack components.

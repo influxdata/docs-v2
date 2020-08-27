@@ -1,9 +1,11 @@
 ---
 title: Deploy InfluxData Platform components in Kubernetes
+list_title: Deploy with Kubernetes
 description: Deploy the InfluxData Platform components in Kubernetes
 menu:
   platform:
-    name: Deploy InfluxData Platform in Kubernetes
+    name: Kubernetes
+    identifier: deploy-k8s
     parent: deploy-platform
     weight: 4
 ---

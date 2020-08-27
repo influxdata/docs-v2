@@ -5,7 +5,7 @@ draft: true
 menu:
   platform:
     name: Volume of reads and writes
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 7
 ---
 
