@@ -7,7 +7,7 @@
 
   .error-content {
     margin-top: 10vh;
-    max-width: 310px;
+    max-width: 380px;
   }
 
   .error-code {
@@ -56,24 +56,50 @@
     margin: 2rem 0 1.5rem;
 
     .btn {
-      display: block;
+      display: flex;
+      position: relative;
       flex-grow: 1;
       margin-right: 4px;
       padding: .75rem 1rem;
       border-radius: $radius;
       text-align: center;
+      justify-content: center;
+      align-items: center;
       color: $error-page-btn-text;
       transition: background-color .2s;
+      z-index: 1;
       @include gradient($article-btn-gradient);
-      &:hover {
-        @include gradient($article-btn-gradient-hover);
-      }
+
       &.back:before {
         content: "\e90a";
         font-family: "icomoon";
         margin-right: .35rem;
         vertical-align: text-top;
       }
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $radius;
+        @include gradient($article-btn-gradient-hover);
+        opacity: 0;
+        transition: opacity .2s;
+        z-index: -1;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        &:after {
+          opacity: 1;
+        }
+      }
+
     }
   }
 
