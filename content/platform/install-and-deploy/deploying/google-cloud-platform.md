@@ -1,9 +1,10 @@
 ---
 title: Deploy the InfluxData Platform in Google Cloud Platform
+list_title: Deploy on Google Cloud Platform
 description: Deploy the InfluxData Platform and InfluxDB Enterprise clusters in Google Cloud Platform
 menu:
   platform:
-    name: Deploy in Google Cloud Platform
+    name: Google Cloud Platform
     parent: deploy-platform
     weight: 2
 ---

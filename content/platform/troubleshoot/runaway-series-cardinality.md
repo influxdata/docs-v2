@@ -5,7 +5,7 @@ draft: true
 menu:
   platform:
     name: Runaway series cardinality
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 2
 ---
 

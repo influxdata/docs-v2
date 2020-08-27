@@ -5,7 +5,7 @@ draft: true
 menu:
   platform:
     name: IOPS
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 5
 ---
 
