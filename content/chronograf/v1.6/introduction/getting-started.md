@@ -1,8 +1,7 @@
 ---
 title: Getting started with Chronograf
 aliases:
-    - /{{< latest "chronograf" >}}/introduction/getting-started/
-    - /chronograf/v1.6/introduction/getting_started/
+  - /chronograf/v1.6/introduction/getting_started/
 menu:
   chronograf_1_6:
     name: Getting started
