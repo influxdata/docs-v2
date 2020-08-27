@@ -33,7 +33,7 @@ Outputs:
 
   DocsProdBucketArn:
     Description: The ARN of the S3 bucket hosting the static content.
-    Value: !GetAtt DocsV2Bucket.Arn
+    Value: !GetAtt DocsBucket.Arn
 
   DocsCircleCIDeployAccessKeyId:
     Description: The access key ID for CircleCI deployment to S3.
@@ -49,21 +49,21 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    Description: The CDN for both V1 and V2 docs.
     Properties:
       DistributionConfig:
         Aliases:
           - !Ref DomainName
         DefaultCacheBehavior:
+          TargetOriginId: !Ref DocsBucket
+          ViewerProtocolPolicy: redirect-to-https
+          DefaultTTL: 2592000
           Compress: true
           ForwardedValues:
             QueryString: false
-          TargetOriginId: !Ref DocsV2Bucket
-          ViewerProtocolPolicy: redirect-to-https
           LambdaFunctionAssociations:
             - EventType: origin-request
               LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
-        DefaultRootObject: index.html
+        DefaultRootObject: '/'
         CustomErrorResponses:
           - ErrorCachingMinTTL: 300
             ErrorCode: 403
@@ -72,15 +72,8 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName:
-              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV2Bucket
-            S3OriginConfig:
-              OriginAccessIdentity:
-                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
-          - DomainName:
-              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV1Bucket
+          - Id: !Ref DocsBucket
+            DomainName: !Join [ "", [ !Ref DocsBucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -99,7 +92,7 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Sub 'CloudFront Origin Access Identity for ${DomainName}'
 
-  DocsV2Bucket:
+  DocsBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketEncryption:
@@ -111,42 +104,17 @@ Resources:
         - Key: Domain
           Value: !Ref DomainName
 
-  DocsV2BucketPolicy:
+  DocsBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref DocsV2Bucket
+      Bucket: !Ref DocsBucket
       PolicyDocument:
         Statement:
           -
             Effect: Allow
             Action:
               - s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
-            Principal:
-              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
-
-  DocsV1Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          -
-            ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
-      Tags:
-        - Key: Domain
-          Value: !Ref DomainName
-
-  DocsV1BucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref DocsV1Bucket
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+            Resource: !Sub "arn:aws:s3:::${DocsBucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
 
@@ -158,71 +126,159 @@ Resources:
         ZipFile: |
           'use strict';
 
+          const path = require('path');
+
+          const latestVersions = {
+            'influxdb': 'v1.8',
+            'influxdbv2': 'v2.0',
+            'telegraf': 'v1.15',
+            'chronograf': 'v1.8',
+            'kapacitor': 'v1.5',
+            'enterprise': 'v1.8',
+            };
+
+          const archiveDomain = 'http://archive.docs.influxdata.com'
+
           exports.handler = (event, context, callback) => {
+
+            function temporaryRedirect(condition, newUri) {
+              if (condition) {
+                return callback(null, {
+                  status: '302',
+                  statusDescription: 'Found',
+                  headers: {
+                    location: [{
+                      key: 'Location',
+                      value: newUri,
+                    }],
+                  }
+                });
+              }
+            }
+
+            function permanantRedirect(condition, newUri) {
+              if (condition) {
+                return callback(null, {
+                  status: '301',
+                    statusDescription: 'Moved Permanently',
+                    headers: {
+                      'location': [{
+                        key: 'Location',
+                        value: newUri,
+                      }],
+                      'cache-control': [{
+                        key: 'Cache-Control',
+                        value: "max-age=3600"
+                      }],
+                    },
+                });
+              }
+            }
+
             const { request } = event.Records[0].cf;
-            const { uri, headers, origin } = request;
-            const extension = uri.substr(uri.lastIndexOf('.') + 1);
-
-            const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.jpg', '.svg', '.json', '.csv', '.rb', '.otf', '.eot', '.ttf', '.woff'];
+            const parsedPath = path.parse(request.uri);
             const indexPath = 'index.html';
-            const defaultPath = '/v2.0/'
+            const validExtensions = {
+                '.html': true,
+                '.css': true,
+                '.js': true,
+                '.xml': true,
+                '.png': true,
+                '.gif': true,
+                '.jpg': true,
+                '.ico': true,
+                '.svg': true,
+                '.csv': true,
+                '.txt': true,
+                '.lp': true,
+                '.json': true,
+                '.rb': true,
+                '.eot': true,
+                '.ttf': true,
+                '.woff': true,
+                '.otf': true,
+              };
 
-            // If path ends with '/', then append 'index.html', otherwise redirect to a
-            // path with '/' or ignore if the path ends with a valid file extension.
-            if ((uri == '/') || (uri.length < defaultPath.length)) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: defaultPath,
-                    }],
-                  }
-                });
-            } else if (uri.endsWith('/')) {
-              request.uri = uri + indexPath;
-            } else if (uri.endsWith('/index.html')) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: uri.substr(0, uri.length - indexPath.length),
-                    }],
-                  }
-                });
-            } else if (validExtensions.filter((ext) => uri.endsWith(ext)) == 0) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: uri + '/',
-                    }],
-                  }
-                });
+            // Remove index.html from path
+            temporaryRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
+
+            // If file has a valid extension, return the request unchanged
+            if (validExtensions[parsedPath.ext]) {
+              callback(null, request);
             }
 
-            const pathsV1 = ['/influxdb', '/telegraf', '/chronograf', '/kapacitor', '/enterprise_influxdb', '/enterprise_kapacitor'];
-            const originV1 = process.env.ORIGIN_V1;
+            ////////////////////// START PRODUCT-SPECIFIC REDIRECTS //////////////////////
 
-            // Send to v1 origin if start of path matches
-            if (pathsV1.filter((path) => uri.startsWith(path)) > 0) {
-              headers['host'] = [{key: 'host', value: originV1}];
-              origin.s3.domainName = originV1;
+            //////////////////////////// v2 subdomain redirect ///////////////////////////
+            temporaryRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
+
+            ////////////////////////// Latest version redirects //////////////////////////
+            temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
+            temporaryRedirect(/\/telegraf\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['telegraf']}`));
+            temporaryRedirect(/\/chronograf\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['chronograf']}`));
+            temporaryRedirect(/\/kapacitor\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['kapacitor']}`));
+            temporaryRedirect(/\/enterprise_influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['enterprise']}`));
+
+            ////////////////////////// Versionless URL redirects /////////////////////////
+            temporaryRedirect(request.uri === '/influxdb/', `/influxdb/${latestVersions['influxdb']}/`);
+            temporaryRedirect(request.uri === '/telegraf/', `/telegraf/${latestVersions['telegraf']}/`);
+            temporaryRedirect(request.uri === '/chronograf/', `/chronograf/${latestVersions['chronograf']}/`);
+            temporaryRedirect(request.uri === '/kapacitor/', `/kapacitor/${latestVersions['kapacitor']}/`);
+            temporaryRedirect(request.uri === '/enterprise_influxdb/', `/enterprise_influxdb/${latestVersions['enterprise']}/`);
+
+            /////////////////////////////// Flux redirects ///////////////////////////////
+            // Redirect flux guides and introduction based on latest InfluxDB version
+            if (/v2/.test(latestVersions['influxdb'])) {
+              temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/query-data/flux/`));
+              temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/query-data/get-started/`));
+            } else {
+              temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/flux/guides/`));
+              temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/flux/introduction/`));
+            }
+            // Redirect Flux stdlib and language sections to v2 Flux docs
+            temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/(?:functions|stdlib|language)\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\//, `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`));
+
+            // Redirect versionless and base version to v2 Flux docs
+            temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
+
+            ////////////////////////////// v2 path redirect //////////////////////////////
+            temporaryRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/${latestVersions['influxdbv2']}/`));
+
+            ////////////////////////// Archive version redirects /////////////////////////
+            temporaryRedirect(/\/influxdb\/(?:v0\.[0-9]{1,2}|v1\.[0-2])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            temporaryRedirect(/\/telegraf\/(?:v0\.[0-9]{1,2}|v1\.[0-8])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            temporaryRedirect(/\/chronograf\/(?:v0\.[0-9]{1,2}|v1\.[0-5])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            temporaryRedirect(/\/kapacitor\/(?:v0\.[0-9]{1,2}|v1\.[0-3])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            temporaryRedirect(/\/enterprise_influxdb\/v1\.[0-3]\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            temporaryRedirect(/\/enterprise_kapacitor\//.test(request.uri), `${archiveDomain}${request.uri}`);
+
+            /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
+
+            // Redirect to the a trailing slash
+            temporaryRedirect(!request.uri.endsWith('/'), request.uri + '/');
+
+            // Use index.html if the path doesn't have an extension
+            // or if the version number is parsed as an extension.
+            let newUri;
+
+            if (parsedPath.ext === '' || /\.\d*/.test(parsedPath.ext)) {
+              newUri = path.join(parsedPath.dir, parsedPath.base, indexPath);
+            } else {
+              newUri = request.uri;
             }
 
-            // If nothing matches, return request unchanged
+            // Replace the received URI with the URI that includes the index page
+            request.uri = newUri;
+
+            // Return to CloudFront
+            // request.uri = request.uri + indexPath;
             callback(null, request);
           };
 
       Handler: index.handler
       MemorySize: 128
       Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       Tags:
         - Key: Domain
           Value: !Ref DomainName
@@ -261,16 +317,14 @@ Resources:
                   - s3:ListBucket
                   - s3:GetBucketLocation
                 Resource:
-                  - !Sub "arn:aws:s3:::${DocsV2Bucket}"
-                  - !Sub "arn:aws:s3:::${DocsV1Bucket}"
+                  - !Sub "arn:aws:s3:::${DocsBucket}"
               - Effect: Allow
                 Action:
                   - s3:PutObject
                   - s3:PutObjectAcl
                   - s3:DeleteObject
                 Resource:
-                  - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
-                  - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+                  - !Sub "arn:aws:s3:::${DocsBucket}/*"
               - Effect: Allow
                 Action:
                   - cloudfront:GetDistribution
