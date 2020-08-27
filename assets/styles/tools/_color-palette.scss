@@ -104,9 +104,11 @@ $grad-LavenderLatte:      $br-deeppurple, $p-star;
 $grad-OminousFog:         $br-pulsar, $br-galaxy;
 
 // Single Hue Gradient
+$grad-grey-mist:          $g18-cloud, $g19-ghost;
 $grad-grey-light:         $g13-mist, $g18-cloud;
 $grad-grey:               $g10-wolf, $g13-mist;
 $grad-grey-dark:          $g3-castle, $g6-smoke;
+$grad-grey-abyss:         $g1-raven, $g2-kevlar;
 
 $grad-blue-light:         $b-pool, $b-hydrogen;
 $grad-blue:               $b-ocean, $b-pool;
@@ -144,4 +146,4 @@ $grad-PurpleFog:          $p-potassium, $cp-munchkin;
 $grad-PurpleRain:         $p-void, $cp-marguerite;
 
 // Transparent gradients
-$grad-whiteFade:         rgba($g20-white, .75), rgba($g20-white, 0);
+$grad-whiteFade:          rgba($g20-white, .75), rgba($g20-white, 0);

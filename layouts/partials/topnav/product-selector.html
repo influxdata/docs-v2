@@ -4,7 +4,7 @@
 
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") }}
-    <p class="selected">Select component</p>
+    <p class="selected">Select product</p>
   {{ else if and (eq $product "influxdb") (in $currentVersion "v2")}}
     <p class="selected">{{ (index .Site.Data.products $product).altname }}</p>
   {{ else }}
