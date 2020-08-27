@@ -3,7 +3,6 @@ title: Installation requirements
 aliases:
   - /enterprise_influxdb/v1.8/introduction/meta_node_installation/
   - /enterprise_influxdb/v1.8/introduction/data_node_installation/
-  - /{{< latest "chronograf" >}}/introduction/installation
   - /enterprise/v1.8/introduction/installation_guidelines/
 menu:
   enterprise_influxdb_1_8:

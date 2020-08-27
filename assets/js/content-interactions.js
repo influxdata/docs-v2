@@ -94,13 +94,6 @@ $('.expand-label').click(function() {
   $(this).next('.expand-content').slideToggle(200)
 })
 
-//////////////////// Replace Missing Images with Placeholder ///////////////////
-
-$(".article--content img").on("error", function() {
-  $(this).attr("src", "/img/coming-soon.svg");
-  $(this).attr("style", "max-width:500px;");
-});
-
 ////////////////////////// Inject tooltips on load //////////////////////////////
 
 $('.tooltip').each( function(){
