@@ -34,7 +34,7 @@
     // overflow: hidden;
 
     h2 {
-      margin: 1.5rem 0 .5rem;
+      margin: 1.25rem 0 .5rem;
       font-weight: 300;
       font-size: 3rem;
     }
@@ -54,15 +54,16 @@
     a.btn {
       position: relative;
       display: inline-block;
-      margin: .5rem .25rem .5rem 0;
-      padding: 1rem 2rem;
+      margin: .5rem .25rem .75rem 0;
+      padding: 1.25rem 2.25rem;
       color: $article-btn-text !important;
       border-radius: $radius;
       font-weight: $medium;
+      font-size: 1.1rem;
       text-decoration: none;
       text-align: center;
       z-index: 1;
-      @include gradient($article-btn-gradient);
+      @include gradient($home-btn-gradient);
 
       &:after {
         content: "";
@@ -73,7 +74,7 @@
         width: 100%;
         height: 100%;
         border-radius: $radius;
-        @include gradient($article-btn-gradient-hover);
+        @include gradient($home-btn-gradient-hover, 270deg);
         opacity: 0;
         transition: opacity .2s;
         z-index: -1;
@@ -175,10 +176,13 @@
     flex-wrap: wrap;
     position: relative;
     color: $g20-white;
+    @include gradient($home-tick-bg-gradient, 45deg)
+
+    h2 { color: $article-heading-alt; }
+
     a {
       display: inline-block;
       position: relative;
-      color: $g20-white;
       &:after{
         content: "";
         margin-top: .15rem;
@@ -192,12 +196,40 @@
         &:after { width: 100%; }
       }
     }
-  }
 
-  .telegraf {@include gradient($telegraf-dropdown-gradient);}
-  .influxdb {@include gradient($default-dropdown-gradient);}
-  .chronograf {@include gradient($chronograf-dropdown-gradient);}
-  .kapacitor {@include gradient($kapacitor-dropdown-gradient);}
+    .card {
+      position: relative;
+      z-index: 1;
+      color: $article-text;
+      transition: color .2s;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity .4s;
+      }
+
+      &.telegraf:after {@include gradient($telegraf-home-card-gradient);}
+      &.influxdb:after {@include gradient($default-home-card-gradient);}
+      &.chronograf:after {@include gradient($chronograf-home-card-gradient);}
+      &.kapacitor:after {@include gradient($kapacitor-home-card-gradient);}
+
+      &:hover {
+        color: $g20-white;
+        h2, a {color: $g20-white;}
+        &:after { opacity: 1; }
+      }
+
+
+    }
+  }
 
   #enterprise {
     padding-top: 2.5rem;
@@ -294,7 +326,12 @@
         padding-right: 0;
         #tick-cards {
           flex-direction: column;
-          .card { width: 100%; }
+          .card {
+            width: 100%;
+            color: $g20-white;
+            a {color: $g20-white;}
+            &:after { opacity: 1; }
+          }
         }
       }
       &#enterprise { order: 4; padding-left: 0; padding-right: 0; }
