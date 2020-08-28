@@ -205,14 +205,23 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
--  In a terminal, run the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
-   This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
+In a terminal, run the following command:
+   
+```sh
+   # Set up a configuration profile
+   influx config create -n default \
+     -u http://localhost:9999 \
+     -o example-org \
+     -t mySuP3rS3cr3tT0keN \
+     -a
+  ```  
 
-    For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
+This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
+For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
 
 #### Step 5: Learn `influx` CLI commands
 
-To see all available `influx` commands, check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
+To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
 
 
 {{% /tab-content %}}
