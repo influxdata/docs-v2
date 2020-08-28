@@ -22,7 +22,7 @@ pre-defined resources, including buckets, dashboards, tasks, checks, labels, and
 {{% note %}}
 **Key differences between stacks and templates**:
 
-- A template is a file outside of InfluxDB. Once a template is applied to InfluxDB, it becomes a stack.
+- A template is a file outside of InfluxDB. When you apply an InfluxDB template, a stack is automatically created to manage the template state.
 - Stacks only add a resource to an instance if the resource doesn't exist.
 Templates add all resources even if a resource already exists, which creates duplicate resources.
   {{% /note %}}
