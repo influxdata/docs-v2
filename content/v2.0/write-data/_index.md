@@ -17,6 +17,7 @@ related:
   - /v2.0/reference/syntax/line-protocol
   - /v2.0/reference/syntax/annotated-csv
   - /v2.0/reference/cli/influx/write
+  - /v2.0/write-data/bulk-ingest-cloud
 ---
 
 Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
