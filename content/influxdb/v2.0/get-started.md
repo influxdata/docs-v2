@@ -30,7 +30,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 ### Start for free
 
-Start using {{< cloud-name >}} at no cost with the [Free Plan](/v2.0/account-management/pricing-plans/#free-plan).
+Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/v2.0/account-management/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
@@ -80,8 +80,8 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
 
 6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
-    _To update organization and bucket names, see [Update an organization](/v2.0/organizations/update-org/)
-    and [Update a bucket](/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
+    _To update organization and bucket names, see [Update an organization](/influxdb/v2.0/organizations/update-org/)
+    and [Update a bucket](/influxdb/v2.0/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
 
 {{% cloud %}}
 All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
@@ -139,11 +139,11 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: (macOS Catalina only) Authorize InfluxDB binaries
 
-If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/v2.0/get-started/#run-influxdb-on-macos-catalina).
+If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/influxdb/v2.0/get-started/#run-influxdb-on-macos-catalina).
 
 #### Step 5: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
    
@@ -157,11 +157,11 @@ In a terminal, run the following command:
   ```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
-For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
+For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 #### Step 6: Learn `influx` CLI commands
 
-To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
+To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).
 
 {{% /tab-content %}}
 <!--------------------------------- END macOS --------------------------------->
@@ -203,7 +203,7 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/users/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
    
@@ -217,11 +217,11 @@ In a terminal, run the following command:
   ```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
-For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
+For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 #### Step 5: Learn `influx` CLI commands
 
-To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
+To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).
 
 
 {{% /tab-content %}}
@@ -293,7 +293,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 #### Networking ports
 
 By default, InfluxDB uses TCP port `9999` for client-server communication over
-the [InfluxDB HTTP API](/v2.0/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
 
@@ -318,12 +318,12 @@ To manually authorize the InfluxDB binaries:
 We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
 {{% /warn %}}
 
-_See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
+_See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
 ### Enable shell completion (Optional)
 
-To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -376,7 +376,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 #### Networking ports
 
 By default, InfluxDB uses TCP port `9999` for client-server communication over
-the [InfluxDB HTTP API](/v2.0/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
 
@@ -386,12 +386,12 @@ Start InfluxDB by running the `influxd` daemon:
 influxd
 ```
 
-_See the [`influxd` documentation](/v2.0/reference/cli/influxd) for information about
+_See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
 ### Enable shell completion (Optional)
 
-To install `influx` shell completion scripts, see [`influx completion`](/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -417,7 +417,7 @@ influxd --reporting-disabled
 
 Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
 Expose port `9999`, which InfluxDB uses for client-server communication over
-the [InfluxDB HTTP API](/v2.0/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
 docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
@@ -536,11 +536,11 @@ the `influx` command line interface (CLI).
 5. Click **Continue**.
 
 InfluxDB is now initialized with a primary user, organization, and bucket.
-You are ready to [write or collect data](/v2.0/write-data).
+You are ready to [write or collect data](/influxdb/v2.0/write-data).
 
 ### (Optional) Set up and use the influx CLI
 
-If you set up InfluxDB through the UI and want to use the [`influx` CLI](/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
+If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/users/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
 
 1. In a terminal, run the following command: 
       
@@ -552,9 +552,9 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/v2.0/r
         -t mySuP3rS3cr3tT0keN \
         -a
       ```  
-    This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/config/).
+    This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
-2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](https://v2.docs.influxdata.com/v2.0/reference/cli/influx/).
+2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).
 
 {{% /tab-content %}}
 <!-------------------------------- END UI Setup ------------------------------->
@@ -577,14 +577,14 @@ influx setup
 6. Enter a **retention period** for your primary bucket—valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/v2.0/reference/cli/influx/config) command.
+InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/influxdb/v2.0/reference/cli/influx/config) command.
 
-To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
+To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/influxdb/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
 
-You are ready to [write or collect data](/v2.0/write-data).
+You are ready to [write or collect data](/influxdb/v2.0/write-data).
 
 {{% note %}}
-To automate the setup process, use [flags](/v2.0/reference/cli/influx/setup/#flags)
+To automate the setup process, use [flags](/influxdb/v2.0/reference/cli/influx/setup/#flags)
 to provide the required information.
 {{% /note %}}
 
@@ -607,48 +607,48 @@ Use Telegraf to quickly write data to {{< cloud-name >}}.
 Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
 existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
 
-For details, see [Automatically configure Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/)
-and [Manually update Telegraf configurations](/v2.0/write-data/no-code/use-telegraf/manual-config/).
+For details, see [Automatically configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/)
+and [Manually update Telegraf configurations](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/).
 
 #### Scrape data
 
 **InfluxDB OSS** lets you scrape Prometheus-formatted metrics from HTTP endpoints.
-For details, see [Scrape data](/v2.0/write-data/no-code/scrape-data/).
+For details, see [Scrape data](/influxdb/v2.0/write-data/no-code/scrape-data/).
 
 #### API, CLI, and client libraries
 
 For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
-see [Write data to InfluxDB](/v2.0/write-data/).
+see [Write data to InfluxDB](/influxdb/v2.0/write-data/).
 
 #### Demo data
-If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/v2.0/reference/sample-data/#influxdb-cloud-demo-data)
+If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/influxdb/v2.0/reference/sample-data/#influxdb-cloud-demo-data)
 for quick, **free** access to time series data.
 
 ### Query data
 
 Query data using Flux, the UI, and the `influx` command line interface.
-See [Query data](/v2.0/query-data/).
+See [Query data](/influxdb/v2.0/query-data/).
 
 ### Process data
 
-Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
+Use InfluxDB tasks to process and downsample data. See [Process data](/influxdb/v2.0/process-data/).
 
 ### Visualize data
 
 Build custom dashboards to visualize your data.
-See [Visualize data](/v2.0/visualize-data/).
+See [Visualize data](/influxdb/v2.0/visualize-data/).
 
 ### Monitor and alert
 
 Monitor your data and sends alerts based on specified logic.
-See [Monitor and alert](/v2.0/monitor-alert/).
+See [Monitor and alert](/influxdb/v2.0/monitor-alert/).
 
 ## Differences between InfluxDB Cloud and InfluxDB OSS
 
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
-- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/) that collect data from specified
+- [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
@@ -657,15 +657,15 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 - **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
   jump into exploring InfluxDB 2.0 technology.
   The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
-- **Flux support**: [Flux](/v2.0/query-data/get-started/) is a standalone data
+- **Flux support**: [Flux](/influxdb/v2.0/query-data/get-started/) is a standalone data
   scripting and query language that increases productivity and code reuse.
   It is the primary language for working with data within InfluxDB 2.0.
   Flux can be used with other data sources as well, letting you work with data where it resides.
 - **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
-  is now accessible using a unified [InfluxDB v2 API](/v2.0/reference/api/) that
+  is now accessible using a unified [InfluxDB v2 API](/influxdb/v2.0/reference/api/) that
   enables seamless movement between open source and cloud.
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [Usage-based Plan](/v2.0/account-management/pricing-plans/#usage-based-plan)
+- **Usage-based pricing**: The [Usage-based Plan](/influxdb/v2.0/account-management/pricing-plans/#usage-based-plan)
   offers more flexibility and ensures that you only pay for what you use.
