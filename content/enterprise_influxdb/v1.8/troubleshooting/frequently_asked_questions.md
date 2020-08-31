@@ -9,7 +9,7 @@ menu:
   enterprise_influxdb_1_8:
     name: Frequently asked questions
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 
