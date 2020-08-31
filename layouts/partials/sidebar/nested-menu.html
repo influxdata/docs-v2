@@ -1,3 +1,4 @@
+{{ $isV2 := cond (in .RelPermalink "/v2.") true false }}
 {{ $page := .page }}
 {{ $menu := .menu }}
 
@@ -8,37 +9,37 @@
 {{ range $menu }}
   <li class="nav-category {{ if eq $page.RelPermalink .URL }}active{{end}}">
     {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-    <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+    <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
     {{ if .HasChildren }}
       <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
       {{ range .Children }}
         <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
           {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-          <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+          <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
           {{ if .HasChildren }}
             <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
             {{ range .Children }}
               <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                 {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+                <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
                 {{ if .HasChildren }}
                   <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                   {{ range .Children }}
                     <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                      <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+                      <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
                       {{ if .HasChildren }}
                         <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                         {{ range .Children }}
                           <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                             {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                            <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+                            <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
                             {{ if .HasChildren }}
                               <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                               {{ range .Children }}
                                 <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                                   {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                                  <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+                                  <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
 
                                   <!-- Begin nested block -->
                                   {{ if .HasChildren }}
@@ -46,7 +47,7 @@
                                     {{ range .Children }}
                                       <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                                         {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                                        <a href="{{ .URL }}">{{ .Name }} {{ template "productTag" . }}</a>
+                                        <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
                                         <!-- To add more nested layers, copy the nested block and paste it here -->
                                       </li>
                                     {{ end }}
