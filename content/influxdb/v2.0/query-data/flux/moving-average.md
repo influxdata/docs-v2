@@ -4,7 +4,7 @@ seotitle: Calculate the moving average in Flux
 list_title: Moving Average
 description: >
   Use the [`movingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/)
-  or [`timedMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/)
+  or [`timedMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/)
   functions to return the moving average of data.
 weight: 210
 aliases:
@@ -21,7 +21,7 @@ list_query_example: moving_average
 ---
 
 Use the [`movingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/)
-or [`timedMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/)
+or [`timedMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/)
 functions to return the moving average of data.
 
 ```js

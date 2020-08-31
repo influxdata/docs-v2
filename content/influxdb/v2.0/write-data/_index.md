@@ -13,7 +13,7 @@ menu:
     name: Write data
 influxdb/v2.0/tags: [write, line protocol]
 related:
-  - /influxdb/v2.0/write-data/use-telegraf/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/
   - /influxdb/v2.0/api/#tag/Write, InfluxDB API /write endpoint
   - /influxdb/v2.0/reference/syntax/line-protocol
   - /influxdb/v2.0/reference/syntax/annotated-csv
@@ -160,7 +160,7 @@ The scraper stores the scraped metrics in the bucket created during the
 
 {{% note %}}
 Quick Start is only available in the last step of the setup process.
-If you missed the Quick Start option, you can [manually create a scraper](/influxdb/v2.0/write-data/scrape-data)
+If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
 

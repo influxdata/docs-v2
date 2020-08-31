@@ -16,7 +16,7 @@ The Windows System Monitoring template includes the following:
 - one [dashboard](/influxdb/v2.0/reference/glossary/#dashboard): **Windows System**
 - one [bucket](/influxdb/v2.0/reference/glossary/#bucket): `telegraf`, 7d retention
 - label: `Windows System Template`, Telegraf plugin labels: `outputs.influxdb_v2`
-- one [Telegraf configuration](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/): InfluxDB v2 output plugin, Windows Performance Counters input plugin
+- one [Telegraf configuration](/influxdb/v2.0/telegraf-configs/): InfluxDB v2 output plugin, Windows Performance Counters input plugin
 - two variables: `bucket`, `windows_host`
 
 ## Apply the template
@@ -31,7 +31,7 @@ The Windows System Monitoring template includes the following:
     > **Note:** Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the Windows system and [InfluxDB v2 API](/influxdb/v2.0/reference/api/).
-3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/), do the following:
+3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.0/telegraf-configs/), do the following:
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2.0/security/tokens/view-tokens/).
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2.0/organizations/view-orgs/).

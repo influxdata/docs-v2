@@ -142,7 +142,7 @@ it isn't included in the output table.
 
 ## Custom aggregate function examples
 To create custom aggregate functions, use principles outlined in
-[Creating custom functions](/influxdb/v2.0/query-data/guides/custom-functions)
+[Creating custom functions](/influxdb/v2.0/query-data/flux/custom-functions)
 and the `reduce()` function to aggregate rows in each input table.
 
 ### Create a custom average function

@@ -74,7 +74,7 @@ rate = (tables=<-, every, groupColumns=[], unit=1s) =>
 
 _**Used functions:**_  
 [aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)  
-[derivative()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)  
+[derivative()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/derivative/)  
 [experimental.group()](/influxdb/v2.0/reference/flux/stdlib/experimental/group/)  
 [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)  
 [mean()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)  
