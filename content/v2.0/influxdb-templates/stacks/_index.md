@@ -54,7 +54,7 @@ Use our sample [`influxDB-assets` repository](https://github.com/russorat/influx
 
 1. Clone the [`influxDB-assets` repository](https://github.com/russorat/influxdb-assets).
    For more information, see [GitHub docs for cloning a repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
-2. In the cloned or duplicated repository, update resources to suit your needs, for example,
+2. In the cloned repository, update resources to suit your needs, for example,
    [clone dashboards](/v2.0/visualize-data/dashboards/create-dashboard/#clone-a-dashboard), [update tasks](/v2.0/process-data/manage-tasks/update-task/), or
    [update Telegraf configurations](/v2.0/telegraf-configs/update/).
 3. In your integrated development environment (IDE), update the `install.sh` script as needed.
