@@ -2,7 +2,7 @@
 title: InfluxDB stacks
 description: >
   InfluxDB stacks are stateful templates that let you apply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud. 
-  Stacks recognize when a resource already exists, and only apply new resources to an instance.
+  When you apply a stack, it adds, updates, or deletes resources in an instance.
 menu:
   v2_0:
     parent: InfluxDB templates
