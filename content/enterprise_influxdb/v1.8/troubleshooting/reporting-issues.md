@@ -6,7 +6,7 @@ aliases:
 menu:
   enterprise_influxdb_1_8:
     weight: 20
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 When you have challenges with the InfluxDB Enterprise product, please contact support
