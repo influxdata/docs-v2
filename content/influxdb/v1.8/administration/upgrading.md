@@ -1,6 +1,6 @@
 ---
 title: Upgrade to InfluxDB 1.8.x
-
+description: Upgrade to the latest version of InfluxDB.
 menu:
   influxdb_1_8:
     name: Upgrade InfluxDB

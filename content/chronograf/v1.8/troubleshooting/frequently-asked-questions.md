@@ -1,10 +1,11 @@
 ---
-title: Chronograf frequently asked questions (FAQ)
+title: Chronograf frequently asked questions (FAQs)
+description: Common issues with Chronograf
 menu:
   chronograf_1_8:
-    name: Frequently asked questions (FAQ)
+    name: Frequently asked questions (FAQs)
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 ## How do I connect Chronograf to an InfluxEnterprise cluster?

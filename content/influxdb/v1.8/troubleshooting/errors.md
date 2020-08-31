@@ -1,11 +1,12 @@
 ---
 title: InfluxDB error messages
-description: Covers InfluxDB error messages, their descriptions, and common resolutions.
+description: >
+  Covers InfluxDB error messages, their descriptions, and common resolutions.
 menu:
   influxdb_1_8:
     name: Error messages
     weight: 30
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page documents errors, their descriptions, and, where applicable,

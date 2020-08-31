@@ -1,6 +1,7 @@
 ---
 title: influxd version
-description: The `influxd version` command outputs the current version of InfluxDB.
+description: >
+  The `influxd version` command outputs the current version of InfluxDB.
 menu:
   influxdb_1_8:
     name: influxd version

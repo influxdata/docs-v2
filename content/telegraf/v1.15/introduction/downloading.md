@@ -1,8 +1,9 @@
 ---
-title: Downloading Telegraf
+title: Download Telegraf
+description: Download the latest version of Telegraf. 
 menu:
   telegraf_1_15:
-    name: Downloading
+    name: Download
     weight: 10
     parent: Introduction
 ---

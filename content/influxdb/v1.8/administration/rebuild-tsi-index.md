@@ -1,7 +1,7 @@
 ---
 title: Rebuild the TSI index
 description: >
-  Rebuild your InfluxDB TSI index using the `influxd_inspect buildtsi` command.
+  Use the `influxd_inspect buildtsi` command to rebuild your InfluxDB TSI index.
 menu:
   influxdb_1_8:
     weight: 60

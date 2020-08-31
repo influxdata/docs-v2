@@ -1,6 +1,6 @@
 ---
-title: Configuring Kapacitor
-
+title: Configure Kapacitor
+description: Configuration options and environment variables in Kapacitor.
 menu:
   kapacitor_1_5:
     weight: 10

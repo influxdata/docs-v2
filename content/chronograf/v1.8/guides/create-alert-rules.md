@@ -1,11 +1,12 @@
 ---
-title: Creating Chronograf alert rules
-description: Creating Chronograf alert rules, specifying time series data and thresholds. Example sends alerts to a Slack channel.
+title: Create Chronograf alert rules
+description: >
+  Trigger alerts by building Kapacitor alert rules in the Chronograf user interface (UI).
 aliases:
   - /chronograf/v1.8/guides/create-a-kapacitor-alert/
 menu:
   chronograf_1_8:
-    name: Creating alert rules
+    name: Create alert rules
     weight: 60
     parent: Guides
 ---
@@ -34,7 +35,7 @@ This guide walks through creating a Chronograf alert rule that sends an alert me
 * Slack is available and configured as an [event handler](/{{< latest "chronograf" >}}/troubleshooting/frequently-asked-questions/#what-kapacitor-event-handlers-are-supported-in-chronograf) in Chronograf.
 See the [Configuring Kapacitor Event Handlers](/{{< latest "chronograf" >}}/guides/configuring-alert-endpoints/) guide for detailed configuration instructions.
 
-## Configuring Chronograf alert rules
+## Configure Chronograf alert rules
 
 Navigate to the **Manage Tasks** page under **Alerting** in the left navigation, then click **+ Build Alert Rule** in the top right corner.
 
@@ -124,7 +125,7 @@ Notice that you can easily enable and disable the rule by toggling the checkbox 
 
 Next, move on to the section below to experience your alert rule in action.
 
-## Viewing alerts in practice
+## View alerts in practice
 
 ### Step 1: Create some load on your system
 

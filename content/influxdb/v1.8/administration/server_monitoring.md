@@ -1,5 +1,6 @@
 ---
 title: Monitor InfluxDB servers
+description: Troubleshoot and monitor InfluxDB OSS.
 aliases:
     - /influxdb/v1.8/administration/statistics/
     - /influxdb/v1.8/troubleshooting/statistics/

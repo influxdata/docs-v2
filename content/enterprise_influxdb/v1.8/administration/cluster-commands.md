@@ -1,6 +1,7 @@
 ---
 title: Manage InfluxDB Enterprise clusters
-description: Use the "influxd-ctl" and "influx" command line tools to manage InfluxDB Enterprise clusters and data.
+description: >
+  Use the `influxd-ctl` and `influx` command line tools to manage InfluxDB Enterprise clusters and data.
 aliases:
     - /enterprise/v1.8/features/cluster-commands/
 menu:

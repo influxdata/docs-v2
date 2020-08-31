@@ -1,11 +1,11 @@
 ---
 title: Kapacitor frequently asked questions
-
+description: frequent sources of confusion or important things to know related to Kapacitor.
 menu:
   kapacitor_1_5:
-    name: Frequently asked questions (FAQ)
+    name: Frequently asked questions (FAQs)
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page addresses frequent sources of confusion or important things to know related to Kapacitor.

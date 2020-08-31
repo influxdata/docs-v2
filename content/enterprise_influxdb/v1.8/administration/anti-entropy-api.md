@@ -1,6 +1,7 @@
 ---
 title: InfluxDB Anti-Entropy API
-description: Use the InfluxDB Anti-Entropy API to monitor and repair shards on InfluxDB Enterprise data nodes.
+description: >
+  Monitor and repair shards on InfluxDB Enterprise data nodes the InfluxDB Anti-Entropy API.
 menu:
   enterprise_influxdb_1_8:
     name: Anti-Entropy API

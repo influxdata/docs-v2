@@ -1,5 +1,6 @@
 ---
 title: UDP protocol support in InfluxDB
+description: Overview of support for UDP protocol in InfluxDB.
 aliases:
   - /influxdb/v1.8/tools/udp/
   - /influxdb/v1.8/write_protocols/udp/

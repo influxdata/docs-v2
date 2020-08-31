@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise features
+description: Users, clustering, and other InfluxDB Enterprise features.
 aliases:
     - /enterprise/v1.8/features/
 menu:

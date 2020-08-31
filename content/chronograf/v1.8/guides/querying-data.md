@@ -3,7 +3,7 @@ title: Explore data in Chronograf
 description: Query and visualize data in the Data Explorer.
 menu:
   chronograf_1_8:
-    name: Exploring data in Chronograf
+    name: Explore data in Chronograf
     weight: 130
     parent: Guides
 ---
@@ -17,7 +17,7 @@ To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 - In the upper-right corner of the page, select the time to view metrics and events by clicking one of the following:
   - **UTC** for Coordinated Universal Time
-  - **Local** for the local time reported by your browser 
+  - **Local** for the local time reported by your browser
 
 > **Note:** If your organization spans multiple time zones, we recommend using UTC (Coordinated Universal Time) to ensure that everyone sees metrics and events for the same time.
 

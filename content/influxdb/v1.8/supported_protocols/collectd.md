@@ -1,5 +1,7 @@
 ---
 title: CollectD protocol support in InfluxDB
+description: >
+  The collectd input allows InfluxDB to accept data transmitted in collectd native format. 
 aliases:
     - /influxdb/v1.8/tools/collectd/
 menu:

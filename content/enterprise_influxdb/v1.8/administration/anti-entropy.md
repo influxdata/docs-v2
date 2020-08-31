@@ -1,5 +1,6 @@
 ---
 title: Use Anti-Entropy service in InfluxDB Enterprise
+description: The Anti-Entropy service monitors and repairs shards in InfluxDB.
 aliases:
   - /enterprise_influxdb/v1.8/guides/Anti-Entropy/
 menu:
@@ -284,7 +285,7 @@ Queued Shards: [21179 25165]
 
 If a data node suddenly disappears due to a catastrophic hardware failure or for any other reason, as soon as a new data node is online, the Anti-Entropy service will copy the correct shards to the new replacement node. The time it takes for the copying to complete is determined by the number of shards to be copied and how much data is stored in each.
 
-_View the [Replacing Data Nodes](/enterprise_influxdb/v1.8/guides/replacing-nodes/#replacing-data-nodes-in-an-influxdb-enterprise-cluster) documentation for instructions on replacing data nodes in your InfluxDB Enterprise cluster._
+_View the [Replacing Data Nodes](/enterprise_influxdb/v1.8/guides/replacing-nodes/#replace-data-nodes-in-an-influxdb-enterprise-cluster) documentation for instructions on replacing data nodes in your InfluxDB Enterprise cluster._
 
 ### Replacing a machine that is running a data node
 

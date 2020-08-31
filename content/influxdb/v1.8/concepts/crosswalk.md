@@ -1,5 +1,6 @@
 ---
 title: Compare InfluxDB to SQL databases
+description: Differences between InfluxDB and SQL databases.
 menu:
   influxdb_1_8:
     name: Compare InfluxDB to SQL databases

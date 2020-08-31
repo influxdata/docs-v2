@@ -1,8 +1,9 @@
 ---
-title: Installing Telegraf
+title: Install Telegraf
+description: Install Telegraf on your operating system.
 menu:
   telegraf_1_15:
-    name: Installing
+    name: Install
     weight: 20
     parent: Introduction
 ---

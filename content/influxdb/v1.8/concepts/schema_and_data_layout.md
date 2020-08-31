@@ -1,6 +1,7 @@
 ---
 title: InfluxDB schema design and data layout
-description: Covers general guidelines for InfluxDB schema design and data layout.
+description: >
+  General guidelines for InfluxDB schema design and data layout.
 menu:
   influxdb_1_8:
     name: Schema design and data layout
@@ -117,7 +118,7 @@ from(bucket:"<database>/<retention_policy>")
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
-  
+
 ##### InfluxQL
 
 ```
@@ -169,7 +170,7 @@ from(bucket:"<database>/<retention_policy>")
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
-  
+
 ##### InfluxQL
 
 ```

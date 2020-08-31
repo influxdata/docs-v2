@@ -1,5 +1,7 @@
 ---
 title: Graphite protocol support in InfluxDB
+description: >
+  Use the Graphite plugin to write data to InfluxDB using the Graphite protocol.
 aliases:
     - /influxdb/v1.8/tools/graphite/
     - /influxdb/v1.8/write_protocols/graphite/

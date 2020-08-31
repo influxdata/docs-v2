@@ -1,6 +1,7 @@
 ---
 title: Back up and restore InfluxDB OSS
-description: Using InfluxDB OSS backup and restore utilities for online, Enterprise-compatible use and portability between InfluxDB Enterprise and InfluxDB OSS servers.
+description: >
+  To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
   - /influxdb/v1.8/administration/backup-and-restore/
 menu:

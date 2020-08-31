@@ -1,10 +1,10 @@
 ---
-title: Managing Chronograf security
-description: Managing Chronograf security using authentication and authorization with OAuth 2.0 providers (GitHub, Google, Heroku, Okta, and generic). Also covers TLS and HTTPS setup.
+title: Manage Chronograf security
+description: Manage Chronograf security with OAuth 2.0 providers.
 aliases: /chronograf/v1.8/administration/security-best-practices/
 menu:
   chronograf_1_8:
-    name: Managing Chronograf security
+    name: Manage Chronograf security
     weight: 70
     parent: Administration
 ---

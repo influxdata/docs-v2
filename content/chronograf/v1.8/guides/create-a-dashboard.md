@@ -1,9 +1,9 @@
 ---
-title: Creating Chronograf dashboards
-description: This tutorial guides you quickly through the essential steps required to create custom Chronograf dashboards for use with InfluxDB and the InfluxData Platform.
+title: Create Chronograf dashboards
+description: Visualize your data with custom Chronograf dashboards.
 menu:
   chronograf_1_8:
-    name: Creating dashboards
+    name: Create dashboards
     weight: 30
     parent: Guides
 ---
@@ -24,7 +24,7 @@ To perform the tasks in this guide, you must have a working Chronograf instance 
 Data is accessed using the Telegraf [system ](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugins.
 For more information, see [Configuring Chronograf](/{{< latest "chronograf" >}}/administration/configuration).
 
-## Build a Dashboard
+## Build a dashboard
 
 Click **Dashboards** in the navigation bar and then click the **Create Dashboard** button.
 A new dashboard is created and ready to begin adding cells.

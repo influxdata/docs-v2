@@ -1,6 +1,7 @@
 ---
 title: Telegraf processor plugins
-description: Use Telegraf processor plugins in the InfluxData time series platform to process metrics and emit results based on the values processed.
+description: >
+  Telegraf processor plugins process metrics and emit results based on the values processed.
 menu:
   telegraf_1_15:
     name: Processor

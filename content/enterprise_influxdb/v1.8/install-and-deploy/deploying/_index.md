@@ -1,6 +1,7 @@
 ---
 title: Deploy InfluxDB Enterprise clusters
-description: Install InfluxDB Enterprise to a cloud provider of your choice, including Google Cloud Platform, Amazon Web Services, and Azure.
+description: >
+  Install InfluxDB Enterprise to a cloud provider of your choice, including Google Cloud Platform, Amazon Web Services, and Azure.
 aliases:
     - /enterprise_influxdb/v1.8/other-options/
 menu:

@@ -1,6 +1,6 @@
 ---
 title: TICKscript nodes overview
-
+description: Overview of nodes in TICKscript.
 aliases:
     - kapacitor/v1.5/nodes/source_batch_node/
     - kapacitor/v1.5/nodes/source_stream_node/

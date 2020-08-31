@@ -1,5 +1,6 @@
 ---
 title: Sample data
+description: Create a database, download, and write sample data.
 menu:
   influxdb_1_8:
     weight: 10

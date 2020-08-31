@@ -1,10 +1,12 @@
 ---
-title: Getting started with Chronograf
+title: Get started with Chronograf
+description: >
+  Overview of data visualization, alerting, and infrastructure monitoring features available in Chronograf.
 aliases:
     - /chronograf/v1.8/introduction/getting_started/
 menu:
   chronograf_1_8:
-    name: Getting started
+    name: Get started
     weight: 30
     parent: Introduction
 ---

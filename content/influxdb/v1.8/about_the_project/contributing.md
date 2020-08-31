@@ -1,5 +1,6 @@
 ---
 title: Contribute to InfluxDB OSS
+description: Contribute to the InfluxDB OSS project.
 menu:
   influxdb_1_8:
     name: Contribute to InfluxDB

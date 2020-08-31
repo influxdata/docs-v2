@@ -1,11 +1,11 @@
 ---
-title: Configuring Chronograf alert endpoints
+title: Configure Chronograf alert endpoints
 aliases:
   - /chronograf/v1.8/guides/configure-kapacitor-event-handlers/
-description: Use Chronograf alert endpoints to send alert messages using Chronograf support for Alerta, Exec, HipChat, HTTP/Post, Kafka, Log, OpsGenie, PagerDuty, Sensu, Slack, SMTP/email, Talk, Telegram, TCP, and VictorOps.
+description: Send alert messages with Chronograf alert endpoints.
 menu:
   chronograf_1_8:
-    name: Configuring alert endpoints
+    name: Configure alert endpoints
     weight: 70
     parent: Guides
 ---

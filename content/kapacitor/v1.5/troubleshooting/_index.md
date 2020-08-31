@@ -1,8 +1,8 @@
 ---
-title: Troubleshooting Kapacitor
+title: Troubleshoot Kapacitor
 menu:
   kapacitor_1_5:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 110
 ---
 

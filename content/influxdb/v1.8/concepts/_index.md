@@ -1,5 +1,6 @@
 ---
 title: InfluxDB concepts
+description: Learn key concepts in InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Concepts

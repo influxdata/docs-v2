@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise concepts
+description: Clustering and other key concepts in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/
 menu:

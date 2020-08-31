@@ -1,5 +1,5 @@
 ---
-title: Getting started with Kapacitor
+title: Get started with Kapacitor
 weight: 20
 menu:
   kapacitor_1_5:
