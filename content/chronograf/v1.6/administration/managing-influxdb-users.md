@@ -13,7 +13,7 @@ menu:
 The **Chronograf Admin** provides InfluxDB user management for InfluxDB OSS and InfluxDB Enterprise users.
 
 
-> ***Note:*** For details on Chronograf user authentication and management, see [Managing security](/{{< latest "chronograf" >}}/administration/managing-security/).
+> ***Note:*** For details on Chronograf user authentication and management, see [Managing security](/chronograf/v1.6/administration/managing-security/).
 
 **On this page:**
 
@@ -77,7 +77,7 @@ A successful `CREATE USER` query returns a blank result:
 
 ### Step 4: Edit the InfluxDB source in Chronograf.
 
-If you've already [connected your database to Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/#3-connect-to-chronograf), update the connection configuration in Chronograf with your new username and password.
+If you've already [connected your database to Chronograf](/chronograf/v1.6/introduction/getting-started/#3-connect-to-chronograf), update the connection configuration in Chronograf with your new username and password.
 Edit existing InfluxDB database sources by navigating to the Chronograf configuration page and clicking on the name of the source.
 
 ## InfluxDB OSS User Management

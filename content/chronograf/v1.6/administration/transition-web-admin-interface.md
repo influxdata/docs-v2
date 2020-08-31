@@ -80,7 +80,7 @@ In the web admin interface, the `Query Template` dropdown was the only way to ma
 ### Chronograf
 
 In Chronograf, the `Admin` page includes a complete interface for user management.
-The `Admin` page supports both InfluxDB OSS users and InfluxDB Enterprise users; see the [User Management](/{{< latest "chronograf" >}}/administration/user-management/) page for more information.
+The `Admin` page supports both InfluxDB OSS users and InfluxDB Enterprise users; see the [User Management](/chronograf/v1.6/administration/user-management/) page for more information.
 The `Admin` page allows users to:
 
 * View, create, and delete users

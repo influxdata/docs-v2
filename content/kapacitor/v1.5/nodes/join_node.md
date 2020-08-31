@@ -266,7 +266,7 @@ Example:
 #### Handling null fill values in outer joins
 When using Kapacitor to perform an outer join, it's important to set default values
 for `null` fields resulting from the join and fill operations.
-This is done using the [DefaultNode](/{{< latest "kapacitor" >}}/nodes/default_node/),
+This is done using the [DefaultNode](/kapacitor/v1.5/nodes/default_node/),
 which replaces null values for a specific field key with a specified default value.
 Not doing so may result in invalid line protocol (as `null` isn't an appropriate
 value for all field types) causing the join to fail.

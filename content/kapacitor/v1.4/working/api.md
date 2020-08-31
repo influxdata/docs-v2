@@ -497,7 +497,7 @@ GET /kapacitor/v1/tasks?fields=status&fields=executing&fields=error
 
 ### Custom task HTTP endpoints
 
-In TICKscript it is possible to expose a cache of recent data using the [HTTPOut](/{{< latest "kapacitor" >}}/nodes/http_out_node/) node.
+In TICKscript it is possible to expose a cache of recent data using the [HTTPOut](/kapacitor/v1.4/nodes/http_out_node/) node.
 The data is available at the path `/kapacitor/v1/tasks/TASK_ID/ENDPOINT_NAME`.
 
 ### Example

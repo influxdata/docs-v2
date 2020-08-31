@@ -17,7 +17,7 @@ As an added bonus, we'll also include a query that can be used to graph the perc
 difference between the two measurements.
 
 ## Comparing measurements and creating an alert
-The following [TICKscript](/{{< latest "kapacitor" >}}/tick/) streams the `m1` and `m2` measurements,
+The following [TICKscript](/kapacitor/v1.5/tick/) streams the `m1` and `m2` measurements,
 joins them, compares them, and triggers an alert if the two measurements are different.
 
 ```js

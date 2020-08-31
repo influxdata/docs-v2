@@ -7,7 +7,7 @@ menu:
     weight: 130
     parent: Guides
 ---
-Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/{{< latest "chronograf" >}}/guides/visualization-types/) for your query.
+Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/v1.8/guides/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
@@ -66,7 +66,7 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 
 ## Visualize your query
 
-Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/{{< latest "chronograf" >}}/guides/visualization-types/).
+Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/v1.8/guides/visualization-types/).
 
 ## Add queries to dashboards
 

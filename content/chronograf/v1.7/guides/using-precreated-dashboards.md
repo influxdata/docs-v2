@@ -13,7 +13,7 @@ menu:
 
 Pre-created dashboards are delivered with Chronograf depending on which Telegraf input plugins you have enabled and are available from the Host List page. These dashboards, which are built in and not editable, include cells with data visualizations for metrics that are relevant to data sources you are likely to be using.
 
-> Note that these pre-created dashboards cannot be cloned or customized. They appear only  as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts.  For details, see [Dashboard templates](/{{< latest "chronograf" >}}/guides/create-a-dashboard/#dashboard-templates).
+> Note that these pre-created dashboards cannot be cloned or customized. They appear only  as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts.  For details, see [Dashboard templates](/chronograf/v1.7/guides/create-a-dashboard/#dashboard-templates).
 
 ## Requirements
 
@@ -33,7 +33,7 @@ Pre-created dashboards are delivered in Chronograf installations and are ready t
 
 The pre-created dashboards available for use with Chronograf are listed below as Apps and appear in the Apps listing for hosts in the Host List page.  The listings for apps (pre-created dashboards) on this page include information about the required Telegraf input plugins, JSON files included in the apps, and listings of the cell titles that are included in each of the JSON files.
 
-The JSON files for the precreated dashboards are delivered on installation in the `/usr/share/chronograf/canned` directory. Information about the  configuration option `--canned-path` can be found in the [Chronograf configuration options](/{{< latest "chronograf" >}}/administration/config-options/#) page.
+The JSON files for the precreated dashboards are delivered on installation in the `/usr/share/chronograf/canned` directory. Information about the  configuration option `--canned-path` can be found in the [Chronograf configuration options](/chronograf/v1.7/administration/config-options/#) page.
 
 You can enable and disable applications in your [Telegraf configuration file](https://github.com/influxdata/telegraf/blob/master/etc/telegraf.conf).
 See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/docs/CONFIGURATION.md) for details.

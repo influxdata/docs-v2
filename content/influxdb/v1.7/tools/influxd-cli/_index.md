@@ -19,9 +19,9 @@ influxd [[command] [arguments]]
 ## Commands
 | Command                                               | Description                                              |
 |-------------------------------------------------------|----------------------------------------------------------|
-| [backup](/{{< latest "influxdb" "v1" >}}/tools/influxd-cli/backup)   | Download a snapshot of a data node and saves it to disk. |
-| [config](/{{< latest "influxdb" "v1" >}}/tools/influxd-cli/config)   | Display the default configuration.                       |
+| [backup](/influxdb/v1.7/tools/influxd-cli/backup)   | Download a snapshot of a data node and saves it to disk. |
+| [config](/influxdb/v1.7/tools/influxd-cli/config)   | Display the default configuration.                       |
 | help                                                  | Display the help message.                                |
-| [restore](/{{< latest "influxdb" "v1" >}}/tools/influxd-cli/restore) | Use a snapshot of a data node to rebuild a cluster.      |
-| [run](/{{< latest "influxdb" "v1" >}}/tools/influxd-cli/run)         | Run node with existing configuration.                    |
-| [version](/{{< latest "influxdb" "v1" >}}/tools/influxd-cli/version) | Display the InfluxDB version.                            |
+| [restore](/influxdb/v1.7/tools/influxd-cli/restore) | Use a snapshot of a data node to rebuild a cluster.      |
+| [run](/influxdb/v1.7/tools/influxd-cli/run)         | Run node with existing configuration.                    |
+| [version](/influxdb/v1.7/tools/influxd-cli/version) | Display the InfluxDB version.                            |
