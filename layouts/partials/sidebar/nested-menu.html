@@ -9,7 +9,7 @@
 {{ range $menu }}
   <li class="nav-category {{ if eq $page.RelPermalink .URL }}active{{end}}">
     {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-    <a href="{{ .URL }}">{{ .Name }} {{ $isV2 }}{{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
+    <a href="{{ .URL }}">{{ .Name }} {{ if $isV2 }}{{ template "productTag" . }}{{ end }}</a>
     {{ if .HasChildren }}
       <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
       {{ range .Children }}

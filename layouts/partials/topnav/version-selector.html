@@ -7,7 +7,7 @@
 <div class="dropdown">
   <p class="selected">{{ $currentVersion }}</p>
   <ul class="item-list">
-    <li><a href="https://github.com/influxdata/docs.influxdata.com" class="legacy" target="_blank">older</a></li>
+    <li><a href="https://archive.docs.influxdata.com/{{ $product }}/" class="legacy" target="_blank">older</a></li>
     {{ range (index .Site.Data.products $product).versions }}
       <li>
         <a href="/{{ $product }}/{{ . }}/" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ . }}</a>
