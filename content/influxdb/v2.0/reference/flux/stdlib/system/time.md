@@ -41,7 +41,7 @@ typically accounts for the local time zone.
 This time represents the time at which `system.time()` it is executed, so each
 instance of `system.time()` in a Flux script returns a unique value.
 
-[`now()`](/v2.0/reference/flux/stdlib/built-in/misc/now/) returns the current UTC time.
+[`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) returns the current UTC time.
 `now()` is cached at runtime, so all instances of `now()` in a Flux script
 return the same value.
 {{% /note %}}

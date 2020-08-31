@@ -50,5 +50,5 @@ toTime = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[time()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[time()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time)_

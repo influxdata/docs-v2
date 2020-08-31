@@ -13,7 +13,7 @@ aliases:
 products: [oss]
 ---
 
-The `influxd inspect compact-series-file` command compacts the [series file](/v2.0/reference/glossary/#series-file)
+The `influxd inspect compact-series-file` command compacts the [series file](/influxdb/v2.0/reference/glossary/#series-file)
 by removing deleted series.
 
 ## Usage

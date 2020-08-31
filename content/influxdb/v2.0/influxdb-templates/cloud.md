@@ -16,16 +16,16 @@ influxdb/v2.0/tags: [templates]
 products: [cloud]
 ---
 
-Use the [`influx` command line interface (CLI)](/v2.0/reference/cli/influx/)
+Use the [`influx` command line interface (CLI)](/influxdb/v2.0/reference/cli/influx/)
 to apply and manage templates in your InfluxDB Cloud account.
 
 If you haven’t already, do the following:
 
-1. [Download and install `influx` CLI](/v2.0/get-started/#optional-download-and-install-the-influx-cli).
-2. [Configure the `influx` CLI](/v2.0/get-started/#set-up-influxdb) to use your
+1. [Download and install `influx` CLI](/influxdb/v2.0/get-started/#optional-download-and-install-the-influx-cli).
+2. [Configure the `influx` CLI](/influxdb/v2.0/get-started/#set-up-influxdb) to use your
    InfluxDB Cloud instance URL, organization, and tokens.
-3. [Use the `influx` CLI](/v2.0/reference/cli/influx/) to use, manage, and create
+3. [Use the `influx` CLI](/influxdb/v2.0/reference/cli/influx/) to use, manage, and create
    InfluxDB templates:
 
-    - [Use templates](/v2.0/influxdb-templates/use/)
-    - [Create templates](/v2.0/influxdb-templates/create/)
+    - [Use templates](/influxdb/v2.0/influxdb-templates/use/)
+    - [Create templates](/influxdb/v2.0/influxdb-templates/create/)

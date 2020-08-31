@@ -26,13 +26,13 @@ This guide walks through creating a Chronograf alert rule that sends an alert me
 
 ## Requirements
 
-[Getting started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
+[Getting started with Chronograf](/chronograf/v1.6/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
 
 * Downloaded and install the entire TICKstack (Telegraf, InfluxDB, Chronograf, and Kapacitor).
 * Configure Telegraf to collect data using the InfluxDB [system statistics](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugin and write data to your InfluxDB instance.
-* [Create a Kapacitor connection in Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/#4-connect-chronograf-to-kapacitor).
-* Slack is available and configured as an [event handler](/{{< latest "chronograf" >}}/troubleshooting/frequently-asked-questions/#what-kapacitor-event-handlers-are-supported-in-chronograf) in Chronograf.
-See the [Configuring Kapacitor Event Handlers](/{{< latest "chronograf" >}}/guides/configuring-alert-endpoints/) guide for detailed configuration instructions.
+* [Create a Kapacitor connection in Chronograf](/chronograf/v1.6/introduction/getting-started/#4-connect-chronograf-to-kapacitor).
+* Slack is available and configured as an [event handler](/chronograf/v1.6/troubleshooting/frequently-asked-questions/#what-kapacitor-event-handlers-are-supported-in-chronograf) in Chronograf.
+See the [Configuring Kapacitor Event Handlers](/chronograf/v1.6/guides/configuring-alert-endpoints/) guide for detailed configuration instructions.
 
 ## Configuring Chronograf alert rules
 

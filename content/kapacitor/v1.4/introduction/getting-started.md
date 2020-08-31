@@ -23,7 +23,7 @@ The following applications will be required:
 * [InfluxDB](/{{< latest "influxdb" "v1" >}}/)  - While Kapacitor does not require InfluxDB, it is the easiest integration to setup and so it will be used in this guide.
 InfluxDB >= 1.3.x will be needed.
 * [Telegraf](/{{< latest "telegraf" >}}/) - Telegraf >= 1.4.x will be required.
-* [Kapacitor](/{{< latest "kapacitor" >}}/) - The latest Kapacitor binary and installation packages can be found at the [downloads](https://portal.influxdata.com/downloads) page.
+* [Kapacitor](/kapacitor/v1.4/) - The latest Kapacitor binary and installation packages can be found at the [downloads](https://portal.influxdata.com/downloads) page.
 * Terminal - The Kapacitor client application works using the CLI and so a basic terminal will be needed to issue commands.
 
 The use case

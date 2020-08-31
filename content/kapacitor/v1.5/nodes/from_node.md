@@ -52,7 +52,7 @@ the tag `host` matches the regex `logger\d+`.
 | **[retentionPolicy](#retentionpolicy)&nbsp;(&nbsp;`value`&nbsp;`string`)** | The retention policy name If empty any retention policy will be used.  |
 | **[round](#round)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Optional duration for rounding timestamps. Helpful to ensure data points land on specific boundaries Example: stream |from() .measurement('mydata') .round(1s)  |
 | **[truncate](#truncate)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Optional duration for truncating timestamps. Helpful to ensure data points land on specific boundaries Example: stream |from() .measurement('mydata') .truncate(1s)  |
-| **[where](#where)&nbsp;(&nbsp;`lambda`&nbsp;`ast.LambdaNode`)** | Filter the current stream using the given expression. This expression is a Kapacitor expression. Kapacitor expressions are a superset of InfluxQL WHERE expressions. See the [expression](/{{< latest "kapacitor" >}}/tick/expr/) docs for more information.  |
+| **[where](#where)&nbsp;(&nbsp;`lambda`&nbsp;`ast.LambdaNode`)** | Filter the current stream using the given expression. This expression is a Kapacitor expression. Kapacitor expressions are a superset of InfluxQL WHERE expressions. See the [expression](/kapacitor/v1.5/tick/expr/) docs for more information.  |
 
 
 
@@ -271,7 +271,7 @@ from.truncate(value time.Duration)
 Filter the current stream using the given expression.
 This expression is a Kapacitor expression. Kapacitor
 expressions are a superset of InfluxQL WHERE expressions.
-See the [expression](/{{< latest "kapacitor" >}}/tick/expr/) docs for more information.
+See the [expression](/kapacitor/v1.5/tick/expr/) docs for more information.
 
 Multiple calls to the Where method will `AND` together each expression.
 

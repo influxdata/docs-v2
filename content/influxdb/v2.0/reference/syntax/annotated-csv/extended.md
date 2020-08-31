@@ -2,7 +2,7 @@
 title: Extended annotated CSV
 description: >
   Extended annotated CSV provides additional annotations and options that specify
-  how CSV data should be converted to [line protocol](/v2.0/reference/syntax/line-protocol/)
+  how CSV data should be converted to [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
   and written to InfluxDB.
 menu:
   influxdb_2_0_ref:
@@ -18,24 +18,24 @@ related:
 ---
 
 **Extended annotated CSV** provides additional annotations and options that specify
-how CSV data should be converted to [line protocol](/v2.0/reference/syntax/line-protocol/)
+how CSV data should be converted to [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
 and written to InfluxDB.
 InfluxDB uses the [`csv2lp` library](https://github.com/influxdata/influxdb/tree/master/pkg/csv2lp)
 to convert CSV into line protocol.
-Extended annotated CSV supports all [Annotated CSV](/v2.0/reference/syntax/annotated-csv/)
+Extended annotated CSV supports all [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
 annotations.
 
 {{% warn %}}
-The Flux [`csv.from` function](/v2.0/reference/flux/stdlib/csv/from/) only supports
+The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
 **annotated CSV**, not **extended annotated CSV**.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
 
-- [measurement](/v2.0/reference/syntax/line-protocol/#measurement)
-- [field set](/v2.0/reference/syntax/line-protocol/#field-set)
-- [timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) _(Optional but recommended)_
-- [tag set](/v2.0/reference/syntax/line-protocol/#tag-set) _(Optional)_
+- [measurement](/influxdb/v2.0/reference/syntax/line-protocol/#measurement)
+- [field set](/influxdb/v2.0/reference/syntax/line-protocol/#field-set)
+- [timestamp](/influxdb/v2.0/reference/syntax/line-protocol/#timestamp) _(Optional but recommended)_
+- [tag set](/influxdb/v2.0/reference/syntax/line-protocol/#tag-set) _(Optional)_
 
 Extended CSV annotations identify the element of line protocol a column represents.
 
@@ -47,7 +47,7 @@ Extended annotated CSV extends and adds the following annotations:
 - [timezone](#timezone)
 
 ### datatype
-Use the `#datatype` annotation to specify the [line protocol element](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+Use the `#datatype` annotation to specify the [line protocol element](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
 a column represents.
 To explicitly define a column as a **field** of a specific data type, use the field
 type in the annotation (for example: `string`, `double`, `long`, etc.).
@@ -86,7 +86,7 @@ a specific time zone.
 There can only be **one** `dateTime` column.
 {{% /note %}}
 
-The `influx write` command converts timestamps to [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
+The `influx write` command converts timestamps to [Unix timestamps](/influxdb/v2.0/reference/glossary/#unix-timestamp).
 Append the timestamp format to the `dateTime` datatype with (`:`).
 
 ```csv
@@ -106,8 +106,8 @@ Append the timestamp format to the `dateTime` datatype with (`:`).
 
 {{% note %}}
 If using the `number` timestamp format and timestamps are **not in nanoseconds**,
-use the [`influx write --precision` flag](/v2.0/reference/cli/influx/write/#flags)
-to specify the [timestamp precision](/v2.0/reference/glossary/#precision).
+use the [`influx write --precision` flag](/influxdb/v2.0/reference/cli/influx/write/#flags)
+to specify the [timestamp precision](/influxdb/v2.0/reference/glossary/#precision).
 {{% /note %}}
 
 ##### Custom timestamp formats
@@ -123,7 +123,7 @@ The **column value** is the **field value**.
 {{% note %}}
 With the `field` datatype, field values are copies **as-is** to line protocol.
 For information about line protocol values and how they are written to InfluxDB,
-see [Line protocol data types and formats](/v2.0/reference/syntax/line-protocol/#data-types-and-format).
+see [Line protocol data types and formats](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format).
 We generally recommend specifying the [field type](#field-types) in annotations.
 {{% /note %}}
 
@@ -142,10 +142,10 @@ The **column value** is the **field value**.
 - [boolean](#boolean)
 
 ##### string
-Column is a **[string](/v2.0/reference/glossary/#string) field**.
+Column is a **[string](/influxdb/v2.0/reference/glossary/#string) field**.
 
 ##### double
-Column is a **[float](/v2.0/reference/glossary/#float) field**.
+Column is a **[float](/influxdb/v2.0/reference/glossary/#float) field**.
 By default, InfluxDB expects float values that use a period (`.`) to separate the
 fraction from the whole number.
 If column values include or use other separators, such as commas (`,`) to visually
@@ -182,7 +182,7 @@ You can also [define a custom column separator](#define-custom-column-separator)
 {{% /note %}}
 
 ##### long
-Column is an **[integer](/v2.0/reference/glossary/#integer) field**.
+Column is an **[integer](/influxdb/v2.0/reference/glossary/#integer) field**.
 If column values contain separators such as periods (`.`) or commas (`,`), specify
 the following **integer separators**:
 
@@ -218,7 +218,7 @@ You can also [define a custom column separator](#define-custom-column-separator)
 {{% /note %}}
 
 ##### unsignedLong
-Column is an **[unsigned integer (uinteger)](/v2.0/reference/glossary/#unsigned-integer) field**.
+Column is an **[unsigned integer (uinteger)](/influxdb/v2.0/reference/glossary/#unsigned-integer) field**.
 If column values contain separators such as periods (`.`) or commas (`,`), specify
 the following **uinteger separators**:
 
@@ -254,8 +254,8 @@ You can also [define a custom column separator](#define-custom-column-separator)
 {{% /note %}}
 
 ##### boolean
-Column is a **[boolean](/v2.0/reference/glossary/#boolean) field**.
-If column values are not [supported boolean values](/v2.0/reference/syntax/line-protocol/#boolean),
+Column is a **[boolean](/influxdb/v2.0/reference/glossary/#boolean) field**.
+If column values are not [supported boolean values](/influxdb/v2.0/reference/syntax/line-protocol/#boolean),
 specify the **boolean format** with the following syntax:
 
 ```sh
@@ -286,7 +286,7 @@ You can also [define a custom column separator](#define-custom-column-separator)
 ### constant
 Use the `#constant` annotation to define a constant column label and value for each row.
 The `#constant` annotation provides a way to supply
-[line protocol elements](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+[line protocol elements](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
 that don't exist in the CSV data.
 
 Use the following syntax to define constants:

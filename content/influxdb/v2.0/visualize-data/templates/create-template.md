@@ -26,7 +26,7 @@ aliases:
 ## Clone a dashboard template
 
 {{% note %}}
-Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
+Only [user templates](/influxdb/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
 {{% /note %}}
 
 1. In the navigation menu on the left, select **Settings** > **Templates**.

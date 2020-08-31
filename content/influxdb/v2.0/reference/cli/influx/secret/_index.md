@@ -22,9 +22,9 @@ influx secret [subcommand]
 ## Subcommands
 | Subcommand                                          | Description            |
 |:----------                                          |:-----------            |
-| [delete](/v2.0/reference/cli/influx/secret/delete/) | Delete a secret        |
-| [list](/v2.0/reference/cli/influx/secret/list/)     | List secrets           |
-| [update](/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |
+| [delete](/influxdb/v2.0/reference/cli/influx/secret/delete/) | Delete a secret        |
+| [list](/influxdb/v2.0/reference/cli/influx/secret/list/)     | List secrets           |
+| [update](/influxdb/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags
 | Flag |          | Description                   |

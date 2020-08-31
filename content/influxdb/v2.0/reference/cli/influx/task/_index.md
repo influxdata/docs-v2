@@ -22,12 +22,12 @@ influx task [command]
 ### Subcommands
 | Subcommand                                       | Description          |
 |:----------                                       |:-----------          |
-| [create](/v2.0/reference/cli/influx/task/create) | Create task          |
-| [delete](/v2.0/reference/cli/influx/task/delete) | Delete task          |
-| [list](/v2.0/reference/cli/influx/task/list)     | List tasks           |
-| [log](/v2.0/reference/cli/influx/task/log)       | Log related commands |
-| [run](/v2.0/reference/cli/influx/task/run)       | Run related commands |
-| [update](/v2.0/reference/cli/influx/task/update) | Update task          |
+| [create](/influxdb/v2.0/reference/cli/influx/task/create) | Create task          |
+| [delete](/influxdb/v2.0/reference/cli/influx/task/delete) | Delete task          |
+| [list](/influxdb/v2.0/reference/cli/influx/task/list)     | List tasks           |
+| [log](/influxdb/v2.0/reference/cli/influx/task/log)       | Log related commands |
+| [run](/influxdb/v2.0/reference/cli/influx/task/run)       | Run related commands |
+| [update](/influxdb/v2.0/reference/cli/influx/task/update) | Update task          |
 
 ### Flags
 | Flag |          | Description                 |

@@ -60,7 +60,7 @@ _**Data type:** String_
 
 ### host
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/v2.0/reference/urls/)._
+_See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
 
 _**Data type:** String_
 
@@ -70,12 +70,12 @@ Organization name.
 _**Data type:** String_
 
 ### orgID
-String-encoded [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id) to query.
+String-encoded [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) to query.
 
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/v2.0/security/tokens/).
+InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
 
 _**Data type:** String_
 

@@ -48,4 +48,4 @@ Guidelines used to estimate costs for default configurations:
    - **Professional**. For teams monitoring multiple disparate systems or use cases.
    - **Enterprise**. For teams monitoring multiple domains and use cases accessing a variety of dashboards.
 5. Adjust the default configuration values to match your number of devices, plugins, metrics, and so on. The **Projected Usage** costs are automatically updated as you adjust your configuration.
-6. Click **Get started with InfluxDB Cloud** [to get started](/v2.0/get-started/).
+6. Click **Get started with InfluxDB Cloud** [to get started](/influxdb/v2.0/get-started/).

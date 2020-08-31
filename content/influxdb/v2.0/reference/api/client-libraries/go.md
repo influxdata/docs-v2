@@ -15,7 +15,7 @@ weight: 201
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
 
 This guide presumes some familiarity with Go and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
 ## Before you begin
    
@@ -30,7 +30,7 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
     go build
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/v2.0/reference/urls/).
+   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
 
 ## Boilerplate for the InfluxDB Go Client Library  
 
@@ -50,7 +50,7 @@ Use the Go library to write and query data from InfluxDB.
         )
    ```
 
-2. Define variables for your InfluxDB [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
+2. Define variables for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), and [token](/influxdb/v2.0/security/tokens/).
 
    ```go
    bucket := "example-bucket"
@@ -82,7 +82,7 @@ Use the Go library to write and query data from InfluxDB.
 
 Use the Go library to write data to InfluxDB.
 
-1. Create a [point](/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
+1. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 
 2. Close the client to flush all pending writes and finish. 
 

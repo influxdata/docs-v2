@@ -1,7 +1,7 @@
 ---
 title: Update a Telegraf configuration
 description: >
-  Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+  Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
   to update InfluxDB Telegraf configurations.
 weight: 103
 menu:
@@ -14,7 +14,7 @@ aliases:
   - /v2.0/telegraf-configs/update/
 ---
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
 to update InfluxDB Telegraf configurations.
 
 To update a Telegraf configuration, do one of the following:
@@ -42,7 +42,7 @@ To modify existing Telegraf configuration settings,
 3. Press **Return** or click out of the editable field to save your changes.
 
 ## Use the influx CLI
-Use the [`influx telegrafs update` command](/v2.0/reference/cli/influx/telegrafs/update/)
+Use the [`influx telegrafs update` command](/influxdb/v2.0/reference/cli/influx/telegrafs/update/)
 to update an existing InfluxDB Telegraf configuration name, description, or settings
 from a Telegraf configuration file on your local machine.
 
@@ -82,7 +82,7 @@ influx telegrafs update \
 2. Click the **name** of the Telegraf configuration to customize.
 3. Click **Download Config** to download the Telegraf configuration file to your
    local machine.
-4. Add or update [Telegraf plugin](/v2.0/reference/telegraf-plugins) settings and
+4. Add or update [Telegraf plugin](/influxdb/v2.0/reference/telegraf-plugins) settings and
    save your changes.
 5. [Use the `influx telegrafs update` command](#use-the-influx-cli) to upload your
    modified Telegraf configuration to InfluxDB and replace the existing configuration.

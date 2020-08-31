@@ -75,7 +75,7 @@ The returned record must include the following fields:
 - `iconEmoji`
 - `color`
 
-_For more information, see [`slack.message()`](/v2.0/reference/flux/stdlib/slack/message/)_
+_For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/stdlib/slack/message/)_
 
 ## Examples
 

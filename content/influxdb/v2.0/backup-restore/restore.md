@@ -43,12 +43,12 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
     ```
 
     _For more information about restore options and flags, see the
-    [`influxd restore` documentation](/v2.0/reference/cli/influxd/restore/)._
+    [`influxd restore` documentation](/influxdb/v2.0/reference/cli/influxd/restore/)._
 
 ## Customize the TSI rebuild process
-By default, InfluxDB rebuilds the index and [series file](/v2.0/reference/glossary/#series-file) when restoring data.
+By default, InfluxDB rebuilds the index and [series file](/influxdb/v2.0/reference/glossary/#series-file) when restoring data.
 When rebuilding the Time Series Index (TSI), it uses the
-[default `build-tsi` options](/v2.0/reference/cli/influxd/inspect/build-tsi/).
+[default `build-tsi` options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/).
 To customize the Time Series Index (TSI) rebuild process:
 
 1. Disable rebuilding the index and series files when restoring data:
@@ -58,7 +58,7 @@ To customize the Time Series Index (TSI) rebuild process:
     ```
 
 2. Manually run `influxd inspect build-tsi` with any
-   [custom options](/v2.0/reference/cli/influxd/inspect/build-tsi/#flags).
+   [custom options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#flags).
 
     ```sh
     influxd inspect build-tsi \
@@ -67,13 +67,13 @@ To customize the Time Series Index (TSI) rebuild process:
     ```
 
     {{% note %}}
-Manually rebuild the TSI index to [adjust the performance](/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance)
+Manually rebuild the TSI index to [adjust the performance](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance)
 of the TSI rebuild process.
     {{% /note %}}
 
 ## Recover from a failed restore
 If the restoration process fails, InfluxDB preserves existing data in a `tmp`
-directory in the [target engine path](/v2.0/reference/cli/influxd/restore/#flags)
+directory in the [target engine path](/influxdb/v2.0/reference/cli/influxd/restore/#flags)
 (default is `~/.influxdbv2/engine`).
 
 To recover from a failed restore:

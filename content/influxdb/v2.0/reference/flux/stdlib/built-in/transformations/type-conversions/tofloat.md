@@ -46,5 +46,5 @@ toFloat = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[float()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[float()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)_

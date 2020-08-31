@@ -47,12 +47,12 @@ It is neither created nor used in macOS.
 
 ## Enabling security, multi-organization, and multi-user support
 
-See [Managing security](/{{< latest "chronograf" >}}/administration/managing-security) for details on configuring authentication options for Chronograf using the JWT and OAuth 2.0 authentication protocols.
+See [Managing security](/chronograf/v1.6/administration/managing-security) for details on configuring authentication options for Chronograf using the JWT and OAuth 2.0 authentication protocols.
 
 After you configure OAuth 2.0 authentication in Chronograf, you can use the multi-organization and multi-user support described in detail here:
 
-* [Managing organizations](/{{< latest "chronograf" >}}/administration/managing-organizations)
-* [Managing Chronograf users](/{{< latest "chronograf" >}}/administration/managing-chronograf-users)
+* [Managing organizations](/chronograf/v1.6/administration/managing-organizations)
+* [Managing Chronograf users](/chronograf/v1.6/administration/managing-chronograf-users)
 
 
 <!-- TODO ## Configuring Chronograf for InfluxDB Enterprise clusters) -->

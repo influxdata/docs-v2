@@ -14,8 +14,8 @@ related:
 ---
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.
-_For details, see [Manage checks](/v2.0/monitor-alert/checks/) and
-[Manage notification endpoints](/v2.0/monitor-alert/notification-endpoints/)._
+_For details, see [Manage checks](/influxdb/v2.0/monitor-alert/checks/) and
+[Manage notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/)._
 
 ## Create a new notification rule in the UI
 

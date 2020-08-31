@@ -95,7 +95,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/{{< latest "chronograf" >}}/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/v1.8/guides/using-precreated-dashboards) files.
 
 Default value: `/usr/share/chronograf/canned`
 
