@@ -37,8 +37,8 @@ Annotated CSV text.
 
 {{% note %}}
 CSV data must use Annotated CSV syntax and include all
-[annotation rows](/v2.0/reference/syntax/annotated-csv/#annotations).
-For more information, see [Annotated CSV](/v2.0/reference/syntax/annotated-csv/).
+[annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
+For more information, see [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
 {{% /note %}}
 
 _**Data type:** String_

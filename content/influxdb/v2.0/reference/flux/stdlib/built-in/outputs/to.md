@@ -119,7 +119,7 @@ _**Output data type:** Record_
 
 {{% note %}}
 Make sure `fieldFn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ## Examples

@@ -17,7 +17,7 @@ weight: 201
 Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
 ## Before you begin
 
@@ -34,7 +34,7 @@ If just getting started, see [Get started with InfluxDB](/v2.0/get-started/).
 
 ## Write data to InfluxDB with Python
 
-We are going to write some data in [line protocol](/v2.0/reference/syntax/line-protocol/) using the Python library.
+We are going to write some data in [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) using the Python library.
 
 1. In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
 
@@ -43,7 +43,7 @@ We are going to write some data in [line protocol](/v2.0/reference/syntax/line-p
    from influxdb_client.client.write_api import SYNCHRONOUS
    ```
 
-2. Define a few variables with the name of your [bucket](/v2.0/organizations/buckets/), [organization](/v2.0/organizations/), and [token](/v2.0/security/tokens/).
+2. Define a few variables with the name of your [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), and [token](/influxdb/v2.0/security/tokens/).
 
    ```python
    bucket = "<my-bucket>"
@@ -70,7 +70,7 @@ We are going to write some data in [line protocol](/v2.0/reference/syntax/line-p
    write_api = client.write_api(write_options=SYNCHRONOUS)
    ```
 
-5. Create a [point](/v2.0/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
+5. Create a [point](/influxdb/v2.0/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
 
    ```python
    p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)

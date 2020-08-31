@@ -16,7 +16,7 @@ influxdb/v2.0/tags: [best practices, write]
 ---
 
 InfluxDB identifies unique data points by their measurement, tag set, and timestamp
-(each a part of [Line protocol](/v2.0/reference/syntax/line-protocol) used to write data to InfluxDB).
+(each a part of [Line protocol](/influxdb/v2.0/reference/syntax/line-protocol) used to write data to InfluxDB).
 
 ```txt
 web,host=host2,region=us_west firstByte=15.0 1559260800000000000

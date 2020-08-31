@@ -13,7 +13,7 @@ aliases:
 View secret keys using the `influx` command line interface (CLI) or the InfluxDB API.
 
 ## View secret keys using the influx CLI
-Use the [`influx secret list` command](/v2.0/reference/cli/influx/secret/list/)
+Use the [`influx secret list` command](/influxdb/v2.0/reference/cli/influx/secret/list/)
 to list your organization's secret keys.
 
 ```sh
@@ -26,8 +26,8 @@ to view your organization's secrets keys.
 
 **Include the following:**
 
-- Your [organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [authentication token](/v2.0/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [authentication token](/influxdb/v2.0/security/tokens/view-tokens/) in the `Authorization` header
 
 <!-- -->
 ```sh

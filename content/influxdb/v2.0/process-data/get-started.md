@@ -46,7 +46,7 @@ option task = {
 }
 ```
 
-_See [Task configuration options](/v2.0/process-data/task-options) for detailed information
+_See [Task configuration options](/influxdb/v2.0/process-data/task-options) for detailed information
 about each option._
 
 {{% note %}}
@@ -54,8 +54,8 @@ When creating a task in the InfluxDB user interface (UI), task options are defin
 {{% /note %}}
 
 ## Define a data source
-Define a data source using Flux's [`from()` function](/v2.0/reference/flux/stdlib/built-in/inputs/from/)
-or any other [Flux input functions](/v2.0/reference/flux/stdlib/built-in/inputs/).
+Define a data source using Flux's [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)
+or any other [Flux input functions](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/).
 
 For convenience, consider creating a variable that includes the sourced data with
 the required time range and any relevant filters.
@@ -88,7 +88,7 @@ specific use case.
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
 It then windows the data into 5 minute intervals and calculates the average of each
-window using the [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
+window using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
 
 ```js
 data
@@ -98,13 +98,13 @@ data
   )
 ```
 
-_See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
+_See [Common tasks](/influxdb/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 ## Define a destination
 In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
 This could be a separate bucket or another measurement.
 
-The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
+The example below uses Flux's [`to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to)
 to send the transformed data to another bucket:
 
 ```js

@@ -100,7 +100,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [rate limits](/influxdb/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
 
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._

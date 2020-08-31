@@ -16,7 +16,7 @@ aliases:
 Explore and visualize your data in the **Data Explorer**.
 The InfluxDB user interface (UI) allows you to move seamlessly between using the
 Flux builder or templates and manually editing the query.
-Choose between [visualization types](/v2.0/visualize-data/visualization-types/) for your query.
+Choose between [visualization types](/influxdb/v2.0/visualize-data/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Explore** (**Data Explorer**) icon in the left navigation menu:
 
@@ -26,7 +26,7 @@ To open the **Data Explorer**, click the **Explore** (**Data Explorer**) icon in
 
 Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on time series data.
-See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Flux.
+See [Get started with Flux](/influxdb/v2.0/query-data/get-started) to learn more about Flux.
 
 1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
@@ -36,7 +36,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
   - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.
   - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
   - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
-  - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/v2.0/query-data/flux/group-data/).    
+  - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.0/query-data/flux/group-data/).    
 3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 4. Use the **Functions** list to review the available Flux functions.
@@ -49,7 +49,7 @@ See [Get started with Flux](/v2.0/query-data/get-started) to learn more about Fl
 
 ## Visualize your query
 
-- Select an available [visualization types](/v2.0/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
+- Select an available [visualization types](/influxdb/v2.0/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
 
     {{< img-hd src="/img/influxdb/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
 

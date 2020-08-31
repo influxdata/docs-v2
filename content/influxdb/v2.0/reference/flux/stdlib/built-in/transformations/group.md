@@ -36,7 +36,7 @@ group()
 {{% warn %}}
 #### Group does not guarantee sort order
 `group()` does not guarantee the sort order of output records.
-To ensure data is sorted correctly, use [`sort()`](/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
+To ensure data is sorted correctly, use [`sort()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
 after `group()`.
 
 ```js

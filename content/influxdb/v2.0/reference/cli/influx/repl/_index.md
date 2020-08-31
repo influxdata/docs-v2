@@ -27,7 +27,7 @@ influx repl [flags]
 Use **ctrl + d** to exit the REPL.
 {{% /note %}}
 
-To use the Flux REPL, you must first authenticate with a [token](/v2.0/security/tokens/view-tokens/).
+To use the Flux REPL, you must first authenticate with a [token](/influxdb/v2.0/security/tokens/view-tokens/).
 
 ## Flags
 | Flag |                  | Description                                                           | Input type | {{< cli/mapped >}}   |

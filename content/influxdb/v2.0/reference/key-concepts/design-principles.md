@@ -43,4 +43,4 @@ Because the data set is more important than an individual point, InfluxDB implem
 
 ## Duplicate data
 
-To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/v2.0/write-data/best-practices/duplicate-points/).
+To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/influxdb/v2.0/write-data/best-practices/duplicate-points/).

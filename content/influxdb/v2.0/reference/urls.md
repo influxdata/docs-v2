@@ -18,8 +18,8 @@ InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in m
 
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
-[InfluxDB API](/v2.0/reference/api/), [InfluxDB client libraries](/v2.0/reference/api/client-libraries/),
-[`influx` CLI](/v2.0/reference/cli/influx/), or [Telegraf](/v2.0/write-data/use-telegraf/).
+[InfluxDB API](/influxdb/v2.0/reference/api/), [InfluxDB client libraries](/influxdb/v2.0/reference/api/client-libraries/),
+[`influx` CLI](/influxdb/v2.0/reference/cli/influx/), or [Telegraf](/influxdb/v2.0/write-data/use-telegraf/).
 
 {{< cloud_regions >}}
 
@@ -34,7 +34,7 @@ http://localhost:9999/
 
 ### Customize your InfluxDB OSS URL
 To customize your InfluxDB host and port, use the
-[`http-bind-address` configuration option](/v2.0/reference/config-options/#http-bind-address)
+[`http-bind-address` configuration option](/influxdb/v2.0/reference/config-options/#http-bind-address)
 when starting `influxd`.
 
 ```sh

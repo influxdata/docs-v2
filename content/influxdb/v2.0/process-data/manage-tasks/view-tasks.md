@@ -36,5 +36,5 @@ influx task list
 #### Filter tasks using the CLI
 Other filtering options such as filtering by organization or user,
 or limiting the number of tasks returned, are available.
-See the [`influx task list` documentation](/v2.0/reference/cli/influx/task/list)
+See the [`influx task list` documentation](/influxdb/v2.0/reference/cli/influx/task/list)
 for information about other available flags.

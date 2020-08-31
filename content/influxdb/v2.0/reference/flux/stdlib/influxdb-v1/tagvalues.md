@@ -81,9 +81,9 @@ tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[from](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
-[range](/v2.0/reference/flux/stdlib/built-in/transformations/range/),
-[filter](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-[group](/v2.0/reference/flux/stdlib/built-in/transformations/group/),
-[distinct](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/),
-[keep](/v2.0/reference/flux/stdlib/built-in/transformations/keep/)_
+[from](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/),
+[range](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/),
+[filter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+[group](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/),
+[distinct](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/),
+[keep](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/)_

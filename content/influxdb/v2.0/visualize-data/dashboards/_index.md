@@ -29,7 +29,7 @@ http://localhost:9999/orgs/03a2bbf46249a000/dashboards/<span class="bp" style="f
 </pre>
 
 ### Dashboard ID in the CLI
-Use [`influx dashboards`](/v2.0/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
+Use [`influx dashboards`](/influxdb/v2.0/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
 
 ```sh
 > influx dashboards

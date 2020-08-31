@@ -19,7 +19,7 @@ related:
 The `geo.shapeData()` function renames existing latitude and longitude fields to
 **lat** and **lon** and adds an **s2_cell_id** tag.
 Use `geo.shapeData()` to ensure geo-temporal data meets the
-[requirements of the Geo package](/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements):
+[requirements of the Geo package](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements):
 
 1. Rename existing latitude and longitude fields to `lat` and `lon`.
 2. Pivot data into row-wise sets based on `_time`.

@@ -42,7 +42,7 @@ The `metadata.name` field in manifests uniquely identifies each resource in the 
 If resources in the template depend on other InfluxDB resources, all dependencies
 must be included in the template.
 
-_See [Create an InfluxDB template](/v2.0/influxdb-templates/create/) for information about
+_See [Create an InfluxDB template](/influxdb/v2.0/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources

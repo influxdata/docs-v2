@@ -15,7 +15,7 @@ Use sample data to familiarize yourself with time series data and InfluxDB.
 InfluxData provides many sample time series datasets to use with **InfluxDB Cloud** and **InfluxDB**.
 
 ## InfluxDB Cloud demo data
-Use [InfluxDB Cloud demo data buckets](/v2.0/write-data/quick-start) for quick,
+Use [InfluxDB Cloud demo data buckets](/influxdb/v2.0/write-data/quick-start) for quick,
 free access to different types of sample data.
 
 {{< youtube GSaByPC1Bdc >}}
@@ -25,7 +25,7 @@ Demo data is not available for use with third-party integrations such as Grafana
 {{% /note %}}
 
 ## Sample data sets
-The following sample data sets are used as examples in [InfluxDB query guides](/v2.0/query-data/flux)
+The following sample data sets are used as examples in [InfluxDB query guides](/influxdb/v2.0/query-data/flux)
 and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
 
 - [Air sensor sample data](#air-sensor-sample-data)
@@ -40,7 +40,7 @@ The dataset also includes a relational SQL dataset with meta information about s
   <span class="icon-github"></span> View air sensor sample data
 </a>
 
-_Used in [Query SQL data sources](/v2.0/query-data/flux/sql/)._
+_Used in [Query SQL data sources](/influxdb/v2.0/query-data/flux/sql/)._
 
 ### Bird migration sample data
 Bird migration data is adapted from the
@@ -53,4 +53,4 @@ to query and analyze the geo-temporal data in this sample data set.
  <span class="icon-github"></span> View bird migration sample data
 </a>
 
-_Used in [Work with geo-temporal data](/v2.0/query-data/flux/geo/)._
+_Used in [Work with geo-temporal data](/influxdb/v2.0/query-data/flux/geo/)._

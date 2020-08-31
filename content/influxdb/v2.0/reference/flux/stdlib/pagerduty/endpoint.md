@@ -57,7 +57,7 @@ The returned record must include the following fields:
 - `summary`
 - `timestamp`
 
-_For more information, see [`pagerduty.sendEvent()`](/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
+_For more information, see [`pagerduty.sendEvent()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
 
 ## Examples
 

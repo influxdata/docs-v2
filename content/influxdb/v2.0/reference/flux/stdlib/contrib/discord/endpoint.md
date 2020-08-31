@@ -67,7 +67,7 @@ following field:
 
 - `content`
 
-_For more information, see the [`discord.send() content` parameter](/v2.0/reference/flux/stdlib/contrib/discord/send/#content)._
+_For more information, see the [`discord.send() content` parameter](/influxdb/v2.0/reference/flux/stdlib/contrib/discord/send/#content)._
 
 ## Examples
 
