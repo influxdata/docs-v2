@@ -16,7 +16,7 @@ Use a task to receive alerts when a task fails.
 
 ```js
 import "strings"
-import "regexp"
+    import "regexp"
 import "influxdata/influxdb/monitor"
 import "influxdata/influxdb/v1"
 
@@ -63,6 +63,7 @@ Once your task is ready, see [Create a task](/influxdb/v2.0/process-data/manage-
 
 {{% note %}}
 This script does not send an email alert.
-See [Notification rules](/v2.0/monitor-alert/notification-rules/) and [Notification endpoints](https://v2.docs.influxdata.com/v2.0/monitor-alert/notification-endpoints/)
-for more information on third-party integrations.
+For information on how to create notification emails, see
+[Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create)
+and [Create notification rules](/v2.0/monitor-alert/notification-rules/create).
 {{% /note %}}
