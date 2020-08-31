@@ -1,7 +1,9 @@
 ---
 title: Chronograf 1.8 documentation
-description: Chronograf is InfluxData's open source web application.
-Use Chronograf with the other components of the TICK stack to visualize your monitoring data and easily create alerting and automation rules.
+description: >
+  Chronograf is InfluxData's open source web application.
+  Use Chronograf with the other components of the TICK stack to visualize your
+  monitoring data and easily create alerting and automation rules.
 menu:
   chronograf_1_8:
     name: Chronograf v1.8

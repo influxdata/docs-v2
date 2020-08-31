@@ -1,7 +1,7 @@
 ---
 title: Telegraf processor plugins
 description: >
-Telegraf processor plugins process metrics and emit results based on the values processed.
+  Telegraf processor plugins process metrics and emit results based on the values processed.
 menu:
   telegraf_1_15:
     name: Processor
