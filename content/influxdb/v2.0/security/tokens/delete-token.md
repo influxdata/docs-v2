@@ -27,7 +27,7 @@ have access to your InfluxDB instance.
 
 ## Delete tokens using the influx CLI
 
-Use the [`influx auth delete` command](/v2.0/reference/cli/influx/auth/delete)
+Use the [`influx auth delete` command](/influxdb/v2.0/reference/cli/influx/auth/delete)
 to delete a token.
 
 _This command requires an auth ID, which is available in the output of `influx auth find`._

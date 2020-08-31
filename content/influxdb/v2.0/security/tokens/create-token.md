@@ -34,9 +34,9 @@ Tokens are visible only to the user who created them and stop working when the u
 
 ## Create a token using the influx CLI
 
-Use the [`influx auth create` command](/v2.0/reference/cli/influx/auth/create) to create a token.
+Use the [`influx auth create` command](/influxdb/v2.0/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
-See the [available flags](/v2.0/reference/cli/influx/auth/create#flags).
+See the [available flags](/influxdb/v2.0/reference/cli/influx/auth/create#flags).
 
 ```sh
 # Syntax
@@ -52,5 +52,5 @@ influx auth create -o my-org \
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/v2.0/reference/cli/influx/auth/list)
+See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.

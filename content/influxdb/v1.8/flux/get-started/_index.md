@@ -28,7 +28,7 @@ interactive Flux Read-Eval-Print-Loop (REPL) allowing you to write and run Flux 
 
 ---
 
-_For information about downloading and installing InfluxDB, see [InfluxDB installation](/{{< latest "influxdb" "v1" >}}/introduction/installation)._
+_For information about downloading and installing InfluxDB, see [InfluxDB installation](/influxdb/v1.8/introduction/installation)._
 
 ---
 

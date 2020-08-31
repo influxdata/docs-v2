@@ -23,7 +23,7 @@ User information cannot be updated in the InfluxDB UI.
 
 ## Update a user using the influx CLI
 
-Use the [`influx user update` command](/v2.0/reference/cli/influx/user/update)
+Use the [`influx user update` command](/influxdb/v2.0/reference/cli/influx/user/update)
 to update a user. Updating a user requires the following:
 
 - The user ID _(provided in the output of `influx user list`)_

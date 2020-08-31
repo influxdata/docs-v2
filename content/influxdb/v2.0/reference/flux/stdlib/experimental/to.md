@@ -16,7 +16,7 @@ related:
 
 The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in
 a [different structure](#expected-data-structure) than the
-[built-in `to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to/).
+[built-in `to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/).
 
 _**Function type:** Output_
 
@@ -55,7 +55,7 @@ the **field value** as the **column value**.
 | -----     | ------------     | ---------   |
 | timestamp | measurement-name | field value |
 
-If using the built-in `from()` function, use [`pivot()`](/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+If using the built-in `from()` function, use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 to transform data into the structure `experimetnal.to()` expects.
 _[See the example below](#use-pivot-to-shape-data-for-experimental-to)._
 

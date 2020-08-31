@@ -19,8 +19,8 @@ Store sensitive secrets in Vault using InfluxDB's built-in Vault integration.
 By default, all secrets added to **InfluxDB Cloud** are stored in the
 **InfluxDB Cloud Vault cluster**.
 
-For more on adding and using secrets, see [Manage secrets](/v2.0/security/secrets/manage-secrets/).
-Once added, use the [`secrets.get()`](/v2.0/reference/flux/stdlib/secrets/get/) function to retrieve secrets for use in Flux scripts.
+For more on adding and using secrets, see [Manage secrets](/influxdb/v2.0/security/secrets/manage-secrets/).
+Once added, use the [`secrets.get()`](/influxdb/v2.0/reference/flux/stdlib/secrets/get/) function to retrieve secrets for use in Flux scripts.
 
 ## Use Vault with InfluxDB OSS
 
@@ -58,19 +58,19 @@ to provide connection credentials and other important Vault-related information 
 
 ##### Vault address
 Provide the API address of your Vault server _(available in the Vault server output)_
-using the [`--vault-addr` flag](/v2.0/reference/config-options/#vault-addr) when
+using the [`--vault-addr` flag](/influxdb/v2.0/reference/config-options/#vault-addr) when
 starting `influxd` or with the `VAULT_ADDR` environment variable.
 
 ##### Vault token
 Provide your [Vault token](https://learn.hashicorp.com/vault/getting-started/authentication)
-(required to access your Vault server) using the [`--vault-token` flag](/v2.0/reference/config-options/#vault-token)
+(required to access your Vault server) using the [`--vault-token` flag](/influxdb/v2.0/reference/config-options/#vault-token)
 when starting `influxd` or with the `VAULT_TOKEN` environment variable.
 
 _Your Vault server configuration may require other Vault settings._
 
 ### Start InfluxDB
 
-Start the [`influxd` service](/v2.0/reference/cli/influxd/) with the `--secret-store`
+Start the [`influxd` service](/influxdb/v2.0/reference/cli/influxd/) with the `--secret-store`
 option set to `vault` any other necessary flags.
 
 ```bash
@@ -93,8 +93,8 @@ If set, these flags override any [Vault environment variables](https://www.vault
 - `--vault-tls-server-name`
 - `--vault-token`
 
-For more information, see [InfluxDB configuration options](/v2.0/reference/config-options/).
+For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
 
 ### Manage secrets through the InfluxDB API
 Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
-For details, see [Manage secrets](/v2.0/security/secrets/manage-secrets/).
+For details, see [Manage secrets](/influxdb/v2.0/security/secrets/manage-secrets/).

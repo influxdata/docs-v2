@@ -13,12 +13,12 @@ weight: 302
 ---
 
 The `experimental.join()` function joins two streams of tables on the
-[group key](/v2.0/reference/glossary/#group-key) and `_time` column.
+[group key](/influxdb/v2.0/reference/glossary/#group-key) and `_time` column.
 Use the [`fn` parameter](#fn) to map new output tables using values from input tables.
 
 {{% note %}}
-To join streams of tables with different fields or measurements, use [`group()`](/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-or [`drop()`](/v2.0/reference/flux/stdlib/built-in/transformations/drop/) to remove
+To join streams of tables with different fields or measurements, use [`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+or [`drop()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/drop/) to remove
 `_field` and `_measurement` from the group key before joining.
 _See an example [below](#join-two-streams-of-tables-with-different-fields-and-measurements)._
 {{% /note %}}
@@ -38,7 +38,7 @@ experimental.join(
 ```
 
 {{% note %}}
-This function will likely replace the [`join` function](/v2.0/reference/flux/stdlib/built-in/transformations/join/)
+This function will likely replace the [`join` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
 when sufficiently vetted.
 {{% /note %}}
 

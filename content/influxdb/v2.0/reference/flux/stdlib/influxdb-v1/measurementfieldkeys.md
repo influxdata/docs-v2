@@ -68,4 +68,4 @@ measurementFieldKeys = (bucket, measurement, start=-30d) =>
 ```
 
 _**Used functions:**
-[v1.fieldKeys](/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/)_
+[v1.fieldKeys](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/)_

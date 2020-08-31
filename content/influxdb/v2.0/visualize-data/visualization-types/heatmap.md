@@ -66,8 +66,8 @@ the visualization dropdown.
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/v2.0/reference/telegraf-plugins/#mem)
-and [CPU](/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/influxdb/v2.0/reference/telegraf-plugins/#mem)
+and [CPU](/influxdb/v2.0/reference/telegraf-plugins/#cpu) input plugins.
 
 ###### Join CPU and memory usage
 The following query joins CPU and memory usage on `_time`.
@@ -104,7 +104,7 @@ between column values.
 ## Important notes
 
 ### Differences between a heatmap and a scatter plot
-Heatmaps and [Scatter plots](/v2.0/visualize-data/visualization-types/scatter/)
+Heatmaps and [Scatter plots](/influxdb/v2.0/visualize-data/visualization-types/scatter/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, heatmaps provide better visibility into point density.
 

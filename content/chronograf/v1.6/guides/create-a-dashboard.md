@@ -9,7 +9,7 @@ menu:
 ---
 
 Chronograf offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
-Use Chronograf's [pre-created dashboards](/{{< latest "chronograf" >}}/guides/using-precreated-dashboards) or create custom dashboards to meet your requirements.
+Use Chronograf's [pre-created dashboards](/chronograf/v1.6/guides/using-precreated-dashboards) or create custom dashboards to meet your requirements.
 This guide shows you how to create custom Chronograf dashboards.
 
 By the end of this guide, you'll be aware of the tools available to you for creating dashboards similar to this example:
@@ -20,7 +20,7 @@ By the end of this guide, you'll be aware of the tools available to you for crea
 
 To perform the tasks in this guide, you must have a working Chronograf instance that is connected to an InfluxDB source.
 Data is accessed using the Telegraf [system ](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugins.
-For more information, see [Configuring Chronograf](/{{< latest "chronograf" >}}/administration/configuration).
+For more information, see [Configuring Chronograf](/chronograf/v1.6/administration/configuration).
 
 ## Build a Dashboard
 
@@ -55,7 +55,7 @@ In addition, the time range (`:dashboardTime:`) is [configurable on the dashboar
 
 ### Step 4: Choose your visualization type
 
-Chronograf supports many different [visualization types](/{{< latest "chronograf" >}}/guides/visualization-types/). To choose a visualization type, click **Visualization** and select **Step-Plot Graph**.
+Chronograf supports many different [visualization types](/chronograf/v1.6/guides/visualization-types/). To choose a visualization type, click **Visualization** and select **Step-Plot Graph**.
 
 ![Visualization type](/img/chronograf/1-6-g-dashboard-visualization.png)
 
@@ -77,7 +77,7 @@ Click **Save** (the green checkmark icon) to save your cell.
 * **Reset** your cell by double-clicking your mouse in the cell window
 
 > Note:
-These tips only apply to the line, stacked, step-plot, and line+stat [visualization types](/{{< latest "chronograf" >}}/troubleshooting/frequently-asked-questions/#what-visualization-types-does-chronograf-support).
+These tips only apply to the line, stacked, step-plot, and line+stat [visualization types](/chronograf/v1.6/troubleshooting/frequently-asked-questions/#what-visualization-types-does-chronograf-support).
 
 #### Configure dashboard-wide settings:
 * You can change the dashboard's *auto-refresh interval* at the top of the page - the default interval selected is **Every 15 seconds**.
@@ -93,4 +93,4 @@ To exit full screen mode, press the Esc key.
 
 ### Template variables
 Dashboards support template variables.
-See the [Dashboard Template Variables](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/) guide for more information.
+See the [Dashboard Template Variables](/chronograf/v1.6/guides/dashboard-template-variables/) guide for more information.

@@ -23,8 +23,8 @@ to visualize data from **InfluxDB 2.0** and **{{< cloud-name "short" >}}**.
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 {{% /note %}}
 
-1. [Sign up for {{< cloud-name >}}](/v2.0/get-started/) or
-   [start InfluxDB 2.0 OSS](/v2.0/get-started/#start-with-influxdb-oss).
+1. [Sign up for {{< cloud-name >}}](/influxdb/v2.0/get-started/) or
+   [start InfluxDB 2.0 OSS](/influxdb/v2.0/get-started/#start-with-influxdb-oss).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
@@ -50,15 +50,15 @@ configure your InfluxDB connection:
 
 1. Under **Connection**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/v2.0/reference/urls/) **with the `/api/v2` path**.
+    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/) **with the `/api/v2` path**.
 
         ```sh
         http://localhost:9999/api/v2
         ```
 
-    - **Organization**: Your InfluxDB [organization name **or** ID](/v2.0/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [authentication token](/v2.0/security/tokens/).
-    - **Default Bucket**: The default [bucket](/v2.0/organizations/buckets/) to use in Flux queries.
+    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.0/organizations/view-orgs/).
+    - **Token**: Your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
+    - **Default Bucket**: The default [bucket](/influxdb/v2.0/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana.png" />}}
@@ -80,7 +80,7 @@ configure your InfluxDB connection:
 
 1. Under **HTTP**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/v2.0/reference/urls/).
+    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
         https://cloud2.influxdata.com
@@ -91,12 +91,12 @@ configure your InfluxDB connection:
 3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
 
     - **username**: InfluxDB username
-    - **password**: InfluxDB [authentication token](/v2.0/security/tokens/)
+    - **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 
 4. Under **InfluxDB details**, set the following:
 
     - **Database**: The database to use when querying InfluxDB 2.0.
-      _See [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/)._
+      _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
     - **HTTP Method**: Select **GET**.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
@@ -113,4 +113,4 @@ With your InfluxDB connection configured, use Grafana and Flux to query and
 visualize time series data stored in **InfluxDB 2.0** or **{{< cloud-name >}}**.
 
 For more information about using Grafana, see the [Grafana documentation](https://grafana.com/docs/).
-If you're just learning Flux, see [Get started with Flux](/v2.0/query-data/get-started/).
+If you're just learning Flux, see [Get started with Flux](/influxdb/v2.0/query-data/get-started/).

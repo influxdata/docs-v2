@@ -53,5 +53,5 @@ toInt = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[int()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[int()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int)_

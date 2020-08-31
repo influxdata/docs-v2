@@ -91,7 +91,7 @@ _**Data type:** String_
 - [SQL Server](#query-a-sql-server-database)
 
 {{% note %}}
-The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
+The examples below use [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
 sensitive connection credentials.
 {{% /note %}}
 

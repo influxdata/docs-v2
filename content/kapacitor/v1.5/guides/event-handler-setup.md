@@ -8,17 +8,17 @@ menu:
     parent: guides
 ---
 
-Integrate Kapacitor into your monitoring system by sending [alert messages](/{{< latest "kapacitor" >}}/nodes/alert_node/#message)
+Integrate Kapacitor into your monitoring system by sending [alert messages](/kapacitor/v1.5/nodes/alert_node/#message)
 to supported event handlers.
 Currently, Kapacitor can send alert messages to specific log files and specific URLs,
 as well as to applications such as [Slack](https://slack.com/) and [HipChat](https://www.hipchat.com/).
 
 This document offers step-by-step instructions for setting up event handlers with Kapacitor,
-including relevant configuration options and [TICKscript](/{{< latest "kapacitor" >}}/tick/) syntax.
+including relevant configuration options and [TICKscript](/kapacitor/v1.5/tick/) syntax.
 Currently, this document doesn't cover every supported event handler, but we will
 continue to add content to this page over time.
 For a complete list of the supported event handlers and for additional information,
-please see the [event handler reference documentation](/{{< latest "kapacitor" >}}/nodes/alert_node/).
+please see the [event handler reference documentation](/kapacitor/v1.5/nodes/alert_node/).
 
 [HipChat Setup](#hipchat-setup)  
 [Telegram Setup](#telegram-setup")  

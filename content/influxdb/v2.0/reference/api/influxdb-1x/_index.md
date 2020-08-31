@@ -27,7 +27,7 @@ InfluxDB 1.x compatibility endpoints.
 Basic authentications requires the following credentials:
 
 - **username**: InfluxDB username
-- **password**: InfluxDB [authentication token](/v2.0/security/tokens/)
+- **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 
 There are multiple ways to provide basic authentication credentials.
 The example below uses the `Authorization` header with the `Basic` scheme to
@@ -45,7 +45,7 @@ Authorization: Basic admin:mYSuP3rs3cREtT0k3N
 ### Token Authentication
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [authentication token](/v2.0/security/tokens/)
+- **token**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your
 authentication token to InfluxDB.

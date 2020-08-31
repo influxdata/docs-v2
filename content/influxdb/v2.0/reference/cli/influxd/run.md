@@ -34,7 +34,7 @@ influxd run
 
 {{% note %}}
 For information about other available InfluxDB configuration methods, see
-[InfluxDB configuration options](/v2.0/reference/config-options/).
+[InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
 {{% /note %}}
 
 ## Flags

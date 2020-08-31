@@ -32,8 +32,8 @@ influxd generate [subcommand]
 ## Subcommands
 | Subcommand                                                      | Description                                             |
 |:-------                                                         |:-----------                                             |
-| [help-schema](/v2.0/reference/cli/influxd/generate/help-schema) | Print a documented example TOML schema to stdout.       |
-| [simple](/v2.0/reference/cli/influxd/generate/simple)           | Generate simple data sets using defaults and CLI flags. |
+| [help-schema](/influxdb/v2.0/reference/cli/influxd/generate/help-schema) | Print a documented example TOML schema to stdout.       |
+| [simple](/influxdb/v2.0/reference/cli/influxd/generate/simple)           | Generate simple data sets using defaults and CLI flags. |
 
 ## Flags
 | Flag |                | Description                                                               | Input Type |

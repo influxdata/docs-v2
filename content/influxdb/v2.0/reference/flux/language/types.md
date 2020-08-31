@@ -17,7 +17,7 @@ Any section that is not currently implemented is commented with a **[IMPL#XXX]**
 {{% /note %}}
 
 A **type** defines the set of values and operations on those values.
-Types are never explicitly declared as part of the syntax except as part of a [builtin statement](/v2.0/reference/flux/language/system-built-ins/).
+Types are never explicitly declared as part of the syntax except as part of a [builtin statement](/influxdb/v2.0/reference/flux/language/system-built-ins/).
 Types are always inferred from the usage of the value.
 Type inference follows a Hindley-Milner style inference system.
 
@@ -78,7 +78,7 @@ The time type name is `time`.
 The time type is nullable.
 
 #### Timestamp format
-Flux supports [RFC3339 timestamps](/v2.0/reference/glossary/#rfc3339-timestamp):
+Flux supports [RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp):
 
 - `YYYY-MM-DD`
 - `YYYY-MM-DDT00:00:00Z`
