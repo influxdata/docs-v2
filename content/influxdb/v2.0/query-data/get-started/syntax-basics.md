@@ -17,8 +17,8 @@ related:
 Flux, at its core, is a scripting language designed specifically for working with data.
 This guide walks through a handful of simple expressions and how they are handled in Flux.
 
-## Use the influx CLI's REPL
-Use the `influx repl` command to open the interactive read-eval-print-loop (REPL).
+## Use the Flux REPL
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to open the interactive Read-Eval-Print Loop (REPL).
 Run the commands provided in this guide in the REPL.
 
 ##### Start in the influx CLI in Flux mode
@@ -59,14 +59,14 @@ this is a string
 2
 ```
 
-### Objects
-Flux also supports objects. Each value in an object can be a different data type.
+### Records
+Flux also supports records. Each value in a record can be a different data type.
 
 ```js
 > o = {name:"Jim", age: 42, "favorite color": "red"}
 ```
 
-Use **dot notation** to access a properties of an object:
+Use **dot notation** to access a properties of a record:
 
 ```js
 > o.name
@@ -87,7 +87,7 @@ red
 ```
 
 {{% note %}}
-Use bracket notation to reference object properties with special or
+Use bracket notation to reference record properties with special or
 white space characters in the property key.
 {{% /note %}}
 

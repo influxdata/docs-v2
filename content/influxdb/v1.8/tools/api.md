@@ -47,7 +47,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/flux/latest/) and [InfluxDB 2.0 client libraries](https://v2.docs.influxdata.com/v2.0/reference/api/client-libraries/).
+Use this endpoint to query data using [Flux](/flux/latest/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
@@ -89,12 +89,12 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](https://v2.docs.influxdata.com/v2.0/reference/api/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
-InfluxDB 2.0 uses [organizations](https://v2.docs.influxdata.com/v2.0/reference/glossary/#organization)
-and [buckets](https://v2.docs.influxdata.com/v2.0/reference/glossary/#bucket)
+InfluxDB 2.0 uses [organizations](/influxdb/v2.0/reference/glossary/#organization)
+and [buckets](/influxdb/v2.0/reference/glossary/#bucket)
 instead of databases and retention policies.
 The `/api/v2/write` endpoint maps the supplied version 1.8 database and retention policy to a bucket.
 
@@ -111,7 +111,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.0 uses [API Tokens](https://v2.docs.influxdata.com/v2.0/security/tokens/)
+- `Authorization`: In InfluxDB 2.0 uses [API Tokens](/influxdb/v2.0/security/tokens/)
   to access the platform and all its capabilities.
   InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
   Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
@@ -941,7 +941,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](https://docs.influxdata.com/influxdb/latest/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/{{< latest "influxdb" "v1" >}}/administration/config/#max-body-size-25000000) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples

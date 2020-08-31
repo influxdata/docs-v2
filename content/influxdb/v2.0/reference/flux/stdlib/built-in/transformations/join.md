@@ -4,6 +4,7 @@ description: The `join()` function merges two or more input streams whose values
 aliases:
   - /v2.0/reference/flux/functions/transformations/join
   - /v2.0/reference/flux/functions/built-in/transformations/join/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/join
 menu:
   influxdb_2_0_ref:
     name: join
@@ -21,7 +22,7 @@ The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 join(tables: {key1: table1, key2: table2}, on: ["_time", "_field"], method: "inner")
@@ -52,7 +53,7 @@ The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
 ### tables
 The map of streams to be joined. <span class="required">Required</span>
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 {{% note %}}
 `join()` currently only supports two input streams.

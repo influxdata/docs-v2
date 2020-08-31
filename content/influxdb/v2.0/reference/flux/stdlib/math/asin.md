@@ -3,6 +3,7 @@ title: math.asin() function
 description: The math.asin() function returns the arcsine of `x` in radians.
 aliases:
   - /v2.0/reference/flux/functions/math/asin/
+  - /v2.0/reference/flux/stdlib/math/asin
 menu:
   influxdb_2_0_ref:
     name: math.asin

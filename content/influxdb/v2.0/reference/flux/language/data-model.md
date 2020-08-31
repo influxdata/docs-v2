@@ -6,6 +6,8 @@ menu:
     name: Data model
     parent: Flux specification
 weight: 201
+aliases:
+  - /v2.0/reference/flux/language/data-model/
 ---
 
 {{% note %}}
@@ -19,7 +21,7 @@ The data model consists of tables, records, columns and streams.
 
 ## Record
 
-A **record** is a tuple of named values and is represented using an object type.
+A **record** is a tuple of named values and is represented using a record type.
 
 ## Column
 
@@ -93,7 +95,7 @@ By interpreting a _null_ operand as an unknown value, we have the following defi
 - _null_ and true = _null_
 - _null_ and _null_ = _null_
 
-Because records are represented using object types, attempting to access a column
+Because records are represented using record types, attempting to access a column
 whose value is unknown or missing from a record will also return _null_.
 
 {{% note %}}
@@ -131,7 +133,7 @@ from(bucket: "db")
 ```
 
  If a parameter is renamed from `r` to `v`, the script fails:
- 
+
 ```js
 from(bucket: "db")
     |> filter(fn: (v) => ...)

@@ -7,6 +7,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema
 menu:
   influxdb_2_0_ref:
     name: tripleEMA
@@ -17,7 +18,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
 The `tripleEMA()` function calculates the exponential moving average of values in
@@ -39,7 +40,7 @@ tripleEMA(n: 5)
   - `EMA_3` is the exponential moving average of `EMA_2`.
 - A true triple exponential moving average requires at least requires at least `3 * n - 2` values.
   If not enough values exist to calculate the triple EMA, it returns a `NaN` value.
-- `tripleEMA()` inherits all [exponential moving average rules](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/#exponential-moving-average-rules).
+- `tripleEMA()` inherits all [exponential moving average rules](/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/#exponential-moving-average-rules).
 
 ## Parameters
 

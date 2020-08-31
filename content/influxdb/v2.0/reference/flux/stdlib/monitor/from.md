@@ -5,6 +5,7 @@ description: >
   measurement in the `_monitoring` bucket.
 aliases:
   - /v2.0/reference/flux/functions/monitor/from/
+  - /v2.0/reference/flux/stdlib/monitor/from
 menu:
   influxdb_2_0_ref:
     name: monitor.from
@@ -32,20 +33,20 @@ monitor.from(
 
 ### start
 The earliest time to include in results.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 ### stop
 The latest time to include in results.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 Defaults to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 {{% note %}}
 Time values in Flux must be in [RFC3339 format](/v2.0/reference/flux/language/types#timestamp-format).

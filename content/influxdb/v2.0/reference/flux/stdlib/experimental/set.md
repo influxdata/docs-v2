@@ -2,6 +2,8 @@
 title: experimental.set() function
 description: >
   The `experimental.set()` function sets multiple static column values on all records.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/set
 menu:
   influxdb_2_0_ref:
     name: experimental.set
@@ -31,11 +33,11 @@ experimental.set(
 ## Parameters
 
 ### o
-An object that defines the columns and values to set.
+A record that defines the columns and values to set.
 The key of each key-value pair defines the column name.
 The value of each key-value pair defines the column value.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

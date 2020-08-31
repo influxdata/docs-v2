@@ -208,7 +208,7 @@ You can do this with [ALTER RETENTION POLICY](/influxdb/v1.5/query_language/data
 Next, [rebalance](/enterprise_influxdb/v1.5/guides/rebalance/) your cluster manually to meet the desired
 replication factor for existing shards.
 
-Finally, if you were using [Chronograf](/chronograf/latest/), you can
+Finally, if you were using [Chronograf](/{{< latest "chronograf" >}}/), you can
 add your Enterprise instance as a new data source.  If you were not using
-[Chronograf](/chronograf/latest/introduction/installation/), we recommend going through
+[Chronograf](/{{< latest "chronograf" >}}/introduction/installation/), we recommend going through
 the installation instructions and using it as your primary management UI for the instance. -->

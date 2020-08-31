@@ -4,6 +4,7 @@ description: The `filter()` function filters data based on conditions defined in
 aliases:
   - /v2.0/reference/flux/functions/transformations/filter
   - /v2.0/reference/flux/functions/built-in/transformations/filter/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/filter
 menu:
   influxdb_2_0_ref:
     name: filter
@@ -14,14 +15,14 @@ related:
   - /influxdb/v2.0/query-data/flux/query-fields/
   - /influxdb/v2.0/query-data/flux/conditional-logic/
   - /influxdb/v2.0/query-data/flux/exists/
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
+  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).
 The output tables have the same schema as the corresponding input tables.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 filter(
@@ -46,7 +47,7 @@ Records that evaluate to _null_ or false are not included in the output tables.
 _**Data type:** Function_
 
 {{% note %}}
-Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
+Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
 ### onEmpty

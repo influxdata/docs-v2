@@ -4,6 +4,7 @@ description: The `keep()` function returns a table containing only the specified
 aliases:
   - /v2.0/reference/flux/functions/transformations/keep
   - /v2.0/reference/flux/functions/built-in/transformations/keep/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/keep
 menu:
   influxdb_2_0_ref:
     name: keep
@@ -16,7 +17,7 @@ Only columns in the group key that are also specified in the `keep()` function w
 _It is the inverse of [`drop`](/v2.0/reference/flux/stdlib/built-in/transformations/drop)._
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 keep(columns: ["col1", "col2"])

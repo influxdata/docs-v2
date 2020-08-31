@@ -3,6 +3,8 @@ title: pushbullet.endpoint() function
 description: >
   The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
   and sends a notification of type `note`.
+aliases:
+  - /v2.0/reference/flux/stdlib/pushbullet/endpoint
 menu:
   influxdb_2_0_ref:
     name: pushbullet.endpoint
@@ -45,12 +47,12 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the API request.
+A function that builds the record used to generate the API request.
 Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned object must include the following fields (as defined in
+The returned record must include the following fields (as defined in
 [`pushbullet.pushNote()`](/v2.0/reference/flux/stdlib/pushbullet/pushnote/#title)):
 
 - `title`

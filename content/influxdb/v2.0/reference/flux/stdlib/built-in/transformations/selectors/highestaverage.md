@@ -4,6 +4,7 @@ description: The `highestAverage()` function calculates the average of each tabl
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestaverage
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestaverage
 menu:
   influxdb_2_0_ref:
     name: highestAverage

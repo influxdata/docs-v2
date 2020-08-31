@@ -3,6 +3,7 @@ title: v1.measurements() function
 description: The v1.measurements() function returns a list of measurements in a specific bucket.
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/measurements/
+  - /v2.0/reference/flux/stdlib/influxdb-v1/measurements
 menu:
   influxdb_2_0_ref:
     name: v1.measurements
@@ -11,7 +12,7 @@ weight: 301
 influxdb/v2.0/tags: [measurements]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
 ---
 
 The `v1.measurements()` function returns a list of measurements in a specific bucket.

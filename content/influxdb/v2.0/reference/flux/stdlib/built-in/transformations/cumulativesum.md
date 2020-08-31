@@ -4,6 +4,7 @@ description: The `cumulativeSum()` function computes a running sum for non-null 
 aliases:
   - /v2.0/reference/flux/functions/transformations/cumulativesum
   - /v2.0/reference/flux/functions/built-in/transformations/cumulativesum/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum
 menu:
   influxdb_2_0_ref:
     name: cumulativeSum
@@ -11,7 +12,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/cumulativesum/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 ---
 
 The `cumulativeSum()` function computes a running sum for non-null records in the table.

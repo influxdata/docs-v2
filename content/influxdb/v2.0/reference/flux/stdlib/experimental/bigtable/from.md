@@ -2,6 +2,8 @@
 title: bigtable.from() function
 description: >
   The `bigtable.from()` function retrieves data from a Google Cloud Bigtable data source.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/bigtable/from
 menu:
   influxdb_2_0_ref:
     name: bigtable.from

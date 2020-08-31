@@ -14,3 +14,5 @@ InfluxDB OSS does not support clustering.
 For high availability or horizontal scaling of InfluxDB, consider the InfluxData
 commercial clustered offering,
 [InfluxDB Enterprise](https://portal.influxdata.com/).
+
+To learn more about high availability clustering, see [Clustering in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/).

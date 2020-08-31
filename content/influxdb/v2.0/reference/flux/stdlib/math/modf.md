@@ -5,6 +5,7 @@ description: >
   Both values have the same sign as `f`.
 aliases:
   - /v2.0/reference/flux/functions/math/modf/
+  - /v2.0/reference/flux/stdlib/math/modf
 menu:
   influxdb_2_0_ref:
     name: math.modf
@@ -15,7 +16,7 @@ weight: 301
 The `math.modf()` function returns integer and fractional floating-point numbers that sum to `f`.
 Both values have the same sign as `f`.
 
-_**Output data format:** Object_
+_**Output data format:** Record_
 
 ```js
 import "math"

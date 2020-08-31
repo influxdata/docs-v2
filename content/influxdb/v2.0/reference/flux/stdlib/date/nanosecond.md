@@ -5,6 +5,7 @@ description: >
   Results range from `[0-999999999]`.
 aliases:
   - /v2.0/reference/flux/functions/date/nanosecond/
+  - /v2.0/reference/flux/stdlib/date/nanosecond
 menu:
   influxdb_2_0_ref:
     name: date.nanosecond
@@ -31,9 +32,8 @@ date.nanosecond(t: 2019-07-17T12:05:21.012934584Z)
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration | Integer_
+_**Data type:** Time | Duration_
 
 ## Examples
 
@@ -55,13 +55,4 @@ option now = () => 2020-02-11T12:21:03.293534940Z
 date.nanosecond(t: -2111984ns)
 
 // Returns 291422956
-```
-
-##### Return the nanosecond for a nanosecond Unix timestamp
-```js
-import "date"
-
-date.nanosecond(t: 1581423663293534940)
-
-// Returns 293534940Z
 ```

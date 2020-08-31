@@ -5,6 +5,7 @@ description: >
   The HTTP status code is returned.
 aliases:
   - /v2.0/reference/flux/functions/http/post/
+  - /v2.0/reference/flux/stdlib/http/post
 menu:
   influxdb_2_0_ref:
     name: http.post
@@ -37,7 +38,7 @@ _**Data type:** String_
 ### headers
 Headers to include with the POST request.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 {{% note %}}
 ##### Header keys with special characters

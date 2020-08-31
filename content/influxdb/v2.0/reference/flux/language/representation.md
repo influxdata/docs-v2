@@ -6,6 +6,8 @@ menu:
     parent: Flux specification
     name: Representation
 weight: 209
+aliases:
+  - /v2.0/reference/flux/language/representation
 ---
 
 Source code is encoded in UTF-8.

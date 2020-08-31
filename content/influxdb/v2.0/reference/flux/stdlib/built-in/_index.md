@@ -6,6 +6,7 @@ description: >
   They do not require an import statement and are usable without any extra setup.
 aliases:
   - /v2.0/reference/flux/functions/built-in/
+  - /v2.0/reference/flux/stdlib/built-in/
 menu:
   influxdb_2_0_ref:
     name: Built-in

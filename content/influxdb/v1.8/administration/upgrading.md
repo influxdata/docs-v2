@@ -20,7 +20,7 @@ We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.8
 ### Upgrade to InfluxDB Enterprise
 
 To upgrade from InfluxDB OSS to InfluxDB Enterprise, [contact InfluxData Sales](https://www.influxdata.com/contact-sales/)
-and see [Migrate to InfluxDB Enterprise](/enterprise_influxdb/latest/guides/migration/).
+and see [Migrate to InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/guides/migration/).
 {{% /note %}}
 
 ## Upgrade to InfluxDB 1.8.x

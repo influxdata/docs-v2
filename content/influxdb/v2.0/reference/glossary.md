@@ -515,7 +515,7 @@ See a list of [Flux keywords](/v2.0/reference/flux/language/lexical-elements/#ke
 
 ### literal
 
-A literal is value in an expression, a number, character, string, function, object, or array.
+A literal is value in an expression, a number, character, string, function, record, or array.
 Literal values are interpreted as defined.
 
 See examples of [Flux literals](/v2.0/reference/flux/language/expressions/#examples-of-function-literals).
@@ -760,12 +760,12 @@ See [Query data in InfluxDB](/v2.0/query-data/).
 
 ### REPL
 
-A read-eval-print-loop (REPL) is an interactive programming environment where you type a command and immediately see the result.
-See [Use the influx CLI's REPL](/v2.0/query-data/get-started/syntax-basics/#use-the-influx-cli-s-repl).
+A Read-Eval-Print Loop (REPL) is an interactive programming environment where you type a command and immediately see the result.
+See [Flux REPL](/influxdb/v2.0/tools/repl/) for information on building and using the REPL.
 
 ### record
 
-A tuple of named values represented using an object type.
+A tuple of named values represented using a record type.
 
 ### regular expressions
 
@@ -860,7 +860,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
 
-<!--See [SHOW CARDINALITY](/influxdb/latest/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
+<!--See [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
@@ -910,7 +910,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/influxdb/latest/query_language/database_management/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -1057,7 +1057,7 @@ To enable tracing or set other InfluxDB configuration options, see [InfluxDB con
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL functions](http://docs.influxdata.com/influxdb/latest/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](/{{< latest "influxdb" "v1" >}}/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
@@ -1072,7 +1072,7 @@ The Time Series Logs (TSL) extension (`.tsl`) identifies Time Series Index (TSI)
 ### TSM (Time Structured Merge tree)
 
 A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations.
-For more information, see [Storage engine](http://docs.influxdata.com/influxdb/latest/concepts/storage_engine/).
+For more information, see [Storage engine](/{{< latest "influxdb" "v1" >}}/concepts/storage_engine/).
 
 Related entries: [TSI](#tsi-time-series-index)
 

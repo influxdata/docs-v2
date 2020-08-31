@@ -40,7 +40,7 @@ Use one of the following commands to start Chronograf:
 ## Set custom default Chronograf configuration options
 
 Custom default Chronograf configuration settings can be defined in `/etc/default/chronograf`.
-This file consists of key-value pairs. See keys (environment variables) for [Chronograf configuration options](https://docs.influxdata.com/chronograf/v1.8/administration/config-options), and set values for the keys you want to configure.
+This file consists of key-value pairs. See keys (environment variables) for [Chronograf configuration options](/chronograf/v1.8/administration/config-options), and set values for the keys you want to configure.
 
 ```conf
 HOST=0.0.0.0

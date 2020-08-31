@@ -4,6 +4,7 @@ description: The `sort()` function orders the records within each table.
 aliases:
   - /v2.0/reference/flux/functions/transformations/sort
   - /v2.0/reference/flux/functions/built-in/transformations/sort/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/sort
 menu:
   influxdb_2_0_ref:
     name: sort
@@ -18,7 +19,7 @@ One output table is produced for each input table.
 The output tables will have the same schema as their corresponding input tables.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 #### Sorting with null values
 When sorting, `null` values will always be first.

@@ -22,7 +22,7 @@ Pre-created dashboards are available when the required Telegraf input plugins ar
 
 Using the TICKscript editor in Chronograf to create, test, and debug Kapacitor TICKscripts.
 
-## [Creating dashboards](/chronograf/latest/guides/create-a-dashboard/)
+## [Creating dashboards](/{{< latest "chronograf" >}}/guides/create-a-dashboard/)
 
 Chronograf offers a complete dashboard solution for visualizing your data and monitoring your infrastructure.
 Learn how to create customized dashboards in Chronograf.

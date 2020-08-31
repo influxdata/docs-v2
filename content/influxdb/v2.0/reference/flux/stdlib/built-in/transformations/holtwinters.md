@@ -6,13 +6,14 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/holtwinters
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/holtwinters
 menu:
   influxdb_2_0_ref:
     name: holtWinters
     parent: built-in-transformations
 weight: 402
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
 ---
 
 The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.

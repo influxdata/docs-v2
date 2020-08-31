@@ -4,6 +4,7 @@ description: The `window()` function groups records based on a time value.
 aliases:
   - /v2.0/reference/flux/functions/transformations/window
   - /v2.0/reference/flux/functions/built-in/transformations/window/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/window
 menu:
   influxdb_2_0_ref:
     name: window
@@ -12,7 +13,7 @@ weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `window()` function groups records based on a time value.
@@ -25,7 +26,7 @@ By default the start boundary of a window will align with the Unix epoch (zero t
 modified by the offset of the `location` option.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 window(

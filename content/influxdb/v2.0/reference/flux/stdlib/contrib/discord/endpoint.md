@@ -4,6 +4,8 @@ description: >
   The `discord.endpoint()` function sends a single message to a Discord channel using
   a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
   and data from table rows.
+aliases:
+  - /v2.0/reference/flux/stdlib/contrib/discord/endpoint
 menu:
   influxdb_2_0_ref:
     name: discord.endpoint
@@ -55,12 +57,12 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the Discord webhook request.
+A function that builds the record used to generate the Discord webhook request.
 Requires an `r` parameter.
 
 _**Data type:** Function_
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
+`mapFn` accepts a table row (`r`) and returns a record that must include the
 following field:
 
 - `content`

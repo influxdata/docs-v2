@@ -6,6 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage
 menu:
   influxdb_2_0_ref:
     name: exponentialMovingAverage
@@ -16,7 +17,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
 ---
 
 The `exponentialMovingAverage()` function calculates the exponential moving average of values

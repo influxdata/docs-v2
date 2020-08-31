@@ -3,6 +3,7 @@ title: v1.measurementTagValues() function
 description: The v1.measurementTagValues() function returns a list of tag values for a specific measurement.
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/
+  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues
 menu:
   influxdb_2_0_ref:
     name: v1.measurementTagValues
@@ -11,7 +12,7 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
 ---
 
 The `v1.measurementTagValues()` function returns a list of tag values for a specific measurement.

@@ -4,6 +4,7 @@ description: The `pivot()` function collects values stored vertically (column-wi
 aliases:
   - /v2.0/reference/flux/functions/transformations/pivot
   - /v2.0/reference/flux/functions/built-in/transformations/pivot/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/pivot
 menu:
   influxdb_2_0_ref:
     name: pivot
@@ -15,7 +16,7 @@ The `pivot()` function collects values stored vertically (column-wise) in a tabl
 and aligns them horizontally (row-wise) into logical sets.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")

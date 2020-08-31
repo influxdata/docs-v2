@@ -35,7 +35,7 @@ This lets you, for example, dynamically set variables using query results.
 
 1. [Extract a column from the input stream](#extract-a-column)
    _**or**_ [extract a row from the input stream](#extract-a-row).
-2. Use the returned array or object to reference scalar values.
+2. Use the returned array or record to reference scalar values.
 
 _The samples on this page use the [sample data provided below](#sample-data)._
 
@@ -44,9 +44,6 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
   Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
   scalar values to output data.
-- The [Flux REPL ](/v2.0/reference/cli/influx/repl) does not currently support
-  Flux stream and table functions (also known as "dynamic queries").
-  See [#15321](https://github.com/influxdata/influxdb/issues/15231).
 {{% /warn %}}
 
 ## Table extraction
@@ -109,7 +106,7 @@ SFOTemps[2]
 Use the [`findRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
-The function outputs an object with key-value pairs for each column.
+The function outputs a record with key-value pairs for each column.
 
 ```js
 sampleData
@@ -126,11 +123,11 @@ sampleData
 // }
 ```
 
-### Use an extracted row object
-Use a variable to store the extracted row object.
+### Use an extracted row record
+Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot notation](/v2.0/query-data/get-started/syntax-basics/#objects) to reference
-keys in the object.
+Use [dot notation](/v2.0/query-data/get-started/syntax-basics/#records) to reference
+keys in the record.
 
 ```js
 tempInfo = sampleData
@@ -181,7 +178,7 @@ lastJFKTemp
 
 ##### Extract scalar row data
 ```js
-// Define a helper function to extract a row as an object
+// Define a helper function to extract a row as a record
 getRow = (tables=<-, field, idx=0) => {
   extract = tables
     |> findRecord(

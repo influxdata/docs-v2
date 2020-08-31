@@ -28,7 +28,7 @@ For a list of available plugins, see [Telegraf plugins](/v2.0/reference/telegraf
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](https://docs.influxdata.com/telegraf/latest/introduction/installation/)._
+  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
 
 {{< youtube qFS2zANwIrc >}}
 

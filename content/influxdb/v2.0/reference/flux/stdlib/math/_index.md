@@ -6,6 +6,7 @@ description: >
   Import the `math` package.
 aliases:
   - /v2.0/reference/flux/functions/math/
+  - /v2.0/reference/flux/stdlib/math/
 menu:
   influxdb_2_0_ref:
     name: Math

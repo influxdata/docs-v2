@@ -33,8 +33,8 @@ Use the **Authorization** tab in Postman to include the credentials required whe
 
 1. If you have not already, [create a token](/v2.0/security/tokens/create-token/).
 2. In the **Authorization** tab, select **API Key** in the **Type** dropdown.
-3. For **Key**, enter `Authentication`.
-4. For **Value**, enter `Token [token string]`, replacing `token string` with the token generated in step 1.
+3. For **Key**, enter `Authorization`.
+4. For **Value**, enter `Token <token string>`, replacing `<token string>` with the token generated in step 1.
 5. Ensure that the **Add to** option is set to **Header**.
 
 To test the authentication, enter the `/health` endpoint of a local or Cloud instance of InfluxDB into the address bar

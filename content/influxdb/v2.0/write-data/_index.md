@@ -40,6 +40,7 @@ To write data into InfluxDB, you need the following:
   instructions on viewing your bucket ID._
 - **authentication token** – _See [View tokens](/v2.0/security/tokens/view-tokens/)
   for instructions on viewing your authentication token._
+- **InfluxDB URL** – _See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)_.
 
 The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
 
@@ -117,7 +118,7 @@ Choose from the following demo data sets:
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Explore demo data
-Use the [Data Explorer](https://v2.docs.influxdata.com/v2.0/visualize-data/explore-metrics/)
+Use the [Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/)
 to query and visualize data in demo data buckets.
 
 In the navigation menu on the left, click **Explore (Data Explorer)**.

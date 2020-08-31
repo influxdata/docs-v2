@@ -2,6 +2,8 @@
 title: csv.from() function
 description: >
   The experimental `csv.from()` function retrieves annotated CSV from a URL.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/csv/from
 menu:
   influxdb_2_0_ref:
     name: csv.from *

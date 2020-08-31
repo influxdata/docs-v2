@@ -4,7 +4,7 @@ Use the following command to deploy a CloudFormation stack using the template in
 
 ```sh
 aws cloudformation deploy \
-    --template-file docs-website.yml \
+    --template-file deploy/docs-website.yml \
     --stack-name="${STACK_NAME}" \
     --capabilities CAPABILITY_IAM \
     --no-execute-changeset \

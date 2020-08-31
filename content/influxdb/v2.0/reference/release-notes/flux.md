@@ -11,10 +11,116 @@ aliases:
 ---
 
 {{% note %}}
-The latest release of InfluxDB v2.0 beta includes **Flux v0.71.1**.
+The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.81.0 [2020-08-17]
+
+### Features
+- Delete old parser.
+- Add function to indicate duplicate option assignments.
+
+### Bug fixes
+- Calculate distinct key values.
+- Handle pipe arguments inside of compiler.
+
+---
+
+## v0.80.0 [2020-08-12]
+
+### Features
+- Add `nulls` parameter to `gen.tables()`.
+
+### Bug fixes
+- Revert the timeable constraint for integer.
+- Make socket/sql URL test robust.
+
+---
+
+## v0.79.0 [2020-08-11]
+
+### Features
+- Add `array.from()` function to convert Flux values into a table.
+
+### Bug fixes
+- Add bounds to Geo package end-to-end tests.
+
+---
+
+## v0.78.0 [2020-08-10]
+
+### Breaking changes
+- Removed `correlationKey` parameter from `geo.toRows` and `geo.shapeData`.
+
+### Features
+- Add functions to convert semantic monotype to AST type.
+- Add BigQuery support.
+- Rust flatbuffer serialization for `MonoType` and `TypeExpression`.
+- Extend with Geo package with GIS functions and
+  [unit support](/v2.0/reference/flux/stdlib/experimental/geo/#distance-units).
+
+### Bug fixes
+- String interpolation in arrays.
+
+---
+
+## v0.77.1 [2020-08-03]
+
+### Bug fixes
+- Write tests and fix issues with `rows.map`.
+
+---
+
+## v0.77.0 [2020-08-03]
+
+### Features
+- Add a faster [`map()` function](/v2.0/reference/flux/stdlib/contrib/rows/map/) _(user-contributed)_.
+- Add an [`influxdb.select()` function](/v2.0/reference/flux/stdlib/contrib/influxdb/select/) _(user-contributed)_.
+- Flatbuffer deserialization for type expression AST nodes.
+- Flatbuffer types for monotype and type expression AST nodes.
+- Go AST nodes for type expression syntax.
+- Get all options and properties.
+- Add `parse_function` in `parser/mod.rs`.
+- Add an alternative aggregate package to user-contributed packages.
+
+### Bug fixes
+- Fix string interpolation in arrays.
+
+---
+
+## v0.76.1 [2020-07-27]
+
+### Bug fixes
+- Fix data race in metadata.
+
+---
+
+## v0.76.0 [2020-07-27]
+
+### Features
+- Add query plan to query metadata.
+
+---
+
+## v0.75.0 [2020-07-27]
+
+###  Features
+- Update `parse_record` to return `MonoType` for consistent results from functions
+  used by `parse_monotype`.
+- Internal command utility for comparing CSV tables.
+- Update `mod.rs` with `parse_record`.
+- Add planner tests for window min and max.
+- CRUD options and properties.
+- Update `mod.rs` with `parse_constraints`.
+- Update `mod.rs` with `ArrayType` and add `Array` to the `Monotype` enumeration.
+
+### Bug fixes
+- Statuses are always sorted by source timestamp.
+- Multiple `do` calls will fail with an empty table.
+
+---
 
 ## v0.74.0 [2020-07-21]
 

@@ -4,6 +4,7 @@ description: The `histogram()` function approximates the cumulative distribution
 aliases:
   - /v2.0/reference/flux/functions/transformations/histogram
   - /v2.0/reference/flux/functions/built-in/transformations/histogram/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
 menu:
   influxdb_2_0_ref:
     name: histogram
@@ -22,7 +23,7 @@ The output table has the same group key as the input table.
 Columns not part of the group key are removed and an upper bound column and a count column are added.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 histogram(column: "_value", upperBoundColumn: "le", countColumn: "_value", bins: [50.0, 75.0, 90.0], normalize: false)

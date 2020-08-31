@@ -5,6 +5,8 @@ description: >
   The Flux Geo package provides tools for working with geo-temporal data,
   such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/geo/
 menu:
   influxdb_2_0_ref:
     name: Geo
@@ -74,16 +76,25 @@ to add `s2_cell_id` tags to data that includes fields with latitude and longitud
   )
 ```
 
+## Latitude and longitude values
+Flux supports latitude and longitude values in **decimal degrees** (WGS 84).
+
+| Coordinate | Minimum | Maximum |
+|:---------- | -------:| -------:|
+| Latitude   | -90.0   | 90.0    |
+| Longitude  | -180.0  | 180.0   |
+
 ## Region definitions
 Many functions in the Geo package filter data based on geographic region.
 Define geographic regions using the following shapes:
 
 - [box](#box)
 - [circle](#circle)
+- [point](#point)
 - [polygon](#polygon)
 
 ### box
-Define a box-shaped region by specifying an object containing the following properties:
+Define a box-shaped region by specifying a record containing the following properties:
 
 - **minLat:** minimum latitude in decimal degrees (WGS 84) _(Float)_
 - **maxLat:** maximum latitude in decimal degrees (WGS 84) _(Float)_
@@ -101,7 +112,7 @@ Define a box-shaped region by specifying an object containing the following prop
 ```
 
 ### circle
-Define a circular region by specifying an object containing the following properties:
+Define a circular region by specifying a record containing the following properties:
 
 - **lat**: latitude of the circle center in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude of the circle center in decimal degrees (WGS 84) _(Float)_
@@ -116,12 +127,26 @@ Define a circular region by specifying an object containing the following proper
 }
 ```
 
+### point
+Define a point region by specifying a record containing the following properties:
+
+- **lat**: latitude in decimal degrees (WGS 84) _(Float)_
+- **lon**: longitude in decimal degrees (WGS 84) _(Float)_
+
+##### Example point region
+```js
+{
+  lat: 40.671659,
+  lon: -73.936631
+}
+```
+
 ### polygon
-Define a custom polygon region using an object containing the following properties:
+Define a custom polygon region using a record containing the following properties:
 
-- **points**: points that define the custom polygon _(Array of objects)_
+- **points**: points that define the custom polygon _(Array of records)_
 
-    Define each point with an object containing the following properties:
+    Define each point with a record containing the following properties:
 
       - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
       - **lon**: longitude in decimal degrees (WGS 84) _(Float)_
@@ -135,4 +160,39 @@ Define a custom polygon region using an object containing the following properti
     {lat: 40.791333, lon: -73.880327}
   ]
 }
+```
+
+## GIS geometry definitions
+Many functions in the Geo package manipulate data based on geographic information system (GIS) data.
+Define GIS geometry using the following:
+
+- Any [region type](#region-definitions) _(typically [point](#point))_
+- [linestring](#linestring)
+
+### linestring
+Define a geographic linestring path using a record containing the following properties:
+
+- **linestring**: string containing comma-separated longitude and latitude
+  coordinate pairs (`lon lat,`):
+
+```js
+{
+  linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"
+}
+```
+
+## Distance units
+The Geo package supports the following units of measurement for distance:
+
+- `m` - meters
+- `km` - kilometers _(default)_
+- `mile` - miles
+
+### Define distance units
+Use the Geo package `units` option to define custom units of measurement:
+
+```js
+import "experimental/geo"
+
+option geo.units = {distance: "mile"}
 ```

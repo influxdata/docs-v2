@@ -4,6 +4,7 @@ description: >
   The `pagerduty.endpoint()` function sends a message to PagerDuty that includes output data.
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/endpoint/
+  - /v2.0/reference/flux/stdlib/pagerduty/endpoint
 menu:
   influxdb_2_0_ref:
     name: pagerduty.endpoint
@@ -37,12 +38,12 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the POST request.
+A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+The returned record must include the following fields:
 
 - `routingKey`
 - `client`

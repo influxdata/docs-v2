@@ -3,7 +3,6 @@ title: Installation options (⏰ Please Read!)
 aliases:
   - /enterprise_influxdb/v1.6/introduction/meta_node_installation/
   - /enterprise_influxdb/v1.6/introduction/data_node_installation/
-  - /chronograf/latest/introduction/installation
   - /enterprise/v1.6/introduction/installation_guidelines/
 menu:
   enterprise_influxdb_1_6:

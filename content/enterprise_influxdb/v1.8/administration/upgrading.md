@@ -165,7 +165,7 @@ sudo yum localinstall influxdb-data-1.8.0_c1.8.0.x86_64.rpm
 
 Migrate any custom settings from your previous data node configuration file.
 
-- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](https://docs.influxdata.com/enterprise_influxdb/v1.8/guides/https_setup/#step-4-enable-https-within-the-configuration-file-for-each-data-node).
+- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](/enterprise_influxdb/v1.8/guides/https_setup/#step-4-enable-https-within-the-configuration-file-for-each-data-node).
 
 - To enable TSI, open `/etc/influxdb/influxdb.conf`, and then adjust and save the settings shown in the following table.
 

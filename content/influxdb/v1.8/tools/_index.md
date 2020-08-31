@@ -35,7 +35,7 @@ Use the InfluxDB inch tool to test InfluxDB performance. Adjust metrics such as 
 
 ## Graphs and dashboards
 
-Use [Chronograf](/chronograf/latest/) or [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/) dashboards to visualize your time series data.
+Use [Chronograf](/{{< latest "chronograf" >}}/) or [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/) dashboards to visualize your time series data.
 
 > **Tip:** Use template variables in your dashboards to filter meta query results by a specified period of time (see example below).
 
@@ -57,4 +57,4 @@ WHERE time > now() - 1h GROUP BY time(1h), host, team, status, location END;
 SHOW TAG VALUES FROM "your.system"."host_info" WITH KEY = “host”
 ```
 
-> **Note:** In Chronograf, you can also filter meta query results for a specified time range by [creating a `custom meta query` template variable](/chronograf/latest/guides/dashboard-template-variables/#create-custom-template-variables) and adding a time range filter.
+> **Note:** In Chronograf, you can also filter meta query results for a specified time range by [creating a `custom meta query` template variable](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/#create-custom-template-variables) and adding a time range filter.

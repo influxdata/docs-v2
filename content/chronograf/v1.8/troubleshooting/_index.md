@@ -9,4 +9,4 @@ menu:
 
 Follow the link below to access Chronograf's FAQ.
 
-## [Frequently Asked Questions](/chronograf/latest/troubleshooting/frequently-asked-questions/)
+## [Frequently Asked Questions](/{{< latest "chronograf" >}}/troubleshooting/frequently-asked-questions/)

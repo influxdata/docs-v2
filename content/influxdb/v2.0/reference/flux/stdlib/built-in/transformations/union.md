@@ -4,6 +4,7 @@ description: The `union()` function concatenates two or more input streams into 
 aliases:
   - /v2.0/reference/flux/functions/transformations/union
   - /v2.0/reference/flux/functions/built-in/transformations/union/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/union
 menu:
   influxdb_2_0_ref:
     name: union
@@ -21,7 +22,7 @@ The output schemas of the `union()` function is the union of all input schemas.
 A sort operation may be added if a specific sort order is needed.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 union(tables: [table1, table2])

@@ -5,6 +5,7 @@ aliases:
   - /v2.0/reference/flux/functions/inputs/fromcsv
   - /v2.0/reference/flux/functions/built-in/inputs/fromcsv
   - /v2.0/reference/flux/functions/csv/from/
+  - /v2.0/reference/flux/stdlib/csv/from
 menu:
   influxdb_2_0_ref:
     name: csv.from
@@ -51,7 +52,7 @@ _The CSV file must exist in the same file system running the `fluxd` process._
 {{% warn %}}
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ support the `file` parameter.
 Neither allow access to the underlying filesystem.
-However, the [Flux REPL](/v2.0/reference/cli/influx/repl/) does support the `file` parameter.
+However, the [Flux REPL](/influxdb/v2.0/tools/repl/) does support the `file` parameter.
 {{% /warn %}}
 
 _**Data type:** String_

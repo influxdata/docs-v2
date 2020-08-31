@@ -43,7 +43,7 @@ Starting with InfluxDB 1.5, InfluxDB OSS supports enterprise-compatible backup a
 
 * Option to run backup and restore functions on an online, or live, database.
 * Backup and restore functions for single or multiple databases with optional filtering based on data point timestamps.
-* Data imports from [InfluxDB Enterprise](/enterprise_influxdb/latest/) clusters
+* Data imports from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters
 * Backup files that can be imported into an InfluxDB Enterprise database.
 
 The online `restore` utility in InfluxDB OSS supports the new Enterprise-compatible backup format, but the the legacy backup format is still available.

@@ -2,6 +2,8 @@
 title: pushbullet.pushData() function
 description: >
   The `pushbullet.pushData()` function sends a push notification to the Pushbullet API.
+aliases:
+  - /v2.0/reference/flux/stdlib/pushbullet/pushdata
 menu:
   influxdb_2_0_ref:
     name: pushbullet.pushData
@@ -49,7 +51,7 @@ _**Data type:** String_
 Data to send to the Pushbullet API.
 The function JSON-encodes data before sending it to Pushbullet.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 
 

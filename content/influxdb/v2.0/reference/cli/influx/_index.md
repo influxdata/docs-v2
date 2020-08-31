@@ -53,17 +53,18 @@ retrieving authentication tokens._
 | [bucket](/v2.0/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/v2.0/reference/cli/influx/completion) | Generate completion scripts                          |
 | [config](/v2.0/reference/cli/influx/config)         | Configuration management commands                    |
+| [dashboards](/v2.0/reference/cli/influx/dashboards) | List dashboards                                      |
 | [delete](/v2.0/reference/cli/influx/delete)         | Delete points from InfluxDB                          |
 | [export](/v2.0/reference/cli/influx/export)         | Export resources as a template                       |
 | [help](/v2.0/reference/cli/influx/help)             | Help about any command                               |
 | [org](/v2.0/reference/cli/influx/org)               | Organization management commands                     |
 | [ping](/v2.0/reference/cli/influx/ping)             | Check the InfluxDB `/health` endpoint                |
 | [query](/v2.0/reference/cli/influx/query)           | Execute a Flux query                                 |
-| [repl](/v2.0/reference/cli/influx/repl)             | Interactive REPL (read-eval-print-loop)              |
 | [secret](/v2.0/reference/cli/influx/secret)         | Manage secrets                                       |
 | [setup](/v2.0/reference/cli/influx/setup)           | Create default username, password, org, bucket, etc. |
 | [stacks](/v2.0/reference/cli/influx/stacks)         | Manage InfluxDB stacks                               |
 | [task](/v2.0/reference/cli/influx/task)             | Task management commands                             |
+| [telegrafs](/v2.0/reference/cli/influx/telegrafs)   | Telegraf configuration management commands           |
 | [template](/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
 | [transpile](/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/v2.0/reference/cli/influx/user)             | User management commands                             |

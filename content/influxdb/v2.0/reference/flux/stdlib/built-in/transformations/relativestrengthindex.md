@@ -6,6 +6,7 @@ description: >
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/relativestrengthindex/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/relativestrengthindex/
+  - /v2.0/reference/flux/stdlib/built-in/transformations/relativestrengthindex
 menu:
   influxdb_2_0_ref:
     name: relativeStrengthIndex
@@ -15,7 +16,7 @@ related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
 ---
 
 The `relativeStrengthIndex()` function measures the relative speed and change of

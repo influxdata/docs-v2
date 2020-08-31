@@ -2,6 +2,8 @@
 title: geo.asTracks() function
 description: >
   The geo.asTracks() function groups rows into tracks (sequential, related data points).
+aliases:
+  - /v2.0/reference/flux/stdlib/experimental/geo/astracks
 menu:
   influxdb_2_0_ref:
     name: geo.asTracks

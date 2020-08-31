@@ -4,7 +4,7 @@
 
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") }}
-    <p class="selected">Select component</p>
+    <p class="selected">Select product</p>
   {{ else if and (eq $product "influxdb") (in $currentVersion "v2")}}
     <p class="selected">{{ (index .Site.Data.products $product).altname }}</p>
   {{ else }}
@@ -13,7 +13,7 @@
   <ul class="item-list">
     {{ range sort .Site.Data.products "list_order" "desc" }}
       <li>
-        <a href="/{{ .namespace }}/{{ .latest }}" {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
+        <a href='/{{ .namespace }}/{{ cond (isset . "latest_override") .latest_override .latest }}/' {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
       </li>
     {{ end }}
   </ul>

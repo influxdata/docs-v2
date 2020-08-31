@@ -6,6 +6,8 @@ menu:
     parent: Flux specification
     name: Expressions
 weight: 204
+aliases:
+  - /v2.0/reference/flux/language/expressions
 ---
 
 An _expression_ specifies the computation of a value by applying the operators and functions to operands.
@@ -33,18 +35,18 @@ Literal = int_lit
         | duration_lit
         | date_time_lit
         | pipe_receive_lit
-        | ObjectLiteral
+        | RecordLiteral
         | ArrayLiteral
         | FunctionLiteral .
 ```
 
-### Object literals
+### Record literals
 
-Object literals construct a value with the object type.
+Record literals construct a value with the record type.
 
 ```js
-ObjectLiteral  = "{" ObjectBody "}" .
-ObjectBody     = WithProperties | PropertyList .
+RecordLiteral  = "{" RecordBody "}" .
+RecordBody     = WithProperties | PropertyList .
 WithProperties = identifier "with" PropertyList .
 PropertyList   = [ Property { "," Property } ] .
 Property       = identifier [ ":" Expression ]
@@ -171,21 +173,21 @@ IndexExpression = "[" Expression "]" .
 ```
 
 ## Member expressions
-Member expressions access a property of an object.
+Member expressions access a property of a record.
 They are specified using an expression in one of the following forms:
 
 ```js
-obj.k
+rec.k
 // or
-obj["k"]
+rec["k"]
 ```
 
 The property being accessed must be either an identifier or a string literal.
 In either case the literal value is the name of the property being accessed, the identifier is not evaluated.
-It is not possible to access an object's property using an arbitrary expression.
+It is not possible to access a record's property using an arbitrary expression.
 
-If `obj` contains an entry with property `k`, both `obj.k` and `obj["k"]` return the value associated with `k`.
-If `obj` does **not** contain an entry with property `k`, both `obj.k` and `obj["k"]` return _null_.
+If `rec` contains an entry with property `k`, both `rec.k` and `rec["k"]` return the value associated with `k`.
+If `rec` does **not** contain an entry with property `k`, both `rec.k` and `rec["k"]` return _null_.
 
 ```js
 MemberExpression        = DotExpression  | MemberBracketExpression .
