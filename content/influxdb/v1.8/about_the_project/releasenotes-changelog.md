@@ -36,7 +36,7 @@ menu:
 
 This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/influxdb/v1.8/flux/).
 
-* Use the new [`influx -type=flux`](/influxdb/v1.8/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
+* Use the new [`influx -type=flux`](/influxdb/v1.8/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
 
 * Flux v0.65 includes the following capabilities:
     - Join data residing in multiple measurements, buckets, or data sources
@@ -64,7 +64,7 @@ while readying your implementation for a move to InfluxDB 2.0 Cloud when you're 
 - Add [`influx inspect verify-tombstone` command](/influxdb/v1.8/tools/influx_inspect/#verify-tombstone)
 - Add [offline series compaction to `influx_inspect buildtsi`](/influxdb/v1.8/administration/compact-series-file/).
   If you're currently using the Time Series Index [(tsi1)](/influxdb/v1.8/concepts/time-series-index/), the index files grow over time and aren't automatically compacted.  This tool enables an administrator to perform a compaction while the database is offline.
-- Add support for connecting to a custom HTTP endpoint using `-url-prefix` in the [`influx` CLI](/influxdb/v1.8/tools/influx-cli/_index). This allows the Influx CLI to connect to an InfluxDB instance running behind a reverse proxy with a custom subpath `/` endpoint.
+- Add support for connecting to a custom HTTP endpoint using `-url-prefix` in the [`influx` CLI](/influxdb/v1.8/tools/influx-cli/). This allows the Influx CLI to connect to an InfluxDB instance running behind a reverse proxy with a custom subpath `/` endpoint.
 
 #### Security enhancements
 - Add support for [TLS 1.3 configuration](/influxdb/v1.8/administration/config/#transport-layer-security-tls-settings) and update current list of [Go ciphers](https://golang.org/pkg/crypto/tls/#pkg-constants).

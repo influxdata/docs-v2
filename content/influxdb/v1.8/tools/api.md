@@ -355,7 +355,7 @@ POST http://localhost:8086/query
 | GET   | Use for all queries that start with: <br><br> [`SELECT`](/influxdb/v1.8/query_language/spec/#select)* <br><br> [`SHOW`](/influxdb/v1.8/query_language/spec/#show-continuous-queries)   |
 | POST  | Use for all queries that start with: <br><br> [`ALTER`](/influxdb/v1.8/query_language/spec/#alter-retention-policy) <br><br> [`CREATE`](/influxdb/v1.8/query_language/spec/#create-continuous-query) <br><br> [`DELETE`](/influxdb/v1.8/query_language/spec/#delete) <br><br> [`DROP`](/influxdb/v1.8/query_language/spec/#drop-continuous-query) <br><br> [`GRANT`](/influxdb/v1.8/query_language/spec/#grant) <br><br> [`KILL`](/influxdb/v1.8/query_language/spec/#kill-query) <br><br> [`REVOKE`](/influxdb/v1.8/query_language/spec/#revoke) |
 
-\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/influxdb/v1.8/query_language/data_exploration/#the-into-clause).
+\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause).
 Those `SELECT` queries require a `POST` request.
 
 #### Examples
@@ -390,7 +390,7 @@ $ curl -XPOST 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *
 {"results":[{"statement_id":0,"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",2]]}]}]}
 ```
 
-`SELECT` queries that include and [`INTO` clause](/influxdb/v1.8/query_language/data_exploration/#the-into-clause) require a `POST` request.
+`SELECT` queries that include and [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause) require a `POST` request.
 
 The response shows that InfluxDB writes two points to the `newmeas` [measurement](/influxdb/v1.8/concepts/glossary/#measurement).
 Note that the system uses epoch 0 (`1970-01-01T00:00:00Z`) as a [null timestamp equivalent](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#why-does-my-query-return-epoch-0-as-the-timestamp).
@@ -403,7 +403,7 @@ $ curl -XPOST 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE 
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 #### Query string parameters
 
@@ -484,7 +484,7 @@ $ curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-url
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 Invalid credentials:
 
@@ -504,7 +504,7 @@ $ curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urle
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 The following example uses invalid credentials.
 

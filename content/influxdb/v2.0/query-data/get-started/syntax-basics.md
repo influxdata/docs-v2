@@ -231,7 +231,7 @@ cpuUsageUser |> topN(n:5) |> yield()
 
 This query will return the five data points with the highest user CPU usage over the last hour.
 
-_More information about creating custom functions is available in the [Custom functions](/influxdb/v2.0/query-data/guides/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) documentation._
 
 <div class="page-nav-btns">
   <a class="btn prev" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>

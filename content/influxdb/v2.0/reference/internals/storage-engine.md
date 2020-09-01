@@ -31,7 +31,7 @@ The storage engine includes the following components:
 ## Writing data from API to disk
 
 The storage engine handles data from the point an API write request is received through writing data to the physical disk.
-Data is written to InfluxDB using [line protocol](/influxdb/v2.0/reference/line-protocol/) sent via HTTP POST request to the `/write` endpoint.
+Data is written to InfluxDB using [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) sent via HTTP POST request to the `/write` endpoint.
 Batches of [points](/influxdb/v2.0/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 Points are also written to an in-memory cache and become immediately queryable.
 The in-memory cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.

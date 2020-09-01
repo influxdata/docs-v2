@@ -2724,7 +2724,7 @@ the lower bound to `now()` such that the query's time range is between
 The [CLI](/influxdb/v1.5/tools/shell/) returns timestamps in
 nanosecond epoch format by default.
 Specify alternative formats with the
-[`precision <format>` command](/influxdb/v1.5/tools/shell/#influx-commands).
+[`precision <format>` command](/influxdb/v1.5/tools/shell/#commands).
 The [HTTP API](/influxdb/v1.5/tools/api/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the

@@ -24,8 +24,8 @@ related:
 The `tripleEMA()` function calculates the exponential moving average of values in
 the `_value` column grouped into `n` number of points, giving more weight to recent
 data with less lag than
-[`exponentialMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/)
-and [`doubleEMA()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/).
+[`exponentialMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/)
+and [`doubleEMA()`](http://localhost:1313/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/).
 
 _**Function type:** Transformation_  
 

@@ -41,7 +41,7 @@ from(bucket:"example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/influxdb/v2.0/query-data/guides/custom-functions) in your Flux queries.
+You can also [create custom functions](/influxdb/v2.0/query-data/flux/custom-functions) in your Flux queries.
 _Functions are covered in detail in the [Flux functions](/influxdb/v2.0/reference/flux/stdlib) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
@@ -179,7 +179,7 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Window and aggregate data](/influxdb/v2.0/query-data/guides/window-aggregate) guide._
+view the [Window and aggregate data](/influxdb/v2.0/query-data/flux/window-aggregate) guide._
 
 ---
 
