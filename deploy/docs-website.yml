@@ -200,7 +200,7 @@ Resources:
               };
 
             // Remove index.html from path
-            temporaryRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
+            permanantRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
 
             // If file has a valid extension, return the request unchanged
             if (validExtensions[parsedPath.ext]) {
@@ -210,7 +210,7 @@ Resources:
             ////////////////////// START PRODUCT-SPECIFIC REDIRECTS //////////////////////
 
             //////////////////////////// v2 subdomain redirect ///////////////////////////
-            temporaryRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
+            permanantRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
 
             ////////////////////////// Latest version redirects //////////////////////////
             temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
@@ -242,20 +242,20 @@ Resources:
             temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
 
             ////////////////////////////// v2 path redirect //////////////////////////////
-            temporaryRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/${latestVersions['influxdbv2']}/`));
+            permanantRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/v2.0/`));
 
             ////////////////////////// Archive version redirects /////////////////////////
-            temporaryRedirect(/\/influxdb\/(?:v0\.[0-9]{1,2}|v1\.[0-2])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-            temporaryRedirect(/\/telegraf\/(?:v0\.[0-9]{1,2}|v1\.[0-8])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-            temporaryRedirect(/\/chronograf\/(?:v0\.[0-9]{1,2}|v1\.[0-5])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-            temporaryRedirect(/\/kapacitor\/(?:v0\.[0-9]{1,2}|v1\.[0-3])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-            temporaryRedirect(/\/enterprise_influxdb\/v1\.[0-3]\//.test(request.uri), `${archiveDomain}${request.uri}`);
-            temporaryRedirect(/\/enterprise_kapacitor\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/influxdb\/(?:v0\.[0-9]{1,2}|v1\.[0-2])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/telegraf\/(?:v0\.[0-9]{1,2}|v1\.[0-8])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/chronograf\/(?:v0\.[0-9]{1,2}|v1\.[0-5])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/kapacitor\/(?:v0\.[0-9]{1,2}|v1\.[0-3])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/enterprise_influxdb\/v1\.[0-3]\//.test(request.uri), `${archiveDomain}${request.uri}`);
+            permanantRedirect(/\/enterprise_kapacitor\//.test(request.uri), `${archiveDomain}${request.uri}`);
 
             /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
 
             // Redirect to the a trailing slash
-            temporaryRedirect(!request.uri.endsWith('/'), request.uri + '/');
+            permanantRedirect(!request.uri.endsWith('/'), request.uri + '/');
 
             // Use index.html if the path doesn't have an extension
             // or if the version number is parsed as an extension.
