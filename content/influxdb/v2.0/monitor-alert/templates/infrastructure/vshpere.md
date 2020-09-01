@@ -10,7 +10,7 @@ weight: 206
 ---
 
 Use the [vSphere Dashboard for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/vsphere) to monitor your vSphere host. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
-This template uses the [Docker input plugin](/influxdb/v2.0/reference/telegraf-plugins/#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
+This template uses the [Docker input plugin](/{{< latest "telegraf" >}}/plugins//#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
 
 The Docker Monitoring template includes the following:
 

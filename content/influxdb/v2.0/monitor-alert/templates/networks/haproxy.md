@@ -10,7 +10,7 @@ weight: 201
 ---
 
 Use the [HAProxy for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/haproxy) to monitor your HAProxy instances. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
-This template uses the [HAProxy input plugin](/influxdb/v2.0/reference/telegraf-plugins/#haproxy) to collect metrics stored in an HAProxy instance and display these metrics in a dashboard.
+This template uses the [HAProxy input plugin](/{{< latest "telegraf" >}}/plugins//#haproxy) to collect metrics stored in an HAProxy instance and display these metrics in a dashboard.
 
 The HAProxy for InfluxDB v2 template includes the following:
 
