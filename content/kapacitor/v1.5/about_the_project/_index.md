@@ -10,7 +10,7 @@ menu:
 
 Kapacitor is open source and we welcome contributions from the community.
 
-If you want Kapacitor to be able to output to you own endpoint see this [How To](/kapacitor/v1.5/about_the_project/custom_output/).
+If you want Kapacitor to be able to output to you own endpoint see this [How To](/kapacitor/v1.5/working/custom_output/).
 
 ## [Release Notes/Changelog](/kapacitor/v1.5/about_the_project/releasenotes-changelog/)
 

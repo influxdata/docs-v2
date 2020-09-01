@@ -13,7 +13,7 @@ The publish event handler publishes events to another topic.
 
 ## Options
 The following publish event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file).
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file).
 
 | Name   | Type           | Description                            |
 | ----   | ----           | -----------                            |

@@ -57,7 +57,7 @@ This only applies if the `global` is also set to `true`.
 
 ## Options
 The following HipChat event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.hipchat()` in a TICKscript.
 
 | Name  | Type   | Description                                                                               |

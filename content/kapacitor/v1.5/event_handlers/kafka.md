@@ -76,7 +76,7 @@ _This is necessary if using a self-signed certificate._
 
 ## Options
 The following Kafka event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.kafka()` in a TICKscript.
 
 | Name     | Type   | Description                                                       |

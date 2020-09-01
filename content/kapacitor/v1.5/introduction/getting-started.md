@@ -246,7 +246,7 @@ Complete the following steps to ensure log files and communication channels aren
     ```
 
     If a connection error appears, for example: `getsockopt: connection refused` (Linux) or `connectex: No connection could be made...` (Windows),
-    verify the Kapacitor service is running (see [Installing and Starting Kapacitor](#installing-and-starting-kapacitor)).
+    verify the Kapacitor service is running (see [Installing and Starting Kapacitor](/kapacitor/v1.5/introduction/installation/)).
     If Kapacitor is running, check the firewall settings of the host machine and ensure that port `9092` is accessible.
     Also, check messages in `/var/log/kapacitor/kapacitor.log`. If there's an issue with the `http` or other configuration in `/etc/kapacitor/kapacitor.conf`, the issue appears in the log.
     If the Kapacitor service is running on another host machine, set the `KAPACITOR_URL` environment variable in the local shell to the Kapacitor endpoint on the remote machine.

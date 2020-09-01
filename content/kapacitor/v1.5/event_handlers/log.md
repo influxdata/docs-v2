@@ -14,7 +14,7 @@ If the specified log file does not exist, it will be created.
 
 ## Options
 The following log event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.log()` in a TICKscript.
 
 | Name | Type   | Description                    |
