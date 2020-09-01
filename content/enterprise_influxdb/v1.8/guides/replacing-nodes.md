@@ -57,15 +57,15 @@ curl -k https://localhost:8091/status
 
 ### Replace meta nodes in a functional cluster
 
-If all meta nodes in the cluster are fully functional, simply follow the steps for [replacing meta nodes](#replacing-meta-nodes-in-an-influxdb-enterprise-cluster).
+If all meta nodes in the cluster are fully functional, simply follow the steps for [replacing meta nodes](#replace-meta-nodes-in-an-influxdb-enterprise-cluster).
 
 ### Replace an unresponsive meta node
 
-If replacing a meta node that is either unreachable or unrecoverable, you need to forcefully remove it from the meta cluster. Instructions for forcefully removing meta nodes are provided in the [step 2.2](#2-2-remove-the-non-leader-meta-node) of the [replacing meta nodes](#replacing-meta-nodes-in-an-influxdb-enterprise-cluster) process.
+If replacing a meta node that is either unreachable or unrecoverable, you need to forcefully remove it from the meta cluster. Instructions for forcefully removing meta nodes are provided in the [step 2.2](#2-2-remove-the-non-leader-meta-node) of the [replacing meta nodes](#replace-meta-nodes-in-an-influxdb-enterprise-cluster) process.
 
 ### Replace responsive and unresponsive data nodes in a cluster
 
-The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replacing-data-nodes-in-an-influxdb-enterprise-cluster).
+The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replace-data-nodes-in-an-influxdb-enterprise-cluster).
 
 ### Reconnect a data node with a failed disk
 
