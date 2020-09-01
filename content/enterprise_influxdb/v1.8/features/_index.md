@@ -9,6 +9,4 @@ menu:
     weight: 60
 ---
 
-## [InfluxDB Enterprise users](/enterprise_influxdb/v1.8/features/users/)
-## [InfluxDB Enterprise cluster commands](/enterprise_influxdb/v1.8/administration/cluster-commands/)
-## [Clustering features](/enterprise_influxdb/v1.8/features/clustering-features/)
+{{< children hlevel="h2" >}}

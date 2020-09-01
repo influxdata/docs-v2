@@ -22,6 +22,4 @@ process before using the product in a production environment.
 
 Follow the links below to get up and running with InfluxEnterprise.
 
-### [Step 1 - Meta node installation](/enterprise_influxdb/v1.5/production_installation/meta_node_installation/)
-### [Step 2 - Data node installation](/enterprise_influxdb/v1.5/production_installation/data_node_installation/)
-### [Step 3 - Chronograf installation](/enterprise_influxdb/v1.5/production_installation/chrono_install/)
+{{< children hlevel="h2" >}}

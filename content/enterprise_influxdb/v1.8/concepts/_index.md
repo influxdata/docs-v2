@@ -9,5 +9,4 @@ menu:
     weight: 50
 ---
 
-## [Clustering](/enterprise_influxdb/v1.8/concepts/clustering)
-## [Glossary](/enterprise_influxdb/v1.8/concepts/glossary/)
+{{< children hlevel="h2" >}}

@@ -12,17 +12,19 @@ menu:
 
 This section covers the available tools for interacting with InfluxDB.
 
-## [`influx` command line interface (CLI)](/influxdb/v1.7/tools/influx-cli/)
+## `influx` command line interface (CLI)
 
-The InfluxDB command line interface (`influx`) includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
+The [InfluxDB command line interface (`influx`)](/influxdb/v1.7/tools/influx-cli/)
+includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
 
-## [`influxd` command line interface (CLI)](/influxdb/v1.7/tools/influxd-cli/)
+## [`influxd` command line interface (CLI)
 
-The `influxd` command line interface (CLI) starts and runs all the processes necessary for InfluxDB to function.
+The [`influxd` command line interface](/influxdb/v1.7/tools/influxd-cli/) (CLI)
+starts and runs all the processes necessary for InfluxDB to function.
 
-## [InfluxDB API Reference](/influxdb/v1.7/tools/api/)
+## InfluxDB API Reference
 
-Reference documentation for the InfluxDB API.
+Reference documentation for the [InfluxDB HTTP API]((/influxdb/v1.7/tools/api/)).
 
 Go straight to the reference documentation on:
 
@@ -33,17 +35,17 @@ For friendlier documentation, see the guides on
 [writing data](/influxdb/v1.7/guides/writing_data/) and
 [querying data](/influxdb/v1.7/guides/querying_data/) with the InfluxDB API.
 
-## [InfluxDB API client libraries](/influxdb/v1.7/tools/api_client_libraries/)
+## InfluxDB API client libraries
 
-The list of client libraries for interacting with the InfluxDB API.
+The list of [client libraries]((/influxdb/v1.7/tools/api_client_libraries/)) for interacting with the InfluxDB API.
 
-## [Influx Inspect disk shard utility](/influxdb/v1.7/tools/influx_inspect/)
+## Influx Inspect disk shard utility
 
-Influx Inspect is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
+[Influx Inspect]((/influxdb/v1.7/tools/influx_inspect/)) is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
 
-## [InfluxDB inch tool](/influxdb/v1.7/tools/inch/)
+## InfluxDB inch tool
 
-Use the InfluxDB inch tool to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
+Use the [InfluxDB `inch` tool]((/influxdb/v1.7/tools/inch/)) to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
 
 ## Graphs and dashboards
 
