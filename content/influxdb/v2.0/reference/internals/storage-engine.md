@@ -10,6 +10,7 @@ menu:
     name: Storage engine
     parent: InfluxDB Internals
 influxdb/v2.0/tags: [storage, internals]
+products: [oss]
 ---
 
 The InfluxDB storage engine ensures that:
