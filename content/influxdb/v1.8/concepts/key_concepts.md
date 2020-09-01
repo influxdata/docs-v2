@@ -162,7 +162,7 @@ The name `census` tells us that the field values record the number of `butterfli
 
 A single measurement can belong to different retention policies.
 A <a name="retention-policy"></a>_**retention policy**_ describes how long InfluxDB keeps data (`DURATION`) and how many copies of this data is stored in the cluster (`REPLICATION`).
-If you're interested in reading more about retention policies, check out [Database Management](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+If you're interested in reading more about retention policies, check out [Database Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
 {{% /warn %}}
