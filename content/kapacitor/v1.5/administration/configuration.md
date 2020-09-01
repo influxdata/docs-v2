@@ -8,7 +8,7 @@ menu:
 ---
 
  * [Startup](#startup)
- * [Kapacitor configuration file](#the-kapacitor-configuration-file)
+ * [Kapacitor configuration file](#kapacitor-configuration-file)
  * [Kapacitor environment variables](#kapacitor-environment-variables)
  * [Configuring with the HTTP API](#configuring-with-the-http-api)
 

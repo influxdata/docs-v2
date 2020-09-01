@@ -302,7 +302,7 @@ stream
 ```
 
 The API exposes endpoints to query the state of each alert and endpoints for configuring alert handlers.
-See the [API docs](/kapacitor/v1.4/api/api/) for more details.
+See the [API docs](/kapacitor/v1.4/working/api/) for more details.
 The kapacitor CLI has been updated with commands for defining alert handlers.
 
 This release introduces a new feature where you can window based off the number of points instead of their time.
@@ -389,7 +389,7 @@ stream
 
 New API endpoints have been added to be able to configure InfluxDB clusters and alert handlers dynamically without needing to restart the Kapacitor daemon.
 Along with the ability to dynamically configure a service, API endpoints have been added to test the configurable services.
-See the [API docs](/kapacitor/v1.4/api/api/) for more details.
+See the [API docs](/kapacitor/v1.4/working/api/) for more details.
 
 >NOTE: The `connect_errors` stat from the query node was removed since the client changed, all errors are now counted in the `query_errors` stat.
 

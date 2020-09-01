@@ -12,7 +12,7 @@ menu:
 The TCP event handler sends JSON encoded alert data to a TCP endpoint.
 
 ## Options
-The following TCP event handler options can be set in a [handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using `.tcp()` in a TICKscript.
+The following TCP event handler options can be set in a [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using `.tcp()` in a TICKscript.
 
 | Name    | Type   | Description              |
 | ----    | ----   | -----------              |

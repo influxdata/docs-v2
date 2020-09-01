@@ -70,7 +70,7 @@ Only applies if `global` is `true`.
 
 ## Options
 The following Email event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.email()` in a TICKscript.
 
 | Name | Type            | Description              |
