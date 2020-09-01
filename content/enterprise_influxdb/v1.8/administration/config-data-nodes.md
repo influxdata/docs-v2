@@ -692,7 +692,7 @@ Environment variable: `INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD`
 By default, InfluxDB writes system monitoring data to the `_internal` database.
 If that database does not exist, InfluxDB creates it automatically.
 The `DEFAULT` retention policy on the `internal` database is seven days.
-To change the default seven-day retention policy, you must [create](/influxdb/v1.8/query_language/database_management/#retention-policy-management) it.
+To change the default seven-day retention policy, you must [create](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) it.
 
 For InfluxDB Enterprise production systems, InfluxData recommends including a dedicated InfluxDB (OSS) monitoring instance for monitoring InfluxDB Enterprise cluster nodes.
 
