@@ -27,7 +27,6 @@ Each of the available visualization types and available user controls are descri
 
 For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/chronograf/v1.8/guides/annotations/).
 
-
 ### Line Graph
 
 The **Line Graph** view displays a time series in a line graph.
@@ -51,7 +50,6 @@ Use the **Line Graph Controls** to specify the following:
 * **Y-Value's Format**: Toggle between **K/M/B** (Thousand/Million/Billion) and **K/M/G** (Kilo/Mega/Giga).
 * **Scale**: Toggle between **Linear** and **Logarithmic**.
 * **Static Legend**: Toggle between **Show** and **Hide**.
-
 
 #### Line Graph example
 

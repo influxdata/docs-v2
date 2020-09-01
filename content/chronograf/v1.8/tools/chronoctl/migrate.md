@@ -11,8 +11,8 @@ menu:
 
 The `migrate` command lets you migrate your Chronograf configuration store.
 
-By default, Chronograf is delivered with BoltDB as a data store. For information on migrating from BoltDB to an etc cluster as a data store, see [Migrating to a Chronograf HA configuration](/chronograf/v1.8
-/administration/migrate-to-high-availability-etcd/).
+By default, Chronograf is delivered with BoltDB as a data store. For information on migrating from BoltDB to an etc cluster as a data store,
+see [Migrating to a Chronograf HA configuration](/chronograf/v1.8/administration/migrate-to-high-availability).
 
 ## Usage
 ```

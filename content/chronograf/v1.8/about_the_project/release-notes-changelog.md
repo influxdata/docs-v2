@@ -973,7 +973,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1.8/administration/config-options/#p-basepath)
+  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Remove the query templates dropdown from dashboard cell editor mode
   * Fix the backwards sort arrows in table column headers
   * Make the logout button consistent with design
@@ -1002,13 +1002,13 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix the link to home when using the [`--basepath` option](/chronograf/v1.8/administration/config-options/#p-basepath)
+  * Fix the link to home when using the [`--basepath` option](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Remove the notification to login on the login page
   * Support queries that perform math on functions
   * Prevent the creation of blank template variables
   * Ensure thresholds for Kapacitor Rule Alerts appear on page load
   * Update the Kapacitor configuration page when the configuration changes
-  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1.8/administration/config-options/#p-basepath)
+  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Show red indicator on Hosts Page for an offline host
   * Support escaping from presentation mode in Safari
   * Re-implement level colors on the alerts page

@@ -76,13 +76,11 @@ Chronograf-accessed resources include external resources that can be accessed us
 - InfluxDB databases, users, queries, and time series data (if using InfluxDB Enterprise, InfluxDB roles can be accessed too)
 - Kapacitor alerts and alert rules (called tasks in Kapacitor)
 
-
 #### Members (role:`member`)
 
-Members are Chronograf users who have been added to organizations but do not have any functional capabilities. Members cannot access any resources within an organization and thus effectively cannot use Chronograf. Instead, a member can only access Purgatory, where the user can [switch into organizations](#navigating-organizations) based on assigned roles.
+Members are Chronograf users who have been added to organizations but do not have any functional capabilities. Members cannot access any resources within an organization and thus effectively cannot use Chronograf. Instead, a member can only access Purgatory, where the user can [switch into organizations](#navigate-organizations) based on assigned roles.
 
 By default, new organizations have a default role of `member`. If the Default organization is Public, then anyone who can authenticate, would become a member, but not be able to use Chronograf until an administrator assigns a different role.
-
 
 #### Viewers (role:`viewer`)
 
@@ -95,7 +93,7 @@ Viewers are Chronograf users with effectively read-only capabilities for Chronog
 - Access InfluxDB resources through the current connection
 - View the name of the current Kapacitor connection associated with each InfluxDB connection
 - Access Kapacitor resources through the current connection
-- [Switch into organizations](#navigating-organizations) where the user has a role
+- [Switch into organizations](#navigate-organizations) where the user has a role
 
 For Chronograf-accessed resources, viewers can:
 
@@ -121,7 +119,7 @@ Editors are Chronograf users with limited capabilities for Chronograf-owned reso
 - Create, view, edit, and delete Kapacitor connections associated with InfluxDB connections
 - Switch current Kapacitor connection to other available connections
 - Access Kapacitor resources through the current connection
-- [Switch into organizations](#navigating-organizations) where the user has a role
+- [Switch into organizations](#navigate-organizations) where the user has a role
 
 For Chronograf-accessed resources, editors can:
 
@@ -148,7 +146,7 @@ Admins are Chronograf users with all capabilities for the following Chronograf-o
 - Create, view, edit, and delete Kapacitor connections associated with InfluxDB connections
 - Switch current Kapacitor connection to other available connections
 - Access Kapacitor resources through the current connection
-- [Switch into organizations](#navigating-organizations) where the user has a role
+- [Switch into organizations](#navigate-organizations) where the user has a role
 
 For Chronograf-accessed resources, admins can:
 
@@ -169,7 +167,7 @@ SuperAdmin status is a Chronograf status that allows any user, regardless of rol
 * Create, view, update, and remove organizations
 * Create, view, update, and remove users within an organization
 * Grant or revoke the SuperAdmin status of another user
-* [Switch into any organization](#navigating-organizations)
+* [Switch into any organization](#navigate-organizations)
 * Toggle the Public setting of the Default organization
 * Toggle the global config setting for [All new users are SuperAdmin](#all-new-users-are-superadmins-configuration-option)
 
