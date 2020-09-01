@@ -1,5 +1,7 @@
 ---
 title: InfluxDB line protocol reference
+description: >
+  InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 aliases:
     - /influxdb/v1.8/write_protocols/write_syntax/
 menu:
@@ -9,7 +11,7 @@ menu:
     parent: Write protocols
 ---
 
-InfluxDB line protocol is a text based format for writing points to InfluxDB.
+InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 
 ## Line protocol syntax
 
@@ -202,21 +204,21 @@ You must use a backslash character `\` to escape the following special character
   * backslash character
 
 For example, `\"` escapes double quote.
-   
+
 >#### Note on backslashes:
 >
 * If you use multiple backslashes, they must be escaped. Influx interprets backslashes as follows:
-  *	`\` or `\\` interpreted as `\` 
-  *	`\\\` or `\\\\` interpreted as `\\` 
+  *	`\` or `\\` interpreted as `\`
+  *	`\\\` or `\\\\` interpreted as `\\`
   * `\\\\\` or `\\\\\\` interpreted as `\\\`, and so on
 
-* In tag keys, tag values, and field keys, you must escape: 
+* In tag keys, tag values, and field keys, you must escape:
   * commas
   * equal signs
   * spaces
 
 For example, `\,` escapes a comma.
-    
+
 * In measurements, you must escape:
   * commas  
   * spaces

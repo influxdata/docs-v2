@@ -23,8 +23,8 @@ influx task run [command]
 ## Subcommands
 | Subcommand                                         | Description          |
 |:----------                                         |:-----------          |
-| [list](/v2.0/reference/cli/influx/task/run/list)   | List runs for a task |
-| [retry](/v2.0/reference/cli/influx/task/run/retry) | Retry a task         |
+| [list](/influxdb/v2.0/reference/cli/influx/task/run/list)   | List runs for a task |
+| [retry](/influxdb/v2.0/reference/cli/influx/task/run/retry) | Retry a task         |
 
 ## Flags
 | Flag |          | Description                |

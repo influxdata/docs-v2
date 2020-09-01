@@ -36,7 +36,7 @@ If you change an organization name, be sure to update the organization in the ab
 
 ## Update an organization using the influx CLI
 
-Use the [`influx org update` command](/v2.0/reference/cli/influx/org/update)
+Use the [`influx org update` command](/influxdb/v2.0/reference/cli/influx/org/update)
 to update an organization. Updating an organization requires the following:
 
 - The org ID _(provided in the output of `influx org list`)_

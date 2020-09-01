@@ -29,7 +29,7 @@ internal goroutine statistics, write statistics, series cardinality, and others,
 and stores them in the `_internal` database.
 _For the recommendation about `_internal` databases, see [Disable the `_internal` database in production clusters](#disable-the-internal-database-in-production-clusters) below._
 
-[Monitoring dashboards](/platform/monitoring/monitoring-dashboards) are available
+[Monitoring dashboards](/platform/monitoring/influxdata-platform/monitoring-dashboards/) are available
 that visualize the default metrics provided in each of these databases.
 You can also [configure Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/)
 to monitor and alert on each of these metrics.

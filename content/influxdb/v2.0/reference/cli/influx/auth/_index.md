@@ -25,11 +25,11 @@ influx auth [command]
 ## Subcommands
 | Subcommand                                           | Description              |
 |:----------                                           |:-----------              |
-| [active](/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
-| [create](/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
-| [delete](/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |
-| [list](/v2.0/reference/cli/influx/auth/list)         | List authorizations      |
-| [inactive](/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
+| [active](/influxdb/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
+| [create](/influxdb/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
+| [delete](/influxdb/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |
+| [list](/influxdb/v2.0/reference/cli/influx/auth/list)         | List authorizations      |
+| [inactive](/influxdb/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
 
 ## Flags
 | Flag |          | Description                 |

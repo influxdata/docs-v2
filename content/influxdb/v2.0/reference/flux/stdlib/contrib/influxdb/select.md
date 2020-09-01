@@ -101,7 +101,7 @@ Records evaluated in `fn` functions are represented by `r`, short for "record" o
 
 ### host
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/v2.0/reference/urls/)._
+_See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
 
 _**Data type:** String_
 
@@ -111,7 +111,7 @@ Organization name.
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/v2.0/security/tokens/).
+InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
 
 _**Data type:** String_
 

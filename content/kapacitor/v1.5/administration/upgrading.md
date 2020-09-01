@@ -1,5 +1,6 @@
 ---
-title: Upgrading to Kapacitor v1.5
+title: Upgrade to Kapacitor v1.5
+description: Upgrade to the latest version of Kapacitor.
 aliases:
     - kapacitor/v1.5/introduction/upgrading/
 menu:

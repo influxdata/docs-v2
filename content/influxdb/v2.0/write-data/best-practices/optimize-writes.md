@@ -23,9 +23,9 @@ Use these tips to optimize performance and system overhead when writing data to 
 {{% note %}}
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
 
-- [Telegraf](/v2.0/write-data/use-telegraf/)
-- [InfluxDB client libraries](/v2.0/reference/api/client-libraries/)
-- [InfluxDB scrapers](/v2.0/write-data/no-code/scrape-data/)
+- [Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/)
+- [InfluxDB client libraries](/influxdb/v2.0/reference/api/client-libraries/)
+- [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/)
 {{% /note %}}
 
 ## Batch writes
@@ -55,7 +55,7 @@ By default, InfluxDB writes data in nanosecond precision.
 However if your data isn't collected in nanoseconds, there is no need to write at that precision.
 For better performance, use the coarsest precision possible for timestamps.
 
-_Specify timestamp precision when [writing to InfluxDB](/v2.0/write-data/#timestamp-precision)._
+_Specify timestamp precision when [writing to InfluxDB](/influxdb/v2.0/write-data/#timestamp-precision)._
 
 ## Use gzip compression
 
@@ -84,10 +84,10 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 {{% tab-content %}}
 ### Enable gzip compression in InfluxDB client libraries
 
-Each [InfluxDB client library](/v2.0/reference/api/client-libraries/) provides
+Each [InfluxDB client library](/influxdb/v2.0/reference/api/client-libraries/) provides
 options for compressing write requests or enforces compression by default.
 The method for enabling compression is different for each library.
-For specific instructions, see the [InfluxDB client libraries documentation](/v2.0/reference/api/client-libraries/).
+For specific instructions, see the [InfluxDB client libraries documentation](/influxdb/v2.0/reference/api/client-libraries/).
 {{% /tab-content %}}
 {{% tab-content %}}
 ### Use gzip compression with the InfluxDB API

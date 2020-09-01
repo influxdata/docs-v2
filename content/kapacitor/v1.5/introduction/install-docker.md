@@ -1,5 +1,6 @@
 ---
 title: Docker Install
+description: Install Kapacitor with Docker.
 weight: 70
 menu:
   kapacitor_1_5:

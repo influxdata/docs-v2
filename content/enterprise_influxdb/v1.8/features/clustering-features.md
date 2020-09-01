@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise cluster features
+description: Overview of features related to InfluxDB Enterprise clustering. 
 aliases:
     - /enterprise/v1.8/features/clustering-features/
 menu:

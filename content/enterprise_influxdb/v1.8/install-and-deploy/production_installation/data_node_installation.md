@@ -18,7 +18,7 @@ If you have not set up your meta nodes, please visit
 [Installing meta nodes](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 
-<br>
+
 # Data node setup description and requirements
 
 The Production Installation process sets up two [data nodes](/enterprise_influxdb/v1.8/concepts/glossary#data-node)

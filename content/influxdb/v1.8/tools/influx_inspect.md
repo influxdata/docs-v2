@@ -1,6 +1,7 @@
 ---
 title: Influx Inspect disk utility
-description: Use the "influx_inspect" commands to manage InfluxDB disks and shards.
+description: >
+  Use the `influx_inspect` commands to manage InfluxDB disks and shards.
 menu:
   influxdb_1_8:
     weight: 50

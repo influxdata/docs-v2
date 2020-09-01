@@ -1,9 +1,10 @@
 ---
-title: Using pre-created dashboards in Chronograf
-description: Preconfigured dashboards can quickly be used to display metrics for popular applications, including Apache, Consul, Docker, Elasticsearch, InfluxDB, Mesos, MySQL, NGINX, PostgreSQL, RabbitMQ, Redis, and more
+title: Use pre-created dashboards in Chronograf
+description: >
+  Display metrics for popular third-party applications with preconfigured dashboards in Chronograf.
 menu:
   chronograf_1_8:
-    name: Using pre-created dashboards
+    name: Use pre-created dashboards
     weight: 10
     parent: Guides
 ---
@@ -13,13 +14,13 @@ menu:
 
 Pre-created dashboards are delivered with Chronograf depending on which Telegraf input plugins you have enabled and are available from the Host List page. These dashboards, which are built in and not editable, include cells with data visualizations for metrics that are relevant to data sources you are likely to be using.
 
-> Note that these pre-created dashboards cannot be cloned or customized. They appear only  as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts.  For details, see [Dashboard templates](/{{< latest "chronograf" >}}/guides/create-a-dashboard/#dashboard-templates).
+> Note that these pre-created dashboards cannot be cloned or customized. They appear only  as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts. For details, see [Dashboard templates](/chronograf/v1.8/guides/create-a-dashboard/#dashboard-templates).
 
 ## Requirements
 
 The pre-created dashboards automatically appear in the Host List page to the right of hosts based on which Telegraf input plugins you have enabled. Check the list below for applications that you are interested in using and make sure that you have the required Telegraf input plugins enabled.
 
-## Using pre-created dashboards
+## Use pre-created dashboards
 
 Pre-created dashboards are delivered in Chronograf installations and are ready to be used when you have the required Telegraf input plugins enabled.
 
@@ -29,7 +30,7 @@ Pre-created dashboards are delivered in Chronograf installations and are ready t
 2. Select an application listed under **Apps**. By default, the system `app` should be listed next to a host listing. Other apps appear depending on the Telegraf input plugins that you have enabled.
    The selected application appears showing pre-created cells, based on available measurements.
 
-## Creating or editing dashboards
+## Create or edit dashboards
 
 Find a list of apps (pre-created dashboards) available to use with Chronograf below. For each app, you'll find:
 
@@ -37,9 +38,9 @@ Find a list of apps (pre-created dashboards) available to use with Chronograf be
 - JSON files included in the app
 - Cell titles included in each JSON file
 
-The JSON files for apps are included in the `/usr/share/chronograf/canned` directory. Find information about the configuration option `--canned-path` on the [Chronograf configuration options](/{{< latest "chronograf" >}}/administration/config-options/) page.
+The JSON files for apps are included in the `/usr/share/chronograf/canned` directory. Find information about the configuration option `--canned-path` on the [Chronograf configuration options](/chronograf/v1.8/administration/config-options/) page.
 
-Enable and disable apps in your [Telegraf configuration file](by default, `/etc/telegraf/telegraf.conf`). See [Configuring Telegraf](/telegraf/v1.13/administration/configuration/) for details.
+Enable and disable apps in your Telegraf configuration file (by default, `/etc/telegraf/telegraf.conf`). See [Configuring Telegraf](/telegraf/v1.13/administration/configuration/) for details.
 
 ## Apps (pre-created dashboards):
 

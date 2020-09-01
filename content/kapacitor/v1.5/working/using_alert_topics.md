@@ -1,11 +1,12 @@
 ---
-title: Using alert topics
+title: Use alert topics
+description: Set up a simple cpu threshold alert that sends alerts to Slack.
 aliases:
   - /kapacitor/v1.5/examples/using_alert_topics/
   - /kapacitor/v1.5/guides/using_alert_topics/
 menu:
   kapacitor_1_5:
-    name: Alerts - Using Topics
+    name: Alerts - Use Topics
     identifier: using_alert_topics
     weight: 4
     parent: work-w-kapacitor

@@ -1,10 +1,10 @@
 ---
-title: Managing Chronograf security
-description: Managing Chronograf security using authentication and authorization with OAuth 2.0 providers (GitHub, Google, Heroku, Okta, and generic). Also covers TLS and HTTPS setup.
+title: Manage Chronograf security
+description: Manage Chronograf security with OAuth 2.0 providers.
 aliases: /chronograf/v1.8/administration/security-best-practices/
 menu:
   chronograf_1_8:
-    name: Managing Chronograf security
+    name: Manage Chronograf security
     weight: 70
     parent: Administration
 ---
@@ -20,8 +20,8 @@ To enhance security, configure Chronograf to authenticate and authorize with [OA
 ## Configure OAuth 2.0
 
 > After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.
-> You can then set up [multiple organizations](/{{< latest "chronograf" >}}/administration/managing-organizations/)
-> and [users](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
+> You can then set up [multiple organizations](/chronograf/v1.8/administration/managing-organizations/)
+> and [users](/chronograf/v1.8/administration/managing-influxdb-users/).
 
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 

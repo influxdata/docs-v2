@@ -1,9 +1,9 @@
 ---
-title: Connecting Chronograf to InfluxDB Enterprise clusters
-description: Configuration steps for connecting Chronograf to InfluxDB Enterprise clusters and the InfluxData time series platform.
+title: Connect Chronograf to InfluxDB Enterprise clusters
+description: Connect Chronograf to InfluxDB Enterprise.
 menu:
   chronograf_1_7:
-    name: Connecting Chronograf to clusters
+    name: Connect Chronograf to clusters
     weight: 40
     parent: Administration
 ---
@@ -19,4 +19,4 @@ Enter the HTTP bind address of one of your cluster's meta nodes into that input 
 Note that the example above assumes that you do not have authentication enabled.
 If you have authentication enabled, the form requires username and password information.
 
-For details about monitoring InfluxEnterprise clusters, see [Monitoring InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters).
+For details about monitoring InfluxEnterprise clusters, see [Monitoring InfluxDB Enterprise clusters](/chronograf/v1.7/guides/monitoring-influxenterprise-clusters).

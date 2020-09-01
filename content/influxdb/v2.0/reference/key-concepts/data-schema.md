@@ -13,7 +13,7 @@ menu:
 influxdb/v2.0/tags: [key concepts]
 ---
 
-InfluxDB [data elements](/v2.0/reference/key-concepts/data-elements/) are stored in [time-structured merge tree (TSM)](/v2.0/reference/internals/storage-engine/#time-structured-merge-tree-tsm) and [time series index (TSI)](/v2.0/reference/internals/storage-engine/#time-series-index-tsi) files to efficiently compact stored data.
+InfluxDB [data elements](/influxdb/v2.0/reference/key-concepts/data-elements/) are stored in [time-structured merge tree (TSM)](/influxdb/v2.0/reference/internals/storage-engine/#time-structured-merge-tree-tsm) and [time series index (TSI)](/influxdb/v2.0/reference/internals/storage-engine/#time-series-index-tsi) files to efficiently compact stored data.
 
 InfluxDB also provides a **tabular data schema** that includes the following:
 
@@ -25,8 +25,8 @@ InfluxDB also provides a **tabular data schema** that includes the following:
 
 The **tabular data schema is used for the following**:
 
-- To [view raw data](/v2.0/visualize-data/explore-metrics/#view-raw-data) when [exploring metrics with InfluxDB](/v2.0/visualize-data/explore-metrics)
-- To return query results in [annotated CSV syntax](/v2.0/reference/syntax/annotated-csv/)
+- To [view raw data](/influxdb/v2.0/visualize-data/explore-metrics/#view-raw-data) when [exploring metrics with InfluxDB](/influxdb/v2.0/visualize-data/explore-metrics)
+- To return query results in [annotated CSV syntax](/influxdb/v2.0/reference/syntax/annotated-csv/)
 
 ## Annotation rows
 
@@ -49,7 +49,7 @@ The header row defines column labels that describe data in each column, for exam
 
 ## Data rows
 
-Each data row contains the data specified in the header row for one [point](/v2.0/reference/glossary/#point).
+Each data row contains the data specified in the header row for one [point](/influxdb/v2.0/reference/glossary/#point).
 
 ## Other columns
 
@@ -61,4 +61,4 @@ In addition to the columns in each data row (specified in the header row), the f
 
 ## Group keys
 
-Determine the contents of output tables in Flux by grouping records that share common values in specified columns. Learn more about [grouping your data with Flux](/v2.0/query-data/flux/group-data/).
+Determine the contents of output tables in Flux by grouping records that share common values in specified columns. Learn more about [grouping your data with Flux](/influxdb/v2.0/query-data/flux/group-data/).

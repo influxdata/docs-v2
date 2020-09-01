@@ -1,5 +1,7 @@
 ---
 title: OpenTSDB protocol support in InfluxDB
+description: >
+  Use the OpenTSBD plugin to write data to InfluxDB using the OpenTSBD protocol.
 aliases:
     - /influxdb/v1.8/tools/opentsdb/
 menu:

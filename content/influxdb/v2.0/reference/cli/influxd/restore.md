@@ -26,11 +26,11 @@ After `restore` completes, the temporary data is deleted.
 If the restore process fails, InfluxDB preserves the data in the temporary location.
 
 _For information about recovering from a failed restore process, see
-[Restore data](/v2.0/backup-restore/restore/#recover-from-a-failed-restore)._
+[Restore data](/influxdb/v2.0/backup-restore/restore/#recover-from-a-failed-restore)._
 
 By default, `restore` rebuilds the index and series file using the default options
-for [`influxd inspect build-tsi`](/v2.0/reference/cli/influxd/inspect/build-tsi/).
-To customize the [`build-tsi` performance options](/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance),
+for [`influxd inspect build-tsi`](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/).
+To customize the [`build-tsi` performance options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance),
 include `--rebuild-index false` with `influxd restore`, then manually run `influxd inspect build-tsi`.
 
 ## Usage

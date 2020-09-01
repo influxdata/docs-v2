@@ -30,7 +30,7 @@ Tokens are visible only to the user who created them and stop working when the u
 
 ## View tokens using the influx CLI
 
-Use the [`influx auth list` command](/v2.0/reference/cli/influx/auth/list)
+Use the [`influx auth list` command](/influxdb/v2.0/reference/cli/influx/auth/list)
 to view tokens.
 
 ```sh
@@ -38,5 +38,5 @@ influx auth list
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/v2.0/reference/cli/influx/auth/list)
+See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.

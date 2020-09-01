@@ -1,6 +1,7 @@
 ---
 title: Kapacitor HTTP API reference documentation
-description: Use the Kapacitor HTTP API endpoints to control task execution, query statues, and collect troubleshooting data.
+description: >
+  Use the Kapacitor HTTP API endpoints to control task execution, query statues, and collect troubleshooting data.
 aliases:
   - /kapacitor/v1.5/api
   - /kapacitor/v1.5/api/api
@@ -500,7 +501,7 @@ GET /kapacitor/v1/tasks?fields=status&fields=executing&fields=error
 
 ### Custom task HTTP endpoints
 
-In TICKscript, it is possible to expose a cache of recent data via the [HTTPOut](/{{< latest "kapacitor" >}}/nodes/http_out_node/) node.
+In TICKscript, it is possible to expose a cache of recent data via the [HTTPOut](/kapacitor/v1.5/nodes/http_out_node/) node.
 The data is available at the path `/kapacitor/v1/tasks/TASK_ID/ENDPOINT_NAME`.
 
 ### Example

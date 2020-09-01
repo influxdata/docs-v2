@@ -1,5 +1,7 @@
 ---
 title: Configure InfluxDB OSS
+description: >
+  Learn about InfluxDB OSS configuration settings and environment variables.
 menu:
   influxdb_1_8:
     name: Configure InfluxDB
@@ -520,7 +522,7 @@ The `[monitor]` section settings control the InfluxDB [system self-monitoring](h
 By default, InfluxDB writes the data to the `_internal` database.
 If that database does not exist, InfluxDB creates it automatically.
 The `DEFAULT` retention policy on the `_internal` database is seven days.
-If you want to use a retention policy other than the seven-day retention policy, you must [create](/influxdb/v1.8/query_language/database_management/#retention-policy-management) it.
+If you want to use a retention policy other than the seven-day retention policy, you must [create](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) it.
 
 #### `store-enabled = true`
 
@@ -1245,7 +1247,7 @@ min-version = "tls1.3"
 
 max-version = "tls1.3"
 ```
-> **Important:** The order of the cipher suite IDs in the `ciphers` setting determines which algorithms are selected by priority. 
+> **Important:** The order of the cipher suite IDs in the `ciphers` setting determines which algorithms are selected by priority.
 > The TLS `min-version` and the `max-version` settings restrict support to TLS 1.3.
 
 #### `ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", ]`

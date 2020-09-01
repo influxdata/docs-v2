@@ -31,7 +31,7 @@ Only the default organization is available.
 
 ## Create an organization using the influx CLI
 
-Use the [`influx org create` command](/v2.0/reference/cli/influx/org/create)
+Use the [`influx org create` command](/influxdb/v2.0/reference/cli/influx/org/create)
 to create a new organization. A new organization requires the following:
 
 - A name for the organization

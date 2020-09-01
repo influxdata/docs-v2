@@ -1,5 +1,6 @@
 ---
 title: Install InfluxDB OSS
+description: Install, start, and configure InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Install InfluxDB

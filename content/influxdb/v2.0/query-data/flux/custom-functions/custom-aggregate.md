@@ -15,20 +15,20 @@ related:
 ---
 
 To aggregate your data, use the Flux
-[built-in aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
+[built-in aggregate functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
 or create custom aggregate functions using the
-[`reduce()`function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
+[`reduce()`function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
 
 ## Aggregate function characteristics
 Aggregate functions all have the same basic characteristics:
 
 - They operate on individual input tables and transform all records into a single record.
-- The output table has the same [group key](/v2.0/query-data/get-started/#group-keys) as the input table.
+- The output table has the same [group key](/influxdb/v2.0/query-data/get-started/#group-keys) as the input table.
 
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
-the [`fn` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
-The `fn` function maps keys to specific values using two [records](/v2.0/query-data/get-started/syntax-basics/#records)
+the [`fn` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
+The `fn` function maps keys to specific values using two [records](/influxdb/v2.0/query-data/get-started/syntax-basics/#records)
 specified by the following parameters:
 
 | Parameter     | Description                                                             |
@@ -37,7 +37,7 @@ specified by the following parameters:
 | `accumulator` | A record that contains values used in each row's aggregate calculation. |
 
 {{% note %}}
-The `reduce()` function's [`identity` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
+The `reduce()` function's [`identity` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
 defines the initial `accumulator` record.
 {{% /note %}}
 
@@ -132,7 +132,7 @@ to create a transformed table with one row and columns for each mapped key.
 #### What happened to the \_time column?
 The `reduce()` function only keeps columns that are:
 
-1. Are part of the input table's [group key](/v2.0/query-data/get-started/#group-keys).
+1. Are part of the input table's [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
 2. Explicitly mapped in the `fn` function.
 
 It drops all other columns.
@@ -142,13 +142,13 @@ it isn't included in the output table.
 
 ## Custom aggregate function examples
 To create custom aggregate functions, use principles outlined in
-[Creating custom functions](/v2.0/query-data/guides/custom-functions)
+[Creating custom functions](/influxdb/v2.0/query-data/flux/custom-functions)
 and the `reduce()` function to aggregate rows in each input table.
 
 ### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
-The built-in [`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
+The built-in [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
 does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}

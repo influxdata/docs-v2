@@ -3,11 +3,11 @@ title: Explore data in Chronograf
 description: Query and visualize data in the Data Explorer.
 menu:
   chronograf_1_8:
-    name: Exploring data in Chronograf
+    name: Explore data in Chronograf
     weight: 130
     parent: Guides
 ---
-Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/{{< latest "chronograf" >}}/guides/visualization-types/) for your query.
+Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/v1.8/guides/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
@@ -17,7 +17,7 @@ To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 - In the upper-right corner of the page, select the time to view metrics and events by clicking one of the following:
   - **UTC** for Coordinated Universal Time
-  - **Local** for the local time reported by your browser 
+  - **Local** for the local time reported by your browser
 
 > **Note:** If your organization spans multiple time zones, we recommend using UTC (Coordinated Universal Time) to ensure that everyone sees metrics and events for the same time.
 
@@ -66,7 +66,7 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 
 ## Visualize your query
 
-Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/{{< latest "chronograf" >}}/guides/visualization-types/).
+Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/v1.8/guides/visualization-types/).
 
 ## Add queries to dashboards
 

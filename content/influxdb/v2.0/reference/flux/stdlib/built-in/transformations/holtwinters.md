@@ -54,10 +54,10 @@ To ensure `holtWinters()` values are spaced evenly in time, the following rules 
 By default, `holtWinters()` uses the first value in each time bucket to run the Holt-Winters calculation.
 To specify other values to use in the calculation, use:
 
-- [`window()`](/v2.0/reference/flux/stdlib/built-in/transformations/window/)
-  with [selectors](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/)
-  or [aggregates](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
-- [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
+- [`window()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)
+  with [selectors](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/)
+  or [aggregates](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
+- [`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
 
 #### Fitted model
 The `holtWinters()` function applies the [Nelder-Mead optimization](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method)

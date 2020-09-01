@@ -1,11 +1,12 @@
 ---
-title: Creating Chronograf alert rules
-description: Creating Chronograf alert rules, specifying time series data and thresholds. Example sends alerts to a Slack channel.
+title: Create Chronograf alert rules
+description: >
+  Trigger alerts by building Kapacitor alert rules in the Chronograf user interface (UI).
 aliases:
   - /chronograf/v1.8/guides/create-a-kapacitor-alert/
 menu:
   chronograf_1_8:
-    name: Creating alert rules
+    name: Create alert rules
     weight: 60
     parent: Guides
 ---
@@ -26,15 +27,14 @@ This guide walks through creating a Chronograf alert rule that sends an alert me
 
 ## Requirements
 
-[Getting started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
+[Getting started with Chronograf](/chronograf/v1.8/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
 
 * Downloaded and install the entire TICKstack (Telegraf, InfluxDB, Chronograf, and Kapacitor).
 * Configure Telegraf to collect data using the InfluxDB [system statistics](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugin and write data to your InfluxDB instance.
-* [Create a Kapacitor connection in Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/#4-connect-chronograf-to-kapacitor).
-* Slack is available and configured as an [event handler](/{{< latest "chronograf" >}}/troubleshooting/frequently-asked-questions/#what-kapacitor-event-handlers-are-supported-in-chronograf) in Chronograf.
-See the [Configuring Kapacitor Event Handlers](/{{< latest "chronograf" >}}/guides/configuring-alert-endpoints/) guide for detailed configuration instructions.
+* [Create a Kapacitor connection in Chronograf](/chronograf/v1.8/introduction/installation/#connect-chronograf-to-kapacitor).
+* Slack is available and configured as an event handler in Chronograf. See [Configuring Chronograf alert endpoints](/chronograf/v1.8/guides/configuring-alert-endpoints/) for detailed configuration instructions.
 
-## Configuring Chronograf alert rules
+## Configure Chronograf alert rules
 
 Navigate to the **Manage Tasks** page under **Alerting** in the left navigation, then click **+ Build Alert Rule** in the top right corner.
 
@@ -124,7 +124,7 @@ Notice that you can easily enable and disable the rule by toggling the checkbox 
 
 Next, move on to the section below to experience your alert rule in action.
 
-## Viewing alerts in practice
+## View alerts in practice
 
 ### Step 1: Create some load on your system
 

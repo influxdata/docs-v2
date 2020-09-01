@@ -1,6 +1,6 @@
 ---
 title: Chronograf configuration options
-description: Details on configuration settings (command line options and environment variables) for Chronograf services, Kapacitor and InfluxDB connections, and OAuth 2.0 authentication providers.
+description: Review options available in the Chronograf configuration file and environment variables. 
 menu:
   chronograf_1_7:
     name: Configuration options
@@ -78,7 +78,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/{{< latest "chronograf" >}}/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/v1.7/guides/using-precreated-dashboards) files.
 
 Default value: `/usr/share/chronograf/canned`
 

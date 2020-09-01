@@ -1,6 +1,9 @@
 ---
 title: Telegraf output plugins
-descriptions: Use Telegraf output plugins to transform, decorate, and filter metrics. Supported output plugins include Datadog, Elasticsearch, Graphite, InfluxDB, Kafka, MQTT, Prometheus Client, Riemann, and Wavefront.
+descriptions: >
+  Use Telegraf output plugins to transform, decorate, and filter metrics.
+  Supported output plugins include Datadog, Elasticsearch, Graphite, InfluxDB,
+  Kafka, MQTT, Prometheus Client, Riemann, and Wavefront.
 menu:
   telegraf_1_15:
     name: Output

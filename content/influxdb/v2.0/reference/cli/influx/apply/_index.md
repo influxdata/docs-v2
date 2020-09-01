@@ -14,7 +14,7 @@ influxdb/v2.0/tags: [templates]
 
 The `influx apply` command applies InfluxDB templates.
 _For information about finding and using InfluxDB templates, see
-[Use InfluxDB templates](/v2.0/influxdb-templates/use/)._
+[Use InfluxDB templates](/influxdb/v2.0/influxdb-templates/use/)._
 
 ## Usage
 ```

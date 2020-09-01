@@ -1,17 +1,18 @@
 ---
-title: Troubleshooting disk usage
-description: How to identify and troubleshoot high disk usage when using InfluxData's TICK stack.
+title: Troubleshoot high disk usage
+list_title: High disk usage
+description: Identify and troubleshoot high disk usage when using the InfluxData TICK stack.
 menu:
   platform:
     name: Disk usage
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 4
 ---
 
 It's very important that components of your TICK stack do not run out of disk.
 A machine with 100% disk usage will not function properly.
 
-In a [monitoring dashboard](/platform/monitoring/monitoring-dashboards), high disk usage
+In a [monitoring dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/), high disk usage
 will appear in the **Disk Utilization %** metric and look similar to the following:
 
 ![High disk usage](/img/platform/troubleshooting-disk-usage.png)

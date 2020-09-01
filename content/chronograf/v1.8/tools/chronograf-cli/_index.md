@@ -1,6 +1,7 @@
 ---
-title: chronograf cli
-description: The `chronograf` command line interface (CLI) includes options to manage many aspects of Chronograf security.
+title: chronograf CLI
+description: >
+  The `chronograf` command line interface (CLI) includes options to manage many aspects of Chronograf security.
 menu:
   chronograf_1_8:
     name: chronograf CLI

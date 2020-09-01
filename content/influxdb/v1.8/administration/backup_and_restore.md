@@ -1,6 +1,7 @@
 ---
 title: Back up and restore InfluxDB OSS
-description: Using InfluxDB OSS backup and restore utilities for online, Enterprise-compatible use and portability between InfluxDB Enterprise and InfluxDB OSS servers.
+description: >
+  To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
   - /influxdb/v1.8/administration/backup-and-restore/
 menu:
@@ -275,7 +276,7 @@ Optional flags also include:
 
 - `-retention <retention-policy-name>`
   - This flag can be used to backup a specific retention policy. For more information on retention policies, see
-  [Retention policy management](/influxdb/v1.8/query_language/database_management/#retention-policy-management). If unspecified, all retention policies will be backed up.
+  [Retention policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management). If unspecified, all retention policies will be backed up.
 
 - `-shard <shard ID>` - This flag can be used to backup a specific
   shard ID. To see which shards are available, you can run the command

@@ -22,9 +22,9 @@ influx org members [command]
 ## Subcommands
 | Subcommand                                              | Description                |
 |:----------                                              |:-----------                |
-| [add](/v2.0/reference/cli/influx/org/members/add)       | Add organization member    |
-| [list](/v2.0/reference/cli/influx/org/members/list)     | List organization members  |
-| [remove](/v2.0/reference/cli/influx/org/members/remove) | Remove organization member |
+| [add](/influxdb/v2.0/reference/cli/influx/org/members/add)       | Add organization member    |
+| [list](/influxdb/v2.0/reference/cli/influx/org/members/list)     | List organization members  |
+| [remove](/influxdb/v2.0/reference/cli/influx/org/members/remove) | Remove organization member |
 
 ## Flags
 | Flag |          | Description                    |

@@ -55,5 +55,5 @@ toDuration = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[duration()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[duration()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_

@@ -1,6 +1,7 @@
 ---
 title: Exec event handler
-description: The "exec" event handler allows you to execute external programs when Kapacitor alert messages are triggered. This page includes configuration options and usage examples.
+description: >
+  The "exec" event handler allows you to execute external programs when Kapacitor alert messages are triggered. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Exec
@@ -13,7 +14,7 @@ Event data is passed over STDIN to the process.
 
 ## Options
 The following exec event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.exec()` in a TICKscript.
 
 | Name | Type           | Description                       |

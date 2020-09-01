@@ -1,5 +1,6 @@
 ---
 title: TICKscript syntax
+description: Syntax for the TICKscript language.
 aliases:
   - /kapacitor/v1.5/tick/spec/
 menu:

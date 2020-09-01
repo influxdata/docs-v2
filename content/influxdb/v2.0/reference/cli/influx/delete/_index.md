@@ -11,9 +11,9 @@ aliases:
 influxdb/v2.0/tags: [delete]
 ---
 
-The `influx delete` command deletes [points](/v2.0/reference/glossary/#point)
+The `influx delete` command deletes [points](/influxdb/v2.0/reference/glossary/#point)
 from an InfluxDB bucket.
-Identify points to delete using [delete predicate syntax](/v2.0/reference/syntax/delete-predicate).
+Identify points to delete using [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate).
 
 ## Usage
 ```
@@ -35,7 +35,7 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 |      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)                                       | string     | `INFLUX_HOST`        |
 | `-o` | `--org`          | Organization name                                                                                | string     | `INFLUX_ORG`         |
 |      | `--org-id`       | Organization ID                                                                                  | string     | `INFLUX_ORG_ID`      |
-| `-p` | `--predicate`    | InfluxQL-like predicate string (see [Delete predicate](/v2.0/reference/syntax/delete-predicate)) | string     |                      |
+| `-p` | `--predicate`    | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)) | string     |                      |
 |      | `--skip-verify`  | Skip TLS certificate verification                                                                |            |                      |
 |      | `--start`        | Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                       | string     |                      |
 |      | `--stop`         | Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                        | string     |                      |

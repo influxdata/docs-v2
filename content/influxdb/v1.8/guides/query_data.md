@@ -1,5 +1,6 @@
 ---
 title: Query data with the InfluxDB API
+description: Query data with Flux and InfluxQL in the InfluxDB API.
 alias:
   -/docs/v1.8/query_language/querying_data/
 menu:
@@ -105,5 +106,5 @@ While this is useful for debugging or when querying directly with tools like `cu
 
 ### InfluxQL
 
-Check out the [Data Exploration page](/influxdb/v1.8/query_language/data_exploration/) to get acquainted with InfluxQL.
+Check out the [Data Exploration page](/influxdb/v1.8/query_language/explore-data/) to get acquainted with InfluxQL.
 For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/influxdb/v1.8/tools/api/#influxdb-1-x-http-endpoints).

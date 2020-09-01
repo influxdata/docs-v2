@@ -1,9 +1,9 @@
 ---
-title: Creating InfluxDB and Kapacitor connections
-description: Creating and managing InfluxDB and Kapacitor connections for use with Chronograf.
+title: Create InfluxDB and Kapacitor connections
+description: Create and manage InfluxDB and Kapacitor connections in the UI.
 menu:
   chronograf_1_8:
-    name: Creating InfluxDB and Kapacitor connections
+    name: Create InfluxDB and Kapacitor connections
     weight: 50
     parent: Administration
 ---
@@ -15,7 +15,7 @@ Connections to InfluxDB and Kapacitor can be configured through the Chronograf u
 - [Manage Kapacitor connections using the Chronograf UI](#manage-kapacitor-connections-using-the-chronograf-ui)
 - [Manage Kapacitor connections using .kap files](#manage-kapacitor-connections-using-kap-files)
 
-> **Note:** Connection details are stored in Chronograf’s internal database `chronograf-v1.db`. You may administer the internal database when [restoring a Chronograf database](/chronograf/v1.8/administration/restoring-chronograf-db/) or when [migrating a Chronograf configuration from BoltDB to etcd](/chronograf/v1.8/administration/migrate-to-high-availability-etcd/).
+> **Note:** Connection details are stored in Chronograf’s internal database `chronograf-v1.db`. You may administer the internal database when [restoring a Chronograf database](/chronograf/v1.8/administration/restoring-chronograf-db/) or when [migrating a Chronograf configuration from BoltDB to etcd](/chronograf/v1.8/administration/migrate-to-high-availability/).
 
 ## Manage InfluxDB connections using the Chronograf UI
 
@@ -39,7 +39,7 @@ To create an InfluxDB connection in the Chronograf UI:
     * **Make this the default connection**: When this option is selected, this InfluxDB connection will be used when Chronograf is launched.
 
 4. Click **Add Connection**
-   * If the connection is valid, the Dashboards window appears, allowing you to import dashboard templates you can use to display and analyze your data. For details, see [Creating dashboards](/{{< latest "chronograf" >}}/guides/create-a-dashboard).
+   * If the connection is valid, the Dashboards window appears, allowing you to import dashboard templates you can use to display and analyze your data. For details, see [Creating dashboards](/chronograf/v1.8/guides/create-a-dashboard).
    * If the connection cannot be created, the following error message appears:
    "Unable to create source: Error contacting source."
    If this occurs, ensure all connection credentials are correct and that the InfluxDB instance is running and accessible.
@@ -166,7 +166,7 @@ To use Kapacitor in Chronograf, create Kapacitor connections and configure alert
 To create a Kapacitor connection using the Chronograf UI:
 
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
-2. Next to an existing [InfluxDB connection](#managing-influxdb-connections-using-the-chronograf-ui), click **Add Kapacitor Connection** if there are no existing Kapacitor connections or select **Add Kapacitor Connection** in the **Kapacitor Connection** dropdown list.
+2. Next to an existing [InfluxDB connection](#manage-influxdb-connections-using-the-chronograf-ui), click **Add Kapacitor Connection** if there are no existing Kapacitor connections or select **Add Kapacitor Connection** in the **Kapacitor Connection** dropdown list.
   ![Add a new Kapacitor connection in Chronograf](/img/chronograf/1-6-connection-kapacitor.png)
 
 3. In the **Connection Details** section, enter values for the following fields:

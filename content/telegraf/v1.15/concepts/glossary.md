@@ -1,6 +1,6 @@
 ---
 title: Telegraf glossary of terms
-description: This section includes definitions of important terms for related to Telegraf, the plug-in driven server agent component of the InfluxData time series platform.
+description: This section includes definitions of important terms for related to Telegraf.
 menu:
   telegraf_1_15:
     name: Glossary of terms

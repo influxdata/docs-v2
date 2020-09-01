@@ -1,6 +1,6 @@
 ---
 title: Telegraf 1.15 release notes
-description: See the new features, bug fixes, breaking changes, and enhancements in the latest and earlier Telegraf releases.
+description: Important features and changes in the latest version of Telegraf.
 menu:
   telegraf_1_15:
     name: Release notes

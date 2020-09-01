@@ -13,7 +13,7 @@ menu:
     name: Write data
 influxdb/v2.0/tags: [write, line protocol]
 related:
-  - /influxdb/v2.0/write-data/use-telegraf/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/
   - /influxdb/v2.0/api/#tag/Write, InfluxDB API /write endpoint
   - /influxdb/v2.0/reference/syntax/line-protocol
   - /influxdb/v2.0/reference/syntax/annotated-csv
@@ -34,21 +34,21 @@ Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover 
 
 To write data into InfluxDB, you need the following:
 
-- **organization** – _See [View organizations](/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **organization** – _See [View organizations](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
   for instructions on viewing your organization ID._
-- **bucket** – _See [View buckets](/v2.0/organizations/buckets/view-buckets/) for
+- **bucket** – _See [View buckets](/influxdb/v2.0/organizations/buckets/view-buckets/) for
   instructions on viewing your bucket ID._
-- **authentication token** – _See [View tokens](/v2.0/security/tokens/view-tokens/)
+- **authentication token** – _See [View tokens](/influxdb/v2.0/security/tokens/view-tokens/)
   for instructions on viewing your authentication token._
 - **InfluxDB URL** – _See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)_.
 
-The [InfluxDB setup process](/v2.0/get-started/#set-up-influxdb) creates each of these.
+The [InfluxDB setup process](/influxdb/v2.0/get-started/#set-up-influxdb) creates each of these.
 
 Use _line protocol_ format to write data into InfluxDB.
 Each line represents a data point.
-Each point requires a [*measurement*](/v2.0/reference/syntax/line-protocol/#measurement)
-and [*field set*](/v2.0/reference/syntax/line-protocol/#field-set) and may also include
-a [*tag set*](/v2.0/reference/syntax/line-protocol/#tag-set) and a [*timestamp*](/v2.0/reference/syntax/line-protocol/#timestamp).
+Each point requires a [*measurement*](/influxdb/v2.0/reference/syntax/line-protocol/#measurement)
+and [*field set*](/influxdb/v2.0/reference/syntax/line-protocol/#field-set) and may also include
+a [*tag set*](/influxdb/v2.0/reference/syntax/line-protocol/#tag-set) and a [*timestamp*](/influxdb/v2.0/reference/syntax/line-protocol/#timestamp).
 
 Line protocol data looks like this:
 
@@ -60,7 +60,7 @@ mem,host=host1 used_percent=21.83599203 1556892777007291000
 
 #### Timestamp precision
 
-When writing data to InfluxDB, we [recommend including a timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) with each point.
+When writing data to InfluxDB, we [recommend including a timestamp](/influxdb/v2.0/reference/syntax/line-protocol/#timestamp) with each point.
 If a data point does not include a timestamp when it is received by the database,
 InfluxDB uses the current system time (UTC) of its host machine.
 
@@ -74,8 +74,8 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/v2.0/reference/syntax/line-protocol)
-and [Best practices for writing data](/v2.0/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/influxdb/v2.0/reference/syntax/line-protocol)
+and [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)._
 
 ## Quickly start collecting data
 
@@ -98,7 +98,7 @@ types of demo data that let you explore and familiarize yourself with InfluxDB C
 {{% note %}}
 #### Free to use and read-only
 - InfluxDB Cloud demo data buckets are **free to use** and are **_not_ subject to
-  [Free Plan](/v2.0/account-management/pricing-plans/#free-plan) rate limits**.
+  [Free Plan](/influxdb/v2.0/account-management/pricing-plans/#free-plan) rate limits**.
 - Demo data buckets are **read-only**. You cannot write data into demo data buckets.
 {{% /note %}}
 
@@ -136,31 +136,31 @@ After adding a demo data bucket, view the pre-built dashboard specific to the de
 
 {{% note %}}
 #### Other sample data sets
-See [Sample data](/v2.0/reference/sample-data) for more sample InfluxDB data sets.
+See [Sample data](/influxdb/v2.0/reference/sample-data) for more sample InfluxDB data sets.
 {{% /note %}}
 
 ## Quick Start for InfluxDB OSS
 
 Select **Quick Start** in the last step of the InfluxDB user interface's (UI)
-[setup process](/v2.0/get-started/#set-up-influxdb) to quickly start collecting data with InfluxDB.
+[setup process](/influxdb/v2.0/get-started/#set-up-influxdb) to quickly start collecting data with InfluxDB.
 Quick Start creates a data scraper that collects metrics from the InfluxDB `/metrics` endpoint.
 The scraped data provides a robust dataset of internal InfluxDB metrics that you can query, visualize, and process.
 
 ### Use Quick Start to collect InfluxDB metrics
-After [setting up InfluxDB v2.0](/v2.0/get-started/#set-up-influxdb),
+After [setting up InfluxDB v2.0](/influxdb/v2.0/get-started/#set-up-influxdb),
 the "Let's start collecting data!" page displays options for collecting data.
 Click **Quick Start**.
 
-InfluxDB creates and configures a new [scraper](/v2.0/write-data/no-code/scrape-data/).
+InfluxDB creates and configures a new [scraper](/influxdb/v2.0/write-data/no-code/scrape-data/).
 The target URL points to the `/metrics` HTTP endpoint of your local InfluxDB instance
 (for example, `http://localhost:9999/metrics`), which outputs internal InfluxDB
 metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 The scraper stores the scraped metrics in the bucket created during the
-[initial setup process](/v2.0/get-started/#set-up-influxdb).
+[initial setup process](/influxdb/v2.0/get-started/#set-up-influxdb).
 
 {{% note %}}
 Quick Start is only available in the last step of the setup process.
-If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/scrape-data)
+If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
 
@@ -171,8 +171,8 @@ that scrapes data from the `/metrics` endpoint.
 
 There are multiple options for writing data into InfluxDB, including both no-code and developer solutions.
 
-  - [No-code solutions](/v2.0/write-data/no-code)
-  - [Developer tools](/v2.0/write-data/developer-tools)
+  - [No-code solutions](/influxdb/v2.0/write-data/no-code)
+  - [Developer tools](/influxdb/v2.0/write-data/developer-tools)
 
 ---
 
@@ -181,15 +181,15 @@ With your data in InfluxDB, you're ready to do one or more of the following:
 
 ### Query and explore your data
 Query data using Flux, the UI, and the `influx` command line interface.
-See [Query data](/v2.0/query-data/).
+See [Query data](/influxdb/v2.0/query-data/).
 
 ### Process your data
-Use InfluxDB tasks to process and downsample data. See [Process data](/v2.0/process-data/).
+Use InfluxDB tasks to process and downsample data. See [Process data](/influxdb/v2.0/process-data/).
 
 ### Visualize your data
 Build custom dashboards to visualize your data.
-See [Visualize data](/v2.0/visualize-data/).
+See [Visualize data](/influxdb/v2.0/visualize-data/).
 
 ### Monitor your data and send alerts
 Monitor your data and sends alerts based on specified logic.
-See [Monitor and alert](/v2.0/monitor-alert/).
+See [Monitor and alert](/influxdb/v2.0/monitor-alert/).

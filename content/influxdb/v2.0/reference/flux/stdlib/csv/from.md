@@ -37,8 +37,8 @@ Annotated CSV text.
 
 {{% note %}}
 CSV data must use Annotated CSV syntax and include all
-[annotation rows](/v2.0/reference/syntax/annotated-csv/#annotations).
-For more information, see [Annotated CSV](/v2.0/reference/syntax/annotated-csv/).
+[annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
+For more information, see [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
 {{% /note %}}
 
 _**Data type:** String_
@@ -52,7 +52,7 @@ _The CSV file must exist in the same file system running the `fluxd` process._
 {{% warn %}}
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ support the `file` parameter.
 Neither allow access to the underlying filesystem.
-However, the [Flux REPL](/v2.0/reference/cli/influx/repl/) does support the `file` parameter.
+However, the [Flux REPL](/influxdb/v2.0/tools/repl/) does support the `file` parameter.
 {{% /warn %}}
 
 _**Data type:** String_

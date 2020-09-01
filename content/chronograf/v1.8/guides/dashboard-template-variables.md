@@ -1,6 +1,7 @@
 ---
-title: Using dashboard template variables
-description: Chronograf dashboards support template variables that let you modify queries through simple user interactions. Variable types include databases, measurements, field keys, tag keys, tag values, comma-separated values (CSV), maps, custom meta queries, and text.
+title: Use dashboard template variables
+description: >
+  Dashboard variables let you to alter specific components of cells' queries without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 aliases:
   - /chronograf/v1.8/introduction/templating/
   - /chronograf/v1.8/templating/
@@ -10,10 +11,10 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables allow you to alter specific components of cells' queries
+Chronograf's dashboard template variables let you to alter specific components of cells' queries
 without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 
-## Using template variables
+## Use template variables
 Template variables are used in cell queries and titles when creating Chronograf dashboards.
 Within the query, template variables are referenced by surrounding the variable name with colons (`:`).
 
@@ -283,7 +284,7 @@ The customer names would populate your template variable dropdown rather than th
 
 ### Custom Meta Query
 Vary part of a query with a customized meta query that pulls a specific array of values from InfluxDB.
-These variables allow you to pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filtering-template-variables-with-other-template-variables).
+These variables let you pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filter-template-variables-with-other-template-variables).
 
 <img src="/img/chronograf/1-6-template-vars-custom-meta-query.png" style="width:100%;max-width:667px;" alt="Custom meta query"/>
 
@@ -306,7 +307,7 @@ They are great when troubleshooting incidents that affect multiple visualized me
 
 ## Reserved variable names
 The following variable names are reserved and cannot be used when creating template variables.
-Chronograf accepts [template variables as URL query parameters](#defining-template-variables-in-the-url)
+Chronograf accepts [template variables as URL query parameters](#define-template-variables-in-the-url)
 as well as many other parameters that control the display of graphs in your dashboard.
 These names are either [predefined variables](#predefined-template-variables) or would
 conflict with existing URL query parameters.
@@ -319,12 +320,12 @@ conflict with existing URL query parameters.
 `:upper:`  
 `:lower:`  
 `:zoomedUpper:`  
-`:zoomedLower:` 
-`refreshRate:` 
+`:zoomedLower:`
+`refreshRate:`
 
 ## Advanced template variable usage
 
-### Filtering template variables with other template variables
+### Filter template variables with other template variables
 [Custom meta query template variables](#custom-meta-query) allow you to filter the array of potential variable values using other existing template variables.
 
 For example, let's say you want to list all the field keys associated with a measurement, but want to be able to change the measurement:
@@ -352,7 +353,7 @@ The resulting dashboard will work like this:
 
 ![Custom meta query filtering](/img/chronograf/1-6-custom-meta-query-filtering.gif)
 
-### Defining template variables in the URL
+### Define template variables in the URL
 Chronograf uses URL query parameters (also known as query string parameters) to set both display options and template variables in the URL.
 This makes it easy to share links to dashboards so they load in a specific state with specific template variable values selected.
 

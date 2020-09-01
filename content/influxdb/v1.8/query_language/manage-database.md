@@ -1,13 +1,14 @@
 ---
 title: Manage your database using InfluxQL
-description: Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.
+description: >
+  Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.
 menu:
   influxdb_1_8:
     name: Manage your database
     weight: 40
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/query_language/database_management/
+  - /influxdb/v1.8/query_language/manage-database/
 ---
 
 InfluxQL offers a full suite of administrative commands.
@@ -43,7 +44,7 @@ InfluxQL offers a full suite of administrative commands.
   </tr>
 </table>
 
-If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/influxdb/v1.8/query_language/schema_exploration).
+If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/influxdb/v1.8/query_language/explore-schema).
 
 The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/influxdb/v1.8/introduction/getting-started/).
 You can also execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
@@ -71,7 +72,7 @@ CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [S
 The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, and `NAME` clauses are optional and create a single [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) associated with the created database.
 If you do not specify one of the clauses after `WITH`, the relevant behavior defaults to the `autogen` retention policy settings.
 The created retention policy automatically serves as the database's default retention policy.
-For more information about those clauses, see [Retention Policy Management](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+For more information about those clauses, see [Retention Policy Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 A successful `CREATE DATABASE` query returns an empty result.
 If you attempt to create a database that already exists, InfluxDB does nothing and does not return an error.
@@ -122,7 +123,7 @@ and it drops the series from the index.
 
 > **Note:** `DROP SERIES` does not support time intervals in the `WHERE` clause.
 See
-[`DELETE`](/influxdb/v1.8/query_language/database_management/#delete-series-with-delete)
+[`DELETE`](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete)
 for that functionality.
 
 The query takes the following form, where you must specify either the `FROM` clause or the `WHERE` clause:
@@ -152,7 +153,7 @@ A successful `DROP SERIES` query returns an empty result.
 The `DELETE` query deletes all points from a
 [series](/influxdb/v1.8/concepts/glossary/#series) in a database.
 Unlike
-[`DROP SERIES`](/influxdb/v1.8/query_language/database_management/#drop-series-from-the-index-with-drop-series), it does not drop the series from the index and it supports time intervals
+[`DROP SERIES`](/influxdb/v1.8/query_language/manage-database/#drop-series-from-the-index-with-drop-series), it does not drop the series from the index and it supports time intervals
 in the `WHERE` clause.
 
 The query takes the following form where you must include either the `FROM`
@@ -182,7 +183,7 @@ A successful `DELETE` query returns an empty result.
 Things to note about `DELETE`:
 
 * `DELETE` supports
-[regular expressions](/influxdb/v1.8/query_language/data_exploration/#regular-expressions)
+[regular expressions](/influxdb/v1.8/query_language/explore-data/#regular-expressions)
 in the `FROM` clause when specifying measurement names and in the `WHERE` clause
 when specifying tag values.
 * `DELETE` does not support [fields](/influxdb/v1.8/concepts/glossary/#field) in the `WHERE` clause.
@@ -320,7 +321,7 @@ If you attempt to create a retention policy identical to one that already exists
 If you attempt to create a retention policy with the same name as an existing retention policy but with differing attributes, InfluxDB returns an error.
 
 > **Note:** You can also specify a new retention policy in the `CREATE DATABASE` query.
-See [Create a database with CREATE DATABASE](/influxdb/v1.8/query_language/database_management/#create-database).
+See [Create a database with CREATE DATABASE](/influxdb/v1.8/query_language/manage-database/#create-database).
 
 ### Modify retention policies with ALTER RETENTION POLICY
 

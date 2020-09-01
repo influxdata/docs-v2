@@ -26,19 +26,20 @@ Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
 ## Influx REPL
-The [`influx repl` command](/v2.0/reference/cli/influx/repl) starts an interactive
-read-eval-print-loop (REPL) where you can write and execute Flux queries.
+The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
+Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 
-```bash
-influx repl --org org-name
-```
+<!-- TODO: is this still accurate? -->
+<!-- ```bash -->
+<!-- ./flux repl --org org-name -->
+<!-- ``` -->
 
 {{% note %}}
 `ctrl-d` will close the REPL.
 {{% /note %}}
 
 ## Influx query command
-You can pass queries to the [`influx query` command](/v2.0/reference/cli/influx/query)
+You can pass queries to the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query)
 as either a file or raw Flux via stdin.
 
 ###### Run a query from a file
@@ -55,7 +56,7 @@ data = from(bucket: "example-bucket") |> range(start: -10m) # ...
 ```
 
 ## InfluxDB API
-The [InfluxDB v2 API](/v2.0/reference/api) provides a programmatic
+The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic
 interface for all interactions with InfluxDB.
 Query InfluxDB through the `/api/v2/query` endpoint.
 Queried data is returned in annotated CSV format.
@@ -68,7 +69,7 @@ In your request, set the following:
 - `Content-type` header to `application/vnd.flux`.
 - Your plain text query as the request's raw data.
 
-InfluxDB returns the query results in [annotated CSV](/v2.0/reference/syntax/annotated-csv/).
+InfluxDB returns the query results in [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
 
 {{% note %}}
 #### Use gzip to compress the query response

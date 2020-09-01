@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise concepts
+description: Clustering and other key concepts in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/
 menu:
@@ -8,5 +9,4 @@ menu:
     weight: 50
 ---
 
-## [Clustering](/enterprise_influxdb/v1.8/concepts/clustering)
-## [Glossary](/enterprise_influxdb/v1.8/concepts/glossary/)
+{{< children hlevel="h2" >}}

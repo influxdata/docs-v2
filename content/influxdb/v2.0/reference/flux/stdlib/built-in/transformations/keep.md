@@ -14,7 +14,7 @@ weight: 402
 
 The `keep()` function returns a table containing only the specified columns, ignoring all others.
 Only columns in the group key that are also specified in the `keep()` function will be kept in the resulting group key.
-_It is the inverse of [`drop`](/v2.0/reference/flux/stdlib/built-in/transformations/drop)._
+_It is the inverse of [`drop`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/drop)._
 
 _**Function type:** Transformation_  
 _**Output data type:** Record_
@@ -30,7 +30,7 @@ keep(fn: (column) => column =~ /inodes*/)
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### columns

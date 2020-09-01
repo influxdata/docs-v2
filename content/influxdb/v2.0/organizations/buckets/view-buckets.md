@@ -26,7 +26,7 @@ aliases:
 
 ### View buckets using the influx CLI
 
-Use the [`influx bucket list` command](/v2.0/reference/cli/influx/bucket/list)
+Use the [`influx bucket list` command](/influxdb/v2.0/reference/cli/influx/bucket/list)
 to view a buckets in an organization.
 
 ```sh
@@ -34,5 +34,5 @@ influx bucket list
 ```
 
 Other filtering options such as filtering by organization, name, or ID are available.
-See the [`influx bucket list` documentation](/v2.0/reference/cli/influx/bucket/list)
+See the [`influx bucket list` documentation](/influxdb/v2.0/reference/cli/influx/bucket/list)
 for information about other available flags.

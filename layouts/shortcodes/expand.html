@@ -4,6 +4,6 @@
       <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
   </p>
   <div class="expand-content" style="display: none;" >
-      {{ .Inner | safeHTML}}
+      {{ .Inner | markdownify | safeHTML }}
   </div>
 </div>

@@ -1,6 +1,7 @@
 ---
 title: Log event handler
-description: The "log" event handler allows you to send Kapacitor alert messages to a log file. This page includes options and usage examples.
+description: >
+  The "log" event handler allows you to send Kapacitor alert messages to a log file. This page includes options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Log
@@ -13,7 +14,7 @@ If the specified log file does not exist, it will be created.
 
 ## Options
 The following log event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.log()` in a TICKscript.
 
 | Name | Type   | Description                    |

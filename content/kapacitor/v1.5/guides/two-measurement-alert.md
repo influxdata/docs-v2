@@ -1,6 +1,7 @@
 ---
-title: Triggering alerts by comparing two measurements
-description: Kapacitor allows you to create alerts triggered by comparisons between two or more measurements. This guide walks through how to join the measurements, trigger alerts, and create visualizations for the data comparison.
+title: Trigger alerts by comparing two measurements
+description: >
+  Kapacitor allows you to create alerts triggered by comparisons between two or more measurements. This guide walks through how to join the measurements, trigger alerts, and create visualizations for the data comparison.
 menu:
   kapacitor_1_5:
     name: Alerts based on two measurements
@@ -16,7 +17,7 @@ As an added bonus, we'll also include a query that can be used to graph the perc
 difference between the two measurements.
 
 ## Comparing measurements and creating an alert
-The following [TICKscript](/{{< latest "kapacitor" >}}/tick/) streams the `m1` and `m2` measurements,
+The following [TICKscript](/kapacitor/v1.5/tick/) streams the `m1` and `m2` measurements,
 joins them, compares them, and triggers an alert if the two measurements are different.
 
 ```js

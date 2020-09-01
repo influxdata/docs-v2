@@ -8,7 +8,7 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/{{< latest "chronograf" >}}/querying-data) . 
+Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/v1.7/guides/querying-data).
 
 [Visualization Type selector](/img/chronograf/1-6-viz-types-selector.png)
 
@@ -25,7 +25,6 @@ Each of the available visualization types and available user controls are descri
 * [Note](#note)
 
 For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/chronograf/v1.7/guides/annotations/).
-
 
 ### Line Graph
 

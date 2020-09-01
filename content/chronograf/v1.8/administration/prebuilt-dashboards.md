@@ -1,6 +1,6 @@
 ---
 title: Prebuilt dashboards in Chronograf
-description: Prebuilt dashboards available to import based on Telegraf input plugins.
+description: Import prebuilt dashboards into Chronograf based on Telegraf plugins.
 menu:
   chronograf_1_8:
     name: Prebuilt dashboards in Chronograf
@@ -9,7 +9,7 @@ menu:
 ---
 Chronograf lets you import a variety of prebuilt dashboards that visualize metrics collect by specific [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/plugin-list). The following Telegraf-related dashboards templates are available.
 
-For details on how to import dashboards while adding a connection in Chronograf, see [Creating connections](/chronograf/v1.8/administration/creating-connections/#managing-influxdb-connections-using-the-chronograf-ui).
+For details on how to import dashboards while adding a connection in Chronograf, see [Creating connections](/chronograf/v1.8/administration/creating-connections/#manage-influxdb-connections-using-the-chronograf-ui).
 
 ## Docker
 

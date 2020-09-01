@@ -2,7 +2,7 @@
 title: View InfluxDB stacks
 list_title: View stacks
 description: >
-  Use the [`influx stacks` command](/v2.0/reference/cli/influx/stacks/)
+  Use the [`influx stacks` command](/influxdb/v2.0/reference/cli/influx/stacks/)
   to view installed InfluxDB stacks and their associated resources.
 menu:
   influxdb_2_0:
@@ -19,7 +19,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`influx stacks` command](/v2.0/reference/cli/influx/stacks/)
+Use the [`influx stacks` command](/influxdb/v2.0/reference/cli/influx/stacks/)
 to view installed InfluxDB stacks and their associated resources.
 
 **Provide the following:**

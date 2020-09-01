@@ -22,10 +22,10 @@ influx bucket [command]
 ## Subcommands
 | Subcommand                                         | Description   |
 |:----------                                         |:-----------   |
-| [create](/v2.0/reference/cli/influx/bucket/create) | Create bucket |
-| [delete](/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
-| [list](/v2.0/reference/cli/influx/bucket/find)     | List buckets  |
-| [update](/v2.0/reference/cli/influx/bucket/update) | Update bucket |
+| [create](/influxdb/v2.0/reference/cli/influx/bucket/create) | Create bucket |
+| [delete](/influxdb/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
+| [list](/influxdb/v2.0/reference/cli/influx/bucket/list)     | List buckets  |
+| [update](/influxdb/v2.0/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags
 | Flag |                  | Description                                                           | Input type | {{< cli/mapped >}}   |

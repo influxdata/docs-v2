@@ -1,12 +1,9 @@
 ---
-title: Troubleshooting Kapacitor
+title: Troubleshoot Kapacitor
 menu:
   kapacitor_1_5:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 110
 ---
 
-## [Frequently asked questions](/kapacitor/v1.5/troubleshooting/frequently-asked-questions/)
-
-This page addresses frequent sources of confusion or important things to know related to Kapacitor.
-Where applicable, it links to outstanding issues on Github.
+{{< children hlevel="h2" >}}

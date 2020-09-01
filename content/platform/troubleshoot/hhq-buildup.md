@@ -5,7 +5,7 @@ draft: true
 menu:
   platform:
     name: Hinted Handoff Queue buildup
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 3
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Sensu event handler
-description: The Sensu event handler allows you to send Kapacitor alerts to Sensu. This page includes configuration options and usage examples.
+description: >
+  The Sensu event handler allows you to send Kapacitor alerts to Sensu. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Sensu
@@ -40,7 +41,7 @@ List of [Sensu handlers](https://docs.sensu.io/sensu-core/1.3/guides/intro-to-ha
 
 ## Options
 The following Sensu event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.sensu()` in a TICKscript.
 
 | Name     | Type                   | Description                                                                 |

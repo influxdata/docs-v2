@@ -15,7 +15,7 @@ related:
 ---
 
 The `experimental.group()` function introduces an `extend` mode to the existing
-[`group()`](/v2.0/reference/flux/stdlib/built-in/transformations/group/) function.
+[`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/) function.
 
 _**Function type:** Transformation_
 
@@ -48,7 +48,7 @@ _**Data type:** String_
 
 #### extend
 Appends columns defined in the [`columns` parameter](#columns) to all existing
-[group keys](/v2.0/query-data/get-started/#group-keys).
+[group keys](/influxdb/v2.0/query-data/get-started/#group-keys).
 
 ## Examples
 

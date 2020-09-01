@@ -31,9 +31,9 @@ To keep empty tables in your data, set the following parameters for the followin
 
 | Function                                                                                              | Parameter           |
 |:--------                                                                                              |:---------           |
-| [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
-| [window()](/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
-| [aggregateWindow()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
+| [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
+| [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
+| [aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
 ## Parameters

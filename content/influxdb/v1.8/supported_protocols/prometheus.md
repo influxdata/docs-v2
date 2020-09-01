@@ -1,6 +1,6 @@
 ---
 title: Prometheus endpoints support in InfluxDB
-
+description: Read and write Prometheus data in InfluxDB.
 menu:
   influxdb_1_8:
     name: Prometheus

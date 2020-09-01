@@ -1,7 +1,7 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+  Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
   configuration flags, setting environment variables, or defining configuration
   options in a configuration file.
 menu:
@@ -15,7 +15,7 @@ related:
   - /influxdb/v2.0/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
@@ -93,7 +93,7 @@ Only non-default settings need to be defined in the configuration file.
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
-[`influxd` service](/v2.0/reference/cli/influxd):
+[`influxd` service](/influxdb/v2.0/reference/cli/influxd):
 
 - [assets-path](#assets-path)
 - [bolt-path](#bolt-path)

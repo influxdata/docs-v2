@@ -1,6 +1,6 @@
 ---
 title: Introducing the TICKscript language
-
+description: Overview of the TICKscript language in Kapacitor.
 menu:
   kapacitor_1_5_ref:
     name: Introduction

@@ -1,6 +1,7 @@
 ---
 title: InfluxDB API reference
-description: Use the InfluxDB API endpoints to run queries, write data, check server status, and troubleshoot by tracking HTTP client requests, collecting server statistics, and using Go "pprof" profiles.
+description: >
+  Use the InfluxDB API endpoints to run queries, write data, check server status, and troubleshoot by tracking HTTP client requests, collecting server statistics, and using Go "pprof" profiles.
 aliases:
     - /influxdb/v1.8/concepts/api/
 menu:
@@ -354,7 +355,7 @@ POST http://localhost:8086/query
 | GET   | Use for all queries that start with: <br><br> [`SELECT`](/influxdb/v1.8/query_language/spec/#select)* <br><br> [`SHOW`](/influxdb/v1.8/query_language/spec/#show-continuous-queries)   |
 | POST  | Use for all queries that start with: <br><br> [`ALTER`](/influxdb/v1.8/query_language/spec/#alter-retention-policy) <br><br> [`CREATE`](/influxdb/v1.8/query_language/spec/#create-continuous-query) <br><br> [`DELETE`](/influxdb/v1.8/query_language/spec/#delete) <br><br> [`DROP`](/influxdb/v1.8/query_language/spec/#drop-continuous-query) <br><br> [`GRANT`](/influxdb/v1.8/query_language/spec/#grant) <br><br> [`KILL`](/influxdb/v1.8/query_language/spec/#kill-query) <br><br> [`REVOKE`](/influxdb/v1.8/query_language/spec/#revoke) |
 
-\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/influxdb/v1.8/query_language/data_exploration/#the-into-clause).
+\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause).
 Those `SELECT` queries require a `POST` request.
 
 #### Examples
@@ -389,7 +390,7 @@ $ curl -XPOST 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *
 {"results":[{"statement_id":0,"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",2]]}]}]}
 ```
 
-`SELECT` queries that include and [`INTO` clause](/influxdb/v1.8/query_language/data_exploration/#the-into-clause) require a `POST` request.
+`SELECT` queries that include and [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause) require a `POST` request.
 
 The response shows that InfluxDB writes two points to the `newmeas` [measurement](/influxdb/v1.8/concepts/glossary/#measurement).
 Note that the system uses epoch 0 (`1970-01-01T00:00:00Z`) as a [null timestamp equivalent](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#why-does-my-query-return-epoch-0-as-the-timestamp).
@@ -402,7 +403,7 @@ $ curl -XPOST 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE 
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 #### Query string parameters
 
@@ -483,7 +484,7 @@ $ curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-url
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 Invalid credentials:
 
@@ -503,7 +504,7 @@ $ curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urle
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/database_management/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
 
 The following example uses invalid credentials.
 
@@ -940,7 +941,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/{{< latest "influxdb" "v1" >}}/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/influxdb/v1.8/administration/config/#max-body-size-25000000) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples

@@ -1,10 +1,11 @@
 ---
-title: Troubleshooting out-of-memory loops
-description: How to identify and troubleshoot out-of-memory (OOM) loops when using InfluxData's TICK stack.
+title: Troubleshoot out-of-memory loops
+list_title: Out-of-memory loops
+description: Identify and troubleshoot out-of-memory (OOM) loops when using the InfluxData TICK stack.
 menu:
   platform:
     name: Out-of-memory loops
-    parent: Troubleshooting issues
+    parent: Troubleshoot
     weight: 1
 ---
 
@@ -13,7 +14,7 @@ of memory until the operating system is forced to kill and restart the process.
 When the process is killed, memory allocated to the process is released, but after
 restarting, it continues to use more and more RAM until the cycle repeats.
 
-In a [monitoring dashboard](/platform/monitoring/monitoring-dashboards), an OOM loop
+In a [monitoring dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/), an OOM loop
 will appear in the **Memory Usage %** metric and look similar to the following:
 
 ![OOM Loop](/img/platform/troubleshooting-oom-loop.png)

@@ -6,13 +6,13 @@ menu:
     weight: 10
 ---
 
-## [InfluxDB Enterprise release notes](/enterprise_influxdb/v1.5/about-the-project/release-notes-changelog/)
+{{< children hlevel="h2" >}}
 
-The [InfluxDB Enterprise release notes](/enterprise_influxdb/v1.5/about-the-project/release-notes-changelog/) includes details about features, bug fixes, and breaking changes for current and earlier InfluxDB Enterprise releases.
+## InfluxData Software License Subscription Agreement (SLSA)
 
-## [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/)
+InfluxDB Enterprise is available with a commercial license based on the [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/).
 
-InfluxDB Enterprise is available with a commercial license based on the [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/).  [Contact sales for more information](https://www.influxdata.com/contact-sales/).
+[Contact sales for more information](https://www.influxdata.com/contact-sales/).
 
 ## Third party software
 

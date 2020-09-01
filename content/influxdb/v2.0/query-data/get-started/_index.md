@@ -83,7 +83,7 @@ are unique to each row.
 
 ## Tools for working with Flux
 
-The [Execute queries](/v2.0/query-data/execute-queries) guide walks through
+The [Execute queries](/influxdb/v2.0/query-data/execute-queries) guide walks through
 the different tools available for querying InfluxDB with Flux.
 
 <div class="page-nav-btns">

@@ -1,5 +1,7 @@
 ---
 title: Back up and restore InfluxDB Enterprise clusters
+description: >
+  Back up and restore InfluxDB enterprise clusters in case of unexpected data loss.
 aliases:
     - /enterprise/v1.8/guides/backup-and-restore/
 menu:
@@ -418,7 +420,7 @@ The unintended data, however, include only the metastore information, not the sh
 
 InfluxDB Enterprise introduced incremental backups in version 1.2.0.
 To restore a backup created prior to version 1.2.0, be sure to follow the syntax
-for [restoring from a full backup](#syntax-to-restore-from-a-full-backup).
+for [restoring from a full backup](#restore-from-a-full-backup).
 
 ## Exporting and importing data
 
