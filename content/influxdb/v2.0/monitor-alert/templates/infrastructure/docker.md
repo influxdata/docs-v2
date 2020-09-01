@@ -10,7 +10,7 @@ weight: 202
 ---
 
 Use the [Docker Monitoring template](https://github.com/influxdata/community-templates/tree/master/docker) to monitor your Docker containers. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
-This template uses the [Docker input plugin](/influxdb/v2.0/reference/telegraf-plugins/#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
+This template uses the [Docker input plugin](/{{< latest "telegraf" >}}/plugins//#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
 
 The Docker Monitoring template includes the following:
 
@@ -38,7 +38,7 @@ For more information about how checks, notification endpoints, and notifications
 
 2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the Docker containers and [InfluxDB v2 API](/influxdb/v2.0/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.0/telegraf-configs/), do the following:
-    - Depending on how you run Docker, you may need to customize the [Docker input plugin](/influxdb/v2.0/reference/telegraf-plugins/#docker) configuration, for example, you may need to specify the `endpoint` value.
+    - Depending on how you run Docker, you may need to customize the [Docker input plugin](/{{< latest "telegraf" >}}/plugins//#docker) configuration, for example, you may need to specify the `endpoint` value.
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2.0/security/tokens/view-tokens/).
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2.0/organizations/view-orgs/).

@@ -60,14 +60,14 @@ It displays the following information:
 - Scoreboard
 
 #### Plugins
-- [`apache` plugin](/influxdb/v2.0/reference/telegraf-plugins/#apache)
-- [`cpu` plugin](/influxdb/v2.0/reference/telegraf-plugins/#cpu)
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
-- [`diskio` plugin](/influxdb/v2.0/reference/telegraf-plugins/#diskio)
-- [`mem` plugin](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-- [`net` plugin](/influxdb/v2.0/reference/telegraf-plugins/#net)
-- [`netstat` plugin](/influxdb/v2.0/reference/telegraf-plugins/#netstat)
-- [`system` plugin](/influxdb/v2.0/reference/telegraf-plugins/#system)
+- [`apache` plugin](/{{< latest "telegraf" >}}/plugins//#apache)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins//#cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins//#diskio)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins//#mem)
+- [`net` plugin](/{{< latest "telegraf" >}}/plugins//#net)
+- [`netstat` plugin](/{{< latest "telegraf" >}}/plugins//#netstat)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins//#system)
 
 ### Docker
 The Docker dashboard template contains an overview of Docker metrics.
@@ -94,13 +94,13 @@ It displays the following information:
 
 #### Plugins
 
-- [`cpu` plugin](/influxdb/v2.0/reference/telegraf-plugins/#cpu)
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
-- [`diskio` plugin](/influxdb/v2.0/reference/telegraf-plugins/#diskio)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins//#cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins//#diskio)
 - [`docker` plugin](//v2.0/reference/telegraf-plugins/#docker)
-- [`mem` plugin](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-- [`swap` plugin](/influxdb/v2.0/reference/telegraf-plugins/#swap)
-- [`system` plugin](/influxdb/v2.0/reference/telegraf-plugins/#system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins//#mem)
+- [`swap` plugin](/{{< latest "telegraf" >}}/plugins//#swap)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins//#system)
 
 ### Getting Started with Flux
 This dashboard is designed to get you started with the Flux language.
@@ -115,8 +115,8 @@ It contains explanations and visualizations for a series of increasingly complex
 
 #### Plugins
 
-- [`cpu` plugin](/influxdb/v2.0/reference/telegraf-plugins/#cpu)
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins//#cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
 
 ### GitHub Data
 The GitHub Data dashboard template displays data related to GitHub repositories:
@@ -132,7 +132,7 @@ The GitHub Data dashboard template displays data related to GitHub repositories:
 - Summary
 
 #### Plugins
-- [`github` plugin](/influxdb/v2.0/reference/telegraf-plugins/#github)
+- [`github` plugin](/{{< latest "telegraf" >}}/plugins//#github)
 
 
 ### InfluxDB 2.0 OSS Metrics
@@ -192,7 +192,7 @@ It displays the following information:
 - Running Containers
 
 #### Plugins
-- [`kubernetes` plugin](/influxdb/v2.0/reference/telegraf-plugins/)
+- [`kubernetes` plugin](/{{< latest "telegraf" >}}/plugins//)
 
 ### Nginx
 The Nginx dashboard gives a visual overview of Nginx metrics.
@@ -214,13 +214,13 @@ It displays the following information:
 
 
 #### Plugins
-- [`cpu` plugin](/influxdb/v2.0/reference/telegraf-plugins/#cpu)
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
-- [`diskio` plugin](/influxdb/v2.0/reference/telegraf-plugins/#diskio)
-- [`mem` plugin](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-- [`nginx` plugin](/influxdb/v2.0/reference/telegraf-plugins/#nginx)
-- [`swap` plugin](/influxdb/v2.0/reference/telegraf-plugins/#swap)
-- [`system` plugin](/influxdb/v2.0/reference/telegraf-plugins/#system)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins//#cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins//#diskio)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins//#mem)
+- [`nginx` plugin](/{{< latest "telegraf" >}}/plugins//#nginx)
+- [`swap` plugin](/{{< latest "telegraf" >}}/plugins//#swap)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins//#system)
 
 ### Redis
 The Redis dashboard gives a visual overview of Nginx metrics.
@@ -246,12 +246,12 @@ It displays the following information:
 - Redis uptime
 
 #### Plugins
-- [`cpu` plugin](/influxdb/v2.0/reference/telegraf-plugins/#cpu)
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
-- [`mem` plugin](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-- [`redis` plugin](/influxdb/v2.0/reference/telegraf-plugins/#redis)
-- [`swap` plugin](/influxdb/v2.0/reference/telegraf-plugins/#swap)
-- [`system` plugin](/influxdb/v2.0/reference/telegraf-plugins/#system)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins//#cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins//#mem)
+- [`redis` plugin](/{{< latest "telegraf" >}}/plugins//#redis)
+- [`swap` plugin](/{{< latest "telegraf" >}}/plugins//#swap)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins//#system)
 
 
 ### System
@@ -272,9 +272,9 @@ It displays the following information:
 - Swap
 
 #### Plugins
-- [`disk` plugin](/influxdb/v2.0/reference/telegraf-plugins/#disk)
-- [`diskio` plugin](/influxdb/v2.0/reference/telegraf-plugins/#diskio)
-- [`mem` plugin](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-- [`net` plugin](/influxdb/v2.0/reference/telegraf-plugins/#net)
-- [`swap` plugin](/influxdb/v2.0/reference/telegraf-plugins/#swap)
-- [`system` plugin](/influxdb/v2.0/reference/telegraf-plugins/#system)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins//#disk)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins//#diskio)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins//#mem)
+- [`net` plugin](/{{< latest "telegraf" >}}/plugins//#net)
+- [`swap` plugin](/{{< latest "telegraf" >}}/plugins//#swap)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins//#system)
