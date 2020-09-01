@@ -56,7 +56,7 @@ The following two vectors determine pricing:
 
 - **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
 - **Query count** is the total number of individual query operations. Each individual operation — including
-queries, tasks, alert checks, notifications, and Data Explorer activity — is one billable query operation. Refreshing a dashboard with multiple cells counts as multiple query operations. Failed query or task executions do not add to your query count.
+queries, tasks, alert checks, notifications, and Data Explorer activity — is one billable query operation. Refreshing a dashboard with multiple cells counts as one query operation per cell. A query run through an API request counts as an operation. Failed query or task executions do not add to your query count.
 
 
 ### Usage-Based Plan rate limits
