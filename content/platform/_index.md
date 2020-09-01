@@ -13,7 +13,7 @@ weight: 1
 
 ## InfluxData 1.x
 
-The **InfluxData 1.x platform** includes the following open source components ([TICK stack](#tick-stack-components)):
+The **InfluxData 1.x platform** includes the following open source components ([TICK stack](#influxdata-1-x-tick-stack)):
 
   - [Telegraf](#telegraf): collect data
   - [InfluxDB](#influxdb): store data
