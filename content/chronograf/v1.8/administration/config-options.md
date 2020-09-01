@@ -400,10 +400,9 @@ Lists are comma-separated.
 
 **Environment variable:** `$HEROKU_ORGS`
 
-
 ### Generic OAuth 2.0 authentication options
 
-See [Configuring Generic authentication](/chronograf/v1.8/administration/managing-security/#configure-generic-authentication) for more information.
+See [Configure OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-oauth-2-0) for more information.
 
 #### `--generic-name=`
 
