@@ -52,7 +52,7 @@ For information about installing and setting up meta nodes, see
 
 {{% note %}}
 #### Add the OSS instance to the meta /etc/hosts files
-When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.7/install-and-deploy/production_installation/meta_node_installation/#step-1-modify-the-etc-hosts-file)
+When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.7/install-and-deploy/production_installation/meta_node_installation/#step-1-add-appropriate-dns-entries-for-each-of-your-servers)
 on each meta node, include the IP and host name of your InfluxDB OSS instance so
 meta nodes can communicate with the OSS instance.
 {{% /note %}}

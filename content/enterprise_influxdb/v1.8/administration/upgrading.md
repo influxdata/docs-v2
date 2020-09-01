@@ -1,6 +1,6 @@
 ---
 title: Upgrade InfluxDB Enterprise clusters
-description: Upgrade to the latest version of InfluxDB Enterprise. 
+description: Upgrade to the latest version of InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/administration/upgrading/
 menu:
@@ -68,7 +68,7 @@ sudo yum localinstall influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
 
 Migrate any custom settings from your previous meta node configuration file.
 
-To enable HTTPS, you must update the meta node configuration file (`influxdb-meta.conf`). For information, see [Enable HTTPS within the configuration file for each Meta Node](/enterprise_influxdb/v1.8/guides/https_setup/#step-3-enable-https-within-the-configuration-file-for-each-meta-node).
+To enable HTTPS, you must update the meta node configuration file (`influxdb-meta.conf`). For information, see [Enable HTTPS within the configuration file for each Meta Node](/enterprise_influxdb/v1.8/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
 
 ### Restart the `influxdb-meta` service
 
@@ -165,7 +165,7 @@ sudo yum localinstall influxdb-data-1.8.0_c1.8.0.x86_64.rpm
 
 Migrate any custom settings from your previous data node configuration file.
 
-- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](/enterprise_influxdb/v1.8/guides/https_setup/#step-4-enable-https-within-the-configuration-file-for-each-data-node).
+- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](/enterprise_influxdb/v1.8/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
 
 - To enable TSI, open `/etc/influxdb/influxdb.conf`, and then adjust and save the settings shown in the following table.
 
