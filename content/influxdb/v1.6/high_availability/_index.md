@@ -7,9 +7,4 @@ menu:
     weight: 100
 ---
 
-## [Clustering with InfluxDB Enterprise](/influxdb/v1.6/high_availability/clusters/)
-
-InfluxDB OSS does not support clustering.
-For high availability or horizontal scaling of InfluxDB, consider the InfluxData
-commercial clustered offering,
-[InfluxDB Enterprise](https://portal.influxdata.com/).
+{{< children hlevel="h2" >}}

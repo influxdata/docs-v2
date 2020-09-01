@@ -8,8 +8,4 @@ menu:
     weight: 60
 ---
 
-## [InfluxDB Enterprise users](/enterprise_influxdb/v1.5/features/users/)
-
-## [Clustering features](/enterprise_influxdb/v1.5/features/clustering-features/)
-
-The [Clustering features](/enterprise_influxdb/v1.5/features/clustering-features/) section covers topics important to
+{{< children hlevel="h2" >}}

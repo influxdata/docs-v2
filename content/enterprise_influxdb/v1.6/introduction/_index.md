@@ -12,8 +12,4 @@ menu:
 
 To get up and running with InfluxDB Enterprise, complete the following tasks:
 
-## [Download InfluxDB Enterprise](/enterprise_influxdb/v1.6/introduction/download/)
-
-## [Install InfluxDB Enterprise](/enterprise_influxdb/v1.6/introduction/installation_guidelines/)
-
-## [Get started with InfluxDB Enterprise](/enterprise_influxdb/v1.6/introduction/getting-started/)
+{{< children hlevel="h2" >}}
