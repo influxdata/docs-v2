@@ -12,7 +12,7 @@ menu:
 It's very important that components of your TICK stack do not run out of disk.
 A machine with 100% disk usage will not function properly.
 
-In a [monitoring dashboard](/platform/monitoring/monitoring-dashboards), high disk usage
+In a [monitoring dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/), high disk usage
 will appear in the **Disk Utilization %** metric and look similar to the following:
 
 ![High disk usage](/img/platform/troubleshooting-disk-usage.png)
