@@ -93,7 +93,7 @@ The timezone We'll set this to the Unix TZ value where our bike data takes place
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/v1.14/introduction/getting-started/#start-the-telegraf-service).
+[Start the Telegraf service](/telegraf/v1.14/introduction/getting-started/#start-telegraf-service).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 

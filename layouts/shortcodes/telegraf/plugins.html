@@ -5,8 +5,11 @@
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}
   {{ $minorVer := replaceRE `\.[^.]*$` "" .introduced }}
-  <!-- Only include plugins available for the current viewed version -->
-  {{ if ge $currentTelegrafVersion $minorVer}}
+  <!-- Compare semantic version of plugin to Telegraf version -->
+  {{ $supported := cond (le (index (split $minorVer ".") 0) (index (split $currentTelegrafVersion ".") 0)) (le (index (split $minorVer ".") 1) (index (split $currentTelegrafVersion ".") 1)) false }}
+
+  <!-- Only include plugins supported by the currently viewed Telegraf version -->
+  {{ if $supported }}
     <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
       <div class="info">
         <h3 id="{{ .id }}">{{ .name }}</h3>
