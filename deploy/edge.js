@@ -11,7 +11,7 @@ const latestVersions = {
   'enterprise': 'v1.8',
   };
 
-const archiveDomain = 'http://archive.docs.influxdata.com'
+const archiveDomain = 'http://archive.docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
 
