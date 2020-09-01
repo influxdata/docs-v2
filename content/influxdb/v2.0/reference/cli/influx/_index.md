@@ -41,13 +41,13 @@ influx [command]
   ```
 
    This configures a new profile named `default` and makes the profile active so commands run against this instance.
-   For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
+   For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/)
 {{% /note %}}
 
 ## Commands
 
-| Command                                             | Description                                          |
-|:-------                                             |:-----------                                          |
+| Command                                                      | Description                                          |
+|:-------                                                      |:-----------                                          |
 | [apply](/influxdb/v2.0/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
 | [auth](/influxdb/v2.0/reference/cli/influx/auth)             | Authorization management commands                    |
 | [backup](/influxdb/v2.0/reference/cli/influx/backup)         | Back up data                                         |
@@ -82,3 +82,4 @@ To override environment variables, set the flag explicitly in your command.
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
+
