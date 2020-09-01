@@ -15,7 +15,7 @@ Use sample data to familiarize yourself with time series data and InfluxDB.
 InfluxData provides many sample time series datasets to use with **InfluxDB Cloud** and **InfluxDB**.
 
 ## InfluxDB Cloud demo data
-Use [InfluxDB Cloud demo data buckets](/influxdb/v2.0/write-data/quick-start) for quick,
+Use [InfluxDB Cloud demo data buckets](/v2.0/reference/sample-data/#influxdb-cloud-demo-data) for quick,
 free access to different types of sample data.
 
 {{< youtube GSaByPC1Bdc >}}

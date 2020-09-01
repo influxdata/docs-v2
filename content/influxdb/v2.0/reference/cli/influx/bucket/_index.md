@@ -24,7 +24,7 @@ influx bucket [command]
 |:----------                                         |:-----------   |
 | [create](/influxdb/v2.0/reference/cli/influx/bucket/create) | Create bucket |
 | [delete](/influxdb/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
-| [list](/influxdb/v2.0/reference/cli/influx/bucket/find)     | List buckets  |
+| [list](/influxdb/v2.0/reference/cli/influx/bucket/list)     | List buckets  |
 | [update](/influxdb/v2.0/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags

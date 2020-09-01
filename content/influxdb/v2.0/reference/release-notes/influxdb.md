@@ -105,7 +105,7 @@ This release includes breaking changes:
 
 ### Features
 
-- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/#optional-download-and-install-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
@@ -219,7 +219,7 @@ The beta 11 version was **not released**. Changes below are included in the beta
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
 - [Delete bucket by name](/influxdb/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add helper module to write line protocol to specified url, org, and bucket.
-- Add [`pkg stack`](/influxdb/v2.0/reference/cli/influx/pkg/stack) for stateful package management.
+- Add [`pkg stack`](/influxdb/v2.0/reference/cli/influx/stacks) for stateful package management.
 - Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.
 - Add ability to output CLI output as JSON and hide table headers.
 - Add an [easy way to switch configurations](/influxdb/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.

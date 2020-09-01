@@ -32,7 +32,7 @@ Learn how to calculate a percentage using the following examples:
 - [Calculate a percentage from two fields](#calculate-a-percentage-from-two-fields)
 - [Calculate a percentage using aggregate functions](#calculate-a-percentage-using-aggregate-functions)
 - [Calculate the percentage of total weight per apple variety](#calculate-the-percentage-of-total-weight-per-apple-variety)
-- [Calculate the aggregate percentage per variety](#calculate-the-aggregate-percentage-per-variety)
+- [Calculate the aggregate percentage per variety](#calculate-the-percentage-of-total-weight-per-apple-variety)
 
 ## Basic calculations within a query
 
@@ -41,7 +41,7 @@ When performing any math operation in a Flux query, you must complete the follow
 1. Specify the [bucket](/flux/latest/introduction/getting-started/#buckets) to query from and the time range to query.
 2. Filter your data by measurements, fields, and other applicable criteria.
 3. Align values in one row (required to perform math in Flux) by using one of the following functions:
-   - To query **from multiple** data sources, use the [`join()` function](flux/latest/stdlib/built-in/transformations/join).
+   - To query **from multiple** data sources, use the [`join()` function](/flux/latest/stdlib/built-in/transformations/join/).
    - To query **from the same** data source, use the [`pivot()` function](/flux/latest/stdlib/built-in/transformations/pivot/).
 
 For examples using the `join()` function to calculate percentages and more examples of calculating percentages, see [Calculate percentages with Flux](/flux/latest/guides/calculate-percentages/).

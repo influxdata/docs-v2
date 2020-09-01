@@ -21,7 +21,7 @@ to apply and manage templates in your InfluxDB Cloud account.
 
 If you haven’t already, do the following:
 
-1. [Download and install `influx` CLI](/influxdb/v2.0/get-started/#optional-download-and-install-the-influx-cli).
+1. [Download and install `influx` CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli).
 2. [Configure the `influx` CLI](/influxdb/v2.0/get-started/#set-up-influxdb) to use your
    InfluxDB Cloud instance URL, organization, and tokens.
 3. [Use the `influx` CLI](/influxdb/v2.0/reference/cli/influx/) to use, manage, and create

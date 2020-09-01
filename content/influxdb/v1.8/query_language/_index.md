@@ -19,25 +19,25 @@ Feel free to download the dataset provided in
 [Sample Data](/influxdb/v1.8/query_language/data_download/) and follow along
 with the documentation.
 
-#### [Data exploration](/influxdb/v1.8/query_language/data_exploration/)
+#### [Data exploration](/influxdb/v1.8/query_language/explore-data/)
 
 Covers the query language basics for InfluxQL, including the
-[`SELECT` statement](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement),
-[`GROUP BY` clauses](/influxdb/v1.8/query_language/data_exploration/#the-group-by-clause),
-[`INTO` clauses](/influxdb/v1.8/query_language/data_exploration/#the-into-clause), and more.
+[`SELECT` statement](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
+[`GROUP BY` clauses](/influxdb/v1.8/query_language/explore-data/#the-group-by-clause),
+[`INTO` clauses](/influxdb/v1.8/query_language/explore-data/#the-into-clause), and more.
 See Data Exploration to learn about
-[time syntax](/influxdb/v1.8/query_language/data_exploration/#time-syntax) and
-[regular expressions](/influxdb/v1.8/query_language/data_exploration/#regular-expressions) in
+[time syntax](/influxdb/v1.8/query_language/explore-data/#time-syntax) and
+[regular expressions](/influxdb/v1.8/query_language/explore-data/#regular-expressions) in
 queries.
 
-#### [Schema exploration](/influxdb/v1.8/query_language/schema_exploration/)
+#### [Schema exploration](/influxdb/v1.8/query_language/explore-schema/)
 
 Covers queries that are useful for viewing and exploring your
 [schema](/influxdb/v1.8/concepts/glossary/#schema).
 See Schema Exploration for syntax explanations and examples of InfluxQL's `SHOW`
 queries.
 
-#### [Database management](/influxdb/v1.8/query_language/database_management/)
+#### [Database management](/influxdb/v1.8/query_language/manage-database/)
 
 Covers InfluxQL for managing
 [databases](/influxdb/v1.8/concepts/glossary/#database) and

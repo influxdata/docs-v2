@@ -27,7 +27,7 @@ getColumn(column: "_value")
 {{% note %}}
 #### Use tableFind() to extract a single table
 `getColumn()` requires a single table as input.
-Use [`tableFind()`](/influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/)
+Use [`tableFind()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
 to extract a single table from a stream of tables.
 {{% /note %}}
 

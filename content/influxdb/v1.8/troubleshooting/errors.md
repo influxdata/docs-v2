@@ -28,7 +28,7 @@ The relevant `SHOW` queries include `SHOW RETENTION POLICIES`, `SHOW SERIES`,
 `SHOW MEASUREMENTS`, `SHOW TAG KEYS`, `SHOW TAG VALUES`, and `SHOW FIELD KEYS`.
 
 **Resources:**
-[Schema exploration](/influxdb/v1.8/query_language/schema_exploration/),
+[Schema exploration](/influxdb/v1.8/query_language/explore-schema/),
 [InfluxQL reference](/influxdb/v1.8/query_language/spec/)
 
 ## `error: max series per database exceeded: < >`
@@ -236,7 +236,7 @@ time                   water_level
 ```
 
 **Resources:**
-[Data Exploration](/influxdb/v1.8/query_language/data_exploration/#time-syntax)
+[Data Exploration](/influxdb/v1.8/query_language/explore-data/#time-syntax)
 
 ## `unable to parse < >: bad timestamp`
 

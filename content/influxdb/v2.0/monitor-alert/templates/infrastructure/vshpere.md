@@ -17,7 +17,7 @@ The Docker Monitoring template includes the following:
 - one [dashboard](/influxdb/v2.0/reference/glossary/#dashboard): **vsphere**
 - one [bucket](/influxdb/v2.0/reference/glossary/#bucket): `vsphere`
 - label: vsphere
-- one [Telegraf configuration](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/): InfluxDB v2 output plugin, vSphere input plugin
+- one [Telegraf configuration](/influxdb/v2.0/telegraf-configs/): InfluxDB v2 output plugin, vSphere input plugin
 - one variable: `bucket`
 
 ## Apply the template
@@ -32,7 +32,7 @@ The Docker Monitoring template includes the following:
     > **Note:** Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the vSphere host and [InfluxDB v2 API](/influxdb/v2.0/reference/api/).
-3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/), do the following:
+3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.0/telegraf-configs/), do the following:
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2.0/security/tokens/view-tokens/).
       - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2.0/organizations/view-orgs/).

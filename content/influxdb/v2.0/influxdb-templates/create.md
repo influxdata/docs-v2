@@ -48,7 +48,7 @@ In **InfluxDB Cloud**, your user account is an organization.
    - [notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create/)
    - [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/)
    - [tasks](/influxdb/v2.0/process-data/manage-tasks/create-task/)
-   - [Telegraf configurations](/influxdb/v2.0/write-data/use-telegraf/)
+   - [Telegraf configurations](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
 4. Export the template _(see [below](#export-a-template))_.
 

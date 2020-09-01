@@ -55,8 +55,6 @@ In no particular order, we recommend that you:
 [Tags](/influxdb/v1.5/concepts/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of series in the database, known colloquially as high series cardinality.
 High series cardinality is a primary driver of high memory usage for many database workloads.
 
-See [Hardware sizing guidelines](/influxdb/v1.5/guides/hardware_sizing/#general-hardware-guidelines-for-a-single-node) for [series cardinality](/influxdb/v1.5/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
-
 ### *Don't encode data in measurement names*
 
 In general, taking this step will simplify your queries.
@@ -141,7 +139,7 @@ InfluxDB stores data in shard groups.
 Shard groups are organized by [retention policy](/influxdb/v1.5/concepts/glossary/#retention-policy-rp) (RP) and store data with timestamps that fall within a specific time interval.
 The length of that time interval is called the [shard group duration](/influxdb/v1.5/concepts/glossary/#shard-duration).
 
-If no shard group duration is provided, the shard group duration is determined by the RP's [duration](/influxdb/v1.5/concepts/glossary/#duration) at the time the RP is created. The default values are: 
+If no shard group duration is provided, the shard group duration is determined by the RP's [duration](/influxdb/v1.5/concepts/glossary/#duration) at the time the RP is created. The default values are:
 
 | RP Duration  | Shard Group Duration  |
 |---|---|

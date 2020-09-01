@@ -32,7 +32,6 @@ The `influx_inspect` commands are summarized here, with links to detailed inform
 * [`dumptsi`](#dumptsi): Dump low-level details about TSI files.
 * [`dumptsm`](#dumptsm): Dump low-level details about TSM files.
 * [`export`](#export): Export raw data from a shard in Line Protocol format.
-* [`help`](#help): Display this help message format.
 * [`report`](#report): Display a shard level report.
 * [`verify`](#verify): Verify the integrity of TSM files.
 
@@ -112,7 +111,9 @@ $ influx_inspect buildtsi -database stress -shard 1 -datadir ~/.influxdb/data -w
 
 Bulk deletes a measurement from a raw TSM file.
 
-{{% warn %}} **Warning:** Use the `deletetsm` command only when your InfluxDB instance is offline (`influxd` service is not running).{{% /warn %}}
+{{% warn %}}
+**Warning:** Use the `deletetsm` command only when your InfluxDB instance is offline (`influxd` service is not running).
+{{% /warn %}}
 
 #### Syntax
 

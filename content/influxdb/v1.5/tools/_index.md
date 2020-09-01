@@ -23,7 +23,7 @@ and view query output in different formats:
 
 Go straight to the documentation on:
 
-* [Launching `influx`](/influxdb/v1.5/tools/shell/#launch-influx)
+* [Launching `influx`](/influxdb/v1.5/tools/shell/#using-influx)
 * [Writing data with `influx`](/influxdb/v1.5/tools/shell/#write-data-to-influxdb-with-insert)
 
 ## [InfluxDB HTTP API Reference](/influxdb/v1.5/tools/api/)

@@ -12,7 +12,7 @@ The InfluxDB command line interface utility (`influx`) is an interactive shell f
 Use `influx` to write data (manually or from a file), query data interactively, and view query output in different formats.
 
 * [Using `influx`](/influxdb/v1.5/tools/shell/#using-influx)
-* [Arguments](/influxdb/v1.5/tools/shell/#arguments)
+* [Arguments](#global-options)
 * [Commands](/influxdb/v1.5/tools/shell/#commands)
 
 ### Using `influx`

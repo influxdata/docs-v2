@@ -613,7 +613,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -972,7 +972,6 @@ Estimates or counts exactly the cardinality of the series for the current databa
 
 [Series cardinality](/influxdb/v1.5/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [When do I need more RAM?](/influxdb/v1.5/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/influxdb/v1.5/guides/hardware_sizing/)
 - [Don't have too many series](/influxdb/v1.5/concepts/schema_and_data_layout/#don-t-have-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
