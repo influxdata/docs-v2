@@ -41,7 +41,7 @@ influx [command]
   ```
 
    This configures a new profile named `default` and makes the profile active so commands run against this instance.
-   For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/)
+   For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 {{% /note %}}
 
 ## Commands
