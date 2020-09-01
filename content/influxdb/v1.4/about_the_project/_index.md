@@ -6,15 +6,14 @@ menu:
     weight: 10
 ---
 
-## [Release Notes/Changelog](/influxdb/v1.4/about_the_project/releasenotes-changelog/)
+{{< children hlevel="h2" >}}
 
-## [Contributing](https://github.com/influxdata/influxdb/blob/master/CONTRIBUTING.md)
+## Contributions and licenses
+- [Contribute to InfluxDB](https://github.com/influxdata/influxdb/blob/master/CONTRIBUTING.md)
+- [Contributor License Agreement (CLA)](https://influxdata.com/community/cla/)
+- [InfluxDB licenses](https://github.com/influxdata/influxdb/blob/master/LICENSE)
 
-## [CLA](https://influxdata.com/community/cla/)
-
-## [Licenses](https://github.com/influxdata/influxdb/blob/master/LICENSE)
-
-## <a name="third_party">Third Party Software</a>
+### Third Party Software
 InfluxData products contain third party software, which means the copyrighted, patented, or otherwise legally protected
 software of third parties that is incorporated in InfluxData products.
 

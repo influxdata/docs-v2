@@ -9,47 +9,7 @@ menu:
 
 The administration documentation contains all the information needed to administer a working InfluxDB installation.
 
-## [Configure InfluxDB](/influxdb/v1.8/administration/config/)
-
-Information about the config file `influx.conf`
-
-#### [Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/)
-
-Covers how to
-[set up authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
-and how to
-[authenticate requests](/influxdb/v1.8/administration/authentication_and_authorization/#authenticate-requests) in InfluxDB.
-This page also describes the different
-[user types](/influxdb/v1.8/administration/authentication_and_authorization/#user-types-and-privileges) and the InfluxQL for
-[managing database users](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands).
-
-
-## [Upgrade](/influxdb/v1.8/administration/upgrading/)
-
-Information about upgrading from previous versions of InfluxDB
-
-## [Enable HTTPS](/influxdb/v1.8/administration/https_setup/)
-
-Enabling HTTPS encrypts the communication between clients and the InfluxDB server.
-HTTPS can also verify the authenticity of the InfluxDB server to connecting clients.
-
-## [Logging in InfluxDB](/influxdb/v1.8/administration/logs/)
-
-Information on how to direct InfluxDB log output.
-
-## [Ports](/influxdb/v1.8/administration/ports/)
-
-## [Back up and restore](/influxdb/v1.8/administration/backup_and_restore/)
-
-Procedures to backup data created by InfluxDB and to restore from a backup.
-
-## [Manage security](/influxdb/v1.8/administration/security/)
-
-Overview of security options and configurations.
-
-## [Stability and compatibility](/influxdb/v1.8/administration/stability_and_compatibility/)
-
-Management of breaking changes, upgrades, and ongoing support.
+{{< children hlevel="h2" >}}
 
 ## Downgrade
 

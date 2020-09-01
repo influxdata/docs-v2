@@ -8,9 +8,5 @@ menu:
     name: Guides
     weight: 60
 ---
-## [Anti-entropy: Replace Data Node](/enterprise_influxdb/v1.8/administration/anti-entropy/)
-## [Back up and restore in InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/backup-and-restore/)
-## [Fine-grained authorization in InfluxDB Enterprise](/enterprise_influxdb/v1.8/guides/fine-grained-authorization/)
-## [Migrate InfluxDB OSS instances to InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/guides/migration/)
-## [Rebalance InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/guides/rebalance/)
-## [SMTP server setup](/enterprise_influxdb/v1.8/guides/smtp-server/)
+
+{{< children hlevel="h2" >}}

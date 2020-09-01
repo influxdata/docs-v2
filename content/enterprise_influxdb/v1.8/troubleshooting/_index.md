@@ -9,6 +9,4 @@ menu:
     weight: 90
 ---
 
-## [Frequently asked questions](/enterprise_influxdb/v1.8/troubleshooting/frequently_asked_questions/)
-
-## [Reporting issues](/enterprise_influxdb/v1.8/troubleshooting/reporting-issues/)
+{{< children hlevel="h2" >}}
