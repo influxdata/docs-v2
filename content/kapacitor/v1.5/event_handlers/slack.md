@@ -85,7 +85,7 @@ _This is necessary if using a self-signed certificate._
 
 ## Options
 The following Slack event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.slack()` in a TICKscript.
 
 | Name       | Type   | Description                                                                                                                   |

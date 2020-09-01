@@ -48,7 +48,7 @@ Default origin of alert.
 
 ## Options
 The following Alerta event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.alerta()` in a TICKscript.
 
 <span style="color: #ff9e46; font-style: italic; font-size: .8rem;">* Required</span>

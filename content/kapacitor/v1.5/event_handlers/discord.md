@@ -89,7 +89,7 @@ _This is necessary if using a self-signed certificate._
 
 ## Options
 Set the following Discord event handler options in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.discord()` in a TICKscript.
 
 | Name        | Type   | Description                                                                                                                    |
