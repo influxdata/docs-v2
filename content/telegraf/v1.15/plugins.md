@@ -6,15 +6,20 @@ description: >
   View and search all available Telegraf plugins.
 menu:
   telegraf_1_15:
-    parent: Plugins
+    weight: 40
 weight: 6
+aliases:
+  - /telegraf/v1.15/plugins/plugin-list/
+  - /telegraf/v1.15/plugins/aggregators/
+  - /telegraf/v1.15/plugins/inputs/
+  - /telegraf/v1.15/plugins/outputs/
+  - /telegraf/v1.15/plugins/processors/
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
 It supports four categories of plugins including input, output, aggregator, and processor.
 
 {{< telegraf/filters >}}
-
 
 **Jump to:**
 

@@ -23,7 +23,7 @@ Its vast library of input plugins and "plug-and-play" architecture lets you quic
 and easily collect metrics from many different sources.
 This article describes how to use Telegraf to collect and store data in InfluxDB v2.0.
 
-For a list of available plugins, see [Telegraf plugins](/influxdb/v2.0/reference/telegraf-plugins/).
+For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
 
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
