@@ -13,7 +13,6 @@ menu:
 This section covers deploying InfluxDB Enterprise clusters on the cloud provider of your choice.
 For information on manually installing and configuring InfluxDB Enterprise clusters, see:
 
-* [Install an InfluxDB Enterprise cluster for evaluation](/enterprise_influxdb/v1.6/install-and-deploy/quickstart_installation/)
 * [Install an InfluxDB Enterprise cluster for production](/enterprise_influxdb/v1.6/install-and-deploy/production_installation/)
 
 ## [Deploy an InfluxDB Enterprise cluster on Google Cloud Platform](/enterprise_influxdb/v1.6/install-and-deploy/deploying/google-cloud-platform/)

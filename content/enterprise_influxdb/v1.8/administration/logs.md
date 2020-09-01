@@ -11,7 +11,7 @@ menu:
 
 
 * [Logging locations](#logging-locations)
-* [Redirect HTTP request logging](#redirect-http-request-logging)
+* [Redirect HTTP request logging](#redirect-http-access-logging)
 * [Structured logging](#structured-logging)
 * [Tracing](#tracing)
 
