@@ -271,7 +271,7 @@ node with other data nodes in the cluster.
 It may take a few minutes before the existing data is available.
 
 ## Rebalance the cluster
-1. Use the [ALTER RETENTION POLICY](/influxdb/v1.8/query_language/database_management/#modify-retention-policies-with-alter-retention-policy)
+1. Use the [ALTER RETENTION POLICY](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
    statement to increase the [replication factor](/enterprise_influxdb/v1.8/concepts/glossary/#replication-factor)
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.8/guides/rebalance/)

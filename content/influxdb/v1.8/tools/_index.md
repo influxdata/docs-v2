@@ -20,7 +20,7 @@ includes commands to manage many aspects of InfluxDB, including databases, organ
 
 ## `influxd` command
 
-The [`influxd` command]((/influxdb/v1.8/tools/influxd)) starts and runs all the processes necessary for InfluxDB to function.
+The [`influxd` command](/influxdb/v1.8/tools/influxd) starts and runs all the processes necessary for InfluxDB to function.
 
 ## InfluxDB API client libraries
 

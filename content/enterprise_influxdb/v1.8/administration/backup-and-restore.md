@@ -384,7 +384,7 @@ Copying data to <hostname>:8088... Copying data to <hostname>:8088... Done. Rest
 Restored from my-incremental-backup/ in 56.623615ms, transferred 588800 bytes
 ```
 
-Then, in the [`influx` client](/influxdb/v1.8/tools/shell/), use an [`INTO` query](/influxdb/v1.8/query_language/data_exploration/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
+Then, in the [`influx` client](/influxdb/v1.8/tools/shell/), use an [`INTO` query](/influxdb/v1.8/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
 
 ```bash
 $ influx
