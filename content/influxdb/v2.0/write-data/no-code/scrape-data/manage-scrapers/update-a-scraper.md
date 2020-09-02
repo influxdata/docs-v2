@@ -5,7 +5,6 @@ description: Update an InfluxDB scraper that collects data from InfluxDB or a re
 aliases:
   - /v2.0/collect-data/scrape-data/manage-scrapers/update-a-scraper
   - /v2.0/write-data/scrape-data/manage-scrapers/update-a-scraper
-  - /v2.0/write-data/no-code/scrape-data/manage-scrapers/update-a-scraper
 menu:
   influxdb_2_0:
     parent: Manage scrapers

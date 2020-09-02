@@ -3,8 +3,6 @@ title: Optimize writes to InfluxDB
 description: >
   Simple tips to optimize performance and system overhead when writing data to InfluxDB.
 weight: 202
-aliases:
-  - /v2.0/write-data/best-practices/optimize-writes/
 menu:
   influxdb_2_0:
     parent: write-best-practices

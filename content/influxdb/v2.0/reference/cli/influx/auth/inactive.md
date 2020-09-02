@@ -6,8 +6,6 @@ menu:
     name: influx auth inactive
     parent: influx auth
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/auth/inactive/
 ---
 
 The `influx auth inactive` inactivates an authorization in InfluxDB.

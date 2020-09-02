@@ -6,7 +6,6 @@ description: >
 aliases:
   - /v2.0/cloud/rate-limits/
   - /v2.0/cloud/pricing-plans/
-  - /v2.0/account-management/pricing-plans
 weight: 102
 menu:
   influxdb_2_0:

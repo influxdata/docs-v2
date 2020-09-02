@@ -4,7 +4,6 @@ description: The `lowestCurrent()` function selects the last record of each tabl
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent
 menu:
   influxdb_2_0_ref:
     name: lowestCurrent

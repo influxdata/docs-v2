@@ -7,8 +7,6 @@ menu:
     name: influx telegrafs rm
     parent: influx telegrafs
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/telegrafs/rm/
 ---
 
 The `influx telegrafs rm` command removes Telegraf configurations from InfluxDB.

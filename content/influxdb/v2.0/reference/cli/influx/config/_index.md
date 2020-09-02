@@ -7,8 +7,6 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [config]
-aliases:
-  - /v2.0/reference/cli/influx/config/
 ---
 
 The `influx config` command displays the active InfluxDB connection configuration

@@ -4,7 +4,6 @@ description: The `linearBins()` function generates a list of linearly separated 
 aliases:
   - /v2.0/reference/flux/functions/misc/linearbins
   - /v2.0/reference/flux/functions/built-in/misc/linearbins/
-  - /v2.0/reference/flux/stdlib/built-in/misc/linearbins
 menu:
   influxdb_2_0_ref:
     name: linearBins

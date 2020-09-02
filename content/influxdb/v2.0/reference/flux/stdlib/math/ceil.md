@@ -3,7 +3,6 @@ title: math.ceil() function
 description: The math.ceil() function returns the least integer value greater than or equal to `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/ceil/
-  - /v2.0/reference/flux/stdlib/math/ceil
 menu:
   influxdb_2_0_ref:
     name: math.ceil

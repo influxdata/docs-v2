@@ -11,7 +11,6 @@ menu:
 weight: 210
 aliases:
   - /v2.0/query-data/guides/join/
-  - /v2.0/query-data/flux/join/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/join
 list_query_example: join

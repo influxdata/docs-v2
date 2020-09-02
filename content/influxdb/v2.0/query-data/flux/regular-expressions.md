@@ -10,7 +10,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/regular-expressions/
-  - /v2.0/query-data/flux/regular-expressions/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/regexp/

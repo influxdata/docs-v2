@@ -6,8 +6,6 @@ description: >
   Use the `quantile()` function to return all values within the `q` quantile or
   percentile of input data.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/percentile-quantile/
 menu:
   influxdb_2_0:
     parent: Query with Flux

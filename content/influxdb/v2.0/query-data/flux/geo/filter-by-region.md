@@ -7,8 +7,6 @@ menu:
     name: Filter by region
     parent: Geo-temporal data
 weight: 302
-aliases:
-  - /v2.0/query-data/flux/geo/filter-by-region/
 related:
   - /v2.0/reference/flux/stdlib/experimental/geo/
   - /v2.0/reference/flux/stdlib/experimental/geo/filterrows/

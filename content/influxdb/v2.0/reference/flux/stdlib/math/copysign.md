@@ -3,7 +3,6 @@ title: math.copysign() function
 description: The math.copysign() function returns a value with the magnitude of `x` and the sign of `y`.
 aliases:
   - /v2.0/reference/flux/functions/math/copysign/
-  - /v2.0/reference/flux/stdlib/math/copysign
 menu:
   influxdb_2_0_ref:
     name: math.copysign

@@ -10,7 +10,6 @@ menu:
 influxdb/v2.0/tags: [client libraries, python]
 aliases:
   - /v2.0/reference/api/client-libraries/python-cl-guide/
-  - /v2.0/reference/api/client-libraries/python/
 weight: 201
 ---
 
@@ -53,7 +52,7 @@ We are going to write some data in [line protocol](/influxdb/v2.0/reference/synt
    url="http://localhost:9999"
    ```
 
-3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters. 
+3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters.
 
    ```python
    client = InfluxDBClient(
@@ -63,7 +62,7 @@ We are going to write some data in [line protocol](/influxdb/v2.0/reference/synt
    )
    ```
     The `InfluxDBClient` object has a `write_api` method used for configuration.
-  
+
 4. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
 
    ```python
@@ -102,13 +101,13 @@ write_api.write(bucket=bucket, org=org, record=p)
 ```
 ## Query data from InfluxDB with Python
 
-1. Instantiate the **query client**. 
+1. Instantiate the **query client**.
 
    ```python
    query_api = client.query_api()
    ```
 
-2. Create a Flux query. 
+2. Create a Flux query.
 
    ```python
    query = ‘ from(bucket:"my-bucket")\
@@ -118,8 +117,8 @@ write_api.write(bucket=bucket, org=org, record=p)
    |> filter(fn:(r) => r._field == "temperature" )‘
    ```
 
-    The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure. 
-  
+    The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure.
+
 3. Pass the `query()` method two named parameters:`org` and `query`.  
 
    ```python
@@ -135,7 +134,7 @@ write_api.write(bucket=bucket, org=org, record=p)
    for table in result:
      for record in table.records:
        results.append((record.get_field(), record.get_value()))
-  
+
    print(results)
    [(temperature, 25.3)]
    ```

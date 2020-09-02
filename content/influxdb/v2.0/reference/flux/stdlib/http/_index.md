@@ -6,7 +6,6 @@ description: >
   Import the `http` package.
 aliases:
   - /v2.0/reference/flux/functions/http/
-  - /v2.0/reference/flux/stdlib/http/
 menu:
   influxdb_2_0_ref:
     name: HTTP

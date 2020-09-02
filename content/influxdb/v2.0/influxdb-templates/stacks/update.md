@@ -13,8 +13,6 @@ menu:
     parent: InfluxDB stacks
     name: Update a stack
 weight: 202
-aliases:
-  - /v2.0/influxdb-templates/stacks/update/
 related:
   - /influxdb/v2.0/reference/cli/influx/apply
   - /influxdb/v2.0/reference/cli/influx/stacks/update/

@@ -3,7 +3,6 @@ title: strings.repeat() function
 description: The strings.repeat() function returns a string consisting of `i` copies of a specified string.
 aliases:
   - /v2.0/reference/flux/functions/strings/repeat/
-  - /v2.0/reference/flux/stdlib/strings/repeat
 menu:
   influxdb_2_0_ref:
     name: strings.repeat

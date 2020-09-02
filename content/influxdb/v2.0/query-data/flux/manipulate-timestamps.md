@@ -10,7 +10,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/manipulate-timestamps/
-  - /v2.0/query-data/flux/manipulate-timestamps/
 related:
   - /v2.0/reference/flux/stdlib/built-in/misc/now/
   - /v2.0/reference/flux/stdlib/system/time/

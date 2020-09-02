@@ -4,14 +4,11 @@ description: The `derivative()` function computes the rate of change per unit of
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/derivative
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/derivative/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/derivative
 menu:
   influxdb_2_0_ref:
     name: derivative
     parent: built-in-transformations
 weight: 402
-aliases:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/derivative
 related:
   - /influxdb/v2.0/query-data/flux/rate/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#derivative, InfluxQL – DERIVATIVE()

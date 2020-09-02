@@ -4,7 +4,6 @@ list_title: Built-in testing functions
 description: Flux's built-in testing functions test various aspects of piped-forward data.
 aliases:
   - /v2.0/reference/flux/functions/built-in/tests/
-  - /v2.0/reference/flux/stdlib/built-in/tests/
 menu:
   influxdb_2_0_ref:
     name: Tests

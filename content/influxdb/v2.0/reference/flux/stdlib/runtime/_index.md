@@ -6,7 +6,6 @@ description: >
   current Flux runtime. Import the `runtime` package.
 aliases:
   - /v2.0/reference/flux/functions/runtime/
-  - /v2.0/reference/flux/stdlib/runtime/
 menu:
   influxdb_2_0_ref:
     name: Runtime

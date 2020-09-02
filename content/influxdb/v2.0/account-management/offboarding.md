@@ -6,7 +6,6 @@ description: >
 weight: 104
 aliases:
     - /v2.0/cloud/account-management/offboarding
-    - /v2.0/account-management/offboarding
 menu:
   influxdb_2_0:
     parent: Account management

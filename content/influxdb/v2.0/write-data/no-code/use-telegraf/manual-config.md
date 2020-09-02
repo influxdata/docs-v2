@@ -8,7 +8,6 @@ description: >
 aliases:
   - /v2.0/collect-data/use-telegraf/manual-config
   - /v2.0/write-data/use-telegraf/manual-config
-  - /v2.0/write-data/no-code/use-telegraf/manual-config
 menu:
   influxdb_2_0:
     parent: Telegraf (agent)

@@ -6,8 +6,6 @@ menu:
     name: influx task run retry
     parent: influx task run
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influx/task/log/run/retry/
 ---
 
 The `influx task run retry` command retries to run a task in InfluxDB.

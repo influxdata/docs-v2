@@ -5,7 +5,6 @@ description: >
   Results range from `[0-6]`.
 aliases:
   - /v2.0/reference/flux/functions/date/weekday/
-  - /v2.0/reference/flux/stdlib/date/weekday
 menu:
   influxdb_2_0_ref:
     name: date.weekDay

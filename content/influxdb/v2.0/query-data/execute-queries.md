@@ -3,8 +3,6 @@ title: Execute queries
 seotitle: Different ways to query InfluxDB
 description: There are multiple ways to query data from InfluxDB including the InfluxDB UI, CLI, and API.
 weight: 103
-aliases:
-  - /v2.0/query-data/execute-queries/
 menu:
   influxdb_2_0:
     name: Execute queries

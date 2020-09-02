@@ -4,7 +4,6 @@ description: >
   The strings.trimLeft() function removes specified leading characters from a string.
 aliases:
   - /v2.0/reference/flux/functions/strings/trimleft/
-  - /v2.0/reference/flux/stdlib/strings/trimleft
 menu:
   influxdb_2_0_ref:
     name: strings.trimLeft

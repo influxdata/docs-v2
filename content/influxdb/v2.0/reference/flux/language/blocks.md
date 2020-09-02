@@ -6,8 +6,6 @@ menu:
     parent: Flux specification
     name: Blocks
 weight: 203
-aliases:
-  - /v2.0/reference/flux/language/blocks/
 ---
 
 A _block_ is a possibly empty sequence of statements within matching braces (`{}`).

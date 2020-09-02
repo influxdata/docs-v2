@@ -6,7 +6,6 @@ description: >
   Import the `influxdata/influxdb/monitor` package.
 aliases:
   - /v2.0/reference/flux/functions/monitor/
-  - /v2.0/reference/flux/stdlib/monitor/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Monitor

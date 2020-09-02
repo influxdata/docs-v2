@@ -3,8 +3,6 @@ title: geo.s2CellLatLon() function
 description: >
   The `geo.s2CellLatLon()` function returns the latitude and longitude of the
   center of an S2 cell.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/geo/s2celllatlon
 menu:
   influxdb_2_0_ref:
     name: geo.s2CellLatLon

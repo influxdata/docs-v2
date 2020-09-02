@@ -5,7 +5,6 @@ description: >
   `fn`, providing a way to create custom table aggregations.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce
 menu:
   influxdb_2_0_ref:
     name: reduce

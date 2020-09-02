@@ -4,7 +4,6 @@ description: The `stddev()` function computes the standard deviation of non-null
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/stddev
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/stddev
 menu:
   influxdb_2_0_ref:
     name: stddev

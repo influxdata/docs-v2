@@ -8,8 +8,6 @@ menu:
     name: influx query
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/query/
 influxdb/v2.0/tags: [query]
 ---
 

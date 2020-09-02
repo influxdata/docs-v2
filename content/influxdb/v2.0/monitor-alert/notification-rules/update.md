@@ -3,8 +3,6 @@ title: Update notification rules
 description: >
   Update notification rules to update the notification message or change the schedule or conditions.
 weight: 203
-aliases:
-  - /v2.0/monitor-alert/notification-rules/update/
 menu:
   influxdb_2_0:
     parent: Manage notification rules

@@ -8,8 +8,6 @@ menu:
     name: Shape geo-temporal data
     parent: Geo-temporal data
 weight: 301
-aliases:
-  - /v2.0/query-data/flux/geo/shape-geo-data/
 related:
   - /v2.0/reference/flux/stdlib/experimental/geo/
   - /v2.0/reference/flux/stdlib/experimental/geo/shapedata/

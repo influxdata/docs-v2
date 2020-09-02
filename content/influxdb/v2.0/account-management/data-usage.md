@@ -6,7 +6,6 @@ description: >
 weight: 103
 aliases:
     - /v2.0/cloud/account-management/data-usage
-    - /v2.0/account-management/data-usage
 menu:
   influxdb_2_0:
     parent: Account management

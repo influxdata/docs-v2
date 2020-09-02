@@ -8,8 +8,6 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [influxql, flux]
-aliases:
-  - /v2.0/reference/cli/influx/transpile/
 ---
 
 The `influx transpile` command transpiles an InfluxQL query to Flux source code.

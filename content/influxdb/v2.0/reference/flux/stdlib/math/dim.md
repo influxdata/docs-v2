@@ -3,7 +3,6 @@ title: math.dim() function
 description: The math.dim() function returns the maximum of `x`-`y` or 0.
 aliases:
   - /v2.0/reference/flux/functions/math/dim/
-  - /v2.0/reference/flux/stdlib/math/dim
 menu:
   influxdb_2_0_ref:
     name: math.dim

@@ -8,8 +8,6 @@ menu:
     name: influx ping
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/ping/
 influxdb/v2.0/tags: [ping, health]
 ---
 

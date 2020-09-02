@@ -6,8 +6,6 @@ description: >
   Use the [`fill()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
   to replace _null_ values.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/fill/
 menu:
   influxdb_2_0:
     parent: Query with Flux

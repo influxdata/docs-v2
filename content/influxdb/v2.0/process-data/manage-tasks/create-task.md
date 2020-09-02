@@ -8,8 +8,6 @@ menu:
     name: Create a task
     parent: Manage tasks
 weight: 201
-aliases:
-  - /v2.0/process-data/manage-tasks/create-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/create
 ---

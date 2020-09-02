@@ -8,8 +8,6 @@ menu:
     name: /query
     parent: 1.x compatibility
 weight: 301
-aliases:
-  - /v2.0/reference/api/influxdb-1x/query/
 influxdb/v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |

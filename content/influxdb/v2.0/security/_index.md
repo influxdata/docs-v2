@@ -5,8 +5,6 @@ description: >
   when handling any sort of sensitive data.
   This section provides information about managing the security of your InfluxDB instance.
 weight: 12
-aliases:
-  - /v2.0/security/
 menu:
   influxdb_2_0:
     name: Security & authorization

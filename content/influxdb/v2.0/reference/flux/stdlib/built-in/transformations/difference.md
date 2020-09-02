@@ -4,14 +4,11 @@ description: The `difference()` function computes the difference between subsequ
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/difference
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/difference
 menu:
   influxdb_2_0_ref:
     name: difference
     parent: built-in-transformations
 weight: 402
-aliases:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/difference
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---

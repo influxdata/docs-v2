@@ -13,7 +13,6 @@ menu:
 weight: 208
 aliases:
   - /v2.0/query-data/guides/mathematic-operations/
-  - /v2.0/query-data/flux/mathematic-operations/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/map
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/

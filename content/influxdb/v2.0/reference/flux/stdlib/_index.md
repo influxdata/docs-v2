@@ -5,7 +5,6 @@ description: >
   that retrieve, transform, process, and output data.
 aliases:
   - /v2.0/reference/flux/functions/
-  - /v2.0/reference/flux/stdlib/
 influxdb/v2.0/tags: [flux, functions, package]
 menu:
   influxdb_2_0_ref:

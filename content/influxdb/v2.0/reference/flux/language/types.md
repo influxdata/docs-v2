@@ -6,8 +6,6 @@ menu:
     parent: Flux specification
     name: Types
 weight: 213
-aliases:
-  - /v2.0/reference/flux/language/types
 ---
 
 {{% note %}}

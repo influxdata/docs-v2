@@ -6,8 +6,6 @@ menu:
     name: influx org members remove
     parent: influx org members
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influx/org/members/remove/
 ---
 
 The `influx org members remove` command removes a member from an organization in InfluxDB.

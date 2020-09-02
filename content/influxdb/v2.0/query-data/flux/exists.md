@@ -13,7 +13,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/exists/
-  - /v2.0/query-data/flux/exists/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/

@@ -5,8 +5,6 @@ list_image: /img/influxdb/2-0-visualizations-gauge-example.png
 description: >
   The Gauge view displays the single value most recent value for a time series in a gauge view.
 weight: 206
-aliases:
-  - /v2.0/visualize-data/visualization-types/gauge/
 menu:
   influxdb_2_0:
     name: Gauge

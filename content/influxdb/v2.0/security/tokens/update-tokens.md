@@ -9,8 +9,6 @@ menu:
     name: Update a token
     parent: Manage tokens
 weight: 203
-aliases:
-  - /v2.0/security/tokens/update-token/
 ---
 
 Update an authentication token's description using the InfluxDB user interface (UI).

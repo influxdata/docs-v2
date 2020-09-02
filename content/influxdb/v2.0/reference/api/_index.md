@@ -5,8 +5,6 @@ description: >
   Access the InfluxDB API using the `/api/v2/` endpoint.
 menu: influxdb_2_0_ref
 weight: 3
-aliases:
-  - /v2.0/reference/api/
 influxdb/v2.0/tags: [api]
 ---
 

@@ -5,7 +5,6 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/covariance
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/covariance/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/covariance
 menu:
   influxdb_2_0_ref:
     name: covariance

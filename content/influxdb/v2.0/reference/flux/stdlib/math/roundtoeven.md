@@ -3,7 +3,6 @@ title: math.roundtoeven() function
 description: The math.roundtoeven() function returns the nearest integer, rounding ties to even.
 aliases:
   - /v2.0/reference/flux/functions/math/roundtoeven/
-  - /v2.0/reference/flux/stdlib/math/roundtoeven
 menu:
   influxdb_2_0_ref:
     name: math.roundtoeven

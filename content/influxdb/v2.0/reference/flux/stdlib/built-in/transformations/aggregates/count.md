@@ -4,7 +4,6 @@ description: The `count()` function outputs the number of non-null records in a 
 aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/count
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count
 menu:
   influxdb_2_0_ref:
     name: count

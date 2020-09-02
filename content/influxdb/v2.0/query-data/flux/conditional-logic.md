@@ -13,7 +13,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/conditional-logic/
-  - /v2.0/query-data/flux/conditional-logic/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
   - /v2.0/reference/flux/stdlib/built-in/transformations/filter/

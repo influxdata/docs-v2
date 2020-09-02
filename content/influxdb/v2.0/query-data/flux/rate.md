@@ -10,8 +10,6 @@ description: >
   If time between points varies, these functions normalize points to a common time interval
   making values easily comparable.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/rate/
 menu:
   influxdb_2_0:
     parent: Query with Flux

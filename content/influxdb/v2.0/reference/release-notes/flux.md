@@ -6,8 +6,6 @@ menu:
   influxdb_2_0_ref:
     parent: Release notes
     name: Flux
-aliases:
-  - /v2.0/reference/flux/release-notes
 ---
 
 {{% note %}}

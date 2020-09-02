@@ -3,7 +3,6 @@ title: math.cos() function
 description: The math.cos() function returns the cosine of the radian argument `x`.
 aliases:
   - /v2.0/reference/flux/functions/math/cos/
-  - /v2.0/reference/flux/stdlib/math/cos
 menu:
   influxdb_2_0_ref:
     name: math.cos

@@ -5,8 +5,6 @@ description: >
 weight: 12
 menu: influxdb_2_0
 influxdb/v2.0/tags: [telegraf]
-aliases:
-  - /v2.0/telegraf-configs/
 related:
   - /influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/

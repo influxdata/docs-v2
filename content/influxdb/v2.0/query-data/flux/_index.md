@@ -9,7 +9,6 @@ menu:
     parent: Query data
 alias:
   - /v2.0/query-data/guides/
-  - /v2.0/query-data/flux/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

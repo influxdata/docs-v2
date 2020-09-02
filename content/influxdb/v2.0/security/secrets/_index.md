@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Security & authorization
 weight: 102
-aliases:
-  - /v2.0/security/secrets/
 ---
 
 There are two options for storing secrets with InfluxDB:

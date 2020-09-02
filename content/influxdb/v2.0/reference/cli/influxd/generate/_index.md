@@ -8,8 +8,6 @@ menu:
   influxdb_2_0_ref:
     parent: influxd
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influxd/generate/
 products: [oss]
 ---
 

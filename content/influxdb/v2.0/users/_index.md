@@ -7,8 +7,6 @@ menu:
   influxdb_2_0:
     name: Manage users
 weight: 11
-aliases:
-  - /v2.0/users/
 products: [oss]
 ---
 

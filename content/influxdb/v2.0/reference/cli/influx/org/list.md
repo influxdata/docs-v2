@@ -8,7 +8,6 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/influx/org/find
-  - /v2.0/reference/cli/influx/org/list/
 ---
 
 The `influx org list` lists and searches for organizations in InfluxDB.

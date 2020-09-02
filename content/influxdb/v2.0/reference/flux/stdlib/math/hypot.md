@@ -5,7 +5,6 @@ description: >
   taking care to avoid unnecessary overflow and underflow.
 aliases:
   - /v2.0/reference/flux/functions/math/hypot/
-  - /v2.0/reference/flux/stdlib/math/hypot
 menu:
   influxdb_2_0_ref:
     name: math.hypot

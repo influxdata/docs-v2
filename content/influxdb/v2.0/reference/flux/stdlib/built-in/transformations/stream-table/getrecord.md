@@ -5,7 +5,6 @@ description: >
   If the index is out of bounds, the function errors.
 aliases:
   - /v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord
 menu:
   influxdb_2_0_ref:
     name: getRecord

@@ -5,7 +5,6 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/shift
   - /v2.0/reference/flux/functions/built-in/transformations/shift
   - /v2.0/reference/flux/functions/built-in/transformations/timeshift/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timeshift
 menu:
   influxdb_2_0_ref:
     name: timeShift

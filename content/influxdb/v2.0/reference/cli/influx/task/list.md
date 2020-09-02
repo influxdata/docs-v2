@@ -8,7 +8,6 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/task/find
-  - /v2.0/reference/cli/influx/task/list/
 ---
 
 The `influx task list` command lists and searches for tasks in InfluxDB.

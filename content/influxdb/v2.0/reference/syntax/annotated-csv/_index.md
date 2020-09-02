@@ -9,8 +9,6 @@ menu:
   influxdb_2_0_ref:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
-aliases:
-  - /v2.0/reference/annotated-csv/
 related:
   - /v2.0/reference/flux/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/

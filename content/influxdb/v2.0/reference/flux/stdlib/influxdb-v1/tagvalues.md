@@ -3,7 +3,6 @@ title: v1.tagValues() function
 description: The `v1.tagValues()` function returns a list unique values for a given tag.
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/tagvalues/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagvalues
 menu:
   influxdb_2_0_ref:
     name: v1.tagValues

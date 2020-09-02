@@ -5,7 +5,6 @@ description: >
   String length is determined by the number of UTF code points a string contains.
 aliases:
   - /v2.0/reference/flux/functions/strings/strlen/
-  - /v2.0/reference/flux/stdlib/strings/strlen
 menu:
   influxdb_2_0_ref:
     name: strings.strlen

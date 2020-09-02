@@ -6,7 +6,6 @@ description: >
   regular expression functionality. Import the `regexp` package.
 aliases:
   - /v2.0/reference/flux/functions/regexp/
-  - /v2.0/reference/flux/stdlib/regexp/
 menu:
   influxdb_2_0_ref:
     name: Regular expressions

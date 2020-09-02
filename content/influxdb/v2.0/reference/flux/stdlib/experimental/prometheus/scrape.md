@@ -3,8 +3,6 @@ title: prometheus.scrape() function
 description: >
   The `prometheus.scrape()` function retrieves Prometheus-formatted metrics
   from a specified URL.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/prometheus/scrape
 menu:
   influxdb_2_0_ref:
     name: prometheus.scrape

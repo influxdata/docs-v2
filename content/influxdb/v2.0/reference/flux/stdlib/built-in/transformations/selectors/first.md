@@ -4,7 +4,6 @@ description: The `first()` function selects the first non-null record from an in
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/first
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/first/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/first
 menu:
   influxdb_2_0_ref:
     name: first

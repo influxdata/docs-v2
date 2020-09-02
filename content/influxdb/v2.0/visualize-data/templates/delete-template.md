@@ -8,8 +8,6 @@ menu:
     name: Delete a template
     parent: Manage dashboard templates
 weight: 203
-aliases:
-  - /v2.0/visualize-data/templates/delete-template/
 ---
 
 To delete a template in the InfluxDB UI:

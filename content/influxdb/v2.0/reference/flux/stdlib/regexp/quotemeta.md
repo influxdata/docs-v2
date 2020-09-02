@@ -4,7 +4,6 @@ description: >
   The `regexp.quoteMeta()` function escapes all regular expression metacharacters inside of a string.
 aliases:
   - /v2.0/reference/flux/functions/regexp/quotemeta/
-  - /v2.0/reference/flux/stdlib/regexp/quotemeta
 menu:
   influxdb_2_0_ref:
     name: regexp.quoteMeta

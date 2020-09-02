@@ -9,8 +9,6 @@ menu:
     name: Create a token
     parent: Manage tokens
 weight: 201
-aliases:
-  - /v2.0/security/tokens/create-token/
 ---
 
 Create authentication tokens using the InfluxDB user interface (UI) or the `influx`

@@ -5,7 +5,6 @@ aliases:
   - /v2.0/reference/flux/functions/transformations/aggregates/pearsonr
   - /v2.0/reference/flux/functions/built-in/transformations/aggregates/pearsonr/
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/pearsonr/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/pearsonr
 menu:
   influxdb_2_0_ref:
     name: pearsonr

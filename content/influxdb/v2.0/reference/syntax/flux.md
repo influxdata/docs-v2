@@ -9,8 +9,6 @@ menu:
     name: Flux
     identifier: flux-syntax
 weight: 101
-aliases:
-  - /v2.0/reference/release-notes/syntax/flux/
 influxdb/v2.0/tags: [syntax, flux]
 ---
 

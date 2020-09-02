@@ -6,8 +6,6 @@ description: >
   A histogram is a way to view the distribution of data.
   The y-axis is dedicated to count, and the x-axis is divided into bins.
 weight: 204
-aliases:
-  - /v2.0/visualize-data/visualization-types/histogram/
 menu:
   influxdb_2_0:
     name: Histogram

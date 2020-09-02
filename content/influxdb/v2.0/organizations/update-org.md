@@ -2,8 +2,6 @@
 title: Update an organization
 seotitle: Update an organization in InfluxDB
 description: Update an organization's name and assets in InfluxDB using the InfluxDB UI or the influx CLI.
-aliases:
-  - /v2.0/organizations/update-org/
 menu:
   influxdb_2_0:
     name: Update an organization

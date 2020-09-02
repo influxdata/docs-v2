@@ -4,7 +4,6 @@ description: The `map()` function applies a function to each record in the input
 aliases:
   - /v2.0/reference/flux/functions/transformations/map
   - /v2.0/reference/flux/functions/built-in/transformations/map/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map
 menu:
   influxdb_2_0_ref:
     name: map

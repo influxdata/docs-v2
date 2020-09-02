@@ -10,7 +10,6 @@ menu:
     parent: Developer tools
 aliases:
   - /v2.0/write-data/csv/
-  - /v2.0/write-data/developer-tools/csv/
 weight: 204
 related:
   - /influxdb/v2.0/reference/syntax/line-protocol/

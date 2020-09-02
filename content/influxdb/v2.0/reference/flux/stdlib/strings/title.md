@@ -3,7 +3,6 @@ title: strings.title() function
 description: The strings.title() function converts a string to title case.
 aliases:
   - /v2.0/reference/flux/functions/strings/title/
-  - /v2.0/reference/flux/stdlib/strings/title
 menu:
   influxdb_2_0_ref:
     name: strings.title

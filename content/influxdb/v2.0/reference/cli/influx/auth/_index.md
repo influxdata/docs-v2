@@ -6,8 +6,6 @@ menu:
     name: influx auth
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/auth/
 influxdb/v2.0/tags: [authentication]
 ---
 

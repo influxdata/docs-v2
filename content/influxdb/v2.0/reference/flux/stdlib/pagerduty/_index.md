@@ -6,7 +6,6 @@ description: >
   Import the `pagerduty` package.
 aliases:
   - /v2.0/reference/flux/functions/pagerduty/
-  - /v2.0/reference/flux/stdlib/pagerduty/
 menu:
   influxdb_2_0_ref:
     name: PagerDuty

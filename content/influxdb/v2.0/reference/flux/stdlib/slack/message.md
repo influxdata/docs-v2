@@ -5,7 +5,6 @@ description: >
   The function works with either with the chat.postMessage API or with a Slack webhook.
 aliases:
   - /v2.0/reference/flux/functions/slack/message/
-  - /v2.0/reference/flux/stdlib/slack/message
 menu:
   influxdb_2_0_ref:
     name: slack.message

@@ -2,8 +2,6 @@
 title: geo.s2CellIDToken() function
 description: >
   The `geo.s2CellIDToken()` function returns an S2 cell ID token.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken
 menu:
   influxdb_2_0_ref:
     name: geo.s2CellIDToken

@@ -5,8 +5,6 @@ list_title: Write data with third-party technologies
 weight: 103
 description: >
   Write data to InfluxDB using third-party technologies.
-aliases:
-  - /v2.0/write-data/no-code/third-party/
 menu:
   influxdb_2_0:
     name: Third-party technologies

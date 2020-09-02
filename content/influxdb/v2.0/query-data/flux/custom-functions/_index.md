@@ -10,7 +10,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/custom-functions/
-  - /v2.0/query-data/flux/custom-functions/
 list_code_example: |
   ```js
   multByX = (tables=<-, x) =>

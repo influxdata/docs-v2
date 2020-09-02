@@ -4,7 +4,6 @@ description: The `toDuration()` function converts all values in the `_value` col
 aliases:
   - /v2.0/reference/flux/functions/transformations/type-conversions/toduration
   - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/toduration/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/toduration
 menu:
   influxdb_2_0_ref:
     name: toDuration

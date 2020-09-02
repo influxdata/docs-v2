@@ -9,8 +9,6 @@ menu:
     name: Delete a token
     parent: Manage tokens
 weight: 204
-aliases:
-  - /v2.0/security/tokens/delete-token/
 ---
 
 Delete authentication tokens from the InfluxDB user interface (UI) or the `influx` command line interface (CLI).

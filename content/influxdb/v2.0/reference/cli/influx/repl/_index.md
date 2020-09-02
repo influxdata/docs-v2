@@ -3,8 +3,6 @@ title: influx repl
 description: >
   The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
   from which you can run Flux commands.
-aliases:
-  - /v2.0/reference/cli/influx/repl/
 influxdb/v2.0/tags: [query]
 ---
 

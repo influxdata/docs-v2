@@ -10,7 +10,6 @@ menu:
 weight: 220
 aliases:
   - /v2.0/query-data/guides/monitor-states/
-  - /v2.0/query-data/flux/monitor-states/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
   - /v2.0/reference/flux/stdlib/built-in/transformations/statecount/

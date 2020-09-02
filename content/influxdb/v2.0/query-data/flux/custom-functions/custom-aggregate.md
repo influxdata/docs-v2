@@ -9,7 +9,6 @@ menu:
 weight: 301
 aliases:
   - /v2.0/query-data/guides/custom-functions/custom-aggregate/
-  - /v2.0/query-data/flux/custom-functions/custom-aggregate/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
 ---

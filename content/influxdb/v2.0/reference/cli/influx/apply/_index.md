@@ -8,7 +8,6 @@ menu:
 weight: 101
 aliases:
   - /v2.0/reference/cli/influx/pkg/
-  - /v2.0/reference/cli/influx/apply/
 influxdb/v2.0/tags: [templates]
 ---
 

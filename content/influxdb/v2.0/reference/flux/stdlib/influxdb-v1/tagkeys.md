@@ -3,7 +3,6 @@ title: v1.tagKeys() function
 description: The v1.tagKeys() function returns a list of tag keys for all series that match the predicate.
 aliases:
   - /v2.0/reference/flux/functions/influxdb-v1/tagkeys/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagkeys
 menu:
   influxdb_2_0_ref:
     name: v1.tagKeys

@@ -8,8 +8,6 @@ menu:
     name: influx setup
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/setup/
 influxdb/v2.0/tags: [get-started]
 ---
 

@@ -10,8 +10,6 @@ menu:
     name: Explore your schema
     parent: Query with Flux
 weight: 206
-aliases:
-  - /v2.0/query-data/flux/explore-schema/
 related:
   - /v2.0/reference/flux/stdlib/built-in/inputs/buckets/
   - /v2.0/reference/flux/stdlib/influxdb-v1/measurements

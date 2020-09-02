@@ -6,7 +6,6 @@ description: >
   such as storing the modified data in a new bucket or sending an alert.
 aliases:
   - /v2.0/process-data/write-a-task/
-  - /v2.0/process-data/get-started/
 influxdb/v2.0/tags: [tasks]
 menu:
   influxdb_2_0:

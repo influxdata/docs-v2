@@ -2,8 +2,6 @@
 title: aggregate.rate() function
 description: >
   The `aggregate.rate()` function calculates the rate of change per windows of time.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/aggregate/rate
 menu:
   influxdb_2_0_ref:
     name: aggregate.rate

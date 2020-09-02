@@ -3,7 +3,6 @@ title: math.nextafter() function
 description: The math.nextafter() function returns the next representable float value after `x` towards `y`.
 aliases:
   - /v2.0/reference/flux/functions/math/nextafter/
-  - /v2.0/reference/flux/stdlib/math/nextafter
 menu:
   influxdb_2_0_ref:
     name: math.nextafter

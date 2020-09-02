@@ -8,8 +8,6 @@ description: >
   This function is especially useful when tracking changes in counter values that
   wrap over time or periodically reset.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/increase/
 menu:
   influxdb_2_0:
     parent: Query with Flux

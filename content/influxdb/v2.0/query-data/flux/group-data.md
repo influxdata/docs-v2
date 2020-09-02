@@ -12,7 +12,6 @@ menu:
 weight: 202
 aliases:
   - /v2.0/query-data/guides/group-data/
-  - /v2.0/query-data/flux/group-data/
 related:
   - /v2.0/reference/flux/stdlib/built-in/transformations/group
   - /v2.0/reference/flux/stdlib/experimental/group

@@ -6,8 +6,6 @@ description: >
     `filter()` performs operations similar to the `SELECT` statement and the `WHERE`
     clause in InfluxQL and other SQL-like query languages.
 weight: 201
-aliases:
-  - /v2.0/query-data/flux/query-fields/
 menu:
   influxdb_2_0:
     parent: Query with Flux

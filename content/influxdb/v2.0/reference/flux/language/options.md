@@ -8,8 +8,6 @@ menu:
     parent: Flux specification
     name: Options
 weight: 212
-aliases:
-  - /v2.0/reference/flux/language/options
 ---
 
 {{% note %}}

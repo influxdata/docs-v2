@@ -5,7 +5,6 @@ description: Create, update, and delete InfluxDB data scrapers in the InfluxDB u
 aliases:
   - /v2.0/collect-data/scrape-data/manage-scrapers
   - /v2.0/write-data/scrape-data/manage-scrapers
-  - /v2.0/write-data/no-code/scrape-data/manage-scrapers/
 menu:
   influxdb_2_0:
     name: Manage scrapers

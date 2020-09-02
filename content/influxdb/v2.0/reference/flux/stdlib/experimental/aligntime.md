@@ -2,8 +2,6 @@
 title: experimental.alignTime() function
 description: >
   The `experimental.alignTime()` function aligns input tables to a common start time.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/aligntime
 menu:
   influxdb_2_0_ref:
     name: experimental.alignTime

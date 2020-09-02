@@ -4,7 +4,6 @@ description: >
   The `date.truncate()` function truncates a time to a specified unit.
 aliases:
   - /v2.0/reference/flux/functions/date/truncate/
-  - /v2.0/reference/flux/stdlib/date/truncate
 menu:
   influxdb_2_0_ref:
     name: date.truncate

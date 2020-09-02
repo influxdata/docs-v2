@@ -10,8 +10,6 @@ menu:
     name: Create a dashboard
     parent: Manage dashboards
 weight: 201
-aliases:
-  - /v2.0/visualize-data/dashboards/create-dashboard/
 ---
 
 ## Create a new dashboard

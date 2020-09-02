@@ -12,7 +12,6 @@ menu:
 weight: 209
 aliases:
  - /v2.0/query-data/guides/calculate-percentages/
- - /v2.0/query-data/flux/calculate-percentages/
 related:
   - /influxdb/v2.0/query-data/flux/mathematic-operations
   - /v2.0/reference/flux/stdlib/built-in/transformations/map

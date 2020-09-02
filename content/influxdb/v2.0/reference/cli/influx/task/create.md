@@ -6,8 +6,6 @@ menu:
     name: influx task create
     parent: influx task
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/task/create/
 ---
 
 The `influx task create` command creates a new task in InfluxDB.

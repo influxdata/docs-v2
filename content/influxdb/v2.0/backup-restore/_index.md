@@ -5,8 +5,6 @@ description: >
   InfluxDB provides tools that let you back up and restore data and metadata stored
   in InfluxDB.
 influxdb/v2.0/tags: [backup, restore]
-aliases:
-  - /v2.0/backup-restore
 menu:
   influxdb_2_0:
     name: Back up & restore data

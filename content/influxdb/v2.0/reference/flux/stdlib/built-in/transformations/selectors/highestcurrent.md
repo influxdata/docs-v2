@@ -4,7 +4,6 @@ description: The `highestCurrent()` function selects the last record of each tab
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/highestcurrent
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestcurrent/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestcurrent
 menu:
   influxdb_2_0_ref:
     name: highestCurrent

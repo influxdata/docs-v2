@@ -4,7 +4,6 @@ description: >
   The `slack.endpoint()` function sends a message to Slack that includes output data.
 aliases:
   - /v2.0/reference/flux/functions/slack/endpoint/
-  - /v2.0/reference/flux/stdlib/slack/endpoint
 menu:
   influxdb_2_0_ref:
     name: slack.endpoint

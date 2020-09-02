@@ -5,8 +5,6 @@ description: >
 aliases:
     - /v2.0/cloud/urls/
 weight: 6
-aliases:
-  - /v2.0/reference/urls/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB URLs

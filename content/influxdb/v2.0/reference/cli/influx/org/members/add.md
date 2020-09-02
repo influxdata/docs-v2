@@ -6,8 +6,6 @@ menu:
     name: influx org members add
     parent: influx org members
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influx/org/members/add/
 ---
 
 The `influx org members add` command adds a new member to an organization in InfluxDB.

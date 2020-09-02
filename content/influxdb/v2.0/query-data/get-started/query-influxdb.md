@@ -7,8 +7,6 @@ menu:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201
-aliases:
-  - /v2.0/query-data/get-started/query-influxdb/
 related:
   - /influxdb/v2.0/query-data/flux/
   - /v2.0/reference/flux/stdlib/built-in/inputs/from

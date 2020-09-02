@@ -6,7 +6,6 @@ description: >
   Import the `system` package.
 aliases:
   - /v2.0/reference/flux/functions/system/
-  - /v2.0/reference/flux/stdlib/system/
 menu:
   influxdb_2_0_ref:
     name: System

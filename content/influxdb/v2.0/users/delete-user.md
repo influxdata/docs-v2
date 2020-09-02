@@ -7,8 +7,6 @@ menu:
     name: Delete a user
     parent: Manage users
 weight: 103
-aliases:
-  - /v2.0/users/delete-user/
 products: [oss]
 ---
 

@@ -3,7 +3,6 @@ title: strings.compare() function
 description: The strings.compare() function compares the lexicographical order of two strings.
 aliases:
   - /v2.0/reference/flux/functions/strings/compare/
-  - /v2.0/reference/flux/stdlib/strings/compare
 menu:
   influxdb_2_0_ref:
     name: strings.compare

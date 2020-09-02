@@ -6,7 +6,6 @@ description: >
   value of `frac` in the interval [½, 1).
 aliases:
   - /v2.0/reference/flux/functions/math/frexp/
-  - /v2.0/reference/flux/stdlib/math/frexp
 menu:
   influxdb_2_0_ref:
     name: math.frexp

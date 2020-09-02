@@ -4,7 +4,6 @@ description: The `max()` function selects record with the highest _value from th
 aliases:
   - /v2.0/reference/flux/functions/transformations/selectors/max  
   - /v2.0/reference/flux/functions/built-in/transformations/selectors/max/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/max
 menu:
   influxdb_2_0_ref:
     name: max

@@ -11,7 +11,6 @@ menu:
 aliases:
   - /v2.0/write-data/no-code/use-telegraf/auto-config/delete-telegraf-config/
   - /v2.0/collect-data/use-telegraf/auto-config/delete-telegraf-config
-  - /v2.0/telegraf-configs/remove/
 ---
 
 Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)

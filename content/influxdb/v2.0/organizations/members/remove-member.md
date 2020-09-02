@@ -7,8 +7,6 @@ menu:
     name: Remove a member
     parent: Manage members
 weight: 203
-aliases:
-  - /v2.0/organizations/create-org/members/remove-members/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

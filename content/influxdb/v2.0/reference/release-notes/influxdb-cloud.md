@@ -8,7 +8,6 @@ menu:
     name: InfluxDB Cloud
 aliases:
   - /cloud/about/release-notes
-  - /v2.0/reference/release-notes/influxdb-cloud/
 ---
 
 ## 2019-09-10 _Monitoring & Alerts_

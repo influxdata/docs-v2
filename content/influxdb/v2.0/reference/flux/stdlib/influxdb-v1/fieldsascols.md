@@ -5,7 +5,6 @@ aliases:
   - /v2.0/reference/flux/functions/inputs/fromrows
   - /v2.0/reference/flux/functions/transformations/influxfieldsascols
   - /v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols
 menu:
   influxdb_2_0_ref:
     name: v1.fieldsAsCols

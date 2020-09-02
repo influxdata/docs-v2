@@ -7,7 +7,6 @@ weight: 2
 aliases:
   - /v2.0/write-data/quick-start/
   - /v2.0/write-data/sample-data/demo-data/
-  - /v2.0/write-data/
 menu:
   influxdb_2_0:
     name: Write data

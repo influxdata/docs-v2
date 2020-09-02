@@ -8,7 +8,6 @@ menu:
 weight: 201
 aliases:
   - /v2.0/reference/cli/influx/pkg/export/all/
-  - /v2.0/reference/cli/influx/export/all/
 related:
   - /influxdb/v2.0/influxdb-templates/create/
 ---

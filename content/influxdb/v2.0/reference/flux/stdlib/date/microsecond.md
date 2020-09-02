@@ -5,7 +5,6 @@ description: >
   Results range from `[0-999999]`.
 aliases:
   - /v2.0/reference/flux/functions/date/microsecond/
-  - /v2.0/reference/flux/stdlib/date/microsecond
 menu:
   influxdb_2_0_ref:
     name: date.microsecond

@@ -7,8 +7,6 @@ menu:
     name: Syntax basics
     parent: Get started with Flux
 weight: 203
-aliases:
-  - /v2.0/query-data/get-started/syntax-basics/
 related:
   - /v2.0/reference/flux/language/types/
 ---

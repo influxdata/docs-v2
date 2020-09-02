@@ -6,7 +6,6 @@ description: >
   Import the `slack` package.
 aliases:
   - /v2.0/reference/flux/functions/slack/
-  - /v2.0/reference/flux/stdlib/slack/
 menu:
   influxdb_2_0_ref:
     name: Slack

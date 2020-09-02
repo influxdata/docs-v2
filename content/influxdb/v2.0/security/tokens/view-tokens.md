@@ -9,8 +9,6 @@ menu:
     name: View tokens
     parent: Manage tokens
 weight: 202
-aliases:
-  - /v2.0/security/tokens/view-token/
 ---
 
 View authentication tokens using the InfluxDB user interface (UI) or the `influx`

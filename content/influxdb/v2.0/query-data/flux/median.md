@@ -6,8 +6,6 @@ description: >
   Use the [`median()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
   to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/median/
 menu:
   influxdb_2_0:
     parent: Query with Flux

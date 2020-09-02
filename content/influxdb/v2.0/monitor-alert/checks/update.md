@@ -7,8 +7,6 @@ menu:
   influxdb_2_0:
     parent: Manage checks
 weight: 203
-aliases:
-  - /v2.0/monitor-alert/checks/update/
 related:
   - /influxdb/v2.0/monitor-alert/notification-rules/
   - /influxdb/v2.0/monitor-alert/notification-endpoints/

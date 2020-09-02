@@ -7,8 +7,6 @@ menu:
     name: Use Grafana
     parent: Other visualization tools
 weight: 201
-aliases:
-  - /v2.0/visualize-data/other-tools/grafana/
 influxdb/v2.0/tags: [grafana]
 related:
   - https://grafana.com/docs/, Grafana documentation

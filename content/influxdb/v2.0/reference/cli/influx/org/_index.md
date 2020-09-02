@@ -6,8 +6,6 @@ menu:
     name: influx org
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/org/
 influxdb/v2.0/tags: [organizations]
 ---
 

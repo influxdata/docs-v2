@@ -2,8 +2,6 @@
 title: query.filterFields() function
 description: >
   The `query.filterFields()` function filters input data by field.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/query/filterfields
 menu:
   influxdb_2_0_ref:
     name: query.filterFields

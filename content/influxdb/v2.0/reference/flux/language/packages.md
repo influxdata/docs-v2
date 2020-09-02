@@ -6,7 +6,6 @@ description: >
   Each source file is parsed individually and composed into a single package.
 aliases:
   - /v2.0/reference/flux/language/programs
-  - /v2.0/reference/flux/language/packages
 menu:
   influxdb_2_0_ref:
     parent: Flux specification
