@@ -1,5 +1,37 @@
 {{ $currentPage := . }}
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $productName := (index .Site.Data.products $product).name }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $scratch := newScratch }}
+
+<!-- Menu Key -->
+{{ $scratch.Set "menuKey" "menu"}}
+{{ if eq $product "platform" }}
+  {{ $scratch.Set "menuKey" "platform" }}
+{{ else }}
+  {{ $scratch.Set "menuKey" (print $product (replaceRE "[v.]" "_" $currentVersion)) }}
+{{ end }}
+
+{{ $menuKey := $scratch.Get "menuKey" }}
+
+<!-- Search placeholder -->
+{{ $scratch.Set "searchPlaceholder" "Search"}}
+
+{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]\.` $currentVersion nil)) 0) }}
+  {{ $scratch.Set "searchPlaceholder" "Search the docs" }}
+{{ else if (eq $currentVersion nil) }}
+  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
+{{ else if (and (eq $product "influxdb") (or (eq $currentVersion "v1.7") (eq $currentVersion "v1.8")) ) }}
+  {{ $scratch.Set "searchPlaceholder"  (print (index .Site.Data.products $product).name " " $currentVersion " & Flux") }}
+{{ else if (and (eq $product "influxdb") (in $currentVersion "v2") )}}
+  {{ $scratch.Set "searchPlaceholder"  (print "InfluxDB Cloud, OSS, & Flux") }}
+{{ else }}
+  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+{{ end }}
+
+{{ $searchPlaceholder := $scratch.Get "searchPlaceholder" }}
+
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
   <div class="search-and-nav-toggle">
@@ -13,7 +45,7 @@
               autocapitalize="off"
               spellcheck="false"
               dir="auto"
-              placeholder="Search {{ $currentVersion }}">
+              placeholder='{{ $searchPlaceholder }}'>
     </div>
     <a id="contents-toggle-btn" href="#">
       <span class="toggle-hamburger"></span>
@@ -21,15 +53,25 @@
   </div>
   <ul id="nav-tree">
 
-  {{ $mainMenu := (index .Site.Menus (replaceRE "[.]" "_" $currentVersion)) }}
-  {{ $refMenu := (index .Site.Menus (print (replaceRE "[.]" "_" $currentVersion) "_ref")) }}
+  {{ $mainMenu := (index .Site.Menus $menuKey) }}
+  {{ $refMenu := (index .Site.Menus (print $menuKey "_ref")) }}
+  {{ $platformMenu := .Site.Menus.platform }}
 
-  <!-- Main Section -->
+  <!-- Product Main Navigation -->
   {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}
 
-  <!-- Reference Section -->
-  <h4 class="reference">Reference</h4>
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+  <!-- Product Reference Navigation -->
+  {{ if gt (len $refMenu) 0 }}
+    <h4 class="reference">Reference</h4>
+    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+  {{ end }}
+
+  <!-- Platform menu for 1.x docs -->
+  {{ $platformWhitelist := `telegraf|chronograf|kapacitor|enterprise_influxdb|influxdb_1` }}
+  {{ if gt (len (findRE $platformWhitelist $menuKey)) 0 }}
+    <h4 class="platform">InfluxData Platform</h4>
+    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu) . }}
+  {{ end }}
 
   </ul>
 </aside>

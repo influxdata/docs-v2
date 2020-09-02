@@ -1,0 +1,93 @@
+.telegraf {
+
+  .topnav {
+    .docs-home, .influx-home {
+      &:hover { color: $telegraf-topnav-link-hover; }
+    }
+    .dropdown { @include gradient($telegraf-dropdown-gradient) }
+  }
+
+  .sidebar {
+    &--search input {
+      &:focus {
+        border-color: $telegraf-sidebar-search-highlight;
+        box-shadow: 1px 1px 10px rgba($telegraf-sidebar-search-highlight, .5);
+      }
+    }
+
+    #nav-tree {
+      li {
+        &.active {
+          &:before { background: $telegraf-nav-active; }
+          & > a {
+            color: $telegraf-nav-active;
+            &:hover { color: $telegraf-nav-active; }
+          }
+          & > .children-toggle {
+            background: $telegraf-nav-active;
+            &:before, &:after { background: $body-bg; }
+          }
+          & > ul { border-left: 2px solid $telegraf-nav-active; }
+        }
+      }
+
+      .nav-category > a {
+        color: $telegraf-nav-category;
+        &:hover { color: $telegraf-nav-category-hover; }
+      }
+      .nav-item > a:hover { color: $telegraf-nav-item-hover; }
+      .children-toggle:hover { background: $telegraf-nav-toggle-bg-hover; }
+    }
+  }
+
+  .article--content{
+    h1,h2,h3,h4,h5,h6 { color: $telegraf-article-heading; }
+    h2,h4 {
+      color: $telegraf-article-heading-alt;
+    }
+
+    a {
+      color: $telegraf-article-link;
+      &:hover { color: $telegraf-article-link-hover; }
+      &.btn {
+        @include gradient($telegraf-btn-gradient);
+        &:after { @include gradient($telegraf-btn-gradient-hover); }
+      }
+    }
+
+    .children-links, .list-links {
+      h2,h3,h4 {
+        a a:after { color: rgba($telegraf-article-heading, .35);        }
+        a:hover:after { color: $telegraf-article-link; }
+      }
+    }
+
+    .expand-label:hover .expand-toggle { background: $telegraf-article-link; }
+
+    .tabs a {
+      &:after { @include gradient($telegraf-btn-gradient); }
+      &:hover { color: $telegraf-article-tab-active-text; }
+      &.is-active {
+        color: $telegraf-article-tab-active-text;
+        &:after {
+          @include gradient($telegraf-btn-gradient)
+        }
+      }
+    }
+
+    table thead { @include gradient($telegraf-article-table-header, 90deg); }
+
+    .tags .tag :after { @include gradient($grad-MilkyWay) }
+
+    .truncate a.truncate-toggle:hover { color: $telegraf-article-link; }
+
+  }
+
+  .plugin-card {
+    .github-link { @include gradient($telegraf-btn-gradient); }
+    &:hover .github-link { @include gradient($telegraf-btn-gradient); }
+  }
+
+  .algolia-autocomplete .algolia-docsearch-suggestion--highlight { color: $telegraf-article-link; }
+
+}

@@ -19,7 +19,7 @@ $body-bg: $g0-obsidian;
 // TopNav Colors
 $topnav-link: $g20-white;
 $topnav-link-hover: $b-pool;
-$version-selector-gradient: $grad-Miyazakisky;
+$default-dropdown-gradient: $grad-Miyazakisky;
 $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
@@ -152,9 +152,9 @@ $article-tab-active-bg: $b-pool;
 $article-tab-code-text: $g20-white;
 
 // Article page buttons
-$article-btn: $b-pool;
+$article-btn-gradient: $grad-blue;
 $article-btn-text: $g20-white;
-$article-btn-hover: $b-pool;
+$article-btn-gradient-hover: $grad-blue-light;
 $article-btn-text-hover: $g20-white;
 
 // Article UI nav icons
@@ -175,6 +175,12 @@ $landing-sm-bg-hover: $b-pool;
 $landing-btn-text: $g20-white;
 $landing-btn-grad: $grad-blue;
 $landing-btn-grad-hover: $grad-blue-light;
+
+// Home page colors
+$home-btn-gradient: $grad-NineteenEightyFour;
+$home-btn-gradient-hover: $grad-PastelGothic;
+$home-tick-bg-gradient: $grad-grey-abyss;
+$default-home-card-gradient: $grad-Miyazakisky;
 
 // Tooltip colors
 $tooltip-color: $br-chartreuse;
@@ -198,3 +204,7 @@ $svg-table-code-string: $gr-viridian;
 $svg-geo-s2-cell: $b-dodger;
 $svg-geo-region: $p-comet;
 $svg-geo-point: $br-chartreuse;
+
+@import "dark/telegraf",
+        "dark/chronograf",
+        "dark/kapacitor";

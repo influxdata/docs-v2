@@ -20,7 +20,7 @@ $radius: 3px !default;
 // TopNav Colors
 $topnav-link: $g8-storm !default;
 $topnav-link-hover: $b-dodger !default;
-$version-selector-gradient: $grad-PastelGothic !default;
+$default-dropdown-gradient: $grad-PastelGothic !default;
 $theme-switch-light: none !default;
 $theme-switch-dark: inline-block !default;
 
@@ -152,9 +152,9 @@ $article-tab-active-bg: $b-pool !default;
 $article-tab-code-text: $cp-marguerite !default;
 
 // Article page buttons
-$article-btn: $b-pool !default;
+$article-btn-gradient: $grad-blue !default;
 $article-btn-text: $g20-white !default;
-$article-btn-hover: $b-pool !default;
+$article-btn-gradient-hover: $grad-blue-light !default;
 $article-btn-text-hover: $g20-white !default;
 
 // Article UI nav icons
@@ -175,6 +175,12 @@ $landing-sm-bg-hover: $b-pool !default;
 $landing-btn-text: $g20-white !default;
 $landing-btn-grad: $grad-blue !default;
 $landing-btn-grad-hover: $grad-blue-light !default;
+
+// Home page colors
+$home-btn-gradient: $grad-NineteenEightyFour !default;
+$home-btn-gradient-hover: $grad-PastelGothic !default;
+$home-tick-bg-gradient: $grad-grey-mist !default;
+$default-home-card-gradient: $grad-PastelGothic !default;
 
 // Tooltip colors
 $tooltip-color: $p-amethyst !default;
@@ -198,3 +204,7 @@ $svg-table-code-string: #12A290 !default;
 $svg-geo-s2-cell: $b-hydrogen !default;
 $svg-geo-region: $br-galaxy !default;
 $svg-geo-point: $p-potassium !default;
+
+@import "light/telegraf",
+        "light/chronograf",
+        "light/kapacitor";

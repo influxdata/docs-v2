@@ -11,12 +11,12 @@
     color: inherit;
   }
   a {
-    color: $article-warn-link;
+    color: $article-warn-link !important;
     code:after {
       border-color: transparent rgba($article-warn-code, .35) transparent transparent;
     }
     &:hover {
-      color: $article-warn-link-hover;
+      color: $article-warn-link-hover !important;
       code:after {
         border-color: transparent $article-warn-link-hover transparent transparent;
       }

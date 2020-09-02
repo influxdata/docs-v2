@@ -13,6 +13,7 @@
 @import "normalize/import-now",
         "layouts/global",
         "layouts/top-nav",
+        "layouts/homepage",
         "layouts/sidebar",
         "layouts/sidebar-toggle",
         "layouts/content-wrapper",
@@ -23,4 +24,10 @@
         "layouts/landing",
         "layouts/error-page",
         "layouts/url-selector",
-        "layouts/feature-callouts";
+        "layouts/feature-callouts",
+        "layouts/v1-overrides";
+
+// Import Product-specifc color schemes
+@import "product-overrides/telegraf",
+        "product-overrides/chronograf",
+        "product-overrides/kapacitor";

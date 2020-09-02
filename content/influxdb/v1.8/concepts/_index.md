@@ -1,0 +1,13 @@
+---
+title: InfluxDB concepts
+description: Learn key concepts in InfluxDB OSS.
+menu:
+  influxdb_1_8:
+    name: Concepts
+    weight: 30
+
+---
+
+Understanding the following concepts will help you get the most out of InfluxDB.
+
+{{< children hlevel="h2" >}}

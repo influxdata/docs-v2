@@ -1,18 +1,19 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink }}
-{{ $stableVersion := $.Site.Data.versions.stable_version }}
-{{ $stableVersionURL := replaceRE "[^/]+.*?[0]" $stableVersion .RelPermalink }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $productName := (index .Site.Data.products $product).name }}
+{{ $currentVersion := index $productPathData 1 }}
+
+{{ $stableVersion := (index .Site.Data.products $product).latest }}
+{{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
+
 {{ if lt $currentVersion $stableVersion }}
-  <div class="warn old-version">
+  <div class="warn block old-version">
     <p>
-      This page documents an earlier version of InfluxDB. InfluxDB {{ $stableVersion }} is the latest stable version.<br/>
-      <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
-    </p>
-  </div>
-{{ else if gt $currentVersion $stableVersion }}
-  <div class="note old-version">
-    <p>
-      This page documents a pre-release version of InfluxDB. InfluxDB {{ $stableVersion }} is the latest stable version.<br/>
-      <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+      This page documents an earlier version of {{ $productName }}.
+      <a href="/{{ $product }}/{{$stableVersion}}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.<br/>
+      {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
+        <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+      {{ end }}
     </p>
   </div>
 {{ end }}
