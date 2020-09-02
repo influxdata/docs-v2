@@ -4,7 +4,7 @@ description: >
   The `date.weekDay()` function returns the day of the week for a specified time.
   Results range from `[0-6]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/weekday/
+  - /influxdb/v2.0/reference/flux/functions/date/weekday/
 menu:
   influxdb_2_0_ref:
     name: date.weekDay

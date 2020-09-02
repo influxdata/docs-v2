@@ -2,7 +2,7 @@
 title: math.signbit() function
 description: The math.signbit() function reports whether `x` is negative or negative zero.
 aliases:
-  - /v2.0/reference/flux/functions/math/signbit/
+  - /influxdb/v2.0/reference/flux/functions/math/signbit/
 menu:
   influxdb_2_0_ref:
     name: math.signbit

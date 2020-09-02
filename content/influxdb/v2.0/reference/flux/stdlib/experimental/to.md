@@ -9,7 +9,7 @@ menu:
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/built-in/outputs/to/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
 ---
 
 The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in

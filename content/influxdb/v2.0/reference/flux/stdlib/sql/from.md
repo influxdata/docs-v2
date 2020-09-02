@@ -2,7 +2,7 @@
 title: sql.from() function
 description: The `sql.from()` function retrieves data from a SQL data source.
 aliases:
-  - /v2.0/reference/flux/functions/sql/from/
+  - /influxdb/v2.0/reference/flux/functions/sql/from/
 menu:
   influxdb_2_0_ref:
     name: sql.from

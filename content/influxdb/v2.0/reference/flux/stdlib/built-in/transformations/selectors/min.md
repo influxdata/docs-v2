@@ -2,8 +2,8 @@
 title: min() function
 description: The `min()` function selects record with the lowest _value from the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/min
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/min/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/min
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/min/
 menu:
   influxdb_2_0_ref:
     name: min

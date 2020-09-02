@@ -2,8 +2,8 @@
 title: highestMax() function
 description: The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/highestmax
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestmax/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/highestmax
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/highestmax/
 menu:
   influxdb_2_0_ref:
     name: highestMax

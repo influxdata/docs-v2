@@ -2,8 +2,8 @@
 title: keep() function
 description: The `keep()` function returns a table containing only the specified columns.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/keep
-  - /v2.0/reference/flux/functions/built-in/transformations/keep/
+  - /influxdb/v2.0/reference/flux/functions/transformations/keep
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keep/
 menu:
   influxdb_2_0_ref:
     name: keep

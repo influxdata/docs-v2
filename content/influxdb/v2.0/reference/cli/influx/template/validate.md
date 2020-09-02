@@ -7,7 +7,7 @@ menu:
     parent: influx template
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/pkg/validate/
+  - /influxdb/v2.0/reference/cli/influx/pkg/validate/
 ---
 
 The `influx template validate` command validates the provided InfluxDB template.

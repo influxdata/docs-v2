@@ -2,8 +2,8 @@
 title: toString() function
 description: The `toString()` function converts all values in the `_value` column to strings.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/tostring
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/tostring/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tostring
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tostring/
 menu:
   influxdb_2_0_ref:
     name: toString

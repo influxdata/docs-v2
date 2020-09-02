@@ -9,7 +9,7 @@ menu:
     parent: Client libraries
 influxdb/v2.0/tags: [client libraries, python]
 aliases:
-  - /v2.0/reference/api/client-libraries/python-cl-guide/
+  - /influxdb/v2.0/reference/api/client-libraries/python-cl-guide/
 weight: 201
 ---
 

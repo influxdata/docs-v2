@@ -8,7 +8,7 @@ menu:
     name: Query with Flux
     parent: Query data
 alias:
-  - /v2.0/query-data/guides/
+  - /influxdb/v2.0/query-data/guides/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

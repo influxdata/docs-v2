@@ -4,7 +4,7 @@ description: >
   The strings.joinStr() function concatenates the elements of a string array into
   a single string using a specified separator.
 aliases:
-  - /v2.0/reference/flux/functions/strings/joinstr/
+  - /influxdb/v2.0/reference/flux/functions/strings/joinstr/
 menu:
   influxdb_2_0_ref:
     name: strings.joinStr

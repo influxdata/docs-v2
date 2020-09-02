@@ -4,7 +4,7 @@ description: >
   The `date.monthDay()` function returns the day of the month for a specified time.
   Results range from `[1-31]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/monthday/
+  - /influxdb/v2.0/reference/flux/functions/date/monthday/
 menu:
   influxdb_2_0_ref:
     name: date.monthDay

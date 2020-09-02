@@ -9,9 +9,9 @@ menu:
 weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
-  - /v2.0/reference/flux/stdlib/experimental/geo/filterRows/
-  - /v2.0/reference/flux/stdlib/experimental/geo/toRows/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterRows/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/toRows/
   - /influxdb/v2.0/query-data/flux/geo/
 ---
 

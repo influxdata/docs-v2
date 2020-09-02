@@ -5,7 +5,7 @@ description: >
   InfluxData provides many sample time series datasets to use with InfluxDB
   and InfluxDB Cloud.
 aliases:
-  - /v2.0/write-data/sample-data/
+  - /influxdb/v2.0/write-data/sample-data/
 menu: influxdb_2_0_ref
 weight: 7
 ---

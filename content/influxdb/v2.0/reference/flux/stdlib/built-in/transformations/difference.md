@@ -2,8 +2,8 @@
 title: difference() function
 description: The `difference()` function computes the difference between subsequent non-null records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/difference
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/difference
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
 menu:
   influxdb_2_0_ref:
     name: difference

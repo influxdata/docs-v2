@@ -5,7 +5,7 @@ description: >
   The Flux Slack package provides functions for sending data to Slack.
   Import the `slack` package.
 aliases:
-  - /v2.0/reference/flux/functions/slack/
+  - /influxdb/v2.0/reference/flux/functions/slack/
 menu:
   influxdb_2_0_ref:
     name: Slack

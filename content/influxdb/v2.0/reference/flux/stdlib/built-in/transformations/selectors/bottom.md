@@ -2,8 +2,8 @@
 title: bottom() function
 description: The `bottom()` function sorts a table by columns and keeps only the bottom n records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/bottom
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/bottom
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
 menu:
   influxdb_2_0_ref:
     name: bottom

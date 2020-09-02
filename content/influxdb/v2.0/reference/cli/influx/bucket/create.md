@@ -7,7 +7,7 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/bucket/create/
+  - /influxdb/v2.0/reference/cli/influx/bucket/create/
 ---
 
 The `influx bucket create` command creates a new bucket in InfluxDB.

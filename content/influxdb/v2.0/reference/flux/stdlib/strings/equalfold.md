@@ -4,7 +4,7 @@ description: >
   The strings.equalFold() function reports whether two UTF-8 strings are equal
   under Unicode case-folding.
 aliases:
-  - /v2.0/reference/flux/functions/strings/equalfold/
+  - /influxdb/v2.0/reference/flux/functions/strings/equalfold/
 menu:
   influxdb_2_0_ref:
     name: strings.equalFold

@@ -2,7 +2,7 @@
 title: math.atan() function
 description: The math.atan() function returns the arctangent of `x` in radians.
 aliases:
-  - /v2.0/reference/flux/functions/math/atan/
+  - /influxdb/v2.0/reference/flux/functions/math/atan/
 menu:
   influxdb_2_0_ref:
     name: math.atan

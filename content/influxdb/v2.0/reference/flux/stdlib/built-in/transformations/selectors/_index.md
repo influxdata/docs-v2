@@ -3,8 +3,8 @@ title: Flux built-in selector functions
 list_title: Built-in selector functions
 description: Flux's built-in selector functions return one or more records based on function logic.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations

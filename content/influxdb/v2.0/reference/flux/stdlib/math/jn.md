@@ -2,7 +2,7 @@
 title: math.jn() function
 description: The math.jn() function returns the order-n Bessel function of the first kind.
 aliases:
-  - /v2.0/reference/flux/functions/math/jn/
+  - /influxdb/v2.0/reference/flux/functions/math/jn/
 menu:
   influxdb_2_0_ref:
     name: math.jn

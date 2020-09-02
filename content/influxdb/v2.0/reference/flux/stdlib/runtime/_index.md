@@ -5,7 +5,7 @@ description: >
   The Flux runtime package includes functions that provide information about the
   current Flux runtime. Import the `runtime` package.
 aliases:
-  - /v2.0/reference/flux/functions/runtime/
+  - /influxdb/v2.0/reference/flux/functions/runtime/
 menu:
   influxdb_2_0_ref:
     name: Runtime

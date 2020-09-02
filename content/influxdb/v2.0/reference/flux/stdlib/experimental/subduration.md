@@ -9,7 +9,7 @@ menu:
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/experimental/addduration/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
 ---
 
 The `experimental.subDuration()` function subtracts a duration from a time value and

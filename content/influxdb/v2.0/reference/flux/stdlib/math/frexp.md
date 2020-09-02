@@ -5,7 +5,7 @@ description: >
   It returns `frac` and `exp` satisfying `f == frac × 2**exp`, with the absolute
   value of `frac` in the interval [½, 1).
 aliases:
-  - /v2.0/reference/flux/functions/math/frexp/
+  - /influxdb/v2.0/reference/flux/functions/math/frexp/
 menu:
   influxdb_2_0_ref:
     name: math.frexp

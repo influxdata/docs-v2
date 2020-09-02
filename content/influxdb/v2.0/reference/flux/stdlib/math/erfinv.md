@@ -2,7 +2,7 @@
 title: math.erfinv() function
 description: The math.erfinv() function returns the inverse error function of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/erfinv/
+  - /influxdb/v2.0/reference/flux/functions/math/erfinv/
 menu:
   influxdb_2_0_ref:
     name: math.erfinv

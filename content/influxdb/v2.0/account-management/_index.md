@@ -6,8 +6,8 @@ description: >
 weight: 10
 products: [cloud]
 aliases:
-  - /v2.0/cloud/account-management/
-  - /v2.0/account-management
+  - /influxdb/v2.0/cloud/account-management/
+  - /influxdb/v2.0/account-management
 menu:
   influxdb_2_0:
     name: Account management

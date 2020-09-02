@@ -4,7 +4,7 @@ description: >
   The strings.strlen() function returns the length of a string.
   String length is determined by the number of UTF code points a string contains.
 aliases:
-  - /v2.0/reference/flux/functions/strings/strlen/
+  - /influxdb/v2.0/reference/flux/functions/strings/strlen/
 menu:
   influxdb_2_0_ref:
     name: strings.strlen

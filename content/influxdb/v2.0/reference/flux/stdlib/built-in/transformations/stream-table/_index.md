@@ -6,7 +6,7 @@ description: >
   Use stream and table functions to extract a table from a stream of tables and access its
   columns and records.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/stream-table/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/
 weight: 401
 menu:
   influxdb_2_0_ref:

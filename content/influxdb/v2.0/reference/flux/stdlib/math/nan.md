@@ -2,7 +2,7 @@
 title: math.NaN() function
 description: The math.NaN() function returns an IEEE 754 “not-a-number” value.
 aliases:
-  - /v2.0/reference/flux/functions/math/nan/
+  - /influxdb/v2.0/reference/flux/functions/math/nan/
 menu:
   influxdb_2_0_ref:
     name: math.NaN

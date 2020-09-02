@@ -4,7 +4,7 @@ description: >
   The `reduce()` function aggregates records in each table according to the reducer,
   `fn`, providing a way to create custom table aggregations.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
 menu:
   influxdb_2_0_ref:
     name: reduce

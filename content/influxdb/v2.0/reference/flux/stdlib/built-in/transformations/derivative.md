@@ -2,8 +2,8 @@
 title: derivative() function
 description: The `derivative()` function computes the rate of change per unit of time between subsequent non-null records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/derivative
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/derivative/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/derivative
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/derivative/
 menu:
   influxdb_2_0_ref:
     name: derivative

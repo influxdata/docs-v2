@@ -6,7 +6,7 @@ menu:
     parent: influx
 weight: 101
 aliases:
-  - /v2.0/reference/cli/influx/pkg/export/
+  - /influxdb/v2.0/reference/cli/influx/pkg/export/
 related:
   - /influxdb/v2.0/influxdb-templates/create/
 ---

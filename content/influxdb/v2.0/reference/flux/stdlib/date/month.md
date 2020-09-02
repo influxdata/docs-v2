@@ -4,7 +4,7 @@ description: >
   The `date.month()` function returns the month of a specified time.
   Results range from `[1-12]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/month/
+  - /influxdb/v2.0/reference/flux/functions/date/month/
 menu:
   influxdb_2_0_ref:
     name: date.month

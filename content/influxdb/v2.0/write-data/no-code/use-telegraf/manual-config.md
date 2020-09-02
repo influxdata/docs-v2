@@ -6,8 +6,8 @@ description: >
   output plugin to write to InfluxDB v2.0.
   Start Telegraf using the custom configuration.
 aliases:
-  - /v2.0/collect-data/use-telegraf/manual-config
-  - /v2.0/write-data/use-telegraf/manual-config
+  - /influxdb/v2.0/collect-data/use-telegraf/manual-config
+  - /influxdb/v2.0/write-data/use-telegraf/manual-config
 menu:
   influxdb_2_0:
     parent: Telegraf (agent)

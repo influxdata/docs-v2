@@ -4,15 +4,15 @@ description: >
   The `kaufmansER()` function calculates the Kaufman's Efficiency Ratio (KER) using
   values in an input table.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmanser/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmanser/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmanser/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmanser/
 menu:
   influxdb_2_0_ref:
     name: kaufmansER
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
 ---
 

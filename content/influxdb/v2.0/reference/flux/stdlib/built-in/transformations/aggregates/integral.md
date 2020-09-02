@@ -2,8 +2,8 @@
 title: integral() function
 description: The `integral()` function computes the area under the curve per unit of time of subsequent non-null records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/integral
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/integral
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
 menu:
   influxdb_2_0_ref:
     name: integral

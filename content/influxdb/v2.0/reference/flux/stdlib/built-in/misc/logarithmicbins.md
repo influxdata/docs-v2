@@ -2,8 +2,8 @@
 title: logarithmicBins() function
 description: The `logarithmicBins()` function generates a list of exponentially separated floats.
 aliases:
-  - /v2.0/reference/flux/functions/misc/logarithmicbins
-  - /v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
+  - /influxdb/v2.0/reference/flux/functions/misc/logarithmicbins
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
 menu:
   influxdb_2_0_ref:
     name: logarithmicBins

@@ -9,9 +9,9 @@ menu:
 weight: 201
 related:
   - /influxdb/v2.0/query-data/flux/
-  - /v2.0/reference/flux/stdlib/built-in/inputs/from
-  - /v2.0/reference/flux/stdlib/built-in/transformations/range
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.

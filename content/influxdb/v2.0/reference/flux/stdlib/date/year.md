@@ -3,7 +3,7 @@ title: date.year() function
 description: >
   The `date.year()` function returns the year of a specified time.
 aliases:
-  - /v2.0/reference/flux/functions/date/year/
+  - /influxdb/v2.0/reference/flux/functions/date/year/
 menu:
   influxdb_2_0_ref:
     name: date.year

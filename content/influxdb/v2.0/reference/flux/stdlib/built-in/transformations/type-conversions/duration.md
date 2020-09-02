@@ -2,7 +2,7 @@
 title: duration() function
 description: The `duration()` function converts a single value to a duration.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/duration/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/duration/
 menu:
   influxdb_2_0_ref:
     name: duration

@@ -5,7 +5,7 @@ description: >
   View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
 weight: 103
 aliases:
-    - /v2.0/cloud/account-management/data-usage
+    - /influxdb/v2.0/cloud/account-management/data-usage
 menu:
   influxdb_2_0:
     parent: Account management

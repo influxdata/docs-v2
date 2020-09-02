@@ -4,7 +4,7 @@ description: >
   The `date.microsecond()` function returns the microsecond of a specified time.
   Results range from `[0-999999]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/microsecond/
+  - /influxdb/v2.0/reference/flux/functions/date/microsecond/
 menu:
   influxdb_2_0_ref:
     name: date.microsecond

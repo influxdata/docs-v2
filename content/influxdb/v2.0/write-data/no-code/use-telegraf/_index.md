@@ -7,9 +7,9 @@ description: >
   Use Telegraf to collect and write data to InfluxDB v2.0.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
-  - /v2.0/collect-data/advanced-telegraf
-  - /v2.0/collect-data/use-telegraf
-  - /v2.0/write-data/use-telegraf/
+  - /influxdb/v2.0/collect-data/advanced-telegraf
+  - /influxdb/v2.0/collect-data/use-telegraf
+  - /influxdb/v2.0/write-data/use-telegraf/
 menu:
   influxdb_2_0:
     name: Telegraf (agent)

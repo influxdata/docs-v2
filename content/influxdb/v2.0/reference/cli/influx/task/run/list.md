@@ -7,7 +7,7 @@ menu:
     parent: influx task run
 weight: 301
 aliases:
-  - /v2.0/reference/cli/influx/task/run/find
+  - /influxdb/v2.0/reference/cli/influx/task/run/find
 ---
 
 The `influx task run list` command outputs information related to runs of a task.

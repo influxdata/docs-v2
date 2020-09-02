@@ -10,7 +10,7 @@ weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
 ---
 
 The `geo.toRows()` function pivots data into row-wise sets base on time.

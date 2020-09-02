@@ -4,7 +4,7 @@ description: >
   The `date.quarter()` function returns the quarter of the year for a specified time.
   Results range from `[1-4]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/quarter/
+  - /influxdb/v2.0/reference/flux/functions/date/quarter/
 menu:
   influxdb_2_0_ref:
     name: date.quarter

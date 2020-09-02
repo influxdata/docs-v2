@@ -9,7 +9,7 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/custom-functions/
+  - /influxdb/v2.0/query-data/guides/custom-functions/
 list_code_example: |
   ```js
   multByX = (tables=<-, x) =>

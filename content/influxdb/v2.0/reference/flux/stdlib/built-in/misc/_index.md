@@ -5,8 +5,8 @@ description: >
   Flux provides built-in miscellaneous functions that serve purposes other than
   retrieving, transforming, or outputting data.
 aliases:
-  - /v2.0/reference/flux/functions/misc
-  - /v2.0/reference/flux/functions/built-in/misc/
+  - /influxdb/v2.0/reference/flux/functions/misc
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/
 menu:
   influxdb_2_0_ref:
     parent: Built-in

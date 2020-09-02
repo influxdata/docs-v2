@@ -2,7 +2,7 @@
 title: testing.assertEmpty() function
 description: The testing.assertEmpty() function tests if an input stream is empty.
 aliases:
-  - /v2.0/reference/flux/functions/testing/assertempty/
+  - /influxdb/v2.0/reference/flux/functions/testing/assertempty/
 menu:
   influxdb_2_0_ref:
     name: testing.assertEmpty

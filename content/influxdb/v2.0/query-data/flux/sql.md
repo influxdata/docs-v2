@@ -13,9 +13,9 @@ menu:
     list_title: SQL data
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/sql/
+  - /influxdb/v2.0/query-data/guides/sql/
 related:
-  - /v2.0/reference/flux/stdlib/sql/
+  - /influxdb/v2.0/reference/flux/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"

@@ -4,7 +4,7 @@ description: >
   The math.atan2() function returns the arc tangent of `y`/`x`, using the signs of
   the parameters to determine the quadrant of the return value.
 aliases:
-  - /v2.0/reference/flux/functions/math/atan2/
+  - /influxdb/v2.0/reference/flux/functions/math/atan2/
 menu:
   influxdb_2_0_ref:
     name: math.atan2

@@ -9,7 +9,7 @@ menu:
 weight: 102
 influxdb/v2.0/tags: [write, line protocol, syntax]
 aliases:
-  - /v2.0/reference/line-protocol
+  - /influxdb/v2.0/reference/line-protocol
 related:
   - /influxdb/v2.0/write-data/
 ---

@@ -2,8 +2,8 @@
 title: filter() function
 description: The `filter()` function filters data based on conditions defined in a predicate function (fn).
 aliases:
-  - /v2.0/reference/flux/functions/transformations/filter
-  - /v2.0/reference/flux/functions/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/functions/transformations/filter
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/filter/
 menu:
   influxdb_2_0_ref:
     name: filter

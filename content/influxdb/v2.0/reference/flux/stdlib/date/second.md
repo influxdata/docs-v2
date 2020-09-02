@@ -4,7 +4,7 @@ description: >
   The `date.second()` function returns the second of a specified time.
   Results range from `[0-59]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/second/
+  - /influxdb/v2.0/reference/flux/functions/date/second/
 menu:
   influxdb_2_0_ref:
     name: date.second

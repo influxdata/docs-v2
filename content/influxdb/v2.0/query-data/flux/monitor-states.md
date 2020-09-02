@@ -9,10 +9,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/monitor-states/
+  - /influxdb/v2.0/query-data/guides/monitor-states/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/statecount/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
 ---
 
 Flux helps you monitor states in your metrics and events:

@@ -2,7 +2,7 @@
 title: float() function
 description: The `float()` function converts a single value to a float.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/float/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/float/
 menu:
   influxdb_2_0_ref:
     name: float

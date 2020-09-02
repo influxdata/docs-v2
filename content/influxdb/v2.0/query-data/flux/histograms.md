@@ -11,9 +11,9 @@ menu:
     parent: Query with Flux
 weight: 210
 aliases:
-  - /v2.0/query-data/guides/histograms/
+  - /influxdb/v2.0/query-data/guides/histograms/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram
 list_query_example: histogram
 ---
 

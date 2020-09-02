@@ -11,9 +11,9 @@ menu:
 weight: 220
 influxdb/v2.0/tags: [scalar]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
 aliases:
-  - /v2.0/query-data/guides/scalar-values/
+  - /influxdb/v2.0/query-data/guides/scalar-values/
 list_code_example: |
   ```js
   scalarValue = {

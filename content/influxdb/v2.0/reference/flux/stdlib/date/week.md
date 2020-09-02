@@ -4,7 +4,7 @@ description: >
   The `date.week()` function returns the ISO week of the year for a specified time.
   Results range from `[1-53]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/week/
+  - /influxdb/v2.0/reference/flux/functions/date/week/
 menu:
   influxdb_2_0_ref:
     name: date.week

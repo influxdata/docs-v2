@@ -4,16 +4,16 @@ description: >
   The strings.lastIndex() function returns the index of the last instance of a substring
   in a string or `-1` if substring is not present.
 aliases:
-  - /v2.0/reference/flux/functions/strings/lastindex/
+  - /influxdb/v2.0/reference/flux/functions/strings/lastindex/
 menu:
   influxdb_2_0_ref:
     name: strings.lastIndex
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/index/
-  - /v2.0/reference/flux/stdlib/strings/indexany/
-  - /v2.0/reference/flux/stdlib/strings/lastindexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/index/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
 ---
 
 The `strings.lastIndex()` function returns the index of the last instance of a substring

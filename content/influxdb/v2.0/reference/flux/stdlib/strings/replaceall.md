@@ -4,14 +4,14 @@ description: >
   The strings.replaceAll() function replaces all non-overlapping instances of a
   substring with a specified replacement.
 aliases:
-  - /v2.0/reference/flux/functions/strings/replaceall/
+  - /influxdb/v2.0/reference/flux/functions/strings/replaceall/
 menu:
   influxdb_2_0_ref:
     name: strings.replaceAll
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/replace
+  - /influxdb/v2.0/reference/flux/stdlib/strings/replace
 ---
 
 The `strings.replaceAll()` function replaces all non-overlapping instances of a

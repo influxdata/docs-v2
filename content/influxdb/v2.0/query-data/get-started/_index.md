@@ -10,8 +10,8 @@ menu:
     name: Get started with Flux
     parent: Query data
 related:
-  - /v2.0/reference/flux/
-  - /v2.0/reference/flux/stdlib/
+  - /influxdb/v2.0/reference/flux/
+  - /influxdb/v2.0/reference/flux/stdlib/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,

@@ -2,8 +2,8 @@
 title: yield() function
 description: The `yield()` function indicates the input tables received should be delivered as a result of the query.
 aliases:
-  - /v2.0/reference/flux/functions/outputs/yield
-  - /v2.0/reference/flux/functions/built-in/outputs/yield/
+  - /influxdb/v2.0/reference/flux/functions/outputs/yield
+  - /influxdb/v2.0/reference/flux/functions/built-in/outputs/yield/
 menu:
   influxdb_2_0_ref:
     name: yield

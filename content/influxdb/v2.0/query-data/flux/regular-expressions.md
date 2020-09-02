@@ -9,10 +9,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/regular-expressions/
+  - /influxdb/v2.0/query-data/guides/regular-expressions/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/regexp/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/
 list_query_example: regular_expressions
 ---
 

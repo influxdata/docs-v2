@@ -4,7 +4,7 @@ description: >
   The `getRecord()` function extracts a record from a table given its index.
   If the index is out of bounds, the function errors.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/
 menu:
   influxdb_2_0_ref:
     name: getRecord

@@ -2,9 +2,9 @@
 title: quantile() function
 description: The `quantile()` function outputs non-null records with values that fall within the specified quantile or the non-null record with the value that represents the specified quantile.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/percentile
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/percentile
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
 menu:
   influxdb_2_0_ref:
     name: quantile

@@ -2,7 +2,7 @@
 title: math.erfc() function
 description: The math.erfc() function returns the complementary error function of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/erfc/
+  - /influxdb/v2.0/reference/flux/functions/math/erfc/
 menu:
   influxdb_2_0_ref:
     name: math.erfc

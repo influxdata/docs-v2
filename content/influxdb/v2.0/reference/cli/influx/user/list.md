@@ -7,7 +7,7 @@ menu:
     parent: influx user
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/user/find
+  - /influxdb/v2.0/reference/cli/influx/user/find
 ---
 
 The `influx user list` command lists users in InfluxDB.

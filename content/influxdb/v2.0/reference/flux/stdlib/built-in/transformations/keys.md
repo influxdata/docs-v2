@@ -5,8 +5,8 @@ description: >
   For each input table, it outputs a table with the same group key columns, plus a
   _value column containing the labels of the input table's group key.  
 aliases:
-  - /v2.0/reference/flux/functions/transformations/keys
-  - /v2.0/reference/flux/functions/built-in/transformations/keys/
+  - /influxdb/v2.0/reference/flux/functions/transformations/keys
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keys/
 menu:
   influxdb_2_0_ref:
     name: keys
