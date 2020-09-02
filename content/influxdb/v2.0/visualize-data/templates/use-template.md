@@ -20,7 +20,7 @@ To create a new dashboard from an InfluxDB dashboard template:
 
 3. Select the [template type](/influxdb/v2.0/visualize-data/templates/#dashboard-template-types).
 
-    {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
+    {{< img-hd src="/img/influxdb/2-0-templates-type-select.png" alt="Select User Templates" />}}
 
 4. Hover over the template you want to use and click **Create**.
    A notification appears confirming the dashboard was created.

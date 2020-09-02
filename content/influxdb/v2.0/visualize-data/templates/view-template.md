@@ -20,7 +20,7 @@ To view templates in the InfluxDB userface (UI):
 
 3. Select templates to view:
 
-    {{< img-hd src="/img/2-0-templates-type-select.png" alt="Select User Templates" />}}
+    {{< img-hd src="/img/influxdb/2-0-templates-type-select.png" alt="Select User Templates" />}}
 
     - **Static Templates:** templates included with InfluxDB.
       For more information, see [Static templates](#static-templates) below.

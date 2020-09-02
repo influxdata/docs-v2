@@ -51,7 +51,7 @@ See [Get started with Flux](/influxdb/v2.0/query-data/get-started) to learn more
 
 - Select an available [visualization types](/influxdb/v2.0/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
 
-    {{< img-hd src="/img/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
+    {{< img-hd src="/img/influxdb/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
 
 ## Control your dashboard cell
 
@@ -62,7 +62,7 @@ To open the cell editor overlay, click the gear icon in the upper right of a cel
 
 Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Use this option when data can't be visualized using a visualization type.
 
- {{< img-hd src="/img/beta-8-raw-data.png" alt="View raw data" />}}
+ {{< img-hd src="/img/influxdb/2-0-controls-view-raw-data.png" alt="View raw data" />}}
 
 ### Save as CSV
 
@@ -72,7 +72,7 @@ Click the CSV icon to save the cells contents as a CSV file.
 
 Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
 
-{{< img-hd src="/img/beta-8-interval-dropdown.png" alt="Select refresh interval" />}}
+{{< img-hd src="/img/influxdb-influxdb/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
 
 ### Manually refresh dashboard
 
@@ -82,7 +82,7 @@ Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashbo
 
 1. Select from the time range options in the dropdown menu.
 
-    {{< img-hd src="/img/2-0-controls-time-range.png" alt="Select time range" />}}
+    {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Select time range" />}}
 
 2. Select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 The default time range is 5m.

@@ -5,10 +5,6 @@
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
-
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">

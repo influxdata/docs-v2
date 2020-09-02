@@ -1,7 +1,7 @@
 ---
 title: Visualization types in Chronograf
 descriptions: >
-  Chronograf provides multiple visualization types to visualize your data in a format that makes to the most sense for your use case. 
+  Chronograf provides multiple visualization types to visualize your data in a format that makes to the most sense for your use case.
 menu:
   chronograf_1_8:
     name: Visualization types
@@ -9,7 +9,7 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/latest/querying-data) .
+Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/v1.8/guides/querying-data).
 
 [Visualization Type selector](/img/chronograf/1-6-viz-types-selector.png)
 

@@ -11,7 +11,7 @@ menu:
     parent: built-in-inputs
 weight: 401
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-databases, InfluxQL - SHOW DATABASES]()
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-databases, InfluxQL - SHOW DATABASES]()
 ---
 
 The `buckets()` function returns a list of buckets in the organization.
