@@ -4,8 +4,7 @@ description: >
   The `monitor.from()` function retrieves check statuses stored in the `statuses`
   measurement in the `_monitoring` bucket.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/from/
-  - /v2.0/reference/flux/stdlib/monitor/from
+  - /influxdb/v2.0/reference/flux/functions/monitor/from/
 menu:
   influxdb_2_0_ref:
     name: monitor.from

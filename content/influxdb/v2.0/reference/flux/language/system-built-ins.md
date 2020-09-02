@@ -4,8 +4,7 @@ description: >
   When a built-in value is not expressible in Flux, its value may be defined by the hosting environment.
   All such values must have a corresponding builtin statement to declare the existence and type of the built-in value.
 aliases:
-  - /v2.0/reference/flux/language/built-ins/system-built-ins/
-  - /v2.0/reference/flux/language/system-built-ins
+  - /influxdb/v2.0/reference/flux/language/built-ins/system-built-ins/
 menu:
   influxdb_2_0_ref:
     name: System built-ins

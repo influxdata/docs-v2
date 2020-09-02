@@ -6,8 +6,6 @@ menu:
     parent: Use and manage variables
     name: Common variable queries
 weight: 208
-aliases:
-  - /v2.0/visualize-data/variables/common-variables/
 influxdb/v2.0/tags: [variables]
 ---
 

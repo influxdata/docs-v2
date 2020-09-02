@@ -6,8 +6,6 @@ menu:
     name: influx user
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/user/
 influxdb/v2.0/tags: [users]
 ---
 

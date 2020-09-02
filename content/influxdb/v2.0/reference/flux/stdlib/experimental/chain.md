@@ -3,8 +3,6 @@ title: experimental.chain() function
 description: >
   The `experimental.chain()` function runs two queries in a single Flux script
   sequentially and outputs the results of the second query.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/chain
 menu:
   influxdb_2_0_ref:
     name: experimental.chain

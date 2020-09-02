@@ -7,8 +7,7 @@ menu:
     parent: influx stacks
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/pkg/stack/init/
-  - /v2.0/reference/cli/influx/stacks/init/
+  - /influxdb/v2.0/reference/cli/influx/pkg/stack/init/
 influxdb/v2.0/tags: [templates]
 ---
 

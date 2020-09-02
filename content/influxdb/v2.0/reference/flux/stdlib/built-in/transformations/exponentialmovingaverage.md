@@ -4,19 +4,18 @@ description: >
   The `exponentialMovingAverage()` function calculates the exponential moving average of values
   in the `_value` column grouped into `n` number of points, giving more weight to recent data.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
 menu:
   influxdb_2_0_ref:
     name: exponentialMovingAverage
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
 ---
 

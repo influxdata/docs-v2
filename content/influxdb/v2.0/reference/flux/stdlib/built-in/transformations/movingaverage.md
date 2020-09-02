@@ -3,9 +3,8 @@ title: movingAverage() function
 description: >
   The `movingAverage()` function calculates the mean of values grouped into `n` number of points.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
-  - /v2.0/reference/flux/functions/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/movingaverage/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/movingaverage/
 menu:
   influxdb_2_0_ref:
     name: movingAverage
@@ -13,10 +12,10 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/moving-average/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 

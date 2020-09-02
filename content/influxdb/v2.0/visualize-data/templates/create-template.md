@@ -8,8 +8,6 @@ menu:
     name: Create a template
     parent: Manage dashboard templates
 weight: 201
-aliases:
-  - /v2.0/visualize-data/templates/create-template/
 ---
 
 ## Create a template from an existing dashboard

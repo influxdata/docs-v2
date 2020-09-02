@@ -8,8 +8,6 @@ menu:
     name: Geo-temporal data
     parent: Query with Flux
 weight: 220
-aliases:
-  - /v2.0/query-data/flux/geo/
 list_code_example: |
   ```js
   import "experimental/geo"

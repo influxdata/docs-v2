@@ -5,19 +5,18 @@ description: >
   grouped into `n` number of points, giving more weight to recent data with less lag
   than `exponentialMovingAverage()` and `doubleEMA()`.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
 menu:
   influxdb_2_0_ref:
     name: tripleEMA
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 

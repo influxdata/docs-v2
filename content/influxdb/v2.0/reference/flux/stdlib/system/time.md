@@ -2,17 +2,16 @@
 title: system.time() function
 description: The `system.time()` function returns the current system time.
 aliases:
-  - /v2.0/reference/flux/functions/misc/systemtime
-  - /v2.0/reference/flux/functions/built-in/misc/systemtime
-  - /v2.0/reference/flux/functions/system/time/
-  - /v2.0/reference/flux/stdlib/system/time
+  - /influxdb/v2.0/reference/flux/functions/misc/systemtime
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/systemtime
+  - /influxdb/v2.0/reference/flux/functions/system/time/
 menu:
   influxdb_2_0_ref:
     name: system.time
     parent: System
 weight: 401
 related:
-  - /v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
 ---
 
 The `system.time()` function returns the current system time.

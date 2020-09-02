@@ -2,9 +2,8 @@
 title: unique() function
 description: The `unique()` function returns all records containing unique values in a specified column.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/unique
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/unique/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/unique
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/unique/
 menu:
   influxdb_2_0_ref:
     name: unique

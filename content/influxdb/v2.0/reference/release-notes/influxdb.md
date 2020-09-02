@@ -6,8 +6,6 @@ menu:
     name: InfluxDB
     parent: Release notes
 weight: 101
-aliases:
-  - /v2.0/reference/release-notes/influxdb/
 ---
 
 ## v2.0.0-beta.16 [2020-08-06]

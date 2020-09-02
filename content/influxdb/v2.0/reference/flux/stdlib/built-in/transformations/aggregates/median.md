@@ -4,9 +4,8 @@ description: >
   The `median()` function returns the median `_value` of an input table or all non-null records
   in the input table with values that fall within the `0.5` quantile or 50th percentile.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/median
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/median
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
 menu:
   influxdb_2_0_ref:
     name: median

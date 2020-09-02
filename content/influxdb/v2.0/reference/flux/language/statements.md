@@ -6,8 +6,6 @@ menu:
     parent: Flux specification
     name: Statements
 weight: 211
-aliases:
-  - /v2.0/reference/flux/language/statements
 ---
 
 {{% note %}}

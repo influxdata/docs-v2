@@ -4,8 +4,7 @@ description: >
   The `slack.message()` function sends a single message to a Slack channel.
   The function works with either with the chat.postMessage API or with a Slack webhook.
 aliases:
-  - /v2.0/reference/flux/functions/slack/message/
-  - /v2.0/reference/flux/stdlib/slack/message
+  - /influxdb/v2.0/reference/flux/functions/slack/message/
 menu:
   influxdb_2_0_ref:
     name: slack.message

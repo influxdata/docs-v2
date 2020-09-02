@@ -2,9 +2,8 @@
 title: set() function
 description: The `set()` function assigns a static value to each record in the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/set
-  - /v2.0/reference/flux/functions/built-in/transformations/set/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/set
+  - /influxdb/v2.0/reference/flux/functions/transformations/set
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/set/
 menu:
   influxdb_2_0_ref:
     name: set

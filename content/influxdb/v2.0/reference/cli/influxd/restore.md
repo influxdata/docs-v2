@@ -6,8 +6,6 @@ menu:
   influxdb_2_0_ref:
     parent: influxd
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influxd/restore/
 related:
   - /influxdb/v2.0/backup-restore/restore/
 products: [oss]

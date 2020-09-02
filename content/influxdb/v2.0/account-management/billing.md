@@ -4,10 +4,9 @@ list_title: Manage billing
 description: >
   Upgrade to the InfluxDB Cloud Usage-Based Plan and manage your billing information.
 aliases:
-  - /v2.0/cloud/account-management/billing
-  - /v2.0/cloud/account-management/upgrade-to-payg/
-  - /v2.0/cloud/account-management/upgrade-to-usage-based-plan/
-  - /v2.0/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-payg/
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-usage-based-plan/
 weight: 103
 menu:
   influxdb_2_0:

@@ -3,14 +3,12 @@ title: Update a token
 seotitle: Update authentication tokens in InfluxDB
 description: Update authentication tokens' descriptions in InfluxDB using the InfluxDB UI.
 aliases:
-  - /v2.0/users/tokens/update-tokens
+  - /influxdb/v2.0/users/tokens/update-tokens
 menu:
   influxdb_2_0:
     name: Update a token
     parent: Manage tokens
 weight: 203
-aliases:
-  - /v2.0/security/tokens/update-token/
 ---
 
 Update an authentication token's description using the InfluxDB user interface (UI).

@@ -6,8 +6,6 @@ menu:
     name: influx user create
     parent: influx user
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/user/create/
 ---
 
 The `influx user create` command creates a new user in InfluxDB.

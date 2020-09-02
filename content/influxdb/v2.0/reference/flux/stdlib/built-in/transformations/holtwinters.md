@@ -3,10 +3,9 @@ title: holtWinters() function
 description: >
   The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/holtwinters
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/holtwinters
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/holtwinters
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
 menu:
   influxdb_2_0_ref:
     name: holtWinters

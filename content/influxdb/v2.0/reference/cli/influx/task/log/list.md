@@ -7,8 +7,7 @@ menu:
     parent: influx task log
 weight: 301
 aliases:
-  - /v2.0/reference/cli/influx/task/log/list
-  - /v2.0/reference/cli/influx/task/log/find
+  - /influxdb/v2.0/reference/cli/influx/task/log/list
 ---
 
 The `influx task log list` command outputs log information related to a task.

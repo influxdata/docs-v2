@@ -14,11 +14,10 @@ menu:
     parent: Query with Flux
 weight: 203
 aliases:
-  - /v2.0/query-data/guides/sort-limit/
-  - /v2.0/query-data/flux/sort-limit/
+  - /influxdb/v2.0/query-data/guides/sort-limit/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/sort
-  - /v2.0/reference/flux/stdlib/built-in/transformations/limit
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit
 list_query_example: sort_limit
 ---
 

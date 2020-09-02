@@ -2,8 +2,6 @@
 title: View organizations
 seotitle: View organizations in InfluxDB
 description: Review a list of organizations in InfluxDB using the InfluxDB UI or the influx CLI.
-aliases:
-  - /v2.0/organizations/view-org/
 menu:
   influxdb_2_0:
     name: View organizations

@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Store and use secrets
 weight: 201
-aliases:
-  - /v2.0/security/secrets/use-vault/
 ---
 
 [Vault](https://www.vaultproject.io/) secures, stores, and controls access

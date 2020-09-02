@@ -2,9 +2,8 @@
 title: map() function
 description: The `map()` function applies a function to each record in the input tables.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/map
-  - /v2.0/reference/flux/functions/built-in/transformations/map/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map
+  - /influxdb/v2.0/reference/flux/functions/transformations/map
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/map/
 menu:
   influxdb_2_0_ref:
     name: map

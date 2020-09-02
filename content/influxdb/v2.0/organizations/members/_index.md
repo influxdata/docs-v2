@@ -7,8 +7,6 @@ menu:
     name: Manage members
     parent: Manage organizations
 weight: 106
-aliases:
-  - /v2.0/organizations/create-org/members/
 influxdb/v2.0/tags: [members]
 ---
 

@@ -5,8 +5,7 @@ description: >
   View the list of available client libraries.
 weight: 103
 aliases:
-  - /v2.0/reference/client-libraries/
-  - /v2.0/reference/api/client-libraries/
+  - /influxdb/v2.0/reference/client-libraries/
 menu:
   influxdb_2_0_ref:
     name: Client libraries

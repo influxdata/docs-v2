@@ -6,8 +6,6 @@ menu:
     parent: Flux specification
     name: Expressions
 weight: 204
-aliases:
-  - /v2.0/reference/flux/language/expressions
 ---
 
 An _expression_ specifies the computation of a value by applying the operators and functions to operands.

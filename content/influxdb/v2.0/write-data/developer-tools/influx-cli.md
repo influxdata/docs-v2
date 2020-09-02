@@ -5,8 +5,6 @@ list_title: Write data with the influx CLI
 weight: 205
 description: >
   Write data to InfluxDB using the `influx` CLI.
-aliases:
-  - /v2.0/write-data/developer-tools/influx-cli/
 menu:
   influxdb_2_0:
     name: Influx CLI

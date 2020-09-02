@@ -7,8 +7,6 @@ menu:
     name: View members
     parent: Manage members
 weight: 202
-aliases:
-  - /v2.0/organizations/create-org/members/view-members/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

@@ -5,9 +5,8 @@ description: >
   For each input table, it outputs a table with the same group key columns,
   plus a new column containing the labels of the input table's columns.  
 aliases:
-  - /v2.0/reference/flux/functions/transformations/columns
-  - /v2.0/reference/flux/functions/built-in/transformations/columns/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/columns
+  - /influxdb/v2.0/reference/flux/functions/transformations/columns
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/columns/
 menu:
   influxdb_2_0_ref:
     name: columns

@@ -6,8 +6,6 @@ menu:
     name: influx org update
     parent: influx org
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/org/update/
 ---
 
 The `influx org update` command updates information related to organizations in InfluxDB.

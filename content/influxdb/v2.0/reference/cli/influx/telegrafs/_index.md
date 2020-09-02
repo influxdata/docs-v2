@@ -8,8 +8,6 @@ menu:
     name: influx telegrafs
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/telegrafs/
 influxdb/v2.0/tags: [telegraf]
 ---
 

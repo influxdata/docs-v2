@@ -6,8 +6,6 @@ menu:
     parent: Flux specification
     name: Assignment and scope
 weight: 202
-aliases:
-  - /v2.0/reference/flux/language/assignment-scope/
 ---
 
 An assignment binds an identifier to a variable, option, or function.

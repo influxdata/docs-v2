@@ -7,16 +7,14 @@ description: >
   [`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
   to return the first or last point in an input table.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/first-last/
 menu:
   influxdb_2_0:
     parent: Query with Flux
     name: First & last
 influxdb/v2.0/tags: [query]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
 list_query_example: first_last
 ---
 

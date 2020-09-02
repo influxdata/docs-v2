@@ -7,8 +7,6 @@ menu:
   influxdb_2_0:
     parent: Manage dashboards
 weight: 204
-aliases:
-  - /v2.0/visualize-data/dashboards/delete-dashboard/
 ---
 
 To delete a dashboard from the InfluxDB user interface (UI):

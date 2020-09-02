@@ -7,8 +7,6 @@ menu:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
-aliases:
-  - /v2.0/organizations/create-org/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

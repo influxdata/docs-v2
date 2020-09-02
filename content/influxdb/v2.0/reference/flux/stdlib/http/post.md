@@ -4,8 +4,7 @@ description: >
   The `http.post()` function submits an HTTP POST request to the specified URL with headers and data.
   The HTTP status code is returned.
 aliases:
-  - /v2.0/reference/flux/functions/http/post/
-  - /v2.0/reference/flux/stdlib/http/post
+  - /influxdb/v2.0/reference/flux/functions/http/post/
 menu:
   influxdb_2_0_ref:
     name: http.post

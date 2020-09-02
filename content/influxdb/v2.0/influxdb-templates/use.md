@@ -8,8 +8,6 @@ menu:
     parent: InfluxDB templates
     name: Use templates
 weight: 102
-aliases:
-  - /v2.0/influxdb-templates/use/
 influxdb/v2.0/tags: [templates]
 related:
   - /influxdb/v2.0/reference/cli/influx/apply/

@@ -8,8 +8,6 @@ menu:
     name: View templates
     parent: Manage dashboard templates
 weight: 202
-aliases:
-  - /v2.0/visualize-data/templates/view-template/
 ---
 
 To view templates in the InfluxDB userface (UI):

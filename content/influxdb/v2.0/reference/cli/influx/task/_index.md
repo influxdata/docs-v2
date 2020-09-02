@@ -6,8 +6,6 @@ menu:
     name: influx task
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/task/
 influxdb/v2.0/tags: [tasks]
 ---
 

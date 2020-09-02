@@ -8,8 +8,6 @@ menu:
     name: Control a dashboard
     parent: Manage dashboards
 weight: 203
-aliases:
-  - /v2.0/visualize-data/dashboards/control-dashboard/
 ---
 
 ## Control at the dashboard level

@@ -3,15 +3,13 @@ title: experimental.group() function
 description: >
   The `experimental.group()` function introduces an `extend` mode to the existing
   `group()` function.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/group
 menu:
   influxdb_2_0_ref:
     name: experimental.group
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/group/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
 ---
 
 The `experimental.group()` function introduces an `extend` mode to the existing

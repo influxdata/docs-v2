@@ -4,8 +4,7 @@ description: >
   The `regexp.matchRegexpString()` function tests if a string contains any match
   to a regular expression.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/matchregexpstring/
-  - /v2.0/reference/flux/stdlib/regexp/matchregexpstring
+  - /influxdb/v2.0/reference/flux/functions/regexp/matchregexpstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.matchRegexpString

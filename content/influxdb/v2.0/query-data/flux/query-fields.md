@@ -6,14 +6,12 @@ description: >
     `filter()` performs operations similar to the `SELECT` statement and the `WHERE`
     clause in InfluxQL and other SQL-like query languages.
 weight: 201
-aliases:
-  - /v2.0/query-data/flux/query-fields/
 menu:
   influxdb_2_0:
     parent: Query with Flux
 influxdb/v2.0/tags: [query, select, where]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
   - /influxdb/v2.0/query-data/flux/conditional-logic/
   - /influxdb/v2.0/query-data/flux/regular-expressions/
 list_code_example: |

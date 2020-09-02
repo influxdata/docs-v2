@@ -4,8 +4,7 @@ description: >
   The `regexp.findStringIndex()` function returns a two-element array of integers defining
   the beginning and ending indexes of the left-most regular expression match in a string.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/findstringindex/
-  - /v2.0/reference/flux/stdlib/regexp/findstringindex
+  - /influxdb/v2.0/reference/flux/functions/regexp/findstringindex/
 menu:
   influxdb_2_0_ref:
     name: regexp.findStringIndex

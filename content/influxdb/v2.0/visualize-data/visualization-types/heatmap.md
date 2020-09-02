@@ -6,8 +6,6 @@ description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.
 weight: 203
-aliases:
-  - /v2.0/visualize-data/visualization-types/heatmap/
 menu:
   influxdb_2_0:
     name: Heatmap

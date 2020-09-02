@@ -5,9 +5,8 @@ description: >
   Collect and write time series data to InfluxDB Cloud and InfluxDB OSS.
 weight: 2
 aliases:
-  - /v2.0/write-data/quick-start/
-  - /v2.0/write-data/sample-data/demo-data/
-  - /v2.0/write-data/
+  - /influxdb/v2.0/write-data/quick-start/
+  - /influxdb/v2.0/write-data/sample-data/demo-data/
 menu:
   influxdb_2_0:
     name: Write data

@@ -8,8 +8,6 @@ menu:
   influxdb_2_0_ref:
     name: Configuration options
 weight: 3
-aliases:
-  - /v2.0/reference/config-options/
 products: [oss]
 related:
   - /influxdb/v2.0/reference/cli/influxd

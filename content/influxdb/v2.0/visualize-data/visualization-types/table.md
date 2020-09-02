@@ -6,8 +6,6 @@ description: >
   The Table option displays the results of queries in a tabular view, which is
   sometimes easier to analyze than graph views of data.
 weight: 207
-aliases:
-  - /v2.0/visualize-data/visualization-types/table/
 menu:
   influxdb_2_0:
     name: Table

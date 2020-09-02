@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Use and manage variables
 weight: 205
-aliases:
-  - /v2.0/visualize-data/variables/delete-variable/
 influxdb/v2.0/tags: [variables]
 ---
 

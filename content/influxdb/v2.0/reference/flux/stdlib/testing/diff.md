@@ -2,8 +2,7 @@
 title: testing.diff() function
 description: The testing.diff() function produces a diff between two streams.
 aliases:
-  - /v2.0/reference/flux/functions/testing/diff/
-  - /v2.0/reference/flux/stdlib/testing/diff
+  - /influxdb/v2.0/reference/flux/functions/testing/diff/
 menu:
   influxdb_2_0_ref:
     name: testing.diff

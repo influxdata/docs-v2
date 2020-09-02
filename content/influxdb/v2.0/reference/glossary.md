@@ -3,8 +3,6 @@ title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
 weight: 8
-aliases:
-  - /v2.0/reference/glossary/
 menu:
   influxdb_2_0_ref:
     name: Glossary

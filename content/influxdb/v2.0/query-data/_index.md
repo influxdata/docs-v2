@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     name: Query data
 weight: 3
-aliases:
-  - /v2.0/query-data/
 influxdb/v2.0/tags: [query, flux]
 ---
 

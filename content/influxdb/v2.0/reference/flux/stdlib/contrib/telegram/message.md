@@ -3,8 +3,6 @@ title: telegram.message() function
 description: >
   The `telegram.message()` function sends a single message to a Telegram channel using
   the [`sendMessage` method of the Telegram Bot API](https://core.telegram.org/bots/api#sendmessage).
-aliases:
-  - /v2.0/reference/flux/stdlib/contrib/telegram/message
 menu:
   influxdb_2_0_ref:
     name: telegram.message

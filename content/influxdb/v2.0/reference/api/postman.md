@@ -6,8 +6,6 @@ menu:
   influxdb_2_0_ref:
     parent: InfluxDB v2 API
 weight: 3
-aliases:
-  - /v2.0/reference/api/postman/
 influxdb/v2.0/tags: [api, authentication]
 ---
 

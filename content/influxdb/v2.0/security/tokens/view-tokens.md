@@ -3,14 +3,12 @@ title: View tokens
 seotitle: View authentication tokens in InfluxDB
 description: View authentication tokens in InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
-  - /v2.0/users/tokens/view-tokens
+  - /influxdb/v2.0/users/tokens/view-tokens
 menu:
   influxdb_2_0:
     name: View tokens
     parent: Manage tokens
 weight: 202
-aliases:
-  - /v2.0/security/tokens/view-token/
 ---
 
 View authentication tokens using the InfluxDB user interface (UI) or the `influx`

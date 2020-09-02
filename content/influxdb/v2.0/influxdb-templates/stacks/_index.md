@@ -9,8 +9,6 @@ menu:
   influxdb_2_0:
     parent: InfluxDB templates
 weight: 105
-aliases:
-  - /v2.0/influxdb-templates/stacks/
 related:
   - /influxdb/v2.0/reference/cli/stacks/
 ---

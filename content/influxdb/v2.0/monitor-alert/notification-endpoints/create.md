@@ -7,8 +7,6 @@ menu:
     name: Create endpoints
     parent: Manage notification endpoints
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/create/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/

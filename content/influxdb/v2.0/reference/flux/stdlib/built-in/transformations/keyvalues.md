@@ -2,9 +2,8 @@
 title: keyValues() function
 description: The `keyValues()` function returns a table with the input table's group key plus two columns, _key and _value, that correspond to unique column + value pairs from the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/keyvalues
-  - /v2.0/reference/flux/functions/built-in/transformations/keyvalues/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/keyvalues
+  - /influxdb/v2.0/reference/flux/functions/transformations/keyvalues
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keyvalues/
 menu:
   influxdb_2_0_ref:
     name: keyValues

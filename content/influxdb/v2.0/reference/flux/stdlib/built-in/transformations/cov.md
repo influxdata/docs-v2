@@ -2,10 +2,9 @@
 title: cov() function
 description: The `cov()` function computes the covariance between two streams by first joining the streams, then performing the covariance operation.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/cov
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/cov
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/cov
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
 menu:
   influxdb_2_0_ref:
     name: cov

@@ -9,8 +9,6 @@ menu:
     parent: Syntax
     name: Delete predicate
 weight: 104
-aliases:
-  - /v2.0/reference/release-notes/syntax/delete-predicate/
 influxdb/v2.0/tags: [syntax, delete]
 related:
   - /influxdb/v2.0/reference/cli/influx/delete/

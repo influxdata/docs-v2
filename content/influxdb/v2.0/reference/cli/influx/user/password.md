@@ -6,8 +6,6 @@ menu:
     name: influx user password
     parent: influx user
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/user/password/
 related:
   - /influxdb/v2.0/users/change-password/
 ---

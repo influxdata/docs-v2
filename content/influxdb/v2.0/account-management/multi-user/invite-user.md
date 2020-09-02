@@ -4,8 +4,6 @@ list_title: Invite a user
 description: >
   Invite a user to collaborate in InfluxDB Cloud.
 weight: 103
-aliases:
-  - /v2.0/account-management/multi-user/invite-user
 menu:
   influxdb_2_0:
     parent: Manage multiple users

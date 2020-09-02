@@ -6,8 +6,6 @@ menu:
     name: influx config create
     parent: influx config
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/config/create/
 ---
 
 The `influx config create` command creates a new InfluxDB connection configuration

@@ -8,8 +8,6 @@ menu:
     name: influx telegrafs create
     parent: influx telegrafs
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/telegrafs/create/
 ---
 
 The `influx telegrafs create` command creates a new Telegraf configuration in InfluxDB

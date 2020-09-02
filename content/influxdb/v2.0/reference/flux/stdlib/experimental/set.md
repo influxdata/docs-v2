@@ -2,15 +2,13 @@
 title: experimental.set() function
 description: >
   The `experimental.set()` function sets multiple static column values on all records.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/set
 menu:
   influxdb_2_0_ref:
     name: experimental.set
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/set/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
 ---
 
 The `experimental.set()` function sets multiple static column values on all records.

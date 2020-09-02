@@ -7,8 +7,6 @@ menu:
     name: View users
     parent: Manage users
 weight: 102
-aliases:
-  - /v2.0/users/view-users/
 products: [oss]
 ---
 

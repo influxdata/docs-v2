@@ -2,9 +2,8 @@
 title: distinct() function
 description: The `distinct()` function returns the unique values for a given column.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/distinct
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/distinct
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/
 menu:
   influxdb_2_0_ref:
     name: distinct
