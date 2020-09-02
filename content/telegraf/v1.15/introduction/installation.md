@@ -371,7 +371,7 @@ by placing a `#` in front of `[[outputs.influxdb]]`.
 Then remove the `#` in front of `[[outputs.influxdb_v2]]`.
 
 For detailed instructions on configuring Telegraf to write to InfluxDB 2.0, see
-[Enable and configure the InfluxDB v2 output plugin](/v2.0/write-data/use-telegraf/manual-config/#enable-and-configure-the-influxdb-v2-output-plugin).
+[Enable and configure the InfluxDB v2 output plugin](/{{< latest "influxdb" "v2" >}}/write-data/use-telegraf/manual-config/#enable-and-configure-the-influxdb-v2-output-plugin).
 
 ### Start the agent
 

@@ -27,7 +27,7 @@ influx [command]
 {{% note %}}
 #### Set your credentials
 
-1. To avoid having to pass your InfluxDB [authentication token](/v2.0/users/tokens/) with each `influx` command, set up a configuration profile if you haven't already.
+1. To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/users/tokens/) with each `influx` command, set up a configuration profile if you haven't already.
 2. To see if you have a configuration profile, run `influx config`. If nothing is displayed, you don't have a configuration profile.
 3. To configure a profile, use the following command: `influx config create -n default -u $INFLUX_URL -o $INFLUX_ORG -t $INFLUX_TOKEN -a`.
    This configures a new profile named `default` and makes the profile active so commands run against this instance.

@@ -4,10 +4,10 @@ seotitle: Alert on failed tasks.
 description: >
   Create an alert when a task fails.
 menu:
-  v2_0:
+  influxdb_2_0:
     parent: Monitor & alert
 weight: 201
-v2.0/tags: [tasks]
+influxdb/v2.0/tags: [tasks]
 ---
 
 Use a task to receive alerts when a task fails.
@@ -64,6 +64,6 @@ Once your task is ready, see [Create a task](/influxdb/v2.0/process-data/manage-
 {{% note %}}
 This script does not send an email alert.
 For information on how to create notification emails, see
-[Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create)
-and [Create notification rules](/v2.0/monitor-alert/notification-rules/create).
+[Create notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create)
+and [Create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create).
 {{% /note %}}

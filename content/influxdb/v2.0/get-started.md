@@ -4,7 +4,7 @@ description: Download, install, and setup InfluxDB, creating a default organizat
 menu:
   influxdb_2_0:
     name: Get started
-weight: 1
+weight: 2
 influxdb/v2.0/tags: [get-started, install]
 aliases:
   - /v2.0/cloud/get-started
@@ -146,7 +146,7 @@ If you're running `influx` on macOS Catalina, you must [manually authorize the I
 To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
-   
+
 ```sh
    # Set up a configuration profile
    influx config create -n default \
@@ -206,7 +206,7 @@ If you rename the binary, all references to `influx` in this documentation refer
 To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
-   
+
 ```sh
    # Set up a configuration profile
    influx config create -n default \
@@ -542,8 +542,8 @@ You are ready to [write or collect data](/influxdb/v2.0/write-data).
 
 If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
 
-1. In a terminal, run the following command: 
-      
+1. In a terminal, run the following command:
+
     ```sh
       # Set up a configuration profile
       influx config create -n default \

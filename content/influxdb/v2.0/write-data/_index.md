@@ -160,7 +160,7 @@ The scraper stores the scraped metrics in the bucket created during the
 
 {{% note %}}
 Quick Start is only available in the last step of the setup process.
-If you missed the Quick Start option, you can [manually create a scraper](/v2.0/write-data/no-code/scrape-data/)
+If you missed the Quick Start option, you can [manually create a scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
 
