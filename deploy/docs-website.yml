@@ -25,7 +25,7 @@ Parameters:
   DomainName:
     Type: String
     Description: The docs website domain name.
-    Default: dev.docs.influxdata.com
+    Default: docs.influxdata.com
 
 ###############################################################################
 Outputs:
