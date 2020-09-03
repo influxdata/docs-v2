@@ -10,6 +10,8 @@ menu:
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, optimize, package]
+related:
+  - /influxdb/v2.0/query-data/optimize-queries/
 ---
 
 The Flux Profiler package provides performance profiling tools for Flux queries and operations.
@@ -23,7 +25,7 @@ import "profiler"
 The Profiler package includes the following options:
 
 #### enabledProfilers
-Use the `enabledProfilers` option to enable Flux profilers.
+Enable Flux profilers.
 
 {{% note %}}
 _Available profilers will be added as they are released._
