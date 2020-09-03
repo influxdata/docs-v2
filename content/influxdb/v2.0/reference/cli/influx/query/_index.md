@@ -28,5 +28,6 @@ influx query [query literal] [flags]
 |      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
 | `-o` | `--org`          | Organization name                                                     | string     | `INFLUX_ORG`         |
 |      | `--org-id`       | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
+| `-r` | `--raw`          | Output raw query results (annotated CSV)                              |            |                      |
 |      | `--skip-verify`  | Skip TLS certificate verification                                     |            |                      |
 | `-t` | `--token`        | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
