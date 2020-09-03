@@ -1,7 +1,7 @@
 ---
 title: InfluxDB stacks
 description: >
-  InfluxDB stacks are are artifacts that can be used to manage InfluxDB templates. Use stacks to add, update, or remove templated resources over time.
+  InfluxDB stacks are artifacts that can be used to manage InfluxDB templates. Use stacks to add, update, or remove templated resources over time.
 menu:
   v2_0:
     parent: InfluxDB templates
