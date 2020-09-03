@@ -25,7 +25,8 @@ InfluxDB until the next InfluxDB v2.0 release._
 
 ### Features
 - Improve window errors.
-- Add BigQuery support to [`sql` package](#).
+- Add [BigQuery](https://cloud.google.com/bigquery) support to
+  [`sql` package](/influxdb/v2.0/reference/flux/stdlib/sql/).
 - Add `TypeExpression` to `BuiltinStmt` and fix tests.
 - Time-weighted average ([`timeWeightedAvg()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/)).
 - Update [`integral()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/)
