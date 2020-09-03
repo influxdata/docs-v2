@@ -28,11 +28,11 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Add BigQuery support to [`sql` package](#).
 - Add `TypeExpression` to `BuiltinStmt` and fix tests.
 - Time-weighted average ([`timeWeightedAvg()` function](#)).
-- Integration with linear interpolation.
+- Integral with linear interpolation.
 - Make experimental tracing an attribute of the context.
 
 ### Bug fixes
-- Update builtin statement for `integral`.
+- Update builtin statement for `integral()`.
 - Add Rust JSON tests.
 - CSV no longer deadlocks when next transformation does not consume table.
 
