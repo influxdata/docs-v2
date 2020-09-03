@@ -10,30 +10,19 @@ weight: 201
 v2.0/tags: [checks, tasks, Flux]
 ---
 
-Use a [task]() to create a custom check.
-<!-- Tasks can be [created using the UI](). -->
-In the UI, you can create two kinds of check: `Threshold Check` and `Deadman Check`.
-
-Creating a custom check using a task allows you to include more complex logic and data processing in the alerts you create.
-Cusrom checks are also easily shareable.
-
-For instance: alert on failed tasks.
-
-<!-- Describe Check ====> Custom Check/Flux/Task (task_data, etc etc) -->
-
-<!-- from http://localhost:1313/v2.0/monitor-alert/custom-checks/#overview -->
 A check in InfluxDB queries data and assigns a status with a _level based on specific conditions.
 InfluxDB stores the output of a check in the statuses measurement in the _monitoring system bucket.
-
-<!-- http://localhost:1313/v2.0/reference/glossary/#check-status -->
 A check gets one of the following statuses (`_level`): `crit`, `info`, `warn`, or `ok`.
 Check statuses are written to a status measurement in the _monitoring bucket.
 
-## Create a custom task
+In the UI, you can create two kinds of check: `Threshold Check` and `Deadman Check`.
 
-To send an alert email, complete the following steps:
+Creating a custom check using a task allows you to include more complex logic and data processing in the alerts you create.
+Custom checks are also easy to share.
 
-### Create a check to monitor another task for failure
+### Example: Create a check to monitor another task for failure
+
+Use a task to receive alerts when a task fails.
 
 1. In the InfluxDB UI, select **Tasks** in the navigation menu on the left.
 
@@ -41,11 +30,7 @@ To send an alert email, complete the following steps:
 
 2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
 3. In the **Name** field, enter a descriptive name, for example, **Alert on task failure**, and then enter how often to run the task in the **Every** field, for example, `10m`. For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).
-
-
-## Example alert task script
-
-In the right panel, enter the following detail in your **task script** (see [examples below](#examples)):
+4. Enter the [example script below]().
 
 The script above does the following:
 
@@ -65,7 +50,11 @@ TODO Document these 4 things:
 	tags: {},
 -->
 
+`
+
 Use a task to receive alerts when a task fails.
+
+#### Example alert task script
 
 ```js
 import "strings"
@@ -120,76 +109,3 @@ For information on how to create notification emails, see
 [Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create)
 and [Create notification rules](/v2.0/monitor-alert/notification-rules/create).
 {{% /note %}}
-
-
-<!--
----
-title: Alert on failed tasks
-seotitle: Alert on failed tasks.
-description: >
-  Create an alert when a task fails.
-menu:
-  influxdb_2_0:
-    parent: Monitor & alert
-weight: 201
-influxdb/v2.0/tags: [tasks]
----
-
-Use a task to receive alerts when a task fails.
-
-## Example alert task script
-
-```js
-import "strings"
-    import "regexp"
-import "influxdata/influxdb/monitor"
-import "influxdata/influxdb/v1"
-
-option task = {name: "Failed Tasks Check", every: 1h, offset: 4m}
-
-task_data = from(bucket: "_tasks")
-	|> range(start: -1h, stop: now())
-	|> filter(fn: (r) =>
-		(r["_measurement"] == "runs"))
-	|> filter(fn: (r) =>
-		(r["_field"] == "logs"))
-	|> map(fn: (r) => ({ r with name: strings.split(v: regexp.findString(r: /option task = \{([^\}]+)/, v: r._value), t: "\\\\\\\"")[1] }))
-	|> drop(columns: ["_value", "_start", "_stop"])
-	|> group(columns: ["name", "taskID", "status", "_measurement"])
-	|> map(fn: (r) =>
-		({r with _value: if r.status == "failed" then 1 else 0}))
-	|> last()
-check = {
-	_check_id: "0000000deadbeef1",
-	_check_name: "Failed Tasks Check",
-	_type: "threshold",
-	tags: {},
-}
-ok = (r) =>
-	(r["logs"] == 0)
-crit = (r) =>
-	(r["logs"] == 1)
-messageFn = (r) =>
-	("The task: ${r.taskID} - ${r.name} has a status of ${r.status}")
-
-task_data
-	|> v1["fieldsAsCols"]()
-	|> monitor["check"](
-		data: check,
-		messageFn: messageFn,
-		ok: ok,
-		crit: crit,
-	)
-```
-
-## Add your task
-
-Once your task is ready, see [Create a task](/influxdb/v2.0/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
-
-{{% note %}}
-This script does not send an email alert.
-For information on how to create notification emails, see
-[Create notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create)
-and [Create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create).
-{{% /note %}}
--->
