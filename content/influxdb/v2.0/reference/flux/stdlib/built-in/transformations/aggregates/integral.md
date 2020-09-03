@@ -48,7 +48,7 @@ Defaults to `"_time"`.
 _**Data type:** String_
 
 ### interpolate
-Type of value interpolation to use.
+Type of interpolation to use.
 Defaults to `""`.
 
 Use one of the following interpolation options:
@@ -59,7 +59,7 @@ _**Data type:** String_
 
 ## Examples
 
-##### Calculate the integral without interpolation
+##### Calculate the integral
 ```js
 from(bucket: "example-bucket")
   |> range(start: -5m)
