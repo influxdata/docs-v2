@@ -53,7 +53,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.82.0 [2020-08-24]
 
 ### Features
-- Add the [`profiler` package](#).
+- Add the [`profiler` package](/influxdb/v2.0/reference/flux/stdlib/profiler/).
 - Add a documentation URL field to Flux errors.
 - Check InfluxDB schema compatibility.
 
