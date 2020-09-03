@@ -27,8 +27,9 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Improve window errors.
 - Add BigQuery support to [`sql` package](#).
 - Add `TypeExpression` to `BuiltinStmt` and fix tests.
-- Time-weighted average ([`timeWeightedAvg()` function](#)).
-- Integral with linear interpolation.
+- Time-weighted average ([`timeWeightedAvg()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/)).
+- Update [`integral()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/)
+  with linear interpolation.
 - Make experimental tracing an attribute of the context.
 
 ### Bug fixes
