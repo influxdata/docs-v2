@@ -9,10 +9,58 @@ menu:
 ---
 
 {{% note %}}
-The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
+_The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
+
+## v0.83.1 [2020-09-02]
+
+### Bug fixes
+- Single value integral interpolation.
+
+---
+
+## v0.83.0 [2020-09-01]
+
+### Features
+- Improve window errors.
+- Add BigQuery support to [`sql` package](#).
+- Add `TypeExpression` to `BuiltinStmt` and fix tests.
+- Time-weighted average ([`timeWeightedAvg()` function](#)).
+- Integration with linear interpolation.
+- Make experimental tracing an attribute of the context.
+
+### Bug fixes
+- Update builtin statement for `integral`.
+- Add Rust JSON tests.
+- CSV no longer deadlocks when next transformation does not consume table.
+
+---
+
+## v0.82.2 [2020-08-25]
+
+### Features
+- Add `tasks.lastSuccess` function to retrieve the last successful run of an InfluxDB task.
+
+---
+
+## v0.82.1 [2020-08-25]
+- _Internal code cleanup._
+
+---
+
+## v0.82.0 [2020-08-24]
+
+### Features
+- Add the [`profiler` package](#).
+- Add a documentation URL field to Flux errors.
+- Check InfluxDB schema compatibility.
+
+### Bug fixes
+- Panic when a map object property contains an invalid type.
+
+---
 
 ## v0.81.0 [2020-08-17]
 
