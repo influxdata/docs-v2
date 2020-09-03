@@ -20,6 +20,7 @@ influx stacks update [flags]
 | Flag |                       | Description                                                           | Input type      | {{< cli/mapped >}}    |
 |:---- |:---                   |:-----------                                                           |:----------:     |:------------------    |
 |      | `--addResource`       | Associate an existing resource with a stack                           | string          |                       |
+| `-c` | `--active-config`     | CLI configuration to use for command                                  | string          |                       |
 |      | `--configs-path`      | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string          |`INFLUX_CONFIGS_PATH`  |
 | `-f` | `--export-file`       | Destination for exported template                                     | string          |                       |
 | `-h` | `--help`              | Help for the `update` command                                         |                 |                       |

@@ -23,8 +23,9 @@ influx apply [flags]
 ## Flags
 | Flag |                           | Description                                                                                 | Input Type | {{< cli/mapped >}}   |
 |:---- |:---                       |:-----------------------------                                                               |:---------- |:------------------   |
+| `-c` | `--active-config`         | CLI configuration to use for command                                                        | string     |                      |
 |      | `--configs-path`          | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                       | string     |`INFLUX_CONFIGS_PATH` |
-| `-c` | `--disable-color`         | Disable color in output                                                                     |            |                      |
+|      | `--disable-color`         | Disable color in output                                                                     |            |                      |
 |      | `--disable-table-borders` | Disable table borders                                                                       |            |                      |
 | `-e` | `--encoding`              | Encoding of the input stream                                                                | string     |                      |
 |      | `--env-ref`               | Environment references to provide with the template (format: `--env-ref=REF_KEY=REF_VALUE`) | string     |                      |
