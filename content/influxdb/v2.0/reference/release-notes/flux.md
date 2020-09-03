@@ -41,7 +41,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 ## v0.82.2 [2020-08-25]
 
 ### Features
-- Add `tasks.lastSuccess` function to retrieve the last successful run of an InfluxDB task.
+- Add [`tasks.lastSuccess` function](#) to retrieve the last successful run of an InfluxDB task.
 
 ---
 
