@@ -18,7 +18,7 @@ influxdb/v2.0/tags: [VPC]
 InfluxDB Cloud 2.0 offers two pricing plans:
 
 - [Free Plan](#free-plan)
-- [Usage-based Plan](#usage-based-plan)
+- [Usage-Based Plan](#usage-based-plan)
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/influxdb/v2.0/account-management/pricing-calculator/). -->
 
@@ -29,7 +29,7 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
 
 #### Free Plan rate limits
 
-- **Writes:** 5.1MB every 5 minutes
+- **Data In:** 5.1MB every 5 minutes
 - **Query:** 300MB every 5 minutes
 - **Storage:** 30-day data retention
 {{% note %}}
@@ -47,15 +47,22 @@ Data retention is determined by the time at which data is written to InfluxDB; n
 
 _To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/v2.0/account-management/billing/#upgrade-to-usage-based-plan)._
 
-## Usage-based Plan
+## Usage-Based Plan
 
 The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/v2.0/account-management/data-usage/).
 
-#### Usage-based Plan rate limits
+### Pricing vectors
 
-To protect against any intentional or unintentional harm, Usage-based Plans include soft rate limits:
+The following two vectors determine pricing:
 
-- **Writes:** 300MB every 5 minutes
+- **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
+- **Query count** is the total number of individual query operations. Each individual operation — including
+
+### Usage-Based Plan rate limits
+
+To protect against any intentional or unintentional harm, Usage-Based Plans include soft rate limits:
+
+- **Data In:** 300MB every 5 minutes
 - **Ingest batch size:** 50MB
 - **Queries:** 3000MB every 5 minutes
 - **Storage:** Unlimited retention
