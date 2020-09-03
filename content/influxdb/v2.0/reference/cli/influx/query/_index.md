@@ -20,13 +20,15 @@ influx query [query literal] [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                           | Input type | {{< cli/mapped >}}   |
-|:---- |:---              |:-----------                                                           |:----------:|:------------------   |
-|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |
-| `-f` | `--file`         | Path to Flux script file                                              | string     |                      |
-| `-h` | `--help`         | Help for the `query` command                                          |            |                      |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
-| `-o` | `--org`          | Organization name                                                     | string     | `INFLUX_ORG`         |
-|      | `--org-id`       | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
-|      | `--skip-verify`  | Skip TLS certificate verification                                     |            |                      |
-| `-t` | `--token`        | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
+| Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}   |
+|:---- |:---               |:-----------                                                           |:----------:|:------------------   |
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                      |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |
+| `-f` | `--file`          | Path to Flux script file                                              | string     |                      |
+| `-h` | `--help`          | Help for the `query` command                                          |            |                      |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
+| `-o` | `--org`           | Organization name                                                     | string     | `INFLUX_ORG`         |
+|      | `--org-id`        | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
+| `-r` | `--raw`           | Output raw query results (annotated CSV)                              |            |                      |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
+| `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |

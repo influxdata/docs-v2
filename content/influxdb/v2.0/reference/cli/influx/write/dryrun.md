@@ -26,6 +26,7 @@ influx write dryrun [flags]
 ## Flags
 | Flag |                    | Description                                                           | Input type | {{< cli/mapped >}}   |
 |:---- |:---                |:-----------                                                           |:----------:|:------------------   |
+| `-c` | `--active-config`  | CLI configuration to use for command                                  | string     |                      |
 | `-b` | `--bucket`         | Bucket name                                                           | string     | `INFLUX_BUCKET_NAME` |
 |      | `--bucket-id`      | Bucket ID                                                             | string     | `INFLUX_BUCKET_ID`   |
 |      | `--configs-path`   | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |

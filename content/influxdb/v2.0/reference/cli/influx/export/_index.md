@@ -31,6 +31,7 @@ influx export [command]
 
 | Flag |                      | Description                                                                      | Input Type | {{< cli/mapped >}}   |
 |:---- |:---                  |:-----------                                                                      |:---------- |:------------------   |
+| `-c` | `--active-config`    | CLI configuration to use for command                                             | string     |                      |
 |      | `--buckets`          | Comma-separated list of bucket IDs                                               | string     |                      |
 |      | `--checks`           | Comma-separated list of check IDs                                                | string     |                      |
 |      | `--configs-path`     | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)            | string     |`INFLUX_CONFIGS_PATH` |

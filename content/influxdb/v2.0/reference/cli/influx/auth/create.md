@@ -18,6 +18,7 @@ influx auth create [flags]
 ## Flags
 | Flag |                      | Description                                                           | Input type  | {{< cli/mapped >}}    |
 |:---- |:---                  |:-----------                                                           |:----------: |:------------------    |
+| `-c` | `--active-config`    | CLI configuration to use for command                                  | string      |                       |
 |      | `--configs-path`     | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
 | `-h` | `--help`             | Help for the `create` command                                         |             |                       |
 |      | `--hide-headers`     | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
