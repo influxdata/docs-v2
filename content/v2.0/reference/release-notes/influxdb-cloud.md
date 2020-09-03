@@ -10,9 +10,18 @@ aliases:
   - /cloud/about/release-notes
 ---
 
+## 2020-09-02 _Pricing updates and Azure region_
+
+## Features
+
+- Update [pricing vectors](/influxdb/v2.0/account-management/pricing-plans/#pricing-vect) to determine pricing by the total data out and query count.
+
+- Add [Microsoft Azure support](/influxdb/v2.0/reference/urls/#microsoft-azure) for two regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
+
 ## 2019-09-10 _Monitoring & Alerts_
 
 ## Features
+
 - **InfluxDB 2.0 alpha-17** –
   _See the [alpha-17 release notes](/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-17-2019-08-14) for details._
 - Alerts and Notifications to Slack (Free Plan), PagerDuty and HTTP (Usage-based Plan).
