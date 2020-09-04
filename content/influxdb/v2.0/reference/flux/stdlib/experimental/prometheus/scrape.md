@@ -22,7 +22,7 @@ _**Function type:** Input_
 import "experimental/prometheus"
 
 prometheus.scrape(
-  url: "http://localhost:9999/metrics"
+  url: "http://localhost:8086/metrics"
 )
 ```
 

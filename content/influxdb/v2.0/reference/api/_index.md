@@ -17,7 +17,7 @@ Include your authentication token as an `Authorization` header in each request.
 
 ```sh
 curl --request POST \
-  --url http://localhost:9999/api/v2/write?org=my-org&bucket=example-bucket \
+  --url http://localhost:8086/api/v2/write?org=my-org&bucket=example-bucket \
   --header 'Authorization: Token YOURAUTHTOKEN'
 ```
 
@@ -28,7 +28,7 @@ curl --request POST \
 InfluxDB API documentation is built into the `influxd` service and represents
 the API specific to the current version of InfluxDB.
 To view the API documentation locally, [start InfluxDB](/influxdb/v2.0/get-started/#start-influxdb)
-and visit the `/docs` endpoint in a browser ([localhost:9999/docs](http://localhost:9999/docs)).
+and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localhost:8086/docs)).
 
 ## InfluxDB client libraries
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.

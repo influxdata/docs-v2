@@ -26,7 +26,7 @@ influx query [query literal] [flags]
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |
 | `-f` | `--file`          | Path to Flux script file                                              | string     |                      |
 | `-h` | `--help`          | Help for the `query` command                                          |            |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
 | `-o` | `--org`           | Organization name                                                     | string     | `INFLUX_ORG`         |
 |      | `--org-id`        | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
 | `-r` | `--raw`           | Output raw query results (annotated CSV)                              |            |                      |

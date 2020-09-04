@@ -23,7 +23,7 @@ the configuration from an InfluxDB HTTP(S) endpoint.
   InfluxDB Telegraf configuration. For example:
 
     ```sh
-    telegraf --config http://localhost:9999/api/v2/telegrafs/<telegraf-config-id>
+    telegraf --config http://localhost:8086/api/v2/telegrafs/<telegraf-config-id>
     ```
 
 {{% note %}}

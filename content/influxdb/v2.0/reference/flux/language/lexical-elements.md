@@ -364,7 +364,7 @@ regexp_escape_char = `\` (`/` | `\`)
 
 ```js
 /.*/
-/http:\/\/localhost:9999/
+/http:\/\/localhost:8086/
 /^\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e(ZZ)?$/
 /^日本語(ZZ)?$/ // the above two lines are equivalent
 /\\xZZ/ // this becomes the literal pattern "\xZZ"

@@ -104,13 +104,13 @@ InfluxDB supports three types of TLS certificates:
     Ensure you can connect over HTTPS by running
 
     ```
-    curl -v https://localhost:9999/api/v2/ping
+    curl -v https://localhost:8086/api/v2/ping
     ```
 
     If using a self-signed certificate, use the `-k` flag to skip certificate verification:
 
     ```
-    curl -vk https://localhost:9999/api/v2/ping
+    curl -vk https://localhost:8086/api/v2/ping
     ```
 
     With this command, you should see output confirming a succussful TLS handshake.
@@ -136,7 +136,7 @@ update the following `influxdb_v2` output settings in your Telegraf configuratio
   ##
   ## Multiple URLs can be specified for a single cluster, only ONE of the
   ## urls will be written to each interval.
-  urls = ["https://127.0.0.1:9999"]
+  urls = ["https://127.0.0.1:8086"]
 
   [...]
 

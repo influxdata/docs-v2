@@ -32,7 +32,7 @@ for using Telegraf with InfluxDB v2.0._
 
 ## Create a Telegraf configuration
 
-1. Open the InfluxDB UI _(default: [localhost:9999](http://localhost:9999))_.
+1. Open the InfluxDB UI _(default: [localhost:8086](http://localhost:8086))_.
 2. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}
@@ -140,7 +140,7 @@ For the exact command, see the Telegraf configuration **Setup Instructions** in 
 {{% /note %}}
 
 ```sh
-telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
+telegraf -config http://localhost:8086/api/v2/telegrafs/0xoX00oOx0xoX00o
 ```
 
 ## Manage Telegraf configurations

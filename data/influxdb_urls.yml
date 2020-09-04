@@ -3,8 +3,8 @@ oss:
   providers:
     - name: Default
       regions:
-        - name: localhost:9999
-          url: http://localhost:9999
+        - name: localhost:8086
+          url: http://localhost:8086
     - name: Custom
       url: http://example.com:8080
 

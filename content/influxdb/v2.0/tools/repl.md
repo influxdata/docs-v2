@@ -30,7 +30,7 @@ to the [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/
 
 ```js
 from(bucket: "example-bucket",
-  host: "http://localhost:9999",
+  host: "http://localhost:8086",
   org: "example-org",
   token: "My5uP3rS3cRetT0k3n"
   )
