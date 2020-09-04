@@ -97,7 +97,7 @@ influx apply --force true --stack-id $REDIS_STACK_ID -q
 ```
 
   {{% note %}}
-  The `--json` flag in the InfluxDB CLI is very useful when scripting against the CLI, as it allows you to grab important information easily using [`jq`](https://stedolan.github.io/jq/manual/v1.6/).
+  The `--json` flag in the InfluxDB CLI is very useful when scripting against the CLI. This flag lets you grab important information easily using [`jq`](https://stedolan.github.io/jq/manual/v1.6/).
   {{% /note %}}
 
 You can do this for each of the stacks you are maintaining. Each time you make a change to one of the resources in the stack, you can re-run this script and your changes will be applied to the resources in your InfluxDB instance. Re-applying a stack with an updated resource won't add, delete, or duplicate resources.
