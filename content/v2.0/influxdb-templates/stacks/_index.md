@@ -44,7 +44,7 @@ to automatically update distributed instances of InfluxDB OSS or InfluxDB Cloud.
 Start by determining how you want to organize the stacks (and my proxy, the resources) in your Github repository. 
 Depending on how you use InfluxDB, you might want to organize resources under folders for specific teams or functions.
 
-Regardless of the heiarchy, we recommend that all resources that would be updated as part of the same stack live in the same folder. For example, if you are monitoring [Redis](), you might have a Telegraf configration, a few dashboards, a label, and some checks, all defined in the same folder in your repository, but in multiple files. They could all be connected by a stack named `redis`. When there is a change you want to make to one or more of those resources, it's easy to find them.
+Regardless of the hierarchy, we recommend that all resources that would be updated as part of the same stack live in the same folder. For example, if you are monitoring [Redis](), you might have a Telegraf configration, a few dashboards, a label, and some checks, all defined in the same folder in your repository, but in multiple files. They could all be connected by a stack named `redis`. When there is a change you want to make to one or more of those resources, it's easy to find them.
 
   {{% note %}}
   Because stacks manage the entire lifecycle of a resource, including deletion, be extremely careful when using the same resource in multiple stacks, as deleting a stack could delete the resource another stack is depending on. This usually occurs when dealing with buckets. Since your buckets most likely contain data that might be used by many different templates, we would recommend keeping buckets separate from the other stacks. 
