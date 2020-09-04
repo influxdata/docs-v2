@@ -104,7 +104,7 @@ You can do this for each of the stacks you are maintaining. Each time you make a
 
 For a complete example, check out the blog on [Building a GitOps Workflow with InfluxDB Templates]().
 
-#### Automating deployment using Github Actions or CircleCI
+#### Automate deployment using Github Actions or CircleCI
 
 Once you have a script to apply changes being made to your local instance, you can start to automate the deployment to other environments as needed. The InfluxDB CLI has the ability to maintain multiple [configuration profiles]() that makes it easy to issue commands against other InfluxDB instances. To apply the same script to a different InfluxDB instance, just change your active configuration profile using the `influx config set` command. You can also set the desired profile dynamically using the `-c, --active-config` flag.
 
