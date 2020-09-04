@@ -20,19 +20,21 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 - Set up custom criteria for your alert (other than `threshold` and `deadman`).
 - Share custom checks across distributed instances.
 
-### Example: Monitor failed tasks
-
-Receive an alert when a task fails.
+## Create a task
 
 1. In the InfluxDB UI, select **Tasks** in the navigation menu on the left.
 
     {{< nav-icon "tasks" >}}
 
 2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
-3. In the **Name** field, enter a descriptive name, for example, **Alert on task failure**,
+3. In the **Name** field, enter a descriptive name,
    and then enter how often to run the task in the **Every** field (for example, `10m`).
    For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).
-4. Enter the [example script](#example-alert-task-script) and click **Save**.
+4. Enter the Flux script for your custom check, including the [`monitor.check`](/influxdb/v2.0/reference/flux/stdlib/monitor/check/) function.
+
+### Example: Monitor failed tasks
+
+Receive an alert when a task fails.
 
 The script below is fairly complex, and can be used an a framework for similar tasks.
 It does the following:
@@ -95,7 +97,7 @@ Once your task is ready,
 see [Create a task](/influxdb/v2.0/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
 
 {{% note %}}
-This script does not send an email alert.
+Creating a custom check does not send a notification email.
 For information on how to create notification emails, see
 [Create notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create),
 [Create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create),
