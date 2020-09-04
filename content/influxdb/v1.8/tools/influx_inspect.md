@@ -369,6 +369,11 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 > **Note:** With offsets, avoid replacing the + or - sign with a Z. It may cause an error or print Z (ISO 8601 behavior) instead of the time zone offset.
 
+##### [ `--nodml` ]
+
+The `--nodml` option allows users to export data without DML information.
+Using the `--nodml` flag when exporting data generates an export file that can be imported into InfluxDB 2.0 without modification.
+
 ##### [ `-out <export_dir>` ]
 
 The location for the export file.
