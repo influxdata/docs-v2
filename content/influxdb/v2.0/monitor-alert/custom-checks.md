@@ -90,11 +90,6 @@ task_data
 	)
 ```
 
-#### Add your task
-
-Once your task is ready,
-see [Create a task](/influxdb/v2.0/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
-
 {{% note %}}
 Creating a custom check does not send a notification email.
 For information on how to create notification emails, see
