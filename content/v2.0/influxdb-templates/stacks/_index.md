@@ -1,7 +1,7 @@
 ---
 title: InfluxDB stacks
 description: >
-  InfluxDB stacks are artifacts that can be used to manage InfluxDB templates. Use stacks to add, update, or remove templated resources over time.
+  Use an InfluxDB stack to manage your InfluxDB templates—add, update, or remove templates over time.
 menu:
   v2_0:
     parent: InfluxDB templates
@@ -10,8 +10,8 @@ related:
   - /v2.0/reference/cli/influx/pkg/stack/
 ---
 
-**InfluxDB stacks** are artifacts that can be used to manage [InfluxDB templates](/v2.0/influxdb-templates).
-When you apply a template, InfluxDB associates resources in the template with a stack. Use stacks to add, update, or remove InfluxDB templates over time.
+Use **InfluxDB stacks** to manage [InfluxDB templates](/v2.0/influxdb-templates).
+When you apply a template, InfluxDB associates resources in the template with a stack. Use the stack to add, update, or remove InfluxDB templates over time.
 
 - [Review ideal use cases for InfluxDB stacks](#review-ideal-use-cases-for-influxdb-stacks),
   like automating InfluxDB deployments with GitOps and stacks.
@@ -20,7 +20,7 @@ When you apply a template, InfluxDB associates resources in the template with a 
 {{% note %}}
 **Key differences between stacks and templates**:
 
-- A template defines a set of resources in a text file outside of InfluxDB. When you apply a template, a stack is automatically created to manage the applied template resources.
+- A template defines a set of resources in a text file outside of InfluxDB. When you apply a template, a stack is automatically created to manage the applied template.
 - Stacks add, modify or delete resources in an instance.
 - Templates do not recognize resources in an instance. All resources in the template are added, creating duplicate resources if a resource already exists.
   {{% /note %}}
@@ -41,20 +41,17 @@ to automatically update distributed instances of InfluxDB OSS or InfluxDB Cloud.
 
 #### Set up a GitHub repository to back your InfluxDB instance
 
-Start by determining how you want to organize the stacks (and my proxy, the resources) in your Github repository. 
-Depending on how you use InfluxDB, you might want to organize resources under folders for specific teams or functions.
+Determine how you want to organize the resources in your stacks within your Github repository. For example, organize resources under folders for specific teams or functions.
 
-Regardless of the hierarchy, we recommend that all resources that would be updated as part of the same stack live in the same folder. For example, if you are monitoring [Redis](), you might have a Telegraf configration, a few dashboards, a label, and some checks, all defined in the same folder in your repository, but in multiple files. They could all be connected by a stack named `redis`. When there is a change you want to make to one or more of those resources, it's easy to find them.
+We recommend storing all resources for one stack in the same folder. For example, if you monitor Redis, create a `redis` stack and put your Redis monitoring resources (a Telegraf configuration, four dashboards, a label, and two alert checks) into one Redis folder, each resource in a separate file. Then, when you need to update a Redis resource, it's easy to find and make changes in one location.
 
   {{% note %}}
-  Because stacks manage the entire lifecycle of a resource, including deletion, be extremely careful when using the same resource in multiple stacks, as deleting a stack could delete the resource another stack is depending on. This usually occurs when dealing with buckets. Since your buckets most likely contain data that might be used by many different templates, we would recommend keeping buckets separate from the other stacks. 
+  Typically, we **do not recommend** using the same resource in multiple stacks. If your organization uses the same resource in multiple stacks, before you delete a stack, verify the stack does not include resources that another stack depends on. Stacks with buckets often contain data used by many different templates. Because of this, we recommend keeping buckets separate from the other stacks.
   {{% /note %}}
 
 #### Populate your GitHub repository with the existing resources in your instance
 
-You can skip this section if you are starting from scratch. Most likely, you already have some resources that you would like to use in your InfluxDB instance. You will need to export these resources and group them into the approriate stacks.
-
-You can use the [`influx export`]() command from the CLI to quickly export groups of resources, or all resources. It's up to you if you want to keep all your resources in a single file or have files for each one. You can always split or combine them later.
+Skip this section if you are starting from scratch or don’t have existing resources you want to add to your stack. If you do have resources you'd like to use, run the `influx export` command to quickly export resources. Keep all your resources in a single file or have files for each one. You can always split or combine them later.
 
 Your folder structure might look something like this when you are done:
 
