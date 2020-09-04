@@ -104,10 +104,10 @@ exports.handler = (event, context, callback) => {
   // Redirect flux guides and introduction based on latest InfluxDB version
   if (/v2/.test(latestVersions['influxdb'])) {
     temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/query-data/flux/`));
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/query-data/get-started/`));
+    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/introduction\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/query-data/get-started/`));
   } else {
     temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/flux/guides/`));
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/flux/introduction/`));
+    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/introduction\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/flux/`));
   }
   // Redirect Flux stdlib and language sections to v2 Flux docs
   temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/(?:functions|stdlib|language)\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\//, `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`));
