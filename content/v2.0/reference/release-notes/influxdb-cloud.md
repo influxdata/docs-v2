@@ -10,6 +10,8 @@ aliases:
   - /cloud/about/release-notes
 ---
 
+InfluxDB Cloud updates happen several times a day. These release notes provide a compilation of updates each month.
+
 ## 2020-09-02 _Pricing updates and Azure region_
 
 ## Features
