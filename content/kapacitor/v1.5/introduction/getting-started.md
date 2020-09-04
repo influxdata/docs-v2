@@ -46,6 +46,7 @@ To get started, do the following:
 
 2. In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), configure `[[outputs.influxd]]` to specify how to connect to InfluxDB and the destination database.
 
+    {{< keep-url >}}
     ```sh
     [[outputs.influxdb]]
     ## InfluxDB url is required and must be in the following form: http/udp "://" host [ ":" port]
@@ -67,6 +68,7 @@ To get started, do the following:
 
 4. After a minute, run the following command to use the InfluxDB API to query for the Telegraf data:
 
+    {{< keep-url >}}
     ```bash
     $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SELECT mean(usage_idle) FROM cpu'
     ```
@@ -276,8 +278,9 @@ Complete the following steps to ensure log files and communication channels aren
     InfluxDB logs an error about `connection refused` if it cannot send data to Kapacitor.
     Run the query `SHOW SUBSCRIPTIONS` against InfluxDB to find the endpoint that InfluxDB is using to send data to Kapacitor.
 
-    In the following example, InfluxDB must be running on localhost:8086:
+    In the following example, InfluxDB must be running on `localhost:8086`:
 
+    {{< keep-url >}}
     ```
     $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SHOW SUBSCRIPTIONS'
 

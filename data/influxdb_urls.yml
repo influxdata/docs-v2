@@ -1,5 +1,5 @@
 oss:
-  product: InfluxDB OSS
+  product: InfluxDB v2 OSS
   providers:
     - name: Default
       regions:

@@ -322,6 +322,7 @@ Additional inputs (or outputs) of the same type can be specified by defining the
 
 #### Output configuration examples:
 
+{{< keep-url >}}
 ```toml
 [[outputs.influxdb]]
   urls = [ "http://localhost:8086" ]

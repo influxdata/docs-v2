@@ -17,7 +17,7 @@ Use the [Anti-Entropy service](/enterprise_influxdb/v1.8/administration/anti-ent
 The base URL is:
 
 ```text
-http://localhost:8086/shard-repair`
+http://localhost:8086/shard-repair
 ```
 
 ## GET `/status`
