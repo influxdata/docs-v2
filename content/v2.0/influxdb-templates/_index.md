@@ -57,7 +57,7 @@ Include the following **resources** in a template:
 - Telegraf configurations
 
 ## Stacks
-**InfluxDB stacks** are artifacts that can be used to manage InfluxDB templates.
+Use **InfluxDB stacks** to manage InfluxDB templates.
 When you apply a template, InfluxDB associates resources in the template with a stack.
 Use stacks to add, update, or remove templated resources over time.
 
