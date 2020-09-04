@@ -11,7 +11,7 @@ related:
 ---
 
 **InfluxDB stacks** are artifacts that can be used to manage [InfluxDB templates](/v2.0/influxdb-templates).
-When you apply a template, InfluxDB associates resources in the template with a stack. Use stacks to add, update, or remove templated resources over time.
+When you apply a template, InfluxDB associates resources in the template with a stack. Use stacks to add, update, or remove InfluxDB templates over time.
 
 - [Review ideal use cases for InfluxDB stacks](#review-ideal-use-cases-for-influxdb-stacks),
   like automating InfluxDB deployments with GitOps and stacks.
