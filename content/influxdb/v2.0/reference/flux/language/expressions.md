@@ -223,18 +223,19 @@ Operators with a lower number have higher precedence.
 | 1          | `a()`              | Function call                        |
 |            | `a[]`              | Member or index access               |
 |            | `.`                | Member access                        |
-| 2          | `^`                | Exponentiation                       |
-| 3          | `*` `/` `%`        | Multiplication, division, and modulo |
-| 4          | `+` `-`            | Addition and subtraction             |
-| 5          |`==` `!=`           | Comparison operators                 |
+| 2          | <code>\|></code>   | Pipe forward                         |
+| 3          | `^`                | Exponentiation                       |
+| 4          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 5          | `+` `-`            | Addition and subtraction             |
+| 6          |`==` `!=`           | Comparison operators                 |
 |            | `<` `<=`           |                                      |
 |            | `>` `>=`           |                                      |
 |            |`=~` `!~`           |                                      |
-| 6          | `not`              | Unary logical operator               |
+| 7          | `not`              | Unary logical operator               |
 |            | `exists`           | Null check operator                  |
-| 7          | `and`              | Logical AND                          |
-| 8          | `or`               | Logical OR                           |
-| 9          | `if` `then` `else` | Conditional                          |
+| 8          | `and`              | Logical AND                          |
+| 9          | `or`               | Logical OR                           |
+| 10         | `if` `then` `else` | Conditional                          |
 
 The operator precedence is encoded directly into the grammar as the following.
 
