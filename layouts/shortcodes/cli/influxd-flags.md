@@ -5,7 +5,7 @@
 |      | `--e2e-testing`                | Add /debug/flush endpoint to clear stores; used for end-to-end tests (default `false`)                            |            | `INFLUXD_E2E_TESTING`                |
 |      | `--engine-path`                | Path to persistent engine files (default `~/.influxdbv2/engine`)                                                  | string     | `INFLUXD_ENGINE_PATH`                |
 | `-h` | `--help`                       | Help for the `influxd` command                                                                                    |            |                                      |
-|      | `--http-bind-address`          | Bind address for the REST HTTP API (default `:9999`)                                                              | string     | `INFLUXD_HTTP_BIND_ADDRESS`          |
+|      | `--http-bind-address`          | Bind address for the REST HTTP API (default `:9999`)                                                               | string     | `INFLUXD_HTTP_BIND_ADDRESS`          |
 |      | `--log-level`                  | Supported log levels are debug, info, and error (default `info`)                                                  | string     | `INFLUXD_LOG_LEVEL`                  |
 |      | `--new-meta-store`             | Enables the new meta store                                                                                        |            | `INFLUXD_NEW_META_STORE`             |
 |      | `--new-meta-store-read-only`   | Toggle read-only mode for the new meta store and duplicate reads between old and new store (default `true`)       |            | `INFLUXD_NEW_META_STORE_READ_ONLY`   |
