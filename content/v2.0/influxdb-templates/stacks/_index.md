@@ -22,7 +22,7 @@ When you apply a template, InfluxDB associates resources in the template with a 
 
 - A template describes a set of resources in a text file outside of InfluxDB. When you apply a template, a stack is automatically created to manage the applied template resources.
 - Stacks add, modify or delete resources in an instance.
-- Templates do not recognize resources already in an instance. All resources in the template are added, creating duplicate resources if a resource already exists.
+- Templates do not recognize resources in an instance. All resources in the template are added, creating duplicate resources if a resource already exists.
   {{% /note %}}
 
 ## Review ideal use cases for InfluxDB stacks
