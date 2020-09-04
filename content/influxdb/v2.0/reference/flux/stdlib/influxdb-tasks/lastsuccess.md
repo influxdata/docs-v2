@@ -26,7 +26,7 @@ _**Data type:** Time_
 
 ## Examples
 
-##### Query data since that last successful task run
+##### Query data since the last successful task run
 ```js
 import "influxdata/influxdb/tasks"
 
