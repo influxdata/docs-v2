@@ -53,6 +53,7 @@ Defaults to `""`.
 
 Use one of the following interpolation options:
 
+- _empty sting for no interpolation_
 - linear
 
 _**Data type:** String_
