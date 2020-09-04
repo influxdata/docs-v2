@@ -11,8 +11,8 @@ v2.0/tags: [alerts, checks, tasks, Flux]
 ---
 
 In the UI, you can create two kinds of [checks](/influxdb/v2.0/reference/glossary/#check):
-[`Threshold Check`](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check) and
-[`Deadman Check`](/influxdb/v2.0/monitor-alert/checks/create/#deadman-check).
+[`Threshold check`](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check) and
+[`Deadman check`](/influxdb/v2.0/monitor-alert/checks/create/#deadman-check).
 Create a custom check using a task to include more complex logic and data processing in the alerts you create. 
 
 Using a Flux task, you can create a custom check that provides a couple advantages:
