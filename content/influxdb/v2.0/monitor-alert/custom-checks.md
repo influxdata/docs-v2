@@ -18,7 +18,6 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
 - Customize and transform the data you would like to use for the check.
 - Set up custom criteria for your alert (other than `threshold` and `deadman`).
-- Share custom checks across distributed instances.
 
 ## Create a task
 
@@ -32,9 +31,12 @@ Using a Flux task, you can create a custom check that provides a couple advantag
    For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).
 4. Enter the Flux script for your custom check, including the [`monitor.check`](/influxdb/v2.0/reference/flux/stdlib/monitor/check/) function.
 
-### Example: Monitor failed tasks
+{{% note %}}
+Use the the API endpoint `/checks/{checkID}/query` to see the Flux code for a check built in the UI.
+This can be useful for constructing custom checks.
+{{% /note %}}
 
-Receive an alert when a task fails.
+### Example: Monitor failed tasks
 
 The script below is fairly complex, and can be used as a framework for similar tasks.
 It does the following:
@@ -57,7 +59,7 @@ import "influxdata/influxdb/v1"
 option task = {name: "Failed Tasks Check", every: 1h, offset: 4m}
 
 task_data = from(bucket: "_tasks")
-	|> range(start: -1h, stop: now())
+	|> range(start: -task.every)
 	|> filter(fn: (r) =>
 		(r["_measurement"] == "runs"))
 	|> filter(fn: (r) =>
