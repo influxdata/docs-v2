@@ -16,6 +16,7 @@ In the UI, you can create two kinds of [checks](/influxdb/v2.0/reference/glossar
 
 Using a Flux task, you can create a custom check that provides a couple advantages:
 
+- Customize and transform the data you would like to use for the check.
 - Set up custom criteria for your alert (other than `threshold` and `deadman`).
 - Share custom checks across distributed instances.
 
