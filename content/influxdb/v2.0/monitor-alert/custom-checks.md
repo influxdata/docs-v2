@@ -11,8 +11,8 @@ v2.0/tags: [alerts, checks, tasks, Flux]
 ---
 
 In the UI, you can create two kinds of [checks](/influxdb/v2.0/reference/glossary/#check):
-[`Threshold check`](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check) and
-[`Deadman check`](/influxdb/v2.0/monitor-alert/checks/create/#deadman-check).
+[`threshold`](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check) and
+[`deadman`](/influxdb/v2.0/monitor-alert/checks/create/#deadman-check).
 
 Using a Flux task, you can create a custom check that provides a couple advantages:
 
@@ -36,7 +36,7 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
 Receive an alert when a task fails.
 
-The script below is fairly complex, and can be used an a framework for similar tasks.
+The script below is fairly complex, and can be used as a framework for similar tasks.
 It does the following:
 
 - Import the necessary `influxdata/influxdb/monitor` package, and other packages for data processing.
@@ -69,9 +69,9 @@ task_data = from(bucket: "_tasks")
 		({r with _value: if r.status == "failed" then 1 else 0}))
 	|> last()
 check = {
-	_check_id: "0000000000000001",
-	_check_name: "Failed Tasks Check",
-	_type: "custom",
+	_check_id: "0000000000000001",      // 16 characters, alphanumeric
+	_check_name: "Failed Tasks Check",  // string
+	_type: "custom",                    // can also use "threashold" or "deadman"
 	tags: {},
 }
 ok = (r) =>
