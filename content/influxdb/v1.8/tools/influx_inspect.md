@@ -371,8 +371,8 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 ##### [ `--nodml` ]
 
-The `--nodml` option allows users to export data without DML information.
-Using the `--nodml` flag when exporting data generates an export file that can be imported into InfluxDB 2.0 without modification.
+Export data without DML information.
+Use the `--nodml` flag to export data in a format that can be imported into InfluxDB 2.0.
 
 ##### [ `-out <export_dir>` ]
 
