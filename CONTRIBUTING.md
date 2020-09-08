@@ -646,7 +646,7 @@ For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
 ## Canonical URLs
-Search engines use canonocial URLs to accurately rank pages with similar or identical content.
+Search engines use canonical URLs to accurately rank pages with similar or identical content.
 The `canonical` HTML meta tag identifies which page should be used as the source of truth.
 
 By default, canonical URLs are automatically generated for each page in the InfluxData
@@ -654,7 +654,7 @@ documentation using the latest version of the current product and the current pa
 
 Use the `canonical` frontmatter to override the auto-generated canonical URL.
 
-_**Note:** The `canonical` front matter supports the `{{< latest >}}` shortcode._
+_**Note:** The `canonical` frontmatter supports the `{{< latest >}}` shortcode._
 
 ```yaml
 canonical: /path/to/canonical/doc/
