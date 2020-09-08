@@ -53,7 +53,7 @@ We recommend storing all resources for one stack in the same folder. For example
 
 Skip this section if you are starting from scratch or don’t have existing resources you want to add to your stack. If you do have resources you'd like to use, run the `influx export` command to quickly export resources. Keep all your resources in a single file or have files for each one. You can always split or combine them later.
 
-Your folder structure might look something like this when you are done:
+For example, if you export resources for three stacks: `buckets`, `redis`, and `mysql`, your folder structure might look something like this when you are done:
 
 ```sh
 influxdb-assets/
