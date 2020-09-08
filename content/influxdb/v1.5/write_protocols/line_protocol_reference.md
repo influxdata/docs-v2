@@ -7,6 +7,7 @@ menu:
     name: Line Protocol reference
     weight: 10
     parent: Write protocols
+canonical: /{{< latest "influxdb" "v2" >}}/reference/syntax/line-protocol/
 ---
 
 

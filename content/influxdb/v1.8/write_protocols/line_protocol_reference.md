@@ -9,6 +9,7 @@ menu:
     name: InfluxDB line protocol reference
     weight: 10
     parent: Write protocols
+canonical: /{{< latest "influxdb" "v2" >}}/reference/syntax/line-protocol/
 ---
 
 InfluxDB line protocol is a text-based format for writing points to InfluxDB.
