@@ -17,7 +17,7 @@ sometimes easier to analyze than graph views of data.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-table-example.png" alt="Table example" />}}
 
-Select the **Table** option from the visualization dropdown in the upper right.
+Select the **Table** option from the visualization dropdown in the upper left.
 
 ## Table behavior
 The table visualization renders queried data in structured, easy-to-read tables.

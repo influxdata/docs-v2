@@ -17,7 +17,7 @@ The **Scatter** view uses a scatter plot to display time series data.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
 
-Select the **Scatter** option from the visualization dropdown in the upper right.
+Select the **Scatter** option from the visualization dropdown in the upper left.
 
 ## Scatter behavior
 The scatter visualization maps each data point to X and Y coordinates.

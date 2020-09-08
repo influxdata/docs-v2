@@ -16,7 +16,7 @@ the [Graph controls](#graph-controls).
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
 
-Select the **Graph** option from the visualization dropdown in the upper right.
+Select the **Graph** option from the visualization dropdown in the upper left.
 
 ## Graph behavior
 The Graph visualization color codes each table (or series) in the queried data set.

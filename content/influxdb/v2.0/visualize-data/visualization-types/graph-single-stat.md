@@ -20,7 +20,7 @@ and overlays the single most recent value as a large numeric value.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-single-stat-example-8.png" alt="Line Graph + Single Stat example" />}}
 
-Select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
+Select the **Graph + Single Stat** option from the visualization dropdown in the upper left.
 
 ## Graph + Single Stat behavior
 The Graph visualization color codes each table (or series) in the queried data set.

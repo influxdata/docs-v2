@@ -19,7 +19,7 @@ represents different concentrations of data points.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
 
-Select the **Heatmap** option from the visualization dropdown in the upper right.
+Select the **Heatmap** option from the visualization dropdown in the upper left.
 
 ## Heatmap behavior
 Heatmaps divide data points into "bins" – segments of the visualization with upper
