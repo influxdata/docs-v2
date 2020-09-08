@@ -654,7 +654,7 @@ documentation using the latest version of the current product and the current pa
 
 Use the `canonical` frontmatter to override the auto-generated canonical URL.
 
-_**Note:** The `canonical` frontmatter supports the `{{< latest >}}` shortcode._
+_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
 
 ```yaml
 canonical: /path/to/canonical/doc/
