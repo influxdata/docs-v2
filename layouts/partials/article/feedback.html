@@ -1,0 +1,38 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ .Scratch.Set "product" (index $productPathData 0) }}
+{{ if in (.Scratch.Get "product") "influxdb" }}
+  {{ .Scratch.Set "product" "influxdb" }}
+{{ end }}
+
+{{ $product := .Scratch.Get "product" }}
+{{ $productName := (index .Site.Data.products $product).name }}
+
+{{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
+{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $product "/issues/new/") }}
+{{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
+{{ $productGithubLink := .Scratch.Get "productGithubLink" }}
+
+<hr/>
+<div class="feedback block">
+  <ul>
+    <li><a href="{{ $pageGithubLink }}" target="_blank"><span class="icon-ui-pencil"></span> Edit this page</a></li>
+    <li><a href="https://github.com/influxdata/docs-v2/issues/new/" target="_blank"><span class="icon-ui-alert"></span> Submit documentation issue</a></li>
+    <li><a href="{{ $productGithubLink }}" target="_blank"><span class="icon-ui-alert"></span> Submit {{ $productName }} issue</a></li>
+  </ul>
+</div>
+<div class="feedback block">
+  <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+  <p>
+    Thank you for being part of our community!
+    We welcome and encourage your feedback and bug reports for InfluxDB and this documentation.
+    To find support or submit feedback, the following resources are available:
+  </p>
+  <ul>
+    <li><a href="https://community.influxdata.com/c/influxdb2" target="_blank">Post in the InfluxData Community</a>.</li>
+    <li>Submit <strong>documentation issues</strong> to the <a href="https://github.com/influxdata/docs-v2" target="_blank">InfluxDB 2.0 documentation repository</a>.</li>
+    <li>Submit <strong>InfluxDB issues</strong> to the <a href="https://github.com/influxdata/influxdb" target="_blank">InfluxDB repository</a>.</li>
+  </ul>
+  <p>
+    For our <strong>InfluxDB Cloud</strong> customers, <a href="mailto:support@influxdata.com" target="_blank">InfluxData Support</a> is also available.
+  </p>
+</div>
