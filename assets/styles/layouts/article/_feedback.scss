@@ -1,4 +1,61 @@
 .feedback {
-  border-color: rgba($article-note-base, .75);
-  background: rgba($article-text, .05);
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  border-radius: $radius;
+  box-shadow: 1px 2px 6px $article-shadow;
+  background: rgba($article-text, .03);
+}
+
+.support {
+  padding-right: 2rem;
+}
+
+.actions {
+  min-width: 230px;
+  padding-bottom: 1.75rem;
+
+  a {
+    display: block;
+    padding-left: .7rem;
+    font-size: .85rem;
+
+    &.btn {
+      color: $article-text !important;
+      background: $feedback-btn-bg !important;
+
+      &:hover {
+        color: $g20-white !important;
+      }
+    }
+
+
+    &:before {
+      display: inline-block;
+      margin-right: .5rem;
+      font-family: 'icomoon';
+    }
+
+    &.edit:before {
+      content: "\e92e";
+      font-size: .75rem;
+      vertical-align: top;
+    }
+    &.issue:before {
+      content: "\e933";
+      font-size: .95rem;
+    }
+  }
+}
+
+///////////////////////////////// Media Queries ////////////////////////////////
+
+@include media(medium) {
+  .feedback {
+    flex-direction: column;
+  }
+}
+
+@include media(small) {
+  .actions { padding-bottom: 1rem; }
 }
