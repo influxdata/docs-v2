@@ -52,14 +52,14 @@ chronograf [flags]
 
 | Flag    | Description                                                | Env. Variable      |
 |---------|------------------------------------------------------------|--------------------|
-| `--cert | File path to PEM-encoded public key certificate            | `$TLS_CERTIFICATE` |
+| `--cert` | File path to PEM-encoded public key certificate            | `$TLS_CERTIFICATE` |
 | `--key` | File path to private key associated with given certificate | `$TLS_PRIVATE_KEY` |
 
 ## Other service option flags
 
 | Flag                                         | Description                                                                                                                                                                                                                                                 | Env. Variable         |
 |----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| `--custom-link <display_name>:<link_address> | Custom link added to Chronograf user menu options. Useful for providing links to internal company resources for your Chronograf users. Can be used when any OAuth 2.0 authentication is enabled. To add another custom link, repeat the custom link option. |                       |
+| `--custom-link` <display_name>:<link_address> | Custom link added to Chronograf user menu options. Useful for providing links to internal company resources for your Chronograf users. Can be used when any OAuth 2.0 authentication is enabled. To add another custom link, repeat the custom link option. |                       |
 | `-r`, `--reporting-disabled`                 | Disables reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.                                                                                                         | `$REPORTING_DISABLED` |
 | `-l`, `--log-level`                          | Sets the logging level. Valid values include `info` (default), `debug`, and `error`.                                                                                                                                                                        | `$LOG_LEVEL`          |
 | `-d`, `--develop`                            | Runs the Chronograf service in developer mode                                                                                                                                                                                                               |                       |
