@@ -25,7 +25,7 @@ Discover what you'll need to write data into InfluxDB Cloud or OSS (open source)
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
   - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
-- [Load data from sources in the InfluxDB UI](#load-data-from-sources-in-the-influxdb-user-interface-ui)
+- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
 - [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
 - [Use developer tools](/influxdb/v2.0/write-data/developer-tools)
 - [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
@@ -165,42 +165,6 @@ Quick Start is only available in the last step of the setup process.
 If you missed the Quick Start option, you can [manually create a scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
-
----
-
-## Load data from sources in the InfluxDB user interface (UI)
-
-Load data from the following sources in the InfluxDB user interface (UI):
-
-- [Client libraries](#load-data-from-a-client-library-in-the-ui)
-- [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
-
-### Load data from a client library in the UI
-
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
-    {{< nav-icon "data" >}}
-2. Do one of the following:
-   - Enter a specific client library to search for in the **Search data writing methods** field.
-   - Scroll down to browse available client libraries.
-3. Click the client library to load data from.
-4. Under **Code Sample Options**, you'll see a list of your InfluxDB [tokens](/influxdb/v2.0/reference/glossary/#token) and [buckets](/influxdb/v2.0/reference/glossary/#bucket). Select both an authentication token and a bucket to write your data to. The selected token and bucket are automatically added to scripts on the page that you can use to initialize a client and write data.
-5. Click the **Copy to Clipboard** buttons under a script to easily paste the script into your terminal or save the script to reuse for automation.
-6. Run the scripts on the page to do the following as needed:
-   - Install the package, libraries, or client
-   - Write data
-   - Execute a Flux query
-
-### Load data from a Telegraf plugin in the UI
-
-1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
-    {{< nav-icon "data" >}}
-2. Do one of the following:
-   - Enter a specific Telegraf plugin to search for in the **Search data writing methods** field.
-   - Scroll down to browse available plugins.
-3. Click the plugin to load data from.
-4. [Install Telegraf](/telegraf/v1.15/introduction/installation/).
-5. Copy the default configuration script in the UI, and then add the script to your [Telegraf configurations](/influxdb/v2.0/telegraf-configs/).
-7. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/v1.15/plugins/).
 
 ---
 
