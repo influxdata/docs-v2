@@ -85,6 +85,7 @@ Because you enabled authentication, you must perform this step before moving on 
 Run the command below to create an admin user, replacing `chronothan` and `supersecret` with your own username and password.
 Note that the password requires single quotes.
 
+{{< keep-url >}}
 ```
 ~# curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER chronothan WITH PASSWORD 'supersecret' WITH ALL PRIVILEGES"
 ```
@@ -199,6 +200,7 @@ $ influx
 
 Replace the `chronothan` and `supersecret` values with your actual username and password.
 
+{{< keep-url >}}
 ```
 ~# curl -G "http://localhost:8086/query?db=telegraf&u=chronothan&p=supersecret&pretty=true" --data-urlencode "q=SHOW TAG VALUES FROM cpu WITH KEY=host"
 ```

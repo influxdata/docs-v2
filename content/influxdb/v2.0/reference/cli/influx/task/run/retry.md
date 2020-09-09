@@ -21,7 +21,7 @@ influx task run retry [flags]
 | `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                      |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH` |
 | `-h` | `--help`          | Help for the `retry` command                                          |             |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`        |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`        |
 | `-r` | `--run-id`        | **(Required)** Run ID                                                 | string      |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
 | `-i` | `--task-id`       | **(Required)** Task ID                                                | string      |                      |

@@ -33,7 +33,7 @@ influx apply [flags]
 |      | `--filter`                | Resources to skip when applying the template (filter by `kind` or `resource`)               | string     |                      |
 |      | `--force`                 | Ignore warnings about destructive changes                                                   |            |                      |
 | `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
-|      | `--host`                  | HTTP address of InfluxDB (default `http://localhost:9999`)                                  | string     | `INFLUX_HOST`        |
+|      | `--host`                  | HTTP address of InfluxDB (default `http://localhost:8086`)                                  | string     | `INFLUX_HOST`        |
 |      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
 | `-o` | `--org`                   | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`         |
 |      | `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`      |

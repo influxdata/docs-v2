@@ -27,7 +27,7 @@ influx setup [flags]
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string    |`INFLUX_CONFIGS_PATH` |
 | `-f` | `--force`         | Skip confirmation prompt                                              |           |                      |
 | `-h` | `--help`          | Help for the `setup` command                                          |           |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string    | `INFLUX_HOST`        |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string    | `INFLUX_HOST`        |
 | `-o` | `--org`           | Primary organization name                                             | string    |                      |
 | `-p` | `--password`      | Password for primary user                                             | string    |                      |
 | `-r` | `--retention`     | Duration bucket will retain data (0 is infinite, default is 0)        | duration  |                      |

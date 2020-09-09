@@ -31,7 +31,7 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 |      | `--bucket-id`     | Bucket ID                                                                                                 | string     | `INFLUX_BUCKET_ID`   |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                                     | string     |`INFLUX_CONFIGS_PATH` |
 | `-h` | `--help`          | Help for the `delete` command                                                                             |            |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)                                                | string     | `INFLUX_HOST`        |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                                                | string     | `INFLUX_HOST`        |
 | `-o` | `--org`           | Organization name                                                                                         | string     | `INFLUX_ORG`         |
 |      | `--org-id`        | Organization ID                                                                                           | string     | `INFLUX_ORG_ID`      |
 | `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)) | string     |                      |

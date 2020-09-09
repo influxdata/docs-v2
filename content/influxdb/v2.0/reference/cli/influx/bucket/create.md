@@ -25,7 +25,7 @@ influx bucket create [flags]
 | `-d` | `--description`   | Bucket description                                                    | string      |                       |
 | `-h` | `--help`          | Help for the `create` command                                         |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`         |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Bucket name                                                           | string      | `INFLUX_BUCKET_NAME`  |
 | `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |

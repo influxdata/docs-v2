@@ -39,7 +39,7 @@ influx export [command]
 |      | `--endpoints`        | Comma-separated list of notification endpoint IDs                                | string     |                      |
 | `-f` | `--file`             | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                      |
 | `-h` | `--help`             | Help for the `export` command                                                    |            |                      |
-|      | `--host`             | HTTP address of InfluxDB (default `http://localhost:9999`)                       | string     | `INFLUX_HOST`        |
+|      | `--host`             | HTTP address of InfluxDB (default `http://localhost:8086`)                       | string     | `INFLUX_HOST`        |
 |      | `--labels`           | Comma-separated list of label IDs                                                | string     |                      |
 |      | `--resource-type`    | Resource type associated with all IDs via stdin                                  | string     |                      |
 |      | `--rules`            | Comma-separated list of notification rule IDs                                    | string     |                      |

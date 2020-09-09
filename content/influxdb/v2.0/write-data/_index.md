@@ -152,7 +152,7 @@ Click **Quick Start**.
 
 InfluxDB creates and configures a new [scraper](/influxdb/v2.0/write-data/no-code/scrape-data/).
 The target URL points to the `/metrics` HTTP endpoint of your local InfluxDB instance
-(for example, `http://localhost:9999/metrics`), which outputs internal InfluxDB
+(for example, `http://localhost:8086/metrics`), which outputs internal InfluxDB
 metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 The scraper stores the scraped metrics in the bucket created during the
 [initial setup process](/influxdb/v2.0/get-started/#set-up-influxdb).
