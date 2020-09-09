@@ -38,26 +38,8 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
 - **Y-Value Unit Prefix**: None, SI, or Binary.
-- 
+- **Y Axis Prefix**:
+- **Y Axis Suffix**:
+- **Y Axis Domain**:
 
 ## Band examples
-Band visualizations are useful for showing the current value of a metric and displaying
-where it falls within a spectrum.
-
-### Steam pressure Band
-The following example queries sensor data that tracks the pressure of steam pipes
-in a facility and displays it as a Band.
-
-###### Query pressure data from a specific sensor
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-      r._measurement == "steam-sensors" and
-      r._field == "psi"
-      r.sensorID == "a211i"
-  )
-```
-
-###### Visualization options for pressure Band
-{{< img-hd src="/img/influxdb/2-0-visualizations-Band-pressure-8.png" alt="Pressure guage example" />}}
