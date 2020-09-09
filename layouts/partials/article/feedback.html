@@ -23,11 +23,12 @@
       To find support or submit feedback, the following resources are available:
     </p>
     <ul>
-      <li><strong>All {{ $productName }} users</strong> can <a href="https://community.influxdata.com/" target="_blank">post in the InfluxData Community</a>.</li>
-      {{ if not (in $supportBlacklist $product) }}
-        <li><strong>InfluxDB Cloud{{ if eq $product "influxdb" }} and InfluxDB Enterprise{{ end }} customers</strong> can <a href="mailto:support@influxdata.com" target="_blank">contact InfluxData Support</a>.</li>
-      {{ end }}
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
     </ul>
+    {{ if not (in $supportBlacklist $product) }}
+      <p><strong>InfluxDB Cloud{{ if eq $product "influxdb" }} and InfluxDB Enterprise{{ end }} customers</strong> can <a href="mailto:support@influxdata.com" target="_blank">contact InfluxData Support</a>.</p>
+    {{ end }}
   </div>
   <div class="actions">
     <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>

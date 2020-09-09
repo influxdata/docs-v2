@@ -9,6 +9,43 @@
 
 .support {
   padding-right: 2rem;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 0;
+    list-style: none;
+
+    li {display: inline-block}
+
+    a {
+      margin-right: 1.5rem;
+      color: $article-heading-alt;
+
+      &:hover {
+        color: $article-link;
+        border-radius: calc($radius * 1.5);
+      }
+
+      &.community:before {
+        content: "\e900";
+        color: $article-heading-alt;
+        margin: 0 .25rem 0 -.25rem;
+        font-size: 1.65rem;
+        font-family: 'icomoon';
+        vertical-align: middle;
+      }
+      &.slack:before {
+        content: url('/svgs/slack.svg');
+        display: inline-block;
+        height: 1.1rem;
+        width: 1.1rem;
+        vertical-align: text-top;
+        margin-right: .5rem;
+      }
+    }
+  }
 }
 
 .actions {
