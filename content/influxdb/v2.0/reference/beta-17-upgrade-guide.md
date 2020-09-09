@@ -30,7 +30,7 @@ or join the [Community Slack workspace](https://influxcommunity.slack.com/) to g
 ### Overview
 
 - [1. Disable any existing integrations](#1-disable-any-existing-integrations)
-- [2. Stop existing InfluxDB beta](#)
+- [2. Stop existing InfluxDB beta instance](#)
 - [3. (Optional) Rename existing InfluxDB binaries](#)
 - [4. Move existing data and start the latest InfluxDB](#)
 - [5. Start old InfluxDB beta instance](#)
@@ -45,7 +45,7 @@ To begin, if you have any software interacting with your local InfluxDB beta ins
 This includes Telegraf, client libraries, and any custom applications you may have developed.
 Basically, anything reading, writing, or monitoring your InfluxDB instance will need to be shut off and re-enabled after the upgrade.
 
-## 2. Stop existing InfluxDB beta
+## 2. Stop existing InfluxDB beta instance
 
 Next, shut down your existing InfluxDB beta instance.
 You can manually kill the individual process using **Control+c** or by finding the process ID.
@@ -58,6 +58,8 @@ This is helpful if you’ve installed the binaries in your path.
 We use the names `influxd_old` for this guide, but you can use whatever you like.
 
 ## 4. Move existing data and start the latest InfluxDB
+
+If you haven't already, [download the InfluxDB beta 17 binaries](https://portal.influxdata.com/downloads/).
 
 In order to move data between the two instances, we are going to configure both the old and new instances of InfluxDB to run at the same time.
 If you download the latest InfluxDB beta, and try to start it up with existing data, it will most likely refuse to start.
