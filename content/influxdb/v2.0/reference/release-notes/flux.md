@@ -14,6 +14,22 @@ Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
 
+## v0.84.0 [2020-09-09]
+
+### Breaking changes
+- Remove time-column parameters from `range()` function and update type signature.
+
+### Features
+- Add [Opsgenie package](#).
+- Implement [`lastSuccess()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) in the `tasks` package.
+- Support duration values in `aggregateWindow`.
+- Update Apache Arrow to 1.0.1.
+
+### Bug fixes
+- Ensure meta columns are never part of group key.
+
+---
+
 ## v0.83.1 [2020-09-02]
 
 ### Bug fixes
