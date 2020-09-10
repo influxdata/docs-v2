@@ -1,23 +1,20 @@
-- id: influxdb-2-0-ga
-  level: note
-  scope:
-    - /
-  message: |
-    ### InfluxDB v2.0 is now GA!!
+# Notification data structure
+#
+# - id: unqiue ID for notification, cannot start with digit, no spaces, a-z and 0-9
+#   level: note or warn
+#   scope:
+#     - list of URL paths to show notification on, no scope shows everywhere
+#   message: |
+#     Markdown message content.
 
-    Get your upgrade on!
-
-    [Upgrade from InfluxDB 1.x to 2.0](#)
-
-- id: beta-17-upgrade
+- id: rc1-upgrade
   level: warn
   scope:
     - /influxdb/v2.0/
-    - /influxdb/1.8/
   message: |
-    ### Breaking changes in beta 17
+    ### Breaking changes in v2.0 rc.1
 
-    InfluxDB v2.0 beta 17 includes breaking changes that require a manual upgrade
+    InfluxDB v2.0 rc.1 includes breaking changes that require a manual upgrade
     from beta-16 and older. For information, see:
 
-    [Upgrade to beta 17](#)
+    [Upgrade to v2.0 rc.1](#)

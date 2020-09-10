@@ -1,7 +1,9 @@
 <div id="docs-notifications">
   {{ range .Site.Data.notifications }}
-    <div class="notification {{ .level }}" id="{{ .id }}" {{ if .scope }}data-scope='{{ delimit .scope "," }}'{{ end }}>
-      {{ .message | markdownify }}
+    <div class="notification {{ .level }}" id="{{ .id }}" data-scope='{{ if .scope }}{{ delimit .scope "," }}{{ else }}/{{ end }}'>
+      <div class="notification-content">
+        {{ .message | markdownify }}
+      </div>
       <div class="close-notification"><span class="icon-ui-remove"></span></div>
     </div>
   {{ end }}
