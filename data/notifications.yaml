@@ -1,0 +1,23 @@
+- id: influxdb-2-0-ga
+  level: note
+  scope:
+    - /
+  message: |
+    ### InfluxDB v2.0 is now GA!!
+
+    Get your upgrade on!
+
+    [Upgrade from InfluxDB 1.x to 2.0](#)
+
+- id: beta-17-upgrade
+  level: warn
+  scope:
+    - /influxdb/v2.0/
+    - /influxdb/1.8/
+  message: |
+    ### Breaking changes in beta 17
+
+    InfluxDB v2.0 beta 17 includes breaking changes that require a manual upgrade
+    from beta-16 and older. For information, see:
+
+    [Upgrade to beta 17](#)

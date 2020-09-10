@@ -8,7 +8,11 @@
 {{ $productName := (index .Site.Data.products $product).name }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
-{{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
+{{ if .File }}
+  {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
+{{ else }}
+  {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
+{{ end }}
 {{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $product "/issues/new/choose/") }}
 {{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
 {{ $productGithubLink := .Scratch.Get "productGithubLink" }}
