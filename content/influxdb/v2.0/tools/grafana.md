@@ -5,9 +5,11 @@ description: >
 menu:
   influxdb_2_0:
     name: Use Grafana
-    parent: Other visualization tools
-weight: 201
+    parent: Tools & integrations
+weight: 104
 influxdb/v2.0/tags: [grafana]
+aliases:
+  - /influxdb/v2.0/visualize-data/other-tools/
 related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/v2.0/query-data/get-started/

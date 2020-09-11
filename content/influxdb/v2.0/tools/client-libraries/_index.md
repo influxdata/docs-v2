@@ -1,16 +1,18 @@
 ---
-title: InfluxDB client libraries
+title: Use InfluxDB client libraries
 description: >
   InfluxDB client libraries are language-specific tools that integrate with the InfluxDB v2 API.
   View the list of available client libraries.
-weight: 103
+weight: 101
 aliases:
   - /influxdb/v2.0/reference/client-libraries/
 menu:
-  influxdb_2_0_ref:
-    name: Client libraries
-    parent: InfluxDB v2 API
+  influxdb_2_0:
+    name: Use client libraries
+    parent: Tools & integrations
 influxdb/v2.0/tags: [client libraries]
+aliases:
+  - /influxdb/v2.0/reference/api/client-libraries/
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
