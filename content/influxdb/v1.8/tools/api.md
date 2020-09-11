@@ -47,7 +47,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/flux/latest/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
+Use this endpoint to query data using [Flux](/influxdb/v1.8/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
