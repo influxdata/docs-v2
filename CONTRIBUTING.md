@@ -76,6 +76,7 @@ list_query_example: # Code examples included with article descriptions in childr
   # References to examples in data/query_examples
 products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
 canonical: # Path to canonical page, overrides auto-gen'd canonical URL
+v2: # Path to v2 equivalent page
 ```
 
 #### Title usage
@@ -662,6 +663,14 @@ canonical: /path/to/canonical/doc/
 # OR
 
 canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
+```
+
+## v2 equivalent documentation
+To display a notice about and link to equivalent v2 pages for pages in the 1.x
+documentation, use the `v2` frontmatter on 1.x pages:
+
+```yaml
+v2: /influxdb/v2.0/get-started/
 ```
 
 ## InfluxDB URLs
