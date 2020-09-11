@@ -2,18 +2,28 @@
 {{ $product := index $productPathData 0 }}
 {{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $latestV2 := index (last 1 .Site.Data.products.influxdb.versions) 0 }}
 
 {{ $stableVersion := (index .Site.Data.products $product).latest }}
 {{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
+{{ $v2EquivalentURL := replaceRE `v[1-2]\.[0-9]{1,2}` $latestV2 .Page.Params.v2 }}
 
 {{ if lt $currentVersion $stableVersion }}
   <div class="warn block old-version">
     <p>
       This page documents an earlier version of {{ $productName }}.
-      <a href="/{{ $product }}/{{$stableVersion}}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.<br/>
+      <a href="/{{ $product }}/{{ $stableVersion }}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.
       {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
         <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+      {{ else if and (ne (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) (.Page.Params.v2) }}
+        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentURL }}">{{ with .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}{{ .Title }}{{ end }}</a>
       {{ end }}
     </p>
+  </div>
+{{ end }}
+
+{{ if and .Page.Params.v2 (eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) }}
+  <div class="note block old-version">
+    <p><span style="margin-right:.25rem">See the <strong>InfluxDB {{ $latestV2 }}</strong> equivalent for this documentation:</span> <a href="{{ $v2EquivalentURL }}">{{ with .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}{{ .Title }}{{ end }}</a></p>
   </div>
 {{ end }}

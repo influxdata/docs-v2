@@ -5,6 +5,7 @@ menu:
     name: Installing
     weight: 20
     parent: Introduction
+v2: /influxdb/v2.0/get-started/
 ---
 
 This page provides directions for installing, starting, and configuring InfluxDB open source (OSS).
