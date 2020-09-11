@@ -8,6 +8,8 @@ menu:
     weight: 3
 aliases:
   - /influxdb/v1.8/flux/getting-started/syntax-basics/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/syntax-basics/
+v2: /influxdb/v2.0/query-data/get-started/syntax-basics/
 ---
 
 

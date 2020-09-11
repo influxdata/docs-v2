@@ -9,6 +9,8 @@ menu:
     name: Extract scalar values
     parent:  Query with Flux
 weight: 20
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/scalar-values/
+v2: /influxdb/v2.0/query-data/flux/scalar-values/
 list_code_example: |
   ```js
   scalarValue = {

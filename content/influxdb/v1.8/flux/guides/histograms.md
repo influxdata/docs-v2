@@ -9,6 +9,8 @@ menu:
     parent: Query with Flux
 weight: 10
 list_query_example: histogram
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/histograms/
+v2: /influxdb/v2.0/query-data/flux/histograms/
 ---
 
 Histograms provide valuable insight into the distribution of your data.
