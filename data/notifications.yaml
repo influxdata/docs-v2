@@ -7,14 +7,14 @@
 #   message: |
 #     Markdown message content.
 
-- id: rc1-upgrade
+- id: rc0-upgrade
   level: warn
   scope:
     - /influxdb/v2.0/
   message: |
-    ### InfluxDB OSS 2.0 release candidate 1
+    ### InfluxDB OSS 2.0 release candidate 0
 
-    **InfluxDB OSS v2.0.rc1** includes **breaking changes** that require a manual
+    **InfluxDB OSS v2.0.rc0** includes **breaking changes** that require a manual
     upgrade from all alpha and beta versions. For information, see:
 
-    [Upgrade to InfluxDB OSS v2.0.rc1](#)
+    [Upgrade to InfluxDB OSS v2.0.rc0](#)
