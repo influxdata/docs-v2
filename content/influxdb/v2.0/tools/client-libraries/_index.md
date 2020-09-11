@@ -1,5 +1,5 @@
 ---
-title: InfluxDB client libraries
+title: Use InfluxDB client libraries
 description: >
   InfluxDB client libraries are language-specific tools that integrate with the InfluxDB v2 API.
   View the list of available client libraries.
@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2.0/reference/client-libraries/
 menu:
   influxdb_2_0:
-    name: Client libraries
+    name: Use client libraries
     parent: Tools & integrations
 influxdb/v2.0/tags: [client libraries]
 aliases:

@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-java
 menu:
   influxdb_2_0:
     name: Java
-    parent: Client libraries
+    parent: Use client libraries
     url: https://github.com/influxdata/influxdb-client-java
 weight: 201
 ---

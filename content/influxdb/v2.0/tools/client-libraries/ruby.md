@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-ruby
 menu:
   influxdb_2_0:
     name: Ruby
-    parent: Client libraries
+    parent: Use client libraries
     url: https://github.com/influxdata/influxdb-client-ruby
 weight: 201
 ---

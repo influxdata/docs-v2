@@ -1,5 +1,5 @@
 ---
-title: InfluxDB CLIs
+title: Use InfluxDB CLIs
 description:
   Use the `influx` and `influxd` command line interfaces to interact with and
   manage InfluxDB.

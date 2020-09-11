@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-csharp
 menu:
   influxdb_2_0:
     name: C#
-    parent: Client libraries
+    parent: Use client libraries
     url: https://github.com/influxdata/influxdb-client-csharp
 weight: 201
 ---

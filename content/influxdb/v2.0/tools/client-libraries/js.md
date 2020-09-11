@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_2_0:
     name: JavaScript
-    parent: Client libraries
+    parent: Use client libraries
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
