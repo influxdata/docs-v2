@@ -12,9 +12,9 @@
   scope:
     - /influxdb/v2.0/
   message: |
-    ### Breaking changes in v2.0 rc.1
+    ### InfluxDB OSS 2.0 release candidate 1
 
-    InfluxDB v2.0 rc.1 includes breaking changes that require a manual upgrade
-    from beta-16 and older. For information, see:
+    **InfluxDB OSS v2.0.rc1** includes **breaking changes** that require a manual
+    upgrade from all alpha and beta versions. For information, see:
 
-    [Upgrade to v2.0 rc.1](#)
+    [Upgrade to InfluxDB OSS v2.0.rc1](#)
