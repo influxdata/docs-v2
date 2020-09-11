@@ -20,7 +20,7 @@ InfluxDB until the next InfluxDB v2.0 release._
 - Remove time-column parameters from `range()` function and update type signature.
 
 ### Features
-- Add [Opsgenie package](#).
+- Add [Opsgenie package](/influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/).
 - Implement [`lastSuccess()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) in the `tasks` package.
 - Support duration values in `aggregateWindow`.
 - Update Apache Arrow to 1.0.1.
