@@ -13,7 +13,7 @@ menu:
 
 The **Mosaic** visualization displays the most recent value for a time series in a mosaic.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example-8.png" alt="mosaic example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="mosaic example" />}}
 
 Select the **Mosaic** option from the visualization dropdown in the upper left.
 
