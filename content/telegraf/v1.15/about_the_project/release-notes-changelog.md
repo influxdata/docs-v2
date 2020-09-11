@@ -49,6 +49,7 @@ youtube-telegraf-plugin - Gather view and subscriber stats from your youtube vid
 - `inputs.sqlserver`: Added new counter - Lock Timeouts (timeout > 0)/sec.
 
 ### Bug fixes
+
 - `agent`: Fix minor error message race condition.
 - `build`: Update dockerfiles to Go 1.14.
 - `shim`:
@@ -61,7 +62,7 @@ youtube-telegraf-plugin - Gather view and subscriber stats from your youtube vid
 - `inputs.vsphere`: Fixed missing cluster name.
 - `outputs.opentsdb` Fix JSON handling of values `NaN` and `Inf`.
 
-v1.15.2 [2020-07-31]
+## v1.15.2 [2020-07-31]
 
 ### Bug Fixes
 - Fix RPM `/var/log/telegraf` permissions.
