@@ -7,6 +7,8 @@ menu:
   influxdb_1_8:
     name: Optimize queries
     parent: Query with Flux
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/optimize-queries/
+v2: /influxdb/v2.0/query-data/flux/optimize-queries/
 ---
 
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.

@@ -6,6 +6,7 @@ menu:
     name: Key concepts
     weight: 10
     parent: Concepts
+v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
 Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
