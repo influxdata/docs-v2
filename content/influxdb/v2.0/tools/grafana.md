@@ -1,13 +1,16 @@
 ---
 title: Use Grafana with InfluxDB
+list_title: Grafana
 description: >
   Use [Grafana](https://grafana.com/) to visualize data from **InfluxDB 2.0** and **InfluxDB Cloud**.
 menu:
   influxdb_2_0:
-    name: Use Grafana
-    parent: Other visualization tools
-weight: 201
+    name: Grafana
+    parent: Tools & integrations
+weight: 103
 influxdb/v2.0/tags: [grafana]
+aliases:
+  - /influxdb/v2.0/visualize-data/other-tools/
 related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/v2.0/query-data/get-started/

@@ -1,16 +1,21 @@
 ---
-title: Explore with Postman
+title: Use Postman with the InfluxDB API
+list_title: Postman
 description: >
-  Use Postman to explore the InfluxDB API.
+  Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
+  to interact with the [InfluxDB API](/influxdb/v2.0/reference/api).
 menu:
-  influxdb_2_0_ref:
-    parent: InfluxDB v2 API
-weight: 3
+  influxdb_2_0:
+    parent: Tools & integrations
+    name: Postman
+weight: 103
 influxdb/v2.0/tags: [api, authentication]
+aliases:
+  - /influxdb/v2.0/reference/api/postman/
 ---
 
-[Postman](https://www.postman.com/) is a popular tool for exploring APIs.
-Use it to interact with the [InfluxDB API](/influxdb/v2.0/reference/api).
+Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
+to interact with the [InfluxDB API](/influxdb/v2.0/reference/api).
 
 ## Install Postman
 
@@ -35,6 +40,11 @@ Use the **Authorization** tab in Postman to include the credentials required whe
 4. For **Value**, enter `Token <token string>`, replacing `<token string>` with the token generated in step 1.
 5. Ensure that the **Add to** option is set to **Header**.
 
-To test the authentication, enter the `/health` endpoint of a local or Cloud instance of InfluxDB into the address bar
-(for example, http://localhost:9999/api/v2/health or https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/health)
-and then click **Send**.
+#### Test authentication credentials
+To test the authentication, enter the `/health` endpoint of an InfluxDB OSS or
+InfluxDB Cloud instance into the address bar and click **Send**.
+
+###### InfluxDB API health endpoint
+```sh
+http://localhost:9999/api/v2/health
+```

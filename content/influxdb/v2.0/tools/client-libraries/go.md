@@ -5,11 +5,13 @@ list_title: Go
 description: >
   Use the Go client library to interact with InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  influxdb_2_0:
     name: Go
     parent: Client libraries
 influxdb/v2.0/tags: [client libraries, Go]
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/api/client-libraries/go/
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
@@ -18,7 +20,7 @@ This guide presumes some familiarity with Go and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
 ## Before you begin
-   
+
 1. [Install Go 1.3 or later](https://golang.org/doc/install).
 2. Download the client package in your $GOPATH and build the package.
 
@@ -66,7 +68,7 @@ Use the Go library to write and query data from InfluxDB.
    client := influxdb2.NewClient(url, token)
    ```
 
-4. Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters. 
+4. Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters.
 
    ```go
    writeApi := client.WriteApiBlocking(org, bucket)
@@ -84,7 +86,7 @@ Use the Go library to write data to InfluxDB.
 
 1. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 
-2. Close the client to flush all pending writes and finish. 
+2. Close the client to flush all pending writes and finish.
 
    ```go
    p := influxdb2.NewPoint("stat",
@@ -122,7 +124,7 @@ Use the Go library to write data to InfluxDB.
 ## Query data from InfluxDB with Go
 Use the Go library to query data to InfluxDB.
 
-1. Create a Flux query and supply your `bucket` parameter. 
+1. Create a Flux query and supply your `bucket` parameter.
 
    ```js
    from(bucket:"<bucket>")
@@ -134,9 +136,9 @@ Use the Go library to query data to InfluxDB.
 
 **The query client includes the following methods:**
 
-- `Query`: Sends the Flux query to InfluxDB. 
+- `Query`: Sends the Flux query to InfluxDB.
 - `Next`: Iterates over the query response.
-- `TableChanged`: Identifies when the group key changes. 
+- `TableChanged`: Identifies when the group key changes.
 - `Record`: Returns the last parsed FluxRecord and gives access to value and row properties.
 - `Value`: Returns the actual field value.
 

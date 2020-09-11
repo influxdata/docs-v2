@@ -5,14 +5,16 @@ list_title: JavaScript
 description: >
   Use the JavaScript client library to interact with InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  influxdb_2_0:
     name: JavaScript
     parent: Client libraries
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/api/client-libraries/js/
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into JavaScript scripts and applications. This client supports both client-side (browser) and server-side (NodeJS) environments. 
+Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into JavaScript scripts and applications. This client supports both client-side (browser) and server-side (NodeJS) environments.
 
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
@@ -24,8 +26,8 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
 2. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
 
-## Easiest way to get started 
-1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo. 
+## Easiest way to get started
+1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
 2. Navigate to the `examples` directory:
 
   ```js
@@ -38,7 +40,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
    npm install
 ```
 
-3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB. 
+3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB.
 4. Run the following command to run the application at [http://localhost:3001/examples/index.html]()
 
     ```sh
@@ -54,10 +56,10 @@ Use the Javascript library to write data to and query data from InfluxDB.
    import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
    ```
 
-2. Define constants for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance. 
+2. Define constants for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance.
 
    ```js
-   const proxy = '/influx' 
+   const proxy = '/influx'
    const token = 'example-token'
    const org = 'example-org'
    const bucket = 'example-bucket'
@@ -78,7 +80,7 @@ Use the Javascript library to write data to InfluxDB.
   const writeApi = InfluxDB.getWriteApi(org, bucket)
   ```
 
-   The `useDefaultTags` method instructs the write api to use default tags when writing points. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint` method. The `tag` and `floatField` methods add key value pairs for the tags and fields, respectively.  Close the client to flush all pending writes and finish. 
+   The `useDefaultTags` method instructs the write api to use default tags when writing points. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint` method. The `tag` and `floatField` methods add key value pairs for the tags and fields, respectively.  Close the client to flush all pending writes and finish.
 
    ```js
    writeApi.useDefaultTags({location: 'browser'})
@@ -113,7 +115,7 @@ writeApi
 ## Query data from InfluxDB with JavaScript
 Use the Javascript library to query data from InfluxDB.
 
-1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`. 
+1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`.
 
    ```js
    const queryApi = influxDB.getQueryApi(org)
@@ -123,8 +125,8 @@ Use the Javascript library to query data from InfluxDB.
 
    ```js
    const fluxQuery =
-     'from(bucket:"<my-bucket>") 
-     |> range(start: 0) 
+     'from(bucket:"<my-bucket>")
+     |> range(start: 0)
      |> filter(fn: (r) => r._measurement == "temperature")'
    ```
 
