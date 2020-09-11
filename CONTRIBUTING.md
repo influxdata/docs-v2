@@ -666,8 +666,8 @@ canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
 ```
 
 ## v2 equivalent documentation
-To display a notice about and link to equivalent v2 pages for pages in the 1.x
-documentation, use the `v2` frontmatter on 1.x pages:
+To display a notice on a 1.x page that links to an equivalent 2.0 page,
+add the following frontmatter to the 1.x page:
 
 ```yaml
 v2: /influxdb/v2.0/get-started/

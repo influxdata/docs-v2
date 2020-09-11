@@ -7,6 +7,8 @@
 {{ $stableVersion := (index .Site.Data.products $product).latest }}
 {{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
 {{ $v2EquivalentURL := replaceRE `v[1-2]\.[0-9]{1,2}` $latestV2 .Page.Params.v2 }}
+{{ $v2EquivalentPage := .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}
+{{ $v2PageExists := gt (len $v2EquivalentPage.Title) 0 }}
 
 {{ if lt $currentVersion $stableVersion }}
   <div class="warn block old-version">
@@ -16,7 +18,12 @@
       {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
         <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
       {{ else if and (ne (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) (.Page.Params.v2) }}
-        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentURL }}">{{ with .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}{{ .Title }}{{ end }}</a>
+        <!-- Check if the v2 equivalent page exists -->
+        {{ if $v2PageExists }}
+          <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentPage.RelPermalink }}">{{ $v2EquivalentPage.Title }}</a>.
+        {{ else }}
+          See the <a href="{{ $v2EquivalentURL }}">equivalent InfluxDB {{ $latestV2 }} documentation</a>.
+        {{ end }}
       {{ end }}
     </p>
   </div>
@@ -24,6 +31,12 @@
 
 {{ if and .Page.Params.v2 (eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) }}
   <div class="note block old-version">
-    <p><span style="margin-right:.25rem">See the <strong>InfluxDB {{ $latestV2 }}</strong> equivalent for this documentation:</span> <a href="{{ $v2EquivalentURL }}">{{ with .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}{{ .Title }}{{ end }}</a></p>
+    <p>
+      {{ if $v2PageExists }}
+        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentPage.RelPermalink }}">{{ $v2EquivalentPage.Title }}</a>.
+      {{ else }}
+        See the <a href="{{ $v2EquivalentURL }}">equivalent InfluxDB {{ $latestV2 }} documentation</a>.
+      {{ end }}
+    </p>
   </div>
 {{ end }}

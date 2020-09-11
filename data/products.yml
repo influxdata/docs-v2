@@ -4,7 +4,7 @@ influxdb:
   namespace: influxdb
   list_order: 1
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0]
-  latest: v1.8
+  latest: v2.0
   latest_override: v2.0
 
   # Used in cloud-name and cloud-link shortcodes
