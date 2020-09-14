@@ -11,7 +11,7 @@ const latestVersions = {
   'enterprise': 'v1.8',
   };
 
-const archiveDomain = 'http://archive.docs.influxdata.com';
+const archiveDomain = 'https://archive.docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
 
@@ -113,7 +113,7 @@ exports.handler = (event, context, callback) => {
   temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/(?:functions|stdlib|language)\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\//, `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`));
 
   // Redirect versionless and base version to v2 Flux docs
-  temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
+  temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|latest|)(?:\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
 
   ////////////////////////////// v2 path redirect //////////////////////////////
   permanantRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/v2.0/`));

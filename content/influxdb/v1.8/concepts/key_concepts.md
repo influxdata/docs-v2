@@ -198,7 +198,7 @@ time                    butterflies honeybees   location    scientist
 2015-08-18T00:00:00Z    1           30          1           perpetua
 ```
 
-The point in this example is part of series 3 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
+The point in this example is part of series 3 and 7 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
 
 All of the stuff we've just covered is stored in a database - the sample data are in the database `my_database`.
 An InfluxDB <a name=database></a>_**database**_ is similar to traditional relational databases and serves as a logical container for users, retention policies, continuous queries, and, of course, your time series data.
