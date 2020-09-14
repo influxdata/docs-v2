@@ -73,6 +73,8 @@ exports.handler = (event, context, callback) => {
       '.otf': true,
       '.gz': true,
       '.tar': true,
+      '.md5': true,
+      '.sha256': true,
     };
 
   // Remove index.html from path
