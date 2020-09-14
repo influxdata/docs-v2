@@ -11,6 +11,8 @@ menu:
     weight: 2
 aliases:
   - /influxdb/v1.7/flux/getting-started/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/
+v2: /influxdb/v2.0/query-data/get-started/
 ---
 
 Flux is InfluxData's new functional data scripting language designed for querying,
