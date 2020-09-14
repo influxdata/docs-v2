@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Cloud release notes
+title: InfluxDB Cloud monthly updates
 description: Important changes and and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
@@ -18,7 +18,7 @@ InfluxDB Cloud updates happen several times a day. These release notes provide a
 
 - Update [pricing vectors](/influxdb/v2.0/account-management/pricing-plans/#pricing-vect) to determine pricing by the total data out and query count.
 
-- Add [Microsoft Azure support](/influxdb/v2.0/reference/urls/#microsoft-azure) for two regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
+- Add [Microsoft Azure support](/influxdb/v2.0/reference/urls/#microsoft-azure) for the `eastus` and `westeurope` regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
 
 ## 2019-09-10 _Monitoring & Alerts_
 
