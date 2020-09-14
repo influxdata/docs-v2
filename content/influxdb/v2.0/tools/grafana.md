@@ -50,10 +50,10 @@ configure your InfluxDB connection:
 
 1. Under **Connection**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/) **with the `/api/v2` path**.
+    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
-        http://localhost:9999/api/v2
+        http://localhost:9999/
         ```
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.0/organizations/view-orgs/).
