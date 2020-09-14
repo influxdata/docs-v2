@@ -1,4 +1,4 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .RelPermalink) 0) .RelPermalink | default "v2.0" }}
+{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 0 | default "v2.0" }}
 <div class="modal">
   <div class="modal-overlay"></div>
   <div class="modal-wrapper">
