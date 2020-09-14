@@ -40,6 +40,6 @@ Load data from the following sources in the InfluxDB user interface (UI):
    - Scroll down to browse available plugins.
 3. Click the plugin to load data from.
 4. [Install Telegraf](/telegraf/v1.15/introduction/installation/).
-5. Copy the default configuration script in the UI, and then add the script to [Configure Telegraf](https://docs.influxdata.com/telegraf/v1.15/introduction/getting-started/#configure-telegraf).
+5. Copy the default configuration script in the UI, and then add the script to [Configure Telegraf](/telegraf/v1.15/introduction/getting-started/#configure-telegraf).
 6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/v1.15/plugins/).
 7. (Optional) To add the Telegraf configuration to InfluxDB, see [Telegraf configuration](/influxdb/v2.0/telegraf-configs/).
