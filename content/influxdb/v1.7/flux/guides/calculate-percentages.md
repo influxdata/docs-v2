@@ -9,6 +9,8 @@ menu:
     parent: Query with Flux
 weight: 6
 list_query_example: percentages
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/calculate-percentages/
+v2: /influxdb/v2.0/query-data/flux/calculate-percentages/
 ---
 
 Calculating percentages from queried data is a common use case for time series data.

@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
 weight: 5
 list_query_example: map_math
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/mathematic-operations/
+v2: /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.

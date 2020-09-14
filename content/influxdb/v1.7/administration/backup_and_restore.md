@@ -8,6 +8,7 @@ menu:
     name: Backing up and restoring
     weight: 60
     parent: Administration
+v2: /influxdb/v2.0/backup-restore/
 ---
 
 ## Overview

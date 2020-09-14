@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: Fill
 list_query_example: fill_null
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/fill/
+v2: /influxdb/v2.0/query-data/flux/fill/
 ---
 
 Use the [`fill()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/fill/)
