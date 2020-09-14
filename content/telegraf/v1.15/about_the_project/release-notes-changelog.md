@@ -8,7 +8,7 @@ menu:
     parent: About the project
 ---
 
-<!--
+
 ## v1.16 [2020-09-11]
 
 ### Features
@@ -37,7 +37,7 @@ See EXTERNAL_PLUGINS.md for a full list of external plugins
 
 awsalarms - Simple plugin to gather/monitor alarms generated in AWS.
 youtube-telegraf-plugin - Gather view and subscriber stats from your youtube videos
-!-->
+
 
 ## v.1.15.3 [2020-09-11]
 
