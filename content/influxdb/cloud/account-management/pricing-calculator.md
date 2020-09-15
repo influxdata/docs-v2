@@ -5,7 +5,7 @@ description: >
   plugins, metrics, and writes for the Usage-based Plan.
 weight: 2
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Pricing calculator
 products: [cloud]
 draft: true

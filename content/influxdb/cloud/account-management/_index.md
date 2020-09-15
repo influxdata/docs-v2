@@ -9,7 +9,7 @@ aliases:
   - /influxdb/v2.0/cloud/account-management/
   - /influxdb/v2.0/account-management
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Account management
 products: [cloud]
 ---
