@@ -10,7 +10,7 @@
 {{ if eq $product "platform" }}
   {{ $scratch.Set "menuKey" "platform" }}
 {{ else }}
-  {{ $scratch.Set "menuKey" (print $product (replaceRE "[v.]" "_" $currentVersion)) }}
+  {{ $scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
 
 {{ $menuKey := $scratch.Get "menuKey" }}

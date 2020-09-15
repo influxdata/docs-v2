@@ -4,9 +4,11 @@ description: >
   View and manage multiple users in an InfluxDB Cloud account.
 weight: 4
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     parent: Account management
     name: Manage multiple users
+aliases:
+  - /influxdb/v2.0/account-management/multi-user/
 ---
 
 {{< cloud-name >}} accounts support multiple users in an organization.

@@ -6,9 +6,10 @@ description: >
 aliases:
   - /influxdb/v2.0/cloud/rate-limits/
   - /influxdb/v2.0/cloud/pricing-plans/
+  - /influxdb/v2.0/pricing-plans/
 weight: 102
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     parent: Account management
     name: Pricing plans
 products: [cloud]
