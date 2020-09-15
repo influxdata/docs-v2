@@ -43,7 +43,7 @@ value that represents the specified quantile.
 The column to use to compute the quantile.
 Defaults to `"_value"`.
 
-_**Data type:** String_
+_**Data type:** Float_
 
 ### q
 A value between 0 and 1 indicating the desired quantile.
