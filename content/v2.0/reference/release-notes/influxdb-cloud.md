@@ -28,7 +28,7 @@ InfluxDB Cloud updates occur continually. Find a compilation of monthly highligh
  - Update [`integral()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/) with linear interpolation.
  - Add Flux query statistics to better understand query performance.
  - Add [`tasks.lastSuccess()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) to retrieve the time of the last successful run of an InfluxDB task.
- - Add the `array.from` method to add data natively in a Flux script.
+ - Add the [`array.from` function](influxdb/v2.0/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
 
 ### Bug fixes
 
