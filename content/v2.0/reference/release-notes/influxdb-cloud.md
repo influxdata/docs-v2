@@ -10,7 +10,7 @@ aliases:
   - /cloud/about/release-notes
 ---
 
-InfluxDB Cloud updates occur continually. Find a compilation of monthly highlights below.
+InfluxDB Cloud updates occur continually. Find a compilation of monthly updates below.
 
 ## 2020-09-02
 
