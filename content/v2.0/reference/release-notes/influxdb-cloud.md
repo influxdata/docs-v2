@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Cloud monthly updates
-description: Important changes and and what's new in each InfluxDB Cloud 2.0 update.
+description: Important changes and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
   v2_0_ref:
@@ -10,11 +10,9 @@ aliases:
   - /cloud/about/release-notes
 ---
 
-InfluxDB Cloud updates occur continually. Find a compilation of monthly updates below.
+InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
 
 ## 2020-09-02
-
-## Features
 
 ### Pricing updates and Azure region
 
