@@ -5,9 +5,11 @@ description: >
   Remove a user from an InfluxDB Cloud organization.
 weight: 103
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     parent: Manage multiple users
     identifier: remove_user_cloud
+aliases:
+  - /influxdb/v2.0/account-management/multi-user/remove-user/
 ---
 
 1. Navigate to the **Users** page in the left navigation bar.

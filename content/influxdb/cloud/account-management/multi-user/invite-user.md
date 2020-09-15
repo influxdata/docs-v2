@@ -5,9 +5,11 @@ description: >
   Invite a user to collaborate in InfluxDB Cloud.
 weight: 103
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     parent: Manage multiple users
     identifier: invite_user_cloud
+aliases:
+  - /influxdb/v2.0/account-management/multi-user/invite-user/
 ---
 
 1. Navigate to the **Users** page in the left navigation bar.
