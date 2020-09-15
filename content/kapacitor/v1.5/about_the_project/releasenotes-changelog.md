@@ -6,6 +6,19 @@ menu:
     parent: About the project
 ---
 
+## v1.5.7 [2020-08-27]
+
+## Features
+
+- Add support for templating URLs in the [`httpPost` node](/kapacitor/v1.5/nodes/http_post_node/) and [`alert` node](/kapacitor/v1.5/nodes/alert_node/). To set up an template:
+  - For the `alert` node, see [alert templates](/kapacitor/v1.5/event_handlers/post/#alert-templates).
+  - For the `http post` node, see [row templates](/kapacitor/v1.5/event_handlers/post/#row-templates).
+- Upgrade `github.com/gorhill/cronexpr`, thanks @wuguanyu!
+
+### Bug fixes
+
+- Add error check when the system fails to read the replay file, thanks @johncming!
+
 ## v1.5.6 [2020-07-17]
 
 ## Features
