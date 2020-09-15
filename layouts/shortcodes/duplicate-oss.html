@@ -3,4 +3,6 @@
 {{ $path := .Get 0 | default (replaceRE `^influxdb\/cloud\/` $pathReplacement .Page.File.Path) }}
 
 {{ $page := .Site.GetPage $path }}
-{{ $page.Content | replaceRE `\/influxdb\/v2\.[0-9]{1,2}\/` "/influxdb/cloud/" | safeHTML }}
+{{ with $page }}
+  {{ .Content | replaceRE `\/influxdb\/v2\.[0-9]{1,2}\/` "/influxdb/cloud/" | safeHTML }}
+{{ end }}
