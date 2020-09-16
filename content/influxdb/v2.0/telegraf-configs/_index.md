@@ -27,6 +27,12 @@ the configuration from an InfluxDB HTTP(S) endpoint.
     telegraf --config http://localhost:8086/api/v2/telegrafs/<telegraf-config-id>
     ```
 
+{{% cloud-only %}}
+This is Cloud-specific content.
+{{% /cloud-only %}}
+
+This is OSS-specific content.
+
 {{% note %}}
 _[Setup instructions](/influxdb/v2.0/telegraf-configs/view/#view-setup-instructions) for
 each Telegraf configuration are provided in the InfluxDB UI._
