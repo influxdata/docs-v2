@@ -1,5 +1,5 @@
 ---
-title: Using the HTTP input plugin to scrape and parse JSON endpoints
+title: Using the HTTP input plugin with JSON endpoints
 description: Collect live metrics on Citi Bike stations in New York City with the HTTP input plugin.
 menu:
   telegraf_1_15:
