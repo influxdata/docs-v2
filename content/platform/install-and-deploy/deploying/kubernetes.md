@@ -10,18 +10,11 @@ menu:
     weight: 4
 ---
 
-## Deploy the TICK stack in Kubernetes
-
-Instructions for installing and configuring all components of the open source TICK stack in Kubernetes:
-
-– Telegraf
-- InfluxDB
-- Chronograf
-- Kapacitor
+Install and configure the TICK stack—Telegraf, InfluxDB, Chronograf, and Kapacitor—in Kubernetes.
 
 ### Use Helm Charts to deploy InfluxData Platform components
 
-InfluxData recommends using the [Helm Stable](https://github.com/helm/charts/tree/master/stable) repository for installing the TICK stack.
+InfluxData recommends using the [Helm Stable](https://github.com/helm/charts/tree/master/stable) repository to install the TICK stack:
 
 - [Telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf)
 - [InfluxDB](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb)
