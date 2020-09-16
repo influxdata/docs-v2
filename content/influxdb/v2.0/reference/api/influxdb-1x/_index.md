@@ -57,6 +57,13 @@ Authorization: Token <token>
 Authorization: Token mYSuP3rs3cREtT0k3N
 ```
 
+##### InfluxQL support
+
+The compatability API supports InfluxQL, with the following caveats:
+
+- The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
+- With the exception of `DELETE` and `DROP MEASUREMENT` queries, which are still allowed, InfluxQL database management commands are not supported.
+
 ## Compatibility endpoints
 
 {{< children readmore=true >}}
