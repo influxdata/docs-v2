@@ -19,14 +19,17 @@ related:
   - /influxdb/v2.0/reference/cli/influx/write
 ---
 
-Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
-
+Discover what you'll need to write data into InfluxDB Cloud or OSS (open source). Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
 
 - [What you'll need](#what-you-ll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
   - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
-- [Other ways to write data](#other-ways-to-write-data)
+- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
+- [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
+- [Use developer tools](/influxdb/v2.0/write-data/developer-tools)
+- [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
+- [Migrate historical data](/influxdb/v2.0/write-data/bulk-ingest-cloud/)
 - [Next steps](#next-steps)
 
 ### What you'll need
@@ -162,16 +165,6 @@ Quick Start is only available in the last step of the setup process.
 If you missed the Quick Start option, you can [manually create a scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
-
-
----
-
-## Other ways to write data
-
-There are multiple options for writing data into InfluxDB, including both no-code and developer solutions.
-
-  - [No-code solutions](/influxdb/v2.0/write-data/no-code)
-  - [Developer tools](/influxdb/v2.0/write-data/developer-tools)
 
 ---
 

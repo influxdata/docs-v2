@@ -6,6 +6,7 @@ menu:
   influxdb_1_7:
     weight: 20
     parent: Write protocols
+v2: /influxdb/v2.0/reference/syntax/line-protocol/
 ---
 
 The InfluxDB line protocol is a text based format for writing points to the
