@@ -76,8 +76,7 @@ Click **Save** (the green checkmark icon) to save your cell.
 * **Pan** over your cell data by pressing the shift key and clicking and dragging your mouse over the graph
 * **Reset** your cell by double-clicking your mouse in the cell window
 
-> Note:
-These tips only apply to the line, stacked, step-plot, and line+stat [visualization types](/chronograf/v1.6/troubleshooting/frequently-asked-questions/#what-visualization-types-does-chronograf-support).
+> Note: These tips only apply to the line, stacked, step-plot, and line+stat visualization types.
 
 #### Configure dashboard-wide settings:
 * You can change the dashboard's *auto-refresh interval* at the top of the page - the default interval selected is **Every 15 seconds**.

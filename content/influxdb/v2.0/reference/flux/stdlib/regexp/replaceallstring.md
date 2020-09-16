@@ -4,8 +4,7 @@ description: >
   The `regexp.replaceAllString()` function replaces all regular expression matches
   in a string with a specified replacement.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/replaceallstring/
-  - /v2.0/reference/flux/stdlib/regexp/replaceallstring
+  - /influxdb/v2.0/reference/flux/functions/regexp/replaceallstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.replaceAllString

@@ -7,8 +7,6 @@ menu:
     name: Update a user
     parent: Manage users
 weight: 103
-aliases:
-  - /v2.0/users/update-user/
 products: [oss]
 ---
 

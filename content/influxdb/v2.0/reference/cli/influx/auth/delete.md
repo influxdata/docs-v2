@@ -6,8 +6,6 @@ menu:
     name: influx auth delete
     parent: influx auth
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/auth/delete/
 ---
 
 The `influx auth delete` command deletes an authorization in InfluxDB.

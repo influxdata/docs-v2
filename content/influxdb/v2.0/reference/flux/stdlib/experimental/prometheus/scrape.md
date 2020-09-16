@@ -3,15 +3,13 @@ title: prometheus.scrape() function
 description: >
   The `prometheus.scrape()` function retrieves Prometheus-formatted metrics
   from a specified URL.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/prometheus/scrape
 menu:
   influxdb_2_0_ref:
     name: prometheus.scrape
     parent: Prometheus
 weight: 401
 related:
-  - /v2.0/write-data/no-code/scrape-data//scrapable-endpoints/
+  - /influxdb/v2.0/write-data/no-code/scrape-data//scrapable-endpoints/
 ---
 
 The `prometheus.scrape()` function retrieves [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)

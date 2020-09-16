@@ -3,15 +3,13 @@ title: experimental.addDuration() function
 description: >
   The `experimental.addDuration()` function adds a duration to a time value and
   returns the resulting time.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/addduration
 menu:
   influxdb_2_0_ref:
     name: experimental.addDuration
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/experimental/subduration/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
 ---
 
 The `experimental.addDuration()` function adds a duration to a time value and

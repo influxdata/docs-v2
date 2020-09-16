@@ -7,8 +7,6 @@ menu:
     name: Update endpoints
     parent: Manage notification endpoints
 weight: 203
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/update/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/

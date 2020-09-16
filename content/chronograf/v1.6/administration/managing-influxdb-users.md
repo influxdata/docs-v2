@@ -77,7 +77,7 @@ A successful `CREATE USER` query returns a blank result:
 
 ### Step 4: Edit the InfluxDB source in Chronograf.
 
-If you've already [connected your database to Chronograf](/chronograf/v1.6/introduction/getting-started/#3-connect-to-chronograf), update the connection configuration in Chronograf with your new username and password.
+If you've already [connected your database to Chronograf](/chronograf/v1.6/administration/creating-connections/), update the connection configuration in Chronograf with your new username and password.
 Edit existing InfluxDB database sources by navigating to the Chronograf configuration page and clicking on the name of the source.
 
 ## InfluxDB OSS User Management

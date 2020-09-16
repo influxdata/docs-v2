@@ -9,8 +9,6 @@ menu:
     name: Downsample data
     parent: Common tasks
 weight: 201
-aliases:
-  - /v2.0/process-data/common-tasks/downsample-data/
 influxdb/v2.0/tags: [tasks]
 ---
 

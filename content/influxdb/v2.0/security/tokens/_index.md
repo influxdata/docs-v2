@@ -3,8 +3,7 @@ title: Manage authentication tokens
 seotitle: Manage authentication tokens in InfluxDB
 description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 aliases:
-  - /v2.0/users/tokens
-  - /v2.0/security/tokens/
+  - /influxdb/v2.0/users/tokens
 influxdb/v2.0/tags: [tokens, authentication, security]
 menu:
   influxdb_2_0:

@@ -4,8 +4,6 @@ seotitle: Enable TLS/SSL encryption
 description: >
   Enable Transport Layer Security (TLS) and use the HTTPS protocol to secure communication between clients and InfluxDB.
 weight: 101
-aliases:
-  - /v2.0/security/enable-tls/
 menu:
   influxdb_2_0:
     parent: Security & authorization

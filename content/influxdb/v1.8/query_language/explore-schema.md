@@ -7,7 +7,8 @@ menu:
     weight: 30
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/query_language/explore-schema/
+  - /influxdb/v1.8/query_language/schema_exploration/
+v2: /influxdb/v2.0/query-data/flux/explore-schema/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.

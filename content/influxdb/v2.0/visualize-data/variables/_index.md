@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     parent: Visualize data
 weight: 103
-aliases:
-  - /v2.0/visualize-data/variables/
 influxdb/v2.0/tags: [variables]
 ---
 

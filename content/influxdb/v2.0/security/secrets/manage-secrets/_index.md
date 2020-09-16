@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Store and use secrets
 weight: 201
-aliases:
-  - /v2.0/security/secrets/manage-secrets/
 ---
 
 Manage secrets using the [`influx` command line interface (CLI)](/influxdb/v2.0/reference/cli/influx/) or the InfluxDB API.

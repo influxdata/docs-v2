@@ -4,8 +4,7 @@ description: >
   The strings.substring() function returns a substring based on `start` and `end` parameters.
   Indices are based on UTF code points.
 aliases:
-  - /v2.0/reference/flux/functions/strings/substring/
-  - /v2.0/reference/flux/stdlib/strings/substring
+  - /influxdb/v2.0/reference/flux/functions/strings/substring/
 menu:
   influxdb_2_0_ref:
     name: strings.substring

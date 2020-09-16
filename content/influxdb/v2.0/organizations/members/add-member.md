@@ -7,8 +7,6 @@ menu:
     name: Add a member
     parent: Manage members
 weight: 201
-aliases:
-  - /v2.0/organizations/create-org/members/add-members/
 ---
 
 Use the `influx` command line interface (CLI) to add a member to an organization.

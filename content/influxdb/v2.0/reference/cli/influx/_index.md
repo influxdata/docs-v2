@@ -9,8 +9,6 @@ menu:
     name: influx
     parent: Command line tools
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/
 influxdb/v2.0/tags: [cli]
 ---
 

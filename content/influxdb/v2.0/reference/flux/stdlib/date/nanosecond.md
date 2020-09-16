@@ -4,8 +4,7 @@ description: >
   The `date.nanosecond()` function returns the nanosecond of a specified time.
   Results range from `[0-999999999]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/nanosecond/
-  - /v2.0/reference/flux/stdlib/date/nanosecond
+  - /influxdb/v2.0/reference/flux/functions/date/nanosecond/
 menu:
   influxdb_2_0_ref:
     name: date.nanosecond

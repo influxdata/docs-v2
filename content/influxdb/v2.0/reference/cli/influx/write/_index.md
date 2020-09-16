@@ -9,8 +9,6 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [write]
-aliases:
-  - /v2.0/reference/cli/influx/write/
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/csv/

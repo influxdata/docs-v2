@@ -6,8 +6,6 @@ menu:
     name: influx secret
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/secret/
 influxdb/v2.0/tags: [secrets]
 ---
 

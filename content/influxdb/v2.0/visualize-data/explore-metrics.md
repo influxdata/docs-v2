@@ -9,8 +9,6 @@ menu:
     name: Explore metrics
     parent: Visualize data
 weight: 101
-aliases:
-  - /v2.0/visualize-data/explore-metrics/
 ---
 
 Explore and visualize your data in the **Data Explorer**.

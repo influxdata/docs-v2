@@ -8,8 +8,6 @@ menu:
     name: influx completion
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/completion/
 influxdb/v2.0/tags: [cli, tools]
 ---
 

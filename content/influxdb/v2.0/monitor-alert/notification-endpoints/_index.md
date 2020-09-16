@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     parent: Monitor & alert
 weight: 102
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/

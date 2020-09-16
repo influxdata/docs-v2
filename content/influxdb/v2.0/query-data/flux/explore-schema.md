@@ -10,17 +10,15 @@ menu:
     name: Explore your schema
     parent: Query with Flux
 weight: 206
-aliases:
-  - /v2.0/query-data/flux/explore-schema/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/inputs/buckets/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurements
-  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagvalues
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurements
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues
 list_code_example: |
   ```js
   import "influxdata/influxdb/v1"

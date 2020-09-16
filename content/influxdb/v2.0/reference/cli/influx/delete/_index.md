@@ -6,8 +6,6 @@ menu:
     name: influx delete
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/delete/
 influxdb/v2.0/tags: [delete]
 ---
 

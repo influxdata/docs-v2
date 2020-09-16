@@ -8,8 +8,6 @@ menu:
     name: influx write dryrun
     parent: influx write
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/write/dryrun/
 influxdb/v2.0/tags: [write]
 ---
 

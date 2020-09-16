@@ -3,14 +3,12 @@ title: Delete a token
 seotitle: Delete an authentication token from InfluxDB
 description: Delete an authentication token from InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
-  - /v2.0/users/tokens/delete-token
+  - /influxdb/v2.0/users/tokens/delete-token
 menu:
   influxdb_2_0:
     name: Delete a token
     parent: Manage tokens
 weight: 204
-aliases:
-  - /v2.0/security/tokens/delete-token/
 ---
 
 Delete authentication tokens from the InfluxDB user interface (UI) or the `influx` command line interface (CLI).

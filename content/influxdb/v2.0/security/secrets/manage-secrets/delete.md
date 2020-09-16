@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Manage secrets
 weight: 304
-aliases:
-  - /v2.0/security/secrets/manage-secrets/delete/
 ---
 
 Delete secrets using the `influx` command line interface (CLI) or the InfluxDB API.

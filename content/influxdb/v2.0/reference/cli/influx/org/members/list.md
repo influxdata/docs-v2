@@ -6,8 +6,6 @@ menu:
     name: influx org members list
     parent: influx org members
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influx/org/members/list/
 ---
 
 The `influx org members list` command lists members within an organization in InfluxDB.

@@ -12,11 +12,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/exists/
-  - /v2.0/query-data/flux/exists/
+  - /influxdb/v2.0/query-data/guides/exists/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
 list_code_example: |
   ##### Filter null values
   ```js

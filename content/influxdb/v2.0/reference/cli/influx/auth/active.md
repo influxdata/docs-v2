@@ -6,8 +6,6 @@ menu:
     name: influx auth active
     parent: influx auth
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/auth/active/
 ---
 
 The `influx auth active` command activates an authorization in InfluxDB.

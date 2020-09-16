@@ -8,8 +8,6 @@ menu:
     name: Update a task
     parent: Manage tasks
 weight: 204
-aliases:
-  - /v2.0/process-data/manage-tasks/update-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/update
 ---

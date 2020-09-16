@@ -7,8 +7,8 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/bucket/find
-  - /v2.0/reference/cli/influx/bucket/list/
+  - /influxdb/v2.0/reference/cli/influx/bucket/find
+  - /influxdb/v2.0/reference/cli/influx/bucket/list/
 ---
 
 The `influx bucket list` command lists and searches for buckets in InfluxDB.

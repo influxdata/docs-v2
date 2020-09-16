@@ -2,9 +2,8 @@
 title: from() function
 description: The `from()` function retrieves data from an InfluxDB data source.
 aliases:
-  - /v2.0/reference/flux/functions/inputs/from
-  - /v2.0/reference/flux/functions/built-in/inputs/from/
-  - /v2.0/reference/flux/stdlib/built-in/inputs/from
+  - /influxdb/v2.0/reference/flux/functions/inputs/from
+  - /influxdb/v2.0/reference/flux/functions/built-in/inputs/from/
 menu:
   influxdb_2_0_ref:
     name: from

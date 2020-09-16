@@ -4,8 +4,7 @@ description: >
   The `monitor.logs()` function retrieves notification events stored in the `notifications`
   measurement in the `_monitoring` bucket.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/logs/
-  - /v2.0/reference/flux/stdlib/monitor/logs
+  - /influxdb/v2.0/reference/flux/functions/monitor/logs/
 menu:
   influxdb_2_0_ref:
     name: monitor.logs

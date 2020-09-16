@@ -3,8 +3,6 @@ title: Create notification rules
 description: >
   Create notification rules to send alerts on your time series data.
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/notification-rules/create/
 menu:
   influxdb_2_0:
     parent: Manage notification rules

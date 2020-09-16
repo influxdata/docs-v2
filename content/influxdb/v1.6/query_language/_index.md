@@ -72,13 +72,13 @@ covers the use of mathematical operators in InfluxQL.
 
 #### Authentication and authorization
 
-[Authentication and authorization](/influxdb/v1.6/query_language/authentication_and_authorization/) covers how to
-[set up authentication](/influxdb/v1.6/query_language/authentication_and_authorization/#set-up-authentication)
+[Authentication and authorization](/influxdb/v1.6/administration/authentication_and_authorization/) covers how to
+[set up authentication](/influxdb/v1.6/administration/authentication_and_authorization/#set-up-authentication)
 and how to
-[authenticate requests](/influxdb/v1.6/query_language/authentication_and_authorization/#authenticate-requests) in InfluxDB.
+[authenticate requests](/influxdb/v1.6/administration/authentication_and_authorization/#authenticate-requests) in InfluxDB.
 This page also describes the different
-[user types](/influxdb/v1.6/query_language/authentication_and_authorization/#user-types-and-privileges) and the InfluxQL for
-[managing database users](/influxdb/v1.6/query_language/authentication_and_authorization/#user-management-commands).
+[user types](/influxdb/v1.6/administration/authentication_and_authorization/#user-types-and-privileges) and the InfluxQL for
+[managing database users](/influxdb/v1.6/administration/authentication_and_authorization/#user-management-commands).
 
 ## InfluxQL reference
 

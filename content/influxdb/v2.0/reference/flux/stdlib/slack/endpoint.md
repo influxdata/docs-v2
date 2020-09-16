@@ -3,8 +3,7 @@ title: slack.endpoint() function
 description: >
   The `slack.endpoint()` function sends a message to Slack that includes output data.
 aliases:
-  - /v2.0/reference/flux/functions/slack/endpoint/
-  - /v2.0/reference/flux/stdlib/slack/endpoint
+  - /influxdb/v2.0/reference/flux/functions/slack/endpoint/
 menu:
   influxdb_2_0_ref:
     name: slack.endpoint
@@ -68,11 +67,8 @@ _**Data type:** Function_
 
 The returned record must include the following fields:
 
-- `username`
 - `channel`
-- `workspace`
 - `text`
-- `iconEmoji`
 - `color`
 
 _For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/stdlib/slack/message/)_
@@ -93,11 +89,8 @@ crit_statuses = from(bucket: "example-bucket")
 
 crit_statuses
   |> e(mapFn: (r) => ({
-      username: r.username,
       channel: r.channel,
-      workspace: r.workspace,
       text: r.text,
-      iconEmoji: r.iconEmoji,
       color: r.color,
     })
   )()

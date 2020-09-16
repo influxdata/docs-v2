@@ -5,8 +5,6 @@ description: >
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: influxdb_2_0
 weight: 9
-aliases:
-  - /v2.0/influxdb-templates
 influxdb/v2.0/tags: [templates]
 ---
 

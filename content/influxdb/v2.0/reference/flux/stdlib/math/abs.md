@@ -2,8 +2,7 @@
 title: math.abs() function
 description: The math.abs() function returns the absolute value of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/abs/
-  - /v2.0/reference/flux/stdlib/math/abs
+  - /influxdb/v2.0/reference/flux/functions/math/abs/
 menu:
   influxdb_2_0_ref:
     name: math.abs

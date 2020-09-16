@@ -6,8 +6,6 @@ menu:
     name: influx secret delete
     parent: influx secret
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/secret/delete/
 influxdb/v2.0/tags: [secrets]
 ---
 

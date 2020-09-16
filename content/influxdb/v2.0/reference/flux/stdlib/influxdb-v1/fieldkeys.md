@@ -1,8 +1,6 @@
 ---
 title: v1.fieldKeys() function
 description: The `v1.fieldKeys()` function returns field keys in a bucket.
-aliases:
-  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys
 menu:
   influxdb_2_0_ref:
     name: v1.fieldKeys

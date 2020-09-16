@@ -4,8 +4,6 @@ list_title: Bigtable package
 description: >
   The Flux Bigtable package provides tools for working with data in Google Cloud Bigtable databases.
   Import the `experimental/bigtable` package.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/bigtable/
 menu:
   influxdb_2_0_ref:
     name: Bigtable

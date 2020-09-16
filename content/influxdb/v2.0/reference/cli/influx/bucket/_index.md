@@ -6,8 +6,6 @@ menu:
     name: influx bucket
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/bucket/
 influxdb/v2.0/tags: [buckets]
 ---
 

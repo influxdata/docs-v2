@@ -5,8 +5,7 @@ list_title: HTTP input plugin
 description: >
   Write Citi Bike data to your InfluxDB instance with the HTTP plugin.
 aliases:
-  - /v2.0/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
-  - /v2.0/write-data/no-code/use-telegraf/use-telegraf-plugins/use-http-plugin/
+  - /influxdb/v2.0/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
 menu:
   influxdb_2_0:
     name: HTTP input plugin
@@ -16,7 +15,7 @@ weight: 202
 
 This example walks through using the Telegraf HTTP input plugin to collect live metrics on Citi Bike stations in New York City. Live station data is available in JSON format from [NYC OpenData](https://data.cityofnewyork.us/NYC-BigApps/Citi-Bike-Live-Station-Feed-JSON-/p94q-8hxh).
 
-Configure [`influxdb` output plugin](/influxdb/v2.0/reference/telegraf-plugins/#influxdb) to write metrics to your InfluxDB 2.0 instance.
+Configure [`influxdb` output plugin](/{{< latest "telegraf" >}}/plugins//#influxdb) to write metrics to your InfluxDB 2.0 instance.
 
 ## Configure the HTTP Input plugin in your Telegraf configuration file
 

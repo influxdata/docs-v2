@@ -260,7 +260,7 @@ safely copy shards from one of the two original data nodes to the new data node.
 
 ### Step 1: Update the Retention Policy
 
-[Update](/influxdb/v1.8/query_language/database_management/#modify-retention-policies-with-alter-retention-policy)
+[Update](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
 every retention policy to have a replication factor of three.
 This step ensures that the system automatically distributes all newly-created
 shards across the three data nodes in the cluster.
@@ -276,7 +276,7 @@ Here, we use InfluxDB's [CLI](/influxdb/v1.8/tools/shell/) to execute the query:
 
 A successful `ALTER RETENTION POLICY` query returns no results.
 Use the
-[`SHOW RETENTION POLICIES` query](/influxdb/v1.8/query_language/schema_exploration/#show-retention-policies)
+[`SHOW RETENTION POLICIES` query](/influxdb/v1.8/query_language/explore-schema/#show-retention-policies)
 to verify the new replication factor.
 
 Example:

@@ -10,16 +10,14 @@ description: >
   If time between points varies, these functions normalize points to a common time interval
   making values easily comparable.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/rate/
 menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Rate
 influxdb/v2.0/tags: [query, rate]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/derivative/
-  - /v2.0/reference/flux/stdlib/experimental/aggregate/rate/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/derivative/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/rate/
 list_query_example: rate_of_change
 ---
 

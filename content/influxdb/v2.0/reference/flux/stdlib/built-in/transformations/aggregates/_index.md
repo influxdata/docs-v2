@@ -5,9 +5,8 @@ description: >
   Flux's aggregate transformations take values from an input table and aggregate them in some way.
   Output tables contain a single row with the aggregated value.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations

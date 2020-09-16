@@ -7,7 +7,7 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/bucket/update/
+  - /influxdb/v2.0/reference/cli/influx/bucket/update/
 ---
 
 The `influx bucket update` command updates information associated with buckets in InfluxDB.

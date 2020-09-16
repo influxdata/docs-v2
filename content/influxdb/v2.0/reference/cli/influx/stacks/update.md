@@ -6,8 +6,6 @@ menu:
     name: influx stacks update
     parent: influx stacks
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/stacks/update/
 influxdb/v2.0/tags: [templates]
 ---
 

@@ -10,10 +10,9 @@ menu:
     parent: Query with Flux
 weight: 210
 aliases:
-  - /v2.0/query-data/guides/join/
-  - /v2.0/query-data/flux/join/
+  - /influxdb/v2.0/query-data/guides/join/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/join
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join
 list_query_example: join
 ---
 

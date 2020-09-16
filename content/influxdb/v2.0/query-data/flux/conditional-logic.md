@@ -12,13 +12,12 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/conditional-logic/
-  - /v2.0/query-data/flux/conditional-logic/
+  - /influxdb/v2.0/query-data/guides/conditional-logic/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"

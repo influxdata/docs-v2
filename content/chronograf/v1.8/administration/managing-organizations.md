@@ -37,7 +37,7 @@ A Chronograf organization is a collection of Chronograf users who share common C
 
 Upon installation, the default organization is ready for use and allows Chronograf to be used as-is.
 
-## Creating organizations
+## Create organizations
 
 Your company, organizational units, teams, and projects may require the creation of additional organizations, beyond the Default organization. Additional organizations can be created as described below.
 

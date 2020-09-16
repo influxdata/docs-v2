@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     name: Monitor & alert
 weight: 6
-aliases:
-  - /v2.0/monitor-alert/
 influxdb/v2.0/tags: [monitor, alert, checks, notification, endpoints]
 ---
 

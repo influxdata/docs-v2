@@ -7,8 +7,6 @@ menu:
     name: influxd
     parent: Command line tools
 weight: 102
-aliases:
-  - /v2.0/reference/cli/influxd/
 related:
   - /influxdb/v2.0/reference/config-options/
 products: [oss]

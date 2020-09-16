@@ -6,10 +6,8 @@ description: >
 layout: landing-influxdb
 menu:
   influxdb_2_0:
-    name: InfluxDB 2.0 home
+    name: InfluxDB v2.0
 weight: 1
-aliases:
-  - /v2.0/
 ---
 
 #### Welcome

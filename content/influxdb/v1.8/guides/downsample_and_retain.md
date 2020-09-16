@@ -7,6 +7,7 @@ menu:
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/downsampling_and_retention/
+v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 ---
 
 InfluxDB can handle hundreds of thousands of data points per second. Working with that much data over a long period of time can create storage concerns.

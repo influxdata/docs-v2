@@ -4,19 +4,18 @@ description: >
   The `timedMovingAverage()` function calculates the mean of values in a defined time
   range at a specified frequency.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
 menu:
   influxdb_2_0_ref:
     name: timedMovingAverage
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 

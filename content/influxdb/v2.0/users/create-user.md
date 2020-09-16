@@ -7,8 +7,6 @@ menu:
     name: Create a user
     parent: Manage users
 weight: 101
-aliases:
-  - /v2.0/users/create-user/
 products: [oss]
 ---
 

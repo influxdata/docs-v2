@@ -7,6 +7,7 @@ menu:
     name: Configure InfluxDB
     weight: 10
     parent: Administration
+v2: /influxdb/v2.0/reference/config-options/
 ---
 
 The InfluxDB open source (OSS) configuration file contains configuration settings specific to a local node.
@@ -324,7 +325,7 @@ Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
-Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST` 
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`
 
 #### `tsm-use-madv-willneed = false`
 

@@ -3,8 +3,6 @@ title: InfluxDB data elements
 description: >
   InfluxDB structures data using elements such as timestamps, field keys, field values, tags, etc.
 weight: 102
-aliases:
-  - /v2.0/reference/key-concepts/data-elements/
 menu:
   influxdb_2_0_ref:
     parent: Key concepts

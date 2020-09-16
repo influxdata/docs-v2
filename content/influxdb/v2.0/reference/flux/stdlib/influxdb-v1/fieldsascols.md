@@ -2,10 +2,9 @@
 title: v1.fieldsAsCols() function
 description: The v1.fieldsAsCols() function is pivots a table and automatically aligns fields within each input table that have the same timestamp.
 aliases:
-  - /v2.0/reference/flux/functions/inputs/fromrows
-  - /v2.0/reference/flux/functions/transformations/influxfieldsascols
-  - /v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols
+  - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
+  - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
 menu:
   influxdb_2_0_ref:
     name: v1.fieldsAsCols

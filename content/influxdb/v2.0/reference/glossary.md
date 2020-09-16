@@ -3,8 +3,6 @@ title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
 weight: 8
-aliases:
-  - /v2.0/reference/glossary/
 menu:
   influxdb_2_0_ref:
     name: Glossary
@@ -1018,7 +1016,7 @@ Related entries: [function](#function)
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/influxdb/v2.0/reference/telegraf-plugins/), [Use Telegraf to collect data](/influxdb/v2.0/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2.0/telegraf-configs/view/)
+Related entries: [Automatically configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//), [Use Telegraf to collect data](/influxdb/v2.0/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2.0/telegraf-configs/view/)
 
 ### time (data type)
 

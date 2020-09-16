@@ -8,8 +8,6 @@ menu:
     name: View tasks
     parent: Manage tasks
 weight: 202
-aliases:
-  - /v2.0/process-data/manage-tasks/view-tasks/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/list
 ---

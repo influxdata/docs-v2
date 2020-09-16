@@ -6,8 +6,6 @@ menu:
     name: length
     parent: built-in-misc
 weight: 401
-aliases:
-  - /v2.0/reference/flux/stdlib/built-in/misc/length
 ---
 
 The `length()` function returns the number of items in an array.

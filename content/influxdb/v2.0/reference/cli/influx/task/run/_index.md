@@ -8,8 +8,6 @@ menu:
     name: influx task run
     parent: influx task
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/task/log/run/
 ---
 
 The `influx task run` command and its subcommand `list` output information related to runs of a task.

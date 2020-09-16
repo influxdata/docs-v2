@@ -5,8 +5,7 @@ description: >
   requests, backing up data, and contacting InfluxData Support.
 weight: 104
 aliases:
-    - /v2.0/cloud/account-management/offboarding
-    - /v2.0/account-management/offboarding
+    - /influxdb/v2.0/cloud/account-management/offboarding
 menu:
   influxdb_2_0:
     parent: Account management

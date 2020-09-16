@@ -9,8 +9,6 @@ menu:
     name: /write
     parent: 1.x compatibility
 weight: 301
-aliases:
-  - /v2.0/reference/api/influxdb-1x/write/
 influxdb/v2.0/tags: [write]
 products: [cloud]
 list_code_example: |

@@ -40,7 +40,7 @@ For friendlier documentation, see the guides on
 
 ## API client libraries
 
-The list of [client libraries]((/influxdb/v1.4/tools/api_client_libraries/)) for interacting with InfluxDB.
+The list of [client libraries](/influxdb/v1.4/tools/api_client_libraries/) for interacting with InfluxDB.
 
 ## Influx Inspect
 

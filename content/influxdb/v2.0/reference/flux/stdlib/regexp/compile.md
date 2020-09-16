@@ -4,8 +4,7 @@ description: >
   The `regexp.compile()` function parses a regular expression and, if successful,
   returns a Regexp object that can be used to match against text.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/compile/
-  - /v2.0/reference/flux/stdlib/regexp/compile
+  - /influxdb/v2.0/reference/flux/functions/regexp/compile/
 menu:
   influxdb_2_0_ref:
     name: regexp.compile

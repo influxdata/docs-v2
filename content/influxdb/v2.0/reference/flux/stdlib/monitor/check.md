@@ -4,8 +4,7 @@ description: >
   The `monitor.check()` function checks input data and assigns a level
   (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/check/
-  - /v2.0/reference/flux/stdlib/monitor/check
+  - /influxdb/v2.0/reference/flux/functions/monitor/check/
 menu:
   influxdb_2_0_ref:
     name: monitor.check

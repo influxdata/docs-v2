@@ -1,6 +1,6 @@
 ---
 title: Authentication and authorization in InfluxDB
-description: Set up and manage authentication and authorization in InfluxDB OSS. 
+description: Set up and manage authentication and authorization in InfluxDB OSS.
 aliases:
     - influxdb/v1.8/administration/authentication_and_authorization/
 menu:
@@ -8,6 +8,7 @@ menu:
     name: Manage authentication and authorization
     weight: 20
     parent: Administration
+v2: /influxdb/v2.0/security/tokens/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB.

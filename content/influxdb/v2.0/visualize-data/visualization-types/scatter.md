@@ -5,8 +5,6 @@ list_image: /img/influxdb/2-0-visualizations-scatter-example.png
 description: >
   The Scatter view uses a scatter plot to display time series data.
 weight: 208
-aliases:
-  - /v2.0/visualize-data/visualization-types/scatter/
 menu:
   influxdb_2_0:
     name: Scatter
@@ -58,8 +56,8 @@ the visualization dropdown.
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/influxdb/v2.0/reference/telegraf-plugins/#mem)
-and [CPU](/influxdb/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/{{< latest "telegraf" >}}/plugins//#mem)
+and [CPU](/{{< latest "telegraf" >}}/plugins//#cpu) input plugins.
 
 ###### Query CPU and memory usage
 The following query creates a union of CPU and memory usage.

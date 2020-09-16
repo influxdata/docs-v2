@@ -7,8 +7,6 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
-aliases:
-  - /v2.0/organizations/create-org/buckets/view-bucket/
 ---
 
 ## View a list of buckets

@@ -3,8 +3,6 @@ title: experimental.join() function
 description: >
   The `experimental.join()` function joins two streams of tables on the
   group key with the addition of the `_time` column.
-aliases:
-  - /v2.0/reference/flux/stdlib/experimental/join
 menu:
   influxdb_2_0_ref:
     name: experimental.join

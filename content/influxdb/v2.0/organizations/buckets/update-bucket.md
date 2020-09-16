@@ -7,8 +7,6 @@ menu:
     name: Update a bucket
     parent: Manage buckets
 weight: 202
-aliases:
-  - /v2.0/organizations/create-org/buckets/update-bucket/
 ---
 
 Use the `influx` command line interface (CLI) or the InfluxDB user interface (UI) to update a bucket.

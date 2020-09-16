@@ -6,8 +6,6 @@ description: >
   This article discusses methods for preserving data from two points with a common
   measurement, tag set, and timestamp but a different field set.
 weight: 202
-aliases:
-  - /v2.0/write-data/best-practices/duplicate-points/
 menu:
   influxdb_2_0:
     name: Handle duplicate points

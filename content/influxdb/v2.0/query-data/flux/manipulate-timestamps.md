@@ -9,18 +9,17 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/manipulate-timestamps/
-  - /v2.0/query-data/flux/manipulate-timestamps/
+  - /influxdb/v2.0/query-data/guides/manipulate-timestamps/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/misc/now/
-  - /v2.0/reference/flux/stdlib/system/time/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
-  - /v2.0/reference/flux/stdlib/date/truncate/
-  - /v2.0/reference/flux/stdlib/experimental/addduration/
-  - /v2.0/reference/flux/stdlib/experimental/subduration/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/system/time/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
+  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.

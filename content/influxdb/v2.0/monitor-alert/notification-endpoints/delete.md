@@ -7,8 +7,6 @@ menu:
     name: Delete endpoints
     parent: Manage notification endpoints
 weight: 204
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/delete/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/

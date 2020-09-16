@@ -3,14 +3,12 @@ title: Create a token
 seotitle: Create an authentication token in InfluxDB
 description: Create an authentication token in InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
-  - /v2.0/users/tokens/create-token/
+  - /influxdb/v2.0/users/tokens/create-token/
 menu:
   influxdb_2_0:
     name: Create a token
     parent: Manage tokens
 weight: 201
-aliases:
-  - /v2.0/security/tokens/create-token/
 ---
 
 Create authentication tokens using the InfluxDB user interface (UI) or the `influx`

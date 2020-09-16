@@ -9,8 +9,6 @@ menu:
     parent: InfluxDB stacks
     name: View stacks
 weight: 203
-aliases:
-  - /v2.0/influxdb-templates/stacks/views/
 related:
   - /influxdb/v2.0/reference/cli/influx/stacks/
 list_code_example: |

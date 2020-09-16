@@ -2,8 +2,7 @@
 title: math.gamma() function
 description: The math.gamma() function returns the Gamma function of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/gamma/
-  - /v2.0/reference/flux/stdlib/math/gamma
+  - /influxdb/v2.0/reference/flux/functions/math/gamma/
 menu:
   influxdb_2_0_ref:
     name: math.gamma

@@ -8,7 +8,7 @@ menu:
     weight: 40
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/query_language/manage-database/
+  - /influxdb/v1.8/query_language/database_management/
 ---
 
 InfluxQL offers a full suite of administrative commands.

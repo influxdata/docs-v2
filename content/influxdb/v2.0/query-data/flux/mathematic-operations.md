@@ -12,13 +12,12 @@ menu:
     parent: Query with Flux
 weight: 208
 aliases:
-  - /v2.0/query-data/guides/mathematic-operations/
-  - /v2.0/query-data/flux/mathematic-operations/
+  - /influxdb/v2.0/query-data/guides/mathematic-operations/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
-  - /v2.0/reference/flux/language/operators/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/language/operators/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
   - /influxdb/v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---

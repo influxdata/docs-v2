@@ -6,6 +6,7 @@ menu:
     name: influxd backup
     weight: 10
     parent: influxd
+v2: /influxdb/v2.0/reference/cli/influx/backup/
 ---
 
 The `influxd backup` command crates a backup copy of specified InfluxDB OSS database(s) and saves the files in an Enterprise-compatible format to PATH (directory where backups are saved).

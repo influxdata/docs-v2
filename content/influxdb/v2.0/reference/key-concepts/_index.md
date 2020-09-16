@@ -3,8 +3,6 @@ title: InfluxDB key concepts
 description: >
   Concepts related to InfluxDB.
 weight: 2
-aliases:
-  - /v2.0/reference/key-concepts/
 menu:
   influxdb_2_0_ref:
     name: Key concepts

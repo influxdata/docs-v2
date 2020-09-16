@@ -8,6 +8,8 @@ menu:
     weight: 2
 aliases:
   - /influxdb/v1.8/flux/getting-started/transform-data/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/transform-data/
+v2: /influxdb/v2.0/query-data/get-started/transform-data/
 ---
 
 When [querying data from InfluxDB](/influxdb/v1.8/flux/get-started/query-influxdb),

@@ -2,16 +2,15 @@
 title: union() function
 description: The `union()` function concatenates two or more input streams into a single output stream.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/union
-  - /v2.0/reference/flux/functions/built-in/transformations/union/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/union
+  - /influxdb/v2.0/reference/flux/functions/transformations/union
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/union/
 menu:
   influxdb_2_0_ref:
     name: union
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/join/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/
 ---
 
 The `union()` function concatenates two or more input streams into a single output stream.

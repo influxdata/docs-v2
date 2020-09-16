@@ -75,6 +75,8 @@ list_code_example: # Code example included with article descriptions in children
 list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
   # References to examples in data/query_examples
 products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
+canonical: # Path to canonical page, overrides auto-gen'd canonical URL
+v2: # Path to v2 equivalent page
 ```
 
 #### Title usage
@@ -643,6 +645,33 @@ InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
+
+## Canonical URLs
+Search engines use canonical URLs to accurately rank pages with similar or identical content.
+The `canonical` HTML meta tag identifies which page should be used as the source of truth.
+
+By default, canonical URLs are automatically generated for each page in the InfluxData
+documentation using the latest version of the current product and the current path.
+
+Use the `canonical` frontmatter to override the auto-generated canonical URL.
+
+_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
+
+```yaml
+canonical: /path/to/canonical/doc/
+
+# OR
+
+canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
+```
+
+## v2 equivalent documentation
+To display a notice on a 1.x page that links to an equivalent 2.0 page,
+add the following frontmatter to the 1.x page:
+
+```yaml
+v2: /influxdb/v2.0/get-started/
+```
 
 ## InfluxDB URLs
 When a user selects an InfluxDB product and region, example URLs in code blocks

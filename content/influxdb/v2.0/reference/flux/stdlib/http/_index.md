@@ -5,8 +5,7 @@ description: >
   The Flux HTTP package provides functions for transferring data using the HTTP protocol.
   Import the `http` package.
 aliases:
-  - /v2.0/reference/flux/functions/http/
-  - /v2.0/reference/flux/stdlib/http/
+  - /influxdb/v2.0/reference/flux/functions/http/
 menu:
   influxdb_2_0_ref:
     name: HTTP

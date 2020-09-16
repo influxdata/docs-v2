@@ -4,8 +4,6 @@ description: >
   The `discord.endpoint()` function sends a single message to a Discord channel using
   a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
   and data from table rows.
-aliases:
-  - /v2.0/reference/flux/stdlib/contrib/discord/endpoint
 menu:
   influxdb_2_0_ref:
     name: discord.endpoint

@@ -4,10 +4,9 @@ list_title: Manage billing
 description: >
   Upgrade to the InfluxDB Cloud Usage-Based Plan and manage your billing information.
 aliases:
-  - /v2.0/cloud/account-management/billing
-  - /v2.0/cloud/account-management/upgrade-to-payg/
-  - /v2.0/cloud/account-management/upgrade-to-usage-based-plan/
-  - /v2.0/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-payg/
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-usage-based-plan/
 weight: 103
 menu:
   influxdb_2_0:
@@ -34,17 +33,16 @@ products: [cloud]
 Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
 
 ## Access billing details
+
 1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
    navigation menu, and select **Billing**.
 
     {{< nav-icon "account" >}}
 
 2. Do one of the following:
-    - If you subscribed to an InfluxDB Cloud 2.0 plan through **AWS Marketplace**
-      or **GCP Marketplace**, click the **AWS** or **GCP** link to access your
-      billing and subscription information.
+    - If you subscribed to an InfluxDB Cloud 2.0 plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS) or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS** or **GCP** link to access your billing and subscription information.
 
-    - If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
+  - If you subscribed to an InfluxDB Cloud 2.0 plan through **InfluxData**, complete the following procedures as needed:
 
         - [Add or update your payment method](#add-or-update-your-payment-method)
         - [Add or update your contact information](#add-or-update-your-contact-information)
@@ -52,7 +50,7 @@ Add your payment method and view billing information in the {{< cloud-name "shor
 
         View information about:
 
-        - [Usage-based Plan](#view-usage-based-plan-information)
+        - [Usage-Based Plan](#view-usage-based-plan-information)
         - [Free Plan](#view-free-plan-information)
         - [Exceeded rate limits](#exceeded-rate-limits)
         - [Billing cycle](#billing-cycle)

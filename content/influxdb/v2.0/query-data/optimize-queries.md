@@ -3,8 +3,6 @@ title: Optimize Flux queries
 description: >
   Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 weight: 104
-aliases:
-  - /v2.0/query-data/optimize-queries/
 menu:
   influxdb_2_0:
     name: Optimize queries

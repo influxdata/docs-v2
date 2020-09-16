@@ -7,7 +7,7 @@ menu:
   influxdb_1_7:
     name: Tools
     weight: 60
-
+v2: /influxdb/v2.0/tools/
 ---
 
 This section covers the available tools for interacting with InfluxDB.
@@ -24,7 +24,7 @@ starts and runs all the processes necessary for InfluxDB to function.
 
 ## InfluxDB API Reference
 
-Reference documentation for the [InfluxDB HTTP API]((/influxdb/v1.7/tools/api/)).
+Reference documentation for the [InfluxDB HTTP API](/influxdb/v1.7/tools/api/).
 
 Go straight to the reference documentation on:
 
@@ -37,15 +37,15 @@ For friendlier documentation, see the guides on
 
 ## InfluxDB API client libraries
 
-The list of [client libraries]((/influxdb/v1.7/tools/api_client_libraries/)) for interacting with the InfluxDB API.
+The list of [client libraries](/influxdb/v1.7/tools/api_client_libraries/) for interacting with the InfluxDB API.
 
 ## Influx Inspect disk shard utility
 
-[Influx Inspect]((/influxdb/v1.7/tools/influx_inspect/)) is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
+[Influx Inspect](/influxdb/v1.7/tools/influx_inspect/) is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
 
 ## InfluxDB inch tool
 
-Use the [InfluxDB `inch` tool]((/influxdb/v1.7/tools/inch/)) to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
+Use the [InfluxDB `inch` tool](/influxdb/v1.7/tools/inch/) to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
 
 ## Graphs and dashboards
 

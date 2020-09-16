@@ -11,7 +11,7 @@ const latestVersions = {
   'enterprise': 'v1.8',
   };
 
-const archiveDomain = 'http://archive.docs.influxdata.com'
+const archiveDomain = 'https://archive.docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
 
@@ -71,10 +71,14 @@ exports.handler = (event, context, callback) => {
       '.ttf': true,
       '.woff': true,
       '.otf': true,
+      '.gz': true,
+      '.tar': true,
+      '.md5': true,
+      '.sha256': true,
     };
 
   // Remove index.html from path
-  temporaryRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
+  permanantRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
 
   // If file has a valid extension, return the request unchanged
   if (validExtensions[parsedPath.ext]) {
@@ -84,7 +88,7 @@ exports.handler = (event, context, callback) => {
   ////////////////////// START PRODUCT-SPECIFIC REDIRECTS //////////////////////
 
   //////////////////////////// v2 subdomain redirect ///////////////////////////
-  temporaryRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
+  permanantRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
 
   ////////////////////////// Latest version redirects //////////////////////////
   temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
@@ -103,33 +107,33 @@ exports.handler = (event, context, callback) => {
   /////////////////////////////// Flux redirects ///////////////////////////////
   // Redirect flux guides and introduction based on latest InfluxDB version
   if (/v2/.test(latestVersions['influxdb'])) {
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/query-data/flux/`));
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/query-data/get-started/`));
+    temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/guides\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/guides\//, `/influxdb/${latestVersions['influxdb']}/query-data/flux/`));
+    temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/introduction\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/introduction\//, `/influxdb/${latestVersions['influxdb']}/query-data/get-started/`));
   } else {
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/guides\//, `/influxdb/${latestVersions['influxdb']}/flux/guides/`));
-    temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/guides\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\/introduction\//, `/influxdb/${latestVersions['influxdb']}/flux/introduction/`));
+    temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/guides\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/guides\//, `/influxdb/${latestVersions['influxdb']}/flux/guides/`));
+    temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/introduction\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/introduction\//, `/influxdb/${latestVersions['influxdb']}/flux/`));
   }
   // Redirect Flux stdlib and language sections to v2 Flux docs
-  temporaryRedirect(/\/flux\/v0\.[0-9]{1,2}\/(?:functions|stdlib|language)\//.test(request.uri), request.uri.replace(/\/flux\/v0\.[0-9]{1,2}\//, `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`));
+  temporaryRedirect(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\/(?:functions|stdlib|language)\//.test(request.uri), request.uri.replace(/\/flux\/(?:v0\.[0-9]{1,2}|latest)\//, `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`));
 
   // Redirect versionless and base version to v2 Flux docs
-  temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
+  temporaryRedirect(/^\/flux\/(?:v0\.[0-9]{1,2}\/|latest|)(?:\/|)$/.test(request.uri), `/influxdb/${latestVersions['influxdbv2']}/reference/flux/`);
 
   ////////////////////////////// v2 path redirect //////////////////////////////
-  temporaryRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/${latestVersions['influxdbv2']}/`));
+  permanantRedirect(/^\/v2\.0\//.test(request.uri), request.uri.replace(/^\/v2\.0\//, `/influxdb/v2.0/`));
 
   ////////////////////////// Archive version redirects /////////////////////////
-  temporaryRedirect(/\/influxdb\/(?:v0\.[0-9]{1,2}|v1\.[0-2])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-  temporaryRedirect(/\/telegraf\/(?:v0\.[0-9]{1,2}|v1\.[0-8])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-  temporaryRedirect(/\/chronograf\/(?:v0\.[0-9]{1,2}|v1\.[0-5])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-  temporaryRedirect(/\/kapacitor\/(?:v0\.[0-9]{1,2}|v1\.[0-3])\//.test(request.uri), `${archiveDomain}${request.uri}`);
-  temporaryRedirect(/\/enterprise_influxdb\/v1\.[0-3]\//.test(request.uri), `${archiveDomain}${request.uri}`);
-  temporaryRedirect(/\/enterprise_kapacitor\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/influxdb\/(?:v0\.[0-9]{1,2}|v1\.[0-2])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/telegraf\/(?:v0\.[0-9]{1,2}|v1\.[0-8])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/chronograf\/(?:v0\.[0-9]{1,2}|v1\.[0-5])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/kapacitor\/(?:v0\.[0-9]{1,2}|v1\.[0-3])\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/enterprise_influxdb\/v1\.[0-3]\//.test(request.uri), `${archiveDomain}${request.uri}`);
+  permanantRedirect(/\/enterprise_kapacitor\//.test(request.uri), `${archiveDomain}${request.uri}`);
 
   /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
 
   // Redirect to the a trailing slash
-  temporaryRedirect(!request.uri.endsWith('/'), request.uri + '/');
+  permanantRedirect(!request.uri.endsWith('/'), request.uri + '/');
 
   // Use index.html if the path doesn't have an extension
   // or if the version number is parsed as an extension.

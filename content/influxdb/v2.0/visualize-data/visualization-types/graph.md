@@ -5,8 +5,6 @@ list_image: /img/influxdb/2-0-visualizations-line-graph-example.png
 description: >
   The Graph view lets you select from multiple graph types such as line graphs and bar graphs *(Coming)*.
 weight: 201
-aliases:
-  - /v2.0/visualize-data/visualization-types/graph/
 menu:
   influxdb_2_0:
     name: Graph

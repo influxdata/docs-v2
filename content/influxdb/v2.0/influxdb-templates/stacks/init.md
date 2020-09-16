@@ -10,8 +10,6 @@ menu:
     parent: InfluxDB stacks
     name: Initialize a stack
 weight: 201
-aliases:
-  - /v2.0/influxdb-templates/stacks/init/
 related:
   - /influxdb/v2.0/reference/cli/influx/stacks/init/
 list_code_example: |

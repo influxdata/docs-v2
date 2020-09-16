@@ -7,10 +7,8 @@ menu:
     name: Syntax basics
     parent: Get started with Flux
 weight: 203
-aliases:
-  - /v2.0/query-data/get-started/syntax-basics/
 related:
-  - /v2.0/reference/flux/language/types/
+  - /influxdb/v2.0/reference/flux/language/types/
 ---
 
 
@@ -21,9 +19,9 @@ This guide walks through a handful of simple expressions and how they are handle
 Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to open the interactive Read-Eval-Print Loop (REPL).
 Run the commands provided in this guide in the REPL.
 
-##### Start in the influx CLI in Flux mode
+##### Start the Flux REPL
 ```bash
-influx repl --org org-name
+./flux repl
 ```
 
 ## Basic Flux syntax

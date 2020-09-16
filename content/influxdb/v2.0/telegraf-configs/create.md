@@ -4,8 +4,6 @@ description: >
   Use the InfluxDB UI or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
   to create an Telegraf configuration.
 weight: 101
-aliases:
-  - /v2.0/telegraf-configs/create/
 menu:
   influxdb_2_0:
     name: Create a config
