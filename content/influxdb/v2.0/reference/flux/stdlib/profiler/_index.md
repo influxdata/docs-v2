@@ -58,7 +58,7 @@ include a table with the following columns:
 
 #### Use the query profiler to output statistics about query execution
 ```js
-import "profilers"
+import "profiler"
 
 option profiler.enabledProfiles["query"]
 
