@@ -24,5 +24,5 @@ influx ping [flags]
 | Flag |                 | Description                                               | Input type | {{< cli/mapped >}} |
 |:---- |:---             |:-----------                                               |:---------- |:-----------------  |
 | `-h` | `--help`        | Help for the `ping` command                               |            |                    |
-|      | `--host`        | HTTP address of InfluxDB (default `http://localhost9999`) | string     | `INFLUX_HOST`      |
+|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`)| string     | `INFLUX_HOST`      |
 |      | `--skip-verify` | Skip TLS certificate verification                         |            |                    |
