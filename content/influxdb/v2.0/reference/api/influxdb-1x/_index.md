@@ -59,7 +59,7 @@ Authorization: Token mYSuP3rs3cREtT0k3N
 
 ##### InfluxQL support
 
-The compatability API supports InfluxQL, with the following caveats:
+The compatibility API supports InfluxQL, with the following caveats:
 
 - The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
 - With the exception of [`DELETE`](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete) and 
