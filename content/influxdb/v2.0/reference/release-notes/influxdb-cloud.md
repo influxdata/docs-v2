@@ -26,7 +26,7 @@ InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates b
  - Update [`integral()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/) with linear interpolation.
  - Add [Flux query profiler](/influxdb/v2.0/reference/flux/stdlib/profiler/#use-the-query-profiler-to-output-statistics-about-query-execution) to output query statistics that help you better understand query performance.
  - Add [`tasks.lastSuccess()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) to retrieve the time of the last successful run of an InfluxDB task.
- - Add the [`array.from` function](influxdb/v2.0/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
+ - Add the [`array.from` function](/influxdb/v2.0/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
 
 ### Bug fixes
 
