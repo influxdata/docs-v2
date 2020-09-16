@@ -11,10 +11,9 @@ menu:
 weight: 220
 influxdb/v2.0/tags: [scalar]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
 aliases:
-  - /v2.0/query-data/guides/scalar-values/
-  - /v2.0/query-data/flux/scalar-values/
+  - /influxdb/v2.0/query-data/guides/scalar-values/
 list_code_example: |
   ```js
   scalarValue = {
@@ -27,7 +26,7 @@ list_code_example: |
   ```
 ---
 
-Use Flux [stream and table functions](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)
+Use Flux [stream and table functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)
 to extract scalar values from Flux query output.
 This lets you, for example, dynamically set variables using query results.
 
@@ -35,26 +34,23 @@ This lets you, for example, dynamically set variables using query results.
 
 1. [Extract a column from the input stream](#extract-a-column)
    _**or**_ [extract a row from the input stream](#extract-a-row).
-2. Use the returned array or object to reference scalar values.
+2. Use the returned array or record to reference scalar values.
 
 _The samples on this page use the [sample data provided below](#sample-data)._
 
 {{% warn %}}
 #### Current limitations
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
-  Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
+  Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
   scalar values to output data.
-- The [Flux REPL ](/v2.0/reference/cli/influx/repl) does not currently support
-  Flux stream and table functions (also known as "dynamic queries").
-  See [#15321](https://github.com/influxdata/influxdb/issues/15231).
 {{% /warn %}}
 
 ## Table extraction
 Flux formats query results as a stream of tables.
-Both [`findColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
-and [`findRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
-extract the first table in a stream of tables whose [group key](/v2.0/reference/glossary/#group-key)
-values match the `fn` [predicate function](/v2.0/reference/glossary/#predicate-function).
+Both [`findColumn()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
+and [`findRecord()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
+extract the first table in a stream of tables whose [group key](/influxdb/v2.0/reference/glossary/#group-key)
+values match the `fn` [predicate function](/influxdb/v2.0/reference/glossary/#predicate-function).
 
 {{% note %}}
 #### Extract the correct table
@@ -65,7 +61,7 @@ filter and transform your data to minimize the number of tables piped-forward in
 {{% /note %}}
 
 ## Extract a column
-Use the [`findColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
+Use the [`findColumn()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
 to output an array of values from a specific column in the extracted table.
 
 _See [Sample data](#sample-data) below._
@@ -106,10 +102,10 @@ SFOTemps[2]
 ```
 
 ## Extract a row
-Use the [`findRecord()` function](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
+Use the [`findRecord()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
-The function outputs an object with key-value pairs for each column.
+The function outputs a record with key-value pairs for each column.
 
 ```js
 sampleData
@@ -126,11 +122,11 @@ sampleData
 // }
 ```
 
-### Use an extracted row object
-Use a variable to store the extracted row object.
+### Use an extracted row record
+Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot notation](/v2.0/query-data/get-started/syntax-basics/#objects) to reference
-keys in the object.
+Use [dot notation](/influxdb/v2.0/query-data/get-started/syntax-basics/#records) to reference
+keys in the record.
 
 ```js
 tempInfo = sampleData
@@ -181,7 +177,7 @@ lastJFKTemp
 
 ##### Extract scalar row data
 ```js
-// Define a helper function to extract a row as an object
+// Define a helper function to extract a row as a record
 getRow = (tables=<-, field, idx=0) => {
   extract = tables
     |> findRecord(
@@ -210,8 +206,8 @@ The temperature was ${string(v: lastReported._value)}°F."
 
 The following sample data set represents fictional temperature metrics collected
 from three locations.
-It's formatted in [annotated CSV](/v2.0/reference/syntax/annotated-csv/) and imported
-into the Flux query using the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/).
+It's formatted in [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) and imported
+into the Flux query using the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/).
 
 Place the following at the beginning of your query to use the sample data:
 

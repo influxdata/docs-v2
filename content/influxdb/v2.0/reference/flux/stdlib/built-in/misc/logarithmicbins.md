@@ -2,8 +2,8 @@
 title: logarithmicBins() function
 description: The `logarithmicBins()` function generates a list of exponentially separated floats.
 aliases:
-  - /v2.0/reference/flux/functions/misc/logarithmicbins
-  - /v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
+  - /influxdb/v2.0/reference/flux/functions/misc/logarithmicbins
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
 menu:
   influxdb_2_0_ref:
     name: logarithmicBins
@@ -13,7 +13,7 @@ weight: 401
 
 The `logarithmicBins()` function generates a list of exponentially separated floats.
 It is a helper function meant to generate bin bounds for the
-[`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram).
+[`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram).
 
 _**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_

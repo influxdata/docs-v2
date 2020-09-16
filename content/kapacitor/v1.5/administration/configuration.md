@@ -1,6 +1,6 @@
 ---
-title: Configuring Kapacitor
-
+title: Configure Kapacitor
+description: Configuration options and environment variables in Kapacitor.
 menu:
   kapacitor_1_5:
     weight: 10
@@ -8,7 +8,7 @@ menu:
 ---
 
  * [Startup](#startup)
- * [Kapacitor configuration file](#the-kapacitor-configuration-file)
+ * [Kapacitor configuration file](#kapacitor-configuration-file)
  * [Kapacitor environment variables](#kapacitor-environment-variables)
  * [Configuring with the HTTP API](#configuring-with-the-http-api)
 

@@ -1,6 +1,7 @@
 ---
-title: Using dashboard template variables
-description: Chronograf dashboards support template variables that let you modify queries through simple user interactions. Variable types include databases, measurements, field keys, tag keys, tag values, comma-separated values (CSV), maps, custom meta queries, and text.
+title: Use dashboard template variables
+description: >
+  Dashboard variables let you to alter specific components of cells' queries without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 aliases:
   - /chronograf/v1.8/introduction/templating/
   - /chronograf/v1.8/templating/
@@ -10,10 +11,10 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables allow you to alter specific components of cells' queries
+Chronograf's dashboard template variables let you to alter specific components of cells' queries
 without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
 
-## Using template variables
+## Use template variables
 Template variables are used in cell queries and titles when creating Chronograf dashboards.
 Within the query, template variables are referenced by surrounding the variable name with colons (`:`).
 
@@ -115,7 +116,7 @@ Chronograf supports the following template variable types:
 [Text](#text)
 
 ### Databases
-Database template variables allow you to select from multiple target [databases](/influxdb/latest/concepts/glossary/#database).
+Database template variables allow you to select from multiple target [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database).
 
 _**Database meta query**_  
 Database template variables use the following meta query to return an array of all databases in your InfluxDB instance.
@@ -133,7 +134,7 @@ SELECT "purchases" FROM :databaseVar:."autogen"."customers"
 Database template variables are good when visualizing multiple databases with similar or identical data structures. They allow you to quickly switch between visualizations for each of your databases.
 
 ### Measurements
-Vary the target [measurement](/influxdb/latest/concepts/glossary/#measurement).
+Vary the target [measurement](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement).
 
 _**Measurement meta query**_  
 Measurement template variables use the following meta query to return an array of all measurements in a given database.
@@ -152,7 +153,7 @@ Measurement template variables allow you to quickly switch between measurements 
 
 
 ### Field Keys
-Vary the target [field key](/influxdb/latest/concepts/glossary/#field-key).
+Vary the target [field key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#field-key).
 
 _**Field key meta query**_  
 Field key template variables use the following meta query to return an array of all field keys in a given measurement from a given database.
@@ -171,7 +172,7 @@ Field key template variables are great if you want to quickly switch between fie
 
 
 ### Tag Keys
-Vary the target [tag key](/influxdb/latest/concepts/glossary/#tag-key).
+Vary the target [tag key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-key).
 
 _**Tag key meta query**_  
 Tag key template variables use the following meta query to return an array of all tag keys in a given measurement from a given database.
@@ -190,7 +191,7 @@ Tag key template variables are great if you want to quickly switch between tag k
 
 
 ### Tag Values
-Vary the target [tag value](/influxdb/latest/concepts/glossary/#tag-value).
+Vary the target [tag value](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-value).
 
 _**Tag value meta query**_  
 Tag value template variables use the following meta query to return an array of all values associated with a given tag key in a specified measurement and database.
@@ -222,7 +223,7 @@ value3
 value4
 ```
 
-> Since string field values [require single quotes in InfluxQL](/influxdb/latest/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries), string values should be wrapped in single quotes.
+> Since string field values [require single quotes in InfluxQL](/{{< latest "influxdb" "v1" >}}/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries), string values should be wrapped in single quotes.
 
 >```csv
 'string1','string2','string3','string4'
@@ -253,7 +254,7 @@ key4,value4
 
 <img src="/img/chronograf/1-6-template-vars-map-dropdown.png" style="width:100%;max-width:140px;" alt="Map variable dropdown"/>
 
-> If values are meant to be used as string field values, wrap them in single quote ([required by InfluxQL](/influxdb/latest/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)). This only pertains to values. String keys do not matter.
+> If values are meant to be used as string field values, wrap them in single quote ([required by InfluxQL](/{{< latest "influxdb" "v1" >}}/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)). This only pertains to values. String keys do not matter.
 
 >```csv
 key1,'value1'
@@ -283,7 +284,7 @@ The customer names would populate your template variable dropdown rather than th
 
 ### Custom Meta Query
 Vary part of a query with a customized meta query that pulls a specific array of values from InfluxDB.
-These variables allow you to pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filtering-template-variables-with-other-template-variables).
+These variables let you pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filter-template-variables-with-other-template-variables).
 
 <img src="/img/chronograf/1-6-template-vars-custom-meta-query.png" style="width:100%;max-width:667px;" alt="Custom meta query"/>
 
@@ -306,7 +307,7 @@ They are great when troubleshooting incidents that affect multiple visualized me
 
 ## Reserved variable names
 The following variable names are reserved and cannot be used when creating template variables.
-Chronograf accepts [template variables as URL query parameters](#defining-template-variables-in-the-url)
+Chronograf accepts [template variables as URL query parameters](#define-template-variables-in-the-url)
 as well as many other parameters that control the display of graphs in your dashboard.
 These names are either [predefined variables](#predefined-template-variables) or would
 conflict with existing URL query parameters.
@@ -319,12 +320,12 @@ conflict with existing URL query parameters.
 `:upper:`  
 `:lower:`  
 `:zoomedUpper:`  
-`:zoomedLower:` 
-`refreshRate:` 
+`:zoomedLower:`
+`refreshRate:`
 
 ## Advanced template variable usage
 
-### Filtering template variables with other template variables
+### Filter template variables with other template variables
 [Custom meta query template variables](#custom-meta-query) allow you to filter the array of potential variable values using other existing template variables.
 
 For example, let's say you want to list all the field keys associated with a measurement, but want to be able to change the measurement:
@@ -352,7 +353,7 @@ The resulting dashboard will work like this:
 
 ![Custom meta query filtering](/img/chronograf/1-6-custom-meta-query-filtering.gif)
 
-### Defining template variables in the URL
+### Define template variables in the URL
 Chronograf uses URL query parameters (also known as query string parameters) to set both display options and template variables in the URL.
 This makes it easy to share links to dashboards so they load in a specific state with specific template variable values selected.
 

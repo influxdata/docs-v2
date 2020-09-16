@@ -3,7 +3,7 @@ title: secrets.get() function
 description: >
   The `secrets.get()` function retrieves a secret from the InfluxDB secret store.
 aliases:
-  - /v2.0/reference/flux/functions/secrets/get/
+  - /influxdb/v2.0/reference/flux/functions/secrets/get/
 menu:
   influxdb_2_0_ref:
     name: secrets.get
@@ -12,7 +12,7 @@ weight: 202
 ---
 
 The `secrets.get()` function retrieves a secret from the
-[InfluxDB secret store](/v2.0/security/secrets/).
+[InfluxDB secret store](/influxdb/v2.0/security/secrets/).
 
 _**Function type:** Miscellaneous_
 

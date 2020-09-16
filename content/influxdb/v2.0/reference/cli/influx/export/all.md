@@ -7,8 +7,7 @@ menu:
     parent: influx export
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/pkg/export/all/
-  - /v2.0/reference/cli/influx/export/all/
+  - /influxdb/v2.0/reference/cli/influx/pkg/export/all/
 related:
   - /influxdb/v2.0/influxdb-templates/create/
 ---
@@ -16,7 +15,7 @@ related:
 The `influx export all` command exports all resources in an
 organization as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/v2.0/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/v2.0/influxdb-templates/create/)._
 
 ## Usage
 ```

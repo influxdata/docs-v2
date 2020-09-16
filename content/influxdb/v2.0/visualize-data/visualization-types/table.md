@@ -6,8 +6,6 @@ description: >
   The Table option displays the results of queries in a tabular view, which is
   sometimes easier to analyze than graph views of data.
 weight: 207
-aliases:
-  - /v2.0/visualize-data/visualization-types/table/
 menu:
   influxdb_2_0:
     name: Table
@@ -26,7 +24,7 @@ The table visualization renders queried data in structured, easy-to-read tables.
 Columns and rows match those in the query output.
 If query results contain multiple tables, only one table is shown at a time.
 Select other output tables in the far left column of the table visualization.
-Tables are identified by their [group key](/v2.0/query-data/get-started/#group-keys).
+Tables are identified by their [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
 
 ## Table Controls
 To view **Table** controls, click **{{< icon "gear" >}} Customize** next to

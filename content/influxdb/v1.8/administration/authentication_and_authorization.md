@@ -1,5 +1,6 @@
 ---
 title: Authentication and authorization in InfluxDB
+description: Set up and manage authentication and authorization in InfluxDB OSS. 
 aliases:
     - influxdb/v1.8/administration/authentication_and_authorization/
 menu:
@@ -215,7 +216,7 @@ curl -XGET "http://localhost:8086/query?db=demodb" \
 
 ## Authenticate Telegraf requests to InfluxDB
 
-Authenticating [Telegraf](/telegraf/latest/) requests to an InfluxDB instance with
+Authenticating [Telegraf](/{{< latest "telegraf" >}}/) requests to an InfluxDB instance with
 authentication enabled requires some additional steps.
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), uncomment
 and edit the `username` and `password` settings.
@@ -257,7 +258,7 @@ Database management:
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`CREATE RETENTION POLICY`, `ALTER RETENTION POLICY`, and `DROP RETENTION POLICY`  
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`CREATE CONTINUOUS QUERY` and `DROP CONTINUOUS QUERY`  
 
-See the [database management](/influxdb/v1.8/query_language/database_management/) and [continuous queries](/influxdb/v1.8/query_language/continuous_queries/) pages for a complete discussion of the commands listed above.
+See the [database management](/influxdb/v1.8/query_language/manage-database/) and [continuous queries](/influxdb/v1.8/query_language/continuous_queries/) pages for a complete discussion of the commands listed above.
 
 User management:  
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;Admin user management:  
@@ -277,7 +278,7 @@ Non-admin users can have one of the following three privileges per database:
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`ALL` (both `READ` and `WRITE` access)  
 
 `READ`, `WRITE`, and `ALL` privileges are controlled per user per database. A new non-admin user has no access to any database until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user) by an admin user.
-Non-admin users can [`SHOW`](/influxdb/v1.8/query_language/schema_exploration/#show-databases) the databases on which they have `READ` and/or `WRITE` permissions.
+Non-admin users can [`SHOW`](/influxdb/v1.8/query_language/explore-schema/#show-databases) the databases on which they have `READ` and/or `WRITE` permissions.
 
 ### User management commands
 

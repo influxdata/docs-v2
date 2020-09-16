@@ -8,8 +8,6 @@ menu:
     name: Create a template
     parent: Manage dashboard templates
 weight: 201
-aliases:
-  - /v2.0/visualize-data/templates/create-template/
 ---
 
 ## Create a template from an existing dashboard
@@ -26,7 +24,7 @@ aliases:
 ## Clone a dashboard template
 
 {{% note %}}
-Only [user templates](/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
+Only [user templates](/influxdb/v2.0/visualize-data/templates/#dashboard-template-types) can be cloned.
 {{% /note %}}
 
 1. In the navigation menu on the left, select **Settings** > **Templates**.

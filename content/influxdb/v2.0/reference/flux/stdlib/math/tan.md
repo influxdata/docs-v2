@@ -2,7 +2,7 @@
 title: math.tan() function
 description: The math.tan() function returns the tangent of the radian argument `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/tan/
+  - /influxdb/v2.0/reference/flux/functions/math/tan/
 menu:
   influxdb_2_0_ref:
     name: math.tan

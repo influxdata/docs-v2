@@ -2,7 +2,7 @@
 title: math.sincos() function
 description: The math.sincos() function returns the values of `math.sin(x:x)` and `math.cos(x:x)`.
 aliases:
-  - /v2.0/reference/flux/functions/math/sincos/
+  - /influxdb/v2.0/reference/flux/functions/math/sincos/
 menu:
   influxdb_2_0_ref:
     name: math.sincos
@@ -12,7 +12,7 @@ weight: 301
 
 The `math.sincos()` function returns the values of `math.sin(x:x)` and `math.cos(x:x)`.
 
-_**Output data format:** Object_
+_**Output data format:** Record_
 
 ```js
 import "math"

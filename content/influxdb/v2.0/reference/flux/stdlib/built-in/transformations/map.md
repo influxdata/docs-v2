@@ -2,8 +2,8 @@
 title: map() function
 description: The `map()` function applies a function to each record in the input tables.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/map
-  - /v2.0/reference/flux/functions/built-in/transformations/map/
+  - /influxdb/v2.0/reference/flux/functions/transformations/map
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/map/
 menu:
   influxdb_2_0_ref:
     name: map
@@ -13,6 +13,7 @@ influxdb/v2.0/tags: [exists]
 related:
   - /influxdb/v2.0/query-data/flux/conditional-logic/
   - /influxdb/v2.0/query-data/flux/mathematic-operations/
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/
 ---
 
 The `map()` function applies a function to each record in the input tables.
@@ -22,8 +23,7 @@ The output tables are the result of applying the map function to each record of 
 When the output record contains a different value for the group key, the record is regrouped into the appropriate table.
 When the output record drops a column that was part of the group key, that column is removed from the group key.
 
-_**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Function type:** Transformation_
 
 ```js
 map(fn: (r) => ({ _value: r._value * r._value }))
@@ -32,18 +32,18 @@ map(fn: (r) => ({ _value: r._value * r._value }))
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn
 
-A single argument function that to apply to each record.
-The return value must be an object.
+A single argument function to apply to each record.
+The return value must be a record.
 
 _**Data type:** Function_
 
 {{% note %}}
-Objects evaluated in `fn` functions are represented by `r`, short for "record" or "row".
+Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
 ## Important notes
@@ -57,7 +57,7 @@ By default, `map()` drops any columns that:
 
 This often results in the `_time` column being dropped.
 To preserve the `_time` column and other columns that do not meet the criteria above,
-use the `with` operator to map values in the `r` object.
+use the `with` operator to map values in the `r` record.
 The `with` operator updates a column if it already exists,
 creates a new column if it doesn't exist, and includes all existing columns in
 the output table.

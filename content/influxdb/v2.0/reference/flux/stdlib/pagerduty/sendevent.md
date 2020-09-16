@@ -3,7 +3,7 @@ title: pagerduty.sendEvent() function
 description: >
   The `pagerduty.sendEvent()` function sends an event to PagerDuty.
 aliases:
-  - /v2.0/reference/flux/functions/pagerduty/sendevent/
+  - /influxdb/v2.0/reference/flux/functions/pagerduty/sendevent/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.sendEvent
@@ -63,8 +63,8 @@ change the severity of previous messages.
 Supports a maximum of 255 characters.
 
 {{% note %}}
-When using [`pagerduty.endpoint()`](/v2.0/reference/flux/stdlib/pagerduty/endpoint/)
-to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/v2.0/reference/flux/stdlib/pagerduty/dedupkey/) to populate the `dedupkey` parameter.
+When using [`pagerduty.endpoint()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/endpoint/)
+to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/influxdb/v2.0/reference/flux/stdlib/pagerduty/dedupkey/) to populate the `dedupkey` parameter.
 {{% /note %}}
 
 _**Data type:** String_

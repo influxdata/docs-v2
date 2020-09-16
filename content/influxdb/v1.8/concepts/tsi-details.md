@@ -1,6 +1,6 @@
 ---
 title: Time Series Index (TSI) details
-
+description: Enable and understand the Time Series Index (TSI).
 menu:
   influxdb_1_8:
     name: Time Series Index (TSI) details
@@ -28,13 +28,13 @@ index-version = "tsi1"
 
 ### InfluxDB Enterprise
 
-- To convert your data nodes to support TSI, see [Upgrade InfluxDB Enterprise clusters](https://docs.influxdata.com/enterprise_influxdb/v1.8/administration/upgrading/).
+- To convert your data nodes to support TSI, see [Upgrade InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/administration/upgrading/).
 
-- For detail on configuration, see [Configure InfluxDB Enterprise clusters](https://docs.influxdata.com/enterprise_influxdb/v1.8/administration/configuration/#sidebar).
+- For detail on configuration, see [Configure InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/administration/configuration/).
 
 ### InfluxDB OSS
 
-- For detail on configuration, see [Configuring InfluxDB OSS](https://docs.influxdata.com/influxdb/v1.8/administration/config/#sidebar).
+- For detail on configuration, see [Configuring InfluxDB OSS](/influxdb/v1.8/administration/config/).
 
 ## Tooling
 

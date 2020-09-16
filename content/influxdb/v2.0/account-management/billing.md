@@ -4,10 +4,9 @@ list_title: Manage billing
 description: >
   Upgrade to the InfluxDB Cloud Usage-Based Plan and manage your billing information.
 aliases:
-  - /v2.0/cloud/account-management/billing
-  - /v2.0/cloud/account-management/upgrade-to-payg/
-  - /v2.0/cloud/account-management/upgrade-to-usage-based-plan/
-  - /v2.0/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/billing
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-payg/
+  - /influxdb/v2.0/cloud/account-management/upgrade-to-usage-based-plan/
 weight: 103
 menu:
   influxdb_2_0:
@@ -100,7 +99,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [rate limits](/influxdb/v2.0/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
 
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._

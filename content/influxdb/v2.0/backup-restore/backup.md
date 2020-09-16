@@ -7,15 +7,13 @@ menu:
   influxdb_2_0:
     parent: Back up & restore data
 weight: 101
-aliases:
-  - /v2.0/backup-restore/backup
 related:
   - /influxdb/v2.0/backup-restore/restore/
   - /influxdb/v2.0/reference/cli/influx/backup/
 products: [oss]
 ---
 
-Use the [`influx backup` command](/v2.0/reference/cli/influx/backup/) to back up
+Use the [`influx backup` command](/influxdb/v2.0/reference/cli/influx/backup/) to back up
 data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
@@ -34,7 +32,7 @@ The `influx backup` command requires:
 
 - The directory path for where to store the backup file set
 - The **root authorization token** (the token created for the first user in the
-  [InfluxDB setup process](/v2.0/get-started/)).
+  [InfluxDB setup process](/influxdb/v2.0/get-started/)).
 
 ##### Back up data with the influx CLI
 ```sh

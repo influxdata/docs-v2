@@ -9,13 +9,11 @@ menu:
   influxdb_2_0:
     parent: InfluxDB templates
 weight: 105
-aliases:
-  - /v2.0/influxdb-templates/stacks/
 related:
   - /influxdb/v2.0/reference/cli/stacks/
 ---
 
-**InfluxDB stacks** are **stateful [InfluxDB templates](/v2.0/influxdb-templates)**
+**InfluxDB stacks** are **stateful [InfluxDB templates](/influxdb/v2.0/influxdb-templates)**
 that let you add, update, and remove templated resources over time, avoid
 duplicating resources when applying the same or similar templates more than once,
 and apply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
@@ -43,7 +41,7 @@ apply updates without creating duplicate resources.
 In many cases, users have more than one instance of InfluxDB running and apply
 the same template to each separate instance.
 By using stacks, you can make changes to a stack on one instance,
-[export the stack as a template](/v2.0/influxdb-templates/create/#export-a-stack)
+[export the stack as a template](/influxdb/v2.0/influxdb-templates/create/#export-a-stack)
 and then apply the changes to your other InfluxDB instances.
 
 ## Manage InfluxDB Stacks

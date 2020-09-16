@@ -4,7 +4,7 @@ description: >
   The `regexp.splitRegexp()` function splits a string into substrings separated by
   regular expression matches and returns an array of `i` substrings between matches.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/splitregexp/
+  - /influxdb/v2.0/reference/flux/functions/regexp/splitregexp/
 menu:
   influxdb_2_0_ref:
     name: regexp.splitRegexp

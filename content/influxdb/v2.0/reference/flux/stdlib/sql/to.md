@@ -2,7 +2,7 @@
 title: sql.to() function
 description: The `sql.to()` function writes data to a SQL database.
 aliases:
-  - /v2.0/reference/flux/functions/sql/to/
+  - /influxdb/v2.0/reference/flux/functions/sql/to/
 menu:
   influxdb_2_0_ref:
     name: sql.to
@@ -93,7 +93,7 @@ If writing to a **SQLite** database, set `batchSize` to `999` or less.
 - [SQL Server](#write-data-to-a-sql-server-database)
 
 {{% note %}}
-The examples below use [InfluxDB secrets](/v2.0/security/secrets/) to populate
+The examples below use [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
 sensitive connection credentials.
 {{% /note %}}
 
@@ -148,7 +148,7 @@ sql.to(
 {{% warn %}}
 **InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
 and cannot write to SQLite data sources.
-Use the [Flux REPL](/v2.0/reference/cli/influx/repl/) to write to an SQLite data
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to write to an SQLite data
 source on your local filesystem.
 {{% /warn %}}
 
@@ -197,7 +197,7 @@ azure auth=ENV
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
 access to the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/v2.0/reference/cli/influx/repl/) on your local machine.
+[Flux REPL](/influxdb/v2.0/tools/repl/) on your local machine.
 {{% /warn %}}
 
 ```powershell

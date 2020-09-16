@@ -1,6 +1,7 @@
 ---
 title: Pushover event handler
-description: The Pushover event handler allows you to send Kapacitor alerts to Pushover. This page includes configuration options and usage examples.
+description: >
+  The Pushover event handler allows you to send Kapacitor alerts to Pushover. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Pushover
@@ -39,7 +40,7 @@ The URL for the Pushover API. _**This should not need to be changed.**_
 
 ## Options
 The following Pushover event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.pushover()` in a TICKscript.
 
 | Name      | Type   | Description                                                                                                             |

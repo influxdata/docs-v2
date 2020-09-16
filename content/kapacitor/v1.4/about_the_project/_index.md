@@ -11,11 +11,11 @@ menu:
 
 Kapacitor OSS is open source and InfluxData welcomes contributions from the community.
 
-## [Kapacitor OSS release notes](/kapacitor/v1.4/about_the_project/releasenotes-changelog/)
+## Kapacitor OSS release notes
 
 The [Kapacitor OSS release notes](/kapacitor/v1.4/about_the_project/releasenotes-changelog/) cover features, bug fixes, breaking alerts, and other information about the current and previous releases.
 
-## [Contributing to Kapacitor OSS](https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md)
+## Contributing to Kapacitor OSS
 
 See the [Contributing to Kapacitor OSS](https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md)
 page for information on how you can contribute to Kapacitor OSS, including:
@@ -27,20 +27,19 @@ page for information on how you can contribute to Kapacitor OSS, including:
 
 This page also includes details on the use of third party software libraries, getting the source, building and testing, code generation, build scripts, and much more.
 
-## [Contributing Kapacitor event handler integrations](/kapacitor/v1.4/about_the_project/custom_alert/)
+## Contributing Kapacitor event handler integrations
 
 See [Contributing Kapacitor event handler integrations](/kapacitor/v1.4/about_the_project/custom_alert/) to learn how to create a custom event handler for alerting.
 
-## [Contributing Kapacitor output nodes](/kapacitor/v1.4/about_the_project/custom_output/)
+## Contributing Kapacitor output nodes
 
 See [Contributing Kapacitor output nodes](/kapacitor/v1.4/about_the_project/custom_output/) to learn how to add a new node to Kapacitor that can output data to a custom endpoint.
 
-## [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/)
+## InfluxData Contributor License Agreement (CLA)
 
 In order to begin contributing to Kapacitor OSS project, you need to complete and sign the [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/).
 
-
-## [Open source license](https://github.com/influxdata/kapacitor/blob/master/LICENSE)
+## Open source license
 
 See the [open source license](https://github.com/influxdata/kapacitor/blob/master/LICENSE) for conditions and restrictions for the use of the Kapacitor source code.
 

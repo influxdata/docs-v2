@@ -1,6 +1,7 @@
 ---
 title: Kapacitor event handlers
-description: Kapacitor event handlers provide ways to integrate Kapacitor alert messages with logging, specific URLs, and many third-party applications.
+description: >
+  Kapacitor event handlers provide ways to integrate Kapacitor alert messages with logging, specific URLs, and many third-party applications.
 aliases:
   - /kapacitor/v1.5/working/event-handler-setup/
 menu:
@@ -15,7 +16,7 @@ handlers. Currently, Kapacitor can send alert messages to specific log files and
 specific URLs, as well as to many third party applications.
 
 These documents outline configuration options, setup instructions,
-[handler file](#handler-file) and [TICKscript](/kapacitor/v1.5/tick/introduction/)
+[handler file](#create-a-topic-handler-with-a-handler-file) and [TICKscript](/kapacitor/v1.5/tick/introduction/)
 syntax for officially supported Kapacitor event handlers.
 
 [Aggregate](/kapacitor/v1.5/event_handlers/aggregate/)  
@@ -63,7 +64,7 @@ Enable the event handler in your `kapacitor.conf` if applicable. Once
 enabled, do one of the following:
 
 - [Create a topic handler with a handler file](#create-a-topic-handler-with-a-handler-file), and then [add the handler](#add-the-handler).
-- [Use a handler in a TICKscripts](#use-a-handler-in-a-tickscripts).
+- [Use a handler in a TICKscripts](#use-a-handler-in-a-tickscript).
 
     > **Note:** Not all event handlers can be used in TICKscripts.
 

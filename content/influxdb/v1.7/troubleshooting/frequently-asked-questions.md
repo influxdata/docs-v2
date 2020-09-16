@@ -214,7 +214,7 @@ If you anticipate growing over 16TB per volume/file system, we recommend finding
 
 ## How do I manually trigger a compaction?
 
-Trigger a full compaction after startup by adjusting the [`compact-full-write-cold-duration`](/influxdb/v1.7/administration/config/#compact-full-write-cold-duration-4h) setting in your InfluxDB configuration file. For more information, see [Using the configuration file](/influxdb/v1.7/administration/config/#using-the-configuration-file/). Consider the following items may affect the schedule for compaction:
+Trigger a full compaction after startup by adjusting the [`compact-full-write-cold-duration`](/influxdb/v1.7/administration/config/#compact-full-write-cold-duration-4h) setting in your InfluxDB configuration file. For more information, see [Using the configuration file](/influxdb/v1.7/administration/config/#using-the-configuration-file). Consider the following items may affect the schedule for compaction:
 
 - Shard duration and write patterns. For example, frequently writing to old shards may affect compaction.
 - Number of concurrent compactions (`max-concurrent-compactions`). For example, multiple shards pending compaction may affect when a compaction is run.
@@ -280,7 +280,7 @@ Note that you will need to fully qualify the measurement to query data in the no
 
 ## How do I cancel a long-running query?
 
-You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](https://docs.influxdata.com/influxdb/v1.3/query_language/spec/#show-queries) command,
+You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](/influxdb/v1.3/query_language/spec/#show-queries) command,
 you can use the [`KILL QUERY`](/influxdb/v1.7/troubleshooting/query_management/#stop-currently-running-queries-with-kill-query) command to stop it.
 
 ## Why can't I query Boolean field values?
@@ -606,7 +606,7 @@ time                    sunflowers                 time                  mean
 
 The most common reasons why your query returns no data or partial data:
 
-- [Querying the wrong retention policy](#querying-wrong-retention-policy) (no data returned)
+- [Querying the wrong retention policy](#querying-the-wrong-retention-policy) (no data returned)
 - [No field key in the SELECT clause](#no-field-key-in-the-select-clause) (no data returned)
 - [SELECT query includes `GROUP BY time()`](#select-query-includes-group-by-time) (partial data before `now()` returned)
 - [Tag and field key with the same name](#tag-and-field-key-with-the-same-name)

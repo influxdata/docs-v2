@@ -8,8 +8,6 @@ menu:
     name: influx telegrafs update
     parent: influx telegrafs
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/telegrafs/update/
 ---
 
 The `influx telegrafs update` command updates a Telegraf configuration to match the specified parameters.

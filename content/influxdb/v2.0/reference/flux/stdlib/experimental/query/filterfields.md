@@ -53,6 +53,6 @@ filterFields = (tables=<-, fields=[]) =>
 ```
 
 _**Used functions:**_  
-[contains()](/v2.0/reference/flux/stdlib/built-in/tests/contains/)  
-[filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
-[length()](/v2.0/reference/flux/stdlib/built-in/misc/length/)  
+[contains()](/influxdb/v2.0/reference/flux/stdlib/built-in/tests/contains/)  
+[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
+[length()](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/length/)  

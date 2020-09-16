@@ -2,9 +2,9 @@
 title: covariance() function
 description: The `covariance()` function computes the covariance between two columns.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/covariance
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/covariance/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/covariance
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/covariance/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance/
 menu:
   influxdb_2_0_ref:
     name: covariance

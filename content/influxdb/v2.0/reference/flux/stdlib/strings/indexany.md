@@ -3,16 +3,16 @@ title: strings.indexAny() function
 description: >
   The strings.indexAny() function returns the index of the first instance of specified characters in a string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/indexany/
+  - /influxdb/v2.0/reference/flux/functions/strings/indexany/
 menu:
   influxdb_2_0_ref:
     name: strings.indexAny
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/index-func/
-  - /v2.0/reference/flux/stdlib/strings/lastindex/
-  - /v2.0/reference/flux/stdlib/strings/lastindexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/index-func/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
 ---
 
 The `strings.indexAny()` function returns the index of the first instance of specified characters in a string.

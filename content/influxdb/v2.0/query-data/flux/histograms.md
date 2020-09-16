@@ -2,7 +2,7 @@
 title: Create histograms with Flux
 list_title: Histograms
 description: >
-  Use the [`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram/)
+  Use the [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram/)
   to create cumulative histograms with Flux.
 influxdb/v2.0/tags: [histogram]
 menu:
@@ -11,10 +11,9 @@ menu:
     parent: Query with Flux
 weight: 210
 aliases:
-  - /v2.0/query-data/guides/histograms/
-  - /v2.0/query-data/flux/histograms/
+  - /influxdb/v2.0/query-data/guides/histograms/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/histogram
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram
 list_query_example: histogram
 ---
 
@@ -23,12 +22,12 @@ This guide walks through using Flux's `histogram()` function to transform your d
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
 
-The [`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram) approximates the
+The [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -55,7 +54,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -64,7 +63,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
@@ -73,12 +72,12 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 ```
 
 ## Histogram visualization
-The [Histogram visualization type](/v2.0/visualize-data/visualization-types/histogram/)
+The [Histogram visualization type](/influxdb/v2.0/visualize-data/visualization-types/histogram/)
 automatically converts query results into a binned and segmented histogram.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
 
-Use the [Histogram visualization controls](/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
+Use the [Histogram visualization controls](/influxdb/v2.0/visualize-data/visualization-types/histogram/#histogram-controls)
 to specify the number of bins and define groups in bins.
 
 ### Histogram visualization data structure

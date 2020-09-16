@@ -2,8 +2,8 @@
 title: highestCurrent() function
 description: The `highestCurrent()` function selects the last record of each table in the input stream and returns the top `n` records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/highestcurrent
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestcurrent/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/highestcurrent
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/highestcurrent/
 menu:
   influxdb_2_0_ref:
     name: highestCurrent

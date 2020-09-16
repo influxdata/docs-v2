@@ -1,6 +1,6 @@
 ---
 title: InfluxQL mathematical operators
-
+descriptions: Query data with mathematical operators in InfluxQL.
 menu:
   influxdb_1_8:
     name: Mathematical operators
@@ -211,7 +211,7 @@ SELECT * FROM "data" WHERE "bitfield" ^ 6 > 0
 ### Common Issues with Mathematical Operators
 
 #### Issue 1: Mathematical operators with wildcards and regular expressions
-InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/influxdb/v1.8/query_language/data_exploration/#regular-expressions) in the `SELECT` clause.
+InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/influxdb/v1.8/query_language/explore-data/#regular-expressions) in the `SELECT` clause.
 The following queries are invalid and the system returns an error:
 
 Perform a mathematical operation on a wildcard.
@@ -254,8 +254,8 @@ SELECT mean(10 * "value") FROM "cpu"
 ```
 will yield a parse error.
 
-> InfluxQL supports [subqueries](/influxdb/v1.8/query_language/data_exploration/#subqueries) which offer similar functionality to using mathematical operators inside a function call.
-See [Data Exploration](/influxdb/v1.8/query_language/data_exploration/#subqueries) for more information.
+> InfluxQL supports [subqueries](/influxdb/v1.8/query_language/explore-data/#subqueries) which offer similar functionality to using mathematical operators inside a function call.
+See [Data Exploration](/influxdb/v1.8/query_language/explore-data/#subqueries) for more information.
 
 ## Unsupported Operators
 

@@ -23,5 +23,4 @@ process before using the product in a production environment.
 
 Follow the links below to get up and running with InfluxEnterprise.
 
-### [Step 1 - Installing an InfluxDB Enterprise cluster](/enterprise_influxdb/v1.5/quickstart_installation/cluster_installation/)
-### [Step 2 - Installing Chronograf](/enterprise_influxdb/v1.5/quickstart_installation/chrono_install/)
+{{< children hlevel="h2" >}}

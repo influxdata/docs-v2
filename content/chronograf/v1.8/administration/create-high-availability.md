@@ -22,7 +22,7 @@ Have an existing Chronograf configuration store that you want to use with a Chro
 ## Install and start etcd
 
 1. Download the latest etcd release [from GitHub](https://github.com/etcd-io/etcd/releases/).
-   (For detailed installation instructions specific to your operating system, see [Install and deploy etcd](http://play.etcd.io/install).)
+   (For detailed installation instructions specific to your operating system, see [Install and deploy etcd](http://play.etc.io/install).)
 2. Extract the `etcd` binary and place it in your system PATH.
 3. Start etcd.
 

@@ -9,8 +9,6 @@ menu:
     name: Task options
     parent: Process data
 weight: 105
-aliases:
-  - /v2.0/process-data/task-options/
 influxdb/v2.0/tags: [tasks, flux]
 ---
 

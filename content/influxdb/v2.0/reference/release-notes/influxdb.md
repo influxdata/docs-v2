@@ -6,9 +6,37 @@ menu:
     name: InfluxDB
     parent: Release notes
 weight: 101
-aliases:
-  - /v2.0/reference/release-notes/influxdb/
 ---
+
+## v2.0.0-beta.16 [2020-08-06]
+
+{{% warn %}}
+This release includes breaking changes:
+- Remove `influx repl` command. To use the Flux REPL, build the REPL from source.
+- Drop deprecated `/packages` route tree.
+- Support more types for template `envRef` default value and require explicit default values.
+- Remove orgs/labels nested routes from the API.
+{{% /warn %}}
+
+### Features
+
+- Add resource links to a stack's resources from public HTTP API list/read calls.
+- Enhance resource creation experience when limits are reached.
+- Add `dashboards` command to `influx` CLI.
+- Allow user onboarding to optionally set passwords.
+- Limit query response sizes for queries built in QueryBuilder by requiring an aggregate window.
+
+### Bug Fixes
+
+- Require all `influx` CLI flag arguments to be valid.
+- Dashboard cells correctly map results when multiple queries exist.
+- Dashboard cells and overlay use UTC as query time when toggling to UTC timezone.
+- Bucket names may not include quotation marks.
+
+### UI Improvements
+
+- Alerts page filter inputs now have tab indices for keyboard navigation.
+
 
 ## v2.0.0-beta.15 [2020-07-23]
 
@@ -21,6 +49,7 @@ aliases:
 - Enable dynamic destination for the `influx` CLI configuration file.
 
 ### Bug Fixes
+
 - Allow 0 to be the custom set minimum value for y domain.
 - Single Stat cells render properly in Safari.
 - Limit variable querying when submitting queries to used variables.
@@ -36,6 +65,7 @@ aliases:
 - Update Flux to v.0.71.1.
 
 ### Bug Fixes
+
 - Don't overwrite build date set via `ldflags`.
 - Fix issue where define query was unusable after importing a Check.
 - Update documentation links
@@ -73,7 +103,7 @@ aliases:
 
 ### Features
 
-- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/v2.0/get-started/#optional-download-and-install-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/v2.0/reference/cli/influx/) works.
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
@@ -180,17 +210,17 @@ The beta 11 version was **not released**. Changes below are included in the beta
 
 ### Features
 
-- Add option to display dashboards in [light mode](/v2.0/visualize-data/dashboards/control-dashboard/#toggle-dark-mode-and-light-mode).
-- Add [shell `completion` commands](/v2.0/reference/cli/influx/completion/) to the `influx` CLI.
+- Add option to display dashboards in [light mode](/influxdb/v2.0/visualize-data/dashboards/control-dashboard/#toggle-dark-mode-and-light-mode).
+- Add [shell `completion` commands](/influxdb/v2.0/reference/cli/influx/completion/) to the `influx` CLI.
   specified shell (`bash` or `zsh`).
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
-- [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
+- [Delete bucket by name](/influxdb/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add helper module to write line protocol to specified url, org, and bucket.
-- Add [`pkg stack`](/v2.0/reference/cli/influx/pkg/stack) for stateful package management.
+- Add [`pkg stack`](/influxdb/v2.0/reference/cli/influx/stacks) for stateful package management.
 - Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.
 - Add ability to output CLI output as JSON and hide table headers.
-- Add an [easy way to switch configurations](/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.
+- Add an [easy way to switch configurations](/influxdb/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.
 
 ### Bug fixes
 
@@ -537,7 +567,7 @@ The `map()` function panics if the first record processed has a `null` value.
 
 ### Features
 - Add `influxd inspect verify-wal` tool.
-- Move to [Flux 0.34.2](/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
   includes new string functions and initial multi-datasource support with `sql.from()`.
 - Only click save once to save cell.
 - Enable selecting more columns for line visualizations.
@@ -608,7 +638,7 @@ The `map()` function panics if the first record processed has a `null` value.
 {{% warn %}}
 **This will remove all tasks from your InfluxDB v2.0 instance.**
 
-Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+Before upgrading, [export all existing tasks](/influxdb/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/influxdb/v2.0/process-data/manage-tasks/create-task/#import-a-task).
 {{% /warn %}}
 
 ### Features

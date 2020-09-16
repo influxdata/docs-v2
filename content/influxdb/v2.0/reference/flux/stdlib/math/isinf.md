@@ -2,7 +2,7 @@
 title: math.isInf() function
 description: The math.isInf() function reports whether `f` is an infinity, according to `sign`.
 aliases:
-  - /v2.0/reference/flux/functions/math/isinf/
+  - /influxdb/v2.0/reference/flux/functions/math/isinf/
 menu:
   influxdb_2_0_ref:
     name: math.isInf

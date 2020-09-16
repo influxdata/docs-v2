@@ -7,6 +7,7 @@
   font-weight: $medium;
   color: $g20-white;
   box-shadow: 2px 2px 6px rgba($g2-kevlar, .35);
+  z-index: 10;
 
   // temp styles for animation
   transition: margin .3s ease-out;
@@ -50,8 +51,8 @@
 
 #callout-url-selector {
   position: absolute;
-  top: 3.25rem;
-  right: 1rem;
+  top: 3rem;
+  right: .75rem;
 
   p:after {
     top: -1rem;

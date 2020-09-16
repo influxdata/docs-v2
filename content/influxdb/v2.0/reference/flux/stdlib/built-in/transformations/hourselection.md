@@ -4,8 +4,8 @@ description: >
   The `hourSelection()` function retains all rows with time values in a specified hour range.
   Hours are specified in military time.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/hourselection
-  - /v2.0/reference/flux/functions/built-in/transformations/hourselection/
+  - /influxdb/v2.0/reference/flux/functions/transformations/hourselection
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/hourselection/
 menu:
   influxdb_2_0_ref:
     name: hourSelection

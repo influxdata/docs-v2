@@ -497,7 +497,7 @@ GET /kapacitor/v1/tasks?fields=status&fields=executing&fields=error
 
 ### Custom task HTTP endpoints
 
-In TICKscript it is possible to expose a cache of recent data using the [HTTPOut](https://docs.influxdata.com/kapacitor/latest/nodes/http_out_node/) node.
+In TICKscript it is possible to expose a cache of recent data using the [HTTPOut](/kapacitor/v1.4/nodes/http_out_node/) node.
 The data is available at the path `/kapacitor/v1/tasks/TASK_ID/ENDPOINT_NAME`.
 
 ### Example
@@ -542,7 +542,7 @@ GET /kapacitor/v1/tasks/TASK_ID/mycustom_endpoint
 }
 ```
 
-The output is the same as a query for data to [InfluxDB](https://docs.influxdata.com/influxdb/latest/guides/querying_data/).
+The output is the same as a query for data to [InfluxDB](/{{< latest "influxdb" "v1" >}}/guides/querying_data/).
 
 
 ## Templates

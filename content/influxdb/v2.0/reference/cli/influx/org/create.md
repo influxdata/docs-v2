@@ -6,8 +6,6 @@ menu:
     name: influx org create
     parent: influx org
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/org/create/
 ---
 
 The `influx org create` creates a new organization in InfluxDB.

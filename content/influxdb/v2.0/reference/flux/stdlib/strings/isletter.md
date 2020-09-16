@@ -2,14 +2,14 @@
 title: strings.isLetter() function
 description: The strings.isLetter() function tests if a single character string is a letter (a-z, A-Z).
 aliases:
-  - /v2.0/reference/flux/functions/strings/isletter/
+  - /influxdb/v2.0/reference/flux/functions/strings/isletter/
 menu:
   influxdb_2_0_ref:
     name: strings.isLetter
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/isdigit/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/isdigit/
 ---
 
 The `strings.isLetter()` function tests if a single character string is a letter (a-z, A-Z).

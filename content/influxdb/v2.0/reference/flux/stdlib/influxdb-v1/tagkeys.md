@@ -2,7 +2,7 @@
 title: v1.tagKeys() function
 description: The v1.tagKeys() function returns a list of tag keys for all series that match the predicate.
 aliases:
-  - /v2.0/reference/flux/functions/influxdb-v1/tagkeys/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
 menu:
   influxdb_2_0_ref:
     name: v1.tagKeys
@@ -11,7 +11,7 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
 The `v1.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).
@@ -72,9 +72,9 @@ tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[from](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
-[range](/v2.0/reference/flux/stdlib/built-in/transformations/range/),
-[filter](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-[keys](/v2.0/reference/flux/stdlib/built-in/transformations/keys/),
-[keep](/v2.0/reference/flux/stdlib/built-in/transformations/keep/),
-[distinct](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/)_
+[from](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/),
+[range](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/),
+[filter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+[keys](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keys/),
+[keep](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/),
+[distinct](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/)_

@@ -1,9 +1,9 @@
 ---
-title: Replacing InfluxDB Enterprise cluster meta nodes and data nodes
-
+title: Replace InfluxDB Enterprise cluster meta nodes and data nodes
+description: Replace meta and data nodes in an InfluxDB Enterprise cluster.
 menu:
   enterprise_influxdb_1_8:
-    name: Replacing cluster nodes
+    name: Replace cluster nodes
     weight: 10
     parent: Guides
 ---
@@ -35,7 +35,8 @@ You may need to replace a node in your InfluxDB Enterprise cluster, for example,
 
 ## Scenarios
 
-### Replace a node in a cluster with security enabled
+
+### Replace a node in a cluster with security enable
 
 Many InfluxDB Enterprise clusters are configured with security enabled, forcing secure TLS encryption between all nodes in the cluster.
 Both `influxd-ctl` and `curl`, the command line tools used when replacing nodes, have options that facilitate the use of TLS.
@@ -77,7 +78,7 @@ If replacing a meta node that is either unreachable or unrecoverable, you must f
 
 ### Replace responsive and unresponsive data nodes in a cluster
 
-The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replacing-data-nodes-in-an-influxdb-enterprise-cluster).
+The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replace-data-nodes-in-an-influxdb-enterprise-cluster).
 
 ### Reconnect a data node with a failed disk
 
@@ -269,7 +270,7 @@ curl localhost:8091/status | jq
 Remove the old leader node and replace it by following steps [2.1-2.4](#2-1-provision-a-new-meta-node).
 The minimum number of meta nodes you should have in your cluster is 3.
 
-## Replacing data nodes in an InfluxDB Enterprise cluster
+## Replace data nodes in an InfluxDB Enterprise cluster
 
 [Data nodes](/enterprise_influxdb/v1.8/concepts/clustering/#data-nodes) house all raw time series data and metadata.
 The process of replacing data nodes is as follows:
@@ -361,7 +362,7 @@ enterprise-data-02:8088  enterprise-data-03:8088  telegraf  autogen  3        11
 > **Important:** If replacing other data nodes in the cluster, make sure shards are completely copied from nodes in the same shard group before replacing the other nodes.
 View the [Anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/#concepts) documentation for important information regarding anti-entropy and your database's replication factor.
 
-## Troubleshooting
+## Troubleshoot
 
 ### Cluster commands result in timeout without error
 

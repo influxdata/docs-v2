@@ -360,7 +360,7 @@ Note that the basic syntax does not support using
 to change the value reported for intervals with no data.
 Basic syntax CQs ignore `fill()` if it's included in the CQ query.
 A possible workaround is to use the
-[advanced CQ syntax](#example-4-configuring-cq-time-ranges-and-filling-empty-results).
+[advanced CQ syntax](#advanced-syntax).
 
 ##### Resampling previous time intervals
 
@@ -982,4 +982,4 @@ Kapacitor, InfluxData's data processing engine, can do the same work as
 continuous queries in InfluxDB databases.
 
 To learn when to use Kapacitor instead of InfluxDB and how to perform the same CQ
-functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/kapacitor/latest/examples/continuous_queries/).
+functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/examples/continuous_queries/).

@@ -11,8 +11,6 @@ menu:
     name: Manage tasks
     parent: Process data
 weight: 102
-aliases:
-  - /v2.0/process-data/manage-tasks/
 ---
 
 InfluxDB provides two options for managing the creation, reading, updating, and deletion (CRUD) of tasks -

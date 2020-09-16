@@ -2,8 +2,8 @@
 title: lowestCurrent() function
 description: The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
 menu:
   influxdb_2_0_ref:
     name: lowestCurrent

@@ -1,10 +1,12 @@
 ---
-title: Calculating rates across joined series + backfill
+title: Calculate rates across joined series + backfill
+description: >
+  Use a prepared data generator to calculate rates across joined series and backfill.
 aliases:
     - kapacitor/v1.5/examples/join_backfill/
 menu:
   kapacitor_1_5:
-    name: Calculating rates across series
+    name: Calculate rates across series
     weight: 10
     parent: guides
 ---
@@ -237,7 +239,7 @@ errors
 ### Record Query and backfill with stream
 
 To provide historical data to stream tasks that process multiple measurements,
-use [multiple statements](/influxdb/latest/query_language/data_exploration/#multiple-statements)
+use [multiple statements](/{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#multiple-statements)
 when recording the data.
 
 First use `record query` following the pattern of this generic command:

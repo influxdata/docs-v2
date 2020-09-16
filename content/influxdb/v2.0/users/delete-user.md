@@ -7,8 +7,6 @@ menu:
     name: Delete a user
     parent: Manage users
 weight: 103
-aliases:
-  - /v2.0/users/delete-user/
 products: [oss]
 ---
 
@@ -18,7 +16,7 @@ to delete a user.
 {{% warn %}}
 Deleting a user removes them completely from InfluxDB.
 To remove a user from an organization without deleting the user entirely, see
-[Remove a member from an organization](/v2.0/organizations/members/remove-member/).
+[Remove a member from an organization](/influxdb/v2.0/organizations/members/remove-member/).
 {{% /warn %}}
 
 ## Delete a user from the InfluxDB UI
@@ -29,7 +27,7 @@ Users cannot be deleted from the InfluxDB UI.
 
 ## Delete a user using the influx CLI
 
-Use the [`influx user delete` command](/v2.0/reference/cli/influx/user/delete)
+Use the [`influx user delete` command](/influxdb/v2.0/reference/cli/influx/user/delete)
 to delete a user. Deleting a user requires the following:
 
 - The user ID _(provided in the output of `influx user list`)_

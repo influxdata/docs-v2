@@ -2,7 +2,7 @@
 title: regexp.findString() function
 description: The `regexp.findString()` function returns the left-most regular expression match in a string.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/findstring/
+  - /influxdb/v2.0/reference/flux/functions/regexp/findstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.findString

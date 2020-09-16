@@ -5,8 +5,6 @@ description: >
 weight: 12
 menu: influxdb_2_0
 influxdb/v2.0/tags: [telegraf]
-aliases:
-  - /v2.0/telegraf-configs/
 related:
   - /influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/
@@ -29,7 +27,7 @@ the configuration from an InfluxDB HTTP(S) endpoint.
     ```
 
 {{% note %}}
-_[Setup instructions](/v2.0/telegraf-configs/view/#view-setup-instructions) for
+_[Setup instructions](/influxdb/v2.0/telegraf-configs/view/#view-setup-instructions) for
 each Telegraf configuration are provided in the InfluxDB UI._
 {{% /note %}}
 

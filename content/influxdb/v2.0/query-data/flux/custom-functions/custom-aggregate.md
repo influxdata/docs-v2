@@ -8,37 +8,36 @@ menu:
     parent: Custom functions
 weight: 301
 aliases:
-  - /v2.0/query-data/guides/custom-functions/custom-aggregate/
-  - /v2.0/query-data/flux/custom-functions/custom-aggregate/
+  - /influxdb/v2.0/query-data/guides/custom-functions/custom-aggregate/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
 ---
 
 To aggregate your data, use the Flux
-[built-in aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
+[built-in aggregate functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
 or create custom aggregate functions using the
-[`reduce()`function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
+[`reduce()`function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
 
 ## Aggregate function characteristics
 Aggregate functions all have the same basic characteristics:
 
 - They operate on individual input tables and transform all records into a single record.
-- The output table has the same [group key](/v2.0/query-data/get-started/#group-keys) as the input table.
+- The output table has the same [group key](/influxdb/v2.0/query-data/get-started/#group-keys) as the input table.
 
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
-the [`fn` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
-The `fn` function maps keys to specific values using two [objects](/v2.0/query-data/get-started/syntax-basics/#objects)
+the [`fn` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
+The `fn` function maps keys to specific values using two [records](/influxdb/v2.0/query-data/get-started/syntax-basics/#records)
 specified by the following parameters:
 
-| Parameter     | Description                                                              |
-|:---------:    |:-----------                                                              |
-| `r`           | An object that represents the row or record.                             |
-| `accumulator` | An object that contains values used in each row's aggregate calculation. |
+| Parameter     | Description                                                             |
+|:---------:    |:-----------                                                             |
+| `r`           | A record that represents the row or record.                             |
+| `accumulator` | A record that contains values used in each row's aggregate calculation. |
 
 {{% note %}}
-The `reduce()` function's [`identity` parameter](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
-defines the initial `accumulator` object.
+The `reduce()` function's [`identity` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
+defines the initial `accumulator` record.
 {{% /note %}}
 
 ### Example reduce() function
@@ -64,9 +63,9 @@ To illustrate how this function works, take this simplified table for example:
 | 2019-04-23T16:11:19Z | 1.2    |
 | 2019-04-23T16:11:29Z | 3.8    |
 
-###### Input objects
-The `fn` function uses the data in the first row to define the `r` object.
-It defines the `accumulator` object using the `identity` parameter.
+###### Input records
+The `fn` function uses the data in the first row to define the `r` record.
+It defines the `accumulator` record using the `identity` parameter.
 
 ```js
 r           = { _time: 2019-04-23T16:10:49.00Z, _value: 1.6 }
@@ -74,7 +73,7 @@ accumulator = { sum  : 0.0, product : 1.0 }
 ```
 
 ###### Key mappings
-It then uses the `r` and `accumulator` objects to populate values in the key mappings:
+It then uses the `r` and `accumulator` records to populate values in the key mappings:
 ```js
 // sum: r._value + accumulator.sum
 sum: 1.6 + 0.0
@@ -83,23 +82,23 @@ sum: 1.6 + 0.0
 product: 1.6 * 1.0
 ```
 
-###### Output object
-This produces an output object with the following key value pairs:
+###### Output record
+This produces an output record with the following key value pairs:
 
 ```js
 { sum: 1.6, product: 1.6 }
 ```
 
-The function then processes the next row using this **output object** as the `accumulator`.
+The function then processes the next row using this **output record** as the `accumulator`.
 
 {{% note %}}
-Because `reduce()` uses the output object as the `accumulator` when processing the next row,
-keys mapped in the `fn` function must match keys in the `identity` and `accumulator` objects.
+Because `reduce()` uses the output record as the `accumulator` when processing the next row,
+keys mapped in the `fn` function must match keys in the `identity` and `accumulator` records.
 {{% /note %}}
 
 ###### Processing the next row
 ```js
-// Input objects for the second row
+// Input records for the second row
 r           = { _time: 2019-04-23T16:10:59.00Z, _value: 2.3 }
 accumulator = { sum  : 1.6, product : 1.6 }
 
@@ -107,18 +106,18 @@ accumulator = { sum  : 1.6, product : 1.6 }
 sum: 2.3 + 1.6
 product: 2.3 * 1.6
 
-// Output object of the second row
+// Output record of the second row
 { sum: 3.9, product: 3.68 }
 ```
 
-It then uses the new output object as the `accumulator` for the next row.
+It then uses the new output record as the `accumulator` for the next row.
 This cycle continues until all rows in the table are processed.
 
-##### Final output object and table
-After all records in the table are processed, `reduce()` uses the final output object
+##### Final output record and table
+After all records in the table are processed, `reduce()` uses the final output record
 to create a transformed table with one row and columns for each mapped key.
 
-###### Final output object
+###### Final output record
 ```js
 { sum: 9.6, product: 11.74656 }
 ```
@@ -132,7 +131,7 @@ to create a transformed table with one row and columns for each mapped key.
 #### What happened to the \_time column?
 The `reduce()` function only keeps columns that are:
 
-1. Are part of the input table's [group key](/v2.0/query-data/get-started/#group-keys).
+1. Are part of the input table's [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
 2. Explicitly mapped in the `fn` function.
 
 It drops all other columns.
@@ -142,13 +141,13 @@ it isn't included in the output table.
 
 ## Custom aggregate function examples
 To create custom aggregate functions, use principles outlined in
-[Creating custom functions](/v2.0/query-data/guides/custom-functions)
+[Creating custom functions](/influxdb/v2.0/query-data/flux/custom-functions)
 and the `reduce()` function to aggregate rows in each input table.
 
 ### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
-The built-in [`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
+The built-in [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
 does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}
@@ -163,7 +162,7 @@ does the same thing and is much more performant._
 average = (tables=<-, outputField="average") =>
   tables
     |> reduce(
-      // Define the initial accumulator object
+      // Define the initial accumulator record
       identity: {
         count: 1.0,
         sum:   0.0,

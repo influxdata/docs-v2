@@ -8,8 +8,6 @@ menu:
     parent: InfluxDB templates
     name: Use templates
 weight: 102
-aliases:
-  - /v2.0/influxdb-templates/use/
 influxdb/v2.0/tags: [templates]
 related:
   - /influxdb/v2.0/reference/cli/influx/apply/
@@ -54,7 +52,7 @@ https://raw.githubusercontent.com/influxdata/community-templates/master/docker/d
 
 ## View a template summary
 To view a summary of what's included in a template before applying the template,
-use the [`influx template` command](/v2.0/reference/cli/influx/template/).
+use the [`influx template` command](/influxdb/v2.0/reference/cli/influx/template/).
 View a summary of a template stored in your local filesystem or from a URL.
 
 {{% code-tabs-wrapper %}}
@@ -84,7 +82,7 @@ influx template -u https://raw.githubusercontent.com/influxdata/community-templa
 
 ## Validate a template
 To validate a template before you install it or troubleshoot a template, use
-the [`influx template validate` command](/v2.0/reference/cli/influx/template/validate/).
+the [`influx template validate` command](/influxdb/v2.0/reference/cli/influx/template/validate/).
 Validate a template stored in your local filesystem or from a URL.
 
 {{% code-tabs-wrapper %}}
@@ -113,7 +111,7 @@ influx template validate -u https://raw.githubusercontent.com/influxdata/communi
 {{% /code-tabs-wrapper %}}
 
 ## Apply templates
-Use the [`influx apply` command](/v2.0/reference/cli/influx/apply/) to install templates
+Use the [`influx apply` command](/influxdb/v2.0/reference/cli/influx/apply/) to install templates
 from your local filesystem or from URLs.
 
 - [Apply a template from a file](#apply-a-template-from-a-file)
@@ -128,7 +126,7 @@ from your local filesystem or from URLs.
 To apply a template to an existing stack, include the stack ID when applying the template.
 Any time you apply a template without a stack ID, InfluxDB initializes a new stack
 and all new resources.
-For more information, see [InfluxDB stacks](/v2.0/influxdb-templates/stacks/).
+For more information, see [InfluxDB stacks](/influxdb/v2.0/influxdb-templates/stacks/).
 {{% /note %}}
 
 ### Apply a template from a file
@@ -204,7 +202,7 @@ influx apply -o example-org \
 ```
 
 ### Define environment references
-Some templates include [environment references](/v2.0/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
+Some templates include [environment references](/influxdb/v2.0/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
 The `influx apply` command prompts you to provide a value for each environment
 reference in the template.
 You can also provide values for environment references by including an `--env-ref`
@@ -219,7 +217,7 @@ influx apply -o example-org -f /path/to/template.yml \
 ```
 
 ### Include a secret when installing a template
-Some templates use [secrets](/v2.0/security/secrets/) in queries.
+Some templates use [secrets](/influxdb/v2.0/security/secrets/) in queries.
 Secret values are not included in templates.
 To define secret values when installing a template, include the `--secret` flag
 with the secret key-value pair.
@@ -240,4 +238,4 @@ influx apply -o example-org -f /path/to/template.yml \
   --secret=BAZ=quz
 ```
 
-_To add a secret after applying a template, see [Add secrets](/v2.0/security/secrets/manage-secrets/add/)._
+_To add a secret after applying a template, see [Add secrets](/influxdb/v2.0/security/secrets/manage-secrets/add/)._

@@ -4,9 +4,9 @@ description: >
   The `increase()` function calculates the cumulative sum of **non-negative** differences
   between subsequent values.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/increase
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/increase/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/increase
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/increase/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
 menu:
   influxdb_2_0_ref:
     name: increase

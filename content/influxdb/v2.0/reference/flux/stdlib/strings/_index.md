@@ -5,7 +5,7 @@ description: >
   The Flux strings package provides functions to manipulate UTF-8 encoded strings.
   Import the `strings` package.
 aliases:
-  - /v2.0/reference/flux/functions/strings/
+  - /influxdb/v2.0/reference/flux/functions/strings/
 menu:
   influxdb_2_0_ref:
     name: Strings

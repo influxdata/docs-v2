@@ -7,8 +7,6 @@ menu:
     name: Change your password
     parent: Manage users
 weight: 105
-aliases:
-  - /v2.0/users/change-password/
 ---
 
 Use `influx` command line interface (CLI) to update your password.
@@ -19,7 +17,7 @@ User passwords cannot be updated in the InfluxDB UI.
 
 ## Change your password using the influx CLI
 
-Use the [`influx user password` command](/v2.0/reference/cli/influx/user/password)
+Use the [`influx user password` command](/influxdb/v2.0/reference/cli/influx/user/password)
 to update a password for a user. To update a password, you need the following:
 
 - Username or user ID _(provided in the output of `influx user list`)_

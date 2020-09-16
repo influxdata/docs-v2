@@ -6,8 +6,6 @@ menu:
   influxdb_2_0_ref:
     parent: influxd
 weight: 202
-aliases:
-  - /v2.0/reference/cli/influxd/version/
 products: [oss]
 ---
 

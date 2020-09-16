@@ -1,9 +1,9 @@
 ---
-title: Troubleshooting Telegraf
-
+title: Troubleshoot Telegraf
+description: Capture Telegraf output, submit sample metrics, and see how Telegraf formats and emits points to its output plugins.
 menu:
   telegraf_1_15:
-    name: Troubleshooting
+    name: Troubleshoot
     weight: 30
     parent: Administration
 ---
@@ -23,7 +23,7 @@ The minimal Telegraf configuration required to enable a UDP output is:
   urls = ["udp://localhost:8089"]
 ```
 
-This setup utilizes the UDP format of the [InfluxDB output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb) and emits points formatted in InfluxDB's [line protocol](/influxdb/latest/concepts/glossary/#line-protocol).
+This setup utilizes the UDP format of the [InfluxDB output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb) and emits points formatted in InfluxDB's [line protocol](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#line-protocol).
 You will need to append this section to the Telegraf configuration file and restart Telegraf for the change to take effect.
 
 Now you are ready to start listening on the destination port (`8089` in this example) using a simple tool like `netcat`:

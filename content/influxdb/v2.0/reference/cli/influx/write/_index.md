@@ -9,16 +9,14 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [write]
-aliases:
-  - /v2.0/reference/cli/influx/write/
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/csv/
 ---
 
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.
-Write data using [line protocol](/v2.0/reference/syntax/line-protocol) or
-[annotated CSV](/v2.0/reference/syntax/annotated-csv).
+Write data using [line protocol](/influxdb/v2.0/reference/syntax/line-protocol) or
+[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv).
 
 ## Usage
 ```
@@ -29,7 +27,7 @@ influx write [command]
 ## Subcommands
 | Subcommand                                        | Description                         |
 |:----------                                        |:-----------                         |
-| [dryrun](/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
+| [dryrun](/influxdb/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
 | Flag |                    | Description                                                           | Input type | {{< cli/mapped >}}   |

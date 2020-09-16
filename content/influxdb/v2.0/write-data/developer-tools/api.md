@@ -3,8 +3,6 @@ title: InfluxDB API
 seotitle: Write data with the InfluxDB API
 list_title: Write data with the InfluxDB API
 weight: 206
-aliases:
-  - /v2.0/write-data/developer-tools/api/
 description: >
   Write data to InfluxDB using the InfluxDB API.
 menu:
@@ -26,7 +24,7 @@ Use the `POST` request method and include the following in your request:
 #### Example API write request
 
 Below is an example API write request using `curl`.
-The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/v2.0/reference/urls/))_.
+The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/influxdb/v2.0/reference/urls/))_.
 
 To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
 Compressing write requests reduces network bandwidth, but increases server-side load.
@@ -64,4 +62,4 @@ mem,host=host2 used_percent=27.18294630 1556896336
 {{< /code-tabs-wrapper >}}
 
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/v2.0/api/#operation/PostWrite)._
+[InfluxDB API Write documentation](/influxdb/v2.0/api/#operation/PostWrite)._

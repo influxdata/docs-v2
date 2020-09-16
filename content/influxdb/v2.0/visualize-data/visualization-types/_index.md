@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     parent: Visualize data
 weight: 105
-aliases:
-  - /v2.0/visualize-data/visualization-types/
 ---
 
 The InfluxDB UI provides multiple visualization types to visualize your data in

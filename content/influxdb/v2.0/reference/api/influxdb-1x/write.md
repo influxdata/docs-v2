@@ -9,8 +9,6 @@ menu:
     name: /write
     parent: 1.x compatibility
 weight: 301
-aliases:
-  - /v2.0/reference/api/influxdb-1x/write/
 influxdb/v2.0/tags: [write]
 products: [cloud]
 list_code_example: |
@@ -23,7 +21,7 @@ related:
 
 The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the
 InfluxDB 1.x `/write` API endpoint.
-Use the `POST` request method to write [line protocol](/v2.0/reference/syntax/line-protocol/)
+Use the `POST` request method to write [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
 to the `/write` endpoint.
 
 <pre>
@@ -32,7 +30,7 @@ to the `/write` endpoint.
 
 ## Authentication
 Use **basic authentication** or **token authentication**.
-_For more information, see [Authentication](/v2.0/reference/api/influxdb-1x/#authentication)._
+_For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Request body
 Include your line protocol in the request body.
@@ -44,16 +42,16 @@ encode the line protocol.
 
 ### db
 <span class="req">Required</span> – The **database** to write data to.
-This is mapped to an InfluxDB 2.0 [bucket](/v2.0/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to write data to.
-This is mapped to an InfluxDB 2.0 [bucket](/v2.0/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### precision
-The precision of [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp) in the line protocol.
+The precision of [Unix timestamps](/influxdb/v2.0/reference/glossary/#unix-timestamp) in the line protocol.
 Default is nanosconds (`ns`).
 The following precisions are available:
 

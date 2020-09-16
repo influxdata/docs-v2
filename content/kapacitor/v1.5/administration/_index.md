@@ -1,10 +1,10 @@
 ---
 title: Administration
-
+description: Configure, upgrade, and manage security in Kapacitor. 
 menu:
   kapacitor_1_5:
     name: Administration
     weight: 80
 ---
 
-## [Upgrading to Kapacitor 1.4](/kapacitor/v1.5/administration/upgrading/)
+{{< children >}}

@@ -1,5 +1,7 @@
 ---
 title: InfluxDB design insights and tradeoffs
+description: >
+  Optimizing for time series use case entails some tradeoffs, primarily to increase performance at the cost of functionality. 
 menu:
   influxdb_1_8:
     name: InfluxDB design insights and tradeoffs

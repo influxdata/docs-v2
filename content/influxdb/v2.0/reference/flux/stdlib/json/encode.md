@@ -2,7 +2,7 @@
 title: json.encode() function
 description: The `json.encode()` function converts a value into JSON bytes.
 aliases:
-  - /v2.0/reference/flux/functions/json/encode/
+  - /influxdb/v2.0/reference/flux/functions/json/encode/
 menu:
   influxdb_2_0_ref:
     name: json.encode
@@ -20,9 +20,9 @@ import "json"
 json.encode(v: "some value")
 ```
 
-This function encodes [Flux types](/v2.0/reference/flux/language/types/) as follows:
+This function encodes [Flux types](/influxdb/v2.0/reference/flux/language/types/) as follows:
 
-- `time` values in [RFC3339](/v2.0/reference/glossary/#rfc3339-timestamp) format
+- `time` values in [RFC3339](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp) format
 - `duration` values in number of milliseconds since the epoch
 - `regexp` values as their string representation
 - `bytes` values as base64-encoded strings
@@ -33,7 +33,7 @@ This function encodes [Flux types](/v2.0/reference/flux/language/types/) as foll
 ### v
 The value to convert.
 
-_**Data type:** Object | Array | Boolean | Duration | Float | Integer | String | Time | UInteger_
+_**Data type:** Record | Array | Boolean | Duration | Float | Integer | String | Time | UInteger_
 
 ## Examples
 

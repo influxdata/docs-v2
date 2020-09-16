@@ -7,8 +7,7 @@ menu:
     parent: influx export
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/pkg/export/stack
-  - /v2.0/reference/cli/influx/export/stack/
+  - /influxdb/v2.0/reference/cli/influx/pkg/export/stack
 ---
 
 The `influx export stack` command exports all resources associated with a stack as a template.

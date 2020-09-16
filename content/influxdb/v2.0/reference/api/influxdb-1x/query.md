@@ -8,8 +8,6 @@ menu:
     name: /query
     parent: 1.x compatibility
 weight: 301
-aliases:
-  - /v2.0/reference/api/influxdb-1x/query/
 influxdb/v2.0/tags: [influxql, query]
 products: [cloud]
 list_code_example: |
@@ -29,17 +27,17 @@ Use the `GET` request method to query data from the `/query` endpoint.
 
 The `/query` compatibility endpoint use the **database** and **retention policy**
 specified in the query request to map the request to an InfluxDB 2.0 bucket.
-For more information, see [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp).
+For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp).
 
 {{% note %}}
 If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/#manually-create-and-manage-dbrp-mappings)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/#manually-create-and-manage-dbrp-mappings)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
 ## Authentication
 Use **basic authentication** or **token authentication**.
-_For more information, see [Authentication](/v2.0/reference/api/influxdb-1x/#authentication)._
+_For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Query string parameters
 
@@ -49,22 +47,22 @@ _For more information, see [Authentication](/v2.0/reference/api/influxdb-1x/#aut
 
 ### db
 <span class="req">Required</span> – The **database** to query data from.
-This is mapped to an InfluxDB 2.0 [bucket](/v2.0/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to query data from.
-This is mapped to an InfluxDB 2.0 [bucket](/v2.0/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/v2.0/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### q
 <span class="req">Required</span> – The **InfluxQL** query to execute.
 To execute multiple queries, delimit queries with a semicolon (`;`).
 
 ### epoch
-Return results with [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp)
+Return results with [Unix timestamps](/influxdb/v2.0/reference/glossary/#unix-timestamp)
 (also known as epoch timestamps) in the specified precision instead of
-[RFC3339 timestamps](/v2.0/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
+[RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
 The following precisions are available:
 
 - `ns` - nanoseconds

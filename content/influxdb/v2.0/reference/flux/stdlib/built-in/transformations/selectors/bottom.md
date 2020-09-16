@@ -2,21 +2,21 @@
 title: bottom() function
 description: The `bottom()` function sorts a table by columns and keeps only the bottom n records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/bottom
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/bottom
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
 menu:
   influxdb_2_0_ref:
     name: bottom
     parent: built-in-selectors
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#bottom, InfluxQL – BOTTOM()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#bottom, InfluxQL – BOTTOM()
 ---
 
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 bottom(n:10, columns: ["_value"])

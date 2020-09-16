@@ -40,7 +40,7 @@ Complete the following tasks:
 ## Upgrade InfluxDB to the latest version
 Upgrade InfluxDB to the latest stable version before proceeding.
 
-- [Upgrade InfluxDB OSS](/influxdb/latest/administration/upgrading/)
+- [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
 - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/upgrading/)
 
 ## Set up InfluxDB Enterprise meta nodes
@@ -50,7 +50,7 @@ For information about installing and setting up meta nodes, see
 
 {{% note %}}
 #### Add the OSS instance to the meta /etc/hosts files
-When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/#step-1-modify-the-etc-hosts-file)
+When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/#step-1-add-appropriate-dns-entries-for-each-of-your-servers)
 on each meta node, include the IP and host name of your InfluxDB OSS instance so
 meta nodes can communicate with the OSS instance.
 {{% /note %}}
@@ -271,9 +271,9 @@ node with other data nodes in the cluster.
 It may take a few minutes before the existing data is available.
 
 ## Rebalance the cluster
-1. Use the [ALTER RETENTION POLICY](/influxdb/v1.8/query_language/database_management/#modify-retention-policies-with-alter-retention-policy)
+1. Use the [ALTER RETENTION POLICY](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
    statement to increase the [replication factor](/enterprise_influxdb/v1.8/concepts/glossary/#replication-factor)
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.8/guides/rebalance/)
    to meet the desired replication factor for existing shards.
-3. If you were using [Chronograf](/chronograf/latest/), add your Enterprise instance as a new data source.
+3. If you were using [Chronograf](/{{< latest "chronograf" >}}/), add your Enterprise instance as a new data source.

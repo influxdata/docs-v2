@@ -2,7 +2,7 @@
 title: runtime.version() function
 description: The `runtime.version()` function returns the current Flux version.
 aliases:
-  - /v2.0/reference/flux/functions/runtime/version/
+  - /influxdb/v2.0/reference/flux/functions/runtime/version/
 menu:
   influxdb_2_0_ref:
     name: runtime.version

@@ -1,6 +1,7 @@
 ---
 title: influxd run
-description: The `influxd run` command starts and runs all the processes necessary for InfluxDB to function.
+description: >
+  The `influxd run` command starts and runs all the processes necessary for InfluxDB to function.
 menu:
   influxdb_1_8:
     name: influxd run

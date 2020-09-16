@@ -2,8 +2,8 @@
 title: join() function
 description: The `join()` function merges two or more input streams whose values are equal on a set of common columns into a single output stream.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/join
-  - /v2.0/reference/flux/functions/built-in/transformations/join/
+  - /influxdb/v2.0/reference/flux/functions/transformations/join
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/join/
 menu:
   influxdb_2_0_ref:
     name: join
@@ -11,7 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/join/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/union/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/
 ---
 
 The `join()` function merges two or more input streams whose values are equal on
@@ -21,7 +21,7 @@ The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 join(tables: {key1: table1, key2: table2}, on: ["_time", "_field"], method: "inner")
@@ -52,7 +52,7 @@ The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
 ### tables
 The map of streams to be joined. <span class="required">Required</span>
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 {{% note %}}
 `join()` currently only supports two input streams.
@@ -148,7 +148,7 @@ join(
 Output rows also contain the differing values from each of the joined streams.
 `union()` does not modify data in rows, but unifies separate streams of tables
 into a single stream of tables and groups rows of data based on existing
-[group keys](/v2.0/reference/glossary/#group-key).
+[group keys](/influxdb/v2.0/reference/glossary/#group-key).
 
 Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
 are illustrated below:

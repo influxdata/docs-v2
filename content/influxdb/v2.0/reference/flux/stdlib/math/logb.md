@@ -2,7 +2,7 @@
 title: math.logb() function
 description: The math.logb() function returns the binary exponent of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/logb/
+  - /influxdb/v2.0/reference/flux/functions/math/logb/
 menu:
   influxdb_2_0_ref:
     name: math.logb

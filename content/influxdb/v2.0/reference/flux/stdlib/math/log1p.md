@@ -4,7 +4,7 @@ description: >
   The math.log1p() function returns the natural logarithm of 1 plus its argument `x`.
   It is more accurate than `math.log(x: 1 + x)` when `x` is near zero.
 aliases:
-  - /v2.0/reference/flux/functions/math/log1p/
+  - /influxdb/v2.0/reference/flux/functions/math/log1p/
 menu:
   influxdb_2_0_ref:
     name: math.log1p

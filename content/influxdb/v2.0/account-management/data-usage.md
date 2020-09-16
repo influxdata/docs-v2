@@ -5,8 +5,7 @@ description: >
   View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
 weight: 103
 aliases:
-    - /v2.0/cloud/account-management/data-usage
-    - /v2.0/account-management/data-usage
+    - /influxdb/v2.0/cloud/account-management/data-usage
 menu:
   influxdb_2_0:
     parent: Account management
@@ -33,14 +32,14 @@ Find data usage information for the time frame specified in the drop-down at the
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/v2.0/account-management/pricing-plans/), {{< cloud-name >}}
+If you exceed your plan's [rate limits](/influxdb/v2.0/account-management/pricing-plans/), {{< cloud-name >}}
 will provide a notification in the {{< cloud-name "short" >}} user interface (UI)
 and add a rate limit event to your **Usage** page for review.
 
 All rate-limited requests are rejected; including both read and write requests.
 _Rate-limited requests are **not** queued._
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/v2.0/account-management/billing/#upgrade-to-usage-based-plan)._
+_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/v2.0/account-management/billing/#upgrade-to-usage-based-plan)._
 
 ### Rate-limited HTTP response code
 When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:

@@ -6,11 +6,10 @@ description: >
   Scrape data from InfluxDB instances or remote endpoints using InfluxDB scrapers.
   Create a scraper in the InfluxDB UI to collect metrics from a specified target.
 aliases:
-  - /v2.0/collect-data/scraper-metrics-endpoint
-  - /v2.0/collect-data/scrape-data
-  - /v2.0/write-data/scrape-data
-  - /v2.0/write-data/scrapable-endpoints
-  - /v2.0/write-data/no-code/scrape-data/
+  - /influxdb/v2.0/collect-data/scraper-metrics-endpoint
+  - /influxdb/v2.0/collect-data/scrape-data
+  - /influxdb/v2.0/write-data/scrape-data
+  - /influxdb/v2.0/write-data/scrapable-endpoints
 influxdb/v2.0/tags: [scraper]
 menu:
   influxdb_2_0:

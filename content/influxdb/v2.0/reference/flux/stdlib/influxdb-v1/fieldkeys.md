@@ -9,7 +9,7 @@ weight: 301
 influxdb/v2.0/tags: [fields]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
 ---
 
 The `v1.fieldKeys()` function returns field keys in a bucket.
@@ -64,4 +64,4 @@ fieldKeys = (bucket, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[v1.tagValues](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/)_
+[v1.tagValues](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/)_

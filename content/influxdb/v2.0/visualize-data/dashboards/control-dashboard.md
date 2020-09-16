@@ -8,8 +8,6 @@ menu:
     name: Control a dashboard
     parent: Manage dashboards
 weight: 203
-aliases:
-  - /v2.0/visualize-data/dashboards/control-dashboard/
 ---
 
 ## Control at the dashboard level
@@ -20,7 +18,7 @@ Use dashboard controls in the upper left to update your dashboard.
 
 Click **{{< icon "add-cell" >}} Add Cell** to open the Data Explorer and configure a new cell for your dashboard.
 
-For details on using the Data Explorer, see [Explore metrics](/v2.0/visualize-data/explore-metrics/).
+For details on using the Data Explorer, see [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics/).
 
 ### Add a note
 
@@ -58,7 +56,7 @@ The default time range is 5 minutes.
 
 ### Add variables
 
-Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/v2.0/visualize-data/variables/)
+Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/influxdb/v2.0/visualize-data/variables/)
 
 ### Presentation mode
 

@@ -2,16 +2,16 @@
 title: strings.lastIndexAny() function
 description: The `strings.lastIndexAny()` function returns the index of the last instance of any specified characters in a string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/lastindexany/
+  - /influxdb/v2.0/reference/flux/functions/strings/lastindexany/
 menu:
   influxdb_2_0_ref:
     name: strings.lastIndexAny
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/index/
-  - /v2.0/reference/flux/stdlib/strings/indexany/
-  - /v2.0/reference/flux/stdlib/strings/lastindex/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/index/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
 ---
 
 The `strings.lastIndexAny()` function returns the index of the last instance of any specified characters in a string.

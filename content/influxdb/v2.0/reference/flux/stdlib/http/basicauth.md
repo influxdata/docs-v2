@@ -4,7 +4,7 @@ description: >
   The `http.basicAuth()` function returns a Base64-encoded basic authentication
   header using a specified username and password combination.
 aliases:
-  - /v2.0/reference/flux/functions/http/basicauth/
+  - /influxdb/v2.0/reference/flux/functions/http/basicauth/
 menu:
   influxdb_2_0_ref:
     name: http.basicAuth

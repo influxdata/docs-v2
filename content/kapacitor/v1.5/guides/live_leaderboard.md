@@ -1,6 +1,7 @@
 ---
 title: Live leaderboard of game scores
-description: Tutorial on using Kapacitor stream processing and Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
+description: >
+  Tutorial on using Kapacitor stream processing and Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
 aliases:
     - kapacitor/v1.5/examples/live_leaderboard/
 menu:

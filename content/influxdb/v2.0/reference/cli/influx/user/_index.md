@@ -6,8 +6,6 @@ menu:
     name: influx user
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/user/
 influxdb/v2.0/tags: [users]
 ---
 
@@ -22,11 +20,11 @@ influx user [command]
 ## Subcommands
 | Subcommand                                           | Description              |
 |:----------                                           |:-----------              |
-| [create](/v2.0/reference/cli/influx/user/create)     | Create a user            |
-| [delete](/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
-| [list](/v2.0/reference/cli/influx/user/list)         | List users               |
-| [password](/v2.0/reference/cli/influx/user/password) | Update a user's password |
-| [update](/v2.0/reference/cli/influx/user/update)     | Update a user            |
+| [create](/influxdb/v2.0/reference/cli/influx/user/create)     | Create a user            |
+| [delete](/influxdb/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
+| [list](/influxdb/v2.0/reference/cli/influx/user/list)         | List users               |
+| [password](/influxdb/v2.0/reference/cli/influx/user/password) | Update a user's password |
+| [update](/influxdb/v2.0/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
 | Flag |          | Description                 |

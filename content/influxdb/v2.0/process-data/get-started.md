@@ -5,8 +5,7 @@ description: >
   Learn the basics of writing an InfluxDB task that processes data, and then performs an action,
   such as storing the modified data in a new bucket or sending an alert.
 aliases:
-  - /v2.0/process-data/write-a-task/
-  - /v2.0/process-data/get-started/
+  - /influxdb/v2.0/process-data/write-a-task/
 influxdb/v2.0/tags: [tasks]
 menu:
   influxdb_2_0:
@@ -23,7 +22,7 @@ data and stores it in a new bucket.
 
 ## Components of a task
 Every InfluxDB task needs the following four components.
-Their form and order can vary, but the are all essential parts of a task.
+Their form and order can vary, but they are all essential parts of a task.
 
 - [Task options](#define-task-options)
 - [A data source](#define-a-data-source)
@@ -46,7 +45,7 @@ option task = {
 }
 ```
 
-_See [Task configuration options](/v2.0/process-data/task-options) for detailed information
+_See [Task configuration options](/influxdb/v2.0/process-data/task-options) for detailed information
 about each option._
 
 {{% note %}}
@@ -54,8 +53,8 @@ When creating a task in the InfluxDB user interface (UI), task options are defin
 {{% /note %}}
 
 ## Define a data source
-Define a data source using Flux's [`from()` function](/v2.0/reference/flux/stdlib/built-in/inputs/from/)
-or any other [Flux input functions](/v2.0/reference/flux/stdlib/built-in/inputs/).
+Define a data source using Flux's [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)
+or any other [Flux input functions](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/).
 
 For convenience, consider creating a variable that includes the sourced data with
 the required time range and any relevant filters.
@@ -71,10 +70,10 @@ data = from(bucket: "telegraf/default")
 
 {{% note %}}
 #### Using task options in your Flux script
-Task options are passed as part of a `task` object and can be referenced in your Flux script.
+Task options are passed as part of a `task` option record and can be referenced in your Flux script.
 In the example above, the time range is defined as `-task.every`.
 
-`task.every` is dot notation that references the `every` property of the `task` object.
+`task.every` is dot notation that references the `every` property of the `task` option record.
 `every` is defined as `1h`, therefore `-task.every` equates to `-1h`.
 
 Using task options to define values in your Flux script can make reusing your task easier.
@@ -88,7 +87,7 @@ specific use case.
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
 It then windows the data into 5 minute intervals and calculates the average of each
-window using the [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
+window using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
 
 ```js
 data
@@ -98,13 +97,13 @@ data
   )
 ```
 
-_See [Common tasks](/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
+_See [Common tasks](/influxdb/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 ## Define a destination
 In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
 This could be a separate bucket or another measurement.
 
-The example below uses Flux's [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to)
+The example below uses Flux's [`to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to)
 to send the transformed data to another bucket:
 
 ```js

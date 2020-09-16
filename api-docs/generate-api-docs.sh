@@ -7,7 +7,7 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="${version//./_}_ref"
+  menu="influxdb_$(echo $version | sed 's/\./_/g;s/[^0-9_]//g;')_ref"
 
   # Generate the frontmatter
   frontmatter="---

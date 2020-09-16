@@ -1,7 +1,7 @@
 ---
 title: Remove a Telegraf configuration
 description: >
-  Use the InfluxDB UI or the [`influx` CLI](/v2.0/reference/cli/influx/)
+  Use the InfluxDB UI or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
   to remove Telegraf configurations from InfluxDB.
 weight: 104
 menu:
@@ -9,12 +9,11 @@ menu:
     name: Remove a config
     parent: Telegraf configurations
 aliases:
-  - /v2.0/write-data/no-code/use-telegraf/auto-config/delete-telegraf-config/
-  - /v2.0/collect-data/use-telegraf/auto-config/delete-telegraf-config
-  - /v2.0/telegraf-configs/remove/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/delete-telegraf-config/
+  - /influxdb/v2.0/collect-data/use-telegraf/auto-config/delete-telegraf-config
 ---
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
 to remove Telegraf configurations from InfluxDB.
 
 {{% note %}}
@@ -38,7 +37,7 @@ To remove a Telegraf configuration, do one of the following:
 
 
 ## Use the influx CLI
-Use the [`influx telegrafs rm` command](/v2.0/reference/cli/influx/telegrafs/rm/)
+Use the [`influx telegrafs rm` command](/influxdb/v2.0/reference/cli/influx/telegrafs/rm/)
 to remove a Telegraf configuration from InfluxDB.
 
 Provide the following:

@@ -2,7 +2,7 @@
 title: elapsed() function
 description: The `elapsed()` function returns the time between subsequent records.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/elapsed/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/elapsed/
 menu:
   influxdb_2_0_ref:
     name: elapsed

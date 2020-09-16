@@ -2,8 +2,8 @@
 title: linearBins() function
 description: The `linearBins()` function generates a list of linearly separated floats.
 aliases:
-  - /v2.0/reference/flux/functions/misc/linearbins
-  - /v2.0/reference/flux/functions/built-in/misc/linearbins/
+  - /influxdb/v2.0/reference/flux/functions/misc/linearbins
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/linearbins/
 menu:
   influxdb_2_0_ref:
     name: linearBins
@@ -13,7 +13,7 @@ weight: 401
 
 The `linearBins()` function generates a list of linearly separated floats.
 It is a helper function meant to generate bin bounds for the
-[`histogram()` function](/v2.0/reference/flux/stdlib/built-in/transformations/histogram).
+[`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram).
 
 _**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_

@@ -6,8 +6,6 @@ menu:
     name: influx config create
     parent: influx config
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/config/create/
 ---
 
 The `influx config create` command creates a new InfluxDB connection configuration
@@ -28,6 +26,7 @@ influx config create [flags]
 | `-u` | `--host-url`     | (**Required**) Connection URL for the new configuration.     | string      |                       |
 |      | `--json`         | Output data as JSON (default `false`)                        |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`          | Organization name                                            | string      |                       |
+| `-t` | `--token`        | Authentication token                                         | string      | `INFLUX_TOKEN`         |
 
 ## Examples
 ```sh

@@ -6,7 +6,7 @@ description: >
   as MySQL, PostgreSQL, Snowflake, SQLite, Microsoft SQL Server, and Amazon Athena.
   Import the `sql` package.
 aliases:
-  - /v2.0/reference/flux/functions/sql/
+  - /influxdb/v2.0/reference/flux/functions/sql/
 menu:
   influxdb_2_0_ref:
     name: SQL

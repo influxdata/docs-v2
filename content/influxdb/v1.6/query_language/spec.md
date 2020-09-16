@@ -424,7 +424,7 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHAR
 
 ### CREATE SUBSCRIPTION
 
-Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/kapacitor/latest/introduction/).
+Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/{{< latest "kapacitor" >}}/introduction/).
 
 ```
 create_subscription_stmt = "CREATE SUBSCRIPTION" subscription_name "ON" db_name "." retention_policy "DESTINATIONS" ("ANY"|"ALL") host { "," host} .
@@ -614,7 +614,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -837,7 +837,7 @@ SHOW DATABASES
 
 ### SHOW DIAGNOSTICS
 
-Displays node information, such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics. 
+Displays node information, such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
 
 For more information on using the `SHOW DIAGNOSTICS` command, see [Using the SHOW DIAGNOSTICS command for monitoring InfluxDB](/platform/monitoring/influxdata-platform/tools/show-diagnostics/).
 
@@ -984,7 +984,6 @@ Estimates or counts exactly the cardinality of the series for the current databa
 
 [Series cardinality](/influxdb/v1.6/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [When do I need more RAM?](/influxdb/v1.6/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/influxdb/v1.6/guides/hardware_sizing/)
 - [Don't have too many series](/influxdb/v1.6/concepts/schema_and_data_layout/#don-t-have-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.

@@ -1,21 +1,19 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+  Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
   configuration flags, setting environment variables, or defining configuration
   options in a configuration file.
 menu:
   influxdb_2_0_ref:
     name: Configuration options
 weight: 3
-aliases:
-  - /v2.0/reference/config-options/
 products: [oss]
 related:
   - /influxdb/v2.0/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
@@ -93,7 +91,7 @@ Only non-default settings need to be defined in the configuration file.
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
-[`influxd` service](/v2.0/reference/cli/influxd):
+[`influxd` service](/influxdb/v2.0/reference/cli/influxd):
 
 - [assets-path](#assets-path)
 - [bolt-path](#bolt-path)
@@ -1056,7 +1054,7 @@ store = "bolt"
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -1104,7 +1102,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |

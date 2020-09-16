@@ -1,14 +1,15 @@
 ---
-title: Using annotations in Chronograf views
-description: Annotations provide contextual information by adding explanatory notes or comments to Chronograf graph views and charts in the user interface and dashboards.
+title: Use annotations in Chronograf views
+description: >
+  Add contextual information to Chronograf dashboards with annotations.
 menu:
   chronograf_1_8:
-    name: Using annotations
+    name: Use annotations
     weight: 50
     parent: Guides
 ---
 
-## Using annotations in the Chronograf interface
+## Use annotations in the Chronograf interface
 
 Annotations in Chronograf are notes of explanation or comments added to graph views by editors or administrators. Annotations can provide Chronograf users with useful contextual information about single points in time or time intervals. Users can use annotations to correlate the effects of important events, such as system changes or outages across multiple metrics, with Chronograf data.
 

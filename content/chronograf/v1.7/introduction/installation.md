@@ -16,7 +16,6 @@ This page describes how to download and install Chronograf.
 * [Connect to your InfluxDB instance or InfluxDB Enterprise cluster](#connect-chronograf-to-your-influxdb-instance-or-influxdb-enterprise-cluster)
 * [Connect to Kapacitor](#connect-chronograf-to-kapacitor)
 
-
 ## TICK overview
 Chronograf is the user interface for InfluxData's [TICK stack](https://www.influxdata.com/time-series-platform/).
 
@@ -66,7 +65,6 @@ sudo yum localinstall chronograf-<version#>.x86_64.rpm
     ```sh
     chronograf
     ```
-
 
 ## Connect Chronograf to your InfluxDB instance or InfluxDB Enterprise cluster
 

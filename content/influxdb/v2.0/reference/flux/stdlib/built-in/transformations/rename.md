@@ -2,8 +2,8 @@
 title: rename() function
 description: The `rename()` function renames specified columns in a table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/rename
-  - /v2.0/reference/flux/functions/built-in/transformations/rename/
+  - /influxdb/v2.0/reference/flux/functions/transformations/rename
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/rename/
 menu:
   influxdb_2_0_ref:
     name: rename
@@ -32,7 +32,7 @@ rename(fn: (column) => "{column}_new")
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### columns
@@ -40,7 +40,7 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 A map of columns to rename and their corresponding new names.
 Cannot be used with `fn`.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### fn
 

@@ -38,21 +38,21 @@ _**Data type:** String_
 ### start
 The earliest time to include in results.
 Results **include** points that match the specified start time.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 ### stop
 The latest time to include in results.
 Results **exclude** points that match the specified stop time.
-Use a relative duration or absolute time.
-For example, `-1h` or `2019-08-28T22:00:00Z`.
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 Defaults to `now()`.
 
-_**Data type:** Duration | Time_
+_**Data type:** Duration | Time | Integer_
 
 ### measurement
 The name of the measurement to filter by.
@@ -109,7 +109,7 @@ inBucket = (
 ```
 
 _**Used functions:**_  
-[filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
-[query.filterFields()](/v2.0/reference/flux/stdlib/experimental/query/filterfields/)  
-[query.filterMeasurement()](/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/)  
-[query.fromRange()](/v2.0/reference/flux/stdlib/experimental/query/fromrange/)  
+[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
+[query.filterFields()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filterfields/)  
+[query.filterMeasurement()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/)  
+[query.fromRange()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/fromrange/)  

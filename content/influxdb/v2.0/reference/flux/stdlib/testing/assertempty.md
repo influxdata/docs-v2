@@ -2,7 +2,7 @@
 title: testing.assertEmpty() function
 description: The testing.assertEmpty() function tests if an input stream is empty.
 aliases:
-  - /v2.0/reference/flux/functions/testing/assertempty/
+  - /influxdb/v2.0/reference/flux/functions/testing/assertempty/
 menu:
   influxdb_2_0_ref:
     name: testing.assertEmpty
@@ -26,7 +26,7 @@ _The `testing.assertEmpty()` function can be used to perform in-line tests in a 
 ## Examples
 
 #### Check if there is a difference between streams
-This example uses the [`testing.diff()` function](/v2.0/reference/flux/stdlib/testing/diff)
+This example uses the [`testing.diff()` function](/influxdb/v2.0/reference/flux/stdlib/testing/diff)
 which outputs the diff for the two streams.
 The `.testing.assertEmpty()` function checks to see if the diff is empty.
 

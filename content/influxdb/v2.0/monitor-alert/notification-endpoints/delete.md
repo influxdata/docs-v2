@@ -7,14 +7,12 @@ menu:
     name: Delete endpoints
     parent: Manage notification endpoints
 weight: 204
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/delete/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
-If notifications are no longer sent to an endpoint, complete the steps below to delete the endpoint, and then [update notification rules](/v2.0/monitor-alert/notification-rules/update) with a new notification endpoint as needed.
+If notifications are no longer sent to an endpoint, complete the steps below to delete the endpoint, and then [update notification rules](/influxdb/v2.0/monitor-alert/notification-rules/update) with a new notification endpoint as needed.
 
 ## Delete a notification endpoint in the UI
 

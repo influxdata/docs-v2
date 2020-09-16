@@ -6,8 +6,6 @@ description: >
   The Graph + Single Stat view displays the specified time series in a line graph
   and overlays the single most recent value as a large numeric value.
 weight: 202
-aliases:
-  - /v2.0/visualize-data/visualization-types/graph-single-stat/
 menu:
   influxdb_2_0:
     name: Graph + Single Stat

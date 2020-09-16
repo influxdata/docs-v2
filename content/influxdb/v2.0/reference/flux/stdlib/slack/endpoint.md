@@ -3,7 +3,7 @@ title: slack.endpoint() function
 description: >
   The `slack.endpoint()` function sends a message to Slack that includes output data.
 aliases:
-  - /v2.0/reference/flux/functions/slack/endpoint/
+  - /influxdb/v2.0/reference/flux/functions/slack/endpoint/
 menu:
   influxdb_2_0_ref:
     name: slack.endpoint
@@ -54,7 +54,7 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the POST request.
+A function that builds the record used to generate the POST request.
 Requires an  `r` parameter.
 
 {{% note %}}
@@ -65,7 +65,7 @@ To see the default `mapFn` value or for insight into possible overrides, view th
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+The returned record must include the following fields:
 
 - `username`
 - `channel`
@@ -74,7 +74,7 @@ The returned object must include the following fields:
 - `iconEmoji`
 - `color`
 
-_For more information, see [`slack.message()`](/v2.0/reference/flux/stdlib/slack/message/)_
+_For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/stdlib/slack/message/)_
 
 ## Examples
 

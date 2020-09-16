@@ -9,11 +9,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/monitor-states/
-  - /v2.0/query-data/flux/monitor-states/
+  - /influxdb/v2.0/query-data/guides/monitor-states/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/statecount/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
 ---
 
 Flux helps you monitor states in your metrics and events:
@@ -24,12 +23,12 @@ Flux helps you monitor states in your metrics and events:
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Find how long a state persists
 
-1. Use the [`stateDuration()`](/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
+1. Use the [`stateDuration()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
 
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** the value (or state) to search for in the specified column.
@@ -81,7 +80,7 @@ _time                   _value        door_closed
 
 ## Count the number of consecutive states
 
-1. Use the [`stateCount()` function](/v2.0/reference/flux/stdlib/built-in/transformations/statecount/)
+1. Use the [`stateCount()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/)
    and include the following information:
 
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
@@ -149,13 +148,13 @@ from(bucket: "servers")
 
 <!--## Detect state changes
 
-Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](/v2.0/monitor-alert/) for more detail.
+Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](/influxdb/v2.0/monitor-alert/) for more detail.
 
 1. In the InfluxDB user interface, click the **Monitoring and Alerting** icon from the sidebar.
 
     {{< nav-icon "alerts" >}}
 
-2. If you haven't already, [create a check](/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
+2. If you haven't already, [create a check](/influxdb/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
 3. Import the InfluxDB `monitor` package.
 4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket?
 5. Use the `monitor.stateChanges()` function and include the following information:

@@ -1,5 +1,7 @@
 ---
 title: Contributing new Kapacitor output nodes
+description: >
+  Contribute a new node to Kapacitor to output data to a custom endpoint.
 aliases:
     - kapacitor/v1.5/contributing/custom_output/
     - kapacitor/v1.5/about_the_project/custom_output/
@@ -11,8 +13,7 @@ menu:
     parent: work-w-kapacitor
 ---
 
-If you haven't already, check out the [Kapacitor contributing guidelines](https://github.com/influxdb/kapacitor/blob/master/CONTRIBUTING.md)
-for information about how to get started contributing.
+If you haven't already, check out the [Kapacitor contributing guidelines](https://github.com/influxdb/kapacitor/blob/master/CONTRIBUTING.md) for information about how to get started contributing.
 
 The goal
 --------

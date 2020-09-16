@@ -2,8 +2,8 @@
 title: stateDuration() function
 description: The `stateDuration()` function computes the duration of a given state.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/stateduration
-  - /v2.0/reference/flux/functions/built-in/transformations/stateduration/
+  - /influxdb/v2.0/reference/flux/functions/transformations/stateduration
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stateduration/
 menu:
   influxdb_2_0_ref:
     name: stateDuration
@@ -38,7 +38,7 @@ and does not affect the state duration._
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn

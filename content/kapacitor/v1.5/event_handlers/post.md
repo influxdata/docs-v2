@@ -1,6 +1,7 @@
 ---
 title: Post event handler
-description: The "post" event handler allows you to POST Kapacitor alert data to an HTTP endpoint. This page includes configuration options and usage examples.
+description: >
+  The "post" event handler allows you to POST Kapacitor alert data to an HTTP endpoint. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Post
@@ -110,7 +111,7 @@ KAPACITOR_HTTPPOST_1_HEADERS_Example2 = "header2"
 
 ## Options
 The following post event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.post()` in a TICKscript.
 
 | Name                | Type                    | Description                                                                                                          |

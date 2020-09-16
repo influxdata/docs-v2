@@ -1,6 +1,7 @@
 ---
 title: chronoctl
-description: The `chronoctl` command line interface (CLI) includes commands to interact with an instance of Chronograf's data store.
+description: >
+  The `chronoctl` command line interface (CLI) includes commands to interact with an instance of Chronograf's data store.
 menu:
   chronograf_1_8:
     name: chronoctl

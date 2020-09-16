@@ -2,7 +2,7 @@
 title: math.cosh() function
 description: The math.cosh() function returns the hyperbolic cosine of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/cosh/
+  - /influxdb/v2.0/reference/flux/functions/math/cosh/
 menu:
   influxdb_2_0_ref:
     name: math.cosh

@@ -1,6 +1,6 @@
 ---
-title: Use the SHOW DIAGNOSTICS statement to monitoring InfluxDB diagnostic information
-description: Use the SHOW DIAGNOSTICS statement to monitor InfluxDB instances.
+title: SHOW DIAGNOSTICS statement
+description: Use the SHOW DIAGNOSTICS statement to monitoring InfluxDB diagnostic information.
 aliases:
   - /platform/monitoring/tools/show-diagnostics/
 menu:
@@ -12,7 +12,7 @@ menu:
 
 Diagnostic information includes mostly information about your InfluxDB server that is not necessarily numerical in format. This diagnostic information is not stored in the [`_internal`](/platform/monitoring/influxdata-platform/tools/measurements-internal/) database.
 
-To see InfluxDB server or node diagnostic information, you can use the [`SHOW DIAGNOSTICS`](/influxdb/latest/query_language/spec#show-diagnostics) statement. This statement returns InfluxDB instance information, including build details, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics. This information is particularly useful to InfluxData Support, so be sure to include the output of this query anytime you file a support ticket or GitHub issue.
+To see InfluxDB server or node diagnostic information, you can use the [`SHOW DIAGNOSTICS`](/{{< latest "influxdb" "v1" >}}/query_language/spec#show-diagnostics) statement. This statement returns InfluxDB instance information, including build details, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics. This information is particularly useful to InfluxData Support, so be sure to include the output of this query anytime you file a support ticket or GitHub issue.
 
 
 ## `SHOW DIAGNOSTICS` measurement details

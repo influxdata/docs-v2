@@ -3,18 +3,18 @@ title: strings.trimRight() function
 description: >
   The strings.trimRight() function removes trailing characters specified in the cutset from a string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/trimright/
+  - /influxdb/v2.0/reference/flux/functions/strings/trimright/
 menu:
   influxdb_2_0_ref:
     name: strings.trimRight
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/trim
-  - /v2.0/reference/flux/stdlib/strings/trimleft
-  - /v2.0/reference/flux/stdlib/strings/trimprefix
-  - /v2.0/reference/flux/stdlib/strings/trimsuffix
-  - /v2.0/reference/flux/stdlib/strings/trimspace
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trim
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimleft
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
 ---
 
 The `strings.trimRight()` function removes trailing characters specified in the

@@ -2,8 +2,8 @@
 title: aggregateWindow() function
 description: The `aggregateWindow()` function applies an aggregate function to fixed windows of time.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/
 menu:
   influxdb_2_0_ref:
     name: aggregateWindow
@@ -11,8 +11,8 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#aggregations, InfluxQL – Aggregate functions
-  - https://docs.influxdata.com/influxdb/latest/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#aggregations, InfluxQL – Aggregate functions
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function
@@ -42,7 +42,7 @@ Each row in the output of `aggregateWindow` represents an aggregated window endi
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### every
@@ -51,7 +51,7 @@ The duration of windows.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+`every` supports all [valid duration units](/influxdb/v2.0/reference/flux/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
@@ -59,7 +59,7 @@ _**Data type:** Duration_
 
 ### fn
 
-The [aggregate function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates) used in the operation.
+The [aggregate function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates) used in the operation.
 
 _**Data type:** Function_
 
@@ -109,7 +109,7 @@ data = from(bucket: "example-bucket")
 
 ##### Use an aggregate function with default parameters
 The following example uses the default parameters of the
-[`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
+[`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
 to aggregate time-based windows:
 
 ```js

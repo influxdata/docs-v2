@@ -3,8 +3,6 @@ title: InfluxDB design principles
 description: >
   Principles and tradeoffs related to InfluxDB design.
 weight: 104
-aliases:
-  - /v2.0/reference/key-concepts/design-principles/
 menu:
   influxdb_2_0_ref:
     parent: Key concepts
@@ -43,4 +41,4 @@ Because the data set is more important than an individual point, InfluxDB implem
 
 ## Duplicate data
 
-To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/v2.0/write-data/best-practices/duplicate-points/).
+To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/influxdb/v2.0/write-data/best-practices/duplicate-points/).

@@ -7,12 +7,10 @@ menu:
   influxdb_2_0:
     parent: Geo-temporal data
 weight: 302
-aliases:
-  - /v2.0/query-data/flux/geo/group-geo-data/
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/
-  - /v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
-  - /v2.0/reference/flux/stdlib/experimental/geo/astracks/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/astracks/
 list_code_example: |
   ```js
   import "experimental/geo"
@@ -30,7 +28,7 @@ to group data into tracks or routes.
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
 ### Group data by area
-Use the [`geo.groupByArea()` function](/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/)
+Use the [`geo.groupByArea()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
 Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering)
 
@@ -38,7 +36,7 @@ Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hi
 - Specify the [S2 cell level](https://s2geometry.io/resources/s2cell_statistics)
   to use when calculating geographic areas with the `level` parameter.
 
-The following example uses the [sample bird migration data](/v2.0/query-data/flux/geo/#sample-data)
+The following example uses the [sample bird migration data](/influxdb/v2.0/query-data/flux/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them by geographic area:
 
 ```js
@@ -53,14 +51,14 @@ sampleGeoData
 ```
 
 ### Group data by track or route
-Use [`geo.asTracks()` function](/v2.0/reference/flux/stdlib/experimental/geo/astracks/)
+Use [`geo.asTracks()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/astracks/)
 to group data points into tracks or routes and order them by time or other columns.
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 
 - Specify columns that uniquely identify each track or route with the `groupBy` parameter.
 - Specify which columns to sort by with the `sortBy` parameter. Default is `["_time"]`.
 
-The following example uses the [sample bird migration data](/v2.0/query-data/flux/geo/#sample-data)
+The following example uses the [sample bird migration data](/influxdb/v2.0/query-data/flux/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them into routes unique
 to each bird:
 

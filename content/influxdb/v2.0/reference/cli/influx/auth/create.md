@@ -6,8 +6,6 @@ menu:
     name: influx auth create
     parent: influx auth
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/auth/create/
 ---
 
 The `influx auth create` creates an authorization in InfluxDB.

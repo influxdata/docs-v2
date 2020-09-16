@@ -8,8 +8,6 @@ menu:
     name: Create a task
     parent: Manage tasks
 weight: 201
-aliases:
-  - /v2.0/process-data/manage-tasks/create-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/create
 ---
@@ -17,7 +15,7 @@ related:
 InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)
 and the `influx` command line interface (CLI).
 
-_Before creating a task, review the [basics criteria for writing a task](/v2.0/process-data/get-started)._
+_Before creating a task, review the [basics criteria for writing a task](/influxdb/v2.0/process-data/get-started)._
 
 - [InfluxDB UI](#create-a-task-in-the-influxdb-ui)
 - [`influx` CLI](#create-a-task-using-the-influx-cli)
@@ -38,7 +36,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 2. Build a query and click **Save As** in the upper right.
 3. Select the **Task** option.
-4. Specify the task options. See [Task options](/v2.0/process-data/task-options)
+4. Specify the task options. See [Task options](/influxdb/v2.0/process-data/task-options)
    for detailed information about each option.
 5. Select a token to use from the **Token** dropdown.
 6. Click **Save as Task**.
@@ -52,7 +50,7 @@ The InfluxDB UI provides multiple ways to create a task:
 2. Click **{{< icon "plus" >}} Create Task** in the upper right.
 3. Select **New Task**.
 4. In the left panel, specify the task options.
-   See [Task options](/v2.0/process-data/task-options) for detailed information about each option.
+   See [Task options](/influxdb/v2.0/process-data/task-options) for detailed information about each option.
 5. Select a token to use from the **Token** dropdown.
 6. In the right panel, enter your task script.
 7. Click **Save** in the upper right.

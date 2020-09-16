@@ -16,14 +16,4 @@
       {{ end }}
     </p>
   </div>
-{{ else if gt $currentVersion $stableVersion }}
-  <div class="note block old-version">
-    <p>
-      This page documents a <strong>pre-release</strong> version of {{ $productName }}.
-      <a href="/{{ $product }}/{{$stableVersion}}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.<br/>
-      {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
-        <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
-      {{ end }}
-    </p>
-  </div>
 {{ end }}

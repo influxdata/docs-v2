@@ -7,14 +7,13 @@ menu:
     parent: influx
 weight: 101
 aliases:
-  - /v2.0/reference/cli/influx/pkg/
-  - /v2.0/reference/cli/influx/apply/
+  - /influxdb/v2.0/reference/cli/influx/pkg/
 influxdb/v2.0/tags: [templates]
 ---
 
 The `influx apply` command applies InfluxDB templates.
 _For information about finding and using InfluxDB templates, see
-[Use InfluxDB templates](/v2.0/influxdb-templates/use/)._
+[Use InfluxDB templates](/influxdb/v2.0/influxdb-templates/use/)._
 
 ## Usage
 ```

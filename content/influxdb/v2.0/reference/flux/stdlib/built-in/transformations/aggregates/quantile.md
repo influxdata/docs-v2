@@ -2,9 +2,9 @@
 title: quantile() function
 description: The `quantile()` function outputs non-null records with values that fall within the specified quantile or the non-null record with the value that represents the specified quantile.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/percentile
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/percentile
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
 menu:
   influxdb_2_0_ref:
     name: quantile
@@ -12,7 +12,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 ---
 
 The `quantile()` function returns records from an input table with `_value`s that fall within
@@ -20,7 +20,7 @@ a specified quantile or it returns the record with the `_value` that represents 
 Which it returns depends on the [method](#method) used.
 
 _**Function type:** Aggregate or Selector_  
-_**Output data type:** Float or Object_
+_**Output data type:** Float | Record_
 
 ```js
 quantile(

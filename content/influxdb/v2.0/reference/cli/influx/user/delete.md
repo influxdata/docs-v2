@@ -6,8 +6,6 @@ menu:
     name: influx user delete
     parent: influx user
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/user/delete/
 ---
 
 The `influx user delete` command deletes a specified user in InfluxDB.

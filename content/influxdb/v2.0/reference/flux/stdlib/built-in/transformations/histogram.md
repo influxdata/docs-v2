@@ -2,8 +2,8 @@
 title: histogram() function
 description: The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/histogram
-  - /v2.0/reference/flux/functions/built-in/transformations/histogram/
+  - /influxdb/v2.0/reference/flux/functions/transformations/histogram
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/histogram/
 menu:
   influxdb_2_0_ref:
     name: histogram
@@ -22,7 +22,7 @@ The output table has the same group key as the input table.
 Columns not part of the group key are removed and an upper bound column and a count column are added.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 histogram(column: "_value", upperBoundColumn: "le", countColumn: "_value", bins: [50.0, 75.0, 90.0], normalize: false)
@@ -59,8 +59,8 @@ _**Data type:** Array of floats_
 #### Bin helper functions
 The following helper functions can be used to generated bins.
 
-[linearBins()](/v2.0/reference/flux/stdlib/built-in/misc/linearbins)  
-[logarithmicBins()](/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins)
+[linearBins()](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins)  
+[logarithmicBins()](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins)
 
 ### normalize
 When `true`, will convert the counts into frequency values between 0 and 1.

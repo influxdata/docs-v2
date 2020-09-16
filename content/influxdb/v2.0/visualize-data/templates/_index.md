@@ -7,8 +7,6 @@ menu:
     name: Manage dashboard templates
     parent: Visualize data
 weight: 104
-aliases:
-  - /v2.0/visualize-data/templates/
 ---
 
 Dashboard templates are a way to create and share dashboards across organizations

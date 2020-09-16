@@ -2,9 +2,9 @@
 title: pearsonr() function
 description: The `pearsonr()` function computes the Pearson R correlation coefficient between two streams by first joining the streams, then performing the covariance operation normalized to compute R.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/pearsonr
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/pearsonr/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/pearsonr/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/pearsonr
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/pearsonr/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/pearsonr/
 menu:
   influxdb_2_0_ref:
     name: pearsonr
@@ -27,12 +27,12 @@ pearsonr(x: stream1, y: stream2, on: ["_time", "_field"])
 ### x
 First input stream used in the operation.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### y
 Second input stream used in the operation.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### on
 The list of columns on which to join.
@@ -55,7 +55,7 @@ stream2 = from(bucket:"example-bucket")
     r._field == "available"
   )
 
-pearsonr(x: stream1, y: stream2, on: ["_time", "_field"])
+pearsonr(x: stream1, y: stream2, on: ["_time"])
 ```
 
 ## Function definition

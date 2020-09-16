@@ -5,7 +5,7 @@ description: >
   The Flux math package provides basic constants and mathematical functions.
   Import the `math` package.
 aliases:
-  - /v2.0/reference/flux/functions/math/
+  - /influxdb/v2.0/reference/flux/functions/math/
 menu:
   influxdb_2_0_ref:
     name: Math

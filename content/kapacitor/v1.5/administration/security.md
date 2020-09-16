@@ -1,6 +1,6 @@
 ---
 title: Security
-
+description: Protect the data in your Kapacitor instance.
 menu:
   kapacitor_1_5:
     weight: 12

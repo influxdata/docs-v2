@@ -2,8 +2,8 @@
 title: top() function
 description: The `top()` function sorts a table by columns and keeps only the top n records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/top
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/top/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/top
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/top/
 menu:
   influxdb_2_0_ref:
     name: top
@@ -14,7 +14,7 @@ weight: 501
 The `top()` function sorts a table by columns and keeps only the top `n` records.
 
 _**Function type:** Selector_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 top(n:10, columns: ["_value"])

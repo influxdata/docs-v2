@@ -2,8 +2,8 @@
 title: toDuration() function
 description: The `toDuration()` function converts all values in the `_value` column to durations.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/toduration
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/toduration/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/toduration
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/toduration/
 menu:
   influxdb_2_0_ref:
     name: toDuration
@@ -54,5 +54,5 @@ toDuration = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[duration()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[duration()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_

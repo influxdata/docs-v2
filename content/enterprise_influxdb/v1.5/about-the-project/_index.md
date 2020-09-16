@@ -6,13 +6,13 @@ menu:
     weight: 10
 ---
 
-## [InfluxDB Enterprise release notes](/enterprise_influxdb/v1.5/about-the-project/release-notes-changelog/)
+{{< children hlevel="h2" >}}
 
-The [InfluxDB Enterprise release notes](/enterprise_influxdb/v1.5/about-the-project/release-notes-changelog/) includes details about features, bug fixes, and breaking changes for current and earlier InfluxDB Enterprise releases.
+## InfluxData Software License Subscription Agreement (SLSA)
 
-## [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/)
+InfluxDB Enterprise is available with a commercial license based on the [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/).
 
-InfluxDB Enterprise is available with a commercial license based on the [InfluxData Software License Subscription Agreement (SLSA)](https://www.influxdata.com/legal/slsa/).  [Contact sales for more information](https://www.influxdata.com/contact-sales/).
+[Contact sales for more information](https://www.influxdata.com/contact-sales/).
 
 ## Third party software
 
@@ -23,7 +23,7 @@ Third party suppliers make no representation nor warranty with respect to such t
 Third party suppliers assume no liability for any claim that might arise with respect to such third party software, nor for a
 customer’s use of or inability to use the third party software.
 
-In addition to [third party software incorporated in InfluxDB](http://docs.influxdata.com/influxdb/v1.5/about_the_project/#third_party), InfluxDB Enterprise incorporates the following additional third party software:
+In addition to [third party software incorporated in InfluxDB](/influxdb/v1.5/about_the_project/#third_party), InfluxDB Enterprise incorporates the following additional third party software:
 
 | Third Party / Open Source Software - Description | License Type                             |
 | ---------------------------------------- | ---------------------------------------- |

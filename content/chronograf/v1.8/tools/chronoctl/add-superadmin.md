@@ -1,6 +1,7 @@
 ---
 title: chronoctl add-superadmin
-description: The `add-superadmin` command creates a new user with superadmin status.
+description: >
+  The `add-superadmin` command creates a new user with superadmin status.
 menu:
   chronograf_1_8:
     name: chronoctl add-superadmin

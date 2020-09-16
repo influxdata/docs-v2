@@ -5,7 +5,7 @@ description: >
   The Flux InfluxDB Secrets package provides functions for working with sensitive secrets managed by InfluxDB.
   Import the `influxdata/influxdb/secrets` package.
 aliases:
-  - /v2.0/reference/flux/functions/secrets/
+  - /influxdb/v2.0/reference/flux/functions/secrets/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Secrets

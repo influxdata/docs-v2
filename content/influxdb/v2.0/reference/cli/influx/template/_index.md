@@ -8,8 +8,7 @@ menu:
 weight: 101
 influxdb/v2.0/tags: [templates]
 aliases:
-  - /v2.0/reference/cli/influx/pkg/summary/
-  - /v2.0/reference/cli/influx/template/
+  - /influxdb/v2.0/reference/cli/influx/pkg/summary/
 ---
 
 The `influx template` command summarizes the specified InfluxDB template.
@@ -23,7 +22,7 @@ influx template [command]
 ## Subcommands
 | Subcommand                                               | Description         |
 |:----------                                               |:-----------         |
-| [validate](/v2.0/reference/cli/influx/template/validate) | Validate a template |
+| [validate](/influxdb/v2.0/reference/cli/influx/template/validate) | Validate a template |
 
 ## Flags
 | Flag |                           | Description                                                        | Input Type | {{< cli/mapped >}}   |

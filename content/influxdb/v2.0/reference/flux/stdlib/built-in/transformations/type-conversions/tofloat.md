@@ -2,8 +2,8 @@
 title: toFloat() function
 description: The `toFloat()` function converts all values in the `_value` column to floats.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/tofloat
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/tofloat/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tofloat
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tofloat/
 menu:
   influxdb_2_0_ref:
     name: toFloat
@@ -45,5 +45,5 @@ toFloat = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[float()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[float()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)_

@@ -7,8 +7,6 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [config]
-aliases:
-  - /v2.0/reference/cli/influx/config/
 ---
 
 The `influx config` command displays the active InfluxDB connection configuration
@@ -51,10 +49,10 @@ influx config local-config
 ## Subcommands
 | Subcommand                                         | Description                              |
 |:----                                               |:-----------                              |
-| [create](/v2.0/reference/cli/influx/config/create) | Create a new connection configuration    |
-| [list](/v2.0/reference/cli/influx/config/create)   | List connection configurations           |
-| [delete](/v2.0/reference/cli/influx/config/delete) | Delete a connection configuration        |
-| [set](/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
+| [create](/influxdb/v2.0/reference/cli/influx/config/create) | Create a new connection configuration    |
+| [list](/influxdb/v2.0/reference/cli/influx/config/create)   | List connection configurations           |
+| [delete](/influxdb/v2.0/reference/cli/influx/config/rm) | Delete a connection configuration        |
+| [set](/influxdb/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
 ## Flags
 | Flag |          | Description                   |

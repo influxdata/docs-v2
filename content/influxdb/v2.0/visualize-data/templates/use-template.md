@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     parent: Manage dashboard templates
 weight: 202
-aliases:
-  - /v2.0/visualize-data/templates/use-template/
 ---
 
 To create a new dashboard from an InfluxDB dashboard template:
@@ -18,7 +16,7 @@ To create a new dashboard from an InfluxDB dashboard template:
 
     {{< nav-icon "settings" >}}
 
-3. Select the [template type](/v2.0/visualize-data/templates/#dashboard-template-types).
+3. Select the [template type](/influxdb/v2.0/visualize-data/templates/#dashboard-template-types).
 
     {{< img-hd src="/img/influxdb/2-0-templates-type-select.png" alt="Select User Templates" />}}
 

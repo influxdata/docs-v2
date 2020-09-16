@@ -4,7 +4,7 @@ description: >
   The `pagerduty.severityFromLevel()` function converts an InfluxDB status level to
   a PagerDuty severity.
 aliases:
-  - /v2.0/reference/flux/functions/pagerduty/severityfromlevel/
+  - /influxdb/v2.0/reference/flux/functions/pagerduty/severityfromlevel/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.severityFromLevel

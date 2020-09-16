@@ -8,8 +8,6 @@ menu:
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
-aliases:
-  - /v2.0/influxdb-templates/create/
 influxdb/v2.0/tags: [templates]
 related:
   - /influxdb/v2.0/reference/cli/influx/export/
@@ -36,19 +34,19 @@ In **InfluxDB Cloud**, your user account is an organization.
 
 **To create a template:**
 
-1. [Start InfluxDB](/v2.0/get-started/).
-2. [Create a new organization](/v2.0/organizations/create-org/).
+1. [Start InfluxDB](/influxdb/v2.0/get-started/).
+2. [Create a new organization](/influxdb/v2.0/organizations/create-org/).
 3. In the InfluxDB UI add one or more of the following templatable resources:
 
-   - [buckets](/v2.0/organizations/buckets/create-bucket/)
-   - [checks](/v2.0/monitor-alert/checks/create/)
-   - [dashboards](/v2.0/visualize-data/dashboards/create-dashboard/)
-   - [dashboard variables](/v2.0/visualize-data/variables/create-variable/)
-   - [labels](/v2.0/visualize-data/labels/)
-   - [notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/)
-   - [notification rules](/v2.0/monitor-alert/notification-rules/create/)
-   - [tasks](/v2.0/process-data/manage-tasks/create-task/)
-   - [Telegraf configurations](/v2.0/write-data/use-telegraf/)
+   - [buckets](/influxdb/v2.0/organizations/buckets/create-bucket/)
+   - [checks](/influxdb/v2.0/monitor-alert/checks/create/)
+   - [dashboards](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/)
+   - [dashboard variables](/influxdb/v2.0/visualize-data/variables/create-variable/)
+   - [labels](/influxdb/v2.0/visualize-data/labels/)
+   - [notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create/)
+   - [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/)
+   - [tasks](/influxdb/v2.0/process-data/manage-tasks/create-task/)
+   - [Telegraf configurations](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
 4. Export the template _(see [below](#export-a-template))_.
 
@@ -108,7 +106,7 @@ influx export all \
 ```
 
 For information about flags, see the
-[`influx export all` documentation](/v2.0/reference/cli/influx/export/all/).
+[`influx export all` documentation](/influxdb/v2.0/reference/cli/influx/export/all/).
 
 ### Export specific resources
 To export specific resources within an organization to a template manifest,
@@ -122,7 +120,7 @@ Provide the following:
   **JSON** (`.json`) are supported.
 - **Resource flags** with corresponding lists of resource IDs to include in the template.
   For information about what resource flags are available, see the
-  [`influx export` documentation](/v2.0/reference/cli/influx/export/).
+  [`influx export` documentation](/influxdb/v2.0/reference/cli/influx/export/).
 
 ###### Export specific resources to a template
 ```sh
@@ -219,7 +217,7 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [applying the template](/v2.0/influxdb-templates/use/#apply-templates).
+when [applying the template](/influxdb/v2.0/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 

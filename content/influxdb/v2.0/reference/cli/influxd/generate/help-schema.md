@@ -8,15 +8,13 @@ menu:
   influxdb_2_0_ref:
     parent: influxd generate
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/generate/help-schema/
 products: [oss]
 ---
 
 The `influxd generate help-schema` command outputs an example TOML schema to stdout that includes
 descriptions of available options. _See [example output](#example-output) below_.
 Use custom TOML schema files to generate sample data sets with
-[`influxd generate`](/v2.0/reference/cli/influxd/generate).
+[`influxd generate`](/influxdb/v2.0/reference/cli/influxd/generate).
 
 ## Usage
 ```sh

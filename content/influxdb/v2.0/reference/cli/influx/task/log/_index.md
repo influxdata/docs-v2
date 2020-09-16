@@ -8,8 +8,6 @@ menu:
     name: influx task log
     parent: influx task
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/task/log/
 influxdb/v2.0/tags: [logs]
 ---
 
@@ -24,7 +22,7 @@ influx task log [command]
 ## Subcommands
 | Subcommand                                       | Description        |
 |:----------                                       |:-----------        |
-| [list](/v2.0/reference/cli/influx/task/log/list) | List logs for task |
+| [list](/influxdb/v2.0/reference/cli/influx/task/log/list) | List logs for task |
 
 ## Flags
 | Flag |          | Description                |

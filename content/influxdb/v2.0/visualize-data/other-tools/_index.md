@@ -8,8 +8,6 @@ menu:
     name: Other visualization tools
     parent: Visualize data
 weight: 109
-aliases:
-  - /v2.0/visualize-data/other-tools/
 ---
 
 Use visualization tools other than the InfluxDB user interface to query and

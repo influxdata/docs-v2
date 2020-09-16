@@ -4,7 +4,7 @@ description: >
   The `monitor.notify()` function sends a notification to an endpoint and logs it
   in the `notifications` measurement in the `_monitoring` bucket.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/notify/
+  - /influxdb/v2.0/reference/flux/functions/monitor/notify/
 menu:
   influxdb_2_0_ref:
     name: monitor.notify
@@ -37,7 +37,7 @@ _**Data type:** Function_
 Data to append to the output.
 **InfluxDB populates notification data.**
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

@@ -4,7 +4,7 @@ description: >
   The math.mod() function returns the floating-point remainder of `x`/`y`.
   The magnitude of the result is less than `y` and its sign agrees with that of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/mod/
+  - /influxdb/v2.0/reference/flux/functions/math/mod/
 menu:
   influxdb_2_0_ref:
     name: math.mod

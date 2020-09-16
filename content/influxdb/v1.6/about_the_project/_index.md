@@ -8,29 +8,9 @@ menu:
     weight: 10
 ---
 
-## [InfluxDB OSS release notes](/influxdb/v1.6/about_the_project/releasenotes-changelog/)
+{{< children hlevel="h2" >}}
 
-Details about features, bug fixes, and breaking changes in the current and earlier
-InfluxDB OSS releases are available in
-[InfluxDB OSS release notes](/influxdb/v1.6/about_the_project/releasenotes-changelog/).
-
-## [Contributing to InfluxDB OSS](/influxdb/v1.6/about_the_project/contributing/)
-
-To learn how you can contribute to the InfluxDB OSS project, see [Contributing to InfluxDB OSS](https://github.com/influxdata/influxdb/blob/master/CONTRIBUTING.md) in the GitHub repository.
-
-## [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/)
-
-Before you can contribute to the InfluxDB OSS project, you must complete and sign
-the [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/),
-available at the InfluxData website.
-
-## [Open source license for InfluxDB](https://github.com/influxdata/influxdb/blob/master/LICENSE)
-
-For conditions and restrictions for use of the InfluxDB source code, see
-the [InfluxDB open source license](https://github.com/influxdata/influxdb/blob/master/LICENSE)
-in the GitHub repository.
-
-## <a name="third_party">Third Party Software</a>
+## Third Party Software
 
 InfluxData products contain third party software, which means the copyrighted,
 patented, or otherwise legally protected software of third parties that is
