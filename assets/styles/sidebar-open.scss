@@ -10,6 +10,9 @@
   }
 }
 
-#search-btn {
+.search-btn {
   opacity: 0;
+  width: 0;
+  overflow: visible;
+  transition: opacity .2s, width .2s .2s !important;
 }

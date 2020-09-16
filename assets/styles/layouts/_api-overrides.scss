@@ -45,22 +45,52 @@ $bold: 700;
 
 #influx-header {
   font-family: $rubik;
-  padding: 15px 20px ;
-  display: block;
+  padding: 10px ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: $g2-kevlar;
   a {
-    color: $g20-white;
     text-decoration: none;
-    transition: color .2s;
-    &:hover {
-      color: $b-pool;
+    &.back {
+      color: $g20-white;
+      transition: color .2s;
+      &:hover {
+        color: $b-pool;
+      }
+      &:before {
+        content: '\e918';
+        font-family: 'icomoon';
+        margin-right: .65rem;
+      }
     }
-    &:before {
-      content: '\e918';
-      font-family: 'icomoon';
-      margin-right: .65rem;
+    &.btn {
+      padding: .5rem .75rem .5rem .65rem;
+      font-size: .85rem;
+      font-weight: 500;
+      color: $g15-platinum;
+      background: $g5-pepper;
+      border-radius: 4.5px;
+      transition: all .2s;
+      &:before {
+        content: "\e933";
+        display: inline-block;
+        font-size: .95rem;
+        margin-right: .5rem;
+        font-family: 'icomoon';
+      }
+      &:hover {
+        color: $g20-white;
+        background: $b-pool;
+      }
     }
   }
+}
+
+// Header Media Queries
+
+@media (max-width: 600px) {
+  #influx-header span.version {display: none;}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -263,3 +293,4 @@ $bold: 700;
   }
   .token.boolean { color: #f955b0; }
 }
+

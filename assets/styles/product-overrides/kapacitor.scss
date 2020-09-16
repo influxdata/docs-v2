@@ -1,0 +1,88 @@
+.kapacitor {
+
+  .topnav {
+    .docs-home, .influx-home {
+      &:hover { color: $kapacitor-topnav-link-hover; }
+    }
+    .dropdown { @include gradient($kapacitor-dropdown-gradient) }
+  }
+
+  .sidebar {
+    &--search input {
+      &:focus {
+        border-color: $kapacitor-sidebar-search-highlight;
+        box-shadow: 1px 1px 10px rgba($kapacitor-sidebar-search-highlight, .5);
+      }
+    }
+
+    #nav-tree {
+      li {
+        &.active {
+          &:before { background: $kapacitor-nav-active; }
+          & > a {
+            color: $kapacitor-nav-active;
+            &:hover { color: $kapacitor-nav-active; }
+          }
+          & > .children-toggle {
+            background: $kapacitor-nav-active;
+            &:before, &:after { background: $body-bg; }
+          }
+          & > ul { border-left: 2px solid $kapacitor-nav-active; }
+        }
+      }
+
+      .nav-category > a {
+        color: $kapacitor-nav-category;
+        &:hover { color: $kapacitor-nav-category-hover; }
+      }
+      .nav-item > a:hover { color: $kapacitor-nav-item-hover; }
+      .children-toggle:hover { background: $kapacitor-nav-toggle-bg-hover; }
+    }
+  }
+
+  .article--content{
+    h1,h2,h3,h4,h5,h6 { color: $kapacitor-article-heading; }
+    h2,h4 {
+      color: $kapacitor-article-heading-alt;
+    }
+
+    a {
+      color: $kapacitor-article-link;
+      &:hover { color: $kapacitor-article-link-hover; }
+      &.btn {
+        @include gradient($kapacitor-btn-gradient);
+        &:after { @include gradient($kapacitor-btn-gradient-hover); }
+      }
+    }
+
+    .children-links, .list-links {
+      h2,h3,h4 {
+        a a:after { color: rgba($kapacitor-article-heading, .35);        }
+        a:hover:after { color: $kapacitor-article-link; }
+      }
+    }
+
+    .expand-label:hover .expand-toggle { background: $kapacitor-article-link; }
+
+    .tabs a {
+      &:after { @include gradient($kapacitor-btn-gradient); }
+      &:hover { color: $kapacitor-article-tab-active-text; }
+      &.is-active {
+        color: $kapacitor-article-tab-active-text;
+        &:after {
+          @include gradient($kapacitor-btn-gradient)
+        }
+      }
+    }
+
+    table thead { @include gradient($kapacitor-article-table-header, 90deg); }
+
+    .tags .tag :after { @include gradient($grad-MilkyWay) }
+
+    .truncate a.truncate-toggle:hover { color: $kapacitor-article-link; }
+
+  }
+
+  .algolia-autocomplete .algolia-docsearch-suggestion--highlight { color: $kapacitor-article-link; }
+
+}

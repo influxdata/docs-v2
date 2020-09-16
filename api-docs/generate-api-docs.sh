@@ -7,7 +7,7 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="${version//./_}_ref"
+  menu="influxdb_$(echo $version | sed 's/\./_/g;s/[^0-9_]//g;')_ref"
 
   # Generate the frontmatter
   frontmatter="---
@@ -38,5 +38,5 @@ weight: 102
 
   # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html
-  mv $version.tmp ../content/$version/api.html
+  mv $version.tmp ../content/influxdb/$version/api.html
 done

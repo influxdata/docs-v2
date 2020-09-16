@@ -1,0 +1,49 @@
+// Styles for accordian-like expandable content blocks
+
+.expand {
+  border-top: 1px solid $article-hr;
+  padding: .75rem 0;
+  &:last-of-type { border-bottom: 1px solid $article-hr; }
+}
+
+.expand-label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0;
+  cursor: pointer;
+
+  &:hover {
+    .expand-toggle { background: $article-link; }
+  }
+}
+
+.expand-toggle {
+  position: relative;
+  display: inline-block;
+  min-height: 20px;
+  min-width: 20px;
+  background: rgba($article-text, .25);
+  border-radius: 50%;
+  margin-right: .75rem;
+  transition: background-color .2s;
+
+  &:before, &:after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 2px;
+    position: absolute;
+    background: $article-bg;
+    transition: all .4s;
+    top: 9px;
+    left: 5px;
+  }
+  &:after {
+    transform: rotate(90deg);
+  }
+
+  &.open {
+    &:before, &:after { transform: rotate(180deg); }
+  }
+}
