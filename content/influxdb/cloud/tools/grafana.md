@@ -1,7 +1,7 @@
 ---
 title: Use Grafana with InfluxDB
 description: >
-  Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB** instance.
+  Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB Cloud** instance.
 menu:
   influxdb_cloud:
     name: Use Grafana
@@ -72,10 +72,6 @@ configure your InfluxDB connection:
 {{% tab-content %}}
 
 ## Configure Grafana to use InfluxQL
-
-{{% note %}}
-**{{< cloud-name "short" >}}** supports InfluxQL, but **InfluxDB 2.0 OSS** does not.
-{{% /note %}}
 
 With **InfluxQL** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:

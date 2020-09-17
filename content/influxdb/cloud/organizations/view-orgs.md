@@ -1,6 +1,6 @@
 ---
-title: View organization
-seotitle: View organization in InfluxDB
+title: View organizations
+seotitle: View organizations in InfluxDB
 description: Review a list of organizations in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   influxdb_cloud:
@@ -11,6 +11,18 @@ weight: 102
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to view organizations.
+
+## View organizations in the InfluxDB UI
+
+1. In the navigation menu on the left, click the **Account dropdown**.
+
+    {{< nav-icon "account" >}}
+
+2. Select **Switch Organizations**. The list of organizations appears.
+
+{{% cloud %}}
+**{{< cloud-name "short" >}}** does not support viewing and switching between multiple organizations.
+{{% /cloud %}}
 
 ## View organizations using the influx CLI
 
@@ -26,19 +38,18 @@ See the [`influx org list` documentation](/influxdb/cloud/reference/cli/influx/o
 for information about other available flags.
 
 ## View your organization ID
-
 Use the InfluxDB UI or `influx` CLI to view your organization ID.
 
 ### Organization ID in the UI
-
 After logging in to the InfluxDB UI, your organization ID appears in the URL.
+
 
 <pre class="highlight">
 https://cloud2.influxdata.com/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
 </pre>
 
-### Organization ID in the CLI
 
+### Organization ID in the CLI
 Use [`influx org list`](#view-organizations-using-the-influx-cli) to view your organization ID.
 
 ```sh
