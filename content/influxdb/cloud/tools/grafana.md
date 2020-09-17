@@ -73,10 +73,6 @@ configure your InfluxDB connection:
 
 ## Configure Grafana to use InfluxQL
 
-{{% note %}}
-**{{< cloud-name "short" >}}** supports InfluxQL, but **InfluxDB 2.0 OSS** does not.
-{{% /note %}}
-
 With **InfluxQL** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 

@@ -24,6 +24,12 @@ curl --request POST \
 ## View InfluxDB v2 API Documentation
 <a class="btn" href="/v2.0/api/">InfluxDB v2.0 API documentation</a>
 
+### View InfluxDB API documentation locally
+InfluxDB API documentation is built into the `influxd` service and represents
+the API specific to the current version of InfluxDB.
+To view the API documentation locally, [start InfluxDB](/influxdb/cloud/get-started/#start-influxdb)
+and visit the `/docs` endpoint in a browser ([localhost:9999/docs](https://cloud2.influxdata.com/docs)).
+
 ## InfluxDB client libraries
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
 For information about supported client libraries, see [InfluxDB client libraries](/influxdb/cloud/tools/client-libraries/).
