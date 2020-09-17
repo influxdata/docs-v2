@@ -7,13 +7,18 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="influxdb_$(echo $version | sed 's/\./_/g;s/[^0-9_]//g;')_ref"
+  menu="influxdb_$(echo $version | sed 's/\./_/g;s/v//g;')_ref"
+  if [ $version = "cloud" ]; then
+    titleVersion="Cloud"
+  else
+    titleVersion="$version"
+  fi
 
   # Generate the frontmatter
   frontmatter="---
-title: InfluxDB $version API documentation
+title: InfluxDB $titleVersion API documentation
 description: >
-  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $version.
+  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $titleVersion.
 layout: api
 menu:
   $menu:
@@ -25,11 +30,12 @@ weight: 102
 
   # Use Redoc to generate the API html
   redoc-cli bundle -t template.hbs \
-    --title="InfluxDB $version API documentation" \
+    --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
     --templateOptions.version="$version" \
+    --templateOptions.titleVersion="$titleVersion" \
     $version/swagger.yml
 
   # Create temp file with frontmatter and Redoc html

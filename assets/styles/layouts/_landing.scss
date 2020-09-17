@@ -27,6 +27,7 @@
     padding: 5rem 2vw 5rem 4.5vw;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
 
       text-align: center;
@@ -102,13 +103,14 @@
     }
 
     &#get-started {
+      .avoid-wrap { display:inline-block }
+
       .btn {
         position: relative;
-        display: inline-block;
-        padding: 1.25rem;
-        margin: 0 20% .35rem;
+        display: block;
+        padding: 1.25rem 4rem;
         color: $landing-btn-text;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: $medium;
         @include gradient($landing-btn-grad);
         transition: background-color .2s, color .2s;
@@ -133,6 +135,19 @@
         &:hover {
           &:before { opacity: 1; }
         }
+      }
+
+      .beta:after {
+        content: 'beta';
+        display: inline-block;
+        vertical-align: middle;
+        font-style: italic;
+        font-size: .45em;
+        margin: -8px 0 0 .5em;
+        padding: .1rem .6rem .12rem;
+        border-radius: 1rem;
+        border: .15rem solid rgba($landing-btn-text, .5);
+        transition: border-color .2s;
       }
     }
   }
