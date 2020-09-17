@@ -13,12 +13,10 @@ related:
   - /influxdb/cloud/reference/api/influxdb-1x/
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/dbrp
-aliases:
-  -/influxdb/v2.0/cloud/query-data/influxql
 ---
 
 Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/cloud/reference/api/influxdb-1x/query)
-to query data in InfluxDB Cloud with **InfluxQL**.
+to query data in InfluxDB 2.0 with **InfluxQL**.
 The [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB 2.0.
 

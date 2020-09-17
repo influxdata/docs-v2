@@ -1,7 +1,7 @@
 ---
 title: Use Grafana with InfluxDB
 description: >
-  Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB** instance.
+  Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB Cloud** instance.
 menu:
   influxdb_cloud:
     name: Use Grafana
