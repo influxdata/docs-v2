@@ -10,6 +10,8 @@ menu:
     name: Bulk ingest
     parent: Write data
 products: [cloud]
+alias:
+  - /influxdb/v2.0/write-data/bulk-ingest-cloud
 ---
 
 To upload a large amount of previously existing *historical* data into InfluxDB Cloud, contact Support for assistance.
