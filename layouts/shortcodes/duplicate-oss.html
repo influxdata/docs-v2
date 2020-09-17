@@ -3,5 +3,4 @@
 {{ $path := .Get 0 | default (replaceRE `^influxdb\/cloud\/` $pathReplacement .Page.File.Path) }}
 
 {{ $page := .Site.GetPage $path }}
-{{ $page.File }}
-{{ $page.Content | replaceRE `\/influxdb\/v2\.[0-9]{1,2}\/` "/influxdb/cloud/" | safeHTML }}
+{{ $page.Content | replaceRE `\<\!\-\- oss-only.*\/oss-only \-\-\>` "" | replaceRE `\/influxdb\/v2\.[0-9]{1,2}\/` "/influxdb/cloud/" | safeHTML }}
