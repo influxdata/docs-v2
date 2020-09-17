@@ -1,7 +1,8 @@
 ---
 title: Telegraf configurations
 description: >
-  placeholder
+  InfluxDB lets you automatically generate Telegraf configurations or upload customized
+  Telegraf configurations that collect metrics and write them to InfluxDB.
 weight: 12
 menu: influxdb_2_0
 influxdb/v2.0/tags: [telegraf]
@@ -25,8 +26,6 @@ the configuration from an InfluxDB HTTP(S) endpoint.
     ```sh
     telegraf --config http://localhost:8086/api/v2/telegrafs/<telegraf-config-id>
     ```
-
-This is {{% cloud-only %}}Cloud{{% /cloud-only %}}{{% oss-only %}}OSS{{% /oss-only %}}-specific content.
 
 {{% note %}}
 _[Setup instructions](/influxdb/v2.0/telegraf-configs/view/#view-setup-instructions) for

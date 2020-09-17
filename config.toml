@@ -19,6 +19,7 @@ smartDashes = false
 
 [taxonomies]
   "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+  "influxdb/cloud/tag" = "influxdb/cloud/tags"
 
 [markup]
   [markup.goldmark]

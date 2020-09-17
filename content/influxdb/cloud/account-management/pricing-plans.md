@@ -13,7 +13,7 @@ menu:
     parent: Account management
     name: Pricing plans
 products: [cloud]
-influxdb/v2.0/tags: [VPC]
+influxdb/cloud/tags: [VPC]
 ---
 
 InfluxDB Cloud 2.0 offers two pricing plans:
@@ -21,7 +21,7 @@ InfluxDB Cloud 2.0 offers two pricing plans:
 - [Free Plan](#free-plan)
 - [Usage-Based Plan](#usage-based-plan)
 
-<!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/influxdb/v2.0/account-management/pricing-calculator/). -->
+<!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 
 ## Free Plan
 
@@ -46,11 +46,11 @@ Data retention is determined by the time at which data is written to InfluxDB; n
   - Unlimited Slack notification endpoints
 
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/v2.0/account-management/billing/#upgrade-to-usage-based-plan)._
+_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
 ## Usage-Based Plan
 
-The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/v2.0/account-management/data-usage/).
+The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/).
 
 ### Pricing vectors
 
