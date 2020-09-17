@@ -32,7 +32,7 @@ influx [command]
   ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u https://cloud2.influxdata.com \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a
