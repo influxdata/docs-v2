@@ -3,7 +3,7 @@ title: Cancel your InfluxDB Cloud subscription
 description: >
   Cancel your InfluxDB Cloud 2.0 account at any time by stopping all read and write
   requests, backing up data, and contacting InfluxData Support.
-weight: 104
+weight: 106
 aliases:
   - /influxdb/v2.0/account-management/offboarding
   - /influxdb/v2.0/cloud/account-management/offboarding
@@ -34,11 +34,11 @@ Exported data and artifacts can be used in an InfluxDB OSS instance.
 
 #### Export tasks
 
-For details, see [Export a task](/influxdb/v2.0/process-data/manage-tasks/export-task/).
+For details, see [Export a task](/influxdb/cloud/process-data/manage-tasks/export-task/).
 
 #### Export dashboards
 
-For details, see [Export a dashboard](/influxdb/v2.0/visualize-data/dashboards/export-dashboard/).
+For details, see [Export a dashboard](/influxdb/cloud/visualize-data/dashboards/export-dashboard/).
 
 #### Save Telegraf configurations
 

@@ -2,6 +2,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $version := cond (in $currentVersion "v") $currentVersion (title $currentVersion) }}
 
 {{ $scratch.Set "siteTitle" "InfluxData Documentation" }}
 {{ if eq $product nil }}
@@ -11,7 +12,7 @@
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}
-  {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " " $currentVersion " Documentation") }}
+  {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " " $version " Documentation") }}
 {{ end }}
 
 {{ $scratch.Set "pageTitle" "" }}
