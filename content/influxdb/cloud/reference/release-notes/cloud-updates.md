@@ -3,11 +3,12 @@ title: InfluxDB Cloud monthly updates
 description: Important changes and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
-  influxdb_2_0_ref:
+  influxdb_cloud_ref:
     parent: Release notes
-    name: InfluxDB Cloud
+    name: Monthly updates
 aliases:
   - /cloud/about/release-notes
+  - /influxdb/v2.0/reference/release-notes/influxdb-cloud
 ---
 
 InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
