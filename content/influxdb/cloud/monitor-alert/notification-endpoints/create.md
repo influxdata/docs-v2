@@ -25,7 +25,7 @@ To send notifications about changes in your data, start by creating a notificati
 4.  From the **Destination** drop-down list, select a destination endpoint to send notifications.
     The following endpoints are available for the InfluxDB Cloud Free Plan and Usage-based Plan:
 
-    | Endpoint      | Free Plan _(Cloud)_      | Usage-based Plan _(Cloud)_   |
+    | Endpoint      | Free Plan                | Usage-based Plan             |
     |:--------      |:-------------------:     |:----------------------------:|
     | **Slack**     | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
     | **PagerDuty** |                          | **{{< icon "check" >}}**     |

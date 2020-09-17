@@ -16,8 +16,6 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/cloud/query-data/influxql
-aliases:
-  - /influxdb/v2.0/reference/api/influxdb-1x/query/
 ---
 
 The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.

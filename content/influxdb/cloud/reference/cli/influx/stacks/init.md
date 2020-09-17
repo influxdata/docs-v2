@@ -6,8 +6,6 @@ menu:
     name: influx stacks init
     parent: influx stacks
 weight: 201
-aliases:
-  - /influxdb/cloud/reference/cli/influx/pkg/stack/init/
 influxdb/cloud/tags: [templates]
 ---
 
