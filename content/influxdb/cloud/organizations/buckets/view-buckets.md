@@ -29,6 +29,6 @@ to view a buckets in an organization.
 influx bucket list
 ```
 
-Other filtering options such as filtering by organization, name, or ID are available.
+Other filtering options such as filtering by a name or ID are available.
 See the [`influx bucket list` documentation](/influxdb/cloud/reference/cli/influx/bucket/list)
 for information about other available flags.
