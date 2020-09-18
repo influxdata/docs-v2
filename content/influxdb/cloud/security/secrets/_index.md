@@ -18,6 +18,7 @@ By default, all secrets added to InfluxDB Cloud are stored in the InfluxDB Cloud
 {{% /cloud %}}
 
 ## Use secrets in a query
+
 Import the `influxdata/influxd/secrets` package and use the `secrets.get()` function
 to populate sensitive data in queries with secrets from your secret store.
 
