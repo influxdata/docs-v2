@@ -11,6 +11,8 @@ influxdb/cloud/tags: [influxql, query, write]
 products: [cloud]
 related:
   - /influxdb/cloud/query-data/influxql
+aliases:
+  - /influxdb/v2.0/reference/api/influxdb-1x/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
