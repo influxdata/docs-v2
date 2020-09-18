@@ -37,10 +37,6 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 
 ## Configure Grafana to use Flux
 
-{{% note %}}
-**InfluxDB 2.0 OSS** does not support InfluxQL.
-{{% /note %}}
-
 With **Flux** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 

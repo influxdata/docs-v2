@@ -8,8 +8,6 @@ menu:
     parent: Tools & integrations
 weight: 104
 influxdb/cloud/tags: [grafana]
-aliases:
-  - /influxdb/cloud/visualize-data/other-tools/
 related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/cloud/query-data/get-started/
