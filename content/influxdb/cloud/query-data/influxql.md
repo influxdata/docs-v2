@@ -2,22 +2,23 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/cloud/reference/api/influxdb-1x/query)
-  to query data in InfluxDB 2.0 with **InfluxQL**.
+  to query data in InfluxDB Cloud with **InfluxQL**.
 weight: 102
 influxdb/cloud/tags: [influxql, query]
 menu:
   influxdb_cloud:
     name: Query with InfluxQL
     parent: Query data
-products: [cloud]
 related:
   - /influxdb/cloud/reference/api/influxdb-1x/
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/dbrp
+aliases:
+  -/influxdb/v2.0/cloud/query-data/influxql
 ---
 
 Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/cloud/reference/api/influxdb-1x/query)
-to query data in InfluxDB 2.0 with **InfluxQL**.
+to query data in InfluxDB Cloud with **InfluxQL**.
 The [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB 2.0.
 
@@ -51,19 +52,23 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 _See [DBRP mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/) for more information._
 
 ## InfluxQL support
-InfluxQL in InfluxDB 2.0 supports **read-only** queries.
+InfluxQL in InfluxDB 2.0 supports **read-only** queries (with two exceptions shown below).
 
 {{< flex >}}
 {{< flex-content >}}
 {{% note %}}
 ##### Supported InfluxQL queries
 
+- `DELETE`*
+- `DROP MEASUREMENT`*
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
 - `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
+
+\* These commands delete data.
 {{% /note %}}
 {{< /flex-content >}}
 {{< flex-content >}}
@@ -73,8 +78,8 @@ InfluxQL in InfluxDB 2.0 supports **read-only** queries.
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-- `DELETE`
-- `DROP`
+<!-- - `DELETE` -->
+- `DROP` (see above)
 - `GRANT`
 - `KILL`
 - `REVOKE`

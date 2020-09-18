@@ -134,7 +134,6 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-<!-- - `DELETE` -->
 - `DROP` (see above)
 - `GRANT`
 - `KILL`
