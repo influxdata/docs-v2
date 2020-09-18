@@ -11,7 +11,7 @@ weight: 7
 ---
 
 Use sample data to familiarize yourself with time series data and InfluxDB.
-InfluxData provides many sample time series datasets to use with **InfluxDB Cloud** and **InfluxDB**.
+InfluxData provides many sample time series datasets to use with **InfluxDB Cloud**.
 
 ## InfluxDB Cloud demo data
 Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
@@ -24,8 +24,7 @@ Demo data is not available for use with third-party integrations such as Grafana
 {{% /note %}}
 
 ## Sample data sets
-The following sample data sets are used as examples in [InfluxDB query guides](/influxdb/cloud/query-data/flux)
-and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
+The following sample data sets are used as examples in [InfluxDB query guides](/influxdb/cloud/query-data/flux).
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
