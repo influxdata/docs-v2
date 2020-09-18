@@ -35,6 +35,12 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 7. On the **Data Source configuration page**, enter a **name** for your InfluxDB data source.
 8. Under **Query Language**, select one of the following:
 
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Flux](#)                 
+[InfluxQL](#)
+{{% /tabs %}}
+{{% tab-content %}}
 ## Configure Grafana to use Flux
 
 With **Flux** selected as the query language in your InfluxDB data source,
