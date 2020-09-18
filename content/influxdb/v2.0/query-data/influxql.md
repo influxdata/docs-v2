@@ -36,7 +36,7 @@ Verify the buckets that you want to query are mapped to a database and retention
 - To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
 
 ```sh
-curl --request GET https://cloud2.influxdata.com/api/v2/dbrps \
+curl --request GET https://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
   --header 'Content-type: application/json' \
   --data '{
@@ -62,7 +62,7 @@ To map an unmapped bucket to a database and retention policy, use the [`POST /db
  - database and retention policy to map to bucket (`database` and `retention_policy`)
 
 ```sh
-curl --request POST https://cloud2.influxdata.com/api/v2/dbrps \
+curl --request POST https://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
   --header 'Content-type: application/json' \
   --data '{
@@ -95,7 +95,7 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 {{% /note %}}
 
 ```sh
-curl --request GET https://cloud2.influxdata.com/query?database=MyDB&retention_policy=MyRP \
+curl --request GET https://localhost:8086/query?database=MyDB&retention_policy=MyRP \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
@@ -134,7 +134,6 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-<!-- - `DELETE` -->
 - `DROP` (see above)
 - `GRANT`
 - `KILL`
