@@ -17,6 +17,8 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/cloud/reference/syntax/line-protocol
+aliases:
+  - /influxdb/v2.0/reference/api/influxdb-1x/write/
 ---
 
 The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the

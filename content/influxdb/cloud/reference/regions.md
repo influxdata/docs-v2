@@ -4,7 +4,6 @@ description: >
   InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
 aliases:
   - /influxdb/cloud/reference/urls/
-  - /influxdb/v2.0/cloud/urls/
 weight: 6
 menu:
   influxdb_cloud_ref:

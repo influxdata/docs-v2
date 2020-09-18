@@ -8,6 +8,8 @@ menu:
     name: Get started
 weight: 2
 influxdb/cloud/tags: [get-started, install]
+aliases:
+  - /influxdb/v2.0/cloud/get-started
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
@@ -271,11 +273,8 @@ See [Monitor and alert](/influxdb/cloud/monitor-alert/).
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
 
-<<<<<<< HEAD
+
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
-=======
-- [InfluxDB scrapers](/influxdb/cloud/write-data/no-code/scrape-data/) that collect data from specified
->>>>>>> duplicated oss into cloud and am making updates
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
