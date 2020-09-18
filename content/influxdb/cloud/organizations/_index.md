@@ -12,6 +12,11 @@ influxdb/cloud/tags: [organizations]
 An **organization** is a workspace for a group of users.
 All dashboards, tasks, buckets, members, etc., belong to an organization.
 
+{{% cloud %}}
+You cannot currently create additional organizations in {{< cloud-name >}}.
+Only the default organization is available.
+{{% /cloud %}}
+
 The following articles provide information about managing organizations:
 
 {{< children >}}
