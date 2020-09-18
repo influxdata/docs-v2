@@ -13,6 +13,8 @@ related:
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/write
   - /influxdb/cloud/api/#tag/DBRPs, InfluxDB 2.0 API /dbrps endpoint
+aliases:
+  - /influxdb/v2.0/reference/api/influxdb-1x/dbrp/
 ---
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
