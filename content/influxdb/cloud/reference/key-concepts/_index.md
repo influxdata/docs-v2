@@ -9,6 +9,6 @@ menu:
 influxdb/cloud/tags: [key concepts]
 ---
 
-Before working with InfluxDB 2.0, it's helpful to learn a few key concepts. Browse the topics below to learn more.
+Before working with InfluxDB Cloud, it's helpful to learn a few key concepts. Browse the topics below to learn more.
 
 {{< children >}}

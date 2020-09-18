@@ -1,8 +1,8 @@
 ---
 title: InfluxDB reference
 description: >
-  Reference documentation for InfluxDB including release notes, API documentation,
-  tools, syntaxes, database internals, and more.
+  Reference documentation for InfluxDB Cloud including importing updates, API documentation,
+  tools, syntaxes, and more.
 ---
 
 {{< children >}}
