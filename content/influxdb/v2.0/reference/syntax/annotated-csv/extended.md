@@ -27,7 +27,7 @@ annotations.
 
 {{% warn %}}
 The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
-**annotated CSV**, not **extended annotated CSV**.
+**[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)**, not **extended annotated CSV**.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
