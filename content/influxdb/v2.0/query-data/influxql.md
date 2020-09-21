@@ -42,7 +42,40 @@ curl -G https://cloud2.influxdata.com/query?db=db&rp=rp \
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
-## Database and retention policy mapping
+## Map a bucket to a database and retention policy
+
+## Manually create and manage DBRP mappings
+If you have an existing bucket that does't follow the **database/retention-policy**
+naming convention, you **must** manually create a database and retention policy
+mapping to query that bucket with the `/query` compatibility API.
+Use the using the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#tag/DBRPs) to
+manually create and manage DBRP mappings.
+
+**To manually create a DBRP mapping, provide the following:**
+
+- authentication token
+- organization name or ID (organization or organization_id)
+- target bucket ID (bucket_id)
+- database to map
+- retention policy to map
+
+<!--  -->
+```sh
+curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
+  -H "Authorization: Token YourAuthToken" \
+  -H 'Content-type: application/json' \
+  -d '{
+        "organization": "example-org",
+        "bucket_id": "12ab34cd56ef",
+        "database": "example-db",
+        "retention_policy": "example-rp",
+        "default": true
+      }'
+```
+
+_For more information, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
+
+
 InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
