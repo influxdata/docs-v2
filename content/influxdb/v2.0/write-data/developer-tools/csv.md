@@ -226,6 +226,8 @@ influx write -b example-bucket \
 Skipped rows are ignored and are not written to InfluxDB.
 {{% /warn %}}
 
+Use the `--error-file` flag to record errors to a file.
+
 ## Advanced examples
 
 - [Define constants](#define-constants)
