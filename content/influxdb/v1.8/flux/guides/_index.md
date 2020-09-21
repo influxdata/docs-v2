@@ -2,10 +2,15 @@
 title: Query data with Flux
 description: Guides that walk through both common and complex queries and use cases for Flux.
 weight: 3
+aliases:
+    - /flux/latest/
+    - /flux/latest/introduction
 menu:
   influxdb_1_8:
     name: Query with Flux
     parent: Flux
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/
+v2: /influxdb/v2.0/query-data/flux/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

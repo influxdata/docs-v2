@@ -59,6 +59,7 @@ When testing with a **self-signed certificate** it is also important to switch o
 certificate verification with the property `insecure-skip-verify`.  Failure to do
 so will result in x509 certificate errors as follows:
 
+{{< keep-url >}}
 ```
 ts=2018-02-19T13:26:11.437+01:00 lvl=error msg="failed to connect to InfluxDB, retrying..." service=influxdb cluster=localhost err="Get https://localhost:8086/ping: x509: certificate is valid for lenovo-TP02, not localhost"
 ```
@@ -70,6 +71,8 @@ ts=2018-02-19T13:26:11.437+01:00 lvl=error msg="failed to connect to InfluxDB, r
 In the configuration file these values are set according to the following example.
 
 **Example 1 &ndash; TLS Configuration Properties for InfluxDB &ndash; kapacitor.conf**
+
+{{< keep-url >}}
 ```toml
 [[influxdb]]
   # Connect to an InfluxDB cluster
@@ -105,6 +108,8 @@ Note that when a CA file contains the certificate and key together the property
 As environment variables these properties can be set as follows:
 
 **Example 2 &ndash; TLS Configuration Properties for InfluxDB &ndash; ENVARS**
+
+{{< keep-url >}}
 ```
 KAPACITOR_INFLUXDB_0_URLS_0="https://localhost:8086"
 KAPACITOR_INFLUXDB_0_SSL_CERT="/etc/ssl/influxdb-selfsigned.crt"
@@ -128,6 +133,7 @@ This results in the following file:
 
 **Example 3 &ndash; The InfluxDB part of the Kapacitor configuration**
 
+{{< keep-url >}}
 ```json
 {
     "elements": [
@@ -222,6 +228,7 @@ file, as environment variables or over the HTTP API.
 
 **Example 4 &ndash; InfluxDB Authentication Parameters &ndash; kapacitor.conf**
 
+{{< keep-url >}}
 ```toml
 [[influxdb]]
   # Connect to an InfluxDB cluster

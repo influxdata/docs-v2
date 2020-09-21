@@ -33,14 +33,14 @@ influx config create [flags]
 # Create a connection configuration and set it active
 influx config create --active \
   -n config-name \
-  -u http://localhost:9999 \
+  -u http://localhost:8086 \
   -t mySuP3rS3cr3tT0keN \
   -o example-org
 
 # Create a connection configuration without setting it active
 influx config create \
   -n config-name \
-  -u http://localhost:9999 \
+  -u http://localhost:8086 \
   -t mySuP3rS3cr3tT0keN \
   -o example-org
 ```

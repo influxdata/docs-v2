@@ -1,7 +1,8 @@
-var defaultUrl = "http://localhost:9999"
+var defaultUrl = "http://localhost:8086"
 var placeholderCloudUrl = "https://cloud2.influxdata.com"
 var defaultCloudUrl = "https://us-west-2-1.aws.cloud2.influxdata.com"
 var elementSelector = ".article--content pre:not(.preserve)"
+var isInfluxDBv1 = /influxdb\/v1/.test(window.location.href)
 
 // Retrieve the selected URL from the influxdb_url session cookie
 function getUrl() {
@@ -25,23 +26,29 @@ function getPrevUrl() {
 }
 
 // Iterate through code blocks and update InfluxDB urls
+// Ignore URLs in InfluxDB 1.x docs
 function updateUrls(currentUrl, newUrl) {
-  if (typeof currentUrl != newUrl) {
-    $(elementSelector).each(function() {
-      $(this).html($(this).html().replace(currentUrl,  newUrl));
-    });
+  if (!isInfluxDBv1) {
+    if (typeof currentUrl != newUrl) {
+      $(elementSelector).each(function() {
+        $(this).html($(this).html().replace(currentUrl,  newUrl));
+      });
+    }
   }
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB URL
+// Ignore codeblocks on InfluxDB v1.x pages
 function appendUrlSelector(currentUrl, selectorText) {
-  $(elementSelector).each(function() {
-    var code = $(this).html()
-    if (code.includes(currentUrl)) {
-      $(this).after("<div class='select-url'><a class='url-trigger' href='#'>" + selectorText + "</a></div>")
-      $('.select-url').fadeIn(400)
-    }
-  });
+  if (!isInfluxDBv1) {
+    $(elementSelector).each(function() {
+      var code = $(this).html()
+      if (code.includes(currentUrl)) {
+        $(this).after("<div class='select-url'><a class='url-trigger' href='#'>" + selectorText + "</a></div>")
+        $('.select-url').fadeIn(400)
+      }
+    });
+  }
 }
 
 // Toggle the URL selector modal window

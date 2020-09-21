@@ -14,7 +14,7 @@ There are multiple ways to execute queries with InfluxDB.
 This guide covers the different options:
 
 - [Data Explorer](#data-explorer)
-- [Influx REPL](#influx-repl)
+- [Flux REPL](#flux-repl)
 - [Influx query command](#influx-query-command)
 - [InfluxDB API](#influxdb-api)
 
@@ -23,18 +23,13 @@ Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
 
 ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
-## Influx REPL
+## Flux REPL
 The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
 Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 
-<!-- TODO: is this still accurate? -->
-<!-- ```bash -->
-<!-- ./flux repl --org org-name -->
-<!-- ``` -->
-
-{{% note %}}
-`ctrl-d` will close the REPL.
-{{% /note %}}
+```sh
+./flux repl
+```
 
 ## Influx query command
 You can pass queries to the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query)
@@ -85,7 +80,7 @@ Below is an example `curl` command that queries InfluxDB:
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
+curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
@@ -98,7 +93,7 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
+curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \

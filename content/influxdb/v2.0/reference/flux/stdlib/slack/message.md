@@ -24,11 +24,8 @@ import "slack"
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "Fluxtastic",
-  channel: "#flux",
-  workspace: "",
+  channel: "#flux",,
   text: "This is a message from the Flux slack.message() function.",
-  iconEmoji: "wave",
   color: "good"
 )
 ```
@@ -57,19 +54,8 @@ A token is only required if using the Slack chat.postMessage API.
 
 _**Data type:** String_
 
-### username
-The username to use when posting the message to a Slack channel. <span class="required">Required</span>
-
-_**Data type:** String_
-
 ### channel
 The name of channel to post the message to. <span class="required">Required</span>
-
-_**Data type:** String_
-
-### workspace
-The name of the Slack workspace to use if there are multiple.
-Defaults to `""`.
 
 _**Data type:** String_
 
@@ -77,18 +63,6 @@ _**Data type:** String_
 The text to display in the Slack message. <span class="required">Required</span>
 
 _**Data type:** String_
-
-### iconEmoji
-The name of emoji to use as the user avatar when posting the message to Slack.
-<span class="required">Required</span>
-
-_**Data type:** String_
-
-{{% note %}}
-#### Things to know about iconEmoji
-- **Do not** enclose the name in colons `:` as you do in the Slack client.
-- `iconEmoji` only appears as the user avatar when using the Slack chat.postMessage API.
-{{% /note %}}
 
 ### color
 The color to include with the message.
@@ -120,7 +94,6 @@ lastReported =
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "johndoe",
   channel: "#system-status",
   text: "The last reported status was \"${lastReported.status}\"."
 )

@@ -9,6 +9,7 @@ menu:
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/querying_data/
+v2: /influxdb/v2.0/query-data/
 ---
 
 

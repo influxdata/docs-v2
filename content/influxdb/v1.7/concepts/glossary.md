@@ -5,6 +5,8 @@ menu:
     name: Glossary
     weight: 20
     parent: Concepts
+canonical: /{{< latest "influxdb" "v2" >}}/reference/glossary/
+v2: /influxdb/v2.0/reference/glossary/
 ---
 
 ## aggregation

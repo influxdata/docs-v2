@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: First & last
 list_query_example: first_last
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/first-last/
+v2: /influxdb/v2.0/query-data/flux/first-last/
 ---
 
 Use the [`first()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/selectors/first/) or

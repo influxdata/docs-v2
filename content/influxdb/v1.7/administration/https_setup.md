@@ -6,6 +6,7 @@ menu:
     name: Enabling HTTPS
     weight: 30
     parent: Administration
+v2: /influxdb/v2.0/security/enable-tls/
 ---
 
 Enable TLS to encrypt communication between clients and the InfluxDB server.

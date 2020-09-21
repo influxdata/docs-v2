@@ -11,6 +11,8 @@ menu:
     weight: 2
 aliases:
   - /influxdb/v1.7/flux/getting-started/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/
+v2: /influxdb/v2.0/query-data/get-started/
 ---
 
 Flux is InfluxData's new functional data scripting language designed for querying,
@@ -96,7 +98,7 @@ are unique to each row.
 
 ## Tools for working with Flux
 
-You have multiple [options for writing and running Flux queries](/{{< latest "influxdb" "v2" >}}/reference/flux/guides/executing-queries),
+You have multiple [options for writing and running Flux queries](/influxdb/v1.7/flux/guides/execute-queries/),
 but as you're getting started, we recommend using the following:
 
 ### 1. Chronograf's Data Explorer

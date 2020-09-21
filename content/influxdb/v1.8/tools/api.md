@@ -9,6 +9,7 @@ menu:
     name: InfluxDB API reference
     weight: 20
     parent: Tools
+v2: /influxdb/v2.0/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.
@@ -47,7 +48,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/flux/latest/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
+Use this endpoint to query data using [Flux](/influxdb/v1.8/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
@@ -89,7 +90,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/reference/api/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.

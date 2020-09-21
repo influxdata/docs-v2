@@ -10,6 +10,8 @@ menu:
     name: Conditional logic
     parent: Query with Flux
 weight: 20
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/conditional-logic/
+v2: /influxdb/v2.0/query-data/flux/conditional-logic/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"

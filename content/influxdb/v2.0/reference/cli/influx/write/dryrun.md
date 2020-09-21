@@ -36,7 +36,7 @@ influx write dryrun [flags]
 |      | `--format`         | Input format (`lp` or `csv`, default `lp`)                            | string     |                      |
 |      | `--header`         | Prepend header line to CSV input data                                 | string     |                      |
 | `-h` | `--help`           | Help for the `dryrun` command                                         |            |                      |
-|      | `--host`           | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
+|      | `--host`           | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
 | `-o` | `--org`            | Organization name                                                     | string     | `INFLUX_ORG`         |
 |      | `--org-id`         | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
 | `-p` | `--precision`      | Precision of the timestamps (default `ns`)                            | string     | `INFLUX_PRECISION`   |

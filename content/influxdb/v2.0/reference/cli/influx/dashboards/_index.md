@@ -24,7 +24,7 @@ influx dashboards [flags]
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
 | `-h` | `--help`          | Help for the `dashboards` command                                     |             |                       |
 |      | `--hide-headers`  | Hide table headers                                                    |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `$INFLUX_HOST`        |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `$INFLUX_HOST`        |
 | `-i` | `--id`            | Dashboard ID to retrieve                                              | string      |                       |
 |      | `--json`          | Output data as JSON                                                   |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |

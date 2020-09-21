@@ -32,7 +32,7 @@ influx [command]
   ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u http://localhost:8086 \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a

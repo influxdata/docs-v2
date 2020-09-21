@@ -5,6 +5,7 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
 ## v1.7.10 [2020-02-07]

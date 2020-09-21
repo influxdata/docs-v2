@@ -131,19 +131,21 @@ Literal constructors define fixed values.
 The table below outlines operator precedence.
 Operators with a lower number have higher precedence.
 
-| Precedence | Operator           | Description               |
-|:----------:|:--------:          |:--------------------------|
-| 1          | `a()`              | Function call             |
-|            | `a[]`              | Member or index access    |
-|            | `.`                | Member access             |
-| 2          | `*` `/`            |Multiplication and division|
-| 3          | `+` `-`            | Addition and subtraction  |
-| 4          |`==` `!=`           | Comparison operators      |
-|            | `<` `<=`           |                           |
-|            | `>` `>=`           |                           |
-|            |`=~` `!~`           |                           |
-| 5          | `not`              | Unary logical operator    |
-|            | `exists`           | Null check operator       |
-| 6          | `and`              | Logical AND               |
-| 7          | `or`               | Logical OR                |
-| 8          | `if` `then` `else` | Conditional               |
+| Precedence | Operator           | Description                          |
+|:----------:|:--------:          |:--------------------------           |
+| 1          | `a()`              | Function call                        |
+|            | `a[]`              | Member or index access               |
+|            | `.`                | Member access                        |
+| 2          | <code>\|></code>   | Pipe forward                         |
+| 3          | `^`                | Exponentiation                       |
+| 4          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 5          | `+` `-`            | Addition and subtraction             |
+| 6          |`==` `!=`           | Comparison operators                 |
+|            | `<` `<=`           |                                      |
+|            | `>` `>=`           |                                      |
+|            |`=~` `!~`           |                                      |
+| 7          | `not`              | Unary logical operator               |
+|            | `exists`           | Null check operator                  |
+| 8          | `and`              | Logical AND                          |
+| 9          | `or`               | Logical OR                           |
+| 10         | `if` `then` `else` | Conditional                          |
