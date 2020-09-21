@@ -27,7 +27,7 @@ annotations.
 
 {{% warn %}}
 The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
-**annotated CSV**, not **extended annotated CSV**.
+**[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)**, not **extended annotated CSV**.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
@@ -45,6 +45,7 @@ Extended annotated CSV extends and adds the following annotations:
 - [datatype](#datatype)
 - [constant](#constant)
 - [timezone](#timezone)
+- [concat](#concat)
 
 ### datatype
 Use the `#datatype` annotation to specify the [line protocol element](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
@@ -324,6 +325,18 @@ Use the `±HHmm` format to specify the timezone offset relative to UTC.
 ```
 #timezone -0600
 ```
+
+### concat
+
+The `#concat` annotation adds a new column that is concatenated from existing columns according to bash-like string interpolation literal with variables referencing existing column labels.
+
+For example:
+
+```
+#concat,string,fullName,${firstName} ${lastName}
+```
+
+This is especially useful when constructing a timestamp from multiple columns.
 
 ## Define custom column separator
 If columns are delimited using a character other than a comma, use the `sep`
