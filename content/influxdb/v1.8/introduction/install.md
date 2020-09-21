@@ -8,6 +8,7 @@ menu:
     parent: Introduction
 aliases:
   - /influxdb/v1.8/introduction/installation/
+v2: /influxdb/v2.0/get-started/
 ---
 
 This page provides directions for installing, starting, and configuring InfluxDB open source (OSS).

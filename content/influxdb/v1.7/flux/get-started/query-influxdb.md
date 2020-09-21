@@ -8,6 +8,8 @@ menu:
     weight: 1
 aliases:
   - /influxdb/v1.7/flux/getting-started/query-influxdb/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/query-influxdb/
+v2: /influxdb/v2.0/query-data/get-started/query-influxdb/
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.

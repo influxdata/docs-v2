@@ -8,6 +8,8 @@ menu:
     name: Manipulate timestamps
     parent: Query with Flux
 weight: 20
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/manipulate-timestamps/
+v2: /influxdb/v2.0/query-data/flux/manipulate-timestamps/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.

@@ -1,4 +1,4 @@
-{{ $latestInfluxDBVersion := index (last 1 $.Site.Data.products.influxdb.versions) 0 }}
+{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 0 | default "v2.0" }}
 <div class="modal">
   <div class="modal-overlay"></div>
   <div class="modal-wrapper">

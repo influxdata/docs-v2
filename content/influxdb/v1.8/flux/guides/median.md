@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: Median
 list_query_example: median
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/median/
+v2: /influxdb/v2.0/query-data/flux/median/
 ---
 
 Use the [`median()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/median/)

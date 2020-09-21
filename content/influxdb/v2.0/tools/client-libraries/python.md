@@ -4,11 +4,12 @@ list_title: Python
 description: >
   Use the Python client library to interact with InfluxDB.
 menu:
-  influxdb_2_0_ref:
+  influxdb_2_0:
     name: Python
-    parent: Client libraries
+    parent: Use client libraries
 influxdb/v2.0/tags: [client libraries, python]
 aliases:
+  - /influxdb/v2.0/reference/api/client-libraries/python/
   - /influxdb/v2.0/reference/api/client-libraries/python-cl-guide/
 weight: 201
 ---

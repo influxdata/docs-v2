@@ -8,6 +8,8 @@ menu:
     weight: 2
 aliases:
   - /influxdb/v1.7/flux/getting-started/transform-data/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/transform-data/
+v2: /influxdb/v2.0/query-data/get-started/transform-data/
 ---
 
 When [querying data from InfluxDB](/influxdb/v1.7/flux/get-started/query-influxdb),
@@ -36,7 +38,7 @@ from(bucket:"telegraf/autogen")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/custom-functions) in your Flux queries.
+You can also [create custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) in your Flux queries.
 _Functions are covered in detail in the [Flux functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.

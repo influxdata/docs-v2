@@ -51,19 +51,23 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 _See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
 
 ## InfluxQL support
-InfluxQL in InfluxDB 2.0 supports **read-only** queries.
+InfluxQL in InfluxDB 2.0 supports **read-only** queries (with two exceptions shown below).
 
 {{< flex >}}
 {{< flex-content >}}
 {{% note %}}
 ##### Supported InfluxQL queries
 
+- `DELETE`*
+- `DROP MEASUREMENT`*
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
 - `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
+
+\* These commands delete data.
 {{% /note %}}
 {{< /flex-content >}}
 {{< flex-content >}}
@@ -73,8 +77,8 @@ InfluxQL in InfluxDB 2.0 supports **read-only** queries.
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-- `DELETE`
-- `DROP`
+<!-- - `DELETE` -->
+- `DROP` (see above)
 - `GRANT`
 - `KILL`
 - `REVOKE`

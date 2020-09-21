@@ -16,7 +16,7 @@ InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in m
 
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
-[InfluxDB API](/influxdb/v2.0/reference/api/), [InfluxDB client libraries](/influxdb/v2.0/reference/api/client-libraries/),
+[InfluxDB API](/influxdb/v2.0/reference/api/), [InfluxDB client libraries](/influxdb/v2.0/tools/client-libraries/),
 [`influx` CLI](/influxdb/v2.0/reference/cli/influx/), or [Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/).
 
 {{< cloud_regions >}}

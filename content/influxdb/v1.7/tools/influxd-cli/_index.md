@@ -6,6 +6,7 @@ menu:
     name: influxd
     weight: 10
     parent: Tools
+v2: /influxdb/v2.0/reference/cli/influxd/
 ---
 
 The `influxd` command line interface (CLI) starts and runs all the processes necessary for InfluxDB to function.

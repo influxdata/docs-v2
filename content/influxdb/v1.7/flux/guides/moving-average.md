@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: Moving Average
 list_query_example: moving_average
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/moving-average/
+v2: /influxdb/v2.0/query-data/flux/moving-average/
 ---
 
 Use the [`movingAverage()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/)

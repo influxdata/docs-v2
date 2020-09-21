@@ -9,6 +9,7 @@ menu:
     name: Get started with InfluxDB
     weight: 30
     parent: Introduction
+v2: /influxdb/v2.0/get-started/
 ---
 
 With InfluxDB open source (OSS) [installed](/influxdb/v1.8/introduction/installation), you're ready to start doing some awesome things.

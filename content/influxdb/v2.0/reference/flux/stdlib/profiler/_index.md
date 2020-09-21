@@ -56,9 +56,12 @@ include a table with the following columns:
 - **influxdb/scanned-values**: value scanned by InfluxDB.
 - **influxdb/scanned-bytes**: number of bytes scanned by InfluxDB.
 
-#### Use the query profiler to output statistics about query execution
+#### Use the query profiler
+
+Use the query profiler to output statistics about query execution.
+
 ```js
-import "profilers"
+import "profiler"
 
 option profiler.enabledProfiles["query"]
 

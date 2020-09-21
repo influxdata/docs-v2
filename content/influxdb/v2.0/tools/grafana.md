@@ -5,9 +5,11 @@ description: >
 menu:
   influxdb_2_0:
     name: Use Grafana
-    parent: Other visualization tools
-weight: 201
+    parent: Tools & integrations
+weight: 104
 influxdb/v2.0/tags: [grafana]
+aliases:
+  - /influxdb/v2.0/visualize-data/other-tools/
 related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/v2.0/query-data/get-started/
@@ -48,7 +50,7 @@ configure your InfluxDB connection:
 
 1. Under **Connection**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/) **with the `/api/v2` path**.
+    - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
         http://localhost:8086/api/v2

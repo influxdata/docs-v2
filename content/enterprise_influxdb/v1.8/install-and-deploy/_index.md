@@ -11,8 +11,8 @@ menu:
 
 Install or deploy your InfluxDB Enterprise cluster in the environment of your choice:
 
-- [Your own environment](#your-production-environment)
-- [Your cloud provider](#your-cloud-provider)
+- Your own environment
+- Your cloud provider
 
 ## Your production environment
 
