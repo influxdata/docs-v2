@@ -67,6 +67,7 @@ influx [command]
 | [template](/influxdb/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
 | [transpile](/influxdb/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/influxdb/v2.0/reference/cli/influx/user)             | User management commands                             |
+| [version](/influxdb/v2.0/reference/cli/influx/version)       | Print the influx CLI version                         |
 | [write](/influxdb/v2.0/reference/cli/influx/write)           | Write points to InfluxDB                             |
 
 ## Mapped environment variables
