@@ -11,7 +11,7 @@ menu:
     parent: Visualization types
 ---
 
-The **Mosaic** visualization displays the most recent value for a time series in a mosaic.
+The **Mosaic** visualization displays data from two or more qualitative variables.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="mosaic example" />}}
 

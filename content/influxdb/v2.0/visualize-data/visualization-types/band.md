@@ -11,7 +11,7 @@ menu:
     parent: Visualization types
 ---
 
-The **Band** visualization displays the most recent value for a time series in a Band.
+The **Band** visualization displays the upper and lower boundaries for groups of data over time.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-Band-example-8.png" alt="Band example" />}}
 
