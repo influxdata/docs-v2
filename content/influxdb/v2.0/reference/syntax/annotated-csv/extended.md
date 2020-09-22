@@ -337,6 +337,16 @@ For example:
 ```
 
 This is especially useful when constructing a timestamp from multiple columns.
+For example, the following annotation will combine the given CSV columns into a timestamp:
+
+```
+#concat,dateTime:2006-01-02,${Year}-${Month}-${Day}
+
+Year,Month,Day,Hour,Minute,Second,Tag,Value
+2020,05,22,00,00,00,test,0
+2020,05,22,00,05,00,test,1
+2020,05,22,00,10,00,test,2
+```
 
 ## Define custom column separator
 If columns are delimited using a character other than a comma, use the `sep`
