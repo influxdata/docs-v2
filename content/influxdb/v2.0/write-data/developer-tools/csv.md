@@ -226,6 +226,14 @@ influx write -b example-bucket \
 Skipped rows are ignored and are not written to InfluxDB.
 {{% /warn %}}
 
+Use the `--error-file` flag to record errors to a file.
+The error file identifies all rows that cannot be imported and includes error messages for debugging.
+For example:
+
+```error : line 3: column 'a': '1.1' cannot fit into long data type
+cpu,1.1
+```
+
 ## Advanced examples
 
 - [Define constants](#define-constants)
