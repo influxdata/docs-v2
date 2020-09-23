@@ -1,5 +1,5 @@
 ---
-title: InfluxDB API
+title: Use InfluxDB API
 seotitle: Write data with the InfluxDB API
 list_title: Write data with the InfluxDB API
 weight: 206
