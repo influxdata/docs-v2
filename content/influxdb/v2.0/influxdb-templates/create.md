@@ -115,7 +115,7 @@ For information about flags, see the
 
 ### Export specific resources
 
-To export specific resources to a template manifest, use the `influx export` with resource flags for each resource to include.
+To export specific resources within an organization to a template manifest, use the `influx export` with resource flags for each resource to include.
 Provide the following:
 
 - **Organization name** or **ID**
