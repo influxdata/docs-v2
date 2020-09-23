@@ -28,7 +28,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
     ```
 
 2. Ensure that InfluxDB is running.
-   If running InfluxDB locally, visit http://localhost:9999.
+   If running InfluxDB locally, visit http://localhost:8086.
    (If using InfluxDB Cloud, visit the URL of your InfluxDB Cloud UI.
    For example: https://us-west-2-1.aws.cloud2.influxdata.com.)
 
@@ -50,7 +50,7 @@ We are going to write some data in [line protocol](/influxdb/v2.0/reference/synt
    org = "<my-org>"
    token = "<my-token>"
    # Store the URL of your InfluxDB instance
-   url="http://localhost:9999"
+   url="http://localhost:8086"
    ```
 
 3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters.
@@ -87,7 +87,7 @@ bucket = "<my-bucket>"
 org = "<my-org>"
 token = "<my-token>"
 # Store the URL of your InfluxDB instance
-url="http://localhost:9999"
+url="http://localhost:8086"
 
 client = influxdb_client.InfluxDBClient(
     url=url,

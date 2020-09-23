@@ -678,7 +678,7 @@ When a user selects an InfluxDB product and region, example URLs in code blocks
 throughout the documentation are updated to match their product and region.
 InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
 
-By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:9999`.
+By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:8086`.
 Use this URL in all code examples that should be updated with a selected provider and region.
 
 For example:
@@ -686,14 +686,14 @@ For example:
 ~~~
 ```sh
 # This URL will get updated
-http://localhost:9999
+http://localhost:8086
 
 # This URL will NOT get updated
 http://example.com
 ```
 ~~~
 
-If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:9999`
+If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:8086`
 in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
 
 ### Exempt URLs from getting updated
@@ -704,7 +704,7 @@ just before the code block.
 {{< keep-url >}}
 ```
 // This URL won't get updated
-http://localhost:9999
+http://localhost:8086
 ```
 ~~~
 

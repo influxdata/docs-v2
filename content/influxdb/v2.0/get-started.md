@@ -84,7 +84,7 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
 
 {{% cloud %}}
 All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
-References to the InfluxDB user interface (UI) or localhost:9999 refer to your
+References to the InfluxDB user interface (UI) or localhost:8086 refer to your
 {{< cloud-name >}} UI.
 {{% /cloud %}}
 
@@ -149,7 +149,7 @@ In a terminal, run the following command:
 ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u http://localhost:8086 \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a
@@ -209,7 +209,7 @@ In a terminal, run the following command:
 ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u http://localhost:8086 \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a
@@ -291,7 +291,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 #### Networking ports
 
-By default, InfluxDB uses TCP port `9999` for client-server communication over
+By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
@@ -374,7 +374,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 #### Networking ports
 
-By default, InfluxDB uses TCP port `9999` for client-server communication over
+By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
@@ -415,11 +415,11 @@ influxd --reporting-disabled
 ### Download and run InfluxDB v2.0 beta
 
 Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
-Expose port `9999`, which InfluxDB uses for client-server communication over
+Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-beta
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -434,7 +434,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disabled
 ```
 {{% /note %}}
 
@@ -495,10 +495,10 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 
     You should see an IP address after `Endpoints` in the command's output.
 
-6. Forward port 9999 from inside the cluster to localhost:
+6. Forward port 8086 from inside the cluster to localhost:
 
     ```sh
-    kubectl port-forward -n influxdb service/influxdb 9999:9999
+    kubectl port-forward -n influxdb service/influxdb 8086:8086
     ```
 
 {{% /tab-content %}}
@@ -523,7 +523,7 @@ the `influx` command line interface (CLI).
 {{% tab-content %}}
 ### Set up InfluxDB through the UI
 
-1. With InfluxDB running, visit [localhost:9999](http://localhost:9999).
+1. With InfluxDB running, visit [localhost:8086](http://localhost:8086).
 2. Click **Get Started**
 
 #### Set up your initial user
@@ -546,7 +546,7 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
     ```sh
       # Set up a configuration profile
       influx config create -n default \
-        -u http://localhost:9999 \
+        -u http://localhost:8086 \
         -o example-org \
         -t mySuP3rS3cr3tT0keN \
         -a

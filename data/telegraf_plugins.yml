@@ -613,7 +613,7 @@ input:
       ```toml
       [[inputs.prometheus]]
         ## An array of urls to scrape metrics from.
-        urls = ["http://localhost:9999/metrics"]
+        urls = ["http://localhost:8086/metrics"]
       ```
       </div>
     introduced: 1.8.0

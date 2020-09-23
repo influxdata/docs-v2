@@ -59,7 +59,7 @@ Use the Go library to write and query data from InfluxDB.
    org := "example-org"
    token := "example-token"
    // Store the URL of your InfluxDB instance
-   url := "http://localhost:9999"
+   url := "http://localhost:8086"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
@@ -105,7 +105,7 @@ Use the Go library to write data to InfluxDB.
   org := "example-org"
   token := "example-token"
   // Store the URL of your InfluxDB instance
-  url := "http://localhost:9999"
+  url := "http://localhost:8086"
 	// Create new client with default option for server url authenticate by token
 	client := influxdb2.NewClient(url, token)
 	// User blocking write client for writes to desired bucket

@@ -25,13 +25,14 @@ influx write [command]
 ```
 
 ## Subcommands
-| Subcommand                                        | Description                         |
-|:----------                                        |:-----------                         |
+| Subcommand                                                 | Description                         |
+|:----------                                                 |:-----------                         |
 | [dryrun](/influxdb/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
 | Flag |                    | Description                                                           | Input type | {{< cli/mapped >}}   |
 |:---- |:---                |:-----------                                                           |:----------:|:------------------   |
+| `-c` | `--active-config`  | CLI configuration to use for command                                  | string     |                      |
 | `-b` | `--bucket`         | Bucket name                                                           | string     | `INFLUX_BUCKET_NAME` |
 |      | `--bucket-id`      | Bucket ID                                                             | string     | `INFLUX_BUCKET_ID`   |
 |      | `--configs-path`   | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |
@@ -41,7 +42,7 @@ influx write [command]
 |      | `--format`         | Input format (`lp` or `csv`, default `lp`)                            | string     |                      |
 |      | `--header`         | Prepend header line to CSV input data                                 | string     |                      |
 | `-h` | `--help`           | Help for the `dryrun` command                                         |            |                      |
-|      | `--host`           | HTTP address of InfluxDB (default `http://localhost:9999`)            | string     | `INFLUX_HOST`        |
+|      | `--host`           | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
 | `-o` | `--org`            | Organization name                                                     | string     | `INFLUX_ORG`         |
 |      | `--org-id`         | Organization ID                                                       | string     | `INFLUX_ORG_ID`      |
 | `-p` | `--precision`      | Precision of the timestamps (default `ns`)                            | string     | `INFLUX_PRECISION`   |

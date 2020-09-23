@@ -27,7 +27,7 @@ For InfluxDB OSS, the default URL is the following:
 
 {{< keep-url >}}
 ```
-http://localhost:9999/
+http://localhost:8086/
 ```
 
 ### Customize your InfluxDB OSS URL

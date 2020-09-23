@@ -80,7 +80,7 @@ Below is an example `curl` command that queries InfluxDB:
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
+curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
@@ -93,7 +93,7 @@ curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:9999/api/v2/query?org=my-org -XPOST -sS \
+curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Accept: application/csv' \
   -H 'Content-type: application/vnd.flux' \
