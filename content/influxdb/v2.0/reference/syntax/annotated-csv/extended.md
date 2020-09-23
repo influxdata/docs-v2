@@ -27,7 +27,7 @@ annotations.
 
 {{% warn %}}
 The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
-**[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)**, not **extended annotated CSV**.
+[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/), not extended annotated CSV.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
@@ -312,6 +312,13 @@ the constant definition is the **column-value**.
 Use the `#timezone` annotation to update timestamps to a specific timezone.
 By default, timestamps are parsed as UTC.
 Use the `±HHmm` format to specify the timezone offset relative to UTC.
+
+### strict mode
+Use the `:strict` keyword to indicate a loss of precision when parsing `long` or `unsignedLong` data types.
+Turn on strict mode by using a column data type that ends with `strict`, such as `long:strict`.
+When parsing `long` or `unsignedLong` value from a string value with fraction digits, the whole CSV row fails when in a strict mode.
+A warning is printed when not in a strict mode, saying `line x: column y: '1.2' truncated to '1' to fit into long data type`.
+For more information on strict parsing, see the [package documentation](https://github.com/influxdata/influxdb/tree/master/pkg/csv2lp).
 
 ##### Timezone examples
 | Timezone                        | Offset  |
