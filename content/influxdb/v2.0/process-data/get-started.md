@@ -92,7 +92,7 @@ specific use case.
 {{% note %}}
 #### Account for latent data with an offset
 
-To account for latent data (for example, your edge devices), use an offset in your task. For example, set a task to run `every: 1h` and `offset: 5m`. The task executes 5 minutes late but the query [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) time is on the exact hour.
+To account for latent data (like data streaming from your edge devices), use an offset in your task. For example, if you set a task interval on the hour with the options `every: 1h` and `offset: 5m`, a task executes 5 minutes after the task interval but the query [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) time is on the exact hour.
 
 {{% /note %}}
 
