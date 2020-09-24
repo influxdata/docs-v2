@@ -27,7 +27,7 @@ pagerduty.sendEvent(
   class: "cpu usage",
   group: "app-stack",
   severity: "ok",
-  component: "postgres",
+  eventAction: "trigger",
   source: "monitoringtool:vendor:region",
   summary: "This is an example summary.",
   timestamp: "2016-07-17T08:42:58.315+0000"
@@ -103,13 +103,6 @@ The type of event to send to PagerDuty.
 - `trigger`
 - `resolve`
 - `acknowledge`
-
-_**Data type:** String_
-
-### component
-The component of the source machine responsible for the event.
-Components are user-defined.
-For example, `mysql` or `eth0`.
 
 _**Data type:** String_
 
