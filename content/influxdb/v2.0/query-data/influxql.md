@@ -42,7 +42,16 @@ curl -G https://cloud2.influxdata.com/query?db=db&rp=rp \
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
-## Map a bucket to a database and retention policy
+## Database and retention policy mapping
+
+InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
+and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
+policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
+_See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
+
+### Map a bucket to a database and retention policy
 
 If you have an existing bucket that does't follow the **database/retention-policy**
 naming convention, you **must** manually create a database and retention policy
@@ -75,12 +84,6 @@ curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
 _For more information, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
 
 
-InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
-and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
-into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
-policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
-_See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
 
 ## InfluxQL support
 InfluxQL in InfluxDB 2.0 supports **read-only** queries.
