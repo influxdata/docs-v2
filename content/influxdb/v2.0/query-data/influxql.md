@@ -44,7 +44,6 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## Map a bucket to a database and retention policy
 
-## Manually create and manage DBRP mappings
 If you have an existing bucket that does't follow the **database/retention-policy**
 naming convention, you **must** manually create a database and retention policy
 mapping to query that bucket with the `/query` compatibility API.
