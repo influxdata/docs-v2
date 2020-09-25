@@ -10,7 +10,7 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-If it's your first time contributing and you're looking for an easy update, check out out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!
+**If it's your first time contributing and you're looking for an easy update, check out out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!**
 
 ## Make suggested updates
 
