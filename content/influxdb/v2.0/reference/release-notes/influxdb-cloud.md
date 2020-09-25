@@ -16,7 +16,7 @@ InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates b
 
 ### Install and customize InfluxDB community templates in the Cloud UI
 
-Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface. For more details, see how to [install and customize a template in the UI](#install-and-customize-a-template-in-the-cloud-ui).
+Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](#install-and-customize-a-template-in-the-cloud-ui).
 
 ## 2020-09-02
 
