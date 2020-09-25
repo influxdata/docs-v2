@@ -16,14 +16,15 @@ with the InfluxData community.
 
 **InfluxDB templates do the following:**
 
-- Reduce setup time by giving you resources that are already configured for your use-case.
+- Reduce setup time by giving you resources that are already configured for your use case.
 - Facilitate secure, portable, and source-controlled InfluxDB resource states.
 - Simplify sharing and using pre-built InfluxDB solutions.
 
 {{< youtube 2JjW4Rym9XE >}}
 
 ## Template manifests
-A template consists of one or more files known as **manifests** that defines the
+
+A template consists of one or more files known as **manifests** that define the
 InfluxDB [resources](#template-resources). Template manifests support the following formats:
 
 - [YAML](https://yaml.org/)
@@ -44,6 +45,7 @@ _See [Create an InfluxDB template](/v2.0/influxdb-templates/create/) for informa
 generating template manifests._
 
 ### Template resources
+
 Include the following **resources** in a template:
 
 - buckets
@@ -57,6 +59,7 @@ Include the following **resources** in a template:
 - Telegraf configurations
 
 ## Stacks
+
 Use **InfluxDB stacks** to manage InfluxDB templates.
 When you apply a template, InfluxDB associates resources in the template with a stack.
 Use stacks to add, update, or remove templated resources over time.

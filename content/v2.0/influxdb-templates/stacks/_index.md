@@ -37,7 +37,7 @@ Use stacks to save time in the following cases:
 ### Automate deployments with GitOps and stacks
 
 GitOps is popular way to configure and automate deployments. Use InfluxDB stacks in a GitOps workflow
-to automatically update distributed instances of InfluxDB OSS or InfluxDB Cloud. For a complete example, check out the blog on [Building a GitOps Workflow with InfluxDB Templates]().
+to automatically update distributed instances of InfluxDB OSS or InfluxDB Cloud.
 
 #### Set up a GitHub repository to back your InfluxDB instance
 
@@ -70,12 +70,12 @@ influxdb-assets/
 
 ```
   {{% note %}}
-  When exporting a resource in InfluxDB, InfluxDB will automatically create a `meta.name` for that resource. These names should be unique inside you InfluxDB instance, and a good naming convention can help ensure there are no colisions. Changing the `meta.name` of the InfluxDB resource will cause the stack to orphan the resource with the previous name and create a new resource with the updated name.
+  When you export a resource, InfluxDB creates a `meta.name` for that resource. These resource names should be unique inside your InfluxDB instance. Use a good naming convention to prevent duplicate `meta.names`. Changing the `meta.name` of the InfluxDB resource will cause the stack to orphan the resource with the previous name and create a new resource with the updated name.
   {{% /note %}}
 
 #### Automate the creation of a stack for each folder
 
-Each folder in your Github repository will likely become its own stack, and you'll want to automate the process to apply your changes to your InfluxDB instance. You can do that using some shell scripts and the Influx CLI. Here is an example shell script that will create a `redis` stack, and automatically apply those changes to your instance.
+To automatically create a stack from each folder in your GitHub repository, create a shell script to check for an existing stack and if the stack isn't found, use the `influx stacks init` command to create a new stack. The following sample script creates a `redis` stack and automatically apply those changes to your instance:
 
 ```sh
 echo "Checking for existing redis stack..."
@@ -97,19 +97,17 @@ influx apply --force true --stack-id $REDIS_STACK_ID -q
   The `--json` flag in the InfluxDB CLI is very useful when scripting against the CLI. This flag lets you grab important information easily using [`jq`](https://stedolan.github.io/jq/manual/v1.6/).
   {{% /note %}}
 
-You can do this for each of the stacks you are maintaining. Each time you make a change to one of the resources in the stack, you can re-run this script and your changes will be applied to the resources in your InfluxDB instance. Re-applying a stack with an updated resource won't add, delete, or duplicate resources.
-
-For a complete example, check out the blog on [Building a GitOps Workflow with InfluxDB Templates]().
+Repeat this step for each of the stacks in your repository. When a resource in your stack changes, re-run this script to apply updated resources to your InfluxDB instance. Re-applying a stack with an updated resource won't add, delete, or duplicate resources.
 
 #### Automate deployment using Github Actions or CircleCI
 
-Once you have a script to apply changes being made to your local instance, you can start to automate the deployment to other environments as needed. The InfluxDB CLI has the ability to maintain multiple [configuration profiles]() that makes it easy to issue commands against other InfluxDB instances. To apply the same script to a different InfluxDB instance, just change your active configuration profile using the `influx config set` command. You can also set the desired profile dynamically using the `-c, --active-config` flag.
+Once you have a script to apply changes being made to your local instance, automate the deployment to other environments as needed. Use the InfluxDB CLI to maintain multiple [configuration profiles]() to easily switch profile and issue commands against other InfluxDB instances. To apply the same script to a different InfluxDB instance, change your active configuration profile using the `influx config set` command. Or set the desired profile dynamically using the `-c, --active-config` flag.
 
   {{% note %}}
-  Be careful anytime you are running automation scripts against shared environments. It might be useful to manually run the steps in your script first before setting up automation.
+  Before you run automation scripts against shared environments, we recommend manually running the steps in your script.
   {{% /note %}}
 
-As long as your deployment automation software allows you to run a custom script, you can set it up to run the same script you've built locally, but against another environment. Here is an example of using a custom Github Action to do this:
+Verify your deployment automation software lets you run a custom script, and then set up the custom script you've built locally another environment. For example, here's a custom Github Action that automates deployment:
 
 ```yml
 name: deploy-influxdb-resources
@@ -145,7 +143,7 @@ jobs:
         ./setup.sh prod
 ```
 
-Check out the complete [Github Actions documentation](https://github.com/features/actions) for more information about using these in your project.
+For more information about using GitHub Actions in your project, check out the complete [Github Actions documentation](https://github.com/features/actions).
 
 ### Apply updates from source-controlled templates
 
