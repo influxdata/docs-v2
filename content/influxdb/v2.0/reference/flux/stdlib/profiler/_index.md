@@ -63,7 +63,7 @@ Use the query profiler to output statistics about query execution.
 ```js
 import "profiler"
 
-option profiler.enabledProfiles["query"]
+option profiler.enabledProfilers = ["query"]
 
 // ... Query to profile
 ```
