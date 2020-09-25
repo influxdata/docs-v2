@@ -47,9 +47,17 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+
+InfluxQL looks for a database and retention policy (elements in the FROM clause) to query from.
+To query a 2.0 bucket in InfluxQL, you must first map the bucket to a database and retention policy.
+
 To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 _See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
+
+{{% note %}}
+If you use the 1.x compatibility API to write data into InfluxDB 2.0, the database and retention policy included as query parameters were mapped to a bucket. For more detail, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
+{{% /note %}}
 
 ### Map a bucket to a database and retention policy
 

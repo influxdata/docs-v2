@@ -27,7 +27,6 @@ The DBRP mapping service uses the **database** and **retention policy** specifie
 [create DBRP mappings manually](#manually-create-and-manage-dbrp-mappings) using the `/api/v2/dbrps` API endpoint.
 
 - [DBRP mapping behavior](#dbrp-mapping-behavior)
-- [Manually create and manage DBRP mappings](#manually-create-and-manage-dbrp-mappings)
 
 ### Default retention policies
 A database can have multiple retention policies with one set as default.
