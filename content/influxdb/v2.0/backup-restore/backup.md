@@ -18,12 +18,6 @@ data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
 
-{{% warn %}}
-If you set up InfluxDB using **v2.0.0-beta.1** or earlier, you cannot back up data.
-Root tokens created prior to **v2.0.0-beta.2** do not have the necessary permissions.
-To succesfully use the backup tool, set up a new InfluxDB instance using **v2.0.0-beta.2+**.
-{{% /warn %}}
-
 {{% cloud %}}
 The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
 {{% /cloud %}}
