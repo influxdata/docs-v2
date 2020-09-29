@@ -10,6 +10,8 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
+*If it's your first time contributing and you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!*
+
 ## Make suggested updates
 
 ### Fork and clone InfluxData Documentation Repository
@@ -59,7 +61,7 @@ seotitle: # Page title used in the html <head> title and used in search engine r
 list_title: # Title used in article lists generated using the {{< children >}} shortcode
 description: # Page description displayed in search engine results
 menu:
-  v2_0:
+  influxdb_2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
@@ -75,6 +77,8 @@ list_code_example: # Code example included with article descriptions in children
 list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
   # References to examples in data/query_examples
 products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
+canonical: # Path to canonical page, overrides auto-gen'd canonical URL
+v2: # Path to v2 equivalent page
 ```
 
 #### Title usage
@@ -209,6 +213,39 @@ If all content in an article is OSS-specific, include `oss` in the `products` fr
 products: [oss]
 ```
 
+### Latest links
+Each of the InfluxData projects have different "latest" versions.
+Use the `{{< latest >}}` shortcode to populate link paths with the latest version
+for the specified project.
+
+```md
+[Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
+```
+
+To constrain the latest link to a major version, include a second argument with
+the major version:
+
+```md
+[Link to latest InfluxDB 1.x](/{{< latest "influxdb" "v1" >}}/path/to/doc/)]
+```
+
+`{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
+`{{< latest "influxdb" "v1" >}}` is replaced with `influxdb/v1.8` (or whatever the latest v1.x version is).
+
+Use the following for project names:
+
+- influxdb
+- telegraf
+- chronograf
+- kapacitor
+- enterprise_influxdb
+
+**Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
+
+```md
+/{{< latest "telegraf" >}}/
+```
+
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
 Ther following three must be used:
@@ -337,6 +374,25 @@ to seeing the full content block.
 {{% truncate %}}
 Truncated markdown content here.
 {{% /truncate %}}
+```
+
+### Expandable accordion content blocks
+Use the `{{% expand "Item label" %}}` shortcode to create expandable, accordion-style content blocks.
+Each expandable block needs a label that users can click to expand or collpase the content block.
+Pass the label as a string to the shortcode.
+
+```md
+{{% expand "Lable 1"}}
+Markdown content associated with label 1.
+{{% /expand %}}
+
+{{% expand "Lable 2"}}
+Markdown content associated with label 2.
+{{% /expand %}}
+
+{{% expand "Lable 3"}}
+Markdown content associated with label 3.
+{{% /expand %}}
 ```
 
 ### Generate a list of children articles
@@ -572,16 +628,18 @@ When defining the menu for reference content, use the following pattern:
 ```yaml
 # Pattern
 menu:
-  v<major-version-number>_<minor-version-number>_ref:
+  <project>_<major-version-number>_<minor-version-number>_ref:
     # ...
 
 # Example
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     # ...
 ```
 ### Image naming conventions
-Save images using the following naming format: `version-context-description.png`. For example, `2-0-visualizations-line-graph.png` or `2-0-tasks-add-new.png`. Specify a version other than 2.0 only if the image is specific to that version.
+Save images using the following naming format: `project/version-context-description.png`.
+For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
+Specify a version other than 2.0 only if the image is specific to that version.
 
 ## InfluxDB API documentation
 InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
@@ -589,6 +647,33 @@ InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
+
+## Canonical URLs
+Search engines use canonical URLs to accurately rank pages with similar or identical content.
+The `canonical` HTML meta tag identifies which page should be used as the source of truth.
+
+By default, canonical URLs are automatically generated for each page in the InfluxData
+documentation using the latest version of the current product and the current path.
+
+Use the `canonical` frontmatter to override the auto-generated canonical URL.
+
+_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
+
+```yaml
+canonical: /path/to/canonical/doc/
+
+# OR
+
+canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
+```
+
+## v2 equivalent documentation
+To display a notice on a 1.x page that links to an equivalent 2.0 page,
+add the following frontmatter to the 1.x page:
+
+```yaml
+v2: /influxdb/v2.0/get-started/
+```
 
 ## InfluxDB URLs
 When a user selects an InfluxDB product and region, example URLs in code blocks
@@ -660,22 +745,24 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 3. Duplicate the most recent version's content directory:
    ```sh
    # From the root of the project
-   cp content/v2.0 content/v2.1
+   cp content/influxdb/v2.0 content/influxdb/v2.1
    ```
 
 4. Find and replace all instances of the old version number with the new version
    **(only within the new version directory)**.
    Be sure to find and replace both the following forms of the version number:
+
    ```
    v2.0 -> v2.1
    v2_0 -> v2_1
    ```
 
-5. Add the new version tag taxonomy to the `config.toml` in the root of the project.
+5. Add the new product and version tag taxonomy to the `config.toml` in the root of the project.
+
    ```toml
    [taxonomies]
-     "v2.0/tag" = "v2.0/tags"
-     "v2.1/tag" = "v2.1/tags"
+     "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+     "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
 6. Update the `latest_version` in `data/version.yaml`:

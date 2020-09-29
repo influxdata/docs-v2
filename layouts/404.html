@@ -1,34 +1,70 @@
-{{ partial "header.html" . }}
+<!doctype html>
+<html lang="en">
+  <head>
+    {{ partial "header/google-analytics-head.html" }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Page not found</title>
+    <meta name="description" content="Whoops! Looks like this page doesn't exist.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
-<div class="error-page">
-    <div class="error-content">
-      <div class="error-code">
-        <div class="error-code-border">
-          <h1>404</h1>
+    {{ partial "header/stylesheets.html" }}
+    {{ partial "header/google-fonts.html" }}
+    {{ partial "header/javascript.html" }}
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body>
+
+    {{ partial "header/google-analytics-body.html" }}
+
+    <div class="error-page">
+        <div class="error-content">
+          <div class="error-code">
+            <div class="error-code-border">
+              <h1>404</h1>
+            </div>
+          </div>
+          <div class="wayfinding">
+            <a class="btn back" href="javascript:history.back()">Back</a>
+            <a class="btn version"></a>
+          </div>
+        	<p>Whoops! Looks like this page doesn't exist. If a link brought you here, <a href="https://github.com/influxdata/docs-v2/issues/new" target="_blank">let us know</a>. We'd like to fix it.</p>
         </div>
-      </div>
-      <div class="wayfinding">
-        <a class="btn back" href="javascript:history.back()">Back</a>
-        <a class="btn version">InfluxDB</a>
-      </div>
-    	<p>Whoops! Looks like this page doesn't exist. If a link brought you here, <a href="https://github.com/influxdata/docs-v2/issues/new" target="_blank">let us know</a>. We'd like to fix it.</p>
     </div>
-</div>
 
-<script>
-  function getProjectVersion(urlPath) {
-    if (/v[0-9][.][0-9]*/.test(urlPath)) { return urlPath.match(/v[0-9][.][0-9]*/)[0] }
-    else { return undefined  }
-  }
+    <script>
+      function getProject(urlPath) {
+        if      (/^\/influxdb\//.test(urlPath)) { return {name: 'InfluxDB', path: '/influxdb'} }
+        else if (/^\/telegraf\//.test(urlPath)) { return {name: 'Telegraf', path: '/telegraf'} }
+        else if (/^\/chronograf\//.test(urlPath)) { return {name: 'Chronograf', path: '/chronograf'} }
+        else if (/^\/kapacitor\//.test(urlPath)) { return {name: 'Kapacitor', path: '/kapacitor'} }
+        else if (/^\/enterprise_influxdb\//.test(urlPath)) { return {name: 'InfluxDB Enterprise', path: '/enterprise_influxdb'} }
+        else if (/^\/platform\//.test(urlPath)) { return {name: 'InfluxData Platform', path: '/platform'} }
+        else { return undefined  }
+      }
+      function getProjectVersion(urlPath) {
+        if (/v[0-9][.][0-9]*/.test(urlPath)) { return urlPath.match(/v[0-9][.][0-9]*/)[0] }
+        else { return undefined  }
+      }
 
-  var path = window.location.pathname
-  var projectVersion = getProjectVersion(path)
+      var path = window.location.pathname
+      var project = getProject(path)
+      var projectVersion = getProjectVersion(path)
 
-  if ( projectVersion != undefined ) {
-    $('.btn.version').append(' ' + projectVersion).attr('href', '/' + projectVersion + '/');
-  } else {
-    $('.btn.version').hide()
-  }
-</script>
+      if ( project != undefined && project.path === '/platform') {
+        $('.btn.version').append(`${project.name}`).attr('href', `${project.path}/`);
+      } else if ( project != undefined && projectVersion != undefined ) {
+        $('.btn.version').append(`${project.name} ${projectVersion}`).attr('href', `${project.path}/${projectVersion}/`);
+      } else if ( project != undefined && projectVersion == undefined ){
+        $('.btn.version').append(`${project.name}`).attr('href', `${project.path}/`);
+      } else {
+        $('.btn.version').hide()
+      }
+    </script>
 
-{{ partial "footer.html" . }}
+  </body>
+{{ partial "footer/javascript.html" . }}
+</html>
+

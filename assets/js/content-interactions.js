@@ -87,12 +87,12 @@ $(".truncate-toggle").click(function(e) {
   $(this).closest('.truncate').toggleClass('closed');
 })
 
-//////////////////// Replace Missing Images with Placeholder ///////////////////
+////////////////////////////// Expand Accordians ///////////////////////////////
 
-$(".article--content img").on("error", function() {
-  $(this).attr("src", "/img/coming-soon.svg");
-  $(this).attr("style", "max-width:500px;");
-});
+$('.expand-label').click(function() {
+  $(this).children('.expand-toggle').toggleClass('open')
+  $(this).next('.expand-content').slideToggle(200)
+})
 
 ////////////////////////// Inject tooltips on load //////////////////////////////
 
