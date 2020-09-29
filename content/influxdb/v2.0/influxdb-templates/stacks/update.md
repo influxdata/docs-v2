@@ -12,7 +12,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB stacks
     name: Update a stack
-weight: 202
+weight: 203
 related:
   - /influxdb/v2.0/reference/cli/influx/apply
   - /influxdb/v2.0/reference/cli/influx/stacks/update/
