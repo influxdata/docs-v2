@@ -21,6 +21,7 @@ table {
 
   th  {
     color: $g20-white;
+    strong { color: $g20-white; }
     &:first-child {
       border-radius: ($radius) 0 0 0;
     }

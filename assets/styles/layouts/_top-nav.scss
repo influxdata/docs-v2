@@ -2,6 +2,9 @@
   display: flex;
   padding: .75rem .75rem .65rem;
   justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1;
 
   .influx-home {
     font-family: 'icomoon';
@@ -35,19 +38,36 @@
     }
   }
 
-  .version-selector {
+  .topnav-left {
+    z-index: 1;
+  }
+
+  .topnav-right {
+    display: flex;
+    position: absolute;
+    right: .75rem;
+    top: .75rem;
+  }
+
+  .selector-dropdowns {
+    display: flex;
+    z-index: 100;
+    padding-right: .25rem;
+  }
+
+  .dropdown {
   display: inline-block;
-  position: absolute;
-  z-index: 100;
-  right: 5.5rem;
+  position: relative;
+  align-self: flex-start;
+  margin-left: .25rem;
   color: $g20-white;
   height: 2rem;
-  @include gradient($version-selector-gradient);
+  @include gradient($default-dropdown-gradient);
+  background-attachment: local !important;
   font-weight: $medium;
   border-radius: $radius;
   overflow: hidden;
   cursor: pointer;
-  transition: right .2s;
 
     .selected {
       padding: 0 1.75rem 0 .75rem;
@@ -70,10 +90,12 @@
       }
     }
 
-    ul.version-list {
+    ul.item-list {
       padding: 0;
       margin: 0;
       list-style: none;
+      display: flex;
+      flex-direction: column-reverse;
     }
     a {
       display: block;
@@ -81,9 +103,8 @@
       color: $g20-white;
       padding: .5rem 1.5rem .5rem .75rem;
       background: rgba($g20-white, 0);
-      &:hover {
-        background: rgba($g20-white, .2)
-      }
+      &:hover { background: rgba($g20-white, .2) }
+      &.active { background: rgba($g20-white, .2) }
       &:last-child {
         border-radius: 0 0 $radius $radius;
         position: relative;
@@ -99,6 +120,11 @@
         }
       }
     }
+  }
+
+  .buttons {
+    display: flex;
+    margin-left: .5rem;
   }
 
   .theme-switcher, #search-btn, .url-trigger {
@@ -128,10 +154,13 @@
   .url-trigger {
     font-size: 1.1rem;
     vertical-align: top;
-    margin: .1rem 0 0 0;
+
+    z-index: 1;
   }
 
-  #search-btn {
+  .search-btn {
+    margin-top: .15rem;
+    width: 0;
     opacity: 0;
   }
 }
@@ -140,6 +169,32 @@
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+@include media(medium){
+  .docs-home {
+    .long { display: none; }
+    .short:after { content: "s" }
+  }
+}
+
 @include media(small) {
   .icon-influx-logotype { display: none; }
+
+  .topnav { min-height: 5.75rem; }
+  .topnav-right {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    width: calc(100% - 1.5rem);
+  }
+  .search-btn { display: none; }
+
+  .selector-dropdowns {
+    width: 100%;
+    margin-top: .6rem;
+    .dropdown {
+      flex-grow: 1;
+      height: 2.24rem;
+      .selected { padding: .12rem 1.75rem .12rem .75rem; }
+      &:after { top: .57rem; }
+    }
+  }
 }
