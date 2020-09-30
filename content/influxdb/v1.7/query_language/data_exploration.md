@@ -1072,7 +1072,7 @@ for details on the `time_interval`.
 
 The `offset_interval` is a
 [duration literal](/influxdb/v1.7/query_language/spec/#durations).
-It shifts forward or back tje InfluxDB database's preset time boundaries.
+It shifts forward or back the InfluxDB database's preset time boundaries.
 The `offset_interval` can be positive or negative.
 
 ##### `fill(<fill_option>)`

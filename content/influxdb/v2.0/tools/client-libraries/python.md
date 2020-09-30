@@ -56,7 +56,7 @@ We are going to write some data in [line protocol](/influxdb/v2.0/reference/synt
 3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters.
 
    ```python
-   client = InfluxDBClient(
+   client = influxdb_client.InfluxDBClient(
       url=url,
       token=token,
       org=org

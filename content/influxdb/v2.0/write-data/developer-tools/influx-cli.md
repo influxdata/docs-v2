@@ -1,5 +1,5 @@
 ---
-title: Influx CLI
+title: Use influx CLI
 seotitle: Write data with the influx CLI
 list_title: Write data with the influx CLI
 weight: 205

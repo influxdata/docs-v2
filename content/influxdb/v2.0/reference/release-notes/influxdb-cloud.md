@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Cloud release notes
+title: InfluxDB Cloud monthly updates
 description: Important changes and what's new in each InfluxDB Cloud 2.0 update.
 weight: 101
 menu:
@@ -9,6 +9,28 @@ menu:
 aliases:
   - /cloud/about/release-notes
 ---
+
+InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
+
+## 2020-09-02
+
+### Pricing updates and Azure region
+
+- Update [pricing vectors](/influxdb/v2.0/account-management/pricing-plans/#pricing-vect) to determine pricing by the total data out and query count.
+
+- Add [Microsoft Azure support](/influxdb/v2.0/reference/urls/#microsoft-azure) for the `eastus` and `westeurope` regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
+
+### Flux updates
+
+ - Add time-weighted average [`timeWeightedAvg()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/).
+ - Update [`integral()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/) with linear interpolation.
+ - Add [Flux query profiler](/influxdb/v2.0/reference/flux/stdlib/profiler/#use-the-query-profiler) to output query statistics that help you better understand query performance.
+ - Add [`tasks.lastSuccess()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) to retrieve the time of the last successful run of an InfluxDB task.
+ - Add the [`array.from` function](/influxdb/v2.0/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
+
+### Bug fixes
+
+ - Resolve issues in checks and notifications.
 
 ## 2019-09-10 _Monitoring & Alerts_
 
