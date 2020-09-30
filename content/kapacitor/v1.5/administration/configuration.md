@@ -340,6 +340,7 @@ To use Kapacitor with an InfluxDB instance that requires authentication,
 it must authenticate using an InfluxDB user with **read and write** permissions.
 {{% /note %}}
 
+{{< keep-url >}}
 ```toml
 ...
 [[influxdb]]

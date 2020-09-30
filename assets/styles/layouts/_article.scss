@@ -156,18 +156,6 @@
       text-align: center;
       padding: 1rem;
 
-      .oss:after {
-        content: 'beta';
-        display: inline-block;
-        position: relative;
-        font-style: italic;
-        font-size: .75em;
-        margin-left: .15rem;
-        padding: .1rem .4rem .12rem;
-        border-radius: 1rem;
-        border: 1px solid rgba($g20-white, .5);
-        top: -1px
-      }
     }
   }
 }

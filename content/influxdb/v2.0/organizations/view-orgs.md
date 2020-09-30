@@ -45,7 +45,7 @@ After logging in to the InfluxDB UI, your organization ID appears in the URL.
 
 
 <pre class="highlight">
-http://localhost:9999/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
+http://localhost:8086/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
 </pre>
 
 

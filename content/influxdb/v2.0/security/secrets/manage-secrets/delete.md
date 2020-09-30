@@ -35,7 +35,7 @@ to delete one or more secrets.
 
 <!-- -->
 ```bash
-curl -XGET http://localhost:9999/api/v2/orgs/<org-id>/secrets/delete \
+curl -XGET http://localhost:8086/api/v2/orgs/<org-id>/secrets/delete \
   --H 'Authorization: Token YOURAUTHTOKEN'
   --data '{
   "secrets": [

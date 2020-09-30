@@ -40,6 +40,7 @@ options task = {
 ```
 
 ## every
+
 The interval at which the task runs.
 
 _**Data type:** Duration_
@@ -70,6 +71,7 @@ options task = {
 ```
 
 ## offset
+
 Delays the execution of the task but preserves the original time range.
 For example, if a task is to run on the hour, a `10m` offset will delay it to 10
 minutes after the hour, but all time ranges defined in the task are relative to

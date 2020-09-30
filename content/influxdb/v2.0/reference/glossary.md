@@ -962,7 +962,7 @@ string values are annotated with the `string` datatype.
 
 ### TCP
 
-InfluxDB uses Transmission Control Protocol (TCP) port 9999 for client-server communication over the InfluxDB HTTP API.
+InfluxDB uses Transmission Control Protocol (TCP) port 8086 for client-server communication over the InfluxDB HTTP API.
 
 <!--ports for InfluxDB Enterprise -->
 

@@ -38,9 +38,7 @@ To query data from InfluxDB (local or remote), provide the host, organization, a
 to the [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/).
 
 ```js
-from(
-  bucket: "example-bucket",
-  host: "http://localhost:9999",
+  host: "http://localhost:8086",
   org: "example-org",
   token: "My5uP3rS3cRetT0k3n"
 )

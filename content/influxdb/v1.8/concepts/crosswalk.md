@@ -128,7 +128,7 @@ many of the outstanding feature requests that we've received since introducing I
 For a comparison between Flux and InfluxQL, see [Flux vs InfluxQL](/influxdb/v1.8/flux/flux-vs-influxql/).
 
 Flux is the primary language for working with data in [InfluxDB 2.0 OSS](/influxdb/v2.0/get-started)
-(currently in _beta_) and [InfluxDB Cloud 2.0](/influxdb/v2.0/cloud/get-started/),
+and [InfluxDB Cloud 2.0](/influxdb/v2.0/cloud/get-started/),
 a generally available Platform as a Service (PaaS) available across multiple Cloud Service Providers.
 Using Flux with InfluxDB 1.8+ lets you get familiar with Flux concepts and syntax
 and ease the transition to InfluxDB 2.0.

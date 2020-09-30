@@ -70,7 +70,7 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
       ```
    - **influxdbUrl**: _(include the bucket and org you created in InfluxDB)_
       ```
-      http://localhost:9999/api/v2/write?org=my-org&bucket=jmeter
+      http://localhost:8086/api/v2/write?org=my-org&bucket=jmeter
       ```
    - **application**: `InfluxDB2`
    - **influxdbToken**: _your InfluxDB authentication token_

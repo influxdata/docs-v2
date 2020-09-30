@@ -35,7 +35,7 @@ The AWS CloudWatch Monitoring template includes the following:
    ```sh
     ## k8s
     [[outputs.influxdb_v2]]
-     urls = ["http://influxdb.monitoring:9999"]
+     urls = ["http://influxdb.monitoring:8086"]
      organization = "InfluxData"
      bucket = "kubernetes"
      token = "secret-token"

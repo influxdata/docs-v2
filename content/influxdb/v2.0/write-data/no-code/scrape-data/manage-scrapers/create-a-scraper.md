@@ -23,7 +23,7 @@ Create a new scraper in the InfluxDB user interface (UI).
 4. Enter a **Name** for the scraper.
 5. Select a **Bucket** to store the scraped data.
 6. Enter the **Target URL** to scrape.
-   The default URL value is `http://localhost:9999/metrics`,
+   The default URL value is `http://localhost:8086/metrics`,
    which provides InfluxDB-specific metrics in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 7. Click **Create**.
 

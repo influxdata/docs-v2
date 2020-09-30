@@ -53,7 +53,7 @@ configure your InfluxDB connection:
     - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
-        http://localhost:9999/
+        http://localhost:8086/api/v2
         ```
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.0/organizations/view-orgs/).

@@ -43,7 +43,7 @@ add a new secret to your organization.
 
 <!-- -->
 ```sh
-curl -XPATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
+curl -XPATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Content-type: application/json' \
   --data '{

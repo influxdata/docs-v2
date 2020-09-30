@@ -8,6 +8,72 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.0 [2020-09-29]
+
+{{% warn %}}
+#### Manual upgrade required
+
+To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/),
+{{% /warn %}}
+
+### Breaking changes
+
+#### Manual upgrade
+
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+
+#### Port update to 8086
+
+- Change the default port of InfluxDB from 9999 back to 8086. If you would still like to run on port 9999, you can start `influxd` with the `--http-bind-address` option. You must also [update any InfluxDB CLI configuration profiles](/influxdb/v2.0/reference/cli/influx/config/set/) with the new port number.
+
+#### Support for 1.x storage engine and InfluxDB 1.x compatibility API
+
+- Port the TSM1 storage engine. This change supports a multi-shared storage engine and InfluxQL writes and queries using the InfluxDB 1.x API compatibility [`/write`](/influxdb/v2.0/reference/api/influxdb-1x/write/) and [`/query`](/influxdb/v2.0/reference/api/influxdb-1x/query/) endpoints.
+
+#### Disable delete with predicate API
+
+- Disable the delete with predicate API (`/api/v2/delete`). This API now returns a `501 Not implemented` message.
+
+### Features
+
+#### Load Data redesign
+
+- Update the Load Data page to increase discovery and ease of use. Now, you can [load data from sources in the InfluxDB user interface](/influxdb/v2.0/write-data/load-data/).
+
+#### Community templates added to InfluxDB UI
+
+- Add [InfluxDB community templates](/influxdb/v2.0/influxdb-templates/) directly in the InfluxDB user interface (UI).
+
+#### New data sources
+
+- Add InfluxDB v2 Listener, NSD, OPC-UA, and Windows Event Log to the Sources page.
+
+#### CLI updates
+
+- Add option to print raw query results in [`influx query`](/influxdb/v2.0/reference/cli/influx/query/).
+- Add ability to export resources by name using [`influx export`](/influxdb/v2.0/reference/cli/influx/export/).
+- Add new processing options and enhancements to [`influx write`](/influxdb/v2.0/reference/cli/influx/write/).
+- Add `--active-config` flag to [`influx` commands](/influxdb/v2.0/reference/cli/influx/#commands) to set the configuration for a single command.
+- Add `influxd`[configuration options](/influxdb/v2.0/reference/config-options/#configuration-options) for storage options and InfluxQL coordinator tuning.
+- Add `max-line-length` switch to the [`influx write`](/influxdb/v2.0/reference/cli/influx/write/) command to address `token too long errors` for large inputs.
+
+#### API updates
+
+- List buckets in the API now supports the `after` (ID) parameter as an alternative to `offset`.
+
+#### Task updates
+
+- Record last success and failure run times in the task.
+- Inject the task option `latestSuccessTime` in Flux `Extern`.
+
+### Bug Fixes
+
+- Add description to [`influx auth`](influxdb/v2.0/reference/cli/influx/auth/) command outputs.
+- Resolve issues with check triggers in notification tasks by including the edge of the observed boundary.
+- Detect and provide warning about duplicate tag names when writing CSV data using `influx write`.
+- Ensure the group annotation does not override the existing line part (measurement, field, tag, time) in a CSV group annotation.
+- Added `PATCH` to the list of allowed methods.
+
 ## v2.0.0-beta.16 [2020-08-06]
 
 {{% warn %}}
@@ -36,7 +102,6 @@ This release includes breaking changes:
 ### UI Improvements
 
 - Alerts page filter inputs now have tab indices for keyboard navigation.
-
 
 ## v2.0.0-beta.15 [2020-07-23]
 
