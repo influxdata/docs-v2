@@ -66,8 +66,6 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 - Record last success and failure run times in the task.
 - Inject the task option `latestSuccessTime` in Flux `Extern`.
 
-
-
 ### Bug Fixes
 
 - Add description to [`influx auth`](influxdb/v2.0/reference/cli/influx/auth/) command outputs.
