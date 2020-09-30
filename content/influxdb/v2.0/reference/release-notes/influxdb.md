@@ -20,7 +20,7 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 
 #### Manual upgrade
 
-- To continue using InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
 
 #### Port update to 8086
 
