@@ -10,15 +10,15 @@ weight: 9
 
 To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.0rc0, you must manually upgrade all resources and data to the latest version by completing the following steps:
 
-- [1. Disable existing integrations](#1-disable-existing-integrations)
-- [2. Stop existing InfluxDB beta instance](#2-stop-existing-influxdb-beta-instance)
-- [3. (Optional) Rename existing InfluxDB binaries](#3-optional-rename-existing-influxdb-binaries)
-- [4. Move existing data and start the latest InfluxDB](#4-move-existing-data-and-start-the-latest-influxdb)
-- [5. Start old InfluxDB beta instance](#5-start-old-influxdb-beta-instance)
-- [6. Create configuration profiles for the InfluxDB CLI](#6-create-configuration-profiles-for-the-influxdb-cli)
-- [7. Copy all resources from old instance to the new one](#7-copy-all-resources-from-old-instance-to-the-new-one)
-- [8. Set up integrations to point to new instance](#8-set-up-integrations-to-point-to-new-instance)
-- [9. Load historical data into new instance](#9-load-historical-data-into-new-instance)
+1. [Disable existing integrations](#1-disable-existing-integrations)
+2. [Stop existing InfluxDB beta instance](#2-stop-existing-influxdb-beta-instance)
+3. [(Optional) Rename existing InfluxDB binaries](#3-optional-rename-existing-influxdb-binaries)
+4. [Move existing data and start the latest InfluxDB](#4-move-existing-data-and-start-the-latest-influxdb)
+5. [Start old InfluxDB beta instance](#5-start-old-influxdb-beta-instance)
+6. [Create configuration profiles for the InfluxDB CLI](#6-create-configuration-profiles-for-the-influxdb-cli)
+7. [Copy all resources from old instance to the new one](#7-copy-all-resources-from-old-instance-to-the-new-one)
+8. [Set up integrations to point to new instance](#8-set-up-integrations-to-point-to-new-instance)
+9. [Load historical data into new instance](#9-load-historical-data-into-new-instance)
 
 Depending on how you have things set up and how important the data stored in InfluxDB is,
 you can determine which steps apply to you.
