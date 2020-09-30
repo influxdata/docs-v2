@@ -9,7 +9,7 @@ menu:
 ---
 
 {{% note %}}
-_The latest release of InfluxDB v2.0 beta includes **Flux v0.77.1**.
+_The latest release of InfluxDB v2.0 includes **Flux v0.77.1**.
 Though newer versions of Flux may be available, they will not be included with
 InfluxDB until the next InfluxDB v2.0 release._
 {{% /note %}}
