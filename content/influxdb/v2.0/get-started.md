@@ -13,8 +13,7 @@ aliases:
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 Start with **InfluxDB Cloud 2.0**, a fully managed and hosted version of InfluxDB 2.0,
-or **InfluxDB OSS 2.0 _(beta)_**, the open source
-version of InfluxDB 2.0.
+or **InfluxDB OSS 2.0**, the open source version of InfluxDB 2.0.
 
 <div class="get-started-btns">
   <a class="btn" href="#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
@@ -105,7 +104,7 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 
 Click the following button to download and install `influx` CLI for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -117,7 +116,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -129,7 +128,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx binary to your $PATH
-sudo cp influxdb_client_2.0.0-beta.16_darwin_amd64/influx /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_darwin_amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -170,10 +169,9 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 #### Step 1: Download influx CLI for Linux
 
-Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
+Download and install the `influx` CLI for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-rc.0_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -181,7 +179,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz
+tar xvfz influxdb_client_2.0.0-rc.0_linux_amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -193,7 +191,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_client_2.0.0-beta.16_linux_amd64/influx /usr/local/bin/
+sudo cp influxdb_client_2.0.0-rc.0_linux_amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -255,11 +253,11 @@ executables, and running the initial setup process.
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 beta
+### Download and install InfluxDB v2.0
 
-Download InfluxDB v2.0 beta for macOS.
+Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
 
@@ -269,7 +267,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_2.0.0-beta.16_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -279,7 +277,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.16_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -344,12 +342,11 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 beta
+### Download and install InfluxDB v2.0
 
-Download the InfluxDB v2.0 beta package appropriate for your chipset.
+Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 
 ### Place the executables in your $PATH
 
@@ -359,10 +356,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-beta.16_linux_amd64.tar.gz
+tar xvzf path/to/influxdb-2.0.0-rc.0_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.16_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_linux_amd64.tar.gz/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -412,14 +409,14 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
-### Download and run InfluxDB v2.0 beta
+### Download and run InfluxDB v2.0
 
-Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
+Use `docker run` to download and run the InfluxDB v2.0 Docker image.
 Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-beta
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -434,7 +431,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
 ```
 {{% /note %}}
 
