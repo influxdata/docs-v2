@@ -8,6 +8,7 @@ menu:
     name: DBRP mapping
     parent: 1.x compatibility
 weight: 302
+products: [cloud]
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/query
   - /influxdb/v2.0/reference/api/influxdb-1x/write
@@ -22,21 +23,16 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
-[Create DBRP mappings automatically](#dbrp-mapping-behavior) with the `/write` compatibility endpoint or
-[create DBRP mappings manually](#manually-create-and-manage-dbrp-mappings) using the `/api/v2/dbrps` API endpoint.
 
-- [DBRP mapping behavior](#dbrp-mapping-behavior)
-- [Manually create and manage DBRP mappings](#manually-create-and-manage-dbrp-mappings)
+{{% /note %}}
+To query using InfluxQL, if the data being queried was written to InfluxDB 2.0 with the 2.x `/write` API, you must manually create a DBRP mapping.
+For more information, see [Manually create and manage DBRP mappings](/influxdb/v2.0/query-data/influxql/#manually-create-and-manage-dbrp-mappings).
+{{% note %}}
 
 ### Default retention policies
 A database can have multiple retention policies with one set as default.
 If no retention policy is specified in a query or write request, InfluxDB uses
 the default retention policy for the specified database.
-
-## DBRP mapping behavior
-
-- [When writing data](#when-writing-data)
-- [When querying data](#when-querying-data)
 
 ### When writing data
 When writing data to InfluxDB 2.0 using the [`/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/),
@@ -50,7 +46,7 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
       database retention policy is used, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
 - If no matching bucket is found, a new **database/retention-policy** bucket is
-  created with a DBRP mapping, and data is written to the bucket.
+  automatically created with a DBRP mapping, and data is written to the bucket.
   If no retention policy is specified, `autogen` is used.
 
     {{% note %}}
@@ -65,34 +61,3 @@ the DBRP mapping service checks for the specified database and retention policy
 
 - If a mapped bucket exists, data is queried from the mapped bucket.
 - If no mapped bucket exists, InfluxDB returns an error.
-
-## Manually create and manage DBRP mappings
-If you have an existing bucket that does't follow the **database/retention-policy**
-naming convention, you **must** manually create a database and retention policy
-mapping to query that bucket with the `/query` compatibility API.
-Use the using the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#tag/DBRPs) to
-manually create and manage DBRP mappings.
-
-**To manually create a DBRP mapping, provide the following:**
-
-- authentication token
-- organization name or ID (organization or organization_id)
-- target bucket ID (bucket_id)
-- database to map
-- retention policy to map
-
-<!--  -->
-```sh
-curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
-  -H "Authorization: Token YourAuthToken" \
-  -H 'Content-type: application/json' \
-  -d '{
-        "organization": "example-org",
-        "bucket_id": "12ab34cd56ef",
-        "database": "example-db",
-        "retention_policy": "example-rp",
-        "default": true
-      }'
-```
-
-_For more information, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._

@@ -9,6 +9,7 @@ menu:
   influxdb_2_0:
     name: Query with InfluxQL
     parent: Query data
+products: [cloud]
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/
   - /influxdb/v2.0/reference/api/influxdb-1x/query
@@ -46,29 +47,66 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+
+InfluxQL looks for a database and retention policy (elements in the FROM clause) to query from.
+To query a 2.0 bucket in InfluxQL, you must first map the bucket to a database and retention policy.
+
 To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 _See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
 
-## InfluxQL support
+{{% note %}}
+If you use the 1.x compatibility API to write data into InfluxDB 2.0, the database and retention policy included as query parameters were mapped to a bucket. For more detail, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
+{{% /note %}}
 
-InfluxQL in InfluxDB 2.0 supports **read-only** queries (with two exceptions shown below).
+### Map a bucket to a database and retention policy
+
+If you have an existing bucket that does't follow the **database/retention-policy**
+naming convention, you **must** manually create a database and retention policy
+mapping to query that bucket with the `/query` compatibility API.
+Use the using the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#tag/DBRPs) to
+manually create and manage DBRP mappings.
+
+**To manually create a DBRP mapping, provide the following:**
+
+- authentication token
+- organization name or ID (organization or organization_id)
+- target bucket ID (bucket_id)
+- database to map
+- retention policy to map
+
+<!--  -->
+```sh
+curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
+  -H "Authorization: Token YourAuthToken" \
+  -H 'Content-type: application/json' \
+  -d '{
+        "organization": "example-org",
+        "bucket_id": "12ab34cd56ef",
+        "database": "example-db",
+        "retention_policy": "example-rp",
+        "default": true
+      }'
+```
+
+_For more information, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
+
+
+
+## InfluxQL support
+InfluxQL in InfluxDB 2.0 supports **read-only** queries.
 
 {{< flex >}}
 {{< flex-content >}}
 {{% note %}}
 ##### Supported InfluxQL queries
 
-- `DELETE`*
-- `DROP MEASUREMENT`*
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
 - `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
-
-\* These commands delete data.
 {{% /note %}}
 {{< /flex-content >}}
 {{< flex-content >}}
@@ -78,8 +116,8 @@ InfluxQL in InfluxDB 2.0 supports **read-only** queries (with two exceptions sho
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-<!-- - `DELETE` -->
-- `DROP` (see above)
+- `DELETE`
+- `DROP`
 - `GRANT`
 - `KILL`
 - `REVOKE`
