@@ -8,7 +8,6 @@ menu:
     parent: InfluxDB v2 API
 weight: 104
 influxdb/v2.0/tags: [influxql, query, write]
-products: [cloud]
 related:
   - /influxdb/v2.0/query-data/influxql
 ---

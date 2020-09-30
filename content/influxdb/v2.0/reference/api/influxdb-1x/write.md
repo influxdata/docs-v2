@@ -2,7 +2,7 @@
 title: /write 1.x compatibility API
 list_title: /write
 description: >
-  The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the
+  The `/write` 1.x compatibility endpoint writes data to InfluxDB 2.0 using patterns from the
   InfluxDB 1.x `/write` API endpoint.
 menu:
   influxdb_2_0_ref:
@@ -10,7 +10,6 @@ menu:
     parent: 1.x compatibility
 weight: 301
 influxdb/v2.0/tags: [write]
-products: [cloud]
 list_code_example: |
   <pre>
   <span class="api post">POST</span> https://cloud2.influxdata.com/write
@@ -19,7 +18,7 @@ related:
   - /influxdb/v2.0/reference/syntax/line-protocol
 ---
 
-The `/write` 1.x compatibilty endpoint writes data to InfluxDB 2.0 using patterns from the
+The `/write` 1.x compatibility endpoint writes data to InfluxDB 2.0 using patterns from the
 InfluxDB 1.x `/write` API endpoint.
 Use the `POST` request method to write [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
 to the `/write` endpoint.
