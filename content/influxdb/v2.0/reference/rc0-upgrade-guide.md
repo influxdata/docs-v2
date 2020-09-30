@@ -206,7 +206,7 @@ Active  Name        URL                    Org
 *       influx_old  http://localhost:9999  InfluxData
 ```
 
-You can now send commands to each of them as needed using the [`-c, --active-config`]() option in the CLI.
+You can now send commands to each of them as needed using the [`-c, --active-config`](/influxdb/v2.0/reference/cli/influx/#commands) option in the CLI.
 
 ## 7. Copy all resources from old instance to the new one
 

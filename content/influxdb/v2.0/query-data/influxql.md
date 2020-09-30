@@ -9,7 +9,6 @@ menu:
   influxdb_2_0:
     name: Query with InfluxQL
     parent: Query data
-products: [cloud]
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/
   - /influxdb/v2.0/reference/api/influxdb-1x/query
@@ -43,6 +42,7 @@ By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## Database and retention policy mapping
+
 InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
@@ -51,6 +51,7 @@ policies are mapped to buckets using the **database and retention policy (DBRP) 
 _See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
 
 ## InfluxQL support
+
 InfluxQL in InfluxDB 2.0 supports **read-only** queries (with two exceptions shown below).
 
 {{< flex >}}
