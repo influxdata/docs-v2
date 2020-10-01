@@ -102,7 +102,7 @@ Everything should still be there.
 
 {{% note %}}
 If you run into a problem about a missing migration, manually edit your bolt file to remove it.
-Use BoltBrowser to open and edit your old `influxd.bolt` file and manually remove the migration.
+Use [BoltBrowser](https://github.com/br0xen/boltbrowser) to open and edit your old `influxd.bolt` file and manually remove the migration.
 
 **Caution:** Backup your old `influxd.bolt` file before doing this, as manually editing this file could cause you to lose all your data.
 
