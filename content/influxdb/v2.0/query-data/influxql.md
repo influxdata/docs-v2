@@ -59,7 +59,7 @@ _See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more inf
 If you use the 1.x compatibility API to write data into InfluxDB 2.0, the database and retention policy included as query parameters were mapped to a bucket. For more detail, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
 {{% /note %}}
 
-{{% /note %}}
+{{% note %}}
 The mapping is automatically created only if you use the [1.x `/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/). If you used the 2.x write API and want to access that data using InfluxQL, you'll need to create a mapping. To review existing mappings, use the [`GET DBRPs` CURL command](/influxdb/v2.0/api/#operation/GetDBRPs).
 {{% /note %}}
 
