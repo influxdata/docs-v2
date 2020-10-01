@@ -36,8 +36,10 @@ Add the appropriate installation command below to your `.bashrc` or `.zshrc`.
 {{% code-tab-content %}}
 ```sh
 # macOS
-$ source $(brew --prefix)/etc/bash_completion
-$ source <(influx completion bash)
+$ COMPLETIONS_DIR=`pkg-config --variable=completionsdir bash-completion` # in bash-completion@2, as installed by Homebrew, this is the preferred directory
+$ COMPLETIONS_DIR=${COMPLETIONS_DIR:-$BASH_COMPLETION_COMPAT_DIR} # as a backup, use the backwards-compatible-with-v1 directory
+$ COMPLETIONS_DIR=${COMPLETIONS_DIR:-$(brew --prefix)/etc/bash_completion.d} # as a final backup, use the hand crafted version of the same
+$ influx completion bash > $COMPLETIONS_DIR/influx # whatever completions dir we find, write the influx completions file there
 
 # Ubuntu
 $ source /etc/bash-completion
