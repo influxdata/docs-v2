@@ -38,28 +38,27 @@ influx export all [flags]
 
 
 ## Examples
-```sh
-# Export all resources in an organization as a template
-influx export all --org $INFLUX_ORG
 
-# Export all bucket resources as a template
-influx export all --org $INFLUX_ORG --filter=resourceKind=Bucket
+### Export all resources in an organization as a template
+<pre><code>influx export all --org $INFLUX_ORG</code></pre>
 
-# Export all resources associated with label Foo
-influx export all --org $INFLUX_ORG --filter=labelName=Foo
+### Export all bucket resources as a template
+<pre><code>influx export all --org $INFLUX_ORG --filter=resourceKind=Bucket</code></pre>
 
-# Export all bucket resources and filter by label Foo
-influx export all --org $INFLUX_ORG \
+### Export all resources associated with label Foo
+<pre><code>influx export all --org $INFLUX_ORG --filter=labelName=Foo</code></pre>
+
+### Export all bucket resources and filter by label Foo
+<pre><code>influx export all --org $INFLUX_ORG \
 	--filter=resourceKind=Bucket \
-	--filter=labelName=Foo
+	--filter=labelName=Foo</code></pre>
 
-# Export all bucket or dashboard resources and filter by label Foo.
-#
-# Note: "like" filters are unioned and filter types are intersections.
-#	For example, the following will export a resource if it is a dashboard or
-#	bucket and has an associated label of Foo.
-influx export all --org $INFLUX_ORG \
+### Export all bucket or dashboard resources and filter by label Foo.
+
+<b>Note</b>: "like" filters are unioned and filter types are intersections.
+For example, the following will export a resource if it is a dashboard or bucket and has an associated label of Foo.
+
+<pre><code>influx export all --org $INFLUX_ORG \
 	--filter=resourceKind=Bucket \
 	--filter=resourceKind=Dashboard \
-	--filter=labelName=Foo
-``
+	--filter=labelName=Foo</code></pre>
