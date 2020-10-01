@@ -54,11 +54,6 @@ To automatically create new buckets, the authentication token used for the
 write request must be an **All Access token**.
     {{% /note %}}
 
-    {{% note %}}
-To automatically create new buckets, the authentication token used for the
-write request must be an **All Access token**.
-    {{% /note %}}
-
 For step-by-step instructions on mapping a bucket to a database and retention policy, see [Query data with InfluxQL](/influxdb/v2.0/query-data/influxql).
 
 ### When querying data
