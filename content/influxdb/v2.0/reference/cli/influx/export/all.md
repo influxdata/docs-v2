@@ -40,16 +40,23 @@ influx export all [flags]
 ## Examples
 
 ### Export all resources in an organization as a template
-```influx export all --org $INFLUX_ORG```
+```sh
+influx export all --org $INFLUX_ORG
+```
 
 ### Export all bucket resources as a template
-```influx export all --org $INFLUX_ORG --filter=resourceKind=Bucket```
+```sh
+influx export all --org $INFLUX_ORG --filter=resourceKind=Bucket
+```
 
 ### Export all resources associated with label Foo
-```influx export all --org $INFLUX_ORG --filter=labelName=Foo```
+```sh
+influx export all --org $INFLUX_ORG --filter=labelName=Foo
+```
 
 ### Export all bucket resources and filter by label Foo
-```influx export all --org $INFLUX_ORG \
+```sh
+influx export all --org $INFLUX_ORG \
 	--filter=resourceKind=Bucket \
 	--filter=labelName=Foo
 ```
@@ -57,7 +64,7 @@ influx export all [flags]
 ### Export all bucket or dashboard resources and filter by label Foo.
 
 <b>Note</b>: "like" filters are unioned and filter types are intersections.
-For example, the following will export a resource if it is a dashboard or bucket and has an associated label of Foo.
+For example, the following will export a resource if it is a dashboard or bucket and has an associated label of `Foo`.
 
 ```influx export all --org $INFLUX_ORG \
 	--filter=resourceKind=Bucket \
