@@ -14,8 +14,8 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ### Features
 
 - Use latest version of InfluxQL package.
-- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
-- Add the ability to track number of values written via `/debug/vars`.
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/).
+- Add the ability to track number of values written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 
 ### Bug fixes
