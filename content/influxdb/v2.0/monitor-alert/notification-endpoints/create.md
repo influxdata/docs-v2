@@ -45,6 +45,6 @@ To send notifications about changes in your data, start by creating a notificati
       - The **Client URL** provides a useful link in your PagerDuty notification. Enter any URL that you'd like to use to investigate issues. This URL is sent as the `client_url` property in the PagerDuty trigger event. By default, the **Client URL** is set to your Monitoring & Alerting History page, and the following included in the PagerDuty trigger event: `"client_url": "https://us-west-2-1.aws.cloud2.influxdata.net/orgs/<your-org-ID>/alert-history”`
 
       - For Telegram:
-        - Enter a Telegram [**Bot Token**](https://core.telegram.org/bots#generating-an-authorization-token) and [Chat ID](/kapacitor/v1.5/event_handlers/telegram/).
+        - Enter a Telegram **Bot Token** and **Chat ID**. For details, see [Set up a Telegram bot](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
 
 6. Click **Create Notification Endpoint**.
