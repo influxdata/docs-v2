@@ -16,10 +16,10 @@ related:
   - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
 ---
 
-In 1.x, data is stored in databases and retention policies. In 2.0, data is stored in buckets. To query a bucket with InfluxQL, the bucket must be mapped to a database and retention policy (add links).
+In 1.x, data is stored in databases and retention policies. In 2.0, data is stored in buckets. To query a bucket with InfluxQL, the bucket must be mapped to a database and retention policy.
 
 {{% note %}}
-If data is written into InfluxDB 2.0 using the /write 1.x compatibility API, buckets were mapped automatically, so you can skip steps 1-2. For more information, see Database and retention policy mapping service (add link).
+If data is written into InfluxDB 2.0 using the /write 1.x compatibility API, buckets were mapped automatically, so you can skip steps 1-2. For more information, see [Database and retention policy mapping service] (influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
 {{% /note %}}
 
 ## Verify 2.0 buckets have a mapping
