@@ -16,8 +16,59 @@ related:
   - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
 ---
 
-Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query)
-to query data in InfluxDB 2.0 with **InfluxQL**.
+In 1.x, data is stored in databases and retention policies. In 2.0, data is stored in buckets. To query a bucket with InfluxQL, the bucket must be mapped to a database and retention policy (add links).
+
+{{% note %}}
+If data is written into InfluxDB 2.0 using the /write 1.x compatibility API, buckets were mapped automatically, so you can skip steps 1-2. For more information, see Database and retention policy mapping service (add link).
+{{% /note %}}
+
+## Verify 2.0 buckets have a mapping
+
+1. Verify the buckets that you want to query are mapped to a database and retention policy using the [`GET DBRPs` CURL command](/influxdb/v2.0/api/#operation/GetDBRPs). Note that `orgID` is the only required parameter.:
+
+```sh
+curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
+  -H "Authorization: Token YourAuthToken" \
+  -H 'Content-type: application/json' \
+  -d '{
+       "bucketID": "12ab34cd56ef",
+       "database": "example-db",
+       "default": true
+       "org": "example-org",
+       "orgID": "example-org",
+       "retention_policy": "example-rp",
+     }'
+     ```
+
+2. To map unmapped buckets to a database and retention policy, use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#tag/DBRPs). Provide the following:
+- authentication token
+- organization name or ID (organization or organization_id)
+- target bucket ID (bucket_id)
+- database to map
+- retention policy to map
+
+All parameters except `default` are required.
+
+
+```sh
+curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
+  -H "Authorization: Token YourAuthToken" \
+  -H 'Content-type: application/json' \
+  -d '{
+       "bucketID": "12ab34cd56ef",
+       "database": "example-db",
+       "default": true
+       "org": "example-org",
+       "orgID": "example-org",
+       "retention_policy": "example-rp",
+      }'
+```
+
+
+After you've verified your 2.0 buckets are mapped, query a mapped bucket as described in the section below.
+
+## Use the 1.x `/query` endpoint to query data with InfluxQL
+
 The [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB 2.0.
 
@@ -41,59 +92,6 @@ curl -G https://cloud2.influxdata.com/query?db=db&rp=rp \
 
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
-
-## Database and retention policy mapping
-
-InfluxDB 2.0 combines the 1.x concept of [databases](/influxdb/v1.8/concepts/glossary/#database)
-and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
-into [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-
-InfluxQL looks for a database and retention policy (elements in the FROM clause) to query from.
-To query a 2.0 bucket in InfluxQL, you must first map the bucket to a database and retention policy.
-
-To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
-policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
-_See [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) for more information._
-
-{{% note %}}
-If you use the 1.x compatibility API to write data into InfluxDB 2.0, the database and retention policy included as query parameters were mapped to a bucket. For more detail, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
-{{% /note %}}
-
-{{% note %}}
-The mapping is automatically created only if you use the [1.x `/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/). If you used the 2.x write API and want to access that data using InfluxQL, you'll need to create a mapping. To review existing mappings, use the [`GET DBRPs` CURL command](/influxdb/v2.0/api/#operation/GetDBRPs).
-{{% /note %}}
-
-### Map a bucket to a database and retention policy
-
-If you have an existing bucket that does't follow the **database/retention-policy**
-naming convention, you **must** manually create a database and retention policy
-mapping to query that bucket with the `/query` compatibility API.
-Use the using the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#tag/DBRPs) to
-manually create and manage DBRP mappings.
-
-**To manually create a DBRP mapping, provide the following:**
-
-- authentication token
-- organization name or ID (organization or organization_id)
-- target bucket ID (bucket_id)
-- database to map
-- retention policy to map
-
-<!--  -->
-```sh
-curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
-  -H "Authorization: Token YourAuthToken" \
-  -H 'Content-type: application/json' \
-  -d '{
-        "organization": "example-org",
-        "bucket_id": "12ab34cd56ef",
-        "database": "example-db",
-        "retention_policy": "example-rp",
-        "default": true
-      }'
-```
-
-_For more information, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
 
 
 
