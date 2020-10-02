@@ -87,7 +87,7 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 - InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
   _(See [compatibility API authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication))_
 - **db query parameter**: 1.x database to query
-- **rp query parameter**: 1.x retention policy to query
+- **rp query parameter**: 1.x retention policy to query; If no retention policy is specified, InfluxDB uses the default retention policy for the specified database.
 - **q query parameter**: InfluxQL query
 
 {{% note %}}
