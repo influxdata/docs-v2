@@ -22,19 +22,21 @@ To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and 
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
-[compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
+[1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
 
 {{% note %}}
-To query using InfluxQL, if the data being queried was written to InfluxDB 2.0 with the 2.x `/write` API, you must manually create a DBRP mapping.
-For more information, see [Manually create and manage DBRP mappings](/influxdb/v2.0/query-data/influxql/#manually-create-and-manage-dbrp-mappings).
+To query data in InfluxQL that was written using the 2.x `/write` API, you must manually create a DBRP mapping to map a bucket to a database and retention policy.
+For more information, see [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#manually-create-and-manage-dbrp-mappings).
 {{% /note %}}
 
 ### Default retention policies
+
 A database can have multiple retention policies with one set as default.
 If no retention policy is specified in a query or write request, InfluxDB uses
 the default retention policy for the specified database.
 
 ### When writing data
+
 When writing data to InfluxDB 2.0 using the [`/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/),
 the DBRP mapping service checks for a bucket mapped to the database and retention policy:
 
@@ -54,12 +56,11 @@ To automatically create new buckets, the authentication token used for the
 write request must be an **All Access token**.
 {{% /note %}}
 
-For step-by-step instructions on mapping a bucket to a database and retention policy, see [Query data with InfluxQL](/influxdb/v2.0/query-data/influxql).
-
 ### When querying data
+
 When querying data from InfluxDB 2.0 using the [`/query` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query/),
 the DBRP mapping service checks for the specified database and retention policy
 (if no retention policy is specified, the database's default retention policy is used):
 
 - If a mapped bucket exists, data is queried from the mapped bucket.
-- If no mapped bucket exists, InfluxDB returns an error.
+- If no mapped bucket exists, InfluxDB returns an error. See how to [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#manually-create-and-manage-dbrp-mappings).
