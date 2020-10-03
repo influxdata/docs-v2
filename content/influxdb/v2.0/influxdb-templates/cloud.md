@@ -22,7 +22,7 @@ To use templates in InfluxDB Cloud, you have a couple options:
 ## Install and customize a template in the Cloud UI
 
 {{% note %}}
-To ensure the template works, complete the **ReadMe** instructions after installing a template. For example, you may need to create a bucket with a specific name in your Cloud instance before the template can be used.
+To ensure the template works, complete the **ReadMe** instructions after installing a template. For example, you may need to configure telegraf to write specific data to your Cloud instance before the template can be used.
 {{% /note %}}
 
 1. Under **Settings** icon in the navigation bar.
