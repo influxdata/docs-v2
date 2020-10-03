@@ -53,6 +53,9 @@ chronograf [flags]
 |:---------|:------------------------------------------------------------|:--------------------|
 | `--cert` | File path to PEM-encoded public key certificate            | `$TLS_CERTIFICATE` |
 | `--key` | File path to private key associated with given certificate | `$TLS_PRIVATE_KEY` |
+| `--tls-ciphers` | Comma-separated list of cipher suites to use. Use 'help' cipher to print available ciphers. | `$TLS_CIPHERS` |
+| `--tls-min-version` | Minimum version of the TLS protocol that will be negotiated. (default: 1.2) | `$TLS_MIN_VERSION` |
+| `--tls-max-version` | Maximum version of the TLS protocol that will be negotiated. | `$TLS_MAX_VERSION` |
 
 ## Other service option flags
 
