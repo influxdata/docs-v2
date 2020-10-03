@@ -12,6 +12,12 @@ aliases:
 
 InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
 
+## 2020-9-25
+
+### Install and customize InfluxDB community templates in the Cloud UI
+
+Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/v2.0/influxdb-templates/cloud/#install-and-customize-a-template-in-the-cloud-ui).
+
 ## 2020-09-02
 
 ### Pricing updates and Azure region
