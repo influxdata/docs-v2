@@ -370,6 +370,10 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 > **Note:** With offsets, avoid replacing the + or - sign with a Z. It may cause an error or print Z (ISO 8601 behavior) instead of the time zone offset.
 
+##### [ `-lponly` ]
+Output data in line protocol format only.
+Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
+
 ##### [ `-out <export_dir>` ]
 
 The location for the export file.
