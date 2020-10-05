@@ -9,6 +9,12 @@ menu:
     parent: About the project
 ---
 
+## v1.8.3 [2020-09-30]
+
+The InfluxDB Enterprise 1.8.3 release builds on the InfluxDB OSS 1.8.3 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-3-2020-09-30).
+
 ## v1.8.2 [2020-08-24]
 
 The InfluxDB Enterprise 1.8.2 release builds on the InfluxDB OSS 1.8.2 and 1.8.1 releases.
