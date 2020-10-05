@@ -243,6 +243,10 @@ With {{< cloud-name "short" >}} setup, see [Next steps](#next-steps) for what to
 Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
 
+{{% note %}}
+To upgrade from InfluxDB 2.0 beta 16 or earlier to the latest version, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+{{% /note %}}
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
