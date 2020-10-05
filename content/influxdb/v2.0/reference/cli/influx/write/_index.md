@@ -47,6 +47,7 @@ influx write [command]
 | `-o` | `--org`            | Organization name                                                     | string     | `INFLUX_ORG`          |
 |      | `--org-id`         | Organization ID                                                       | string     | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`      | Precision of the timestamps (default `ns`)                            | string     | `INFLUX_PRECISION`    |
+|      | `--rate-limit`     | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).            | string     |                       |
 |      | `--skipHeader`     | Skip first *n* rows of input data                                     | integer    |                       |
 |      | `--skipRowOnError` | Output CSV errors to stderr, but continue processing                  |            |                       |
 |      | `--skip-verify`    | Skip TLS certificate verification                                     |            |                       |
