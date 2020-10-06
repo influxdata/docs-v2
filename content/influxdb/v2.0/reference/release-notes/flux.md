@@ -8,6 +8,65 @@ menu:
     name: Flux
 ---
 
+## v0.88.0 [2020-10-05]
+
+### Features
+- Moves functions from `v1` package to `schema` package.
+
+### Bug fixes
+- Fix field type error in test.
+- Update buildinfo script to handle new and deleted files.
+- Sets default quantile method when not specified.
+- Improve security of Dockerfile for build scripts.
+
+---
+
+## v0.87.1 [2020-10-01]
+
+### Bug fixes
+- Fetch ragel dependency over HTTPS.
+- Ensure `ast.TextPart` is properly escaped when formatting.
+- Elapsed with multiple buffers per table.
+
+---
+
+## v0.87.0 [2020-09-28]
+
+### Features
+- Linear interpolation.
+- Type signature for linear interpolate function.
+
+### Bug fixes
+- Fix compiler type inference with extended records.
+- Colm Flux grammar updates, keywords, string interpolation, UTF8 IDs.
+- Exponent operator have higher precedence.
+
+---
+
+## v0.86.0 [2020-09-21]
+
+### Features
+- Add operator profiler.
+- Add duration conversion.
+- Add naive bayes classification.
+
+### Bug fixes
+- Reset pointer after scanning invalid Unicode.
+- Catch references to non-existent columns.
+- Propagate span context to `source.Run`.
+
+---
+
+## v0.85.0 [2020-09-14]
+
+### Features
+- Add `Aggregate.window` for an alternative windowing aggregate.
+
+### Bug fixes
+- Remove months parameter.
+
+---
+
 ## v0.84.0 [2020-09-09]
 
 ### Breaking changes
@@ -304,10 +363,10 @@ This version of Flux introduces an updated type inference system that improves
 performance, error messaging, and usability of the
 [Flux Language Server Protocol (LSP)](https://github.com/influxdata/flux-lsp).
 
-## Breaking Changes
+### Breaking Changes
 - Change signature of `group()` function.
 
-## Features
+### Features
 - Add [`fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/) and
   [`measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys/)
   to v1 package.
@@ -331,7 +390,7 @@ performance, error messaging, and usability of the
 - Make `Eval()` and `EvalAST()` use libflux for parsing and analysis.
 - Add `lookuptype` function for stdlib builtins.
 
-## Bug Fixes
+### Bug Fixes
 - Re-enable Clippy linter rule match single binding.
 - Fix bug in object equal method.
 - Add builtin formatting.
@@ -1404,10 +1463,10 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ## v0.25.0 [2019-04-08]
 
-## Breaking changes
+### Breaking changes
 - Fix logical operators (`and`, `or`) precedence.
 
-## Bug fixes
+### Bug fixes
 - Omit space between unary operator and operand.
 - Format AST preserving operator precedence.
 
