@@ -8,6 +8,30 @@ menu:
     parent: About the project
 ---
 
+## v.1.8.7 [2020-10-06]
+
+{{% warn %}}
+This release includes breaking changes:
+TLS1.2 is now the default minimum required TLS version. If you have clients that require older TLS versions, use one of the following when starting Chronograf:
+  - The `--tls-min-version=1.1` option
+  - The `TLS_MIN_VERSION=1.1` environment variable
+{{% /warn %}}
+
+## Features
+- Allow to configure HTTP basic access authentication.
+- Allow setting token-prefix in Alerta configuration.
+- Make session inactivity duration configurable.
+- Allow configuration of TLS ciphers and versions.
+
+## Bug Fixes
+- Disable default dashboard auto-refresh.
+- Fix to user migration.
+- Add `isPresent` filter to rule TICKscript.
+- Make vertical scrollbar visible when rows overflow in TableGraph.
+- Upgrade `papaparse` to 5.3.0.
+- Require well-formatted commit messages in pull request.
+- Upgrade `node` to v12.
+
 ## v1.8.6 [2020-08-27]
 
 ### Features
