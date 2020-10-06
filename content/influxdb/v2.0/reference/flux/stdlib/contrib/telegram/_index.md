@@ -24,8 +24,8 @@ import "contrib/sranka/telegram"
 {{< children type="functions" show="pages" >}}
 
 ## Set up a Telegram bot
-The **Telegram Bot API** requires a **bot token** and a **channel ID**.
-To set up a Telegram bot and obtain the required bot token and channel ID:
+The **Telegram Bot API** requires a **bot token** and a **chat ID**.
+To set up a Telegram bot and obtain the required bot token and chat ID:
 
 1.  [Create a new Telegram account](https://telegram.org/) or use an existing account.
 2.  [Create a Telegram bot](https://core.telegram.org/bots#creating-a-new-bot).  
@@ -40,7 +40,7 @@ To set up a Telegram bot and obtain the required bot token and channel ID:
     curl https://api.telegram.org/bot$token/getUpdates
     ```
 
-    Find your **channel ID** in the `id` field of the response.
+    Find your **chat ID** in the `id` field of the response.
 
 
 {{% note %}}
