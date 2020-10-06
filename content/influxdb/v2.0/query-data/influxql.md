@@ -33,19 +33,19 @@ If you're not sure how data was written into a bucket, we recommend verifying th
 
 Verify the buckets that you want to query are mapped to a database and retention policy using the [`GET /dbrps` API request](/influxdb/v2.0/api/#operation/GetDBRPs) (see CURL example below). **Include the following in your request**:
 
-- `orgID`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
-- To find a specific bucket (`bucketID`), database (`db`), retention policy (`rp`), or mapping ID (`id`), include the parameter in your request.
+- `organization_id`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
+- To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
 
 ```sh
 curl -GET https://cloud2.influxdata.com/api/v2/dbrps \
   -H "Authorization: Token YourAuthToken" \
   -H 'Content-type: application/json' \
   -d '{
-       "bucketID": "12ab34cd56ef",
-       "db": "example-db",
+       "bucket_id": "12ab34cd56ef",
+       "database": "example-db",
        "id": "example-mapping-id"
        "default": true
-       "orgID": "example-org",
+       "organization_id": "example-org",
      }'
 ```
 
@@ -55,10 +55,10 @@ If you **do not find a mapping ID (`id`) for a bucket**, complete the next proce
 
 To map an unmapped bucket to a database and retention policy, use the [`POST /dbrps` API request](/influxdb/v2.0/api/#operation/PostDBRP) (see CURL example below).
 
- You must include an **authorization token** with [basic or token authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication) in your request header and the following **required parameters** in your request body: 
- 
- - organization (`orgID` or `org`)
- - target bucket (`bucketID`)
+ You must include an **authorization token** with [basic or token authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication) in your request header and the following **required parameters** in your request body:
+
+ - organization (`organization` or `organization_id`)
+ - target bucket (`bucket_id`)
  - database and retention policy to map to bucket (`database` and `retention_policy`)
 
 ```sh
@@ -66,11 +66,11 @@ curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
   -H "Authorization: Token YourAuthToken" \
   -H 'Content-type: application/json' \
   -d '{
-       "bucketID": "12ab34cd56ef",
+       "bucket_id": "12ab34cd56ef",
        "database": "example-db",
        "default": true
-       "org": "example-org",
-       "orgID": "example-org",
+       "organization": "example-org",
+       "organization_id": "example-org",
        "retention_policy": "example-rp",
       }'
 ```
@@ -95,7 +95,7 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 {{% /note %}}
 
 ```sh
-curl -G https://cloud2.influxdata.com/query?db=db&rp=rp \
+curl -G https://cloud2.influxdata.com/query?database=MyDB&retention_policy=MyRP \
   -H "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```
