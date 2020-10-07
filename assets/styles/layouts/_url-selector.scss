@@ -227,12 +227,7 @@ td,label,li {
     line-height: .75rem;
     border-radius: 1rem;
   }
-  &.beta:after {
-    content: 'beta';
-    color: $r-dreamsicle;
-    background: rgba($r-dreamsicle, .1);
-    border: 1px solid $r-dreamsicle;
-  }
+  
 }
 
 label:after {

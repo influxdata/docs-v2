@@ -31,6 +31,7 @@ To send notifications about changes in your data, start by creating a notificati
     | **Slack**     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
     | **PagerDuty** | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
     | **HTTP**      | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
+    | **Telegram**  | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
 
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter enter information to connect to the endpoint:
@@ -42,5 +43,8 @@ To send notifications about changes in your data, start by creating a notificati
     - For PagerDuty:
       - [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service), [add an integration for your service](https://support.pagerduty.com/docs/services-and-integrations#section-add-integrations-to-an-existing-service), and then enter the PagerDuty integration key for your new service in the **Routing Key** field.
       - The **Client URL** provides a useful link in your PagerDuty notification. Enter any URL that you'd like to use to investigate issues. This URL is sent as the `client_url` property in the PagerDuty trigger event. By default, the **Client URL** is set to your Monitoring & Alerting History page, and the following included in the PagerDuty trigger event: `"client_url": "https://us-west-2-1.aws.cloud2.influxdata.net/orgs/<your-org-ID>/alert-history”`
+
+    - For Telegram:
+      - Enter a Telegram **Bot Token** and **Chat ID**. For details, see [Set up a Telegram bot](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
 
 6. Click **Create Notification Endpoint**.

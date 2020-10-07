@@ -130,19 +130,6 @@
           z-index: -1;
         }
 
-        &.oss:after {
-          content: 'beta';
-          display: inline-block;
-          vertical-align: top;
-          font-style: italic;
-          font-size: .75em;
-          margin-left: .45rem;
-          padding: .1rem .4rem .12rem;
-          border-radius: 1rem;
-          border: 1px solid rgba($landing-btn-text, .5);
-          transition: border-color .2s;
-        }
-
         &:hover {
           &:before { opacity: 1; }
         }

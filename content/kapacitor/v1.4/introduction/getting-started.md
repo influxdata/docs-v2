@@ -114,6 +114,8 @@ The Telegraf configuration file can be found at its default location: `/etc/tele
    * `[[inputs.cpu]]` - declares how to collect the system cpu metrics to be sent to InfluxDB.
 
 *Example - relevant sections of `/etc/telegraf/telegraf.conf`*
+
+{{< keep-url >}}
 ```
 [agent]
   ## Default data collection interval for all inputs
@@ -191,6 +193,7 @@ InfluxDB and Telegraf are now running and listening on localhost.  Wait about a 
 
 This can be achieved with the following query:
 
+{{< keep-url >}}
 ```bash
 $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SELECT mean(usage_idle) FROM cpu'
 ```
@@ -376,6 +379,7 @@ Telegraf will log errors if it cannot communicate to InfluxDB.
 InfluxDB will log an error about `connection refused` if it cannot send data to Kapacitor.
 Run the query `SHOW SUBSCRIPTIONS` to find the endpoint that InfluxDB is using to send data to Kapacitor.
 
+{{< keep-url >}}
 ```
 $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SHOW SUBSCRIPTIONS'
 

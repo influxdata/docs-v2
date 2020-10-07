@@ -9,7 +9,6 @@ menu:
   influxdb_2_0:
     name: Query with InfluxQL
     parent: Query data
-products: [cloud]
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/
   - /influxdb/v2.0/reference/api/influxdb-1x/query
@@ -114,12 +113,16 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v
 
 ##### Supported InfluxQL queries
 
+- `DELETE`*
+- `DROP MEASUREMENT`*
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
 - `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
+
+\* These commands delete data.
 {{% /note %}}
 {{< /flex-content >}}
 {{< flex-content >}}
@@ -130,8 +133,8 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-- `DELETE`
-- `DROP`
+<!-- - `DELETE` -->
+- `DROP` (see above)
 - `GRANT`
 - `KILL`
 - `REVOKE`

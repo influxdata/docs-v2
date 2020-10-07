@@ -1,0 +1,20 @@
+# Notification data structure
+#
+# - id: unqiue ID for notification, cannot start with digit, no spaces, a-z and 0-9
+#   level: note or warn
+#   scope:
+#     - list of URL paths to show notification on, no scope shows everywhere
+#   message: |
+#     Markdown message content.
+
+- id: rc0-upgrade
+  level: warn
+  scope:
+    - /influxdb/v2.0/
+  message: |
+    ### InfluxDB OSS 2.0 release candidate 0
+
+    **InfluxDB OSS v2.0.rc0** includes **breaking changes** that require a manual
+    upgrade from all alpha and beta versions. For information, see:
+
+    [Upgrade to InfluxDB OSS v2.0.rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/)

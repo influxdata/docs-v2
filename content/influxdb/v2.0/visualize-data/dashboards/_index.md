@@ -23,7 +23,7 @@ Use the InfluxDB UI or `influx` CLI to view your dashboard ID.
 When viewing a dashboard in the InfluxDB UI, your dashboard ID appears in the URL.
 
 <pre class="highlight">
-http://localhost:9999/orgs/03a2bbf46249a000/dashboards/<span class="bp" style="font-weight:bold;margin:0 .15rem">04b6b15034cc000</span>/...
+http://localhost:8086/orgs/03a2bbf46249a000/dashboards/<span class="bp" style="font-weight:bold;margin:0 .15rem">04b6b15034cc000</span>/...
 </pre>
 
 ### Dashboard ID in the CLI

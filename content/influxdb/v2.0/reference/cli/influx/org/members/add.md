@@ -19,7 +19,7 @@ influx org members add [flags]
 | Flag |                 | Description                                                | Input type  | {{< cli/mapped >}} |
 |:---- |:---             |:-----------                                                |:----------: |:------------------ |
 | `-h` | `--help`        | Help for the `add` command                                 |             |                    |
-|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:9999`) | string      | `INFLUX_HOST`      |
+|      | `--host`        | HTTP address of InfluxDB (default `http://localhost:8086`) | string      | `INFLUX_HOST`      |
 | `-i` | `--id`          | Organization ID                                            | string      | `INFLUX_ORG_ID`    |
 | `-m` | `--member`      | Member ID                                                  | string      |                    |
 | `-n` | `--name`        | Organization name                                          | string      | `INFLUX_ORG`       |

@@ -9,6 +9,7 @@ menu:
     parent: Syntax
     name: Delete predicate
 weight: 104
+draft: true
 influxdb/v2.0/tags: [syntax, delete]
 related:
   - /influxdb/v2.0/reference/cli/influx/delete/

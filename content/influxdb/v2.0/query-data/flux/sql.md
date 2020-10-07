@@ -233,7 +233,7 @@ to store your database credentials as secrets.
 {{% /tabs %}}
 {{% tab-content %}}
 ```sh
-curl -X PATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
+curl -X PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
   -H 'Authorization: Token YOURAUTHTOKEN' \
   -H 'Content-type: application/json' \
   -d '{

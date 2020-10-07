@@ -64,6 +64,22 @@ To test the CSV to line protocol conversion process, use the `influx write dryru
 command to print the resulting line protocol to stdout rather than write to InfluxDB.
 {{% /note %}}
 
+{{% note %}}
+##### "too many open files" errors
+
+When attempting to write large amounts of CSV data into InfluxDB, you might see an error like the following:
+
+```
+Error: Failed to write data: unexpected error writing points to database: [shard <#>] fcntl: too many open files.
+```
+
+To fix this error, run the following command to increase the number of open files allowed by the OS (works on both Linux and MacOS):
+
+```
+ulimit -n 10000
+```
+{{% /note %}}
+
 ## CSV Annotations
 Use **CSV annotations** to specify which element of line protocol each CSV column
 represents and how to format the data. CSV annotations are rows at the beginning
@@ -225,6 +241,14 @@ influx write -b example-bucket \
 {{% warn %}}
 Skipped rows are ignored and are not written to InfluxDB.
 {{% /warn %}}
+
+Use the `--error-file` flag to record errors to a file.
+The error file identifies all rows that cannot be imported and includes error messages for debugging.
+For example:
+
+```error : line 3: column 'a': '1.1' cannot fit into long data type
+cpu,1.1
+```
 
 ## Advanced examples
 

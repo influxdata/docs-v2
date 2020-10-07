@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB stacks
     name: Remove a stack
-weight: 204
+weight: 205
 related:
   - /influxdb/v2.0/reference/cli/influx/stacks/remove/
 list_code_example: |

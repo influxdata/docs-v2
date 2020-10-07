@@ -8,7 +8,6 @@ menu:
     name: DBRP mapping
     parent: 1.x compatibility
 weight: 302
-products: [cloud]
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/query
   - /influxdb/v2.0/reference/api/influxdb-1x/write

@@ -21,15 +21,12 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
 
 ## Before you begin
 
-1. [Install Go 1.3 or later](https://golang.org/doc/install).
-2. Download the client package in your $GOPATH and build the package.
+1. [Install Go 1.13 or later](https://golang.org/doc/install).
+2. Add the client package your to your project dependencies.
 
     ```sh
-    # Download the InfluxDB Go client package
-    go get github.com/influxdata/influxdb-client-go
-
-    # Build the package
-    go build
+    # Add InfluxDB Go client package to your project go.mod
+    go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
@@ -44,12 +41,12 @@ Use the Go library to write and query data from InfluxDB.
    package main
 
    import (
-	"context"
-	"fmt"
-	"time"
+       "context"
+       "fmt"
+       "time"
 
-	influxdb2 "github.com/influxdata/influxdb-client-go"
-        )
+       "github.com/influxdata/influxdb-client-go/v2"
+   )
    ```
 
 2. Define variables for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), and [token](/influxdb/v2.0/security/tokens/).
@@ -59,7 +56,7 @@ Use the Go library to write and query data from InfluxDB.
    org := "example-org"
    token := "example-token"
    // Store the URL of your InfluxDB instance
-   url := "http://localhost:9999"
+   url := "http://localhost:8086"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
@@ -68,16 +65,16 @@ Use the Go library to write and query data from InfluxDB.
    client := influxdb2.NewClient(url, token)
    ```
 
-4. Create a **write client** with the `WriteApiBlocking` method and pass in the `org` and `bucket` parameters.
+4. Create a **write client** with the `WriteAPIBlocking` method and pass in the `org` and `bucket` parameters.
 
    ```go
-   writeApi := client.WriteApiBlocking(org, bucket)
+   writeAPI := client.WriteAPIBlocking(org, bucket)
    ```
 
 5. To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
 
    ```go
-   queryApi := client.QueryApi(org)
+   queryAPI := client.QueryAPI(org)
    ```
 
 ## Write data to InfluxDB with Go
@@ -93,32 +90,32 @@ Use the Go library to write data to InfluxDB.
      map[string]string{"unit": "temperature"},
      map[string]interface{}{"avg": 24.5, "max": 45},
      time.Now())
-   writeApi.WritePoint(context.Background(), p)
+   writeAPI.WritePoint(context.Background(), p)
    client.Close()
    ```
 
 ### Complete example write script
 
 ```go
- func main() {
-  bucket := "example-bucket"
-  org := "example-org"
-  token := "example-token"
-  // Store the URL of your InfluxDB instance
-  url := "http://localhost:9999"
-	// Create new client with default option for server url authenticate by token
-	client := influxdb2.NewClient(url, token)
-	// User blocking write client for writes to desired bucket
-	writeApi := client.WriteApiBlocking(org, bucket)
-	// Create point using full params constructor
-	p := influxdb2.NewPoint("stat",
-		map[string]string{"unit": "temperature"},
-		map[string]interface{}{"avg": 24.5, "max": 45},
-		time.Now())
-  // Write point immediately
-	writeApi.WritePoint(context.Background(), p)
-  //  Ensures background processes finishes
-  	  client.Close()
+func main() {
+    bucket := "example-bucket"
+    org := "example-org"
+    token := "example-token"
+    // Store the URL of your InfluxDB instance
+    url := "http://localhost:8086"
+    // Create new client with default option for server url authenticate by token
+    client := influxdb2.NewClient(url, token)
+    // User blocking write client for writes to desired bucket
+    writeAPI := client.WriteAPIBlocking(org, bucket)
+    // Create point using full params constructor
+    p := influxdb2.NewPoint("stat",
+        map[string]string{"unit": "temperature"},
+        map[string]interface{}{"avg": 24.5, "max": 45},
+        time.Now())
+    // Write point immediately
+    writeAPI.WritePoint(context.Background(), p)
+    // Ensures background processes finishes
+    client.Close()
 }
 ```
 ## Query data from InfluxDB with Go
@@ -128,8 +125,8 @@ Use the Go library to query data to InfluxDB.
 
    ```js
    from(bucket:"<bucket>")
-   |> range(start: -1h)
-   |> filter(fn: (r) => r._measurement == "stat")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "stat")
    ```
 
    The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
@@ -143,20 +140,22 @@ Use the Go library to query data to InfluxDB.
 - `Value`: Returns the actual field value.
 
 ```go
- result, err := queryApi.Query(context.Background(), `from(bucket:"<bucket>")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
-    if err == nil {
-        for result.Next() {
-            if result.TableChanged() {
-                fmt.Printf("table: %s\n", result.TableMetadata().String())
-            }
-            fmt.Printf("value: %v\n", result.Record().Value())
+result, err := queryAPI.Query(context.Background(), `from(bucket:"<bucket>")
+    |> range(start: -1h) 
+    |> filter(fn: (r) => r._measurement == "stat")`)
+if err == nil {
+    for result.Next() {
+        if result.TableChanged() {
+            fmt.Printf("table: %s\n", result.TableMetadata().String())
         }
-        if result.Err() != nil {
-            fmt.Printf("query parsing error: %s\n", result.Err().Error())
-        }
-    } else {
-        panic(err)
+        fmt.Printf("value: %v\n", result.Record().Value())
     }
+    if result.Err() != nil {
+        fmt.Printf("query parsing error: %s\n", result.Err().Error())
+    }
+} else {
+    panic(err)
+}
 ```
 
 **The FluxRecord object includes the following methods for accessing your data:**
@@ -178,9 +177,9 @@ Use the Go library to query data to InfluxDB.
     // Create client
     client := influxdb2.NewClient(url, token)
     // Get query client
-    queryApi := client.QueryApi(org)
+    queryAPI := client.QueryAPI(org)
     // Get QueryTableResult
-    result, err := queryApi.Query(context.Background(), `from(bucket:"my-bucket")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
+    result, err := queryAPI.Query(context.Background(), `from(bucket:"my-bucket")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
     if err == nil {
         // Iterate over query response
         for result.Next() {

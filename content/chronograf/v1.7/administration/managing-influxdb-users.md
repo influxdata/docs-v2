@@ -64,6 +64,7 @@ Run the `curl` command below to create an admin user, replacing:
 * `chronothan` with your own username
 * `supersecret` with your own password (note that the password requires single quotes)
 
+{{< keep-url >}}
 ```
 ~# curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER chronothan WITH PASSWORD 'supersecret' WITH ALL PRIVILEGES"
 ```

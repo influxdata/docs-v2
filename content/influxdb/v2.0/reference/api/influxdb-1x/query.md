@@ -9,7 +9,6 @@ menu:
     parent: 1.x compatibility
 weight: 301
 influxdb/v2.0/tags: [influxql, query]
-products: [cloud]
 list_code_example: |
   <pre>
   <span class="api get">GET</span> https://cloud2.influxdata.com/query

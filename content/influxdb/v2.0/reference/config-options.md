@@ -322,7 +322,7 @@ engine-path = "/users/user/.influxdbv2/engine"
 Define the bind address for the InfluxDB HTTP API.
 Customize the URL and port for the InfluxDB API and UI.
 
-**Default:** `:9999`  
+**Default:** `:8086`  
 
 | influxd flag          | Environment variable        | Configuration key   |
 |:------------          |:--------------------        |:-----------------   |
@@ -330,12 +330,12 @@ Customize the URL and port for the InfluxDB API and UI.
 
 ###### influxd flag
 ```sh
-influxd --http-bind-address=:9999
+influxd --http-bind-address=:8086
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_HTTP_BIND_ADDRESS=:9999
+export INFLUXD_HTTP_BIND_ADDRESS=:8086
 ```
 
 ###### Configuration file
@@ -347,18 +347,18 @@ export INFLUXD_HTTP_BIND_ADDRESS=:9999
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-http-bind-address: ":9999"
+http-bind-address: ":8086"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-http-bind-address = ":9999"
+http-bind-address = ":8086"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "http-bind-address": ":9999"
+  "http-bind-address": ":8086"
 }
 ```
 {{% /code-tab-content %}}

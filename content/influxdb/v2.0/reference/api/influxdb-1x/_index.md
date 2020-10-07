@@ -8,7 +8,6 @@ menu:
     parent: InfluxDB v2 API
 weight: 104
 influxdb/v2.0/tags: [influxql, query, write]
-products: [cloud]
 related:
   - /influxdb/v2.0/query-data/influxql
 ---
@@ -56,6 +55,15 @@ Authorization: Token <token>
 # Header example
 Authorization: Token mYSuP3rs3cREtT0k3N
 ```
+
+##### InfluxQL support
+
+The compatibility API supports InfluxQL, with the following caveats:
+
+- The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
+- With the exception of [`DELETE`](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete) and 
+  [`DROP MEASUREMENT`](/influxdb/v1.8/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
+  InfluxQL database management commands are not supported.
 
 ## Compatibility endpoints
 

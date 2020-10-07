@@ -13,8 +13,7 @@ aliases:
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 Start with **InfluxDB Cloud 2.0**, a fully managed and hosted version of InfluxDB 2.0,
-or **InfluxDB OSS 2.0 _(beta)_**, the open source
-version of InfluxDB 2.0.
+or **InfluxDB OSS 2.0**, the open source version of InfluxDB 2.0.
 
 <div class="get-started-btns">
   <a class="btn" href="#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
@@ -84,7 +83,7 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
 
 {{% cloud %}}
 All InfluxDB 2.0 documentation applies to {{< cloud-name "short" >}} unless otherwise specified.
-References to the InfluxDB user interface (UI) or localhost:9999 refer to your
+References to the InfluxDB user interface (UI) or localhost:8086 refer to your
 {{< cloud-name >}} UI.
 {{% /cloud %}}
 
@@ -105,7 +104,7 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 
 Click the following button to download and install `influx` CLI for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz" download>influx CLI (macOS)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -117,7 +116,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_client_2.0.0-beta.16_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -129,7 +128,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx binary to your $PATH
-sudo cp influxdb_client_2.0.0-beta.16_darwin_amd64/influx /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_darwin_amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -149,7 +148,7 @@ In a terminal, run the following command:
 ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u http://localhost:8086 \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a
@@ -170,10 +169,9 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 #### Step 1: Download influx CLI for Linux
 
-Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
+Download and install the `influx` CLI for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-beta.16_linux_arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.0-rc.0_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -181,7 +179,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb_client_2.0.0-beta.16_linux_amd64.tar.gz
+tar xvfz influxdb_client_2.0.0-rc.0_linux_amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -193,7 +191,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_client_2.0.0-beta.16_linux_amd64/influx /usr/local/bin/
+sudo cp influxdb_client_2.0.0-rc.0_linux_amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -209,7 +207,7 @@ In a terminal, run the following command:
 ```sh
    # Set up a configuration profile
    influx config create -n default \
-     -u http://localhost:9999 \
+     -u http://localhost:8086 \
      -o example-org \
      -t mySuP3rS3cr3tT0keN \
      -a
@@ -245,6 +243,10 @@ With {{< cloud-name "short" >}} setup, see [Next steps](#next-steps) for what to
 Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
 
+{{% note %}}
+To upgrade from InfluxDB 2.0 beta 16 or earlier to the latest version, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+{{% /note %}}
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
@@ -255,11 +257,11 @@ executables, and running the initial setup process.
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 beta
+### Download and install InfluxDB v2.0
 
-Download InfluxDB v2.0 beta for macOS.
+Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_darwin_amd64.tar.gz" download>InfluxDB v2.0 beta (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### Unpackage the InfluxDB binaries
 
@@ -269,7 +271,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb_2.0.0-beta.16_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.0-rc.0_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -279,7 +281,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.16_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -291,7 +293,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 #### Networking ports
 
-By default, InfluxDB uses TCP port `9999` for client-server communication over
+By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
@@ -344,12 +346,11 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0 beta
+### Download and install InfluxDB v2.0
 
-Download the InfluxDB v2.0 beta package appropriate for your chipset.
+Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_linux_amd64.tar.gz" download >InfluxDB v2.0 beta (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_linux_arm64.tar.gz" download >InfluxDB v2.0 beta (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.0_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 
 ### Place the executables in your $PATH
 
@@ -359,10 +360,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb_2.0.0-beta.16_linux_amd64.tar.gz
+tar xvzf path/to/influxdb-2.0.0-rc.0_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb_2.0.0-beta.16_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0-rc.0_linux_amd64.tar.gz/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -374,7 +375,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 #### Networking ports
 
-By default, InfluxDB uses TCP port `9999` for client-server communication over
+By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
@@ -412,14 +413,14 @@ influxd --reporting-disabled
 
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
-### Download and run InfluxDB v2.0 beta
+### Download and run InfluxDB v2.0
 
-Use `docker run` to download and run the InfluxDB v2.0 beta Docker image.
-Expose port `9999`, which InfluxDB uses for client-server communication over
+Use `docker run` to download and run the InfluxDB v2.0 Docker image.
+Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -434,7 +435,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 9999:9999 quay.io/influxdb/influxdb:2.0.0-beta --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
 ```
 {{% /note %}}
 
@@ -454,9 +455,8 @@ docker exec -it influxdb /bin/bash
 
 ### Install InfluxDB in a Kubernetes cluster
 
-{{% note %}}
 The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
-{{% /note %}}
+InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) available.
 
 1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
@@ -495,10 +495,10 @@ The instructions below use Minikube, but the steps should be similar in any Kube
 
     You should see an IP address after `Endpoints` in the command's output.
 
-6. Forward port 9999 from inside the cluster to localhost:
+6. Forward port 8086 from inside the cluster to localhost:
 
     ```sh
-    kubectl port-forward -n influxdb service/influxdb 9999:9999
+    kubectl port-forward -n influxdb service/influxdb 8086:8086
     ```
 
 {{% /tab-content %}}
@@ -523,7 +523,7 @@ the `influx` command line interface (CLI).
 {{% tab-content %}}
 ### Set up InfluxDB through the UI
 
-1. With InfluxDB running, visit [localhost:9999](http://localhost:9999).
+1. With InfluxDB running, visit [localhost:8086](http://localhost:8086).
 2. Click **Get Started**
 
 #### Set up your initial user
@@ -546,7 +546,7 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
     ```sh
       # Set up a configuration profile
       influx config create -n default \
-        -u http://localhost:9999 \
+        -u http://localhost:8086 \
         -o example-org \
         -t mySuP3rS3cr3tT0keN \
         -a

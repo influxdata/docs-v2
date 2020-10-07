@@ -142,7 +142,7 @@ communication between your Kapacitor Enterprise and InfluxDB Enterprise clusters
 
 To get started with the **InfluxData 1.x** platform, see
 
-[Installation and Configuration](/platform/installation)  
+[Installation and Configuration](/platform/install-and-deploy/)  
 [Getting Started](/platform/introduction/getting-started)
 
 To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud 2.0**](/influxdb/v2.0/get-started/) or [**InfluxDB 2.0 OSS**](/influxdb/v2.0/get-started/).
