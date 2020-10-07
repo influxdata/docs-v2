@@ -280,12 +280,6 @@ Environment variable: `$HOST_PAGE_DISABLED=true`
 
 ### General authentication options
 
-#### `--token-secret=` | `-t`
-
-The secret for signing tokens.
-
-Environment variable: `$TOKEN_SECRET`
-
 #### `--auth-duration=`
 
 The total duration (in hours) of cookie life for authentication.
@@ -296,12 +290,26 @@ Authentication expires on browser close when `--auth-duration=0`.
 
 Environment variable: `$AUTH_DURATION`
 
+#### `--inactivity-duration=`
+
+The duration that a token is valid without any new activity.
+
+Default value: `5m`
+
+Environment variable: `$INACTIVITY_DURATION`
+
 #### `--public-url=`
 
 The public URL required to access Chronograf using a web browser. For example, if you access Chronograf using the default URL, the public URL value would be `http://localhost:8888`.
 Required for Google OAuth 2.0 authentication. Used for Auth0 and some generic OAuth 2.0 authentication providers.
 
 Environment variable: `$PUBLIC_URL`
+
+#### `--token-secret=` | `-t`
+
+The secret for signing tokens.
+
+Environment variable: `$TOKEN_SECRET`
 
 
 ### GitHub-specific OAuth 2.0 authentication options
