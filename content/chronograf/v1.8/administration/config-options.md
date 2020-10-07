@@ -280,6 +280,14 @@ Environment variable: `$HOST_PAGE_DISABLED=true`
 
 ### General authentication options
 
+#### `--inactivity-duration=`
+
+The duration that a token is valid without any new activity.
+
+Default value: `5m`
+
+Environment variable: `$INACTIVITY_DURATION`
+
 #### `--token-secret=` | `-t`
 
 The secret for signing tokens.
