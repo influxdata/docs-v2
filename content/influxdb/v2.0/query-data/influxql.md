@@ -97,7 +97,7 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 ```sh
 curl -G https://cloud2.influxdata.com/query?database=MyDB&retention_policy=MyRP \
   -H "Authorization: Token YourAuthToken" \
-  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
+  --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
 
 By default, the `/query` compatibility endpoint returns results in **JSON**.
