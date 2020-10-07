@@ -83,7 +83,7 @@ _**Data type:** Duration_
 ```js
 options task = {
   // ...
-  offset: "0 * * * *",
+  offset: 10m,
 }
 ```
 
