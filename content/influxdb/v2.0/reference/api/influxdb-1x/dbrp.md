@@ -63,3 +63,5 @@ the DBRP mapping service checks for the specified database and retention policy
 
 - If a mapped bucket exists, data is queried from the mapped bucket.
 - If no mapped bucket exists, InfluxDB returns an error. See how to [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#manually-create-and-manage-dbrp-mappings).
+
+_For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
