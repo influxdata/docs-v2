@@ -11,7 +11,7 @@ menu:
 ## v0.88.0 [2020-10-05]
 
 ### Features
-- Moves functions from `v1` package to `schema` package.
+- Move functions from `v1` package to `schema` package.
 
 ### Bug fixes
 - Fix field type error in test.
@@ -38,7 +38,7 @@ menu:
 
 ### Bug fixes
 - Fix compiler type inference with extended records.
-- Colm Flux grammar updates, keywords, string interpolation, UTF8 IDs.
+- Colm Flux grammar updates: keywords, string interpolation, and UTF-8 IDs.
 - Exponent operator have higher precedence.
 
 ---
