@@ -33,7 +33,7 @@ If you're not sure how data was written into a bucket, we recommend verifying th
 
 Verify the buckets that you want to query are mapped to a database and retention policy using the [`GET /dbrps` API request](/influxdb/v2.0/api/#operation/GetDBRPs) (see CURL example below). **Include the following in your request**:
 
-- `organization_id`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
+- `organization` or `organization_id`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
 - To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
 
 ```sh
