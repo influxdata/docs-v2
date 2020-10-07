@@ -49,6 +49,7 @@ curl -GET https://cloud2.influxdata.com/api/v2/dbrps \
 ```
 
 If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
+_For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
 
 ## Map unmapped buckets
 
