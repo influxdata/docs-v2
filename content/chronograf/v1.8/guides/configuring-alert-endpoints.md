@@ -53,6 +53,20 @@ Note that the configuration options in the **Configure alert endpoints** section
 Some event handlers allow users to customize event handler configurations per [alert rule](/chronograf/v1.8/guides/create-a-kapacitor-alert/).
 For example, Chronograf's Slack integration allows users to specify a default channel in the **Configure alert endpoints** section and a different channel for individual alert rules.
 
+### Alerta
+
+#### Environment
+
+#### Origin
+
+#### Token
+
+#### Token Prefix
+
+#### User
+
+#### Configuration enabled
+
 ### HipChat
 
 [HipChat](https://www.hipchat.com/) is an Atlassian web service for group chat, video chat, and screen sharing.
