@@ -228,9 +228,11 @@ to visualize InfluxDB `_internal` metrics.
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
   - [pointReqLocal](#pointreqlocal-enterprise-only) (Enterprise only)
   - [pointReqRemote](#pointreqremote-enterprise-only) (Enterprise only)
+  - [pointsWrittenOK](#pointsWrittenOK)
   - [req](#req)
   - [subWriteDrop](#subwritedrop)
   - [subWriteOk](#subwriteok)
+  - [valuesWrittenOK](#valuesWrittenOK)
   - [writeDrop](#writedrop)
   - [writeError](#writeerror)
   - [writeOk](#writeok)
@@ -963,6 +965,9 @@ Then if the write attempt fails, we check again if HH exists, and if so, add the
 This statistic does not distinguish between requests that are directly written to
 the destination node versus enqueued into the hinted handoff queue for the destination node.  
 
+#### pointsWrittenOK
+Number of points written OK.
+
 #### req
 The total number of batches of points requested to be written to this node.
 
@@ -971,6 +976,9 @@ The total number of batches of points that failed to be sent to the subscription
 
 #### subWriteOk
 The total number of batches of points that were successfully sent to the subscription dispatcher.
+
+#### valuesWrittenOK
+Number of values (fields) written OK.
 
 #### writeDrop
 The total number of write requests for points that have been dropped due to timestamps
