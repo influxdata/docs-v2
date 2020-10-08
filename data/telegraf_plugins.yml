@@ -558,10 +558,10 @@ input:
   - name: HTTP Listener v2
     id: http_listener_v2
     description: |
-      The HTTP Listener v2 input plugin listens for messages sent via HTTP POST.
-      Messages are expected in [line protocol format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx)
-      ONLY (other [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest//data_formats/input/) are not supported).
-      This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB v2110 HTTP API.
+      The HTTP Listener v2 input plugin listens for metrics sent via HTTP.
+      Metrics may be sent in any supported [Telegraf input data format](/telegraf/latest/data_formats/input/influx).
+      Note the plugin previously known as `http_listener` has been renamed `influxdb_listener`. 
+      To use Telegraf as a proxy/relay for InfluxDB, we recommend using `influxdb_listener`.
     introduced: 1.9.0
     tags: [linux, macos, windows, servers, web]
 
