@@ -53,7 +53,24 @@ Note that the configuration options in the **Configure alert endpoints** section
 Some event handlers allow users to customize event handler configurations per [alert rule](/chronograf/v1.8/guides/create-a-kapacitor-alert/).
 For example, Chronograf's Slack integration allows users to specify a default channel in the **Configure alert endpoints** section and a different channel for individual alert rules.
 
-### HipChat
+### Alerta
+
+**To configure an Alerta alert endpoint:**
+
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **Alerta** tab.
+2. Enter the following:
+
+  * **Environment**: Alerta environment. Can be a template and has access to the same data as the AlertNode.Details property. Default is set from the configuration.
+  * **Origin**: Alerta origin. If empty, uses the origin from the configuration.
+  * **Token**: Default Alerta authentication token..
+  * **Token Prefix**: Default token prefix. If you receive invalid token errors, you may need to change this to “Key”.
+  * **User**: Alerta user.
+  * **Configuration Enabled**: Check to enable configuration.
+
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
+
+See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 [HipChat](https://www.hipchat.com/) is an Atlassian web service for group chat, video chat, and screen sharing.
 Configure Chronograf to send alert messages to a HipChat room.
