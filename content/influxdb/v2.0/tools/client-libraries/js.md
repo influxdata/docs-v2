@@ -68,7 +68,7 @@ Use the Javascript library to write data to and query data from InfluxDB.
 3. Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
 
    ```js
-   const InfluxDB = new InfluxDB({proxy, token})
+   const influxDB = new InfluxDB({proxy, token})
    ```
 
 ## Write data to InfluxDB with JavaScript
@@ -95,7 +95,7 @@ Use the Javascript library to write data to InfluxDB.
 ### Complete example write script
 
 ```js
-const writeApi = new InfluxDB({proxy, token})
+const influxDB = new InfluxDB({proxy, token})
 const writeApi = influxDB.getWriteApi(org, bucket)
 // setup default tags for all writes through this API
 writeApi.useDefaultTags({location: 'browser'})
