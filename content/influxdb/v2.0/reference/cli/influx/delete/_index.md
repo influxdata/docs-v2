@@ -31,7 +31,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)                                                | string     | `INFLUX_HOST`        |
 | `-o` | `--org`             | Organization name                                                                                         | string     | `INFLUX_ORG`         |
 |      | `--org-id`          | Organization ID                                                                                           | string     | `INFLUX_ORG_ID`      |
-| `-p` | `--predicate`       | Only supported in InfluxDB Cloud and InfluxDB OSS 2.0 beta 16 or earlier InfluxQL-like predicate string (see [Delete predicate](/v2.0/reference/syntax/delete-predicate)).  | string     |        |
+| `-p` | `--predicate`       | Only supported in InfluxDB Cloud and InfluxDB OSS 2.0 beta 16 or earlier InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)).  | string     |        |
 |      | `--skip-verify`     | Skip TLS certificate verification                                                                         |            |                      |
 |      | `--start`           | Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                                | string     |                      |
 |      | `--stop`            | Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                                 | string     |                      |
