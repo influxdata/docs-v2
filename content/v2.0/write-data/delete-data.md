@@ -2,7 +2,7 @@
 title: Delete data
 list_title: Delete data
 description: >
-  Delete data in the InfluxDB UI, CLI, and API.
+  Delete data in the InfluxDB CLI and API.
 menu:
   v2_0:
     name: Delete data
@@ -13,7 +13,7 @@ related:
   - /v2.0/reference/syntax/delete-predicate/
   - /v2.0/reference/cli/influx/delete/
 ---
-
+<!--
 ## Delete data in the InfluxDB UI
 
 Delete data from buckets you've created. You cannot delete data from system buckets.
@@ -46,6 +46,7 @@ Delete data from buckets you've created. You cannot delete data from system buck
   - Click **+ Add Filter** to filter by tag key-value pairs.
   - Select **I understand that this cannot be undone**.
 4. Click **Confirm Delete** to delete the selected data.
+!-->
 
 ## Delete data using the influx CLI
 
