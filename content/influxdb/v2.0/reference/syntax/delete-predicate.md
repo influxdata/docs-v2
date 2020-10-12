@@ -9,11 +9,16 @@ menu:
     parent: Syntax
     name: Delete predicate
 weight: 104
-draft: true
 influxdb/v2.0/tags: [syntax, delete]
 related:
   - /influxdb/v2.0/reference/cli/influx/delete/
 ---
+
+{{% note %}}
+In InfluxDB OSS 2.0rc0, the delete with predicate API (`/api/v2/delete`) has been disabled and returns a 501 Not implemented message.
+
+Use the InfluxDB `/delete` endpoint with InfluxDB Cloud and InfluxDB OSS 2.0 beta 16 or earlier.
+{{% /note %}}
 
 The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine
 what data [points](/influxdb/v2.0/reference/glossary/#point) to delete.
