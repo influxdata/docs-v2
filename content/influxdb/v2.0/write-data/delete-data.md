@@ -4,11 +4,11 @@ list_title: Delete data
 description: >
   Delete data in the InfluxDB CLI and API.
 menu:
-  v2_0:
+  influxdb_2_0:
     name: Delete data
     parent: Write data
 weight: 104
-influxdb/v2.0/tags:: [delete]
+influxdb/v2.0/tags: [delete]
 related:
   - /influxdb/v2.0/reference/syntax/delete-predicate/
   - /influxdb/v2.0/reference/cli/influx/delete/
