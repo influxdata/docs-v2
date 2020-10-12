@@ -45,5 +45,5 @@ InfluxDB Cloud instance into the address bar and click **Send**.
 
 ###### InfluxDB API health endpoint
 ```sh
-http://localhost:9999/api/v2/health
+http://localhost:8086/api/v2/health
 ```
