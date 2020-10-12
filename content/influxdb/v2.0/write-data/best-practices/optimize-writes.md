@@ -112,3 +112,13 @@ If a host's clocks isn't synchronized with NTP, timestamps may be inaccurate.
 ## Write multiple data points in one request
 
 To write multiple lines in one request, each line of line protocol must be delimited by a new line (`\n`).
+
+## Rate limiting
+
+Use the `--rate-limit` flag of [`influx write`](/influxdb/v2.0/reference/cli/influx/write/) to control the rate of writes.
+Specify the rate limit as a string of the form `COUNT(B|kB|MB)/TIME(s|sec|m|min)`, with `/` and `TIME` being optional.
+`COUNT` is a decimal number, `TIME` is a positive whole number.
+Spaces in the value are ignored.
+For example: "5MB / 5min" can be also expressed as `17476.266666667Bs`, `1MB/1min`, `1MB/min`, `1MBmin` or `1MBm`.
+When an invalid rate is supplied, `influx write` prints out the format an exact regular expression.
+The `--rate-limit` flag can be also used with `influx write dryrun`.
