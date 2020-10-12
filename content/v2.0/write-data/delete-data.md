@@ -8,10 +8,10 @@ menu:
     name: Delete data
     parent: Write data
 weight: 104
-v2.0/tags: [delete]
+influxdb/v2.0/tags:: [delete]
 related:
-  - /v2.0/reference/syntax/delete-predicate/
-  - /v2.0/reference/cli/influx/delete/
+  - /influxdb/v2.0/reference/syntax/delete-predicate/
+  - /influxdb/v2.0/reference/cli/influx/delete/
 ---
 <!--
 ## Delete data in the InfluxDB UI
