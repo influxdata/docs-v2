@@ -643,6 +643,13 @@ input:
     introduced: 1.9.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Intel RDT
+    id: intel_rdt
+    description: |
+      The Intel RDT input plugin collects information provided by the monitoring features of Intel Resource Director Technology (RDT).
+    introduced: 1.16.0
+    tags: [linux, macos, windows, systems]
+
   - name: Interrupts
     id: interrupts
     description: |
