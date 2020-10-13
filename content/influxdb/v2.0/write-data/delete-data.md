@@ -99,8 +99,7 @@ The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB 
 2. Include your organization and bucket as query parameters in the request URL.
 3. Use the `Authorization` header to provide your InfluxDB authentication token.
 4. In your request payload, define the time range to delete data from with `start` and `stop`.
-   Specify which points to delete using the `predicate` and
-   [Delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
+5. (**InfluxDB Cloud** only): Specify which points to delete using the `predicate` parameter and [Delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
 ### Example delete requests
 
