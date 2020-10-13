@@ -776,11 +776,21 @@ To disable the limit, set the value to `0`.
 
 Environment variable: `INFLUXDB_HTTP_MAX_ENQUEUED_WRITE_LIMIT`
 
-### `enqueued-write-timeout = 0`
+#### `enqueued-write-timeout = 0`
 The maximum duration for a write to wait in the queue to be processed.
 To disable the limit, set this to `0` or set the `max-concurrent-write-limit` value to `0`.
 
 Environment variable: `INFLUXDB_HTTP_ENQUEUED_WRITE_TIMEOUT`
+
+#### `[http.headers]`
+
+Use the `[http.headers]` section to configure user-supplied HTTP response headers.
+
+```
+# [http.headers]
+#   X-Header-1 = "Header Value 1"
+#   X-Header-2 = "Header Value 2"
+```
 
 -----
 
