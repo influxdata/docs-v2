@@ -643,6 +643,30 @@ input:
     introduced: 1.9.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: InfluxDB v2 Listener
+    id: influxdb_listener
+    description: |
+      The InfluxDB Listener input plugin listens for requests sent
+      according to the [InfluxDB HTTP API](https://docs.influxdata.com/influxdb/latest/guides/writing_data/).
+      The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
+      for the HTTP `/write` endpoint of the InfluxDB HTTP API.
+
+      > This plugin was previously known as `http_listener`.
+      > To send general metrics via HTTP, use the [HTTP Listener v2 input plugin](#http_listener_v2) instead.
+      >
+      > This plugin is compatible with **InfluxDB 2.x** only.
+
+      The `/write` endpoint supports the `precision` query parameter and can be set
+      to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and
+      defer to the output plugins configuration.
+
+      When chaining Telegraf instances using this plugin, `CREATE DATABASE` requests
+      receive a `200 OK` response with message body `{"results":[]}` but they are not
+      relayed. The output configuration of the Telegraf instance which ultimately
+      submits data to InfluxDB determines the destination database.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: Intel RDT
     id: intel_rdt
     description: |
