@@ -53,7 +53,7 @@ Use the `influx` CLI or the InfluxDB API `/delete` endpoint to delete data.
 {{% note %}}
 The `-p, --predicate` flag is supported in **InfluxDB Cloud** and **InfluxDB OSS 2.0 beta 16 or earlier**.
 
-In InfluxDB OSS 2.0rc0, the `influx delete --predicate` flag has been disabled.
+In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabled.
 {{% /note %}}
 
 ## Delete data using the influx CLI
@@ -61,7 +61,7 @@ In InfluxDB OSS 2.0rc0, the `influx delete --predicate` flag has been disabled.
 1. Use the [`influx delete` command](/influxdb/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
 2. Specify your organization, bucket, and authentication token.
 3. Define the time range to delete data from with the `--start` and `--stop` flags.
-4. (InfluxDB Cloud only) Specify which points to delete using the predicate parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
+4. (**InfluxDB Cloud** only) Specify which points to delete using the predicate parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
 ### Example delete commands
 
@@ -92,7 +92,7 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 ## Delete data using the API
 
 {{% note %}}
-The `influx` CLI is installed with InfluxDB OSS. If you're using InfluxDB Cloud and haven't already, download the [`influx` CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli).
+The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB Cloud** and haven't already, download the [`influx` CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli).
 {{% /note %}}
 
 1. Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.
