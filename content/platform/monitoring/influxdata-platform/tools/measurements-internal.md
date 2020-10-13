@@ -966,7 +966,7 @@ This statistic does not distinguish between requests that are directly written t
 the destination node versus enqueued into the hinted handoff queue for the destination node.  
 
 #### pointsWrittenOK
-Number of points written OK.
+Number of points written to the HTTP `/write` endpoint and persisted successfully.
 
 #### req
 The total number of batches of points requested to be written to this node.
@@ -978,7 +978,7 @@ The total number of batches of points that failed to be sent to the subscription
 The total number of batches of points that were successfully sent to the subscription dispatcher.
 
 #### valuesWrittenOK
-Number of values (fields) written OK.
+Number of values (fields) written to the HTTP `/write` endpoint and persisted successfully.
 
 #### writeDrop
 The total number of write requests for points that have been dropped due to timestamps
