@@ -1305,6 +1305,13 @@ input:
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
 
+  - name: Proxmox
+    id: proxmox
+    description: |
+      The Proxmox plugin gathers metrics about containers and VMs using the [Proxmox API](https://pve.proxmox.com/wiki/Proxmox_VE_API).
+    introduced: 1.16.0
+    tags: [linux, macos, windows]
+
   - name: Puppet Agent
     id: puppetagent
     description: |
