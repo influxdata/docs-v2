@@ -1810,6 +1810,13 @@ output:
     introduced: 1.2.0
     tags: [linux, macos, windows]
 
+  - name: Dynatrace
+    id: dynatrace
+    description: |
+      The Dynatrace output plugin sends metrics to [Dynatrace](http://www.dynatrace.com).
+    introduced: 1.16.0
+    tags: [linux, macos, windows]
+
   - name: Elasticsearch
     id: elasticsearch
     description: |
@@ -2034,6 +2041,17 @@ output:
       `custom.googleapis.com/telegraf/system/load5`.
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
+
+  - name: Sumo Logic
+    id: sumologic
+    description: |
+    This plugin sends metrics to [Sumo Logic HTTP Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source/Upload-Metrics-to-an-HTTP-Source)
+    in HTTP messages using one of the following supported data formats
+      * `graphite` - for Content-Type of `application/vnd.sumologic.graphite`
+      * `carbon2` - for Content-Type of `application/vnd.sumologic.carbon2`
+      * `prometheus` - for Content-Type of `application/vnd.sumologic.prometheus`
+    introduced: 1.16.0
+    tags: [linux, macos, windows, logging]
 
   - name: Syslog
     id: syslog
