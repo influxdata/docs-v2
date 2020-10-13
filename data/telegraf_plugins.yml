@@ -35,7 +35,7 @@ input:
     description: |
       The Amazon CloudWatch Statistics input plugin pulls alarm statistics from Amazon CloudWatch.
     introduced: 1.16.0
-    tags: [linux, macos, windows, cloud]
+    tags: [linux, macos, windows, cloud, external]
 
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
@@ -1723,6 +1723,13 @@ input:
       accessible using the local file or network connection.
     introduced: 1.8.0
     tags: [linux, macos, windows, networking]
+
+  - name: YouTube
+    id: youtube-telegraf-plugin
+    description: |
+      The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, external]
 
   - name: ZFS
     id: zfs
