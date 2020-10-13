@@ -30,6 +30,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Amazon CloudWatch Alarms
+    id: awsalarms
+    description: |
+      The Amazon CloudWatch Statistics input plugin pulls alarm statistics from Amazon CloudWatch.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, cloud]
+
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
     description: |
