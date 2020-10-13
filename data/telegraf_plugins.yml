@@ -1154,6 +1154,13 @@ input:
     introduced: 1.7.0
     tags: [linux, macos, windows, systems]
 
+  - name: Octoprint
+    id: octoprint
+    description: |
+      The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
+    introduced: 1.16.0
+    tags: [linux, macos, windows, external]
+
   - name: OPC UA
     id: opcua
     description: |
@@ -1725,7 +1732,7 @@ input:
     tags: [linux, macos, windows, networking]
 
   - name: YouTube
-    id: youtube-telegraf-plugin
+    id: youtube
     description: |
       The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
     introduced: 1.16.0
