@@ -1101,11 +1101,18 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, servers, web]
 
+  - name: NSD
+    id: nsd
+    description: |
+      The NSD input plugin collects metrics from [NSD](https://www.nlnetlabs.nl/projects/nsd/about/), an authoritative DNS name server.
+    introduced: 1.0.0
+    tags: [linux, macos, windows, web, servers]
+
   - name: NSQ
     id: nsq
     description: |
       The NSQ input plugin collects metrics from NSQD API endpoints.
-    introduced: 1.0.0
+    introduced: 1.16.0
     tags: [linux, macos, windows, messaging]
 
   - name: NSQ Consumer
