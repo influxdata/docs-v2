@@ -56,9 +56,9 @@ The Usage-based Plan offers more flexibility and ensures you only pay for what y
 The following two vectors determine pricing:
 
 - **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
-- **Query count**  is the total number of individual query operations. Each individual operation—including queries, tasks, alerts, notifications, and Data Explorer activity—is one billable query operation. Refreshing a dashboard with multiple cells will incur multiple query operations. Failed operations aren’t counted.
+- **Query count** is the total number of individual query operations. Each individual operation — including queries, tasks, alerts, notifications, and Data Explorer activity — is one billable query operation. Refreshing a dashboard with multiple cells will incur multiple query operations. Failed operations aren’t counted.
 - **Data In** is the amount of data you’re writing into InfluxDB (measured in MB).
-- **Storage** is the amount of data you’re storing in InfluxDB (measured in GB).
+- **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
 ### Usage-Based Plan rate limits
 
