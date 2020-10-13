@@ -1147,6 +1147,13 @@ input:
     introduced: 1.7.0
     tags: [linux, macos, windows, systems]
 
+  - name: OPC UA
+    id: opcua
+    description: |
+      The OPC UA plugin gathers metrics from client devices using the [OPC Foundation's Unified Architecture (UA)](https://opcfoundation.org/about/opc-technologies/opc-ua/) machine-to-machine communication protocol for industrial automation.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, iot]
+
   - name: OpenLDAP
     id: openldap
     description: |
