@@ -1338,6 +1338,13 @@ input:
     introduced: 0.10.3
     tags: [linux, macos, windows, servers, web]
 
+  - name: RAS
+    id: ras
+    description: |
+      The RAS input plugin gathers and counts errors provided by [RASDaemon](https://github.com/mchehab/rasdaemon), a RAS (reliability, availability, and serviceability) logging tool.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, servers, web]
+
   - name: Redfish
     id: redfish
     description: |
