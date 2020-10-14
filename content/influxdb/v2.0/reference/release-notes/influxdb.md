@@ -21,7 +21,8 @@ weight: 101
 - Add support for [duration unit identifiers](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals) to templates.
 - Preserve cell colors in imported and exported templates.
 - Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
-- Disallow passwords of less than 8 characters in `influx setup`.
+- Ensure passwords are at least 8 characters in `influx setup`.
+
 
 ## v2.0.0-rc.0 [2020-09-29]
 
