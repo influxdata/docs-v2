@@ -1,42 +1,43 @@
 ---
-title: v1.fieldsAsCols() function
-description: The v1.fieldsAsCols() function is pivots a table and automatically aligns fields within each input table that have the same timestamp.
+title: schema.fieldsAsCols() function
+description: The schema.fieldsAsCols() function is pivots a table and automatically aligns fields within each input table that have the same timestamp.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
   - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/fieldsascols/
 menu:
   influxdb_2_0_ref:
-    name: v1.fieldsAsCols
-    parent: InfluxDB v1
+    name: schema.fieldsAsCols
+    parent: InfluxDB Schema
 weight: 301
 ---
 
-The `v1.fieldsAsCols()` function is a special application of the `pivot()` function that
+The `schema.fieldsAsCols()` function is a special application of the `pivot()` function that
 automatically aligns fields within each input table that have the same timestamp.
 
 _**Function type:** Transformation_
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.fieldsAsCols()
+schema.fieldsAsCols()
 ```
 
 ## Examples
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
 from(bucket:"example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "cpu")
-  |> v1.fieldsAsCols()
+  |> schema.fieldsAsCols()
   |> keep(columns: ["_time", "cpu", "usage_idle", "usage_user"])
 ```
 
 ## Function definition
 ```js
-package v1
+package schema
 
 fieldsAsCols = (tables=<-) =>
   tables

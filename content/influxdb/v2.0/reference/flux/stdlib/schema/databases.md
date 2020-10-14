@@ -1,21 +1,21 @@
 ---
-title: v1.databases() function
-description: The `v1.databases()` function returns a list of databases in an InfluxDB 1.7+ instance.
+title: schema.databases() function
+description: The `schema.databases()` function returns a list of databases in an InfluxDB 1.7+ instance.
 menu:
   influxdb_2_0_ref:
-    name: v1.databases
-    parent: InfluxDB v1
+    name: schema.databases
+    parent: InfluxDB Schema
 weight: 301
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-databases, SHOW DATABASES in InfluxQL
 ---
 
-The `v1.databases()` function returns a list of databases in an **InfluxDB 1.7+ instance**.
+The `schema.databases()` function returns a list of databases in an **InfluxDB 1.7+ instance**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.databases()
+schema.databases()
 ```
 
 Output includes the following columns:

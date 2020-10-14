@@ -1,12 +1,12 @@
 ---
-title: v1.tagKeys() function
-description: The v1.tagKeys() function returns a list of tag keys for all series that match the predicate.
+title: schema.tagKeys() function
+description: The schema.tagKeys() function returns a list of tag keys for all series that match the predicate.
 aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/tagkeys/
 menu:
   influxdb_2_0_ref:
-    name: v1.tagKeys
-    parent: InfluxDB v1
+    name: schema.tagKeys
+    parent: InfluxDB Schema
 weight: 301
 influxdb/v2.0/tags: [tags]
 related:
@@ -14,13 +14,13 @@ related:
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
 ---
 
-The `v1.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).
+The `schema.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).
 The return value is always a single table with a single column, `_value`.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagKeys(
+schema.tagKeys(
   bucket: "example-bucket",
   predicate: (r) => true,
   start: -30d
@@ -52,15 +52,15 @@ _**Data type:** Duration_
 
 ## Examples
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagKeys(bucket: "my-bucket")
+schema.tagKeys(bucket: "my-bucket")
 ```
 
 
 ## Function definition
 ```js
-package v1
+package schema
 
 tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
   from(bucket: bucket)
