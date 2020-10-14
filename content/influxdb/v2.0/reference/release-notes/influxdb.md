@@ -8,6 +8,21 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.1 [2020-10-14]
+
+### Features
+- Add [`influx upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) command for upgrading from 1.x to 2.0.
+- Add Intel RDT and RAS Daemon Telegraf plugins.
+- Upgrade Flux to v0.89.0.
+
+### Bug Fixes
+- Scrapers now work. (Scrapers did not work in rc0.)
+- Update default number of tasks listed with `influx task list` to 100.
+- With InfluxDB templates, allow the same duration unit identifiers that the tasks API allows.
+- Preserve cell colors on exporting and importing templates.
+- Influx CLI: fix an issue where a single Telegraf config was not being returned.
+- Disallow short passwords in `influx setup`.
+
 ## v2.0.0-rc.0 [2020-09-29]
 
 {{% warn %}}
