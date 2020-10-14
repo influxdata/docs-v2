@@ -23,12 +23,6 @@ Be sure to backup all data before upgrading with `influx upgrade`.
 influxd upgrade [flags]
 influxd upgrade [command]
 ```
-
-## Subcommands
-| Subcommand                                                                 | Description                      |
-|:---------------------------------------------------------------------------|:---------------------------------|
-| [v1-dump-meta](/influxdb/v2.0/reference/cli/influxd/upgrade/v1-dump-meta/) | Dump InfluxDB 1.x `meta.db`      |
-| [v2-dump-meta](/influxdb/v2.0/reference/cli/influxd/upgrade/v2-dump-meta/) | Dump InfluxDB 2.x `influxd.bolt` |
     
 ## Flags
 
