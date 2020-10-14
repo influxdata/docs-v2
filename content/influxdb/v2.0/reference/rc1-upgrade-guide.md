@@ -1,14 +1,14 @@
 ---
-title: Upgrade to InfluxDB OSS 2.0rc0
+title: Upgrade to InfluxDB OSS 2.0rc1
 description: >
-  Upgrade to InfluxDB OSS 2.0rc0.
+  Upgrade to InfluxDB OSS 2.0rc1.
 menu:
   influxdb_2_0_ref:
-    name: Upgrade to InfluxDB OSS 2.0rc0
+    name: Upgrade to InfluxDB OSS 2.0rc1
 weight: 9
 ---
 
-To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.0rc0, you must manually upgrade all resources and data to the latest version by completing the following steps:
+To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.0rc1, you must manually upgrade all resources and data to the latest version by completing the following steps:
 
 1. [Disable existing integrations](#1-disable-existing-integrations)
 2. [Stop existing InfluxDB beta instance](#2-stop-existing-influxdb-beta-instance)
@@ -55,7 +55,7 @@ We use the names `influxd_old` for this guide, but you can use whatever you like
 
 ## 4. Move existing data and start the latest InfluxDB
 
-If you haven't already, [download the InfluxDB OSS 2.0rc0](https://portal.influxdata.com/downloads/).
+If you haven't already, [download the InfluxDB OSS 2.0rc1](https://portal.influxdata.com/downloads/).
 Download and follow the install instructions for `influxd` and `influx`.
 Be careful not to overwrite the existing binaries.
 
