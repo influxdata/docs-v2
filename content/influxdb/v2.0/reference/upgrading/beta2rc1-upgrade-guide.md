@@ -1,12 +1,14 @@
 ---
-title: Upgrade to InfluxDB OSS 2.0rc1
+title: Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc1
 description: >
-  Upgrade to InfluxDB OSS 2.0rc1.
+  Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc1.
 menu:
   influxdb_2_0_ref:
-    name: Upgrade to InfluxDB OSS 2.0rc1
+    parent: Upgrade InfluxDB
+    name: Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc1
 aliases:
   - /influxdb/v2.0/reference/rc0-upgrade-guide/
+  - /influxdb/v2.0/reference/rc1-upgrade-guide/
 weight: 9
 ---
 
