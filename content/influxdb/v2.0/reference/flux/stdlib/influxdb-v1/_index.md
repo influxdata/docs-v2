@@ -15,6 +15,11 @@ weight: 202
 influxdb/v2.0/tags: [functions, influxdb-v1, package]
 ---
 
+{{% note %}}
+Functions from the `v1` package have moved to [`schema`](/influxdb/v2.0/reference/flux/stdlib/schema).
+These functions are still available through `v1` for backwards compatibility, but are now deprecated in favor of `schema`.
+{{% /note %}}
+
 InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x
 database or structured using the InfluxDB v1 data structure.
 Import the `influxdata/influxdb/v1` package:
