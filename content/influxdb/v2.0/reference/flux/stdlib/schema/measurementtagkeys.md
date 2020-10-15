@@ -2,7 +2,7 @@
 title: schema.measurementTagKeys() function
 description: The schema.measurementTagKeys() function returns a list of tag keys for a specific measurement.
 aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/measurementtagkeys/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
 menu:
   influxdb_2_0_ref:
     name: schema.measurementTagKeys

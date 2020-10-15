@@ -2,7 +2,7 @@
 title: schema.measurementTagValues() function
 description: The schema.measurementTagValues() function returns a list of tag values for a specific measurement.
 aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/measurementtagvalues/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/
 menu:
   influxdb_2_0_ref:
     name: schema.measurementTagValues

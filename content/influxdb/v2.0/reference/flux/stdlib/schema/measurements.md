@@ -2,7 +2,7 @@
 title: schema.measurements() function
 description: The schema.measurements() function returns a list of measurements in a specific bucket.
 aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/measurements/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurements/
 menu:
   influxdb_2_0_ref:
     name: schema.measurements

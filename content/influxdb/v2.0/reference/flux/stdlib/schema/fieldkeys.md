@@ -7,6 +7,8 @@ menu:
     parent: InfluxDB Schema
 weight: 301
 influxdb/v2.0/tags: [fields]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldkeys
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL

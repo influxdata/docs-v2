@@ -2,7 +2,7 @@
 title: schema.tagKeys() function
 description: The schema.tagKeys() function returns a list of tag keys for all series that match the predicate.
 aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/tagkeys/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
 menu:
   influxdb_2_0_ref:
     name: schema.tagKeys
