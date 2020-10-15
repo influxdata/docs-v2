@@ -8,6 +8,13 @@ menu:
     name: Flux
 ---
 
+## v0.89.0 [2020-10-12]
+### Features
+- Add support for SAP HANA databases.
+- Add support for comments to builtin statements.
+
+---
+
 ## v0.88.0 [2020-10-05]
 
 ### Features
