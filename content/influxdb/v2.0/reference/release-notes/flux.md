@@ -11,7 +11,7 @@ menu:
 ## v0.89.0 [2020-10-12]
 ### Features
 - Add support for SAP HANA databases.
-- Add support for comments to builtin statements.
+- Add support for comments preceding `builtin` statements in code formatting.
 
 ---
 
