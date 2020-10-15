@@ -219,11 +219,10 @@ Be sure your token has not expired.
 ###### Example query request with JWT authentication
 
 ```bash
-curl -XGET "http://localhost:8086/query?db=demodb" \
+curl -G "http://localhost:8086/query?db=demodb" \
   --data-urlencode "q=SHOW DATABASES" \
   --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg"
 ```
-
 
 ## Authenticate Telegraf requests to InfluxDB
 
