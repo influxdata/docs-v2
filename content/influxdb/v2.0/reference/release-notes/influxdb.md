@@ -8,6 +8,20 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.1 [2020-10-14]
+
+### Features
+- Add [`influx upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) command for upgrading from 1.x to 2.0.
+- Upgrade to Flux v0.89.0.
+
+### Bug Fixes
+- Enable scrapers. (Scrapers did not work in rc0.)
+- Update default number of tasks listed with `influx task list` to 100.
+- Add support for [duration unit identifiers](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals) to templates.
+- Preserve cell colors in imported and exported templates.
+- Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
+- Ensure passwords are at least 8 characters in `influx setup`.
+
 ## v2.0.0-rc.0 [2020-09-29]
 
 {{% warn %}}
