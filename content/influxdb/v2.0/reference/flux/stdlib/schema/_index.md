@@ -15,8 +15,8 @@ weight: 202
 influxdb/v2.0/tags: [functions, influxdb-v1, package]
 ---
 
-InfluxDB schema Flux functions provide tools for managing data from an InfluxDB v1.x
-database or structured using the InfluxDB v1 data structure.
+InfluxDB schema Flux functions provide tools for managing data from an InfluxDB database.
+
 Import the `influxdata/influxdb/schema` package:
 
 ```js
