@@ -4,7 +4,7 @@ description: The `v1.databases()` function returns a list of databases in an Inf
 menu:
   influxdb_2_0_ref:
     name: v1.databases
-    parent: InfluxDB V1
+    parent: InfluxDB v1
 weight: 301
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-databases, SHOW DATABASES in InfluxQL
