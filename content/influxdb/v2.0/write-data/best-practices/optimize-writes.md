@@ -115,10 +115,18 @@ To write multiple lines in one request, each line of line protocol must be delim
 
 ## Rate limiting
 
-Use the `--rate-limit` flag of [`influx write`](/influxdb/v2.0/reference/cli/influx/write/) to control the rate of writes.
-Specify the rate limit as a string of the form `COUNT(B|kB|MB)/TIME(s|sec|m|min)`, with `/` and `TIME` being optional.
-`COUNT` is a decimal number, `TIME` is a positive whole number.
+Use the [`influx write`](/influxdb/v2.0/reference/cli/influx/write/) `--rate-limit` flag to control the rate of writes.
+Use one of the following string formats to specify the rate limit:
+
+- `COUNT(B|kB|MB)`, or
+- `COUNT(B|kB|MB)/TIME(s|sec|m|min)`
+
+where `COUNT` is a decimal number and `TIME` is a positive whole number.
 Spaces in the value are ignored.
 For example: "5MB / 5min" can be also expressed as `17476.266666667Bs`, `1MB/1min`, `1MB/min`, `1MBmin` or `1MBm`.
-When an invalid rate is supplied, `influx write` prints out the format an exact regular expression.
-The `--rate-limit` flag can be also used with `influx write dryrun`.
+If the rate limit format is invalid, `influx write` prints out the format and an exact regular expression.
+The `--rate-limit` flag can be also used with [`influx write dryrun`](/influxdb/v2.0/reference/cli/influx/write/dryrun/).
+
+{{% cloud %}}
+By default, the free tier rate limit in {{< cloud-name "short" >}} is `1MB/min`.
+{{% /cloud %}}
