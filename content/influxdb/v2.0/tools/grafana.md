@@ -53,7 +53,7 @@ configure your InfluxDB connection:
     - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
-        http://localhost:8086/api/v2
+        http://localhost:8086/
         ```
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.0/organizations/view-orgs/).
@@ -71,10 +71,6 @@ configure your InfluxDB connection:
 {{% tab-content %}}
 ## Configure Grafana to use InfluxQL
 
-{{% cloud %}}
-**{{< cloud-name "short" >}}** supports InfluxQL, but **InfluxDB 2.0 OSS** does not.
-{{% /cloud %}}
-
 With **InfluxQL** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 
@@ -83,7 +79,7 @@ configure your InfluxDB connection:
     - **URL**: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
 
         ```sh
-        https://cloud2.influxdata.com
+        http://localhost:8086/
         ```
     - **Access**: Server (default)
 
