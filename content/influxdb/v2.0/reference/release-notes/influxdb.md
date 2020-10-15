@@ -12,8 +12,7 @@ weight: 101
 
 ### Features
 - Add [`influx upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) command for upgrading from 1.x to 2.0.
-- Add Intel RDT and RAS Daemon Telegraf plugins.
-- Upgrade Flux to v0.89.0.
+- Upgrade to Flux v0.89.0.
 
 ### Bug Fixes
 - Enable scrapers. (Scrapers did not work in rc0.)
@@ -22,7 +21,6 @@ weight: 101
 - Preserve cell colors in imported and exported templates.
 - Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
 - Ensure passwords are at least 8 characters in `influx setup`.
-
 
 ## v2.0.0-rc.0 [2020-09-29]
 
