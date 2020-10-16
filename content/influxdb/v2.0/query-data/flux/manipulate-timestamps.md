@@ -198,9 +198,9 @@ experimental.subDuration(
 // Returns 2019-09-16T06:00:00.000000000Z
 ```
 
-### Shift a timestamp forward or backware
+### Shift a timestamp forward or backward
 
-The [timeShift()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timeshift/) function adds a fixed duration to time columns. 
+The [timeShift()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timeshift/) function adds the specified duration of time to each value in time columns (`_start`, `_stop`, `_time`).
 
 Shift forward in time:
 
