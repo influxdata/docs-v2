@@ -198,11 +198,7 @@ For testing, you can manually generate UNIX timestamps using [https://www.unixti
 
 Encode the payload using your shared secret.
 You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
-The generated token should look similar to the following:
-
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg
-```
+The generated token follows this format: `<header>.<payload>.<signature>`
 
 ##### 3. Include the token in HTTP requests
 Include your generated token as part of the ``Authorization`` header in HTTP requests.
@@ -219,11 +215,10 @@ Be sure your token has not expired.
 ###### Example query request with JWT authentication
 
 ```bash
-curl -XGET "http://localhost:8086/query?db=demodb" \
+curl -G "http://localhost:8086/query?db=demodb" \
   --data-urlencode "q=SHOW DATABASES" \
   --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg"
 ```
-
 
 ## Authenticate Telegraf requests to InfluxDB
 
