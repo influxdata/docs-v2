@@ -1,12 +1,12 @@
 ---
-title: v1.tagValues() function
-description: The `v1.tagValues()` function returns a list unique values for a given tag.
+title: schema.tagValues() function
+description: The `schema.tagValues()` function returns a list unique values for a given tag.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagvalues/
 menu:
   influxdb_2_0_ref:
-    name: v1.tagValues
-    parent: InfluxDB v1
+    name: schema.tagValues
+    parent: InfluxDB Schema
 weight: 301
 influxdb/v2.0/tags: [tags]
 related:
@@ -14,13 +14,13 @@ related:
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
 ---
 
-The `v1.tagValues()` function returns a list unique values for a given tag.
+The `schema.tagValues()` function returns a list unique values for a given tag.
 The return value is always a single table with a single column, `_value`.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagValues(
+schema.tagValues(
   bucket: "example-bucket",
   tag: "host",
   predicate: (r) => true,
@@ -58,9 +58,9 @@ _**Data type:** Duration_
 
 ## Examples
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagValues(
+schema.tagValues(
   bucket: "my-bucket",
   tag: "host",
 )
@@ -68,7 +68,7 @@ v1.tagValues(
 
 ## Function definition
 ```js
-package v1
+package schema
 
 tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
   from(bucket: bucket)

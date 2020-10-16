@@ -1,24 +1,26 @@
 ---
-title: v1.measurementFieldKeys() function
-description: The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
+title: schema.measurementFieldKeys() function
+description: The `schema.measurementFieldKeys()` function returns a list of fields in a measurement.
 menu:
   influxdb_2_0_ref:
-    name: v1.measurementFieldKeys
-    parent: InfluxDB v1
+    name: schema.measurementFieldKeys
+    parent: InfluxDB Schema
 weight: 301
 influxdb/v2.0/tags: [fields]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementfieldkeys/
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
 ---
 
-The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
+The `schema.measurementFieldKeys()` function returns a list of fields in a measurement.
 The return value is always a single table with a single column, `_value`.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurementFieldKeys(
+schema.measurementFieldKeys(
   bucket: "example-bucket",
   measurement: "example-measurement",
   start: -30d
@@ -49,9 +51,9 @@ _**Data type:** Duration_
 
 ## Examples
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurementFieldKeys(
+schema.measurementFieldKeys(
   bucket: "telegraf",
   measurement: "cpu",
 )
@@ -59,11 +61,11 @@ v1.measurementFieldKeys(
 
 ## Function definition
 ```js
-package v1
+package schema
 
 measurementFieldKeys = (bucket, measurement, start=-30d) =>
   fieldKeys(bucket: bucket, predicate: (r) => r._measurement == measurement, start: start)
 ```
 
 _**Used functions:**
-[v1.fieldKeys](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/)_
+[schema.fieldKeys](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/)_

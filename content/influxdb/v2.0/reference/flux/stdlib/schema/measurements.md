@@ -1,12 +1,12 @@
 ---
-title: v1.measurements() function
-description: The v1.measurements() function returns a list of measurements in a specific bucket.
+title: schema.measurements() function
+description: The schema.measurements() function returns a list of measurements in a specific bucket.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurements/
 menu:
   influxdb_2_0_ref:
-    name: v1.measurements
-    parent: InfluxDB v1
+    name: schema.measurements
+    parent: InfluxDB Schema
 weight: 301
 influxdb/v2.0/tags: [measurements]
 related:
@@ -14,13 +14,13 @@ related:
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
 ---
 
-The `v1.measurements()` function returns a list of measurements in a specific bucket.
+The `schema.measurements()` function returns a list of measurements in a specific bucket.
 The return value is always a single table with a single column, `_value`.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurements(bucket: "example-bucket")
+schema.measurements(bucket: "example-bucket")
 ```
 
 ## Parameters
@@ -32,11 +32,11 @@ _**Data type:** String_
 
 ## Function definition
 ```js
-package v1
+package schema
 
 measurements = (bucket) =>
   tagValues(bucket: bucket, tag: "_measurement")
 ```
 
 _**Used functions:**
-[v1.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues)_
+[schema.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues)_
