@@ -5,7 +5,7 @@ menu:
   influxdb_2_0:
     name: Example post
 weight: 1
-draft: true
+draft: false
 "v2.0/tags": [influxdb, functions]
 related:
   - /influxdb/v2.0/write-data/
@@ -26,6 +26,66 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "tasks" >}}
 {{< nav-icon "alerts" >}}
 {{< nav-icon "settings" >}}
+
+{{< icon "add-cell" >}} add-cell  
+{{< icon "add-label" >}} add-label  
+{{< icon "alert" >}} alert  
+{{< icon "calendar" >}} calendar  
+{{< icon "chat" >}} chat  
+{{< icon "checkmark" >}} checkmark  
+{{< icon "clone" >}} clone  
+{{< icon "cloud" >}} cloud  
+{{< icon "cog" >}} cog  
+{{< icon "config" >}} config  
+{{< icon "copy" >}} copy  
+{{< icon "dashboard" >}} dashboard  
+{{< icon "dashboards" >}} dashboards  
+{{< icon "data-explorer" >}} data-explorer  
+{{< icon "delete" >}} delete  
+{{< icon "download" >}} download  
+{{< icon "duplicate" >}} duplicate  
+{{< icon "edit" >}} edit  
+{{< icon "expand" >}} expand  
+{{< icon "export" >}} export  
+{{< icon "eye" >}} eye  
+{{< icon "eye-closed" >}} eye-closed  
+{{< icon "eye-open" >}} eye-open  
+{{< icon "feedback" >}} feedback  
+{{< icon "fullscreen" >}} fullscreen  
+{{< icon "gear" >}} gear  
+{{< icon "graph" >}} graph  
+{{< icon "hide" >}} hide  
+{{< icon "influx" >}} influx  
+{{< icon "influx-icon" >}} influx-icon  
+{{< icon "nav-admin" >}} nav-admin  
+{{< icon "nav-config" >}} nav-config  
+{{< icon "nav-configuration" >}} nav-configuration  
+{{< icon "nav-dashboards" >}} nav-dashboards  
+{{< icon "nav-data-explorer" >}} nav-data-explorer  
+{{< icon "nav-organizations" >}} nav-organizations  
+{{< icon "nav-orgs" >}} nav-orgs  
+{{< icon "nav-tasks" >}} nav-tasks  
+{{< icon "note" >}} note  
+{{< icon "org" >}} org  
+{{< icon "orgs" >}} orgs  
+{{< icon "pause" >}} pause  
+{{< icon "pencil" >}} pencil  
+{{< icon "play" >}} play  
+{{< icon "plus" >}} plus  
+{{< icon "refresh" >}} refresh  
+{{< icon "remove" >}} remove  
+{{< icon "replay" >}} replay  
+{{< icon "save-as" >}} save-as  
+{{< icon "search" >}} search  
+{{< icon "settings" >}} settings  
+{{< icon "tasks" >}} tasks  
+{{< icon "toggle" >}} toggle  
+{{< icon "trash" >}} trash  
+{{< icon "trashcan" >}} trashcan  
+{{< icon "triangle" >}} triangle  
+{{< icon "view" >}} view  
+{{< icon "wrench" >}} wrench  
+{{< icon "x" >}} x  
 
 ## h2 This is a header2
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
