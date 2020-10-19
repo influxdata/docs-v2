@@ -256,7 +256,7 @@ When it is omitted, the location option is used to determine the offset.
 
 ```js
 date_time_lit     = date [ "T" time ] .
-date              = year_lit "-" month "-" day .
+date              = year "-" month "-" day .
 year              = decimal_digit decimal_digit decimal_digit decimal_digit .
 month             = decimal_digit decimal_digit .
 day               = decimal_digit decimal_digit .
