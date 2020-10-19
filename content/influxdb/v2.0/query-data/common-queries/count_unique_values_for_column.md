@@ -11,7 +11,9 @@ menu:
 weight: 104
 ---
 
-Drop all the data except the column you are interested in, use unique(), remove the grouping, and then count().
+Drop all the data except the column you are interested in: in this case, the `location` column.
+
+This example uses the [`unique()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/), removes the grouping, then uses the [`count()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/).
 
 ```
 import "experimental/csv"

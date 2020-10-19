@@ -11,7 +11,7 @@ menu:
 weight: 104
 ---
 
-The following articles walk through common queries.
+The following articles walk through common queries using the [NOAA water database data](https://influx-testdata.s3.amazonaws.com/noaa.csv).
 
 {{< children >}}
 

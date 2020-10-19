@@ -11,7 +11,10 @@ menu:
 weight: 104
 ---
 
-Use the with keyboard in a map function to create the new column.
+Calculate a new column based on the values in a row using the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/).
+
+This example converts the Fahrenheit temperature data into celsius and maps it to a new column called `celsius`.
+
 
 ```
 import "experimental/csv"
@@ -19,7 +22,6 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 |> filter(fn: (r) => r._measurement == "average_temperature")
 |> map(fn: (r) => ({r with celsius: ((r._value - 32.0) * 5.0 / 9.0)} ))
 ```
-|#group   |false  |false|true        |true               |true                          |true                          |false               |false |false             |true        |
 |---------|-------|-----|------------|-------------------|------------------------------|------------------------------|--------------------|------|------------------|------------|
 |#datatype|string |long |string      |string             |dateTime:RFC3339              |dateTime:RFC3339              |dateTime:RFC3339    |double|double            |string      |
 |#default |_result|     |            |                   |                              |                              |                    |      |                  |            |

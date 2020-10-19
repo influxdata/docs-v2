@@ -1,8 +1,8 @@
 ---
-title: Compare the last measurement to a mean stored in another bucket
+title: Compare the last measurement to another bucket's mean
 seotitle: Compare the last measurement to a mean stored in another bucket
 description: >
-  .
+  This example is useful for writing a mean to a bucket and using it as a threshold check.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -10,7 +10,13 @@ menu:
     parent: Common queries
 weight: 104
 ---
-Useful for writing to a bucket and using as a threshold check. Get the last value in the means bucket, compare it to the last value in your main bucket, use `join()` to combine the results, and use `map()` to calculate the differences.
+
+
+This example is useful for writing a mean to a bucket and using it as a threshold check. It compares the last measurement to a mean stored in another bucket by doing the following:
+  - Gets the last value in the `means` bucket
+  - Compares it to the last value in the main bucket
+  - Uses [`join()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) to combine the result
+  - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to calculate the differences
 
 ```
 means = from(bucket: "weekly_means")

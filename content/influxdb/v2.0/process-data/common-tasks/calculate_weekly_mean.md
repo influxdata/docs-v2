@@ -7,11 +7,12 @@ menu:
   influxdb_2_0:
     name: Calculate a weekly mean
     parent: Common tasks
-weight: 201
+weight: 202
 influxdb/v2.0/tags: [tasks]
 ---
 
-Useful for comparing values to a historical mean. Use `window()` to group by day, then `mean()`, then create a `_time` column, send to the new bucket.
+Calculate a weekly mean and add it to a new bucket, enabling you to compare values to a historical mean. This example groups average temperature by week and computes the mean using the [`window()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/) and [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/), then sends it to a new bucket (`weekly_means`).
+
 
 ```
 import "experimental/csv"

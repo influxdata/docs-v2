@@ -1,16 +1,15 @@
 ---
 title: Convert results to JSON and post to an endpoint
-seotitle: CConvert results to JSON and post to an endpoint
-description:
+description: Post results to a URL endpoint
 menu:
   influxdb_2_0:
     name: Convert results to JSON
     parent: Common tasks
-weight: 201
+weight: 203
 influxdb/v2.0/tags: [tasks]
 ---
 
-Use json.encode() and http.post(). The following will make a separate http call for each record.
+Use [`json.encode()`](/influxdb/v2.0/reference/flux/stdlib/json/encode/) to convert a value into JSON bytes, then use [`http.post()`](/influxdb/v2.0/reference/flux/stdlib/http/post/) to send them to a URL endpoint. The following example will make a separate `http` call for each record.
 
 ```
 import "http"

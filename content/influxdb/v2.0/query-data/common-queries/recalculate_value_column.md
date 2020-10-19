@@ -1,8 +1,7 @@
 ---
 title: Recalculate the `_value` column in place
 seotitle: Recalculate the `_value` column in place
-description: >
-  .
+description: Recalculate the `_value` column without creating a new one.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -11,7 +10,9 @@ menu:
 weight: 104
 ---
 
-Use “with `_value`” in a map function.
+Use `with _value` in a [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one.
+
+This example converts the Fahrenheit temperature data in the `_value` column into celsius.
 
 ```
 import "experimental/csv"

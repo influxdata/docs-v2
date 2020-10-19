@@ -8,10 +8,10 @@ menu:
   influxdb_2_0:
     name: Find unique values
     parent: Common queries
-weight: 104
+weight: 103
 ---
 
-Drop all the data except the column you are interested in, and use `unique()`.
+Drop all the data except the column you are interested in, and use the [`unique()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to find unique values.
 
 ```
 import "experimental/csv"
