@@ -12,7 +12,8 @@ menu:
     name: InfluxDB Schema
     parent: Flux standard library
 weight: 202
-influxdb/v2.0/tags: [functions, influxdb-v1, package]
+influxdb/v2.0/tags: [functions, schema, package]
+introduced: 0.88.0
 ---
 
 InfluxDB schema Flux functions provide tools for managing data from an InfluxDB database.

@@ -1,29 +1,33 @@
 ---
-title: schema.measurementTagValues() function
-description: The schema.measurementTagValues() function returns a list of tag values for a specific measurement.
+title: v1.measurementTagValues() function
+description: The v1.measurementTagValues() function returns a list of tag values for a specific measurement.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/
 menu:
   influxdb_2_0_ref:
-    name: schema.measurementTagValues
-    parent: InfluxDB Schema
+    name: v1.measurementTagValues
+    parent: InfluxDB v1
 weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
-introduced: 0.88.0
+introduced: 0.16.0
+deprecated: 0.88.0
 ---
 
-The `schema.measurementTagValues()` function returns a list of tag values for a specific measurement.
+{{% warn %}}
+`v1.measurementTagValues()` was deprecated in **Flux v0.88.0** in favor of
+[`schema.measurementTagValues()`](/influxdb/v2.0/reference/flux/stdlib/schema/measurementtagvalues/).
+{{% /warn %}}
+
+The `v1.measurementTagValues()` function returns a list of tag values for a specific measurement.
 The return value is always a single table with a single column, `_value`.
 
-
-
 ```js
-import "influxdata/influxdb/schema"
+import "influxdata/influxdb/v1"
 
-schema.measurementTagValues(
+v1.measurementTagValues(
   bucket: "example-bucket",
   measurement: "cpu",
   tag: "host"
@@ -50,7 +54,7 @@ _**Data type:** String_
 
 ## Function definition
 ```js
-package schema
+package v1
 
 measurementTagValues = (bucket, measurement, tag) =>
   tagValues(
@@ -61,4 +65,4 @@ measurementTagValues = (bucket, measurement, tag) =>
 ```
 
 _**Used functions:**
-[schema.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues)_
+[v1.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues)_

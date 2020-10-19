@@ -1,10 +1,10 @@
 ---
-title: schema.fieldKeys() function
-description: The `schema.fieldKeys()` function returns field keys in a bucket.
+title: v1.fieldKeys() function
+description: The `v1.fieldKeys()` function returns field keys in a bucket.
 menu:
   influxdb_2_0_ref:
-    name: schema.fieldKeys
-    parent: InfluxDB Schema
+    name: v1.fieldKeys
+    parent: InfluxDB v1
 weight: 301
 influxdb/v2.0/tags: [fields]
 aliases:
@@ -12,16 +12,22 @@ aliases:
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
-introduced: 0.88.0
+introduced: 0.68.0
+deprecated: 0.88.0
 ---
 
-The `schema.fieldKeys()` function returns field keys in a bucket.
+{{% warn %}}
+`v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
+[`schema.fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/schema/fieldkeys/).
+{{% /warn %}}
+
+The `v1.fieldKeys()` function returns field keys in a bucket.
 The return value is always a single table with a single column, `_value`.
 
 ```js
-import "influxdata/influxdb/schema"
+import "influxdata/influxdb/v1"
 
-schema.fieldKeys(
+v1.fieldKeys(
   bucket: "example-bucket",
   predicate: (r) => true,
   start: -30d
@@ -53,18 +59,18 @@ _**Data type:** Duration_
 
 ## Examples
 ```js
-import "influxdata/influxdb/schema"
+import "influxdata/influxdb/v1"
 
-schema.fieldKeys(bucket: "my-bucket")
+v1.fieldKeys(bucket: "my-bucket")
 ```
 
 ## Function definition
 ```js
-package schema
+package v1
 
 fieldKeys = (bucket, predicate=(r) => true, start=-30d) =>
   tagValues(bucket: bucket, tag: "_field", predicate: predicate, start: start)
 ```
 
 _**Used functions:**
-[schema.tagValues](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/)_
+[v1.tagValues](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/)_
