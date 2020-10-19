@@ -2,8 +2,7 @@
 title: Flux InfluxDB schema package
 list_title: InfluxDB schema package
 description: >
-  The Flux InfluxDB schema package provides functions for managing data from an InfluxDB v1.x
-  database or structured using the InfluxDB schema data structure.
+  The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.
   Import the `influxdata/influxdb/schema` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
@@ -16,7 +15,7 @@ influxdb/v2.0/tags: [functions, schema, package]
 introduced: 0.88.0
 ---
 
-InfluxDB schema Flux functions provide tools for managing data from an InfluxDB database.
+The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.
 
 Import the `influxdata/influxdb/schema` package:
 

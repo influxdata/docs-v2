@@ -17,7 +17,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.fieldsAsCols()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/schema/fieldsascols/).
+[`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/).
 {{% /warn %}}
 
 The `v1.fieldsAsCols()` function is a special application of the `pivot()` function that

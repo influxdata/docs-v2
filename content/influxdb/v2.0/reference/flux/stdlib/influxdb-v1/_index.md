@@ -29,18 +29,18 @@ import "influxdata/influxdb/v1"
 {{% warn %}}
 #### Deprecated functions
 In **Flux 0.88.0**, the following InfluxDB v1 package functions moved to the
-[InfluxDB schema package](/influxdb/v2.0/reference/flux/stdlib/schema/).
+[InfluxDB schema package](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/).
 These functions are still available in the `v1` package for backwards compatibility,
 but are deprecated in favor of `schema`.
 
 | Deprecated v1 function        | → | Corresponding schema function                                                                      |
 |:-------------------           |:-:|:------------------------                                                                           |
-| **v1.fieldKeys()**            | → | [schema.fieldKeys()](/influxdb/v2.0/reference/flux/stdlib/schema/fieldkeys/)                       |
-| **v1.fieldsAsCols()**         | → | [schema.fieldsAsCols()](/influxdb/v2.0/reference/flux/stdlib/schema/fieldsascols/)                 |
-| **v1.measurementFieldKeys()** | → | [schema.measurementFieldKeys()](/influxdb/v2.0/reference/flux/stdlib/schema/measurementfieldkeys/) |
-| **v1.measurements()**         | → | [schema.measurements()](/influxdb/v2.0/reference/flux/stdlib/schema/measurements/)                 |
-| **v1.measurementTagKeys()**   | → | [schema.measurementTagKeys()](/influxdb/v2.0/reference/flux/stdlib/schema/measurementtagkeys/)     |
-| **v1.measurementTagValues()** | → | [schema.measurementTagValues()](/influxdb/v2.0/reference/flux/stdlib/schema/measurementtagvalues/) |
-| **v1.tagKeys()**              | → | [schema.tagKeys()](/influxdb/v2.0/reference/flux/stdlib/schema/tagkeys/)                           |
-| **v1.tagValues()**            | → | [schema.tagValues()](/influxdb/v2.0/reference/flux/stdlib/schema/tagvalues/)                       |
+| **v1.fieldKeys()**            | → | [schema.fieldKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/)                       |
+| **v1.fieldsAsCols()**         | → | [schema.fieldsAsCols()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/)                 |
+| **v1.measurementFieldKeys()** | → | [schema.measurementFieldKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementfieldkeys/) |
+| **v1.measurements()**         | → | [schema.measurements()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurements/)                 |
+| **v1.measurementTagKeys()**   | → | [schema.measurementTagKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagkeys/)     |
+| **v1.measurementTagValues()** | → | [schema.measurementTagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagvalues/) |
+| **v1.tagKeys()**              | → | [schema.tagKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys/)                           |
+| **v1.tagValues()**            | → | [schema.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/)                       |
 {{% /warn %}}

@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementFieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/schema/measurementfieldkeys/).
+[`schema.measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementfieldkeys/).
 {{% /warn %}}
 
 The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.

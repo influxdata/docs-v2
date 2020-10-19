@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/schema/fieldkeys/).
+[`schema.fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/).
 {{% /warn %}}
 
 The `v1.fieldKeys()` function returns field keys in a bucket.

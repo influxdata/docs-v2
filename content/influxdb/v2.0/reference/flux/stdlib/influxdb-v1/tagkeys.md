@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.tagkeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.tagkeys()`](/influxdb/v2.0/reference/flux/stdlib/schema/tagkeys/).
+[`schema.tagkeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys/).
 {{% /warn %}}
 
 The `v1.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).

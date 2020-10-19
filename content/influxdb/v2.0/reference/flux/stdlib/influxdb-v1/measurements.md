@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurements()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurements()`](/influxdb/v2.0/reference/flux/stdlib/schema/measurements/).
+[`schema.measurements()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurements/).
 {{% /warn %}}
 
 The `v1.measurements()` function returns a list of measurements in a specific bucket.

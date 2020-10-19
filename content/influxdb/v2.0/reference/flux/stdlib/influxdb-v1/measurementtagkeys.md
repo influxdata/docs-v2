@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementTagKeys()`](/influxdb/v2.0/reference/flux/stdlib/schema/measurementtagkeys/).
+[`schema.measurementTagKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagkeys/).
 {{% /warn %}}
 
 The `v1.measurementTagKeys()` function returns a list of tag keys for a specific measurement.

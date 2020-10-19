@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.tagValues()`](/influxdb/v2.0/reference/flux/stdlib/schema/tagvalues/).
+[`schema.tagValues()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/).
 {{% /warn %}}
 
 The `v1.tagValues()` function returns a list unique values for a given tag.

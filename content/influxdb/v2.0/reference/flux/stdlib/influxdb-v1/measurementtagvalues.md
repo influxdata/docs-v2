@@ -18,7 +18,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementTagValues()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementTagValues()`](/influxdb/v2.0/reference/flux/stdlib/schema/measurementtagvalues/).
+[`schema.measurementTagValues()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagvalues/).
 {{% /warn %}}
 
 The `v1.measurementTagValues()` function returns a list of tag values for a specific measurement.
