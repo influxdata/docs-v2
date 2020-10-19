@@ -10,16 +10,16 @@ weight: 9
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
-This command copies all data stored in [databases](/influxdb/v1.8/concepts/glossary/#database) and 
-[retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) (used in 1.x)
-over to [buckets](/influxdb/v2.0/reference/glossary/#bucket) (used in 2.0).
+This command copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
+[retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 
 {{% warn %}}
-Be sure to back up all data before upgrading with `influx upgrade`.
+Back up all data before upgrading with `influx upgrade`.
 {{% /warn %}}
 
-1. If you haven't already, [download the InfluxDB OSS 2.0rc1](https://portal.influxdata.com/downloads/).
-   Follow the install instructions for `influxd` and `influx`.
+1. [Download the InfluxDB OSS 2.0rc1](https://portal.influxdata.com/downloads/),
+   unpackage the InfluxDB binaries, and then place them in your `$PATH`.
 2. Stop your running InfluxDB 1.x instance.
 3. If your configuration file is at the default location (`~/.influxdbv2/configs`), run:
 
@@ -28,6 +28,7 @@ Be sure to back up all data before upgrading with `influx upgrade`.
    ```
 
    Otherwise, run:
+
    ```sh
    influxd upgrade --config <path to config file>
    ```

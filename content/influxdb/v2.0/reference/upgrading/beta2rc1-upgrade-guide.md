@@ -9,7 +9,7 @@ menu:
 aliases:
   - /influxdb/v2.0/reference/rc0-upgrade-guide/
   - /influxdb/v2.0/reference/rc1-upgrade-guide/
-weight: 9
+weight: 7
 ---
 
 To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.0rc1, you must manually upgrade all resources and data to the latest version by completing the following steps:
