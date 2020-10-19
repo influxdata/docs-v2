@@ -5,7 +5,7 @@ menu:
   influxdb_2_0:
     name: Example post
 weight: 1
-draft: false
+draft: true
 "v2.0/tags": [influxdb, functions]
 related:
   - /influxdb/v2.0/write-data/
