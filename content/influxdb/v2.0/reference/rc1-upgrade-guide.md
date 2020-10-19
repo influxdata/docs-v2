@@ -5,6 +5,8 @@ description: >
 menu:
   influxdb_2_0_ref:
     name: Upgrade to InfluxDB OSS 2.0rc1
+aliases:
+  - /influxdb/v2.0/reference/rc0-upgrade-guide/
 weight: 9
 ---
 
