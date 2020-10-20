@@ -96,7 +96,7 @@ The severity of the event.
 _**Data type:** String_
 
 ### eventAction
-The type of event to send to PagerDuty.
+[Event type](https://developer.pagerduty.com/docs/events-api-v1/overview/#event-types) to send to PagerDuty.
 
 **Valid values include:**
 
