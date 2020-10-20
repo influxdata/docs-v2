@@ -5,7 +5,7 @@ description: >
   [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
   using data from table rows.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: sensu.endpoint
     parent: Sensu
 weight: 202

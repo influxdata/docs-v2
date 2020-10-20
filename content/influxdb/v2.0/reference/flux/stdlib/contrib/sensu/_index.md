@@ -6,7 +6,7 @@ description: >
   [Sensu Go](https://docs.sensu.io/sensu-go/latest/).
   Import the `contrib/sranka/sensu` package.
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: Sensu
     parent: Contributed
 weight: 202

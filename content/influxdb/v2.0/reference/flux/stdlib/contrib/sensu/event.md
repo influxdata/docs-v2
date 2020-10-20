@@ -4,7 +4,7 @@ description: >
   The `sensu.event()` function sends a single event to the
   [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
 menu:
-  v2_0_ref:
+  influxdb_2_0_ref:
     name: sensu.event
     parent: Sensu
 weight: 202
