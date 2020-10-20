@@ -11,7 +11,7 @@ menu:
 ## v0.90.0 [2020-10-19]
 
 ### Features
-- Add Sensu package.
+- Add [Sensu package](/influxdb/v2.0/reference/flux/stdlib/contrib/sensu).
 
 ### Bug fixes
 - Verify dependencies in `Dockerfile_build`.
