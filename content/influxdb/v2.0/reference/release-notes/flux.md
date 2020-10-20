@@ -8,7 +8,19 @@ menu:
     name: Flux
 ---
 
+## v0.90.0 [2020-10-19]
+
+### Features
+- Add Sensu package.
+
+### Bug fixes
+- Verify dependencies in `Dockerfile_build`.
+- Fix panic in `experimental.join`.
+
+---
+
 ## v0.89.0 [2020-10-12]
+
 ### Features
 - Add support for SAP HANA databases.
 - Add support for comments preceding `builtin` statements in code formatting.
