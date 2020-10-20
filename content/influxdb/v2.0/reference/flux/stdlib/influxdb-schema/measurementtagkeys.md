@@ -12,6 +12,7 @@ influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
+introduced: 0.88.0
 ---
 
 The `schema.measurementTagKeys()` function returns a list of tag keys for a specific measurement.
@@ -29,12 +30,12 @@ schema.measurementTagKeys(
 ## Parameters
 
 ### bucket
-The bucket from which to return tag keys for a specific measurement.
+Bucket to return tag keys from for a specific measurement.
 
 _**Data type:** String_
 
 ### measurement
-The measurement from which to return tag keys.
+Measurement to return tag keys from.
 
 _**Data type:** String_
 

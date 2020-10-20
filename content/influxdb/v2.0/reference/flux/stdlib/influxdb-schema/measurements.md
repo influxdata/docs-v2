@@ -12,6 +12,7 @@ influxdb/v2.0/tags: [measurements]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
+introduced: 0.88.0
 ---
 
 The `schema.measurements()` function returns a list of measurements in a specific bucket.
@@ -26,7 +27,7 @@ schema.measurements(bucket: "example-bucket")
 ## Parameters
 
 ### bucket
-The bucket from which to list measurements.
+Bucket to retrieve measurements from.
 
 _**Data type:** String_
 

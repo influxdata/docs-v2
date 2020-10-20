@@ -1644,7 +1644,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-##v0.16.0 [2019-01-17]
+## v0.16.0 [2019-01-17]
 
 ### Features
 - Adds various v1 meta queries helper functions
