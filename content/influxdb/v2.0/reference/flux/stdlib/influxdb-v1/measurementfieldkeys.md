@@ -37,22 +37,22 @@ v1.measurementFieldKeys(
 ## Parameters
 
 ### bucket
-The bucket to list field keys from.
+Bucket to retrieve field keys from.
 
 _**Data type:** String_
 
 ### measurement
-The measurement to list field keys from.
+Measurement to list field keys from.
 
 _**Data type:** String_
 
 ### start
-The oldest time to include in results.
+Oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
 
 _**Data type:** Duration_
 

@@ -30,12 +30,12 @@ schema.measurementTagKeys(
 ## Parameters
 
 ### bucket
-The bucket from which to return tag keys for a specific measurement.
+Bucket to return tag keys from for a specific measurement.
 
 _**Data type:** String_
 
 ### measurement
-The measurement from which to return tag keys.
+Measurement to return tag keys from.
 
 _**Data type:** String_
 

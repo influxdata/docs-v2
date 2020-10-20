@@ -33,17 +33,17 @@ schema.measurementTagValues(
 ## Parameters
 
 ### bucket
-The bucket from which to return tag values for a specific measurement.
+Bucket to return tag values from for a specific measurement.
 
 _**Data type:** String_
 
 ### measurement
-The measurement from which to return tag values.
+Measurement to return tag values from.
 
 _**Data type:** String_
 
 ### tag
-The tag from which to return all unique values.
+Tag to return all unique values from.
 
 _**Data type:** String_
 

@@ -15,7 +15,7 @@ related:
 introduced: 0.88.0
 ---
 
-The `schema.fieldKeys()` function returns field keys in a bucket.
+The `schema.fieldKeys()` function returns [field keys](/influxdb/v2.0/reference/glossary/#field-key) in a bucket.
 The return value is always a single table with a single column, `_value`.
 
 ```js
@@ -47,7 +47,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
 
 _**Data type:** Duration_
 

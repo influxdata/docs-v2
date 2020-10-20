@@ -31,23 +31,23 @@ schema.tagKeys(
 ## Parameters
 
 ### bucket
-The bucket from which to list tag keys.
+Bucket to return tag keys from.
 
 _**Data type:** String_
 
 ### predicate
-The predicate function that filters tag keys.
+Predicate function that filters tag keys.
 _Defaults to `(r) => true`._
 
 _**Data type:** Function_
 
 ### start
-The oldest time to include in results.
+Oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
 
 _**Data type:** Duration_
 

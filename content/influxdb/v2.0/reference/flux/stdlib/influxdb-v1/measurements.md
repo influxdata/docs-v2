@@ -33,7 +33,7 @@ v1.measurements(bucket: "example-bucket")
 ## Parameters
 
 ### bucket
-The bucket from which to list measurements.
+Bucket to retrieve measurements from.
 
 _**Data type:** String_
 

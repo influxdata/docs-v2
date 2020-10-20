@@ -1,6 +1,6 @@
 ---
 title: schema.fieldsAsCols() function
-description: The schema.fieldsAsCols() function is pivots a table and automatically aligns fields within each input table that have the same timestamp.
+description: The schema.fieldsAsCols() function pivots a table to automatically align fields within each input table that have the same timestamp.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
   - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
@@ -14,8 +14,10 @@ weight: 301
 introduced: 0.88.0
 ---
 
-The `schema.fieldsAsCols()` function is a special application of the `pivot()` function that
-automatically aligns fields within each input table that have the same timestamp.
+The `schema.fieldsAsCols()` function is a special application of the
+[`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+function that pivots on `_field` and `_time` columns to aligns fields within each
+input table that have the same timestamp.
 
 _**Function type:** Transformation_
 
