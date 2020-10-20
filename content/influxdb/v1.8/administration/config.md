@@ -625,7 +625,7 @@ Environment variable: `INFLUXDB_HTTP_ACCESS_LOG_STATUS_FILTERS_x`
 
 ###### Setting access log status filters using configuration settings
 
-`access-log-status-filter = ["4xx", "5xx"]`
+`access-log-status-filters = ["4xx", "5xx"]`
 
 `"4xx"` is in array position `0`
 `"5xx"` is in array position `1`
