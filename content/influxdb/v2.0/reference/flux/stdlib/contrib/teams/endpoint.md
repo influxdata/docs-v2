@@ -47,7 +47,7 @@ following fields:
 - `text`
 - `summary`
 
-_For more information, see [`teams.message()`](/influxdb/v2.0/reference/flux/stdlib/contrib/teams/message/)._
+_For more information, see [`teams.message()` parameters](/v2.0/reference/flux/stdlib/contrib/teams/message/#parameters)._
 
 ## Examples
 
