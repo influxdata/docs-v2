@@ -1,8 +1,7 @@
 ---
-title: Calculate a new column based on values in a row
-seotitle: Calculate a new column based on values in a row
+title: Use values to calculate a new column
 description: >
-  Create a new column based on values in a row.
+  Use the `map()`` function to create a new column calculated from existing values in each row.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -11,30 +10,34 @@ menu:
 weight: 104
 ---
 
-Calculate a new column based on the values in a row using the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/).
+Use the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
 
-This example converts the Fahrenheit temperature data into celsius and maps it to a new column called `celsius`.
+This example converts the Fahrenheit temperature data into celsius and maps it to a new `celsius` column.
 
 
-```
+```js
 import "experimental/csv"
+
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-|> filter(fn: (r) => r._measurement == "average_temperature")
-|> map(fn: (r) => ({r with celsius: ((r._value - 32.0) * 5.0 / 9.0)} ))
+  |> filter(fn: (r) => r._measurement == "average_temperature")
+  |> map(fn: (r) => ({r with
+      celsius: ((r._value - 32.0) * 5.0 / 9.0)
+    })
+  )
 ```
-|---------|-------|-----|------------|-------------------|------------------------------|------------------------------|--------------------|------|------------------|------------|
-|#datatype|string |long |string      |string             |dateTime:RFC3339              |dateTime:RFC3339              |dateTime:RFC3339    |double|double            |string      |
-|#default |_result|     |            |                   |                              |                              |                    |      |                  |            |
-|         |result |table|_field      |_measurement       |_start                        |_stop                         |_time               |_value|celsius           |location    |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:00:00Z|82    |27.77777777777778 |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:06:00Z|73    |22.77777777777778 |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:12:00Z|86    |30                |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:18:00Z|89    |31.666666666666668|coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:24:00Z|77    |25                |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:30:00Z|70    |21.11111111111111 |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:36:00Z|84    |28.88888888888889 |coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:42:00Z|76    |24.444444444444443|coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:48:00Z|85    |29.444444444444443|coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:54:00Z|80    |26.666666666666668|coyote_creek|
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|
-| ... |
+
+### Example results
+
+| _start               | _stop                | _field  | _measurement        | location     | _time                | _value | celsius |
+|:------               |:-----                |:------: |:------------:       |:--------:    |:-----                | ------:| -------:|
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:00:00Z | 82     | 27.78   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:06:00Z | 73     | 22.78   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:12:00Z | 86     | 30.00   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:18:00Z | 89     | 31.67   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:24:00Z | 77     | 25.00   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:30:00Z | 70     | 21.11   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:36:00Z | 84     | 28.89   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:42:00Z | 76     | 24.44   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:48:00Z | 85     | 29.44   |
+| 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | degrees | average_temperature | coyote_creek | 2019-08-17T00:54:00Z | 80     | 26.67   |
+| •••                  | •••                  | •••     | •••                 | •••          | •••                  | •••    | •••     |

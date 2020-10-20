@@ -1,40 +1,37 @@
 ---
-title: Recalculate the `_value` column in place
-seotitle: Recalculate the `_value` column in place
+title: Recalculate the _value column
 description: Recalculate the `_value` column without creating a new one.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
-    name: Recalculate the `_value` column
+    name: Recalculate the _value column
     parent: Common queries
 weight: 104
 ---
 
-Use `with _value` in a [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one.
+Use [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one. Use the `with` operator in the `map` function to overwrite the existing `_value` column.
 
-This example converts the Fahrenheit temperature data in the `_value` column into celsius.
+The following example converts Fahrenheit temperature values into celsius.
 
-```
+```js
 import "experimental/csv"
+
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-|> filter(fn: (r) => r._measurement == "average_temperature")
-|> map(fn: (r) => ({r with _value: ((r._value - 32.0) * 5.0 / 9.0)} ))
+  |> filter(fn: (r) => r._measurement == "average_temperature")
+  |> map(fn: (r) => ({r with _value: (float(v: r._value) - 32.0) * 5.0 / 9.0} ))
 ```
 
-|#group   |false  |false|true        |true               |true                          |true                          |false               |false |true              |
-|---------|-------|-----|------------|-------------------|------------------------------|------------------------------|--------------------|------|------------------|
-|#datatype|string |long |string      |string             |dateTime:RFC3339              |dateTime:RFC3339              |dateTime:RFC3339    |double|string            |
-|#default |_result|     |            |                   |                              |                              |                    |      |                  |
-|         |result |table|_field      |_measurement       |_start                        |_stop                         |_time               |_value|location          |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:00:00Z|27.77777777777778|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:06:00Z|22.77777777777778|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:12:00Z|30    |coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:18:00Z|31.666666666666668|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:24:00Z|25    |coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:30:00Z|21.11111111111111|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:36:00Z|28.88888888888889|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:42:00Z|24.444444444444443|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:48:00Z|29.444444444444443|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T00:54:00Z|26.666666666666668|coyote_creek      |
-|         |       |0    |degrees     |average_temperature|1920-03-05T22:10:01.711964667Z|2020-03-05T22:10:01.711964667Z|2019-08-17T01:00:00Z|21.11111111111111|coyote_creek      |
-| ... |
+| _field  | _measurement        | _start               | _stop                | _time                | location     | _value             |
+|:------  |:------------        |:------               |:-----                |:-----                |:--------     | ------:            |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:00:00Z | coyote_creek | 27.77777777777778  |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:06:00Z | coyote_creek | 22.77777777777778  |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:12:00Z | coyote_creek | 30                 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:18:00Z | coyote_creek | 31.666666666666668 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:24:00Z | coyote_creek | 25                 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:30:00Z | coyote_creek | 21.11111111111111  |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:36:00Z | coyote_creek | 28.88888888888889  |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:42:00Z | coyote_creek | 24.444444444444443 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:48:00Z | coyote_creek | 29.444444444444443 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T00:54:00Z | coyote_creek | 26.666666666666668 |
+| degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T01:00:00Z | coyote_creek | 21.11111111111111  |
+| •••     | •••                 | •••                  | •••                  | •••                  | •••          | •••                |

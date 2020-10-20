@@ -1,8 +1,7 @@
 ---
-title: Count unique values for a column
-seotitle: Count unique values for a column
+title: Count unique values
 description: >
-  .
+  Count the number of unique values in a specified column.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -11,22 +10,20 @@ menu:
 weight: 104
 ---
 
-Drop all the data except the column you are interested in: in this case, the `location` column.
+Use the [`unique()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to return unique values in a specified column. Use the [`count()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/) to count the number of unique values.
 
-This example uses the [`unique()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/), removes the grouping, then uses the [`count()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/).
+The following example uses the Sample NOAA weather data to identify and count unique locations data was collected from. It first uses `group()` to ungroup data and return results in a single table.
 
-```
+```js
 import "experimental/csv"
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-|> keep(columns: ["location"])
-|> unique(column: "location")
-|> group(columns: [])
-|> count(column: "location")
+  |> group()
+  |> unique(column: "location")
+  |> count(column: "location")
 ```
 
-|#group   |false  |false|false       |
-|---------|-------|-----|------------|
-|#datatype|string |long |long        |
-|#default |_result|     |            |
-|         |result |table|location    |
-|         |       |0    |2           |
+### Example results
+
+| location  |
+| ---------:|
+| 2         |
