@@ -146,6 +146,12 @@ Use this endpoint to check the health of your InfluxDB instance.
 curl -XGET "localhost:8086/health"
 ```
 
+##### /health endpoint responses
+| Response code | Health    | Message                        | Status |
+|:------------- |:------    |:-------                        | ------:|
+| 200           | Healthy   | `ready for queries and writes` | `pass` |
+| 503           | Unhealthy |                                | `fail` |
+
 ---
 
 ## InfluxDB 1.x HTTP endpoints
