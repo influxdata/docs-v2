@@ -17,8 +17,8 @@ telegraf:
   name: Telegraf
   namespace: telegraf
   list_order: 2
-  versions: [v1.9, v1.10, v1.11, v1.12, v1.13, v1.14, v1.15]
-  latest: v1.15
+  versions: [v1.9, v1.10, v1.11, v1.12, v1.13, v1.14, v1.15, v1.16]
+  latest: v1.16
 
 chronograf:
   name: Chronograf
