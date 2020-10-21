@@ -10,11 +10,11 @@ menu:
 weight: 104
 ---
 
-The following examples use the Sample NOAA weather data to identify and count unique locations data was collected from.
+The following examples use the sample NOAA weather data to identify and count unique locations that data was collected from.
 
 ## Find unique values
 
-Use the [`unique()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to return unique values in a specified column.
+This example uses [`csv.from()`](influxdb/v2.0/reference/flux/stdlib/csv/from/), [`keep()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/), and [`unique()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to return unique values in a specified column.
 
 ```js
 import "experimental/csv"
@@ -32,7 +32,7 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 
 ## Count unique values
 
-This example uses [`count()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/) to count the number of unique values. It first uses `group()` to ungroup data and return results in a single table.
+This example uses [`csv.from()`](influxdb/v2.0/reference/flux/stdlib/csv/from/), [`keep()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/), [`unique()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/), and then [`count()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/) to count the number of unique values. It first uses `group()` to ungroup data and return results in a single table.
 
 ```js
 import "experimental/csv"

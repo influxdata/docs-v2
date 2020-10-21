@@ -1,7 +1,7 @@
 ---
 title: Use values to calculate a new column
 description: >
-  Use the `map()`` function to create a new column calculated from existing values in each row.
+  Use the `map()` function to create a new column calculated from existing values in each row.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -12,8 +12,7 @@ weight: 104
 
 Use the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
 
-This example converts the Fahrenheit temperature data into celsius and maps it to a new `celsius` column.
-
+This example converts temperature from Fahrenheit to Celsius and maps the Celsius value to a new `celsius` column.
 
 ```js
 import "experimental/csv"

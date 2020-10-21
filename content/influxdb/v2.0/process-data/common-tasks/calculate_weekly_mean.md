@@ -12,9 +12,9 @@ influxdb/v2.0/tags: [tasks]
 
 Calculate a weekly mean and store it in a separate bucket.
 
-This example groups average temperature by week and computes the mean using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/), then sends it to a new bucket (`weekly_means`).
+This example groups average temperature by week and computes the mean using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/), then sends the weekly mean to a new bucket (`weekly_means`).
 
-This article uses [NOAA water database data](https://influx-testdata.s3.amazonaws.com/noaa.csv) and the experimental [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/).
+This example uses [NOAA water database data](https://influx-testdata.s3.amazonaws.com/noaa.csv) and the experimental [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/) to retrieve data used to calculate the weekly mean.
 
 ```js
 import "experimental/csv"
