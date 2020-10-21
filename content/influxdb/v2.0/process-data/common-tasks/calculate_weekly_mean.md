@@ -10,6 +10,10 @@ weight: 202
 influxdb/v2.0/tags: [tasks]
 ---
 
+{{% note %}}
+This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
+
 Calculate a weekly mean and store it in a separate bucket.
 
 This example groups average temperature by week and computes the mean using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/), then sends the weekly mean to a new bucket (`weekly_means`).
@@ -24,7 +28,7 @@ option task = {
   every: 1w,
 }
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+csv.from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
   |> range(start: 2019-09-01T11:24:00Z)
   |> aggregateWindow(every:  1w, fn: mean)

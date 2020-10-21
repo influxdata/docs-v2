@@ -9,6 +9,10 @@ menu:
 weight: 104
 ---
 
+{{% note %}}
+This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
+
 Use [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one. Use the `with` operator in the `map` function to overwrite the existing `_value` column.
 
 The following example uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to convert Fahrenheit temperature values into Celsius.
@@ -16,7 +20,7 @@ The following example uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-
 ```js
 import "experimental/csv"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+csv.from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
   |> map(fn: (r) => ({r with _value: (float(v: r._value) - 32.0) * 5.0 / 9.0} ))
 ```

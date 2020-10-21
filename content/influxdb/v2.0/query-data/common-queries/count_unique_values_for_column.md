@@ -10,7 +10,11 @@ menu:
 weight: 104
 ---
 
-The following examples use the sample NOAA weather data to identify and count unique locations that data was collected from.
+{{% note %}}
+This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
+
+The following examples identify and count unique locations that data was collected from.
 
 ## Find unique values
 
@@ -19,7 +23,7 @@ This example uses [`csv.from()`](influxdb/v2.0/reference/flux/stdlib/csv/from/),
 ```js
 import "experimental/csv"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+csv.from(bucket: "noaa")
   |> keep(columns: ["location"])
   |> unique(column: "location")
 ```

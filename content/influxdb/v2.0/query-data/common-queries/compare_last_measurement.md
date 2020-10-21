@@ -11,10 +11,14 @@ menu:
 weight: 104
 ---
 
+{{% note %}}
+This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
+
 Compare the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check).
 
 The following query:
-  - Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/)
+  - Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/).
   - Uses [`join()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) to combine the results
   - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to calculate the differences
 

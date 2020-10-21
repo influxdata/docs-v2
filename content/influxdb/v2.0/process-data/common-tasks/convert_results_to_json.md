@@ -11,11 +11,13 @@ menu:
 weight: 203
 influxdb/v2.0/tags: [tasks]
 ---
+{{% note %}}
+This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
 
 Send each record to a URL endpoint using the HTTP POST method. This example uses [`json.encode()`](/influxdb/v2.0/reference/flux/stdlib/json/encode/) to convert a value into JSON bytes, then uses [`http.post()`](/influxdb/v2.0/reference/flux/stdlib/http/post/) to send them to a URL endpoint.
 
 The following query:
-- Uses [NOAA water database data](https://influx-testdata.s3.amazonaws.com/noaa.csv)
 - Queries data from a data source ([`csv.from()`](/influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/) and [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/))
 - Calculates the average value from results using [`mean()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
 - Uses map to create a new column, `jsonStr`, and build a JSON object using column values from the query. It then byte-encodes the JSON object and stores it as a string in the `jsonStr` column.
@@ -27,7 +29,7 @@ import "http"
 import "json"
 import "experimental/csv"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+csv.from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
   |> mean()
   |> map(fn: (r) => ({ r with

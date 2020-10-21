@@ -69,3 +69,5 @@ import "experimental/csv"
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
   |> to(bucket: "noaa", org: "your-org")
 ```
+
+_Used in [Common queries](/influxdb/v2.0/query-data/common-queries/) and [Common tasks](/influxdb/v2.0/process-data/common-tasks/)._
