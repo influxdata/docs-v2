@@ -13,7 +13,7 @@ weight: 104
 This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
-Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one. Use the `with` operator in the `map` function to overwrite the existing `_value` column.
+Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to recalculate the `_value` column without creating a new one. Use the `with` operator in [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to overwrite the existing `_value` column.
 
 The following example uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to convert Fahrenheit temperature values into Celsius.
 
