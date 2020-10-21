@@ -107,7 +107,7 @@
 
   .products {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     flex-wrap: wrap;
     flex-grow: 1;
     justify-content: flex-start;
@@ -227,7 +227,7 @@ td,label,li {
     line-height: .75rem;
     border-radius: 1rem;
   }
-  
+
 }
 
 label:after {
