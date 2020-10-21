@@ -1,8 +1,8 @@
 ---
-title: Telegraf 1.15 release notes
+title: Telegraf 1.16 release notes
 description: Important features and changes in the latest version of Telegraf.
 menu:
-  telegraf_1_15:
+  telegraf_1_16:
     name: Release notes
     weight: 10
     parent: About the project
@@ -34,8 +34,8 @@ menu:
 
 #### External
 
-- [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
- - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube-telegraf-plugin`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
+- [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms)(`awsalarms`) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
+ - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
  - [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
  - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
 
