@@ -9,34 +9,98 @@ menu:
 ---
 
 
-## v1.16 [2020-09-11]
+## v1.16 [2020-10-21]
 
-### Features
-- agent Send metrics in FIFO order
-- inputs.modbus extend support of fixed point values on input
-- inputs.mongodb Added new metric "pages written from cache"
-- inputs.sqlserver added new counter - Lock Timeouts (timeout > 0)/sec
-- `inputs.clickhouse` Add additional metrics to clickhouse input plugin
-- `inputs.http_listener_v2`: Make http header tags case insensitive
+### New plugins
+
+#### Inputs
+
+
+- [InfluxDB v2 Listener Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/influxdb_v2_listener/README.md)(`influxdb_v2_listener`) - Contributed by [@magichair](https://github.com/magichair)
+ - [Intel RDT Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_rdt/README.md)(`intel_rdt`) - Contributed by [@p-zak](https://github.com/p-zak)
+ - [NSD Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/nsd/README.md)(`nsd`) - Contributed by [@gearnode](https://github.com/gearnode)
+ - [OPC UA Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/opcua/README.md)(`opcua`) - Contributed by [@influxdata](https://github.com/influxdata)
+ - [Proxmox Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/proxmox/README.md)(`proxmox`) - Contributed by [@effitient](https://github.com/effitient)
+ - [RAS Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/ras/README.md)(`ras`)- Contributed by [@p-zak](https://github.com/p-zak)
+ - [Windows Eventlog Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_eventlog/README.md)(`win_eventlog`) - Contributed by [@simnv](https://github.com/simnv)
+
+
+#### Outputs
+
+- [Dynatrace Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/dynatrace/README.md)(`dynatrace`) - Contributed by [@thschue](https://github.com/theschue)
+- [Sumo Logic Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/sumologic/README.md) (`sumologic`) - Contributed by [@pmalek-sumo](https://github.com/pmalek-sumo)
+- [Timestream Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/timestream) (`timestream`) - Contributed by [@piotrwest](https://github.com/piotrwest)
+
+
+#### External
+
+- [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
+ - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube-telegraf-plugin`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
+ - [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
+ - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
+
+
+### Input plugin updates
+
+- `aerospike`: Add set and histogram reporting.
+- `agent`:
+  - Send metrics in FIFO order.
+  - Fix issue with `execd restart_delay` being ignored.
+  - Sort plugin name lists for output.
+- `clickhouse`: Add additional metrics.
+- `cloudwatch`: Implement AWS CloudWatch Input Plugin ListMetrics API calls to use Active Metric Filter.
+- `consul`: Add `metric_version` flag.
+- `docker`: Fix vulnerabilities found in BDBA scan.
+- `execd`: Fix issue with `restart_delay` being ignored.
+- `gnmi`: Next message after send returns EOF.
+- `http_listener_v2`: Make header tags case-insensitive.
+- `http_response`: Match on status code.
+- `jenkins`: Multiple escaping occurs on at certain folder depth.
+- `kubernetes`: Add missing error check for HTTP requirement failure.
+- `modbus`: Extend support of fixed point values on input.
+- `mongodb`: Add pages written from cache metric.
+- `net`: Fix broken link to `proc.c`.
+- `snmp` Add agent host tag configuration option.
+- `smart`: Add missing NVMe attributes.
+- `sqlserver`:
+  - Database_type config to Split up sql queries by engine type
+  - Fixed query mapping
+  - New refactoring and formatting queries.
+  - Add more performance counters.
+- `tail`:
+  - Close file to ensure it has been flushed.
+  - Fix following on EOF.
+
+### Output plugin updates
+
+-  `elasticsearch`: Added `force_document_id` option to ES output enable resend data and avoid duplicated ES documents.
+- `opentsdb`: Skips NaN and Inf JSON values.
+
+### Processor plugin updates
+
+- `execd`: Increased the maximum serialized metric size in line protocol
+- `ifname`: Add `addTag` debugging.
+- `starlark`: Add JSON parsing support.
 
 ### Bug fixes
-- `inputs.tail`: Close file to ensure it has been flushed.
-- `build`: Fix `darwin` package build flags.
-- `shim`: Fix bug with loading plugins with no config.
-- `agent`: Fix issue with `execd restart_delay` being ignored.
-- `Outputs.opentsdb now skips NaN and Inf JSON values
 
-New Input Plugins
-proxmox - Contributed by @effitient
-opcua - Contributed by @influxdata
-New Output Plugins
-dynatrace - Contributed by @thschue
-sumologic - Contributed by @pmalek-sumo
-New External Plugins
-See EXTERNAL_PLUGINS.md for a full list of external plugins
+- Fix `darwin` package build flags.
+- `shim`:
+  - Fix bug with loading plugins with no config.
+  - Logger improvements.
+  - Fix issue with loading processor config from `execd`.
+- Initialize aggregation processors.
+- Fix arch name in `deb/rpm` builds.
+- Fix issue with `rpm /var/log/telegraf` permissions
+- Fix `docker-image make` target.
+- Remove Event field from `serializers.splunkmetric`.
+- Fix panic on streaming processors using logging
+- `ParseError.Error` panic in `parsers.influx`
+- Fix `procstat` performance regression
+- Fix serialization when using `carbon2`.
+- Fix bugs found by LGTM analysis platform.
+- Update to Go 1.15.
 
-awsalarms - Simple plugin to gather/monitor alarms generated in AWS.
-youtube-telegraf-plugin - Gather view and subscriber stats from your youtube videos
 
 
 ## v.1.15.3 [2020-09-11]
