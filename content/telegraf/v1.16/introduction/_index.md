@@ -2,7 +2,7 @@
 title: Introducing Telegraf
 description: Get up and running with Telegraf.
 menu:
-  telegraf_1_15:
+  telegraf_1_16:
     name: Introduction
     weight: 20
 ---

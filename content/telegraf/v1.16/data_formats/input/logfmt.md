@@ -2,7 +2,7 @@
 title: Logfmt input data format
 description: Use the `logfmt` input data format to parse logfmt data into Telegraf metrics.
 menu:
-  telegraf_1_15:
+  telegraf_1_16:
     name: logfmt
     weight: 80
     parent: Input data formats

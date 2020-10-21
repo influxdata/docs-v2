@@ -2,7 +2,7 @@
 title: Telegraf Guides
 description: Step-by-step tutorials for Telegraf.
 menu:
-  telegraf_1_15:
+  telegraf_1_16:
     name: Guides
     weight: 20
 ---

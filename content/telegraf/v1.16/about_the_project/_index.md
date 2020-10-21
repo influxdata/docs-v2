@@ -2,7 +2,7 @@
  title: About the Telegraf project
 description: Release notes, contribution guidelines, CLA, and license for the Telegraf project.
  menu:
-   telegraf_1_15:
+   telegraf_1_16:
      name: About the project
      weight: 10
 ---

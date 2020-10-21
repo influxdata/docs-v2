@@ -2,7 +2,7 @@
 title: InfluxData Contributor License Agreement (CLA)
 
 menu:
-   telegraf_1_15:
+   telegraf_1_16:
      name: Contributor License Agreement (CLA)
      parent: About the project
      weight: 30

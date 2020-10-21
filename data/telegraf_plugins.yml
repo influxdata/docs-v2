@@ -2066,8 +2066,8 @@ output:
   - name: Sumo Logic
     id: sumologic
     description: |
-    This plugin sends metrics to [Sumo Logic HTTP Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source/Upload-Metrics-to-an-HTTP-Source)
-    in HTTP messages using one of the following supported data formats
+      This plugin sends metrics to [Sumo Logic HTTP Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source/Upload-Metrics-to-an-HTTP-Source)
+      in HTTP messages using one of the following supported data formats
       * `graphite` - for Content-Type of `application/vnd.sumologic.graphite`
       * `carbon2` - for Content-Type of `application/vnd.sumologic.carbon2`
       * `prometheus` - for Content-Type of `application/vnd.sumologic.prometheus`
