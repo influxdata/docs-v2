@@ -17,12 +17,11 @@ This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/
 This example converts temperature from Fahrenheit to Celsius and maps the Celsius value to a new `celsius` column.
 
 The following query:
-- Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
+  - Uses [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to filter the `average_temperature` measurement.
+  - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
 
 ```js
-import "experimental/csv"
-
-csv.from(bucket: "noaa")
+from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
   |> map(fn: (r) => ({r with
       celsius: ((r._value - 32.0) * 5.0 / 9.0)

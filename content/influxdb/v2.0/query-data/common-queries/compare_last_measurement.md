@@ -15,7 +15,7 @@ weight: 104
 This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
-Compare the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check).
+This example compares the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2.0/monitor-alert/checks/create/#threshold-check).
 
 The following query:
   - Uses [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) to define a time range.

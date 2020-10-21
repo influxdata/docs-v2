@@ -14,21 +14,21 @@ influxdb/v2.0/tags: [tasks]
 This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
-Calculate a weekly mean and store it in a separate bucket.
+This example calculates a temperature weekly mean and stores it in a separate bucket.
 
-This example groups average temperature by week and computes the mean using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/), then sends the weekly mean to a new bucket (`weekly_means`).
-
-This example uses [NOAA water database data](https://influx-testdata.s3.amazonaws.com/noaa.csv) and the experimental [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/) to retrieve data used to calculate the weekly mean.
+The following query:
+  -  Uses [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to filter the `average_temperature` measurement.
+  - Uses [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) to define a time range.
+  - Uses [`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) to group average temperature by week and compute the mean.
+  - Sends the weekly mean to a new bucket (`weekly_means`)
 
 ```js
-import "experimental/csv"
-
 option task = {
   name: "weekly-means",
   every: 1w,
 }
 
-csv.from(bucket: "noaa")
+from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
   |> range(start: 2019-09-01T11:24:00Z)
   |> aggregateWindow(every:  1w, fn: mean)
