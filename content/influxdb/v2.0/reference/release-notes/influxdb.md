@@ -8,6 +8,24 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.2 [2020-10-22]
+
+### Features
+
+- Add `aggregate_resultset` for mean aggregate pushdown to optimize window results.
+- Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
+- Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to invalid resource type or ID.
+- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0-90-0-2020-10-19).
+
+### Bug Fixes
+
+- Update `pkger` test templates to use valid Flux to avoid `found unexpected argument end` error. Previously, any template with a `v.dashboardVariable` returned an `undefined identifier v` error.
+- Update the InfluxDB configuration file `/etc/influxdb/influxdb.conf` to recognize the user's home directory. Previously, if a user (other than root user) ran the `upgrade` command, a permissions error occurred.
+- Remove the Telegraf RAS Daemon plugin and other miscellaneous Telegraf plugin updates.
+- Ipdate the `derivative` in the InfluxDB UI (`ui/src/timeMachiner`) to specify the `unit` is one second (`1s`).
+- Enable the new `AuthorizationService` from authorization package in the `launcher` package (`cmd\influxd\launcher`).
+- Update `config upgrade` to save the correct InfluxDB configuration filename.
+
 ## v2.0.0-rc.1 [2020-10-14]
 
 ### Features
