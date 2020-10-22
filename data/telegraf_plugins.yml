@@ -30,6 +30,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Amazon CloudWatch Alarms
+    id: awsalarms
+    description: |
+      The Amazon CloudWatch Statistics input plugin pulls alarm statistics from Amazon CloudWatch.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, cloud, external]
+
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
     description: |
@@ -643,6 +650,37 @@ input:
     introduced: 1.9.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: InfluxDB v2 Listener
+    id: influxdb_listener
+    description: |
+      The InfluxDB Listener input plugin listens for requests sent
+      according to the [InfluxDB HTTP API](https://docs.influxdata.com/influxdb/latest/guides/writing_data/).
+      The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
+      for the HTTP `/write` endpoint of the InfluxDB HTTP API.
+
+      > This plugin was previously known as `http_listener`.
+      > To send general metrics via HTTP, use the [HTTP Listener v2 input plugin](#http_listener_v2) instead.
+      >
+      > This plugin is compatible with **InfluxDB 2.x** only.
+
+      The `/write` endpoint supports the `precision` query parameter and can be set
+      to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and
+      defer to the output plugins configuration.
+
+      When chaining Telegraf instances using this plugin, `CREATE DATABASE` requests
+      receive a `200 OK` response with message body `{"results":[]}` but they are not
+      relayed. The output configuration of the Telegraf instance which ultimately
+      submits data to InfluxDB determines the destination database.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, data-stores]
+
+  - name: Intel RDT
+    id: intel_rdt
+    description: |
+      The Intel RDT input plugin collects information provided by the monitoring features of Intel Resource Director Technology (RDT).
+    introduced: 1.16.0
+    tags: [linux, macos, windows, systems]
+
   - name: Interrupts
     id: interrupts
     description: |
@@ -1070,11 +1108,18 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, servers, web]
 
+  - name: NSD
+    id: nsd
+    description: |
+      The NSD input plugin collects metrics from [NSD](https://www.nlnetlabs.nl/projects/nsd/about/), an authoritative DNS name server.
+    introduced: 1.0.0
+    tags: [linux, macos, windows, web, servers]
+
   - name: NSQ
     id: nsq
     description: |
       The NSQ input plugin collects metrics from NSQD API endpoints.
-    introduced: 1.0.0
+    introduced: 1.16.0
     tags: [linux, macos, windows, messaging]
 
   - name: NSQ Consumer
@@ -1108,6 +1153,20 @@ input:
       binary to pull GPU stats including memory and GPU usage, temp and other.
     introduced: 1.7.0
     tags: [linux, macos, windows, systems]
+
+  - name: Octoprint
+    id: octoprint
+    description: |
+      The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
+    introduced: 1.16.0
+    tags: [linux, macos, windows, external]
+
+  - name: OPC UA
+    id: opcua
+    description: |
+      The OPC UA plugin gathers metrics from client devices using the [OPC Foundation's Unified Architecture (UA)](https://opcfoundation.org/about/opc-technologies/opc-ua/) machine-to-machine communication protocol for industrial automation.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, iot]
 
   - name: OpenLDAP
     id: openldap
@@ -1260,6 +1319,13 @@ input:
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
 
+  - name: Proxmox
+    id: proxmox
+    description: |
+      The Proxmox plugin gathers metrics about containers and VMs using the [Proxmox API](https://pve.proxmox.com/wiki/Proxmox_VE_API).
+    introduced: 1.16.0
+    tags: [linux, macos, windows]
+
   - name: Puppet Agent
     id: puppetagent
     description: |
@@ -1284,6 +1350,13 @@ input:
       [Raindrops middleware](http://raindrops.bogomips.org/Raindrops/Middleware.html)
       URI and adds the statistics to InfluxDB.
     introduced: 0.10.3
+    tags: [linux, macos, windows, servers, web]
+
+  - name: RAS
+    id: ras
+    description: |
+      The RAS input plugin gathers and counts errors provided by [RASDaemon](https://github.com/mchehab/rasdaemon), a RAS (reliability, availability, and serviceability) logging tool.
+    introduced: 1.16.0
     tags: [linux, macos, windows, servers, web]
 
   - name: Redfish
@@ -1620,6 +1693,13 @@ input:
     introduced: 0.10.2
     tags: [windows, systems]
 
+  - name: Windows Eventlog
+    id: win_eventlog
+    description: |
+      The Windows Eventlog input plugin reports Windows event logging. **Windows Vista and later only**.
+    introduced: 1.16.0
+    tags: [windows, servers, systems]
+
   - name: Windows Services
     id: win_services
     description: |
@@ -1650,6 +1730,13 @@ input:
       accessible using the local file or network connection.
     introduced: 1.8.0
     tags: [linux, macos, windows, networking]
+
+  - name: YouTube
+    id: youtube
+    description: |
+      The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, external]
 
   - name: ZFS
     id: zfs
@@ -1742,6 +1829,13 @@ output:
       The Discard output plugin simply drops all metrics that are sent to it.
       It is only meant to be used for testing purposes.
     introduced: 1.2.0
+    tags: [linux, macos, windows]
+
+  - name: Dynatrace
+    id: dynatrace
+    description: |
+      The Dynatrace output plugin sends metrics to [Dynatrace](http://www.dynatrace.com).
+    introduced: 1.16.0
     tags: [linux, macos, windows]
 
   - name: Elasticsearch
@@ -1968,6 +2062,17 @@ output:
       `custom.googleapis.com/telegraf/system/load5`.
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
+
+  - name: Sumo Logic
+    id: sumologic
+    description: |
+      This plugin sends metrics to [Sumo Logic HTTP Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source/Upload-Metrics-to-an-HTTP-Source)
+      in HTTP messages using one of the following supported data formats
+      * `graphite` - for Content-Type of `application/vnd.sumologic.graphite`
+      * `carbon2` - for Content-Type of `application/vnd.sumologic.carbon2`
+      * `prometheus` - for Content-Type of `application/vnd.sumologic.prometheus`
+    introduced: 1.16.0
+    tags: [linux, macos, windows, logging]
 
   - name: Syslog
     id: syslog
