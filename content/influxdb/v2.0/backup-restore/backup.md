@@ -19,9 +19,9 @@ InfluxDB copies all data and metadata to a set of files stored in a specified di
 on your local filesystem.
 
 {{% warn %}}
-#### InfluxDB 2.0rc0
+#### InfluxDB 2.0rc
 
-The `influx backup` command is not compatible with InfluxDB 2.0rc0.
+The `influx backup` command is not compatible with InfluxDB 2.0rc.
 To backup data,
 
 1. Stop `influxd`.
@@ -31,7 +31,7 @@ To backup data,
    cp -r ~/.influxdbv2 ~/.influxdbv2_bak
    ```
 
-For more information, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/rc-upgrade-guide/).
 {{% /warn %}}
 
 {{% cloud %}}

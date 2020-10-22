@@ -18,7 +18,7 @@ to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 Back up all data before upgrading with `influx upgrade`.
 {{% /warn %}}
 
-1. [Download the InfluxDB OSS 2.0rc1](https://portal.influxdata.com/downloads/),
+1. [Download the InfluxDB OSS 2.0rc](https://portal.influxdata.com/downloads/),
    unpackage the InfluxDB binaries, and then place them in your `$PATH`.
 2. Stop your running InfluxDB 1.x instance.
 3. If your configuration file is at the default location (`~/.influxdbv2/configs`), run:

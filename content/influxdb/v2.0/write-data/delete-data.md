@@ -53,7 +53,7 @@ Use the `influx` CLI or the InfluxDB API `/delete` endpoint to delete data.
 {{% note %}}
 The `-p, --predicate` flag is supported in **InfluxDB Cloud** and **InfluxDB OSS 2.0 beta 16 or earlier**.
 
-In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabled.
+In **InfluxDB OSS 2.0rc**, the `influx delete --predicate` flag has been disabled.
 {{% /note %}}
 
 ## Delete data using the influx CLI
@@ -65,7 +65,7 @@ In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabl
 
 ### Example delete commands
 
-**InfluxDB OSS 2.0rc0** does not support the `predicate` parameter.
+**InfluxDB OSS 2.0rc** does not support the `predicate` parameter.
 
 #### Delete data in InfluxDB Cloud
 
@@ -103,7 +103,7 @@ The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB 
 
 ### Example delete requests
 
-**InfluxDB OSS 2.0rc0** does not support the `predicate` parameter.
+**InfluxDB OSS 2.0rc** does not support the `predicate` parameter.
 
 #### Delete data in InfluxDB Cloud
 

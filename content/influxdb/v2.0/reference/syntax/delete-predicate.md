@@ -15,7 +15,7 @@ related:
 ---
 
 {{% note %}}
-In **InfluxDB OSS 2.0rc0**, the delete with predicate API (`/api/v2/delete`) has been disabled and returns a 501 Not implemented message.
+In **InfluxDB OSS 2.0rc**, the delete with predicate API (`/api/v2/delete`) has been disabled and returns a 501 Not implemented message.
 
 Use the InfluxDB `/delete` endpoint with **InfluxDB Cloud** and **InfluxDB OSS 2.0 beta 16 or earlier**.
 {{% /note %}}
