@@ -55,12 +55,6 @@ In `.delete(TRUE)`, `TRUE` must be uppercase.
 | **[delete](#delete)&nbsp;(&nbsp;`value`&nbsp;`Boolean`)**       | Delete the group after processing each barrier.                                                                                     |
 | **[quiet](#quiet)&nbsp;(&nbsp;)**                               | Suppress all error logging events from this node.                                                                                   |
 
-{{% warn %}}
-#### Barrier idle time and window period
-`idle` must be greater than `period` of the associated [window](/kapacitor/v1.5/nodes/window_node/).
-If `idle` times are less than the window `period`, data may be lost.
-{{% /warn %}}
-
 ### Chaining Methods
 [Alert](#alert),
 [Barrier](#barrier),
@@ -125,12 +119,18 @@ Property methods are marked using the `.` operator.
 ### Idle
 
 Emit barrier based on idle time since the last received message.
-Must be greater than zero.
+Must be greater than zero **and longer than the window `period`**.
 
 
 ```js
 barrier.idle(value time.Duration)
 ```
+
+{{% warn %}}
+#### Barrier idle time and window period
+`idle` must be greater than `period` of the associated [window](/kapacitor/v1.5/nodes/window_node/).
+If `idle` times are less than the window `period`, data may be lost.
+{{% /warn %}}
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
