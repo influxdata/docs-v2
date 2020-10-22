@@ -14,7 +14,7 @@ weight: 101
 
 - Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0-90-0-2020-10-19).
 - Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
-- Add `aggregate_resultset` for mean aggregate pushdown to optimize window results.
+- Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
 - Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
 
 ### Bug Fixes
