@@ -17,4 +17,4 @@
     **InfluxDB OSS v2.0.rc** includes **breaking changes** that require a manual
     upgrade from all alpha and beta versions. For information, see:
 
-    [Upgrade to InfluxDB OSS v2.0.rc](/influxdb/v2.0/reference/rc-upgrade-guide/)
+    [Upgrade to InfluxDB OSS v2.0.rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/)

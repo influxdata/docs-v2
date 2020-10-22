@@ -244,7 +244,7 @@ Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the neces
 executables, and running the initial setup process.
 
 {{% note %}}
-To upgrade from InfluxDB 2.0 beta 16 or earlier to the latest version, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc](/influxdb/v2.0/reference/rc-upgrade-guide/).
+To upgrade from InfluxDB 2.0 beta 16 or earlier to the latest version, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/).
 
 To upgrade to InfluxDB 2.0rc0 or later from InfluxDB 1.x, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/reference/influxd-upgrade-guide/).
 {{% /note %}}
