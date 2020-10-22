@@ -17,12 +17,12 @@ menu:
 
 
 - [InfluxDB v2 Listener Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/influxdb_v2_listener/README.md)(`influxdb_v2_listener`) - Contributed by [@magichair](https://github.com/magichair)
- - [Intel RDT Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_rdt/README.md)(`intel_rdt`) - Contributed by [@p-zak](https://github.com/p-zak)
- - [NSD Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/nsd/README.md)(`nsd`) - Contributed by [@gearnode](https://github.com/gearnode)
- - [OPC UA Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/opcua/README.md)(`opcua`) - Contributed by [@influxdata](https://github.com/influxdata)
- - [Proxmox Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/proxmox/README.md)(`proxmox`) - Contributed by [@effitient](https://github.com/effitient)
- - [RAS Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/ras/README.md)(`ras`)- Contributed by [@p-zak](https://github.com/p-zak)
- - [Windows Eventlog Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_eventlog/README.md)(`win_eventlog`) - Contributed by [@simnv](https://github.com/simnv)
+- [Intel RDT Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_rdt/README.md)(`intel_rdt`) - Contributed by [@p-zak](https://github.com/p-zak)
+- [NSD Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/nsd/README.md)(`nsd`) - Contributed by [@gearnode](https://github.com/gearnode)
+- [OPC UA Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/opcua/README.md)(`opcua`) - Contributed by [@influxdata](https://github.com/influxdata)
+- [Proxmox Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/proxmox/README.md)(`proxmox`) - Contributed by [@effitient](https://github.com/effitient)
+- [RAS Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/ras/README.md)(`ras`)- Contributed by [@p-zak](https://github.com/p-zak)
+- [Windows Eventlog Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_eventlog/README.md)(`win_eventlog`) - Contributed by [@simnv](https://github.com/simnv)
 
 
 #### Outputs
@@ -35,9 +35,9 @@ menu:
 #### External
 
 - [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms)(`awsalarms`) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
- - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
- - [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
- - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
+- [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
+- [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
+- [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
 
 
 ### Input plugin updates
