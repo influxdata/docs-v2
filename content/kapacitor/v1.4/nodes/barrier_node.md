@@ -76,7 +76,7 @@ barrier.idle(value time.Duration)
 
 {{% warn %}}
 #### Barrier idle time and window period
-`idle` must be greater than `period` of the associated [window](/kapacitor/v1.5/nodes/window_node/).
+`idle` must be greater than `period` of the associated [window](/kapacitor/v1.4/nodes/window_node/).
 If `idle` times are less than the window `period`, data may be lost.
 {{% /warn %}}
 
