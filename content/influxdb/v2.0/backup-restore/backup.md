@@ -31,7 +31,7 @@ To back up data,
    cp -r ~/.influxdbv2 ~/.influxdbv2_bak
    ```
 
-For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/rc-upgrade-guide/).
+For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/).
 {{% /warn %}}
 
 {{% cloud %}}
