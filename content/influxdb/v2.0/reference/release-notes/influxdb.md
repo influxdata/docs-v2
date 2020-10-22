@@ -8,6 +8,24 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.2 [2020-10-22]
+
+### Features
+
+- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0-90-0-2020-10-19).
+- Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
+- Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
+- Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
+
+### Bug Fixes
+
+- Update `pkger` test templates to use valid Flux to avoid `found unexpected argument end` error. Previously, any template with a `v.dashboardVariable` returned an `undefined identifier v` error.
+- Update the InfluxDB configuration file `/etc/influxdb/influxdb.conf` to recognize the user's home directory. Previously, if a user (other than root user) ran the `upgrade` command, a permissions error occurred.
+- Remove the Telegraf RAS Daemon plugin and other miscellaneous Telegraf plugin updates.
+- Update the `derivative` in the InfluxDB UI (`ui/src/timeMachiner`) to specify the `unit` is one second (`1s`).
+- Enable the new `AuthorizationService` from authorization package in the `launcher` package (`cmd\influxd\launcher`).
+- Update `config upgrade` to save the correct InfluxDB configuration filename.
+
 ## v2.0.0-rc.1 [2020-10-14]
 
 ### Features
@@ -27,14 +45,14 @@ weight: 101
 {{% warn %}}
 #### Manual upgrade required
 
-To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/),
+To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/),
 {{% /warn %}}
 
 ### Breaking changes
 
 #### Manual upgrade
 
-- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc0](/influxdb/v2.0/reference/rc0-upgrade-guide/).
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/).
 
 #### Port update to 8086
 
