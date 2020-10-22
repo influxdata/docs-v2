@@ -26,33 +26,34 @@ stream
   |from()
     .measurement('cpu')
   |barrier()
-    .idle(5s)
+    .idle(11s) // Must be longer than the window period
     .delete(TRUE)
   |window()
     .period(10s)
     .every(5s)
   |top(10, 'value')
-  //Post the top 10 results over the last 10s updated every 5s.
+  // Post the top 10 results over the last 10s updated every 5s.
   |httpPost('http://example.com/api/top10')
 ```
-> **Note:** In .delete(TRUE), TRUE must be uppercase.
+
+{{% note %}}
+In `.delete(TRUE)`, `TRUE` must be uppercase.
+{{% /note %}}
 
 ### Constructor
 
-| Chaining Method | Description |
-|:---------|:---------|
-| **barrier&nbsp;(&nbsp;)** | Create a new Barrier node that emits a BarrierMessage periodically  |
+| Chaining Method | Description                                                        |
+|:---------       |:---------                                                          |
+| **barrier( )**  | Create a new Barrier node that emits a BarrierMessage periodically |
 
 ### Property Methods
 
-| Setters | Description |
-|:---|:---|
-| **[idle](#idle)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on idle time since the last received message. Must be greater than zero.  |
-| **[period](#period)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on periodic timer.  The timer is based on system clock rather than message time. Must be greater than zero.  |
-| **[delete](#delete)&nbsp;(&nbsp;`value`&nbsp;`Boolean`)** | Delete the group after processing each barrier. |
-| **[quiet](#quiet)&nbsp;(&nbsp;)** | Suppress all error logging events from this node.  |
-
-
+| Setters                                                         | Description                                                                                                                         |
+|:---                                                             |:---                                                                                                                                 |
+| **[idle](#idle)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)**     | Emit barrier based on idle time since the last received message. Must be greater than zero **and longer than the window `period`**. |
+| **[period](#period)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on periodic timer. The timer is based on system clock rather than message time. Must be greater than zero.       |
+| **[delete](#delete)&nbsp;(&nbsp;`value`&nbsp;`Boolean`)**       | Delete the group after processing each barrier.                                                                                     |
+| **[quiet](#quiet)&nbsp;(&nbsp;)**                               | Suppress all error logging events from this node.                                                                                   |
 
 ### Chaining Methods
 [Alert](#alert),
@@ -118,12 +119,18 @@ Property methods are marked using the `.` operator.
 ### Idle
 
 Emit barrier based on idle time since the last received message.
-Must be greater than zero.
+Must be greater than zero **and longer than the window `period`**.
 
 
 ```js
 barrier.idle(value time.Duration)
 ```
+
+{{% warn %}}
+#### Barrier idle time and window period
+`idle` must be greater than `period` of the associated [window](/kapacitor/v1.5/nodes/window_node/).
+If `idle` times are less than the window `period`, data may be lost.
+{{% /warn %}}
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
