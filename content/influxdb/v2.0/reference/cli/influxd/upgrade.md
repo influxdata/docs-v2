@@ -17,15 +17,17 @@ over to [buckets](/influxdb/v2.0/reference/glossary/#bucket) (used in 2.0).
 Be sure to back up all data before upgrading with `influx upgrade`.
 {{% /warn %}}
 
-<!--
-   Upgrades a 1.x version of InfluxDB by performing the following actions:
-      1. Reads 1.x config file and creates 2.x config file with matching options. Unsupported 1.x options are reported.
-      2. Copies and upgrades 1.x database files.
-      3. Creates a script for creating tokens that correspond to 1.x users. This script needs to be revised and run manually after starting 2.x.
+This command performs the following actions:
 
-    If the config file is not available, 1.x db folder (--v1-dir options) is taken as an input.
-    Target 2.x database dir is specified by the --engine-path option. If changed, the bolt path should be changed as well.
- -->
+1. Reads 1.x configuration file and creates a 2.x config file with matching options.
+   Unsupported 1.x options are reported.
+2. Copies and upgrades 1.x database files.
+3. Creates a script for creating tokens that correspond to 1.x users.
+   This script needs to be revised and run manually after starting 2.x.
+
+If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
+The target 2.x database directory is specified by the `--engine-path` option.
+If changed, the bolt path should be changed as well.
 
 ## Usage
 
