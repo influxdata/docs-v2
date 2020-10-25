@@ -422,7 +422,7 @@ Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc2
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -437,7 +437,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc2 --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
 ```
 {{% /note %}}
 
