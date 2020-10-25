@@ -49,6 +49,8 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 ## v1.8.5 [2020-07-08]
 
+### Bug Fixes
+
 - Fix public-url generic OAuth configuration issue.
 - Fix crash when starting Chronograf built by Go 1.14 on Windows.
 - Keep dashboard's table sorting stable on data refresh.
@@ -65,6 +67,8 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Avoid duplication of `csv.from` in functions list.
 
 ## v1.8.4 [2020-05-01]
+
+### Bug Fixes
 
 - Fix misaligned tables when scrolling.
 
