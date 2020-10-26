@@ -36,10 +36,10 @@ Verify the buckets that you want to query are mapped to a database and retention
 - To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
 
 ```sh
-curl -GET https://cloud2.influxdata.com/api/v2/dbrps \
-  -H "Authorization: Token YourAuthToken" \
-  -H 'Content-type: application/json' \
-  -d '{
+curl --request GET https://cloud2.influxdata.com/api/v2/dbrps \
+  --header "Authorization: Token YourAuthToken" \
+  --header 'Content-type: application/json' \
+  --data '{
        "bucket_id": "12ab34cd56ef",
        "database": "example-db",
        "id": "example-mapping-id"
@@ -62,10 +62,10 @@ To map an unmapped bucket to a database and retention policy, use the [`POST /db
  - database and retention policy to map to bucket (`database` and `retention_policy`)
 
 ```sh
-curl -XPOST https://cloud2.influxdata.com/api/v2/dbrps \
-  -H "Authorization: Token YourAuthToken" \
-  -H 'Content-type: application/json' \
-  -d '{
+curl --request POST https://cloud2.influxdata.com/api/v2/dbrps \
+  --header "Authorization: Token YourAuthToken" \
+  --header 'Content-type: application/json' \
+  --data '{
        "bucket_id": "12ab34cd56ef",
        "database": "example-db",
        "default": true
@@ -95,8 +95,8 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 {{% /note %}}
 
 ```sh
-curl -G https://cloud2.influxdata.com/query?database=MyDB&retention_policy=MyRP \
-  -H "Authorization: Token YourAuthToken" \
+curl --request GET https://cloud2.influxdata.com/query?database=MyDB&retention_policy=MyRP \
+  --header "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
 

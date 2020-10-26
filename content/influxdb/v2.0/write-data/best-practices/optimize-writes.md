@@ -94,7 +94,7 @@ When using the InfluxDB API `/write` endpoint to write data, set the `Content-En
 header to `gzip` to compress the request data.
 
 ```sh
-curl -XPOST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+curl --request POST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
   --header "Content-Encoding: gzip" \
   --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"

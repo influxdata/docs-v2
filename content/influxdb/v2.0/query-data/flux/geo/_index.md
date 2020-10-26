@@ -75,7 +75,8 @@ Use `curl` and the `influx write` command to write bird migration line protocol 
 Replace `example-bucket` with your destination bucket:
 
 ```sh
-curl https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/bird-migration-data/bird-migration.line --output ./tmp-data
+curl https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/bird-migration-data/bird-migration.line \
+  --output ./tmp-data
 influx write -b example-bucket @./tmp-data
 rm -f ./tmp-data
 ```
