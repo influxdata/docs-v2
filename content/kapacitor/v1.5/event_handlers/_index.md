@@ -35,7 +35,7 @@ syntax for officially supported Kapacitor event handlers.
 [Publish](/kapacitor/v1.5/event_handlers/publish/)
 [Pushover](/kapacitor/v1.5/event_handlers/pushover/)
 [Sensu](/kapacitor/v1.5/event_handlers/sensu/)
-[ServiceNow](/kapacitor/v1.5/event_handlers/servicenow/))
+[ServiceNow](/kapacitor/v1.5/event_handlers/servicenow/)
 [Slack](/kapacitor/v1.5/event_handlers/slack/)  
 [Snmptrap](/kapacitor/v1.5/event_handlers/snmptrap/)  
 [Talk](/kapacitor/v1.5/event_handlers/talk/)  
