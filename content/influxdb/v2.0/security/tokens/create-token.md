@@ -42,7 +42,7 @@ influx auth create -o <org-name> [permission-flags]
 
 # Example
 influx auth create -o my-org \
-  --read-buckets 03a2bbf46309a000 03ace3a87c269000 \
+  --read-bucket 03a2bbf46309a000 03ace3a87c269000 \
   --read-dashboards \
   --read-tasks \
   --read-telegrafs \
