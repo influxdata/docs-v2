@@ -81,10 +81,10 @@ Below is an example `curl` command that queries InfluxDB:
 {{% code-tab-content %}}
 ```bash
 curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
-  -H 'Accept: application/csv' \
-  -H 'Content-type: application/vnd.flux' \
-  -d 'from(bucket:"example-bucket")
+  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/vnd.flux' \
+  --data 'from(bucket:"example-bucket")
         |> range(start: -12h)
         |> filter(fn: (r) => r._measurement == "example-measurement")
         |> aggregateWindow(every: 1h, fn: mean)'
@@ -93,12 +93,12 @@ curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
-  -H 'Accept: application/csv' \
-  -H 'Content-type: application/vnd.flux' \
-  -H 'Accept-Encoding: gzip' \
-  -d 'from(bucket:"example-bucket")
+curl --request POST http://localhost:8086/api/v2/query?org=my-org \
+  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/vnd.flux' \
+  --header 'Accept-Encoding: gzip' \
+  --data 'from(bucket:"example-bucket")
         |> range(start: -12h)
         |> filter(fn: (r) => r._measurement == "example-measurement")
         |> aggregateWindow(every: 1h, fn: mean)'
