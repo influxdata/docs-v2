@@ -82,7 +82,7 @@ The following precisions are available:
 ##### Query using basic authentication
 ```sh
 curl --request GET https://cloud2.influxdata.com/query \
-  --header "username:YourAuthToken" \
+  --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```
@@ -110,7 +110,7 @@ curl --request GET https://cloud2.influxdata.com/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
-  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
+  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1" \
   --data-urlencode "epoch=ms"
 ```
 
@@ -119,6 +119,6 @@ curl --request GET https://cloud2.influxdata.com/query \
 curl --request GET https://cloud2.influxdata.com/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
-  --form "q=@path/to/influxql.txt"
+  --form "q=@path/to/influxql.txt" \
   --form "async=true"
 ```
