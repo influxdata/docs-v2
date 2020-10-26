@@ -9,7 +9,7 @@ menu:
     parent: Event handlers
 ---
 
-[ServiceNow](hhttps://www.servicenow.com/) provides service management software with a comprehensive managed workflow that supports
+[ServiceNow](https://www.servicenow.com/) provides service management software with a comprehensive managed workflow that supports
 features such as real-time communication, collaboration, and resource sharing.
 Configure Kapacitor to send alert messages to ServiceNow.
 
