@@ -20,9 +20,9 @@ Be sure to back up all data before upgrading with `influx upgrade`.
 This command performs the following actions:
 
 1. Reads 1.x configuration file and creates a 2.x config file with matching options.
-   Unsupported 1.x options are reported.
+   Unsupported 1.x options are reported to standard output.
 2. Copies and upgrades 1.x database files.
-3. Creates a script for creating tokens that correspond to 1.x users.
+3. Creates a script that creates tokens for 1.x users.
    This script needs to be revised and run manually after starting 2.x.
 
 If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
@@ -38,21 +38,21 @@ influxd upgrade [command]
 
 ## Flags
 
-| Flag |                         | Description                                                                                        | Input type |
-|:-----|:------------------------|:---------------------------------------------------------------------------------------------------|:----------:|
-| `-m` | `--bolt-path`           | Path for boltdb database (default "~/.influxdbv2/influxd.bolt")                                    | string     |
-| `-b` | `--bucket`              | Primary bucket name                                                                                | string     |
-|      | `--config-file`         | (Optional) Custom InfluxDB 1.x config file path, else the default config file                      | string     |
-| `-e` | `--engine-path`         | Path for persistent engine files (default "~/.influxdbv2/engine")                                  | string     |
-| `-f` | `--force`               | Skip the confirmation prompt                                                                       |            |
-| `-h` | `--help`                | Help for `influxd upgrade`                                                                         |            |
-|      | `--influx-command-path` | Path to influx command (default "~/go/bin/influx")                                                 | string     |
-|      | `--log-path`            | (Optional) custom log file path (default "~/upgrade.log")                                          | string     |
-| `-o` | `--org`                 | Primary organization name                                                                          | string     |
-| `-p` | `--password`            | Password for username                                                                              | string     |
-| `-r` | `--retention`           | (Optional) duration bucket will retain data. 0 is infinite. The default is 0.                      | string     |
-|      | `--security-script`     | (Optional) generated security upgrade script path (default "~/influxd-upgrade-security.sh")        | string     |
-| `-t` | `--token`               | (Optional) token for username, else auto-generated                                                 | string     |
-| `-u` | `--username`            | Primary username                                                                                   | string     |
-|      | `--v1-dir`              | Path to source 1.x db directory containing meta, data, and wal sub-folders (default "~/.influxdb") | string     |
-| `-v` | `--verbose`             | Verbose output (default: `true`)                                                                   | boolean    |
+| Flag |                         | Description                                                                                                | Input type |
+|:-----|:------------------------|:-----------------------------------------------------------------------------------------------------------|:----------:|
+| `-m` | `--bolt-path`           | Path for boltdb database (default `~/.influxdbv2/influxd.bolt`)                                            | string     |
+| `-b` | `--bucket`              | Primary bucket name                                                                                        | string     |
+|      | `--config-file`         | (Optional) Custom InfluxDB 1.x config file path, else the default config file                              | string     |
+| `-e` | `--engine-path`         | Path for persistent engine files (default `~/.influxdbv2/engine`)                                          | string     |
+| `-f` | `--force`               | Skip the confirmation prompt                                                                               |            |
+| `-h` | `--help`                | Help for `influxd upgrade`                                                                                 |            |
+|      | `--influx-command-path` | Path to influx command (default `~/go/bin/influx`)                                                         | string     |
+|      | `--log-path`            | (Optional) Custom log file path (default `~/upgrade.log`)                                                  | string     |
+| `-o` | `--org`                 | Primary organization name                                                                                  | string     |
+| `-p` | `--password`            | Password for username                                                                                      | string     |
+| `-r` | `--retention`           | (Optional) Duration bucket will retain data (default `0`; retains data infinitely)                         | string     |
+|      | `--security-script`     | (Optional) Generated security upgrade script path (default `~/influxd-upgrade-security.sh`)                | string     |
+| `-t` | `--token`               | (Optional) Token for username. If not specified, a token is auto-generated.                                | string     |
+| `-u` | `--username`            | Primary username                                                                                           | string     |
+|      | `--v1-dir`              | Path to source 1.x `db` directory containing `meta`, `data`, and `wal` sub-folders (default `~/.influxdb`) | string     |
+| `-v` | `--verbose`             | Verbose output (default: `true`)                                                                           | boolean    |
