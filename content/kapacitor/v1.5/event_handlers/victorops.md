@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: VictorOps
-    weight: 2000
+    weight: 2100
     parent: Event handlers
 ---
 
