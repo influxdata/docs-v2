@@ -5,7 +5,7 @@ menu:
   influxdb_2_0:
     parent: Tools & integrations
 weight: 102
-influxdb/v2.0/tags: [cli]
+influxdb/v2.0/tags: [google]
 ---
 
 The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets users create reports and dashboards in Google Data Studio with datasets from InfluxDB v2.
