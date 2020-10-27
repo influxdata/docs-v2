@@ -107,14 +107,13 @@
 
   .products {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     flex-wrap: wrap;
     flex-grow: 1;
     justify-content: flex-start;
   }
 
   .product {
-    margin-right: .5rem;
 
     .providers{
       display: flex;
@@ -227,11 +226,53 @@ td,label,li {
     line-height: .75rem;
     border-radius: 1rem;
   }
-  
+
 }
 
 label:after {
   margin-left: .15rem;
+}
+
+/////////////////////////// InfluxDB Preference Tabs ///////////////////////////
+
+#pref-tabs {
+  padding: 0;
+  margin: 0 0 -5px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pref-tab {
+  padding: .75rem 1.25rem;
+  margin-right: 5px;
+  text-align: center;
+  font-weight: bold;
+  width: 49%;
+  color: rgba($article-text, .7);
+  background: rgba($article-text, .05);
+  border-radius: $radius;
+  cursor: pointer;
+  transition: color .2s;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: $article-link;
+  }
+
+  &.active {
+    color: $g20-white;
+    @include gradient($article-btn-gradient);
+  }
+}
+
+.product {
+  &.active { display: block; }
+  &.inactive { display: none; }
 }
 
 ///////////////////////////// InfluxDB URL Triggers ////////////////////////////
