@@ -3,8 +3,9 @@
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
+{{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $notifications | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $featureCallouts $notifications | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">

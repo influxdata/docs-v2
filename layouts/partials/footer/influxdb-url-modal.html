@@ -32,8 +32,8 @@
 
 {{ define "productSection" }}
   {{ $p := .product }}
+  {{ $formID := .formID }}
   <div class="product">
-    {{ if .showName }}<h4>{{ $p.product }}</h4>{{ end }}
     <div class="providers">
       {{ range $p.providers }}
         <div class="provider">
@@ -42,7 +42,7 @@
             <ul>
               <li class="custom">
                 <label for="{{ anchorize .name }}">
-                  <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                  <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
                   <span class="radio"></span>
                 </label>
                 <form action="#" id="custom-url">
@@ -56,7 +56,7 @@
             {{ range .regions }}
               <li>
                 <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
-                  <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                  <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
                   <span class="radio"></span>
                   {{ .name }}
                 </label>
@@ -80,12 +80,14 @@
         <p>{{ $modalMessage | markdownify }}</p>
         <div class="products">
           {{ if not $isInfluxDB }}
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "showName" true }}
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "showName" true }}
+            <h4>InfluxDB Cloud</h4>
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
+            <h4>InfluxDB OSS or Enterprise</h4>
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
           {{ else if $isCloud }}
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud }}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
           {{ else if $isOSS }}
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss }}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
           {{ end }}
         </div>
         <p class="note">For more information, see {{ $modalRefLinks | markdownify }}.</p>
