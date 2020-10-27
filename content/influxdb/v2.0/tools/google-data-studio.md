@@ -1,5 +1,5 @@
 ---
-title: Google Data studio
+title: Use the Google Data Studio connector
 description:
 menu:
   influxdb_2_0:
@@ -8,68 +8,25 @@ weight: 102
 influxdb/v2.0/tags: [cli]
 ---
 
+The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets users create reports and dashboards in Google Data Studio with datasets from InfluxDB v2.
 
-*This is not an official Google product.*
+### Add the InfluxDB Connector to Data Studio
 
-This [Data Studio] [Connector] lets users query datasets from [InfluxDB v2] instances through the [InfluxDB API].
-## How it works
+1. Add the [InfluxDB Connector data source](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs).
+2. Enter the following connection details:
+  - `InfluxDB URL`: Your [InfluxDB 2.0 instance URL](/influxdb/v2.0/reference/urls/).
+  - `Token`: Add an [authentication token](/v2.0/security/tokens/create-token/).
+  - `Organization`: Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id).
+  - `Bucket`: Your [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-a-list-of-bucket).
+  - `Measurement`: The [measurement](/influxdb/v2.0/reference/glossary/#measurement) to connect to.
+3. Click **Connect**.
 
-Connect your InfluxDB to Google Data Studio and start pushing  your data to in minutes.
+### Visualize InfluxDB data in Data Studio
 
-### How to add the InfluxDB Connector to Data Studio
+1. Once you're connected, a list of fields available from your measurement, including the [tag set](/influxdb/v2.0/reference/glossary/#tag-set), [field set](/influxdb/v2.0/reference/glossary/#field-set), and [timestamp](/influxdb/v2.0/reference/glossary/#timestamp) appear. Review the list of fields and [edit as needed](https://support.google.com/datastudio/answer/7000529?hl=en&ref_topic=6370331).
+2. Click **CREATE REPORT**.
+3. Customize the [visualization in your report](https://support.google.com/datastudio/?hl=en#topic=6291037).
 
-#### Direct link
+### Example use case with COVID-19 data
 
-To add the InfluxDB Connector in Data Studio you can use this link: [create a new datasource](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs).
-
-#### From Data Studio
-
-TBD: If you are already in Data Studio, click the "Create" button and select "Data Source". From there you can search for the InfluxDB Connector.
-
-<img src="docs/datastudio-connector.png" height="350px">
-
-### Connect your InfluxDB to Data Studio
-
-To access your InfluxDB, enter your Connection information:
-
-- `InfluxDB URL`
-- `Token`
-- `Organization`
-- `Bucket`
-- `Measurement`
-
-<img src="docs/datastudio-connection.jpg" height="350px">
-
-- [How to retrieve the Organization](https://v2.docs.influxdata.com/v2.0/organizations/view-orgs/)
-- [How to retrieve the Token](https://v2.docs.influxdata.com/v2.0/security/tokens/view-tokens/)
-
-#### Set up Metrics
-
-Once you are connected, Data Studio will show you a list of all the fields available from your **Measurement**.
-This includes your _Tag set_, _Field set_ and _Timestamp_.
-
-<img src="docs/datastudio-fields.png" height="350px">
-
-### Visualize your data in Data Studio
-
-After you have reviewed the fields, press "CREATE REPORT" button to create your report.
-
-<img src="docs/datastudio-report.png" height="350px">
-
-## Inspiration
-
-- [COVID-19 report powered by InfluxDB](/examples/)
-
-## Troubleshooting
-
-### This app isn't verified
-
-When authorizing the connector, an OAuth consent screen may be presented to you with a warning "This app isn't verified".
-This is because the connector has requested authorization to make requests to an external API (E.g. to fetch data from the service you're connecting to).
-
-> This warning will no longer be display after the connector will include in Partner connectors gallery - see [#2](https://github.com/influxdata/influxdb-gds-connector/issues/2)
-
-[Data Studio]: https://datastudio.google.com
-[Connector]: https://developers.google.com/datastudio/connector
-[InfluxDB v2]: https://www.influxdata.com/products/influxdb-overview/influxdb-2-0/
-[InfluxDB API]: https://v2.docs.influxdata.com/v2.0/reference/api/
+For an example of how you can use this connector, see [COVID-19 report powered by InfluxDB](https://github.com/influxdata/influxdb-gds-connector/tree/master/examples)
