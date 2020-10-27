@@ -33,7 +33,8 @@
 {{ define "productSection" }}
   {{ $p := .product }}
   {{ $formID := .formID }}
-  <div class="product">
+  {{ $initialState := .initialState | default "" }}
+  <div class="product {{ $initialState }}" id="{{ $formID }}-urls">
     <div class="providers">
       {{ range $p.providers }}
         <div class="provider">
@@ -80,10 +81,12 @@
         <p>{{ $modalMessage | markdownify }}</p>
         <div class="products">
           {{ if not $isInfluxDB }}
-            <h4>InfluxDB Cloud</h4>
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
-            <h4>InfluxDB OSS or Enterprise</h4>
-            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
+            <ul id="pref-tabs">
+              <li class="pref-tab active" id="pref-cloud"><span>InfluxDB</span> Cloud</li>
+              <li class="pref-tab" id="pref-oss"><span>InfluxDB</span> OSS or Enterprise</li>
+            </ul>
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" "initialState" "active"}}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" "initialState" "inactive"}}
           {{ else if $isCloud }}
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
           {{ else if $isOSS }}
