@@ -161,14 +161,14 @@ sudo yum remove influxdb
     {{% /code-tabs %}}
     {{% code-tab-content %}}
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.3-c1.8.3_amd64.deb
-sudo dpkg -i influxdb-data_1.8.3-c1.8.3_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.0-c1.8.0_amd64.deb
+sudo dpkg -i influxdb-data_1.8.0-c1.8.0_amd64.deb
 ```
     {{% /code-tab-content %}}
     {{% code-tab-content %}}
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.3_c1.8.3.x86_64.rpm
-sudo yum localinstall influxdb-data-1.8.3_c1.8.3.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.0_c1.8.0.x86_64.rpm
+sudo yum localinstall influxdb-data-1.8.0_c1.8.0.x86_64.rpm
 ```
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
