@@ -13,7 +13,7 @@ The `influx delete` command deletes [points](/influxdb/v2.0/reference/glossary/#
 from an InfluxDB bucket. Identify points to delete using [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate).
 
 {{% note %}}
-In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabled.
+In **InfluxDB OSS 2.0rc**, the `influx delete --predicate` flag has been disabled.
 The `-p`, `--predicate` flag is supported in **InfluxDB Cloud** and **InfluxDB OSS 2.0 beta 16 or earlier**.
 
 Running `influx delete` without the `-p` or `--predicate` flag deletes all data with timestamps between the specified

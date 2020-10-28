@@ -53,7 +53,7 @@ Use the `influx` CLI or the InfluxDB API `/delete` endpoint to delete data.
 {{% note %}}
 The `-p, --predicate` flag is supported in **InfluxDB Cloud** and **InfluxDB OSS 2.0 beta 16 or earlier**.
 
-In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabled.
+In **InfluxDB OSS 2.0rc**, the `influx delete --predicate` flag has been disabled.
 {{% /note %}}
 
 ## Delete data using the influx CLI
@@ -65,7 +65,7 @@ In **InfluxDB OSS 2.0rc0**, the `influx delete --predicate` flag has been disabl
 
 ### Example delete commands
 
-**InfluxDB OSS 2.0rc0** does not support the `predicate` parameter.
+**InfluxDB OSS 2.0rc** does not support the `predicate` parameter.
 
 #### Delete data in InfluxDB Cloud
 
@@ -103,30 +103,32 @@ The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB 
 
 ### Example delete requests
 
-**InfluxDB OSS 2.0rc0** does not support the `predicate` parameter.
+**InfluxDB OSS 2.0rc** does not support the `predicate` parameter.
 
 #### Delete data in InfluxDB Cloud
 
 ```sh
-curl -X POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete?orgID=<ORGID>'
--H 'Authorization: Token <TOKEN WITH WRITE PERMISSIONS'
--H 'Content-Type: application/json'
--d '{
-"predicate": "_measurement=\"<MEASUREMENT NAME>\" and _field=\"<FIELD>\"",
-"start": "2020-08-16T08:00:00Z",
-"stop": "2020-08-17T08:00:00Z"
+curl --request POST \
+  https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete?orgID=<ORGID> \
+  --header 'Authorization: Token <TOKEN WITH WRITE PERMISSIONS' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "predicate": "_measurement=\"<MEASUREMENT NAME>\" and _field=\"<FIELD>\"",
+  "start": "2020-08-16T08:00:00Z",
+  "stop": "2020-08-17T08:00:00Z"
    }'
 ```
 
 #### Delete data in InfluxDB OSS
 
 ```sh
-curl -XPOST http://localhost:8086/api/v2/delete/?org=myOrg&bucket=myBucket \
--H 'Authorization: Token <YOURAUTHTOKEN>' \
--d '{
-"start": "1970-01-01T00:00:00.00Z",
-"stop": "2020-01-01T00:00:00.00Z"
-}'
+curl --request POST http://localhost:8086/api/v2/delete/?org=myOrg&bucket=myBucket \
+  --header 'Authorization: Token <YOURAUTHTOKEN>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "start": "1970-01-01T00:00:00.00Z",
+  "stop": "2020-01-01T00:00:00.00Z"
+  }'
 ```
    _For more information, see the [`/delete` API documentation](/influxdb/v2.0/api/#/paths/~1delete/post)._
 

@@ -81,16 +81,16 @@ The following precisions are available:
 
 ##### Query using basic authentication
 ```sh
-curl -G https://cloud2.influxdata.com/query \
-  -u username:YourAuthToken \
+curl --request GET https://cloud2.influxdata.com/query \
+  --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```
 
 ##### Query a non-default retention policy
 ```sh
-curl -G https://cloud2.influxdata.com/query \
-  -H "Authorization: Basic username:YourAuthToken" \
+curl --request GET https://cloud2.influxdata.com/query \
+  --header "Authorization: Basic username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -98,27 +98,27 @@ curl -G https://cloud2.influxdata.com/query \
 
 ##### Execute multiple queries
 ```sh
-curl -G https://cloud2.influxdata.com/query \
-  -H "Authorization: Token YourAuthToken" \
+curl --request GET https://cloud2.influxdata.com/query \
+  --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
 ```
 
 ##### Return query results with millisecond Unix timestamps
 ```sh
-curl -G https://cloud2.influxdata.com/query \
-  -H "Authorization: Token YourAuthToken" \
+curl --request GET https://cloud2.influxdata.com/query \
+  --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
-  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
+  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1" \
   --data-urlencode "epoch=ms"
 ```
 
 ##### Use curl to execute InfluxQL queries from a file
 ```sh
-curl -G https://cloud2.influxdata.com/query \
-  -H "Authorization: Token YourAuthToken" \
+curl --request GET https://cloud2.influxdata.com/query \
+  --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
-  -F "q=@path/to/influxql.txt"
-  -F "async=true"
+  --form "q=@path/to/influxql.txt" \
+  --form "async=true"
 ```

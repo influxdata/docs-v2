@@ -71,22 +71,23 @@ The following precisions are available:
 
 ##### Write data using basic authentication
 ```sh
-curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
-  -H "Authorization: Basic username:YourAuthToken" \
+curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+  --header "Authorization: Basic username:YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write data to a non-default retention policy
 ```sh
-curl -XPOST https://cloud2.influxdata.com/write?db=mydb&rp=customrp \
-  -H "Authorization: Basic username:YourAuthToken" \
+curl --request POST https://cloud2.influxdata.com/write?db=mydb&rp=customrp \
+  --header "Authorization: Basic" \
+  --header "username:YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write multiple lines of line protocol
 ```sh
-curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
-  -H "Authorization: Token YourAuthToken" \
+curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+  --header "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
 measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
@@ -94,14 +95,14 @@ measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 
 ##### Write data with millisecond Unix timestamps
 ```sh
-curl -XPOST https://cloud2.influxdata.com/write?db=mydb&precision=ms \
-  -H "Authorization: Token YourAuthToken" \
+curl --request POST https://cloud2.influxdata.com/write?db=mydb&precision=ms \
+  --header "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
 
 ##### Use curl to write data from a file
 ```sh
-curl -XPOST https://cloud2.influxdata.com/write?db=mydb \
-  -H "Authorization: Token YourAuthToken" \
+curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+  --header "Authorization: Token YourAuthToken" \
   --data-binary @path/to/line-protocol.txt
 ```

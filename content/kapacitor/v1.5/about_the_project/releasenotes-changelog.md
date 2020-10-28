@@ -6,12 +6,28 @@ menu:
     parent: About the project
 ---
 
+## v1.5.7 [2020-10-26]
+
+## Features
+
+- Add the `.recoveryaction()` method to support overriding the OpsGenieV2 alert recovery action in a TICKscript, thanks @zabullet!
+- Add support for templating URLs in the [`httpPost` node](/kapacitor/v1.5/nodes/http_post_node/) and [`alert` node](/kapacitor/v1.5/nodes/alert_node/). To set up an template:
+  - For the `alert` node, see [alert templates](/kapacitor/v1.5/event_handlers/post/#alert-templates).
+  - For the `http post` node, see [row templates](/kapacitor/v1.5/event_handlers/post/#row-templates).
+- Upgrade `github.com/gorhill/cronexpr`, thanks @wuguanyu!
+- Add the [ServiceNow event handler](/kapacitor/v1.5/event_handlers/servicenow/) to support ServiceNow integration and provide proxy support.
+
+### Bug fixes
+
+- Add error check when the system fails to read the replay file, thanks @johncming!
+- Add missing `.Details` to the alert template.
+
 ## v1.5.6 [2020-07-17]
 
 ## Features
 
-- Add [Microsoft Teams event handler](/kapacitor/1.5/event_handlers/microsoftteams/), thanks @mmindenhall!
-- Add [Discord event handler](/kapacitor/1.5/event_handler/discord/), thanks @mattnotmitt!
+- Add [Microsoft Teams event handler](/kapacitor/v1.5/event_handlers/microsoftteams/), thanks @mmindenhall!
+- Add [Discord event handler](/kapacitor/v1.5/event_handler/discord/), thanks @mattnotmitt!
 - Add [support for TLS 1.3](/kapacitor/v1.5/administration/configuration/#transport-layer-security-tls-settings).
 
 ### Bug fixes

@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: Talk
-    weight: 1700
+    weight: 1800
     parent: Event handlers
 ---
 

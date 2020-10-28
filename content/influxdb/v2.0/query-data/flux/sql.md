@@ -233,10 +233,10 @@ to store your database credentials as secrets.
 {{% /tabs %}}
 {{% tab-content %}}
 ```sh
-curl -X PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
-  -H 'Content-type: application/json' \
-  -d '{
+curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
+  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Content-type: application/json' \
+  --data '{
   "POSTGRES_HOST": "http://example.com",
   "POSTGRES_USER": "example-username",
   "POSTGRES_PASS": "example-password"

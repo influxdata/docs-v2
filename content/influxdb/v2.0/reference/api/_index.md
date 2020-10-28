@@ -17,8 +17,8 @@ Include your authentication token as an `Authorization` header in each request.
 
 ```sh
 curl --request POST \
-  --url http://localhost:8086/api/v2/write?org=my-org&bucket=example-bucket \
-  --header 'Authorization: Token YOURAUTHTOKEN'
+  http://localhost:8086/api/v2/write?org=my-org&bucket=example-bucket \
+  --header "Authorization: Token YOURAUTHTOKEN"
 ```
 
 ## View InfluxDB v2 API Documentation
