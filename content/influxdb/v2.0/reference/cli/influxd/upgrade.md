@@ -19,7 +19,7 @@ Be sure to back up all data before upgrading with `influx upgrade`.
 
 This command performs the following actions:
 
-1. Reads 1.x configuration file and creates a 2.x config file with matching options.
+1. Creates the InfluxDB 2.x configuration file using 1.x configuration file options.
    Unsupported 1.x options are reported to standard output.
 2. Copies and upgrades 1.x database files.
 3. Creates a script that creates tokens for 1.x users.
