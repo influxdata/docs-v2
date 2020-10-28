@@ -17,7 +17,7 @@ menu:
 - Add duration support to [`orTime` parameter](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/#ortime)
   of `lastSuccess()`.
 
-###Bug fixes
+### Bug fixes
 - Configure the profiler even if `operator` profiler is not enabled.
 - Update formatter to handle newline characters in `write_string`.
 - Make formatter use spaces instead of tabs.
