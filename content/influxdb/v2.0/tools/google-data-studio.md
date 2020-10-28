@@ -8,16 +8,16 @@ weight: 102
 influxdb/v2.0/tags: [google]
 ---
 
-The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets users create reports and dashboards in Google Data Studio with datasets from InfluxDB v2.
+The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets you create reports and dashboards in Google Data Studio with data from InfluxDB 2.0.
 
 ### Add the InfluxDB Connector to Data Studio
 
 1. Add the [InfluxDB Connector data source](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs).
 2. Enter the following connection details:
-  - `InfluxDB URL`: Your [InfluxDB 2.0 instance URL](/influxdb/v2.0/reference/urls/).
-  - `Token`: Add an [authentication token](/v2.0/security/tokens/create-token/).
-  - `Organization`: Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id).
-  - `Bucket`: Your [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-a-list-of-bucket).
+  - `InfluxDB URL`: Your [InfluxDB 2.0 URL](/influxdb/v2.0/reference/urls/).
+  - `Token`: Your [authentication token](/influxdb/v2.0/security/tokens/create-token/).
+  - `Organization`: Your [organization name](/influxdb/v2.0/organizations/view-orgs).
+  - `Bucket`: Your [bucket name](/influxdb/v2.0/organizations/buckets/view-buckets/#view-a-list-of-buckets). This is auto-populated when you enter the fields above.
   - `Measurement`: The [measurement](/influxdb/v2.0/reference/glossary/#measurement) to connect to.
 3. Click **Connect**.
 
