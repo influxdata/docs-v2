@@ -22,7 +22,7 @@ tasks.lastSuccess(orTime: 2020-01-01T00:00:00Z)
 ### orTime
 The default time value returned if the task has never successfully run.
 
-_**Data type:** Time_
+_**Data type:** Time | Duration_
 
 ## Examples
 
@@ -36,6 +36,6 @@ options task = {
 }
 
 from(bucket: "example-bucket")
-  |> range(start: tasks.lastSuccess(orTime: 2020-01-01T00:00:00Z))
+  |> range(start: tasks.lastSuccess(orTime: -task.every))
   // ...
 ```
