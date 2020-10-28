@@ -12,7 +12,7 @@ menu:
 
 ### Features
 - Aggregate results for `operator` profiler.
-- Add contributed `events` package.
+- Add contributed [`events` package](/influxdb/v2.0/reference/flux/stdlib/contrib/events/).
 - Use `tableFind` and related functions with profiler results.
 - Add duration support to `orTime` parameter of `lastSuccess()`.
 
