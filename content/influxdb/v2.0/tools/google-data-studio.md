@@ -1,6 +1,6 @@
 ---
 title: Use the Google Data Studio connector
-description:
+description: The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets you create reports and dashboards in Google Data Studio with data from InfluxDB 2.0. 
 menu:
   influxdb_2_0:
     parent: Tools & integrations
