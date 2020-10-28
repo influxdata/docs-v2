@@ -32,4 +32,5 @@ Back up all data before upgrading with `influx upgrade`.
    ```sh
    influxd upgrade --config <path to config file>
    ```
+   <!-- -->
 4. Follow the prompts to set up a new InfluxDB 2.0 instance.
