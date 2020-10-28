@@ -29,4 +29,4 @@ The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/da
 
 ### Example use case with COVID-19 data
 
-For an example of how you can use this connector, see [COVID-19 report powered by InfluxDB](https://github.com/influxdata/influxdb-gds-connector/tree/master/examples)
+For an example of how to use this connector, see a [COVID-19 report powered by InfluxDB](https://github.com/influxdata/influxdb-gds-connector/tree/master/examples).
