@@ -19,13 +19,12 @@ The following examples identify and count unique locations that data was collect
 ## Find unique values
 
 This query:
+
   - Uses [`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/) to ungroup data and return results in a single table.
   - Uses [`keep()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/) and [`unique()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to return unique values in the specified column.
 
 ```js
-import "experimental/csv"
-
-csv.from(bucket: "noaa")
+from(bucket: "noaa")
   |> group()
   |> keep(columns: ["location"])
   |> unique(column: "location")
@@ -40,6 +39,7 @@ csv.from(bucket: "noaa")
 ## Count unique values
 
 This query:
+
   - Uses [`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/) to ungroup data and return results in a single table.
   - Uses [`keep()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/), [`unique()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/), and then [`count()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/) to count the number of unique values.
 
