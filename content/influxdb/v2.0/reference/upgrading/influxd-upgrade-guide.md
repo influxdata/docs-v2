@@ -23,14 +23,12 @@ Back up all data before upgrading with `influx upgrade`.
 2. Stop your running InfluxDB 1.x instance.
 3. If your configuration file is at the default location (`~/.influxdbv2/configs`), run:
 
-   ```sh
-   influxd upgrade
-   ```
-
-   Otherwise, run:
-
-   ```sh
-   influxd upgrade --config <path to config file>
-   ```
-
+    ```sh
+    influxd upgrade
+    ```
+     Otherwise, run:
+    ```sh
+    influxd upgrade --config <path to config file>
+    ```
+    
 4. Follow the prompts to set up a new InfluxDB 2.0 instance.
