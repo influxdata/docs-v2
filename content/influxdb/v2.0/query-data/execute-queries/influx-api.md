@@ -1,54 +1,13 @@
 ---
-title: Execute queries
-seotitle: Different ways to query InfluxDB
-description: There are multiple ways to query data from InfluxDB including the InfluxDB UI, CLI, and API.
-weight: 103
+title: Query with the InfluxDB API
+weight: 201
 menu:
   influxdb_2_0:
-    name: Execute queries
-    parent: Query data
+    name: Query with the InfluxDB API
+    parent: Execute queries
 influxdb/v2.0/tags: [query]
 ---
 
-There are multiple ways to execute queries with InfluxDB.
-This guide covers the different options:
-
-- [Data Explorer](#data-explorer)
-- [Flux REPL](#flux-repl)
-- [Influx query command](#influx-query-command)
-- [InfluxDB API](#influxdb-api)
-
-## Data Explorer
-Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
-
-![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
-
-## Flux REPL
-The [Flux REPL](/influxdb/v2.0/tools/repl/) starts an interactive
-Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
-
-```sh
-./flux repl
-```
-
-## Influx query command
-You can pass queries to the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query)
-as either a file or raw Flux via stdin.
-
-###### Run a query from a file
-```bash
-influx query --file /path/to/query.flux
-```
-
-###### Pass raw Flux via stdin pipe
-```bash
-influx query - # Return to open the pipe
-
-data = from(bucket: "example-bucket") |> range(start: -10m) # ...
-# ctrl-d to close the pipe and submit the query
-```
-
-## InfluxDB API
 The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic
 interface for all interactions with InfluxDB.
 Query InfluxDB through the `/api/v2/query` endpoint.
