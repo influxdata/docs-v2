@@ -32,3 +32,5 @@ Back up all data before upgrading with `influx upgrade`.
     ```
     
 4. Follow the prompts to set up a new InfluxDB 2.0 instance.
+
+For more information on upgrading, including how to handle non-standard installations, see [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/).
