@@ -16,4 +16,4 @@ Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 ./flux repl
 ```
 
-For more information, see [Use the Interactive Flux REPL](/influxdb/v2.0/tools/repl/).
+For more information, see [Use the Flux REPL](/influxdb/v2.0/tools/repl/).
