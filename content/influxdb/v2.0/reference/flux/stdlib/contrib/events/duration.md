@@ -26,7 +26,7 @@ specified [`stop`](#stop) time.
 import "contrib/tomhollingworth/events"
 
 events.duration(
-  unit: 1s,
+  unit: 1ns,
   columnName: "duration",
   timeColumn: "_time",
   stopColumn: "_stop",
@@ -50,8 +50,8 @@ For examples, see [below](#compared-to-similar-functions).
 ## Parameters
 
 ### unit
-<span class="req">Required</span>
 Duration unit of the calculated state duration.
+Default is `1ns`
 
 _**Data type:** Duration_
 
