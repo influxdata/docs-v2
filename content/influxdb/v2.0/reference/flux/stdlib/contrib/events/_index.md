@@ -2,7 +2,7 @@
 title: Flux Events package
 list_title: Events package
 description: >
-  The Flux Events package provides tools analyzing event-based data.
+  The Flux Events package provides tools for analyzing event-based data.
   Import the `contrib/tomhollingworth/events` package.
 menu:
   influxdb_2_0_ref:
@@ -13,7 +13,7 @@ weight: 202
 influxdb/v2.0/tags: [functions, events, package]
 ---
 
-The Flux Events package provides tools analyzing event-based data.
+The Flux Events package provides tools for analyzing event-based data.
 Import the `contrib/tomhollingworth/events` package:
 
 ```js
