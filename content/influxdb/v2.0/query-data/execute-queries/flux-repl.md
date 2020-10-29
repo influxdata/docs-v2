@@ -1,6 +1,6 @@
 ---
 title: Query in the Flux REPL
-weight: 202
+weight: 203
 menu:
   influxdb_2_0:
     name: Query in the Flux REPL
