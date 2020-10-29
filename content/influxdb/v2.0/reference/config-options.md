@@ -484,7 +484,7 @@ influxql-max-select-point = 0
 ---
 
 ### influxql-max-select-series
-Maximum number of series a `SELECT` statement can run.
+Maximum number of series a `SELECT` statement can return.
 `0` allows an unlimited number of series.
 
 **Default:** `0`
