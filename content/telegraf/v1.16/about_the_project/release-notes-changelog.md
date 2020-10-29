@@ -8,13 +8,30 @@ menu:
     parent: About the project
 ---
 
+## v1.16.1 [2020-10-28]
+
+### Input plugin updates
+
+- Apache Kafka Consumer (`kafka_consumer`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, and GSSAPI.
+- Microsoft SQL Server (`sqlserver`):
+  - Fixed a syntax error of the Azure queries.
+  - Removed some synthetic performance counters that no longer exist from the `sqlserver_performance_counters` measurement.
+  - Add new tag (`sql_version_desc`) to identify the SQL Server version.  
+- RAS (`ras`):
+  - Disable RAS input plugin on specific Linux architectures (MIPS64, mips64le, ppc64le, riscv64).
+  - Fix an issue to properly close file handlers.
+- Processes (`processes`): Fix an issue with receiving `no such file or directory` stat error.
+- Windows Performance Counters Input (`win_perf_counters`): Fix an issue with the counter with a negative denominator error to cause gathering operations to fail.
+
+### Output plugin updates
+
+- Apache Kafka (`kafka`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI.
 
 ## v1.16 [2020-10-21]
 
 ### New plugins
 
 #### Inputs
-
 
 - [InfluxDB v2 Listener Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/influxdb_v2_listener/README.md)(`influxdb_v2_listener`) - Contributed by [@magichair](https://github.com/magichair)
 - [Intel RDT Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_rdt/README.md)(`intel_rdt`) - Contributed by [@p-zak](https://github.com/p-zak)
@@ -23,7 +40,6 @@ menu:
 - [Proxmox Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/proxmox/README.md)(`proxmox`) - Contributed by [@effitient](https://github.com/effitient)
 - [RAS Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/ras/README.md)(`ras`)- Contributed by [@p-zak](https://github.com/p-zak)
 - [Windows Eventlog Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_eventlog/README.md)(`win_eventlog`) - Contributed by [@simnv](https://github.com/simnv)
-
 
 #### Outputs
 
@@ -100,8 +116,6 @@ menu:
 - Fix serialization when using `carbon2`.
 - Fix bugs found by LGTM analysis platform.
 - Update to Go 1.15.
-
-
 
 ## v.1.15.3 [2020-09-11]
 
