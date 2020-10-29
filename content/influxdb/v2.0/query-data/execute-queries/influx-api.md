@@ -1,6 +1,6 @@
 ---
 title: Query with the InfluxDB API
-weight: 201
+weight: 202
 menu:
   influxdb_2_0:
     name: Query with the InfluxDB API
