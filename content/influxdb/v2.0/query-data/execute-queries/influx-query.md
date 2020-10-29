@@ -1,6 +1,6 @@
 ---
 title: Use the `influx query` command
-weight: 203
+weight: 204
 menu:
   influxdb_2_0:
     name: Use the `influx query` command
