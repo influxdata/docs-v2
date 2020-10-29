@@ -1,5 +1,6 @@
 ---
 title: Query in Data Explorer
+description: Use the Data Explorer in the InfluxDB UI to query data.
 weight: 201
 menu:
   influxdb_2_0:

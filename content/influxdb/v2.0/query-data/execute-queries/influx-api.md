@@ -1,5 +1,6 @@
 ---
 title: Query with the InfluxDB API
+description: Use the InfluxDB API to query InfluxDB data.
 weight: 202
 menu:
   influxdb_2_0:
@@ -8,9 +9,11 @@ menu:
 influxdb/v2.0/tags: [query]
 ---
 
-The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic
-interface for all interactions with InfluxDB.
-Query InfluxDB through the `/api/v2/query` endpoint.
+The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic interface for all interactions with InfluxDB.
+To query InfluxDB 2.0 with Flux, use the [`/api/v2/query`](/influxdb/v2.0/api/#operation/PostQueryAnalyze) endpoint.
+
+To query InfluxDB 2.0 with InfluxQL, use the [/query 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/query/).
+
 Queried data is returned in annotated CSV format.
 
 In your request, set the following:
@@ -25,6 +28,7 @@ InfluxDB returns the query results in [annotated CSV](/influxdb/v2.0/reference/s
 
 {{% note %}}
 #### Use gzip to compress the query response
+
 To compress the query response, set the `Accept-Encoding` header to `gzip`.
 This saves network bandwidth, but increases server-side load.
 {{% /note %}}

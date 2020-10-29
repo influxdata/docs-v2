@@ -1,17 +1,18 @@
 ---
 title: Use the `influx query` command
+description: Use the influx CLI to query InfluxDB data.
 weight: 204
 menu:
   influxdb_2_0:
-    name: Use the `influx query` command
+    name: Use the influx CLI
     parent: Execute queries
 influxdb/v2.0/tags: [query]
 ---
 
 ## Influx query command
 
-You can pass queries to the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query)
-as either a file or raw Flux via stdin.
+Use the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query) to query data in InfluxDB using Flux.
+Pass Flux queries to the command as either a file or via stdin.
 
 ###### Run a query from a file
 
