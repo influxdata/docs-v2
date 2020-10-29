@@ -21,13 +21,13 @@ This command performs the following actions:
 
 1. Creates the InfluxDB 2.x configuration file using 1.x configuration file options.
    Unsupported 1.x options are reported to standard output.
+   If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
 2. Copies and upgrades 1.x database files.
 3. Creates a script that creates tokens for 1.x users.
    This script needs to be revised and run manually after starting 2.x.
 
-If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
 The target 2.x database directory is specified by the `--engine-path` option.
-If changed, the bolt path should be changed as well.
+If changed, the bolt path can be specified by the `--bolt-path` option.
 
 ## Usage
 
