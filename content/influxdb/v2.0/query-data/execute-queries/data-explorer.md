@@ -1,6 +1,8 @@
 ---
 title: Query in Data Explorer
 description: Use the Data Explorer in the InfluxDB UI to query data.
+description: >
+  Query your data in the InfluxDB user interface (UI) Data Explorer.
 aliases: /influxdb/v2.0/visualize-data/explore-metrics/
 weight: 201
 menu:
@@ -10,20 +12,14 @@ menu:
 influxdb/v2.0/tags: [query]
 ---
 
-Queries can be built, executed, and visualized in InfluxDB UI's Data Explorer.
+Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
 
 ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
-Explore and visualize your data in the **Data Explorer**.
-The InfluxDB user interface (UI) allows you to move seamlessly between using the
-Flux builder or templates and manually editing the query.
+Move seamlessly between using the Flux builder or templates and manually editing the query.
 Choose between [visualization types](/influxdb/v2.0/visualize-data/visualization-types/) for your query.
 
-To open the **Data Explorer**, click the **Explore** (**Data Explorer**) icon in the left navigation menu:
-
-{{< nav-icon "data-explorer" >}}
-
-## Explore data with Flux and the Data Explorer
+## Query data with Flux and the Data Explorer
 
 Flux is InfluxData's functional data scripting language designed for querying,
 analyzing, and acting on time series data.
@@ -98,7 +94,6 @@ Click **Query Builder** to use the builder to create a Flux query. Click **Scrip
 
 In **Script Editor** mode, the following keyboard shortcuts are available:
 
-
 | Key                            | Description                                 |
 |--------------------------------|---------------------------------------------|
 | `Control + /` (`⌘ + /` on Mac) | Comment/uncomment current or selected lines |
@@ -106,9 +101,7 @@ In **Script Editor** mode, the following keyboard shortcuts are available:
 
 ## Save your query as a dashboard cell or task
 
-**To save your query**:
-
-Click **Save as** in the upper right, then:
-- To add your query to a dashboard, click **Dashboard Cell**.
-- To save your query as a task, click **Task**.
-- To save your query as a variable, click **Variable**.
+- Click **Save as** in the upper right, and then:
+  - To add your query to a dashboard, click **Dashboard Cell**.
+  - To save your query as a task, click **Task**.
+  - To save your query as a variable, click **Variable**.
