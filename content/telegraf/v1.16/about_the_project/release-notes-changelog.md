@@ -14,7 +14,7 @@ menu:
 
 - Apache Kafka Consumer (`kafka_consumer`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, and GSSAPI.
 - Microsoft SQL Server (`sqlserver`):
-  - Fix a syntax error of the Azure queries.
+  - Fix a syntax error in Azure queries.
   - Remove synthetic performance counters that no longer exist from the `sqlserver_performance_counters` measurement.
   - Add a new tag (`sql_version_desc`) to identify the readable SQL Server version.  
 - RAS (`ras`):
