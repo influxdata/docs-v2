@@ -489,13 +489,13 @@ Maximum number of series a `SELECT` statement can return.
 
 **Default:** `0`
 
-| influxd flag                    | Environment variable                 | Configuration key             |
-|:------------                    |:--------------------                 |:-----------------             |
-| `--iinfluxql-max-select-series` | `INFLUXD_INFLUXQL_MAX_SELECT_SERIES` | `iinfluxql-max-select-series` |
+| influxd flag                   | Environment variable                 | Configuration key            |
+|:------------                   |:--------------------                 |:-----------------            |
+| `--influxql-max-select-series` | `INFLUXD_INFLUXQL_MAX_SELECT_SERIES` | `influxql-max-select-series` |
 
 ###### influxd flag
 ```sh
-influxd --iinfluxql-max-select-series=0
+influxd --influxql-max-select-series=0
 ```
 
 ###### Environment variable
@@ -512,18 +512,18 @@ export INFLUXD_INFLUXQL_MAX_SELECT_SERIES=0
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-iinfluxql-max-select-series: 0
+influxql-max-select-series: 0
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-iinfluxql-max-select-series = 0
+influxql-max-select-series = 0
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "iinfluxql-max-select-series": 0
+  "influxql-max-select-series": 0
 }
 ```
 {{% /code-tab-content %}}
@@ -1401,7 +1401,7 @@ storage-compact-throughput-burst = 50331648
 
 ### storage-max-concurrent-compactions
 Maximum number of full and level compactions that can run concurrently.
-A value of `0` results in 50% of runtime. `GOMAXPROCS(0)` used at runtime.
+A value of `0` results in 50% of `runtime.GOMAXPROCS(0)` used at runtime.
 Any number greater than zero limits compactions to that value.
 _This setting does not apply to cache snapshotting._
 
