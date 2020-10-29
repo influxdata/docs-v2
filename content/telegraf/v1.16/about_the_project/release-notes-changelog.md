@@ -21,7 +21,7 @@ menu:
   - Disable on specific Linux architectures (MIPS64, mips64le, ppc64le, riscv64).
   - Fix an issue to properly close file handlers.
 - Processes (`processes`): Fix an issue with receiving `no such file or directory` stat error.
-- Windows Performance Counters (`win_perf_counters`): Fix an issue with the counter with a negative denominator error to cause gathering operations to fail.
+- Windows Performance Counters (`win_perf_counters`): Fix an issue with the counter where a negative denominator error would cause gathering operations to fail.
 
 ### Output plugin updates
 
