@@ -8,6 +8,26 @@ menu:
     name: Flux
 ---
 
+## v0.91.0 [2020-10-26]
+
+### Features
+- Aggregate results for `operator` profiler.
+- Add contributed [`events` package](/influxdb/v2.0/reference/flux/stdlib/contrib/events/).
+- Use `tableFind` and related functions with profiler results.
+- Add duration support to [`orTime` parameter](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/#ortime)
+  of `lastSuccess()`.
+
+### Bug fixes
+- Configure the profiler even if `operator` profiler is not enabled.
+- Update formatter to handle newline characters in `write_string`.
+- Make formatter use spaces instead of tabs.
+- Update formatter double spacing rules.
+- Add support for multiline type expressions.
+- Update `influxdata/influxdb/tasks` package with new location of `execute` dependencies.
+- Improve multiline and parentheses support in formatter.
+
+---
+
 ## v0.90.0 [2020-10-19]
 
 ### Features
