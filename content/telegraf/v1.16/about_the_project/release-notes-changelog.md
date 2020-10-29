@@ -14,14 +14,14 @@ menu:
 
 - Apache Kafka Consumer (`kafka_consumer`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, and GSSAPI.
 - Microsoft SQL Server (`sqlserver`):
-  - Fixed a syntax error of the Azure queries.
-  - Removed some synthetic performance counters that no longer exist from the `sqlserver_performance_counters` measurement.
-  - Add new tag (`sql_version_desc`) to identify the SQL Server version.  
+  - Fix a syntax error of the Azure queries.
+  - Remove synthetic performance counters that no longer exist from the `sqlserver_performance_counters` measurement.
+  - Add a new tag (`sql_version_desc`) to identify the readable SQL Server version.  
 - RAS (`ras`):
-  - Disable RAS input plugin on specific Linux architectures (MIPS64, mips64le, ppc64le, riscv64).
+  - Disable on specific Linux architectures (MIPS64, mips64le, ppc64le, riscv64).
   - Fix an issue to properly close file handlers.
 - Processes (`processes`): Fix an issue with receiving `no such file or directory` stat error.
-- Windows Performance Counters Input (`win_perf_counters`): Fix an issue with the counter with a negative denominator error to cause gathering operations to fail.
+- Windows Performance Counters (`win_perf_counters`): Fix an issue with the counter with a negative denominator error to cause gathering operations to fail.
 
 ### Output plugin updates
 
