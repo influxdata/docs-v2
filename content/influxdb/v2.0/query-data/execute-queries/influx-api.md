@@ -14,8 +14,6 @@ To query InfluxDB 2.0 with Flux, use the [`/api/v2/query`](/influxdb/v2.0/api/#o
 
 To query InfluxDB 2.0 with InfluxQL, use the [/query 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/query/).
 
-Queried data is returned in annotated CSV format.
-
 In your request, set the following:
 
 - Your organization via the `org` or `orgID` URL parameters.
