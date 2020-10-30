@@ -12,7 +12,7 @@ menu:
 To enhance security, configure Chronograf to authenticate and authorize with [OAuth 2.0](https://oauth.net/) and use TLS/HTTPS.
 (Basic authentication with username and password is also available.)
 
-* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20)
+* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0)
   1. [Generate a Token Secret](#generate-a-token-secret)
   2. [Set configurations for your OAuth provider](#set-configurations-for-your-oauth-provider)
   3. [Configure authentication duration](#configure-authentication-duration)
@@ -80,7 +80,7 @@ Configuration steps for the following supported authentication providers are pro
 * [Okta](#configure-okta-authentication)
 * [Gitlab](#configure-gitlab-authentication)
 * [Azure Active Directory](#configure-azure-active-directory-authentication)
-* [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-20-provider)
+* [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-2-0-provider)
 
 > If you haven't already, you must first [generate a token secret](#generate-a-token-secret) before proceeding.
 
@@ -453,7 +453,7 @@ Chronograf can be configured to authenticate users by username and password ("ba
 Turn on basic authentication access to restrict HTTP requests to Chronograf to selected users.
 
 {{% warn %}}
-[OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20) is the preferred method for authentication.
+[OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0) is the preferred method for authentication.
 Only use basic authentication in cases where an OAuth 2.0 integration is not possible.
 {{% /warn %}}
 
