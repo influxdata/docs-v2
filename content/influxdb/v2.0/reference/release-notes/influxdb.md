@@ -8,6 +8,28 @@ menu:
 weight: 101
 ---
 
+## v2.0.0-rc.3 [2020-10-29]
+
+### Features
+
+- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0-91-0-2020-10-26).
+- Enable window aggregate mean pushdown.
+- Add `newMultiShardArrayCursors` to aggregate array cursors.
+- UI updates:
+  - Upgrade `papaparse` to 5.2.0.
+  - Upgrade `flux-lsp-browser` to v0.5.21.
+  - Add properties for storing your tick generation selections, including a `generateAxisTicks` property to turn on/off this feature.
+  - Update generate ticks into an array of properties for each axis.
+  - Add the `legendColorizeRows` property to toggle color on and off in the legend.
+
+### Bug Fixes
+
+- Resolve `invalid operation: fs.Bavail` error that occurred in some cases using when `DiskUsage()`. Now, `fs.Bavail` is always converted to `unit64` to ensure the types in an expression align.
+- Refactor notifications to isolate the `notification/endpoint/service` package and move the rule service into its own package.
+- Update to clear log out.
+- Refactor to allow `newIndexSeriesCursor()` to accept an `influxql.Expr`.
+- Remove unreferenced packages.
+
 ## v2.0.0-rc.2 [2020-10-22]
 
 ### Features
