@@ -20,7 +20,7 @@ weight: 101
   - Upgrade `flux-lsp-browser` to v0.5.21.
   - Add properties for storing your tick generation selections, including a `generateAxisTicks` property to turn this feature on and off.
   - Update generate ticks into an array of properties for each axis.
-  - Add the `legendColorizeRows` property to toggle color on and off in the legend.
+  - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
 
 ### Bug Fixes
 
