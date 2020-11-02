@@ -48,8 +48,8 @@ the visualization dropdown.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
-- **Y Tick Prefix**: Prefix to be added to y-value.
-- **Y Tick Suffix**: Suffix to be added to y-value.
+- **Y Axis Prefix**: Prefix to be added to y-value.
+- **Y Axis Suffix**: Suffix to be added to y-value.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.

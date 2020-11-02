@@ -65,3 +65,8 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 - **Y Axis Domain**:
 
 ## Band examples
+- **Y Axis Domain**: The y-axis value range.
+  - **Auto**: Automatically determine the value range based on values in the data set.
+  - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
+      - **Min**: Minimum y-axis value.
+      - **Max**: Maximum y-axis value.

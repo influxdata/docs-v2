@@ -48,11 +48,19 @@ the visualization dropdown.
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.
 - **Shade Area Below Lines**: Shade in the area below the graph lines.
+- **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
+  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
+  - **Y Axis**: Show all points with the same y value along the x-axis.
+  - **X & Y Axis**: Show only the point currently being hovered over.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
-- **Y Tick Prefix**: Prefix to be added to y-value.
-- **Y Tick Suffix**: Suffix to be added to y-value.
+- **Y Value Unit Prefix**:
+  - **None**: No prefix.
+  - **SI**: International System of Units (SI) or metric prefix.
+  - **Binary**: Binary multiple prefix.
+- **Y Axis Prefix**: Prefix to be added to y-value.
+- **Y Axis Suffix**: Suffix to be added to y-value.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
