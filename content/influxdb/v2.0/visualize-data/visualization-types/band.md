@@ -2,12 +2,11 @@
 title: Band visualization
 list_title: Band
 list_image: /img/influxdb/2-0-visualizations-Band-example.png
-description: >
-  The Band view displays the single value most recent value for a time series in a Band view.
+description:
 weight: 206
 menu:
   influxdb_2_0:
-    name: band
+    name: Band
     parent: Visualization types
 ---
 
@@ -15,7 +14,7 @@ The **Band** visualization displays the upper and lower boundaries for groups of
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-Band-example.png" alt="Band example" />}}
 
-Select the **Band** option from the visualization dropdown in the upper left.
+To view a band chart, select the **Band** option from the visualization dropdown in the upper left.
 
 ## Band behavior
 
@@ -30,14 +29,17 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
 - **Time Format**: Select the time format. Options include:
-    - `MM/DD/YYYY HH:mm:ss` (default)
+    - `YYYY-MM-DD HH:mm:ss ZZ`
+    - `DD/MM/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.sss`
     - `MM/DD/YYYY HH:mm:ss.SSS`
-    - `YYYY-MM-DD HH:mm:ss`
+    - `YYYY/MM/DD HH:mm:ss`
+    - `hh:mm a`
+    - `HH:mm`
     - `HH:mm:ss`
-    - `HH:mm:ss.SSS`
+    - `HH:mm:ss.sss`
     - `MMMM D, YYYY HH:mm:ss`
     - `dddd, MMMM D, YYYY HH:mm:ss`
-    - `Custom`
 
 ###### Aggregate Functions
 - **Upper Column Name**: Aggregate function to display for upper bounds of data.
@@ -47,7 +49,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 ###### Options
 - **Interpolation**:
-  - **Line**: Display a time series in a line graph
+  - **Line**: Display a time series in a line graph.
   - **Smooth**: Display a time series in a line graph with smooth point interpolation.
   - **Step**: Display a time series in a staircase graph.
 - **Line Colors**: Select a color scheme to use for your graph.

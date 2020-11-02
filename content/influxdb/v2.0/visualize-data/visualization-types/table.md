@@ -32,14 +32,17 @@ the visualization dropdown.
 
 - **Default Sort Field**: Select the default sort field. Default is **time**.
 - **Time Format**: Select the time format. Options include:
-    - `MM/DD/YYYY HH:mm:ss` (default)
+    - `YYYY-MM-DD HH:mm:ss ZZ`
+    - `DD/MM/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.sss`
     - `MM/DD/YYYY HH:mm:ss.SSS`
-    - `YYYY-MM-DD HH:mm:ss`
+    - `YYYY/MM/DD HH:mm:ss`
+    - `hh:mm a`
+    - `HH:mm`
     - `HH:mm:ss`
-    - `HH:mm:ss.SSS`
+    - `HH:mm:ss.sss`
     - `MMMM D, YYYY HH:mm:ss`
     - `dddd, MMMM D, YYYY HH:mm:ss`
-    - `Custom`
 - **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
     - **Auto** or **Custom**: Enable or disable auto-setting.
 
