@@ -18,12 +18,13 @@ To view a band chart, select the **Band** option from the visualization dropdown
 
 ## Band behavior
 
-The band visualization displays
+Like a line graph, the band visualization shows how values change over time. Additionally, it displays upper and lower "bands" for the measurements.
+
+For example, in the band chart above, the lines represent the mean `usage_system` values for the `cpu` measurement for `cpu0` and `cpu1`. The upper and lower limits of the bands are defined by the `max` and `min` aggregate functions, respectively.
 
 ## Band controls
 
 To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
-
 
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
@@ -41,11 +42,10 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - `MMMM D, YYYY HH:mm:ss`
     - `dddd, MMMM D, YYYY HH:mm:ss`
 
-###### Aggregate Functions
+###### Aggregate functions
 - **Upper Column Name**: Aggregate function to display for upper bounds of data.
 - **Main Column Name**: Aggregate function to display for main graph line.
 - **Lower Column Name**: Aggregate function to display for lower bounds of data.
-
 
 ###### Options
 - **Interpolation**:
@@ -56,8 +56,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 - **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
   - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
   - **Y Axis**: Show all points with the same y value along the x-axis.
-  - **X & Y Axis**: Show only the point currently being hovered over.
-
+  - **X & Y Axis**: Show only the point being currently hovered over.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
