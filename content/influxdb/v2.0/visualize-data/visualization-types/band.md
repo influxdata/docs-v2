@@ -59,12 +59,12 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
-- **Y-Value Unit Prefix**: None, SI, or Binary.
-- **Y Axis Prefix**:
-- **Y Axis Suffix**:
-- **Y Axis Domain**:
-
-## Band examples
+- **Y Value Unit Prefix**:
+  - **None**: No prefix.
+  - **SI**: International System of Units (SI) or metric prefix.
+  - **Binary**: Binary multiple prefix.
+- **Y Axis Prefix**: Prefix to be added to y-value.
+- **Y Axis Suffix**: Suffix to be added to y-value.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
