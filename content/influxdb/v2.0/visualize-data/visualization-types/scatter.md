@@ -17,7 +17,7 @@ The **Scatter** view uses a scatter plot to display time series data.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
 
-Select the **Scatter** option from the visualization dropdown in the upper right.
+Select the **Scatter** option from the visualization dropdown in the upper left.
 
 ## Scatter behavior
 The scatter visualization maps each data point to X and Y coordinates.
@@ -35,6 +35,18 @@ the visualization dropdown.
 - **Fill Column**: Define a column containing values that should be differentiated with fill color.
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    - `YYYY-MM-DD HH:mm:ss ZZ`
+    - `DD/MM/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.SSS`
+    - `YYYY/MM/DD HH:mm:ss`
+    - `hh:mm a`
+    - `HH:mm`
+    - `HH:mm:ss`
+    - `HH:mm:ss.sss`
+    - `MMMM D, YYYY HH:mm:ss`
+    - `dddd, MMMM D, YYYY HH:mm:ss`
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your scatter plot.

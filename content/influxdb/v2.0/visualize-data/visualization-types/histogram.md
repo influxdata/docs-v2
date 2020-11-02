@@ -17,7 +17,7 @@ The y-axis is dedicated to count, and the X-axis is divided into bins.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
-Select the **Histogram** option from the visualization dropdown in the upper right.
+Select the **Histogram** option from the visualization dropdown in the upper left.
 
 ## Histogram behavior
 The Histogram visualization is a bar graph that displays the number of data points
