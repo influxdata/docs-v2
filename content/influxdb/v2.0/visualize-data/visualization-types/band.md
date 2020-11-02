@@ -13,27 +13,49 @@ menu:
 
 The **Band** visualization displays the upper and lower boundaries for groups of data over time.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-Band-example-8.png" alt="Band example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-Band-example.png" alt="Band example" />}}
 
 Select the **Band** option from the visualization dropdown in the upper left.
 
 ## Band behavior
+
 The band visualization displays
 
-## Band Controls
+## Band controls
+
 To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
 
 
 ###### Data
-- **X Column**: The column to select data from.
-- **Y Column**: The column to select data from.
-- **Time Format**:
+- **X Column**: Select a column to display on the x-axis.
+- **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    - `MM/DD/YYYY HH:mm:ss` (default)
+    - `MM/DD/YYYY HH:mm:ss.SSS`
+    - `YYYY-MM-DD HH:mm:ss`
+    - `HH:mm:ss`
+    - `HH:mm:ss.SSS`
+    - `MMMM D, YYYY HH:mm:ss`
+    - `dddd, MMMM D, YYYY HH:mm:ss`
+    - `Custom`
+
+###### Aggregate Functions
+- **Upper Column Name**: Aggregate function to display for upper bounds of data.
+- **Main Column Name**: Aggregate function to display for main graph line.
+- **Lower Column Name**: Aggregate function to display for lower bounds of data.
+
 
 ###### Options
 - **Interpolation**:
-- **Line Colors**:
-- **Shade Area Below Lines**:
-- **Hover Dimension**: Select a color scheme to use for your graph.
+  - **Line**: Display a time series in a line graph
+  - **Smooth**: Display a time series in a line graph with smooth point interpolation.
+  - **Step**: Display a time series in a staircase graph.
+- **Line Colors**: Select a color scheme to use for your graph.
+- **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
+  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
+  - **Y Axis**: Show all points with the same y value along the x-axis.
+  - **X & Y Axis**: Show only the point currently being hovered over.
+
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.

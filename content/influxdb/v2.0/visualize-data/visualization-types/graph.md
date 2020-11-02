@@ -41,6 +41,10 @@ the visualization dropdown.
   <!-- - **Stacked**: Display multiple time series bars as segments stacked on top of each other. -->
 - **Line Colors**: Select a color scheme to use for your graph.
 - **Shade Area Below Lines**: Shade in the area below the graph lines.
+- **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
+  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
+  - **Y Axis**: Show all points with the same y value along the x-axis.
+  - **X & Y Axis**: Show only the point currently being hovered over.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
