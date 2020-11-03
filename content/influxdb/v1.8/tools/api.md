@@ -326,7 +326,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.8.0
+X-Influxdb-Version: v1.8.2
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```
