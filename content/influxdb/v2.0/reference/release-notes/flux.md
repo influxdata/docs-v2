@@ -8,6 +8,13 @@ menu:
     name: Flux
 ---
 
+## v0.93.0 [2020-11-02]
+
+### Features
+- Ensure query plan nodes have unique IDs.
+
+---
+
 ## v0.92.0 [2020-10-30]
 
 ### Features
