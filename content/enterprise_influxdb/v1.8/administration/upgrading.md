@@ -16,7 +16,7 @@ To successfully perform a rolling upgrade of InfluxDB Enterprise clusters to 1.8
 2. [Upgrade meta nodes](#upgrade-meta-nodes).
 3. [Upgrade data nodes](#upgrade-data-nodes).
 
-> ***Note:*** A rolling upgrade lets you to update your cluster with zero downtime. To downgrade to an earlier version, complete the following procedures, replacing the version numbers with the version that you want to downgrade to.
+> ***Note:*** A rolling upgrade lets you update your cluster with zero downtime. To downgrade to an earlier version, complete the following procedures, replacing the version numbers with the version that you want to downgrade to.
 
 ## Back up your cluster
 
