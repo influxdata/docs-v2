@@ -2,7 +2,7 @@
 title: Back up data
 seotitle: Back up data in InfluxDB
 description: >
-  Use the `influx backup` command to back up data and metadata stored in InfluxDB.
+  Use the `influxd backup` command to back up data and metadata stored in InfluxDB.
 menu:
   influxdb_2_0:
     parent: Back up & restore data
@@ -13,7 +13,7 @@ related:
 products: [oss]
 ---
 
-Use the [`influx backup` command](/influxdb/v2.0/reference/cli/influx/backup/) to back up
+Use the [`influxd backup` command](/influxdb/v2.0/reference/cli/influx/backup/) to back up
 data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
@@ -21,7 +21,7 @@ on your local filesystem.
 {{% warn %}}
 #### InfluxDB 2.0rc (release candidate)
 
-The `influx backup` command is not compatible with InfluxDB 2.0rc (release candidate).
+The `influxd backup` command is not compatible with InfluxDB 2.0rc (release candidate).
 To back up data,
 
 1. Stop `influxd`.
@@ -35,10 +35,10 @@ For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/referen
 {{% /warn %}}
 
 {{% cloud %}}
-The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
+The `influxd backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
 {{% /cloud %}}
 
-The `influx backup` command requires:
+The `influxd backup` command requires:
 
 - The directory path for where to store the backup file set
 - The **root authorization token** (the token created for the first user in the
@@ -47,10 +47,10 @@ The `influx backup` command requires:
 ##### Back up data with the influx CLI
 ```sh
 # Syntax
-influx backup -p <backup-path> -t <root-token>
+influxd backup -p <backup-path> -t <root-token>
 
 # Example
-influx backup \
+influxd backup \
   -p path/to/backup_$(date '+%Y-%m-%d_%H-%M') \
   -t xXXXX0xXX0xxX0xx_x0XxXxXXXxxXX0XXX0XXxXxX0XxxxXX0Xx0xx==
 ```
