@@ -8,6 +8,21 @@ menu:
     name: Flux
 ---
 
+## v0.92.0 [2020-10-30]
+
+### Features
+- Add `fluxinit` package as an alternative to importing `builtin`.
+- Add [series `cardinality()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/) to InfluxDB package.
+
+### Bug fixes
+- Do not panic when the value column for `pivot()` does not exist.
+- Properly truncate timestamps to beginning of window bounds.
+- Updates operator precedence in formatter.
+- Do not panic when a string expression evaluates to _null_.
+- Add support for multiline conditional logic.
+
+---
+
 ## v0.91.0 [2020-10-26]
 
 ### Features
