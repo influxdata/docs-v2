@@ -825,13 +825,13 @@ Related entries: [field set](#field-set), [measurement](#measurement),<!-- [rete
 
 ### series cardinality
 
-The number of unique bucket, measurement, tag set, and field key combinations in an InfluxDB instance.
+The number of unique measurement, tag set, and field key combinations in an InfluxDB bucket.
 
-For example, assume that an InfluxDB instance has a single bucket and one measurement.
+For example, assume that an InfluxDB bucket has one measurement.
 The single measurement has two tag keys: `email` and `status`.
 If there are three different `email`s, and each email address is associated with two
 different `status`es, the series cardinality for the measurement is 6
-(3 * 2 = 6):
+(3 × 2 = 6):
 
 | email                 | status |
 | :-------------------- | :----- |
@@ -842,11 +842,11 @@ different `status`es, the series cardinality for the measurement is 6
 | cliff@influxdata.com  | start  |
 | cliff@influxdata.com  | finish |
 
-In some cases, performing this multiplication may overestimate series cardinality because of the presence of dependent tags.
-Dependent tags are scoped by another tag and do not increase series
-cardinality.
+In some cases, performing this multiplication may overestimate series cardinality
+because of the presence of dependent tags.
+Dependent tags are scoped by another tag and do not increase series cardinality.
 If we add the tag `firstname` to the example above, the series cardinality
-would not be 18 (3 * 2 * 3 = 18).
+would not be 18 (3 × 2 × 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
 | email                | status | firstname |
@@ -858,7 +858,9 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
 
-<!--See [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
+##### Query for cardinality:
+- **Flux:** [influxdb.cardinality()](/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/)
+- **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
