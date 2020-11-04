@@ -1,20 +1,39 @@
 ---
-title: Band visualization
+title: Band Plot visualization
 list_title: Band
 list_image: /img/influxdb/2-0-visualizations-Band-example.png
 description:
 weight: 206
 menu:
   influxdb_2_0:
-    name: Band
+    name: Band Plot
     parent: Visualization types
 ---
 
-The **Band** visualization displays the upper and lower boundaries for groups of data over time.
+The **Band Plot** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
+
+## Set up the Band Plot visualization
+
+To see bands (boundaries) in the **Band Plot** visualization, you must set up two or three boundaries for comparison.
+
+1. Click the **Data Explorer** icon in the navigation bar.
+
+    {{< nav-icon "data-explorer" >}}
+
+2. Enter your query (<placeholder link to new "Query data in Data Explorer" topic>. You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
+3. Select the **Band Plot** option from the visualization dropdown in the upper left, and then click **Customize**.
+4. Under **Data**, select the following:
+   - For **X Column** and **Y Column**, select the columns to display for the x- and y- axes.
+   - For **Time Format**, select the timestamp format to display in the visualization.
+5. Under **Aggregate Functions**, select a function to determine each boundary (column) for comparison (select two or three):
+   - In the **Upper Column Name** field, select a function for the upper boundary.
+   - In the **Main Column Name** field, select a function for the main boundary.
+   - In the **Lower Column Name** field, select a function for the lower boundary.
+6. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](options) and [Y Axis](y-axis) below.
+
+    **Tip:** If you do not see shaded boundaries in the **Band Plot** visualization, verify the query window period includes a sufficient number of data points for the selected aggregate function. By default, the window period is automatically set to ten seconds (`10s`). To adjust your window period, select **Custom**, and then enter a supported time unit (for example nanoseconds (`ns`), microseconds (`us`), milliseconds (`ms`), seconds (`s`), or hours (`h`).
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-Band-example.png" alt="Band example" />}}
-
-To view a band chart, select the **Band** option from the visualization dropdown in the upper left.
 
 ## Band behavior
 
