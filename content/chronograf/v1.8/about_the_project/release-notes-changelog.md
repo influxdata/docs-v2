@@ -8,6 +8,21 @@ menu:
     parent: About the project
 ---
 
+## v.1.8.8 [2020-11-04]
+
+## Features
+
+- Add the option to select a recovery action in the [OpsGenie2](/chronograf/v1.8/guides/configuring-alert-endpoints/#opsgenie2) configuration.
+
+## Bug Fixes
+
+- Ensure the alert rule name is correctly displayed in the Alert Rules and TICKscript lists.
+- Resolve the issue that caused a truncated dashboard name.
+- Ensure the TICKscript editor is scrollable in Firefox.
+- Apply default timeouts in server connections to ensure a shared HTTP transport connection is used between Chronograf and InfluxDB or Kapacitor.
+- Retain the selected time zone (local or UTC) in the range picker.
+- Export CSV with a time column formatted according to the selected time zone (local or UTC).
+
 ## v.1.8.7 [2020-10-06]
 
 {{% warn %}}
