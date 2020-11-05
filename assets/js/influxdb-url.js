@@ -222,7 +222,7 @@ $('input[name="influxdb-oss-url"]').click(function() {setPreference("oss")})
 
 // Toggle preference tabs
 function togglePrefBtns(el) {
-  preference = el.attr("id").replace("pref-", "")
+  preference = el.length ? el.attr("id").replace("pref-", "") : "cloud"
   prefUrls = $("#" + preference + "-urls")
 
   el.addClass("active")
@@ -251,28 +251,89 @@ showPreference()
 ///////////////////////////////// Custom URLs //////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+// Validate custom URLs
+function validateUrl(url) {
+  var validProtocol = /^http(s?)/
+  var invalidDomain =/[A-Z\s\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\;\'\"\,\<\>\/\?]/
+  var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
+  var domain = url.replace(protocol, "")
+
+  if (validProtocol.test(protocol) == false) {
+    return {valid: false, error: "Invalid protocol, use http[s]"}
+  } else if (domain.length == 0 || invalidDomain.test(domain) == true) {
+    return {valid: false, error: "Invalid domain"}
+  } else {
+    return {valid: true, error: ""}
+  }
+}
+
+// Show validation errors
+function showValidationMessage(validation) {
+  $('#custom-url').addClass("error")
+  $('#custom-url').attr("data-message", validation.error)
+}
+
+// Hide validation messages and replace the message attr with empty string
+function hideValidationMessage() {
+  $('#custom-url').removeClass("error").attr("data-message", "")
+}
+
+// Set the custom URL cookie and apply the change
+// If the custom URL field is empty, it defaults to the OSS default
+function applyCustomUrl() {
+  var custUrl = $('#custom-url-field').val()
+  let urlValidation = validateUrl(custUrl)
+  if (custUrl.length > 0 ) {
+    if (urlValidation.valid) {
+      hideValidationMessage()
+      storeCustomUrl(custUrl)
+      storeUrl("oss", custUrl, getUrls().oss)
+      updateUrls(getPrevUrls(), getUrls())
+    } else {
+      showValidationMessage(urlValidation)
+    }
+
+  } else {
+    removeCustomUrl();
+    hideValidationMessage()
+    $('input[name="influxdb-oss-url"][value="' + defaultUrls.oss + '"]').trigger('click')
+  }
+}
+
 // Trigger radio button on custom URL field focus
 $('input#custom-url-field').focus(function(e) {
   $('input#custom[type="radio"]').trigger('click')
 })
 
+// Update URLs and close modal when using 'enter' to exit custom URL field
 $("#custom-url").submit(function(e) {
+  let url = $('#custom-url-field').val() ? $('#custom-url-field').val() : ""
+  let urlValidation = validateUrl(url)
+
   e.preventDefault();
-  $('#modal-close').trigger('click')
+  if (url === "" | urlValidation.valid) {
+    applyCustomUrl()
+    $('#modal-close').trigger('click')
+  } else {
+    showValidationMessage(urlValidation)
+  }
 });
 
 // Store the custom InfluxDB URL when exiting the field
 $('#custom-url-field').blur(function() {
-  custUrl = $(this).val()
-  if (custUrl.length > 0 ) {
-    storeCustomUrl(custUrl)
-    storeUrl("oss", custUrl, getPrevUrls().oss)
-    updateUrls(getPrevUrls(), getUrls())
-  } else {
-    $('input#custom').val('http://example.com:8080')
-    removeCustomUrl();
-    $('input[name="influxdb-loc"][value="' + defaultUrl + '"]').trigger('click')
-  }
+  applyCustomUrl()
+})
+
+// When in erred state, revalidate custom URL on keyup
+$(document).on("keyup", ".error #custom-url-field", function() {
+    console.log("keyed up")
+    let url = $('#custom-url-field').val()
+    let urlValidation = validateUrl(url)
+    if (urlValidation.valid) {
+      hideValidationMessage()
+    } else {
+      showValidationMessage(urlValidation)
+    }
 })
 
 // Populate the custom InfluxDB URL field on page load
@@ -286,7 +347,8 @@ if ( Cookies.get('influxdb_custom_url') != undefined ) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Extract the protocol and hostname of referrer
-referrerHost = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0]
+referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g)
+referrerHost = referrerMatch ? referrerMatch[0] : "";
 
 // Check if the referrerHost is one of the cloud URLs
 // cloudUrls is built dynamically in layouts/partials/footer/javascript.html

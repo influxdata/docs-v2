@@ -28,7 +28,7 @@
     display: flex;
     overflow: hidden;
     max-width: 650px;
-    max-height: 95vh;
+    max-height: 97.5vh;
     margin-top: 10vh;
     padding: .75rem 2rem 1.5rem;
     border-radius: $radius * 1.5;
@@ -57,7 +57,7 @@
   }
 
   .modal-content{
-    overflow: scroll;
+    overflow: auto;
 
     h3 {
       color: $article-heading;
@@ -143,6 +143,30 @@
     display: inline-block;
     width: 100%;
     padding-left: .5rem;
+    position: relative;
+
+    &:after {
+      display: none;
+      content: attr(data-message);
+      position: absolute;
+      top: -1.8rem;
+      right: 0;
+      font-size: .85rem;
+      font-weight: $medium;
+      color: $r-fire;
+    }
+
+    &.error {
+      &:after { display: block; }
+      input#custom-url-field {
+        border-color: $r-fire;
+        &:focus {
+          border-color: $r-fire;
+          box-shadow: 1px 1px 10px rgba($r-fire,0.5);
+        }
+      }
+    }
+
     input {
       &#custom-url-field {
         font-family: $rubik;
@@ -268,6 +292,12 @@ label:after {
     color: $g20-white;
     @include gradient($article-btn-gradient);
   }
+
+  span.ephemeral { display: inline; }
+  span.abbr:after {
+    display: none;
+    content: ".";
+  }
 }
 
 .product {
@@ -310,5 +340,22 @@ label:after {
 
   .code-tab-content {
     .select-url{margin-top: -3.25rem}
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .modal {
+    padding: .5rem;
+    overflow: scroll;
+
+    .modal-body {
+      padding: .5rem 1.5rem 1.5rem;
+    }
+  }
+  .pref-tab {
+    span.ephemeral { display: none; }
+    span.abbr:after { display: inline; }
   }
 }
