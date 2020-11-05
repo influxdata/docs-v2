@@ -14,7 +14,7 @@ related:
 products: [oss]
 ---
 
-Use the `influxd restore` command to restore backup data and metadata from InfluxDB.
+Use the `influx restore` command to restore backup data and metadata from InfluxDB.
 You must stop InfluxDB before restoring data.
 
 {{% cloud %}}
@@ -27,21 +27,21 @@ Once the process completes, the temporary data is deleted.
 If the restore process fails, InfluxDB preserves the data in the temporary location.
 _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
-## Restore data with the influxd CLI
+## Restore data with the influx CLI
 1. **Stop the `influxd` server.**
-2. Use the `influxd restore` command and specify the path to the backup directory
-   using the `--backup-path` flag.
+2. Use the `influx restore` command and specify the path to the backup directory
+   using the `--input` flag.
 
     ```sh
     # Syntax
-    influxd restore --backup-path <path-to-backup-directory>
+    influxd restore --input <path-to-backup-directory>
 
     # Example
     influxd restore --backup-path ~/backups/2020-01-20_12-00/
     ```
 
     _For more information about restore options and flags, see the
-    [`influxd restore` documentation](/influxdb/v2.0/reference/cli/influxd/restore/)._
+    [`influxd restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
 
 ## Customize the TSI rebuild process
 By default, InfluxDB rebuilds the index and [series file](/influxdb/v2.0/reference/glossary/#series-file) when restoring data.
