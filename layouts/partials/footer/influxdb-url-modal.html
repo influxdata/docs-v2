@@ -82,8 +82,8 @@
         <div class="products">
           {{ if not $isInfluxDB }}
             <ul id="pref-tabs">
-              <li class="pref-tab active" id="pref-cloud"><span>InfluxDB</span> Cloud</li>
-              <li class="pref-tab" id="pref-oss"><span>InfluxDB</span> OSS or Enterprise</li>
+              <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+              <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
             </ul>
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" "initialState" "active"}}
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" "initialState" "inactive"}}
