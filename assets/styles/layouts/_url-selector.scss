@@ -143,6 +143,30 @@
     display: inline-block;
     width: 100%;
     padding-left: .5rem;
+    position: relative;
+
+    &:after {
+      display: none;
+      content: attr(data-message);
+      position: absolute;
+      top: -1.8rem;
+      right: 0;
+      font-size: .85rem;
+      font-weight: $medium;
+      color: $r-fire;
+    }
+
+    &.error {
+      &:after { display: block; }
+      input#custom-url-field {
+        border-color: $r-fire;
+        &:focus {
+          border-color: $r-fire;
+          box-shadow: 1px 1px 10px rgba($r-fire,0.5);
+        }
+      }
+    }
+
     input {
       &#custom-url-field {
         font-family: $rubik;

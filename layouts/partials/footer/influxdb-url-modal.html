@@ -46,7 +46,7 @@
                   <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
                   <span class="radio"></span>
                 </label>
-                <form action="#" id="custom-url">
+                <form action="#" id="custom-url" data-message="placeholder">
                   <input type="text" name="custom-url-field" id="custom-url-field" placeholder="{{ .url }}">
                 </form>
               </li>
