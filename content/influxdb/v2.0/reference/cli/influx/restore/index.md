@@ -1,11 +1,13 @@
 ---
-title: influxd restore
-description: The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
+title: influx restore
+description: The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
 influxdb/v2.0/tags: [restore]
 menu:
   influxdb_2_0_ref:
-    parent: influxd
+    parent: influx
 weight: 201
+alias:
+- /influxdb/v2.0/reference/cli/influxd/restore/
 related:
   - /influxdb/v2.0/backup-restore/restore/
 products: [oss]
@@ -39,11 +41,11 @@ influxd restore [flags]
 
 ## Flags
 
-| Flag |                      | Description                                                                            | Input type |
-|:---- |:---                  |:-----------                                                                            |:----------:|
-|      | `--bolt-path`        | Path to target boltdb database (default is `~/.influxdbv2/influxd.bolt`)               | string     |
-|      | `--engine-path`      | Path to target persistent engine files (default is `~/.influxdbv2/engine`)             | string     |
-|      | `--credentials-path` | Path to target persistent credentials files (default is `~/.influxdbv2/credentials`)   | string     |
-|      | `--backup-path`      | Path to backup files                                                                   | string     |
-|      | `--rebuild-index`    | Rebuild the TSI index and series file based on the `--engine-path` (default is `true`) |            |
-| `-h` | `--help`             | Help for the `restore` command                                                         |            |
+| Flag |                | Description                                  | Input type |
+|------|----------------|----------------------------------------------|------------|
+|      | `--bucket-id`  | ID of the bucket to restore from             |            |
+| b    | `--bucket`     | Name of the bucket to restore from           |            |
+|      | `--full`       | Fully restore and replace all data on server |            |
+|      | `--input`      | Local backup data path (required)            |            |
+|      | `--new-bucket` | Name of the bucket to restore to             |            |
+|      | `--new-org`    | Name of the organization to restore to       |            |
