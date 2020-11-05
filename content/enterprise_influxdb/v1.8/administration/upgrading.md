@@ -47,7 +47,7 @@ wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.2-c1.8.2_am
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.2-c1.8.2.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
 ```
 
 ### Install the meta node package
