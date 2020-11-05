@@ -13,10 +13,10 @@ related:
 products: [oss]
 ---
 
-The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
+The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
 
 {{% warn %}}
-Shut down the `influxd` server before restoring data.
+Shut down the `influx` server before restoring data.
 {{% /warn %}}
 
 ### The restore process
@@ -28,10 +28,6 @@ If the restore process fails, InfluxDB preserves the data in the temporary locat
 _For information about recovering from a failed restore process, see
 [Restore data](/influxdb/v2.0/backup-restore/restore/#recover-from-a-failed-restore)._
 
-By default, `restore` rebuilds the index and series file using the default options
-for [`influxd inspect build-tsi`](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/).
-To customize the [`build-tsi` performance options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance),
-include `--rebuild-index false` with `influxd restore`, then manually run `influxd inspect build-tsi`.
 
 ## Usage
 
