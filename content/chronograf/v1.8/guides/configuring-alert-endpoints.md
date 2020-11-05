@@ -131,7 +131,6 @@ Your token appears in the table just above the **Create new token** section:
 
 See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
-
 ### OpsGenie
 
 The original OpsGenie alert endpoint is deprecated -- use the [OpsGenie2](#opsgenie2) alert endpoint.
@@ -150,6 +149,10 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
   * **API Key**: API key (or GenieKey). The API Key can be found by signing into your [OpsGenie account](https://app.opsgenie.com/auth/login) and selecting the **Settings** menu option in the **Admin** menu.
   * **Teams**: List of [OpsGenie teams](https://docs.opsgenie.com/docs/teams) to be alerted.
   * **Recipients** field, enter the list of [OpsGenie team members](https://docs.opsgenie.com/docs/teams#section-team-members)) to receive alerts.
+  * **Select recovery action**. Specify one of the following actions to take when an alert recovers:
+
+     - Add a note to the alert
+     - Close the alert
 
 4. Click **Save Changes** to save the configuration settings.
 5. Click **Send Test Alert** to verify the configuration.
