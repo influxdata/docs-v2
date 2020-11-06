@@ -2,7 +2,7 @@
 title: View InfluxDB Cloud data usage
 list_title: View data usage
 description: >
-  View your InfluxDB Cloud 2.0 data usage and rate limit notifications.
+  View your InfluxDB Cloud data usage and rate limit notifications.
 weight: 103
 aliases:
   - /influxdb/v2.0/account-management/data-usage

@@ -407,13 +407,13 @@ See [Monitor and alert](/influxdb/v2.0/monitor-alert/).
 ## Differences between InfluxDB Cloud and InfluxDB OSS
 
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
+The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
-#### New features in InfluxDB Cloud 2.0
+#### New features in InfluxDB Cloud
 
 - **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
   jump into exploring InfluxDB 2.0 technology.

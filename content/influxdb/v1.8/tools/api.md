@@ -29,7 +29,7 @@ There are multiple reasons for introducing these:
 
 - The latest [InfluxDB client libraries](/influxdb/v1.8/tools/api_client_libraries/)
   are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
-- InfluxDB Cloud 2.0 is a generally available service across multiple cloud service providers and regions
+- InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the **latest** client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting

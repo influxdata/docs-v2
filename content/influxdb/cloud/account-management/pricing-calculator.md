@@ -1,7 +1,7 @@
 ---
-title: InfluxDB Cloud 2.0 pricing calculator
+title: InfluxDB Cloud pricing calculator
 description: >
-  Use the InfluxDB Cloud 2.0 pricing calculator to estimate costs by adjusting the number of devices,
+  Use the InfluxDB Cloud pricing calculator to estimate costs by adjusting the number of devices,
   plugins, metrics, and writes for the Usage-based Plan.
 weight: 2
 menu:

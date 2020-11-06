@@ -39,7 +39,7 @@ Accounts can have up to 50 pending invitations at one time.
 {{% warn %}}
 #### Permissions
 
-Currently, Cloud 2.0 has only one permission level: Owner.
+Currently, Cloud has only one permission level: Owner.
 With Owner permissions, a user can delete resources and other users from your organization.
 Take care when inviting a user.
 {{% /warn %}}

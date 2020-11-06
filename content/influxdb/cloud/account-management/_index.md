@@ -1,7 +1,7 @@
 ---
-title: Manage your InfluxDB Cloud 2.0 Account
+title: Manage your InfluxDB Cloud Account
 description: >
-  View and manage information related to your InfluxDB Cloud 2.0 account such as
+  View and manage information related to your InfluxDB Cloud account such as
   pricing plans, data usage, account cancelation, etc.
 weight: 10
 products: [cloud]

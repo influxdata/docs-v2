@@ -29,8 +29,8 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
 
     #### Subscribe through InfluxData
 
-    To subscribe to an InfluxDB Cloud 2.0 **Free Plan** through InfluxData,
-    go to [InfluxDB Cloud 2.0]({{< cloud-link >}}).
+    To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
+    go to [InfluxDB Cloud]({{< cloud-link >}}).
 
     - To use social sign-on, click **Continue with Google**. Note that Google social sign-on does not support email aliases.
     - Sign up with email by entering your name, email address, and password, then click **Create Account**.
@@ -54,7 +54,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       All usage charges will be paid through the subscribed GCP account.
 
       {{%note%}}
-Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to sign up for an InfluxDB Cloud 2.0 plan through AWS or GCP Marketplaces.
+Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS or GCP Marketplaces.
       {{%/note%}}
 
 2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
@@ -65,8 +65,8 @@ Currently, we do **not support** using an existing InfluxDB Cloud 2.0 account to
     {{< cloud_regions type="list" >}}
 
     _To suggest regions to add, click **Let us know** under Regions._
-5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud 2.0 Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
-   For details on the agreements, see the [InfluxDB Cloud 2.0: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
+5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
+   For details on the agreements, see the [InfluxDB Cloud: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
 6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
@@ -215,9 +215,9 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 ## Sign in
 
-Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email address and password.
+Sign in to [InfluxDB Cloud](https://cloud2.influxdata.com) using your email address and password.
 
-<a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud 2.0 now</a>
+<a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud now</a>
 
 ## Start working with your time series data
 
@@ -271,7 +271,7 @@ See [Monitor and alert](/influxdb/cloud/monitor-alert/).
 ## Differences between InfluxDB Cloud and InfluxDB OSS
 
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
+The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.

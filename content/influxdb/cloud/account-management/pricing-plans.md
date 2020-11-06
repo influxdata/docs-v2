@@ -1,7 +1,7 @@
 ---
-title: InfluxDB Cloud 2.0 pricing plans
+title: InfluxDB Cloud pricing plans
 description: >
-  InfluxDB Cloud 2.0 provides two pricing plans to fit your needs – the rate-limited
+  InfluxDB Cloud provides two pricing plans to fit your needs – the rate-limited
   Free Plan and the Usage-based Plan.
 aliases:
   - /influxdb/v2.0/cloud/rate-limits/
@@ -16,12 +16,12 @@ products: [cloud]
 influxdb/cloud/tags: [VPC]
 ---
 
-InfluxDB Cloud 2.0 offers two pricing plans:
+InfluxDB Cloud offers two pricing plans:
 
 - [Free Plan](#free-plan)
 - [Usage-Based Plan](#usage-based-plan)
 
-<!--To estimate your projected usage costs, use the [InfluxDB Cloud 2.0 pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
+<!--To estimate your projected usage costs, use the [InfluxDB Cloud pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 
 ## Free Plan
 

@@ -22,7 +22,7 @@ to visualize data from your **InfluxDB** instance.
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 {{% /note %}}
 
-1. [Start InfluxDB 2.0 OSS](/influxdb/v2.0/get-started/#start-with-influxdb-oss).
+1. [Start InfluxDB OSS 2.0](/influxdb/v2.0/get-started/#start-with-influxdb-oss).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
