@@ -10,7 +10,7 @@ weight: 101
 
 ## v2.0.0 General Availability [2020-11-09]
 
-InfluxDB 2.0 general availability (GA) introduces the **first production-ready open source version of InfluxDB 2.0**. This release comprises all features and bug fixes included in prior releases.
+InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior releases.
 
 Highlights include:
 
