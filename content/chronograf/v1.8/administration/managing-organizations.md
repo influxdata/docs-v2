@@ -43,7 +43,7 @@ Your company, organizational units, teams, and projects may require the creation
 
 **To create an organization:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, click **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) In the **All Orgs** tab, click **Create Organization**.
@@ -53,7 +53,7 @@ Your company, organizational units, teams, and projects may require the creation
 
 ## Configure organizations
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 You can configure existing and new organizations in the **Organizations** tab of the **Chronograf Admin** page as follows:
 
@@ -76,7 +76,7 @@ See the following pages for more information about managing Chronograf users and
 
 **To create an organization mapping:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **Org Mappings** tab to view a list of organization mappings.
@@ -90,7 +90,7 @@ See the following pages for more information about managing Chronograf users and
 
 **To remove an organization mapping:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **Org Mappings** tab to view a list of organization mappings.
@@ -107,7 +107,7 @@ When an organization is removed:
 
 **To remove an organization:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the navigation bar of the Chronograf application, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **All Orgs** tab to view a list of organizations.
