@@ -10,7 +10,6 @@ alias:
   - /influxdb/v2.0/reference/cli/influxd/restore/
 related:
   - /influxdb/v2.0/backup-restore/restore/
-products: [oss]
 ---
 
 The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
