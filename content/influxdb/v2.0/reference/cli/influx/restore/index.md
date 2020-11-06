@@ -7,7 +7,7 @@ menu:
     parent: influx
 weight: 201
 alias:
-- /influxdb/v2.0/reference/cli/influxd/restore/
+  - /influxdb/v2.0/reference/cli/influxd/restore/
 related:
   - /influxdb/v2.0/backup-restore/restore/
 products: [oss]
