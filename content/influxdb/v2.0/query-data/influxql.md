@@ -32,20 +32,27 @@ If you're not sure how data was written into a bucket, we recommend verifying th
 
 Verify the buckets that you want to query are mapped to a database and retention policy using the [`GET /dbrps` API request](/influxdb/v2.0/api/#operation/GetDBRPs) (see CURL example below). **Include the following in your request**:
 
-- `organization` or `organization_id`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
-- To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
+- `orgID`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
+- To find a specific bucket (`bucketID`), database (`database`), retention policy (`rp`), or mapping ID (`id`), include the query parameter in your request.
 
+<!--  -->
+##### View all DBRP mappings
 ```sh
-curl --request GET http://localhost:8086/api/v2/dbrps \
+curl --request GET \
+  http://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
-  --header 'Content-type: application/json' \
-  --data '{
-       "bucket_id": "12ab34cd56ef",
-       "database": "example-db",
-       "id": "example-mapping-id"
-       "default": true
-       "organization_id": "example-org",
-     }'
+  --header "Content-type: application/json" \
+  --data-urlencode "orgID=example-org"
+```
+
+##### Filter DBRP mappings by database
+```sh
+curl --request GET \
+  http://localhost:8086/api/v2/dbrps \
+  --header "Authorization: Token YourAuthToken" \
+  --header "Content-type: application/json" \
+  --data-urlencode "orgID=example-org" \
+  --data-urlencode "db=example-db"
 ```
 
 If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
@@ -62,15 +69,15 @@ To map an unmapped bucket to a database and retention policy, use the [`POST /db
  - database and retention policy to map to bucket (`database` and `retention_policy`)
 
 ```sh
-curl --request POST https://localhost:8086/api/v2/dbrps \
+curl --request POST http://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
   --header 'Content-type: application/json' \
   --data '{
-       "bucket_id": "12ab34cd56ef",
+       "bucketID": "12ab34cd56ef",
        "database": "example-db",
-       "default": true
+       "default": true,
        "organization": "example-org",
-       "organization_id": "example-org",
+       "organizationID": "example-org-id",
        "retention_policy": "example-rp",
       }'
 ```
@@ -95,8 +102,9 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 {{% /note %}}
 
 ```sh
-curl --request GET https://localhost:8086/query?database=MyDB&retention_policy=MyRP \
+curl --request GET http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
+  --data-urlencode "db=example-db" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
 
