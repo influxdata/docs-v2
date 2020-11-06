@@ -224,7 +224,7 @@ Sign in to [InfluxDB Cloud 2.0](https://cloud2.influxdata.com) using your email 
 ### Collect and write data
 
 Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
-command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.0), or the InfluxDB v2 API client libraries.
+command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB Cloud), or the InfluxDB v2 API client libraries.
 
 #### Use Telegraf
 
@@ -277,14 +277,14 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud 2.0 are:
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
-#### New features in InfluxDB Cloud 2.0
+#### New features in InfluxDB Cloud
 
-- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB 2.0 and
-  jump into exploring InfluxDB 2.0 technology.
+- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB OSS 2.0 and
+  jump into exploring InfluxDB Cloud technology.
   The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
 - **Flux support**: [Flux](/influxdb/cloud/query-data/get-started/) is a standalone data
   scripting and query language that increases productivity and code reuse.
-  It is the primary language for working with data within InfluxDB 2.0.
+  It is the primary language for working with data within InfluxDB Cloud.
   Flux can be used with other data sources as well, letting you work with data where it resides.
 - **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
   is now accessible using a unified [InfluxDB v2 API](/influxdb/cloud/reference/api/) that

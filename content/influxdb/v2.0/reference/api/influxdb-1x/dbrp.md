@@ -2,7 +2,7 @@
 title: Database and retention policy mapping
 description: >
   The database and retention policy (DBRP) mapping service maps InfluxDB 1.x
-  database and retention policy combinations to InfluxDB 2.0 buckets.
+  database and retention policy combinations to InfluxDB Cloud and InfluxDB OSS 2.0 buckets.
 menu:
   influxdb_2_0_ref:
     name: DBRP mapping
@@ -11,13 +11,13 @@ weight: 302
 related:
   - /influxdb/v2.0/reference/api/influxdb-1x/query
   - /influxdb/v2.0/reference/api/influxdb-1x/write
-  - /influxdb/v2.0/api/#tag/DBRPs, InfluxDB 2.0 API /dbrps endpoint
+  - /influxdb/v2.0/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
 ---
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
-InfluxDB 2.0 replaces both with [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-To support InfluxDB 1.x query and write patterns in InfluxDB 2.0, databases and retention
+InfluxDB Cloud and InfluxDB OSS 2.0 replace both with [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+To support InfluxDB 1.x query and write patterns in InfluxDB Cloud and InfluxDB OSS 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
@@ -36,7 +36,8 @@ the default retention policy for the specified database.
 
 ### When writing data
 
-When writing data to InfluxDB 2.0 using the [`/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/),
+When writing data to InfluxDB Cloud and InfluxDB OSS 2.0 using the
+[`/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/),
 the DBRP mapping service checks for a bucket mapped to the database and retention policy:
 
 - If a mapped bucket is found, data is written to the bucket.
@@ -57,7 +58,8 @@ write request must be an **All Access token**.
 
 ### When querying data
 
-When querying data from InfluxDB 2.0 using the [`/query` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query/),
+When querying data from InfluxDB Cloud and InfluxDB OSS 2.0 using the
+[`/query` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query/),
 the DBRP mapping service checks for the specified database and retention policy
 (if no retention policy is specified, the database's default retention policy is used):
 

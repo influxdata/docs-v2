@@ -1,7 +1,8 @@
 ---
 title: InfluxDB Cloud regions
 description: >
-  InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
+  InfluxDB Cloud is available on multiple cloud provided and in multiple regions.
+  Each region has a unique InfluxDB Cloud URL and API endpoint.
 aliases:
   - /influxdb/cloud/reference/urls/
 weight: 6

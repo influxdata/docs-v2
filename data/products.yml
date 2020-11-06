@@ -8,7 +8,7 @@ influxdb:
   latest_override: v2.0
 
 influxdb_cloud:
-  name: InfluxDB Cloud 2.0
+  name: InfluxDB Cloud
   altname: InfluxDB Cloud
   namespace: influxdb
   versions: [cloud]

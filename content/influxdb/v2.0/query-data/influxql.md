@@ -2,7 +2,7 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query)
-  to query data in InfluxDB 2.0 with **InfluxQL**.
+  to query data in InfluxDB Cloud and InfluxDB OSS 2.0 with **InfluxQL**.
 weight: 102
 influxdb/v2.0/tags: [influxql, query]
 menu:
@@ -15,7 +15,7 @@ related:
   - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
 ---
 
-In InfluxDB 1.x, data is stored in [databases](/influxdb/v1.8/concepts/glossary/#database) and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp). In InfluxDB 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket). Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy.
+In InfluxDB 1.x, data is stored in [databases](/influxdb/v1.8/concepts/glossary/#database) and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp). In InfluxDB Cloud and InfluxDB OSS 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket). Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy.
 
 **Complete the following steps:**
 
@@ -36,7 +36,7 @@ Verify the buckets that you want to query are mapped to a database and retention
 - To find a specific bucket (`bucket_id`), database (`database`), retention policy (`retention_policy`), or mapping ID (`id`), include the parameter in your request.
 
 ```sh
-curl --request GET https://localhost:8086/api/v2/dbrps \
+curl --request GET http://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
   --header 'Content-type: application/json' \
   --data '{
@@ -80,7 +80,7 @@ After you've verified the bucket is mapped, query the bucket using the `query` 1
 ## Query a mapped bucket with InfluxQL
 
 The [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) supports
-all InfluxDB 1.x client libraries and integrations in InfluxDB 2.0.
+all InfluxDB 1.x client libraries and integrations in InfluxDB Cloud and InfluxDB OSS 2.0.
 
 To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpoint (see CURL example below), and include the following in your request:
 
@@ -105,13 +105,12 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## InfluxQL support
 
-InfluxDB 2.0 supports InfluxQL **read-only** queries. See supported and unsupported queries below.
+InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries. See supported and unsupported queries below.
 To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v1.8/query_language/).
 
 {{< flex >}}
 {{< flex-content >}}
 {{% note %}}
-
 ##### Supported InfluxQL queries
 
 - `DELETE`*

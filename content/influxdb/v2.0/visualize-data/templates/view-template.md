@@ -33,7 +33,7 @@ The following Telegraf-related dashboard templates are available:
 - [Docker](#docker)
 - [Getting Started with Flux](#getting-started-with-flux)
 - [GitHub Data](#github-data)
-- [InfluxDB 2.0 OSS Metrics](#influxdb-2-0-oss-metrics)
+- [InfluxDB OSS 2.0 Metrics](#influxdb-oss-2-0-metrics)
 - [JMeter](#jmeter)
 - [Kubernetes](#kubernetes)
 - [Nginx](#nginx)
@@ -133,8 +133,8 @@ The GitHub Data dashboard template displays data related to GitHub repositories:
 - [`github` plugin](/{{< latest "telegraf" >}}/plugins//#github)
 
 
-### InfluxDB 2.0 OSS Metrics
-The InfluxDB 2.0 OSS Metrics dashboard shows a visual overview of some of the metrics
+### InfluxDB OSS 2.0 Metrics
+The InfluxDB OSS 2.0 Metrics dashboard shows a visual overview of some of the metrics
 available from the local InfluxDB metrics endpoint located at `/metrics`.
 It displays the following information:
 

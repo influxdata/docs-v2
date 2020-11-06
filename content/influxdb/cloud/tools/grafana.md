@@ -62,7 +62,7 @@ configure your InfluxDB connection:
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana.png" />}}
 
-2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
+2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB datasource
    and returns the results of the test.
 {{% /tab-content %}}
 <!----------------------------- END FLUX CONTENT ----------------------------->
@@ -91,14 +91,14 @@ configure your InfluxDB connection:
 
 4. Under **InfluxDB details**, set the following:
 
-    - **Database**: The database to use when querying InfluxDB 2.0.
+    - **Database**: The database to use when querying InfluxDB.
       _See [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
     - **HTTP Method**: Select **GET**.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
 
-5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
+5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB datasource
    and returns the results of the test.
 {{% /tab-content %}}
 <!--------------------------- END INFLUXQL CONTENT --------------------------->

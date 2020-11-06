@@ -1,7 +1,8 @@
 ---
 title: InfluxDB 1.x compatibility API
 description: >
-  placeholder
+  The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
+  InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 menu:
   influxdb_2_0_ref:
     name: 1.x compatibility
