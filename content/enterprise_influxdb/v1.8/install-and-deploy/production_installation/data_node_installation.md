@@ -106,7 +106,7 @@ sudo dpkg -i influxdb-data_1.8.2-c1.8.2_amd64.deb
 #### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.2-c1.8.2.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.2_c1.8.2.x86_64.rpm
 sudo yum localinstall influxdb-data-1.8.2-c1.8.2.x86_64.rpm
 ```
 
@@ -124,13 +124,13 @@ For added security, follow these steps to verify the signature of your InfluxDB 
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.2-c1.8.2.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.2_c1.8.2.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-data-1.8.2-c1.8.2.x86_64.rpm.asc influxdb-data-1.8.2-c1.8.2.x86_64.rpm
+    gpg --verify influxdb-data-1.8.2-c1.8.2.x86_64.rpm.asc influxdb-data-1.8.2_c1.8.2.x86_64.rpm
     ```
 
     The output from this command should include the following:
