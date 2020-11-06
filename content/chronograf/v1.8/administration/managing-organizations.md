@@ -24,11 +24,11 @@ menu:
 First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).
 For more information, see [managing security](/chronograf/v1.8/administration/managing-security/).
 
-For information about the new user roles and SuperAdmin status, see [Managing Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
+For information about the new user roles and SuperAdmin permission, see [Managing Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
 
 A Chronograf organization is a collection of Chronograf users who share common Chronograf-owned resources, including dashboards, InfluxDB connections, and Kapacitor connections. Organizations can be used to represent companies, functional units, projects, or teams. Chronograf users can be members of multiple organizations.
 
-> ***Note:*** Only users with SuperAdmin status can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin status.
+> ***Note:*** Only users with SuperAdmin permission can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin permission.
 
 ## Use the default organization
 
