@@ -107,7 +107,7 @@ sudo dpkg -i influxdb-data_1.8.2-c1.8.2_amd64.deb
 
 ```bash
 wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.2_c1.8.2.x86_64.rpm
-sudo yum localinstall influxdb-data-1.8.2-c1.8.2.x86_64.rpm
+sudo yum localinstall influxdb-data-1.8.2_c1.8.2.x86_64.rpm
 ```
 
 #### Verify the authenticity of release download (recommended)
