@@ -52,7 +52,7 @@ curl --request GET \
   --header "Authorization: Token YourAuthToken" \
   --header "Content-type: application/json" \
   --data-urlencode "orgID=example-org" \
-  --data-urlencode "db=example-db" \
+  --data-urlencode "db=example-db"
 ```
 
 If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
