@@ -45,9 +45,9 @@
 <!-- InfluxDB OSS 2.0 vs Cloud canonical -->
 <!-- If corresponding cloud page exists and uses duplicate-oss shortcode, set cloud to canonical -->
 {{ else if and (eq $product "influxdb") (eq $currentVersion $latestVersion) }}
-  {{ $correspondingPage := replaceRE `v2\.[0-9]{1,2}` "cloud" .Page.File }}
-  {{ with .Site.GetPage $correspondingPage }}
-    {{ if .HasShortcode "duplicate-oss" }}
+  {{ $correspondingPage := replaceRE `v2\.[0-9]{1,2}` "cloud" (print .Page.File) }}
+  {{ if fileExists $correspondingPage}}
+    {{ if (.Site.GetPage $correspondingPage).HasShortcode "duplicate-oss" }}
       {{ $scratch.Set "canonicalURL" (print $baseURL (.Site.GetPage $correspondingPage).RelPermalink) }}
     {{ end }}
   {{ end }}
