@@ -18,7 +18,7 @@ Use the `influx restore` command to restore backup data and metadata from Influx
 You must stop InfluxDB before restoring data.
 
 {{% cloud %}}
-The `influxd restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
+The `influx restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
 {{% /cloud %}}
 
 When restoring data from a backup file set, InfluxDB temporarily moves existing
@@ -37,37 +37,12 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
     influxd restore --input <path-to-backup-directory>
 
     # Example
-    influxd restore --backup-path ~/backups/2020-01-20_12-00/
+    influxd restore --input ~/backups/2020-01-20_12-00/
     ```
 
     _For more information about restore options and flags, see the
-    [`influxd restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
+    [`influx restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
 
-## Customize the TSI rebuild process
-By default, InfluxDB rebuilds the index and [series file](/influxdb/v2.0/reference/glossary/#series-file) when restoring data.
-When rebuilding the Time Series Index (TSI), it uses the
-[default `build-tsi` options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/).
-To customize the Time Series Index (TSI) rebuild process:
-
-1. Disable rebuilding the index and series files when restoring data:
-
-    ```sh
-    influxd restore --rebuild-index false
-    ```
-
-2. Manually run `influxd inspect build-tsi` with any
-   [custom options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#flags).
-
-    ```sh
-    influxd inspect build-tsi \
-      --max-log-file-size=1048576 \
-      --max-cache-size=1073741824
-    ```
-
-    {{% note %}}
-Manually rebuild the TSI index to [adjust the performance](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance)
-of the TSI rebuild process.
-    {{% /note %}}
 
 ## Recover from a failed restore
 If the restoration process fails, InfluxDB preserves existing data in a `tmp`

@@ -16,7 +16,7 @@ products: [oss]
 The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
 
 {{% warn %}}
-Shut down the `influx` server before restoring data.
+Shut down the `influxd` server before restoring data.
 {{% /warn %}}
 
 ### The restore process
