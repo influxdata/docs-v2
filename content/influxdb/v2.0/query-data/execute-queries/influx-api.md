@@ -41,7 +41,8 @@ Below is an example `curl` request that sends a Flux query to InfluxDB 2.0:
 
 {{% code-tab-content %}}
 ```bash
-curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
+curl --request POST \
+  http://localhost:8086/api/v2/query?org=my-org  \
   --header 'Authorization: Token YOURAUTHTOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
@@ -54,7 +55,8 @@ curl http://localhost:8086/api/v2/query?org=my-org -XPOST -sS \
 
 {{% code-tab-content %}}
 ```bash
-curl --request POST http://localhost:8086/api/v2/query?org=my-org \
+curl --request POST \
+  http://localhost:8086/api/v2/query?org=my-org \
   --header 'Authorization: Token YOURAUTHTOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
