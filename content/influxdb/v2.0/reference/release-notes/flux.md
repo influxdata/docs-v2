@@ -8,6 +8,17 @@ menu:
     name: Flux
 ---
 
+## v0.94.0 [2020-11-09]
+
+### Features
+- Add "everything" Rust benchmark.
+
+### Bug fixes
+- Add multiline support to the Flux formatter.
+- Format types using letters instead of numbers.
+
+---
+
 ## v0.93.0 [2020-11-02]
 
 ### Features
