@@ -31,6 +31,37 @@ Download InfluxDB v2.0 for macOS.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
+### (Optional) Verify the authenticity of downloaded binary
+
+For added security, use `gpg` to verify the signature of your download.
+(Most operating systems include the `gpg` command by default.
+If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/) for installation instructions.)
+
+1. Download and import InfluxData's public key:
+
+    ```
+    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    ```
+
+2. Download the signature file for the release by adding `.asc` to the download URL.
+   For example:
+
+    ```
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-darwin_amd64.tar.gz.asc
+    ```
+
+3. Verify the signature with `gpg --verify`:
+
+    ```
+    gpg --verify influxdb-2.0.0-darwin_amd64.tar.gz.asc influxdb-2.0.0-darwin_amd64.tar.gz
+    ```
+
+    The output from this command should include the following:
+
+    ```
+    gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
+    ```
+
 ### Unpackage the InfluxDB binaries
 
 To unpackage the downloaded archive, **double click the archive file in Finder**
@@ -119,6 +150,37 @@ influxd --reporting-disabled
 Download InfluxDB v2.0 for Linux.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
+
+### (Optional) Verify the authenticity of downloaded binary
+
+For added security, use `gpg` to verify the signature of your download.
+(Most operating systems include the `gpg` command by default.
+If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/) for installation instructions.)
+
+1. Download and import InfluxData's public key:
+
+    ```
+    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    ```
+
+2. Download the signature file for the release by adding `.asc` to the download URL.
+   For example:
+
+    ```
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-linux_amd64.tar.gz.asc
+    ```
+
+3. Verify the signature with `gpg --verify`:
+
+    ```
+    gpg --verify influxdb-2.0.0-linux_amd64.tar.gz.asc influxdb-2.0.0-linux_amd64.tar.gz
+    ```
+
+    The output from this command should include the following:
+
+    ```
+    gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
+    ```
 
 ### Place the executables in your $PATH
 
