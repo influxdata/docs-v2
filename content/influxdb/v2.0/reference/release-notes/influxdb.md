@@ -23,7 +23,7 @@ Highlights include:
 
 If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2.0/get-started/) and [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
 
-## v2.0.0-rc.4 [2020-11-5]
+## v2.0.0-rc.4 [2020-11-05]
 
 ### Features
 
