@@ -9,7 +9,7 @@ menu:
     name: Pushbullet
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [functions, pushbullet, package]
+influxdb/v2.0/tags: [functions, pushbullet, package]
 ---
 
 The Flux Pushbullet package provides functions for sending data to

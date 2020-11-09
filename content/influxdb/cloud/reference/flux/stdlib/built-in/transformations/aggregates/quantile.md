@@ -18,6 +18,7 @@ related:
 The `quantile()` function returns records from an input table with `_value`s that fall within
 a specified quantile or it returns the record with the `_value` that represents the specified quantile.
 Which it returns depends on the [method](#method) used.
+`quantile()` supports columns with float values.
 
 _**Function type:** Aggregate or Selector_  
 _**Output data type:** Float | Record_

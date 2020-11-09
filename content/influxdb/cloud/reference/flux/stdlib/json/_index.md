@@ -11,7 +11,7 @@ menu:
     name: JSON
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [functions, json, package]
+influxdb/v2.0/tags: [functions, json, package]
 ---
 
 JSON Flux functions provide tools for working with JSON.

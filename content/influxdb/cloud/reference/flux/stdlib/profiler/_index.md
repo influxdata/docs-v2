@@ -9,7 +9,7 @@ menu:
     name: Profiler
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [functions, optimize, package]
+influxdb/v2.0/tags: [functions, optimize, package]
 related:
   - /influxdb/cloud/query-data/optimize-queries/
 ---
@@ -56,11 +56,14 @@ include a table with the following columns:
 - **influxdb/scanned-values**: value scanned by InfluxDB.
 - **influxdb/scanned-bytes**: number of bytes scanned by InfluxDB.
 
-#### Use the query profiler to output statistics about query execution
-```js
-import "profilers"
+#### Use the query profiler
 
-option profiler.enabledProfiles["query"]
+Use the query profiler to output statistics about query execution.
+
+```js
+import "profiler"
+
+option profiler.enabledProfilers = ["query"]
 
 // ... Query to profile
 ```

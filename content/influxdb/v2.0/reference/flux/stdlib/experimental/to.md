@@ -55,7 +55,7 @@ the **field value** as the **column value**.
 
 If using the built-in `from()` function, use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 to transform data into the structure `experimetnal.to()` expects.
-_[See the example below](#use-pivot-to-shape-data-for-experimental-to)._
+_[See the example below](#use-pivot-to-shape-data-for-experimentalto)._
 
 ## Parameters
 

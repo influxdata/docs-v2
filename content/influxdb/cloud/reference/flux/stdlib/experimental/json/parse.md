@@ -19,7 +19,7 @@ _**Function type:** Type conversion_
 import "experimental/json"
 
 json.parse(
-  data: bytes(v: "{\"\"a\"\":1,\"\"b\"\":2,\"\"c\"\":3}")
+  data: bytes(v: "{\"a\":1,\"b\":2,\"c\":3}")
 )
 ```
 

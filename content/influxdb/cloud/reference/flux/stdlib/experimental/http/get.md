@@ -19,7 +19,7 @@ _**Function type:** Miscellaneous_
 import "experimental/http"
 
 http.get(
-  url: "https://cloud2.influxdata.com/",
+  url: "http://localhost:8086/",
   headers: {x:"a", y:"b", z:"c"},
   timeout: 30s
 )
@@ -76,7 +76,7 @@ import "csv"
 token = secrets.get(key: "READONLY_TOKEN")
 
 response = http.get(
-    url: "https://cloud2.influxdata.com/health",
+    url: "http://localhost:8086/health",
     headers: {Authorization: "Token ${token}"}
   )
 

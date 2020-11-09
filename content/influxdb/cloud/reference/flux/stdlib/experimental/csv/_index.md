@@ -10,7 +10,7 @@ menu:
     identifier: CSV-exp
     parent: Experimental
 weight: 301
-influxdb/cloud/tags: [functions, csv, package]
+influxdb/v2.0/tags: [functions, csv, package]
 ---
 
 The Flux Experimental CSV package provides functions for retrieving annotated CSV.

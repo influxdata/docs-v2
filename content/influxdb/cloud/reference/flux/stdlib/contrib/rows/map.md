@@ -8,7 +8,7 @@ menu:
     name: rows.map
     parent: Rows
 weight: 202
-influxdb/cloud/tags: [functions, package, map]
+influxdb/v2.0/tags: [functions, package, map]
 related:
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/
 ---

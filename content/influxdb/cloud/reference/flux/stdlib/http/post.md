@@ -21,7 +21,7 @@ _**Function type:** Output_
 import "http"
 
 http.post(
-  url: "https://cloud2.influxdata.com/",
+  url: "http://localhost:8086/",
   headers: {x:"a", y:"b", z:"c"},
   data: bytes(v: "body")
 )

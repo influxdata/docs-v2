@@ -9,7 +9,7 @@ menu:
     name: influxdb.select
     parent: contrib_influxdb
 weight: 202
-influxdb/cloud/tags: [functions, package, query]
+influxdb/v2.0/tags: [functions, package, query]
 related:
   - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/from/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/range/

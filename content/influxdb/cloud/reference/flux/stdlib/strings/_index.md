@@ -11,7 +11,7 @@ menu:
     name: Strings
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [strings, functions, package]
+influxdb/v2.0/tags: [strings, functions, package]
 ---
 
 The Flux string package provides functions to manipulate UTF-8 encoded strings.

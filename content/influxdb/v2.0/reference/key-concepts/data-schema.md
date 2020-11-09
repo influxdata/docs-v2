@@ -12,7 +12,7 @@ menu:
 influxdb/v2.0/tags: [key concepts]
 ---
 
-InfluxDB [data elements](/influxdb/v2.0/reference/key-concepts/data-elements/) are stored in [time-structured merge tree (TSM)](/influxdb/v2.0/reference/internals/storage-engine/#time-structured-merge-tree-tsm) and [time series index (TSI)](/influxdb/v2.0/reference/internals/storage-engine/#time-series-index-tsi) files to efficiently compact stored data.
+InfluxDB [data elements](/influxdb/v2.0/reference/key-concepts/data-elements/) are stored in **time-structured merge tree (TSM)** and **time series index (TSI)** files to efficiently compact stored data.
 
 InfluxDB also provides a **tabular data schema** that includes the following:
 

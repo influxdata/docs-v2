@@ -9,7 +9,7 @@ menu:
     name: http.endpoint
     parent: HTTP
 weight: 202
-influxdb/cloud/tags: [endpoints]
+influxdb/v2.0/tags: [endpoints]
 ---
 
 The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.

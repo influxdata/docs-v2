@@ -30,7 +30,7 @@ For more information, see [Database and retention policy mapping](/influxdb/v2.0
 
 {{% note %}}
 If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/#manually-create-and-manage-dbrp-mappings)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 

@@ -22,7 +22,7 @@ _**Function type:** Input_
 ```js
 import "experimental/csv"
 
-csv.from(url: "https://cloud2.influxdata.com/")
+csv.from(url: "http://localhost:8086/")
 ```
 
 ## Parameters

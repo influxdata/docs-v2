@@ -8,7 +8,7 @@ menu:
     name: geo.filterRows
     parent: Geo
 weight: 401
-influxdb/cloud/tags: [functions, geo]
+influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/gridfilter/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/strictfilter/

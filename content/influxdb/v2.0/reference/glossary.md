@@ -866,7 +866,7 @@ Related entries: [field key](#field-key),[measurement](#measurement), [tag key](
 
 ### series file
 
-A file created and used by the [InfluxDB storage engine](/influxdb/v2.0/reference/internals/storage-engine/)
+A file created and used by the **InfluxDB OSS storage engine**
 that contains a set of all series keys across the entire database.
 
 ### series key
@@ -1051,8 +1051,9 @@ Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 
 ### tracing
 
-By default, tracing is disabled in InfluxDB.
-To enable tracing or set other InfluxDB configuration options, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+By default, tracing is disabled in InfluxDB OSS.
+To enable tracing or set other InfluxDB OSS configuration options,
+see [InfluxDB OSS configuration options](/influxdb/v2%2E0/reference/config-options/).
 
 ### transformation
 

@@ -9,7 +9,7 @@ menu:
     name: map
     parent: built-in-transformations
 weight: 402
-influxdb/cloud/tags: [exists]
+influxdb/v2.0/tags: [exists]
 related:
   - /influxdb/cloud/query-data/flux/conditional-logic/
   - /influxdb/cloud/query-data/flux/mathematic-operations/

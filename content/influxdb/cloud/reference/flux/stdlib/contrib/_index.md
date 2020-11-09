@@ -8,7 +8,7 @@ menu:
     name: Contributed
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [contributed, functions, package]
+influxdb/v2.0/tags: [contributed, functions, package]
 ---
 
 User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities.

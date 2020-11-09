@@ -33,7 +33,7 @@ The following Telegraf-related dashboard templates are available:
 - [Docker](#docker)
 - [Getting Started with Flux](#getting-started-with-flux)
 - [GitHub Data](#github-data)
-- [InfluxDB OSS 2.0 Metrics](#influxdb-oss-2-0-metrics)
+- [InfluxDB OSS 2.0 Metrics](#influxdb-oss-20-metrics)
 - [JMeter](#jmeter)
 - [Kubernetes](#kubernetes)
 - [Nginx](#nginx)

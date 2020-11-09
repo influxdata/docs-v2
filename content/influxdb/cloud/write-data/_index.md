@@ -22,10 +22,9 @@ related:
 Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
 
 
-- [What you'll need](#what-you-ll-need)
+- [What you'll need](#what-youll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
-  - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
 - [Other ways to write data](#other-ways-to-write-data)
 - [Next steps](#next-steps)
 
@@ -39,9 +38,7 @@ To write data into InfluxDB, you need the following:
   instructions on viewing your bucket ID._
 - **authentication token** – _See [View tokens](/influxdb/cloud/security/tokens/view-tokens/)
   for instructions on viewing your authentication token._
-- **InfluxDB URL** – _See [InfluxDB URLs](/influxdb/cloud/reference/urls/)_.
-
-The [InfluxDB setup process](/influxdb/cloud/get-started/#set-up-influxdb) creates each of these.
+- **InfluxDB Cloud region URL** – _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)_.
 
 Use _line protocol_ format to write data into InfluxDB.
 Each line represents a data point.
@@ -78,11 +75,10 @@ and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/
 
 ## Quickly start collecting data
 
-Familiarize yourself with querying, visualizing, and processing data in InfluxDB Cloud and InfluxDB OSS by collecting data right away. The following options are available:
+Familiarize yourself with querying, visualizing, and processing data in InfluxDB Cloud by collecting data right away. The following options are available:
 
 - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
-- [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
-
+- [Sample data](/influxdb/cloud/reference/sample-data)
 
 ## Demo data for InfluxDB Cloud
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different

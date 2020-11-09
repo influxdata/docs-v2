@@ -13,7 +13,7 @@ menu:
     name: Miscellaneous
     identifier: built-in-misc
 weight: 305
-influxdb/cloud/tags: [built-in, functions]
+influxdb/v2.0/tags: [built-in, functions]
 ---
 
 Flux's built-in functions primarily retrieve, shape and transform, then output data, however

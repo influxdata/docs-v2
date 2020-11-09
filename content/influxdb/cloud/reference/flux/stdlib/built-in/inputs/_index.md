@@ -11,7 +11,7 @@ menu:
     name: Inputs
     identifier: built-in-inputs
 weight: 301
-influxdb/cloud/tags: [inputs, built-in, functions]
+influxdb/v2.0/tags: [inputs, built-in, functions]
 ---
 
 Flux's built-in input functions define sources of data or display information about data sources.

@@ -22,33 +22,16 @@ UI and export the resources as a template.
 {{< youtube 714uHkxKM6U >}}
 
 {{% note %}}
+#### InfluxDB OSS for creating templates
 Templatable resources are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
 
-**InfluxDB OSS** supports multiple organizations so you can create new organizations
-for the sole purpose of building and maintaining a template.
+**[InfluxDB OSS](/{{< latest "influxdb" "v2" >}}/)** supports multiple organizations so you
+can create new organizations for the sole purpose of building and maintaining a template.
 In **InfluxDB Cloud**, your user account is an organization.
-**We recommend using InfluxDB OSS to create InfluxDB templates.**
+**We recommend [using InfluxDB OSS to create InfluxDB templates](/{{< latest "influxdb" "v2" >}}/influxdb-templates/create/).**
 {{% /note %}}
-
-**To create a template:**
-
-1. [Start InfluxDB](/influxdb/cloud/get-started/).
-2. [Create a new organization](/influxdb/cloud/organizations/create-org/).
-3. In the InfluxDB UI add one or more of the following templatable resources:
-
-   - [buckets](/influxdb/cloud/organizations/buckets/create-bucket/)
-   - [checks](/influxdb/cloud/monitor-alert/checks/create/)
-   - [dashboards](/influxdb/cloud/visualize-data/dashboards/create-dashboard/)
-   - [dashboard variables](/influxdb/cloud/visualize-data/variables/create-variable/)
-   - [labels](/influxdb/cloud/visualize-data/labels/)
-   - [notification endpoints](/influxdb/cloud/monitor-alert/notification-endpoints/create/)
-   - [notification rules](/influxdb/cloud/monitor-alert/notification-rules/create/)
-   - [tasks](/influxdb/cloud/process-data/manage-tasks/create-task/)
-   - [Telegraf configurations](/influxdb/cloud/write-data/no-code/use-telegraf/)
-
-4. Export the template _(see [below](#export-a-template))_.
 
 ## Export a template
 Do one of the following to export a template:

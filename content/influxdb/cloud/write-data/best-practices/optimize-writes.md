@@ -23,7 +23,6 @@ The following tools write to InfluxDB and employ _most_ write optimizations by d
 
 - [Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/)
 - [InfluxDB client libraries](/influxdb/cloud/tools/client-libraries/)
-- [InfluxDB scrapers](/influxdb/cloud/write-data/no-code/scrape-data/)
 {{% /note %}}
 
 ## Batch writes

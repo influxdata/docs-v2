@@ -11,7 +11,7 @@ menu:
     name: Math
     parent: Flux standard library
 weight: 202
-influxdb/cloud/tags: [math, functions]
+influxdb/v2.0/tags: [math, functions]
 related:
   - /influxdb/cloud/query-data/flux/mathematic-operations/
 ---

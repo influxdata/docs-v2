@@ -10,7 +10,7 @@ menu:
     identifier: built-in-tests
     parent: Built-in
 weight: 305
-influxdb/cloud/tags: [testing, built-in, functions]
+influxdb/v2.0/tags: [testing, built-in, functions]
 ---
 
 Flux's built-in testing functions test various aspects of piped-forward data.

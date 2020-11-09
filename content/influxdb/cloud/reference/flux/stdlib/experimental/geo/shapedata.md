@@ -9,7 +9,7 @@ menu:
     name: geo.shapeData
     parent: Geo
 weight: 401
-influxdb/cloud/tags: [functions, geo]
+influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/cloud/query-data/flux/geo/
 ---

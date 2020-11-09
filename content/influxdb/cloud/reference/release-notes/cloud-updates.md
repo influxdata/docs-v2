@@ -8,7 +8,7 @@ menu:
     name: Monthly updates
 aliases:
   - /cloud/about/release-notes
-  - /influxdb/v2.0/reference/release-notes/influxdb-cloud
+  - /influxdb/cloud/reference/release-notes/influxdb-cloud
 ---
 
 InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
@@ -17,23 +17,23 @@ InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates b
 
 ### Install and customize InfluxDB community templates in the Cloud UI
 
-Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/v2.0/influxdb-templates/cloud/#install-and-customize-a-template-in-the-cloud-ui).
+Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
 
 ## 2020-09-02
 
 ### Pricing updates and Azure region
 
-- Update [pricing vectors](/influxdb/v2.0/account-management/pricing-plans/#pricing-vect) to determine pricing by the total data out and query count.
+- Update [pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors) to determine pricing by the total data out and query count.
 
-- Add [Microsoft Azure support](/influxdb/v2.0/reference/urls/#microsoft-azure) for the `eastus` and `westeurope` regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
+- Add [Microsoft Azure support](/influxdb/cloud/reference/regions/#microsoft-azure) for the `eastus` and `westeurope` regions. Each region has a unique InfluxDB Cloud URL and API endpoint.
 
 ### Flux updates
 
- - Add time-weighted average [`timeWeightedAvg()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/).
- - Update [`integral()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/) with linear interpolation.
- - Add [Flux query profiler](/influxdb/v2.0/reference/flux/stdlib/profiler/#use-the-query-profiler) to output query statistics that help you better understand query performance.
- - Add [`tasks.lastSuccess()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) to retrieve the time of the last successful run of an InfluxDB task.
- - Add the [`array.from` function](/influxdb/v2.0/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
+ - Add time-weighted average [`timeWeightedAvg()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/).
+ - Update [`integral()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/integral/) with linear interpolation.
+ - Add [Flux query profiler](/influxdb/cloud/reference/flux/stdlib/profiler/#use-the-query-profiler) to output query statistics that help you better understand query performance.
+ - Add [`tasks.lastSuccess()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-tasks/lastsuccess/) to retrieve the time of the last successful run of an InfluxDB task.
+ - Add the [`array.from` function](/influxdb/cloud/reference/flux/stdlib/experimental/array/from/) to build ad hoc tables in a Flux script.
 
 ### Bug fixes
 
@@ -43,7 +43,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 
 ## Features
 - **InfluxDB OSS 2.0 alpha-17** –
-  _See the [alpha-17 release notes](/influxdb/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-17-2019-08-14) for details._
+  _See the [alpha-17 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha17-2019-08-14) for details._
 - Alerts and Notifications to Slack (Free Plan), PagerDuty and HTTP (Usage-based Plan).
 - Rate limiting on cardinality for Free Plan.
 - Billing notifications.
@@ -55,7 +55,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-15** –
-  _See the [alpha-9 release notes](/influxdb/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-15-2019-07-11) for details._
+  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha15-2019-07-11) for details._
 - Usage-based Plan.
 - Adjusted Free Plan rate limits.
 - Timezone selection in the user interface.
@@ -82,7 +82,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-9** –
-  _See the [alpha-9 release notes](/influxdb/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-9-2019-05-01) for details._
+  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha9-2019-05-01) for details._
 
 ### Bug fixes
 
@@ -99,7 +99,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-7** –
-  _See the [alpha-7 release notes](/influxdb/v2.0/reference/release-notes/influxdb/#v2-0-0-alpha-7-2019-03-28) for details._
+  _See the [alpha-7 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha7-2019-03-28) for details._
 
 ### Bug fixes
 

@@ -22,7 +22,7 @@ _**Function type:** Input_
 import "experimental/prometheus"
 
 prometheus.scrape(
-  url: "https://cloud2.influxdata.com/metrics"
+  url: "http://localhost:8086/metrics"
 )
 ```
 

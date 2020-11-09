@@ -71,7 +71,7 @@ Currently, we do **not support** using an existing InfluxDB Cloud account to sig
 6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
     _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
-    and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-bucket-s-name-in-the-influxdb-ui)._
+    and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
 
 ## (Optional) Download, install, and use the influx CLI
 
@@ -123,7 +123,8 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: (macOS Catalina only) Authorize InfluxDB binaries
 
-If you're running `influx` on macOS Catalina, you must [manually authorize the InfluxDB binaries](/influxdb/cloud/get-started/#run-influxdb-on-macos-catalina).
+If running `influx` on macOS Catalina, you must manually authorize the
+`influx` binary in the **Security & Privacy** section of **System Preferences**.
 
 #### Step 5: Set up a configuration profile
 
@@ -235,18 +236,14 @@ existing Telegraf configuration to send data to your {{< cloud-name "short" >}} 
 For details, see [Automatically configure Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/)
 and [Manually update Telegraf configurations](/influxdb/cloud/write-data/no-code/use-telegraf/manual-config/).
 
-#### Scrape data
-
-**InfluxDB OSS** lets you scrape Prometheus-formatted metrics from HTTP endpoints.
-For details, see [Scrape data](/influxdb/cloud/write-data/no-code/scrape-data/).
-
 #### API, CLI, and client libraries
 
 For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
 see [Write data to InfluxDB](/influxdb/cloud/write-data/).
 
 #### Demo data
-If using **{{< cloud-name "short" >}}**, [add a demo data bucket](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data)
+
+**{{< cloud-name "short" >}}** lets you [add a demo data bucket](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data)
 for quick, **free** access to time series data.
 
 ### Query data

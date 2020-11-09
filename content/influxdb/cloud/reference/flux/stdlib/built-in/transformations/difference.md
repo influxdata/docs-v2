@@ -109,7 +109,7 @@ from(bucket: "example-bucket")
 
 #### With keepFirst set to true
 ```js
-|> difference(nonNegative: false, keepfirst: true):
+|> difference(nonNegative: false, keepFirst: true):
 ```
 ###### Output table
 | _time | _value | tag |

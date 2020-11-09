@@ -10,7 +10,7 @@ menu:
     identifier: contrib_influxdb
     parent: Contributed
 weight: 202
-influxdb/cloud/tags: [functions, package, query]
+influxdb/v2.0/tags: [functions, package, query]
 ---
 
 The Flux InfluxDB package provides additional functions for querying data from InfluxDB.

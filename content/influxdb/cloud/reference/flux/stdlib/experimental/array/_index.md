@@ -9,7 +9,7 @@ menu:
     name: Array
     parent: Experimental
 weight: 301
-influxdb/cloud/tags: [functions, array, package, table]
+influxdb/v2.0/tags: [functions, array, package, table]
 ---
 
 Flux Array functions provide tools for building tables from Flux arrays.

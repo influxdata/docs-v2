@@ -5,7 +5,7 @@ description: >
   that retrieve, transform, process, and output data.
 aliases:
   - /influxdb/cloud/reference/flux/functions/
-influxdb/cloud/tags: [flux, functions, package]
+influxdb/v2.0/tags: [flux, functions, package]
 menu:
   influxdb_cloud_ref:
     parent: Flux language

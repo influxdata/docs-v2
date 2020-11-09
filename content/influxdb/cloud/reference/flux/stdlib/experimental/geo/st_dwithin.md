@@ -9,7 +9,7 @@ menu:
     name: geo.ST_DWithin
     parent: Geo
 weight: 401
-influxdb/cloud/tags: [functions, geo, GIS]
+influxdb/v2.0/tags: [functions, geo, GIS]
 related:
   - /influxdb/cloud/query-data/flux/geo/
 ---
