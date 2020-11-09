@@ -21,14 +21,21 @@ curl --request POST \
   --header "Authorization: Token YOURAUTHTOKEN"
 ```
 
-## View InfluxDB v2 API Documentation
+## InfluxDB v2 API Documentation
 <a class="btn" href="/v2.0/api/">InfluxDB OSS 2.0 API documentation</a>
 
-### View InfluxDB API documentation locally
+#### View InfluxDB API documentation locally
 InfluxDB API documentation is built into the `influxd` service and represents
 the API specific to the current version of InfluxDB.
 To view the API documentation locally, [start InfluxDB](/influxdb/v2.0/get-started/#start-influxdb)
 and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localhost:8086/docs)).
+
+## InfluxDB v1 compatibility API documentation
+The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/v2.0/reference/api/influxdb-1x/)
+that work with InfluxDB 1.x client libraries and third-party integrations like
+[Grafana](https://grafana.com) and others.
+
+<a class="btn" href="/influxdb/v2.0/v1-compatibility-api/">View full v1 compatibility API documentation</a>
 
 ## InfluxDB client libraries
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
