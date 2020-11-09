@@ -10,26 +10,18 @@ weight: 101
 
 ## v2.0.0 General Availability [2020-11-09]
 
-InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate releases.
+InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
 
 Highlights include:
 
-- Support for upgrading to InfluxDB 2.0:
-   - **Upgrade from InfluxDB 1.x**. For more information, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
-   - **Upgrade from InfluxDB 2.0 beta 16 or earlier**. For more information, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc](/influxdb/v2.0/upgrade/v2-beta-to-v2).
-- Flux; our powerful new functional data scripting language designed for querying, analyzing, and acting on data. If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs or check out how to [query with Flux](/influxdb/v2.0/query-data/flux/).
-- Support for [InfluxDB 1.x API compatibility](influxdb/v2.0/reference/api/influxdb-1x/)
-- Templates and stacks. Community templates, GitOps and stacks.
+- Support for **upgrading to InfluxDB 2.0**:
+   - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
+   - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2).
+- **Flux** our powerful new functional data scripting language designed for querying, analyzing, and acting on data. If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
+- Support for [InfluxDB 1.x API compatibility](/influxdb/v2.0/reference/api/influxdb-1x/)
+- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2.0/influxdb-templates/use/) and how to [manage template with stacks](/influxdb/v2.0/influxdb-templates/stacks/).
 
-- Important considerations if you're upgrading from InfluxDB 1.x:
-
-    - If you're upgrading from 1.x and used continuous queries (CQs), for example, to downsample data, we recommend extracting CQs from your InfluxDB 1.x instance (using `show continuous queries`) prior to upgrade. To convert these to Flux, please check out our Tasks documentation.
-    If you're using the following supported protocols in InfluxDB 1.x: CollectD, Graphite, OpenTSDB, Prometheus, UDP, 2.0 doesn't support these protocols directly. However, use Telegraf to translate from the source protocol to InfluxDB 2.0.
-    - If you are using Kapacitor, to continue to use Kapacitor by updating the Kapacitor configuration to use the appropriate security credentials per 1.x compatibility API docs 1 (essentially using the appropriate user and token to allow access).
-    - 1.x Compatibility APIs - dashboards, client libraries and other
-To continue to use existing dashboarding tools, such as Chronograf and Grafana with InfluxDB 2.0, reconfigure your data sources to point to your new InfluxDB 2.0 OSS instance with the appropriate security credentials.
-
-If you're new to InfluxDB 2.0, we recommend checking out our [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
+If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2.0/get-started/) and [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
 
 ## v2.0.0-rc.4 [2020-11-5]
 
@@ -43,10 +35,10 @@ If you're new to InfluxDB 2.0, we recommend checking out our [InfluxDB key conce
 ### Bug Fixes
 
 - Add a new `CreateUniquePhysicalNode` method, which reads and applies the plan node ID in context. Each physical node has a unique ID to support planner rules applied more than once in a query. Previously, the same node ID (hence the same dataset ID) caused the execution engine to generate undefined results.
-- A cloned task is only activated when you select **Active**. Previously, a cloned task was activated is the original task was activated.
+- A cloned task is now only activated when you select **Active**. Previously, a cloned task was activated if the original task was activated.
 - Reduce the `influx` binary file size.
 - Isolate the `TelegrafConfigService` and remove URM interactions.
-- Use updated HTTP client for the authorization service.
+- Use the updated HTTP client for the authorization service.
 - Make `tagKeys` and `tagValues` work for edge cases involving fields.
 - Correctly parse float as 64-bits.
 - Add simple metrics related to installed templates.
