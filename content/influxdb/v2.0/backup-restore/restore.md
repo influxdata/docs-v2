@@ -29,15 +29,14 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
 ## Restore data with the influx CLI
 1. **Stop the `influxd` server.**
-2. Use the `influx restore` command and specify the path to the backup directory
-   using the `--input` flag.
+2. Use the `influx restore` command and specify the path to the backup directory in the first argument.
 
     ```sh
     # Syntax
-    influxd restore --input <path-to-backup-directory>
+    influxd restore <path-to-backup-directory>
 
     # Example
-    influxd restore --input ~/backups/2020-01-20_12-00/
+    influxd restore ~/backups/2020-01-20_12-00/
     ```
 
     _For more information about restore options and flags, see the

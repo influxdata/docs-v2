@@ -41,6 +41,7 @@ influxd restore [flags]
 |      | `--bucket-id`  | ID of the bucket to restore from             |            |
 | b    | `--bucket`     | Name of the bucket to restore from           |            |
 |      | `--full`       | Fully restore and replace all data on server |            |
-|      | `--input`      | Local backup data path (required)            |            |
 |      | `--new-bucket` | Name of the bucket to restore to             |            |
 |      | `--new-org`    | Name of the organization to restore to       |            |
+|      | `--org-id`     | ID of the org to restore from                |            |
+| o    | `--org`        | Name of the org to restore from              | 
