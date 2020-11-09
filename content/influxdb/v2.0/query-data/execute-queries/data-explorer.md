@@ -1,28 +1,27 @@
 ---
-title: Explore metrics with InfluxDB
+title: Query in Data Explorer
 description: >
-  Explore and visualize your data in InfluxDB's Data Explorer.
-  The InfluxDB user interface (UI) allows you to move seamlessly between using the
-  Flux builder and manually editing the query.
+  Query your data in the InfluxDB user interface (UI) Data Explorer.
+aliases: 
+  - /influxdb/v2.0/visualize-data/explore-metrics/
+weight: 201
 menu:
   influxdb_2_0:
-    name: Explore metrics
-    parent: Visualize data
-weight: 101
+    name: Query with Data Explorer
+    parent: Execute queries
+influxdb/v2.0/tags: [query]
 ---
 
-Explore and visualize your data in the **Data Explorer**.
-The InfluxDB user interface (UI) allows you to move seamlessly between using the
-Flux builder or templates and manually editing the query.
+Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
+
+![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
+
+Move seamlessly between using the Flux builder or templates and manually editing the query.
 Choose between [visualization types](/influxdb/v2.0/visualize-data/visualization-types/) for your query.
 
-To open the **Data Explorer**, click the **Explore** (**Data Explorer**) icon in the left navigation menu:
+## Query data with Flux and the Data Explorer
 
-{{< nav-icon "data-explorer" >}}
-
-## Explore data with Flux and the Data Explorer
-
-Flux is InfluxData's functional data scripting language designed for querying,
+Flux is a functional data scripting language designed for querying,
 analyzing, and acting on time series data.
 See [Get started with Flux](/influxdb/v2.0/query-data/get-started) to learn more about Flux.
 
@@ -95,7 +94,6 @@ Click **Query Builder** to use the builder to create a Flux query. Click **Scrip
 
 In **Script Editor** mode, the following keyboard shortcuts are available:
 
-
 | Key                            | Description                                 |
 |--------------------------------|---------------------------------------------|
 | `Control + /` (`⌘ + /` on Mac) | Comment/uncomment current or selected lines |
@@ -103,9 +101,7 @@ In **Script Editor** mode, the following keyboard shortcuts are available:
 
 ## Save your query as a dashboard cell or task
 
-**To save your query**:
-
-Click **Save as** in the upper right, then:
-- To add your query to a dashboard, click **Dashboard Cell**.
-- To save your query as a task, click **Task**.
-- To save your query as a variable, click **Variable**.
+- Click **Save as** in the upper right, and then:
+  - To add your query to a dashboard, click **Dashboard Cell**.
+  - To save your query as a task, click **Task**.
+  - To save your query as a variable, click **Variable**.
