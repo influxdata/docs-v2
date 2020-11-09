@@ -16,11 +16,13 @@ The **Band Plot** visualization displays the upper and lower boundaries for grou
 
 To see bands (boundaries) in the **Band Plot** visualization, you must set up two or three boundaries for comparison.
 
+### Set up the band plot visualization in the Data Explorer
+
 1. Click the **Data Explorer** icon in the navigation bar.
 
     {{< nav-icon "data-explorer" >}}
 
-2. Enter your query (<placeholder link to new "Query data in Data Explorer" topic>. You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
+2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left, and then click **Customize**.
 4. Under **Data**, select the following:
    - For **X Column** and **Y Column**, select the columns to display for the x- and y- axes.
@@ -34,6 +36,56 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
     **Tip:** If you do not see shaded boundaries in the **Band Plot** visualization, verify the query window period includes a sufficient number of data points for the selected aggregate function. By default, the window period is automatically set to ten seconds (`10s`). To adjust your window period, select **Custom**, and then enter a supported time unit (for example nanoseconds (`ns`), microseconds (`us`), milliseconds (`ms`), seconds (`s`), or hours (`h`).
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-Band-example.png" alt="Band example" />}}
+
+### Set up the band plot visualization in the Script Editor
+
+1. 1. Click the **Data Explorer** icon in the navigation bar.
+
+    {{< nav-icon "data-explorer" >}}
+
+2. Click **Script Editor**.
+3. Select the **Band Plot** option from the visualization dropdown in the upper left
+4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/), [`max()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/max/), and [`min()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min) functions:
+
+```js
+from(bucket: "bucket_1")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "cpu")
+  |> filter(fn: (r) => r["_field"] == "usage_system")
+  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+  |> aggregateWindow(every: 15s, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
+
+from(bucket: "bucket_1")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "cpu")
+  |> filter(fn: (r) => r["_field"] == "usage_system")
+  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+  |> aggregateWindow(every: 15s, fn: max, createEmpty: false)
+  |> yield(name: "max")
+
+from(bucket: "bucket_1")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "cpu")
+  |> filter(fn: (r) => r["_field"] == "usage_system")
+  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+  |> aggregateWindow(every: 15s, fn: min, createEmpty: false)
+  |> yield(name: "min")
+```
+
+5. (Optional) Customize the name of the yielded results for for each function by editing the `name` parameter in the [`yield()`](/v2.0/reference/flux/stdlib/built-in/outputs/yield/) function.
+For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
+  ```js
+    |> yield(name: "Average")
+  ```
+6. Click **Customize** in the upper left.
+7. Under **Aggregate Functions**, enter the functions you created to determine each boundary (column) for comparison. If you changed the `yield` name for any of the functions above, enter the modified name here instead of the function name:
+   - In the **Upper Column Name** field, enter the function for the upper boundary.
+   - In the **Main Column Name** field, enter the function for the main boundary.
+   - In the **Lower Column Name** field, enter the function for the lower boundary.
+7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](options) and [Y Axis](y-axis) below.
+
+### Customize column names
 
 ## Band behavior
 
