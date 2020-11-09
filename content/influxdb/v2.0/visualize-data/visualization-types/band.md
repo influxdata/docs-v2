@@ -80,8 +80,8 @@ For example, to change the name of the first function from  `mean` to `Average`,
   ```
 6. Click **Customize** in the upper left.
 7. Under **Aggregate Functions**, enter the functions you created to determine each boundary (column) for comparison. If you changed the `yield` name for any of the functions above, enter the modified name here instead of the function name:
-   - In the **Upper Column Name** field, enter the function for the upper boundary.
-   - In the **Main Column Name** field, enter the function for the main boundary.
+   - In the **Upper Column Name** field, enter the result set to use for the upper boundary.
+   - In the **Main Column Name** field, enter the result set to use for the main boundary.
    - In the **Lower Column Name** field, enter the function for the lower boundary.
 7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](options) and [Y Axis](y-axis) below.
 
