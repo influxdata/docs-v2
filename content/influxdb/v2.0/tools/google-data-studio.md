@@ -1,6 +1,9 @@
 ---
 title: Use the Google Data Studio connector
-description: The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets you create reports and dashboards in Google Data Studio with data from InfluxDB 2.0. 
+description: >
+  The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs)
+  lets you create reports and dashboards in Google Data Studio with data from
+  InfluxDB Cloud or InfluxDB OSS 2.0.
 menu:
   influxdb_2_0:
     parent: Tools & integrations
@@ -8,16 +11,16 @@ weight: 102
 influxdb/v2.0/tags: [google]
 ---
 
-The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets you create reports and dashboards in Google Data Studio with data from InfluxDB 2.0. The connector supports one measurement per organization. 
+The [InfluxDB Google Data Studio connector](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs) lets you create reports and dashboards in Google Data Studio with data from **InfluxDB Cloud** or **InfluxDB OSS 2.0**. The connector supports one measurement per organization.
 
 ### Add the InfluxDB Connector to Data Studio
 
 1. Add the [InfluxDB Connector data source](https://datastudio.google.com/u/0/datasources/create?connectorId=AKfycbwhJChhmMypQvNlihgRJMAhCb8gaM3ii9oUNWlW_Cp2PbJSfqeHfPyjNVp15iy9ltCs).
 2. Enter the following connection details:
-  - `InfluxDB URL`: Your [InfluxDB 2.0 URL](/influxdb/v2.0/reference/urls/).
+  - `InfluxDB URL`: Your [InfluxDB URL](/influxdb/v2.0/reference/urls/).
   - `Token`: Your [authentication token](/influxdb/v2.0/security/tokens/create-token/) with permission to read from the bucket you're using.
   - `Organization`: Your [organization name](/influxdb/v2.0/organizations/view-orgs).
-  - `Bucket`: Your [bucket name](/influxdb/v2.0/organizations/buckets/view-buckets/#view-a-list-of-buckets). This is auto-populated when you enter the fields above.
+  - `Bucket`: Your [bucket name](/influxdb/v2.0/organizations/buckets/view-buckets/). This is auto-populated when you enter the fields above.
   - `Measurement`: The [measurement](/influxdb/v2.0/reference/glossary/#measurement) to connect to.
 3. Click **Connect**.
 

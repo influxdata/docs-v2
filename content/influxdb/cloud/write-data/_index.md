@@ -25,6 +25,7 @@ Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover 
 - [What you'll need](#what-youll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
+  - [Sample data](#sample-data)
 - [Other ways to write data](#other-ways-to-write-data)
 - [Next steps](#next-steps)
 
@@ -78,7 +79,7 @@ and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/
 Familiarize yourself with querying, visualizing, and processing data in InfluxDB Cloud by collecting data right away. The following options are available:
 
 - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
-- [Sample data](/influxdb/cloud/reference/sample-data)
+- [Sample data](#sample-data)
 
 ## Demo data for InfluxDB Cloud
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
@@ -133,6 +134,10 @@ After adding a demo data bucket, view the pre-built dashboard specific to the de
 #### Other sample data sets
 See [Sample data](/influxdb/cloud/reference/sample-data) for more sample InfluxDB data sets.
 {{% /note %}}
+
+## Sample data
+Use [sample data sets](/influxdb/cloud/reference/sample-data/#sample-data-sets)
+to quickly populate InfluxDB with sample time series data.
 
 ---
 

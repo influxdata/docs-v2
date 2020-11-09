@@ -428,5 +428,5 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 - **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
   the new user interface (InfluxDB UI) offers quick and effortless onboarding,
   richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [Usage-based Plan](/influxdb/v2.0/account-management/pricing-plans/#usage-based-plan)
+- **Usage-based pricing**: The [Usage-based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan)
   offers more flexibility and ensures that you only pay for what you use.

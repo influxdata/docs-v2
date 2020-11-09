@@ -12,7 +12,7 @@ weight: 101
 
 ### Features
 
-- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0-91-0-2020-10-26).
+- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0910-2020-10-26).
 - Enable window aggregate mean pushdown.
 - Add `newMultiShardArrayCursors` to aggregate array cursors.
 - UI updates:
@@ -34,7 +34,7 @@ weight: 101
 
 ### Features
 
-- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0-90-0-2020-10-19).
+- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0900-2020-10-19).
 - Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
 - Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
 - Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
@@ -122,7 +122,7 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 
 ### Bug Fixes
 
-- Add description to [`influx auth`](influxdb/v2.0/reference/cli/influx/auth/) command outputs.
+- Add description to [`influx auth`](/influxdb/v2.0/reference/cli/influx/auth/) command outputs.
 - Resolve issues with check triggers in notification tasks by including the edge of the observed boundary.
 - Detect and provide warning about duplicate tag names when writing CSV data using `influx write`.
 - Ensure the group annotation does not override the existing line part (measurement, field, tag, time) in a CSV group annotation.
@@ -222,7 +222,7 @@ This release includes breaking changes:
 
 ### Features
 
-- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
@@ -686,7 +686,7 @@ The `map()` function panics if the first record processed has a `null` value.
 
 ### Features
 - Add `influxd inspect verify-wal` tool.
-- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0342-2019-06-27) -
   includes new string functions and initial multi-datasource support with `sql.from()`.
 - Only click save once to save cell.
 - Enable selecting more columns for line visualizations.

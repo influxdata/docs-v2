@@ -92,7 +92,7 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 ## Delete data using the API
 
 {{% note %}}
-The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB Cloud** and haven't already, download the [`influx` CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli).
+The `influx` CLI is installed with **InfluxDB OSS**. If you're using **InfluxDB Cloud** and haven't already, download the [`influx` CLI](/influxdb/v2.0/get-started/).
 {{% /note %}}
 
 1. Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.

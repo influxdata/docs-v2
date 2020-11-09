@@ -113,7 +113,7 @@ set INFLUX_TOKEN=YourAuthenticationToken
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-_See the [example `telegraf.conf` below](#example-influxdb-v2-configuration)._
+_See the [example `telegraf.conf` below](#example-influxdb_v2-configuration)._
 {{% /note %}}
 
 ##### organization

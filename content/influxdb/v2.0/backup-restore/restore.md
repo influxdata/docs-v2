@@ -45,7 +45,7 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
 ## Recover from a failed restore
 If the restoration process fails, InfluxDB preserves existing data in a `tmp`
-directory in the [target engine path](/influxdb/v2.0/reference/cli/influxd/restore/#flags)
+directory in the [target engine path](/influxdb/v2.0/reference/cli/influx/restore/#flags)
 (default is `~/.influxdbv2/engine`).
 
 To recover from a failed restore:
