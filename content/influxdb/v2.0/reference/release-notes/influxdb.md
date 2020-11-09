@@ -10,13 +10,13 @@ weight: 101
 
 ## v2.0.0 General Availability [2020-11-09]
 
-InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior releases.
+InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate releases.
 
 Highlights include:
 
 - Support for upgrading to InfluxDB 2.0:
-   - **Upgrade from InfluxDB 1.x**. For more information, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](influxdb/v2.0/reference/upgrading/influxd-upgrade-guide/).
-   - **Upgrade from InfluxDB 2.0 beta 16 or earlier**. For more information, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc](influxdb/v2.0/reference/upgrading/rc-upgrade-guide/).
+   - **Upgrade from InfluxDB 1.x**. For more information, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
+   - **Upgrade from InfluxDB 2.0 beta 16 or earlier**. For more information, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0rc](/influxdb/v2.0/upgrade/v2-beta-to-v2).
 - Flux; our powerful new functional data scripting language designed for querying, analyzing, and acting on data. If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs or check out how to [query with Flux](/influxdb/v2.0/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](influxdb/v2.0/reference/api/influxdb-1x/)
 - Templates and stacks. Community templates, GitOps and stacks.
