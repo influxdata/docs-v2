@@ -28,7 +28,6 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 ### Features
 
 - Upgrade to [Flux v0.93.0](/influxdb/v2.0/reference/release-notes/flux/#v0-93-0-2020-11-02).
-- Enable window pushdowns.
 - Add `influx backup` and `influx restore` CLI commands to support backing up and restoring data in InfluxDB 2.0.
 - Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
 
