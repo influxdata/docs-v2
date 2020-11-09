@@ -47,10 +47,10 @@ The `influx backup` command requires:
 ##### Back up data with the influx CLI
 ```sh
 # Syntax
-influx backup -p <backup-path> -t <root-token>
+influx backup <backup-path> -t <root-token>
 
 # Example
 influx backup \
-  -p path/to/backup_$(date '+%Y-%m-%d_%H-%M') \
+  path/to/backup_$(date '+%Y-%m-%d_%H-%M') \
   -t xXXXX0xXX0xxX0xx_x0XxXxXXXxxXX0XXX0XXxXxX0XxxxXX0Xx0xx==
 ```

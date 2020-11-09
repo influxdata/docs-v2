@@ -2,8 +2,8 @@
 title: /write 1.x compatibility API
 list_title: /write
 description: >
-  The `/write` 1.x compatibility endpoint writes data to InfluxDB 2.0 using patterns from the
-  InfluxDB 1.x `/write` API endpoint.
+  The `/write` 1.x compatibility endpoint writes data to InfluxDB Cloud and
+  InfluxDB OSS 2.0 using patterns from the InfluxDB 1.x `/write` API endpoint.
 menu:
   influxdb_2_0_ref:
     name: /write
@@ -18,8 +18,8 @@ related:
   - /influxdb/v2.0/reference/syntax/line-protocol
 ---
 
-The `/write` 1.x compatibility endpoint writes data to InfluxDB 2.0 using patterns from the
-InfluxDB 1.x `/write` API endpoint.
+The `/write` 1.x compatibility endpoint writes data to InfluxDB Cloud and InfluxDB OSS 2.0
+using patterns from the InfluxDB 1.x `/write` API endpoint.
 Use the `POST` request method to write [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
 to the `/write` endpoint.
 
@@ -41,12 +41,12 @@ encode the line protocol.
 
 ### db
 <span class="req">Required</span> – The **database** to write data to.
-This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to write data to.
-This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### precision

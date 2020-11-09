@@ -29,7 +29,7 @@ There are multiple reasons for introducing these:
 
 - The latest [InfluxDB client libraries](/influxdb/v1.8/tools/api_client_libraries/)
   are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
-- InfluxDB Cloud 2.0 is a generally available service across multiple cloud service providers and regions
+- InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the **latest** client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting
@@ -326,7 +326,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.8.0
+X-Influxdb-Version: v1.8.2
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```

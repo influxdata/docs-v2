@@ -1,6 +1,6 @@
 {{ $length := .Get 0 | default "long" }}
 {{- if eq $length "long" }}
-  {{- .Site.Data.products.influxdb.cloud.name -}}
+  {{- .Site.Data.products.influxdb_cloud.name -}}
 {{ else if eq $length "short" }}
-  {{- .Site.Data.products.influxdb.cloud.shortname -}}
+  {{- .Site.Data.products.influxdb_cloud.altname -}}
 {{ end -}}

@@ -9,7 +9,7 @@ menu:
     parent: Administration
 ---
 
-Chronograf is configured using the configuration file (/etc/default/chronograf) and environment variables. If you do not uncomment a configuration option, the system uses its default setting. The configuration settings in this document are set to their default settings. For more information, see [Configuration Chronograf](/chronograf/v1.8/administration/configuration/).
+Chronograf is configured using the configuration file (/etc/default/chronograf) and environment variables. If you do not uncomment a configuration option, the system uses its default setting. The configuration settings in this document are set to their default settings. For more information, see [Configure Chronograf](/chronograf/v1.8/administration/configuration/).
 
 * [Usage](#usage)
 * [Chronograf service options](#chronograf-service-options)

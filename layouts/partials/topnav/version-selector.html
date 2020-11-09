@@ -5,12 +5,12 @@
 {{ if or (eq $product nil) (lt (len (findRE `v[0-2]\.[0-9]{1,2}` $currentVersion)) 1) }}
 {{ else }}
 <div class="dropdown">
-  <p class="selected">{{ $currentVersion }}</p>
+  <p class="selected">{{ cond (in $currentVersion "v") $currentVersion (title $currentVersion) }}</p>
   <ul class="item-list">
     <li><a href="https://archive.docs.influxdata.com/{{ $product }}/" class="legacy" target="_blank">older</a></li>
     {{ range (index .Site.Data.products $product).versions }}
       <li>
-        <a href="/{{ $product }}/{{ . }}/" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ . }}</a>
+        <a href="/{{ $product }}/{{ . }}/" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ cond (in . "v") . (title .) }}</a>
       </li>
     {{ end }}
   </ul>

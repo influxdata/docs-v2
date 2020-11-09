@@ -5,6 +5,8 @@ menu:
     name: Installing
     weight: 20
     parent: Introduction
+aliases:
+  - /influxdb/v1.5/guides/hardware_sizing/
 ---
 
 This page provides directions for installing, starting, and configuring InfluxDB.
