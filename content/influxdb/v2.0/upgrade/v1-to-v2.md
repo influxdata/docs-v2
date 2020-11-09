@@ -20,6 +20,10 @@ to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 Back up all data before upgrading with `influx upgrade`.
 {{% /warn %}}
 
+{{% note %}}
+The 1.x `_internal` database is not migrated with the `influxd upgrade` command.
+{{% /note %}}
+
 1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/),
    unpackage the InfluxDB binaries, and then place them in your `$PATH`.   
 2. Stop your running InfluxDB 1.x instance.
