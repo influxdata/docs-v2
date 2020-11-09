@@ -3,10 +3,12 @@ title: Upgrade from InfluxDB 1.x to InfluxDB 2.0
 description: >
   Upgrade from InfluxDB 1.x to InfluxDB 2.0.
 menu:
-  influxdb_2_0_ref:
+  influxdb_2_0:
     parent: Upgrade InfluxDB
-    name: Upgrade from InfluxDB 1.x to InfluxDB 2.0
-weight: 9
+    name: InfluxDB 1.x to 2.0
+weight: 10
+aliases:
+  - /influxdb/v2.0/reference/upgrading/influxd-upgrade-guide/
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
@@ -18,19 +20,21 @@ to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 Back up all data before upgrading with `influx upgrade`.
 {{% /warn %}}
 
-1. [Download the InfluxDB OSS 2.0rc](https://portal.influxdata.com/downloads/),
-   unpackage the InfluxDB binaries, and then place them in your `$PATH`.
+1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/),
+   unpackage the InfluxDB binaries, and then place them in your `$PATH`.   
 2. Stop your running InfluxDB 1.x instance.
-3. If your configuration file is at the default location (`~/.influxdbv2/configs`), run:
+3. If your 1.x configuration file is at the
+  [default location](/influxdb/v1.8/administration/config/#using-the-configuration-file), run:
 
     ```sh
     influxd upgrade
     ```
      Otherwise, run:
     ```sh
-    influxd upgrade --config <path to config file>
+    influxd upgrade --config-file <path to v1 config file>
     ```
-    
+
 4. Follow the prompts to set up a new InfluxDB 2.0 instance.
 
-For more information on upgrading, including how to handle non-standard installations, see [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/).
+For more information on upgrading, including how to handle non-standard installations,
+see [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/).
