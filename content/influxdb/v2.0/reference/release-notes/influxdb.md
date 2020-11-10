@@ -15,7 +15,7 @@ InfluxDB 2.0 general availability (GA) introduces the first **production-ready**
 {{% note %}}
 #### Delete with predicate API not implemented
 
-- The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
+The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
 {{% /note %}}
 
 Highlights include:
