@@ -29,7 +29,7 @@ To compress the query response, set the `Accept-Encoding` header to `gzip`.
 This saves network bandwidth, but increases server-side load.
 {{% /note %}}
 
-#### Example query request
+#### Flux - Example query request
 
 Below is an example `curl` request that sends a Flux query to InfluxDB 2.0:
 
@@ -68,6 +68,8 @@ curl --request POST \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+#### InfluxQL - Example query request
 
 Below is an example `curl` request that sends an InfluxQL query to InfluxDB 2.0:
 
