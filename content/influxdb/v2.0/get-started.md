@@ -29,7 +29,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -70,7 +70,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb-2.0.0-rc.3_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.0_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -80,7 +80,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.0-rc.3_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -149,7 +149,7 @@ influxd --reporting-disabled
 
 Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -190,10 +190,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb-2.0.0-rc.3_linux_amd64.tar.gz
+tar xvzf path/to/influxdb-2.0.0_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.0-rc.3_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.0_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
