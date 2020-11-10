@@ -12,10 +12,10 @@
   scope:
     - /
   message: |
-    ### InfluxDB OSS 2.0 now generally available
+    ### InfluxDB OSS 2.0 now generally available!
 
     **InfluxDB OSS 2.0** is now generally available and ready for production use.
-    See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/)
+    See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/).
 
     For information about upgrading to InfluxDB OSS 2.0, see:
 
