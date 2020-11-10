@@ -23,7 +23,7 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB v2 API
-    name: Full v2 API docs
+    name: View v2 API docs
 weight: 102
 ---
 "
@@ -35,7 +35,7 @@ layout: api
 menu:
   $menu:
     parent: 1.x compatibility
-    name: Full v1 compatibility API docs
+    name: View v1 compatibility API docs
 weight: 304
 ---
 "
@@ -70,6 +70,7 @@ weight: 304
   # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html
   rm -f redoc-static-v1-compat.html
-  mv $version.tmp ../content/influxdb/$version/api.html
-  mv $version-v1-compat.tmp ../content/influxdb/$version/v1-compatibility-api.html
+  mkdir -p ../content/influxdb/$version/api
+  mv $version.tmp ../content/influxdb/$version/api/_index.html
+  mv $version-v1-compat.tmp ../content/influxdb/$version/api/v1-compatibility.html
 done
