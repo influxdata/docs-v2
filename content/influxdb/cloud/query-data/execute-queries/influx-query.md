@@ -9,22 +9,4 @@ menu:
 influxdb/cloud/tags: [query]
 ---
 
-## Influx query command
-
-Use the [`influx query` command](/influxdb/cloud/reference/cli/influx/query) to query data in InfluxDB using Flux.
-Pass Flux queries to the command as either a file or via stdin.
-
-###### Run a query from a file
-
-```bash
-influx query --file /path/to/query.flux
-```
-
-###### Pass raw Flux via stdin pipe
-
-```bash
-influx query - # Return to open the pipe
-
-data = from(bucket: "example-bucket") |> range(start: -10m) # ...
-# ctrl-d to close the pipe and submit the query
-```
+{{< duplicate-oss >}}
