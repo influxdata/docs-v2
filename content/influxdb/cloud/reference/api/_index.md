@@ -16,13 +16,21 @@ InfluxDB uses [authentication tokens](/influxdb/cloud/security/tokens/) to autho
 Include your authentication token as an `Authorization` header in each request.
 
 ```sh
-curl --request POST \
-  --url https://cloud2.influxdata.com/api/v2/write?org=my-org&bucket=example-bucket \
-  --header 'Authorization: Token YOURAUTHTOKEN'
+curl --request POST https://cloud2.influxdata.com/api/v2/write \
+  --header "Authorization: Token YOURAUTHTOKEN" \
+  --data-urlencode "org=myorg" \
+  --data-urlencode "bucket=example-bucket"
 ```
 
-## View InfluxDB v2 API Documentation
-<a class="btn" href="/v2.0/api/">InfluxDB v2.0 API documentation</a>
+## InfluxDB v2 API Documentation
+<a class="btn" href="/influxdb/cloud/api/">InfluxDB OSS 2.0 API documentation</a>
+
+## InfluxDB v1 compatibility API documentation
+The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/cloud/reference/api/influxdb-1x/)
+that work with InfluxDB 1.x client libraries and third-party integrations like
+[Grafana](https://grafana.com) and others.
+
+<a class="btn" href="/influxdb/cloud/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## InfluxDB client libraries
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
