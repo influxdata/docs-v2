@@ -42,9 +42,9 @@ curl --request GET https://cloud2.influxdata.com/api/v2/dbrps \
   --data '{
        "bucket_id": "12ab34cd56ef",
        "database": "example-db",
-       "id": "example-mapping-id"
-       "default": true
-       "organization_id": "example-org",
+       "id": "example-mapping-id",
+       "default": true,
+       "organization_id": "example-org"
      }'
 ```
 
@@ -68,10 +68,9 @@ curl --request POST https://cloud2.influxdata.com/api/v2/dbrps \
   --data '{
        "bucket_id": "12ab34cd56ef",
        "database": "example-db",
-       "default": true
+       "default": true,
        "organization": "example-org",
-       "organization_id": "example-org",
-       "retention_policy": "example-rp",
+       "retention_policy": "example-rp"
       }'
 ```
 
