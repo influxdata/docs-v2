@@ -12,6 +12,12 @@ weight: 101
 
 InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
 
+{{% note %}}
+#### Delete with predicate API not implemented
+
+- The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
+{{% /note %}}
+
 Highlights include:
 
 - Support for **upgrading to InfluxDB 2.0**:
