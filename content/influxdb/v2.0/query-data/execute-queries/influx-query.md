@@ -9,8 +9,6 @@ menu:
 influxdb/v2.0/tags: [query]
 ---
 
-## Influx query command
-
 Use the [`influx query` command](/influxdb/v2.0/reference/cli/influx/query) to query data in InfluxDB using Flux.
 Pass Flux queries to the command as either a file or via stdin.
 
