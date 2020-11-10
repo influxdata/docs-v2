@@ -50,7 +50,7 @@ The WAL ensures data is durable in case of an unexpected failure.
 When the storage engine receives a write request, the following steps occur:
 
 1. The write request is appended to the end of the WAL file.
-2. Data is written data to disk using `fsync()`.
+2. Data is written to disk using `fsync()`.
 3. The in-memory cache is updated.
 4. When data is successfully written to disk, a response confirms the write request was successful.
 
