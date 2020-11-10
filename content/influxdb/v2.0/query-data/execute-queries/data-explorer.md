@@ -65,10 +65,6 @@ Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in ta
 
 Click the CSV icon to save the cells contents as a CSV file.
 
-### Select auto-refresh interval
-
-Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
-
 ### Manually refresh dashboard
 
 Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashboard's data.
