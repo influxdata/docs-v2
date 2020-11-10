@@ -38,10 +38,10 @@ influxd restore [flags]
 
 | Flag |                | Description                                  | Input type |
 |------|----------------|----------------------------------------------|------------|
-|      | `--bucket-id`  | ID of the bucket to restore from             |            |
-| b    | `--bucket`     | Name of the bucket to restore from           |            |
+|      | `--bucket-id`  | ID of the bucket to restore from             | string     |
+| `-b` | `--bucket`     | Name of the bucket to restore from           | string     |
 |      | `--full`       | Fully restore and replace all data on server |            |
-|      | `--new-bucket` | Name of the bucket to restore to             |            |
-|      | `--new-org`    | Name of the organization to restore to       |            |
-|      | `--org-id`     | ID of the org to restore from                |            |
-| o    | `--org`        | Name of the org to restore from              | 
+|      | `--new-bucket` | Name of the bucket to restore to             | string     |
+|      | `--new-org`    | Name of the organization to restore to       | string     |
+|      | `--org-id`     | ID of the org to restore from                | string     |
+| `-o` | `--org`        | Name of the org to restore from              | string     |
