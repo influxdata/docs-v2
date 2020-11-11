@@ -12,7 +12,7 @@ aliases:
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
-The `upgrade` command provides an in-place upgrade path from InfluxDB 1.x to InfluxDB 2.0.
+The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB 2.0.
 
 <!--The upgrade process copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
 [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
