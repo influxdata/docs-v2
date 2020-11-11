@@ -67,25 +67,8 @@ We are working on the upgrade process for InfluxDB Docker containers.
 
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
-To convert continuous queries to InfluxDB tasks:
-
-1. Use the InfluxDB 1.x `influx` interactive shell and run `show continuous queries`:
-
-    ```sh
-    $ influx
-    Connected to http://localhost:8086 version 1.8.3
-    InfluxDB shell version: 1.8.3
-    > show continuous queries
-    ```
-
-2. Save the continuous queries and convert them to Flux. For help converting InfluxQL to Flux, use the following resources:
-
-    - [Get started with InfluxDB tasks](/influxdb/v2.0/process-data/get-started/)
-    - [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
-    - [Common tasks](/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
-    - [`influx transpile`](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/transpile/) (transpiles InfluxQL into Flux)
-    - Post in the [InfluxData Community](https://community.influxdata.com/)
-    - Ask in the [InfluxDB Community Slack](https://influxdata.com/slack)
+To convert continuous queries to InfluxDB tasks, see
+[Migrate continuous queries from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 
 ### Supported protocols
 
