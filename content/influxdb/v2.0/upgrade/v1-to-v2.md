@@ -131,17 +131,14 @@ There is no plan for a 32-bit build of InfluxDB 2.0.
 
 If you've considered the guidance above in [Before you begin](#before-you-begin-important-considerations) and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB 2.0.
 
-{{% warn %}}
-*After* stopping your InfluxDB 1.x process, make a back-up copy of all 1.x data before upgrading with `influx upgrade`.
-
-```sh
-cp -R .influxdb/ .influxdb_bak/
-```
-{{% /warn %}}
-
 1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/).
    Unpackage the InfluxDB binaries and place them in your `$PATH`.
 2. Stop your running InfluxDB 1.x instance.
+   Make a back-up copy of all 1.x data before upgrading:
+
+   ```sh
+   cp -R .influxdb/ .influxdb_bak/
+   ```
 3. Use `influxd version` to ensure you are running InfluxDB 2.0 from the command line.
    The `influxd upgrade` command is only available in InfluxDB 2.0.
 4. If your 1.x configuration file is at the [default location](/influxdb/v1.8/administration/config/#using-the-configuration-file), run:
