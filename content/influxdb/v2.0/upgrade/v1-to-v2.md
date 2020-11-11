@@ -83,13 +83,13 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
   (There is no subscriptions API in InfluxDB 2.0.)
   We recommend writing data directly to *both* Kapacitor and InfluxDB to allow stream tasks to continue to work.
   To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
-  If you use other mechanisms to get data into InfluxDB, Telegraf can be used as an intermediate layer to write to both Kapacitor and InfluxDB.
+  If you use other data sources to send data to InfluxDB, Telegraf can be used as an intermediate layer to write to both Kapacitor and InfluxDB.
   <!-- 
   Other architectures and mechanisms are possible, too.
   Need more help? Reach out in the [community forums](https://community.influxdata.com).
   -->
 
-### User migrations
+### User migration
 
 `influxd upgrade` migrates existing 1.x users and their permissions.
 However, it *does not migrate administrative users*.
