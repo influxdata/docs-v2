@@ -7,14 +7,17 @@
 #   message: |
 #     Markdown message content.
 
-- id: rc-upgrade
-  level: warn
+- id: v2-ga
+  level: note
   scope:
-    - /influxdb/v2.0/
+    - /
   message: |
-    ### InfluxDB OSS 2.0 release candidate
+    ### InfluxDB OSS 2.0 now generally available!
 
-    **InfluxDB OSS v2.0.rc** includes **breaking changes** that require a manual
-    upgrade from all alpha and beta versions. For information, see:
+    **InfluxDB OSS 2.0** is now generally available and ready for production use.
+    See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/).
 
-    [Upgrade to InfluxDB OSS v2.0.rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/)
+    For information about upgrading to InfluxDB OSS 2.0, see:
+
+    - [Upgrade from InfluxDB OSS 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
+    - [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2/)
