@@ -134,7 +134,7 @@ There is no plan for a 32-bit build of InfluxDB 2.0.
 
 ## Perform the upgrade
 
-If you've considered the guidance above in [Before you begin](#before-you-begin-important-considerations) and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB 2.0.
+If you've considered the guidance above in ["Before you begin"](#before-you-begin-important-considerations) and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB 2.0.
 
 1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/).
    Unpackage the InfluxDB binaries and place them in your `$PATH`.
