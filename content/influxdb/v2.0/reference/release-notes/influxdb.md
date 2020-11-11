@@ -21,7 +21,7 @@ The delete with predicate API (`/api/v2/delete`) has not been implemented and cu
 
 ##### Duplicate DBRP mappings per database
 
-When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) with the same database name, SHOW DATABASES incorrectly returns duplicates.
+When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) with the same database name in InfluxDB 1.x, SHOW DATABASES incorrectly returns duplicates.
 {{% /note %}}
 
 Highlights include:
