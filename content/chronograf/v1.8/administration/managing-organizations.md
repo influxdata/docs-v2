@@ -24,11 +24,11 @@ menu:
 First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).
 For more information, see [managing security](/chronograf/v1.8/administration/managing-security/).
 
-For information about the new user roles and SuperAdmin status, see [Managing Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
+For information about the new user roles and SuperAdmin permission, see [Managing Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
 
 A Chronograf organization is a collection of Chronograf users who share common Chronograf-owned resources, including dashboards, InfluxDB connections, and Kapacitor connections. Organizations can be used to represent companies, functional units, projects, or teams. Chronograf users can be members of multiple organizations.
 
-> ***Note:*** Only users with SuperAdmin status can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin status.
+> ***Note:*** Only users with SuperAdmin permission can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin permission.
 
 ## Use the default organization
 
@@ -43,7 +43,7 @@ Your company, organizational units, teams, and projects may require the creation
 
 **To create an organization:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, click **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) In the **All Orgs** tab, click **Create Organization**.
@@ -53,7 +53,7 @@ Your company, organizational units, teams, and projects may require the creation
 
 ## Configure organizations
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 You can configure existing and new organizations in the **Organizations** tab of the **Chronograf Admin** page as follows:
 
@@ -76,7 +76,7 @@ See the following pages for more information about managing Chronograf users and
 
 **To create an organization mapping:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **Org Mappings** tab to view a list of organization mappings.
@@ -90,7 +90,7 @@ See the following pages for more information about managing Chronograf users and
 
 **To remove an organization mapping:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the Chronograf navigation bar, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **Org Mappings** tab to view a list of organization mappings.
@@ -107,7 +107,7 @@ When an organization is removed:
 
 **To remove an organization:**
 
-**Required status:** SuperAdmin
+**Required permission:** SuperAdmin
 
 1) In the navigation bar of the Chronograf application, select **Admin** (crown icon) > **Chronograf** to open the **Chronograf Admin** page.
 2) Click the **All Orgs** tab to view a list of organizations.
