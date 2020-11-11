@@ -47,13 +47,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-darwin_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0_darwin_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.0-darwin_amd64.tar.gz.asc influxdb-2.0.0-darwin_amd64.tar.gz
+    gpg --verify influxdb-2.0.0_darwin_amd64.tar.gz.asc influxdb-2.0.0_darwin_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -167,13 +167,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.0-linux_amd64.tar.gz.asc influxdb-2.0.0-linux_amd64.tar.gz
+    gpg --verify influxdb-2.0.0_linux_amd64.tar.gz.asc influxdb-2.0.0_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
