@@ -249,7 +249,7 @@ influxd --reporting-disabled
 #### Upgrading from InfluxDB 1.x
 
 We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
-If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release.
+If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current upgrade process is undefined.
 
 {{% /note %}}
 
