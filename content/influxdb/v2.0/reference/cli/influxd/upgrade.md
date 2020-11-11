@@ -45,6 +45,7 @@ influxd upgrade [command]
 | `-f` | `--force`               | Skip the confirmation prompt                                                                               |            |
 | `-h` | `--help`                | Help for `influxd upgrade`                                                                                 |            |
 |      | `--influx-command-path` | Path to influx command (default `~/go/bin/influx`)                                                         | string     |
+|      | `--log-level`           | Supported log levels are `debug`, `info`, `warn`, and `error` (default `info`)                             | string     |
 |      | `--log-path`            | (Optional) Custom log file path (default `~/upgrade.log`)                                                  | string     |
 | `-o` | `--org`                 | Primary organization name                                                                                  | string     |
 | `-p` | `--password`            | Password for username                                                                                      | string     |

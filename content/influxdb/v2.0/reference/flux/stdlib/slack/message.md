@@ -96,5 +96,6 @@ slack.message(
   token: "mySuPerSecRetTokEn",
   channel: "#system-status",
   text: "The last reported status was \"${lastReported.status}\"."
+  color: "warning"
 )
 ```

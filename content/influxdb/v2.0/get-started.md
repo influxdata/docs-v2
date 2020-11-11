@@ -265,7 +265,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.1-rc --reporting-disabled
 ```
 {{% /note %}}
 
