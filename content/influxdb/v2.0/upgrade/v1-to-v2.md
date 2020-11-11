@@ -14,11 +14,9 @@ aliases:
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command provides an in-place upgrade path from InfluxDB 1.x to InfluxDB 2.0.
 
-<!--
-The upgrade process copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
+<!--The upgrade process copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
 [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
-to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
--->
+to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).-->
 Specifically, the upgrade process does the following:
 
 1. Reads existing the configuration file and generates a corresponding InfluxDB 2.0 configuration file with equivalent settings (where appropriate).
@@ -53,9 +51,7 @@ There is no plan for a 32-bit build of InfluxDB 2.0.
 
 ### Continuous queries
 
-<!-- If you use continuous queries, review them by running the show continuous queries command: -->
-
-If you are currently using continuous queries, we recommend extracting them from your InfluxDB 1.x instance with `show continuous queries` prior to upgrading.
+If you use continuous queries, review them prior to upgrading by running the `show continuous queries` command:
 Run the following:
 
 {{< keep-url >}}
