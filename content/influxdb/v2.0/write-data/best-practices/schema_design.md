@@ -10,7 +10,7 @@ menu:
 ---
 
 Every InfluxDB use case is unique and your [schema](/influxdb/v2.0/reference/glossary/#schema) reflects that uniqueness.
-There are, however, general guidelines to follow and pitfalls to avoid when designing your schema.
+There are, however, general guidelines to follow and pitfalls to avoid when designing your schema:
 
 - [Store data in tags or fields?](#store-data-in-tags-or-fields)
 - [Avoid keywords as tag or field names](#avoid-keywords-as-tag-or-field-names)
@@ -41,9 +41,11 @@ Also, if a tag or field name contains characters other than `[A-z,_]`, you must 
 
 ## Avoid too many series
 
-[Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series) in the database, also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality). High series cardinality is a primary driver of high memory usage for many database workloads.
+[Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series) in the database, also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
 
-If a system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+High series cardinality is a primary driver of high memory usage for many database workloads.
+When you write to InfluxDB, InfluxDB uses the measurements and tags to create indexes to speed up reads. However, when there are too many indexes created, both writes and reads may start to slow down.
+Therefore, if a system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
 
 ## Avoid the same name for a tag and a field
 
