@@ -14,20 +14,16 @@ aliases:
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB 2.0.
 
-<!--The upgrade process copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
-[retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
-to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).-->
 Specifically, the upgrade process does the following:
 
-1. Reads existing the configuration file and generates a corresponding InfluxDB 2.0 configuration file with equivalent settings (where appropriate).
-   This file path is `~/.influxdbv2/config.toml`.
-2. Upgrades the paths for metadata and the storage engine from current locations to `~/.influxdbv2/meta` and `~/.influxdbv2/engine`, respectively (unless otherwise specified).
-3. Copies existing data and WAL files into [buckets](/influxdb/v2.0/reference/glossary/#bucket) in the new 2.0 storage engine.
-4. Creates required database and retention policy [(DBRP)](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) mappings required to access existing data via InfluxQL.
+1. Reads the existing InfluxDB 1.x configuration file and generates an equivalent InfluxDB 2.0 configuration file at `~/.influxdbv2/config.toml`.
+2. Upgrades metadata and storage engine paths to `~/.influxdbv2/meta` and `~/.influxdbv2/engine`, respectively (unless otherwise specified).
+3. Writes existing data and write ahead log (WAL) files into InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+4. Creates [database and retention policy (DBRP) mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) required to query data with InfluxQL.
 5. Reads existing metadata and migrates non-admin users, passwords, and permissions into a 1.x authorization–compatible store within `~/influxdbv2/influxdb.bolt`.
 
-When you first start InfluxDB 2.0 after running `influx upgrade`, the database generates time series index (TSI) files.
-This might take some time depending upon the volume of data present.
+When starting InfluxDB 2.0 after running `influxdb upgrade`, InfluxDB must build a new time series index (TSI).
+Depending on the volume of data present, this may take some time.
 
 ## Before you begin: important considerations
 
@@ -36,68 +32,87 @@ Some or all might apply to your specific installation and use case.
 The sections below contain our recommendations for addressing possible gaps in the upgrade process.
 Consider whether you need to address any of the following before upgrading.
 
-<!--
-POSSIBLE ALT:
-Before upgrading to InfluxDB 2.0, review this section to see if you use these features:
-
-- Continuous queries
-- ...
-
-If you use one or more of these features, complete the instruction below to ensure a successful upgrade. We plan to address these items in the near future; as such, you may prefer to hold off on upgrading.
--->
+- [Available operating system, container, and platform support](#available-operating-system-container-and-platform-support)
+- [Continuous queries](#continuous-queries)
+- [Supported protocols](#supported-protocols)
+- [Kapacitor](#kapacitor)
+- [User migration](#user-migration)
+- [Dashboards](#dashboards)
+- [Other data](#other-data)
+- [Secure by default](#secure-by-default)
 
 ### Available operating system, container, and platform support
 
-InfluxDB 2.0 is currently available for MacOS and Linux.
-Docker images, ARM builds, and Windows builds are not currently available.
-These are planned for subsequent releases.
+{{% warn %}}
+InfluxDB 2.0 requires 64-bit operating systems.
+{{% /warn %}}
+
+InfluxDB 2.0 is currently available for macOS and Linux.
+Docker images, ARM builds, and Windows builds are not currently available,
+but are planned for subsequent releases.
 
 {{% note %}}
-We are working on the upgrade process for users running Docker and 1.8.x.
-Hold off on upgrading for now.
+#### Hold off if using Docker
+If you're running InfluxDB 1.8 in Docker, don't upgrade to InfluxDB 2.0 yet.
+We are working on the upgrade process for InfluxDB Docker containers.
 {{% /note %}}
 
-There is no plan for a 32-bit build of InfluxDB 2.0.
-
 ### Continuous queries
+Continuous queries are replaced by **tasks** in InfluxDB 2.0.
+To convert continuous queries to InfluxDB tasks:
 
-If you use continuous queries, review them prior to upgrading by running the `show continuous queries` command:
-Run the following:
+1. Use the InfluxDB 1.x `influx` interactive shell and run `show continuous queries`:
 
-{{< keep-url >}}
-```sh
-$ influx
-Connected to http://localhost:8086 version 1.8.3
-InfluxDB shell version: 1.8.3
-> show continuous queries
-```
+    ```sh
+    $ influx
+    Connected to http://localhost:8086 version 1.8.3
+    InfluxDB shell version: 1.8.3
+    > show continuous queries
+    ```
 
-Save your continuous queries output to use later.
+2. Save the continuous queries and convert them to Flux. For help converting InfluxQL to Flux, use the following resources:
 
-Continuous queries are replaced by tasks in InfluxDB 2.0
-To convert your continuous queries to Flux, see [Get started with InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
+    - [Get started with InfluxDB tasks](/influxdb/v2.0/process-data/get-started/)
+    - [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
+    - [Common tasks](/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
+    - [`influx transpile`](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/transpile/) (transpiles InfluxQL into Flux)
+    - Post in the [InfluxData Community](https://community.influxdata.com/)
+    - Ask in the [InfluxDB Community Slack](https://influxdata.com/slack)
 
 ### Supported protocols
 
-If you're using one of the [supported protocols](/influxdb/v1.8/supported_protocols/) in InfluxDB 1.x (CollectD, Graphite, OpenTSDB, Prometheus, UDP),
-InfluxDB 2.0 doesn't support these protocols directly.
-Use [Telegraf](/telegraf/v1.16/) to translate from the source protocol to InfluxDB 2.0.
+InfluxDB 2.0 doesn't directly support the alternate write protocols
+[supported in InfluxDB 1.x](/influxdb/v1.8/supported_protocols/)
+(CollectD, Graphite, OpenTSDB, Prometheus, UDP).
+Use [Telegraf](/{{< latest "telegraf" >}}/) to translate these protocols to line protocol.
 
 ### Kapacitor
 
 You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scenarios:
 
-- Kapacitor Batch-style TICKscripts work with the 1.x read compatible API
+- Kapacitor Batch-style TICKscripts work with the 1.x read compatible API.
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-- Kapacitor Stream-style TICKscripts will not work using the [subscription API](/influxdb/v1.8/administration/subscription-management/).
-  (There is no subscriptions API in InfluxDB 2.0.)
-  We recommend writing data directly to *both* Kapacitor and InfluxDB to allow stream tasks to continue to work.
-  To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
-  If you use other data sources to send data to InfluxDB, Telegraf can be used as an intermediate layer to write to both Kapacitor and InfluxDB.
-  <!-- 
-  Other architectures and mechanisms are possible, too.
-  Need more help? Reach out in the [community forums](https://community.influxdata.com).
-  -->
+- InfluxDB 2.0 has no subsriptions API and does not support Kapacitor stream tasks.
+  To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
+  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
+  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2) to write to InfluxDB v2.
+
+##### Example Telegraf configuration
+```toml
+# Write to Kapacitor
+[[outputs.influxdb]]
+  urls = ["http://localhost:9092"]
+  database = "example-db"
+  retention_policy = "example-rp"
+
+# Write to InfluxDB 2.0
+[[outputs.influxdb]]
+  urls = ["http://localhost:8086"]
+  database = "example-db"
+  retention_policy = "example-rp"
+  username = "v1-auth-username"
+  password = "v1-auth-password"
+```
 
 ### User migration
 
@@ -107,9 +122,9 @@ However, it *does not migrate administrative users*.
 To review users with admin permissions, in the InfluxDB 1.x CLI, run `show users`.
 Any users labeled "admin" *will not* be migrated.
 
-If you're using an admin user for visualization or Chronograf's administrative functions, you should create a new read-only user before upgrading.
+If using an admin user for visualization or Chronograf's administrative functions, create a new read-only user before upgrading.
 Admin rights are granted to the primary user created in the InfluxDB 2.0 setup process which runs at the end of the upgrade process.
-(This provides you with the opportunity to re-assess who should be granted admin-level access in your InfluxDB 2.0 setup.)
+This provides you with the opportunity to re-assess who should be granted admin-level access in your InfluxDB 2.0 setup.
 
 ### Dashboards
 
@@ -125,17 +140,22 @@ Ensure your dashboards are all functioning before upgrading.
 ### Other data
 
 The 1.x `_internal` database is not migrated with the `influxd upgrade` command.
+To collect, store, and monitor similar internal InfluxDB metrics,
+[create an InfluxDB 2.0 scraper](/influxdb/v2.0/write-data/no-code/scrape-data/manage-scrapers/create-a-scraper/)
+to scrape data from the `/metrics` endpoint and store them in a bucket.
 
 ### Secure by default
 
-InfluxDB 2.0 no longer supports running with `auth-enabled = false`.
-Authentication is required by default.
-After upgrading, authentication errors can occur if the username and password credentials within InfluxDB do not match what is currently being used by the various applications, agents, visualization tools, etc.
-Consider enabling authentication *before* upgrading to ensure that you have the appropriate credentials in place.
+InfluxDB 2.0 requires authentication and does not support the InfluxDB 1.x
+`auth-enabled = false` configuration option.
+Consider [enabling authentication in your InfluxDB 1.x instance](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+**before** upgrading to InfluxDB 2.0 to ensure the appropriate credentials are in place and
+that the various applications, agents, and visualization tools are able to connect.
 
 ## Perform the upgrade
 
-If you've considered the guidance above in ["Before you begin"](#before-you-begin-important-considerations) and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB 2.0.
+If you've considered the [guidance above](#before-you-begin-important-considerations)
+and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB 2.0.
 
 1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/).
    Unpackage the InfluxDB binaries and place them in your `$PATH`.
