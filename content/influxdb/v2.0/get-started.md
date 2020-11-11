@@ -70,7 +70,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb-2.0.0_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.1_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -80,7 +80,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.0_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.1_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -190,10 +190,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb-2.0.0_linux_amd64.tar.gz
+tar xvzf path/to/influxdb-2.0.1_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.0_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.1_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
