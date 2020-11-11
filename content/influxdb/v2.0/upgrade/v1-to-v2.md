@@ -12,16 +12,19 @@ aliases:
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
-The `upgrade` command copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
+The `upgrade` command exists provide an in-place upgrade path from InfluxDB 1.8.x to InfluxDB 2.0.x.
+
+<!--
+The upgrade process copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
 [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 to 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-
+-->
 Specifically, the upgrade process does the following:
 
 1. Reads existing the configuration file and generates a corresponding InfluxDB 2.0 configuration file with corresponding settings (where appropriate).
    This file is placed `~/.influxdbv2/config.toml`.
 2. Upgrades the paths for metadata and the storage engine from current locations to `~/.influxdbv2/meta` and `~/.influxdbv2/engine` respectively (unless otherwise specified).
-3. Copies existing data and WAL files into new storage engine location.
+3. Copies existing data and WAL files into [buckets](/influxdb/v2.0/reference/glossary/#bucket) in the new 2.0 storage engine.
 4. Creates required database and retention policy [(DBRP)](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) mappings required to access existing data via InfluxQL.
 5. Reads existing metadata and migrates non-admin users, passwords, and permissions into a 1.x authorization compatible store within `~/influxdbv2/influxdb.bolt`.
 
