@@ -70,29 +70,28 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 - Kapacitor Stream-style TICKscripts will not work using the [subscription API]((/influxdb/v1.8/administration/subscription-management/)).
   (There is no subscriptions API in InfluxDB 2.0.)
-  We recommend writing data directly to *both* Kapacitor and InfluxDB.
-  This allows stream tasks to continue to work.
+  We recommend writing data directly to *both* Kapacitor and InfluxDB to allow stream tasks to continue to work.
   To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
-  If you use other mechanisms to feed data into InfluxDB, Telegraf can be used as an intermediate layer to feed both Kapacitor and InfluxDB.
+  If you use other mechanisms to get data into InfluxDB, Telegraf can be used as an intermediate layer to write to both Kapacitor and InfluxDB.
 
-  Other architectures and mechanisms possible, too.
+  Other architectures and mechanisms are possible, too.
   Need more help? Reach out in the [community forums](https://community.influxdata.com).
 
 ### User migrations
 
 `influxd upgrade` migrates existing 1.x users and their permissions.
-However, *administrative users are not migrated*.
+However, it *does not migrate administrative users*.
 
 With the InfluxDB 1.x CLI, perform a `show users` query.
-Any users labeled "admin" will *not* be migrated.
+Any users labeled "admin" *will not* be migrated.
 
-If using an admin user for visualization or Chronograf administrative functions, you may want to create a new read only user before upgrading.
+If you're using an admin user for visualization or Chronograf's administrative functions, you might want to create a new read-only user before upgrading.
 Admin rights are granted to the primary user created in the 2.0 setup process via the `influxd upgrade` command.
-(This provides you with the opportunity to re-assess who should be granted admin level access as a part of your InfluxDB 2.0 setup.)
+(This provides you with the opportunity to re-assess who should be granted admin-level access as a part of your InfluxDB 2.0 setup.)
 
 ### Dashboards
 
-You can continue to use your existing dashboard/visualization tools with InfluxDB 2.0 via the [1.x read compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
+You can continue to use your existing dashboards and visualization tools with InfluxDB 2.0 via the [1.x read compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) are created as part of the upgrade process to ensure existing users can execute InfluxQL queries with the appropriate permissions.
 
 However, if your dashboard tool is configured using a user with admin permissions,
@@ -107,7 +106,7 @@ The 1.x `_internal` database is not migrated with the `influxd upgrade` command.
 
 ### Secure by default
 
-Running InfluxDB with the setting `auth-enabled = false` is no longer supported in InfluxDB 2.0.
+InfluxDB 2.0 no longer supports running with `auth-enabled = false`.
 Authentication is required by default.
 After upgrading, authentication errors can occur if the username and password credentials within InfluxDB do not match what is currently being used by the various applications, agents, visualization tools, etc.
 Consider enabling authentication *before* upgrading to ensure that you have the appropriate credentials in place.
@@ -120,7 +119,7 @@ These are planned for subsequent releases.
 
 {{% note %}}
 We are working on the upgrade process for users running Docker and 1.8.x.
-Please hold off on upgrading for now!
+Please hold off on upgrading for now.
 {{% /note %}}
 
 There is no plan for a 32-bit build of InfluxDB 2.0.
@@ -132,7 +131,7 @@ If you've considered the guidance above in ["Before you begin"](#before-you-begi
 1. [Download InfluxDB OSS 2.0](https://portal.influxdata.com/downloads/).
    Unpackage the InfluxDB binaries and place them in your `$PATH`.
 2. Stop your running InfluxDB 1.x instance.
-   Make a back-up copy of all 1.x data before upgrading:
+   Make a backup copy of all 1.x data before upgrading:
 
    ```sh
    cp -R .influxdb/ .influxdb_bak/
@@ -155,28 +154,28 @@ If you've considered the guidance above in ["Before you begin"](#before-you-begi
 
    ```
    Welcome to InfluxDB 2.0 upgrade!
-   Please type your primary username: buzz
+   Please type your primary username: <your-username>
 
    Please type your password:
 
    Please type your password again:
 
-   Please type your primary organization name: fizz
+   Please type your primary organization name: <your-org>
 
-   Please type your primary bucket name: fizzbuzz
+   Please type your primary bucket name: <your-bucket>
 
    Please type your retention period in hours.
-   Or press ENTER for infinite.:
+   Or press ENTER for infinite:
 
    You have entered:
-     Username:          fizz
-     Organization:      buzz
-     Bucket:            fizzbuss
+     Username:          <your-username>
+     Organization:      <your-org>
+     Bucket:            <your-bucket>
      Retention Period:  infinite
    Confirm? (y/n): y
    ```
 
-The output of the upgrade is printed to standard output.
+The output of the upgrade prints to standard output.
 It is also saved (for troubleshooting and debugging) in the current directory to a file called `upgrade.log` located in the home directory of the user running `influxdb upgrade`.
 
 ## Further reading
