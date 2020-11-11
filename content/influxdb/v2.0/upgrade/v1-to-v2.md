@@ -92,7 +92,6 @@ Admin rights are granted to the primary user created in the 2.0 setup process vi
 
 You can continue to use your existing dashboard/visualization tools with InfluxDB 2.0 via the [1.x read compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) are created as part of the upgrade process to ensure existing users can execute InfluxQL queries with the appropriate permissions.
-Reconfigure your data sources to point to your new InfluxDB 2.0 OSS instance with the appropriate security credentials.
 
 However, if your dashboard tool is configured using a user with admin permissions,
 you will need to create a new read-only user with the appropriate database permissions *before* upgrading.
