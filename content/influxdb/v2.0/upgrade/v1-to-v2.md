@@ -86,13 +86,13 @@ With the InfluxDB 1.x CLI, perform a `show users` query.
 Any users labeled "admin" *will not* be migrated.
 
 If you're using an admin user for visualization or Chronograf's administrative functions, you might want to create a new read-only user before upgrading.
-Admin rights are granted to the primary user created in the 2.0 setup process via the `influxd upgrade` command.
-(This provides you with the opportunity to re-assess who should be granted admin-level access as a part of your InfluxDB 2.0 setup.)
+Admin rights are granted to the primary user created in the InfluxDB 2.0 setup process which runs at the end of the upgrade process.
+(This provides you with the opportunity to re-assess who should be granted admin-level access in your InfluxDB 2.0 setup.)
 
 ### Dashboards
 
 You can continue to use your existing dashboards and visualization tools with InfluxDB 2.0 via the [1.x read compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-[DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) are created as part of the upgrade process to ensure existing users can execute InfluxQL queries with the appropriate permissions.
+The upgrade process creates [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) to ensure existing users can execute InfluxQL queries with the appropriate permissions.
 
 However, if your dashboard tool is configured using a user with admin permissions,
 you will need to create a new read-only user with the appropriate database permissions *before* upgrading.
