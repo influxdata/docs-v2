@@ -122,6 +122,11 @@ InfluxDB 2.0 is currently available for MacOS and Linux.
 Docker images, ARM builds, and Windows builds are not currently available.
 These are planned for subsequent releases.
 
+{{% note %}}
+We are working on the upgrade process for users running Docker and 1.8.x.
+Please hold off on upgrading for now!
+{{% /note %}}
+
 There is no plan for a 32-bit build of InfluxDB 2.0.
 
 ## Perform the upgrade
