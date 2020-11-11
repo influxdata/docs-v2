@@ -36,6 +36,16 @@ Some or all might apply to your specific installation and use case.
 The sections below contain our recommendations for addressing possible gaps in the upgrade process.
 Consider whether you need to address any of the following before upgrading.
 
+<!--
+POSSIBLE ALT:
+Before upgrading to InfluxDB 2.0, review this section to see if you use these features:
+
+- Continuous queries
+- ...
+
+If you use one or more of these features, complete the instruction below to ensure a successful upgrade. We plan to address these items in the near future; as such, you may prefer to hold off on upgrading.
+-->
+
 ### Available operating system, container, and platform support
 
 InfluxDB 2.0 is currently available for MacOS and Linux.
@@ -79,7 +89,7 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
 
 - Kapacitor Batch-style TICKscripts work with the 1.x read compatible API
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-- Kapacitor Stream-style TICKscripts will not work using the [subscription API]((/influxdb/v1.8/administration/subscription-management/)).
+- Kapacitor Stream-style TICKscripts will not work using the [subscription API](/influxdb/v1.8/administration/subscription-management/).
   (There is no subscriptions API in InfluxDB 2.0.)
   We recommend writing data directly to *both* Kapacitor and InfluxDB to allow stream tasks to continue to work.
   To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
@@ -97,7 +107,7 @@ However, it *does not migrate administrative users*.
 To review users with admin permissions, in the InfluxDB 1.x CLI, run `show users`.
 Any users labeled "admin" *will not* be migrated.
 
-If you're using an admin user for visualization or Chronograf's administrative functions, you might want to create a new read-only user before upgrading.
+If you're using an admin user for visualization or Chronograf's administrative functions, you should create a new read-only user before upgrading.
 Admin rights are granted to the primary user created in the InfluxDB 2.0 setup process which runs at the end of the upgrade process.
 (This provides you with the opportunity to re-assess who should be granted admin-level access in your InfluxDB 2.0 setup.)
 
