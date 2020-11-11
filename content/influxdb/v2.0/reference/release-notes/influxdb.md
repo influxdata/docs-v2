@@ -1,4 +1,4 @@
-compatibility---
+---
 title: InfluxDB v2.0 release notes
 description: Important changes and and what's new in each version of InfluxDB.
 menu:
@@ -13,9 +13,15 @@ weight: 101
 InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
 
 {{% note %}}
-#### Delete with predicate API not implemented
+#### Known issues
+
+##### Delete with predicate API not implemented
 
 The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
+
+##### Duplicate DBRP mappings per database
+
+When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) with the same database name, SHOW DATABASES incorrectly returns duplicates.
 {{% /note %}}
 
 Highlights include:
@@ -39,13 +45,13 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 
 ### Bug Fixes
 
-- Remove unused `security-script` option from upgrade command.
+- Remove unused `security-script` option from `influx upgrade` command.
 - Fix parsing of retention policy CLI arguments in `influx setup` and `influxd upgrade`.
 - Create CLI configs during upgrade to v2.
 - Allow write-only v1 tokens to find database retention policies (DBRPs).
-- Update v1 auth description
+- Update `v1 auth` description.
 - Use `db`/`rp` naming convention when migrating databases to buckets.
-- Improve help text for `influxd` and `--no-password` switch
+- Improve help text for `influxd` and `--no-password` switch.
 - Use `10` instead of `MaxInt` when rewriting query-concurrency.
 - Remove bucket and mapping auto-creation from `/write` 1.x compatibility API.
 - Fix misuse of `reflect.SliceHeader`.
