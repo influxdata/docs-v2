@@ -80,9 +80,3 @@ To protect against any intentional or unintentional harm, Usage-Based Plans incl
   - Unlimited PagerDuty, Slack, and HTTP notification endpoints
 
 _To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
-
-{{% cloud %}}
-#### VPC peering
-
-If you are interested in adding virtual private cloud (VPC) peering to your Cloud account, please [contact sales](https://www.influxdata.com/contact-sales/) to discuss the options and associated pricing.
-{{% /cloud %}}
