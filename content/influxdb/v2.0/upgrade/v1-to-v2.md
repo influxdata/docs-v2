@@ -38,7 +38,22 @@ Some or all might apply to your specific installation and use case.
 The sections below contain our recommendations for addressing possible gaps in the upgrade process.
 Consider whether you need to address any of the following before upgrading.
 
+### Available operating system, container, and platform support
+
+InfluxDB 2.0 is currently available for MacOS and Linux.
+Docker images, ARM builds, and Windows builds are not currently available.
+These are planned for subsequent releases.
+
+{{% note %}}
+We are working on the upgrade process for users running Docker and 1.8.x.
+Hold off on upgrading for now.
+{{% /note %}}
+
+There is no plan for a 32-bit build of InfluxDB 2.0.
+
 ### Continuous queries
+
+<!-- If you use continuous queries, review them by running the show continuous queries command: -->
 
 If you are currently using continuous queries, we recommend extracting them from your InfluxDB 1.x instance with `show continuous queries` prior to upgrading.
 Run the following:
@@ -51,10 +66,10 @@ InfluxDB shell version: 1.8.3
 > show continuous queries
 ```
 
-Save this output so it can be used later.
+Save your continuous queries output to use later.
 
 Continuous queries are replaced by tasks in InfluxDB 2.0
-To convert your continuous queries to Flux, see the [Tasks documentation](/influxdb/v2.0/process-data/get-started/).
+To convert your continuous queries to Flux, see [Get started with InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
 
 ### Supported protocols
 
@@ -73,16 +88,17 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
   We recommend writing data directly to *both* Kapacitor and InfluxDB to allow stream tasks to continue to work.
   To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
   If you use other mechanisms to get data into InfluxDB, Telegraf can be used as an intermediate layer to write to both Kapacitor and InfluxDB.
-
+  <!-- 
   Other architectures and mechanisms are possible, too.
   Need more help? Reach out in the [community forums](https://community.influxdata.com).
+  -->
 
 ### User migrations
 
 `influxd upgrade` migrates existing 1.x users and their permissions.
 However, it *does not migrate administrative users*.
 
-With the InfluxDB 1.x CLI, perform a `show users` query.
+To review users with admin permissions, in the InfluxDB 1.x CLI, run `show users`.
 Any users labeled "admin" *will not* be migrated.
 
 If you're using an admin user for visualization or Chronograf's administrative functions, you might want to create a new read-only user before upgrading.
@@ -110,19 +126,6 @@ InfluxDB 2.0 no longer supports running with `auth-enabled = false`.
 Authentication is required by default.
 After upgrading, authentication errors can occur if the username and password credentials within InfluxDB do not match what is currently being used by the various applications, agents, visualization tools, etc.
 Consider enabling authentication *before* upgrading to ensure that you have the appropriate credentials in place.
-
-### Available operating system, container, and platform support
-
-InfluxDB 2.0 is currently available for MacOS and Linux.
-Docker images, ARM builds, and Windows builds are not currently available.
-These are planned for subsequent releases.
-
-{{% note %}}
-We are working on the upgrade process for users running Docker and 1.8.x.
-Please hold off on upgrading for now.
-{{% /note %}}
-
-There is no plan for a 32-bit build of InfluxDB 2.0.
 
 ## Perform the upgrade
 
