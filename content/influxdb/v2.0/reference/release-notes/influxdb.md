@@ -1,4 +1,4 @@
----
+compatibility---
 title: InfluxDB v2.0 release notes
 description: Important changes and and what's new in each version of InfluxDB.
 menu:
@@ -28,6 +28,27 @@ Highlights include:
 - **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2.0/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2.0/influxdb-templates/stacks/).
 
 If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2.0/get-started/) and [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
+
+## v2.0.0 [2020-11-09]
+
+### Features
+- Improve  UI for v1 `influx auth` commands.
+- Upgrade to [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-10)
+- Upgrade `flux-lsp-browser` to v0.5.22.
+- Add [RAS Telegraf input plugin](/telegraf/v1.16/plugins//#ras).
+
+### Bug Fixes
+
+- Remove unused `security-script` option from upgrade command.
+- Fix parsing of retention policy CLI arguments in `influx setup` and `influxd upgrade`.
+- Create CLI configs during upgrade to v2.
+- Allow write-only v1 tokens to find database retention policies (DBRPs).
+- Update v1 auth description
+- Use `db`/`rp` naming convention when migrating databases to buckets.
+- Improve help text for `influxd` and `--no-password` switch
+- Use `10` instead of `MaxInt` when rewriting query-concurrency.
+- Remove bucket and mapping auto-creation from `/write` 1.x compatibility API.
+- Fix misuse of `reflect.SliceHeader`.
 
 ## v2.0.0-rc.4 [2020-11-05]
 
