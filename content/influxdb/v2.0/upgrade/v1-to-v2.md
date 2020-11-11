@@ -72,10 +72,10 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
    (There is no subscriptions API in InfluxDB 2.0.)
    We recommend writing data directly to *both* Kapacitor and InfluxDB.
    This allows stream tasks to continue to work.
-   (See dual writes using Telegraf.)
+   To do this, configure two [InfluxDB output plugins](/telegraf/v1.16/plugins/#influxdb): one for Kapacitor and one for InfluxDB 2.0.
    If you use other mechanisms to feed data into InfluxDB, Telegraf can be used as an intermediate layer to feed both Kapacitor and InfluxDB.
-   There are other architectures and mechanisms possible.
 
+   Other architectures and mechanisms possible, too.
    Need more help? Reach out in the [community forums](https://community.influxdata.com).
 
 ### User migrations
