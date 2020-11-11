@@ -1,25 +1,26 @@
 ---
 title: InfluxDB OSS URLs
 description: >
-  InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
+  InfluxDB OSS is accessed at `localhost:8086` by default, but you can also
+  customize your InfluxDB host and port.
 weight: 6
 menu:
   influxdb_2_0_ref:
     name: InfluxDB URLs
 ---
 
-InfluxDB 2.0 is available both locally (OSS) or on multiple cloud providers in multiple regions (Cloud).
+InfluxDB OSS is accessed at `localhost:8086` by default, but you can also
+customize your InfluxDB host and port.
 
-## InfluxDB OSS URLs
-
-For InfluxDB OSS, the default URL is the following:
+**Default host:** `localhost`  
+**Default port:** `8086`
 
 {{< keep-url >}}
 ```
 http://localhost:8086/
 ```
 
-### Customize your InfluxDB OSS URL
+## Customize your InfluxDB OSS URL
 To customize your InfluxDB host and port, use the
 [`http-bind-address` configuration option](/influxdb/v2.0/reference/config-options/#http-bind-address)
 when starting `influxd`.
