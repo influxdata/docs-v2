@@ -11,6 +11,8 @@ aliases:
   - /influxdb/v2.0/reference/upgrading/influxd-upgrade-guide/
 ---
 
+<!-- the upgrade command exists to assists in performing an in-place upgrade from InfluxDB 1.8.x to InfluxDB 2.0.x. -->
+
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command copies all data stored in 1.x [databases](/influxdb/v1.8/concepts/glossary/#database) and
 [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
@@ -26,7 +28,7 @@ Specifically, the upgrade process does the following:
 5. Reads existing metadata and migrates non-admin users, passwords, and permissions into a 1.x authorization compatible store within `~/influxdbv2/influxdb.bolt`.
 
 After running `influxd upgrade`, when first starting InfluxDB 2.0 the database generates time series index (TSI) files.
-(This may take some time.)
+(This may take some time depending upon the volume of data present.)
 
 ## Before you begin: important considerations
 
@@ -71,7 +73,7 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
    We recommend writing data directly to *both* Kapacitor and InfluxDB.
    This allows stream tasks to continue to work.
    (See dual writes using Telegraf.)
-   If you use other mechanisms to feed data into InfluxDB, Telegraf could be used as an intermediate layer to feed both Kapacitor and InfluxDB.
+   If you use other mechanisms to feed data into InfluxDB, Telegraf can be used as an intermediate layer to feed both Kapacitor and InfluxDB.
    There are other architectures and mechanisms possible.
 
    Need more help? Reach out in the [community forums](https://community.influxdata.com).
@@ -84,14 +86,14 @@ However, *administrative users are not migrated*.
 With the InfluxDB 1.x CLI, perform a `show users` query.
 Any users labeled "admin" will *not* be migrated.
 
-If using an admin user for vizualition or Chronograf administrative functions, you may want to create a new read only user before upgrading.
+If using an admin user for visualization or Chronograf administrative functions, you may want to create a new read only user before upgrading.
 Admin rights are granted to the primary user created in the 2.0 setup process via the `influxd upgrade` command.
 (This provides you with the opportunity to re-assess who should be granted admin level access as a part of your InfluxDB 2.0 setup.)
 
 ### Dashboards
 
 You can continue to use your existing dashboard/visualization tools with InfluxDB 2.0 via the [1.x read compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-[DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) are created as part of the upgrade process to ensure existing users can execute queries with the appropriate permissions.
+[DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) are created as part of the upgrade process to ensure existing users can execute InfluxQL queries with the appropriate permissions.
 Reconfigure your data sources to point to your new InfluxDB 2.0 OSS instance with the appropriate security credentials.
 
 However, if your dashboard tool is configured using a user with admin permissions,
@@ -179,7 +181,8 @@ cp -R .influxdb/ .influxdb_bak/
    Confirm? (y/n): y
    ```
 
-The output of the upgrade is saved in the current directory to a file called `upgrade.log`.
+The output of the upgrade is printed to standard output.
+It is also saved (for troubleshooting and debugging) in the current directory to a file called `upgrade.log` located in the home directory of the user running `influxdb upgrade`.
 
 ## Further reading
 
