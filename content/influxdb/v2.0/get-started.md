@@ -245,12 +245,20 @@ influxd --reporting-disabled
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0
 
+{{% note %}}
+#### Upgrading from InfluxDB 1.x
+
+We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
+If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current upgrade process is undefined.
+
+{{% /note %}}
+
 Use `docker run` to download and run the InfluxDB v2.0 Docker image.
 Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.1
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -265,7 +273,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.1-rc --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.1 --reporting-disabled
 ```
 {{% /note %}}
 
