@@ -23,7 +23,7 @@ spec:
                 app: influxdb
         spec:
             containers:
-              - image: quay.io/influxdb/influxdb:2.0.0-rc
+              - image: quay.io/influxdb/influxdb:v2.0.1
                 name: influxdb
                 ports:
                   - containerPort: 8086
