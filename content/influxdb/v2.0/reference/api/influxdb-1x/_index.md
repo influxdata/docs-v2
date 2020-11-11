@@ -1,7 +1,8 @@
 ---
 title: InfluxDB 1.x compatibility API
 description: >
-  placeholder
+  The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
+  InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 menu:
   influxdb_2_0_ref:
     name: 1.x compatibility
@@ -14,6 +15,8 @@ related:
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
 InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
+
+<a class="btn" href="/influxdb/v2.0/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
 InfluxDB 2.0 requires all query and write requests to be authenticated.
@@ -61,7 +64,7 @@ Authorization: Token mYSuP3rs3cREtT0k3N
 The compatibility API supports InfluxQL, with the following caveats:
 
 - The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
-- With the exception of [`DELETE`](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete) and 
+- With the exception of [`DELETE`](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete) and
   [`DROP MEASUREMENT`](/influxdb/v1.8/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
   InfluxQL database management commands are not supported.
 

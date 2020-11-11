@@ -25,11 +25,6 @@ UI and export the resources as a template.
 Templatable resources are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
-
-**InfluxDB OSS** supports multiple organizations so you can create new organizations
-for the sole purpose of building and maintaining a template.
-In **InfluxDB Cloud**, your user account is an organization.
-**We recommend using InfluxDB OSS to create InfluxDB templates.**
 {{% /note %}}
 
 **To create a template:**

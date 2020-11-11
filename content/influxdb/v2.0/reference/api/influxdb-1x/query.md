@@ -2,7 +2,7 @@
 title: /query 1.x compatibility API
 list_title: /query
 description: >
-  The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
+  The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 2.0 using **InfluxQL**.
 menu:
   influxdb_2_0_ref:
     name: /query
@@ -17,7 +17,7 @@ related:
   - /influxdb/v2.0/query-data/influxql
 ---
 
-The `/query` 1.x compatibility endpoint queries InfluxDB 2.0 using **InfluxQL**.
+The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
@@ -25,12 +25,12 @@ Use the `GET` request method to query data from the `/query` endpoint.
 </pre>
 
 The `/query` compatibility endpoint use the **database** and **retention policy**
-specified in the query request to map the request to an InfluxDB 2.0 bucket.
+specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp).
 
 {{% note %}}
 If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/#manually-create-and-manage-dbrp-mappings)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
@@ -46,12 +46,12 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 
 ### db
 <span class="req">Required</span> – The **database** to query data from.
-This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to query data from.
-This is mapped to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### q

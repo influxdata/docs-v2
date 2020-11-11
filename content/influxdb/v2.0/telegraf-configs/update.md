@@ -81,7 +81,7 @@ influx telegrafs update \
 2. Click the **name** of the Telegraf configuration to customize.
 3. Click **Download Config** to download the Telegraf configuration file to your
    local machine.
-4. Add or update [Telegraf plugin](/influxdb/v2.0/reference/telegraf-plugins) settings and
+4. Add or update [Telegraf plugin](/{{< latest "telegraf" >}}/plugins/) settings and
    save your changes.
 5. [Use the `influx telegrafs update` command](#use-the-influx-cli) to upload your
    modified Telegraf configuration to InfluxDB and replace the existing configuration.
