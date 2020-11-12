@@ -1,7 +1,9 @@
 ---
-title: Migrate continuous queries from InfluxDB 1.x to 2.0
+title: Migrate InfluxDB 1.x continuous queries to 2.0 tasks
 description: >
-  Upgrade from InfluxDB 1.x to InfluxDB 2.0.
+  InfluxDB OSS 2.0 replaces 1.x continuous queries (CQs) with **InfluxDB tasks**.
+  To migrate continuous queries to InfluxDB 2.0, convert InfluxDB 1.x CQs into Flux and create new
+  InfluxDB 2.0 tasks.
 menu:
   influxdb_2_0:
     parent: InfluxDB 1.x to 2.0
@@ -31,7 +33,7 @@ To output and save all continuous queries that exist in your InfluxDB 1.x instan
     > show continuous queries
     ```
 
-2. Copy and save all output continuous queries to your local machine.
+2. Copy and save the displayed continuous queries.
 
 ## Convert continuous queries to Flux queries
 
@@ -64,61 +66,13 @@ from(bucket: "my-db/")
   )
 ```
 
-### influx transpile command
-The InfluxDB 2.0 [`influx transpile`](/influxdb/v2.0/reference/cli/influx/transpile/)
-command transpiles InfluxQL into Flux and can be useful when converting continuous
-queries into Flux tasks.
-
-{{% note %}}
-The InfluxQL to Flux transpiler is in active development and is considered experimental.
-Transpiled queries may not be optimized for performance and may not fully replicate
-the behavior of the provided InfluxQL query.
-{{% /note %}}
-
-#### Modify your continuous query to work with the transpiler
-To transpile a continuous query to Flux, you must modify the InfluxQL:
-
-1. Move the database and retention policy into the `FROM` clause.
-2. Remove the continuous query-specific statements and clauses (`CREATE CONTINUOUS QUERY`, `ON`, `BEGIN`, `END`)
-3. Remove `INTO` clauses. The Flux transpiler only supports read operations,
-   but writing to InfluxDB 2.0 is achieved with the Flux [`to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/),
-   which you should add after you transpile the query.
-
-##### Example continuous query
-```sql
-CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
-BEGIN
-  SELECT mean("example-field")
-  INTO "average-example-measurement"
-  FROM "example-measurement"
-  GROUP BY time(1h)
-END
-```
-
-##### Modified to work with the influx transpile command
-```sql
-SELECT mean("example-field")
-FROM "my-db".."example-measurement"
-GROUP BY time(1h)
-```
-
-#### Transpile the modified query
-Use the `influx transpile` command to transpile your modified InfluxQL into Flux.
-
-```sh
-influx transpile '
-  SELECT mean("exampleField")
-  FROM "mydb".."exampleMeasurement"
-  GROUP BY time(1h)
-'
-```
-
 ## Create new InfluxDB tasks
 After converting your continuous query to Flux, use the Flux query to
 [create a new task](/influxdb/v2.0/process-data/manage-tasks/create-task/).
 
 ## Other helpful resources
-The following resources are also available to help convert InfluxQL queries to Flux.
+The following resources are available and may be helpful when converting
+continuous queries to Flux tasks.
 
 ##### Documentation
 - [Get started with Flux](/influxdb/v2.0/query-data/get-started/)

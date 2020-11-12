@@ -14,14 +14,6 @@ aliases:
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB 2.0.
 
-{{% note %}}
-#### Docker users
-
-We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
-If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current process is undefined.
-
-{{% /note %}}
-
 Specifically, the upgrade process does the following:
 
 1. Reads the existing InfluxDB 1.x configuration file and generates an equivalent InfluxDB 2.0 configuration file at `~/.influxdbv2/config.toml`.
@@ -68,7 +60,7 @@ We are working on the upgrade process for InfluxDB Docker containers.
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
 To convert continuous queries to InfluxDB tasks, see
-[Migrate continuous queries from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
+[Migrate InfluxDB 1.x continuous queries to 2.0 tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 
 ### Supported protocols
 
