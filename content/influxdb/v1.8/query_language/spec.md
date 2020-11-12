@@ -6,6 +6,8 @@ menu:
     name: InfluxQL reference
     weight: 90
     parent: InfluxQL
+aliases:
+  - /influxdb/v2.0/query_language/spec/
 ---
 
 ## Introduction
