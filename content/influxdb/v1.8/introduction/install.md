@@ -76,7 +76,7 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 
 {{% code-tab-content %}}
 ```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -100,7 +100,7 @@ echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo 
 
 {{% code-tab-content %}}
 ```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -233,7 +233,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.

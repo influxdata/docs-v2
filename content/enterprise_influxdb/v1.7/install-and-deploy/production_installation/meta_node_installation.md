@@ -109,7 +109,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
