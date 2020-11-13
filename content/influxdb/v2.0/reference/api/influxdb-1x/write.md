@@ -12,7 +12,7 @@ weight: 301
 influxdb/v2.0/tags: [write]
 list_code_example: |
   <pre>
-  <span class="api post">POST</span> https://cloud2.influxdata.com/write
+  <span class="api post">POST</span> http://localhost:8086/write
   </pre>
 related:
   - /influxdb/v2.0/reference/syntax/line-protocol
@@ -24,7 +24,7 @@ Use the `POST` request method to write [line protocol](/influxdb/v2.0/reference/
 to the `/write` endpoint.
 
 <pre>
-<span class="api post">POST</span> https://cloud2.influxdata.com/write
+<span class="api post">POST</span> http://localhost:8086/write
 </pre>
 
 ## Authentication
