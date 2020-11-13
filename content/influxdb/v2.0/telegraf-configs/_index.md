@@ -1,8 +1,8 @@
 ---
 title: Telegraf configurations
 description: >
-  InfluxDB lets you automatically generate Telegraf configurations or upload customized
-  Telegraf configurations that collect metrics and write them to InfluxDB.
+  InfluxDB OSS lets you automatically generate Telegraf configurations or upload customized
+  Telegraf configurations that collect metrics and write them to InfluxDB OSS.
 weight: 12
 menu: influxdb_2_0
 influxdb/v2.0/tags: [telegraf]
