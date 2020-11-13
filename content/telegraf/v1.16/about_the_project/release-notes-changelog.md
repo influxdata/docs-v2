@@ -14,9 +14,9 @@ menu:
 
 - CSV Parser (`csv`): Fix parsing multiple CSV files with different headers.
 - DC/OS (`dcos`): Fix high-severity vulnerability in previous version of the `jwt-go` library.
-- gNMI (`gnmi`): Add support for bytes encoding for gNMI messages
+- gNMI (`gnmi`): Add support for bytes encoding for gNMI messages.
 - Proxmox ( `proxmox`):
-  - Fix a few issues with error reporting
+  - Fix a few issues with error reporting.
   - Now ignores QEMU templates.
 - RAS (`ras`): Fix tests failing on some systems.
 - Redfish (`redfish`): Fix a parsing issue.
