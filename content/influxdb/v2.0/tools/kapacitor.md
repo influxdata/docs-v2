@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     name: Use Kapacitor
     parent: Tools & integrations
-weight: 104
+weight: 102
 related:
   - /{{< latest "kapacitor" >}}/
 ---
@@ -23,11 +23,18 @@ Because Kapacitor interacts with InfluxDB Cloud and InfluxDB OSS 2.0 using the
 you can continue using Kapacitor without having to migrate libraries of
 TICKscripts to InfluxDB tasks.
 
-#### Important notes to consider
-- InfluxDB Cloud and InfluxDB OSS 2.0 do not have subscription APIs and
-  **do not support Kapacitor stream tasks**, but you can continue to use stream
-  tasks by writing data directly to Kapacitor.
-  For more information, see [below](#).
+{{% note %}}
+#### Support for stream tasks
+InfluxDB Cloud and InfluxDB OSS 2.0 do not have subscription APIs and
+**do not support Kapacitor stream tasks**, but you can continue to use stream
+tasks by writing data directly to Kapacitor.
+For more information, see [below](#use-kapacitor-stream-tasks).
+{{% /note %}}
+
+#### On this page
+- [Configure Kapacitor to connect to InfluxDB](#configure-kapacitor-to-connect-to-influxdb)
+- [Use Kapacitor stream tasks](#use-kapacitor-stream-tasks)
+- [Write back to InfluxDB](#write-back-to-influxdb)
 
 ## Configure Kapacitor to connect to InfluxDB
 To connect Kapacitor to InfluxDB Cloud or InfluxDB OSS 2.0, update the `[[influxdb]]`
@@ -78,15 +85,13 @@ Set the `[[influxdb]].disable-subscriptions`to `false` to disable InfluxDB subsc
   disable-subscriptions = true
 ```
 
-## Kapacitor batch tasks
-Kapacitor Batch-style TICKscripts work with the 1.x read compatible API.
-
 ## Use Kapacitor stream tasks
 InfluxDB Cloud and OSS 2.0 do not have subsription APIs and do not support Kapacitor stream tasks directly.
 To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `/write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
 
 We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
 to write data to both InfluxDB Cloud or OSS and Kapacitor.
+The following example Telegraf configuration writes data to both InfluxDB and Kapacitor:
 
 ##### Example Telegraf configuration
 ```toml
@@ -106,15 +111,23 @@ to write data to both InfluxDB Cloud or OSS and Kapacitor.
 ```
 
 ## Write back to InfluxDB
-The `InfluxDBOut` Node. The following writes to the `my-db/my-rp` bucket in InfluxDB Cloud or InfluxDB 2.0.
-    ```js
-    batch
-      |query('SELECT errors / total AS error_percent from requests')
-      // Write the transformed data to InfluxDB
-      |influxDBOut()
-        .database('my-db')
-        .retentionPolicy('my-rp')
-        .measurement('errors')
-        .tag('kapacitor', 'true')
-        .tag('version', '0.2')
-    ```
+If using the Kapacitor `InfluxDBOut` node to write data to InfluxDB Cloud or OSS 2.0,
+InfluxDB maps the specified database and retention policy to a corresponding bucket.
+You can also manually map database/retention policy combinations (DBRPs) to buckets.
+For more information, see [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)
+and [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets).
+
+The following example TICKscript writes to the `my-db/my-rp` bucket in
+InfluxDB Cloud or InfluxDB OSS 2.0.
+
+```js
+batch
+  |query('SELECT errors / total AS error_percent from requests')
+  // Write the transformed data to InfluxDB
+  |influxDBOut()
+    .database('my-db')
+    .retentionPolicy('my-rp')
+    .measurement('errors')
+    .tag('kapacitor', 'true')
+    .tag('version', '0.2')
+```

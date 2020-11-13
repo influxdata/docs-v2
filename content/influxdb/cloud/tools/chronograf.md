@@ -6,7 +6,7 @@ menu:
   influxdb_cloud:
     name: Use Chronograf
     parent: Tools & integrations
-weight: 104
+weight: 103
 related:
   - /{{< latest "chronograf" >}}/
 ---

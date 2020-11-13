@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_cloud:
     parent: Tools & integrations
-weight: 102
+weight: 104
 influxdb/cloud/tags: [google]
 ---
 

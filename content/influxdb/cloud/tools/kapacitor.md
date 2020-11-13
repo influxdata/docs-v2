@@ -8,7 +8,7 @@ menu:
   influxdb_cloud:
     name: Use Kapacitor
     parent: Tools & integrations
-weight: 104
+weight: 102
 related:
   - /{{< latest "kapacitor" >}}/
 ---
