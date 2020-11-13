@@ -8,6 +8,30 @@ menu:
     parent: About the project
 ---
 
+## v1.16.2 [2020-11-13]
+
+### Input plugin updates
+
+- CSV Parser (`csv`): Fix parsing multiple CSV files with different headers.
+- DC/OS (`dcos`): Fix high-severity vulnerability in previous version of the `jwt-go` library.
+- gNMI (`gnmi`): Add support for bytes encoding for gNMI messages.
+- Proxmox ( `proxmox`):
+  - Fix a few issues with error reporting.
+  - Now ignores QEMU templates.
+- RAS (`ras`): Fix tests failing on some systems.
+- Redfish (`redfish`): Fix a parsing issue.
+- SMART (`smart`): Fix an issue to recognize all devices from the configuration.
+- SQL Server (`sqlserver`): Fix an issue with errors in on-premise instance queries.
+- Systemd Units (`systemd_units`): Add `--plain` to the command invocation to fix an issue for reporting errors for units not found.
+- vSphere (`vsphere`)
+  - Fix to how metrics were counted.
+  - Fix to metrics being skipped under in certain specific circumstances.
+
+### Output plugin updates
+
+- Dynatrace (`dynatrace`): Fix pushing metrics to separate Dynatrace environments.
+- Wavefront (`wavefront`): Add `immediate_flush` tag.
+
 ## v1.16.1 [2020-10-28]
 
 ### Input plugin updates
