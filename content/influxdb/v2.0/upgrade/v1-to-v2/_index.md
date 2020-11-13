@@ -19,7 +19,6 @@ The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB
 
 We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
 If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current process is undefined.
-
 {{% /note %}}
 
 Specifically, the upgrade process does the following:
@@ -59,33 +58,10 @@ InfluxDB 2.0 is currently available for macOS and Linux.
 Docker images, ARM builds, and Windows builds are not currently available,
 but are planned for subsequent releases.
 
-{{% note %}}
-#### Hold off if using Docker
-If you're running InfluxDB 1.8 in Docker, don't upgrade to InfluxDB 2.0 yet.
-We are working on the upgrade process for InfluxDB Docker containers.
-{{% /note %}}
-
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
-To convert continuous queries to InfluxDB tasks:
-
-1. Use the InfluxDB 1.x `influx` interactive shell and run `show continuous queries`:
-
-    ```sh
-    $ influx
-    Connected to http://localhost:8086 version 1.8.3
-    InfluxDB shell version: 1.8.3
-    > show continuous queries
-    ```
-
-2. Save the continuous queries and convert them to Flux. For help converting InfluxQL to Flux, use the following resources:
-
-    - [Get started with InfluxDB tasks](/influxdb/v2.0/process-data/get-started/)
-    - [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
-    - [Common tasks](/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
-    - [`influx transpile`](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/transpile/) (transpiles InfluxQL into Flux)
-    - Post in the [InfluxData Community](https://community.influxdata.com/)
-    - Ask in the [InfluxDB Community Slack](https://influxdata.com/slack)
+To convert continuous queries to InfluxDB tasks, see
+[Migrate InfluxDB 1.x continuous queries to 2.0 tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 
 ### Supported protocols
 
