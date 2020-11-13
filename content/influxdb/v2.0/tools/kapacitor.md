@@ -15,13 +15,10 @@ related:
 
 [Kapacitor](/{{< latest "kapacitor" >}}/) is a data processing framework that makes
 it easy to create alerts, run ETL jobs and detect anomalies.
-Use Kapacitor with **InfluxDB Cloud** and **InfluxDB OSS 2.0** to offload much of
-data processing burden to Kapacitor.
-
-Because Kapacitor interacts with InfluxDB Cloud and InfluxDB OSS 2.0 using the
-[InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/),
-you can continue using Kapacitor without having to migrate libraries of
-TICKscripts to InfluxDB tasks.
+Kapacitor interacts with **InfluxDB Cloud** and **InfluxDB OSS 2.0** using the
+[InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/), so
+you can continue using Kapacitor without having to migrate libraries of TICKscripts
+to InfluxDB tasks.
 
 {{% note %}}
 #### Support for stream tasks
