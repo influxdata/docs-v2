@@ -1,5 +1,5 @@
 ---
-title: Migrate InfluxDB 1.x continuous queries to 2.0 tasks
+title: Migrate continuous queries to tasks
 description: >
   InfluxDB OSS 2.0 replaces 1.x continuous queries (CQs) with **InfluxDB tasks**.
   To migrate continuous queries to InfluxDB 2.0, convert InfluxDB 1.x CQs into Flux and create new
@@ -12,8 +12,7 @@ weight: 101
 ---
 
 InfluxDB OSS 2.0 replaces 1.x continuous queries (CQs) with **InfluxDB tasks**.
-To migrate continuous queries to InfluxDB 2.0, convert InfluxDB 1.x CQs into Flux and create new
-InfluxDB 2.0 tasks.
+To migrate continuous queries to InfluxDB 2.0 tasks, do the following:
 
 1. [Output all InfluxDB 1.x continuous queries](#output-all-influxdb-1x-continuous-queries)
 2. [Convert continuous queries to Flux queries](#convert-continuous-queries-to-flux-queries)
@@ -21,7 +20,8 @@ InfluxDB 2.0 tasks.
 
 ## Output all InfluxDB 1.x continuous queries
 
-To output and save all continuous queries that exist in your InfluxDB 1.x instance:
+To output and save all continuous queries that exist in your InfluxDB 1.x instance,
+do the following:
 
 1. Use the InfluxDB 1.x `influx` interactive shell to run `show continuous queries`:
 
@@ -60,9 +60,10 @@ from(bucket: "my-db/")
   |> filter(fn: (r) => r._measurement == "example-measurement")
   |> filter(fn: (r) => r._field == "example-field")
   |> aggregateWindow(every: 1h, fn: mean)
+  |> set(key: "_measurement", as: "average-example-measurement")
   |> to(
     org: "example-org",
-    bucket: "my-db/downsampled-daily"
+    bucket: "my-db/downsample-daily"
   )
 ```
 
