@@ -9,8 +9,9 @@
 {{ $v2EquivalentURL := replaceRE `v[1-2]\.[0-9]{1,2}` $latestV2 .Page.Params.v2 }}
 {{ $v2EquivalentPage := .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}
 {{ $v2PageExists := gt (len $v2EquivalentPage.Title) 0 }}
+{{ $isCloud := in .Page.RelPermalink "/influxdb/cloud/"}}
 
-{{ if lt $currentVersion $stableVersion }}
+{{ if and (lt $currentVersion $stableVersion) (not $isCloud) }}
   <div class="warn block old-version">
     <p>
       This page documents an earlier version of {{ $productName }}.

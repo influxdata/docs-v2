@@ -51,10 +51,16 @@
       right: 0;
     }
 
+    .actions {
+      display: flex;
+      margin: 1.25rem 0 .75rem 0;
+    }
+
     a.btn {
       position: relative;
       display: inline-block;
-      margin: .5rem .25rem .75rem 0;
+      flex: 1 0;
+      margin: 0 .5rem .5rem 0;
       padding: 1.25rem 2.25rem;
       color: $article-btn-text !important;
       border-radius: $radius;
@@ -292,6 +298,7 @@
         padding-bottom: 2rem;
         h2 { font-size: 2rem; margin-top: .5rem; }
         p { font-size: 1rem; line-height: 1.5rem; }
+        .actions { flex-direction: column; }
       }
       &.search {
         order: 1;

@@ -20,7 +20,7 @@ Complete the following steps to deploy an InfluxDB Enterprise cluster on Google 
 
 After deploying your cluster, see [Getting started with InfluxDB](/platform/introduction/getting-started) for an introduction to InfluxDB database and the InfluxData platform.
 
->**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud 2.0](//influxdb/v2.0/cloud/get-started/).
+>**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud](/influxdb/cloud/get-started/).
 
 ## Verify prerequisites
 

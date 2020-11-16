@@ -19,17 +19,16 @@ related:
   - /influxdb/v2.0/reference/cli/influx/write
 ---
 
-Discover what you'll need to write data into InfluxDB Cloud or OSS (open source). Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
+Discover what you'll need to write data into InfluxDB OSS (open source). Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
 
-- [What you'll need](#what-you-ll-need)
+- [What you'll need](#what-youll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
-  - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
   - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
+  - [Sample data](#sample-data)
 - [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
 - [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
 - [Use developer tools](/influxdb/v2.0/write-data/developer-tools)
 - [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
-- [Migrate historical data](/influxdb/v2.0/write-data/bulk-ingest-cloud/)
 - [Next steps](#next-steps)
 
 ### What you'll need
@@ -83,63 +82,8 @@ and [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
 
 Familiarize yourself with querying, visualizing, and processing data in InfluxDB Cloud and InfluxDB OSS by collecting data right away. The following options are available:
 
-- [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
 - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
-
-
-## Demo data for InfluxDB Cloud
-Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
-types of demo data that let you explore and familiarize yourself with InfluxDB Cloud.
-
-{{< youtube GSaByPC1Bdc >}}
-
-- [Add a demo data bucket](#add-a-demo-data-bucket)
-- [Explore demo data](#explore-demo-data)
-- [View demo data dashboards](#view-demo-data-dashboards)
-
-{{% note %}}
-#### Free to use and read-only
-- InfluxDB Cloud demo data buckets are **free to use** and are **_not_ subject to
-  [Free Plan](/influxdb/v2.0/account-management/pricing-plans/#free-plan) rate limits**.
-- Demo data buckets are **read-only**. You cannot write data into demo data buckets.
-{{% /note %}}
-
-## Demo data sets
-Choose from the following demo data sets:
-
-- **Website Monitoring**  
-  Explore, visualize, and monitor HTTP response metrics from InfluxData websites.
-
-
-## Add a demo data bucket
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
-
-    {{< nav-icon "data" >}}
-
-2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the demo data bucket to add.
-3.  The Demo Data bucket appears in your list of buckets.
-
-## Explore demo data
-Use the [Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/)
-to query and visualize data in demo data buckets.
-
-In the navigation menu on the left, click **Explore (Data Explorer)**.
-
-{{< nav-icon "explore" >}}
-
-## View demo data dashboards
-After adding a demo data bucket, view the pre-built dashboard specific to the demo data set:
-
-1. In the navigation menu on the left, click **Boards (Dashboards)**.
-
-    {{< nav-icon "dashboards" >}}
-
-2. Click the name of the dashboard that corresponds to your demo data bucket.
-
-{{% note %}}
-#### Other sample data sets
-See [Sample data](/influxdb/v2.0/reference/sample-data) for more sample InfluxDB data sets.
-{{% /note %}}
+- [Sample data](#sample-data)
 
 ## Quick Start for InfluxDB OSS
 
@@ -165,6 +109,10 @@ Quick Start is only available in the last step of the setup process.
 If you missed the Quick Start option, you can [manually create a scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)
 that scrapes data from the `/metrics` endpoint.
 {{% /note %}}
+
+## Sample data
+Use [sample data sets](/influxdb/v2.0/reference/sample-data/) to quickly populate
+InfluxDB with sample time series data.
 
 ---
 

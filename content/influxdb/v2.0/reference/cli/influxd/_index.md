@@ -32,7 +32,6 @@ For information about other available InfluxDB configuration methods, see
 |:----------------------------------------------------------|:-------------------------------------------------|
 | [generate](/influxdb/v2.0/reference/cli/influxd/generate) | Generate time series data sets using TOML schema |
 | [inspect](/influxdb/v2.0/reference/cli/influxd/inspect)   | Inspect on-disk database data                    |
-| [restore](/influxdb/v2.0/reference/cli/influxd/restore)   | Restore data and metadata from a backup file set |
 | [run](/influxdb/v2.0/reference/cli/influxd/run)           | Start the influxd server _**(default)**_         |
 | [upgrade](/influxdb/v2.0/reference/cli/influxd/upgrade)   | Upgrade a 1.x version of InfluxDB to 2.0         |
 | [version](/influxdb/v2.0/reference/cli/influxd/version)   | Output the current version of InfluxDB           |

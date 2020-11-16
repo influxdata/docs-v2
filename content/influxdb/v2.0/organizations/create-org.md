@@ -13,11 +13,6 @@ products: [oss]
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create an organization.
 
-{{% cloud %}}
-You cannot currently create additional organizations in {{< cloud-name >}}.
-Only the default organization is available.
-{{% /cloud %}}
-
 ## Create an organization in the InfluxDB UI
 
 1. In the navigation menu on the left, click the **Account dropdown**.

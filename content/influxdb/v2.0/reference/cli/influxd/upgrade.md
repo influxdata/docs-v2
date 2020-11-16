@@ -23,8 +23,6 @@ This command performs the following actions:
    Unsupported 1.x options are reported to standard output.
    If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
 2. Copies and upgrades 1.x database files.
-3. Creates a script that creates tokens for 1.x users.
-   This script needs to be revised and run manually after starting 2.x.
 
 The target 2.x database directory is specified by the `--engine-path` option.
 If changed, the bolt path can be specified by the `--bolt-path` option.
@@ -47,11 +45,11 @@ influxd upgrade [command]
 | `-f` | `--force`               | Skip the confirmation prompt                                                                               |            |
 | `-h` | `--help`                | Help for `influxd upgrade`                                                                                 |            |
 |      | `--influx-command-path` | Path to influx command (default `~/go/bin/influx`)                                                         | string     |
+|      | `--log-level`           | Supported log levels are `debug`, `info`, `warn`, and `error` (default `info`)                             | string     |
 |      | `--log-path`            | (Optional) Custom log file path (default `~/upgrade.log`)                                                  | string     |
 | `-o` | `--org`                 | Primary organization name                                                                                  | string     |
 | `-p` | `--password`            | Password for username                                                                                      | string     |
 | `-r` | `--retention`           | (Optional) Duration bucket will retain data (default `0`; retains data infinitely)                         | string     |
-|      | `--security-script`     | (Optional) Generated security upgrade script path (default `~/influxd-upgrade-security.sh`)                | string     |
 | `-t` | `--token`               | (Optional) Token for username. If not specified, a token is auto-generated.                                | string     |
 | `-u` | `--username`            | Primary username                                                                                           | string     |
 |      | `--v1-dir`              | Path to source 1.x `db` directory containing `meta`, `data`, and `wal` sub-folders (default `~/.influxdb`) | string     |

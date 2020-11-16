@@ -17,6 +17,9 @@ cloud:
         - name: US West (Oregon)
           location: Oregon, USA
           url: https://us-west-2-1.aws.cloud2.influxdata.com
+        - name: US East (Virginia)
+          location: Virginia, USA
+          url: https://us-east-1-1.aws.cloud2.influxdata.com
         - name: EU Frankfurt
           location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com

@@ -17,10 +17,11 @@
 {{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
 
 {{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
+
 <!-- Override canonical URL with 'canonical' frontmatter, support latest shortcode -->
 {{ if .Page.Params.canonical }}
+  <!-- Support the latest shortcode in canonical overrides -->
   {{ if in .Page.Params.canonical "{{< latest" }}
-
 
     {{ $product := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 0) }}
     {{ $majorVersion := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 1) }}
@@ -40,6 +41,15 @@
     {{ $scratch.Set "canonicalURL" (print $baseURL $replaceLatest) }}
   {{ else }}
     {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
+  {{ end }}
+<!-- InfluxDB OSS 2.0 vs Cloud canonical -->
+<!-- If corresponding cloud page exists and uses duplicate-oss shortcode, set cloud to canonical -->
+{{ else if and (eq $product "influxdb") (eq $currentVersion $latestVersion) }}
+  {{ $correspondingPage := replaceRE `v2\.[0-9]{1,2}` "cloud" (print .Page.File) }}
+  {{ if fileExists $correspondingPage}}
+    {{ if (.Site.GetPage $correspondingPage).HasShortcode "duplicate-oss" }}
+      {{ $scratch.Set "canonicalURL" (print $baseURL (.Site.GetPage $correspondingPage).RelPermalink) }}
+    {{ end }}
   {{ end }}
 {{ else if ge (len (findRE "[^/]+.*?" .RelPermalink)) 2 }}
   {{ $scratch.Set "canonicalURL" (print $baseURL (replaceRE `v[0-9]\.[0-9]{1,2}` $latestMinorVersion .RelPermalink)) }}

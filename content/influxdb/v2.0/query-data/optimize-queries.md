@@ -26,11 +26,11 @@ reduce the amount of memory necessary to run a query.
 #### Pushdown functions
 - [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
 - [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
-- [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+<!-- - [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
 - [count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
 - [sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
 - [first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
-- [last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/)
+- [last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) -->
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
@@ -41,10 +41,10 @@ subsequent operations there.
 from(bucket: "example-bucket")
   |> range(start: -1h)                       //
   |> filter(fn: (r) => r.sensor == "abc123") // Pushed to the data source
-  |> group(columns: ["_field", "host"])      //
 
-  |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     // Run in memory
+  |> group(columns: ["_field", "host"])      //
+  |> aggregateWindow(every: 5m, fn: max)     // Run in memory
+  |> filter(fn: (r) => r._value >= 90.0)     //
   |> top(n: 10)                              //
 ```
 

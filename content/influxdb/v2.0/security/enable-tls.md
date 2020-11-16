@@ -16,14 +16,14 @@ When configured with a signed certificate, TLS also allows clients to verify the
 
 To set up TLS over HTTPS, do the following:
 
-- [Obtain requirements](#requirements)
+- [Obtain requirements](#obtain-requirements)
 - [Configure InfluxDB to use TLS](#configure-influxdb-to-use-tls)
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
 {{% /warn %}}
 
-## Requirements
+## Obtain requirements
 
 To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate, also known as a Secured Sockets Layer (SSL) certificate.
 InfluxDB supports three types of TLS certificates:

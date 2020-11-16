@@ -1,4 +1,5 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $latestV2 := cond (isset .Site.Data.products.influxdb "latest_override") .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
 {{ .Scratch.Set "product" (index $productPathData 0) }}
 {{ if in (.Scratch.Get "product") "influxdb" }}
   {{ .Scratch.Set "product" "influxdb" }}
@@ -10,6 +11,9 @@
 
 {{ if .File }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
+  {{ if .Page.HasShortcode "duplicate-oss" }}
+    {{ .Scratch.Set "pageGithubLink" (replaceRE "/cloud/" (print "/" $latestV2 "/") (.Scratch.Get "pageGithubLink")) }}
+  {{ end }}
 {{ else }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
 {{ end }}

@@ -19,12 +19,12 @@ influx backup [flags]
 ```
 
 ## Flags
-| Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}   |
-|:---- |:---               |:-----------                                                           |:----------:|:------------------   |
-| `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                      |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     |`INFLUX_CONFIGS_PATH` |
-| `-h` | `--help`          | Help for the `backup` command                                         |            |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
-| `-p` | `--path`          | Directory path to write backup files to                               | string     | `INFLUX_PATH`        |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
-| `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
+| Flag |                   | Description                                                 | Input type | {{< cli/mapped >}} |
+|------|-------------------|-------------------------------------------------------------|------------|--------------------|
+| `-c` | `--active-config` | CLI configuration to use for command                        | string     |                    |
+|      | `--bucket-id`     | ID of the bucket to back up from                            | string     |                    |
+| `-b` | `--bucket`        | Name of the bucket to back up from                          | string     |                    |
+| `-h` | `--help`          | Help for the `backup` command                               |            |                    |
+|      | `--host`          | HTTP address of InfluxDB (default: `http://localhost:8086`) | string     | `INFLUX_HOST`      |
+|      | `--skip-verify`   | Skip TLS certificate verification                           | string     |                    |
+| `-t` | `--token`         | Authentication token                                        | string     | `INFLUX_TOKEN`     |

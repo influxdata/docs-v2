@@ -3,7 +3,7 @@
 const path = require('path');
 
 const latestVersions = {
-  'influxdb': 'v1.8',
+  'influxdb': 'v2.0',
   'influxdbv2': 'v2.0',
   'telegraf': 'v1.16',
   'chronograf': 'v1.8',
@@ -76,6 +76,9 @@ exports.handler = (event, context, callback) => {
       '.md5': true,
       '.sha256': true,
     };
+
+  // Remove multiple slashes from path
+  permanantRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
 
   // Remove index.html from path
   permanantRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));

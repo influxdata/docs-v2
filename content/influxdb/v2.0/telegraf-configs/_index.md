@@ -1,7 +1,8 @@
 ---
 title: Telegraf configurations
 description: >
-  placeholder
+  InfluxDB lets you automatically generate Telegraf configurations or upload customized
+  Telegraf configurations that collect metrics and write them to InfluxDB.
 weight: 12
 menu: influxdb_2_0
 influxdb/v2.0/tags: [telegraf]

@@ -1,53 +1,99 @@
-{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 0 | default "v2.0" }}
+{{ $latestInfluxDBVersion := cond (isset .Site.Data.products.influxdb "latest_override" ) .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ $OSSLink := print "/influxdb/" $latestInfluxDBVersion "/reference/urls/ "}}
+{{ $CloudLink := "/influxdb/cloud/reference/regions/" }}
+{{ $isInfluxDB := cond (in .RelPermalink "/influxdb/") true false }}
+{{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
+{{ $isCloud := cond (in .RelPermalink "/influxdb/cloud/") true false }}
+
+{{ .Scratch.Set "modalTitle" "Where are you running InfluxDB?" }}
+{{ if $isOSS }}
+  {{ .Scratch.Set "modalTitle" "What is your InfluxDB OSS URL?"}}
+{{ else if $isCloud }}
+  {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud region" }}
+{{ end }}
+
+{{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** or your **InfluxDB OSS URL** and we'll customize code examples for you." }}
+{{ if $isOSS }}
+  {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB OSS URL** and we'll update code examples for you." }}
+{{ else if $isCloud }}
+  {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** and we'll customize code examples for you." }}
+{{ end }}
+
+{{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ") or [InfluxDB OSS URLs](" $OSSLink ")") }}
+{{ if $isOSS }}
+  {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB OSS URLs](" $OSSLink ")") }}
+{{ else if $isCloud }}
+  {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ")") }}
+{{ end }}
+
+{{ $modalTitle := .Scratch.Get "modalTitle" }}
+{{ $modalMessage := .Scratch.Get "modalMessage" }}
+{{ $modalRefLinks := .Scratch.Get "modalRefLinks" }}
+
+{{ define "productSection" }}
+  {{ $p := .product }}
+  {{ $formID := .formID }}
+  {{ $initialState := .initialState | default "" }}
+  <div class="product {{ $initialState }}" id="{{ $formID }}-urls">
+    <div class="providers">
+      {{ range $p.providers }}
+        <div class="provider">
+          {{ if eq .name "Custom" }}
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="{{ anchorize .name }}">
+                  <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="{{ .url }}">
+                </form>
+              </li>
+            </ul>
+          {{ else }}
+            <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
+            <ul>
+            {{ range .regions }}
+              <li>
+                <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
+                  <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                  <span class="radio"></span>
+                  {{ .name }}
+                </label>
+              </li>
+            {{ end }}
+          {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+
 <div class="modal">
   <div class="modal-overlay"></div>
   <div class="modal-wrapper">
     <div id="influxdb-url-list" class="modal-body">
       <a id="modal-close"href="#"><span class="icon-remove"></span></a>
       <div class="modal-content">
-        <h3>Where are you running InfluxDB?</h3>
-        <p>Select where you're using <strong>InfluxDB Cloud</strong> or <strong>InfluxDB OSS</strong> and we'll customize code examples with your <strong>InfluxDB URL</strong>.</p>
+        <h3>{{ $modalTitle }}</h3>
+        <p>{{ $modalMessage | markdownify }}</p>
         <div class="products">
-          {{ range sort .Site.Data.influxdb_urls "product" "desc" }}
-            <div class="product">
-              <h4>{{ .product }}</h4>
-              <div class="providers">
-                {{ range .providers }}
-                  <div class="provider">
-                    {{ if eq .name "Custom" }}
-                      <h5>Custom</h5>
-                      <ul>
-                        <li class="custom">
-                          <label for="{{ anchorize .name }}">
-                            <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
-                            <span class="radio"></span>
-                          </label>
-                          <form action="#" id="custom-url">
-                            <input type="text" name="custom-url-field" id="custom-url-field" placeholder="{{ .url }}">
-                          </form>
-                        </li>
-                      </ul>
-                    {{ else }}
-                      <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
-                      <ul>
-                      {{ range .regions }}
-                        <li>
-                          <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
-                            <input type="radio" name="influxdb-loc" id="{{ anchorize .name }}" value="{{ .url }}" checked>
-                            <span class="radio"></span>
-                            {{ .name }}
-                          </label>
-                        </li>
-                      {{ end }}
-                    {{ end }}
-                    </ul>
-                  </div>
-                {{ end }}
-              </div>
-            </div>
+          {{ if not $isInfluxDB }}
+            <ul id="pref-tabs">
+              <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+              <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+            </ul>
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" "initialState" "active"}}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" "initialState" "inactive"}}
+          {{ else if $isCloud }}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
+          {{ else if $isOSS }}
+            {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
           {{ end }}
         </div>
-        <p class="note">For more information, see <a href='{{ print "/influxdb/" $currentVersion "/reference/urls/"}}'>InfluxDB URLs</a>.</p>
+        <p class="note">For more information, see {{ $modalRefLinks | markdownify }}.</p>
       </div>
     </div>
   </div>

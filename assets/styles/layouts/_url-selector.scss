@@ -28,7 +28,7 @@
     display: flex;
     overflow: hidden;
     max-width: 650px;
-    max-height: 95vh;
+    max-height: 97.5vh;
     margin-top: 10vh;
     padding: .75rem 2rem 1.5rem;
     border-radius: $radius * 1.5;
@@ -57,7 +57,7 @@
   }
 
   .modal-content{
-    overflow: scroll;
+    overflow: auto;
 
     h3 {
       color: $article-heading;
@@ -107,14 +107,13 @@
 
   .products {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     flex-wrap: wrap;
     flex-grow: 1;
     justify-content: flex-start;
   }
 
   .product {
-    margin-right: .5rem;
 
     .providers{
       display: flex;
@@ -144,6 +143,30 @@
     display: inline-block;
     width: 100%;
     padding-left: .5rem;
+    position: relative;
+
+    &:after {
+      display: none;
+      content: attr(data-message);
+      position: absolute;
+      top: -1.8rem;
+      right: 0;
+      font-size: .85rem;
+      font-weight: $medium;
+      color: $r-fire;
+    }
+
+    &.error {
+      &:after { display: block; }
+      input#custom-url-field {
+        border-color: $r-fire;
+        &:focus {
+          border-color: $r-fire;
+          box-shadow: 1px 1px 10px rgba($r-fire,0.5);
+        }
+      }
+    }
+
     input {
       &#custom-url-field {
         font-family: $rubik;
@@ -227,11 +250,59 @@ td,label,li {
     line-height: .75rem;
     border-radius: 1rem;
   }
-  
+
 }
 
 label:after {
   margin-left: .15rem;
+}
+
+/////////////////////////// InfluxDB Preference Tabs ///////////////////////////
+
+#pref-tabs {
+  padding: 0;
+  margin: 0 0 -5px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pref-tab {
+  padding: .75rem 1.25rem;
+  margin-right: 5px;
+  text-align: center;
+  font-weight: bold;
+  width: 49%;
+  color: rgba($article-text, .7);
+  background: rgba($article-text, .05);
+  border-radius: $radius;
+  cursor: pointer;
+  transition: color .2s;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: $article-link;
+  }
+
+  &.active {
+    color: $g20-white;
+    @include gradient($article-btn-gradient);
+  }
+
+  span.ephemeral { display: inline; }
+  span.abbr:after {
+    display: none;
+    content: ".";
+  }
+}
+
+.product {
+  &.active { display: block; }
+  &.inactive { display: none; }
 }
 
 ///////////////////////////// InfluxDB URL Triggers ////////////////////////////
@@ -269,5 +340,22 @@ label:after {
 
   .code-tab-content {
     .select-url{margin-top: -3.25rem}
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .modal {
+    padding: .5rem;
+    overflow: scroll;
+
+    .modal-body {
+      padding: .5rem 1.5rem 1.5rem;
+    }
+  }
+  .pref-tab {
+    span.ephemeral { display: none; }
+    span.abbr:after { display: inline; }
   }
 }

@@ -1,7 +1,7 @@
 ---
 title: Manage Chronograf users
 description: >
-  Manage users and roles, including SuperAdmin status and organization-bound users.
+  Manage users and roles, including SuperAdmin permission and organization-bound users.
 menu:
   chronograf_1_8:
     name: Manage Chronograf users
@@ -20,7 +20,7 @@ menu:
   * [Viewers](#viewers-role-viewer)
   * [Editors](#editors-role-editor)
   * [Admins](#admins-role-admin)
-* [Cross-organization SuperAdmin status](#cross-organization-superadmin-status)
+* [Cross-organization SuperAdmin permission](#cross-organization-superadmin-permission)
   * [All New Users are SuperAdmins configuration option](#all-new-users-are-superadmins-configuration-option)
 * [Create users](#create-users)
 * [Update users](#update-users)
@@ -34,7 +34,7 @@ menu:
 
 > ***Note:*** Support for organizations and user roles is available in Chronograf 1.4 or later. First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu). For more information, see [Managing security] (/chronograf/v1.8/administration/managing-security/).
 
-Chronograf includes four organization-bound user roles and one cross-organization SuperAdmin status. In an organization, admins (with the `admin` role) or users with SuperAdmin status can create, update, and assign roles to a user or remove a role assignment.
+Chronograf includes four organization-bound user roles and one cross-organization SuperAdmin permission. In an organization, admins (with the `admin` role) or users with SuperAdmin permission can create, update, and assign roles to a user or remove a role assignment.
 
 ### Organization-bound users
 
@@ -49,7 +49,7 @@ Each of these four roles, described in detail below, have different capabilities
 
 #### InfluxDB and Kapacitor users within Chronograf
 
-Chronograf uses InfluxDB and Kapacitor connections to manage user access control to InfluxDB and Kapacitor resources within Chronograf. The permissions of the InfluxDB and Kapacitor user specified within such a connection determine the capabilities for any Chronograf user with access (i.e., viewers, editors, and administrators) to that connection. Administrators include either an admin (`admin` role) or a user of any role with SuperAdmin status.
+Chronograf uses InfluxDB and Kapacitor connections to manage user access control to InfluxDB and Kapacitor resources within Chronograf. The permissions of the InfluxDB and Kapacitor user specified within such a connection determine the capabilities for any Chronograf user with access (i.e., viewers, editors, and administrators) to that connection. Administrators include either an admin (`admin` role) or a user of any role with SuperAdmin permission.
 
 > **Note:** Chronograf users are entirely separate from InfluxDB and Kapacitor users.
 > The Chronograf user and authentication system applies to the Chronograf user interface.
@@ -71,7 +71,7 @@ Chronograf-owned resources include internal resources that are under the full co
 
 #### Chronograf-accessed resources
 
-Chronograf-accessed resources include external resources that can be accessed using Chronograf, but are under limited control by Chronograf. Chronograf users with the roles of `viewer`, `editor`, and `admin`, or users with SuperAdmin status, have equal access to these resources:
+Chronograf-accessed resources include external resources that can be accessed using Chronograf, but are under limited control by Chronograf. Chronograf users with the roles of `viewer`, `editor`, and `admin`, or users with SuperAdmin permission, have equal access to these resources:
 
 - InfluxDB databases, users, queries, and time series data (if using InfluxDB Enterprise, InfluxDB roles can be accessed too)
 - Kapacitor alerts and alert rules (called tasks in Kapacitor)
@@ -160,28 +160,28 @@ For Chronograf-accessed resources, admins can:
   - View alerts
   - Create, edit, and delete alert rules
 
-### Cross-organization SuperAdmin status
+### Cross-organization SuperAdmin permission
 
-SuperAdmin status is a Chronograf status that allows any user, regardless of role, to perform all administrator functions both within organizations, as well as across organizations. A user with SuperAdmin status has _unlimited_ capabilities, including for the following Chronograf-owned resources:
+SuperAdmin permission is a Chronograf permission that allows any user, regardless of role, to perform all administrator functions both within organizations, as well as across organizations. A user with SuperAdmin permission has _unlimited_ capabilities, including for the following Chronograf-owned resources:
 
 * Create, view, update, and remove organizations
 * Create, view, update, and remove users within an organization
-* Grant or revoke the SuperAdmin status of another user
+* Grant or revoke the SuperAdmin permission of another user
 * [Switch into any organization](#navigate-organizations)
 * Toggle the Public setting of the Default organization
 * Toggle the global config setting for [All new users are SuperAdmin](#all-new-users-are-superadmins-configuration-option)
 
 Important SuperAdmin behaviors:
 
-* SuperAdmin status grants any user (whether `member`, `viewer`, `editor`, or `admin`) the full capabilities of admins and the SuperAdmin capabilities listed above.
-* When a Chronograf user with SuperAdmin status creates a new organization or switches into an organization where that user has no role, that SuperAdmin user is automatically assigned the `admin` role by default.
-* SuperAdmin users cannot revoke their own SuperAdmin status.
-* SuperAdmin users are the only ones who can change the SuperAdmin status of other Chronograf users. Regular admins who do not have SuperAdmin status can perform normal operations on SuperAdmin users (create that user within their organization, change roles, and remove them), but they will not see that these users have SuperAdmin status, nor will any of their actions affect the SuperAdmin status of these users.
-* If a user has their SuperAdmin status revoked, that user will retain their assigned roles within their organizations.
+* SuperAdmin permission grants any user (whether `member`, `viewer`, `editor`, or `admin`) the full capabilities of admins and the SuperAdmin capabilities listed above.
+* When a Chronograf user with SuperAdmin permission creates a new organization or switches into an organization where that user has no role, that SuperAdmin user is automatically assigned the `admin` role by default.
+* SuperAdmin users cannot revoke their own SuperAdmin permission.
+* SuperAdmin users are the only ones who can change the SuperAdmin permission of other Chronograf users. Regular admins who do not have SuperAdmin permission can perform normal operations on SuperAdmin users (create that user within their organization, change roles, and remove them), but they will not see that these users have SuperAdmin permission, nor will any of their actions affect the SuperAdmin permission of these users.
+* If a user has their SuperAdmin permission revoked, that user will retain their assigned roles within their organizations.
 
 #### All New Users are SuperAdmins configuration option
 
-By default, the **Config** setting for "**All new users are SuperAdmins"** is **On**. Any user with SuperAdmin status can toggle this under the **Admin > Chronograf > Organizations** tab. If this setting is **On**, any new user (who is created or who authenticates) will_ automatically have SuperAdmin status. If this setting is **Off**, any new user (who is created or who authenticates) will _not_ have SuperAdmin status unless they are explicitly granted it later by another user with SuperAdmin status.
+By default, the **Config** setting for "**All new users are SuperAdmins"** is **On**. Any user with SuperAdmin permission can toggle this under the **Admin > Chronograf > Organizations** tab. If this setting is **On**, any new user (who is created or who authenticates) will_ automatically have SuperAdmin permisison. If this setting is **Off**, any new user (who is created or who authenticates) will _not_ have SuperAdmin permisison unless they are explicitly granted it later by another user with SuperAdmin permission.
 
 ### Create users
 
@@ -222,7 +222,7 @@ Role required: `admin`
 
 ### Navigate organizations
 
-Chronograf is always used in the context of an organization. When a user logs in to Chronograf, that user will access only the resources owned by their current organization. The only exception to this is that users with SuperAdmin status will also be able to [manage organizations](/chronograf/v1.8/administration/managing-organizations/) in the Chronograf Admin page.
+Chronograf is always used in the context of an organization. When a user logs in to Chronograf, that user will access only the resources owned by their current organization. The only exception to this is that users with SuperAdmin permission will also be able to [manage organizations](/chronograf/v1.8/administration/managing-organizations/) in the Chronograf Admin page.
 
 #### Log in and log out
 
@@ -238,8 +238,8 @@ When a user has a role in more than one organization, that user can switch into 
 
 #### Purgatory
 
-If at any time, a user is a `member` within their current organization and does not have SuperAdmin status, that user will be redirected to a page called Purgatory. There, the user will see their current organization and role, as well as a message to contact an administrator for access.
+If at any time, a user is a `member` within their current organization and does not have SuperAdmin permission, that user will be redirected to a page called Purgatory. There, the user will see their current organization and role, as well as a message to contact an administrator for access.
 
 On the same page, that user will see a list of all of their organizations and roles. The user can switch into any listed organization where their role is `viewer`, `editor`, or `admin` by clicking **Log in** next to the desired organization.
 
-**Note** In the rare case that a user is granted SuperAdmin status while in Purgatory, they will be able to switch into any listed organization, as expected.
+**Note** In the rare case that a user is granted SuperAdmin permission while in Purgatory, they will be able to switch into any listed organization, as expected.

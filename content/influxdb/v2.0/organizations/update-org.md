@@ -40,6 +40,7 @@ to update an organization. Updating an organization requires the following:
 - The org ID _(provided in the output of `influx org list`)_
 
 ##### Update the name of a organization
+
 ```sh
 # Syntax
 influx org update -i <org-id> -n <new-org-name>

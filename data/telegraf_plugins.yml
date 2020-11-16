@@ -1842,8 +1842,8 @@ output:
     id: elasticsearch
     description: |
       The Elasticsearch output plugin writes to Elasticsearch via HTTP using
-      [Elastic](http://olivere.github.io/elastic/). Currently it only supports
-      Elasticsearch 5.x series.
+      [Elastic](http://olivere.github.io/elastic/).
+      It supports Elasticsearch releases from 5.x up to 7.x.
     introduced: 0.1.5
     tags: [linux, macos, windows, data-stores]
 

@@ -8,11 +8,83 @@ menu:
 weight: 101
 ---
 
+## v2.0.1 General Availability [2020-11-10]
+
+InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
+
+{{% note %}}
+#### Known issues
+
+##### Delete with predicate API not implemented
+
+The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
+
+##### Duplicate DBRP mappings per database
+
+When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) with the same database name in InfluxDB 1.x, SHOW DATABASES incorrectly returns duplicates.
+{{% /note %}}
+
+Highlights include:
+
+- Support for **upgrading to InfluxDB 2.0**:
+   - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
+   - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2).
+- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
+- Support for [InfluxDB 1.x API compatibility](/influxdb/v2.0/reference/api/influxdb-1x/).
+- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2.0/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2.0/influxdb-templates/stacks/).
+
+If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2.0/get-started/) and [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
+
+## v2.0.0 [2020-11-09]
+
+### Features
+- Improve  UI for v1 `influx auth` commands.
+- Upgrade to [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-10)
+- Upgrade `flux-lsp-browser` to v0.5.22.
+- Add [RAS Telegraf input plugin](/telegraf/v1.16/plugins//#ras).
+
+### Bug Fixes
+
+- Remove unused `security-script` option from `influx upgrade` command.
+- Fix parsing of retention policy CLI arguments in `influx setup` and `influxd upgrade`.
+- Create CLI configs during upgrade to v2.
+- Allow write-only v1 tokens to find database retention policies (DBRPs).
+- Update `v1 auth` description.
+- Use `db`/`rp` naming convention when migrating databases to buckets.
+- Improve help text for `influxd` and `--no-password` switch.
+- Use `10` instead of `MaxInt` when rewriting query-concurrency.
+- Remove bucket and mapping auto-creation from `/write` 1.x compatibility API.
+- Fix misuse of `reflect.SliceHeader`.
+
+## v2.0.0-rc.4 [2020-11-05]
+
+### Features
+
+- Upgrade to [Flux v0.93.0](/influxdb/v2.0/reference/release-notes/flux/#v0-93-0-2020-11-02).
+- Add `influx backup` and `influx restore` CLI commands to support backing up and restoring data in InfluxDB 2.0.
+- Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
+
+### Bug Fixes
+
+- Add a new `CreateUniquePhysicalNode` method, which reads and applies the plan node ID in context. Each physical node has a unique ID to support planner rules applied more than once in a query. Previously, the same node ID (hence the same dataset ID) caused the execution engine to generate undefined results.
+- A cloned task is now only activated when you select **Active**. Previously, a cloned task was activated if the original task was activated.
+- Reduce the `influx` binary file size.
+- Isolate the `TelegrafConfigService` and remove URM interactions.
+- Use the updated HTTP client for the authorization service.
+- Make `tagKeys` and `tagValues` work for edge cases involving fields.
+- Correctly parse float as 64-bits.
+- Add simple metrics related to installed templates.
+- Remove extra multiplication of retention policies in onboarding.
+- Use the `fluxinit` package to initialize the Flux library instead of builtin.
+- Add Logger to the constructor function to ensure the log field is initialized.
+- Return an empty iterator instead of null in `tagValues`.
+- Fix the `/ready` response content type to return `application/json`.
+
 ## v2.0.0-rc.3 [2020-10-29]
 
 ### Features
 
-- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0-91-0-2020-10-26).
+- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0910-2020-10-26).
 - Enable window aggregate mean pushdown.
 - Add `newMultiShardArrayCursors` to aggregate array cursors.
 - UI updates:
@@ -34,7 +106,7 @@ weight: 101
 
 ### Features
 
-- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0-90-0-2020-10-19).
+- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0900-2020-10-19).
 - Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
 - Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
 - Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
@@ -122,7 +194,7 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 
 ### Bug Fixes
 
-- Add description to [`influx auth`](influxdb/v2.0/reference/cli/influx/auth/) command outputs.
+- Add description to [`influx auth`](/influxdb/v2.0/reference/cli/influx/auth/) command outputs.
 - Resolve issues with check triggers in notification tasks by including the edge of the observed boundary.
 - Detect and provide warning about duplicate tag names when writing CSV data using `influx write`.
 - Ensure the group annotation does not override the existing line part (measurement, field, tag, time) in a CSV group annotation.
@@ -222,7 +294,7 @@ This release includes breaking changes:
 
 ### Features
 
-- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/#optional-download-install-and-use-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
@@ -686,7 +758,7 @@ The `map()` function panics if the first record processed has a `null` value.
 
 ### Features
 - Add `influxd inspect verify-wal` tool.
-- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0342-2019-06-27) -
   includes new string functions and initial multi-datasource support with `sql.from()`.
 - Only click save once to save cell.
 - Enable selecting more columns for line visualizations.
