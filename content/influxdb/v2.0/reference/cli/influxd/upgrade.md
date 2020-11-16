@@ -36,21 +36,22 @@ influxd upgrade [command]
 
 ## Flags
 
-| Flag |                         | Description                                                                                                | Input type |
-|:-----|:------------------------|:-----------------------------------------------------------------------------------------------------------|:----------:|
-| `-m` | `--bolt-path`           | Path for boltdb database (default `~/.influxdbv2/influxd.bolt`)                                            | string     |
-| `-b` | `--bucket`              | Primary bucket name                                                                                        | string     |
-|      | `--config-file`         | (Optional) Custom InfluxDB 1.x config file path, else the default config file                              | string     |
-| `-e` | `--engine-path`         | Path for persistent engine files (default `~/.influxdbv2/engine`)                                          | string     |
-| `-f` | `--force`               | Skip the confirmation prompt                                                                               |            |
-| `-h` | `--help`                | Help for `influxd upgrade`                                                                                 |            |
-|      | `--influx-command-path` | Path to influx command (default `~/go/bin/influx`)                                                         | string     |
-|      | `--log-level`           | Supported log levels are `debug`, `info`, `warn`, and `error` (default `info`)                             | string     |
-|      | `--log-path`            | (Optional) Custom log file path (default `~/upgrade.log`)                                                  | string     |
-| `-o` | `--org`                 | Primary organization name                                                                                  | string     |
-| `-p` | `--password`            | Password for username                                                                                      | string     |
-| `-r` | `--retention`           | (Optional) Duration bucket will retain data (default `0`; retains data infinitely)                         | string     |
-| `-t` | `--token`               | (Optional) Token for username. If not specified, a token is auto-generated.                                | string     |
-| `-u` | `--username`            | Primary username                                                                                           | string     |
-|      | `--v1-dir`              | Path to source 1.x `db` directory containing `meta`, `data`, and `wal` sub-folders (default `~/.influxdb`) | string     |
-| `-v` | `--verbose`             | Verbose output (default: `true`)                                                                           | boolean    |
+| Flag |                                 | Description                                                                                                | Input type |
+|:-----|:------------------------        |:-----------------------------------------------------------------------------------------------------------|:----------:|
+| `-m` | `--bolt-path`                   | Path for boltdb database (default `~/.influxdbv2/influxd.bolt`)                                            | string     |
+| `-b` | `--bucket`                      | Primary bucket name                                                                                        | string     |
+|      | `--config-file`                 | Custom InfluxDB 1.x config file path (default `~/.influxdb/influxdb.conf`)                                 | string     |
+|      | `--continuous-query-export-path`| Path for exported 1.x continuous queries (default `~/continuous_queries.txt`)                              | string     |
+| `-e` | `--engine-path`                 | Path for persistent engine files (default `~/.influxdbv2/engine`)                                          | string     |
+| `-f` | `--force`                       | Skip the confirmation prompt                                                                               |            |
+| `-h` | `--help`                        | Help for `influxd upgrade`                                                                                 |            |
+|      | `--influx-command-path`         | Path to influx command (default `~/go/bin/influx`)                                                         | string     |
+|      | `--log-level`                   | Supported log levels are `debug`, `info`, `warn`, and `error` (default `info`)                             | string     |
+|      | `--log-path`                    | Custom log file path (default `~/upgrade.log`)                                                             | string     |
+| `-o` | `--org`                         | Primary organization name                                                                                  | string     |
+| `-p` | `--password`                    | Password for username                                                                                      | string     |
+| `-r` | `--retention`                   | Duration bucket will retain data (default `0`; retains data infinitely)                                    | string     |
+| `-t` | `--token`                       | Token for username. If not specified, a token is auto-generated.                                           | string     |
+| `-u` | `--username`                    | Primary username                                                                                           | string     |
+|      | `--v1-dir`                      | Path to source 1.x `db` directory containing `meta`, `data`, and `wal` sub-folders (default `~/.influxdb`) | string     |
+| `-v` | `--verbose`                     | Verbose output                                                                                             |            |

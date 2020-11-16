@@ -60,6 +60,7 @@ but are planned for subsequent releases.
 
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
+By default, `influxd upgrade` stores all continuous queries in `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
 [Migrate continuous queries to tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 
