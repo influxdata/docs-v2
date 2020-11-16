@@ -77,6 +77,9 @@ exports.handler = (event, context, callback) => {
       '.sha256': true,
     };
 
+  // Remove multiple slashes from path
+  permanantRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
+
   // Remove index.html from path
   permanantRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
 
