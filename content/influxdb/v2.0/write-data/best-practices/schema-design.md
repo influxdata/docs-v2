@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb_2_0:
     name: Schema design
-    weight: 50
+    weight: 201
     parent: write-best-practices
 ---
 
