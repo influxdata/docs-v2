@@ -47,9 +47,6 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
     - **database** exists (without a specified retention policy), the default
       database retention policy is used, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
-- If no matching bucket is found, a new **database/retention-policy** bucket is
-  automatically created with a DBRP mapping, and data is written to the bucket.
-  If no retention policy is specified, `autogen` is used.
 
 {{% note %}}
 To automatically create new buckets, the authentication token used for the
