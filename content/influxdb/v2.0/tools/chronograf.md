@@ -1,7 +1,11 @@
 ---
 title: Use Chronograf with InfluxDB OSS
 description: >
-  Use [Chronograf](/chronograf/) to visualize data from your **InfluxDB OSS 2.0** instance.
+  [Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
+  tool designed to visualize data in InfluxDB 1.x. It is part of the [TICKstatck](/platform/)
+  that provides an InfluxQL data explorer, Kapacitor integrations, and more.
+  Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and the
+  [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 menu:
   influxdb_2_0:
     name: Use Chronograf
@@ -11,15 +15,31 @@ related:
   - /{{< latest "chronograf" >}}/
 ---
 
-Use [Chronograf](/{{< latest "chronograf" >}}/) to visualize data from **InfluxDB Cloud** and **InfluxDB OSS 2.0**.
-Chronogaf uses the [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/)
-so you can continue to use InfluxQL in your dashboards and when exploring data.
+[Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
+tool designed to visualize data in InfluxDB 1.x. It is part of the [TICKstatck](/platform/)
+that provides an InfluxQL data explorer, Kapacitor integrations, and more.
+Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and the
+[1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 
-{{% note %}}
+{{% warn %}}
+### Important notes
+
+#### No administrative functionality
+Chronograf cannot be used for administrative tasks in InfluxDB Cloud and InfluxDB OSS 2.0.
+For example, you cannot do the following:
+
+- definine databases
+- modify retention policies
+- add users
+- etc.
+
+You must migrate administrative tasks to the native InfluxDB Cloud or InfluxDB OSS 2.0
+user interface (UI).
+
 #### Limited InfluxQL support
 InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries.
 For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/#influxql-support),
-{{% /note %}}
+{{% /warn %}}
 
 ## Create an InfluxDB connection
 1. Click **Configuration** in the left navigation bar, and then click **{{< icon "plus" >}} Add Connection**.

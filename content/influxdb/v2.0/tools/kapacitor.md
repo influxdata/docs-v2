@@ -30,6 +30,7 @@ For more information, see [below](#use-kapacitor-stream-tasks).
 
 #### On this page
 - [Configure Kapacitor to connect to InfluxDB](#configure-kapacitor-to-connect-to-influxdb)
+- [Use Kapacitor batch tasks](#use-kapacitor-batch-tasks)
 - [Use Kapacitor stream tasks](#use-kapacitor-stream-tasks)
 - [Write back to InfluxDB](#write-back-to-influxdb)
 
@@ -73,7 +74,7 @@ Ensure the provided InfluxDB authentication token has the necessary read and wri
 {{% /warn %}}
 
 ### Disable InfluxDB subscriptions
-InfluxDB Cloud and InfluxDB OSS 2.0 to not have subscriptions APIs.
+InfluxDB Cloud and InfluxDB OSS 2.0 do not have subscriptions APIs.
 Set the `[[influxdb]].disable-subscriptions`to `false` to disable InfluxDB subscriptions.
 
 ```toml
@@ -82,8 +83,14 @@ Set the `[[influxdb]].disable-subscriptions`to `false` to disable InfluxDB subsc
   disable-subscriptions = true
 ```
 
+## Use Kapacitor batch tasks
+Kapacitor batch tasks use the `/query` endpoint of the 1.x compatibility API
+and require no change to use with InfluxDB Cloud and InfluxDB OSS.
+For information about writing back to InfluxDB in Kapacitor tasks,
+see [Write back to InfluxDB](#write-back-to-influxdb) below.
+
 ## Use Kapacitor stream tasks
-InfluxDB Cloud and OSS 2.0 do not have subsription APIs and do not support Kapacitor stream tasks directly.
+InfluxDB Cloud and OSS 2.0 do not have subscription APIs and do not support Kapacitor stream tasks directly.
 To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `/write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
 
 We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
