@@ -1,6 +1,6 @@
 ---
 title: Query with the InfluxDB API
-description: Use the InfluxDB API to query InfluxDB data.
+description: Query InfluxDB with the InfluxDB API. Discover how to query data in InfluxDB 2.0 using the InfluxDB API.
 weight: 202
 menu:
   influxdb_2_0:
