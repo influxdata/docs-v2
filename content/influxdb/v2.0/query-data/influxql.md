@@ -39,20 +39,17 @@ Verify the buckets that you want to query are mapped to a database and retention
 ##### View all DBRP mappings
 ```sh
 curl --request GET \
-  http://localhost:8086/api/v2/dbrps \
+  http://localhost:8086/api/v2/dbrps?orgID=example-org-id \
   --header "Authorization: Token YourAuthToken" \
-  --header "Content-type: application/json" \
-  --data-urlencode "orgID=example-org"
+  --header "Content-type: application/json"
 ```
 
 ##### Filter DBRP mappings by database
 ```sh
 curl --request GET \
-  http://localhost:8086/api/v2/dbrps \
+  http://localhost:8086/api/v2/dbrps?orgID=example-org-id&db=example-db \
   --header "Authorization: Token YourAuthToken" \
-  --header "Content-type: application/json" \
-  --data-urlencode "orgID=example-org" \
-  --data-urlencode "db=example-db"
+  --header "Content-type: application/json"
 ```
 
 If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
@@ -76,8 +73,8 @@ curl --request POST http://localhost:8086/api/v2/dbrps \
        "bucketID": "12ab34cd56ef",
        "database": "example-db",
        "default": true,
-       "organization": "example-org",
-       "organizationID": "example-org-id",
+       "org": "example-org",
+       "orgID": "example-org-id",
        "retention_policy": "example-rp",
       }'
 ```
@@ -102,9 +99,8 @@ To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpo
 {{% /note %}}
 
 ```sh
-curl --request GET http://localhost:8086/query \
+curl --request GET http://localhost:8086/query?db=example-db \
   --header "Authorization: Token YourAuthToken" \
-  --data-urlencode "db=example-db" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
 
