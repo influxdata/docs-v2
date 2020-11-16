@@ -1,7 +1,7 @@
 ---
 title: Query in Data Explorer
 description: >
-  Query your data in the InfluxDB user interface (UI) Data Explorer.
+  Query InfluxDB using in the InfluxDB user interface (UI) Data Explorer. Discover how to query data in InfluxDB 2.0 using the InfluxDB UI.
 aliases: 
   - /influxdb/v2.0/visualize-data/explore-metrics/
 weight: 201
