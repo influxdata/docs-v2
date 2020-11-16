@@ -1,7 +1,7 @@
 ---
 title: InfluxDB schema design
 description: >
-  General guidelines for InfluxDB schema design and data layout.
+  Improve InfluxDB schema design and data layout. Store unique values in fields and other tips to reduce high cardinality in InfluxDB and make your data more performant.
 menu:
   influxdb_2_0:
     name: Schema design
