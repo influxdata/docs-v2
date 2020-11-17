@@ -17,9 +17,6 @@ The `influx v1 dbrp list` command lists and searches DBRP mappings in the [Influ
 influx v1 dbrp list [flags]
 ```
 
-#### Aliases
-`list`, `ls`, `find`
-
 ## Flags
 
 | Flag |                   | Description                                                                                | Input type | {{< cli/mapped >}}      |
