@@ -37,8 +37,49 @@ In general, your queries should guide what gets stored as a tag and what gets st
 [Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series) in the database, also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
 
 High series cardinality is a primary driver of high memory usage for many database workloads.
-When you write to InfluxDB, InfluxDB uses the measurements and tags to create indexes to speed up reads. However, when there are too many indexes created, both writes and reads may start to slow down.
-Therefore, if a system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+When you write to InfluxDB, InfluxDB uses the measurements and tags to create indexes to speed up reads.
+
+However, when there are too many indexes created, both writes and reads may start to slow down. Therefore, if a system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+
+### Resolve high cardinality (too many series)
+
+{{% note %}}
+If reads and writes have started to slow down, high series cardinality (too many series) may be causing memory issues.
+{{% /note %}}
+
+To resolve high cardinality, do the following (for multiple buckets if applicable):
+
+1. Review tags to ensure they **do not** contain unique values for most entries. Some common things to watch out for:
+  - *Writing log messages to tags*. If a log message includes a unique timestamp, pointer value, or unique string, many unique tag values are created.
+  - *Writing timestamps to tags*. Typically done by accidentally in client code.
+  - *Tags initially set up with few unique values that grow over time.* For example, a user ID tag may work at a small startup, and begin to cause issues when the company grows to thousands of users.
+
+2. If you discover a tag with many unique values, rewrite the data to store in a field.
+
+#### Example: Count unique tag values
+
+  ```sh
+  # Count unique values for each tag in a bucket
+  import "influxdata/influxdb/v1"
+  cardinalityByTag = (bucket) =>
+  v1.tagKeys(bucket: bucket)
+  |> map(fn: (r) => ({
+  tag: r._value,
+  _value: if contains(set: ["_stop","_start"], value:r._value) then
+  0
+  else
+  (v1.tagValues(bucket: bucket, tag: r._value)
+  |> count()
+  |> findRecord(fn: (key) => true, idx: 0))._value
+  }))
+  |> group(columns:["tag"])
+  |> sum()
+  cardinalityByTag(bucket: "my-bucket")
+  ```
+
+{{% note %}}
+If no tag is immediately suspicious, find the values of the cardinality equation to track down the source of your runaway cardinality. You may need to do this for multiple buckets if you are not certain which bucket is causing the runaway cardinality.
+{{% /note %}}
 
 ## Use recommended naming conventions
 
