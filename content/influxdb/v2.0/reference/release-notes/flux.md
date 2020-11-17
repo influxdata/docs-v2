@@ -8,6 +8,16 @@ menu:
     name: Flux
 ---
 
+## v0.95.0 [2020-11-16]
+
+### Features
+- Use `tabwriter` to vertically align tab stops.
+
+### Bug fixes
+- Format types in error messages according to Flux grammar.
+
+---
+
 ## v0.94.0 [2020-11-09]
 
 ### Features
