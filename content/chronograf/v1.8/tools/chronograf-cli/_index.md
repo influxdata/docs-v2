@@ -84,7 +84,7 @@ chronograf [flags]
 |:-------------------------------|:------------------------------------------------------------------------|:--------------------|
 | `-i`, `--github-client-id`     | GitHub client ID value for OAuth 2.0 support                            | `$GH_CLIENT_ID`     |
 | `-s`, `--github-client-secret` | GitHub client secret value for OAuth 2.0 support                        | `$GH_CLIENT_SECRET` |
-| `-o`, `--github-organization`  | Specify a GitHub organization membership required for a user. Optional. | `$GH_ORGS`          |
+| `-o`, `--github-organization`  | Restricts authorization to users from comma-separated list of specified Github organizations. Optional. | `$GH_ORGS`          |
 
 ### Google-specific OAuth 2.0 authentication flags
 
@@ -92,7 +92,7 @@ chronograf [flags]
 |:-------------------------|:--------------------------------------------------------------------------------|:------------------------|
 | `--google-client-id`     | Google client ID value for OAuth 2.0 support                                    | `$GOOGLE_CLIENT_ID`     |
 | `--google-client-secret` | Google client secret value for OAuth 2.0 support                                | `$GOOGLE_CLIENT_SECRET` |
-| `--google-domains`       | Restricts authorization to users from specified Google email domains. Optional. | `$GOOGLE_DOMAINS`       |
+| `--google-domains`       | Restricts authorization to users from comma-separated list of specified Google email domains. Optional. | `$GOOGLE_DOMAINS`       |
 
 
 ### Auth0-specific OAuth 2.0 authentication flags
@@ -102,7 +102,7 @@ chronograf [flags]
 | `--auth0-domain`        | Subdomain of your Auth0 client. Available on the configuration page for your Auth0 client.                                                                                                                                    | `$AUTH0_DOMAIN`        |
 | `--auth0-client-id`     | Auth0 client ID value for OAuth 2.0 support                                                                                                                                                                                   | `$AUTH0_CLIENT_ID`     |
 | `--auth0-client-secret` | Auth0 client secret value for OAuth 2.0 support                                                                                                                                                                               | `$AUTH0_CLIENT_SECRET` |
-| `--auth0-organizations` | Auth0 organization membership required to access Chronograf. Organizations are set using an organization key in the user’s `app_metadata`. Lists are comma-separated and are only available when using environment variables. | `$AUTH0_ORGS`          |
+| `--auth0-organizations` | Restricts authorization to  users from comma-separated list of specified Auth0 organizations. Optional. Organizations are set using an organization key in the user’s `app_metadata`.  | `$AUTH0_ORGS`          |
 
 ### Heroku-specific OAuth 2.0 authentication flags
 
@@ -110,7 +110,7 @@ chronograf [flags]
 |:------------------------|:-----------------------------------------------------------------------------------------|:--------------------|
 | `--heroku-client-id`    | Heroku client ID value for OAuth 2.0 support                                             | `$HEROKU_CLIENT_ID` |
 | `--heroku-secret`       | Heroku secret for OAuth 2.0 support                                                      | `$HEROKU_SECRET`    |
-| `--heroku-organization` | Heroku organization membership required to access Chronograf. Lists are comma-separated. | `$HEROKU_ORGS`      |
+| `--heroku-organization` | Restricts authorization to  users from comma-separated list of specified Heroku orgnizations. Optional. | `$HEROKU_ORGS`      |
 
 ### Generic OAuth 2.0 authentication flags
 

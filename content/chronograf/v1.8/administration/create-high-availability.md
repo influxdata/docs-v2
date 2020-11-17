@@ -28,14 +28,22 @@ Have an existing Chronograf configuration store that you want to use with a Chro
 
 ## Start Chronograf
 
-Run the following command to start Chronograf using etcd as the storage layer:
+Run the following command to start Chronograf using `etcd` as the storage layer. The syntax depends on whether you're using command line flags or environment variables.
 
 ```sh
-# Sytnax
-chronograf --etcd-endpoints=<etcd-host>
+# Syntax for command line flags
+chronograf --etcd-endpoints=<etcd-host> --etcd-endpoints=<etcd-host> --etcd-endpoints=<etcd-host>
 
 # Example
-chronograf --etcd-endpoints=localhost:2379
+chronograf --etcd-endpoints=localhost:2379 --etcd-endpoints=192.168.1.61:2379 --etcd-endpoints 192.192.168.1.100:2379
+```
+
+```sh
+# Syntax for environment variables
+chronograf --ETCD_ENDPOINTS=<etcd-host>,<etcd-host>,<etcd-host>
+
+# Example
+chronograf --ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
 ```
 
 For more information, see [Chronograf etcd configuration options](/chronograf/v1.8/administration/config-options#etcd-options).
