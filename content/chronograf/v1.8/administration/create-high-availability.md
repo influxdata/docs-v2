@@ -26,24 +26,36 @@ Have an existing Chronograf configuration store that you want to use with a Chro
 2. Extract the `etcd` binary and place it in your system PATH.
 3. Start etcd.
 
+
 ## Start Chronograf
 
-Run the following command to start Chronograf using `etcd` as the storage layer. The syntax depends on whether you're using command line flags or environment variables.
+Run the following command to start Chronograf using `etcd` as the storage layer. The syntax depends on whether you're using command line flags or the `ETCD_ENDPOINTS` environment variable.
 
+##### Define etcd endpoints with command line flags
 ```sh
-# Syntax for command line flags
-chronograf --etcd-endpoints=<etcd-host> --etcd-endpoints=<etcd-host> --etcd-endpoints=<etcd-host>
+# Syntax
+chronograf --etcd-endpoints=<etcd-host>
+# Examples
 
-# Example
-chronograf --etcd-endpoints=localhost:2379 --etcd-endpoints=192.168.1.61:2379 --etcd-endpoints 192.192.168.1.100:2379
+# Add a single etcd endpoint when starting Chronograf
+
+chronograf --etcd-endpoints=localhost:2379
+
+# Add multiple etcd endpoints when starting Chronograf
+chronograf \
+  --etcd-endpoints=localhost:2379 \
+  --etcd-endpoints=192.168.1.61:2379 \
+  --etcd-endpoints=192.192.168.1.100:2379
 ```
 
+##### Define etcd endpoints with the ETCD_ENDPOINTS environment variable
 ```sh
-# Syntax for environment variables
-chronograf --ETCD_ENDPOINTS=<etcd-host>,<etcd-host>,<etcd-host>
 
-# Example
-chronograf --ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
+# Provide etcd endpoints in a comma-separated list
+export ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
+
+# Start Chronograf
+chronograf
 ```
 
 For more information, see [Chronograf etcd configuration options](/chronograf/v1.8/administration/config-options#etcd-options).
