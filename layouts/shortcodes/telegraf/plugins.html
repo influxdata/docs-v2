@@ -13,6 +13,7 @@
     <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
       <div class="info">
         <h3 id="{{ .id }}">{{ .name }}</h3>
+        {{ if in .tags "external"}}<p class="external">External</p>{{ end }}
         <p class="meta">
           Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
           Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}

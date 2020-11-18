@@ -33,9 +33,11 @@ input:
   - name: Amazon CloudWatch Alarms
     id: awsalarms
     description: |
-      The Amazon CloudWatch Statistics input plugin pulls alarm statistics from Amazon CloudWatch.
+      The Amazon CloudWatch Alarms input plugin pulls alarm statistics from Amazon CloudWatch.
     introduced: 1.16.0
+    link: https://github.com/vipinvkmenon/awsalarms
     tags: [linux, macos, windows, cloud, external]
+    external: true
 
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
@@ -567,7 +569,7 @@ input:
     description: |
       The HTTP Listener v2 input plugin listens for metrics sent via HTTP.
       Metrics may be sent in any supported [Telegraf input data format](/telegraf/latest/data_formats/input/influx).
-      Note the plugin previously known as `http_listener` has been renamed `influxdb_listener`. 
+      Note the plugin previously known as `http_listener` has been renamed `influxdb_listener`.
       To use Telegraf as a proxy/relay for InfluxDB, we recommend using [`influxdb_listener`](/telegraf/latest/plugins/#influxdb_listener).
     introduced: 1.9.0
     tags: [linux, macos, windows, servers, web]
@@ -1159,6 +1161,7 @@ input:
     description: |
       The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
     introduced: 1.16.0
+    link: https://github.com/BattleBas/octoprint-telegraf-plugin
     tags: [linux, macos, windows, external]
 
   - name: OPC UA
@@ -1542,6 +1545,14 @@ input:
     introduced: 0.1.6
     tags: [linux, macos, windows, systems]
 
+  - name: SystemD Timings
+    id: systemd_timings
+    description: |
+      The SystemD Timings plugin collects systemd boot timing metrics.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, systems, external]
+    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
+
   - name: Systemd Units
     id: systemd_units
     description: |
@@ -1736,6 +1747,7 @@ input:
     description: |
       The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
     introduced: 1.16.0
+    link: https://github.com/inabagumi/youtube-telegraf-plugin
     tags: [linux, macos, windows, external]
 
   - name: ZFS
