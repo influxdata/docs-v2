@@ -8,6 +8,30 @@ menu:
 weight: 101
 ---
 
+## v2.0.2 General Availability [2020-11-17]
+
+### Features
+- Improvements to upgrade from 1.x to 2.x:
+    - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
+    - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
+- Upgrade to [Flux v0.95.0](/influxdb/v2.0/reference/release-notes/flux/#v0-95-0-2020-11-17).
+- Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/).
+
+### Bug Fixes
+- Fixes to `influx upgrade` command:
+  - Remove internal subcommands from help text.
+  - Validate input paths upfront.
+- Add locking during TSI iteration creation.
+- Fix various typos.
+- Use `--skip-verify` flag for backup/restore CLI command. This is passed to the underlying HTTP client for the `BackupService` and `RestoreService` to support backup and restore on servers with self-signed certificates.
+- Don't automatically print help on `influxd` errors.
+- Add `SameSite=Strict` flag to session cookie.
+- Ensure `SHOW DATABASES` returns a list of the unique databases only.
+- Allow scraper to ignore insecure certificates on an endpoint.
+- Ensure Flux reads across all shards.
+- Use the associated default retention policies defined within the DBRP mapping if no retention policy is specified as part of a v1 write API call.
+
+
 ## v2.0.1 General Availability [2020-11-10]
 
 InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
