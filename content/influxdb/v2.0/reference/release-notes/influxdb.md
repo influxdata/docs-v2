@@ -8,6 +8,29 @@ menu:
 weight: 101
 ---
 
+## v2.0.2 General Availability [2020-11-17]
+
+### Features
+- Warn if V1 users are upgraded, but V1 auth wasn't enabled
+- Export 1.x CQs as part of influxd upgrade
+- Upgrade to [Flux v0.95.0](/influxdb/v2.0/reference/release-notes/flux/#v0-95-0-2020-11-17).
+- Add DBRP CLI commands as influx v1 dbrp
+
+### Bug Fixes
+- Add locking during TSI iteration creation
+- Fix various typos.
+- Use `--skip-verify` flag for backup/restore CLI command.
+- Don't auto-print help on `influxd` errors
+- Validate input paths to `influxd upgrade` upfront.
+- Add `SameSite=Strict` flag to session cookie.
+- Don't include duplicates for `SHOW DATABASES`.
+- Allow scraper to ignore insecure certificates on a target.
+- Ensure Flux reads across all shards.
+- Remove internal influxd upgrade subcommands from help text.
+- Use default DBRP mapping on `v1 write` endpoint when no retention policy is specified.
+
+
+
 ## v2.0.1 General Availability [2020-11-10]
 
 InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
