@@ -36,8 +36,8 @@ Install the Flux VS Code extension from the
 ## Connect to InfluxDB
 Create an InfluxDB Connection.
 
-1. Open the VS Code command prompt (`command + shift + p` or `ctrl + shift + p`)
-2. Run `influxdb.addConnection`
+1. Open the **VS Code Command Pallet** ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}).
+2. Run `influxdb.addConnection`.
 3. Provide the required connection credentials:
     - **Type:** type of InfluxDB data source (v1 or v2). If connecting to **InfluxDB Cloud**, select **InfluxDB v2**.
     - **Name:** unique identifier for your InfluxDB connection.
@@ -50,7 +50,7 @@ Create an InfluxDB Connection.
 ## Query InfluxDB from VS Code
 1. Write your Flux query in a new VS Code file.
 2. Save your Flux script with the `.flux` extension or set the VS Code Language Mode to "Flux."
-3. Execute the query with the `influxdb.runQuery` command or the `ctrl+option+E` hotkey.
+3. Execute the query with the `influxdb.runQuery` command or {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}}.
 4. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries)
 
 ## Debug Flux queries
@@ -62,7 +62,10 @@ icons in the bottom left of your VS Code window, and then select the **Output** 
 ## Explore your schema
 With InfluxDB connections configured, VS Code provides an
 
-## Upgrade the extension
+## Upgrade the Flux extension
+VS Code auto-updates by default extensions, but you are able to disable auto-update.
+If auto-update is disabled, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
+After updating the extension, reload VS Code to initialize the updated extensions.
 
 ## Commands
 
@@ -70,7 +73,7 @@ With InfluxDB connections configured, VS Code provides an
 |:-------                     |:-----------       |:-----------------:| ------------:     |
 | `influxdb.refresh`          | Refresh           |                   |                   |
 | `influxdb.addConnection`    | Add Connection    |                   | view/title        |
-| `influxdb.runQuery`         | Run Query         | `⌃⌥E`             | editor/context    |
+| `influxdb.runQuery`         | Run Query         | {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}} | editor/context    |
 | `influxdb.removeConnection` | Remove Connection |                   | view/item/context |
 | `influxdb.switchConnection` | Switch Connection |                   |                   |
 | `influxdb.editConnection`   | Edit Connection   |                   | view/item/context |
