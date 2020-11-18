@@ -1,17 +1,17 @@
 openapi: "3.0.0"
 info:
-  title: InfluxDB API Service (v1 compatible endpoints)
+  title: Influx API Service (V1 compatible endpoints)
   version: 0.1.0
 servers:
   - url: /
-    description: InfluxDB v1 compatible API endpoints.
+    description: V1 compatible api endpoints.
 paths:
   /write:
     post: # technically this functions with other methods as well
       operationId: PostWriteV1
       tags:
         - Write
-      summary: Write time series data into InfluxDB in a v1 compatible format
+      summary: Write time series data into InfluxDB in a V1 compatible format
       requestBody:
         description: Line protocol body
         required: true
@@ -103,7 +103,7 @@ paths:
       operationId: PostQueryV1
       tags:
         - Query
-      summary: Query InfluxDB in a v1 compatible format
+      summary: Query InfluxDB in a V1 compatible format
       requestBody:
         description: InfluxQL query to execute.
         content:
