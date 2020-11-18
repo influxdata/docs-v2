@@ -34,3 +34,17 @@ influx v1 dbrp create [flags]
 | `-r`  | `--rp`            | InfluxDB v1 retention policy                                                               |            |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                          |            |                         |
 | `-t`  | `--token`         | Authentication token                                                                       | string     | `$INFLUX_TOKEN`         |
+
+
+## Examples
+
+##### Create a DBRP mapping
+```
+influx v1 dbrp create \
+  --bucket-id 12ab34cd56ef \
+  --database example-db \
+  --rp example-rp \
+  --org example-org \
+  --token $INFLUX_TOKEN \
+  --default
+```
