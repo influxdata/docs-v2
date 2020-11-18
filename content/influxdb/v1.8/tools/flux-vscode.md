@@ -3,7 +3,7 @@ title: Use the Flux VS Code extension
 seotitle: Use the Flux Visual Studio Code extension
 description: >
   The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux)
-  provides Flux syntax highlighting, autocompletion, and a direct InfluxDB server
+  provides Flux syntax highlighting, autocompletion, and a direct InfluxDB OSS server
   integration that lets you run Flux scripts natively and show results in VS Code.
 weight: 60
 menu:
