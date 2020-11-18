@@ -12,22 +12,23 @@ weight: 101
 
 ### Features
 - Improvements to upgrade from 1.x to 2.x:
-    - Warning appears if auth is not enabled in 1.x, which is not an option in 2.x. For details, see (link to upgrade doc).
+    - Warning appears if auth is not enabled in 1.x, which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
     - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
 - Upgrade to [Flux v0.95.0](/influxdb/v2.0/reference/release-notes/flux/#v0-95-0-2020-11-17).
-- Manage database retention policy (DBRP) mappings via CLI. (add link to DBRP stuff)
+- Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/)
 
 ### Bug Fixes
-- Add locking during TSI iteration creation
+- Fixes to `influx upgrade` command:
+  - Remove internal subcommands from help text.
+  - Validate input paths upfront.
+- Add locking during TSI iteration creation.
 - Fix various typos.
 - Use `--skip-verify` flag for backup/restore CLI command.
-- Don't auto-print help on `influxd` errors
-- Validate input paths to `influxd upgrade` upfront.
+- Don't auto-print help on `influxd` errors.
 - Add `SameSite=Strict` flag to session cookie.
-- Don't include duplicates for `SHOW DATABASES`.
+- Don't include duplicates for `SHOW DATABASES` in InfluxQL.
 - Allow scraper to ignore insecure certificates on a target.
 - Ensure Flux reads across all shards.
-- Remove internal `influxd upgrade` subcommands from help text.
 - Use default DBRP mapping on `v1 write` endpoint when no retention policy is specified.
 
 
