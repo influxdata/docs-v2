@@ -57,7 +57,7 @@ The following example Flux query shows you which tags are contributing the most 
   ```
 
 {{% note %}}
- If you're experiencing runaway cardinality, the query above may time-out. If you experience a time-out, run the queries below—one at a time.
+ If you're experiencing runaway cardinality, the query above may timeout. If you experience a timeout, run the queries below—one at a time.
 {{% /note %}}
 
 First, run the following query to generate a list of tags.
