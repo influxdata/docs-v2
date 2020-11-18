@@ -6,6 +6,8 @@ description: >
 menu: influxdb_2_0_ref
 weight: 3
 influxdb/v2.0/tags: [api]
+aliases:
+  - /influxdb/v2.0/concepts/api/
 ---
 
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
