@@ -41,7 +41,8 @@ The output is constructed as follows:
   determined from the input tables by the value in `valueColumn` at the row identified by the
   `rowKey` values and the new column's label.
   If no value is found, the value is set to `null`.
-
+- Any column that is not part of the group key or not specified in the `rowKey`,
+  `columnKey` and `valueColumn` parameters is dropped.
 
 ## Parameters
 
