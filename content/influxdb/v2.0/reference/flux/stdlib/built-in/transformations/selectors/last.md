@@ -20,13 +20,23 @@ _**Function type:** Selector_
 _**Output data type:** Record_
 
 ```js
-last()
+last(column: "_value")
 ```
 
 {{% warn %}}
 #### Empty tables
 `last()` drops empty tables.
 {{% /warn %}}
+
+## Parameters
+
+### column
+Column used to verify the existence of a value.
+If this column is _null_ in the last record, `last()` returns the previous
+record with a non-null value.
+Default is `"_value"`.
+
+_**Data type:** String_
 
 ## Examples
 ```js
