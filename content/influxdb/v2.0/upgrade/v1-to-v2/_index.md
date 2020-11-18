@@ -130,12 +130,14 @@ to scrape data from the `/metrics` endpoint and store them in a bucket.
 
 ### Secure by default
 
-InfluxDB 2.0 requires authentication and does not support the InfluxDB 1.x
-`auth-enabled = false` configuration option.
-Consider [enabling authentication in your InfluxDB 1.x instance](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
-**before** upgrading to InfluxDB 2.0 to ensure the appropriate credentials are in place and
-that the various applications, agents, and visualization tools are able to connect.
+InfluxDB 2.0 requires authentication and does not support the InfluxDB 1.x `auth-enabled = false` configuration option.
 
+Before upgrading to 2.0, [enable authentication in your InfluxDB 1.x instance](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+and test your credentials to ensure your applications, agents, and visualization tools can connect to InfluxDB.
+
+If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
+but client requests to InfluxDB 2.0 may be silently ignored (you won't see a notification the request was denied).
+ 
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
