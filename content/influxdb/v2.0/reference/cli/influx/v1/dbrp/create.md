@@ -24,7 +24,7 @@ influx v1 dbrp create [flags]
 |       | `--bucket-id`     | Bucket ID to map to                                                                                 |            |                         |
 |       | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                   | string     | `$INFLUX_CONFIGS_PATH`  |
 |       | `--db`            | InfluxDB v1 database to map from                                                                    |            |                         |
-|       | `--default`       | Set DBRP mapping as default   |            |                         |
+|       | `--default`       | Set DBRP mapping's retention policy as default   |            |                         |
 | `-h`  | `--help`          | Help for the `create` command                                                              |            |                         |
 |       | `--hide-headers`  | Hide table headers (default: `false`)                                                  |            | `$INFLUX_HIDE_HEADERS`  |
 |       | `--host`          | HTTP address of InfluxDB                                                                   | string     | `$INFLUX_HOST`          |
