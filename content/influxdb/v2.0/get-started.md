@@ -6,6 +6,8 @@ menu:
     name: Get started
 weight: 2
 influxdb/v2.0/tags: [get-started, install]
+aliases:
+  - /influxdb/v2.0/introduction/get-started/
 ---
 
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
