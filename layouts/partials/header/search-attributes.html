@@ -6,7 +6,7 @@
 {{ $isFlux := cond (in .RelPermalink $fluxPath) true false }}
 
 {{ if not .IsHome }}
-  {{ if or (eq $currentVersion (index $.Site.Data.products $product).latest) (eq $currentVersion (index $.Site.Data.products $product).latest_override) }}
+  {{ if or (eq $currentVersion (index $.Site.Data.products $product).latest) (eq $currentVersion (index $.Site.Data.products $product).latest_override) (eq $currentVersion "cloud") }}
     <meta name="docsearch:latest" content="true">
   {{ end }}
 {{ end }}
