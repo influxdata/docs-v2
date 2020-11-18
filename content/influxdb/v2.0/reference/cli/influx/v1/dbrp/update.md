@@ -30,6 +30,6 @@ influx v1 dbrp update [flags]
 |      | `--json`          | Output data as JSON (default: `false`)                                                     |            | `$INFLUX_OUTPUT_JSON`   |
 | `-o` | `--org`           | Organization name                                                                          | string     | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID                                                                            | string     | `$INFLUX_ORG_ID`        |
-| `-r` | `--rp`            | InfluxDB v1 retention policy                                                               |            |                         |
+| `-r` | `--rp`            | InfluxDB v1 retention policy to map from                                                               |            |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                          |            |                         |
 | `-t` | `--token`         | Authentication token                                                                       | string     | `$INFLUX_TOKEN`         |
