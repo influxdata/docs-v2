@@ -23,10 +23,10 @@ influx v1 dbrp [command]
 
 | Command                                                                     | Description                                  |
 |:----------------------------------------------------------------------------|----------------------------------------------|
-| [`create`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)             | Create DBRP                        |
-| [`delete`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/delete/)             | Delete DBRPs                                 |
-| [`list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)                 | List DBRPs                                   |
-| [`update`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/update/)             | Update a DBRP                                |
+| [`create`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)             | Create a DBRP mapping                       |
+| [`delete`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/delete/)             | Delete a DBRP mapping                                 |
+| [`list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)                 | List a DBRP mapping                                   |
+| [`update`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/update/)             | Update a DBRP mapping                               |
 
 ## Flags
 | Flag |          | Description                     |

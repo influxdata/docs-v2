@@ -24,7 +24,7 @@ influx v1 dbrp list [flags]
 | `-c` | `--active-config` | Config name to use for command                                                             | string     | `$INFLUX_ACTIVE_CONFIG` |
 | `-b` | `--bucket-id`     | Bucket ID                                                                                  |            |                         |
 |      | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                   | string     | `$INFLUX_CONFIGS_PATH`  |
-| `-d` | `--db`            | InfluxDB v1 database to map from                                                                    |            |                         |
+| `-d` | `--db`            | Filter DBRP mappings by database                                                           |            |                         |
 |      | `--default`       | Specify if this mapping represents the default retention policy for the database specified |            |                         |
 | `-h` | `--help`          | Help for the `list` command                                                              |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                                  |            | `$INFLUX_HIDE_HEADERS`  |

@@ -22,7 +22,7 @@ influx v1 dbrp update [flags]
 |------|-------------------|--------------------------------------------------------------------------------------------|------------|-------------------------|
 | `-c` | `--active-config` | Config name to use for command                                                             | string     | `$INFLUX_ACTIVE_CONFIG` |
 |      | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                   | string     | `$INFLUX_CONFIGS_PATH`  |
-| `-d` | `--default`       | Sets DBRP as the default  |            |                         |
+|      | `--default`       | Set DBRP mapping as default  |            |                         |
 | `-h` | `--help`          | Help for the `update` command                                                              |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                                  |            | `$INFLUX_HIDE_HEADERS`  |
 |      | `--host`          | HTTP address of InfluxDB                                                                   | string     | `$INFLUX_HOST`          |
