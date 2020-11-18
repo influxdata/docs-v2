@@ -22,16 +22,17 @@ influx v1 dbrp list [flags]
 | Flag |                   | Description                                                                                | Input type | {{< cli/mapped >}}      |
 |------|-------------------|--------------------------------------------------------------------------------------------|------------|-------------------------|
 | `-c` | `--active-config` | Config name to use for command                                                             | string     | `$INFLUX_ACTIVE_CONFIG` |
-| `-b` | `--bucket-id`     | Bucket ID                                                                                  |            |                         |
+|      | `--bucket-id`     | Bucket ID                                                                                  |            |                         |
 |      | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                   | string     | `$INFLUX_CONFIGS_PATH`  |
-| `-d` | `--db`            | Filter DBRP mappings by database                                                           |            |                         |
-|      | `--default`       | Specify if this mapping represents the default retention policy for the database specified |            |                         |
+|      | `--db`            | Filter DBRP mappings by database                                                           |            |                         |
+|      | `--default`       | Limit results to default mapping |            |                         |
 | `-h` | `--help`          | Help for the `list` command                                                              |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                                  |            | `$INFLUX_HIDE_HEADERS`  |
 |      | `--host`          | HTTP address of InfluxDB                                                                   | string     | `$INFLUX_HOST`          |
+|      | `--id`            | Limit results to a specified mapping                                                     | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                                     |            | `$INFLUX_OUTPUT_JSON`   |
 | `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
-| `-r` | `--rp`            | InfluxDB v1 retention policy                                                         | string     | `$INFLUX_ORG`           |
+|      | `--rp`            | InfluxDB v1 retention policy                                                         | string     | `$INFLUX_ORG`           |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                          |            |                         |
 | `-t` | `--token`         | Authentication token                                                                       | string     | `$INFLUX_TOKEN`         |

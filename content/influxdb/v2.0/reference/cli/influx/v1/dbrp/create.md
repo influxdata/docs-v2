@@ -21,9 +21,9 @@ influx v1 dbrp create [flags]
 | Flag  |                   | Description                                                                                | Input type | {{< cli/mapped >}}      |
 |-------|-------------------|--------------------------------------------------------------------------------------------|------------|-------------------------|
 | `-c`  | `--active-config` | Config name to use for command                                                             | string     | `$INFLUX_ACTIVE_CONFIG` |
-| `-b`  | `--bucket-id`     | Bucket ID to map to                                                                                 |            |                         |
+|       | `--bucket-id`     | Bucket ID to map to                                                                                 |            |                         |
 |       | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                   | string     | `$INFLUX_CONFIGS_PATH`  |
-| `-d`  | `--db`            | InfluxDB v1 database to map from                                                                    |            |                         |
+|       | `--db`            | InfluxDB v1 database to map from                                                                    |            |                         |
 |       | `--default`       | Set DBRP mapping as default   |            |                         |
 | `-h`  | `--help`          | Help for the `create` command                                                              |            |                         |
 |       | `--hide-headers`  | Hide table headers (default: `false`)                                                  |            | `$INFLUX_HIDE_HEADERS`  |
@@ -31,8 +31,8 @@ influx v1 dbrp create [flags]
 |       | `--json`          | Output data as JSON (default: `false`)                                                     |            | `$INFLUX_OUTPUT_JSON`   |
 | `-o`  | `--org`           | Organization name                                                                          | string     | `$INFLUX_ORG`           |
 |       | `--org-id`        | Organization ID                                                                            | string     | `$INFLUX_ORG_ID`        |
-| `-r`  | `--rp`            | InfluxDB v1 retention policy                                                               |            |                         |
-|      | `--skip-verify`   | Skip TLS certificate verification                                                          |            |                         |
+|       | `--rp`            | InfluxDB v1 retention policy                                                               |            |                         |
+|       | `--skip-verify`   | Skip TLS certificate verification                                                          |            |                         |
 | `-t`  | `--token`         | Authentication token                                                                       | string     | `$INFLUX_TOKEN`         |
 
 
