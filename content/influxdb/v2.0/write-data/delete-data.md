@@ -51,7 +51,7 @@ Delete data from buckets you've created. You cannot delete data from system buck
 Use the `influx` CLI or the InfluxDB API [`/delete`](/influxdb/v2.0/api/#/paths/~1delete/post) endpoint to delete data.
 
 {{% note %}}
-The `influx delete --predicate` flag is currently disabled and will be re-enabled in an upcoming release.
+The `influx delete --predicate` flag is currently disabled and will be re-enabled in an upcoming release. Deleting data without a predicate deletes all data in the specified bucket with timestamps between the specified `start` and `stop` times.
 {{% /note %}}
 
 ## Delete data using the influx CLI
@@ -60,22 +60,13 @@ The `influx delete --predicate` flag is currently disabled and will be re-enable
 2. Specify your organization, bucket, and authentication token.
 3. Define the time range to delete data from with the `--start` and `--stop` flags.
 
-### Example delete command
-
-**InfluxDB OSS 2.0** does not support the `predicate` parameter.
-
-#### Delete data in InfluxDB OSS
+#### Example
 
 ```sh
 influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
  --start '1970-01-01T00:00:00.00Z' \
  --stop '2020-01-01T00:00:00.00Z' \
 ```
-
-{{% warn %}}
-Deleting data in OSS (because the `-p` or `--predicate` flag is not implemented) deletes all data with
-timestamps between the specified `--start` and `--stop` times in the specified bucket.
-{{% /warn %}}
 
 ## Delete data using the API
 
@@ -84,11 +75,7 @@ timestamps between the specified `--start` and `--stop` times in the specified b
 3. Use the `Authorization` header to provide your InfluxDB authentication token.
 4. In your request payload, define the time range to delete data from with `start` and `stop`.
 
-### Example delete requests
-
-**InfluxDB OSS 2.0** does not support the `predicate` parameter.
-
-#### Delete data in InfluxDB OSS
+#### Example
 
 ```sh
 curl --request POST http://localhost:8086/api/v2/delete/?org=myOrg&bucket=myBucket \
@@ -100,8 +87,3 @@ curl --request POST http://localhost:8086/api/v2/delete/?org=myOrg&bucket=myBuck
   }'
 ```
    _For more information, see the [`/delete` API documentation](/influxdb/v2.0/api/#/paths/~1delete/post)._
-
-{{% warn %}}
-Using the `/delete` endpoint without a `predicate` deletes all data with
-timestamps between the specified `start` and `stop` times in the specified bucket.
-{{% /warn %}}

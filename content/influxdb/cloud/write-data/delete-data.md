@@ -52,14 +52,16 @@ Use the `influx` CLI or the InfluxDB API [`/delete`](/influxdb/v2.0/api/#/paths/
 
 ## Delete data using the influx CLI
 
+{{% note %}}
+If you haven't already, download the [`influx` CLI](/influxdb/cloud/get-started/#optional-download-install-and-use-the-influx-cli).
+{{% /note %}}
+
 1. Use the [`influx delete` command](/influxdb/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
 2. Specify your organization, bucket, and authentication token.
 3. Define the time range to delete data from with the `--start` and `--stop` flags.
-4. Specify which points to delete using the predicate parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
+4. (Optional) Specify which points to delete using the predicate parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
-### Example delete command
-
-#### Delete data in InfluxDB Cloud
+#### Example
 
 ```sh
 influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
@@ -70,19 +72,13 @@ influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
 
 ## Delete data using the API
 
-{{% note %}}
-If you haven't already, download the [`influx` CLI](/influxdb/v2.0/get-started/).
-{{% /note %}}
-
 1. Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.
 2. Include your organization and bucket as query parameters in the request URL.
 3. Use the `Authorization` header to provide your InfluxDB authentication token.
 4. In your request payload, define the time range to delete data from with `start` and `stop`.
-5. (**InfluxDB Cloud** only): Specify which points to delete using the `predicate` parameter and [Delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
+5. (Optional) Specify which points to delete using the `predicate` parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
-### Example delete request
-
-#### Delete data in InfluxDB Cloud
+#### Example
 
 ```sh
 curl --request POST \
@@ -97,8 +93,3 @@ curl --request POST \
 ```
 
    _For more information, see the [`/delete` API documentation](/influxdb/v2.0/api/#/paths/~1delete/post)._
-
-{{% warn %}}
-Using the `/delete` endpoint without a `predicate` deletes all data with
-timestamps between the specified `start` and `stop` times in the specified bucket.
-{{% /warn %}}
