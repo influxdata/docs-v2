@@ -11,10 +11,11 @@ weight: 101
 ## v2.0.2 General Availability [2020-11-17]
 
 ### Features
-- Warn if V1 users are upgraded, but V1 auth wasn't enabled
-- Export 1.x CQs as part of influxd upgrade
+- Improvements to upgrade from 1.x to 2.x:
+    - Warning appears if auth is not enabled in 1.x, which is not an option in 2.x. For details, see (link to upgrade doc).
+    - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
 - Upgrade to [Flux v0.95.0](/influxdb/v2.0/reference/release-notes/flux/#v0-95-0-2020-11-17).
-- Add DBRP CLI commands as influx v1 dbrp
+- Manage database retention policy (DBRP) mappings via CLI. (add link to DBRP stuff)
 
 ### Bug Fixes
 - Add locking during TSI iteration creation
@@ -26,7 +27,7 @@ weight: 101
 - Don't include duplicates for `SHOW DATABASES`.
 - Allow scraper to ignore insecure certificates on a target.
 - Ensure Flux reads across all shards.
-- Remove internal influxd upgrade subcommands from help text.
+- Remove internal `influxd upgrade` subcommands from help text.
 - Use default DBRP mapping on `v1 write` endpoint when no retention policy is specified.
 
 
