@@ -34,7 +34,7 @@ from(
 from(
   bucketID: "0261d8287f4d6000",
   host: "https://example.com",
-  orgID: "example-org",
+  orgID: "867f3fcf1846f11f",
   token: "MySuP3rSecr3Tt0k3n"
 )
 ```
