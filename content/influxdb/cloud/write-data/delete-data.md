@@ -91,4 +91,4 @@ curl --request POST \
    }'
 ```
 
-   _For more information, see the [`/delete` API documentation](/influxdb/v2.0/api/#/paths/~1delete/post)._
+_For more information, see the [`/delete` API documentation](/influxdb/v2.0/api/#/paths/~1delete/post)._
