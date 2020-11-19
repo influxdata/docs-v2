@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.2 General Availability [2020-11-17]
+## v2.0.2 General Availability [2020-11-19]
 
 ### Breaking changes
 
