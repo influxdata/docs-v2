@@ -5,7 +5,8 @@
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
 {{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $featureCallouts $notifications | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $keybindings := resources.Get "js/keybindings.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $featureCallouts $notifications $keybindings | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">

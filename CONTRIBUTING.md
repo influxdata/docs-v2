@@ -333,6 +333,27 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
+### Keybinds
+Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
+The following parameters are available:
+
+- mac
+- linux
+- win
+- all
+- other
+
+```md
+<!-- Provide keybinding for one OS and another for all others -->
+{{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}
+
+<!-- Provide a keybind for all OSs -->
+{{< keybind all="Ctrl+Shift+P" >}}
+
+<!-- Provide unique keybindings for each OS -->
+{{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
+```
+
 ### Related content
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
 
