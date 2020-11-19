@@ -71,7 +71,7 @@ icons in the bottom left of your VS Code window, and then select the **Output** 
 {{< img-hd src="/img/influxdb/2-0-tools-vsflux-errors-warnings.png" alt="VS Code errors and warnings"/>}}
 
 ## Upgrade the Flux extension
-VS Code auto-updates by default extensions, but you are able to disable auto-update.
+VS Code auto-updates extensions by default, but you are able to disable auto-update.
 If auto-update is disabled, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
 After updating the extension, reload VS Code to initialize the updated extensions.
 
