@@ -16,6 +16,7 @@ The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstud
 provides Flux syntax highlighting, autocompletion, and a direct InfluxDB server
 integration that lets you run Flux scripts natively and show results in VS Code.
 
+##### On this page
 - [Install the Flux VS Code extension](#install-the-flux-vs-code-extension)
 - [Connect to InfluxDB](#connect-to-influxdb)
 - [Query InfluxDB from VS Code](#query-influxdb-from-vs-code)
@@ -30,7 +31,7 @@ For information about installing extensions from the Visual Studio marketplace,
 see the [Extension Marketplace documentation](https://code.visualstudio.com/docs/editor/extension-gallery).
 
 ## Connect to InfluxDB
-To create an InfluxDB Connection in VS Code:
+To create an InfluxDB connection in VS Code:
 
 1. Open the **VS Code Command Pallet** ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}).
 2. Run `influxdb.addConnection`.
@@ -52,8 +53,8 @@ To create an InfluxDB Connection in VS Code:
 4. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries).
 
 ## Explore your schema
-With an InfluxDB connection configured, VS Code provides an overview of buckets,
-measurements and tags in your InfluxDB organization.
+After you've configured an InfluxDB connection, VS Code provides an overview of buckets,
+measurements, and tags in your InfluxDB organization.
 Use the **InfluxDB** pane in VS code to explore your schema.
 
 {{< img-hd src="/img/influxdb/2-0-tools-vsflux-explore-schema.png" alt="Explore your InfluxDB schema in VS Code" />}}
@@ -66,8 +67,9 @@ icons in the bottom left of your VS Code window, and then select the **Output** 
 
 ## Upgrade the Flux extension
 VS Code auto-updates extensions by default, but you are able to disable auto-update.
-If auto-update is disabled, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
-After updating the extension, reload VS Code to initialize the updated extensions.
+If you disable auto-update, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
+After updating the extension, reload your VS Code window ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}},
+and then `Reload Window`) to initialize the updated extensions.
 
 ## Flux extension commands
 

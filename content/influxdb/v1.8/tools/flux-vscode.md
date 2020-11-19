@@ -24,6 +24,7 @@ your InfluxDB configuration file.
 For more information, see [Enable Flux](/influxdb/v1.8/flux/installation/).
 {{% /note %}}
 
+##### On this page
 - [Install the Flux VS Code extension](#install-the-flux-vs-code-extension)
 - [Connect to InfluxDB 1.8](#connect-to-influxdb-18)
 - [Query InfluxDB from VS Code](#query-influxdb-from-vs-code)
@@ -38,8 +39,7 @@ For information about installing extensions from the Visual Studio marketplace,
 see the [Extension Marketplace documentation](https://code.visualstudio.com/docs/editor/extension-gallery).
 
 ## Connect to InfluxDB 1.8
-
-To create an InfluxDB Connection in VS Code:
+To create an InfluxDB connection in VS Code:
 
 1. Open the **VS Code Command Pallet** ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}).
 2. Run `influxdb.addConnection`.
@@ -58,8 +58,8 @@ To create an InfluxDB Connection in VS Code:
 4. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries).
 
 ## Explore your schema
-With an InfluxDB connection configured, VS Code provides an overview of buckets,
-measurements and tags in your InfluxDB organization.
+After you've configured an InfluxDB connection, VS Code provides an overview of buckets,
+measurements, and tags in your InfluxDB organization.
 Use the **InfluxDB** pane in VS code to explore your schema.
 
 {{< img-hd src="/img/influxdb/1-8-tools-vsflux-explore-schema.png" alt="Explore your InfluxDB schema in VS Code" />}}
@@ -72,8 +72,9 @@ icons in the bottom left of your VS Code window, and then select the **Output** 
 
 ## Upgrade the Flux extension
 VS Code auto-updates extensions by default, but you are able to disable auto-update.
-If auto-update is disabled, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
-After updating the extension, reload VS Code to initialize the updated extensions.
+If you disable auto-update, [manually update your VS Code Flux extension](https://code.visualstudio.com/docs/editor/extension-gallery#_update-an-extension-manually).
+After updating the extension, reload your VS Code window ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}},
+and then `Reload Window`) to initialize the updated extensions.
 
 ## Flux extension commands
 

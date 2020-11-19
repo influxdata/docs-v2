@@ -334,8 +334,7 @@ WHERE time > now() - 15m
 ~~~
 
 ### Keybinds
-Use the `{{< keybind >}}` shortcode to include os-specific keybindings/hotkeys.
-Keybindings rendered using this shortcode are specific to the user's operating system.
+Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
 The following parameters are available:
 
 - mac
