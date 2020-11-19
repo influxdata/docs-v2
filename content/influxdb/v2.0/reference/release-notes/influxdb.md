@@ -41,7 +41,6 @@ Previously, the database retention policy (DBRP) mapping API did not match the s
 - Add locking during TSI iterator creation.
 - Allow self-signed certificates for scraper targets.
 - Bump version in `package.json` so it appears correctly.
-- Make the DBRP http API match the swagger spec.
 
 ## v2.0.1 General Availability [2020-11-10]
 
