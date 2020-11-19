@@ -36,7 +36,7 @@ the default retention policy for the specified database.
 
 ### When writing data
 
-When writing data to InfluxDB Cloud and InfluxDB OSS 2.0 using the
+When writing data using the
 [`/write` compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/write/),
 the DBRP mapping service checks for a bucket mapped to the database and retention policy:
 
@@ -47,14 +47,6 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
     - **database** exists (without a specified retention policy), the default
       database retention policy is used, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
-- If no matching bucket is found, a new **database/retention-policy** bucket is
-  automatically created with a DBRP mapping, and data is written to the bucket.
-  If no retention policy is specified, `autogen` is used.
-
-{{% note %}}
-To automatically create new buckets, the authentication token used for the
-write request must be an **All Access token**.
-{{% /note %}}
 
 ### When querying data
 

@@ -20,8 +20,16 @@ To migrate continuous queries to InfluxDB 2.0 tasks, do the following:
 
 ## Output all InfluxDB 1.x continuous queries
 
-To output and save all continuous queries that exist in your InfluxDB 1.x instance,
-do the following:
+If using the `influxd upgrade` command, by default, all continuous queries are
+output to `~/continuous_queries.txt` during the upgrade process.
+To customize the destination path of the continuous queries file,
+use the `--continuous-query-export-path` flag with the `influxd upgrade` command.
+
+```sh
+influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
+```
+
+**To manually output continuous queries:** 
 
 1. Use the InfluxDB 1.x `influx` interactive shell to run `show continuous queries`:
 

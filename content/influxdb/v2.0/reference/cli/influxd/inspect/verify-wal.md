@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect verify-wal` command analyzes the Write-Ahead Log (WAL)

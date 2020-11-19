@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect export-blocks` command exports all blocks in one or more
