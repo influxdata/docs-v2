@@ -53,28 +53,27 @@ Use the `influx` CLI or the InfluxDB API [`/delete`](/influxdb/v2.0/api/#/paths/
 ## Delete data using the influx CLI
 
 {{% note %}}
-If you haven't already, download the [`influx` CLI](/influxdb/cloud/get-started/#optional-download-install-and-use-the-influx-cli).
+If you haven't already, download and set up the [`influx` CLI](/influxdb/cloud/get-started/#optional-download-install-and-use-the-influx-cli). Following these setup instructions creates a configuration profile that stores your credentials, including your organization and token.
 {{% /note %}}
 
 1. Use the [`influx delete` command](/influxdb/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
-2. Specify your organization, bucket, and authentication token.
+2. If you set up a configuration profile with your organization and token, specify the bucket (`-b`) to delete from. Otherwise, specify your organization (`-o`), bucket (`-b`), and authentication token (`-t`) with write permissions.
 3. Define the time range to delete data from with the `--start` and `--stop` flags.
 4. (Optional) Specify which points to delete using the predicate parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
 #### Example
 
 ```sh
-influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
- --start '1970-01-01T00:00:00.00Z' \
- --stop '2020-01-01T00:00:00.00Z' \
- --predicate '_measurement="sensors" and sensorID="abc123"'
+influx delete --bucket my-bucket \
+ --start '1970-01-01T00:00:00.00Z' \
+ --stop '2020-01-01T00:00:00.00Z' \
 ```
 
 ## Delete data using the API
 
 1. Use the InfluxDB API `/delete` endpoint to delete points from InfluxDB.
 2. Include your organization and bucket as query parameters in the request URL.
-3. Use the `Authorization` header to provide your InfluxDB authentication token.
+3. Use the `Authorization` header to provide your InfluxDB authentication token with write permissions.
 4. In your request payload, define the time range to delete data from with `start` and `stop`.
 5. (Optional) Specify which points to delete using the `predicate` parameter and [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate/).
 
@@ -82,11 +81,11 @@ influx delete -o my-org -b my-bucket -t $INFLUX_TOKEN \
 
 ```sh
 curl --request POST \
-  https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete?orgID=<ORGID> \
-  --header 'Authorization: Token <TOKEN WITH WRITE PERMISSIONS' \
+  https://cloud2.influxdata.com/api/v2/delete?org=<org-name>&bucket=<bucket-name> \
+  --header 'Authorization: Token <INFLUXDB_AUTH_TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{
-  "predicate": "_measurement=\"<MEASUREMENT NAME>\" and _field=\"<FIELD>\"",
+  "predicate": "_measurement=\"example-measurement\" and _field=\"example-field\"",
   "start": "2020-08-16T08:00:00Z",
   "stop": "2020-08-17T08:00:00Z"
    }'
