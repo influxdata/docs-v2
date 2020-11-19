@@ -12,7 +12,7 @@ weight: 101
 
 ### Breaking changes
 
-#### DBRP HTTP API now matches swagger spec
+#### DBRP HTTP API now matches Swagger documentation
 
 Previously, the database retention policy (DBRP) mapping API did not match the swagger spec. If you're using scripts based on the previous implementation instead of the swagger spec, you'll need to either update them or use the new [DBRP CLI commands](/influxdb/v2.0/reference/cli/influx/v1/dbrp/) instead.
 
