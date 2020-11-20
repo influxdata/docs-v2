@@ -492,9 +492,30 @@ The Heroku Secret for OAuth 2.0 support.
 
 ### `--heroku-organization=`                      
 The Heroku organization memberships required for access to Chronograf.
-Lists are comma-separated.
+
+##### CLI example
+
+```sh
+## Single parameter
+--heroku-organization=org1
+
+## Mutiple parameters
+--heroku-organization=org1 \
+--heroku-organization=org2 \
+--heroku-organization=org3
+```
 
 **Environment variable:** `$HEROKU_ORGS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+HEROKU_ORGS=org1
+
+## Mutiple parameters
+HEROKU_ORGS=org1,org2,org3
+```
 
 ### Generic OAuth 2.0 authentication options
 
