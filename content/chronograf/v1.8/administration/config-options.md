@@ -403,10 +403,10 @@ Environment variable: `$GOOGLE_CLIENT_SECRET`
 
 ```sh
 ## Single parameter
---google-domains=biffspleasurepalace.com
+--google-domains=delorean.com
 
 ## Mutiple parameters
---google-domains=biffspleasurepalace.com \
+--google-domains=delorean.com \
 --google-domains=savetheclocktower.com
 ```
 
@@ -416,10 +416,10 @@ Environment variable: `$GOOGLE_DOMAINS`
 
 ```sh
 ## Single parameter
-GOOGLE_DOMAINS=biffspleasurepalace.com
+GOOGLE_DOMAINS=delorean.com
 
 ## Mutiple parameters
-GOOGLE_DOMAINS=biffspleasurepalace.com,savetheclocktower.com
+GOOGLE_DOMAINS=delorean.com,savetheclocktower.com
 ```
 
 ### Auth0-specific OAuth 2.0 authentication options
@@ -580,10 +580,10 @@ Example: `--generic-domains=example.com`
 
 ```sh
 ## Single parameter
---generic-domains=biffspleasurepalace.com
+--generic-domains=delorean.com
 
 ## Mutiple parameters
---generic-domains=biffspleasurepalace.com \
+--generic-domains=delorean.com \
 --generic-domains=savetheclocktower.com
 ```
 
@@ -593,10 +593,10 @@ Environment variable: `$GENERIC_DOMAINS`
 
 ```sh
 ## Single parameter
-GENERIC_DOMAINS=biffspleasurepalace.com
+GENERIC_DOMAINS=delorean.com
 
 ## Mutiple parameters
-GENERIC_DOMAINS=biffspleasurepalace.com,savetheclocktower.com
+GENERIC_DOMAINS=delorean.com,savetheclocktower.com
 ```
 
 #### `--generic-auth-url=`
