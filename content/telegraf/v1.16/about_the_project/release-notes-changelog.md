@@ -51,7 +51,7 @@ menu:
 
 - Apache Kafka (`kafka`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI.
 
-## v1.16 [2020-10-21]
+## v1.16.0 [2020-10-21]
 
 ### New plugins
 
@@ -139,7 +139,7 @@ menu:
 - Fix `procstat` performance regression
 - Fix serialization when using `carbon2`.
 - Fix bugs found by LGTM analysis platform.
-- Update to Go 1.15.
+- Update to Go 1.15.2
 
 ## v.1.15.3 [2020-09-11]
 
