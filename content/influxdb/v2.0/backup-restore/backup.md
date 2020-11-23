@@ -19,19 +19,11 @@ InfluxDB copies all data and metadata to a set of files stored in a specified di
 on your local filesystem.
 
 {{% warn %}}
-#### InfluxDB 2.0 (release candidate)
-
-The `influx backup` command is not compatible with InfluxDB 2.0 (release candidate).
-To back up data,
-
-1. Stop `influxd`.
-2. Manually copy the InfluxDB data directories:
-
-   ```
-   cp -r ~/.influxdbv2 ~/.influxdbv2_bak
-   ```
-
-For more information, see [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/).
+#### InfluxDB 1.x/2.0 Compatibility
+The `influx backup` command is not compatible with versions of InfluxDB prior to 2.0.0.
+In addition, the `backup` and `restore` commands do not function across 1.x and 2.x releases.
+Use the `influx upgrade` command instead.
+For more information, see [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
 {{% /warn %}}
 
 {{% cloud %}}
