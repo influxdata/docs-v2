@@ -18,7 +18,7 @@ weight: 202
     A list of buckets with their retention policies and IDs appears.
 
 2. Click a bucket to open it in the **Data Explorer**.
-3. Click the bucket ID to copy it to the clipboard.
+3. Click the **bucket ID** to copy it to the clipboard.
 
 ## View buckets using the influx CLI
 

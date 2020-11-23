@@ -15,27 +15,65 @@ related:
   - /influxdb/v2.0/reference/api/influxdb-1x/dbrp
 ---
 
-In InfluxDB 1.x, data is stored in [databases](/influxdb/v1.8/concepts/glossary/#database) and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp). In InfluxDB Cloud and InfluxDB OSS 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket). Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy.
+In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
+and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
+In InfluxDB Cloud and InfluxDB OSS 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy (DBRP).
 
 **Complete the following steps:**
 
 1. [Verify buckets have a mapping](#verify-buckets-have-a-mapping).
-{{% note %}}
-If data is written into a bucket using the `/write` 1.x compatibility API, the bucket automatically has a mapping. For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
-If you're not sure how data was written into a bucket, we recommend verifying the bucket has a mapping.
-{{% /note %}}
-
 2. [Map unmapped buckets](#map-unmapped-buckets).
 3. [Query a mapped bucket with InfluxQL](#query-a-mapped-bucket-with-influxql).
 
 ## Verify buckets have a mapping
 
-Verify the buckets that you want to query are mapped to a database and retention policy using the [`GET /dbrps` API request](/influxdb/v2.0/api/#operation/GetDBRPs) (see CURL example below). **Include the following in your request**:
+{{% note %}}
+When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/), InfluxDB
+automatically creates buckets for each database and retention policy combination
+and DBRP mappings for those buckets.
+For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
+If you're not sure how data was written into a bucket, we recommend verifying the bucket has a mapping.
+{{% /note %}}
 
-- `orgID`(**required**). If this is the only parameter included in the request, a list of all database retention policy mappings for the specified organization is returned.
-- To find a specific bucket (`bucketID`), database (`database`), retention policy (`rp`), or mapping ID (`id`), include the query parameter in your request.
+Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.0/reference/api/)
+to verify the buckets you want to query are mapped to a database and retention policy.
 
-<!--  -->
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+Use the [`influx v1 dbrp list` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/) to list DBRP mappings.
+
+##### View all DBRP mappings
+```sh
+influx v1 dbrp list
+```
+
+##### Filter DBRP mappings by database
+```sh
+influx v1 dbrp list \
+  --db example-db
+```
+{{% /tab-content %}}
+{{% tab-content %}}
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#operation/GetDBRPs) to list DBRP mappings.
+Include the following:
+
+- **Request method:** `GET`
+- **Headers:**
+  - **Authorization:** `Token` schema with your InfluxDB [autorization token](/influxdb/v2.0/security/tokens/)
+  - **Content-type:** `application/json`
+- **Query parameters:**
+  - **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) <span class="req">Required</span>
+  - **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
+  - **database:** database name _(to list DBRP mappings with a specific database name)_
+  - **rp:** database name _(to list DBRP mappings with a specific retention policy name)_
+  - **id:** DBRP mapping ID _(to list a specific DBRP mapping)_
+
 ##### View all DBRP mappings
 ```sh
 curl --request GET \
@@ -51,33 +89,82 @@ curl --request GET \
   --header "Authorization: Token YourAuthToken" \
   --header "Content-type: application/json"
 ```
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
 
 If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
 _For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
 
 ## Map unmapped buckets
+Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.0/reference/api/)
+to manually create DBRP mappings for unmapped buckets.
 
-To map an unmapped bucket to a database and retention policy, use the [`POST /dbrps` API request](/influxdb/v2.0/api/#operation/PostDBRP) (see CURL example below).
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+{{% tab-content %}}
 
- You must include an **authorization token** with [basic or token authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication) in your request header and the following **required parameters** in your request body:
+Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
+To map an unmapped bucket to a database and retention policy.
+Include the following:
 
- - organization (`organization` or `organization_id`)
- - target bucket (`bucket_id`)
- - database and retention policy to map to bucket (`database` and `retention_policy`)
+- **Database name** to map <span class="req">Required</span>
+- **Retention policy** name to map <span class="req">Required</span>
+- [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to <span class="req">Required</span>
+- Default flag to set the DBRP mapping as default
 
+```sh
+influx v1 dbrp create
+  --db example-db \
+  --rp example-rp \
+  --bucket-id 00oxo0oXx000x0Xo \
+  --default
+```
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.0/api/#operation/PostDBRP) to create a new DBRP mapping.
+Include the following:
+
+- **Request method:** `POST`
+- **Headers:**
+  - **Authorization:** `Token` schema with your InfluxDB [autorization token](/influxdb/v2.0/security/tokens/)
+  - **Content-type:** `application/json`
+- **Request body:** JSON object with the following fields:
+  - **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/) <span class="req">Required</span>
+  - **database:** database name <span class="req">Required</span>
+  - **default:** set DBRP mapping to default
+  - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) <span class="req">Required</span>
+  - **retention_policy:** retention policy name <span class="req">Required</span>
+
+{{% cloud %}}
+Include an **authorization token** with [basic or token authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)
+in your request header and the following **required parameters** in your request body:
+
+- organization (`organization` or `organization_id`)
+- target bucket (`bucket_id`)
+- database and retention policy to map to bucket (`database` and `retention_policy`)
+{{% /cloud %}}
+
+<!--  -->
 ```sh
 curl --request POST http://localhost:8086/api/v2/dbrps \
   --header "Authorization: Token YourAuthToken" \
   --header 'Content-type: application/json' \
   --data '{
-       "bucketID": "12ab34cd56ef",
-       "database": "example-db",
-       "default": true,
-       "org": "example-org",
-       "orgID": "example-org-id",
-       "retention_policy": "example-rp",
+        "bucketID": "00oxo0oXx000x0Xo",
+        "database": "example-db",
+        "default": true,
+        "orgID": "00oxo0oXx000x0Xo",
+        "retention_policy": "example-rp",
       }'
 ```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 After you've verified the bucket is mapped, query the bucket using the `query` 1.x compatibility endpoint.
 
@@ -86,13 +173,16 @@ After you've verified the bucket is mapped, query the bucket using the `query` 1
 The [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB Cloud and InfluxDB OSS 2.0.
 
-To query a mapped bucket with InfluxQL, use the `/query` 1.x compatibility endpoint (see CURL example below), and include the following in your request:
+To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.0/reference/api/influxdb-1x/query/).
+Include the following in your request:
 
-- InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
-  _(See [compatibility API authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication))_
-- **db query parameter**: 1.x database to query
-- **rp query parameter**: 1.x retention policy to query; if no retention policy is specified, InfluxDB uses the default retention policy for the specified database.
-- **q query parameter**: InfluxQL query
+- **Request method:** `GET`
+- **Headers:**
+  - **Authorization:** _See [compatibility API authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)
+- **Query parameters:**
+  - **db**: 1.x database to query
+  - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
+  - **q**: InfluxQL query
 
 {{% note %}}
 **URL-encode** the InfluxQL query to ensure it's formatted correctly when submitted to InfluxDB.
@@ -110,7 +200,7 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 ## InfluxQL support
 
 InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries. See supported and unsupported queries below.
-To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v1.8/query_language/).
+To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
 
 {{< flex >}}
 {{< flex-content >}}
@@ -137,7 +227,7 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/influxdb/v
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-- `DROP` (see above)
+- `DROP` _(limited support)_
 - `GRANT`
 - `KILL`
 - `REVOKE`

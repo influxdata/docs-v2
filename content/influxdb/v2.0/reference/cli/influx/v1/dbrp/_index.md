@@ -18,15 +18,14 @@ influx v1 dbrp [flags]
 influx v1 dbrp [command]
 ```
 
-
 ## Commands
 
-| Command                                                                     | Description                                  |
-|:----------------------------------------------------------------------------|----------------------------------------------|
-| [`create`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)             | Create a DBRP mapping                       |
-| [`delete`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/delete/)             | Delete a DBRP mapping                                 |
-| [`list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)                 | List DBRP mappings                                   |
-| [`update`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/update/)             | Update a DBRP mapping                               |
+| Command                                                       | Description           |
+|:------------------------------------------------------------- |:--------------------- |
+| [create](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/) | Create a DBRP mapping |
+| [delete](/influxdb/v2.0/reference/cli/influx/v1/dbrp/delete/) | Delete a DBRP mapping |
+| [list](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)     | List DBRP mappings    |
+| [update](/influxdb/v2.0/reference/cli/influx/v1/dbrp/update/) | Update a DBRP mapping |
 
 ## Flags
 | Flag |          | Description                     |
