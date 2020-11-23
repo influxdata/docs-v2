@@ -11,7 +11,7 @@ weight: 301
 influxdb/v2.0/tags: [influxql, query]
 list_code_example: |
   <pre>
-  <span class="api get">GET</span> https://cloud2.influxdata.com/query
+  <span class="api get">GET</span> http://localhost:8086/query
   </pre>
 related:
   - /influxdb/v2.0/query-data/influxql
@@ -21,7 +21,7 @@ The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
-<span class="api get">GET</span> https://cloud2.influxdata.com/query
+<span class="api get">GET</span> http://localhost:8086/query
 </pre>
 
 The `/query` compatibility endpoint use the **database** and **retention policy**
