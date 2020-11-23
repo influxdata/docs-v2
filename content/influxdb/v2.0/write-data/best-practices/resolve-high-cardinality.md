@@ -29,7 +29,7 @@ Look for the following common issues, which often cause many unique tag values:
 
 - **Writing log messages to tags**. If a log message includes a unique timestamp, pointer value, or unique string, many unique tag values are created.
 - **Writing timestamps to tags**. Typically done by accident in client code.
-- **Unique values that grow over time set as tags** For example, a user ID tag may work at a small startup, but may begin to cause issues when the company grows to thousands of users.
+- **Unique tag values that grow over time** For example, a user ID tag may work at a small startup, but may begin to cause issues when the company grows to hundreds of thousands of users.
 
 ### Count unique tag values
 
