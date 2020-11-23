@@ -5,7 +5,7 @@ description: >
   InfluxDB identifies unique data points by their measurement, tag set, and timestamp.
   This article discusses methods for preserving data from two points with a common
   measurement, tag set, and timestamp but a different field set.
-weight: 202
+weight: 204
 menu:
   influxdb_2_0:
     name: Handle duplicate points
