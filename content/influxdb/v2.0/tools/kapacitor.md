@@ -36,7 +36,7 @@ For more information, see [below](#use-kapacitor-stream-tasks).
 
 ## Configure Kapacitor to connect to InfluxDB
 To connect Kapacitor to InfluxDB Cloud or InfluxDB OSS 2.0, update the `[[influxdb]]`
-section(s) of your Kapacitor configuration file:
+section(s) of your [Kapacitor configuration file](/{{< latest "kapacitor" >}}/administration/configuration/#kapacitor-configuration-file):
 
 - [Specify your InfluxDB URL](#specify-your-influxdb-url)
 - [Provide InfluxDB authentication credentials](#provide-influxdb-authentication-credentials)
@@ -70,12 +70,14 @@ configuration options:
 
 {{% warn %}}
 Kapacitor is subject to InfluxDB token permission restrictions.
-Ensure the provided InfluxDB authentication token has the necessary read and write permissions.
+To query or write to an InfluxDB bucket, the InfluxDB token must have read and/or
+write permissions for the target bucket.
+For information about token permissions, see [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 {{% /warn %}}
 
 ### Disable InfluxDB subscriptions
 InfluxDB Cloud and InfluxDB OSS 2.0 do not have subscriptions APIs.
-Set the `[[influxdb]].disable-subscriptions`to `false` to disable InfluxDB subscriptions.
+Set the `[[influxdb]].disable-subscriptions`to `true` to disable InfluxDB subscriptions.
 
 ```toml
 [[influxdb]]
@@ -84,14 +86,14 @@ Set the `[[influxdb]].disable-subscriptions`to `false` to disable InfluxDB subsc
 ```
 
 ## Use Kapacitor batch tasks
-Kapacitor batch tasks use the `/query` endpoint of the 1.x compatibility API
+Kapacitor batch tasks use the `query` endpoint of the 1.x compatibility API
 and require no change to use with InfluxDB Cloud and InfluxDB OSS.
 For information about writing back to InfluxDB in Kapacitor tasks,
 see [Write back to InfluxDB](#write-back-to-influxdb) below.
 
 ## Use Kapacitor stream tasks
 InfluxDB Cloud and OSS 2.0 do not have subscription APIs and do not support Kapacitor stream tasks directly.
-To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `/write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
+To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
 
 We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
 to write data to both InfluxDB Cloud or OSS and Kapacitor.
