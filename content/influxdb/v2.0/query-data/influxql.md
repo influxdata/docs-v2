@@ -55,8 +55,7 @@ influx v1 dbrp list
 
 ##### Filter DBRP mappings by database
 ```sh
-influx v1 dbrp list \
-  --db example-db
+influx v1 dbrp list --db example-db
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -71,7 +70,7 @@ Include the following:
   - **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) <span class="req">Required</span>
   - **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
   - **database:** database name _(to list DBRP mappings with a specific database name)_
-  - **rp:** database name _(to list DBRP mappings with a specific retention policy name)_
+  - **rp:** retention policy name _(to list DBRP mappings with a specific retention policy name)_
   - **id:** DBRP mapping ID _(to list a specific DBRP mapping)_
 
 ##### View all DBRP mappings
@@ -92,7 +91,7 @@ curl --request GET \
 {{% /tab-content %}}
 {{% /tabs-wrapper %}}
 
-If you **do not find a mapping ID (`id`) for a bucket**, complete the next procedure to map the unmapped bucket.
+If you **do not find a DBRP mapping for a bucket**, complete the next procedure to map the unmapped bucket.
 _For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.0/api/#tag/DBRPs)._
 
 ## Map unmapped buckets
@@ -113,10 +112,10 @@ Include the following:
 - **Database name** to map <span class="req">Required</span>
 - **Retention policy** name to map <span class="req">Required</span>
 - [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to <span class="req">Required</span>
-- Default flag to set the DBRP mapping as default
+- Default flag to set the provided retention policy as the default retention policy for the database
 
 ```sh
-influx v1 dbrp create
+influx v1 dbrp create \
   --db example-db \
   --rp example-rp \
   --bucket-id 00oxo0oXx000x0Xo \
@@ -136,18 +135,9 @@ Include the following:
 - **Request body:** JSON object with the following fields:
   - **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/) <span class="req">Required</span>
   - **database:** database name <span class="req">Required</span>
-  - **default:** set DBRP mapping to default
+  - **default:** set the provided retention policy as the default retention policy for the database
   - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) <span class="req">Required</span>
   - **retention_policy:** retention policy name <span class="req">Required</span>
-
-{{% cloud %}}
-Include an **authorization token** with [basic or token authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)
-in your request header and the following **required parameters** in your request body:
-
-- organization (`organization` or `organization_id`)
-- target bucket (`bucket_id`)
-- database and retention policy to map to bucket (`database` and `retention_policy`)
-{{% /cloud %}}
 
 <!--  -->
 ```sh
@@ -159,7 +149,7 @@ curl --request POST http://localhost:8086/api/v2/dbrps \
         "database": "example-db",
         "default": true,
         "orgID": "00oxo0oXx000x0Xo",
-        "retention_policy": "example-rp",
+        "retention_policy": "example-rp"
       }'
 ```
 
