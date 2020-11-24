@@ -194,6 +194,10 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 The output of the upgrade prints to standard output.
 It is also saved (for troubleshooting and debugging) in the current directory to a file called `upgrade.log` located in the home directory of the user running `influxdb upgrade`.
 
+### Post-upgrade
+
+To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](influxdb/v2.0/reference/cli/influx/v1/auth/list/).
+
 ## Further reading
 
 For more information on upgrading, see the [`influxd upgrade` reference documentation](/influxdb/v2.0/reference/cli/influxd/upgrade/).
