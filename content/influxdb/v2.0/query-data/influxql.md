@@ -127,7 +127,7 @@ Include the following:
 - (<span class="req">Required</span>) **database name** to map
 - (<span class="req">Required</span>) **retention policy** name to map
 - (<span class="req">Required</span>) [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
-- Default flag to set the provided retention policy as the default retention policy for the database
+- **Default flag** to set the provided retention policy as the default retention policy for the database
 
 ```sh
 influx v1 dbrp create \
