@@ -16,15 +16,16 @@ related:
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
-InfluxDB Cloud and InfluxDB OSS 2.0 replace both with [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-To support InfluxDB 1.x query and write patterns in InfluxDB Cloud and InfluxDB OSS 2.0, databases and retention
+InfluxDB OSS 2.0 replaces both with [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+To support InfluxDB 1.x query and write patterns in InfluxDB OSS 2.0, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) requests to route operations to a bucket.
 
 {{% note %}}
-To query data in InfluxQL that was written using the 2.x `/write` API, you must manually create a DBRP mapping to map a bucket to a database and retention policy.
+To query data in InfluxQL that was written using the 2.x `/write` API,
+you must **manually create a DBRP mapping** to map a bucket to a database and retention policy.
 For more information, see [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets).
 {{% /note %}}
 
@@ -41,12 +42,8 @@ When writing data using the
 the DBRP mapping service checks for a bucket mapped to the database and retention policy:
 
 - If a mapped bucket is found, data is written to the bucket.
-- If an unmapped bucket with a name matching:
-    - **database/retention policy** exists, a DBRP mapping is added to the bucket,
-      and data is written to the bucket.
-    - **database** exists (without a specified retention policy), the default
-      database retention policy is used, a DBRP mapping is added to the bucket,
-      and data is written to the bucket.
+- If an unmapped bucket, InfluxDB returns an error.
+  See how to [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets).
 
 ### When querying data
 
