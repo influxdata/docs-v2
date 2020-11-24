@@ -495,7 +495,7 @@ input:
   - name: gNMI
     id: gnmi
     description: |
-      The gNMI plugin consumes consumes telemetry data based on the
+      The gNMI plugin consumes telemetry data based on the
       [gNMI](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) `Subscribe` method.
       The plugin supports TLS for authentication and encryption.
       This input plugin is vendor-agnostic and is supported on any platform that supports the gNMI spec.
