@@ -11,7 +11,7 @@ menu:
 weight: 201
 influxdb/cloud/tags: [csv, syntax, write]
 related:
-  - /influxdb/cloud/write-data/csv/
+  - /influxdb/cloud/write-data/developer-tools/csv/
   - /influxdb/cloud/reference/cli/influx/write/
   - /influxdb/cloud/reference/syntax/line-protocol/
   - /influxdb/cloud/reference/syntax/annotated-csv/
