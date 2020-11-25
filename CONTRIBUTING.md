@@ -333,6 +333,36 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
+### Required elements
+Use the `{{< req >}}` shortcode to identify required elements in documentation with
+orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but
+you can customize the text by passing a string argument with the shortcode.
+
+```md
+{{< req >}}
+```
+
+**Output:** Required
+
+```md
+{{< req "This is Required" >}}
+```
+
+**Output:** This is required
+
+#### Required elements in a list
+When identifying required elements in a list, use `{{< req type="key" >}}` to generate
+a "* Required" key before the list. For required elements in the list, include
+{{< req "\*" >}} before the text of the list item. For example:
+
+```md
+{{< req type="key" >}}
+
+- {{< req "\*" >}} **This element is required**
+- {{< req "\*" >}} **This element is also required**
+- **This element is NOT required**
+```
+
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
 The following parameters are available:

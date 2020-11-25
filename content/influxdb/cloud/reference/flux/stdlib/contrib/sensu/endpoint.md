@@ -36,14 +36,14 @@ sensu.endpoint(
 ## Parameters
 
 ### url
-<span class="req">Required</span>
+({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
 **without a trailing slash**. Example: `http://localhost:8080`.
 
 _**Data type:** String_
 
 ### apiKey
-<span class="req">Required</span>
+({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
 _**Data type:** String_

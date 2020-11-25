@@ -128,8 +128,18 @@
 
   .required, .req {
     color:#FF8564;
-    font-weight:700;
+    font-weight:$medium;
     font-style: italic;
+    margin: 0 .15rem 0 .1rem;
+
+    &.asterisk {
+      margin: 0 -.1rem 0 -.5rem;
+    }
+
+    &.key {
+      font-size: .9rem;
+      font-weight: $medium;
+    }
   }
 
   a.q-link {

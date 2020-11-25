@@ -42,13 +42,13 @@ Defaults to `""`.
 _**Data type:** String_
 
 ### title
-<span class="req">Required</span>  
+({{< req >}})
 Title of the notification.
 
 _**Data type:** String_
 
 ### text
-<span class="req">Required</span>  
+({{< req >}})
 Text to display in the notification.
 
 _**Data type:** String_

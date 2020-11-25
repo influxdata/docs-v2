@@ -50,7 +50,7 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 ```
 
 ### Measurement
-<span class="required">Required</span> –
+({{< req >}})
 The measurement name.
 InfluxDB accepts one measurement per point.
 _Measurement names are case-sensitive and subject to [naming restrictions](#naming-restrictions)._
@@ -70,7 +70,7 @@ _**Key data type:** [String](#string)_
 _**Value data type:** [String](#string)_
 
 ### Field set
-<span class="required">Required</span> –
+({{< req >}})
 All field key-value pairs for the point.
 Points must have at least one field.
 _Field keys and string values are case-sensitive.
