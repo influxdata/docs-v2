@@ -638,7 +638,7 @@ input:
 
       To collect data on an InfluxDB 2.x instance running on localhost, the configuration for the
       Prometheus input plugin would be:
-        
+
       <div class="keep-url"></div>
 
       ```toml
@@ -653,7 +653,7 @@ input:
     id: influxdb_listener
     description: |
       The InfluxDB Listener input plugin listens for requests sent
-      according to the [InfluxDB HTTP API](/influxdb/v1.8/guides/writing_data/).
+      according to the [InfluxDB HTTP API](/influxdb/v1.8/guides/write_data/).
       The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
       for the HTTP `/write` endpoint of the InfluxDB HTTP API.
 
@@ -662,8 +662,8 @@ input:
       >
       > This plugin is compatible with **InfluxDB 1.x** only.
 
-      The `/write` endpoint supports the `precision` query parameter and can be set
-      to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and
+      The `/write` endpoint supports the `precision` query parameter and can be
+      set to `ns`, `u`, `ms`, `s`, `m`, `h`. Other parameters are ignored and
       defer to the output plugins configuration.
 
       When chaining Telegraf instances using this plugin, `CREATE DATABASE` requests
@@ -681,8 +681,8 @@ input:
       The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
       for the HTTP `/api/v2/write` endpoint of the InfluxDB HTTP API.
 
-      The `/api/v2/write` endpoint supports the `precision` query parameter and can be set
-      to one of `ns`, `u`, `ms`, or `s`.  All other parameters are ignored and
+      The `/api/v2/write` endpoint supports the `precision` query parameter and
+      can be set to `ns`, `u`, `ms`, or `s`. Other parameters are ignored and
       defer to the output plugins configuration.
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]

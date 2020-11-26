@@ -20,14 +20,8 @@ related:
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.
 Write data using [line protocol](/influxdb/v2.0/reference/syntax/line-protocol),
 [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv), or
-[extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
-
-{{% note %}}
-When writing CSV data, the `influx write` command uses CSV annotations to
-translate the data into line protocol.
-For more information about CSV annotations, see [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv)
-and [extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
-{{% /note %}}
+[extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/).
+If you write CSV data, CSV annotations determine how the data translates into line protocol.
 
 ## Usage
 ```
