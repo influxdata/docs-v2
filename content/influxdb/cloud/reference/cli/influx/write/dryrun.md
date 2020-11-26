@@ -9,6 +9,12 @@ menu:
     parent: influx write
 weight: 101
 influxdb/cloud/tags: [write]
+related:
+  - /influxdb/cloud/write-data/
+  - /influxdb/cloud/write-data/developer-tools/csv/
+  - /influxdb/cloud/reference/syntax/line-protocol/
+  - /influxdb/cloud/reference/syntax/annotated-csv/
+  - /influxdb/cloud/reference/syntax/annotated-csv/extended/
 ---
 
 {{< duplicate-oss >}}
