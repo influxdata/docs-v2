@@ -5,8 +5,7 @@ weight: 202
 menu:
   influxdb_2_0:
     name: Query with the InfluxDB API
-    parent: Execute queries
-influxdb/v2.0/tags: [query]
+    parent: Working with the API
 ---
 
 The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic interface for all interactions with InfluxDB. To query InfluxDB 2.0, do one of the following:

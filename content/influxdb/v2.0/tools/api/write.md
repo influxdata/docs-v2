@@ -1,14 +1,14 @@
 ---
 title: Use InfluxDB API
 seotitle: Write data with the InfluxDB API
-list_title: Write data with the InfluxDB API
+list_title: Write data with the API
 weight: 206
 description: >
   Write data to InfluxDB using the InfluxDB API.
 menu:
   influxdb_2_0:
     name: InfluxDB API
-    parent: Developer tools
+    parent: Working with the API
 ---
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
 Use the `POST` request method and include the following in your request:
