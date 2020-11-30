@@ -327,7 +327,7 @@ See [Create a database with CREATE DATABASE](/influxdb/v1.8/query_language/manag
 
 The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, or `DEFAULT`:
 ```sql
-ALTER RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> SHARD DURATION <duration> DEFAULT
+ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [DEFAULT]
 ```
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
