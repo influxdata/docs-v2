@@ -48,24 +48,6 @@ _**Data type:** Record_
 
 ## Examples
 
-##### Test if geographic points are inside of a region
-```js
-import "experimental/geo"
-
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
-
-data
-  |> geo.toRows()
-  |> map(fn: (r) => ({
-    r with st_contains: ST_Distance(region: region, geometry: {lat: r.lat, lon: r.lon})
-  }))
-```
-
 ##### Calculate the distance between geographic points and a region
 ```js
 import "experimental/geo"
@@ -82,4 +64,18 @@ data
   |> map(fn: (r) => ({
     r with st_distance: ST_Distance(region: region, geometry: {lat: r.lat, lon: r.lon})
   }))
+```
+
+##### Find the point nearest to a geographic location
+```js
+import "experimental/geo"
+
+fixedLocation = {lat: 40.7, lon: -73.3}
+
+data
+  |> geo.toRows()
+  |> map(fn: (r) => ({ r with
+    _value: geo.ST_Distance(region: {lat: r.lat, lon: r.lon}, geometry: fixedLocation)
+  }))
+  |> min()
 ```
