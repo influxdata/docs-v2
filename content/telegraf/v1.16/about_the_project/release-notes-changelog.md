@@ -11,14 +11,13 @@ menu:
 ## v1.16.3 [2020-12-01]
 
 ### Features
-- Update Go to 1.15.5.
 - Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
 
 ### Input plugin updates
 - APCUPSD (`apcupsd`): Add driver and CUDA version.
 - CSV Parser (`csv`): Fix issue where CSV timestamp was being read as Unix instead of Go reference time.
 - gNMI (`gnmi`): Add logging of `SubscribeResponse_Error` response types.
-- Monit (`monit`): Add `response_time` to metrics collected.
+
 - NVIDIA SMI (`nvidia_smi`): Add driver and CUDA version.
 - PHP-FPM (`phpfpm`): Fix issue with "index out of range" error.
 - SQL Server (`sqlserver`): Fix typo in `database_name` column.
