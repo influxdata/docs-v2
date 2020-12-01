@@ -8,6 +8,32 @@ menu:
     parent: About the project
 ---
 
+## v1.16.3 [2020-12-01]
+
+### Features
+- Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
+
+### Input plugin updates
+- APCUPSD (`apcupsd`): Add driver and CUDA version.
+- CSV Parser (`csv`): Fix issue where CSV timestamp was being read as Unix instead of Go reference time.
+- gNMI (`gnmi`): Add logging of `SubscribeResponse_Error` response types.
+
+- NVIDIA SMI (`nvidia_smi`): Add driver and CUDA version.
+- PHP-FPM (`phpfpm`): Fix issue with "index out of range" error.
+- SQL Server (`sqlserver`): Fix typo in `database_name` column.
+
+### Output plugin updates
+- Wavefront (`wavefront`):
+  - Distinguish between retryable and non-retryable errors .
+  - Add debug-level logging for metric data that is not retryable.
+
+### Parser plugin updates
+- Starlark (`starlark`):
+  - Allow the processor to manage errors that occur in the `apply` function.
+  - Add support for logging.
+  - Add capability to return multiple metrics.
+  - Add the shared state to the global scope to retrieve previous data.
+
 ## v1.16.2 [2020-11-13]
 
 ### Input plugin updates
