@@ -417,21 +417,21 @@ Connection page.
 
 **Image 1 &ndash; Adding a Kapacitor Connection**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection01.png" alt="add kapacitor 01" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection01.png" alt="Add Kapacitor 01" style="max-width:100%;" />
 
 2) In the **Connection Details** group fill in such details as a name for the
 connection and click the **Connect** button.
 
 **Image 2 &ndash; Kapacitor Connection Details**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection02.png" alt="add kapacitor 02" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection02.png" alt="Add Kapacitor 02" style="max-width:100%;" />
 
 3) If the certificate is installed on the system a success notification will
 appear.
 
 **Image 3 &ndash; Kapacitor Connection Success**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection03.png" alt="add kapacitor 03" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection03.png" alt="Add Kapacitor 03" style="max-width:100%;" />
 
 If an error notification is returned check the Chronograf log for proxy errors.
 For example:
@@ -446,7 +446,7 @@ group.  In narrower screens they will be below the Connection Details group.
 
 **Image 4 &ndash; Configure Kapacitor Handler Endpoints**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection04b.png" alt="add kapacitor 04" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection04.png" alt="Add Kapacitor 04" style="max-width:100%;" />
 
 At this point Kapacitor can be used to generate alerts and TICKscripts through
 Chronograf. These features are available through the **Alerting** item in the
