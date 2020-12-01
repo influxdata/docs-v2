@@ -37,7 +37,6 @@ menu:
   - Distinguish between retryable and non-retryable errors .
   - Add debug-level logging for metric data that is not retryable.
 
-
 ### Parser plugin updates
 - Starlark (`starlark`):
   - Allow the processor to manage errors that occur in the `apply` function.
