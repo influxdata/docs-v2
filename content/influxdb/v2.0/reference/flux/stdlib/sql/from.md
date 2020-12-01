@@ -185,11 +185,11 @@ sql.from(
 To query an Amazon Athena database, use the following query parameters in your Athena
 S3 connection string (DSN):
 
-<span class="req">\* Required</span>
+{{< req type="key" >}}
 
-- **region** - AWS region <span class="req">\*</span>
-- **accessID** - AWS IAM access ID <span class="req">\*</span>
-- **secretAccessKey** - AWS IAM secret key <span class="req">\*</span>
+- {{< req "\*" >}} **region** - AWS region
+- {{< req "\*" >}} **accessID** - AWS IAM access ID
+- {{< req "\*" >}} **secretAccessKey** - AWS IAM secret key
 - **db** - database name
 - **WGRemoteCreation** - controls workgroup and tag creation
 - **missingAsDefault** - replace missing data with default values

@@ -26,7 +26,7 @@ influx v1 dbrp update [flags]
 | `-h` | `--help`          | Help for the `update` command                                            |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                |            | `$INFLUX_HIDE_HEADERS`  |
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
-|      | `--id`            | DBRP ID <span class="req">Required</span>                                | string     |                         |
+|      | `--id`            | ({{< req >}}) DBRP ID                                                    | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
 | `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |

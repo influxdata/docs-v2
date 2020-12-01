@@ -41,8 +41,9 @@ Include the following:
 - **Request method:** `GET`
 - **Headers:**
   - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
-- **Query parameters:**
-  - (<span class="req">Required</span>) **organization_id:** [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
+- **Query parameters:**  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **organization_id:** [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
   - **bucket_id:** [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
   - **database:** database name _(to list DBRP mappings with a specific database name)_
   - **retention_policy:** retention policy name _(to list DBRP mappings with a specific retention policy name)_
@@ -81,12 +82,13 @@ Include the following:
 - **Headers:**
   - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
   - **Content-type:** `application/json`
-- **Request body:** JSON object with the following fields:
-  - (<span class="req">Required</span>) **bucket_id:** [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
-  - (<span class="req">Required</span>) **database:** database name
+- **Request body:** JSON object with the following fields:  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **bucket_id:** [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
+  - {{< req "\*" >}} **database:** database name
   - **default:** set the provided retention policy as the default retention policy for the database
-  - (<span class="req">Required</span>) **organization** or **organization_id:** organization name or [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
-  - (<span class="req">Required</span>) **retention_policy:** retention policy name
+  - {{< req "\*" >}} **organization** or **organization_id:** organization name or [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
+  - {{< req "\*" >}} **retention_policy:** retention policy name
 
 <!--  -->
 ```sh

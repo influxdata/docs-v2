@@ -45,7 +45,7 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 {{% /note %}}
 
 ### db
-<span class="req">Required</span> – The **database** to query data from.
+({{< req >}}) The **database** to query data from.
 This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
@@ -55,7 +55,7 @@ This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
 ### q
-<span class="req">Required</span> – The **InfluxQL** query to execute.
+({{< req >}}) The **InfluxQL** query to execute.
 To execute multiple queries, delimit queries with a semicolon (`;`).
 
 ### epoch

@@ -50,7 +50,7 @@ The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
 ## Parameters
 
 ### tables
-The map of streams to be joined. <span class="required">Required</span>
+({{< req >}}) The map of streams to be joined.
 
 _**Data type:** Record_
 
@@ -59,7 +59,7 @@ _**Data type:** Record_
 {{% /note %}}
 
 ### on
-The list of columns on which to join. <span class="required">Required</span>
+({{< req >}}) The list of columns on which to join.
 
 _**Data type:** Array of strings_
 

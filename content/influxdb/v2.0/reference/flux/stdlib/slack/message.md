@@ -55,18 +55,17 @@ A token is only required if using the Slack chat.postMessage API.
 _**Data type:** String_
 
 ### channel
-The name of channel to post the message to. <span class="required">Required</span>
+({{< req >}}) The name of channel to post the message to.
 
 _**Data type:** String_
 
 ### text
-The text to display in the Slack message. <span class="required">Required</span>
+({{< req >}}) The text to display in the Slack message.
 
 _**Data type:** String_
 
 ### color
-The color to include with the message.
-<span class="required">Required</span>
+({{< req >}}) The color to include with the message.
 
 **Valid values include:**
 

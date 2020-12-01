@@ -40,7 +40,7 @@ encode the line protocol.
 ## Query string parameters
 
 ### db
-<span class="req">Required</span> – The **database** to write data to.
+({{< req >}}) The **database** to write data to.
 This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 _See [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 

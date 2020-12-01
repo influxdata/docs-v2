@@ -76,8 +76,9 @@ Include the following:
 - **Request method:** `GET`
 - **Headers:**
   - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
-- **Query parameters:**
-  - (<span class="req">Required</span>) **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **Query parameters:**  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
   - **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
   - **database:** database name _(to list DBRP mappings with a specific database name)_
   - **rp:** retention policy name _(to list DBRP mappings with a specific retention policy name)_
@@ -124,9 +125,11 @@ Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1
 to map an unmapped bucket to a database and retention policy.
 Include the following:
 
-- (<span class="req">Required</span>) **database name** to map
-- (<span class="req">Required</span>) **retention policy** name to map
-- (<span class="req">Required</span>) [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
+{{< req type="key" >}}
+
+- {{< req "\*" >}} **database name** to map
+- {{< req "\*" >}} **retention policy** name to map
+- {{< req "\*" >}} [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
 - **Default flag** to set the provided retention policy as the default retention policy for the database
 
 ```sh
@@ -147,12 +150,13 @@ Include the following:
 - **Headers:**
   - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
   - **Content-type:** `application/json`
-- **Request body:** JSON object with the following fields:
-  - (<span class="req">Required</span>) **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
-  - (<span class="req">Required</span>) **database:** database name
+- **Request body:** JSON object with the following fields:  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **bucketID:** [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
+  - {{< req "\*" >}} **database:** database name
   - **default:** set the provided retention policy as the default retention policy for the database
-  - (<span class="req">Required</span>) **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
-  - (<span class="req">Required</span>) **retention_policy:** retention policy name
+  - {{< req "\*" >}} **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+  - {{< req "\*" >}} **retention_policy:** retention policy name
 
 <!--  -->
 ```sh
