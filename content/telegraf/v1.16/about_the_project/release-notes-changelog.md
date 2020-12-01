@@ -8,6 +8,46 @@ menu:
     parent: About the project
 ---
 
+## v1.16.3 [2020-12-01]
+
+### Features
+- Update Go to 1.15.5.
+- Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
+- Add support for Linux on OpenPOWER.
+
+### Bug fixes
+- Fix configuration issue with tags.
+
+### Input plugin updates
+- APCUPSD (`apcupsd`): Add driver and CUDA version.
+- CSV Parser (`csv`): Fix issue where CSV timestamp was being read as Unix instead of Go reference time.
+- gNMI (`gnmi`): Add logging of `SubscribeResponse_Error` response types.
+- HTTP (`http`): Add proxy support.
+- Kafka Consumer (`kafka_consumer`): Enable Zstandard and idempotent writes.
+- Modbus (`modbus`): Add FLOAT64-IEEE support.
+- Monit (`monit`): Add `response_time` to metrics collected.
+- NVIDIA SMI (`nvidia_smi`): Add driver and CUDA version.
+- PHP-FPM (`phpfpm`): Fix issue with "index out of range" error.
+- SQL Server (`sqlserver`): Fix typo in `database_name` column.
+
+### Output plugin updates
+- Kafka (`kafka`): Enable Zstandard and idempotent writes.
+- NATS (`nats`): Add `name` parameter to simplify monitoring, debugging, and reporting.
+- Wavefront (`wavefront`):
+  - Distinguish between retryable and non-retryable errors .
+  - Add debug-level logging for metric data that is not retryable.
+
+
+### Parser plugin updates
+- Starlark (`starlark`):
+  - Allow the processor to manage errors that occur in the `apply` function.
+  - Add support for logging.
+  - Add capability to return multiple metrics.
+  - Add the shared state to the global scope to retrieve previous data.
+
+### Aggregator plugin updates
+- BasicStats (`basicstats`): Add rate, non-negative rate, and interval calculations.
+
 ## v1.16.2 [2020-11-13]
 
 ### Input plugin updates
