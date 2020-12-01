@@ -15,9 +15,6 @@ menu:
 - Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
 - Add support for Linux on OpenPOWER.
 
-### Bug fixes
-- Fix configuration issue with tags.
-
 ### Input plugin updates
 - APCUPSD (`apcupsd`): Add driver and CUDA version.
 - CSV Parser (`csv`): Fix issue where CSV timestamp was being read as Unix instead of Go reference time.
