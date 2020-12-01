@@ -82,7 +82,7 @@ data
 
 This can be used to create visualizations similar to:
 
-<img src='/img/kapacitor/comparing-two-measurements.png' alt='Graphing the percentage difference between two measurements' style='width: 100%; max-width: 800px;'>
+{{< img-hd src="/img/kapacitor/1-5-comparing-two-measurements.png" alt="Graph the percentage difference between two measurements" />}}
 
 ## The full TICKscript
 Below is the entire, uncommented TICKscript:
