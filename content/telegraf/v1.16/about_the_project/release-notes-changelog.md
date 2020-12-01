@@ -13,7 +13,6 @@ menu:
 ### Features
 - Update Go to 1.15.5.
 - Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
-- Add support for Linux on OpenPOWER.
 
 ### Input plugin updates
 - APCUPSD (`apcupsd`): Add driver and CUDA version.
