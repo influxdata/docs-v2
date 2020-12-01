@@ -18,12 +18,12 @@
     {{ range sort .Site.Data.products "list_order" "desc" }}
       {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
       {{ if and $isCloud (eq .altname "InfluxDB OSS")}}
-        {{ $altOSSPage := $.GetPage (replaceRE "influxdb/cloud" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) }}
+        {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if gt (len $altOSSPage.Title) 0 }}
           {{ $scratch.Set "link" $altOSSPage.RelPermalink }}
         {{ end }}
       {{ else if and $isOSSv2 (eq .altname "InfluxDB Cloud") }}
-        {{ $altCloudPage := $.GetPage (replaceRE $currentVersion "cloud" $.Page.RelPermalink) }}
+        {{ $altCloudPage := $.GetPage ((replaceRE $currentVersion "cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if gt (len $altCloudPage.Title) 0 }}
           {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
         {{ end }}

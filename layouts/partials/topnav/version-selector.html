@@ -1,3 +1,4 @@
+{{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
@@ -9,8 +10,14 @@
   <ul class="item-list">
     <li><a href="https://archive.docs.influxdata.com/{{ $product }}/" class="legacy" target="_blank">older</a></li>
     {{ range (index .Site.Data.products $product).versions }}
+      {{ $scratch.Set "link" (print "/" $product "/" . "/") }}
+      {{ $altVersionPage := $.GetPage ((replaceRE $currentVersion . $.Page.RelPermalink) | replaceRE `\/$` "") }}
+      {{ if gt (len $altVersionPage.Title) 0 }}
+        {{ $scratch.Set "link" $altVersionPage.RelPermalink }}
+      {{ end }}
+      {{ $link := $scratch.Get "link" }}
       <li>
-        <a href="/{{ $product }}/{{ . }}/" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ cond (in . "v") . (title .) }}</a>
+        <a href="{{ $link }}" {{ if eq . $currentVersion }}class="active"{{ end }}>{{ cond (in . "v") . (title .) }}</a>
       </li>
     {{ end }}
   </ul>
