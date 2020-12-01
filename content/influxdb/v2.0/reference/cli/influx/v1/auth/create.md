@@ -30,6 +30,7 @@ influx v1 auth create [flags]
 |      | `--no-password`   | Don't prompt for a password. (You must use the `v1 auth set-password` command before using the token.) |             |                         |
 | `-o` | `--org`           | Organization name                                                                                      | string      | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID                                                                                        | string      | `$INFLUX_ORG_ID`        |
+|      | `--password`      | Password to set on the authorization                                                                   |             |                         |
 |      | `--read-bucket`   | Bucket ID to assign read permissions to                                                                |             |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                      |             |                         |
 | `-t` | `--token`         | Authentication token                                                                                   | string      | `$INFLUX_TOKEN`         |

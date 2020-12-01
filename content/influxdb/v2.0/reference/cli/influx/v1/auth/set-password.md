@@ -25,6 +25,7 @@ influx v1 auth set-password [flags]
 | `-h` | `--help`          | Help for the `set-password` command                                      |            |                         |
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 | `-i` | `--id`            | Authorization ID                                                         | string     |                         |
+|      | `--password`      | Password to set on the authorization                                     | string     |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
