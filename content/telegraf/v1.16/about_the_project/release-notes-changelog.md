@@ -32,7 +32,6 @@ menu:
   - Allow the processor to manage errors that occur in the `apply` function.
   - Add support for logging.
   - Add capability to return multiple metrics.
-  - Add the shared state to the global scope to retrieve previous data.
 
 ## v1.16.2 [2020-11-13]
 
