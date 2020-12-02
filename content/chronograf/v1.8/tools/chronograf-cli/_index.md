@@ -124,3 +124,15 @@ chronograf [flags]
 | `--generic-auth-url`      | Authorization endpoint URL for the OAuth 2.0 provider                          | `$GENERIC_AUTH_URL`      |
 | `--generic-token-url`     | Token endpoint URL for the OAuth 2.0 provider                                  | `$GENERIC_TOKEN_URL`     |
 | `--generic-api-url`       | URL that returns OpenID UserInfo-compatible information                        | `$GENERIC_API_URL`       |
+
+### etcd flags
+
+| Flag                      | Description                                                                                                  | Env. Variable           |
+|:--------------------------|:-------------------------------------------------------------------------------------------------------------|:------------------------|
+| `-e`, `--etcd-endpoints=` | List of etcd endpoints.                                                                                      | `$ETCD_ENDPOINTS`       |
+| `--etcd-username=`        | Username to log into etcd.                                                                                   | `$ETCD_USERNAME`        |
+| `--etcd-password=`        | Password to log into etcd.                                                                                   | `$ETCD_PASSWORD`        |
+| `--etcd-dial-timeout=`    | Total time to wait before timing out while connecting to etcd endpoints. 0 means no timeout.  (default: -1s) | `$ETCD_DIAL_TIMEOUT`    |
+| `--etcd-request-timeout=` | Total time to wait before timing out the etcd view or update. 0 means no timeout. (default: -1s)             | `$ETCD_REQUEST_TIMEOUT` |
+| `--etcd-cert=`            | Path to PEM encoded TLS public key certificate for use with TLS.                                             | `$ETCD_CERTIFICATE`     |
+| `--etcd-key=`             | Path to private key associated with given certificate for use with TLS.                                      | `$ETCD_PRIVATE_KEY`     |
