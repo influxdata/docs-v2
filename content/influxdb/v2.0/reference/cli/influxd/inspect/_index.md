@@ -20,6 +20,7 @@ influxd inspect [subcommand]
 | Subcommand                                                                 | Description           |
 |:----------                                                                 |:-----------           |
 | [export-index](/influxdb/v2.0/reference/cli/influxd/inspect/export-index/) | Export TSI index data |
+
 <!-- | [build-tsi](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/)                    | Rebuild the TSI index and series file | -->
 <!-- | [compact-series-file](/influxdb/v2.0/reference/cli/influxd/inspect/compact-series-file) | Compact the series file               | -->
 <!-- | [dump-tsi](/influxdb/v2.0/reference/cli/influxd/inspect/dump-tsi/)                      | Output low level TSI information      | -->
