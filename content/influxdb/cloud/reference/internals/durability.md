@@ -29,7 +29,7 @@ InfluxDB Cloud replicates data in both the write tier and in the storage tier.
 - **Write tier:** all data written to InfluxDB is processed by a durable message queue.
   The message queue partitions each batch of points and then replicates each partition
   across other physical nodes in the message queue cluster.
-- **Storage tier:** All data in the storage tier is replicated across two geographic locations.
+- **Storage tier:** all data in the storage tier is replicated across two geographic locations.
 
 ## Backup processes
 InfluxDB Cloud backs up all data in the following way:
