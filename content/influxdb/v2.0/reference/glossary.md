@@ -188,6 +188,10 @@ Use comments with Flux statements to describe your functions.
 
 A standardized text file format used by the InfluxDB web server to create log entries when generating server log files.
 
+### compaction
+
+The process of optimizing disk usage by compressing time series data.
+
 ### continuous query (CQ)
 
 Continuous queries are the predecessor to tasks in InfluxDB 2.0.
