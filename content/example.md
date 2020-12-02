@@ -1,12 +1,8 @@
 ---
 title: Example post
 description: This is just an example post to show the format of new 2.0 posts
-menu:
-  influxdb_2_0:
-    name: Example post
 weight: 1
 draft: true
-"v2.0/tags": [influxdb, functions]
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/quick-start
@@ -26,6 +22,7 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "tasks" >}}
 {{< nav-icon "alerts" >}}
 {{< nav-icon "settings" >}}
+{{< nav-icon "notebooks" >}}
 
 {{< icon "add-cell" >}} add-cell  
 {{< icon "add-label" >}} add-label  
@@ -66,6 +63,8 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< icon "nav-orgs" >}} nav-orgs  
 {{< icon "nav-tasks" >}} nav-tasks  
 {{< icon "note" >}} note  
+{{< icon "notebook" >}} notebook  
+{{< icon "notebooks" >}} notebooks  
 {{< icon "org" >}} org  
 {{< icon "orgs" >}} orgs  
 {{< icon "pause" >}} pause  
