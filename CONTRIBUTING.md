@@ -580,6 +580,8 @@ Below is a list of available icons (some are aliases):
 - nav-orgs
 - nav-tasks
 - note
+- notebook
+- notebooks
 - org
 - orgs
 - pause
@@ -606,13 +608,14 @@ In many cases, documentation references an item in the left nav of the InfluxDB 
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
 
 ```
-{{< nav-icon "Tasks" >}}
+{{< nav-icon "tasks" >}}
 ```
 
 The following case insensitive values are supported:
 
 - admin, influx
 - data-explorer, data explorer
+- notebooks, books
 - dashboards
 - tasks
 - monitor, alerts, bell

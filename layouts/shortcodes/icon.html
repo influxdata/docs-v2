@@ -58,6 +58,8 @@
 <span class="inline icon-eye-open large"></span>
 {{ else if or (eq $icon "eye-closed") (eq $icon "hide") }}
 <span class="inline icon-eye-closed large"></span>
+{{ else if or (eq $icon "notebook") (eq $icon "notebooks") }}
+<span class="inline icon-book-pencil"></span>
 {{ else if eq $icon "add-label" }}
 <span class="inline add-btn-round">&#59696;</span>
 {{ else if or (eq $icon "toggle") (eq $icon "toggle-blue") }}
