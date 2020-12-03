@@ -190,7 +190,7 @@ A standardized text file format used by the InfluxDB web server to create log en
 
 ### compaction
 
-The process of optimizing disk usage by compressing time series data.
+Compressing time series data to optimize disk usage.
 
 ### continuous query (CQ)
 
