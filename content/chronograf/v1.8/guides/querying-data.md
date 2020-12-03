@@ -10,10 +10,6 @@ menu:
 
 Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/v1.8/guides/visualization-types/) for your query.
 
-{{% note %}}
-
-{{% /note %}}
-
 To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 <img src="/img/chronograf/1-7-data-explorer-icon.png" style="width:100%; max-width:400px; margin:2em 0; display: block;">
