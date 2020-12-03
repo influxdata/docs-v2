@@ -8,6 +8,25 @@ menu:
     parent: About the project
 ---
 
+## v1.8.9 [2020-12-03]
+
+### Features
+- Configure etcd with client TLS certificate.
+- Support Flux in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Upgrade Go to 1.15.5.
+- Upgrade Node.js to 14 LTS.
+
+### Bug Fixes
+- Prevent briefly displaying "No Results" in dashboard cells upon refresh.
+- Warn about unsupported queries when creating or editing alert rules.
+- Use the `AND` logical operator with not-equal (`!=`) tag comparisons in generated TICKscript `where` filters.
+- Disable InfluxDB admin page when administration is not possible
+  (while using InfluxDB Cloud or InfluxDB OSS 2.x sources).
+- Use token authentication against InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Avoid blank screen on Windows.
+- Repair possible millisecond differences in duration computation.
+- Remove deprecated React SFC type.
+
 ## v.1.8.8 [2020-11-04]
 
 ## Features
