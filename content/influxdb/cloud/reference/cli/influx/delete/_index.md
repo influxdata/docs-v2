@@ -7,6 +7,9 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [delete]
+related:
+  - /influxdb/cloud/write-data/delete-data
+  - /influxdb/cloud/reference/syntax/delete-predicate
 ---
 
 {{< duplicate-oss >}}
