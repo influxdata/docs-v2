@@ -19,19 +19,19 @@ Besides the input plugins and output plugins, Telegraf includes aggregator and p
                 │
 ┌───────────┐   │                                              ┌───────────┐
 │           │   │                                              │           │
-│  Memory   │───┤                                          ┌──▶│ InfluxDB  │
+│  Memory   │───┤                                          ┌─▶│ InfluxDB  │
 │           │   │                                          │   │           │
 └───────────┘   │    ┌─────────────┐     ┌─────────────┐   │   └───────────┘
                 │    │             │     │Aggregate    │   │
 ┌───────────┐   │    │Process      │     │ - mean      │   │   ┌───────────┐
 │           │   │    │ - transform │     │ - quantiles │   │   │           │
-│   MySQL   │───┼──▶ │ - decorate  │────▶│ - min/max   │───┼──▶│   File    │
+│   MySQL   │───┼──▶│ - decorate  │───▶│ - min/max   │───┼─▶│   File    │
 │           │   │    │ - filter    │     │ - count     │   │   │           │
 └───────────┘   │    │             │     │             │   │   └───────────┘
                 │    └─────────────┘     └─────────────┘   │
 ┌───────────┐   │                                          │   ┌───────────┐
 │           │   │                                          │   │           │
-│   SNMP    │───┤                                          └──▶│   Kafka   │
+│   SNMP    │───┤                                          └─▶│   Kafka   │
 │           │   │                                              │           │
 └───────────┘   │                                              └───────────┘
                 │
