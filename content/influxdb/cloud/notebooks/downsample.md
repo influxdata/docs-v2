@@ -1,11 +1,11 @@
 ---
-title: Downsample data
+title: Downsample data with notebooks
 description:
 weight: 102
 influxdb/v2.0/tags:
 menu:
   influxdb_2_0:
-    name: Downsample data with notebooks
+    name: Downsample data
     parent: Notebooks
 ---
 {{% note %}}

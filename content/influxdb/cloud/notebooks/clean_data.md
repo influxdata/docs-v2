@@ -1,5 +1,5 @@
 ---
-title: Normalize data
+title: Normalize data with notebooks
 description:
 weight: 102
 influxdb/v2.0/tags:
