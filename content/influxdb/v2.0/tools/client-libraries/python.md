@@ -144,7 +144,7 @@ write_api.write(bucket=bucket, org=org, record=p)
 
 - `get_measurement()`: Returns the measurement name of the record.
 - `get_field()`: Returns the field name.
-- `get_values()`: Returns the actual field value.
+- `get_value()`: Returns the actual field value.
 - `values()`: Returns a map of column values.
 - `values.get("<your tag>")`: Returns a value from the record for given column.
 - `get_time()`: Returns the time of the record.

@@ -54,7 +54,7 @@ It does the following:
 import "strings"
 import "regexp"
 import "influxdata/influxdb/monitor"
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
 option task = {name: "Failed Tasks Check", every: 1h, offset: 4m}
 
@@ -84,7 +84,7 @@ messageFn = (r) =>
 	("The task: ${r.taskID} - ${r.name} has a status of ${r.status}")
 
 task_data
-	|> v1["fieldsAsCols"]()
+	|> schema["fieldsAsCols"]()
 	|> monitor["check"](
 		data: check,
 		messageFn: messageFn,

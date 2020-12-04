@@ -60,6 +60,7 @@ but are planned for subsequent releases.
 
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
+By default, `influxd upgrade` writes all continuous queries to `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
 [Migrate continuous queries to tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 
@@ -130,12 +131,14 @@ to scrape data from the `/metrics` endpoint and store them in a bucket.
 
 ### Secure by default
 
-InfluxDB 2.0 requires authentication and does not support the InfluxDB 1.x
-`auth-enabled = false` configuration option.
-Consider [enabling authentication in your InfluxDB 1.x instance](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
-**before** upgrading to InfluxDB 2.0 to ensure the appropriate credentials are in place and
-that the various applications, agents, and visualization tools are able to connect.
+InfluxDB 2.0 requires authentication and does not support the InfluxDB 1.x `auth-enabled = false` configuration option.
 
+Before upgrading to 2.0, [enable authentication in your InfluxDB 1.x instance](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+and test your credentials to ensure your applications, agents, and visualization tools can connect to InfluxDB.
+
+If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
+but client requests to InfluxDB 2.0 may be silently ignored (you won't see a notification the request was denied).
+ 
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
@@ -190,6 +193,10 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 
 The output of the upgrade prints to standard output.
 It is also saved (for troubleshooting and debugging) in the current directory to a file called `upgrade.log` located in the home directory of the user running `influxdb upgrade`.
+
+### Post-upgrade
+
+To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](influxdb/v2.0/reference/cli/influx/v1/auth/list/).
 
 ## Further reading
 

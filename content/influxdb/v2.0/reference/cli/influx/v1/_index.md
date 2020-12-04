@@ -22,6 +22,7 @@ influx v1 [command]
 | Subcommand                                           | Description                                   |
 |:-----------------------------------------------------|:----------------------------------------------|
 | [auth](/influxdb/v2.0/reference/cli/influx/v1/auth/) | Authorization management commands for v1 APIs |
+| [dbrp](/influxdb/v2.0/reference/cli/influx/v1/dbrp/) | Database retention policy mapping management commands for v1 APIs |
 
 ## Flags
 | Flag |          | Description               |

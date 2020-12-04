@@ -333,6 +333,57 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
+### Required elements
+Use the `{{< req >}}` shortcode to identify required elements in documentation with
+orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but
+you can customize the text by passing a string argument with the shortcode.
+
+```md
+{{< req >}}
+```
+
+**Output:** Required
+
+```md
+{{< req "This is Required" >}}
+```
+
+**Output:** This is required
+
+#### Required elements in a list
+When identifying required elements in a list, use `{{< req type="key" >}}` to generate
+a "* Required" key before the list. For required elements in the list, include
+{{< req "\*" >}} before the text of the list item. For example:
+
+```md
+{{< req type="key" >}}
+
+- {{< req "\*" >}} **This element is required**
+- {{< req "\*" >}} **This element is also required**
+- **This element is NOT required**
+```
+
+### Keybinds
+Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
+The following parameters are available:
+
+- mac
+- linux
+- win
+- all
+- other
+
+```md
+<!-- Provide keybinding for one OS and another for all others -->
+{{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}
+
+<!-- Provide a keybind for all OSs -->
+{{< keybind all="Ctrl+Shift+P" >}}
+
+<!-- Provide unique keybindings for each OS -->
+{{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
+```
+
 ### Related content
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
 
@@ -529,6 +580,8 @@ Below is a list of available icons (some are aliases):
 - nav-orgs
 - nav-tasks
 - note
+- notebook
+- notebooks
 - org
 - orgs
 - pause
@@ -555,13 +608,14 @@ In many cases, documentation references an item in the left nav of the InfluxDB 
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
 
 ```
-{{< nav-icon "Tasks" >}}
+{{< nav-icon "tasks" >}}
 ```
 
 The following case insensitive values are supported:
 
 - admin, influx
 - data-explorer, data explorer
+- notebooks, books
 - dashboards
 - tasks
 - monitor, alerts, bell

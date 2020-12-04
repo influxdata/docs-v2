@@ -38,20 +38,20 @@ sensu.event(
 ## Parameters
 
 ### url
-<span class="req">Required</span>
+({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
 **without a trailing slash**. Example: `http://localhost:8080`.
 
 _**Data type:** String_
 
 ### apiKey
-<span class="req">Required</span>
+({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
 _**Data type:** String_
 
 ### checkName
-<span class="req">Required</span>
+({{< req >}})
 Check name.
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
@@ -59,7 +59,7 @@ All other characters are replaced with an underscore.
 _**Data type:** String_
 
 ### text
-<span class="req">Required</span>
+({{< req >}})
 Event text.
 Mapped to `output` in the Sensu Events API request.
 

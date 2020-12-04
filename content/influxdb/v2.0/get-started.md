@@ -8,6 +8,7 @@ weight: 2
 influxdb/v2.0/tags: [get-started, install]
 aliases:
   - /influxdb/v2.0/introduction/get-started/
+  - /influxdb/v2.0/introduction/getting-started/
 ---
 
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
@@ -31,7 +32,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.2_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -49,13 +50,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_darwin_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.2_darwin_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.1_darwin_amd64.tar.gz.asc influxdb-2.0.1_darwin_amd64.tar.gz
+    gpg --verify influxdb-2.0.2_darwin_amd64.tar.gz.asc influxdb-2.0.2_darwin_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -72,7 +73,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb-2.0.1_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb-2.0.2_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -82,7 +83,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.1_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.2_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -151,7 +152,7 @@ influxd --reporting-disabled
 
 Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.2_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -169,13 +170,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.1-linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.2_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.1-linux_amd64.tar.gz.asc influxdb-2.0.1-linux_amd64.tar.gz
+    gpg --verify influxdb-2.0.2_linux_amd64.tar.gz.asc influxdb-2.0.2_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -192,10 +193,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb-2.0.1_linux_amd64.tar.gz
+tar xvzf path/to/influxdb-2.0.2_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.1_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb-2.0.2_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -247,20 +248,12 @@ influxd --reporting-disabled
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0
 
-{{% note %}}
-#### Upgrading from InfluxDB 1.x
-
-We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
-If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current upgrade process is undefined.
-
-{{% /note %}}
-
 Use `docker run` to download and run the InfluxDB v2.0 Docker image.
 Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.1
+docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.2
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -275,7 +268,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.1 --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
 ```
 {{% /note %}}
 

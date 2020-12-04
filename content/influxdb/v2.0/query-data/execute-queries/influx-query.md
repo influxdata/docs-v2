@@ -1,6 +1,6 @@
 ---
 title: Use the `influx query` command
-description: Use the influx CLI to query InfluxDB data.
+description: Query InfluxDB using the influx CLI. Discover how to query data in InfluxDB 2.0 using `influx query`.
 weight: 204
 menu:
   influxdb_2_0:

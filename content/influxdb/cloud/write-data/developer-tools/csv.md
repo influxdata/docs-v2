@@ -8,8 +8,6 @@ menu:
   influxdb_cloud:
     name: Write CSV data
     parent: Developer tools
-aliases:
-  - /influxdb/cloud/write-data/csv/
 weight: 204
 related:
   - /influxdb/cloud/reference/syntax/line-protocol/

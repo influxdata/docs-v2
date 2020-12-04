@@ -9,13 +9,20 @@ menu:
     parent: influx write
 weight: 101
 influxdb/v2.0/tags: [write]
+related:
+  - /influxdb/v2.0/write-data/
+  - /influxdb/v2.0/write-data/developer-tools/csv/
+  - /influxdb/v2.0/reference/syntax/line-protocol/
+  - /influxdb/v2.0/reference/syntax/annotated-csv/
+  - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 The `influx write dryrun` command prints write output to stdout instead of writing
 to InfluxDB. Use this command to test writing data.
 
-Supports [line protocol](/influxdb/v2.0/reference/syntax/line-protocol) and
-[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv).
+Supports [line protocol](/influxdb/v2.0/reference/syntax/line-protocol),
+[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv), and
+[extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended).
 Output is always **line protocol**.
 
 ## Usage

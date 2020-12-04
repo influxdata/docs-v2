@@ -187,7 +187,7 @@ Separate multiple domains using commas.
 For example, to permit access only from `biffspleasurepalace.com` and `savetheclocktower.com`, set the environment variable as follows:
 
 ```sh
-export GOOGLE_DOMAINS=biffspleasurepalance.com,savetheclocktower.com
+export GOOGLE_DOMAINS=biffspleasurepalace.com,savetheclocktower.com
 ```
 
 #### Configure Auth0 authentication

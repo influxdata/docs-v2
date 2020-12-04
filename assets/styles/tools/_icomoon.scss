@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?dzkzbu');
-  src:  url('fonts/icomoon.eot?dzkzbu#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?dzkzbu') format('truetype'),
-    url('fonts/icomoon.woff?dzkzbu') format('woff'),
-    url('fonts/icomoon.svg?dzkzbu#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?lj8dxa');
+  src:  url('fonts/icomoon.eot?lj8dxa#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?lj8dxa') format('truetype'),
+    url('fonts/icomoon.woff?lj8dxa') format('woff'),
+    url('fonts/icomoon.svg?lj8dxa#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,8 +25,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-alert-circle:before {
-  content: "\e933";
+.icon-book-pencil:before {
+  content: "\e965";
 }
 .icon-influx-logo:before {
   content: "\e900";
@@ -112,6 +112,9 @@
 .icon-menu:before {
   content: "\e91b";
 }
+.icon-download:before {
+  content: "\e91c";
+}
 .icon-minus:before {
   content: "\e91d";
 }
@@ -139,7 +142,7 @@
 .icon-data-explorer:before {
   content: "\e925";
 }
-.icon-download:before {
+.icon-ui-download:before {
   content: "\e926";
 }
 .icon-duplicate:before {
@@ -177,6 +180,9 @@
 }
 .icon-remove:before {
   content: "\e932";
+}
+.icon-alert-circle:before {
+  content: "\e933";
 }
 .icon-trash:before {
   content: "\e935";

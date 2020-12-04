@@ -41,13 +41,13 @@ Defaults to `https://api.opsgenie.com/v2/alerts`.
 _**Data type:** String_
 
 ### apiKey
-<span class="req">Required</span>
+({{< req >}})
 Opsgenie API authorization key.
 
 _**Data type:** String_
 
 ### message
-<span class="req">Required</span>
+({{< req >}})
 Alert message text.
 130 characters or less.
 

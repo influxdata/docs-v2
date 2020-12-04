@@ -1,7 +1,9 @@
+{{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $isCloud := eq "influxdb/cloud" (print $product "/" $currentVersion )}}
+{{ $isOSSv2 := in (print $product "/" $currentVersion ) "influxdb/v2."}}
 
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") }}
@@ -14,8 +16,21 @@
   {{ end }}
   <ul class="item-list">
     {{ range sort .Site.Data.products "list_order" "desc" }}
+      {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
+      {{ if and $isCloud (eq .altname "InfluxDB OSS")}}
+        {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
+        {{ if gt (len $altOSSPage.Title) 0 }}
+          {{ $scratch.Set "link" $altOSSPage.RelPermalink }}
+        {{ end }}
+      {{ else if and $isOSSv2 (eq .altname "InfluxDB Cloud") }}
+        {{ $altCloudPage := $.GetPage ((replaceRE $currentVersion "cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+        {{ if gt (len $altCloudPage.Title) 0 }}
+          {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
+        {{ end }}
+      {{ end }}
+      {{ $link := $scratch.Get "link" }}
       <li>
-        <a href='/{{ .namespace }}/{{ cond (isset . "latest_override") .latest_override .latest }}/' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ cond (isset . "altname") .altname .name }}</a>
+        <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ cond (isset . "altname") .altname .name }}</a>
       </li>
     {{ end }}
   </ul>

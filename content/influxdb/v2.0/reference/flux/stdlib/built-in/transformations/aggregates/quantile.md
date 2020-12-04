@@ -53,6 +53,7 @@ _**Data type:** Float_
 
 ### method
 Defines the method of computation.
+Default is `estimate_tdigest`.
 
 _**Data type:** String_
 

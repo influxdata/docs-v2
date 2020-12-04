@@ -67,11 +67,11 @@ ts=2018-02-19T13:26:11.437+01:00 lvl=error msg="failed to connect to InfluxDB, r
 
 <a id="example-1" ></a>
 
-> **Important** &ndash; Please note that in a production environment with a standard CA certificate, `insecure-skip-verify` needs to be switched on.
+> **Important** – Please note that in a production environment with a standard CA certificate, `insecure-skip-verify` needs to be switched on.
 
 In the configuration file these values are set according to the following example.
 
-**Example 1 &ndash; TLS Configuration Properties for InfluxDB &ndash; kapacitor.conf**
+**Example 1 – TLS Configuration Properties for InfluxDB – kapacitor.conf**
 
 {{< keep-url >}}
 ```toml
@@ -98,17 +98,17 @@ In the configuration file these values are set according to the following exampl
 ```
 The relevant properties in Example 1 are:
 
-* `urls` &ndash; note the protocol is `https` and _not_ `http`.
-* `ssl-cert` and `ssl-key` &ndash; to indicate the location of the certificate and key files.
-* `insecure-skip-verify` &ndash; for testing with a self-signed certificate set this to `true` otherwise it should be `false`, especially in production environments.
-* `subscription-protocol` &ndash; to declare the correct protocol for subscription communications.  For example if Kapacitor is to run on HTTP then this should be set to `"http"`, however if Kapacitor is to run on "HTTPS" then this should be set to `"https"`.   
+* `urls` – note the protocol is `https` and _not_ `http`.
+* `ssl-cert` and `ssl-key` – to indicate the location of the certificate and key files.
+* `insecure-skip-verify` – for testing with a self-signed certificate set this to `true` otherwise it should be `false`, especially in production environments.
+* `subscription-protocol` – to declare the correct protocol for subscription communications.  For example if Kapacitor is to run on HTTP then this should be set to `"http"`, however if Kapacitor is to run on "HTTPS" then this should be set to `"https"`.   
 
 Note that when a CA file contains the certificate and key together the property
 `ssl-ca` can be used in place of `ssl-cert` and `ssl-key`.  
 
 As environment variables these properties can be set as follows:
 
-**Example 2 &ndash; TLS Configuration Properties for InfluxDB &ndash; ENVARS**
+**Example 2 – TLS Configuration Properties for InfluxDB – ENVARS**
 
 {{< keep-url >}}
 ```
@@ -132,7 +132,7 @@ curl -ks http://localhost:9092/kapacitor/v1/config/influxdb | python -m json.too
 
 This results in the following file:
 
-**Example 3 &ndash; The InfluxDB part of the Kapacitor configuration**
+**Example 3 – The InfluxDB part of the Kapacitor configuration**
 
 {{< keep-url >}}
 ```json
@@ -227,7 +227,7 @@ Authorization.  Kapacitor can be configured to communicate with InfluxDB using
 a username:password pair.  These properties can be set in the configuration
 file, as environment variables or over the HTTP API.
 
-**Example 4 &ndash; InfluxDB Authentication Parameters &ndash; kapacitor.conf**
+**Example 4 – InfluxDB Authentication Parameters – kapacitor.conf**
 
 {{< keep-url >}}
 ```toml
@@ -249,7 +249,7 @@ The relevant parameters in Example 4 are `username` and `password`.
 
 These can also be set as environment variables.
 
-**Example 5 &ndash; InfluxDB Authentication Paramenters &ndash; ENVARS**
+**Example 5 – InfluxDB Authentication Paramenters – ENVARS**
 
 ```
 KAPACITOR_INFLUXDB_0_USERNAME="admin"
@@ -277,7 +277,7 @@ then providing a path to a certificate with the property `https-certificate`.
 
 The following example shows how this is done in the `kapacitor.conf` file.
 
-**Example 6 &ndash; Enabling TLS in kapacitor.conf**
+**Example 6 – Enabling TLS in kapacitor.conf**
 
 ```toml
 [http]
@@ -296,7 +296,7 @@ The following example shows how this is done in the `kapacitor.conf` file.
 
 These values can also be set as environment variables as shown in the next example.
 
-**Example 7 &ndash; Enabling TLS as ENVARS**
+**Example 7 – Enabling TLS as ENVARS**
 
 ```
 KAPACITOR_HTTP_HTTPS_ENABLED=true
@@ -412,23 +412,23 @@ InfluxDB connection for which a Kapacitor connection is to be added, click the
 link **Add Kapacitor Connection**.  This will load the Add a New Kapacitor
 Connection page.
 
-**Image 1 &ndash; Adding a Kapacitor Connection**
+**Image 1 – Adding a Kapacitor Connection**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection01.png" alt="add kapacitor 01" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection01.png" alt="Add Kapacitor 01" style="max-width:100%;" />
 
 2) In the **Connection Details** group fill in such details as a name for the
 connection and click the **Connect** button.
 
-**Image 2 &ndash; Kapacitor Connection Details**
+**Image 2 – Kapacitor Connection Details**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection02.png" alt="add kapacitor 02" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection02.png" alt="Add Kapacitor 02" style="max-width:100%;" />
 
 3) If the certificate is installed on the system a success notification will
 appear.
 
-**Image 3 &ndash; Kapacitor Connection Success**
+**Image 3 – Kapacitor Connection Success**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection03.png" alt="add kapacitor 03" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection03.png" alt="Add Kapacitor 03" style="max-width:100%;" />
 
 If an error notification is returned check the Chronograf log for proxy errors.
 For example:
@@ -441,9 +441,9 @@ mar 06 13:53:07 lenovo-tp02 chronograf[12079]: 2018/03/06 13:53:07 http: proxy e
 appear.  In wider screens they will be to the right of the Connection Details
 group.  In narrower screens they will be below the Connection Details group.
 
-**Image 4 &ndash; Configure Kapacitor Handler Endpoints**
+**Image 4 – Configure Kapacitor Handler Endpoints**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection04b.png" alt="add kapacitor 04" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection04.png" alt="Add Kapacitor 04" style="max-width:100%;" />
 
 At this point Kapacitor can be used to generate alerts and TICKscripts through
 Chronograf. These features are available through the **Alerting** item in the

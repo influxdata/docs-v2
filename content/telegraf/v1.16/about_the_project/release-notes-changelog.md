@@ -8,6 +8,31 @@ menu:
     parent: About the project
 ---
 
+## v1.16.3 [2020-12-01]
+
+### Features
+- Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
+
+### Input plugin updates
+- APCUPSD (`apcupsd`): Add driver and CUDA version.
+- CSV Parser (`csv`): Fix issue where CSV timestamp was being read as Unix instead of Go reference time.
+- gNMI (`gnmi`): Add logging of `SubscribeResponse_Error` response types.
+
+- NVIDIA SMI (`nvidia_smi`): Add driver and CUDA version.
+- PHP-FPM (`phpfpm`): Fix issue with "index out of range" error.
+- SQL Server (`sqlserver`): Fix typo in `database_name` column.
+
+### Output plugin updates
+- Wavefront (`wavefront`):
+  - Distinguish between retryable and non-retryable errors .
+  - Add debug-level logging for metric data that is not retryable.
+
+### Parser plugin updates
+- Starlark (`starlark`):
+  - Allow the processor to manage errors that occur in the `apply` function.
+  - Add support for logging.
+  - Add capability to return multiple metrics.
+
 ## v1.16.2 [2020-11-13]
 
 ### Input plugin updates
@@ -51,7 +76,7 @@ menu:
 
 - Apache Kafka (`kafka`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI.
 
-## v1.16 [2020-10-21]
+## v1.16.0 [2020-10-21]
 
 ### New plugins
 
@@ -139,7 +164,7 @@ menu:
 - Fix `procstat` performance regression
 - Fix serialization when using `carbon2`.
 - Fix bugs found by LGTM analysis platform.
-- Update to Go 1.15.
+- Update to Go 1.15.2
 
 ## v.1.15.3 [2020-09-11]
 

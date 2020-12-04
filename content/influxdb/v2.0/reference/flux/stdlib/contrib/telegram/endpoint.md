@@ -40,7 +40,7 @@ Default is `https://api.telegram.org/bot`.
 _**Data type:** String_
 
 ### token
-<span class="req">Required</span>
+({{< req >}})
 Telegram bot token.
 
 _**Data type:** String_

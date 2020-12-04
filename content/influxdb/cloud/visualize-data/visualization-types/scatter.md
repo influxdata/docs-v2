@@ -72,7 +72,7 @@ cpu = from(bucket: "example-bucket")
       r.cpu == "cpu-total"
   )
   // Scale CPU usage
-  |> map(fn: (r) => ({
+  |> map(fn: (r) => ({ r with
       _value: r._value + 60.0,
       _time: r._time
       })
