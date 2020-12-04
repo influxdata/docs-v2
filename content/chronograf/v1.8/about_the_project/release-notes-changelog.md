@@ -8,7 +8,7 @@ menu:
     parent: About the project
 ---
 
-## v1.8.9 [2020-12-03]
+## v1.8.9 [2020-12-04]
 
 ### Features
 - Configure etcd with client TLS certificate.
