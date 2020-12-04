@@ -32,7 +32,7 @@ Make it easier to compare data from different places by standardizing or normali
     |> map(fn: (r) => ({ r with _value: r._value * r._value}))
   ```
 4. Add an **Output to Bucket** cell:
-  - Select the destination bucket for your downsampled data.
+  - Select the destination bucket for your normalized data.
 5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "This notebook standardizes `response_time` so that all values are between 0 and 1."
 5. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
 6. Run your notebook:
