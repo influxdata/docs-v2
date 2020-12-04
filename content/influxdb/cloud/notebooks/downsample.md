@@ -22,7 +22,7 @@ Downsample data to reduce the overall disk usage as data collects over time. Thi
 
 ## Downsample data with a notebook
 
-1. Create a new notebook (see [Create a notebook](/influxdb/v2.0/notebooks/create-notebook/).
+1. Create a new notebook (see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
 2. Add a **Metric Selector** cell to select a bucket to query data from:
   - In the **Choose a bucket** dropdown, select **Website Monitoring Bucket**.
   - Select the **response_time** field.
