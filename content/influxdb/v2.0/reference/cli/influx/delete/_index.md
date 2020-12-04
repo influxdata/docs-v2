@@ -13,7 +13,8 @@ related:
 ---
 
 The `influx delete` command deletes [points](/influxdb/v2.0/reference/glossary/#point)
-from an InfluxDB bucket. Identify points to delete using [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate).
+from an InfluxDB bucket in a specified time range.
+Select points to delete within the specified time range using [delete predicate syntax](/influxdb/v2.0/reference/syntax/delete-predicate).
 
 {{% warn %}}
 Running `influx delete` without the `-p` or `--predicate` flag deletes all data with timestamps between the specified

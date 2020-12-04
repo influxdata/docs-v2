@@ -2,8 +2,7 @@
 title: Delete predicate syntax
 list_title: Delete predicate
 description: >
-  The InfluxDB `/api/v2/delete` endpoint uses an InfluxQL-like predicate syntax
-  to determine what data points to delete.
+  InfluxDB uses an InfluxQL-like predicate syntax to determine what data points to delete.
 menu:
   influxdb_2_0_ref:
     parent: Syntax
@@ -15,8 +14,8 @@ related:
   - /influxdb/v2.0/reference/cli/influx/delete/
 ---
 
-The InfluxDB `/api/v2/delete` endpoint uses an InfluxQL-like predicate syntax to
-determine what data [points](/influxdb/v2.0/reference/glossary/#point) to delete.
+InfluxDB uses an InfluxQL-like predicate syntax to determine what data
+[points](/influxdb/v2.0/reference/glossary/#point) to delete.
 InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/v2.0/reference/glossary/#series-key)
 of points in the time range specified in the delete request.
 Points with series keys that evaluate to `true` for the given predicate are deleted.
