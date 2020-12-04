@@ -24,6 +24,7 @@ menu:
   (while using InfluxDB Cloud or InfluxDB OSS 2.x sources).
 - Use token authentication against InfluxDB Cloud and InfluxDB OSS 2.x sources.
 - Avoid blank screen on Windows.
+- Repair visual comparison with time variables (`:upperDashboardTime:` and `:dashboardTime:`).
 - Repair possible millisecond differences in duration computation.
 - Remove deprecated React SFC type.
 
