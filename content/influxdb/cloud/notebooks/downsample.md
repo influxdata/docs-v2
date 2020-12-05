@@ -34,7 +34,7 @@ Downsample data to reduce the overall disk usage as data collects over time. Thi
   ```
 4. Add an **Output to Bucket** cell:
   - Select the destination bucket for your downsampled data.
-5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "Downsample to one value per hour so we can do annual year-over-year performance. Sending data to downsample bucket."
+5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "Downsample to one value per hour so we can do week-over-week performance. Sending data to downsample bucket."
 5. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
 6. Run your notebook:
   - Click **Run** to run the notebook and write to the output bucket a single time.

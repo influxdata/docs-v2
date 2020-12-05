@@ -40,7 +40,7 @@ Notebooks are comprised of different cells. The following cell types are availab
 - **Transform: Flux Script**:
   - Use `__PREVIOUS_RESULT__` to build from data in the previous cell.
   - Enter a Flux script to transform your data.
-- **Pass-through: Markdown**: Enter explanatory notes or other information for your team members in Markdown.
+- **Pass-through: Markdown**: Enter explanatory notes or other information for yourself or one of your team members in Markdown.
 - **Pass-through: Visualization**:
   - Create a visualization of your data. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
   - Click **Export to Dashboard** in the upper right to send your cell to a new or existing dashboard.
