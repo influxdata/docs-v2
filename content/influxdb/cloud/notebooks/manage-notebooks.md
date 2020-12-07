@@ -1,6 +1,6 @@
 ---
 title: Manage notebooks
-description:
+description: View, update, and delete notebooks.
 weight: 102
 influxdb/cloud/tags:
 menu:
@@ -21,7 +21,7 @@ View, update, and delete notebooks in the UI.
     {{< nav-icon "notebooks" >}}
 
 A list of notebooks appears.
-2. Click on one of the notebooks in the list to open it.
+2. Click a notebook to open it.
 3. To update, edit the notebook's cells and content. Changes are saved automatically.
 
 ## Delete a notebook

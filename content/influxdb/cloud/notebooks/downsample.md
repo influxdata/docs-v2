@@ -1,6 +1,7 @@
 ---
 title: Downsample data with notebooks
-description:
+description: >
+  Downsample data to reduce overall disk usage as data collects over time.
 weight: 102
 influxdb/cloud/tags:
 menu:

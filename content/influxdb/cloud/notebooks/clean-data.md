@@ -1,6 +1,7 @@
 ---
 title: Normalize data with notebooks
-description:
+description: >
+  Clean, standardize, or normalize you data to make it easier to compare with other measurements.
 weight: 102
 influxdb/cloud/tags:
 menu:
@@ -13,7 +14,7 @@ menu:
 [Submit a request](https://w2.influxdata.com/notebooks-early-access/ ) for early access, and we'll send you a confirmation notebooks is available in your account.
 {{% /note %}}
 
-Learn how to create a notebook that normalizes data—walk through the following example to create a notebook that does the following:
+Learn how to create a notebook that normalizes data. Walk through the following example to create a notebook that does the following:
 
 - Inputs sample data from NOAA
 - Normalizes sample data with a Flux script
