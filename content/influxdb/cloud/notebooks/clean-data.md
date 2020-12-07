@@ -2,29 +2,32 @@
 title: Normalize data with notebooks
 description:
 weight: 102
-influxdb/v2.0/tags:
+influxdb/cloud/tags:
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Normalize data with notebooks
     parent: Notebooks
 ---
 {{% note %}}
 **Notebooks is currently an early access feature.**
-[Submit a request](https://w2.influxdata.com/notebooks-early-access/ ) to be added to the queue, and we will send you a confirmation when you’ve been added to early access.
+[Submit a request](https://w2.influxdata.com/notebooks-early-access/ ) for early access, and we'll send you a confirmation notebooks is available in your account.
 {{% /note %}}
 
-Make it easier to compare data from different places by standardizing or normalizing it. This example walks through creating a notebook with NOAA water database sample data that makes it easier to view water level and water temperature measurements alongside one another using the [`map()`](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/) function and writing it to a new bucket.
+Learn how to create a notebook that normalizes data—walk through the following example to create a notebook that does the following:
+
+- Inputs sample data from NOAA
+- Normalizes sample data with a Flux script
+- Outputs normalized data to a bucket
 
 ## Requirements
 - This example uses [NOAA water database data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data). Note that using this data counts towards your total usage.  
 - Create a destination bucket to write normalized data to. For details, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
 
-
 ## Normalize data with a notebook
 1. Create a new notebook (see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
 2. Add a **Metric Selector** cell to select a bucket to query data from:
   - In the **Choose a bucket** dropdown, select your NOAA bucket.
-  - Select the **h20_temperature** field.
+  - Select the **h2o_temperature** field.
   - Select the **mean** function from the aggregate selector in the upper-right.
 3. Add a **Flux Transformation** cell with the following script to bring in data from the previous cell and normalize it:
   ```sh
