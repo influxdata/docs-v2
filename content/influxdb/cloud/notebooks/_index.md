@@ -1,6 +1,6 @@
 ---
 title: Notebooks
-seotitle: Build notebooks in InfluxDB
+seotitle: Build notebooks in InfluxDB Cloud
 description:
 menu:
   influxdb_2_0:
