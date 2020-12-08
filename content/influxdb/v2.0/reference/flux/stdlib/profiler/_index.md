@@ -60,10 +60,9 @@ include a table with the following columns:
 
 ### operator
 The `operator` profiler output statistics about each operation in a query.
-[Pushdown operations](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
-that execute in the data source storage engine are returned as a single operation.
-Operations executed in memory are returned as individual operations.
-When enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+[Operations executed in the storage tier](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
+return as a single operation.
+When the `operator` profile is enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
 include a table with a row for each operation and the following columns:
 
 - **Type:** operation type
