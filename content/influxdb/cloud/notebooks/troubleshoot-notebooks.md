@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot notebooks
 description: Common issues with the notebooks feature.
-weight: 102
+weight: 105
 influxdb/cloud/tags:
 menu:
   influxdb_cloud:

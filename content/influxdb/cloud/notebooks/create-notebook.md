@@ -2,7 +2,7 @@
 title: Create a notebook
 description: >
   Create a notebook to explore, visualize, and process your data.
-weight: 102
+weight: 101
 influxdb/cloud/tags:
 menu:
   influxdb_cloud:
