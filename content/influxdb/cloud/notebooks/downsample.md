@@ -10,7 +10,7 @@ menu:
     parent: Notebooks
 ---
 {{% note %}}
-**Notebooks is currently an early access feature.**
+**Notebooks is currently an early-access feature.**
 [Submit a request](https://w2.influxdata.com/notebooks-early-access/) for early access, and we'll send you a confirmation notebooks is available in your account.
 {{% /note %}}
 
@@ -19,7 +19,7 @@ Learn how to create a notebook that downsamples data—walk through the followin
 
 - Inputs InfluxDB Cloud demo data from the Website Monitoring Bucket
 - Downsamples data by aggregating data within windows of time with a Flux script
-- Outputs downsampled data to a bucket.
+- Outputs downsampled data to a bucket
 
 ## Requirements
 
