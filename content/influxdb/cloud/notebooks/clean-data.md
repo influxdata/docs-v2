@@ -11,7 +11,7 @@ menu:
 ---
 {{% note %}}
 **Notebooks is currently an early access feature.**
-[Submit a request](https://w2.influxdata.com/notebooks-early-access/ ) for early access, and we'll send you a confirmation notebooks is available in your account.
+[Submit a request](https://w2.influxdata.com/notebooks-early-access/) for early access, and we'll send you a confirmation notebooks is available in your account.
 {{% /note %}}
 
 Learn how to create a notebook that normalizes data. Walk through the following example to create a notebook that does the following:
