@@ -5,7 +5,7 @@ description: >
 weight: 102
 influxdb/cloud/tags:
 menu:
-  iinfluxdb_cloud:
+  influxdb_cloud:
     name: Downsample data with notebooks
     parent: Notebooks
 ---
