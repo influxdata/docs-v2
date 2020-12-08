@@ -1,7 +1,7 @@
 ---
 title: Create a notebook
 description: >
-  Create a notebook to explore, visualize, and process your data. 
+  Create a notebook to explore, visualize, and process your data.
 weight: 102
 influxdb/cloud/tags:
 menu:
@@ -35,6 +35,7 @@ This guide walks through the basics of creating a notebook. For specific example
 
 ## Cell types
 Notebooks are comprised of different cells. Add one or more of the following cell types to your notebook:
+
 - **Input: Metric Selector**:
   - Choose a bucket to define your data source.
   - Edit your time range with the time range option in the dropdown menu.
