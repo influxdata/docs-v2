@@ -19,7 +19,7 @@ Create a notebook to explore, visualize, and process your data.
 This guide walks through the basics of creating a notebook. For specific examples, see the following:
 
   - [Downsample data](/influxdb/cloud/notebooks/downsample/)
-  - [Normalize data](/influxdb/cloud/notebooks/normalize/)
+  - [Normalize data](/influxdb/cloud/notebooks/clean-data/)
 
 ## Create a new notebook
 1. In the navigation menu on the left, click **Notebooks**.

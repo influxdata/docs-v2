@@ -20,7 +20,7 @@ View, update, and delete notebooks in the UI.
 
     {{< nav-icon "notebooks" >}}
 
-A list of notebooks appears.
+    A list of notebooks appears.
 2. Click a notebook to open it.
 3. To update, edit the notebook's cells and content. Changes are saved automatically.
 
