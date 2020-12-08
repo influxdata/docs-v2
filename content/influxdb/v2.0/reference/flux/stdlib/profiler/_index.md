@@ -33,6 +33,8 @@ _**Data type:** Array of strings_
 import "profiler"
 
 option profiler.enabledProfilers = ["query", "operator"]
+
+// Query to profile
 ```
 
 ## Available profilers
