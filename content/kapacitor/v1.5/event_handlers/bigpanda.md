@@ -5,11 +5,11 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: BigPanda
-    weight: 1500
+    weight: 225
     parent: Event handlers
 ---
 
-[BigPanda](https://bigpanda.io/) provides incident management and event correlation and automation platform that helps organizations prevent and resolve IT outages.
+[BigPanda](https://bigpanda.io/) is an event correlation and automation platform that helps organizations prevent and resolve IT outages.
 
 ## Configuration
 
@@ -19,21 +19,15 @@ The example below shows the default configuration:
 
 ```toml
 [bigpanda]
-
-  # Configure BigPanda.
   enabled = false
-  # The BigPanda URL for the target table (Alert or Event). Replace this instance with your hostname.
+  # The BigPanda App Key
   app-key = ""
-  # Authentication token Alerts REST 
+  # The Authentication token for BigPanda Alerts REST API 
   token = ""
 ```
-
-### Required settings
-
 #### `enabled`
 
 Set to `true` to enable the BigPanda event handler.
-
 
 #### `token`
 
@@ -41,14 +35,12 @@ Authorization Bearer token for BigPanda REST API.
 
 #### `app-key`
 
-BigPanda integration App Key. To get App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, 
-then click the **New Integration**, select **Alerts REST API** and click **Integrate** button and **Create an App Key**.
-
-### Optional settings
+BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click the **New Integration**.
+Select **Alerts REST API**, click **Integrate** button, and then **Create an App Key**.
  
 #### `url`
 
-Optional custom BigPanda instance address. `https://api.bigpanda.io/data/v2/alerts` is used as default value.
+Optional custom BigPanda instance address. Default is `https://api.bigpanda.io/data/v2/alerts`. 
 
 ## Options
 
@@ -58,10 +50,10 @@ The following BigPanda event handler options can be set in a
 
 | Name       | Type                   | Description                                                                                              |
 | ----       | ----                   | -----------                                                                                              |
-| appKey     | string                 | BigPanda appKey
+| appKey     | string                 | BigPanda appKey |
 
 
-By default, the handler maps the Kapacitor values below to the BigPAnda Alert or Event fields as follows:
+By default, the handler maps the Kapacitor values below to the BigPanda Alert or Event fields as follows:
 
 | Value      | BigPanda Alert Field       |
 | ----       | ----        |
@@ -70,7 +62,7 @@ By default, the handler maps the Kapacitor values below to the BigPAnda Alert or
 | details    | details |
 | alert task name  | task | 
 
-All EventData tags are also appended into BigPanda Alert as **Additional attributes**. See 
+All EventData tags are appended into BigPanda Alert as **Additional attributes**. See 
 [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts) for more information. 
 
 ### TICKscript examples
