@@ -250,7 +250,8 @@ lambda: "expiration" < unixNano(now())
 #### Math functions
 
 The following mathematical functions are available.
-Each function is implemented via the equivalent Go function.
+Each function is implemented via the equivalent Go function
+(linked in the table below for reference only).
 
 | Function                                                          | Description                                                                                                                      |
 | ----------                                                        | -------------                                                                                                                    |
@@ -300,7 +301,8 @@ Each function is implemented via the equivalent Go function.
 #### String functions
 
 The following string manipulation functions are available.
-Each function is implemented via the equivalent Go function.
+Each function is implemented via the equivalent Go function
+(linked in the table below for reference only).
 
 | Function                                                                                                  | Description                                                                                                                                                                                                                            |
 | ----------                                                                                                | -------------                                                                                                                                                                                                                          |
