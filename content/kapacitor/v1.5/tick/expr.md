@@ -328,7 +328,11 @@ Each function is implemented via the equivalent Go function
 | [strTrimSuffix(s,&nbsp;suffix&nbsp;string)&nbsp;string)](https://golang.org/pkg/strings/#TrimSuffix)                     | StrTrimSuffix returns s without the provided trailing suffix string. If s doesn't end with suffix, s is returned unchanged.                                                                                                            |
 | [regexReplace(r&nbsp;regex,&nbsp;s,&nbsp;pattern&nbsp;string)&nbsp;string](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString) | RegexReplace replaces matches of the regular expression in the input string with the output string. For example regexReplace(/a(b*)c/, 'abbbc', 'group is $1') -> 'group is bbb'. The original string is returned if no matches are found. |
 
+**Example:**
 
+```js
+.where(lambda: !strContains("fstype", 'nfs') OR !strContains("fstype", 'cifs'))
+```
 
 #### Human string functions
 
