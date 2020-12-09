@@ -20,9 +20,9 @@ The example below shows the default configuration:
 ```toml
 [bigpanda]
   enabled = false
-  # The BigPanda App Key
+  # BigPanda integration App Key
   app-key = ""
-  # The Authentication token for BigPanda Alerts REST API 
+  # Authorization Bearer token for BigPanda REST API.  
   token = ""
 ```
 #### `enabled`
