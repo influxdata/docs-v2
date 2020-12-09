@@ -8,6 +8,7 @@ menu:
     name: System buckets
     parent: InfluxDB internals
 weight: 101
+influxdb/v2.0/tags: [buckets]
 related:
   - /influxdb/v2.0/monitor-alert/
   - /influxdb/v2.0/process-data/

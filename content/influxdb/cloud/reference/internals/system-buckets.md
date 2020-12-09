@@ -8,6 +8,7 @@ menu:
     name: System buckets
     parent: InfluxDB Cloud internals
 weight: 101
+influxdb/cloud/tags: [buckets]
 related:
   - /influxdb/cloud/monitor-alert/
   - /influxdb/cloud/process-data/
