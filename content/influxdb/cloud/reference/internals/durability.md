@@ -14,7 +14,7 @@ influxdb/cloud/tags: [backups, internals]
 
 InfluxDB Cloud replicates all data in the storage tier across two availability
 zones in a cloud region, automatically creates backups, and verifies that replicated
-data is consistent and that data is correct.
+data is consistent and that data is readable.
 
 ##### On this page
 
@@ -80,7 +80,7 @@ it could take 24 hours or longer.
 InfluxDB Cloud has two data verification services running at all times:
 
 - **Entropy detection:** ensures that replicated data is consistent
-- **Data verification:** verifies that data written to InfluxDB is correct
+- **Data verification:** verifies that data written to InfluxDB is readable
 
 ## InfluxDB Cloud status
 InfluxDB Cloud regions and underlying services are monitored at all times.
