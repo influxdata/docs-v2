@@ -30,6 +30,9 @@ For example, you **cannot** do the following:
 - Modify retention policies
 - Add users
 
+When connected to an InfluxDB Cloud or InfluxDB 2.0 database, the **InfluxDB Admin**
+section of Chronograf is disabled.
+
 To complete administrative tasks, use the following:
 
 - **InfluxDB user interface (UI)**
@@ -44,7 +47,11 @@ For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/
 ## Create an InfluxDB connection
 1. In Choronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
-2. Enter your InfluxDB connection credentials:
+2. Toggle the **InfluxDB v2 Auth** option at the bottom of the form.
+
+    {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
+
+3. Enter your InfluxDB connection credentials:
     - **Connection URL:** InfluxDB URL _(see [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
       or [InfluxDB OSS URLs](/influxdb/v2.0/reference/urls/))_
 
@@ -53,8 +60,8 @@ For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Username:** InfluxDB username
-    - **Password:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - **Organization:** InfluxDB organization name
+    - **Token:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
     - **Telegraf Database Name:** Default database name
     - **Default Retention Policy:** Default retention policy
 
@@ -73,3 +80,10 @@ and [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buck
    _For information about using Kapacitor with InfluxDB Cloud or InfluxDB OSS 2.0,
    see [Use Kapacitor with InfluxDB](/influxdb/v2.0/tools/kapacitor/)._
 6. Click **Finish**.
+
+### Update upgraded InfluxDB connections
+If using Chronograf with an InfluxDB instance that was upgraded from 1.x
+to 2.x, update your connection configuration to use the **InfluxDB v2 Auth** option
+and provide an organization and a token.
+**Without an organization, Chronograf cannot use Flux to query InfluxDB.**
+
