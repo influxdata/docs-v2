@@ -16,8 +16,8 @@ to create an organization.
 {{% note %}}
 #### Organization and bucket limits
 A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
-written to or queried across all organizations.
-Any more than that adversely affects performance.
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
 Because each organization is created with a bucket, we do not recommend more than
 20 organizations in a single InfluxDB OSS instance.
 {{% /note %}}
