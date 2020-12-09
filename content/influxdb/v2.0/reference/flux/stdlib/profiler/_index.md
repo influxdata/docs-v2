@@ -32,12 +32,16 @@ _**Data type:** Array of strings_
 ```js
 import "profiler"
 
-option profiler.enabledProfilers = [""]
+option profiler.enabledProfilers = ["query", "operator"]
+
+// Query to profile
 ```
 
-#### Available profilers
+## Available profilers
+- [query](#query)
+- [operator](#operator)
 
-##### query
+### query
 The `query` profiler provides statistics about the execution of an entire Flux script.
 When enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
 include a table with the following columns:
@@ -56,14 +60,17 @@ include a table with the following columns:
 - **influxdb/scanned-values**: value scanned by InfluxDB.
 - **influxdb/scanned-bytes**: number of bytes scanned by InfluxDB.
 
-#### Use the query profiler
+### operator
+The `operator` profiler output statistics about each operation in a query.
+[Operations executed in the storage tier](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
+return as a single operation.
+When the `operator` profile is enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+include a table with a row for each operation and the following columns:
 
-Use the query profiler to output statistics about query execution.
-
-```js
-import "profiler"
-
-option profiler.enabledProfilers = ["query"]
-
-// ... Query to profile
-```
+- **Type:** operation type
+- **Label:** operation name
+- **Count:** total number of times the operation executed
+- **MinDuration:** minimum duration of the operation in nanoseconds
+- **MaxDuration:** maximum duration of the operation in nanoseconds
+- **DurationSum:** total duration of all operation executions in nanoseconds
+- **MeanDuration:** average duration of all operation executions in nanoseconds
