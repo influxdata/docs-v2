@@ -62,8 +62,10 @@ For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/
     - **Connection Name:** Name to uniquely identify this connection configuration
     - **Organization:** InfluxDB organization name
     - **Token:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
-    - **Telegraf Database Name:** Default database name
-    - **Default Retention Policy:** Default retention policy
+    - **Telegraf Database Name:** database Chronograf uses to populate parts of
+      the application, including the Host List page (default is `autogen`)
+    - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
+      (default is `autogen`)
 
     {{% note %}}
 #### DBRPs map to InfluxDB buckets
