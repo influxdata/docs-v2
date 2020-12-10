@@ -381,8 +381,8 @@ When using the generic configuration, some or all of the following environment v
 * `GENERIC_TOKEN_URL`: Provider's token [endpoint](https://tools.ietf.org/html/rfc6749#section-3.2) URL used by the Chronograf client to obtain an access token
 * `USE_ID_TOKEN`: Enable OpenID [id_token](https://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.3.3) processing
 * `JWKS_URL`: Provider's JWKS [endpoint](https://tools.ietf.org/html/rfc7517#section-4.7) used by the client to validate RSA signatures
-* `GENERIC_API_URL`: Provider's [OpenID UserInfo endpoint](https://connect2id.com/products/server/docs/api/userinfo)] URL used by Chronograf to request user data
-* `GENERIC_API_KEY`: JSON lookup key for [OpenID UserInfo](https://connect2id.com/products/server/docs/api/userinfo)] (known to be required for Microsoft Azure, with the value `userPrincipalName`)
+* `GENERIC_API_URL`: Provider's [OpenID UserInfo endpoint](https://connect2id.com/products/server/docs/api/userinfo) URL used by Chronograf to request user data
+* `GENERIC_API_KEY`: JSON lookup key for [OpenID UserInfo](https://connect2id.com/products/server/docs/api/userinfo) (known to be required for Microsoft Azure, with the value `userPrincipalName`)
 * `GENERIC_SCOPES`: [Scopes](https://tools.ietf.org/html/rfc6749#section-3.3) of user data required for your instance of Chronograf, such as user email and OAuth provider organization
   - Multiple values must be space-delimited, e.g. `user:email read:org`
   - These may vary by OAuth 2.0 provider
@@ -423,6 +423,18 @@ TOKEN_SECRET="ZNh2N9toMwUVQxTVEe2ZnnMtgkh3xqKZ"
 
 {{% note %}}
 Do not use special characters for the `GENERIC_CLIENT_ID` as AD FS may split strings at the special character, resulting in an identifier mismatch.
+{{% /note %}}
+
+{{% note %}}
+#### Troubleshoot OAuth errors
+
+##### ERRO[0053]
+A **ERRO[0053]** error indicates that a primary email is not found for the specified user.
+A user must have a primary email.
+
+```
+ERRO[0053] Unable to get OAuth Group malformed email address, expected "..." to contain @ symbol
+```
 {{% /note %}}
 
 ### Configure authentication duration

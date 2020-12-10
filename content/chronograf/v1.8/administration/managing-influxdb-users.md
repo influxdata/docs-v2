@@ -16,6 +16,13 @@ The **Chronograf Admin** provides InfluxDB user management for InfluxDB OSS and 
 
 > ***Note:*** For details on Chronograf user authentication and management, see [Managing security](/chronograf/v1.8/administration/managing-security/).
 
+{{% note %}}
+#### Disabled administrative features
+If connected to **InfluxDB OSS v2.x** or **InfluxDB Cloud**, all InfluxDB administrative
+features are disabled in Chronograf. Use the InfluxDB OSS v2.x or InfluxDB Cloud user
+interfaces, CLIs, or APIs to complete administrative tasks.
+{{% /note %}}
+
 **On this page:**
 
 * [Enable authentication](#enable-authentication)
