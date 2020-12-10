@@ -8,11 +8,15 @@ menu:
     parent: About the project
 ---
 
-## v1.8.9 [2020-12-04]
+## v1.8.9.1 [2020-12-10]
 
 ### Features
 - Configure etcd with client TLS certificate.
 - Support Flux in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Support Flux Schema Explorer in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Let users specify InfluxDB v2 authentication.
+- Validate credentials before creating or updating InfluxDB sources.
+- Use fully qualified bucket names when using Flux in the Data Explorer.
 - Upgrade Go to 1.15.5.
 - Upgrade Node.js to 14 LTS.
 
