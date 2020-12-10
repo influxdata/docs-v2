@@ -6,6 +6,8 @@ menu:
     name: Create InfluxDB and Kapacitor connections
     weight: 50
     parent: Administration
+related:
+  - /influxdb/v2.0/tools/chronograf/
 ---
 
 Connections to InfluxDB and Kapacitor can be configured through the Chronograf user interface (UI) or with JSON configuration files:
@@ -42,26 +44,29 @@ To create an InfluxDB connection in the Chronograf UI:
   _(Required only if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) in InfluxDB)_
 - **Password**: InfluxDB password
   _(Required only if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) in InfluxDB)_
-- **Telegraf Database Name**: the database Chronograf uses to populate parts of the application, including the Host List page (default is `autogen`)
-- **Default Retention Policy**: default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp) (default is `autogen`)
-- **Default connection**: use this connection as the default connection
+- **Telegraf Database Name**: the database Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+- **Default Retention Policy**: default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
+  (if left blank, defaults to `autogen`)
+- **Default connection**: use this connection as the default connection for data exploration, dashboards, and administrative actions
     {{% /tab-content %}}
     {{% tab-content %}}
 <img src="/img/chronograf/1-8-influxdb-v2-connection-config.png" style="width:100%; max-width:798px;"/>
 
 - **Enable the {{< req "InfluxDB v2 Auth" >}} option**
-- **Connection URL**: InfluxDB Cloud or OSS 2.x URL
+- **Connection URL**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
+  or [InfluxDB OSS 2.x URL](/influxdb/v2.0/reference/urls/)
 
     ```
     http://localhost:8086
     ```
 
 - **Connection Name**: Unique name for this connection.
-- **Organiziation**: InfluxDB organization
+- **Organiziation**: InfluxDB [organization](/influxdb/v2.0/organizations/)
 - **Token**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
-- **Telegraf Database Name**: database Chronograf uses to populate parts of the application, including the Host List page (default is `autogen`)
-- **Default Retention Policy**: default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp) (default is `autogen`)
-- **Default connection**: use this connection as the default connection
+- **Telegraf Database Name**: database Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+- **Default Retention Policy**: default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
+  (if left blank, default is `autogen`)
+- **Default connection**: use this connection as the default connection for data exploration and dashboards
 
 {{% note %}}
 For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x instance, see:
