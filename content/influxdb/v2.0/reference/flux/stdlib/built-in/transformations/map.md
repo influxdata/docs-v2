@@ -112,3 +112,32 @@ from(bucket:"example-bucket")
       valueInt: int(v: r._value)
     }))
 ```
+
+## Troubleshooting
+
+### Map object property is not supported in a Flux table
+
+Flux tables only support the following value types:
+
+- float
+- integer
+- unsigned integer
+- string
+- boolean
+- time
+
+If `map()` returns a record with an unsupported type, Flux returns an error with
+the name of the column that attempted to use the unsupported type.
+
+If mapping a **duration** value, use [`time()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
+to convert it to a time value or [`int()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/)
+to convert it to an integer.
+For the **bytes** type, use [`string()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/) to convert the value to a string.
+
+{{% note %}}
+For information about supporting other data types in Flux tables, see the
+following Github issues:
+
+- [Add support for duration column value](https://github.com/influxdata/flux/issues/1803)
+- [Add support for bytes column value](https://github.com/influxdata/flux/issues/1804)
+{{% /note %}}
