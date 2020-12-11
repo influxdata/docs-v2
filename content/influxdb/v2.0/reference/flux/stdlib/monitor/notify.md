@@ -47,6 +47,11 @@ The data record must contain the following fields:
 - _notification_endpoint_id
 - _notification_endpoint_name
 
+The InfluxDB monitoring and alerting system uses `monitor.notify()` to store
+information about sent notifications and automatically assigns these values.
+If writing a custom notification [task](/influxdb/v2.0/process-data/),
+use **unique arbitrary values**.
+
 ## Examples
 
 ### Send a notification to Slack
@@ -74,6 +79,6 @@ from(bucket: "system")
 	|> range(start: -5m)
 	|> monitor.notify(
     endpoint: endpoint,
-    data: notification
+    data: notification_data
   )
 ```

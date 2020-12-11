@@ -39,7 +39,7 @@ If using a Slack webhook, you'll receive a Slack webhook URL when you
 _**Data type:** String_
 
 ### token
-({{< req >}}) The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
+The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 used to interact with Slack.
 Defaults to `""`.
 
