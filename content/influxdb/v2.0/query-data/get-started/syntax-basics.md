@@ -118,7 +118,8 @@ All values in a dictionary must be the same type.
 > d = [1: "foo", 2: "bar"]
 ```
 
-Use the `dict.get()` function to access properties in a dictionary:
+Use the [`dict.get()` function](/influxdb/v2.0/reference/flux/stdlib/dict/get/)
+to access properties in a dictionary:
 
 ```js
 > import "dict"
