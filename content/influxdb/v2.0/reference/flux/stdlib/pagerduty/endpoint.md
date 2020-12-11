@@ -42,7 +42,7 @@ Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The function must return a record that includes the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 
 - `routingKey`
 - `client`

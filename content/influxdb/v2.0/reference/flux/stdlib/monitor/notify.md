@@ -50,7 +50,7 @@ The data record must contain the following fields:
 The InfluxDB monitoring and alerting system uses `monitor.notify()` to store
 information about sent notifications and automatically assigns these values.
 If writing a custom notification [task](/influxdb/v2.0/process-data/),
-use **unique arbitrary values** for data record fields.
+we recommend using **unique arbitrary values** for data record fields.
 
 ## Examples
 
