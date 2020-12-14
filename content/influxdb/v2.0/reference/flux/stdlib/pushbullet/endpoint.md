@@ -50,8 +50,8 @@ Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned record must include the following fields (as defined in
-[`pushbullet.pushNote()`](/influxdb/v2.0/reference/flux/stdlib/pushbullet/pushnote/#title)):
+`mapFn` accepts a table row (`r`) and returns a record that must include the
+following fields (as defined in [`pushbullet.pushNote()`](/influxdb/v2.0/reference/flux/stdlib/pushbullet/pushnote/#title)):
 
 - `title`
 - `text`

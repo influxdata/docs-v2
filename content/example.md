@@ -2,7 +2,7 @@
 title: Example post
 description: This is just an example post to show the format of new 2.0 posts
 weight: 1
-draft: true
+#draft: true
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/quick-start
@@ -35,6 +35,7 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< icon "cog" >}} cog  
 {{< icon "config" >}} config  
 {{< icon "copy" >}} copy  
+{{< icon "crown" >}} crown  
 {{< icon "dashboard" >}} dashboard  
 {{< icon "dashboards" >}} dashboards  
 {{< icon "data-explorer" >}} data-explorer  

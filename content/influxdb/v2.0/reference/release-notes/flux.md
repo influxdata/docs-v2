@@ -8,6 +8,37 @@ menu:
     name: Flux
 ---
 
+## v0.98.0 [2020-12-07]
+
+### Features
+- Transform `testcase` AST into pure flux.
+- Added Rust scanner.
+
+### Bug fixes
+- Substring method now works on more indices.
+- Fix typos in `Dockerfile_build`.
+
+---
+
+## v0.97.0 [2020-12-01]
+
+### Features
+- Add dict package for interacting with dictionaries.
+- Added Ragel 7 to the Dockerfiles.
+- Add support for `testcase` statement.
+- Add Dictionary type syntax.
+- Add Dictionary type unification rule.
+
+---
+
+## v0.96.0 [2020-11-23]
+
+### Features
+- Create a Dictionary type interface and implementation.
+- Add Dictionary type (dict) to the semantic flatbuffers.
+
+---
+
 ## v0.95.0 [2020-11-16]
 
 ### Features
