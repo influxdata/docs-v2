@@ -13,13 +13,13 @@ weight: 101
 ### Breaking Changes
 
 Previously, `influxd upgrade` would attempt to write upgraded `config.toml` files into the same directory as the source
-`influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would be written into the `HOME` directory.
+`influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would write into the `HOME` directory.
 
 This release breaks this behavior in two ways:
-1. By default, `config.toml` is now written into the same directory as the Bolt DB and engine files (`~/.influxdbv2/`)
-2. If writing upgraded config fails, the `upgrade` process exits with an error instead of falling back to the `HOME` directory
+- By default, `config.toml` writes into the same directory as the Bolt DB and engine files (`~/.influxdbv2/`)
+- If writing upgraded config fails, the `upgrade` process exits with an error instead of falling back to the `HOME` directory
 
-Users can use the new `--v2-config-path` option to override the output path for upgraded config if they can't or don't
+Use the new `--v2-config-path` option to override the output path for upgraded config if they can't or don't
 want to use the default.
 
 ### Features
@@ -34,13 +34,12 @@ want to use the default.
 
 - Use V2 directory for default V2 config path in `influxd upgrade`.
 - Don't log bodies of V1 write requests.
-- Fix panic when writing a point with 100 tags. Thanks @foobar!
+- Fix panic when writing a point with 100 tags.
 - Ensure KV index walks only select exactly-matched keys.
 - Enforce max value of 2147483647 on query concurrency to avoid startup panic.
-- Enforce max value of 2147483647 on query queue size to avoid startup panic.
-- Auto-migrate existing DBRP mappings from old schema to avoid panic.
-- Optimize shard lookup in groups containing only one shard. Thanks @StoneYunZhao!
-- Respect the `--name` option in `influx setup` whether configs already exist or not.
+- Automatically migrate existing DBRP mappings from old schema to avoid panic.
+- Optimize shard lookup in groups containing only one shard.
+- Always respect the `--name` option in `influx setup`.
 - Allow for 0 (infinite) values for `--retention` in `influx setup`.
 
 ## v2.0.2 General Availability [2020-11-19]
