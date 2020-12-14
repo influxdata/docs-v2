@@ -72,7 +72,7 @@ We're continually optimizing Flux and this list may not represent its current st
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
-results would include ≈15.5 million points per series.  Depending on the [cardinality](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#series-cardinality) of the query, this can quickly become many billions of points.
-Flux must store these points in memory to generate a response.  A Flux user can improve upon this behavior when using [pushdown functions](https://docs.influxdata.com/influxdb/cloud/query-data/optimize-queries/#pushdown-functions).
+results would include ≈15.5 million points per series.  Depending on the [cardinality](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#series-cardinality) (series count returned after your `filter()` function/s) of the query, this can quickly become many billions of points.
+Flux must store these points in memory to generate a response.  A Flux user can improve upon this behavior when using [pushdown functions](https://docs.influxdata.com/influxdb/cloud/query-data/optimize-queries/#pushdown-functions) in [InfluxCloud](https://docs.influxdata.com/influxdb/cloud/).
 
 To query data over large periods of time, create a task to [downsample data](/influxdb/cloud/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
