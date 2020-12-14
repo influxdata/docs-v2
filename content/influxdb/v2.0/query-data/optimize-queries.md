@@ -26,11 +26,13 @@ reduce the amount of memory necessary to run a query.
 #### Pushdown functions
 - [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
 - [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
-<!-- - [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-- [count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
-- [sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
-- [first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
-- [last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) -->
+<!--
+[group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+[count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
+[sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
+[first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
+[last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) 
+-->
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all

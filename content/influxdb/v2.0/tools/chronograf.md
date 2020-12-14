@@ -21,30 +21,14 @@ that provides an InfluxQL data explorer, Kapacitor integrations, and more.
 Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and the
 [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 
-{{% warn %}}
-### No administrative functionality
-Chronograf cannot be used for administrative tasks in InfluxDB Cloud and InfluxDB OSS 2.0.
-For example, you **cannot** do the following:
-
-- Define databases
-- Modify retention policies
-- Add users
-
-To complete administrative tasks, use the following:
-
-- **InfluxDB user interface (UI)**
-- [InfluxDB CLI](/influxdb/v2.0/reference/cli/influx/)
-- [InfluxDB v2 API](/influxdb/v2.0/reference/api/)
-
-### Limited InfluxQL support
-InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries.
-For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/#influxql-support).
-{{% /warn %}}
-
 ## Create an InfluxDB connection
 1. In Choronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
-2. Enter your InfluxDB connection credentials:
+2. Toggle the **InfluxDB v2 Auth** option at the bottom of the form.
+
+    {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
+
+3. Enter your InfluxDB connection credentials:
     - **Connection URL:** InfluxDB URL _(see [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
       or [InfluxDB OSS URLs](/influxdb/v2.0/reference/urls/))_
 
@@ -53,15 +37,19 @@ For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Username:** InfluxDB username
-    - **Password:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
-    - **Telegraf Database Name:** Default database name
-    - **Default Retention Policy:** Default retention policy
+    - **Organization:** InfluxDB [organization](/influxdb/v2.0/organizations/)
+    - **Token:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/)
+      Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+    - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
+      _**(leave blank)**_
 
     {{% note %}}
 #### DBRPs map to InfluxDB buckets
 In InfluxDB Cloud and InfluxDB OSS 2.0, database/retention-policy (DBRP) combinations
 are mapped to buckets using the `database-name/retention-policy` naming convention.
+**DBRP mappings are required to query InfluxDB OSS 2.x or InfluxDB Cloud using InfluxQL.**
+
 For information, see [DBRP mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)
 and [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets).
     {{% /note %}}
@@ -73,3 +61,38 @@ and [Map unmapped buckets](/influxdb/v2.0/query-data/influxql/#map-unmapped-buck
    _For information about using Kapacitor with InfluxDB Cloud or InfluxDB OSS 2.0,
    see [Use Kapacitor with InfluxDB](/influxdb/v2.0/tools/kapacitor/)._
 6. Click **Finish**.
+
+## Important notes
+
+- [Update upgraded InfluxDB connections](#Update-upgraded-InfluxDB-connections)
+- [No administrative functionality](#No-administrative-functionality)
+- [Limited InfluxQL support](#Limited-InfluxQL-support)
+
+### Update upgraded InfluxDB connections
+If using Chronograf with an InfluxDB instance that was upgraded from 1.x
+to 2.x, update your InfluxDB connection configuration in Chronograf to use the
+**InfluxDB v2 Auth** option and provide an organization and a token.
+**Without an organization, Chronograf cannot use Flux to query InfluxDB.**
+
+### No administrative functionality
+Chronograf cannot be used for administrative tasks in InfluxDB Cloud and InfluxDB OSS 2.0.
+For example, you **cannot** do the following:
+
+- Define databases
+- Modify retention policies
+- Add users
+- Kill queries
+
+When connected to an InfluxDB Cloud or InfluxDB 2.0 database, functionality in the
+**{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
+
+To complete administrative tasks, use the following:
+
+- **InfluxDB user interface (UI)**
+- [InfluxDB CLI](/influxdb/v2.0/reference/cli/influx/)
+- [InfluxDB v2 API](/influxdb/v2.0/reference/api/)
+
+### Limited InfluxQL support
+InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries.
+For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/#influxql-support).
+
