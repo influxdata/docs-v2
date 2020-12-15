@@ -8,39 +8,49 @@ menu:
 weight: 101
 ---
 
-## v2.0.3 General Availability [2020-12-08]
+## v2.0.3 General Availability [2020-12-14]
 
 ### Breaking Changes
 
+#### `influxd upgrade`
+
 Previously, `influxd upgrade` would attempt to write upgraded `config.toml` files into the same directory as the source
-`influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would write into the `HOME` directory.
+`influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would write into the `home` directory of the user who launched the upgrade.
 
 This release breaks this behavior in two ways:
 - By default, `config.toml` writes into the same directory as the Bolt DB and engine files (`~/.influxdbv2/`)
 - If writing upgraded config fails, the `upgrade` process exits with an error instead of falling back to the `HOME` directory
 
-Use the new `--v2-config-path` option to override the output path for upgraded config if they can't or don't
-want to use the default.
+To override the default configuration path (`~/.influxdbv2/`), use the new `--v2-config-path` option to specify the output path to the v2 configuration file (`config.toml`). For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
+
+#### InfluxDB v2 packaging
+
+We've renamed the InfluxDB v2 DEB and RPM packages to clarify versions. The package name is now `influxdb2` and conflicts with any previous `influxdb` package (including initial 2.0.0, 2.0.1, and 2.0.2 packages). 
+
+This release also defines v2-specific path defaults and provides helper scripts for `influxd upgrade` and cleanup cases.
 
 ### Features
 
-- Allow password to be specified as a CLI option in `influx v1 auth create`.
-- Allow password to be specified as a CLI option in `influx v1 auth set-password`.
-- Allow for users to specify where V2 config should be written in `influxd upgrade`.
-- Implement delete with predicate.
+- Allow password to be specified as a CLI option in [`influx v1 auth create`](/influxdb/cloud/reference/cli/influx/auth/create/).
+- Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
+- Implement [delete with predicate](/influxdb/v2.0/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
+- Update Flux to v0.98.0.
+- Update `flux-lsp-browser` to v0.5.25.
+- Support for ARM64 preview build.
+
 
 ### Bug Fixes
 
-- Use V2 directory for default V2 config path in `influxd upgrade`.
-- Don't log bodies of V1 write requests.
-- Fix panic when writing a point with 100 tags.
-- Ensure KV index walks only select exactly-matched keys.
+- Don't log bodies of v1 write requests.
+- Fix panic when writing a point with 100 or more tags.
+- Fix validation of existing DB names when creating DBRP mappings.
 - Enforce max value of 2147483647 on query concurrency to avoid startup panic.
 - Automatically migrate existing DBRP mappings from old schema to avoid panic.
 - Optimize shard lookup in groups containing only one shard.
 - Always respect the `--name` option in `influx setup`.
 - Allow for 0 (infinite) values for `--retention` in `influx setup`.
+- Fix panic when using a `null` value as a record or array in a Flux query.
 
 ## v2.0.2 General Availability [2020-11-19]
 
