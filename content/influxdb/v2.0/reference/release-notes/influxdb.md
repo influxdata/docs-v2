@@ -25,7 +25,7 @@ To override the default configuration path (`~/.influxdbv2/`), use the new `--v2
 
 #### InfluxDB v2 packaging
 
-We've renamed the InfluxDB v2 DEB and RPM packages to clarify versions. The package name is now `influxdb2` and conflicts with any previous `influxdb` package (including initial 2.0.0, 2.0.1, and 2.0.2 packages). 
+We've renamed the InfluxDB v2 DEB and RPM packages to clarify versions. The package name is now `influxdb2` and conflicts with any previous `influxdb` package (including initial 2.0.0, 2.0.1, and 2.0.2 packages).
 
 This release also defines v2-specific path defaults and provides helper scripts for `influxd upgrade` and cleanup cases.
 
@@ -42,7 +42,7 @@ This release also defines v2-specific path defaults and provides helper scripts 
 
 ### Bug Fixes
 
-- Don't log bodies of v1 write requests.
+- Don't log bodies of v1 write request bodies.
 - Fix panic when writing a point with 100 or more tags.
 - Fix validation of existing DB names when creating DBRP mappings.
 - Enforce max value of 2147483647 on query concurrency to avoid startup panic.
