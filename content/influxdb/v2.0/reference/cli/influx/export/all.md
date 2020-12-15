@@ -17,6 +17,10 @@ organization as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
 [Create an InfluxDB template](/influxdb/v2.0/influxdb-templates/create/)._
 
+{{% note %}}
+To be capable of export your resources as templates, you need to get an All Access Token. Look at this article to learn how to create an All Access Token: [Create an authentication token in InfluxDB 2.0](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token/).
+{{% /note %}}
+
 ## Usage
 ```
 influx export all [flags]
