@@ -18,6 +18,7 @@ Previously, `influxd upgrade` would attempt to write upgraded `config.toml` file
 `influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would write into the `home` directory of the user who launched the upgrade.
 
 This release breaks this behavior in two ways:
+
 - By default, `config.toml` writes into the same directory as the Bolt DB and engine files (`~/.influxdbv2/`)
 - If writing upgraded config fails, the `upgrade` process exits with an error instead of falling back to the `HOME` directory
 
@@ -35,10 +36,9 @@ This release also defines v2-specific path defaults and provides helper scripts 
 - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
 - Implement [delete with predicate](/influxdb/v2.0/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
-- Update Flux to v0.98.0.
+- Update Flux to [v0.98.0](/influxdb/v2.0/reference/release-notes/flux/#v0-98-0-2020-12-07).
 - Update `flux-lsp-browser` to v0.5.25.
 - Support for ARM64 preview build.
-
 
 ### Bug Fixes
 
