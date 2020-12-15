@@ -36,7 +36,7 @@ This release also defines v2-specific path defaults and provides [helper scripts
 - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
 - Implement [delete with predicate](/influxdb/v2.0/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
-- Update Flux to [v0.98.0](/influxdb/v2.0/reference/release-notes/flux/#v0-98-0-2020-12-07).
+- Update Flux to [v0.99.0](/influxdb/v2.0/reference/release-notes/flux/#v0-99-0-2020-12-15).
 - Update `flux-lsp-browser` to v0.5.25.
 - Support for ARM64 preview build.
 
