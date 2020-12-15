@@ -66,7 +66,7 @@ The message is stored in the `_message` column.
 _**Data type:** Function_
 
 ### data
-Meta data used to identify this check and append tags to each row.
+Metadata used to identify this check and append tags to each row.
 
 _**Data type:** Record_
 
