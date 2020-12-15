@@ -28,7 +28,7 @@ To override the default configuration path (`~/.influxdbv2/`), use the new `--v2
 
 We've renamed the InfluxDB v2 DEB and RPM packages to clarify versions. The package name is now `influxdb2` and conflicts with any previous `influxdb` package (including initial 2.0.0, 2.0.1, and 2.0.2 packages).
 
-This release also defines v2-specific path defaults and provides helper scripts for `influxd upgrade` and cleanup cases.
+This release also defines v2-specific path defaults and provides [helper scripts](https://github.com/influxdata/influxdb/blob/master/scripts/influxdb2-upgrade.sh) for `influxd upgrade` and cleanup cases.
 
 ### Features
 
