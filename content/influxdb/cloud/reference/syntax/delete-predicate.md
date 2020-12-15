@@ -11,6 +11,7 @@ menu:
 weight: 104
 influxdb/cloud/tags: [syntax, delete]
 related:
+  - /influxdb/cloud/write-data/delete-data/
   - /influxdb/cloud/reference/cli/influx/delete/
 ---
 
