@@ -58,4 +58,15 @@ export ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
 chronograf
 ```
 
+##### Define etcd endpoints with TLS enabled
+Use the `--etcd-cert` flag to specify the path to the etcd PEM-encoded public
+certificate file and the `--etcd-key` flag to specify the path to the private key
+associated with the etcd certificate.
+
+```sh
+chronograf --etcd-endpoints=localhost:2379 \
+  --etcd-cert=path/to/etcd-certificate.pem \
+  --etcd-key=path/to/etcd-private-key.key
+```
+
 For more information, see [Chronograf etcd configuration options](/chronograf/v1.8/administration/config-options#etcd-options).

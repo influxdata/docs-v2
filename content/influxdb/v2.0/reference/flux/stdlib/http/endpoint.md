@@ -42,7 +42,7 @@ To see the default `mapFn` value or for insight into possible overrides, view th
 
 _**Data type:** Function_
 
-The returned record must include the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 
 - `headers`
 - `data`
