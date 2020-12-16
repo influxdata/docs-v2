@@ -130,7 +130,7 @@ function updateUrls(prevUrls, newUrls) {
   replacements.forEach(function (o) {
     if (o.replace != o.with) {
       $(elementSelector).each(function() {
-        $(this).html($(this).html().replace(o.replace,  o.with));
+        $(this).html($(this).html().replace(RegExp(o.replace, "g"),  o.with));
       });
     }
   })
