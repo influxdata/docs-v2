@@ -27,14 +27,17 @@ dict.fromList(
 ## Parameters
 
 ### pairs
-List of records, each containing `key` and `value` properties.
+({{< req >}}) List of records, each containing `key` and `value` properties.
 
 _**Data type:** Array of records_
 
 ## Examples
+
+##### Create a dictionary from a list of records
 ```js
 import "dict"
 
+// Define a new dictionary using an array of records
 d = dict.fromList(
   pairs: [
     {key: 1, value: "foo"},
@@ -42,7 +45,8 @@ d = dict.fromList(
   ]
 )
 
+// Return a property of the dictionary
 dict.get(dict: d, key: 1, default: "")
 
 // Returns foo
-````
+```

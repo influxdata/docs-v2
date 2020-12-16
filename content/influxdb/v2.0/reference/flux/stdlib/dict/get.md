@@ -47,6 +47,7 @@ _**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
 
 ## Examples
 
+##### Return a property of a dictionary
 ```js
 import "dict"
 

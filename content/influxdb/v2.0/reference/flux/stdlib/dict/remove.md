@@ -2,7 +2,7 @@
 title: dict.remove() function
 description: >
   The `dict.remove()` function removes a key value pair from a dictionary and returns
-  and updated dictionary.
+  an updated dictionary.
 menu:
   influxdb_2_0_ref:
     name: dict.remove
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `dict.remove()` function removes a key value pair from a dictionary and returns
-and updated dictionary.
+an updated dictionary.
 
 ```js
 import "dict"
@@ -41,6 +41,7 @@ _**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
 
 ## Examples
 
+##### Remove a property from a dictionary
 ```js
 import "dict"
 
@@ -50,6 +51,8 @@ dNew = dict.remove(
   dict: d,
   key: 1
 )
+
+// Verify the key-value pairs was removed
 
 dict.get(dict: dNew, key: 1, default: "")
 // Returns an empty string

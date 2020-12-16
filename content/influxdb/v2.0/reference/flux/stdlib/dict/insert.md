@@ -62,6 +62,7 @@ dNew = dict.insert(
   value: "baz"
 )
 
+// Verify the new key-value pair was inserted
 dict.get(dict: dNew, key: 3, default: "")
 
 // Returns baz
@@ -79,6 +80,7 @@ dNew = dict.insert(
   value: "baz"
 )
 
+// Verify the new key-value pair was overwritten
 dict.get(dict: dNew, key: 2, default: "")
 
 // Returns baz
