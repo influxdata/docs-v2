@@ -1,7 +1,7 @@
 ---
 title: influx setup
 description: >
-  The `influx setup` command walks through the initial InfluxDB setup process,
+  The `influx setup` command walks through the initial InfluxDB OSS setup process,
   creating a default user, organization, and bucket.
 menu:
   influxdb_2_0_ref:
@@ -9,9 +9,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [get-started]
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/setup/
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
+The `influx setup` command walks through the initial InfluxDB OSS setup process,
 creating a default user, organization, and bucket.
 
 ## Usage

@@ -7,6 +7,7 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [users]
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.

@@ -12,6 +12,11 @@ aliases:
   - /influxdb/v2.0/account-management/multi-user/remove-user/
 ---
 
-1. Navigate to the **Users** page in the left navigation bar.
+To remove a user from your InfluxDB Cloud organization:
+
+1. Click your user avatar in the left navigation bar and select **Users**.
+
+    {{< nav-icon "account" >}}
+
 2. Click the {{< icon "delete" >}} next to the user you want to remove.
 3. Confirm the removal.

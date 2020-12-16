@@ -8,6 +8,7 @@ menu:
 weight: 201
 aliases:
   - /influxdb/v2.0/reference/cli/influx/user/find
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/list/
 ---
 
 The `influx user list` command lists users in InfluxDB.

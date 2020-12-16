@@ -6,6 +6,7 @@ menu:
     name: influx user delete
     parent: influx user
 weight: 201
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/delete/
 ---
 
 The `influx user delete` command deletes a specified user in InfluxDB.

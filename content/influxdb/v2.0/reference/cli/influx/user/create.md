@@ -6,6 +6,7 @@ menu:
     name: influx user create
     parent: influx user
 weight: 201
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/create/
 ---
 
 The `influx user create` command creates a new user in InfluxDB.
