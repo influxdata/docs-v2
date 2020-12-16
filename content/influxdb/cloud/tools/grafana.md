@@ -94,6 +94,7 @@ configure your InfluxDB connection:
     - **Database**: Enter the ID of the bucket to query in InfluxDB Cloud. To retrieve your bucket ID, see how to [view buckets](/influxdb/cloud/organizations/buckets/view-buckets/).
     - **User**: Enter the username to sign into InfluxDB.
     - **Password**: Enter the token used to query the bucket above. To retrieve your token, see how to [view tokens](/influxdb/cloud/security/tokens/view-tokens/).
+    - **HTTP Method**: Select **GET**.
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
 
