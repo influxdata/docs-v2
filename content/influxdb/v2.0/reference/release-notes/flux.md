@@ -8,6 +8,23 @@ menu:
     name: Flux
 ---
 
+## v0.99.0 [2020-12-14]
+
+### Features
+- Evaluate [dictionary literals](/influxdb/v2.0/reference/flux/language/expressions/#dictionary-literals).
+- Infer the type of dictionary literals.
+- Parse and format dictionary literals.
+- Add a pure Flux test runner.
+
+### Bug fixes
+- Ensure `csv.from()` only returns one result.
+- Change `extern` parsing code to return a more descriptive error message.
+- Do not allow containers within a record to be null.
+- Retrieve `now` option before running a Flux script.
+- Fix misspellings in the [Flux README](https://github.com/influxdata/flux/blob/master/README.md).
+
+---
+
 ## v0.98.0 [2020-12-07]
 
 ### Features
