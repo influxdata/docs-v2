@@ -24,6 +24,8 @@ The example below shows the default configuration:
   app-key = ""
   # Authorization Bearer token for BigPanda REST API.  
   token = ""
+  # BigPanda Alert API url  
+  url = "https://api.bigpanda.io/data/v2/alerts"  
 ```
 #### `enabled`
 
@@ -40,7 +42,7 @@ Select **Alerts REST API**, click **Integrate** button, and then **Create an App
  
 #### `url`
 
-Optional custom BigPanda instance address. Default is `https://api.bigpanda.io/data/v2/alerts`. 
+BigPanda Alert API url. 
 
 ## Options
 
@@ -48,21 +50,26 @@ The following BigPanda event handler options can be set in a
 [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.bigPanda()` in a TICKscript. 
 
-| Name       | Type                   | Description                                                                                              |
-| ----       | ----                   | -----------                                                                                              |
-| appKey     | string                 | BigPanda appKey |
+| Name                | Type                   | Description                                                                                              |
+| ----                | ----                   | -----------                                                                                              |
+| appKey              | string                 | BigPanda appKey |
+| primaryProperty     | string                 | BigPanda primary property |
+| secondaryProperty   | string                 | BigPanda secondary property |
 
+BigPanda uses the [primary property](https://docs.bigpanda.io/docs/primary_property) to construct the title 
+and the [secondary property](https://docs.bigpanda.io/docs/secondary_property) to construct the subtitle of an incident.
+See [Alert Correlation Logic](https://docs.bigpanda.io/docs/alert-correlation-logic) for more information.
 
 By default, the handler maps the Kapacitor values below to the BigPanda Alert or Event fields as follows:
 
-| Value      | BigPanda Alert Field       |
-| ----       | ----        |
-| alert ID   | check |
-| message    | description |
-| details    | details |
-| alert task name  | task | 
+| Value           | BigPanda Alert Field       |
+| ----            | ----                       |
+| alert ID        | check                      |
+| message         | description                |
+| details         | details                    |
+| alert task name | task                       | 
 
-All EventData tags are appended into BigPanda Alert as **Additional attributes**. See 
+All EventData tags and fields are appended into BigPanda Alert as **Additional attributes**. See 
 [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts) for more information. 
 
 ### TICKscript examples
@@ -81,13 +88,23 @@ stream
 
 ```js
 stream
-  |from()
-    .measurement('cpu')
-  |alert()
-    .crit(lambda: "usage_user" > 90)
-    .id('{{ index .Tags "host"}}/usage_user')
-    .message('{{ .ID }}:{{ index .Fields "usage_user" }}')
-    .details('https://example.com/dashboard/{{ index .Tags "host"}}')
-    .bigPanda()
-    .appKey('...')
+        |from()
+                .database('telegraf')
+                .retentionPolicy('autogen')
+                .measurement('cpu')
+                .groupBy('host')
+                .where(lambda: "cpu" == 'cpu-total')
+        |eval(lambda: 100.0 - "usage_idle").as('total_used')
+        |window().period(10s).every(10s)
+        |mean('total_used').as('total_used')
+        |alert()
+            .id('cpu_usage_check')
+            .message('Hey {{ index .Tags "host"}} / {{ .ID }}: is high!')
+            .details('https://example.com/dashboard/{{ index .Tags "host"}}')
+            .info(lambda: "total_used" > 70)
+            .warn(lambda: "total_used" > 80)
+            .crit(lambda: "total_used" > 90)
+            .stateChangesOnly()
+      .bigPanda()
+      .appKey('...')
 ```
