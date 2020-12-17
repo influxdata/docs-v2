@@ -2,7 +2,7 @@
 title: Dropwizard input data format
 description: Use the `dropwizard` input data format to parse Dropwizard JSON representations into Telegraf metrics.
 menu:
-  :
+  telegraf_1_17:
     name: Dropwizard
     weight: 30
     parent: Input data formats

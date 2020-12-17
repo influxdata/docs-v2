@@ -2,7 +2,7 @@
 title: Telegraf metrics
 description: Telegraf metrics are internal representations used to model data during processing and are based on InfluxDB's data model. Each metric component includes the measurement name, tags, fields, and timestamp.
 menu:
-  :
+  telegraf_1_17:
     name: Metrics
     weight: 10
     parent: Concepts

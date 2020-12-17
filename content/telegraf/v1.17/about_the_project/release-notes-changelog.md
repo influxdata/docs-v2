@@ -2,7 +2,7 @@
 title: Telegraf 1.17 release notes
 description: Important features and changes in the latest version of Telegraf.
 menu:
-  :
+  telegraf_1_17:
     name: Release notes
     weight: 10
     parent: About the project

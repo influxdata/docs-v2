@@ -2,7 +2,7 @@
 title: Using the HTTP input plugin with Citi Bike data
 description: Collect live metrics on Citi Bike stations in New York City with the HTTP input plugin.
 menu:
-  :
+  telegraf_1_17:
     name: Using the HTTP plugin
     weight: 30
     parent: Guides
