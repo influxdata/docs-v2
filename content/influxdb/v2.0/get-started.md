@@ -32,7 +32,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb-2.0.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -50,7 +50,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.3_darwin_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_darwin_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
