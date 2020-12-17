@@ -687,6 +687,13 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Intel Powerstat
+    id: intel_powerstat
+    description: |
+      The Intel Powerstat input plugin collects information provided by the monitoring features of Intel Powerstat.
+    introduced: 1.17.0
+    tags: [linux]
+
   - name: Intel RDT
     id: intel_rdt
     description: |
@@ -1407,6 +1414,13 @@ input:
     introduced: 0.10.4
     tags: [linux, macos, windows, data-stores]
 
+    - name: Riemann Listener
+    id: riemann_listener
+    description: |
+      The Riemann Listener input plugin listens for messages Riemann clients using Riemann-Protobuff format.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
+
   - name: Salesforce
     id: salesforce
     description: |
@@ -1965,6 +1979,13 @@ output:
     introduced: 0.2.0
     tags: [linux, macos, windows, cloud]
 
+  - name: Logz.io
+    id: logzio
+    description: |
+      The Logz.io output plugin sends metrics to Logz.io over HTTPs.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
+
   - name: Microsoft Azure Application Insights
     id: application_insights
     description: |
@@ -2038,13 +2059,27 @@ output:
     introduced: 0.1.9
     tags: [linux, macos, windows, data-stores]
 
+  - name: Prometheus Text-Based Format
+    id: prometheus
+    description: |
+      The Prometheus parser plugin is used internally in the Prometheus input plugin or the HTTP Listener v2 input plugin to simulate Pushgateway.
+    introduced: 1.17.0
+    tags: [linux, macos, windows, applications]
+
   - name: Prometheus Client
     id: prometheus_client
     description: |
       The Prometheus Client output plugin starts a [Prometheus](https://prometheus.io/) Client,
       it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
     introduced: 0.2.1
-    tags: [linux, macos, windows, applications, data-stores]
+    tags: [linux, macos, windows, applications]
+
+  - name: Prometheus Remote Write
+    id: prometheusremotewrite
+    description: |
+      The Prometheus Remote Write data format output plugin converts metrics into the Prometheus protobuf exposition format.
+    introduced: 1.17.0
+    tags: [linux, macos, windows, applications]
 
   - name: Riemann
     id: riemann
@@ -2062,6 +2097,7 @@ output:
     introduced: 0.2.3
     deprecated: 1.2.1
     tags: [linux, macos, windows, applications]
+
 
   - name: Socket Writer
     id: socket_writer
@@ -2119,6 +2155,12 @@ output:
     introduced: 1.5.0
     tags: [linux, macos, windows, applications, cloud]
 
+  - name: Yandex Cloud Monitoring
+    id: yandex_cloud_monitoring
+    description: |
+      The Yandex Cloud Monitoring output plugin sends custom metrics to Yandex Cloud Monitoring.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
 
 #    %%%%    %%%%    %%%%   %%%%%   %%%%%%   %%%%    %%%%   %%%%%%   %%%%   %%%%%    %%%%    #
 #   %%  %%  %%      %%      %%  %%  %%      %%      %%  %%    %%    %%  %%  %%  %%  %%       #
