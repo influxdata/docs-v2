@@ -37,6 +37,8 @@ influx stacks init [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ### Initialize a stack with a name and description
 
 ```sh

@@ -40,6 +40,8 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ##### Delete all points in a measurement
 ```sh
 influx delete \

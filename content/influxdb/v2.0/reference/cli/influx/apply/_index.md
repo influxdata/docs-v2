@@ -45,6 +45,9 @@ influx apply [flags]
 | `-t` | `--token`                 | Authentication token                                                                        | string     | `INFLUX_TOKEN`       |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Apply a template from a file.
 influx apply -f path/to/template.json

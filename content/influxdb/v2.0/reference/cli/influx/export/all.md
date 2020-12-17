@@ -43,6 +43,8 @@ influx export all [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ### Export all resources in an organization as a template
 ```sh
 influx export all --org $INFLUX_ORG

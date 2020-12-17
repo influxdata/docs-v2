@@ -30,6 +30,9 @@ influx telegrafs rm [flags]
 |      | `--json`          | Output data as json                                                   |             | `$INFLUX_OUTPUT_JSON`  |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Remove a single Telegraf configuration
 influx telegrafs rm -i $ID

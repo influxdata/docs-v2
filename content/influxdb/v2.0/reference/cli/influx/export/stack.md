@@ -32,6 +32,9 @@ influx export stack <stack_id> [flags]
 | `-t` | `--token`         | Authentication token                                                             | string     | `INFLUX_TOKEN`       |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Export a stack as a template
 influx export stack $STACK_ID

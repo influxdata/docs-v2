@@ -40,6 +40,9 @@ influx telegrafs [command]
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # List all known Telegraf configurations
 influx telegrafs

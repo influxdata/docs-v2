@@ -38,6 +38,8 @@ influx v1 dbrp create [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ##### Create a DBRP mapping
 ```sh
 influx v1 dbrp create \

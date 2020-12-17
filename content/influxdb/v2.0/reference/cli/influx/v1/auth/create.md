@@ -39,6 +39,8 @@ influx v1 auth create [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ##### Create a new authorization with read and write permissions
 ```sh
 // Create an authorization with read and write access to bucket 00xX00o0X001

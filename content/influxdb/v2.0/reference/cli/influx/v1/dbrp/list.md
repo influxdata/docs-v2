@@ -39,6 +39,8 @@ influx v1 dbrp list [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ##### List all DBRP mappings in your organization
 ```sh
 influx v1 dbrp list

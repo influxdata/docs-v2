@@ -62,6 +62,8 @@ influx write [command]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 - [Write line protocol](#line-protocol)
   - [via stdin](#write-line-protocol-via-stdin)
   - [from a file](#write-line-protocol-from-a-file)

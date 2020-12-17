@@ -45,6 +45,9 @@ the added resources.
 {{% /warn %}}
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Update a stack with a name and description
 influx stack update \

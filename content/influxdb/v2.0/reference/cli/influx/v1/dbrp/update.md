@@ -36,6 +36,8 @@ influx v1 dbrp update [flags]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ##### Set a DBRP mapping as default
 ```sh
 influx v1 dbrp update \

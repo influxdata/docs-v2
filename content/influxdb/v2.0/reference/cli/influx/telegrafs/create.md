@@ -33,6 +33,9 @@ influx telegrafs create [flags]
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Create a new Telegraf configuration
 influx telegrafs create \

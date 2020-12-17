@@ -33,6 +33,9 @@ influx dashboards [flags]
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # List all dashboards
 influx dashboards

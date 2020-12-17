@@ -22,26 +22,6 @@ influx [flags]
 influx [command]
 ```
 
-{{% note %}}
-#### Set your credentials
-
-1. To avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/view-tokens/) with each `influx` command, set up a configuration profile if you haven't already.
-2. To see if you have a configuration profile, run `influx config`. If nothing is displayed, you don't have a configuration profile.
-3. To configure a profile, in a terminal, run the following command:
-
-  ```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u http://localhost:8086 \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```
-
-   This configures a new profile named `default` and makes the profile active so commands run against this instance.
-   For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
-{{% /note %}}
-
 ## Commands
 
 | Command                                                      | Description                                          |
@@ -67,14 +47,9 @@ influx [command]
 | [template](/influxdb/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
 | [transpile](/influxdb/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/influxdb/v2.0/reference/cli/influx/user)             | User management commands                             |
+| [v1](/influxdb/v2.0/reference/cli/influx/v1)                 | Work with the v1 compatibility API                   |
 | [version](/influxdb/v2.0/reference/cli/influx/version)       | Print the influx CLI version                         |
 | [write](/influxdb/v2.0/reference/cli/influx/write)           | Write points to InfluxDB                             |
-
-## Mapped environment variables
-
-Some `influx` CLI flags are mapped to environment variables.
-Mapped flags get the value of the environment variable.
-To override environment variables, set the flag explicitly in your command.
 
 ## Flags
 
@@ -82,3 +57,57 @@ To override environment variables, set the flag explicitly in your command.
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
 
+## Patterns and conventions
+The `influx` CLI utilizes the following patterns and conventions:
+
+- [Easily provide required authentication credentials](#easily-provide-required-authentication-credentials)
+- [Mapped environment variables](#mapped-environment-variables)
+- [Shorthand and longhand flags](#shorthand-and-longhand-flags)
+- [Flag input types](#flag-input-types)
+
+### Easily provide required authentication credentials
+To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
+with each command, store them in an `influx` CLI configuration (config).
+`influx` commands that require these credentials will automatically retrieve these
+credentials from the active config.
+
+Use the [`influx config create` command](/influxdb/v2.0/reference/cli/influx/config/create/)
+to create a new `influx` CLI config and set it as active:
+
+```sh
+influx config create --config-name <config-name> \
+  --host-url http://localhost:8086 \
+  --org <your-org> \
+  --token <your-auth-token \
+  --active
+```
+
+### Mapped environment variables
+Some `influx` CLI flags are mapped to environment variables.
+Mapped flags get the value of the environment variable.
+To override environment variables, set the flag explicitly in your command.
+
+### Shorthand and longhand flags
+Many `influx` CLI flags support both shorthand and longhand forms.
+
+- **shorthand:** a shorthand flag begins with a single hyphen followed by a single letter (for example: `-c`).
+- **longhand:** a longhand flag starts with two hyphens followed by a multi-letter,
+  hyphen-spaced flag name (for example: `--active-config`).
+
+Commands can use both shorthand and longhand flags in a single execution.
+
+### Flag input types
+`influx` CLI flags use the support the following input types:
+
+#### string
+Text string, but the flag can be used **only once** per command execution.
+
+#### stringArray
+Single text string, but the flag can be used **multiple times** per command execution.
+
+#### integer
+Sequence of digits representing an integer value.
+
+#### duration
+Length of time represented by an integer and a duration unit
+(`ns`, `us`, `µs`, `ms`, `s`, `m`, `h`, `d`, `w`).

@@ -61,6 +61,9 @@ influx export [command]
 |      | `--variable-names`        | Comma-separated list of variable names                                           | string     |                      |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Export buckets by ID
 influx export --buckets=$ID1,$ID2,$ID3

@@ -33,6 +33,9 @@ influx telegrafs update [flags]
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
 ```sh
 # Update a Telegraf configuration
 influx telegrafs update \
