@@ -1414,7 +1414,7 @@ input:
     introduced: 0.10.4
     tags: [linux, macos, windows, data-stores]
 
-    - name: Riemann Listener
+  - name: Riemann Listener
     id: riemann_listener
     description: |
       The Riemann Listener input plugin listens for messages Riemann clients using Riemann-Protobuff format.
