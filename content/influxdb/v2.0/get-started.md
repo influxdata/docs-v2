@@ -177,7 +177,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.3_linux_amd64.tar.gz.asc influxdb-2.0.3_linux_amd64.tar.gz
+    gpg --verify influxdb2-2.0.3_linux_amd64.tar.gz.asc influxdb2-2.0.3_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -194,10 +194,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb-2.0.3_linux_amd64.tar.gz
+tar xvzf path/to/influxdb2-2.0.3_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.3_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.3_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
