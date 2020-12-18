@@ -7,6 +7,9 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [config]
+cascade:
+  related:
+    - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

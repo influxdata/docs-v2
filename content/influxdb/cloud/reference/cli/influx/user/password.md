@@ -8,6 +8,7 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/account-management/change-password/
+  - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
 ---
 

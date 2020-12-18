@@ -8,6 +8,7 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/organizations/buckets/delete-bucket/
+  - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

@@ -9,6 +9,7 @@ weight: 101
 influxdb/v2.0/tags: [backup]
 related:
   - /influxdb/v2.0/backup-restore/backup/
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx backup` command backs up data stored in InfluxDB to a specified directory.

@@ -7,6 +7,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [buckets]
+cascade:
+  related:
+    - /influxdb/cloud/organizations/buckets/
+    - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

@@ -9,6 +9,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [telegraf]
+cascade:
+  related:
+    - /influxdb/v2.0/telegraf-configs/
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx telegrafs` command lists Telegraf configurations.

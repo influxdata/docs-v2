@@ -6,7 +6,6 @@ menu:
     name: influx org members
     parent: influx org
 weight: 201
-influxdb/cloud/tags: [members, organizations]
 ---
 
 {{% cloud %}}

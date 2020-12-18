@@ -4,6 +4,8 @@ description: >
   The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
   from which you can run Flux commands.
 influxdb/v2.0/tags: [query]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{% warn %}}

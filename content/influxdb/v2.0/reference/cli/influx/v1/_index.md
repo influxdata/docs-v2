@@ -7,7 +7,9 @@ menu:
     name: influx v1
     parent: influx
 weight: 101
-influxdb/v2.0/tags: []
+cascade:
+  related:
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx v1` command provides commands for working with the [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) in InfluxDB 2.0.

@@ -7,7 +7,7 @@ menu:
     parent: influx
 weight: 101
 related:
-  - /influxdb/cloud/backup-restore/restore/
+  - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{% cloud %}}

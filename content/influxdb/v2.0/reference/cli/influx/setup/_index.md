@@ -9,6 +9,8 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [get-started]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/setup/
 ---
 

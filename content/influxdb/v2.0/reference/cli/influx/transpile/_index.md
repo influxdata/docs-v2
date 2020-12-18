@@ -8,6 +8,8 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [influxql, flux]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx transpile` command transpiles an InfluxQL query to Flux source code.

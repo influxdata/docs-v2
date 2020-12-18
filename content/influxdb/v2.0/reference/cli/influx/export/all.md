@@ -10,6 +10,7 @@ aliases:
   - /influxdb/v2.0/reference/cli/influx/pkg/export/all/
 related:
   - /influxdb/v2.0/influxdb-templates/create/
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx export all` command exports all resources in an

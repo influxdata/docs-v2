@@ -9,6 +9,8 @@ weight: 101
 aliases:
   - /influxdb/v2.0/reference/cli/influx/pkg/
 influxdb/v2.0/tags: [templates]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx apply` command applies InfluxDB templates.

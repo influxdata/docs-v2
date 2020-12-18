@@ -10,6 +10,7 @@ influxdb/cloud/tags: [delete]
 related:
   - /influxdb/cloud/write-data/delete-data
   - /influxdb/cloud/reference/syntax/delete-predicate
+  - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

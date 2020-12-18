@@ -10,6 +10,7 @@ aliases:
   - /influxdb/v2.0/reference/cli/influx/bucket/create/
 related:
   - /influxdb/v2.0/organizations/buckets/create-bucket/
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx bucket create` command creates a new bucket in InfluxDB.

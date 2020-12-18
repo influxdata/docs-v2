@@ -11,6 +11,10 @@ weight: 101
 aliases:
   - /influxdb/v2.0/reference/cli/influx/pkg/stack/list/
 influxdb/v2.0/tags: [templates]
+cascade:
+  related:
+    - /influxdb/v2.0/influxdb-templates/stacks/
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx stacks` command and its subcommands list and manage InfluxDB stacks

@@ -9,6 +9,8 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [ping, health]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx ping` command checks the health of a running InfluxDB instance by

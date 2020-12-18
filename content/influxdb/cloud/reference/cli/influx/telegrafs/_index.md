@@ -9,6 +9,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [telegraf]
+cascade:
+  related:
+    - /influxdb/cloud/telegraf-configs/
+    - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

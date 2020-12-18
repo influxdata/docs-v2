@@ -9,6 +9,10 @@ weight: 101
 influxdb/v2.0/tags: [templates]
 aliases:
   - /influxdb/v2.0/reference/cli/influx/pkg/summary/
+cascade:
+  related:
+    - /influxdb/v2.0/influxdb-templates/
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx template` command summarizes the specified InfluxDB template.

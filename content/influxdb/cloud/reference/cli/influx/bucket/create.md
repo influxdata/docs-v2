@@ -8,6 +8,9 @@ menu:
 weight: 201
 aliases:
   - /influxdb/cloud/reference/cli/influx/bucket/create/
+related:
+  - /influxdb/cloud/organizations/buckets/create-buckets/
+  - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 {{< duplicate-oss >}}

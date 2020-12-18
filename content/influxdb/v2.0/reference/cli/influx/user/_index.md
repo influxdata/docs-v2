@@ -7,6 +7,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [users]
+cascade:
+  related:
+    - /influxdb/v2.0/users/
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
 

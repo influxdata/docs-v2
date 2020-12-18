@@ -7,6 +7,9 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [authentication]
+cascade:
+  related:
+    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
 The `influx auth` command and its subcommands manage authentication tokens in InfluxDB.
