@@ -25,11 +25,36 @@ Write data using [line protocol](/influxdb/v2.0/reference/syntax/line-protocol),
 [extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/).
 If you write CSV data, CSV annotations determine how the data translates into line protocol.
 
+
 ## Usage
 ```
 influx write [flags]
 influx write [command]
 ```
+
+{{% note %}}
+### Required data
+To write data to InfluxDB, you must provide the following for each row:
+
+- **measurement**
+- **field**
+- **value**
+
+#### Line protocol
+In **line protocol**, the [structure of the line data](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+determines the measurement, field, and value.
+
+#### Annotated CSV
+In **annotated CSV**, measurements, fields, and values are represented by the
+`_measurement`, `_field`, and `_value` columns.
+Their types are determined by CSV annotations.
+To successfully write annotated CSV to InfluxDB, include all
+[annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
+
+#### Extended annotated CSV
+In **extended annotated CSV**, measuremnts, fields, and values and their types are determined by
+[CSV annotations](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#csv-annotations).
+{{% /note %}}
 
 ## Subcommands
 | Subcommand                                                 | Description                         |
