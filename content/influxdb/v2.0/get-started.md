@@ -347,6 +347,12 @@ user, and bucket.
 The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
 
+{{% note %}}
+#### Permissions for the initial user
+The user created in the InfluxDB setup process has **full read and write access to
+all organizations** in the database.
+{{% /note %}}
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [UI Setup](#)

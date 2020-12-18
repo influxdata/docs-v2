@@ -15,6 +15,11 @@ canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/setup/
 The `influx setup` command walks through the initial InfluxDB OSS setup process,
 creating a default user, organization, and bucket.
 
+{{% note %}}
+The user created in the InfluxDB setup process has full read and write access to
+all organizations in the database.
+{{% /note %}}
+
 ## Usage
 ```
 influx setup [flags]

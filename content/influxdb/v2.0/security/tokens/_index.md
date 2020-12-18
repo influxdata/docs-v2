@@ -15,6 +15,12 @@ weight: 103
 InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
-The following articles provide information about managing authentication tokens in both {{< cloud-name "short" >}} and InfluxDB OSS.
+Learn how to create, view, update, or delete an authentication token.
+
+{{% note %}}
+#### Permissions for the initial user
+The user created in the InfluxDB setup process has **full read and write access to
+all organizations** in the database.
+{{% /note %}}
 
 {{< children >}}
