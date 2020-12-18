@@ -194,10 +194,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb-2.0.3_linux_amd64.tar.gz
+tar xvzf path/to/influxdb2-2.0.3_linux_amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.3_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.3_linux_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
