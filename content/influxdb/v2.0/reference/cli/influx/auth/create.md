@@ -57,14 +57,13 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an all-access authentication token](#create-an-all-access-authentication-token)
+- [Create an authentication token with read and write permissions](#create-an-authentication-token-with-read-and-write-permissions)
 - [Create a token with read and write access to specific buckets](#create-a-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only authentication token](#create-a-read-only-authentication-token)
 
-##### Create an all-access authentication token
+##### Create an authentication token with read and write permissions
 ```sh
 influx auth create \
-  --user username \
   --read-buckets \
   --read-checks \
   --read-dashboards \

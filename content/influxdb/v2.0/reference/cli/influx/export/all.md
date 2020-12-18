@@ -19,7 +19,9 @@ _For detailed examples of exporting InfluxDB templates, see
 [Create an InfluxDB template](/influxdb/v2.0/influxdb-templates/create/)._
 
 {{% note %}}
-To be capable of export your resources as templates, you need to get an All Access Token. Look at this article to learn how to create an All Access Token: [Create an authentication token in InfluxDB 2.0](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token/).
+To export resources as a template, you must use the **Admin token** created for
+the initial InfluxDB user or an **All Access token**.
+For information about creating an All Access token, see [Create an authentication token](/influxdb/v2.0/security/tokens/create-token/).
 {{% /note %}}
 
 ## Usage
