@@ -168,10 +168,15 @@ influx write \
 influx write \
   --bucket example-bucket \
   --format csv \
-  "#datatype measurement,tag,tag,field,field,ignored,time
-m,cpu,host,time_steal,usage_user,nothing,time
-cpu,cpu1,host1,0,2.7,a,1482669077000000000
-cpu,cpu1,host2,0,2.2,b,1482669087000000000
+  "#group,false,false,false,false,true,true
+#datatype,string,long,dateTime:RFC3339,double,string,string
+#default,_result,,,,,
+,result,table,_time,_value,_field,_measurement
+,,0,2020-12-18T18:16:11Z,72.7,temp,sensorData
+,,0,2020-12-18T18:16:21Z,73.8,temp,sensorData
+,,0,2020-12-18T18:16:31Z,72.7,temp,sensorData
+,,0,2020-12-18T18:16:41Z,72.8,temp,sensorData
+,,0,2020-12-18T18:16:51Z,73.1,temp,sensorData
 "
 ```
 
