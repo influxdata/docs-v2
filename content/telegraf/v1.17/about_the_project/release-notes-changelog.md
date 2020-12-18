@@ -31,7 +31,7 @@ menu:
 
 #### Parsers
 
-- [Prometheus Text-Based Format](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/prometheus/README.md)(`prometheus`)
+- [Prometheus](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/prometheus/README.md)(`prometheus`)
 
 ### Input plugin updates
 
