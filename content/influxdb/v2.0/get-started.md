@@ -177,7 +177,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.3_linux_amd64.tar.gz.asc influxdb-2.0.3_linux_amd64.tar.gz
+    gpg --verify influxdb2-2.0.3_linux_amd64.tar.gz.asc influxdb2-2.0.3_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
