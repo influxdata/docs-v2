@@ -351,6 +351,9 @@ the `influx` command line interface (CLI).
 #### Permissions for the initial user
 The user created in the InfluxDB setup process has **full read and write access to
 all organizations** in the database.
+To prevent accidental interactions across organizations, we recommend
+[creating an All Access token](/influxdb/v2.0/security/tokens/create-token/)
+for each organization and using those to manage InfluxDB.
 {{% /note %}}
 
 {{< tabs-wrapper >}}
