@@ -18,8 +18,8 @@ influx task [command]
 ```
 
 ### Subcommands
-| Subcommand                                       | Description          |
-|:----------                                       |:-----------          |
+| Subcommand                                                | Description          |
+|:----------                                                |:-----------          |
 | [create](/influxdb/v2.0/reference/cli/influx/task/create) | Create task          |
 | [delete](/influxdb/v2.0/reference/cli/influx/task/delete) | Delete task          |
 | [list](/influxdb/v2.0/reference/cli/influx/task/list)     | List tasks           |

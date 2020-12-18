@@ -48,49 +48,78 @@ influx apply [flags]
 
 {{< cli/influx-creds-note >}}
 
+- [Apply a template from a file](#apply-a-template-from-a-file)
+- [Apply a template from a URL](#apply-a-template-from-a-url)
+- [Apply a stack that has associated templates](#apply-a-stack-that-has-associated-templates)
+- [Apply a template to a stack](#apply-a-template-to-a-stack)
+- [Apply multiple template files together](#apply-multiple-template-files-together)
+- [Apply a template from STDIN](#apply-a-template-from-stdin)
+- [Apply all templates in a directory](#apply-all-templates-in-a-directory)
+- [Recursively apply templates from a directory](#recursively-apply-templates-from-a-directory)
+- [Apply templates from multiple sources](#apply-templates-from-multiple-sources)
+- [Apply a template, but skip resources](#apply-a-template-but-skip-resources)
+
+##### Apply a template from a file
 ```sh
-# Apply a template from a file.
-influx apply -f path/to/template.json
+influx apply --file path/to/template.json
+```
 
-# Apply a template from a URL.
-influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
+##### Apply a template from a URL
+```sh
+influx apply --file https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml
+```
 
-# Apply a stack that has associated templates.
+##### Apply a stack that has associated templates
+```sh
 influx apply --stack-id $STACK_ID
+```
 
-# Apply a template associated with a stack.
-# Stacks make template application idempotent.
-influx apply -f path/to/template.json --stack-id $STACK_ID
+##### Apply a template to a stack
+```sh
+influx apply --file path/to/template.json --stack-id $STACK_ID
+```
 
-# Apply multiple template files together.
+##### Apply multiple template files together
+```sh
 influx apply \
-  -f path/to/template_1.json \
-  -f path/to/template_2.yml
+  --file path/to/template_1.json \
+  --file path/to/template_2.yml
+```
 
-# Apply a template from STDIN.
+##### Apply a template from STDIN
+```sh
 cat template.json | influx apply --encoding json
+```
 
-# Apply all templates in a directory.
-influx apply -f path/to/template_directory
+##### Apply all templates in a directory
+```sh
+influx apply --file path/to/template_directory
+```
 
-# Recurse through a directory and its subdirectories and apply all templates.
-influx apply -R -f path/to/template_directory
+##### Recursively apply templates from a directory
+```sh
+influx apply --recurse --file path/to/template_directory
+```
 
-# Apply templates from multiple sources – directory, file, and URL.
+##### Apply templates from multiple sources
+```sh
 influx apply \
-  -f path/to/template.yml
-  -f path/to/templates_directory
-  -u https://example.com/template.json
+  --file path/to/template.yml
+  --file path/to/templates_directory
+  --file https://example.com/template.json
+```
 
-# Apply a template, but skip resources. The following example skips all buckets
-# and the dashboard whose metadata.name field matches "example-dashboard".
+##### Apply a template, but skip resources
+```sh
+# The following example skips all buckets and the dashboard
+# whose metadata.name field matches "example-dashboard".
 
 # Filter format:
 #	--filter=kind=Bucket
 #	--filter=resource=Label:$Label_TMPL_NAME
 
 influx apply \
-	-f path/to/template.yml \
+	--file path/to/template.yml \
 	--filter kind=Bucket \
 	--filter resource=Dashboard:example-dashboard
 ```

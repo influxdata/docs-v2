@@ -82,6 +82,9 @@ influx config create --config-name <config-name> \
   --active
 ```
 
+For more information about managing CLI configurations, see the
+[`influx config` documentation](/influxdb/v2.0/reference/cli/influx/config/).
+
 ### Mapped environment variables
 Some `influx` CLI flags are mapped to environment variables.
 Mapped flags get the value of the environment variable.
@@ -110,4 +113,4 @@ Sequence of digits representing an integer value.
 
 #### duration
 Length of time represented by an integer and a duration unit
-(`ns`, `us`, `µs`, `ms`, `s`, `m`, `h`, `d`, `w`).
+(`1ns`, `1us`, `1µs`, `1ms`, `1s`, `1m`, `1h`, `1d`, `1w`).

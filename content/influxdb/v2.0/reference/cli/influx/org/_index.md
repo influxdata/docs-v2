@@ -21,8 +21,8 @@ influx org [command]
 `org`, `organization`
 
 ## Subcommands
-| Subcommand                                        | Description                      |
-|:----------                                        |:-----------                      |
+| Subcommand                                                 | Description                      |
+|:----------                                                 |:-----------                      |
 | [create](/influxdb/v2.0/reference/cli/influx/org/create)   | Create an organization           |
 | [delete](/influxdb/v2.0/reference/cli/influx/org/delete)   | Delete an organization           |
 | [list](/influxdb/v2.0/reference/cli/influx/org/list)       | List organizations               |

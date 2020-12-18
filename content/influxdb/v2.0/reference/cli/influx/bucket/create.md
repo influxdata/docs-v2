@@ -8,12 +8,14 @@ menu:
 weight: 201
 aliases:
   - /influxdb/v2.0/reference/cli/influx/bucket/create/
+related:
+  - /influxdb/v2.0/organizations/buckets/create-bucket/
 ---
 
 The `influx bucket create` command creates a new bucket in InfluxDB.
 
 ## Usage
-```
+```sh
 influx bucket create [flags]
 ```
 
@@ -38,3 +40,30 @@ influx bucket create [flags]
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
 milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
 {{% /note %}}
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [Create a new bucket with infinite data retention](#create-a-new-bucket-with-infinite-data-retention)
+- [Create a new bucket that retains data for 30 days](#create-a-new-bucket-that-retains-data-for-30-days)
+- [Create a new bucket with a description](#create-a-new-bucket-with-a-description)
+
+##### Create a new bucket with infinite data retention
+```sh
+influx bucket create --name example-bucket
+```
+
+##### Create a new bucket that retains data for 30 days
+```sh
+influx bucket create \
+  --name example-bucket \
+  --retention 30d
+```
+
+##### Create a new bucket with a description
+```sh
+influx bucket create \
+  --name example-bucket \
+  --description "Example bucket description"
+```

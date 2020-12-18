@@ -20,8 +20,8 @@ influx task log [command]
 ```
 
 ## Subcommands
-| Subcommand                                       | Description        |
-|:----------                                       |:-----------        |
+| Subcommand                                                | Description        |
+|:----------                                                |:-----------        |
 | [list](/influxdb/v2.0/reference/cli/influx/task/log/list) | List logs for task |
 
 ## Flags

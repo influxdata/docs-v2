@@ -25,7 +25,7 @@ influx dashboards [flags]
 | `-h` | `--help`          | Help for the `dashboards` command                                     |             |                       |
 |      | `--hide-headers`  | Hide table headers                                                    |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `$INFLUX_HOST`        |
-| `-i` | `--id`            | Dashboard ID to retrieve                                              | string      |                       |
+| `-i` | `--id`            | Dashboard ID to retrieve                                              | stringArray |                       |
 |      | `--json`          | Output data as JSON                                                   |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
@@ -36,10 +36,14 @@ influx dashboards [flags]
 
 {{< cli/influx-creds-note >}}
 
+##### List all dashboards
 ```sh
-# List all dashboards
 influx dashboards
+```
 
-# List all dashboards matching IDs
-influx dashboards -i $ID1 -i $ID2
+##### List only specific dashboards
+```sh
+influx dashboards \
+  --id 068ad4a493f2d000 \
+  --id 0623f2dabc000121
 ```

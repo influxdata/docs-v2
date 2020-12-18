@@ -18,8 +18,8 @@ influx bucket [command]
 ```
 
 ## Subcommands
-| Subcommand                                         | Description   |
-|:----------                                         |:-----------   |
+| Subcommand                                                  | Description   |
+|:----------                                                  |:-----------   |
 | [create](/influxdb/v2.0/reference/cli/influx/bucket/create) | Create bucket |
 | [delete](/influxdb/v2.0/reference/cli/influx/bucket/delete) | Delete bucket |
 | [list](/influxdb/v2.0/reference/cli/influx/bucket/list)     | List buckets  |

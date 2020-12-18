@@ -40,3 +40,20 @@ influx setup [flags]
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
 milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
 {{% /note %}}
+
+## Examples
+
+##### Start the interactive InfluxDB setup process
+```sh
+influx setup
+```
+
+##### Setup InfluxDB with all required information and skip confirmation
+```sh
+influx setup \
+  --org example-org \
+  --bucket example-bucket \
+  --username example-user \
+  --password ExAmPl3PA55W0rD \
+  --force  
+```

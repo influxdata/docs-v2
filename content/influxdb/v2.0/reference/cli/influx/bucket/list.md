@@ -36,3 +36,26 @@ influx bucket list [flags]
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all buckets](#list-all-buckets)
+- [List a bucket by name](#list-a-bucket-by-name)
+- [List a bucket by ID](#list-a-bucket-by-id)
+
+##### List all buckets
+```sh
+influx bucket list
+```
+
+##### List a bucket by name
+```sh
+influx bucket list --name example-bucket
+```
+
+##### List a bucket by ID
+```sh
+influx bucket list --id 06c86c40a9f36000
+```

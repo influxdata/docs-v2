@@ -36,16 +36,17 @@ influx telegrafs create [flags]
 
 {{< cli/influx-creds-note >}}
 
+##### Create a new Telegraf configuration
 ```sh
-# Create a new Telegraf configuration
 influx telegrafs create \
-  -n "Example configuration name" \
-  -d "Example Telegraf configuration description" \
-  -f /path/to/telegraf.conf
+  --name "Example configuration name" \
+  --description "Example Telegraf configuration description" \
+  --file /path/to/telegraf.conf
+```
 
-# Create a new Telegraf configuration with configuration settings
-# provided via STDIN
+##### Create a new Telegraf configuration via STDIN
+```sh
 cat /path/to/telegraf.conf | influx telegrafs create \
-  -n "Example configuration name" \
-  -d "Example Telegraf configuration description" \
+  --name "Example configuration name" \
+  --description "Example Telegraf configuration description" \
 ```

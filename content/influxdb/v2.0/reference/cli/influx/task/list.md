@@ -36,3 +36,32 @@ influx task list [flags]
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 | `-n` | `--user-id`       | Task owner ID                                                         | string      |                       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all tasks](#list-all-tasks)
+- [List a specific task](#list-a-specific-task)
+- [List the number of tasks returned to 20](#list-the-number-of-tasks-returned-to-20)
+- [List all tasks created by a specific user](#list-all-tasks-created-by-a-specific-user)
+
+##### List all tasks
+```sh
+influx task list
+```
+
+##### List a specific task
+```sh
+influx task list --id 0Xx0oox00XXoxxoo1
+```
+
+##### List the number of tasks returned to 20
+```sh
+influx task list --limit 20
+```
+
+##### List all tasks created by a specific user
+```sh
+influx task list --user-id 0Xx0oox00XXoxxoo1
+```

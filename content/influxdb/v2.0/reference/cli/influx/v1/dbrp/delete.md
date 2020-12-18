@@ -25,9 +25,18 @@ influx v1 dbrp delete [flags]
 | `-h` | `--help`          | Help for the `delete` command                                            |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                |            | `$INFLUX_HIDE_HEADERS`  |
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
-|      | `--id`            | DBRP ID (required)                                                       | string     |                         |
+|      | `--id`            | ({{< req >}}) DBRP ID                                                    | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
 | `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Delete a DBRP mapping
+```sh
+influx v1 dbrp delete --id 12ab34cd56ef
+```

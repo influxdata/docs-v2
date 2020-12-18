@@ -2,7 +2,7 @@
 title: influx query
 description: >
   The `influx query` command executes a literal Flux query provided as a string
-  or a literal Flux query contained in a file by specifying the file prefixed with an '@' sign.
+  or a literal Flux query contained in a file.
 menu:
   influxdb_2_0_ref:
     name: influx query
@@ -12,7 +12,7 @@ influxdb/v2.0/tags: [query]
 ---
 
 The `influx query` command executes a literal Flux query provided as a string
-or a literal Flux query contained in a file by specifying the file prefixed with an `@` sign.
+or a literal Flux query contained in a file.
 
 ## Usage
 ```
@@ -32,3 +32,26 @@ influx query [query literal] [flags]
 | `-r` | `--raw`           | Output raw query results (annotated CSV)                              |            |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
 | `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [Query InfluxDB with a Flux string](#query-influxdb-with-a-flux-string)
+- [Query InfluxDB using a Flux file](#query-influxdb-with-a-flux-file)
+- [Query InfluxDB and return annotated CSV](#query-influxdb-and-return-annotated-csv)
+
+##### Query InfluxDB with a Flux string
+```sh
+influx query 'from(bucket:"example-bucket") |> range(start:-1m)'
+```
+
+##### Query InfluxDB with a Flux file
+```sh
+influx query --file /path/to/example-query.flux
+```
+
+##### Query InfluxDB and return annotated CSV
+```sh
+influx query 'from(bucket:"example-bucket") |> range(start:-1m)' --raw
+```

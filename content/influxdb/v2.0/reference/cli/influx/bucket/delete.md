@@ -15,7 +15,7 @@ related:
 The `influx bucket delete` command deletes a bucket from InfluxDB and all the data it contains.
 
 ## Usage
-```
+```sh
 influx bucket delete [flags]
 ```
 
@@ -34,3 +34,17 @@ influx bucket delete [flags]
 |      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Delete a bucket by name
+```sh
+influx bucket delete --name example-bucket
+```
+
+##### Delete a bucket by ID
+```sh
+influx bucket delete --id 06c86c40a9f36000
+```

@@ -29,3 +29,19 @@ influx user password [flags]
 | `-n` | `--name`          | Username                                                              | string      |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update a user password using a username
+```sh
+influx user password --name example-username
+# Prompts for password
+```
+
+##### Update a user password using a user ID
+```sh
+influx user password --id 0Xx0oox00XXoxxoo1
+# Prompts for password
+```

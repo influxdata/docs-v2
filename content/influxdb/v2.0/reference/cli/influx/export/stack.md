@@ -35,7 +35,7 @@ influx export stack <stack_id> [flags]
 
 {{< cli/influx-creds-note >}}
 
+##### Export a stack as a template
 ```sh
-# Export a stack as a template
 influx export stack $STACK_ID
 ```

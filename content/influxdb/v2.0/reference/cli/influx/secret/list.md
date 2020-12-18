@@ -32,3 +32,12 @@ influx secret list [flags]
 |      | `--org-id`        | Organization ID                                                       | string     | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
 | `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### List all secret keys
+```sh
+influx secret list
+```

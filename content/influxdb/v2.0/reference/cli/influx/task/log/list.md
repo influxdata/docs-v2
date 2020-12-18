@@ -31,5 +31,21 @@ influx task log list [flags]
 |      | `--run-id`        | Run ID                                                                | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-|      | `--task-id`       | **(Required)** Task ID                                                | string      |                       |
+|      | `--task-id`       | ({{< req >}}) Task ID                                                 | string      |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### List logs from all task executions
+```sh
+influx task log list --task-id 0Xx0oox00XXoxxoo1
+```
+
+##### List logs from a specific task execution
+```sh
+influx task log list \
+  --task-id 0Xx0oox00XXoxxoo1 \
+  --run-id ox0Xx0ooxx00XXoo2
+```

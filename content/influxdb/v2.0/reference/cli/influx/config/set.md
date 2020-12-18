@@ -31,14 +31,17 @@ influx config set [flags]
 | `-o` | `--org`          | Organization name for the connection configuration              | string      |                       |
 
 ## Examples
+
+##### Update a connection configuration and set it to active
 ```sh
-# Update a connection configuration and set it to active
 influx config set --active \
   -n config-name \
   -t mySuP3rS3cr3tT0keN \
   -o example-org
+```
 
-# Update a connection configuration and do not set it to active
+##### Update a connection configuration and do not set it to active
+```sh
 influx config set \
   -n config-name \
   -t mySuP3rS3cr3tT0keN \

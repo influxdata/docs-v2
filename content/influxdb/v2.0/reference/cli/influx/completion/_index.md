@@ -28,6 +28,7 @@ influx completion [bash|zsh] [flags]
 
 Add the appropriate installation command below to your `.bashrc` or `.zshrc`.
 
+#### Completion snippets in .bashrc or .zshrc
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [bash](#)
@@ -36,7 +37,7 @@ Add the appropriate installation command below to your `.bashrc` or `.zshrc`.
 {{% code-tab-content %}}
 ```sh
 # macOS
-$ source $(brew --prefix)/etc/bash_completion
+$ source $(brew --prefix)/etc/bash_completion.d
 $ source <(influx completion bash)
 
 # Ubuntu

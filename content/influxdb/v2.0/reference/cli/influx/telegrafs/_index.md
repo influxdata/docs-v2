@@ -43,10 +43,12 @@ influx telegrafs [command]
 
 {{< cli/influx-creds-note >}}
 
+##### List all Telegraf configurations
 ```sh
-# List all known Telegraf configurations
 influx telegrafs
+```
 
-# List only a Telegraf configuration with the specified ID
-influx telegrafs -i $ID
+##### List only a Telegraf configuration with the specified ID
+```sh
+influx telegrafs --id 0Xx0oox00XXoxxoo1
 ```

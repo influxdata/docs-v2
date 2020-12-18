@@ -37,3 +37,32 @@ influx v1 auth list [flags]
 | `-u` | `--user`          | InfluxDB user                                                            | string     |                         |
 |      | `--user-id`       | InfluxDB user ID                                                         | string     |                         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all v1 authorizations](#list-all-v1-authorizations)
+- [List v1 authorizations associated with a user](#list-v1-authorizations-associated-with-a-user)
+- [List v1 authorizations associated with a user ID](#list-v1-authorizations-associated-with-a-user-id)
+- [List a specific v1 authorization by ID](#list-a-specific-v1-authorization-by-id)
+
+##### List all v1 authorizations
+```sh
+influx v1 auth list
+```
+
+##### List v1 authorizations associated with a user
+```sh
+influx v1 auth list --user example-username
+```
+
+##### List v1 authorizations associated with a user ID
+```sh
+influx v1 auth list --user-id 00xX00o0X001
+```
+
+##### List a specific v1 authorization by ID
+```sh
+influx v1 auth list --id 00xX00o0X001
+```

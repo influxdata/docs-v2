@@ -1,6 +1,6 @@
 ---
 title: influx auth active
-description: The `influx auth active` command activates an authorization.
+description: The `influx auth active` command sets an authentication token to active in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth active
@@ -8,7 +8,8 @@ menu:
 weight: 201
 ---
 
-The `influx auth active` command activates an authorization in InfluxDB.
+The `influx auth active` command activates an authentication token.
+Only active tokens authorize access to InfluxDB.
 
 ## Usage
 ```
@@ -23,7 +24,16 @@ influx auth active [flags]
 | `-h` | `--help`          | Help for the `active` command                                         |            |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
-| `-i` | `--id`            | **(Required)** Authorization ID                                       | string     |                       |
+| `-i` | `--id`            | ({{< req >}}) Authorization ID                                        | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
 | `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Activate an authentication token
+```sh
+influx auth active --id 06c86c40a9f36000
+```

@@ -25,6 +25,22 @@ influx org create [flags]
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`          | Organization name                                                     | string      |                       |
+| `-n` | `--name`          | ({{< req >}}) Organization name                                       | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Create a new organization
+```sh
+influx org create --name example-org
+```
+
+##### Create a new organization with a description
+```sh
+influx org create \
+  --name example-org \
+  --description "Example organization description"
+```

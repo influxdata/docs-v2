@@ -1,6 +1,6 @@
 ---
 title: influx auth list
-description: The `influx auth list` command lists and searches authorizations in InfluxDB.
+description: The `influx auth list` command lists and searches authentication tokens in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth list
@@ -10,7 +10,7 @@ aliases:
   - /influxdb/v2.0/reference/cli/influx/auth/find
 ---
 
-The `influx auth list` command lists and searches authorizations in InfluxDB.
+The `influx auth list` command lists and searches authentication tokens in InfluxDB.
 
 ## Usage
 ```
@@ -36,3 +36,17 @@ influx auth list [flags]
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`          | Username                                                              | string      |                       |
 |      | `--user-id`       | User ID                                                               | string      |                       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### List all authentication tokens
+```sh
+influx auth list
+```
+
+##### List authentication tokens associated with a user
+```sh
+influx auth list --user username
+```

@@ -1,6 +1,6 @@
 ---
 title: influx auth
-description: The `influx auth` command and its subcommands manage authorizations in InfluxDB.
+description: The `influx auth` command and its subcommands manage authentication tokens in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth
@@ -9,7 +9,7 @@ weight: 101
 influxdb/v2.0/tags: [authentication]
 ---
 
-The `influx auth` command and its subcommands manage authorizations in InfluxDB.
+The `influx auth` command and its subcommands manage authentication tokens in InfluxDB.
 
 ## Usage
 ```
@@ -21,8 +21,8 @@ influx auth [command]
 `auth`, `authorization`
 
 ## Subcommands
-| Subcommand                                           | Description              |
-|:----------                                           |:-----------              |
+| Subcommand                                                    | Description              |
+|:----------                                                    |:-----------              |
 | [active](/influxdb/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
 | [create](/influxdb/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
 | [delete](/influxdb/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |

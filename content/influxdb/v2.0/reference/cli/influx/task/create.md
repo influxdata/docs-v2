@@ -12,7 +12,7 @@ The `influx task create` command creates a new task in InfluxDB.
 
 ## Usage
 ```
-influx task create [query literal] [flags]
+influx task create [task literal] [flags]
 ```
 
 ## Flags
@@ -29,3 +29,30 @@ influx task create [query literal] [flags]
 |      | `--org-id`        | Organization ID                                                       | string     | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
 | `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`        |
+
+## Example
+
+{{< cli/influx-creds-note >}}
+
+##### Create a new task from a Flux string
+```sh
+export FLUX_TASK='
+  option task = {
+    name: "Example Task",
+    every: 1d
+  }
+
+  from(bucket: "example-bucket")
+    |> range(start: -task.every)
+    |> filter(fn: (r) => (r._measurement == "m")
+    |> aggregateWindow(every: 1h, fn: mean)
+    |> to(bucket: "default-ds-1d", org: "my-org")
+'
+
+influx task create $FLUX_TASK
+```
+
+##### Create a new task from a Flux file
+```sh
+influx task create --file /path/to/example-task.flux
+```

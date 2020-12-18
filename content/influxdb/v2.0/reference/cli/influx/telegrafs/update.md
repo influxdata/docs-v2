@@ -36,18 +36,19 @@ influx telegrafs update [flags]
 
 {{< cli/influx-creds-note >}}
 
+##### Update a Telegraf configuration
 ```sh
-# Update a Telegraf configuration
 influx telegrafs update \
-  -i $ID \
-  -n "Example configuration name" \
-  -d "Example Telegraf configuration description" \
-  -f /path/to/telegraf.conf
+  --id 0Xx0oox00XXoxxoo1 \
+  --name "Example configuration name" \
+  --description "Example Telegraf configuration description" \
+  --file /path/to/telegraf.conf
+```
 
-# Update a Telegraf configuration with configuration settings
-# provided via STDIN
+##### Update a Telegraf configuration via STDIN
+```sh
 cat /path/to/telegraf.conf | influx telegrafs update \
-  -i $ID \
-  -n "Example configuration name" \
-  -d "Example Telegraf configuration description" \
+  --id 0Xx0oox00XXoxxoo1 \
+  --name "Example configuration name" \
+  --description "Example Telegraf configuration description" \
 ```

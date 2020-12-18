@@ -7,8 +7,15 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [backup]
-related:
-  - /influxdb/cloud/backup-restore/backup/
 ---
+
+{{% cloud %}}
+#### This command does not work with InfluxDB Cloud
+The `influx backup` command **does not** work with **InfluxDB Cloud**.
+It only works with **InfluxDB OSS 2.x**.
+For information about backing up data in InfluxDB Cloud, see
+[InfluxDB Cloud durabilty](/influxdb/cloud/reference/internals/durability/) or
+[contact support](mailto:support@influxdata.com).
+{{% /cloud %}}
 
 {{< duplicate-oss >}}

@@ -39,22 +39,14 @@ influx stacks init [flags]
 
 {{< cli/influx-creds-note >}}
 
-### Initialize a stack with a name and description
+##### Initialize a stack with a name and description
 
 ```sh
-# Use environment variables
-influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
-
-# Use strings
 influx stack init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
 ```
 
-### Initialize a stack with a name and URLs to associate with the stack
+##### Initialize a stack with a name and URLs to associate with the stack
 
 ```sh
-# Use environment variables
-influx stack init -n $STACK_NAME -u $PATH_TO_TEMPLATE
-
-# Use strings
 influx stack init -n "Example Stack" -u https://example.com/template-1.yml
 ```

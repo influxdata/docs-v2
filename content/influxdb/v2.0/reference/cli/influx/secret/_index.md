@@ -18,8 +18,8 @@ influx secret [subcommand]
 ```
 
 ## Subcommands
-| Subcommand                                          | Description            |
-|:----------                                          |:-----------            |
+| Subcommand                                                   | Description            |
+|:----------                                                   |:-----------            |
 | [delete](/influxdb/v2.0/reference/cli/influx/secret/delete/) | Delete a secret        |
 | [list](/influxdb/v2.0/reference/cli/influx/secret/list/)     | List secrets           |
 | [update](/influxdb/v2.0/reference/cli/influx/secret/update/) | Add or update a secret |

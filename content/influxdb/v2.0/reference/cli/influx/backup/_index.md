@@ -38,6 +38,10 @@ influx backup [flags] path
 
 {{< cli/influx-creds-note >}}
 
+- [Back up all data to a directory](#back-up-all-data-to-a-directory)
+- [Back up all data to the current working directory](#back-up-all-data-to-the-current-working-directory)
+- [Back up a specific bucket to a directory](#back-up-a-specific-bucket-to-a-directory)
+
 ##### Back up all data to a directory
 ```sh
 influx backup /path/to/backup/dir/

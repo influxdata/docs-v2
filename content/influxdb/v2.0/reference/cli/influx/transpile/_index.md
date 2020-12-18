@@ -31,6 +31,10 @@ See the [InfluxQL documentation](/{{< latest "influxdb" "v1" >}}/query_language/
 |      | `--now`  | RFC3339Nano timestamp to use as `now()` time (default is current UTC time) |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Transpile InfluxQL queries to Flux
 ```sh
 ## Transpile an InfluxQL query that specifies the database,
 ## retention policy, and measurement.

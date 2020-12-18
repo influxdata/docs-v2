@@ -46,7 +46,5 @@ influx v1 dbrp create \
   --bucket-id 12ab34cd56ef \
   --database example-db \
   --rp example-rp \
-  --org example-org \
-  --token $INFLUX_TOKEN \
   --default
 ```

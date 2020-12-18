@@ -36,3 +36,12 @@ influx stacks remove [flags]
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |                 |                       |
 |      | `--stack-id`      | Stack IDs to remove                                                   | list of strings |                       |
 | `-t` | `--token`         | Authentication token                                                  | string          | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Remove a stack and all of its associated resources
+```sh
+influx stacks remove --stack-id 0Xx0oox00XXoxxoo1
+```

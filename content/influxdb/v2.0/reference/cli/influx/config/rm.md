@@ -30,10 +30,13 @@ influx config rm <config-name> [flags]
 |      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
 
 ## Examples
-```sh
-# Delete a connection configuration
-influx config rm local-config
 
-# Delete multiple connection configurations
+##### Delete a connection configuration
+```sh
+influx config rm local-config
+```
+
+##### Delete multiple connection configurations
+```sh
 influx config rm config-1 config-2
 ```

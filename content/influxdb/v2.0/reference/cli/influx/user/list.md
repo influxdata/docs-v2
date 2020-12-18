@@ -34,3 +34,26 @@ influx user list [flags]
 | `-n` | `--name`          | Username                                                              | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all users](#list-all-users)
+- [List a specific user by username](#list-a-specific-user-by-username)
+- [List a specific user by ID](#list-a-specific-user-by-id)
+
+##### List all users
+```sh
+influx user list
+```
+
+##### List a specific user by username
+```sh
+influx user list --name example-username
+```
+
+##### List a specific user by ID
+```sh
+influx user list --id 0Xx0oox00XXoxxoo1
+```

@@ -21,7 +21,18 @@ influx org members add [flags]
 | `-h` | `--help`        | Help for the `add` command                                 |             |                    |
 |      | `--host`        | HTTP address of InfluxDB (default `http://localhost:8086`) | string      | `INFLUX_HOST`      |
 | `-i` | `--id`          | Organization ID                                            | string      | `INFLUX_ORG_ID`    |
-| `-m` | `--member`      | Member ID                                                  | string      |                    |
+| `-m` | `--member`      | User ID                                                    | string      |                    |
 | `-n` | `--name`        | Organization name                                          | string      | `INFLUX_ORG`       |
 |      | `--skip-verify` | Skip TLS certificate verification                          |             |                    |
 | `-t` | `--token`       | Authentication token                                       | string      | `INFLUX_TOKEN`     |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Add a member to an organization
+```sh
+influx org members add \
+  --member 00x0oo0X0xxxo000 \
+  --name example-org
+```

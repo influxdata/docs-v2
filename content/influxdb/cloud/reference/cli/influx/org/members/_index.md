@@ -9,4 +9,12 @@ weight: 201
 influxdb/cloud/tags: [members, organizations]
 ---
 
+{{% cloud %}}
+#### This command does not work with InfluxDB Cloud
+The `influx org members` command **does not** work with **InfluxDB Cloud**.
+It only works with **InfluxDB OSS 2.x**.
+For information about managing users into your InfluxDB Cloud organization, see
+[Manage multiple users](/influxdb/cloud/account-management/multi-user/).
+{{% /cloud %}}
+
 {{< duplicate-oss >}}

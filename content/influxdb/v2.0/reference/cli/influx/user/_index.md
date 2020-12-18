@@ -19,8 +19,8 @@ influx user [command]
 ```
 
 ## Subcommands
-| Subcommand                                           | Description              |
-|:----------                                           |:-----------              |
+| Subcommand                                                    | Description              |
+|:----------                                                    |:-----------              |
 | [create](/influxdb/v2.0/reference/cli/influx/user/create)     | Create a user            |
 | [delete](/influxdb/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
 | [list](/influxdb/v2.0/reference/cli/influx/user/list)         | List users               |
