@@ -218,6 +218,7 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest
 
 - `DELETE`*
 - `DROP MEASUREMENT`*
+- `EXPLAIN ANALYZE`
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`
