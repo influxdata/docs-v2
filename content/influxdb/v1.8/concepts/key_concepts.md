@@ -9,34 +9,20 @@ menu:
 v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
-Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
-This document provides a gentle introduction to those concepts and common InfluxDB terminology.
-We've provided a list below of all the terms we'll cover, but we recommend reading this document from start to finish to gain a more general understanding of our favorite time series database.
+Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#database">database</a></td>
-    <td><a href="#field-key">field key</a></td>
-    <td><a href="#field-set">field set</a></td>
-  </tr>
-  <tr>
-    <td><a href="#field-value">field value</a></td>
-    <td><a href="#measurement">measurement</a></td>
-    <td><a href="#point">point</a></td>
-  </tr>
-    <tr>
-    <td><a href="#retention-policy">retention policy</a></td>
-    <td><a href="#series">series</a></td>
-    <td><a href="#tag-key">tag key</a></td>
-  </tr>
-    <tr>
-    <td><a href="#tag-set">tag set</a></td>
-    <td><a href="#tag-value">tag value</a></td>
-    <td><a href="#timestamp">timestamp</a></td>
-  </tr>
-</table>
-
-Check out the [glossary](/influxdb/v1.8/concepts/glossary/) if you prefer the cold, hard facts.
+- <a href="/influxdb/v1.8/concepts/glossary/#database">database</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#field-key">field key</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#field-set">field set</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#field-value">field value</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#measurement">measurement</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#point">point</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#retention-policy-rp">retention policy</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#series">series</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#tag-key">tag key</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#tag-set">tag set</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#tag-value">tag value</a>
+- <a href="/influxdb/v1.8/concepts/glossary/#timestamp">timestamp</a>
 
 ### Sample data
 
