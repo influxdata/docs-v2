@@ -175,13 +175,6 @@ Insert cloud-specific markdown content here.
 {{% /cloud %}}
 ```
 
-#### All content is cloud-specific
-If all content in an article is cloud-specific, include `cloud` in the `products` frontmatter.
-
-```yaml
-products: [cloud]
-```
-
 #### InfluxDB Cloud name
 The name used to refer to InfluxData's cloud offering is subject to change.
 To facilitate easy updates in the future, use the `cloud-name` short-code when
@@ -204,13 +197,6 @@ InfluxDB Cloud.
 
 ```
 Find more info [here][{{< cloud-link >}}]
-```
-
-### InfluxDB OSS Content
-If all content in an article is OSS-specific, include `oss` in the `products` frontmatter.
-
-```yaml
-products: [oss]
 ```
 
 ### Latest links
@@ -382,6 +368,20 @@ The following parameters are available:
 
 <!-- Provide unique keybindings for each OS -->
 {{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
+```
+
+### Diagrams
+Use the `{{< diagram >}}` shortcode to dynamically build diagrams.
+The shortcode uses [mermaid.js](https://github.com/mermaid-js/mermaid) to convert
+simple text into SVG diagrams.
+For information about the syntax, see the [mermaid.js documentation](https://mermaid-js.github.io/mermaid/#/).
+
+```md
+{{< diagram >}}
+flowchart TB
+  This --> That
+  That --> There
+{{< /diagram >}}
 ```
 
 ### Related content
