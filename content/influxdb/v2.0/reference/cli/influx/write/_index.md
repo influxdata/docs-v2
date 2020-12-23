@@ -16,7 +16,8 @@ cascade:
     - /influxdb/v2.0/reference/syntax/line-protocol/
     - /influxdb/v2.0/reference/syntax/annotated-csv/
     - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
-    - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
+    - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.

@@ -10,7 +10,8 @@ menu:
 weight: 101
 influxdb/v2.0/tags: [cli, tools]
 related:
-  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
+  - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx completion` command outputs `influx` shell completion scripts for a

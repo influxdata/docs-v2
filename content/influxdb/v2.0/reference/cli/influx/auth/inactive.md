@@ -11,6 +11,13 @@ weight: 201
 The `influx auth inactive` command inactivates an authentication token in InfluxDB.
 Inactive tokens **do not** authorize access to InfluxDB.
 
+To temporarily disable client access to InfluxDB, inactivate the authentication
+token the client is using rather than delete the token.
+If you delete the token, you have to generate a new token and update the client
+with the new token.
+By setting a token to inactive, you can [activate the token](/influxdb/v2.0/reference/cli/influx/auth/active/)
+to grant the client access without having to modify the client.
+
 ## Usage
 ```
 influx auth inactive [flags]

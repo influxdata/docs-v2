@@ -10,7 +10,8 @@ influxdb/cloud/tags: [tasks]
 cascade:
   related:
     - /influxdb/cloud/process-data/
-    - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
+    - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 {{< duplicate-oss >}}

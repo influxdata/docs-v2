@@ -10,7 +10,8 @@ aliases:
   - /influxdb/v2.0/reference/cli/influx/bucket/delete/
 related:
   - /influxdb/v2.0/organizations/buckets/delete-bucket/
-  - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
+  - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx bucket delete` command deletes a bucket from InfluxDB and all the data it contains.

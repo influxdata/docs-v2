@@ -22,6 +22,26 @@ influx [flags]
 influx [command]
 ```
 
+### Provide required authentication credentials
+To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
+with each command, store them in an `influx` CLI configuration (config).
+`influx` commands that require these credentials automatically retrieve these
+credentials from the active config.
+
+Use the [`influx config create` command](/influxdb/v2.0/reference/cli/influx/config/create/)
+to create an `influx` CLI config and set it as active:
+
+```sh
+influx config create --config-name <config-name> \
+  --host-url http://localhost:8086 \
+  --org <your-org> \
+  --token <your-auth-token \
+  --active
+```
+
+For more information about managing CLI configurations, see the
+[`influx config` documentation](/influxdb/v2.0/reference/cli/influx/config/).
+
 ## Commands
 
 | Command                                                      | Description                                          |
@@ -57,40 +77,19 @@ influx [command]
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
 
-## Patterns and conventions
+### Flag patterns and conventions
 The `influx` CLI uses the following patterns and conventions:
 
-- [Provide required authentication credentials](#provide-required-authentication-credentials)
 - [Mapped environment variables](#mapped-environment-variables)
 - [Shorthand and longhand flags](#shorthand-and-longhand-flags)
 - [Flag input types](#flag-input-types)
 
-### Provide required authentication credentials
-To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
-with each command, store them in an `influx` CLI configuration (config).
-`influx` commands that require these credentials automatically retrieve these
-credentials from the active config.
-
-Use the [`influx config create` command](/influxdb/v2.0/reference/cli/influx/config/create/)
-to create an `influx` CLI config and set it as active:
-
-```sh
-influx config create --config-name <config-name> \
-  --host-url http://localhost:8086 \
-  --org <your-org> \
-  --token <your-auth-token \
-  --active
-```
-
-For more information about managing CLI configurations, see the
-[`influx config` documentation](/influxdb/v2.0/reference/cli/influx/config/).
-
-### Mapped environment variables
+#### Mapped environment variables
 `influx` CLI flags mapped to environment variables are listed in the **Mapped to** column.
 Mapped flags inherit the value of the environment variable.
 To override environment variables, set the flag explicitly in your command.
 
-### Shorthand and longhand flags
+#### Shorthand and longhand flags
 Many `influx` CLI flags support both shorthand and longhand forms.
 
 - **shorthand:** a shorthand flag begins with a single hyphen followed by a single letter (for example: `-c`).
@@ -99,18 +98,19 @@ Many `influx` CLI flags support both shorthand and longhand forms.
 
 Commands can use both shorthand and longhand flags in a single execution.
 
-### Flag input types
-`influx` CLI flags support the following input types:
+#### Flag input types
+`influx` CLI flag input types are listed in each the table of flags for each command.
+Flags support the following input types:
 
-#### string
+##### string
 Text string, but the flag can be used **only once** per command execution.
 
-#### stringArray
+##### stringArray
 Single text string, but the flag can be used **multiple times** per command execution.
 
-#### integer
+##### integer
 Sequence of digits representing an integer value.
 
-#### duration
+##### duration
 Length of time represented by an integer and a duration unit
 (`1ns`, `1us`, `1µs`, `1ms`, `1s`, `1m`, `1h`, `1d`, `1w`).
