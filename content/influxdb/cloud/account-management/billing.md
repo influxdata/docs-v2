@@ -18,20 +18,9 @@ products: [cloud]
 
 ## Upgrade to Usage-Based Plan
 
-1. Click **Upgrade Now** in the top right corner of the {{< cloud-name "short" >}} user interface (UI).
-2. Review the terms and pricing associated with the Usage-Based Plan.
-3. Click **Sounds Good To Me**.
-4. Enter your contact information.
-   Traditionally this would be "shipping" information, but InfluxData does not ship anything.
-   This information should be the primary location where the service is consumed.
-   All service updates, security notifications and other important information are
-   sent using the information you provide.
-   The address is used to determine any applicable sales tax.
-5. Enter your payment information and click **Add Card**.
-6. Review the plan details, contact information, and credit card information.
-7. Click **Confirm & Order**.
-
-Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
+2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
+3. Enter your payment information and billing address, and then click **Upgrade**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
 ## Access billing details
 
