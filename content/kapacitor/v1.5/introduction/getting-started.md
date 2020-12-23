@@ -1,5 +1,6 @@
 ---
 title: Get started with Kapacitor
+description: Get started with Kapacitor to process your time series data.
 weight: 20
 menu:
   kapacitor_1_5:
@@ -12,14 +13,14 @@ Use Kapacitor to import (stream or batch) time series data, and then transform, 
 - [Start InfluxDB and collect Telegraf data](#start-influxdb-and-collect-telegraf-data)
 - [Start Kapacitor](#start-kapacitor)
 - Kapacitor tasks
-    - [Execute a task](#execute-a-task)
-    - [Trigger an alert from stream data](#trigger-alerts-from-stream-data)
-    - [Example alert on CPU usage](#example-alert-on-cpu-usage)
-    - [Gotcha - single versus double quotes](#gotcha-single-versus-double-quotes)
-    - [Extending TICKscripts](#extending-tickscripts)
-    - [A real world example](#a-real-world-example)
-    - [Trigger an alert from batch data](#trigger-alerts-from-batch-data)
-    - [Load tasks](#load-tasks-with-kapacitor)
+  - [Execute a task](#execute-a-task)
+  - [Trigger an alert from stream data](#trigger-alerts-from-stream-data)
+  - [Example alert on CPU usage](#example-alert-on-cpu-usage)
+  - [Gotcha - single versus double quotes](#gotcha-single-versus-double-quotes)
+  - [Extending TICKscripts](#extending-tickscripts)
+  - [A real world example](#a-real-world-example)
+  - [Trigger an alert from batch data](#trigger-alerts-from-batch-data)
+  - [Load tasks](#load-tasks-with-kapacitor)
 
 ## Overview
 

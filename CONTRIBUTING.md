@@ -431,6 +431,20 @@ The following parameters are available:
 {{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
 ```
 
+### Diagrams
+Use the `{{< diagram >}}` shortcode to dynamically build diagrams.
+The shortcode uses [mermaid.js](https://github.com/mermaid-js/mermaid) to convert
+simple text into SVG diagrams.
+For information about the syntax, see the [mermaid.js documentation](https://mermaid-js.github.io/mermaid/#/).
+
+```md
+{{< diagram >}}
+flowchart TB
+  This --> That
+  That --> There
+{{< /diagram >}}
+```
+
 ### High-resolution images
 In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
 Because of this, the actual pixel dimension is 2x larger than it needs to be and is rendered 2x bigger than it should be.
