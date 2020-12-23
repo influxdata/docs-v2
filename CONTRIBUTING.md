@@ -51,7 +51,17 @@ You need a database that specializes in time series.
 +You need InfluxDB.
 ```
 
-### Page frontmatter
+### Article headings
+Use only h2-h6 headings in markdown content.
+h1 headings act as the page title and are populated automatically from the `title` frontmatter.
+h2-h6 headings act as section headings.
+
+### Image naming conventions
+Save images using the following naming format: `project/version-context-description.png`.
+For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
+Specify a version other than 2.0 only if the image is specific to that version.
+
+## Page frontmatter
 Every documentation page includes frontmatter which specifies information about the page.
 Frontmatter populates variables in page templates and the site's navigation menu.
 
@@ -66,7 +76,7 @@ menu:
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
-v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
+product/v2.x/tags: # Tags specific to each version (replace product and .x" with the appropriate product and minor version )
 related: # Creates links to specific internal and external content at the bottom of the page
   - /path/to/related/article
   - https://external-link.com, This is an external link
@@ -81,7 +91,7 @@ canonical: # Path to canonical page, overrides auto-gen'd canonical URL
 v2: # Path to v2 equivalent page
 ```
 
-#### Title usage
+### Title usage
 
 ##### `title`
 The `title` frontmatter populates each page's h1 header.
@@ -108,10 +118,68 @@ Then 201-299 and so on.
 
 _**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
 
-### Article headings
-Use only h2-h6 headings in markdown content.
-h1 headings act as the page title and are populated automatically from the `title` frontmatter.
-h2-h6 headings act as section headings.
+### Related content
+Use the `related` frontmatter to include links to specific articles at the bottom of an article.
+
+- If the page exists inside of this documentation, just include the path to the page.
+  It will automatically detect the title of the page.
+- If the page exists inside of this documentation, but you want to customize the link text,
+  include the path to the page followed by a comma, and then the custom link text.
+  The path and custom text must be in that order and separated by a comma and a space.
+- If the page exists outside of this documentation, include the full URL and a title for the link.
+  The link and title must be in that order and separated by a comma and a space.
+
+```yaml
+related:
+  - /v2.0/write-data/quick-start
+  - /v2.0/write-data/quick-start, This is custom text for an internal link
+  - https://influxdata.com, This is an external link
+```
+
+### Canonical URLs
+Search engines use canonical URLs to accurately rank pages with similar or identical content.
+The `canonical` HTML meta tag identifies which page should be used as the source of truth.
+
+By default, canonical URLs are automatically generated for each page in the InfluxData
+documentation using the latest version of the current product and the current path.
+
+Use the `canonical` frontmatter to override the auto-generated canonical URL.
+
+_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
+
+```yaml
+canonical: /path/to/canonical/doc/
+
+# OR
+
+canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
+```
+
+## v2 equivalent documentation
+To display a notice on a 1.x page that links to an equivalent 2.0 page,
+add the following frontmatter to the 1.x page:
+
+```yaml
+v2: /influxdb/v2.0/get-started/
+```
+
+### Cascade
+To automatically apply frontmatter to a page and all of its children, use the
+[`cascade` frontmatter](https://gohugo.io/content-management/front-matter/#front-matter-cascade)
+built in into Hugo.
+
+```yaml
+title: Example page
+description: Example description
+cascade:
+  layout: custom-layout
+```
+
+`cascade` applies the frontmatter to all children unless the child already includes
+those frontmatter keys. Frontmaatter defined on the page overrides fronmattered
+"cascaded" from a parent.
+
+## Shortcodes
 
 ### Notes and warnings
 Shortcodes are available for formatting notes and warnings in each article:
@@ -133,13 +201,6 @@ For sections content that relate specifically to InfluxDB Enterprise, use the `{
 {{% enterprise %}}
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
-```
-
-#### All content is Enterprise-specific
-If all content in an article is Enterprise-specific, include `enterprise`in the `products` frontmatter.
-
-```yaml
-products: [enterprise]
 ```
 
 #### Enterprise name
@@ -382,20 +443,6 @@ flowchart TB
   This --> That
   That --> There
 {{< /diagram >}}
-```
-
-### Related content
-Use the `related` frontmatter to include links to specific articles at the bottom of an article.
-
-- If the page exists inside of this documentation, just include the path to the page.
-  It will automatically detect the title of the page.
-- If the page exists outside of this documentation, include the full URL and a title for the link.
-  The link and title must be in that order and must be separated by a comma and a space.
-
-```yaml
-related:
-  - /v2.0/write-data/quick-start
-  - https://influxdata.com, This is an external link
 ```
 
 ### High-resolution images
@@ -690,44 +737,6 @@ menu:
   influxdb_2_0_ref:
     # ...
 ```
-### Image naming conventions
-Save images using the following naming format: `project/version-context-description.png`.
-For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
-Specify a version other than 2.0 only if the image is specific to that version.
-
-## InfluxDB API documentation
-InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
-InfluxDB API documentation when documentation is deployed.
-Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
-For more information about generating InfluxDB API documentation, see the
-[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
-
-## Canonical URLs
-Search engines use canonical URLs to accurately rank pages with similar or identical content.
-The `canonical` HTML meta tag identifies which page should be used as the source of truth.
-
-By default, canonical URLs are automatically generated for each page in the InfluxData
-documentation using the latest version of the current product and the current path.
-
-Use the `canonical` frontmatter to override the auto-generated canonical URL.
-
-_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
-
-```yaml
-canonical: /path/to/canonical/doc/
-
-# OR
-
-canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
-```
-
-## v2 equivalent documentation
-To display a notice on a 1.x page that links to an equivalent 2.0 page,
-add the following frontmatter to the 1.x page:
-
-```yaml
-v2: /influxdb/v2.0/get-started/
-```
 
 ## InfluxDB URLs
 When a user selects an InfluxDB product and region, example URLs in code blocks
@@ -829,8 +838,14 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 
 8. Commit the changes and push the new branch to Github.
 
-
 These changes lay the foundation for the new version.
 All other changes specific to the new version should be merged into this branch.
 Once the necessary changes are in place and the new version is released,
 merge the new branch into `master`.
+
+## InfluxDB API documentation
+InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
+InfluxDB API documentation when documentation is deployed.
+Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
+For more information about generating InfluxDB API documentation, see the
+[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).

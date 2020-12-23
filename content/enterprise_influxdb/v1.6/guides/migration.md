@@ -41,7 +41,7 @@ following steps will **not** transfer users from the OSS instance to the
 InfluxDB Enterprise Cluster.
 {{% /warn %}}
 
-In addition, please refrain from creating a Global Admin user in the InfluxDB Enterprise Web Console before implementing these steps. If you’ve already created a Global Admin user, contact support.
+In addition, please refrain from creating a Global Admin user in the InfluxDB Enterprise Web Console before implementing these steps. If you’ve already created a Global Admin user, contact InfluxData Support.
 
 ## Modify the `/etc/hosts` file
 

@@ -26,7 +26,7 @@ influx bucket update [flags]
 | `-h` | `--help`          | Help for the `update` command                                         |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`            | **(Required)** Bucket ID                                              | string      |                       |
+| `-i` | `--id`            | ({{< req >}}) Bucket ID                                               | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
 | `-r` | `--retention`     | New duration bucket will retain data                                  | duration    |                       |
@@ -37,3 +37,21 @@ influx bucket update [flags]
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
 milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
 {{% /note %}}
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update the name of a bucket
+```sh
+influx bucket update \
+  --id 06c86c40a9f36000
+  --name new-bucket-name
+```
+
+##### Update the retention period of a bucket
+```sh
+influx bucket update \
+  --id 06c86c40a9f36000
+  --retention 90d
+```

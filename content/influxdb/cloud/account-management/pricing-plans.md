@@ -69,7 +69,7 @@ To protect against any intentional or unintentional harm, Usage-Based Plans incl
 - **Ingest batch size:** 50MB
 - **Queries:** 3000MB every 5 minutes
 - **Storage:** Unlimited retention
-- **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact support](mailto:support@influxdata.com))
+- **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
 - **Create:**
   - Unlimited dashboards
   - Unlimited tasks

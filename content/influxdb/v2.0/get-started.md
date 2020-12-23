@@ -343,9 +343,18 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 ## Set up InfluxDB
 
 The initial setup process for InfluxDB walks through creating a default organization,
-user, and bucket.
+user, bucket, and Admin authentication token.
 The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
+
+{{% note %}}
+#### Admin token permissions
+The **Admin token** created in the InfluxDB setup process has
+**full read and write access to all organizations** in the database.
+To prevent accidental interactions across organizations, we recommend
+[creating an All Access token](/influxdb/v2.0/security/tokens/create-token/)
+for each organization and using those to manage InfluxDB.
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

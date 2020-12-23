@@ -1,14 +1,15 @@
 {{ $scratch := newScratch }}
 {{ if .Params.related }}
   <div class="related">
-    <h4 id="related-articles">Related articles</h4>
+    <h4 id="related">Related</h4>
     <ul>
     {{ range .Params.related }}
       <!-- If an external link or API link -->
-      {{ if or (in . "http") (in . "/v2.0/api") }}
+      {{ if or (in . "http") (in . "/v2.0/api") (in . ", ")}}
         {{ $link := replaceRE `\,\s(.*)$` "" . }}
         {{ $title := replaceRE `^(\S*\,\s)` "" . }}
-        <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
+        {{ $target := cond (in . "http") "_blank" "" }}
+        <li><a href="{{ $link }}" target="{{ $target }}">{{ $title }}</a></li>
 
       <!-- If path is using the latest shortcode -->
       {{ else if (in . "{{< latest") }}
