@@ -37,8 +37,8 @@ influx apply [flags]
 | `-h` | `--help`                  | Help for the `apply` command                                                                |            |                      |
 |      | `--host`                  | HTTP address of InfluxDB (default `http://localhost:8086`)                                  | string     | `INFLUX_HOST`        |
 |      | `--json`                  | Output data as JSON                                                                         |            | `INFLUX_OUTPUT_JSON` |
-| `-o` | `--org`                   | Organization name that owns the bucket                                                      | string     | `INFLUX_ORG`         |
-|      | `--org-id`                | Organization ID that owns the bucket                                                        | string     | `INFLUX_ORG_ID`      |
+| `-o` | `--org`                   | Organization name that owns the bucket (mutually exclusive with `--org-id`)                 | string     | `INFLUX_ORG`         |
+|      | `--org-id`                | Organization ID that owns the bucket (mutually exclusive with `--org`)                      | string     | `INFLUX_ORG_ID`      |
 | `-q` | `--quiet`                 | Disable output printing                                                                     |            |                      |
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                      |
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
@@ -46,20 +46,20 @@ influx apply [flags]
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
 | `-t` | `--token`                 | Authentication token                                                                        | string     | `INFLUX_TOKEN`       |
 
-## Examples
+## Examples: how to apply a template or stack
 
 {{< cli/influx-creds-note >}}
 
-- [Apply a template from a file](#apply-a-template-from-a-file)
-- [Apply a template from a URL](#apply-a-template-from-a-url)
-- [Apply a stack that has associated templates](#apply-a-stack-that-has-associated-templates)
-- [Apply a template to a stack](#apply-a-template-to-a-stack)
-- [Apply multiple template files together](#apply-multiple-template-files-together)
-- [Apply a template from STDIN](#apply-a-template-from-stdin)
-- [Apply all templates in a directory](#apply-all-templates-in-a-directory)
-- [Recursively apply templates from a directory](#recursively-apply-templates-from-a-directory)
-- [Apply templates from multiple sources](#apply-templates-from-multiple-sources)
-- [Apply a template, but skip resources](#apply-a-template-but-skip-resources)
+- [from a file](#apply-a-template-from-a-file)
+- [from a URL](#apply-a-template-from-a-url)
+- [from a stack that has associated templates](#apply-a-stack-that-has-associated-templates)
+- [a template to a stack](#apply-a-template-to-a-stack)
+- [multiple template files together](#apply-multiple-template-files-together)
+- [a template from stdin](#apply-a-template-from-stdin)
+- [all templates in a directory](#apply-all-templates-in-a-directory)
+- [recursively from a directory](#recursively-apply-templates-from-a-directory)
+- [from multiple sources](#apply-templates-from-multiple-sources)
+- [skip resources](#apply-a-template-but-skip-resources)
 
 ##### Apply a template from a file
 ```sh
@@ -72,6 +72,8 @@ influx apply --file https://raw.githubusercontent.com/influxdata/community-templ
 ```
 
 ##### Apply a stack that has associated templates
+To apply all templates associated with a stack ID to a new stack:
+
 ```sh
 influx apply --stack-id $STACK_ID
 ```
@@ -88,7 +90,7 @@ influx apply \
   --file path/to/template_2.yml
 ```
 
-##### Apply a template from STDIN
+##### Apply a template from stdin
 ```sh
 cat template.json | influx apply --encoding json
 ```

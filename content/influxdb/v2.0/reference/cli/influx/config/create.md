@@ -1,6 +1,6 @@
 ---
 title: influx config create
-description: The `influx config create` command creates a new InfluxDB connection configuration.
+description: The `influx config create` command creates a InfluxDB connection configuration.
 menu:
   influxdb_2_0_ref:
     name: influx config create
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx config create` command creates a new InfluxDB connection configuration
+The `influx config create` command creates a InfluxDB connection configuration
 and stores it in the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 
 ## Usage

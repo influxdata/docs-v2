@@ -18,8 +18,8 @@ The `influx setup` command walks through the initial InfluxDB OSS setup process,
 creating a default user, organization, and bucket.
 
 {{% note %}}
-The user created in the InfluxDB setup process has full read and write access to
-all organizations in the database.
+The **Admin token** created in the InfluxDB setup process has full read and write
+access to all organizations in the database.
 {{% /note %}}
 
 ## Usage
@@ -50,12 +50,12 @@ milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and 
 
 ## Examples
 
-##### Start the interactive InfluxDB setup process
+##### Start interactive InfluxDB setup
 ```sh
 influx setup
 ```
 
-##### Setup InfluxDB with all required information and skip confirmation
+##### Set up InfluxDB with all required information and skip confirmation
 ```sh
 influx setup \
   --org example-org \

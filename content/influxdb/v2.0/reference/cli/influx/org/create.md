@@ -1,6 +1,6 @@
 ---
 title: influx org create
-description: The `influx org create` creates a new organization in InfluxDB.
+description: The `influx org create` creates an organization in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx org create
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx org create` creates a new organization in InfluxDB.
+The `influx org create` creates an organization in InfluxDB.
 
 ## Usage
 ```
@@ -33,12 +33,12 @@ influx org create [flags]
 
 {{< cli/influx-creds-note >}}
 
-##### Create a new organization
+##### Create an organization
 ```sh
 influx org create --name example-org
 ```
 
-##### Create a new organization with a description
+##### Create an organization with a description
 ```sh
 influx org create \
   --name example-org \

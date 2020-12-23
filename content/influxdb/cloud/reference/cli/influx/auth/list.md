@@ -1,6 +1,6 @@
 ---
 title: influx auth list
-description: The `influx auth list` command lists and searches authentication tokens in InfluxDB.
+description: The `influx auth list` command lists authentication tokens in InfluxDB.
 menu:
   influxdb_cloud_ref:
     name: influx auth list

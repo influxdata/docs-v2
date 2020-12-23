@@ -11,13 +11,12 @@ related:
   - /influxdb/cloud/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
-{{% cloud %}}
-#### This command does not work with InfluxDB Cloud
-The `influx backup` command **does not** work with **InfluxDB Cloud**.
-It only works with **InfluxDB OSS 2.x**.
+{{% note %}}
+#### Available with InfluxDB OSS 2.x only
+The `influx backup` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
 For information about backing up data in InfluxDB Cloud, see
 [InfluxDB Cloud durabilty](/influxdb/cloud/reference/internals/durability/) or
-[contact support](mailto:support@influxdata.com).
-{{% /cloud %}}
+[contact InfluxData Support](mailto:support@influxdata.com).
+{{% /note %}}
 
 {{< duplicate-oss >}}

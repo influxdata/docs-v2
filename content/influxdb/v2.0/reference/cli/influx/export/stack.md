@@ -34,8 +34,8 @@ influx export stack <stack_id> [flags]
 | `-f` | `--file`          | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                      |
 | `-h` | `--help`          | Help for the `export stack` command                                              |            |                      |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                       | string     | `INFLUX_HOST`        |
-| `-o` | `--org`           | Organization name that owns the resources                                        | string     | `INFLUX_ORG`         |
-|      | `--org-id`        | Organization ID that owns the resources                                          | string     | `INFLUX_ORG_ID`      |
+| `-o` | `--org`           | Organization name that owns the resources (mutually exclusive with `--org-id`)   | string     | `INFLUX_ORG`         |
+|      | `--org-id`        | Organization ID that owns the resources (mutually exclusive with `--org`)        | string     | `INFLUX_ORG_ID`      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                |            |                      |
 | `-t` | `--token`         | Authentication token                                                             | string     | `INFLUX_TOKEN`       |
 

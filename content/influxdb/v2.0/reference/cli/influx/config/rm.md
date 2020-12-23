@@ -18,7 +18,7 @@ from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 influx config rm <config-name> [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `rm`, `remove`, `delete`
 
 

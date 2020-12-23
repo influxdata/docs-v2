@@ -16,8 +16,8 @@ influx auth create [flags]
 ```
 
 ## Flags
-| Flag |                                | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:-----|:---------------------          |:----------------------------------------------------------------------|:-----------:|:----------------------|
+| Flag |                                 | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:-----|:---------------------           |:----------------------------------------------------------------------|:-----------:|:----------------------|
 | `-c` | `--active-config`               | CLI configuration to use for command                                  | string      |                       |
 |      | `--configs-path`                | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      | `INFLUX_CONFIGS_PATH` |
 | `-d` | `--description`                 | Authentication token description                                      | string      |                       |
@@ -25,8 +25,8 @@ influx auth create [flags]
 |      | `--hide-headers`                | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                        | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--json`                        | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`                         | Organization name                                                     | string      | `INFLUX_ORG`          |
-|      | `--org-id`                      | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
+| `-o` | `--org`                         | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
+|      | `--org-id`                      | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
 |      | `--read-bucket`                 | Grant permission to read a specified bucket ID                        | stringArray |                       |
 |      | `--read-buckets`                | Grant permission to read **all** organization buckets                 |             |                       |
 |      | `--read-checks`                 | Grant permission to read checks                                       |             |                       |

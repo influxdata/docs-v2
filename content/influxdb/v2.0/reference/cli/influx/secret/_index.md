@@ -13,7 +13,7 @@ cascade:
     - /influxdb/v2.0/reference/cli/influx/#patterns-and-conventions, influx CLI patterns and conventions
 ---
 
-The `influx secret` command manages secrets.
+The `influx secret` command manages [secrets](/influxdb/v2.0/reference/glossary/#secret).
 
 ## Usage
 ```

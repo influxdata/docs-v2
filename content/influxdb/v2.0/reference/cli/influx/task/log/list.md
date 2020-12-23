@@ -17,7 +17,7 @@ The `influx task log list` command outputs log information related to a task.
 influx task log list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags

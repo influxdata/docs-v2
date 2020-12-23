@@ -27,7 +27,7 @@ influx [command]
 | Command                                                      | Description                                          |
 |:-------                                                      |:-----------                                          |
 | [apply](/influxdb/v2.0/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
-| [auth](/influxdb/v2.0/reference/cli/influx/auth)             | Authorization management commands                    |
+| [auth](/influxdb/v2.0/reference/cli/influx/auth)             | Authentication token management commands             |
 | [backup](/influxdb/v2.0/reference/cli/influx/backup)         | Back up data                                         |
 | [bucket](/influxdb/v2.0/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/influxdb/v2.0/reference/cli/influx/completion) | Generate completion scripts                          |
@@ -58,21 +58,21 @@ influx [command]
 | `-h` | `--help` | Help for the `influx` command |
 
 ## Patterns and conventions
-The `influx` CLI utilizes the following patterns and conventions:
+The `influx` CLI uses the following patterns and conventions:
 
-- [Easily provide required authentication credentials](#easily-provide-required-authentication-credentials)
+- [Provide required authentication credentials](#provide-required-authentication-credentials)
 - [Mapped environment variables](#mapped-environment-variables)
 - [Shorthand and longhand flags](#shorthand-and-longhand-flags)
 - [Flag input types](#flag-input-types)
 
-### Easily provide required authentication credentials
+### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
-`influx` commands that require these credentials will automatically retrieve these
+`influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
 
 Use the [`influx config create` command](/influxdb/v2.0/reference/cli/influx/config/create/)
-to create a new `influx` CLI config and set it as active:
+to create an `influx` CLI config and set it as active:
 
 ```sh
 influx config create --config-name <config-name> \
@@ -86,8 +86,8 @@ For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2.0/reference/cli/influx/config/).
 
 ### Mapped environment variables
-Some `influx` CLI flags are mapped to environment variables.
-Mapped flags get the value of the environment variable.
+`influx` CLI flags mapped to environment variables are listed in the **Mapped to** column.
+Mapped flags inherit the value of the environment variable.
 To override environment variables, set the flag explicitly in your command.
 
 ### Shorthand and longhand flags
@@ -100,7 +100,7 @@ Many `influx` CLI flags support both shorthand and longhand forms.
 Commands can use both shorthand and longhand flags in a single execution.
 
 ### Flag input types
-`influx` CLI flags use the support the following input types:
+`influx` CLI flags support the following input types:
 
 #### string
 Text string, but the flag can be used **only once** per command execution.

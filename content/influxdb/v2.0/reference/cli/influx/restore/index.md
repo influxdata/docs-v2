@@ -39,8 +39,8 @@ influxd restore [flags]
 | Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |
 |:---- |:---               |:-----------                                                           |:----------: |:------------------    |
 | `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                       |
-| `-b` | `--bucket`        | Name of the bucket to restore                                         | string      |                       |
-|      | `--bucket-id`     | ID of the bucket to restore                                           | string      |                       |
+| `-b` | `--bucket`        | Name of the bucket to restore (mutually exclusive with `--bucket-id`) | string      |                       |
+|      | `--bucket-id`     | ID of the bucket to restore (mutually exclusive with `--bucket`)      | string      |                       |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
 |      | `--full`          | Fully restore and replace all data on server                          |             |                       |
 | `-h` | `--help`          | Help for the `restore` command                                        |             |                       |
@@ -50,8 +50,8 @@ influxd restore [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 |      | `--new-bucket`    | Name of the bucket to restore to                                      | string      |                       |
 |      | `--new-org`       | Name of the organization to restore to                                | string      |                       |
-| `-o` | `--org`           | Organization name                                                     | string      |                       |
-|      | `--org-id`        | Organization ID                                                       | string      |                       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      |                       |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
@@ -61,7 +61,7 @@ influxd restore [flags]
 
 - [Restore and replace all data](#restore-and-replace-all-data)
 - [Restore backup data to an existing bucket](#restore-backup-data-to-an-existing-bucket)
-- [Create a new bucket and restore data to it](#create-a-new-bucket-and-restore-data-to-it)
+- [Create a bucket and restore data to it](#create-a-bucket-and-restore-data-to-it)
 
 ##### Restore and replace all data
 ```sh
@@ -75,7 +75,7 @@ influx restore \
   --input /path/to/backup/dir/
 ```
 
-##### Create a new bucket and restore data to it
+##### Create a bucket and restore data to it
 ```sh
 influx restore \
   --new-bucket new-example-bucket \

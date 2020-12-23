@@ -1,6 +1,6 @@
 ---
 title: influx org members add
-description: The `influx org members add` command adds a new member to an organization in InfluxDB.
+description: The `influx org members add` command adds a member to an organization in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx org members add
@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `influx org members add` command adds a new member to an organization in InfluxDB.
+The `influx org members add` command adds a member to an organization in InfluxDB.
 
 ## Usage
 ```

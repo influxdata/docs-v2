@@ -20,7 +20,7 @@ influx org [flags]
 influx org [command]
 ```
 
-#### Aliases
+#### Command aliases
 `org`, `organization`
 
 ## Subcommands

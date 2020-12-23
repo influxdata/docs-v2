@@ -9,12 +9,12 @@ weight: 201
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/create/
 ---
 
-{{% cloud %}}
-#### This command does not work with InfluxDB Cloud
-The `influx user create` command **does not** create users in **InfluxDB Cloud**.
-It creates users in **InfluxDB OSS 2.x** only.
+{{% note %}}
+#### Available with InfluxDB OSS 2.x only
+The `influx user create` command creates users in **InfluxDB OSS 2.x**,
+but does not create users in **InfluxDB Cloud**.
 For information about inviting users into your InfluxDB Cloud organization, see
 [Manage multiple users](/influxdb/cloud/account-management/multi-user/).
-{{% /cloud %}}
+{{% /note %}}
 
 {{< duplicate-oss >}}

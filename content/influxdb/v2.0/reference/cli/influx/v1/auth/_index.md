@@ -18,7 +18,7 @@ influx v1 auth [flags]
 influx v1 auth [command]
 ```
 
-#### Aliases
+#### Command aliases
 `auth`, `authorization`
 
 ## Commands

@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-{{% cloud %}}
-#### This command does not work with InfluxDB Cloud
-The `influx org members remove` command **does not** remove organization members in **InfluxDB Cloud**.
-It removes organization members in **InfluxDB OSS 2.x** only.
+{{% note %}}
+#### Available with InfluxDB OSS 2.x only
+The `influx org members remove` command removes organization members in **InfluxDB OSS 2.x**,
+but cannot remove organization members in **InfluxDB Cloud**.
 For information about removing a user from your InfluxDB Cloud organization, see
 [Remove a user](/influxdb/cloud/account-management/multi-user/remove-user/).
-{{% /cloud %}}
+{{% /note %}}
 
 {{< duplicate-oss >}}

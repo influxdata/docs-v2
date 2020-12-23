@@ -1,6 +1,6 @@
 ---
 title: influx auth inactive
-description: The `influx auth inactive` ccommand inactivates an authentication token in InfluxDB.
+description: The `influx auth inactive` command inactivates an authentication token in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth inactive
@@ -24,7 +24,7 @@ influx auth inactive [flags]
 | `-h` | `--help`          | Help for the `inactive` command                                       |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`            | ({{< req >}}) Authorization ID                                        | string      |                       |
+| `-i` | `--id`            | ({{< req >}}) Authentication token ID                                 | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |

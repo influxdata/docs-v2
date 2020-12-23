@@ -29,8 +29,8 @@ influx v1 dbrp create [flags]
 |       | `--hide-headers`  | Hide table headers (default: `false`)                                    |            | `$INFLUX_HIDE_HEADERS`  |
 |       | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 |       | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
-| `-o`  | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
-|       | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
+| `-o`  | `--org`           | Organization name (mutually exclusive with `--org-id`)                   | string     | `$INFLUX_ORG`           |
+|       | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 |       | `--rp`            | InfluxDB v1 retention policy to map from                                 |            |                         |
 |       | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t`  | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |

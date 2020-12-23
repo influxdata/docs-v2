@@ -34,8 +34,8 @@ influx write dryrun [flags]
 | Flag |                     | Description                                                                     | Input type  | {{< cli/mapped >}}    |
 |:-----|:--------------------|:--------------------------------------------------------------------------------|:----------: |:----------------------|
 | `-c` | `--active-config`   | CLI configuration to use for command                                            | string      |                       |
-| `-b` | `--bucket`          | Bucket name                                                                     | string      | `INFLUX_BUCKET_NAME`  |
-|      | `--bucket-id`       | Bucket ID                                                                       | string      | `INFLUX_BUCKET_ID`    |
+| `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                             | string      | `INFLUX_BUCKET_NAME`  |
+|      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                  | string      | `INFLUX_BUCKET_ID`    |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string      | `INFLUX_CONFIGS_PATH` |
 |      | `--debug`           | Output errors to stderr                                                         |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string      |                       |
@@ -46,8 +46,8 @@ influx write dryrun [flags]
 | `-h` | `--help`            | Help for the `dryrun` command                                                   |             |                       |
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:9999`)                      | string      | `INFLUX_HOST`         |
 |      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`) | integer     |                       |
-| `-o` | `--org`             | Organization name                                                               | string      | `INFLUX_ORG`          |
-|      | `--org-id`          | Organization ID                                                                 | string      | `INFLUX_ORG_ID`       |
+| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
+|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
 |      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                               |             |                       |

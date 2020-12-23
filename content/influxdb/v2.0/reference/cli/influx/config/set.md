@@ -16,7 +16,7 @@ configuration in the `configs` file (by default, stored at `~/.influxdbv2/config
 influx config set [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `set` , `update`
 
 ## Flags

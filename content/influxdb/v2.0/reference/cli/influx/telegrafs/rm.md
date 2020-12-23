@@ -16,7 +16,7 @@ The `influx telegrafs rm` command removes Telegraf configurations from InfluxDB.
 influx telegrafs rm [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `rm`, `remove`
 
 ## Flags
@@ -28,6 +28,8 @@ influx telegrafs rm [flags]
 |      | `--hide-headers`  | Hide the table headers                                                |             | `$INFLUX_HIDE_HEADERS` |
 | `-i` | `--id`            | Telegraf configuration ID to remove                                   | stringArray |                        |
 |      | `--json`          | Output data as json                                                   |             | `$INFLUX_OUTPUT_JSON`  |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                        |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`         |
 
 ## Examples
 

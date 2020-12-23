@@ -21,7 +21,7 @@ influx template validate [flags]
 
 | Flag |              | Description                                                        | Input Type  |
 |:---- |:---          |:-----------                                                        |:----------  |
-| `-e` | `--encoding` | Encoding of the input stream                                       | string      |
+| `-e` | `--encoding` | Template encoding                                                  | string      |
 | `-f` | `--file`     | Path to template file (supports HTTP(S) URLs or file paths)        | stringArray |
 | `-h` | `--help`     | Help for the `validate` command                                    |             |
 | `-R` | `--recurse`  | Recurse through files in the directory specified in `-f`, `--file` |             |
@@ -30,11 +30,13 @@ influx template validate [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Validate an InfluxDB template from a local file](#validate-an-influxdb-template-from-a-local-file)
-- [Validate InfluxDB templates from multiple files](#validate-influxdb-templates-from-multiple-files)
-- [Validate an InfluxDB template from a URL](#validate-an-influxdb-template-from-a-url)
-- [Validate all InfluxDB templates in a directory](#validate-all-influxdb-templates-in-a-directory)
-- [Specify the encoding of the InfluxDB template to validate](#specify-the-encoding-of-the-influxdb-template-to-validate)
+**Validate InfluxDB Templates:**
+
+- [from a local file](#validate-an-influxdb-template-from-a-local-file)
+- [from multiple files](#validate-influxdb-templates-from-multiple-files)
+- [from a URL](#validate-an-influxdb-template-from-a-url)
+- [from a directory](#validate-all-influxdb-templates-in-a-directory)
+- [using a specific encoding](#specify-the-encoding-of-the-influxdb-template-to-validate)
 
 ##### Validate an InfluxDB template from a local file
 ```sh

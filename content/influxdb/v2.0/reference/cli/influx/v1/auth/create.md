@@ -28,8 +28,8 @@ influx v1 auth create [flags]
 |      | `--host`          | HTTP address of InfluxDB                                                                                   | string      | `$INFLUX_HOST`          |
 |      | `--json`          | Output data as JSON (default: `false`)                                                                     |             | `$INFLUX_OUTPUT_JSON`   |
 |      | `--no-password`   | Don't prompt for a password (to use the token, you must set a password with `influx v1 auth set-password`) |             |                         |
-| `-o` | `--org`           | Organization name                                                                                          | string      | `$INFLUX_ORG`           |
-|      | `--org-id`        | Organization ID                                                                                            | string      | `$INFLUX_ORG_ID`        |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                     | string      | `$INFLUX_ORG`           |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                          | string      | `$INFLUX_ORG_ID`        |
 |      | `--password`      | Password to set on the authorization                                                                       |             |                         |
 |      | `--read-bucket`   | Bucket ID to assign read permissions to                                                                    |             |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                          |             |                         |
@@ -41,7 +41,7 @@ influx v1 auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-##### Create a new v1 authorization with read and write permissions
+##### Create a v1 authorization with read and write permissions
 ```sh
 # Create an authorization with read and write access to bucket 00xX00o0X001
 # but only read access to bucket 00xX00o0X002

@@ -38,8 +38,8 @@ influx export all [flags]
 |      | `--filter`        | Specify resources to export by labelName or resourceKind (format: `--filter=labelName=example`) | stringArray |                      |
 | `-h` | `--help`          | Help for the `export all` command                                                               |             |                      |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                                      | string      | `INFLUX_HOST`        |
-| `-o` | `--org`           | Organization name that owns the resources                                                       | string      | `INFLUX_ORG`         |
-|      | `--org-id`        | Organization ID that owns the resources                                                         | string      | `INFLUX_ORG_ID`      |
+| `-o` | `--org`           | Organization name that owns the resources (mutually exclusive with `--org-id`)                  | string      | `INFLUX_ORG`         |
+|      | `--org-id`        | Organization ID that owns the resources (mutually exclusive with `--org`)                       | string      | `INFLUX_ORG_ID`      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                               |             |                      |
 | `-t` | `--token`         | Authentication token                                                                            | string      | `INFLUX_TOKEN`       |
 
@@ -51,8 +51,8 @@ influx export all [flags]
 - [Export all resources in an organization as a template](#export-all-resources-in-an-organization-as-a-template)
 - [Export all bucket resources as a template](#export-all-bucket-resources-as-a-template)
 - [Export all resources associated with label Foo](#export-all-resources-associated-with-label-foo)
-- [Export all bucket resources and filter by label Foo](#export-all-bucket-resources-and-filter-by-label-foo)
-- [Export all bucket or dashboard resources and filter by label Foo](#export-all-bucket-or-dashboard-resources-and-filter-by-label-foo)
+- [Export all bucket resources and with label Foo](#export-all-bucket-resources-with-label-foo)
+- [Export all bucket or dashboard resources with label Foo](#export-all-bucket-or-dashboard-resources-with-label-foo)
 
 ##### Export all resources in an organization as a template
 ```sh
@@ -69,18 +69,14 @@ influx export all --filter=resourceKind=Bucket
 influx export all --filter=labelName=Foo
 ```
 
-##### Export all bucket resources and filter by label Foo
+##### Export all bucket resources and with label Foo
 ```sh
 influx export all \
 	--filter=resourceKind=Bucket \
 	--filter=labelName=Foo
 ```
 
-##### Export all bucket or dashboard resources and filter by label Foo
-"Like" filters are unioned and filter types are intersections.
-For example, the following will export a resource if it is a dashboard or bucket
-and has an associated label, `Foo`.
-
+##### Export all bucket or dashboard resources with label Foo
 ```sh
 influx export all \
 	--filter=resourceKind=Bucket \

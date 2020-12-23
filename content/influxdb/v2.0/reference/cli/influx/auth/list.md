@@ -1,6 +1,6 @@
 ---
 title: influx auth list
-description: The `influx auth list` command lists and searches authentication tokens in InfluxDB.
+description: The `influx auth list` command lists authentication tokens in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth list
@@ -17,7 +17,7 @@ The `influx auth list` command lists and searches authentication tokens in Influ
 influx auth list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
@@ -28,10 +28,10 @@ influx auth list [flags]
 | `-h` | `--help`          | Help for the `list` command                                           |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`            | Authorization ID                                                      | string      |                       |
+| `-i` | `--id`            | Authentication token ID                                               | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`           | Organization name                                                     | string      |                       |
-|      | `--org-id`        | Organization ID                                                       | string      |                       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      |                       |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`          | Username                                                              | string      |                       |

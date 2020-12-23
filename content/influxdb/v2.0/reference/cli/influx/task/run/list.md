@@ -17,7 +17,7 @@ The `influx task run list` command outputs information related to runs of a task
 influx task run list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags

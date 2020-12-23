@@ -8,12 +8,12 @@ menu:
 weight: 301
 ---
 
-{{% cloud %}}
-#### This command does not work with InfluxDB Cloud
-The `influx org members add` command **does not** add organization members in **InfluxDB Cloud**.
-It adds members to organizations in **InfluxDB OSS 2.x** only.
+{{% note %}}
+#### Available with InfluxDB OSS 2.x only
+The `influx org members add` command adds members to organizations in **InfluxDB OSS 2.x**,
+but cannot add organization members to **InfluxDB Cloud**.
 For information about inviting users into your InfluxDB Cloud organization, see
 [Manage multiple users](/influxdb/cloud/account-management/multi-user/).
-{{% /cloud %}}
+{{% /note %}}
 
 {{< duplicate-oss >}}

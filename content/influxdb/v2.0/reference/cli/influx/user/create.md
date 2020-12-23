@@ -9,7 +9,7 @@ weight: 201
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/create/
 ---
 
-The `influx user create` command creates a new user in InfluxDB.
+The `influx user create` command creates a user in InfluxDB.
 
 ## Usage
 ```
@@ -27,8 +27,8 @@ influx user create [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | ({{< req >}}) Username                                                | string      | `INFLUX_NAME`         |
 | `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
-| `-p` | `--password`      | User password                                                         | string      |                       |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org-id`)                  | string      | `INFLUX_ORG_ID`       |
+| `-p` | `--password`      | User password (mutually exclusive with `--org`)                       | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
@@ -36,7 +36,7 @@ influx user create [flags]
 
 {{< cli/influx-creds-note >}}
 
-##### Create a new user
+##### Create a user
 ```sh
 influx user create \
   --name example-username \

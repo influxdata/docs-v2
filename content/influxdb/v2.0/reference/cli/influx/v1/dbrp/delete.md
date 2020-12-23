@@ -27,8 +27,8 @@ influx v1 dbrp delete [flags]
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 |      | `--id`            | ({{< req >}}) DBRP ID                                                    | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
-| `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
-|      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                   | string     | `$INFLUX_ORG`           |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
 

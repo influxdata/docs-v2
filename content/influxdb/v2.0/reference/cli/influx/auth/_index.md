@@ -20,17 +20,17 @@ influx auth [flags]
 influx auth [command]
 ```
 
-#### Aliases
+#### Command aliases
 `auth`, `authorization`
 
 ## Subcommands
-| Subcommand                                                    | Description              |
-|:----------                                                    |:-----------              |
-| [active](/influxdb/v2.0/reference/cli/influx/auth/active)     | Activate authorization   |
-| [create](/influxdb/v2.0/reference/cli/influx/auth/create)     | Create authorization     |
-| [delete](/influxdb/v2.0/reference/cli/influx/auth/delete)     | Delete authorization     |
-| [list](/influxdb/v2.0/reference/cli/influx/auth/list)         | List authorizations      |
-| [inactive](/influxdb/v2.0/reference/cli/influx/auth/inactive) | Inactivate authorization |
+| Subcommand                                                    | Description                     |
+|:----------                                                    |:-----------                     |
+| [active](/influxdb/v2.0/reference/cli/influx/auth/active)     | Activate authentication token   |
+| [create](/influxdb/v2.0/reference/cli/influx/auth/create)     | Create authentication token     |
+| [delete](/influxdb/v2.0/reference/cli/influx/auth/delete)     | Delete authentication token     |
+| [list](/influxdb/v2.0/reference/cli/influx/auth/list)         | List authentication tokens      |
+| [inactive](/influxdb/v2.0/reference/cli/influx/auth/inactive) | Inactivate authentication token |
 
 ## Flags
 | Flag |          | Description                 |

@@ -52,7 +52,7 @@ To successfully write annotated CSV to InfluxDB, include all
 [annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
 
 #### Extended annotated CSV
-In **extended annotated CSV**, measuremnts, fields, and values and their types are determined by
+In **extended annotated CSV**, measurements, fields, and values and their types are determined by
 [CSV annotations](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#csv-annotations).
 {{% /note %}}
 
@@ -65,8 +65,8 @@ In **extended annotated CSV**, measuremnts, fields, and values and their types a
 | Flag |                     | Description                                                                     | Input type  | {{< cli/mapped >}}    |
 |:-----|:--------------------|:--------------------------------------------------------------------------------|:----------: |:----------------------|
 | `-c` | `--active-config`   | CLI configuration to use for command                                            | string      |                       |
-| `-b` | `--bucket`          | Bucket name                                                                     | string      | `INFLUX_BUCKET_NAME`  |
-|      | `--bucket-id`       | Bucket ID                                                                       | string      | `INFLUX_BUCKET_ID`    |
+| `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                             | string      | `INFLUX_BUCKET_NAME`  |
+|      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                  | string      | `INFLUX_BUCKET_ID`    |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string      | `INFLUX_CONFIGS_PATH` |
 |      | `--debug`           | Output errors to stderr                                                         |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string      |                       |
@@ -77,8 +77,8 @@ In **extended annotated CSV**, measuremnts, fields, and values and their types a
 | `-h` | `--help`            | Help for the `write` command                                                    |             |                       |
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:9999`)                      | string      | `INFLUX_HOST`         |
 |      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`) | integer     |                       |
-| `-o` | `--org`             | Organization name                                                               | string      | `INFLUX_ORG`          |
-|      | `--org-id`          | Organization ID                                                                 | string      | `INFLUX_ORG_ID`       |
+| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
+|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
 |      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                               |             |                       |
@@ -91,22 +91,25 @@ In **extended annotated CSV**, measuremnts, fields, and values and their types a
 
 {{< cli/influx-creds-note >}}
 
-- [Write line protocol](#line-protocol)
-  - [via stdin](#write-line-protocol-via-stdin)
-  - [from a file](#write-line-protocol-from-a-file)
-  - [from multiple files](#write-line-protocol-from-multiple-files)
-  - [from a URL](#write-line-protocol-from-a-url)
-  - [from multiple URLs](#write-line-protocol-from-multiple-urls)
-  - [from multiple sources](#write-line-protocol-from-multiple-sources)
+###### Write line protocol
 
-- [Write CSV data](#csv)
-  - [via stdin](#write-annotated-csv-data-via-stdin)
-  - [from a file](#write-annotated-csv-data-from-a-file)
-  - [from multiple files](#write-annotated-csv-data-from-multiple-files)
-  - [from a URL](#write-annotated-csv-data-from-a-url)
-  - [from multiple URLs](#write-annotated-csv-data-from-multiple-urls)
-  - [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
-  - [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
+- [via stdin](#write-line-protocol-via-stdin)
+- [from a file](#write-line-protocol-from-a-file)
+- [from multiple files](#write-line-protocol-from-multiple-files)
+- [from a URL](#write-line-protocol-from-a-url)
+- [from multiple URLs](#write-line-protocol-from-multiple-urls)
+- [from multiple sources](#write-line-protocol-from-multiple-sources)
+
+###### Write CSV data
+
+- [annotated CSV via stdin](#write-annotated-csv-data-via-stdin)
+- [extended annotated CSV via stdin](#write-extended-annotated-csv-data-via-stdin)
+- [from a file](#write-annotated-csv-data-from-a-file)
+- [from multiple files](#write-annotated-csv-data-from-multiple-files)
+- [from a URL](#write-annotated-csv-data-from-a-url)
+- [from multiple URLs](#write-annotated-csv-data-from-multiple-urls)
+- [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
+- [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
 
 
 ### Line protocol
@@ -177,6 +180,22 @@ influx write \
 ,,0,2020-12-18T18:16:31Z,72.7,temp,sensorData
 ,,0,2020-12-18T18:16:41Z,72.8,temp,sensorData
 ,,0,2020-12-18T18:16:51Z,73.1,temp,sensorData
+"
+```
+
+##### Write extended annotated CSV data via stdin
+```sh
+influx write \
+  --bucket example-bucket \
+  --format csv \
+  "#constant measurement,sensorData
+#datatype,datetime:RFC3339,double
+time,temperature
+2020-12-18T18:16:11Z,72.7
+2020-12-18T18:16:21Z,73.8
+2020-12-18T18:16:31Z,72.7
+2020-12-18T18:16:41Z,72.8
+2020-12-18T18:16:51Z,73.1
 "
 ```
 

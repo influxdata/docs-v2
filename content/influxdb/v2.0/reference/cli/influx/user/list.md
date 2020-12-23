@@ -18,7 +18,7 @@ The `influx user list` command lists users in InfluxDB.
 influx user list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags

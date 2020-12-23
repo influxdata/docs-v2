@@ -40,8 +40,10 @@ influx telegrafs [command]
 |      | `--hide-headers`  | Hide table headers                                                    |             | `INFLUX_HIDE_HEADERS` |
 | `-i` | `--id`            | Telegraf configuration ID to retrieve                                 | string      |                       |
 |      | `--json`          | Output data as JSON                                                   |             | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 
@@ -52,7 +54,7 @@ influx telegrafs [command]
 influx telegrafs
 ```
 
-##### List only a Telegraf configuration with the specified ID
+##### List a Telegraf configuration with the specified ID
 ```sh
 influx telegrafs --id 0Xx0oox00XXoxxoo1
 ```
