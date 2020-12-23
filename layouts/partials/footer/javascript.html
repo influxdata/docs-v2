@@ -19,3 +19,22 @@
 
 <!-- Load footer.js -->
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>
+
+{{ if .Page.HasShortcode "diagram" }}
+<!-- Load mermaid.js for diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad:true,
+    mermaid: {
+      callback:function(id) {
+        $('.mermaid').css('opacity', 1);
+      }
+    },
+    themeVariables: {
+      fontFamily: "Rubik",
+      fontSize: '18px',
+    }
+  })
+</script>
+{{ end }}
