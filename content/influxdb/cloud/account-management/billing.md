@@ -20,7 +20,7 @@ products: [cloud]
 
 1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
 2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
-3. Enter your payment information and billing address, and then click **Upgrade**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
+3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
 ## Access billing details
 
@@ -48,15 +48,12 @@ products: [cloud]
 
 ### Add or update your payment method
 
-1. On the **Billing page**:
-   - To update, click the **Change Payment** button on the Billing page.
+- On the **Billing page**:
+   - To update your card, click the **Change Payment** button on the Billing page.
    - In the **Payment Method** section:
       - Enter your cardholder name and number
       - Select your expiration month and year
       - Enter your CVV code and select your card type
-      - Enter your card billing address
-
-2. Click **Add Card**.
 
 ### Add or update your contact information
 
