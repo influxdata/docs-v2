@@ -30,9 +30,9 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
     #### Subscribe through InfluxData
 
     To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
-    go to [InfluxDB Cloud]({{< cloud-link >}}).
+    go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
 
-    - To use social sign-on, click **Continue with Google**. Note that Google social sign-on does not support email aliases.
+    - To use social sign-on, click **Google**. Note that Google social sign-on does not support email aliases.
     - Sign up with email by entering your name, email address, and password, then click **Create Account**.
 
     If you originally signed up with email but want to enable social sign-on, you can do so by logging in through Google as long as you use the same email address.  
@@ -65,13 +65,15 @@ Currently, we do **not support** using an existing InfluxDB Cloud account to sig
     {{< cloud_regions type="list" >}}
 
     _To suggest regions to add, click **Let us know** under Regions._
-5. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
+5. Enter your company name.
+6. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
    For details on the agreements, see the [InfluxDB Cloud: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
-6. Click **Finish**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
-
-    _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
+7. Click **Continue**, and then choose your plan:
+   - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
+   - To keep the free plan, click **Keep**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
     and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
+   - To upgrade to an Annual plan, click **Contact Sales**, enter your information, and then click **Send**. Our team will contact you as soon as possible.
 
 ## (Optional) Download, install, and use the influx CLI
 
@@ -206,9 +208,7 @@ For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config
 
 #### Step 5: Learn `influx` CLI commands
 
-To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/cloud/reference/cli/influx/).
-
-
+ 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
 
