@@ -1,9 +1,9 @@
 ---
 title: Write CSV data to InfluxDB
 description: >
-  Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write CSV data
-  to InfluxDB. Include annotations with the CSV data to determine how the data translates
-  into [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
+  Write CSV data with the following methods:
+  - [flux](#flux)
+  - [influx write command](#influx-write-command)
 menu:
   influxdb_2_0:
     name: Write CSV data
@@ -16,6 +16,19 @@ related:
   - /influxdb/v2.0/reference/syntax/annotated-csv/
   - /influxdb/v2.0/reference/cli/influx/write/
 ---
+Write CSV data with the following methods:
+- [flux](#flux)
+- [influx write command](#influx-write-command)
+
+### flux
+
+Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an Annotated CSV to the bucket of your choice.
+ 
+{{< youtube wPKZ9i0DulQ >}}
+
+Try writing the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+
+### influx write command
 
 Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write CSV data
 to InfluxDB. Include [Extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/)
