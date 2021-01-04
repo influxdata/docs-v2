@@ -32,10 +32,10 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
     To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
     go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
 
-    - To use social sign-on, click  **Azure** or **Google**. Note that Google social sign-on does not support email aliases.
+    - To use social sign-on, click  **Azure** or **Google**. Note that social sign-on does not support email aliases.
     - Sign up with email by entering your name, email address, and password, then click **Create Account**.
 
-    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through Google as long as you use the same email address.  
+    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through your cloud provider as long as you use the same email address.  
 
     #### **Subscribe through a cloud provider**  
     To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
