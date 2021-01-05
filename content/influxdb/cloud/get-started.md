@@ -48,7 +48,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       All usage charges will be paid through the subscribed AWS account.
 
     - **Microsoft Azure**  
-      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](link needed),
+      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed Azure account.
