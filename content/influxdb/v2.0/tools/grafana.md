@@ -81,11 +81,11 @@ configure your InfluxDB connection:
         ```
     - **Access**: Server (default)
 
-2. Under **Auth**, enable **Basic Auth**.
-3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
+2. Under **Custom HTTP Headers**, select **Add Header**.
+3. Provide your InfluxDB authentication credentials:
 
-    - **User**: InfluxDB username
-    - **Password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - **Header**: "Authorization"
+    - **Value**: In the form of "Token <your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)>"
 
 4. Under **InfluxDB Details**, do the following:
 
