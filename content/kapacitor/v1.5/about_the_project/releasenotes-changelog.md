@@ -6,6 +6,26 @@ menu:
     parent: About the project
 ---
 
+
+## v1.5.8 [2020-1-6]
+
+## Breaking changes
+
+- Remove support for darwin/386 builds (Go no longer supports), and add support for darwin/arm64 builds. 
+## Features
+
+- Add InfluxDB `subscription-path` configuration option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
+- Add support for HTTP sources in `SideloadNode` configuration, thanks @jregovic!
+- Add support for correlate in the Alerta AlertNode, thanks @nermolaev!
+- Add `details` option to the OpsGenie v2 event handler; set to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
+- Preallocate GroupIDs for increased performance by reducing allocations.
+- Send data to InfluxDB compressed as `gzip` by default.
+- Add `PrimaryProperty` and `SecondaryProperty` methods to BigPanda AlertNode.
+
+### Bug fixes
+
+- Add error check when the system fails to read the replay file, thanks @johncming!
+- Add missing `.Details` to the alert template.
 ## v1.5.7 [2020-10-26]
 
 ## Features
