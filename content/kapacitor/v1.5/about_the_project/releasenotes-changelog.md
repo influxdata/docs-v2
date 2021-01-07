@@ -15,7 +15,8 @@ menu:
 
 ## Features
 
-- Add InfluxDB `subscription-path` configuration option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
+- Add the InfluxDB `subscription-path` configuration option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
+  For more information, see the example in [Kapacitor to InfluxDB TLS configuration over HTTP API](/kapacitor/v1.5/administration/security/#secure-influxdb-and-kapacitor).
 - Add support for HTTP sources in `SideloadNode` configuration, thanks @jregovic!
 - Add support for correlate in the Alerta AlertNode, thanks @nermolaev!
 - Add `details` option to the OpsGenie v2 event handler; set to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
