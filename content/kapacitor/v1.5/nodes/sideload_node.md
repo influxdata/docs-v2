@@ -152,10 +152,6 @@ Define the source of the data. The following sources are supported:
 - a **URL** (`http://`)
 - an **endpoint name**. Use a plain string (without `file://` or `http://`) to ensure the source is interpreted as an endpoint in the `[[httpost]]` section in the Kapacitor configuration.
 
-{{% note %}}
-A source defined as a **URL** or **endpoint** is loaded once as an HTTP GET when a task is enabled, and then on subsequent calls to the `/sideload/reload` endpoint.
-{{% /note %}}
-
 #### Source examples
 ##### File source
 
@@ -186,19 +182,28 @@ A source defined as a **URL** or **endpoint** is loaded once as an HTTP GET when
   .tag('foo', 'unknown')
 ```
 
+{{% note %}}
+A source defined as a **URL** or **endpoint** is loaded once as an HTTP GET when a task is enabled, and then on subsequent calls to the `/sideload/reload` endpoint.
+{{% /note %}}
+
 An HTTP source endpoint should return a JSON where each property is a key name specified in the order statement and its value is an object with a set of key/value pairs.
 
 ```js
 
-  {
-    "host1" : {
-    "cpu_threshold":98,
-    "some_tag": "value",
-    "disable": "False"},
-    "some_tag_value": {
-    "cpu_threshold": 97
-    "another_tag": "value"}
-  }
+{
+"host1": {
+"cpu_threshold": 99.9,
+"disable": "false"
+},
+"host2": {
+"cpu_threshold": 85,
+"disable": "true"
+},
+"host3": {
+"cpu_threshold": 56,
+"disable": "false"
+}
+}
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
