@@ -162,6 +162,7 @@ This results in the following file:
                 "startup-timeout": "5m0s",
                 "subscription-mode": "cluster",
                 "subscription-protocol": "https",
+                "subscription-path": "",
                 "subscriptions": {},
                 "subscriptions-sync-interval": "1m0s",
                 "timeout": "0s",
@@ -212,6 +213,9 @@ Similar commands:
 * To set the `subscription-protocol`:
 
 `curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+
+* If Kapacitor is behind a reverse proxy, set the `subscription-path` to append to the InfluxDB subscription URL:
+curl -kv -d '{ "set": { "subscription-path": "/path/behind/reverse-proxy" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
 
 * To set the path to the CA Certificate:
 
