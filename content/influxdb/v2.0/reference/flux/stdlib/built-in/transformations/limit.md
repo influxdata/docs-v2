@@ -12,7 +12,7 @@ weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/sort-limit/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tail/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-limit-and-slimit-clauses, InfluxQL LIMIT
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 ---
 
 The `limit()` function limits each output table to the first [`n`](#n) records.

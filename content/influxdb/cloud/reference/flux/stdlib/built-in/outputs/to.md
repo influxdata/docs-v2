@@ -10,7 +10,7 @@ menu:
     parent: built-in-outputs
 weight: 401
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-into-clause, InfluxQL – SELECT INTO
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause, InfluxQL – SELECT INTO
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.

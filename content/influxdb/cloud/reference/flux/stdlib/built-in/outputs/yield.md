@@ -10,7 +10,7 @@ menu:
     parent: built-in-outputs
 weight: 401
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT AS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
 ---
 
 The `yield()` function indicates the input tables received should be delivered as a result of the query.
