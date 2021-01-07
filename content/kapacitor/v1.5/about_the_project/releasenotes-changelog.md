@@ -7,7 +7,7 @@ menu:
 ---
 
 
-## v1.5.8 [2020-1-7]
+## v1.5.8 [unreleased]
 
 ## Breaking changes
 
