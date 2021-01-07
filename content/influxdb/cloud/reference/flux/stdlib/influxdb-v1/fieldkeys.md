@@ -11,7 +11,7 @@ aliases:
   - /influxdb/cloud/reference/flux/functions/influxdb-v1/fieldkeys
 related:
   - /influxdb/cloud/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
 introduced: 0.68.0
 deprecated: 0.88.0
 ---

@@ -17,6 +17,7 @@ This example uses [NOAA water sample data](/influxdb/v2.0/reference/sample-data/
 This example converts temperature from Fahrenheit to Celsius and maps the Celsius value to a new `celsius` column.
 
 The following query:
+
   - Uses [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to filter the `average_temperature` measurement.
   - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
 
