@@ -19,9 +19,9 @@ menu:
 - Add support for HTTP sources in `SideloadNode` configuration, thanks @jregovic!
 - Add support for correlate in the Alerta AlertNode, thanks @nermolaev!
 - Add `details` option to the OpsGenie v2 event handler; set to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
-- Preallocate GroupIDs for increased performance by reducing allocations.
 - Send data to InfluxDB compressed as `gzip` by default.
 - Add `PrimaryProperty` and `SecondaryProperty` methods to BigPanda AlertNode.
+- Preallocate `GroupIDs` to increase performance by reducing allocations.
 
 ### Bug fixes
 
