@@ -1,7 +1,8 @@
 ---
 title: Use multiple fields in calculations
 description: >
-  ...
+  Query multiple fields, pivot results, and use multiple field values to
+  calculate new values in query results.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -9,12 +10,11 @@ menu:
 weight: 204
 ---
 
-To use multiple fields values in a mathematic operation:
+To use multiple fields values in a mathematic calculations:
 
 1. [Filter by fields required in your calculation](#filter-by-fields)
 2. [Pivot fields into columns](#pivot-fields-into-columns)
 3. [Perform the mathematic calculation](#perform-the-calculation)
-
 
 ## Filter by fields
 Use [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
@@ -99,7 +99,6 @@ Using the pivoted data above, this `map()` function returns:
 | 2021-01-01T00:00:15Z | 12.2   | 4.8    | 58.56  |
 | 2021-01-01T00:00:30Z | 11.6   | 2.2    | 25.52  |
 | 2021-01-01T00:00:45Z | 11.9   | 3.3    | 39.27  |
-
 
 ## Full example query
 ```js
