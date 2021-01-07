@@ -7,7 +7,7 @@ menu:
 ---
 
 
-## v1.5.8 [2020-1-6]
+## v1.5.8 [2020-1-7]
 
 ## Breaking changes
 
@@ -27,6 +27,7 @@ menu:
 
 - Add error check when the system fails to read the replay file, thanks @johncming!
 - Add missing `.Details` to the alert template.
+
 ## v1.5.7 [2020-10-26]
 
 ## Features
