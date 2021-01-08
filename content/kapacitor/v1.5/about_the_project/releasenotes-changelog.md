@@ -15,7 +15,7 @@ menu:
 
 ## Features
 
-- Add new [BigPanda event handler](/kapacitor/v1.5/event_handlers/bigpanda.md).
+- Add new [BigPanda event handler](/kapacitor/v1.5/event_handlers/bigpanda).
 - Add InfluxDB `subscription-path` configuration option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
   For more information, see the example in [Kapacitor to InfluxDB TLS configuration over HTTP API](/kapacitor/v1.5/administration/security/#secure-influxdb-and-kapacitor).
 - Add support for HTTP sources in `SideloadNode` configuration, thanks @jregovic!
