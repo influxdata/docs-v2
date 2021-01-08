@@ -1,5 +1,5 @@
 ---
-title: Use multiple fields in calculations
+title: Use multiple fields in a calculation
 description: >
   Query multiple fields, pivot results, and use multiple field values to
   calculate new values in query results.
@@ -10,7 +10,7 @@ menu:
 weight: 204
 ---
 
-To use multiple fields values in a mathematic calculations:
+To use values from multiple fields in a mathematic calculation:
 
 1. [Filter by fields required in your calculation](#filter-by-fields)
 2. [Pivot fields into columns](#pivot-fields-into-columns)
@@ -53,8 +53,7 @@ This query returns one or more tables for each field. For example:
 
 ## Pivot fields into columns
 Use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
-to pivot each field into a column so every row includes a value for each field.
-Pivot on the `_time` column to align field values by time.
+to align multiple fields by time.
 
 {{% note %}}
 To correctly pivot on `_time`, points for each field must have identical timestamps.
