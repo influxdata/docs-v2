@@ -196,20 +196,19 @@ Kapacitor loads **URL** or **endpoint** sources once using an HTTP `GET` request
 An HTTP source endpoint should return a JSON object where each property is a key name specified in the order statement and its value is an object with a set of key-value pairs.
 
 ```js
-
 {
-"host1": {
-"cpu_threshold": 99.9,
-"disable": "false"
-},
-"host2": {
-"cpu_threshold": 85,
-"disable": "true"
-},
-"host3": {
-"cpu_threshold": 56,
-"disable": "false"
-}
+    "host1": {
+        "cpu_threshold": 99.9,
+        "disable": "false"
+    },
+    "host2": {
+        "cpu_threshold": 85,
+        "disable": "true"
+    },
+    "host3": {
+        "cpu_threshold": 56,
+        "disable": "false"
+    }
 }
 ```
 
