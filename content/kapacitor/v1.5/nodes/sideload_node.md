@@ -190,7 +190,7 @@ Define the source of the data. The following sources are supported:
 ```
 
 {{% note %}}
-Kapacitor loads **URL** or **endpoint** sources once using an HTTP `GET` requests when a task is enabled, and then on subsequent calls to the `/sideload/reload` endpoint.
+Kapacitor loads **URL** or **endpoint** sources once using an HTTP `GET` request when a task is enabled, and then on subsequent calls to the `/sideload/reload` endpoint.
 {{% /note %}}
 
 An HTTP source endpoint should return a JSON object where each property is a key name specified in the order statement and its value is an object with a set of key-value pairs.
