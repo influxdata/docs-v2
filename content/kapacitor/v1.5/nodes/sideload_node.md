@@ -14,7 +14,16 @@ menu:
 
 The `sideload` node adds fields and tags to points based on hierarchical data from various sources.
 
-Example:
+- [SideloadNode example](#sideloadnode-example)
+- [Constructor](#constructor)
+- [Property methods](#property-methods): [field](#field), [order](#order), [quiet](#quiet), [source](#source), [tag](#tag)
+- [Chaining methods](#chaining-methods)
+
+### SideloadNode example
+
+The following example shows how to add a field `cpu_threshold` and a tag `foo` to each point based on the value loaded from the hierarchical source.
+The list of templates in the `.order()` property are evaluated using the points tags.
+The files paths are checked then checked in order for the specified keys and the first value that is found is used.
 
 ```js
 |sideload()
@@ -24,9 +33,7 @@ Example:
   .tag('foo', 'unknown')
 ```
 
-Add a field `cpu_threshold` and a tag `foo` to each point based on the value loaded from the hierarchical source.
-The list of templates in the `.order()` property are evaluated using the points tags.
-The files paths are checked then checked in order for the specified keys and the first value that is found is used.
+
 ### Constructor
 
 | Chaining Method | Description |
