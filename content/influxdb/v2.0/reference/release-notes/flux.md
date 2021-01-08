@@ -8,6 +8,16 @@ menu:
     name: Flux
 ---
 
+## v0.100.0 [2021-01-07]
+
+### Features
+- Add ability to execute tests from `.tar` and `.zip` archives.
+
+### Bug fixes
+- Fix endpoint examples in source code.
+
+---
+
 ## v0.99.0 [2020-12-14]
 
 ### Features
