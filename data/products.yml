@@ -43,3 +43,10 @@ enterprise_influxdb:
   list_order: 3
   versions: [v1.5, v1.6, v1.7, v1.8]
   latest: v1.8
+
+flux:
+  name: Flux
+  namespace: flux
+  list_order: 7
+  versions: [v0.x]
+  latest: v0.x
