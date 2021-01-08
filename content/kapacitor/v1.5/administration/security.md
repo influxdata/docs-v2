@@ -208,18 +208,27 @@ Similar commands:
 
 * To change the URLS:
 
-`curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the `subscription-protocol`:
 
-`curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * If Kapacitor is behind a reverse proxy, set the `subscription-path` to append to the InfluxDB subscription URL:
+
+```sh
 curl -kv -d '{ "set": { "subscription-path": "/path/behind/reverse-proxy" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the path to the CA Certificate:
 
-`curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 Other properties can be set in a similar fashion.
 
