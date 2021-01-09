@@ -1,7 +1,7 @@
 ---
 title: Write CSV data to InfluxDB
 description: >
-  Write CSV data with the [`influx write` command](#influx-write-command) and Flux.
+  Write CSV data with the [`influx write` command](#influx-write-command) or Flux.
   Include annotations with the CSV data to determine how the data translates into
   [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
 menu:
@@ -26,7 +26,15 @@ Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](
  
 {{< youtube wPKZ9i0DulQ >}}
 
-Try writing the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data).
+The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
+
+```js
+import "experimental/csv"
+
+csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+  |> to(bucket: "noaa", org: "example-org")
+```
 
 ### influx write command
 
