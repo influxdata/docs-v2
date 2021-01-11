@@ -46,6 +46,10 @@ Default Alerta environment.
 #### `origin`
 Default origin of alert.
 
+#### `correlate`
+
+When an alert with the same `resource` is received with an `event` in the `correlate` list of related events, the alert is correlated. For more information, see [Alerta documentation](https://docs.alerta.io/en/latest/server.html#simple-correlation).
+
 ## Options
 The following Alerta event handler options can be set in a
 [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
