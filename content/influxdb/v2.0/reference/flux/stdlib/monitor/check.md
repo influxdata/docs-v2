@@ -5,6 +5,8 @@ description: >
   (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/check/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/check/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/check/
 menu:
   influxdb_2_0_ref:
     name: monitor.check

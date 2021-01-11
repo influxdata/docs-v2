@@ -4,6 +4,8 @@ description: The `top()` function sorts a table by columns and keeps only the to
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/top
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/top/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/top/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/top/
 menu:
   influxdb_2_0_ref:
     name: top

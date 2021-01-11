@@ -4,6 +4,9 @@ list_title: Profiler package
 description: >
   The Flux Profiler package provides performance profiling tools for Flux queries and operations.
   Import the `profiler` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/profiler/
+  - /influxdb/cloud/reference/flux/stdlib/profiler/
 menu:
   influxdb_2_0_ref:
     name: Profiler

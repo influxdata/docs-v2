@@ -5,6 +5,8 @@ description: >
   a PagerDuty severity.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/severityfromlevel/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/severityfromlevel/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/severityfromlevel/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.severityFromLevel

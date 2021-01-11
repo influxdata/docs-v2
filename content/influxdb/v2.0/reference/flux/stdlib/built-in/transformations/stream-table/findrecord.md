@@ -3,6 +3,9 @@ title: findRecord() function
 description: >
   The `findRecord()` function returns a record at a specified index from the first
   table in a stream of tables where the group key values match the specified predicate.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/
 menu:
   influxdb_2_0_ref:
     name: findRecord

@@ -3,6 +3,9 @@ title: dict.fromList() function
 description: >
   The `dict.fromList()` function creates a dictionary from a list of records with
   `key` and `value` properties.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/dict/fromlist/
+  - /influxdb/cloud/reference/flux/stdlib/dict/fromlist/
 menu:
   influxdb_2_0_ref:
     name: dict.fromList

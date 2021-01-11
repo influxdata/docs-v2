@@ -2,6 +2,9 @@
 title: mqtt.to() function
 description: >
   The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/to/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
 menu:
   influxdb_2_0_ref:
     name: mqtt.to

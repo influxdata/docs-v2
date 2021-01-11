@@ -5,6 +5,8 @@ description: Flux's built-in transformation functions transform and shape your d
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/
 menu:
   influxdb_2_0_ref:
     parent: Built-in

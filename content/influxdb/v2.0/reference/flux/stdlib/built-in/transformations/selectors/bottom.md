@@ -4,6 +4,8 @@ description: The `bottom()` function sorts a table by columns and keeps only the
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/bottom
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/bottom/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/bottom/
 menu:
   influxdb_2_0_ref:
     name: bottom

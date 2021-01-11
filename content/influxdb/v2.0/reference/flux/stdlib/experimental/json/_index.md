@@ -4,6 +4,9 @@ list_title: JSON package
 description: >
   The Flux experimental JSON package provides functions for working with JSON.
   Import the `experimental/json` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/json/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/json/
 menu:
   influxdb_2_0_ref:
     name: JSON

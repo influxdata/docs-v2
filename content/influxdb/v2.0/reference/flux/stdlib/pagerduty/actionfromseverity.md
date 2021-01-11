@@ -4,6 +4,8 @@ description: >
   The `pagerduty.actionFromSeverity()` function converts a severity to a PagerDuty action.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/actionfromseverity/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/actionfromseverity/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/actionfromseverity/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.actionFromSeverity

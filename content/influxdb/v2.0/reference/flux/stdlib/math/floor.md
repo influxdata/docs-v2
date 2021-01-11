@@ -3,6 +3,8 @@ title: math.floor() function
 description: The math.floor() function returns the greatest integer value less than or equal to `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/floor/
+  - /influxdb/v2.0/reference/flux/stdlib/math/floor/
+  - /influxdb/cloud/reference/flux/stdlib/math/floor/
 menu:
   influxdb_2_0_ref:
     name: math.floor

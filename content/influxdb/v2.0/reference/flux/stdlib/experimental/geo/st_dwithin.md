@@ -4,6 +4,9 @@ description: >
   The `geo.ST_DWithin()` function tests if the specified region is within a defined
   distance from the specified geographic information system (GIS) geometry and
   returns `true` or `false`.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_dwithin/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_dwithin/
 menu:
   influxdb_2_0_ref:
     name: geo.ST_DWithin

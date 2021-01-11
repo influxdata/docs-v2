@@ -4,6 +4,9 @@ list_title: Prometheus package
 description: >
   The Flux Prometheus package provides functions for working with Prometheus-formatted metrics.
   Import the `experimental/prometheus` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/
 menu:
   influxdb_2_0_ref:
     name: Prometheus

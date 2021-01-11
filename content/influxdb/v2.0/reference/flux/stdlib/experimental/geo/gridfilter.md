@@ -2,6 +2,9 @@
 title: geo.gridFilter() function
 description: >
   The geo.gridFilter() function filters data by a specified geographic region.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/gridfilter/
 menu:
   influxdb_2_0_ref:
     name: geo.gridFilter

@@ -4,6 +4,8 @@ description: The math.mMin() function returns the smaller of `x` or `y`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/m_min/
   - /influxdb/v2.0/reference/flux/stdlib/math/m_min/
+  - /influxdb/v2.0/reference/flux/stdlib/math/mmin/
+  - /influxdb/cloud/reference/flux/stdlib/math/mmin/
 menu:
   influxdb_2_0_ref:
     name: math.mMin

@@ -4,6 +4,8 @@ description: The `duplicate()` function duplicates a specified column in a table
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/duplicate
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/duplicate/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/duplicate/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/duplicate/
 menu:
   influxdb_2_0_ref:
     name: duplicate

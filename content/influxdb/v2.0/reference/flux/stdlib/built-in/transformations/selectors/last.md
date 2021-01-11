@@ -4,6 +4,8 @@ description: The `last()` function selects the last non-null record from an inpu
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/last
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/last/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/last/
 menu:
   influxdb_2_0_ref:
     name: last

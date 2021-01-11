@@ -6,6 +6,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/histogramquantile
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/histogramquantile/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/
 menu:
   influxdb_2_0_ref:
     name: histogramQuantile

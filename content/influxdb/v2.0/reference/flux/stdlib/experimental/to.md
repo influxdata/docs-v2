@@ -3,6 +3,9 @@ title: experimental.to() function
 description: >
   The `experimental.to()` function writes data to an InfluxDB v2.0 bucket.
   The function structures data differently than the built-in `to()` function.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/to/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/to/
 menu:
   influxdb_2_0_ref:
     name: experimental.to

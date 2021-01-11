@@ -3,6 +3,8 @@ title: math.exp() function
 description: The math.exp() function returns `e**x`, the base-e exponential of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/exp/
+  - /influxdb/v2.0/reference/flux/stdlib/math/exp/
+  - /influxdb/cloud/reference/flux/stdlib/math/exp/
 menu:
   influxdb_2_0_ref:
     name: math.exp

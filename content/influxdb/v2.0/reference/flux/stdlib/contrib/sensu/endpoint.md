@@ -4,6 +4,9 @@ description: >
   The `sensu.endpoint()` function sends an event to the
   [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
   using data from table rows.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/endpoint/
 menu:
   influxdb_2_0_ref:
     name: sensu.endpoint

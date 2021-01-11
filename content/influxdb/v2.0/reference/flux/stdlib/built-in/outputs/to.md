@@ -4,6 +4,8 @@ description: The `to()` function writes data to an InfluxDB v2.0 bucket.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/outputs/to
   - /influxdb/v2.0/reference/flux/functions/built-in/outputs/to/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/outputs/to/
 menu:
   influxdb_2_0_ref:
     name: to

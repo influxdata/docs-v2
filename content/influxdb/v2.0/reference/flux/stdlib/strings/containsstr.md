@@ -3,6 +3,8 @@ title: strings.containsStr() function
 description: The strings.containsStr() function reports whether a string contains a specified substring.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/containsstr/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/containsstr/
+  - /influxdb/cloud/reference/flux/stdlib/strings/containsstr/
 menu:
   influxdb_2_0_ref:
     name: strings.containsStr

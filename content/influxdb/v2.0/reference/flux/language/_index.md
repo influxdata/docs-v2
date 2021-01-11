@@ -8,6 +8,9 @@ menu:
     name: Flux specification
     parent: Flux language
 weight: 103
+aliases:
+  - /influxdb/v2.0/reference/flux/language/
+  - /influxdb/cloud/reference/flux/language/
 influxdb/v2.0/tags: [flux]
 ---
 

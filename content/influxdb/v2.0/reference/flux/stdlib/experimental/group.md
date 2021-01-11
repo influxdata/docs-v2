@@ -3,6 +3,9 @@ title: experimental.group() function
 description: >
   The `experimental.group()` function introduces an `extend` mode to the existing
   `group()` function.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/group/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/group/
 menu:
   influxdb_2_0_ref:
     name: experimental.group

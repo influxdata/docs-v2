@@ -3,6 +3,8 @@ title: math.tanh() function
 description: The math.tanh() function returns the hyperbolic tangent of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/tanh/
+  - /influxdb/v2.0/reference/flux/stdlib/math/tanh/
+  - /influxdb/cloud/reference/flux/stdlib/math/tanh/
 menu:
   influxdb_2_0_ref:
     name: math.tanh

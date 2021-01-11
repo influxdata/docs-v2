@@ -6,6 +6,9 @@ description: >
   [Atlassian Opsgenie](https://www.atlassian.com/software/opsgenie) using the
   [Opsgenie v2 API](https://docs.opsgenie.com/docs/alert-api#create-alert).
   Import the `contrib/sranka/opsgenie` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/
 menu:
   influxdb_2_0_ref:
     name: Opsgenie

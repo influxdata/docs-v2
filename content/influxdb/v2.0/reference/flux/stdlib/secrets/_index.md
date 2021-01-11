@@ -6,6 +6,8 @@ description: >
   Import the `influxdata/influxdb/secrets` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/secrets/
+  - /influxdb/v2.0/reference/flux/stdlib/secrets/
+  - /influxdb/cloud/reference/flux/stdlib/secrets/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Secrets

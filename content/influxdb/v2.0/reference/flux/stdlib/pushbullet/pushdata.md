@@ -2,6 +2,9 @@
 title: pushbullet.pushData() function
 description: >
   The `pushbullet.pushData()` function sends a push notification to the Pushbullet API.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/pushdata/
+  - /influxdb/cloud/reference/flux/stdlib/pushbullet/pushdata/
 menu:
   influxdb_2_0_ref:
     name: pushbullet.pushData

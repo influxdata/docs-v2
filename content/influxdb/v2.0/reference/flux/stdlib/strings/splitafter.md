@@ -5,6 +5,8 @@ description: >
   an array of substrings.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/splitafter/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter/
+  - /influxdb/cloud/reference/flux/stdlib/strings/splitafter/
 menu:
   influxdb_2_0_ref:
     name: strings.splitAfter

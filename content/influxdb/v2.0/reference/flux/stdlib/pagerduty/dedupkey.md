@@ -5,6 +5,8 @@ description: >
   generate and store a deduplication key in the `_pagerdutyDedupKey` column.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/dedupkey/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/dedupkey/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/dedupkey/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.dedupKey

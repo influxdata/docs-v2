@@ -3,6 +3,9 @@ title: geo.filterRows() function
 description: >
   The geo.filterRows() function filters data by a specified geographic region with
   the option of strict filtering.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterrows/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/filterrows/
 menu:
   influxdb_2_0_ref:
     name: geo.filterRows

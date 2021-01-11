@@ -3,6 +3,8 @@ title: int() function
 description: The `int()` function converts a single value to an integer.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/int/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/int/
 menu:
   influxdb_2_0_ref:
     name: int

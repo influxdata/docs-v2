@@ -3,6 +3,8 @@ title: math.remainder() function
 description: The math.remainder() function returns the IEEE 754 floating-point remainder of `x / y`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/remainder/
+  - /influxdb/v2.0/reference/flux/stdlib/math/remainder/
+  - /influxdb/cloud/reference/flux/stdlib/math/remainder/
 menu:
   influxdb_2_0_ref:
     name: math.remainder

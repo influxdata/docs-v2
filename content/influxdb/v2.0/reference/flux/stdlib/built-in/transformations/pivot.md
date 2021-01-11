@@ -4,6 +4,8 @@ description: The `pivot()` function collects values stored vertically (column-wi
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/pivot
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/pivot/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/pivot/
 menu:
   influxdb_2_0_ref:
     name: pivot

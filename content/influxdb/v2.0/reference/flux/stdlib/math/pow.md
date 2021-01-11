@@ -3,6 +3,8 @@ title: math.pow() function
 description: The math.pow() function returns `x**y`, the base-x exponential of y.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/pow/
+  - /influxdb/v2.0/reference/flux/stdlib/math/pow/
+  - /influxdb/cloud/reference/flux/stdlib/math/pow/
 menu:
   influxdb_2_0_ref:
     name: math.pow

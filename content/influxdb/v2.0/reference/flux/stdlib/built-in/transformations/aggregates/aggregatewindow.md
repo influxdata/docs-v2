@@ -4,6 +4,8 @@ description: The `aggregateWindow()` function applies an aggregate function to f
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/aggregatewindow
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
 menu:
   influxdb_2_0_ref:
     name: aggregateWindow

@@ -5,6 +5,8 @@ description: >
   in a string with a specified replacement.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/regexp/replaceallstring/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/replaceallstring/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/replaceallstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.replaceAllString

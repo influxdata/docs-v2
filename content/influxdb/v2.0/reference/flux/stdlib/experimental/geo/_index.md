@@ -5,6 +5,9 @@ description: >
   The Flux Geo package provides tools for working with geo-temporal data,
   such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/
 menu:
   influxdb_2_0_ref:
     name: Geo

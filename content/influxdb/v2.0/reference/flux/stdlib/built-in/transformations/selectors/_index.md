@@ -5,6 +5,8 @@ description: Flux's built-in selector functions return one or more records based
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations

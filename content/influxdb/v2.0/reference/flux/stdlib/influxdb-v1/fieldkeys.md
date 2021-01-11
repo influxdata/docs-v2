@@ -9,6 +9,8 @@ weight: 301
 influxdb/v2.0/tags: [fields]
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldkeys
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldkeys/
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL

@@ -3,6 +3,9 @@ title: geo.ST_Length() function
 description: >
   The `geo.ST_Length()` function returns the [spherical length or distance](https://mathworld.wolfram.com/SphericalDistance.html)
   of the specified geographic information system (GIS) geometry.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_length/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_length/
 menu:
   influxdb_2_0_ref:
     name: geo.ST_Length

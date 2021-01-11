@@ -3,6 +3,9 @@ title: geo.ST_Intersects() function
 description: >
   The `geo.ST_Intersects()` function tests if the specified geographic information
   system (GIS) geometry intersects with the specified region and returns `true` or `false`.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_intersects/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_intersects/
 menu:
   influxdb_2_0_ref:
     name: geo.ST_Intersects

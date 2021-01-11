@@ -4,6 +4,9 @@ list_title: MQTT package
 description: >
   The Flux MQTT package provides functions for working with MQTT protocol.
   Import the `experimental/mqtt` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/
 menu:
   influxdb_2_0_ref:
     name: MQTT

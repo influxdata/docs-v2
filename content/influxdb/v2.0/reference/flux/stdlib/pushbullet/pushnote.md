@@ -3,6 +3,9 @@ title: pushbullet.pushNote() function
 description: >
   The `pushbullet.pushNote()` function sends a push notification of type `note`
   to the Pushbullet API.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/pushnote/
+  - /influxdb/cloud/reference/flux/stdlib/pushbullet/pushnote/
 menu:
   influxdb_2_0_ref:
     name: pushbullet.pushNote

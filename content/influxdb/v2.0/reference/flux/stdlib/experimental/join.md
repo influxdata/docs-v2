@@ -3,6 +3,9 @@ title: experimental.join() function
 description: >
   The `experimental.join()` function joins two streams of tables on the
   group key with the addition of the `_time` column.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/join/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/join/
 menu:
   influxdb_2_0_ref:
     name: experimental.join
@@ -34,11 +37,6 @@ experimental.join(
   fn: (left, right) => ({left with lv: left._value, rv: right._value })
 )
 ```
-
-{{% note %}}
-This function will likely replace the [`join` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-when sufficiently vetted.
-{{% /note %}}
 
 ## Parameters
 

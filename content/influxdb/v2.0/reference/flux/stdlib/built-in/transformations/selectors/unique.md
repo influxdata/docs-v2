@@ -4,6 +4,8 @@ description: The `unique()` function returns all records containing unique value
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/unique
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/unique/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/unique/
 menu:
   influxdb_2_0_ref:
     name: unique

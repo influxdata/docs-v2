@@ -4,6 +4,8 @@ description: The `keep()` function returns a table containing only the specified
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/keep
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keep/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/keep/
 menu:
   influxdb_2_0_ref:
     name: keep

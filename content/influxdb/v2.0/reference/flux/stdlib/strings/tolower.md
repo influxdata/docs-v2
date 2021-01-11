@@ -3,6 +3,8 @@ title: strings.toLower() function
 description: The strings.toLower() function converts a string to lowercase.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/tolower/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/tolower/
+  - /influxdb/cloud/reference/flux/stdlib/strings/tolower/
 menu:
   influxdb_2_0_ref:
     name: strings.toLower

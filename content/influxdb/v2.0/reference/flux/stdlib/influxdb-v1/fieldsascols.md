@@ -6,6 +6,8 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
   - /influxdb/v2.0/reference/flux/functions/influxdb-schema/fieldsascols/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldsascols/
 menu:
   influxdb_2_0_ref:
     name: v1.fieldsAsCols

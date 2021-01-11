@@ -5,6 +5,8 @@ description: >
   a single string using a specified separator.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/joinstr/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/joinstr/
+  - /influxdb/cloud/reference/flux/stdlib/strings/joinstr/
 menu:
   influxdb_2_0_ref:
     name: strings.joinStr

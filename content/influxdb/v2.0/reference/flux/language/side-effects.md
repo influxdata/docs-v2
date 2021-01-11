@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Side effects
 weight: 210
+aliases:
+  - /influxdb/v2.0/reference/flux/language/side-effects/
+  - /influxdb/cloud/reference/flux/language/side-effects/
 ---
 
 Side effects can occur in one of two ways.

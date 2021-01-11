@@ -7,6 +7,8 @@ description: >
   columns and records.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/
 weight: 401
 menu:
   influxdb_2_0_ref:

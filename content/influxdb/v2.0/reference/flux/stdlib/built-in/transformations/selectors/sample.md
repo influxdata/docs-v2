@@ -4,6 +4,8 @@ description: The `sample()` function selects a subset of the records from the in
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/sample
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/sample/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/sample/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/sample/
 menu:
   influxdb_2_0_ref:
     name: sample

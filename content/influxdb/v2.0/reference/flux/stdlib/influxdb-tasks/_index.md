@@ -7,6 +7,8 @@ description: >
   Import the `influxdata/influxdb/tasks` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Tasks

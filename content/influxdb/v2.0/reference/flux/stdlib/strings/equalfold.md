@@ -5,6 +5,8 @@ description: >
   under Unicode case-folding.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/equalfold/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/equalfold/
+  - /influxdb/cloud/reference/flux/stdlib/strings/equalfold/
 menu:
   influxdb_2_0_ref:
     name: strings.equalFold

@@ -5,6 +5,8 @@ description: >
   measurement in the `_monitoring` bucket.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/from/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/from/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/from/
 menu:
   influxdb_2_0_ref:
     name: monitor.from

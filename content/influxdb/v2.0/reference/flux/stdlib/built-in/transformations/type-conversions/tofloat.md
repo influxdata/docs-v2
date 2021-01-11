@@ -4,6 +4,8 @@ description: The `toFloat()` function converts all values in the `_value` column
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tofloat
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tofloat/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/tofloat/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/tofloat/
 menu:
   influxdb_2_0_ref:
     name: toFloat

@@ -5,6 +5,8 @@ description: >
   to a regular expression.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/regexp/matchregexpstring/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/matchregexpstring/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/matchregexpstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.matchRegexpString

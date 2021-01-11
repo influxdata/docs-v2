@@ -3,6 +3,9 @@ title: teams.endpoint() function
 description: >
   The `teams.endpoint()` function sends a message to a Microsoft Teams channel
   using data from table rows.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/teams/endpoint/
 menu:
   influxdb_2_0_ref:
     name: teams.endpoint

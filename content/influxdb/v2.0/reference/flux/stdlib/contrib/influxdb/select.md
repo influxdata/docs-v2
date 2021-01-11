@@ -4,6 +4,9 @@ description: >
   The `influxdb.select()` function is an alternate implementation of `from()`, `range()`, `filter()`
   and `pivot()` that returns pivoted query results and masks the `_start` and `_stop` column
   Results are similar to those returned by InfluxQL `SELECT` statements.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/influxdb/select/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/influxdb/select/
 menu:
   influxdb_2_0_ref:
     name: influxdb.select

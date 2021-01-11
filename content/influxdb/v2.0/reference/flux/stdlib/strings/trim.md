@@ -5,6 +5,8 @@ description: >
   in the cutset from a string.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/trim/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trim/
+  - /influxdb/cloud/reference/flux/stdlib/strings/trim/
 menu:
   influxdb_2_0_ref:
     name: strings.trim

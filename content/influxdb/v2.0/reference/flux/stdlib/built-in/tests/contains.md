@@ -3,6 +3,8 @@ title: contains() function
 description: The `contains()` function tests whether a value is a member of a set.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/tests/contains/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/tests/contains/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/tests/contains/
 menu:
   influxdb_2_0_ref:
     name: contains

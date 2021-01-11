@@ -5,6 +5,8 @@ description: >
   in the `notifications` measurement in the `_monitoring` bucket.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/notify/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/notify/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/notify/
 menu:
   influxdb_2_0_ref:
     name: monitor.notify

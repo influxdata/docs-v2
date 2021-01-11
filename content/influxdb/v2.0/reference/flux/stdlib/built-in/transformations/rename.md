@@ -4,6 +4,8 @@ description: The `rename()` function renames specified columns in a table.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/rename
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/rename/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/rename/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/rename/
 menu:
   influxdb_2_0_ref:
     name: rename

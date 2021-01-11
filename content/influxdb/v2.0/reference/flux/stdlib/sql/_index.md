@@ -8,6 +8,8 @@ description: >
   Import the `sql` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/sql/
+  - /influxdb/v2.0/reference/flux/stdlib/sql/
+  - /influxdb/cloud/reference/flux/stdlib/sql/
 menu:
   influxdb_2_0_ref:
     name: SQL

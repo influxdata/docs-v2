@@ -5,6 +5,8 @@ description: >
   If the label is not present in the set of columns, the function errors.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
 menu:
   influxdb_2_0_ref:
     name: getColumn

@@ -4,6 +4,8 @@ description: >
   The `date.year()` function returns the year of a specified time.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/year/
+  - /influxdb/v2.0/reference/flux/stdlib/date/year/
+  - /influxdb/cloud/reference/flux/stdlib/date/year/
 menu:
   influxdb_2_0_ref:
     name: date.year

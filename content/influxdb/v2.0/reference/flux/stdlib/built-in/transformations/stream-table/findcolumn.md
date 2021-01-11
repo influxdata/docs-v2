@@ -3,6 +3,9 @@ title: findColumn() function
 description: >
   The `findColumn()` function returns an array of values in a specified column from the
   first table in a stream of tables where group key values match the specified predicate.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/
 menu:
   influxdb_2_0_ref:
     name: findColumn

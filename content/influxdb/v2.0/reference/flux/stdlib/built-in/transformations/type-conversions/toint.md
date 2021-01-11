@@ -4,6 +4,8 @@ description: The `toInt()` function converts all values in the `_value` column t
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/toint
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/toint/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/toint/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/toint/
 menu:
   influxdb_2_0_ref:
     name: toInt

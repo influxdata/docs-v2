@@ -4,6 +4,9 @@ description: >
   The `dict.insert()` function inserts a key value pair into a dictionary and
   returns a new, updated dictionary.
   If the key already exists in the dictionary, the function overwrites the existing value.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/dict/insert/
+  - /influxdb/cloud/reference/flux/stdlib/dict/insert/
 menu:
   influxdb_2_0_ref:
     name: dict.insert

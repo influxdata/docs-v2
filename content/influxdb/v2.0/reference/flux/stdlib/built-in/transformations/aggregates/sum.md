@@ -4,6 +4,8 @@ description: The `sum()` function computes the sum of non-null records in a spec
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/sum
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/sum/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/sum/
 menu:
   influxdb_2_0_ref:
     name: sum

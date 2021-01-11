@@ -4,6 +4,8 @@ description: The `buckets()` function returns a list of buckets in the organizat
 aliases:
   - /influxdb/v2.0/reference/flux/functions/inputs/buckets
   - /influxdb/v2.0/reference/flux/functions/built-in/inputs/buckets/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/buckets/
 menu:
   influxdb_2_0_ref:
     name: buckets

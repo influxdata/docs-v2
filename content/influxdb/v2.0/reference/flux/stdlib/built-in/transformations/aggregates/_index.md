@@ -6,7 +6,9 @@ description: >
   Output tables contain a single row with the aggregated value.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/  
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations

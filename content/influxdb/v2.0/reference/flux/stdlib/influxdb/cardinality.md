@@ -5,6 +5,9 @@ menu:
   influxdb_2_0_ref:
     name: influxdb.cardinality
     parent: influxdb-pkg
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb/cardinality/
 weight: 301
 influxdb/v2.0/tags: [cardinality]
 related:

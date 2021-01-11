@@ -3,6 +3,8 @@ title: math.erf() function
 description: The math.erf() function returns the error function of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/erf/
+  - /influxdb/v2.0/reference/flux/stdlib/math/erf/
+  - /influxdb/cloud/reference/flux/stdlib/math/erf/
 menu:
   influxdb_2_0_ref:
     name: math.erf

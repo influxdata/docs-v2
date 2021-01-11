@@ -4,6 +4,9 @@ list_title: Events package
 description: >
   The Flux Events package provides tools for analyzing event-based data.
   Import the `contrib/tomhollingworth/events` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/events/
 menu:
   influxdb_2_0_ref:
     name: Events

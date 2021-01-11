@@ -5,6 +5,8 @@ description: >
   The HTTP status code is returned.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/http/post/
+  - /influxdb/v2.0/reference/flux/stdlib/http/post/
+  - /influxdb/cloud/reference/flux/stdlib/http/post/
 menu:
   influxdb_2_0_ref:
     name: http.post

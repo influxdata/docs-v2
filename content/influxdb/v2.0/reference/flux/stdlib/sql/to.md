@@ -3,6 +3,8 @@ title: sql.to() function
 description: The `sql.to()` function writes data to a SQL database.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/sql/to/
+  - /influxdb/v2.0/reference/flux/stdlib/sql/to/
+  - /influxdb/cloud/reference/flux/stdlib/sql/to/
 menu:
   influxdb_2_0_ref:
     name: sql.to

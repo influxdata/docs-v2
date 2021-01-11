@@ -3,6 +3,9 @@ title: query.fromRange() function
 description: >
   The `query.fromRange()` function returns all data from a specified bucket within
   given time bounds.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/fromrange/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/query/fromrange/
 menu:
   influxdb_2_0_ref:
     name: query.fromRange

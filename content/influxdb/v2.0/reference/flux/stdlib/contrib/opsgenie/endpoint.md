@@ -2,6 +2,9 @@
 title: opsgenie.endpoint() function
 description: >
   The `opsgenie.endpoint()` function sends an alert message to Opsgenie using data from table rows.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/endpoint/
 menu:
   influxdb_2_0_ref:
     name: opsgenie.endpoint

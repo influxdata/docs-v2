@@ -2,6 +2,9 @@
 title: geo.toRows() function
 description: >
   The geo.toRows() function pivots data into row-wise sets base on time.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/torows/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/torows/
 menu:
   influxdb_2_0_ref:
     name: geo.toRows

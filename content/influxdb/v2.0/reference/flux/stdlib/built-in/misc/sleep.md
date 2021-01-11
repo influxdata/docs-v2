@@ -3,6 +3,8 @@ title: sleep() function
 description: The `sleep()` function delays execution by a specified duration.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/sleep/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/sleep/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/sleep/
 menu:
   influxdb_2_0_ref:
     name: sleep

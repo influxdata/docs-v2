@@ -6,6 +6,8 @@ description: >
   Import the `strings` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/
+  - /influxdb/cloud/reference/flux/stdlib/strings/
 menu:
   influxdb_2_0_ref:
     name: Strings

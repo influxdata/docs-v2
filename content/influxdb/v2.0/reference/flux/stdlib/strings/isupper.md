@@ -3,6 +3,8 @@ title: strings.isUpper() function
 description: The strings.isUpper() function tests if a single character string is uppercase.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/isupper/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/isupper/
+  - /influxdb/cloud/reference/flux/stdlib/strings/isupper/
 menu:
   influxdb_2_0_ref:
     name: strings.isUpper

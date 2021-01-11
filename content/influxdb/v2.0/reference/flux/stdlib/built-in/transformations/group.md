@@ -4,6 +4,8 @@ description: The `group()` function groups records based on their values for spe
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/group
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/group/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/group/
 menu:
   influxdb_2_0_ref:
     name: group

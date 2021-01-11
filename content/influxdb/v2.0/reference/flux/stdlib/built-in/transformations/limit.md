@@ -4,6 +4,8 @@ description: The `limit()` function limits each output table to the first `n` re
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/limit
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/limit/
 menu:
   influxdb_2_0_ref:
     name: limit

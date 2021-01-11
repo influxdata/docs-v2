@@ -3,6 +3,9 @@ title: http.get() function
 description: >
   The `http.get()` function submits an HTTP GET request to the specified URL and
   returns the HTTP status code, response body, and response headers.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/http/get/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/http/get/
 menu:
   influxdb_2_0_ref:
     name: http.get

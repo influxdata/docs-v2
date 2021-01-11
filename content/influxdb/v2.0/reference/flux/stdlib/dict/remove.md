@@ -3,6 +3,9 @@ title: dict.remove() function
 description: >
   The `dict.remove()` function removes a key value pair from a dictionary and returns
   an updated dictionary.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/dict/remove/
+  - /influxdb/cloud/reference/flux/stdlib/dict/remove/
 menu:
   influxdb_2_0_ref:
     name: dict.remove

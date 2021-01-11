@@ -3,6 +3,9 @@ title: prometheus.histogramQuantile() function
 description: >
   The `prometheus.histogramQuantile()` function calculates quantiles on a set of values
   assuming the given histogram data is scraped or read from a Prometheus data source.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/histogramquantile/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/histogramquantile/
 menu:
   influxdb_2_0_ref:
     name: prometheus.histogramQuantile

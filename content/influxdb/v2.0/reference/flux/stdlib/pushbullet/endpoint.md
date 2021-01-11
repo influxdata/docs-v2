@@ -3,6 +3,9 @@ title: pushbullet.endpoint() function
 description: >
   The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
   and sends a notification of type `note`.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/pushbullet/endpoint/
 menu:
   influxdb_2_0_ref:
     name: pushbullet.endpoint

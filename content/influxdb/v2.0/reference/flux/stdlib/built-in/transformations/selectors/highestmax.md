@@ -4,6 +4,8 @@ description: The `highestMax()` function selects the maximum record from each ta
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/highestmax
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/highestmax/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestmax/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/highestmax/
 menu:
   influxdb_2_0_ref:
     name: highestMax

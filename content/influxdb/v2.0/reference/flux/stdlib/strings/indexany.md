@@ -4,6 +4,8 @@ description: >
   The strings.indexAny() function returns the index of the first instance of specified characters in a string.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/indexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
+  - /influxdb/cloud/reference/flux/stdlib/strings/indexany/
 menu:
   influxdb_2_0_ref:
     name: strings.indexAny

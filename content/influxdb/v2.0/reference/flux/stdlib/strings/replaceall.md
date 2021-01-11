@@ -5,6 +5,8 @@ description: >
   substring with a specified replacement.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/replaceall/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/replaceall/
+  - /influxdb/cloud/reference/flux/stdlib/strings/replaceall/
 menu:
   influxdb_2_0_ref:
     name: strings.replaceAll

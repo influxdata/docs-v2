@@ -5,6 +5,9 @@ description: >
   The Flux Experimental HTTP package provides functions for transferring data
   using HTTP protocol.
   Import the `experimental/http` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/http/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/http/
 menu:
   influxdb_2_0_ref:
     name: HTTP

@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Lexical elements
 weight: 205
+aliases:
+  - /influxdb/v2.0/reference/flux/language/lexical-elements/
+  - /influxdb/cloud/reference/flux/language/lexical-elements/
 ---
 
 {{% note %}}

@@ -3,6 +3,8 @@ title: math.lgamma() function
 description: The math.lgamma() function returns the natural logarithm and sign (-1 or +1) of `math.gamma(x:x)`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/lgamma/
+  - /influxdb/v2.0/reference/flux/stdlib/math/lgamma/
+  - /influxdb/cloud/reference/flux/stdlib/math/lgamma/
 menu:
   influxdb_2_0_ref:
     name: math.lgamma

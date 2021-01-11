@@ -1,6 +1,9 @@
 ---
 title: v1.databases() function
 description: The `v1.databases()` function returns a list of databases in an InfluxDB 1.7+ instance.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/databases/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/databases/
 menu:
   influxdb_2_0_ref:
     name: v1.databases

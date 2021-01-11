@@ -3,6 +3,8 @@ title: math.yn() function
 description: The math.yn() function returns the order-n Bessel function of the second kind.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/yn/
+  - /influxdb/v2.0/reference/flux/stdlib/math/yn/
+  - /influxdb/cloud/reference/flux/stdlib/math/yn/
 menu:
   influxdb_2_0_ref:
     name: math.yn

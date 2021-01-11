@@ -4,6 +4,8 @@ description: >
   The `pagerduty.endpoint()` function sends a message to PagerDuty that includes output data.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/endpoint/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/endpoint/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.endpoint

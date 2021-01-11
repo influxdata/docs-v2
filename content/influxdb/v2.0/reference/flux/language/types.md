@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Types
 weight: 213
+aliases:
+  - /influxdb/v2.0/reference/flux/language/types/
+  - /influxdb/cloud/reference/flux/language/types/
 ---
 
 {{% note %}}

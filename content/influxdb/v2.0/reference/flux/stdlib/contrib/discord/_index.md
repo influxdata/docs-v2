@@ -4,6 +4,9 @@ list_title: Discord package
 description: >
   The Flux Discord package provides functions for sending messages to Discord.
   Import the `contrib/chobbs/discord` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/
 menu:
   influxdb_2_0_ref:
     name: Discord

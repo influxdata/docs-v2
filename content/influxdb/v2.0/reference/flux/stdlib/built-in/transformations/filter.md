@@ -4,6 +4,8 @@ description: The `filter()` function filters data based on conditions defined in
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/filter
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
 menu:
   influxdb_2_0_ref:
     name: filter

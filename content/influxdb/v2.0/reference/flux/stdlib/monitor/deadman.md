@@ -4,6 +4,8 @@ description: >
   The `monitor.deadman()` function detects when a group stops reporting data.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/deadman/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/deadman/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/deadman/
 menu:
   influxdb_2_0_ref:
     name: monitor.deadman

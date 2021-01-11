@@ -2,6 +2,9 @@
 title: geo.groupByArea() function
 description: >
   The geo.groupByArea() function groups rows by geographic area.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/groupbyarea/
 menu:
   influxdb_2_0_ref:
     name: geo.groupByArea

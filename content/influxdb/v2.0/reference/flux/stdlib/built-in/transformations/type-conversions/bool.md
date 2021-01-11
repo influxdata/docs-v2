@@ -3,6 +3,8 @@ title: bool() function
 description: The `bool()` function converts a single value to a boolean.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bool/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bool/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/bool/
 menu:
   influxdb_2_0_ref:
     name: bool

@@ -5,6 +5,8 @@ description: Flux's built-in built-in type conversion functions convert columns 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations

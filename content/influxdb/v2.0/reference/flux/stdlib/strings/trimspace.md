@@ -3,6 +3,8 @@ title: strings.trimSpace() function
 description: The strings.trimSpace() function removes leading and trailing spaces from a string.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/trimspace/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace/
+  - /influxdb/cloud/reference/flux/stdlib/strings/trimspace/
 menu:
   influxdb_2_0_ref:
     name: strings.trimSpace

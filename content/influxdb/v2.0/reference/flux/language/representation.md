@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Representation
 weight: 209
+aliases:
+  - /influxdb/v2.0/reference/flux/language/representation/
+  - /influxdb/cloud/reference/flux/language/representation/
 ---
 
 Source code is encoded in UTF-8.

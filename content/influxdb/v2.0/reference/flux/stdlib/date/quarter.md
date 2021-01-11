@@ -5,6 +5,8 @@ description: >
   Results range from `[1-4]`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/quarter/
+  - /influxdb/v2.0/reference/flux/stdlib/date/quarter/
+  - /influxdb/cloud/reference/flux/stdlib/date/quarter/
 menu:
   influxdb_2_0_ref:
     name: date.quarter

@@ -7,6 +7,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/language/built-ins/time-constants/
   - /influxdb/v2.0/reference/flux/functions/date/
+  - /influxdb/v2.0/reference/flux/stdlib/date/
+  - /influxdb/cloud/reference/flux/stdlib/date/
 menu:
   influxdb_2_0_ref:
     name: Date

@@ -6,6 +6,9 @@ menu:
     name: Operators
     parent: Flux specification
 weight: 215
+aliases:
+  - /influxdb/v2.0/reference/flux/language/operators/
+  - /influxdb/cloud/reference/flux/language/operators/
 influxdb/v2.0/tags: [operators]
 ---
 

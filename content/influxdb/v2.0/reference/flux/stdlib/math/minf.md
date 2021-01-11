@@ -4,6 +4,8 @@ description: The math.mInf() function returns positive infinity if `sign >= 0`, 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/m_inf/
   - /influxdb/v2.0/reference/flux/stdlib/math/m_inf/
+  - /influxdb/v2.0/reference/flux/stdlib/math/minf/
+  - /influxdb/cloud/reference/flux/stdlib/math/minf/
 menu:
   influxdb_2_0_ref:
     name: math.mInf

@@ -3,6 +3,8 @@ title: schema.tagValues() function
 description: The `schema.tagValues()` function returns a list unique values for a given tag.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagvalues/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/tagvalues/
 menu:
   influxdb_2_0_ref:
     name: schema.tagValues

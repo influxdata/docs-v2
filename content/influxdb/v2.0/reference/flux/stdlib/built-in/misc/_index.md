@@ -7,6 +7,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/functions/misc
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/
 menu:
   influxdb_2_0_ref:
     parent: Built-in

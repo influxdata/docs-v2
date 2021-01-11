@@ -4,6 +4,8 @@ description: The `lowestAverage()` function calculates the average of each table
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestaverage
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestaverage/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/lowestaverage/
 menu:
   influxdb_2_0_ref:
     name: lowestAverage

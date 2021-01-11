@@ -2,6 +2,9 @@
 title: experimental.objectKeys() function
 description: >
   The `experimental.objectKeys()` function returns an array of keys in a specified record.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/objectkeys/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/objectkeys/
 menu:
   influxdb_2_0_ref:
     name: experimental.objectKeys

@@ -4,6 +4,8 @@ description: The `toUInt()` function converts all values in the `_value` column 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/touint
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/touint/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/touint/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/touint/
 menu:
   influxdb_2_0_ref:
     name: toUInt

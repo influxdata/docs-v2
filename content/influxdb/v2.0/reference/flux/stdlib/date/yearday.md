@@ -5,6 +5,8 @@ description: >
   Results range from `[1-365]` for non-leap years, and `[1-366]` in leap years.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/yearday/
+  - /influxdb/v2.0/reference/flux/stdlib/date/yearday/
+  - /influxdb/cloud/reference/flux/stdlib/date/yearday/
 menu:
   influxdb_2_0_ref:
     name: date.yearDay

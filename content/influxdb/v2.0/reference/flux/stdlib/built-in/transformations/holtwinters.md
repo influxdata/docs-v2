@@ -6,6 +6,8 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/holtwinters
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/holtwinters/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/holtwinters/
 menu:
   influxdb_2_0_ref:
     name: holtWinters

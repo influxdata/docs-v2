@@ -5,6 +5,9 @@ description: >
   The Flux Sensu package provides functions for sending events to
   [Sensu Go](https://docs.sensu.io/sensu-go/latest/).
   Import the `contrib/sranka/sensu` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/
 menu:
   influxdb_2_0_ref:
     name: Sensu

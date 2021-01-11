@@ -3,6 +3,8 @@ title: json.encode() function
 description: The `json.encode()` function converts a value into JSON bytes.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/json/encode/
+  - /influxdb/v2.0/reference/flux/stdlib/json/encode/
+  - /influxdb/cloud/reference/flux/stdlib/json/encode/
 menu:
   influxdb_2_0_ref:
     name: json.encode

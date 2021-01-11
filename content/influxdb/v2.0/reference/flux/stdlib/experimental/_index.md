@@ -1,3 +1,5 @@
+- /influxdb/v2.0/reference/flux/stdlib/experimental/
+- /influxdb/cloud/reference/flux/stdlib/experimental/
 ---
 title: Flux Experimental package
 list_title: Experimental package

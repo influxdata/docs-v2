@@ -3,6 +3,8 @@ title: math.sin() function
 description: The math.sin() function returns the sine of the radian argument `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/sin/
+  - /influxdb/v2.0/reference/flux/stdlib/math/sin/
+  - /influxdb/cloud/reference/flux/stdlib/math/sin/
 menu:
   influxdb_2_0_ref:
     name: math.sin

@@ -3,6 +3,8 @@ title: math.isNaN() function
 description: The math.isNaN() function reports whether `f` is an IEEE 754 “not-a-number” value.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/isnan/
+  - /influxdb/v2.0/reference/flux/stdlib/math/isnan/
+  - /influxdb/cloud/reference/flux/stdlib/math/isnan/
 menu:
   influxdb_2_0_ref:
     name: math.isNaN

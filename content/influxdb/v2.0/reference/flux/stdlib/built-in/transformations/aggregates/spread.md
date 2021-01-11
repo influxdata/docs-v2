@@ -4,6 +4,8 @@ description: The `spread()` function outputs the difference between the minimum 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/spread
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/spread/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/spread/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/spread/
 menu:
   influxdb_2_0_ref:
     name: spread

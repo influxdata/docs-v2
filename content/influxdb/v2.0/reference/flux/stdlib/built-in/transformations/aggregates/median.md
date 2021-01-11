@@ -6,6 +6,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/median
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/median/
 menu:
   influxdb_2_0_ref:
     name: median

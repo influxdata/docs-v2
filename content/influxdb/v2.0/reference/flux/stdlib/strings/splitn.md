@@ -5,6 +5,8 @@ description: >
   an array of `i` substrings.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/splitn/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/splitn/
+  - /influxdb/cloud/reference/flux/stdlib/strings/splitn/
 menu:
   influxdb_2_0_ref:
     name: strings.splitN

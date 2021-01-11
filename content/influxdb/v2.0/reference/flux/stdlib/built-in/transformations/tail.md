@@ -3,6 +3,8 @@ title: tail() function
 description: The `tail()` function limits each output table to the last `n` records.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/tail/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tail/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/tail/
 menu:
   influxdb_2_0_ref:
     name: tail

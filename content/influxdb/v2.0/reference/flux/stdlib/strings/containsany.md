@@ -5,6 +5,8 @@ description: >
   any characters from from another string.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/containsany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/containsany/
+  - /influxdb/cloud/reference/flux/stdlib/strings/containsany/
 menu:
   influxdb_2_0_ref:
     name: strings.containsAny

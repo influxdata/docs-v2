@@ -2,6 +2,9 @@
 title: opsgenie.sendAlert() function
 description: >
   The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/sendalert/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/sendalert/
 menu:
   influxdb_2_0_ref:
     name: opsgenie.sendAlert

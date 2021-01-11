@@ -4,6 +4,8 @@ description: The testing.assertEquals() function tests whether two streams have 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/tests/assertequals
   - /influxdb/v2.0/reference/flux/functions/testing/assertequals/
+  - /influxdb/v2.0/reference/flux/stdlib/testing/assertequals/
+  - /influxdb/cloud/reference/flux/stdlib/testing/assertequals/
 menu:
   influxdb_2_0_ref:
     name: testing.assertEquals

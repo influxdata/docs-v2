@@ -5,6 +5,8 @@ description: Flux's built-in input functions define sources of data or or displa
 aliases:
   - /influxdb/v2.0/reference/flux/functions/inputs  
   - /influxdb/v2.0/reference/flux/functions/built-in/inputs/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/
 menu:
   influxdb_2_0_ref:
     parent: Built-in

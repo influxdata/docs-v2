@@ -3,6 +3,8 @@ title: math.tan() function
 description: The math.tan() function returns the tangent of the radian argument `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/tan/
+  - /influxdb/v2.0/reference/flux/stdlib/math/tan/
+  - /influxdb/cloud/reference/flux/stdlib/math/tan/
 menu:
   influxdb_2_0_ref:
     name: math.tan

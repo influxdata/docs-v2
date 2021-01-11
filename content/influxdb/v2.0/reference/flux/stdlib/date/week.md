@@ -5,6 +5,8 @@ description: >
   Results range from `[1-53]`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/week/
+  - /influxdb/v2.0/reference/flux/stdlib/date/week/
+  - /influxdb/cloud/reference/flux/stdlib/date/week/
 menu:
   influxdb_2_0_ref:
     name: date.week

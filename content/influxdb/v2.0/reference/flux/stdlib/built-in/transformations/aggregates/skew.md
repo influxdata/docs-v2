@@ -4,6 +4,8 @@ description: The `skew()` function outputs the skew of non-null records as a flo
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/skew
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/skew/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/skew/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/skew/
 menu:
   influxdb_2_0_ref:
     name: skew

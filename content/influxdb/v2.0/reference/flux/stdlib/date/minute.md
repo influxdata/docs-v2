@@ -5,6 +5,8 @@ description: >
   Results range from `[0-59]`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/minute/
+  - /influxdb/v2.0/reference/flux/stdlib/date/minute/
+  - /influxdb/cloud/reference/flux/stdlib/date/minute/
 menu:
   influxdb_2_0_ref:
     name: date.minute

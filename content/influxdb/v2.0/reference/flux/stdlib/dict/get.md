@@ -3,6 +3,9 @@ title: dict.get() function
 description: >
   The `dict.get()` function returns the value of a specified key in a dictionary
   or a default value if the key does not exist.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/dict/get/
+  - /influxdb/cloud/reference/flux/stdlib/dict/get/
 menu:
   influxdb_2_0_ref:
     name: dict.get

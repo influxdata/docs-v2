@@ -4,6 +4,8 @@ description: The `stateDuration()` function computes the duration of a given sta
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/stateduration
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stateduration/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stateduration/
 menu:
   influxdb_2_0_ref:
     name: stateDuration

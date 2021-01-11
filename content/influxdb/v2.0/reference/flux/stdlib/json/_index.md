@@ -6,6 +6,8 @@ description: >
   Import the `json` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/json/
+  - /influxdb/v2.0/reference/flux/stdlib/json/
+  - /influxdb/cloud/reference/flux/stdlib/json/
 menu:
   influxdb_2_0_ref:
     name: JSON

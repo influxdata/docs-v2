@@ -4,6 +4,8 @@ description: The `fill()` function replaces all null values in an input stream a
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/fill
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/fill/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/fill/
 menu:
   influxdb_2_0_ref:
     name: fill

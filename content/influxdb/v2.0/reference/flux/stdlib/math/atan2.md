@@ -5,6 +5,8 @@ description: >
   the parameters to determine the quadrant of the return value.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/atan2/
+  - /influxdb/v2.0/reference/flux/stdlib/math/atan2/
+  - /influxdb/cloud/reference/flux/stdlib/math/atan2/
 menu:
   influxdb_2_0_ref:
     name: math.atan2

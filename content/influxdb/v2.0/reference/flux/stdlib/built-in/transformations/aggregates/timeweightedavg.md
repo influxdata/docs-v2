@@ -1,6 +1,9 @@
 ---
 title: timeWeightedAvg() function
 description: The `timeWeightedAvg()` function outputs the timeWeightedAvg of non-null records as a float.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
 menu:
   influxdb_2_0_ref:
     name: timeWeightedAvg

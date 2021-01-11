@@ -6,6 +6,8 @@ description: >
   Import the `csv` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/csv/
+  - /influxdb/v2.0/reference/flux/stdlib/csv/
+  - /influxdb/cloud/reference/flux/stdlib/csv/
 menu:
   influxdb_2_0_ref:
     name: CSV

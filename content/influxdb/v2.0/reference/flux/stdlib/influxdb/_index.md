@@ -4,6 +4,9 @@ list_title: InfluxDB package
 description: >
   The Flux InfluxDB package provides functions for analyzing InfluxDB metadata.
   Import the `influxdata/influxdb` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB

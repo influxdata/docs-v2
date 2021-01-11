@@ -4,6 +4,8 @@ description: The `lowestMin()` function selects the minimum record from each tab
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestmin
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestmin/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestmin/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/lowestmin/
 menu:
   influxdb_2_0_ref:
     name: lowestMin

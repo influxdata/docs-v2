@@ -5,6 +5,8 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/misc/intervals
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/intervals/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/intervals
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/intervals/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/intervals/
 menu:
   influxdb_2_0_ref:
     name: intervals

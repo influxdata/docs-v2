@@ -3,6 +3,9 @@ title: teams.message() function
 description: >
   The `teams.message()` function sends a single message to a Microsoft Teams channel using
   an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/message/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/teams/message/
 menu:
   influxdb_2_0_ref:
     name: teams.message

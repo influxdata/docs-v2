@@ -5,6 +5,8 @@ description: >
   returns a Regexp object that can be used to match against text.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/regexp/compile/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/compile/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/compile/
 menu:
   influxdb_2_0_ref:
     name: regexp.compile

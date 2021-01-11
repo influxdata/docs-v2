@@ -5,6 +5,8 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/percentile
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 menu:
   influxdb_2_0_ref:
     name: quantile

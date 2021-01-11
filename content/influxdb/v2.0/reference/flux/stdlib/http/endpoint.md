@@ -4,6 +4,8 @@ description: >
   The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/http/endpoint/
+  - /influxdb/v2.0/reference/flux/stdlib/http/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/http/endpoint/
 menu:
   influxdb_2_0_ref:
     name: http.endpoint

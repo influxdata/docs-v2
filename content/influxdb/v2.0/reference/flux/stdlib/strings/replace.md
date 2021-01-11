@@ -5,6 +5,8 @@ description: >
   of a substring with a specified replacement.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/replace/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/replace/
+  - /influxdb/cloud/reference/flux/stdlib/strings/replace/
 menu:
   influxdb_2_0_ref:
     name: strings.replace

@@ -5,6 +5,8 @@ description: >
   It is more accurate than `math.log(x: 1 + x)` when `x` is near zero.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/log1p/
+  - /influxdb/v2.0/reference/flux/stdlib/math/log1p/
+  - /influxdb/cloud/reference/flux/stdlib/math/log1p/
 menu:
   influxdb_2_0_ref:
     name: math.log1p

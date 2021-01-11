@@ -5,6 +5,8 @@ description: >
   Results range from `[0-23]`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/date/hour/
+  - /influxdb/v2.0/reference/flux/stdlib/date/hour/
+  - /influxdb/cloud/reference/flux/stdlib/date/hour/
 menu:
   influxdb_2_0_ref:
     name: date.hour

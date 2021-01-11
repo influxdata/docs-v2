@@ -7,6 +7,8 @@ description: >
   Import the `influxdata/influxdb/v1` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB v1

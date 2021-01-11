@@ -3,6 +3,8 @@ title: math.atanh() function
 description: The math.atanh() function returns the inverse hyperbolic tangent of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/atanh/
+  - /influxdb/v2.0/reference/flux/stdlib/math/atanh/
+  - /influxdb/cloud/reference/flux/stdlib/math/atanh/
 menu:
   influxdb_2_0_ref:
     name: math.atanh

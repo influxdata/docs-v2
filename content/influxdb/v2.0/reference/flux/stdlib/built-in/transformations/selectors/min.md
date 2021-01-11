@@ -4,6 +4,8 @@ description: The `min()` function selects record with the lowest _value from the
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/selectors/min
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/min/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/min/
 menu:
   influxdb_2_0_ref:
     name: min

@@ -1,6 +1,11 @@
 ---
 title: tasks.lastSuccess() function
-description: The `tasks.lastSuccess()` function returns ...
+description: >
+  The `tasks.lastSuccess()` function returns  the time of last successful run of the
+  InfluxDB task or the value of the `orTime` parameter if the task has never successfully run.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/lastsuccess/
 menu:
   influxdb_2_0_ref:
     name: tasks.lastSuccess

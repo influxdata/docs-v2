@@ -4,6 +4,8 @@ description: The `set()` function assigns a static value to each record in the i
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/set
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/set/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/set/
 menu:
   influxdb_2_0_ref:
     name: set

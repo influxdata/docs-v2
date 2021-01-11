@@ -3,6 +3,8 @@ title: v1.measurementTagKeys() function
 description: The v1.measurementTagKeys() function returns a list of tag keys for a specific measurement.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagkeys/
 menu:
   influxdb_2_0_ref:
     name: v1.measurementTagKeys

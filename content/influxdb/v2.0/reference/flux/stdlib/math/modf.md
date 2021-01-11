@@ -5,6 +5,8 @@ description: >
   Both values have the same sign as `f`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/modf/
+  - /influxdb/v2.0/reference/flux/stdlib/math/modf/
+  - /influxdb/cloud/reference/flux/stdlib/math/modf/
 menu:
   influxdb_2_0_ref:
     name: math.modf

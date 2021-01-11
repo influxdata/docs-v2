@@ -3,6 +3,8 @@ title: math.sinh() function
 description: The math.sinh() function returns the hyperbolic sine of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/sinh/
+  - /influxdb/v2.0/reference/flux/stdlib/math/sinh/
+  - /influxdb/cloud/reference/flux/stdlib/math/sinh/
 menu:
   influxdb_2_0_ref:
     name: math.sinh

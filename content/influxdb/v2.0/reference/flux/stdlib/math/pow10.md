@@ -3,6 +3,8 @@ title: math.pow10() function
 description: The math.pow10() function returns `10**n`, the base-10 exponential of `n`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/pow10/
+  - /influxdb/v2.0/reference/flux/stdlib/math/pow10/
+  - /influxdb/cloud/reference/flux/stdlib/math/pow10/
 menu:
   influxdb_2_0_ref:
     name: math.pow10

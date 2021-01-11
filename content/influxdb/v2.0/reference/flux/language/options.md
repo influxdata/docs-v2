@@ -8,6 +8,9 @@ menu:
     parent: Flux specification
     name: Options
 weight: 212
+aliases:
+  - /influxdb/v2.0/reference/flux/language/options/
+  - /influxdb/cloud/reference/flux/language/options/
 ---
 
 {{% note %}}

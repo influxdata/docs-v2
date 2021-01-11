@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Notation
 weight: 206
+aliases:
+  - /influxdb/v2.0/reference/flux/language/notation/
+  - /influxdb/cloud/reference/flux/language/notation/
 ---
 
 The syntax of the language is specified using [Extended Backus-Naur Form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form):

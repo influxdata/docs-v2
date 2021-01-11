@@ -3,6 +3,9 @@ title: geo.ST_LineString() function
 description: >
   The `geo.ST_LineString()` function converts a series of geographic points into
   [linestring](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#linestring).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_linestring/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_linestring/
 menu:
   influxdb_2_0_ref:
     name: geo.ST_LineString

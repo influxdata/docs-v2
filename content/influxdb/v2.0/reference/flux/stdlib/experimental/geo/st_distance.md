@@ -3,6 +3,9 @@ title: geo.ST_Distance() function
 description: >
   The `geo.ST_Distance()` function returns the distance between the specified region
   and specified GIS geometry.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_distance/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_distance/
 menu:
   influxdb_2_0_ref:
     name: geo.ST_Distance

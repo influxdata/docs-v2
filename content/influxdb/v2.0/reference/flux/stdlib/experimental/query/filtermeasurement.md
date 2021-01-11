@@ -2,6 +2,9 @@
 title: query.filterMeasurement() function
 description: >
   The `query.filterMeasurement()` function filters input data by measurement.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/query/filtermeasurement/
 menu:
   influxdb_2_0_ref:
     name: query.filterMeasurement

@@ -6,6 +6,8 @@ description: >
   Import the `influxdata/influxdb/schema` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Schema

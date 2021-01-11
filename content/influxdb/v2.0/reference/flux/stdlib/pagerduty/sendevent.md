@@ -4,6 +4,8 @@ description: >
   The `pagerduty.sendEvent()` function sends an event to PagerDuty.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/sendevent/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/sendevent/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.sendEvent

@@ -5,6 +5,8 @@ description: >
   in another string.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/index-func/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/index-func/
+  - /influxdb/cloud/reference/flux/stdlib/strings/index-func/
 menu:
   influxdb_2_0_ref:
     name: strings.index

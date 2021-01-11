@@ -6,6 +6,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
 menu:
   influxdb_2_0_ref:
     name: exponentialMovingAverage

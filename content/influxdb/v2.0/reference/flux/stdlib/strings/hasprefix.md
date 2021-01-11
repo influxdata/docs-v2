@@ -3,6 +3,8 @@ title: strings.hasPrefix() function
 description: The strings.hasPrefix() function indicates if a string begins with a specific prefix.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/hasprefix/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/hasprefix/
+  - /influxdb/cloud/reference/flux/stdlib/strings/hasprefix/
 menu:
   influxdb_2_0_ref:
     name: strings.hasPrefix

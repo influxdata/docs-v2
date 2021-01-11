@@ -3,6 +3,8 @@ title: math.cbrt() function
 description: The math.cbrt() function returns the cube root of `x`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/cbrt/
+  - /influxdb/v2.0/reference/flux/stdlib/math/cbrt/
+  - /influxdb/cloud/reference/flux/stdlib/math/cbrt/
 menu:
   influxdb_2_0_ref:
     name: math.cbrt

@@ -4,6 +4,8 @@ description: The `toTime()` function converts all values in the `_value` column 
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/totime
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/totime/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/totime/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/totime/
 menu:
   influxdb_2_0_ref:
     name: toTime

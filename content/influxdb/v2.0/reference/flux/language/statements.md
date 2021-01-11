@@ -6,6 +6,9 @@ menu:
     parent: Flux specification
     name: Statements
 weight: 211
+aliases:
+  - /influxdb/v2.0/reference/flux/language/statements/
+  - /influxdb/cloud/reference/flux/language/statements/
 ---
 
 {{% note %}}

@@ -3,6 +3,9 @@ title: sensu.event() function
 description: >
   The `sensu.event()` function sends a single event to the
   [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/event/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/event/
 menu:
   influxdb_2_0_ref:
     name: sensu.event

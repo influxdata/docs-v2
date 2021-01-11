@@ -4,6 +4,8 @@ description: The `keyValues()` function returns a table with the input table's g
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/keyvalues
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keyvalues/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keyvalues/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/keyvalues/
 menu:
   influxdb_2_0_ref:
     name: keyValues

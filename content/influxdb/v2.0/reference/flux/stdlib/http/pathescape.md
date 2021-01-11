@@ -3,6 +3,9 @@ title: http.pathEscape() function
 description: >
   The `http.pathEscape()` function escapes special characters in a string (including `/`)
   and replaces non-ASCII characters with hexadecimal representations (`%XX`).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/http/pathescape/
+  - /influxdb/cloud/reference/flux/stdlib/http/pathescape/
 menu:
   influxdb_2_0_ref:
     name: http.pathEscape

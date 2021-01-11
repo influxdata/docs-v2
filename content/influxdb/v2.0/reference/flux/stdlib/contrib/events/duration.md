@@ -4,6 +4,9 @@ description: >
   The `events.duration()` function calculates the duration of events.
   The function determines the time between a record and the subsequent record and
   associates the duration with the first record (start of the event).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/events/duration/
 menu:
   influxdb_2_0_ref:
     name: events.duration

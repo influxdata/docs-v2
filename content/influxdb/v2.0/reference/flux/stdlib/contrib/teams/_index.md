@@ -6,6 +6,9 @@ description: >
   [Microsoft Teams](https://www.microsoft.com/microsoft-365/microsoft-teams/group-chat-software)
   channel using an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
   Import the `contrib/sranka/teams` package.
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/teams/
 menu:
   influxdb_2_0_ref:
     name: Teams

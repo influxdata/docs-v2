@@ -3,6 +3,8 @@ title: math.ldexp() function
 description: The math.ldexp() function is the inverse of `math.frexp()`. It returns `frac × 2**exp`.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/ldexp/
+  - /influxdb/v2.0/reference/flux/stdlib/math/ldexp/
+  - /influxdb/cloud/reference/flux/stdlib/math/ldexp/
 menu:
   influxdb_2_0_ref:
     name: math.ldexp

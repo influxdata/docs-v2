@@ -6,6 +6,8 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/chandemomentumoscillator/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/chandemomentumoscillator/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/chandemomentumoscillator/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/chandemomentumoscillator/
 menu:
   influxdb_2_0_ref:
     name: chandeMomentumOscillator

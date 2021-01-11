@@ -6,6 +6,8 @@ description: >
   Import the `testing` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/testing/
+  - /influxdb/v2.0/reference/flux/stdlib/testing/
+  - /influxdb/cloud/reference/flux/stdlib/testing/
 menu:
   influxdb_2_0_ref:
     name: Testing

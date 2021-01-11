@@ -3,6 +3,9 @@ title: discord.send() function
 description: >
   The `discord.send()` function sends a single message to a Discord channel using
   a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/send/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/send/
 menu:
   influxdb_2_0_ref:
     name: discord.send
