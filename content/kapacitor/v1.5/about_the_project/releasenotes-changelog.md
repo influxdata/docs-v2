@@ -19,7 +19,7 @@ menu:
 - Add InfluxDB `subscription-path` configuration option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
   For more information, see the example in [Kapacitor to InfluxDB TLS configuration over HTTP API](/kapacitor/v1.5/administration/security/#secure-influxdb-and-kapacitor).
 - Add support for HTTP [sources](/kapacitor/v1.5/nodes/sideload_node/#source) in `SideloadNode` configuration, thanks @jregovic!
-- Add support for correlate in the Alerta event handler, thanks @nermolaev!
+- Add support for correlate in the [Alerta event handler](kapacitor/v1.5/event_handlers/alerta/), thanks @nermolaev!
 - Add `details` option to the [OpsGenie v2 event handler](/kapacitor/v1.5/event_handlers/opsgenie/v2/); set to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
 - Send data to InfluxDB compressed as `gzip` by default.
 - Preallocate `GroupIDs` to increase performance by reducing allocations.
