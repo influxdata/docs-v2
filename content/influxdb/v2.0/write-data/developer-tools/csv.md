@@ -111,7 +111,7 @@ to inject annotation rows into the CSV data.
 influx write -b example-bucket \
   -f path/to/example.csv \
   --header "#constant measurement,birds" \
-  --header "#datatype dataTime:2006-01-02,long,tag"
+  --header "#datatype dateTime:2006-01-02,long,tag"
 ```
 
 {{< flex >}}
@@ -156,7 +156,7 @@ influx write -b example-bucket \
 ##### headers.csv
 ```
 #constant measurement,birds
-#datatype dataTime:2006-01-02,long,tag
+#datatype dateTime:2006-01-02,long,tag
 ```
 {{% /flex-content %}}
 {{% flex-content %}}
