@@ -12,6 +12,7 @@ menu:
     name: http.basicAuth
     parent: HTTP
 weight: 202
+introduced: 0.44.0
 ---
 
 The `http.basicAuth()` function returns a Base64-encoded basic authentication

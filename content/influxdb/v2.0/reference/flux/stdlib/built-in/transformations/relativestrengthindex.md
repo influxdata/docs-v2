@@ -18,6 +18,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
+introduced: 0.38.0
 ---
 
 The `relativeStrengthIndex()` function measures the relative speed and change of
@@ -104,7 +105,8 @@ from(bucket: "example-bucket"):
 
 ###### Output table:
 | _time |   A  |   B  | tag |
-|:-----:|:----:|:----:|:---:|
+|:introduced: 0.38.0
+-----:|:----:|:----:|:---:|
 |  0011 | 100  | 100  |  tv |
 |  0012 | 100  | 100  |  tv |
 |  0013 | 100  | 100  |  tv |

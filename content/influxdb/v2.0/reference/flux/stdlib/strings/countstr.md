@@ -12,6 +12,7 @@ menu:
     name: strings.countStr
     parent: Strings
 weight: 301
+introduced: 0.18.0
 ---
 
 The `strings.countStr()` function counts the number of non-overlapping instances

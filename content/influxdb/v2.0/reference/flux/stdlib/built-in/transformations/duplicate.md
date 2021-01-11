@@ -11,6 +11,7 @@ menu:
     name: duplicate
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `duplicate()` function duplicates a specified column in a table.

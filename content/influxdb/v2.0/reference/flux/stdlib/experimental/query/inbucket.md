@@ -11,6 +11,7 @@ menu:
     name: query.inBucket
     parent: Query
 weight: 401
+introduced: 0.60.0
 ---
 
 The `query.inBucket()` function queries data from a specified bucket within given

@@ -11,6 +11,7 @@ menu:
     name: toDuration
     parent: built-in-type-conversions
 weight: 501
+introduced: 0.7.0
 ---
 
 {{% warn %}}

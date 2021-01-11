@@ -13,6 +13,7 @@ menu:
 weight: 401
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
+introduced: 0.16.0
 ---
 
 The `buckets()` function returns a list of buckets in the organization.

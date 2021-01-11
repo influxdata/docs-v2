@@ -12,6 +12,7 @@ menu:
     name: math.mod
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.mod()` function returns the floating-point remainder of `x`/`y`.

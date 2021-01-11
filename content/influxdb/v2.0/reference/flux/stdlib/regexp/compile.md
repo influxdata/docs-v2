@@ -12,6 +12,7 @@ menu:
     name: regexp.compile
     parent: Regular expressions
 weight: 301
+introduced: 0.33.0
 ---
 
 The `regexp.compile()` function parses a regular expression and, if successful,

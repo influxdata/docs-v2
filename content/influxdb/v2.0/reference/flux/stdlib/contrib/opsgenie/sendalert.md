@@ -10,6 +10,7 @@ menu:
     name: opsgenie.sendAlert
     parent: Opsgenie
 weight: 202
+introduced: 0.84.0
 ---
 
 The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.

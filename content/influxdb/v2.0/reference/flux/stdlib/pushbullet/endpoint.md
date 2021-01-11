@@ -11,6 +11,7 @@ menu:
     name: pushbullet.endpoint
     parent: Pushbullet
 weight: 202
+introduced: 0.66.0
 ---
 
 The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API

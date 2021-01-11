@@ -14,6 +14,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/containsstr
+introduced: 0.18.0
 ---
 
 The `strings.containsAny()` function reports whether a specified string contains

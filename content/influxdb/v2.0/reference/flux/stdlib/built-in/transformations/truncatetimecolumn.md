@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+introduced: 0.37.0
 ---
 
 The `truncateTimeColumn()` function truncates all input table `_time` values to a specified unit.

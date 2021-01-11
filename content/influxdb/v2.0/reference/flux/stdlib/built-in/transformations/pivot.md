@@ -11,6 +11,7 @@ menu:
     name: pivot
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `pivot()` function collects values stored vertically (column-wise) in a table
@@ -94,7 +95,8 @@ from(bucket:"test")
 
 ###### Output
 |              _time             | _measurement |  f1  |  f2  |  f3  | null |
-|:------------------------------:|:------------:|:----:|:----:|:----:|:----:|
+|:introduced: 0.7.0
+------------------------------:|:------------:|:----:|:----:|:----:|:----:|
 | 1970-01-01T00:00:00.000000001Z |     "m1"     |  1.0 |  2.0 | null |  3.0 |
 | 1970-01-01T00:00:00.000000002Z |     "m1"     |  4.0 |  5.0 | null | null |
 |               null             |     "m1"     | null |  6.0 | null | null |
@@ -142,7 +144,8 @@ from(bucket:"test")
 
 ###### Output
 |              _time             | m1_f1 | m1_f2 |  null_f3  | null_null | m1_f3 | m1_null |
-|:------------------------------:|:-----:|:-----:|:---------:|:---------:|:-----:|:-------:|
+|:introduced: 0.7.0
+------------------------------:|:-----:|:-----:|:---------:|:---------:|:-----:|:-------:|
 | 1970-01-01T00:00:00.000000001Z |  1.0  |  2.0  |    3.0    |    4.0    |  null |  null   |
 | 1970-01-01T00:00:00.000000002Z |  5.0  |  6.0  |   null    |    8.0    |  7.0  |  null   |
 |              null              |  null |  null |   null    |    null   |  9.0  |  15.0   |

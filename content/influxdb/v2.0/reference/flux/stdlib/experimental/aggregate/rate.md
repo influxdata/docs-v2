@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/query-data/flux/rate/
+introduced: 0.61.0
 ---
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.

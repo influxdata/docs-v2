@@ -12,6 +12,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
+introduced: 0.39.0
 ---
 
 The `tail()` function limits each output table to the last [`n`](#n) records.

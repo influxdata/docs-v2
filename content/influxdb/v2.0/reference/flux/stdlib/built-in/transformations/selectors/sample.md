@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sample, InfluxQL – SAMPLE()
+introduced: 0.7.0
 ---
 
 The `sample()` function selects a subset of the records from the input table.

@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/regexp/compile
+introduced: 0.33.3
 ---
 
 The `regexp.getString()` function returns the source string used to compile a regular expression.

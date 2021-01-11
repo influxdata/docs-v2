@@ -10,6 +10,7 @@ menu:
     name: math.sin
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.sin()` function returns the sine of the radian argument `x`.

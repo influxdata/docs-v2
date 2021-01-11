@@ -10,6 +10,7 @@ menu:
     name: math.round
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.round()` function returns the nearest integer, rounding half away from zero.

@@ -10,6 +10,7 @@ menu:
     name: sql.to
     parent: SQL
 weight: 202
+introduced: 0.35.0
 ---
 
 The `sql.to()` function writes data to a SQL database.

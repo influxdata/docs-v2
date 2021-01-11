@@ -13,6 +13,7 @@ menu:
 weight: 401
 related:
   - /influxdb/v2.0/write-data/no-code/scrape-data//scrapable-endpoints/
+introduced: 0.50.0
 ---
 
 The `prometheus.scrape()` function retrieves [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)

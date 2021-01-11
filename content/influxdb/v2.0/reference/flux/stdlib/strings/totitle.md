@@ -14,6 +14,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/toupper
   - /influxdb/v2.0/reference/flux/stdlib/strings/tolower
   - /influxdb/v2.0/reference/flux/stdlib/strings/title
+introduced: 0.18.0
 ---
 
 The `strings.toTitle()` function converts all characters in a string to title case.

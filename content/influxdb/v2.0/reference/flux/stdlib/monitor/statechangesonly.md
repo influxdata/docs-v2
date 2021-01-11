@@ -11,6 +11,7 @@ menu:
     name: monitor.stateChangesOnly
     parent: InfluxDB Monitor
 weight: 202
+introduced: 0.65.0
 ---
 
 The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
@@ -50,7 +51,8 @@ monitor.from(start: -1h)
 **`monitor.stateChangesOnly()` outputs:**
 
 | _time | _level |
-|:----- |:------:|
+|:introduced: 0.65.0
+----- |:------:|
 | 0002  | ok     |
 | 0003  | warn   |
 | 0004  | crit   |

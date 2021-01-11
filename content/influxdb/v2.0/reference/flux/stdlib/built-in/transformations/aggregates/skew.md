@@ -11,6 +11,7 @@ menu:
     name: skew
     parent: built-in-aggregates
 weight: 501
+introduced: 0.7.0
 ---
 
 The `skew()` function outputs the skew of non-null records as a float.

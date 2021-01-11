@@ -10,6 +10,7 @@ menu:
     name: math.sinh
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.sinh()` function returns the hyperbolic sine of `x`.

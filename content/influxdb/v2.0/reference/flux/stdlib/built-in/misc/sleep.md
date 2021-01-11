@@ -10,6 +10,7 @@ menu:
     name: sleep
     parent: built-in-misc
 weight: 401
+introduced: 0.36.0
 ---
 
 The `sleep()` function delays execution by a specified duration.

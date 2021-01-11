@@ -14,6 +14,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/scalar-values/
+introduced: 0.29.0
 ---
 
 The `tableFind()` function extracts the first table in a stream of tables whose

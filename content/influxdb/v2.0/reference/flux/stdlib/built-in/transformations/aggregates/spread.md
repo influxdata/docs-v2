@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+introduced: 0.7.0
 ---
 
 The `spread()` function outputs the difference between the minimum and maximum values in a specified column.

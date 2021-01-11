@@ -9,6 +9,7 @@ weight: 401
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/length/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/length/
+introduced: 0.7.0
 ---
 
 The `length()` function returns the number of items in an array.

@@ -16,6 +16,7 @@ influxdb/v2.0/tags: [exists]
 related:
   - /influxdb/v2.0/query-data/flux/custom-functions/custom-aggregate/
   - /influxdb/v2.0/query-data/flux/conditional-logic/
+introduced: 0.23.0
 ---
 
 The `reduce()` function aggregates records in each table according to the reducer,

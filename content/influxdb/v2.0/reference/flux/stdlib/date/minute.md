@@ -12,6 +12,7 @@ menu:
     name: date.minute
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.minute()` function returns the minute of a specified time.

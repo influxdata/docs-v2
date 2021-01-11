@@ -14,6 +14,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/index/
   - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
+introduced: 0.18.0
 ---
 
 The `strings.lastIndexAny()` function returns the index of the last instance of any specified characters in a string.

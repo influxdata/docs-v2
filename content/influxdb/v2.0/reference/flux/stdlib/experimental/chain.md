@@ -11,6 +11,7 @@ menu:
     name: experimental.chain
     parent: Experimental
 weight: 302
+introduced: 0.68.0
 ---
 
 The `experimental.chain()` function runs two queries in a single Flux script

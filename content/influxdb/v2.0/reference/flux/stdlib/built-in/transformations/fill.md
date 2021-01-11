@@ -14,6 +14,7 @@ weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/fill/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals-and-fill, InfluxQL – FILL
+introduced: 0.14.0
 ---
 
 The `fill()` function replaces all null values in an input stream with a non-null value.

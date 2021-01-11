@@ -12,6 +12,7 @@ menu:
     name: math.expm1
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.expm1()` function returns `e**x - 1`, the base-e exponential of `x` minus 1.

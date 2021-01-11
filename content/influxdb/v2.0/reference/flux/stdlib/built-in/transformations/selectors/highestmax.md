@@ -11,6 +11,7 @@ menu:
     name: highestMax
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.

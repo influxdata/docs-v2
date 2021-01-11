@@ -10,6 +10,7 @@ menu:
     name: bool
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.7.0
 ---
 
 The `bool()` function converts a single value to a boolean.

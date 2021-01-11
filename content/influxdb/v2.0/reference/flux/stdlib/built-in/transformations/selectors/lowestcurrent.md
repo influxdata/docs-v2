@@ -11,6 +11,7 @@ menu:
     name: lowestCurrent
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.

@@ -10,6 +10,7 @@ menu:
     name: math.trunc
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.trunc()` function returns the integer value of `x`.

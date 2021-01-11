@@ -10,6 +10,7 @@ menu:
     name: math.gamma
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.gamma()` function returns the Gamma function of `x`.

@@ -11,6 +11,7 @@ menu:
     name: math.mInf
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.mInf()` function returns positive infinity if `sign >= 0`, negative infinity if `sign < 0`.

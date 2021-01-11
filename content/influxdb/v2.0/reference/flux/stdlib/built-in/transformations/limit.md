@@ -15,6 +15,7 @@ related:
   - /influxdb/v2.0/query-data/flux/sort-limit/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tail/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-limit-and-slimit-clauses, InfluxQL LIMIT
+introduced: 0.7.0
 ---
 
 The `limit()` function limits each output table to the first [`n`](#n) records.

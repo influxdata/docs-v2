@@ -12,6 +12,7 @@ menu:
     name: discord.endpoint
     parent: Discord
 weight: 202
+introduced: 0.74.0
 ---
 
 The `discord.endpoint()` function sends a single message to a Discord channel using

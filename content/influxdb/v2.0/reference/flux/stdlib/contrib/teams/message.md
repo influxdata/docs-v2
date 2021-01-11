@@ -11,6 +11,7 @@ menu:
     name: teams.message
     parent: Teams
 weight: 202
+introduced: 0.70.0
 ---
 
 The `teams.message()` function sends a single message to a Microsoft Teams channel using

@@ -10,6 +10,7 @@ menu:
     name: math.asinh
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.asinh()` function returns the inverse hyperbolic sine of `x`.

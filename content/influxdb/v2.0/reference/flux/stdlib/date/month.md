@@ -12,6 +12,7 @@ menu:
     name: date.month
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.month()` function returns the month of a specified time.

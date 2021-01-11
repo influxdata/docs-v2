@@ -18,6 +18,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimright
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
+introduced: 0.27.0
 ---
 
 The `strings.trimPrefix()` function removes a prefix from a string.

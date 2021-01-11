@@ -10,6 +10,7 @@ menu:
     name: math.NaN
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.NaN()` function returns an IEEE 754 “not-a-number” value.

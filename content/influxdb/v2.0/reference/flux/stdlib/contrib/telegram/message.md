@@ -11,6 +11,7 @@ menu:
     name: telegram.message
     parent: Telegram
 weight: 202
+introduced: 0.70.0
 ---
 
 The `telegram.message()` function sends a single message to a Telegram channel using

@@ -10,6 +10,7 @@ menu:
     name: math.erfc
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.erfc()` function returns the complementary error function of `x`.

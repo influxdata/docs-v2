@@ -13,6 +13,7 @@ menu:
     name: hourSelection
     parent: built-in-transformations
 weight: 402
+introduced: 0.39.0
 ---
 
 The `hourSelection()` function retains all rows with time values in a specified hour range.

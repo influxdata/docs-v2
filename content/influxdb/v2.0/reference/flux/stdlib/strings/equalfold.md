@@ -12,6 +12,7 @@ menu:
     name: strings.equalFold
     parent: Strings
 weight: 301
+introduced: 0.18.0
 ---
 
 The `strings.equalFold()` function reports whether two UTF-8 strings are equal

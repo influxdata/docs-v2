@@ -12,6 +12,7 @@ menu:
     name: strings.joinStr
     parent: Strings
 weight: 301
+introduced: 0.18.0
 ---
 
 The `strings.joinStr()` function concatenates elements of a string array into

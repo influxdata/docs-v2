@@ -10,6 +10,7 @@ menu:
     name: math.ilogb
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.ilogb()` function returns the binary exponent of `x` as an integer.

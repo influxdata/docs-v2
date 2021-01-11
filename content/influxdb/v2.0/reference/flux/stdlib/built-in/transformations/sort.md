@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/sort-limit/
+introduced: 0.7.0
 ---
 
 The `sort()` function orders the records within each table.

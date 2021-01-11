@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/scalar-values/
+introduced: 0.68.0
 ---
 
 The `findColumn()` function returns an array of values in a specified column from the

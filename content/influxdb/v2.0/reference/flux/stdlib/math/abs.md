@@ -10,6 +10,7 @@ menu:
     name: math.abs
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.abs()` function returns the absolute value of `x`.

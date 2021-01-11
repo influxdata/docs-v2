@@ -10,6 +10,7 @@ menu:
     name: string
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.7.0
 ---
 
 The `string()` function converts a single value to a string.

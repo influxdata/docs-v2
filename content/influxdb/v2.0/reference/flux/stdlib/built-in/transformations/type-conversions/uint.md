@@ -10,6 +10,7 @@ menu:
     name: uint
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.7.0
 ---
 
 The `uint()` function converts a single value to a UInteger.

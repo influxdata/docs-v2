@@ -10,6 +10,7 @@ menu:
     name: math.tan
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.tan()` function returns the tangent of the radian argument `x`.

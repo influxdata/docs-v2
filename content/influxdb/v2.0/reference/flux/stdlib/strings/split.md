@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter
   - /influxdb/v2.0/reference/flux/stdlib/strings/splitaftern
   - /influxdb/v2.0/reference/flux/stdlib/strings/splitn
+introduced: 0.18.0
 ---
 
 The `strings.split()` function splits a string on a specified separator and returns

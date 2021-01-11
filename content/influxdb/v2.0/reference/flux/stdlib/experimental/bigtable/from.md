@@ -10,6 +10,7 @@ menu:
     name: bigtable.from
     parent: Bigtable
 weight: 401
+introduced: 0.45.0
 ---
 
 The `bigtable.from()` function retrieves data from a [Google Cloud Bigtable](https://cloud.google.com/bigtable/)

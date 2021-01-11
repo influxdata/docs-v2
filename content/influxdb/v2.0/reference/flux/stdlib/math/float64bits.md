@@ -10,6 +10,7 @@ menu:
     name: math.float64bits
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.float64bits()` function returns the IEEE 754 binary representation of `f`, with the sign bit of `f` and the result in the same bit position.

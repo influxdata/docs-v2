@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
+introduced: 0.7.0
 ---
 
 The `count()` function outputs the number of records in a column.

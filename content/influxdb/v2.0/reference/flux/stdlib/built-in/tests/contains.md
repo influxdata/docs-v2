@@ -10,6 +10,7 @@ menu:
     name: contains
     parent: built-in-tests
 weight: 401
+introduced: 0.19.0
 ---
 
 The `contains()` function tests whether a value is a member of a set.

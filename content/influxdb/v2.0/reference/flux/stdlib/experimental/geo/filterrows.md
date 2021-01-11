@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
   - /influxdb/v2.0/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The `geo.filterRows()` function filters data by a specified geographic region with

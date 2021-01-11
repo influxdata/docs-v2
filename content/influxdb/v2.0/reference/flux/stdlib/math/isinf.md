@@ -10,6 +10,7 @@ menu:
     name: math.isInf
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.isInf()` function reports whether `f` is an infinity, according to sign.

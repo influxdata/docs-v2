@@ -10,6 +10,7 @@ menu:
     name: math.pow10
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.pow10()` function returns `10**n`, the base-10 exponential of `n`.

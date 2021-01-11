@@ -14,6 +14,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/replace
+introduced: 0.18.0
 ---
 
 The `strings.replaceAll()` function replaces all non-overlapping instances of a

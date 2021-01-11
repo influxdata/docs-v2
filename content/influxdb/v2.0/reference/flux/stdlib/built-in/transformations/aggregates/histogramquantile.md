@@ -13,6 +13,7 @@ menu:
     name: histogramQuantile
     parent: built-in-aggregates
 weight: 501
+introduced: 0.7.0
 ---
 
 The `histogramQuantile()` function approximates a quantile given a histogram that

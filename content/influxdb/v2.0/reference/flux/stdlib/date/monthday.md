@@ -12,6 +12,7 @@ menu:
     name: date.monthDay
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.monthDay()` function returns the day of the month for a specified time.

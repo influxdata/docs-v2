@@ -11,6 +11,7 @@ menu:
     name: dict.get
     parent: Dictionary
 weight: 301
+introduced: 0.97.0
 ---
 
 The `dict.get()` function returns the value of a specified key in a dictionary

@@ -14,6 +14,7 @@ weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/join/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/
+introduced: 0.7.0
 ---
 
 The `join()` function merges two or more input streams whose values are equal on
@@ -101,7 +102,8 @@ Given the following two streams of data:
 ##### NY_Temp**  
 
 | _time  | _field | _value  |
-| ------ |:------:| -------:|
+| introduced: 0.7.0
+------ |:------:| -------:|
 | 0001	 | "temp" | 55      |
 | 0002	 | "temp" | 56      |
 | 0003	 | "temp" | 55      |

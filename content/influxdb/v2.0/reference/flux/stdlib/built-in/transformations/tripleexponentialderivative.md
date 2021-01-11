@@ -21,6 +21,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-derivative, InfluxQL TRIPLE_EXPONENTIAL_DERIVATIVE()
+introduced: 0.40.0
 ---
 
 The `tripleExponentialDerivative()` function calculates a triple exponential

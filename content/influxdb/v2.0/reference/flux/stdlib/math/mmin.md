@@ -11,6 +11,7 @@ menu:
     name: math.mMin
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.mMin()` function returns the smaller of `x` or `y`.

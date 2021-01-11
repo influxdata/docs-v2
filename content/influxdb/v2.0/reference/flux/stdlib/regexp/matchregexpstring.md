@@ -12,6 +12,7 @@ menu:
     name: regexp.matchRegexpString
     parent: Regular expressions
 weight: 301
+introduced: 0.33.4
 ---
 
 The `regexp.matchRegexpString()` function tests if a string contains any match

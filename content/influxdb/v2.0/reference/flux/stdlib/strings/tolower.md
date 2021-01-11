@@ -14,6 +14,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/totitle
   - /influxdb/v2.0/reference/flux/stdlib/strings/toupper
   - /influxdb/v2.0/reference/flux/stdlib/strings/title
+introduced: 0.18.0
 ---
 
 The `strings.toLower()` function converts a string to lowercase.

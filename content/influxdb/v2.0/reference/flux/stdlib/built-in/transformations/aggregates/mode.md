@@ -14,6 +14,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
+introduced: 0.36.0
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a

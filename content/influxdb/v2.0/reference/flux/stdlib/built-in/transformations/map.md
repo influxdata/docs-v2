@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/query-data/flux/conditional-logic/
   - /influxdb/v2.0/query-data/flux/mathematic-operations/
   - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/
+introduced: 0.7.0
 ---
 
 The `map()` function applies a function to each record in the input tables.

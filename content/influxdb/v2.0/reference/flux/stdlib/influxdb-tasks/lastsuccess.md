@@ -11,6 +11,7 @@ menu:
     name: tasks.lastSuccess
     parent: InfluxDB Tasks
 weight: 301
+introduced: 0.84.0
 ---
 
 The `tasks.lastSuccess()` function returns the time of last successful run of the

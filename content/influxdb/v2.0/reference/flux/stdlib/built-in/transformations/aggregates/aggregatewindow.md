@@ -15,6 +15,7 @@ related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#aggregations, InfluxQL – Aggregate functions
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
+introduced: 0.7.0
 ---
 
 The `aggregateWindow()` function applies an aggregate or selector function

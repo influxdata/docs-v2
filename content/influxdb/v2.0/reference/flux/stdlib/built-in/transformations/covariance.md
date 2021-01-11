@@ -12,6 +12,7 @@ menu:
     name: covariance
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `covariance()` function computes the covariance between two columns.

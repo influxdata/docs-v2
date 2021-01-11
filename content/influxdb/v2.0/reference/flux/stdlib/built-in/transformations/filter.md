@@ -17,6 +17,7 @@ related:
   - /influxdb/v2.0/query-data/flux/conditional-logic/
   - /influxdb/v2.0/query-data/flux/exists/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT
+introduced: 0.7.0
 ---
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).

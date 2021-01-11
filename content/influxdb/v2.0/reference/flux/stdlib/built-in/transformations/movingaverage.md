@@ -19,6 +19,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
+introduced: 0.35.0
 ---
 
 The `movingAverage()` function calculates the mean of values in the `_values` column
@@ -70,6 +71,7 @@ from(bucket: "example-bucket"):
 
 ###### Output table:
 | _time | tag | _value |
-|:-----:|:---:|:------:|
+|:introduced: 0.35.0
+-----:|:---:|:------:|
 | 0002  | tv  | 6      |
 | 0003  | tv  | 5      |

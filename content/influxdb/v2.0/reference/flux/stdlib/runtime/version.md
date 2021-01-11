@@ -10,6 +10,7 @@ menu:
     name: runtime.version
     parent: Runtime
 weight: 401
+introduced: 0.38.0
 ---
 
 The `runtime.version()` function returns the current Flux version.

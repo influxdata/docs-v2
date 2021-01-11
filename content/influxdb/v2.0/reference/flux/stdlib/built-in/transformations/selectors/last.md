@@ -14,6 +14,7 @@ weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/first-last/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#last, InfluxQL – LAST()
+introduced: 0.7.0
 ---
 
 The `last()` function selects the last non-null record from an input table.

@@ -10,6 +10,7 @@ menu:
     name: math.cosh
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.cosh()` function returns the hyperbolic cosine of `x`.

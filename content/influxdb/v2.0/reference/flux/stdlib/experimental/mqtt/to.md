@@ -10,6 +10,7 @@ menu:
     name: mqtt.to
     parent: MQTT
 weight: 401
+introduced: 0.40.0
 ---
 
 The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.

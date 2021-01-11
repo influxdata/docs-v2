@@ -10,6 +10,7 @@ menu:
     name: math.exp
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.exp()` function returns `e**x`, the base-e exponential of `x`.

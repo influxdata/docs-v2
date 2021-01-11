@@ -12,6 +12,7 @@ menu:
     name: math.hypot
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.hypot()` function returns the square root  of `p*p + q*q`,

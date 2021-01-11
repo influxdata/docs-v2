@@ -10,6 +10,7 @@ menu:
     name: math.jn
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.jn()` function returns the order-n Bessel function of the first kind.

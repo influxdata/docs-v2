@@ -11,6 +11,7 @@ menu:
     name: http.get
     parent: HTTP-exp
 weight: 401
+introduced: 0.39.0
 ---
 
 The `http.get()` function submits an HTTP GET request to the specified URL and

@@ -11,6 +11,7 @@ menu:
     name: rename
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `rename()` function renames specified columns in a table.

@@ -13,6 +13,7 @@ menu:
 weight: 401
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
+introduced: 0.7.0
 ---
 
 The `yield()` function indicates the input tables received should be delivered as a result of the query.

@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/
+introduced: 0.7.0
 ---
 
 The `union()` function concatenates two or more input streams into a single output stream.

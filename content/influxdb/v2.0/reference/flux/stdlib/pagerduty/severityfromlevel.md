@@ -12,6 +12,7 @@ menu:
     name: pagerduty.severityFromLevel
     parent: PagerDuty
 weight: 202
+introduced: 0.43.0
 ---
 
 The `pagerduty.severityFromLevel()` function converts an InfluxDB status level to

@@ -10,6 +10,7 @@ menu:
     name: math.asin
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.asin()` function returns the arcsine of `x` in radians.

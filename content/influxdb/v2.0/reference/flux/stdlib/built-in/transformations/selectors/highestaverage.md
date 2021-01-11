@@ -11,6 +11,7 @@ menu:
     name: highestAverage
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.

@@ -12,6 +12,7 @@ menu:
     name: math.modf
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.modf()` function returns integer and fractional floating-point numbers that sum to `f`.

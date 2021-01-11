@@ -10,6 +10,7 @@ menu:
     name: strings.repeat
     parent: Strings
 weight: 301
+introduced: 0.18.0
 ---
 
 The `strings.repeat()` function returns a string consisting of `i` copies of a specified string.

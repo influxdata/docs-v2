@@ -12,6 +12,7 @@ menu:
     name: monitor.check
     parent: InfluxDB Monitor
 weight: 202
+introduced: 0.39.0
 ---
 
 The `monitor.check()` function checks input data and assigns a level

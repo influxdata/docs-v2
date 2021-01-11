@@ -10,6 +10,7 @@ menu:
     name: json.encode
     parent: JSON
 weight: 202
+introduced: 0.40.0
 ---
 
 The `json.encode()` function converts a value into JSON bytes.

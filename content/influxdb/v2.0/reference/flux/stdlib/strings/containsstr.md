@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/containsany
+introduced: 0.18.0
 ---
 
 The `strings.containsStr()` function reports whether a string contains a specified substring.

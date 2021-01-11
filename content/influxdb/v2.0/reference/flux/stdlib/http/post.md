@@ -12,6 +12,7 @@ menu:
     name: http.post
     parent: HTTP
 weight: 202
+introduced: 0.40.0
 ---
 
 The `http.post()` function submits an HTTP POST request to the specified URL with

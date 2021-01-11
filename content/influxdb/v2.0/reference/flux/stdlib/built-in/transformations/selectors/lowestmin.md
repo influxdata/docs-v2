@@ -11,6 +11,7 @@ menu:
     name: lowestMin
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `lowestMin()` function selects the minimum record from each table in the input stream and returns the lowest `n` records.

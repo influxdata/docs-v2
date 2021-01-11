@@ -11,6 +11,7 @@ menu:
     name: secrets.get
     parent: InfluxDB Secrets
 weight: 202
+introduced: 0.41.0
 ---
 
 The `secrets.get()` function retrieves a secret from the

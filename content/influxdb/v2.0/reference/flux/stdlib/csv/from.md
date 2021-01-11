@@ -12,6 +12,7 @@ menu:
     name: csv.from
     parent: CSV
 weight: 202
+introduced: 0.14.0
 ---
 
 The `csv.from()` function retrieves data from a comma-separated value (CSV) data source.

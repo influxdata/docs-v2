@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
+introduced: 0.7.1
 ---
 
 The `difference()` function computes the difference between subsequent records.  
@@ -90,7 +91,8 @@ from(bucket: "example-bucket")
 ```
 ###### Output table
 | _time | _value | tag |
-|:-----:|:------:|:---:|
+|:introduced: 0.7.1
+-----:|:------:|:---:|
 | 0002  | null   | tv  |
 | 0003  | -2     | tv  |
 | 0004  | 6      | tv  |
@@ -115,7 +117,8 @@ from(bucket: "example-bucket")
 ```
 ###### Output table
 | _time | _value | tag |
-|:-----:|:------:|:---:|
+|:introduced: 0.7.1
+-----:|:------:|:---:|
 | 0001  | null   | tv  |
 | 0002  | null   | tv  |
 | 0003  | -2     | tv  |

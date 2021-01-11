@@ -15,6 +15,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/index-func/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
+introduced: 0.18.0
 ---
 
 The `strings.indexAny()` function returns the index of the first instance of specified characters in a string.

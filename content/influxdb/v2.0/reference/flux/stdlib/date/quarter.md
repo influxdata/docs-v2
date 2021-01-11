@@ -12,6 +12,7 @@ menu:
     name: date.quarter
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.quarter()` function returns the quarter of the year for a specified time.

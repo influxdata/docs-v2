@@ -11,6 +11,7 @@ menu:
     name: prometheus.histogramQuantile
     parent: Prometheus
 weight: 401
+introduced: 0.51.0
 ---
 
 The `prometheus.histogramQuantile()` function calculates quantiles on a set of values

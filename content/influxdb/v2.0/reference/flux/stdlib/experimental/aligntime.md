@@ -10,6 +10,7 @@ menu:
     name: experimental.alignTime
     parent: Experimental
 weight: 302
+introduced: 0.66.0
 ---
 
 The `experimental.alignTime()` function aligns input tables to a common start time.
@@ -74,7 +75,8 @@ from(bucket: "example-bucket")
 {{< flex >}}
 {{% flex-content %}}
 | _time                | _value |
-|:-----                | ------:|
+|:introduced: 0.66.0
+-----                | ------:|
 | 2020-01-01T00:00:00Z | 32.1   |
 | 2020-01-02T00:00:00Z | 32.9   |
 | 2020-01-03T00:00:00Z | 33.2   |

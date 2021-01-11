@@ -14,6 +14,7 @@ weight: 202
 influxdb/v2.0/tags: [functions, package, map]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
+introduced: 0.77.0
 ---
 
 The `rows.map()` function is an alternate implementation of [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
@@ -78,7 +79,8 @@ The `_time` column is dropped because:
 **Group key:** `tag,_field`
 
 | tag  | _field | _time | _value |
-|:---  |:------ |:----- | ------:|
+|:introduced: 0.77.0
+---  |:------ |:----- | ------:|
 | tag1 | foo    | 0001  | 1.9    |
 | tag1 | foo    | 0002  | 2.4    |
 | tag1 | foo    | 0003  | 2.1    |
@@ -96,7 +98,8 @@ The `_time` column is dropped because:
 **Group key:** `tag,_field`
 
 | tag  | _field | _value |
-|:---  |:------ | ------:|
+|:introduced: 0.77.0
+---  |:------ | ------:|
 | tag1 | foo    | 3.61   |
 | tag1 | foo    | 5.76   |
 | tag1 | foo    | 4.41   |
@@ -109,6 +112,7 @@ The `_time` column is dropped because:
 {{% /flex-content %}}
 {{< /flex >}}
 
+introduced: 0.77.0
 ---
 
 ### Preserve all columns in the operation
@@ -141,7 +145,8 @@ data
 | tag1 | foo    | 0003  | 2.1    |
 
 | tag  | _field | _time | _value |
-|:---  |:------ |:----- | ------:|
+|:introduced: 0.77.0
+---  |:------ |:----- | ------:|
 | tag2 | bar    | 0001  | 3.1    |
 | tag2 | bar    | 0002  | 3.8    |
 | tag2 | bar    | 0003  | 1.7    |
@@ -159,7 +164,8 @@ data
 | tag1 | foo    | 0003  | 4.41   |
 
 | tag  | _field | _time | _value |
-|:---  |:------ |:----- | ------:|
+|:introduced: 0.77.0
+---  |:------ |:----- | ------:|
 | tag2 | bar    | 0001  | 9.61   |
 | tag2 | bar    | 0002  | 14.44  |
 | tag2 | bar    | 0003  | 2.89   |
@@ -190,7 +196,8 @@ data
 **Group key:** `tag,_field`
 
 | tag  | _field | _time | _value |
-|:---  |:------ |:----- | ------:|
+|:introduced: 0.77.0
+---  |:------ |:----- | ------:|
 | tag1 | foo    | 0001  | 1.9    |
 | tag1 | foo    | 0002  | 2.4    |
 | tag1 | foo    | 0003  | 2.1    |
@@ -208,7 +215,8 @@ data
 **Group key:** `tag,_field`
 
 | tag  | _field | _time | _value |
-|:---  |:------ |:----- | ------:|
+|:introduced: 0.77.0
+---  |:------ |:----- | ------:|
 | tag1 | foo    | 0001  | 1.9    |
 | tag1 | foo    | 0002  | 2.4    |
 | tag1 | foo    | 0003  | 2.1    |
@@ -221,6 +229,7 @@ data
 {{% /flex-content %}}
 {{< /flex >}}
 
+introduced: 0.77.0
 ---
 
 {{% note %}}

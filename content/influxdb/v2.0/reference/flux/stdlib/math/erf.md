@@ -10,6 +10,7 @@ menu:
     name: math.erf
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.erf()` function returns the error function of `x`.

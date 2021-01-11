@@ -10,6 +10,7 @@ menu:
     name: math.yn
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.yn()` function returns the order-n Bessel function of the second kind.

@@ -11,6 +11,7 @@ menu:
     name: date.year
     parent: Date
 weight: 301
+introduced: 0.39.0
 ---
 
 The `date.year()` function returns the year of a specified time.

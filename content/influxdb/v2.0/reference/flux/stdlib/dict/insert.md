@@ -12,6 +12,7 @@ menu:
     name: dict.insert
     parent: Dictionary
 weight: 301
+introduced: 0.97.0
 ---
 
 The `dict.insert()` function inserts a key value pair into a dictionary and returns

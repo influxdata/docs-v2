@@ -11,6 +11,7 @@ menu:
     name: pushbullet.pushNote
     parent: Pushbullet
 weight: 202
+introduced: 0.66.0
 ---
 
 The `pushbullet.pushNote()` function sends a push notification of type `note`

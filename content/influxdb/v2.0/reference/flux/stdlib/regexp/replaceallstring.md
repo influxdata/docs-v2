@@ -12,6 +12,7 @@ menu:
     name: regexp.replaceAllString
     parent: Regular expressions
 weight: 301
+introduced: 0.33.6
 ---
 
 The `regexp.replaceAllString()` function replaces all regular expression matches

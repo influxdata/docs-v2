@@ -10,6 +10,7 @@ menu:
     name: math.log
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.log()` function returns the natural logarithm of `x`.

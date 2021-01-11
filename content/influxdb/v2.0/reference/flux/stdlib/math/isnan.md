@@ -10,6 +10,7 @@ menu:
     name: math.isNaN
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.isNaN()` function reports whether `f` is an IEEE 754 “not-a-number” value.

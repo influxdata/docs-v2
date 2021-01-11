@@ -10,6 +10,7 @@ menu:
     name: math.copysign
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.copysign()` function returns a value with the magnitude of `x` and the sign of `y`.

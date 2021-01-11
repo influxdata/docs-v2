@@ -11,6 +11,7 @@ menu:
     name: testing.assertEquals
     parent: Testing
 weight: 301
+introduced: 0.14.0
 ---
 
 The `testing.assertEquals()` function tests whether two streams have identical data.

@@ -11,6 +11,7 @@ menu:
     name: top
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `top()` function sorts a table by columns and keeps only the top `n` records.

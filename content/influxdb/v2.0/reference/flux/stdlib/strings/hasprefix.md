@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/hassuffix
+introduced: 0.18.0
 ---
 
 The `strings.hasPrefix()` function indicates if a string begins with a specified prefix.

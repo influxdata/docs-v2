@@ -12,6 +12,7 @@ menu:
     name: monitor.from
     parent: InfluxDB Monitor
 weight: 202
+introduced: 0.39.0
 ---
 
 The `monitor.from()` function retrieves check statuses stored in the `statuses`

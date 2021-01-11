@@ -11,6 +11,7 @@ menu:
     name: telegram.endpoint
     parent: Telegram
 weight: 202
+introduced: 0.70.0
 ---
 
 The `telegram.endpoint()` function sends a message to a Telegram channel

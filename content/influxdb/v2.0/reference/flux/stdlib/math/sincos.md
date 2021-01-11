@@ -10,6 +10,7 @@ menu:
     name: math.sincos
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.sincos()` function returns the values of `math.sin(x:x)` and `math.cos(x:x)`.

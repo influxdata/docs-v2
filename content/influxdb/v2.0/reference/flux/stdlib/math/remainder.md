@@ -10,6 +10,7 @@ menu:
     name: math.remainder
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.remainder()` function returns the IEEE 754 floating-point remainder of `x / y`.

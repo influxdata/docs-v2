@@ -11,6 +11,7 @@ menu:
     name: query.fromRange
     parent: Query
 weight: 401
+introduced: 0.60.0
 ---
 
 The `query.fromRange()` function returns all data from a specified bucket within

@@ -12,6 +12,7 @@ menu:
     name: monitor.stateChanges
     parent: InfluxDB Monitor
 weight: 202
+introduced: 0.42.0
 ---
 
 The `monitor.stateChanges()` function detects state changes in a stream of data with
@@ -74,7 +75,8 @@ monitor.stateChanges(
 ```
 
 | _time | _level |
-|:----- |:------:|
+|:introduced: 0.42.0
+----- |:------:|
 | 0004  | crit   |
 {{% /flex-content %}}
 {{< /flex >}}

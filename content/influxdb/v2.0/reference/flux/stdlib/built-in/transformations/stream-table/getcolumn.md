@@ -14,6 +14,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/scalar-values/
+introduced: 0.29.0
 ---
 
 The `getColumn()` function extracts a column from a table given its label.

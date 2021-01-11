@@ -10,6 +10,7 @@ menu:
     name: math.erfcinv
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.erfcinv()` function returns the inverse of `math.erfc()`.

@@ -11,6 +11,7 @@ menu:
     name: toString
     parent: built-in-type-conversions
 weight: 501
+introduced: 0.7.0
 ---
 
 The `toString()` function converts all values in the `_value` column to strings.

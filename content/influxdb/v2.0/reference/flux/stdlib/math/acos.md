@@ -10,6 +10,7 @@ menu:
     name: math.acos
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.acos()` function returns the arccosine of `x` in radians.

@@ -14,6 +14,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/replaceall
+introduced: 0.18.0
 ---
 
 The `strings.replace()` function replaces the first `i` non-overlapping instances

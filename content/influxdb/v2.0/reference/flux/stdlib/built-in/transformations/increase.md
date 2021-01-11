@@ -16,6 +16,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/increase/
+introduced: 0.71.0
 ---
 
 The `increase()` function calculates the cumulative sum of **non-negative** differences
@@ -69,7 +70,8 @@ Given the following input table:
 `increase()` produces the following table:
 
 | _time | _value |
-| ----- | ------ |
+| introduced: 0.71.0
+----- | ------ |
 | 00002 | 4      |
 | 00003 | 4      |
 | 00004 | 5      |

@@ -10,6 +10,7 @@ menu:
     name: math.cos
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.cos()` function returns the cosine of the radian argument `x`.

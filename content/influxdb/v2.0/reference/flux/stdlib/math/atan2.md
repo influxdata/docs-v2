@@ -12,6 +12,7 @@ menu:
     name: math.atan2
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.atan2()` function returns the arc tangent of `y`/`x`, using the signs

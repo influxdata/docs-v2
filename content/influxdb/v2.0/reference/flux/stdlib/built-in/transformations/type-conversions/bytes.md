@@ -10,6 +10,7 @@ menu:
     name: bytes
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.40.0
 ---
 
 The `bytes()` function converts a single value to bytes.

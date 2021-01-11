@@ -10,6 +10,7 @@ menu:
     name: math.logb
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.logb()` function returns the binary exponent of `x`.

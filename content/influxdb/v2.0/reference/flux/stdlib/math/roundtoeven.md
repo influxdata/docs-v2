@@ -10,6 +10,7 @@ menu:
     name: math.roundtoeven
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.roundtoeven()` function returns the nearest integer, rounding ties to even.

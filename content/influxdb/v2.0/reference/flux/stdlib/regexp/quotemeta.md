@@ -11,6 +11,7 @@ menu:
     name: regexp.quoteMeta
     parent: Regular expressions
 weight: 301
+introduced: 0.33.5
 ---
 
 The `regexp.quoteMeta()` function escapes all regular expression metacharacters inside of a string.

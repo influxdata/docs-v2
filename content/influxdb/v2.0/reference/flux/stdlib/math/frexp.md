@@ -13,6 +13,7 @@ menu:
     name: math.frexp
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.frexp()` function breaks `f` into a normalized fraction and an integral power of two.

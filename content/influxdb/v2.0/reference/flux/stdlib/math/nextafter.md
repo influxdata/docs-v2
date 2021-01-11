@@ -10,6 +10,7 @@ menu:
     name: math.nextafter
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.nextafter()` function returns the next representable float value after `x` towards `y`.

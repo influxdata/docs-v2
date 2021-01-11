@@ -10,6 +10,7 @@ menu:
     name: math.pow
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.pow()` function returns `x**y`, the base-x exponential of y.

@@ -10,6 +10,7 @@ menu:
     name: pushbullet.pushData
     parent: Pushbullet
 weight: 202
+introduced: 0.66.0
 ---
 
 The `pushbullet.pushData()` function sends a push notification to the

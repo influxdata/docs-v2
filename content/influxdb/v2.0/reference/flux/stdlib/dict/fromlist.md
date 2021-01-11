@@ -11,6 +11,7 @@ menu:
     name: dict.fromList
     parent: Dictionary
 weight: 301
+introduced: 0.97.0
 ---
 
 The `dict.fromList()` function creates a dictionary from a list of records with

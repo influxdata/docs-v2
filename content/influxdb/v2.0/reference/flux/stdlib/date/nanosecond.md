@@ -12,6 +12,7 @@ menu:
     name: date.nanosecond
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.nanosecond()` function returns the nanosecond of a specified time.

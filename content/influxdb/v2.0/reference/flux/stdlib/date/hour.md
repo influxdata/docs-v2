@@ -12,6 +12,7 @@ menu:
     name: date.hour
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.hour()` function returns the hour of a specified time.

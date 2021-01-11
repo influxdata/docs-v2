@@ -12,6 +12,7 @@ menu:
     name: slack.message
     parent: Slack
 weight: 202
+introduced: 0.41.0
 ---
 
 The `slack.message()` function sends a single message to a Slack channel.

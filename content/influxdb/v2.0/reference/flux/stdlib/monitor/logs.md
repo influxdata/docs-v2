@@ -12,6 +12,7 @@ menu:
     name: monitor.logs
     parent: InfluxDB Monitor
 weight: 202
+introduced: 0.39.0
 ---
 
 The `monitor.logs()` function retrieves notification events stored in the `notifications`

@@ -14,6 +14,7 @@ weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The `geo.s2CellLatLon()` function returns the latitude and longitude of the

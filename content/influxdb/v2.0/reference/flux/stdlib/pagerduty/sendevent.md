@@ -11,6 +11,7 @@ menu:
     name: pagerduty.sendEvent
     parent: PagerDuty
 weight: 202
+introduced: 0.43.0
 ---
 
 The `pagerduty.sendEvent()` function sends an event to PagerDuty.

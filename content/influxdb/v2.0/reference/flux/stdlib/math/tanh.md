@@ -10,6 +10,7 @@ menu:
     name: math.tanh
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.tanh()` function returns the hyperbolic tangent of `x`.

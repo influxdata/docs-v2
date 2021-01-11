@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause, InfluxQL – WHERE
+introduced: 0.7.0
 ---
 
 The `range()` function filters records based on time bounds.

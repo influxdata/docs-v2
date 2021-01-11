@@ -10,6 +10,7 @@ menu:
     name: query.filterFields
     parent: Query
 weight: 401
+introduced: 0.60.0
 ---
 
 The `query.filterFields()` function filters input data by field.

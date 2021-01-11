@@ -19,6 +19,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+introduced: 0.77.0
 ---
 
 The `influxdb.select()` function is an alternate implementation of `from()`, `range()`, `filter()`

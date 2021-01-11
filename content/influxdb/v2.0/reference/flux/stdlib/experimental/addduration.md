@@ -13,6 +13,7 @@ menu:
 weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
+introduced: 0.39.0
 ---
 
 The `experimental.addDuration()` function adds a duration to a time value and

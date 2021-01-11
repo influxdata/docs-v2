@@ -11,6 +11,7 @@ menu:
     name: http.pathEscape
     parent: HTTP
 weight: 202
+introduced: 0.71.0
 ---
 
 The `http.pathEscape()` function escapes special characters in a string (including `/`)

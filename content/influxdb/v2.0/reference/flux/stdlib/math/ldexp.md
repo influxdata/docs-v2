@@ -10,6 +10,7 @@ menu:
     name: math.ldexp
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.ldexp()` function is the inverse of [`math.frexp()`](/influxdb/v2.0/reference/flux/stdlib/math/frexp).

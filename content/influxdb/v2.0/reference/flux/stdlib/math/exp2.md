@@ -10,6 +10,7 @@ menu:
     name: math.exp2
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.exp2()` function returns `2**x`, the base-2 exponential of `x`.

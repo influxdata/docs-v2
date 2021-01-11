@@ -11,6 +11,7 @@ menu:
     name: dict.remove
     parent: Dictionary
 weight: 301
+introduced: 0.97.0
 ---
 
 The `dict.remove()` function removes a key value pair from a dictionary and returns

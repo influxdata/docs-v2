@@ -15,6 +15,7 @@ menu:
 weight: 402
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
+introduced: 0.38.0
 ---
 
 The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.

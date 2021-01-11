@@ -10,6 +10,7 @@ menu:
     name: csv.from *
     parent: CSV-exp
 weight: 401
+introduced: 0.64.0
 ---
 
 The experimental `csv.from()` function retrieves [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) **from a URL**.

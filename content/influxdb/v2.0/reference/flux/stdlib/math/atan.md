@@ -10,6 +10,7 @@ menu:
     name: math.atan
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.atan()` function returns the arctangent of `x` in radians.

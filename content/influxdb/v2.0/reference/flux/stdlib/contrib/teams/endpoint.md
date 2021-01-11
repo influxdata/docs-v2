@@ -11,6 +11,7 @@ menu:
     name: teams.endpoint
     parent: Teams
 weight: 202
+introduced: 0.70.0
 ---
 
 The `teams.endpoint()` function sends a message to a Microsoft Teams channel

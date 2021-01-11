@@ -10,6 +10,7 @@ menu:
     name: math.signbit
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.signbit()` function reports whether `x` is negative or negative zero.

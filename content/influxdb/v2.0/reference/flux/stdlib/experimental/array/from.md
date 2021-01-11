@@ -10,6 +10,7 @@ menu:
     name: array.from
     parent: Array
 weight: 401
+introduced: 0.79.0
 ---
 
 The experimental `array.from()` function constructs a table from an array of records.

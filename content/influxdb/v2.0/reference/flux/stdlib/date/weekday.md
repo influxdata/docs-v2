@@ -12,6 +12,7 @@ menu:
     name: date.weekDay
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.weekDay()` function returns the day of the week for a specified time.

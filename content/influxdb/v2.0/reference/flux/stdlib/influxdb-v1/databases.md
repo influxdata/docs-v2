@@ -11,6 +11,7 @@ menu:
 weight: 301
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-databases, SHOW DATABASES in InfluxQL
+introduced: 0.16.0
 ---
 
 The `v1.databases()` function returns a list of databases in an **InfluxDB 1.7+ instance**.

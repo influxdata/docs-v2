@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/isletter/
+introduced: 0.18.0
 ---
 
 The `strings.isDigit()` function tests if a single-character string is a digit (0-9).

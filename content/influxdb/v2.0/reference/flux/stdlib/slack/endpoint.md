@@ -12,6 +12,7 @@ menu:
     parent: Slack
 weight: 202
 influxdb/v2.0/tags: [endpoints]
+introduced: 0.41.0
 ---
 
 The `slack.endpoint()` function sends a message to Slack that includes output data.

@@ -13,6 +13,7 @@ menu:
 weight: 401
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
+introduced: 0.7.0
 ---
 
 The `from()` function retrieves data from an InfluxDB data source.

@@ -10,6 +10,7 @@ menu:
     name: int
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.7.0
 ---
 
 The `int()` function converts a single value to an integer.

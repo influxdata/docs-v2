@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/hasprefix
+introduced: 0.18.0
 ---
 
 The `strings.hasSuffix()` function indicates if a string ends with a specified suffix.

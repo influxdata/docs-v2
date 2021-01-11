@@ -10,6 +10,7 @@ menu:
     name: opsgenie.endpoint
     parent: Opsgenie
 weight: 202
+introduced: 0.84.0
 ---
 
 The `opsgenie.endpoint()` function sends an alert message to Opsgenie using data from table rows.

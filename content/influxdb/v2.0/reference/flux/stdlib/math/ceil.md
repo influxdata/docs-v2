@@ -10,6 +10,7 @@ menu:
     name: math.ceil
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.ceil()` function returns the least integer value greater than or equal to `x`.

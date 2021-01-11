@@ -11,6 +11,7 @@ menu:
     name: math.mMax
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.mMax()` function returns the larger of `x` or `y`.

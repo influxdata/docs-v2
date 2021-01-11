@@ -17,6 +17,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
+introduced: 0.18.0
 ---
 
 The `strings.trimRight()` function removes trailing characters specified in the

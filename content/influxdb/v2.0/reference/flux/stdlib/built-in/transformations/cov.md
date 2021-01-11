@@ -12,6 +12,7 @@ menu:
     name: cov
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `cov()` function computes the covariance between two streams by first joining the streams,

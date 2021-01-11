@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/isupper
+introduced: 0.18.0
 ---
 
 The `strings.isLower()` function tests if a single-character string is lowercase.

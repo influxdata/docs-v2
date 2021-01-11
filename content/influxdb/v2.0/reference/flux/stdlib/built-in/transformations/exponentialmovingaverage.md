@@ -19,6 +19,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
+introduced: 0.37.0
 ---
 
 The `exponentialMovingAverage()` function calculates the exponential moving average of values
@@ -73,6 +74,7 @@ from(bucket: "example-bucket"):
 
 ###### Output table:
 | _time | tag | _value |
-|:-----:|:---:|:------:|
+|:introduced: 0.37.0
+-----:|:---:|:------:|
 | 0002  | tv  | 10     |
 | 0003  | tv  | 16.67  |

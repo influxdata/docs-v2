@@ -10,6 +10,7 @@ menu:
     name: time
     parent: built-in-type-conversions
 weight: 502
+introduced: 0.7.0
 ---
 
 The `time()` function converts a single value to a time.

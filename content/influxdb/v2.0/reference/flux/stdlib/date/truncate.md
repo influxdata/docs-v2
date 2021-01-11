@@ -11,6 +11,7 @@ menu:
     name: date.truncate
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.truncate()` function truncates a time to a specified unit.

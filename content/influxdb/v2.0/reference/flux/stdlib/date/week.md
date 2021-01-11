@@ -12,6 +12,7 @@ menu:
     name: date.week
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.week()` function returns the ISO week of the year for a specified time.

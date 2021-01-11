@@ -19,6 +19,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
+introduced: 0.36.0
 ---
 
 The `timedMovingAverage()` function calculates the mean of values in a defined time

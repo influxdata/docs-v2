@@ -11,6 +11,7 @@ menu:
     name: toUInt
     parent: built-in-type-conversions
 weight: 501
+introduced: 0.7.0
 ---
 
 The `toUInt()` function converts all values in the `_value` column to UIntegers.

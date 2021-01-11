@@ -10,6 +10,7 @@ menu:
     name: math.sqrt
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.sqrt()` function returns the square root of `x`.

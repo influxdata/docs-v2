@@ -14,6 +14,7 @@ weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/rate/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
+introduced: 0.7.0
 ---
 
 The `derivative()` function computes the rate of change per [`unit`](#unit) of time between subsequent non-null records.

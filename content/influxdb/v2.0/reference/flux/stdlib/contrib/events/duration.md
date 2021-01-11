@@ -16,6 +16,7 @@ influxdb/v2.0/tags: [functions, events, package]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/elapsed/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
+introduced: 0.91.0
 ---
 
 The `events.duration()` function calculates the duration of events.
@@ -110,7 +111,8 @@ data
 {{% flex-content %}}
 ##### Output
 | _time                | state | duration |
-|:-----                |:-----:| --------:|
+|:introduced: 0.91.0
+-----                |:-----:| --------:|
 | 2020-01-01T00:00:00Z | ok    | 12       |
 | 2020-01-01T00:12:34Z | warn  | 12       |
 | 2020-01-01T00:25:01Z | ok    | 942      |
@@ -158,7 +160,8 @@ data |> stateDuration(
 
 ##### Output values
 | _time                | state | events.duration() | elapsed()                           | stateDuration() |
-|:-----                |:-----:| -----------------:| ---------:                          | ---------------:|
+|:introduced: 0.91.0
+-----                |:-----:| -----------------:| ---------:                          | ---------------:|
 | 2020-01-01T00:00:00Z | ok    | 12                | <span style="opacity:.2">N/A</span> | 0               |
 | 2020-01-01T00:12:34Z | warn  | 12                | 12                                  | 12              |
 | 2020-01-01T00:25:01Z | ok    | 942               | 12                                  | 25              |

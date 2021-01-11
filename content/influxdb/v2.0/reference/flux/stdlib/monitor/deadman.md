@@ -12,6 +12,7 @@ menu:
     parent: InfluxDB Monitor
 weight: 202
 cloud_all: true
+introduced: 0.39.0
 ---
 
 The `monitor.deadman()` function detects when a group stops reporting data.

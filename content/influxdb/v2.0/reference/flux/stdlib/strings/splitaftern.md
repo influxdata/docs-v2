@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/split
   - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter
   - /influxdb/v2.0/reference/flux/stdlib/strings/splitn
+introduced: 0.18.0
 ---
 
 The `strings.splitAfterN()` function splits a string after a specified separator and returns

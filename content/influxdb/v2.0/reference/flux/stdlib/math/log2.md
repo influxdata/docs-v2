@@ -10,6 +10,7 @@ menu:
     name: math.log2
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.log2()` function returns the binary logarithm of `x`.

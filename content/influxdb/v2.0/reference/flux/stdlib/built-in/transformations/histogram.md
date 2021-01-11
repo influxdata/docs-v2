@@ -13,6 +13,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/histograms/
+introduced: 0.7.0
 ---
 
 The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.

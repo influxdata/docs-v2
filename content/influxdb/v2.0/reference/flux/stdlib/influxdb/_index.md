@@ -14,7 +14,6 @@ menu:
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, package]
-introduced: 0.92.0
 ---
 
 The Flux InfluxDB package provides functions for analyzing InfluxDB metadata.

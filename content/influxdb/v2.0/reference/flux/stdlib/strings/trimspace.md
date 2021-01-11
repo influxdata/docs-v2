@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimright
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
   - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
+introduced: 0.18.0
 ---
 
 The `strings.trimSpace()` function removes leading and trailing spaces from a string.

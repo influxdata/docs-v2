@@ -11,6 +11,7 @@ menu:
     name: highestCurrent
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `highestCurrent()` function selects the last record of each table in the input stream and returns the top `n` records.

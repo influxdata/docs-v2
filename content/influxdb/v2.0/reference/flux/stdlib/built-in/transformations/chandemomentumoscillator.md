@@ -15,6 +15,7 @@ menu:
 weight: 402
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
+introduced: 0.39.0
 ---
 
 The `chandeMomentumOscillator()` function applies the technical momentum indicator
@@ -101,7 +102,8 @@ with `x - n` rows.
 
 ###### Output table
 | _time | _value |
-|:-----:|:------:|
+|:introduced: 0.39.0
+-----:|:------:|
 | 0011  | 100    |
 | 0012  | 100    |
 | 0013  | 100    |

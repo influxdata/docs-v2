@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterRows/
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/toRows/
   - /influxdb/v2.0/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The `geo.strictFilter()` function filters data by latitude and longitude in a specified region.

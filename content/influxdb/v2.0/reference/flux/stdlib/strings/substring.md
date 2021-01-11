@@ -12,6 +12,7 @@ menu:
     name: strings.substring
     parent: Strings
 weight: 301
+introduced: 0.35.0
 ---
 
 The `strings.substring()` function returns a substring based on `start` and `end` parameters.

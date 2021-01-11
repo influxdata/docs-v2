@@ -10,6 +10,7 @@ menu:
     name: json.parse
     parent: JSON-exp
 weight: 401
+introduced: 0.69.0
 ---
 
 The `json.parse()` function takes JSON data as bytes and returns a value.

@@ -11,6 +11,7 @@ menu:
     name: lowestAverage
     parent: built-in-selectors
 weight: 501
+introduced: 0.7.0
 ---
 
 The `lowestAverage()` function calculates the average of each table in the input stream returns the lowest `n` records.

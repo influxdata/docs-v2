@@ -12,6 +12,7 @@ menu:
     name: regexp.splitRegexp
     parent: Regular expressions
 weight: 301
+introduced: 0.33.7
 ---
 
 The `regexp.splitRegexp()` function splits a string into substrings separated by

@@ -14,6 +14,7 @@ menu:
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/regexp/compile
+introduced: 0.33.2
 ---
 
 The `regexp.findStringIndex()` function returns a two-element array of integers defining

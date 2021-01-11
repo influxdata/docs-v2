@@ -12,6 +12,7 @@ menu:
     name: strings.strlen
     parent: Strings
 weight: 301
+introduced: 0.35.0
 ---
 
 The `strings.strlen()` function returns the length of a string.

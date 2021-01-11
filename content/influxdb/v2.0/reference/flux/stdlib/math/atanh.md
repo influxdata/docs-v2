@@ -10,6 +10,7 @@ menu:
     name: math.atanh
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.atanh()` function returns the inverse hyperbolic tangent of `x`.

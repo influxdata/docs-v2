@@ -14,6 +14,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/scalar-values/
+introduced: 0.29.0
 ---
 
 The `getRecord()` function extracts a record from a table given the record's index.

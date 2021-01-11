@@ -12,6 +12,7 @@ menu:
     name: date.yearDay
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.yearDay()` function returns the day of the year for a specified time.

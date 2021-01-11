@@ -12,6 +12,7 @@ menu:
     name: math.log1p
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.log1p()` function returns the natural logarithm of 1 plus its argument `x`.

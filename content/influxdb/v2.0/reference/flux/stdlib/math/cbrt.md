@@ -10,6 +10,7 @@ menu:
     name: math.cbrt
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.cbrt()` function returns the cube root of `x`.

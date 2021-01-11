@@ -12,6 +12,7 @@ menu:
     name: pearsonr
     parent: built-in-transformations
 weight: 402
+introduced: 0.7.0
 ---
 
 The `pearsonr()` function computes the Pearson R correlation coefficient between two streams

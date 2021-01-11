@@ -14,6 +14,7 @@ weight: 401
 influxdb/v2.0/tags: [functions, geo, GIS]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The `geo.ST_Intersects()` function tests if the specified geographic information

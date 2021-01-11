@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/index/
   - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
+introduced: 0.18.0
 ---
 
 The `strings.lastIndex()` function returns the index of the last instance of a substring

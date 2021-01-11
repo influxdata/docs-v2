@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
+introduced: 0.7.0
 ---
 
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.

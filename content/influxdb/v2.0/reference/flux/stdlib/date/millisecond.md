@@ -12,6 +12,7 @@ menu:
     name: date.millisecond
     parent: Date
 weight: 301
+introduced: 0.37.0
 ---
 
 The `date.millisecond()` function returns the millisecond of a specified time.

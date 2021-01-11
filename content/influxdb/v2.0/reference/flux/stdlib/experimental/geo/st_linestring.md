@@ -14,6 +14,7 @@ weight: 401
 influxdb/v2.0/tags: [functions, geo, GIS]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The `geo.ST_LineString()` function converts a series of geographic points into
@@ -53,7 +54,8 @@ data
 ##### Output data
 
 | id    | st_linestring                                       |
-|:--    |:-------------                                       |
+|:--    |:introduced: 0.63.0
+-------------                                       |
 | a213b | 39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433 |
 
 ## Function definition

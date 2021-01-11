@@ -12,6 +12,7 @@ menu:
 weight: 401
 related:
   - /influxdb/v2.0/reference/flux/stdlib/system/time/
+introduced: 0.7.0
 ---
 
 The `now()` function returns the current time (UTC) or the time defined in the `now` option.

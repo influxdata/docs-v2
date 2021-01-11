@@ -10,6 +10,7 @@ menu:
     name: math.erfinv
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.erfinv()` function returns the inverse error function of `x`.

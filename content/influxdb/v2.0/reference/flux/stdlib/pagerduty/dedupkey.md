@@ -12,6 +12,7 @@ menu:
     name: pagerduty.dedupKey
     parent: PagerDuty
 weight: 202
+introduced: 0.43.0
 ---
 
 The `pagerduty.dedupKey()` function uses the group key of an input table to

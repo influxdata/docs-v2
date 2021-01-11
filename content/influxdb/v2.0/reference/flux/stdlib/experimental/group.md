@@ -13,6 +13,7 @@ menu:
 weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
+introduced: 0.39.0
 ---
 
 The `experimental.group()` function introduces an `extend` mode to the existing

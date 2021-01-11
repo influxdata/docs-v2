@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
   - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
+introduced: 0.18.0
 ---
 
 The `strings.index()` function returns the index of the first instance of a substring

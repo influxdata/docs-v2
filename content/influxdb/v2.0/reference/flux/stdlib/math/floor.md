@@ -10,6 +10,7 @@ menu:
     name: math.floor
     parent: Math
 weight: 301
+introduced: 0.22.0
 ---
 
 The `math.floor()` function returns the greatest integer value less than or equal to `x`.

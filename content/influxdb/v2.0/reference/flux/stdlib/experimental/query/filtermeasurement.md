@@ -10,6 +10,7 @@ menu:
     name: query.filterMeasurement
     parent: Query
 weight: 401
+introduced: 0.60.0
 ---
 
 The `query.filterMeasurement()` function filters input data by measurement.

@@ -12,6 +12,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
+introduced: 0.36.0
 ---
 
 The `elapsed()` function returns the time between subsequent records.

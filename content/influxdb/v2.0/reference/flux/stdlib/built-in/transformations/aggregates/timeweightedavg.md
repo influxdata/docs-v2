@@ -11,6 +11,7 @@ menu:
 weight: 501
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/
+introduced: 0.83.0
 ---
 
 The `timeWeightedAvg()` function outputs the time-weighted average of non-null records

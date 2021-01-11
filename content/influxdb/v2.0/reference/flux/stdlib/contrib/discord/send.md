@@ -11,6 +11,7 @@ menu:
     name: discord.send
     parent: Discord
 weight: 202
+introduced: 0.69.0
 ---
 
 The `discord.send()` function sends a single message to a Discord channel using

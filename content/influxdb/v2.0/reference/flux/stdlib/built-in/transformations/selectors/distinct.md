@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
+introduced: 0.7.0
 ---
 
 The `distinct()` function returns the unique values for a given column.

@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sum, InfluxQL – SUM()
+introduced: 0.7.0
 ---
 
 The `sum()` function computes the sum of non-null records in a specified column.

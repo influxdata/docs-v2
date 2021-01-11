@@ -12,6 +12,7 @@ menu:
 weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
+introduced: 0.40.0
 ---
 
 The `experimental.set()` function sets multiple static column values on all records.
@@ -67,7 +68,8 @@ data
 
 ##### Example output table
 | _time                | _field      | _value | unit | location      |
-|:-----                |:------      | ------:|:----:| --------      |
+|:introduced: 0.40.0
+-----                |:------      | ------:|:----:| --------      |
 | 2019-09-16T12:00:00Z | temperature | 71.2   | °F   | San Francisco |
 | 2019-09-17T12:00:00Z | temperature | 68.4   | °F   | San Francisco |
 | 2019-09-18T12:00:00Z | temperature | 70.8   | °F   | San Francisco |

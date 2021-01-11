@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#max, InfluxQL – MAX()
+introduced: 0.7.0
 ---
 
 The `max()` function selects record with the highest `_value` from the input table.

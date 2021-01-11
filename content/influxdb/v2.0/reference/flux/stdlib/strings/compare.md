@@ -10,6 +10,7 @@ menu:
     name: strings.compare
     parent: Strings
 weight: 301
+introduced: 0.18.0
 ---
 
 The `strings.compare()` function compares the lexicographical order of two strings.
