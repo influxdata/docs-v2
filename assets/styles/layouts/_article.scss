@@ -22,10 +22,22 @@
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
+  .title {
+    margin-bottom: 2.65rem;
+    .meta {
+      padding: 0 .65em 0 .75em;
+      color: $article-heading;
+      background: rgba($article-heading, .07);
+      font-size: .9rem;
+      font-weight: $medium;
+      border-radius: 1em;
+      display: inline-block;
+    }
+  }
   h1 {
     font-weight: normal;
     font-size: 2.65rem;
-    margin: .4em 0 1em;
+    margin: .4em 0 .2em;
   }
   h2 {
     font-size: 2rem;
@@ -180,7 +192,10 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    h1 { margin: .35rem 0 2rem; font-size: 2.4rem; }
+    .title {
+      margin-bottom: 2rem;
+      h1 { margin: .35em 0 .2em; font-size: 2.4rem; }
+    }
     h2 { font-size: 1.9rem; }
     h3 { font-size: 1.55rem; }
     h4 { font-size: 1.3rem; }
