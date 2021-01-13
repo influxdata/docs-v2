@@ -22,7 +22,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 - Add durations to Flux logging, including log compilation, execution, and total request duration.
 - Properly format JSON marshalling errors.
 - Close all `net.Listener` instances silently on error.
-- `regexp` handling complies with Prometheus Query Language (PromQL).
+- `regexp` handling in the prometheus converter complies with Prometheus Query Language (PromQL).
 - GROUP BY queries now correctly set the interval start time before calculating the time-zone offset.
 
 ## v1.8.3 [2020-09-30]
