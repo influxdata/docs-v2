@@ -10,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/pagerduty/
 menu:
   flux_0_x_ref:
-    name: PagerDuty
+    name: pagerduty
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [functions, pagerduty, package]
 ---
 

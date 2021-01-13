@@ -1,6 +1,6 @@
 ---
 title: Flux Aggregate package
-list_title: Aggregate package
+list_title: aggregate package
 description: >
   The Flux Aggregate package provides functions to simplify common aggregate operations.
   Import the `experimental/aggregate` package.
@@ -9,8 +9,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/
 menu:
   flux_0_x_ref:
-    name: Aggregate
-    parent: Experimental
+    name: aggregate
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [package]
 ---

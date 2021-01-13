@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: aggregate.rate
-    parent: Aggregate
+    parent: aggregate
 weight: 301
 related:
   - /influxdb/v2.0/query-data/flux/rate/

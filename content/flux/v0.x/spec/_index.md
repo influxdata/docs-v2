@@ -6,7 +6,7 @@ description: >
 menu:
   flux_0_x_ref:
     name: Flux specification
-weight: 13
+weight: 2
 aliases:
   - /influxdb/v2.0/reference/flux/language/
   - /influxdb/cloud/reference/flux/language/

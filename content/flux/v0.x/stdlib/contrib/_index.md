@@ -8,9 +8,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/contrib/
 menu:
   flux_0_x_ref:
-    name: Contributed
+    name: contrib
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [contributed, functions, package]
 ---
 

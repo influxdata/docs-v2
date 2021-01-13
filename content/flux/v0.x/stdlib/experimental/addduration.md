@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: experimental.addDuration
-    parent: Experimental
+    parent: experimental
 weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/

@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: query.inBucket
-    parent: Query
+    parent: query
 weight: 401
 introduced: 0.60.0
 ---

@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: regexp.splitRegexp
-    parent: Regular expressions
+    parent: regexp
 weight: 301
 introduced: 0.33.7
 ---

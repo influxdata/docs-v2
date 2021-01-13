@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.get
-    parent: HTTP-exp
+    parent: http-exp
 weight: 401
 introduced: 0.39.0
 ---

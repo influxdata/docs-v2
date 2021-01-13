@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.trimRight
-    parent: Strings
+    parent: strings
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/trim

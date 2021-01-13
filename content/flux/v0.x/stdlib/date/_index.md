@@ -11,9 +11,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/date/
 menu:
   flux_0_x_ref:
-    name: Date
+    name: date
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [date, time, functions]
 ---
 

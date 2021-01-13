@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: math.modf
-    parent: Math
+    parent: math
 weight: 301
 introduced: 0.22.0
 ---

@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: experimental.alignTime
-    parent: Experimental
+    parent: experimental
 weight: 302
 introduced: 0.66.0
 ---

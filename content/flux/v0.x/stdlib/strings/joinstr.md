@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.joinStr
-    parent: Strings
+    parent: strings
 weight: 301
 introduced: 0.18.0
 ---

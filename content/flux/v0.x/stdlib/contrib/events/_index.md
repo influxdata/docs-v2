@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: Events
-    parent: Contributed
+    parent: contrib
     identifier: contrib-events
 weight: 202
 flux/v0.x/tags: [functions, events, package]

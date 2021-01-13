@@ -1,6 +1,6 @@
 ---
 title: Flux Query package
-list_title: Query package
+list_title: query package
 description: >
   The Flux Query package provides functions meant to simplify common InfluxDB queries.
   Import the `experimental/query` package.
@@ -9,8 +9,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/query/
 menu:
   flux_0_x_ref:
-    name: Query
-    parent: Experimental
+    name: query
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [package]
 ---

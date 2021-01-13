@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: slack.message
-    parent: Slack
+    parent: slack
 weight: 202
 introduced: 0.41.0
 ---

@@ -12,7 +12,7 @@ menu:
   flux_0_x_ref:
     name: Built-in
     parent: Standard library
-weight: 201
+weight: 11
 flux/v0.x/tags: [built-in, functions, package]
 ---
 

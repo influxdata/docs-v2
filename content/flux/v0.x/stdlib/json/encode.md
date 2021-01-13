@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: json.encode
-    parent: JSON
+    parent: json
 weight: 202
 introduced: 0.40.0
 ---

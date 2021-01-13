@@ -9,9 +9,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/profiler/
 menu:
   flux_0_x_ref:
-    name: Profiler
+    name: profiler
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [functions, optimize, package]
 related:
   - /influxdb/v2.0/query-data/optimize-queries/

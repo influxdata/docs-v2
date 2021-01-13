@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: geo.groupByArea
-    parent: Geo
+    parent: geo
 weight: 401
 flux/v0.x/tags: [functions, geo]
 related:

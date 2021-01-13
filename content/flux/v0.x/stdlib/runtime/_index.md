@@ -10,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/runtime/
 menu:
   flux_0_x_ref:
-    name: Runtime
+    name: runtime
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [runtime, functions, package]
 ---
 

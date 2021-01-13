@@ -11,7 +11,7 @@ menu:
   flux_0_x_ref:
     name: InfluxDB
     identifier: contrib_influxdb
-    parent: Contributed
+    parent: contrib
 weight: 202
 flux/v0.x/tags: [functions, package, query]
 ---

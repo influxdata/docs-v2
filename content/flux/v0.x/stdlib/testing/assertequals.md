@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: testing.assertEquals
-    parent: Testing
+    parent: testing
 weight: 301
 introduced: 0.14.0
 ---

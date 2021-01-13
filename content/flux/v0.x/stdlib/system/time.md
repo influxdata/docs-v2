@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: system.time
-    parent: System
+    parent: system
 weight: 401
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/

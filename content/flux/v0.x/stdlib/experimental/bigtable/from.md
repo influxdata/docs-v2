@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: bigtable.from
-    parent: Bigtable
+    parent: bigtable
 weight: 401
 introduced: 0.45.0
 ---

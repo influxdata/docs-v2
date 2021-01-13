@@ -1,6 +1,6 @@
 ---
 title: Flux Array package
-list_title: Array package
+list_title: array package
 description: >
   The Flux Array package provides functions for building tables from Flux arrays.
   Import the `experimental/array` package.
@@ -9,8 +9,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/array/
 menu:
   flux_0_x_ref:
-    name: Array
-    parent: Experimental
+    name: array
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, array, package, table]
 ---

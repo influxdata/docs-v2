@@ -5,7 +5,7 @@ menu:
   flux_0_x_ref:
     name: influxdata
     parent: Standard library
-weight: 102
+weight: 11
 ---
 
 The `influxdata` package provides tools for working with InfluxData projects.

@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: regexp.findStringIndex
-    parent: Regular expressions
+    parent: regexp
 weight: 301
 related:
   - /influxdb/v2.0/reference/flux/stdlib/regexp/compile

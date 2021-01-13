@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: prometheus.scrape
-    parent: Prometheus
+    parent: prometheus
 weight: 401
 related:
   - /influxdb/v2.0/write-data/no-code/scrape-data//scrapable-endpoints/

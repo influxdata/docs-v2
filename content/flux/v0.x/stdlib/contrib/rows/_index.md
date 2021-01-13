@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: Rows
-    parent: Contributed
+    parent: contrib
 weight: 202
 flux/v0.x/tags: [functions, package]
 ---

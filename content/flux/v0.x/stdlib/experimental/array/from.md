@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: array.from
-    parent: Array
+    parent: array
 weight: 401
 introduced: 0.79.0
 ---

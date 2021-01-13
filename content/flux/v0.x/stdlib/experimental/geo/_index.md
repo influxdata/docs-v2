@@ -1,6 +1,6 @@
 ---
 title: Flux Geo package
-list_title: Geo package
+list_title: geo package
 description: >
   The Flux Geo package provides tools for working with geo-temporal data,
   such as filtering and grouping by geographic location.
@@ -10,8 +10,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/
 menu:
   flux_0_x_ref:
-    name: Geo
-    parent: Experimental
+    name: geo
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, package, geo]
 related:

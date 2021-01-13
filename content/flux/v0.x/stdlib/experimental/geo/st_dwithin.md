@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: geo.ST_DWithin
-    parent: Geo
+    parent: geo
 weight: 401
 flux/v0.x/tags: [functions, geo, GIS]
 related:

@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: json.parse
-    parent: JSON-exp
+    parent: json-exp
 weight: 401
 introduced: 0.69.0
 ---

@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: pagerduty.severityFromLevel
-    parent: PagerDuty
+    parent: pagerduty
 weight: 202
 introduced: 0.43.0
 ---

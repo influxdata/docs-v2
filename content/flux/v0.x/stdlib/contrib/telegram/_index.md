@@ -11,7 +11,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: Telegram
-    parent: Contributed
+    parent: contrib
 weight: 202
 v2.0/tags: [functions, teams, telegram, package]
 ---

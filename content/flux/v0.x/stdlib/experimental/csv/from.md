@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: csv.from *
-    parent: CSV-exp
+    parent: csv-exp
 weight: 401
 introduced: 0.64.0
 ---

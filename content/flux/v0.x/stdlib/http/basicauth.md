@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.basicAuth
-    parent: HTTP
+    parent: http
 weight: 202
 introduced: 0.44.0
 ---

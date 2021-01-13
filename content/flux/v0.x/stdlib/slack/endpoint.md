@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: slack.endpoint
-    parent: Slack
+    parent: slack
 weight: 202
 flux/v0.x/tags: [endpoints]
 introduced: 0.41.0

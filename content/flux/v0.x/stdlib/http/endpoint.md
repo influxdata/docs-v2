@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.endpoint
-    parent: HTTP
+    parent: http
 weight: 202
 flux/v0.x/tags: [endpoints]
 introduced: 0.39.0

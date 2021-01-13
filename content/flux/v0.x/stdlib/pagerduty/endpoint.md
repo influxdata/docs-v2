@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: pagerduty.endpoint
-    parent: PagerDuty
+    parent: pagerduty
 weight: 202
 flux/v0.x/tags: [endpoints]
 introduced: 0.43.0
