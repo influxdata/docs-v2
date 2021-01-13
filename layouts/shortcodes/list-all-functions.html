@@ -1,4 +1,4 @@
-{{ $section := "influxdb" }}
+{{ $section := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
 {{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
 
 <ul>
