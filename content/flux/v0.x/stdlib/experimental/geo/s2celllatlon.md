@@ -11,7 +11,7 @@ menu:
     name: geo.s2CellLatLon
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo]
+flux/v0.x/tags: [functions, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
 introduced: 0.63.0

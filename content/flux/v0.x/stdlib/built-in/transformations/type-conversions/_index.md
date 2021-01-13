@@ -13,7 +13,7 @@ menu:
     name: Type conversions
     identifier: built-in-type-conversions
 weight: 401
-influxdb/v2.0/tags: [type-conversions, built-in, functions]
+flux/v0.x/tags: [type-conversions, built-in, functions]
 ---
 
 Flux's built-in type conversion functions convert columns of the input table into a specific data type.

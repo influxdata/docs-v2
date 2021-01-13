@@ -12,7 +12,7 @@ menu:
     name: MQTT
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, mqtt, package]
+flux/v0.x/tags: [functions, mqtt, package]
 ---
 
 Flux MQTT functions provide tools for working with Message Queuing Telemetry Transport (MQTT) protocol.

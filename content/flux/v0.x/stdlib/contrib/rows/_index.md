@@ -12,7 +12,7 @@ menu:
     name: Rows
     parent: Contributed
 weight: 202
-influxdb/v2.0/tags: [functions, package]
+flux/v0.x/tags: [functions, package]
 ---
 
 The Flux Rows package provides additional functions for remapping values in rows.

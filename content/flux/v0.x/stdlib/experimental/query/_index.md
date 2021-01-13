@@ -12,7 +12,7 @@ menu:
     name: Query
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [package]
+flux/v0.x/tags: [package]
 ---
 
 Flux Query functions provide functions meant to simplify common InfluxDB queries.

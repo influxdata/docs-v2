@@ -259,6 +259,4 @@ This query will return the five data points with the highest user CPU usage over
 
 _More information about creating custom functions is available in the [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) documentation._
 
-<div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
-</div>
+{{< page-nav prev="/influxdb/v2.0/query-data/get-started/transform-data/" >}}

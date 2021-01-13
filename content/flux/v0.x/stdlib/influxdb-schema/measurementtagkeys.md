@@ -10,7 +10,7 @@ menu:
     name: schema.measurementTagKeys
     parent: InfluxDB Schema
 weight: 301
-influxdb/v2.0/tags: [tags]
+flux/v0.x/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL

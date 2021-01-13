@@ -6,6 +6,7 @@ description: >
 menu:
   flux_0_x:
     name: Flux 0.x
+weight: 1
 ---
 
 Flux is a open source functional data scripting language designed for querying, analyzing, and acting on data.

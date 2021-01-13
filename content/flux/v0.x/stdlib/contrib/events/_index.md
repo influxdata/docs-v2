@@ -13,7 +13,7 @@ menu:
     parent: Contributed
     identifier: contrib-events
 weight: 202
-influxdb/v2.0/tags: [functions, events, package]
+flux/v0.x/tags: [functions, events, package]
 ---
 
 The Flux Events package provides tools for analyzing event-based data.

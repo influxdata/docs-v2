@@ -15,7 +15,7 @@ menu:
     name: Aggregates
     identifier: built-in-aggregates
 weight: 401
-influxdb/v2.0/tags: [aggregates, built-in, functions]
+flux/v0.x/tags: [aggregates, built-in, functions]
 related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
 ---

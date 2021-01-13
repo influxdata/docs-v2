@@ -13,7 +13,7 @@ menu:
     name: Regular expressions
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [regex, functions]
+flux/v0.x/tags: [regex, functions]
 ---
 
 The Flux regular expressions package includes functions that provide enhanced

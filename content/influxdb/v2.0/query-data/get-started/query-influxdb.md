@@ -130,8 +130,4 @@ You have now queried data from InfluxDB using Flux.
 The query shown here is a barebones example.
 Flux queries can be extended in many ways to form powerful scripts.
 
-
-<div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
-</div>
+{{< page-nav prev="/influxdb/v2.0/query-data/get-started/" next="/influxdb/v2.0/query-data/get-started/transform-data/" >}}

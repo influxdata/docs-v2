@@ -12,7 +12,7 @@ menu:
     name: Dictionary
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [package, functions]
+flux/v0.x/tags: [package, functions]
 ---
 
 The Flux dictionary package provides functions for interacting with [dictionary types](/influxdb/v2.0/reference/flux/language/types/#dictionary-types).

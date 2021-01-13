@@ -13,7 +13,7 @@ menu:
     name: Outputs
     identifier: built-in-outputs
 weight: 302
-influxdb/v2.0/tags: [outputs, built-in, functions]
+flux/v0.x/tags: [outputs, built-in, functions]
 ---
 
 Flux's built-in output functions yield results or send data to a specified output destination.

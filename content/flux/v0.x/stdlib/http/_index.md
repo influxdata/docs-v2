@@ -13,7 +13,7 @@ menu:
     name: HTTP
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, http, package]
+flux/v0.x/tags: [functions, http, package]
 ---
 
 The Flux HTTP package provides functions for transferring data using the HTTP protocol.

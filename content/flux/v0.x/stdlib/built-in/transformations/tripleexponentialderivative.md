@@ -13,7 +13,7 @@ menu:
     name: tripleExponentialDerivative
     parent: built-in-transformations
 weight: 402
-influxdb/v2.0/tags: [technical analysis]
+flux/v0.x/tags: [technical analysis]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/

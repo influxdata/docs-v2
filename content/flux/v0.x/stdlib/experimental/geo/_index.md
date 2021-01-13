@@ -13,7 +13,7 @@ menu:
     name: Geo
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, package, geo]
+flux/v0.x/tags: [functions, package, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
 ---

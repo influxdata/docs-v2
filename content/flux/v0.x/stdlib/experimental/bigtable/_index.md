@@ -12,7 +12,7 @@ menu:
     name: Bigtable
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, bigtable, package, google]
+flux/v0.x/tags: [functions, bigtable, package, google]
 ---
 
 The Flux Bigtable package provides tools for working with data in

@@ -12,7 +12,7 @@ menu:
     name: Aggregate
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [package]
+flux/v0.x/tags: [package]
 ---
 
 The Flux Aggregate package provides functions to simplify common aggregate operations.

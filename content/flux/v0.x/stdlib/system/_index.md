@@ -13,7 +13,7 @@ menu:
     name: System
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [system, functions, package]
+flux/v0.x/tags: [system, functions, package]
 ---
 
 The Flux system package provides functions for reading values from the system.

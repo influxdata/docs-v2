@@ -13,7 +13,7 @@ menu:
     identifier: influxdb-pkg
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, package]
+flux/v0.x/tags: [functions, package]
 ---
 
 The Flux InfluxDB package provides functions for analyzing InfluxDB metadata.

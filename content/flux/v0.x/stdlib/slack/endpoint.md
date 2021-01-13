@@ -11,7 +11,7 @@ menu:
     name: slack.endpoint
     parent: Slack
 weight: 202
-influxdb/v2.0/tags: [endpoints]
+flux/v0.x/tags: [endpoints]
 introduced: 0.41.0
 ---
 

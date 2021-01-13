@@ -14,7 +14,7 @@ menu:
   flux_0_x_ref:
     name: Stream & table
     parent: built-in-transformations
-influxdb/v2.0/tags: [transformations, built-in, functions, stream, table]
+flux/v0.x/tags: [transformations, built-in, functions, stream, table]
 related:
   - /influxdb/v2.0/query-data/flux/scalar-values/
 ---

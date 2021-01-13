@@ -13,7 +13,7 @@ menu:
     name: InfluxDB Schema
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, schema, package]
+flux/v0.x/tags: [functions, schema, package]
 ---
 
 The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.

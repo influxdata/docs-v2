@@ -86,7 +86,4 @@ are unique to each row.
 The [Execute queries](/influxdb/v2.0/query-data/execute-queries) guide walks through
 the different tools available for querying InfluxDB with Flux.
 
-<div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/">Introduction to Flux</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB with Flux</a>
-</div>
+{{< page-nav next="/influxdb/v2.0/query-data/get-started/query-influxdb/" >}}

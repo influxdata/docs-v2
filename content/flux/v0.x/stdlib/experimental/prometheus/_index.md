@@ -12,7 +12,7 @@ menu:
     name: Prometheus
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, prometheus, package]
+flux/v0.x/tags: [functions, prometheus, package]
 ---
 
 Flux Prometheus functions provide tools for working with

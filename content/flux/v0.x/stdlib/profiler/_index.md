@@ -12,7 +12,7 @@ menu:
     name: Profiler
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, optimize, package]
+flux/v0.x/tags: [functions, optimize, package]
 related:
   - /influxdb/v2.0/query-data/optimize-queries/
 introduced: 0.82.0

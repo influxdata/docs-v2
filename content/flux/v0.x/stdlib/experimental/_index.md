@@ -12,7 +12,7 @@ menu:
     name: Experimental
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, experimental, package]
+flux/v0.x/tags: [functions, experimental, package]
 ---
 
 The Flux Experimental package includes experimental functions that perform various tasks.

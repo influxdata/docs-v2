@@ -13,7 +13,7 @@ menu:
     name: Runtime
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [runtime, functions, package]
+flux/v0.x/tags: [runtime, functions, package]
 ---
 
 The Flux runtime package includes functions that provide information about the

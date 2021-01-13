@@ -13,7 +13,7 @@ menu:
     name: Selectors
     identifier: built-in-selectors
 weight: 401
-influxdb/v2.0/tags: [selectors, built-in, functions]
+flux/v0.x/tags: [selectors, built-in, functions]
 related:
   - /influxdb/v2.0/query-data/flux/window-aggregate/
 ---

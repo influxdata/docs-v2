@@ -12,7 +12,7 @@ menu:
     name: events.duration
     parent: contrib-events
 weight: 301
-influxdb/v2.0/tags: [functions, events, package]
+flux/v0.x/tags: [functions, events, package]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/elapsed/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/

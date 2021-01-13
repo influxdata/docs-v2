@@ -11,7 +11,7 @@ menu:
     name: pagerduty.endpoint
     parent: PagerDuty
 weight: 202
-influxdb/v2.0/tags: [endpoints]
+flux/v0.x/tags: [endpoints]
 introduced: 0.43.0
 ---
 

@@ -13,7 +13,7 @@ menu:
     name: InfluxDB Secrets
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, secrets, package]
+flux/v0.x/tags: [functions, secrets, package]
 ---
 
 InfluxDB Secrets Flux functions provide tools for working with sensitive secrets managed by InfluxDB.

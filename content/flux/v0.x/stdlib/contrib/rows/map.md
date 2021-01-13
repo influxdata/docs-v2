@@ -11,7 +11,7 @@ menu:
     name: rows.map
     parent: Rows
 weight: 202
-influxdb/v2.0/tags: [functions, package, map]
+flux/v0.x/tags: [functions, package, map]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
 introduced: 0.77.0

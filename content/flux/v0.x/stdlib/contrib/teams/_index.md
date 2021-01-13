@@ -14,7 +14,7 @@ menu:
     name: Teams
     parent: Contributed
 weight: 202
-influxdb/v2.0/tags: [functions, teams, microsoft, package]
+flux/v0.x/tags: [functions, teams, microsoft, package]
 ---
 
 The Flux Microsoft Teams package provides functions for sending messages to a

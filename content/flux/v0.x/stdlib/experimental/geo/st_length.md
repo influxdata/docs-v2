@@ -11,7 +11,7 @@ menu:
     name: geo.ST_Length
     parent: Geo
 weight: 401
-influxdb/v2.0/tags: [functions, geo, GIS]
+flux/v0.x/tags: [functions, geo, GIS]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
 introduced: 0.63.0

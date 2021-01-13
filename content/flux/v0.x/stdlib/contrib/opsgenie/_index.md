@@ -14,7 +14,7 @@ menu:
     name: Opsgenie
     parent: Contributed
 weight: 202
-influxdb/v2.0/tags: [functions, opsgenie, package]
+flux/v0.x/tags: [functions, opsgenie, package]
 ---
 
 The Flux Opsgenie package provides functions that send alerts to

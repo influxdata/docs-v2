@@ -14,7 +14,7 @@ menu:
     name: Date
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [date, time, functions]
+flux/v0.x/tags: [date, time, functions]
 ---
 
 The Flux date package provides date and time constants and functions.

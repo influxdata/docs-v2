@@ -13,7 +13,7 @@ menu:
     name: PagerDuty
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, pagerduty, package]
+flux/v0.x/tags: [functions, pagerduty, package]
 ---
 
 The Flux PagerDuty package provides functions for sending data to PagerDuty.

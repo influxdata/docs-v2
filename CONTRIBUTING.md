@@ -410,6 +410,28 @@ a "* Required" key before the list. For required elements in the list, include
 - **This element is NOT required**
 ```
 
+### Page navigation buttons
+Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
+These are useful for guiding users through a set of docs that should be read in sequential order.
+The shortcode has the following parameters:
+
+- **prev:** path of the previous document _(optional)_
+- **next:** path of the next document _(optional)_
+- **prevText:** override the button text linking to the previous document _(optional)_
+- **nextText:** override the button text linking to the next document _(optional)_
+
+The shortcode generates buttons that link to both the previous and next documents.
+By default, the shortcode uses either the `list_title` or the `title` of the linked
+document, but you can use `prevText` and `nextText` to override button text.
+
+```md
+<!-- Simple example -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
+
+<!-- Override button text -->
+{{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+```
+
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
 The following parameters are available:

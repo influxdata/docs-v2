@@ -13,7 +13,7 @@ menu:
     name: Testing
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [testing, functions, package]
+flux/v0.x/tags: [testing, functions, package]
 ---
 
 Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.

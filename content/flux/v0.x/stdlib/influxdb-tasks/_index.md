@@ -14,7 +14,7 @@ menu:
     name: InfluxDB Tasks
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, tasks, package]
+flux/v0.x/tags: [functions, tasks, package]
 related:
   - /influxdb/v2.0/process-data/get-started/
 ---

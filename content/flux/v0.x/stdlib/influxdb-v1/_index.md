@@ -14,7 +14,7 @@ menu:
     name: InfluxDB v1
     parent: Standard library
 weight: 202
-influxdb/v2.0/tags: [functions, influxdb-v1, package]
+flux/v0.x/tags: [functions, influxdb-v1, package]
 ---
 
 InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x
