@@ -355,14 +355,14 @@ The second and third arguments must return the same type.
 Example:
 
 ```js
-|eval(lambda: if("field" > threshold AND "field" != 0, 'true', 'false'))
+|eval(lambda: if("field" > threshold AND "field" != 0, 'high', 'normal'))
     .as('value')
 ```
 
-The value of the field `value` in the above example will be the string `true` or `false`, depending on the condition passed as the first argument.
+The value of the field `value` in the above example will be the string `high` or `normal`,
+depending on the condition passed as the first argument.
 
 The `if` function's return type is the same type as its second and third arguments.
-
 
 ```js
 if(condition, true expression, false expression)
