@@ -70,8 +70,7 @@ Given the following input table:
 `increase()` produces the following table:
 
 | _time | _value |
-| introduced: 0.71.0
------ | ------ |
+| ----- | ------ |
 | 00002 | 4      |
 | 00003 | 4      |
 | 00004 | 5      |

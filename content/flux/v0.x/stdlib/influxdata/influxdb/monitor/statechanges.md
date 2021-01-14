@@ -75,8 +75,7 @@ monitor.stateChanges(
 ```
 
 | _time | _level |
-|:introduced: 0.42.0
------ |:------:|
+|:----- |:------:|
 | 0004  | crit   |
 {{% /flex-content %}}
 {{< /flex >}}

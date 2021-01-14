@@ -54,8 +54,7 @@ and values are stored in single columns with the **field key** as the **column n
 the **field value** as the **column value**.
 
 | _time     | _measurement     | field_key   |
-| introduced: 0.40.0
------     | ------------     | ---------   |
+| -----     | ------------     | ---------   |
 | timestamp | measurement-name | field value |
 
 If using the built-in `from()` function, use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)

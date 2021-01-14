@@ -28,18 +28,18 @@ import "influxdata/influxdb/tasks"
 ```
 
 ## Options
-The InfluxDB Tasks package provides the following options:
-
-#### lastSuccessTime
-Define the time of the last successful task run.
-_Only use this option to override the time of the last successful run provided by
-the InfluxDB task engine._
+The `influxdata/influxdb/tasks` package provides the following options:
 
 ```js
 import "influxdata/influxdb/tasks"
 
 option tasks.lastSuccessTime = 0000-01-01T00:00:00Z
 ```
+
+#### lastSuccessTime
+Define the time of the last successful task run.
+_Only use this option to override the time of the last successful run provided by
+the InfluxDB task engine._
 
 ## Functions
 

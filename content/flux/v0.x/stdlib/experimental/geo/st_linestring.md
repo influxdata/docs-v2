@@ -54,8 +54,7 @@ data
 ##### Output data
 
 | id    | st_linestring                                       |
-|:--    |:introduced: 0.63.0
--------------                                       |
+|:--    |:-------------                                       |
 | a213b | 39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433 |
 
 ## Function definition

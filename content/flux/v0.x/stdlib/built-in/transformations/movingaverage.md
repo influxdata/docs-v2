@@ -71,7 +71,6 @@ from(bucket: "example-bucket"):
 
 ###### Output table:
 | _time | tag | _value |
-|:introduced: 0.35.0
------:|:---:|:------:|
+|:-----:|:---:|:------:|
 | 0002  | tv  | 6      |
 | 0003  | tv  | 5      |

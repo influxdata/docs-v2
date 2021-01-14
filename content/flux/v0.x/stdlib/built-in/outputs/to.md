@@ -156,8 +156,7 @@ _measurement=a temp=99.9 0007
 The `to()` functions default operation can be overridden. For example, given the following table:
 
 | _time | _start | _stop | tag1 | tag2 | hum  | temp  |
-| introduced: 0.7.0
------ | ------ | ----- | ---- | ---- | ---- | ----- |
+| ----- | ------ | ----- | ---- | ---- | ---- | ----- |
 | 0005  | 0000   | 0009  | "a"  | "b"  | 55.3 | 100.1 |
 | 0006  | 0000   | 0009  | "a"  | "b"  | 55.4 | 99.3  |
 | 0007  | 0000   | 0009  | "a"  | "b"  | 55.5 | 99.9  |

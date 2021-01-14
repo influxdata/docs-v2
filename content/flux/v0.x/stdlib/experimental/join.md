@@ -76,8 +76,7 @@ _**Data type:** Function_
 {{% flex-content %}}
 ##### right
 | _time | _field | _value |
-|:introduced: 0.65.0
------ |:------:| ------:|
+|:----- |:------:| ------:|
 | 0001  | temp   | 72.1   |
 | 0002  | temp   | 72.2   |
 | 0003  | temp   | 71.9   |
@@ -109,7 +108,6 @@ experimental.join(
 | 0003  | temp   | 79.9 | 71.9 | 8.0  |
 | 0004  | temp   | 80.0 | 72.0 | 8.0  |
 
-introduced: 0.65.0
 ---
 
 ###### Join two streams of tables

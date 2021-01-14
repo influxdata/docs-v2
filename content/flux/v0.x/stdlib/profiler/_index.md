@@ -26,20 +26,18 @@ import "profiler"
 ```
 
 ## Options
-The Profiler package includes the following options:
-
-### enabledProfilers
-Enable Flux profilers.
-
-_**Data type:** Array of strings_
+The `profiler` package includes the following options:
 
 ```js
 import "profiler"
 
 option profiler.enabledProfilers = ["query", "operator"]
-
-// Query to profile
 ```
+
+### enabledProfilers
+Enable Flux profilers.
+
+_**Data type:** Array of strings_
 
 ## Available profilers
 - [query](#query)

@@ -91,8 +91,7 @@ from(bucket: "example-bucket")
 ```
 ###### Output table
 | _time | _value | tag |
-|:introduced: 0.7.1
------:|:------:|:---:|
+|:-----:|:------:|:---:|
 | 0002  | null   | tv  |
 | 0003  | -2     | tv  |
 | 0004  | 6      | tv  |
@@ -117,8 +116,7 @@ from(bucket: "example-bucket")
 ```
 ###### Output table
 | _time | _value | tag |
-|:introduced: 0.7.1
------:|:------:|:---:|
+|:-----:|:------:|:---:|
 | 0001  | null   | tv  |
 | 0002  | null   | tv  |
 | 0003  | -2     | tv  |

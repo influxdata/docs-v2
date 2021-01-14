@@ -51,8 +51,7 @@ monitor.from(start: -1h)
 **`monitor.stateChangesOnly()` outputs:**
 
 | _time | _level |
-|:introduced: 0.65.0
------ |:------:|
+|:----- |:------:|
 | 0002  | ok     |
 | 0003  | warn   |
 | 0004  | crit   |

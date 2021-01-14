@@ -102,8 +102,7 @@ Given the following two streams of data:
 ##### NY_Temp**  
 
 | _time  | _field | _value  |
-| introduced: 0.7.0
------- |:------:| -------:|
+| ------ |:------:| -------:|
 | 0001	 | "temp" | 55      |
 | 0002	 | "temp" | 56      |
 | 0003	 | "temp" | 55      |
