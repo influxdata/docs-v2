@@ -32,7 +32,7 @@ on restart as long as the contents of `/var/lib/kapacitor/` remain intact.
 #### InfluxDB user must have admin privileges
 The InfluxDB user used to create subscriptions for Kapacitor must have
 [admin privileges](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users).
-Configure which InfluxDB user to use with the [`[influxdb].username` setting](/kapacitor/v1.5/administration/configuration/#influxdb)
+Configure the InfluxDB user to use with the [`[influxdb].username` setting](/kapacitor/v1.5/administration/configuration/#influxdb)
 in your Kapacitor configuration file.
 {{% /note %}}
 
