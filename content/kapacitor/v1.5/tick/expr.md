@@ -10,8 +10,6 @@ menu:
     parent: tick
 ---
 
-# Overview
-
 TICKscript uses lambda expressions  to define transformations on data points as
 well as define Boolean conditions that act as filters.  Lambda expressions wrap
 mathematical operations, Boolean operations, internal function calls or a
@@ -102,7 +100,7 @@ of the same and the desired type.
 In short, to ensure that the type of a field value is correct, use the built-in
 type conversion functions (see [below](#above-header-type-conversion)).
 
-# Built-in functions
+## Built-in functions
 
 ### Stateful functions
 

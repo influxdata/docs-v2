@@ -106,7 +106,7 @@ options:
 Use the Kapacitor CLI to define a new handler with a handler file:
 
 ```bash
-# Pattern
+# Syntax
 kapacitor define-topic-handler <handler-file-name>
 
 # Example
