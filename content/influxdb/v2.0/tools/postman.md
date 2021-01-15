@@ -40,10 +40,9 @@ Use the **Authorization** tab in Postman to include the credentials required whe
 5. Ensure that the **Add to** option is set to **Header**.
 
 #### Test authentication credentials
-To test the authentication, enter the `/health` endpoint of an InfluxDB OSS or
-InfluxDB Cloud instance into the address bar and click **Send**.
+To test the authentication, enter the root endpoint of an InfluxDB OSS instance URL and click **Send**.
 
 ###### InfluxDB API health endpoint
 ```sh
-http://localhost:8086/api/v2/health
+http://localhost:8086/api/v2/
 ```
