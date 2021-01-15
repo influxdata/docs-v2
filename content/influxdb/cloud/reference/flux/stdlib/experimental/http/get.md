@@ -76,7 +76,7 @@ import "csv"
 token = secrets.get(key: "READONLY_TOKEN")
 
 response = http.get(
-    url: "http://localhost:8086/api/v2",
+    url: "http://localhost:8086/health",
     headers: {Authorization: "Token ${token}"}
   )
 
