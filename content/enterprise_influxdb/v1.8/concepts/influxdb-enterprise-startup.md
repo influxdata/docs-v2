@@ -47,8 +47,8 @@ Use `tsi1` indexing to see shorter startup times.
 {{% /note %}}
 
 ### Monitor
-The Monitor service provides statistical and diagnostic information to InfluxDB system about the system itself.
-This information helps with database troubleshooting and performance analysis.\
+The Monitor service provides statistical and diagnostic information to InfluxDB about the InfluxDB itself.
+This information helps with database troubleshooting and performance analysis.
 
 ### Cluster
 The Cluster service provides implementations of InfluxDB OSS v1.8 interfaces
@@ -56,27 +56,28 @@ that operate on an InfluxDB Enterprise v1.8 cluster.
 
 ### Precreator
 The Precreator service creates shards before they are needed.
-This ensures required shards exist by the time new time series data arrives and write-throughput
-is not affected by data that would normally trigger the creation of a new shard.
+This ensures necessary shards exist before new time series data arrives and that
+write-throughput is not affected the creation of a new shard.
 
 ### Snapshotter
 The Snapshotter service routinely creates snapshots of InfluxDB Enterprise metadata.
 
 ### Continuous Query
-The Continuous Query (CQ) service starts and manages the InfluxDB CQ engine.
+The Continuous Query (CQ) subsystem manages all InfluxDB CQs.
 
 ### Announcer
 The Announcer service announces a data node's status to meta nodes.
 
 ### Retention
-The Retention service enforces retention policies and drops data as it expires.
+The Retention service enforces [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+and drops data as it expires.
 
 ### Stats
 The Stats service monitors cluster-level statistics.
 
 ### Anti-entropy
 The Anti-entropy (AE) subsystem is responsible for reconciling differences between shards.
-For more information, see [Use the Anti-entropy service](/enterprise_influxdb/v1.8/administration/anti-entropy/).
+For more information, see [Use anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/).
 
 ### HTTP API
 The InfluxDB HTTP API service provides a public facing interface to interact with
