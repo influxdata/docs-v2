@@ -79,7 +79,7 @@ InfluxDB Cloud updates occur frequently. Find a compilation of recent updates be
 ### API updates
 
 - [List all buckets](/influxdb/cloud/api/#operation/GetBuckets) in the API now supports the `after` parameter as an alternative to `offset`.
-  - Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
+- Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
 
 ### Task updates
 
