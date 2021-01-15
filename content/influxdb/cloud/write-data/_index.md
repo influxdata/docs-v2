@@ -19,14 +19,16 @@ related:
   - /influxdb/cloud/reference/cli/influx/write
 ---
 
-Collect and write time series data to InfluxDB Cloud and InfluxDB OSS. Discover how to quickly start collecting data, and then explore other ways to write data using no-code solutions or developer tools.
-
+Discover what you'll need to write data into InfluxDB OSS (open source). Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
 
 - [What you'll need](#what-youll-need)
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
   - [Sample data](#sample-data)
-- [Other ways to write data](#other-ways-to-write-data)
+- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
+- [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
+- [Use developer tools](/influxdb/v2.0/write-data/developer-tools)
+- [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
 - [Next steps](#next-steps)
 
 ### What you'll need
