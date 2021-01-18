@@ -56,7 +56,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.3_darwin_amd64.tar.gz.asc influxdb-2.0.3_darwin_amd64.tar.gz
+    gpg --verify influxdb2.0.3_darwin_amd64.tar.gz.asc influxdb2.0.3_darwin_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -83,7 +83,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
