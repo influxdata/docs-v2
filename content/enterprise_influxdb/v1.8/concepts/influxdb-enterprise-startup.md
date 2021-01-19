@@ -38,7 +38,7 @@ It then loads a portion of each shard's index.
 
 {{% note %}}
 #### Index versions and startup times
-If using `in-mem` indexing, InfluxDB loads all shard indexes into memory, which,
+If using `inmem` indexing, InfluxDB loads all shard indexes into memory, which,
 depending on the number of series in the database, can take time.
 If using `tsi1` indexing, InfluxDB only loads hot shard indexes
 (the most recent shards or shards currently being written to) into memory and
@@ -47,7 +47,7 @@ Use `tsi1` indexing to see shorter startup times.
 {{% /note %}}
 
 ### Monitor
-The Monitor service provides statistical and diagnostic information to InfluxDB about the InfluxDB itself.
+The Monitor service provides statistical and diagnostic information to InfluxDB about InfluxDB itself.
 This information helps with database troubleshooting and performance analysis.
 
 ### Cluster
