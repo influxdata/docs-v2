@@ -46,7 +46,7 @@ InfluxDB Cloud updates occur frequently. Find a compilation of recent updates be
 
 - Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
 
-- Use the new [InfluxDB 2 Operational Monitoring community template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to monitor InfluxDB 2.0.
+- Use the new [InfluxDB 2 Operational Monitoring community template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to monitor InfluxDB OSS 2.0.
 
 ### Load Data updates
 
