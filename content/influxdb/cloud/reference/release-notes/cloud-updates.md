@@ -1,11 +1,11 @@
 ---
-title: InfluxDB Cloud monthly updates
+title: InfluxDB Cloud updates
 description: Important changes and what's new in each InfluxDB Cloud update.
 weight: 101
 menu:
   influxdb_cloud_ref:
     parent: Release notes
-    name: Monthly updates
+    name: InfluxDB Cloud updates
 aliases:
   - /cloud/about/release-notes
   - /influxdb/cloud/reference/release-notes/influxdb-cloud
