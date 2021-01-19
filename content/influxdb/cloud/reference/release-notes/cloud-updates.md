@@ -27,10 +27,12 @@ InfluxDB Cloud updates occur frequently. Find a compilation of recent updates be
 
 ### AWS and Microsoft regions
 
-- Add support for the following new regions:
-
-  - [AWS US East (Virginia) region](/influxdb/cloud/reference/regions/#amazon-web-services-aws)
-  - [Microsoft Azure regions](/influxdb/cloud/reference/regions/#microsoft-azure)
+- Add support for Microsoft Azure and new AWS regions:
+  - [Microsoft Azure](/influxdb/cloud/reference/regions/#microsoft-azure):
+    - West Europe (Amsterdam) region
+    - East US (Virginia) region
+  - [AWS](/influxdb/cloud/reference/regions/#amazon-web-services-aws):
+    - US East (Virginia) region
 
 ### Microsoft social sign-on
 
