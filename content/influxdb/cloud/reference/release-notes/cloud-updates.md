@@ -60,9 +60,7 @@ InfluxDB Cloud updates occur frequently. Find a compilation of recent updates be
 ### Visualization updates
 
   - Add new [Band Plot visualization](/influxdb/v2.0/visualize-data/visualization-types/band/).
-  - Usability improvements to visualizations:
-    - Add properties for storing your tick generation selections, including a `generateAxisTicks` property to turn this feature on and off.
-    - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
+  - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
 
 ### CLI updates
 
