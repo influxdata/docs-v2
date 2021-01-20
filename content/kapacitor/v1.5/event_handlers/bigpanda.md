@@ -60,14 +60,14 @@ BigPanda uses the [primary property](https://docs.bigpanda.io/docs/primary_prope
 and the [secondary property](https://docs.bigpanda.io/docs/secondary_property) to construct the subtitle of an incident.
 See [Alert Correlation Logic](https://docs.bigpanda.io/docs/alert-correlation-logic) for more information.
 
-By default, the handler maps the Kapacitor values below to the BigPanda Alert or Event fields as follows:
+By default, the handler maps the Kapacitor task and alert properties below to the BigPanda Alert or Event fields as follows:
 
 | Value           | BigPanda Alert Field       |
 | ----            | ----                       |
-| alert ID        | check                      |
-| message         | description                |
-| details         | details                    |
-| alert task name | task                       | 
+| `id`            | check                      |
+| `message`       | description                |
+| `details`       | details                    |
+| `TaskName`      | task                       | 
 
 All EventData tags and fields are appended into BigPanda Alert as **Additional attributes**. See 
 [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts) for more information. 
