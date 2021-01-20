@@ -1183,7 +1183,7 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
 
 #### `query-stats-enabled = false`
 
-When set to true, continuous query execution statistics are written to the default monitor store.
+Write continuous query execution statistics to the default monitor store.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
 
