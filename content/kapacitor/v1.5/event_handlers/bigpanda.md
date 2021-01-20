@@ -69,8 +69,8 @@ By default, the handler maps the Kapacitor task and alert properties below to th
 | `details`       | details                    |
 | `TaskName`      | task                       | 
 
-All EventData tags and fields are appended into BigPanda Alert as **Additional attributes**. See 
-[BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts) for more information. 
+All EventData tags and fields are appended to the BigPanda Alert as **Additional attributes**.
+For more information, see [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts). 
 
 ### TICKscript examples
 
