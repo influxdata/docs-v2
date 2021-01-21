@@ -73,7 +73,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb-2.0.3_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb2-2.0.3_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
