@@ -11,29 +11,38 @@ menu:
 weight: 204
 ---
 
-## Use tokens
-
 Use tokens to authenticate requests to InfluxDB, including requests to write, query, and manage data and resources.
-Authenticate requests using the `influx` command line, API requests made with client libraries, and
-tools like `curl`.
+Authenticate requests using the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/), API requests made with client libraries, and tools like `curl`.
 
-### Example with token on command line
+## Add a token to a CLI request
+
+### Example: token on command line
 
 ```sh
 influx write -t <token> -b BUCKET -o org-name <DATA>
 ```
 
-### Example with token in environment variable
+### Example: token in environment variable
 
 ```
 export INFLUX_TOKEN=my-token
 influx write -b my-bucket -org my-org "meaurement field=1"
 ```
 
-_See [here](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/#configure-your-token-as-an-environment-variable).
-to configure environment variables on Windows._
+{{% note %}}
+See [here](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/#configure-your-token-as-an-environment-variable)
+to configure environment variables on Windows.
+(Click on the **Windows** tab.)
+{{% /note %}}
 
-## More examples
-- Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/)
-- Automatically manage and use tokens from the CLI using [`influx config`](/influxdb/v2.0/reference/cli/influx/config/).
-- Make authenticated requests with tokens [using Postman](https://docs.influxdata.com/influxdb/v2.0/tools/postman/)
+### Use CLI configurations
+
+Automatically manage and use tokens from the CLI using [`influx config`](/influxdb/v2.0/reference/cli/influx/config/).
+
+## Use a token in an API request
+
+Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/).
+
+## Add a token to Postman
+
+Make authenticated requests with tokens [using Postman](https://docs.influxdata.com/influxdb/v2.0/tools/postman/).
