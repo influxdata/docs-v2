@@ -6,7 +6,7 @@ menu:
   influxdb_cloud:
     name: Use tokens
     parent: Manage tokens
-weight: 203
+weight: 204
 ---
 
 {{< duplicate-oss >}}

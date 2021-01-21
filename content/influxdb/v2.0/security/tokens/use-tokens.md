@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     name: Use tokens
     parent: Manage tokens
-weight: 201
+weight: 204
 ---
 
 ## Use tokens
@@ -29,6 +29,9 @@ influx write -t <token> -b BUCKET -o org-name <DATA>
 export INFLUX_TOKEN=my-token
 influx write -b my-bucket -org my-org "meaurement field=1"
 ```
+
+_See [here](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/#configure-your-token-as-an-environment-variable).
+to configure environment variables on Windows._
 
 ## More examples
 - Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/)
