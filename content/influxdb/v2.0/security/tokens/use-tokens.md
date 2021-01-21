@@ -14,7 +14,7 @@ weight: 201
 ## Use tokens
 
 Use tokens to authenticate requests to InfluxDB, including requests to write, query, and manage data and resources.
-This includes requests made with using the `influx` command line as well as API requests made with client libraries and
+Authenticate requests using the `influx` command line, API requests made with client libraries, and
 tools like `curl`.
 
 ### Example with token on command line
