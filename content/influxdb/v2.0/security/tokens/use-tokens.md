@@ -14,15 +14,11 @@ weight: 204
 Use tokens to authenticate requests to InfluxDB, including requests to write, query, and manage data and resources.
 Authenticate requests using the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/), API requests made with client libraries, and tools like `curl`.
 
-## Add a token to a CLI request
-
-### Example: token on command line
+### Add a token to a CLI request
 
 ```sh
-influx write -t <token> -b BUCKET -o org-name <DATA>
+influx write -t <token> -b BUCKET -o org-name <LINE PROTOCOL>
 ```
-
-### Example: token in environment variable
 
 ```
 export INFLUX_TOKEN=my-token
@@ -39,10 +35,10 @@ to configure environment variables on Windows.
 
 Automatically manage and use tokens from the CLI using [`influx config`](/influxdb/v2.0/reference/cli/influx/config/).
 
-## Use a token in an API request
+### Use a token in an API request
 
 Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/).
 
-## Add a token to Postman
+### Use a token in Postman
 
 Make authenticated requests with tokens [using Postman](https://docs.influxdata.com/influxdb/v2.0/tools/postman/).
