@@ -207,7 +207,31 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-#### Networking ports
+### Installing as a service (with systemd)
+
+The following instructions have been tested on Ubuntu, and should work similarly on other operating systems.
+
+1. Download the Ubuntu & Debian `.deb` file from the [downloads page](https://portal.influxdata.com/downloads/).
+2. Install InfluxDB with the following command:
+   ```sh
+   sudo dpkg -i influxdb2_2.x.x_xxx
+   ```
+   (The actual file name will contain version number and architecture information such as `amd64`.)
+3. Start the service by running
+   ```sh
+   sudo service influxdb start
+   ```
+   The installation process will create a service file at `/lib/systemd/services/influxdb.service`.
+   This file means that InfluxDB will start as a background service at boot.
+4. Restart your system, and verify that the service is running correctly:
+   ```sh
+   $  sudo service influxdb status
+   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+     Active: active (running)
+   ```
+
+### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
