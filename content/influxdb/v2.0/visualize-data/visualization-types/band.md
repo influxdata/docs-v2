@@ -129,6 +129,15 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **Y Axis**: Show all points with the same y value along the x-axis.
   - **X & Y Axis**: Show only the point being currently hovered over.
 
+###### X Axis
+- **X Axis Tick Generator**:
+  - **Auto**: X-axis timestamp ticks are automatically generated.
+  - **Custom**: Customize how many timestamp ticks appear.
+    - **Total Ticks**: The total number of timestamp ticks to display.
+    - **Tick Start**: The time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
+    - **Date Picker**: 
+    - **Tick Step**: The number of milliseconds in between each timestamp tick.
+
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
 - **Y Value Unit Prefix**:
