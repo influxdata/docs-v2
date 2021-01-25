@@ -207,23 +207,25 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-### Installing as a service (with systemd)
+### Install InfluxDB as a service with systemd
 
+{{% note %}}
 The following instructions have been tested on Ubuntu, and should work similarly on other operating systems.
+{{% /note %}}
 
-1. Download the Ubuntu & Debian `.deb` file from the [downloads page](https://portal.influxdata.com/downloads/).
+1. Download the appropriate Ubuntu & Debian `.deb` file from the [InfluxData downloads page](https://portal.influxdata.com/downloads/).
 2. Install InfluxDB with the following command:
    ```sh
    sudo dpkg -i influxdb2_2.x.x_xxx
    ```
-   (The actual file name will contain version number and architecture information such as `amd64`.)
-3. Start the service by running
+   _Use the actual filename of the downloaded InfluxDB `.deb` package._
+3. Start the InfluxDB service:
    ```sh
    sudo service influxdb start
    ```
-   The installation process will create a service file at `/lib/systemd/services/influxdb.service`.
-   This file means that InfluxDB will start as a background service at boot.
-4. Restart your system, and verify that the service is running correctly:
+   The installation process creates a service file at `/lib/systemd/services/influxdb.service`,
+   which starts InfluxDB start as a background service on boot.
+4. Restart your system and verify that the service is running correctly:
    ```sh
    $  sudo service influxdb status
    ● influxdb.service - InfluxDB is an open-source, distributed, time series database
