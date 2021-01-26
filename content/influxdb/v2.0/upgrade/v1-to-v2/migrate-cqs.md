@@ -29,7 +29,7 @@ use the `--continuous-query-export-path` flag with the `influxd upgrade` command
 influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
 ```
 
-**To manually output continuous queries:** 
+**To manually output continuous queries:**
 
 1. Use the InfluxDB 1.x `influx` interactive shell to run `show continuous queries`:
 
@@ -61,10 +61,15 @@ BEGIN
 END
 ```
 
-##### Equivalent Flux query
+##### Equivalent Flux task
 ```js
+options task = {
+  name: "downsample-daily",
+  every: 1d
+}
+
 from(bucket: "my-db/")
-  |> range(start: -1d)
+  |> range(start: -task.every)
   |> filter(fn: (r) => r._measurement == "example-measurement")
   |> filter(fn: (r) => r._field == "example-field")
   |> aggregateWindow(every: 1h, fn: mean)
@@ -74,6 +79,48 @@ from(bucket: "my-db/")
     bucket: "my-db/downsample-daily"
   )
 ```
+
+### Continuous queries with a RESAMPLE clause
+
+The CQ `RESAMPLE` clause uses data from the last specified duration to calculate a new aggregate point.
+To accomplish this same functionality in a Flux task, import the `experimental` package
+and use [`experimental.subDuration()`](/influxdb/v2.0/reference/flux/stdlib/experimental/subduration/)
+to set the `start` parameter in the `range()` function. For example:
+
+##### Example RESAMPLE continuous query
+```sql
+CREATE CONTINUOUS QUERY "resample-example" ON "my-db"
+RESAMPLE EVERY 1m FOR 30m
+BEGIN
+  SELECT exponential_moving_average(mean("example-field"), 30)
+  INTO "resample-average-example-measurement"
+  FROM "example-measurement"
+  WHERE region = 'example-region'
+  GROUP BY time(1m)
+END
+```
+
+##### Equivalent Flux query with new start time
+```js
+import "experimental"
+
+options task = {
+  name: "resample-example",
+  every: 1m
+}
+
+from(bucket: "my-db/")
+  |> range(start: experimental.subDuration(d: 30m, from: now()))
+  |> filter(fn: (r) =>
+    r._measurement == "example-measurement" and
+    r._field == "example-field" and
+    r.region == "example-region"
+  )
+  |> aggregateWindow(every: 1m, fn: mean)
+  |> exponentialMovingAverage(n: 30)
+  |> to(bucket: "resample-average-example-measurement")
+```
+
 
 ## Create new InfluxDB tasks
 After converting your continuous query to Flux, use the Flux query to
