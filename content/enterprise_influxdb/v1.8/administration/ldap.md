@@ -56,6 +56,7 @@ Update the following settings in each meta node configuration file (`/etc/influx
 
 To authenticate your InfluxDB connection, run the following command, replacing `username:password` with your credentials:
 
+{{< keep-url >}}
 ```bash
 curl -u username:password -XPOST "http://localhost:8086/..."
 ```
