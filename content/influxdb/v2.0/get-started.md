@@ -213,9 +213,10 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 The following instructions have been tested on Ubuntu, and should work similarly on other operating systems.
 {{% /note %}}
 
-1. Download and install the appropriate `.deb` file from the [InfluxData downloads page](https://portal.influxdata.com/downloads/).
-   Install InfluxDB with the following command:
+1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+   with the following commands:
    ```sh
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
    sudo dpkg -i influxdb2_2.x.x_xxx
    ```
    _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`._
