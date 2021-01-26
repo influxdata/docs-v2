@@ -210,7 +210,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 ### Install InfluxDB as a service with systemd
 
 {{% note %}}
-The following instructions have been tested on Ubuntu, and should work similarly on other operating systems.
+The following instructions have been tested on Ubuntu, and should work similarly on other Linux distributions.
 {{% /note %}}
 
 1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
