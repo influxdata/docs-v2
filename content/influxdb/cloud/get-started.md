@@ -32,7 +32,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
     To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
     go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
 
-    - To use social sign-on, click  **Azure** or **Google**. Note that social sign-on does not support email aliases.
+    - To use social sign-on, click **Google** or **Microsoft**. Note that social sign-on does not support email aliases.
     - Sign up with email by entering your name, email address, and password, then click **Create Account**.
 
     If you originally signed up with email but want to enable social sign-on, you can do so by logging in through your cloud provider as long as you use the same email address.  
@@ -47,11 +47,11 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed AWS account.
 
-    - **Microsoft Azure**  
+    - **Microsoft**  
       Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed Azure account.
+      All usage charges will be paid through the subscribed Microsoft account.
 
     - **GCP**  
       Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod),
@@ -60,7 +60,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       All usage charges will be paid through the subscribed GCP account.
 
       {{%note%}}
-Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS, Azure, or GCP Marketplaces.
+Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS, Microsoft, or GCP Marketplaces.
       {{%/note%}}
 
 2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
