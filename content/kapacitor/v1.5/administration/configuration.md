@@ -334,7 +334,7 @@ Multiple InfluxDB table array configurations can be specified,
 but one InfluxDB table array configuration must be flagged as the `default`.
 
 **Example: An InfluxDB connection grouping**
-=======
+
 {{% note %}}
 To use Kapacitor with an InfluxDB instance that requires authentication,
 it must authenticate using an InfluxDB user with **read and write** permissions.
