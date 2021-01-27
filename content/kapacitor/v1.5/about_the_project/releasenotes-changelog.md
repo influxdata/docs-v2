@@ -7,7 +7,7 @@ menu:
 ---
 
 
-## v1.5.8 [2020-01-11]
+## v1.5.8 [2020-01-27]
 
 ## Breaking changes
 
@@ -21,7 +21,7 @@ menu:
 - Add support for HTTP [sources](/kapacitor/v1.5/nodes/sideload_node/#source) in `SideloadNode` configuration, thanks @jregovic!
 - Add support for correlate in the [Alerta event handler](kapacitor/v1.5/event_handlers/alerta/), thanks @nermolaev!
 - Add `details` option to the [OpsGenie v2 event handler](/kapacitor/v1.5/event_handlers/opsgenie/v2/); set to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
-- Send data to InfluxDB compressed as `gzip` by default.
+- Send data to InfluxDB compressed as `gzip` by default. Although, this default configuration does not appear in the Kapacitor configuration file, you can add `compression = "none"` to the [`[[influxdb]]` section](/kapacitor/v1.5/administration/configuration/#influxdb) of your Kapacitor configuration file.
 - Preallocate `GroupIDs` to increase performance by reducing allocations.
 
 ### Bug fixes
