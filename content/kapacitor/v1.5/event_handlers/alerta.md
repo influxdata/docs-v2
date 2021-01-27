@@ -145,6 +145,7 @@ stream
     .alerta()
       .resource('{{ .Name }}')
       .event('{{ .ID }}')
+      .correlated('{{ .Name }}')
 ```
 
 ### Send alerts to an Alerta room from a defined handler
@@ -189,6 +190,7 @@ options:
   resource: '{{ .Name }}'
   event: '{{ .ID }}'
   origin: 'kapacitor'
+  correlate: 'serviceX', 'serviceY'
 ```
 
 Add the handler:
