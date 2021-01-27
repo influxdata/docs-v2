@@ -11,7 +11,7 @@ menu:
 
 ## Breaking changes
 
-- Remove support for darwin/386 builds (Go no longer supports), and add support for darwin/arm64 builds.
+- Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
 
 ## Features
 
