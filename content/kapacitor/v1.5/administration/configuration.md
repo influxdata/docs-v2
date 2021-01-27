@@ -354,6 +354,11 @@ it must authenticate using an InfluxDB user with **read and write** permissions.
   username = ""
   password = ""
   timeout = 0
+  
+  # By default, all data sent to InfluxDB is compressed in gzip format.
+  # To turn off gzip compression, add the following config setting:
+  compression = "none"
+
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair
   #   ssl-ca = "/etc/kapacitor/ca.pem"
