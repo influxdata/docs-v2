@@ -84,6 +84,7 @@ options:
   value: 'some-value'
   origin: 'kapacitor'
   service: ['service1', 'service2']
+  correlate: ['service1', 'service2']
   timeout: 24h
 ```
 
@@ -102,6 +103,7 @@ options:
     .value('some-value')
     .origin('kapacitor')
     .service('service1', 'service2')
+    .correlated('service1', 'service2')
     .timeout(24h)
 ```
 
@@ -190,7 +192,7 @@ options:
   resource: '{{ .Name }}'
   event: '{{ .ID }}'
   origin: 'kapacitor'
-  correlate: 'serviceX', 'serviceY'
+  correlate: ['service1', 'service2']
 ```
 
 Add the handler:
