@@ -7,6 +7,44 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v.1.17.1 [2021-1-27
+
+### Features
+- Add Event Log support for Windows platforms.
+
+### Input plugin updates
+- `csv`:
+  - Add  ability to define an array of string skip values.
+  - Address issue of ignoring missing values.
+- `gnmi`: Metric path no longer has leading character truncated.
+- `http_listener_v2`: Fixed an issue with `stop()` when plugin fails to start.
+- `ipmi_sensor`:
+  - Add setting to enable caching.
+  - Add `hex_key` parameter.
+- `jenkins`: Add support for inclusive job list.
+- `lustre2`: No longer crashes if the field name and value are not separated.
+- `ping`: Use go-ping library when `method = "native"` in the configuration
+- `prometheus`: Use mime-type to handle protocol-buffer responses.
+- `procstat`:
+  - Provide an option to include core count when reporting `cpu_usage`
+  - Use the same timestamp for all metrics in the same `Gather()` cycle.
+- `postgresql_extensible`: Add timestamp column option to postgres_extensible to handle log-like queries.
+- `snmp`: Extended the internal SNMP wrapper to support AES-192, AES-192C, AES-256, and AES-256C.
+- `webhooks`: Use the 'measurement' json field from the Particle.io webhook as the measurement name.
+- `x509_cert`: Fixed a timeout issue
+-`zookeeper`: Improve `mntr` regex expression to match user-specific keys.
+
+### Output plugin updates
+
+- `http`: Add option to control idle connection timeout.
+- `influxdb_v2`:
+  - Log no longer flooded with errors when Elasticsearch receiver is in read-only state.
+  - Add exponential backoff and respecting client error responses.
+- `common.tls`: Allow specifying SNI hostnames.
+
+### Aggregator plugin updates
+- `merge`: Performance optimization improvements.
+
 ## v1.17.0 [2020-12-17]
 
 ### Features
