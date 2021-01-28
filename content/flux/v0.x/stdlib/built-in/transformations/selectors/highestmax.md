@@ -11,7 +11,7 @@ menu:
     name: highestMax
     parent: built-in-selectors
 weight: 501
-flux/v0.x/tags: [selector]
+flux/v0.x/tags: [selectors]
 introduced: 0.7.0
 ---
 

@@ -11,6 +11,7 @@ menu:
     name: from
     parent: built-in-inputs
 weight: 401
+flux/v0.x/tags: [input]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
 introduced: 0.7.0

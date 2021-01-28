@@ -12,7 +12,7 @@ menu:
     name: mode
     parent: built-in-aggregates
 weight: 501
-flux/v0.x/tags: [aggregate]
+flux/v0.x/tags: [aggregates]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
 introduced: 0.36.0

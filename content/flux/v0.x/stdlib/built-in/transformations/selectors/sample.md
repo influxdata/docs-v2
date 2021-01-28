@@ -11,7 +11,7 @@ menu:
     name: sample
     parent: built-in-selectors
 weight: 501
-flux/v0.x/tags: [selector]
+flux/v0.x/tags: [selectors]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sample, InfluxQL – SAMPLE()
 introduced: 0.7.0

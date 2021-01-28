@@ -11,7 +11,7 @@ menu:
     name: stddev
     parent: built-in-aggregates
 weight: 501
-flux/v0.x/tags: [aggregate]
+flux/v0.x/tags: [aggregates]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#stddev, InfluxQL – STDDEV()
 introduced: 0.7.0
