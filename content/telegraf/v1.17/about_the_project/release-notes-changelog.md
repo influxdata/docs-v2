@@ -7,10 +7,11 @@ menu:
     weight: 10
     parent: About the project
 ---
-## v.1.17.1 [2021-1-27
+## v.1.17.1 [2021-1-27]
 
 ### Features
 - Add Event Log support for Windows platforms.
+- Allow specifying SNI hostnames in `common.tls`.
 
 ### Input plugin updates
 - `csv`:
@@ -30,9 +31,9 @@ menu:
   - Use the same timestamp for all metrics in the same `Gather()` cycle.
 - `postgresql_extensible`: Add timestamp column option to postgres_extensible to handle log-like queries.
 - `snmp`: Extended the internal SNMP wrapper to support AES-192, AES-192C, AES-256, and AES-256C.
-- `webhooks`: Use the 'measurement' json field from the Particle.io webhook as the measurement name.
+- `webhooks`: Use the `measurement` json field from the Particle.io webhook as the measurement name.
 - `x509_cert`: Fixed a timeout issue
--`zookeeper`: Improve `mntr` regex expression to match user-specific keys.
+- `zookeeper`: Improve `mntr` regex expression to match user-specific keys.
 
 ### Output plugin updates
 
@@ -40,7 +41,6 @@ menu:
 - `influxdb_v2`:
   - Log no longer flooded with errors when Elasticsearch receiver is in read-only state.
   - Add exponential backoff and respecting client error responses.
-- `common.tls`: Allow specifying SNI hostnames.
 
 ### Aggregator plugin updates
 - `merge`: Performance optimization improvements.
