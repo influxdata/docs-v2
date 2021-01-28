@@ -12,15 +12,13 @@ menu:
 
 Flux is an alternative to [InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/)
 and other SQL-like query languages for querying and analyzing data.
-Flux uses functional language patterns making it incredibly powerful, flexible,
-and able to overcome many of the limitations of InfluxQL.
-The information below outlines many of the tasks possible with Flux that are not
-possible with InfluxQL and provides information about Flux and InfluxQL parity.
+Flux uses functional language patterns that overcome many InfluxQL limitations.
+Check out the following distinctions between Flux and InfluxQL:
 
-- [Possible with Flux](#possible-with-flux)
+- [Tasks possible with Flux](#tasks-possible-with-flux)
 - [InfluxQL and Flux parity](#influxql-and-flux-parity)
 
-## Possible with Flux
+## Tasks possible with Flux
 
 - [Joins](#joins)
 - [Math across measurements](#math-across-measurements)
@@ -37,11 +35,11 @@ possible with InfluxQL and provides information about Flux and InfluxQL parity.
 - [Work with geo-temporal data](#work-with-geo-temporal-data)
 
 ### Joins
-InfluxQL has never supported joins. They can be accomplished using [TICKscript](/{{< latest "kapacitor" >}}/tick/introduction/),
-but even TICKscript's join capabilities are limited.
-Flux's [`join()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) allows you
-to join data **from any bucket, any measurement, and on any columns** as long as
-each data set includes the columns on which they are to be joined.
+InfluxQL has never supported joins. Although you can use a join in a [TICKscript](/{{< latest "kapacitor" >}}/tick/introduction/),
+TICKscript's join capabilities are limited.
+Flux's [`join()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) lets you
+join data **from any bucket, any measurement, and on any columns** as long as
+each data set includes the columns to join on. 
 This opens the door for really powerful and useful operations.
 
 ```js
@@ -65,13 +63,13 @@ join(
   )
 ```
 
-_For an in-depth walkthrough of using the `join()` function, see [How to join data with Flux](/influxdb/v2.0/query-data/flux/join/)._
+_For an in-depth walkthrough of using the `join()` function, see [how to join data with Flux](/influxdb/v2.0/query-data/flux/join/)._
 
 ### Math across measurements
-Being able to perform cross-measurement joins also allows you to run calculations using
-data from separate measurements – a highly requested feature from the InfluxData community.
-The example below takes two data streams from separate measurements, `mem` and `processes`,
-joins them, then calculates the average amount of memory used per running process:
+Being able to perform joins across measurements lets you calculate
+data from separate measurements.
+The example below takes data from two measurements, `mem` and `processes`,
+joins them, and then calculates the average amount of memory used per running process:
 
 ```js
 // Memory used (in bytes)
@@ -90,7 +88,7 @@ procTotal = from(bucket: "example-bucket")
     r._field == "total"
     )
 
-// Join memory used with total processes and calculate
+// Join memory used with total processes to calculate
 // the average memory (in MB) used for running processes.
 join(
     tables: {mem:memUsed, proc:procTotal},
@@ -104,11 +102,11 @@ join(
 ```
 
 ### Sort by tags
-InfluxQL's sorting capabilities are very limited, allowing you only to control the
+InfluxQL's sorting capabilities only let you control the
 sort order of `time` using the `ORDER BY time` clause.
 The Flux [`sort()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
-sorts records based on list of columns.
-Depending on the column type, records are sorted lexicographically, numerically, or chronologically.
+sorts records based on a list of columns.
+Depending on the column type, Flux sorts records lexicographically, numerically, or chronologically.
 
 ```js
 from(bucket:"example-bucket")
@@ -121,8 +119,8 @@ from(bucket:"example-bucket")
 ```
 
 ### Group by any column
-InfluxQL lets you group by tags or by time intervals, but nothing else.
-Flux lets you group by any column in the dataset, including `_value`.
+InfluxQL lets you group by tags or time intervals only.
+Flux lets you group data by any column, including `_value`.
 Use the Flux [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
 to define which columns to group data by.
 
@@ -194,9 +192,9 @@ from(bucket: "example-bucket")
 ```
 
 ### Pivot
-Pivoting data tables has never been supported in InfluxQL.
-The Flux [`pivot()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot) provides the ability
-to pivot data tables by specifying `rowKey`, `columnKey`, and `valueColumn` parameters.
+Pivoting data tables isn't supported in InfluxQL.
+Use the Flux [`pivot()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot) 
+to pivot data tables by `rowKey`, `columnKey`, and `valueColumn` parameters.
 
 ```js
 from(bucket: "example-bucket")
@@ -213,9 +211,9 @@ from(bucket: "example-bucket")
 ```
 
 ### Histograms
-The ability to generate histograms has been a highly requested feature for InfluxQL, but has never been supported.
-Flux's [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram) uses input
-data to generate a cumulative histogram with support for other histogram types coming in the future.
+Generating histograms isn't supported in InfluxQL.
+Use the Flux [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram) to
+generate a cumulative histogram.
 
 ```js
 from(bucket: "example-bucket")
@@ -229,13 +227,13 @@ from(bucket: "example-bucket")
   )
 ```
 
-_For an example of using Flux to create a cumulative histogram, see [Create histograms](/influxdb/v2.0/query-data/flux/histograms/)._
+_For more examples, see [how to create histograms with Flux](/influxdb/v2.0/query-data/flux/histograms/)._
 
 ### Covariance
-Flux provides functions for simple covariance calculation.
-The [`covariance()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance)
-calculates the covariance between two columns and the [`cov()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov)
-calculates the covariance between two data streams.
+Flux provides functions for simple covariance calculations.
+Use the [`covariance()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/covariance)
+to calculate the covariance between two columns and the [`cov()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov)
+to calculate the covariance between two data streams.
 
 ###### Covariance between two columns
 ```js
@@ -262,10 +260,9 @@ cov(x: table1, y: table2, on: ["_time", "_field"])
 ```
 
 ### Cast booleans to integers
-InfluxQL supports type casting, but only for numeric data types (floats to integers and vice versa).
-[Flux type conversion functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
-provide much broader support for type conversions and let you perform some long-requested
-operations like casting a boolean values to integers.
+InfluxQL supports type casting for numeric data types (floats to integers and vice versa) only.
+Use [Flux type conversion functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
+to perform many more type conversions, including casting boolean values to integers.
 
 ##### Cast boolean field values to integers
 ```js
@@ -280,9 +277,8 @@ from(bucket: "example-bucket")
 
 ### String manipulation and data shaping
 InfluxQL doesn't support string manipulation when querying data.
-The [Flux Strings package](/influxdb/v2.0/reference/flux/stdlib/strings/) is a collection of functions that operate on string data.
-When combined with the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/),
-functions in the string package allow for operations like string sanitization and normalization.
+Use [Flux Strings package](/influxdb/v2.0/reference/flux/stdlib/strings/) functions to operate on string data.
+Combine functions in this package with the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to perform operations like sanitizing and normalizing strings.
 
 ```js
 import "strings"
@@ -302,7 +298,7 @@ from(bucket: "example-bucket")
 ```
 
 ### Work with geo-temporal data
-InfluxQL doesn't provide functionality for working with geo-temporal data.
+InfluxQL doesn't support working with geo-temporal data.
 The [Flux Geo package](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/) is a collection of functions that
 let you shape, filter, and group geo-temporal data.
 
@@ -322,7 +318,7 @@ from(bucket: "geo/autogen")
 
 
 ## InfluxQL and Flux parity
-Flux is working towards complete parity with InfluxQL and new functions are being added to that end.
+We're continuing to add functions to complete parity between Flux and InfluxQL.
 The table below shows InfluxQL statements, clauses, and functions along with their equivalent Flux functions.
 
 _For a complete list of Flux functions, [view all Flux functions](/influxdb/v2.0/reference/flux/stdlib/all-functions/)._

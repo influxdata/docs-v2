@@ -86,7 +86,8 @@ from(bucket: "my-db/")
   )
 ```
 
-### Convert specific InfluxQL CQ statements and clauses to Flux
+### Convert InfluxQL continuous queries to Flux
+Review the following statements and clauses to see how to convert your CQs to Flux:
 
 - [ON clause](#on-clause)
 - [SELECT statement](#select-statement)
@@ -122,11 +123,11 @@ The `SELECT` statement queries data by field, tag, and time from a specific meas
 `SELECT` statements can take many different forms and converting them to Flux depends
 on your use case. For information about about Flux and InfluxQL function parity, see
 [Flux vs InfluxQL](/influxdb/v2.0/reference/flux/flux-vs-influxql/#influxql-and-flux-parity).
-There are also [other resources available to help](#other-helpful-resources).
+See [other resources available to help](#other-helpful-resources).
 
 #### INTO clause
 The `INTO` clause defines the measurement to write results to.
-`INTO` also supports fully-qualified measurements that include the database, retention policy.
+`INTO` also supports fully-qualified measurements that include the database and retention policy.
 In InfluxDB OSS 2.0, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)).
 
