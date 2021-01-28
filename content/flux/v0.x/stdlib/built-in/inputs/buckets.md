@@ -11,6 +11,7 @@ menu:
     name: buckets
     parent: built-in-inputs
 weight: 401
+flux/v0.x/tags: [input]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
 introduced: 0.16.0

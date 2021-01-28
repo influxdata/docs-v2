@@ -11,6 +11,7 @@ menu:
     name: highestAverage
     parent: built-in-selectors
 weight: 501
+flux/v0.x/tags: [selectors]
 introduced: 0.7.0
 ---
 

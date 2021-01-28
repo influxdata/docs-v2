@@ -13,6 +13,7 @@ menu:
     name: histogramQuantile
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregates]
 introduced: 0.7.0
 ---
 

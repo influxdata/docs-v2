@@ -11,6 +11,7 @@ menu:
     name: integral
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregates]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
 introduced: 0.7.0

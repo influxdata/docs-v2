@@ -11,6 +11,7 @@ menu:
     name: yield
     parent: built-in-outputs
 weight: 401
+flux/v0.x/tags: [output]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
 introduced: 0.7.0

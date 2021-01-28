@@ -11,6 +11,7 @@ menu:
     name: to
     parent: built-in-outputs
 weight: 401
+flux/v0.x/tags: [output]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause, InfluxQL – SELECT INTO
 introduced: 0.7.0
