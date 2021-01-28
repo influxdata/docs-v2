@@ -121,7 +121,7 @@ from(bucket: "my-db/")
 #### SELECT statement
 The `SELECT` statement queries data by field, tag, and time from a specific measurement.
 `SELECT` statements can take many different forms and converting them to Flux depends
-on your use case. For information about about Flux and InfluxQL function parity, see
+on your use case. For information about Flux and InfluxQL function parity, see
 [Flux vs InfluxQL](/influxdb/v2.0/reference/flux/flux-vs-influxql/#influxql-and-flux-parity).
 See [other resources available to help](#other-helpful-resources).
 
