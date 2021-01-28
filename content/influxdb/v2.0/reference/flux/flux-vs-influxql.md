@@ -40,7 +40,6 @@ TICKscript's join capabilities are limited.
 Flux's [`join()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) lets you
 join data **from any bucket, any measurement, and on any columns** as long as
 each data set includes the columns to join on. 
-This opens the door for really powerful and useful operations.
 
 ```js
 dataStream1 = from(bucket: "example-bucket1")
@@ -324,7 +323,7 @@ The table below shows InfluxQL statements, clauses, and functions along with the
 _For a complete list of Flux functions, [view all Flux functions](/influxdb/v2.0/reference/flux/stdlib/all-functions/)._
 
 | InfluxQL                                                                                                                                          | Flux Functions                                                                                                                                                                                   |
-| --------                                                                                                                                          | --------------                                                                                                                                                                                   |
+|:--------                                                                                                                                          |:--------------                                                                                                                                                                                   |
 | [SELECT](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement)                                                 | [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                                                                                                                |
 | [WHERE](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause)                                                            | [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/), [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)                               |
 | [GROUP BY](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause)                                                      | [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)                                                                                                                  |
