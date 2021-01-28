@@ -9,6 +9,7 @@ menu:
     name: timeWeightedAvg
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregate]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/
 introduced: 0.83.0

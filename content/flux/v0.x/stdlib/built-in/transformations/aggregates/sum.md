@@ -11,6 +11,7 @@ menu:
     name: sum
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregate]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sum, InfluxQL – SUM()
 introduced: 0.7.0

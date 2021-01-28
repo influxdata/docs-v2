@@ -13,6 +13,7 @@ menu:
     name: median
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregate]
 related:
   - /influxdb/v2.0/query-data/flux/median/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()

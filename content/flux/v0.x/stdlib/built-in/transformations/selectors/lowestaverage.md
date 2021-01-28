@@ -11,6 +11,7 @@ menu:
     name: lowestAverage
     parent: built-in-selectors
 weight: 501
+flux/v0.x/tags: [selector]
 introduced: 0.7.0
 ---
 

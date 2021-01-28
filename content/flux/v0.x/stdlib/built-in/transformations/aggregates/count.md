@@ -11,6 +11,7 @@ menu:
     name: count
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregate, transformation]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
 introduced: 0.7.0

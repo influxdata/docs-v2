@@ -11,6 +11,7 @@ menu:
     name: first
     parent: built-in-selectors
 weight: 501
+flux/v0.x/tags: [selector]
 related:
   - /influxdb/v2.0/query-data/flux/first-last/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#first, InfluxQL – FIRST()

@@ -11,6 +11,7 @@ menu:
     name: max
     parent: built-in-selectors
 weight: 501
+flux/v0.x/tags: [selector]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#max, InfluxQL – MAX()
 introduced: 0.7.0

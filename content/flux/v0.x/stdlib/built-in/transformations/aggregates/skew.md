@@ -11,6 +11,7 @@ menu:
     name: skew
     parent: built-in-aggregates
 weight: 501
+flux/v0.x/tags: [aggregate]
 introduced: 0.7.0
 ---
 
