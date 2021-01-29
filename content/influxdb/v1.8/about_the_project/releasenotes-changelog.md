@@ -9,7 +9,7 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.4 [unreleased]
+## v1.8.4 [2020-01-27]
 
 ### Bug fixes
 
