@@ -11,19 +11,18 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 
 ## v1.8.4 [unreleased]
 
-### Features
-
-- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
-- Add [`strict-error-handling` configuration option](/influxdb/v1.8/administration/config/#strict-error-handling-false). Previously, SELECT INTO queries attempting to insert an unsupported value failed silently. To preserve backwards compatibility, a new `strict-error-handling` option was added to the InfluxDB configuration file. Set this option to `true` to ensure a failed insert returns an error and no points are inserted.
-
 ### Bug fixes
 
-- Ensure successful writes increment `WriteOK` write statistics correctly.
-- Add durations to Flux logging, including log compilation, execution, and total request duration.
-- Properly format JSON marshalling errors.
-- Close all `net.Listener` instances silently on error.
-- `regexp` handling in the prometheus converter complies with Prometheus Query Language (PromQL).
-- GROUP BY queries now correctly set the interval start time before calculating the time-zone offset.
+- Add durations to Flux logging, including the log compilation, execution, and total request duration. Previously, these stats were incorrectly logging `0.000ms`:
+
+  - `stat_total_duration`
+  - `stat_compile_duration`
+  - `stat_queue_duration`
+  - `stat_plan_duration`
+  - `stat_requeue_duration`
+  - `stat_execute_duration`
+
+ Now, these durations are logged correctly. Note, `flux-enabled` and `flux-log-enabled` must be set to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
 
 ## v1.8.3 [2020-09-30]
 
