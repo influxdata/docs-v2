@@ -7,6 +7,13 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v.1.17.2 [2021-1-28]
+
+### Input plugin updates
+- `ping`:
+  - Added support to the interface in native mode using either the name or IP address.
+  - Resolved regression from 1.17.1 by adding back missing function.
+
 ## v.1.17.1 [2021-1-27]
 
 ### Features
