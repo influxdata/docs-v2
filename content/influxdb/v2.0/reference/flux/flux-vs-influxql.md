@@ -10,7 +10,7 @@ menu:
     weight: 105
 ---
 
-Flux is an alternative to [InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/)
+Flux is an alternative to [InfluxQL](/influxdb/v2.0/query-data/influxql/)
 and other SQL-like query languages for querying and analyzing data.
 Flux uses functional language patterns that overcome many InfluxQL limitations.
 Check out the following distinctions between Flux and InfluxQL:
@@ -39,7 +39,7 @@ InfluxQL has never supported joins. Although you can use a join in a [TICKscript
 TICKscript's join capabilities are limited.
 Flux's [`join()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) lets you
 join data **from any bucket, any measurement, and on any columns** as long as
-each data set includes the columns to join on. 
+each data set includes the columns to join on.
 
 ```js
 dataStream1 = from(bucket: "example-bucket1")
@@ -192,7 +192,7 @@ from(bucket: "example-bucket")
 
 ### Pivot
 Pivoting data tables isn't supported in InfluxQL.
-Use the Flux [`pivot()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot) 
+Use the Flux [`pivot()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
 to pivot data tables by `rowKey`, `columnKey`, and `valueColumn` parameters.
 
 ```js
