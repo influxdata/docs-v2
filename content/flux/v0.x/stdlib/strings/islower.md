@@ -10,6 +10,7 @@ menu:
     name: strings.isLower
     parent: strings
 weight: 301
+flux/v0.x/tags: [tests]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/isupper
 introduced: 0.18.0

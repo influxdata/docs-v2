@@ -10,6 +10,7 @@ menu:
     name: bigtable.from
     parent: bigtable
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.45.0
 ---
 

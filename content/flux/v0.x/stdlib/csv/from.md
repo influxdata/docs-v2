@@ -12,6 +12,7 @@ menu:
     name: csv.from
     parent: csv
 weight: 202
+flux/v0.x/tags: [inputs]
 introduced: 0.14.0
 ---
 

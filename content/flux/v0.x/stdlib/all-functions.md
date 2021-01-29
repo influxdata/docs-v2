@@ -9,7 +9,7 @@ menu:
   flux_0_x_ref:
     name: View all functions
     parent: Standard library
-weight: 99
+weight: 9
 ---
 
 This list below contains all documented Flux functions:

@@ -1,5 +1,6 @@
 ---
 title: query.inBucket() function
+seotitle: Experimental query.inBucket() function
 description: >
   The `query.inBucket()` function queries data from a specified bucket within given
   time bounds, filters data by measurement, field, and optional predicate expressions.
@@ -11,6 +12,7 @@ menu:
     name: query.inBucket
     parent: query
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.60.0
 ---
 

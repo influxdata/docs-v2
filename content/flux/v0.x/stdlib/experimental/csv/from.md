@@ -1,5 +1,7 @@
 ---
 title: csv.from() function
+seotitle: Experimental csv.from() function
+list_title: csv.from() (experimental)
 description: >
   The experimental `csv.from()` function retrieves annotated CSV from a URL.
 aliases:
@@ -10,6 +12,7 @@ menu:
     name: csv.from *
     parent: csv-exp
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.64.0
 ---
 

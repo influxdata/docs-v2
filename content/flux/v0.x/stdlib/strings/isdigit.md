@@ -10,6 +10,7 @@ menu:
     name: strings.isDigit
     parent: strings
 weight: 301
+flux/v0.x/tags: [tests]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/strings/isletter/
 introduced: 0.18.0
@@ -24,7 +25,7 @@ import "strings"
 
 strings.isDigit(v: "A")
 
-// returns false
+// Returns false
 ```
 
 ## Parameters

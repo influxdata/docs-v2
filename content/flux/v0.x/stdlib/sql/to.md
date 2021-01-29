@@ -10,6 +10,7 @@ menu:
     name: sql.to
     parent: sql
 weight: 202
+flux/v0.x/tags: [outputs]
 introduced: 0.35.0
 ---
 

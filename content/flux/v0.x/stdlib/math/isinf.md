@@ -10,6 +10,7 @@ menu:
     name: math.isInf
     parent: math
 weight: 301
+flux/v0.x/tags: [tests]
 introduced: 0.22.0
 ---
 

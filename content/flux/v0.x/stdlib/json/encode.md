@@ -10,6 +10,7 @@ menu:
     name: json.encode
     parent: json
 weight: 202
+flux/v0.x/tags: [type-conversions]
 introduced: 0.40.0
 ---
 

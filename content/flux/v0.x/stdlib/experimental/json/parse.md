@@ -10,6 +10,7 @@ menu:
     name: json.parse
     parent: json-exp
 weight: 401
+flux/v0.x/tags: [type-conversions]
 introduced: 0.69.0
 ---
 

@@ -11,6 +11,7 @@ menu:
     name: experimental.to
     parent: experimental
 weight: 302
+flux/v0.x/tags: [outputs]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
 introduced: 0.40.0

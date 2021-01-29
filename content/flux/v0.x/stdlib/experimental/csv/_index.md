@@ -1,6 +1,7 @@
 ---
 title: Flux CSV package
 list_title: csv package
+seotitle: Flux Experimental CSV package
 description: >
   The Flux Experimental CSV package provides functions for retrieving annotated CSV.
   Import the `experimental/csv` package.

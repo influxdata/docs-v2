@@ -10,6 +10,7 @@ menu:
     name: testing.assertEmpty
     parent: testing
 weight: 301
+flux/v0.x/tags: [tests]
 introduced: 0.18.0
 ---
 

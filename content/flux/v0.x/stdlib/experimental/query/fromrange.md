@@ -1,5 +1,6 @@
 ---
 title: query.fromRange() function
+seotitle: Experimental query.fromRange() function
 description: >
   The `query.fromRange()` function returns all data from a specified bucket within
   given time bounds.
@@ -11,6 +12,7 @@ menu:
     name: query.fromRange
     parent: query
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.60.0
 ---
 

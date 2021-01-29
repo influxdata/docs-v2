@@ -11,6 +11,7 @@ menu:
     name: testing.assertEquals
     parent: testing
 weight: 301
+flux/v0.x/tags: [tests]
 introduced: 0.14.0
 ---
 

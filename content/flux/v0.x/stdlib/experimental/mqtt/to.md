@@ -10,6 +10,7 @@ menu:
     name: mqtt.to
     parent: mqtt
 weight: 401
+flux/v0.x/tags: [outputs]
 introduced: 0.40.0
 ---
 
