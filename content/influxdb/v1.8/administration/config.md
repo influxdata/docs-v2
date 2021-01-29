@@ -266,13 +266,15 @@ The query log can be useful for troubleshooting, but logs any sensitive data con
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
-#### `strict-error-handling = false`
+<!-- #### `strict-error-handling = false`
 
 When set to `false`, any query attempting to insert an unsupported value, for example `+/-Inf` or `NaN`, fails to insert the unsupported value silently and proceeds to insert any valid points in the query.
 
 Set to `true` to provide more error checking. For example, a SELECT INTO query attempting to insert an `+/-Inf` value, returns an error (rather than failing silently) and no points will be inserted.
 
 Environment variable: `INFLUXDB_DATA_STRICT_ERROR_HANDLING`
+
+-->
 
 #### `validate-keys = false`
 
