@@ -9,21 +9,6 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.4 [2020-01-27]
-
-### Bug fixes
-
-- Add durations to Flux logging, including the log compilation, execution, and total request duration. Previously, these stats were incorrectly logging `0.000ms`:
-
-  - `stat_total_duration`
-  - `stat_compile_duration`
-  - `stat_queue_duration`
-  - `stat_plan_duration`
-  - `stat_requeue_duration`
-  - `stat_execute_duration`
-
- Now, these durations are logged correctly. Note, `flux-enabled` and `flux-log-enabled` must be set to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
-
 ## v1.8.3 [2020-09-30]
 
 ### Features
