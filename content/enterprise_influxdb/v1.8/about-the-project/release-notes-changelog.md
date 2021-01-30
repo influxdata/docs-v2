@@ -17,7 +17,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ### Features
 
-#### Load new license without restart
+#### Load a new license without restarting nodes
 
 - Add a new InfluxDB license key (or license path) to your configuration settings **without restarting your nodes**.
 For more information, see how to [configure the license on your meta nodes](/enterprise_influxdb/v1.8/administration/config-meta-nodes/#enterprise-license-settings) and [data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes/#enterprise-license-settings).
