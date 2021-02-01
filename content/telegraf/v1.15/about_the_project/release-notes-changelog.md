@@ -9,7 +9,7 @@ menu:
 ---
 
 
-## v1.16 [2020-09-11]
+## v1.16 [2020-10-21]
 
 ### Features
 - agent Send metrics in FIFO order
@@ -38,6 +38,13 @@ See EXTERNAL_PLUGINS.md for a full list of external plugins
 awsalarms - Simple plugin to gather/monitor alarms generated in AWS.
 youtube-telegraf-plugin - Gather view and subscriber stats from your youtube videos
 
+## v1.15.4 [2020-10-20]
+
+### Bug fixes
+- `agent` 
+  - Fix panic error on streaming processers
+- `common.shim` 
+  - Fix an issue with loading the processor configuration from `execd`
 
 ## v.1.15.3 [2020-09-11]
 
