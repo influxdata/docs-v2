@@ -15,7 +15,7 @@ The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
 [InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
 
-   > **Note:** InfluxDB 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB 1.8.4.
+   > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
 
 ### Features
 
