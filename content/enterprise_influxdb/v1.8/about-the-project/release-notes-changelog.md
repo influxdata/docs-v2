@@ -21,7 +21,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 #### Update your InfluxDB Enterprise license without restarting nodes
 
-- Add a new InfluxDB Enterprise license key (or license path) to your configuration settings to **upgrade without restarting your nodes**.
+- Add a new InfluxDB Enterprise license key (or license file) to your configuration settings to **upgrade without restarting your nodes**.
 For more information, see how to update the license on your [meta nodes](/enterprise_influxdb/v1.8/administration/config-meta-nodes/#enterprise-license-settings) and [data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes/#enterprise-license-settings).
 
 ### Bug fixes
