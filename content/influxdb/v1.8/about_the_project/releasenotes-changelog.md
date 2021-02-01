@@ -29,9 +29,6 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
   - `stat_total_duration`
   - `stat_compile_duration`
   - `stat_execute_duration`
-  - `stat_queue_duration`
-  - `stat_plan_duration`
-  - `stat_requeue_duration`
  
     Now, these durations are logged correctly. 
 
