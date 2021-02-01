@@ -8,6 +8,16 @@ menu:
     name: Flux
 ---
 
+## v0.103.0 [2021-02-01]
+
+### Features
+- Add `testing/expect` package for test expectations.
+
+### Bug fixes
+- Change the default test discovery path from `./stdlib` to `.`.
+
+---
+
 ## v0.102.0 [2021-01-25]
 
 ### Features
