@@ -30,8 +30,8 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
   - `stat_compile_duration`
   - `stat_execute_duration`
  
-    Now, these durations are logged correctly. 
-
+    Now, these durations are logged correctly.
+    
 - ArrayFilterCursor truncation for multi-block data.
 - Multi-measurement queries now return all applicable series.
 - Lock map before writes.
