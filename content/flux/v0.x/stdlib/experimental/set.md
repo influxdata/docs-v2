@@ -11,7 +11,7 @@ menu:
     parent: experimental
 weight: 302
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
+  - /flux/v0.x/stdlib/universe/set/
 introduced: 0.40.0
 ---
 

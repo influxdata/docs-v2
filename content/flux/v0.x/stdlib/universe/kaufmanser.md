@@ -14,7 +14,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/
+  - /flux/v0.x/stdlib/universe/kaufmansama/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
 introduced: 0.40.0
 ---

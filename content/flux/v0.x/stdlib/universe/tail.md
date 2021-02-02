@@ -11,7 +11,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
+  - /flux/v0.x/stdlib/universe/limit/
 introduced: 0.39.0
 ---
 

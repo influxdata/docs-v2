@@ -12,8 +12,8 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/window-aggregate/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
+  - /{{< latest "influxdb" >}}/query-data/flux/window-aggregate/
+  - /flux/v0.x/stdlib/built-in/universe/aggregatewindow/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 introduced: 0.7.0
 ---

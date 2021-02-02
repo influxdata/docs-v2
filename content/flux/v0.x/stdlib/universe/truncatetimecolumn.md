@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+  - /flux/v0.x/stdlib/date/truncate/
 introduced: 0.37.0
 ---
 

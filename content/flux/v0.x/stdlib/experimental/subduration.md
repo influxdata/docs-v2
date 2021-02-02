@@ -12,7 +12,7 @@ menu:
     parent: experimental
 weight: 302
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
+  - /flux/v0.x/stdlib/experimental/addduration/
 introduced: 0.39.0
 ---
 

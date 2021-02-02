@@ -14,8 +14,8 @@ menu:
 weight: 102
 flux/v0.x/tags: [aggregates]
 related:
-  - /influxdb/v2.0/query-data/flux/custom-functions/custom-aggregate/
-  - /influxdb/v2.0/query-data/flux/conditional-logic/
+  - /{{< latest "influxdb" >}}/query-data/flux/custom-functions/custom-aggregate/
+  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
 introduced: 0.23.0
 ---
 

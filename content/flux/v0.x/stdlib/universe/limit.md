@@ -12,8 +12,8 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/sort-limit/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tail/
+  - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
+  - /flux/v0.x/stdlib/universe/tail/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 introduced: 0.7.0
 ---

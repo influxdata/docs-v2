@@ -12,8 +12,8 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/join/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/
+  - /{{< latest "influxdb" >}}/query-data/flux/join/
+  - /flux/v0.x/stdlib/universe/union/
 introduced: 0.7.0
 ---
 

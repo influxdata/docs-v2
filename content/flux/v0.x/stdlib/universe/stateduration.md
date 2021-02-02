@@ -12,8 +12,8 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/monitor-states/
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
+  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
+  - /flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/
 introduced: 0.7.0
 ---
 

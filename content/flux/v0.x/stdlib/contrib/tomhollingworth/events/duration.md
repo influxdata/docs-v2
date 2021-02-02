@@ -14,8 +14,8 @@ menu:
 weight: 301
 flux/v0.x/tags: [functions, events, package]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/elapsed/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
+  - /flux/v0.x/stdlib/universe/elapsed/
+  - /flux/v0.x/stdlib/universe/stateduration/
 introduced: 0.91.0
 ---
 

@@ -13,9 +13,9 @@ menu:
 weight: 102
 flux/v0.x/tags: [exists]
 related:
-  - /influxdb/v2.0/query-data/flux/conditional-logic/
-  - /influxdb/v2.0/query-data/flux/mathematic-operations/
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/
+  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
+  - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
+  - /flux/v0.x/stdlib/contrib/jsternberg/rows/map/
 introduced: 0.7.0
 ---
 

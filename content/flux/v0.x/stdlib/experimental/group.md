@@ -12,7 +12,7 @@ menu:
     parent: experimental
 weight: 302
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
+  - /flux/v0.x/stdlib/universe/group/
 introduced: 0.39.0
 ---
 

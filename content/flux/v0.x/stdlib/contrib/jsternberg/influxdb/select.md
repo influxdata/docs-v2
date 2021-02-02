@@ -14,11 +14,11 @@ menu:
 weight: 301
 flux/v0.x/tags: [functions, package, query]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+  - /flux/v0.x/stdlib/universe/from/
+  - /flux/v0.x/stdlib/universe/range/
+  - /flux/v0.x/stdlib/universe/filter/
+  - /flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/
+  - /flux/v0.x/stdlib/universe/pivot/
 introduced: 0.77.0
 ---
 

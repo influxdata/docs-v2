@@ -13,7 +13,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [selectors]
 related:
-  - /influxdb/v2.0/query-data/flux/first-last/
+  - /{{< latest "influxdb" >}}/query-data/flux/first-last/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#first, InfluxQL – FIRST()
 introduced: 0.7.0
 ---

@@ -1,7 +1,8 @@
 ---
 title: Flux function types and behaviors
 description: >
-  placeholder
+  Flux functions each share a set of behaviors or traits that define how the function works.
+  View high-level function behavior categories that represent distinct and important function behaviors.
 menu:
   flux_0_x_ref:
     name: Function types
@@ -45,9 +46,15 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/
 ---
 
+Flux functions each share a set of behaviors or traits that define how the function works.
+The following categories represent high-level function behaviors.
+This list is not all-inclusive, but covers distinct and important function behaviors.
+
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [Transformations](#transformations)
+  - [Aggregates](#aggregates)
+  - [Selectors](#selectors)
 - [Dynamic queries](#dynamic-queries)
 - [Type conversions](#type-conversions)
 - [Tests](#tests)

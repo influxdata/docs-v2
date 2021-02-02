@@ -11,9 +11,9 @@ menu:
     parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/tolower
-  - /influxdb/v2.0/reference/flux/stdlib/strings/totitle
-  - /influxdb/v2.0/reference/flux/stdlib/strings/toupper
+  - /flux/v0.x/stdlib/strings/tolower
+  - /flux/v0.x/stdlib/strings/totitle
+  - /flux/v0.x/stdlib/strings/toupper
 introduced: 0.18.0
 ---
 

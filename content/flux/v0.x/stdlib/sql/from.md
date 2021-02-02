@@ -12,7 +12,7 @@ menu:
 weight: 202
 flux/v0.x/tags: [inputs]
 related:
-  - /influxdb/v2.0/query-data/flux/sql/
+  - /{{< latest "influxdb" >}}/query-data/flux/sql/
 introduced: 0.34.0
 ---
 

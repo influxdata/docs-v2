@@ -12,7 +12,7 @@ menu:
 weight: 301
 flux/v0.x/tags: [tests]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/islower
+  - /flux/v0.x/stdlib/strings/islower
 introduced: 0.18.0
 ---
 

@@ -14,7 +14,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [aggregates]
 related:
-  - /influxdb/v2.0/query-data/flux/percentile-quantile/
+  - /{{< latest "influxdb" >}}/query-data/flux/percentile-quantile/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 introduced: 0.24.0
 ---

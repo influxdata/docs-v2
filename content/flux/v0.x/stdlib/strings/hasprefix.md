@@ -11,7 +11,7 @@ menu:
     parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/hassuffix
+  - /flux/v0.x/stdlib/strings/hassuffix
 introduced: 0.18.0
 ---
 

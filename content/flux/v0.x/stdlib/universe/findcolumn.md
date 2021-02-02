@@ -13,7 +13,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [dynamic queries]
 related:
-  - /influxdb/v2.0/query-data/flux/scalar-values/
+  - /{{< latest "influxdb" >}}/query-data/flux/scalar-values/
 introduced: 0.68.0
 ---
 

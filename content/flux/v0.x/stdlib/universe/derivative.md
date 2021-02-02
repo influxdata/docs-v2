@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/rate/
+  - /{{< latest "influxdb" >}}/query-data/flux/rate/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#derivative, InfluxQL – DERIVATIVE()
 introduced: 0.7.0
 ---

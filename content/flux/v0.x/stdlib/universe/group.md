@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/group-data/
+  - /{{< latest "influxdb" >}}/query-data/flux/group-data/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY
 introduced: 0.7.0
 ---

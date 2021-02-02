@@ -11,7 +11,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/system/time/
+  - /flux/v0.x/stdlib/system/time/
 introduced: 0.7.0
 ---
 

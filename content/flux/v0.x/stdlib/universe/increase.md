@@ -15,7 +15,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/increase/
+  - /{{< latest "influxdb" >}}/query-data/flux/increase/
 introduced: 0.71.0
 ---
 

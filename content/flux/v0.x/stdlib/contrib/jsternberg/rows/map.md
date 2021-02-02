@@ -13,7 +13,7 @@ menu:
 weight: 301
 flux/v0.x/tags: [functions, package, map]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
+  - /flux/v0.x/stdlib/universe/map/
 introduced: 0.77.0
 ---
 

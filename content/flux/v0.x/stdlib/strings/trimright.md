@@ -12,11 +12,11 @@ menu:
     parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trim
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimleft
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
+  - /flux/v0.x/stdlib/strings/trim
+  - /flux/v0.x/stdlib/strings/trimleft
+  - /flux/v0.x/stdlib/strings/trimprefix
+  - /flux/v0.x/stdlib/strings/trimsuffix
+  - /flux/v0.x/stdlib/strings/trimspace
 introduced: 0.18.0
 ---
 

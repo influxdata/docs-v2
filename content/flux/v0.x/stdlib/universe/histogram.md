@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/histograms/
+  - /{{< latest "influxdb" >}}/query-data/flux/histograms/
 introduced: 0.7.0
 ---
 

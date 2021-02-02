@@ -11,7 +11,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [aggregates]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/
+  - /flux/v0.x/stdlib/universe/integral/
 introduced: 0.83.0
 ---
 

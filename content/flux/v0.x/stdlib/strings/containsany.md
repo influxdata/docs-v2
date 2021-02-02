@@ -13,7 +13,7 @@ menu:
     parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/containsstr
+  - /flux/v0.x/stdlib/strings/containsstr
 introduced: 0.18.0
 ---
 

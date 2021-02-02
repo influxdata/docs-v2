@@ -13,7 +13,7 @@ menu:
     parent: system
 weight: 401
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /flux/v0.x/stdlib/universe/now/
 introduced: 0.18.0
 ---
 

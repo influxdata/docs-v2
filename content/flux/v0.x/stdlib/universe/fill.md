@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/fill/
+  - /{{< latest "influxdb" >}}/query-data/flux/fill/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals-and-fill, InfluxQL – FILL
 introduced: 0.14.0
 ---

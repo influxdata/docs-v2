@@ -11,7 +11,7 @@ menu:
     parent: aggregate
 weight: 301
 related:
-  - /influxdb/v2.0/query-data/flux/rate/
+  - /{{< latest "influxdb" >}}/query-data/flux/rate/
 introduced: 0.61.0
 ---
 

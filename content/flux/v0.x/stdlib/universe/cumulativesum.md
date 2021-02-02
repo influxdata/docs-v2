@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/cumulativesum/
+  - /{{< latest "influxdb" >}}/query-data/flux/cumulativesum/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 introduced: 0.7.0
 ---

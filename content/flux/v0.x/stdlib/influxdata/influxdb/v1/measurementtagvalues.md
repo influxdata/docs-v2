@@ -12,7 +12,7 @@ menu:
 weight: 301
 flux/v0.x/tags: [tags]
 related:
-  - /influxdb/v2.0/query-data/flux/explore-schema/
+  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
 introduced: 0.16.0
 deprecated: 0.88.0

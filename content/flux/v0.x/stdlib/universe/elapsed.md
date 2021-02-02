@@ -11,7 +11,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
+  - /flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/
 introduced: 0.36.0
 ---
 

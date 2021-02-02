@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/sort-limit/
+  - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
 introduced: 0.7.0
 ---
 

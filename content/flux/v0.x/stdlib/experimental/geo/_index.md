@@ -15,7 +15,7 @@ menu:
 weight: 301
 flux/v0.x/tags: [functions, package, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 The Flux Geo package provides tools for working with geo-temporal data,

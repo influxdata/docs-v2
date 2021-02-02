@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/
   - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/fieldkeys/
 related:
-  - /influxdb/v2.0/query-data/flux/explore-schema/
+  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
 introduced: 0.88.0
 ---

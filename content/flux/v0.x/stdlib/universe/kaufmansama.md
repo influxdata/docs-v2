@@ -14,7 +14,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmanser/
+  - /flux/v0.x/stdlib/universe/kaufmanser/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 introduced: 0.40.0
 ---

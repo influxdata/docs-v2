@@ -14,10 +14,10 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /flux/v0.x/stdlib/universe/movingaverage/
+  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
+  - /flux/v0.x/stdlib/universe/doubleema/
+  - /flux/v0.x/stdlib/universe/tripleema/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 introduced: 0.36.0
 ---

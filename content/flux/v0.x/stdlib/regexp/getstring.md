@@ -11,7 +11,7 @@ menu:
     parent: regexp
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/compile
+  - /flux/v0.x/stdlib/regexp/compile
 introduced: 0.33.3
 ---
 

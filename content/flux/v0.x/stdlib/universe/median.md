@@ -15,7 +15,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [aggregates]
 related:
-  - /influxdb/v2.0/query-data/flux/median/
+  - /{{< latest "influxdb" >}}/query-data/flux/median/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()
 introduced: 0.7.0
 ---

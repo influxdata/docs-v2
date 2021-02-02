@@ -13,9 +13,9 @@ menu:
 weight: 401
 flux/v0.x/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /flux/v0.x/stdlib/experimental/geo/gridfilter/
+  - /flux/v0.x/stdlib/experimental/geo/strictfilter/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
 ---
 

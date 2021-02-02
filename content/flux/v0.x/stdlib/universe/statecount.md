@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/query-data/flux/monitor-states/
+  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
 introduced: 0.7.0
 ---
 

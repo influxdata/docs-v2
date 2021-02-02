@@ -13,7 +13,7 @@ menu:
     parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/replaceall
+  - /flux/v0.x/stdlib/strings/replaceall
 introduced: 0.18.0
 ---
 

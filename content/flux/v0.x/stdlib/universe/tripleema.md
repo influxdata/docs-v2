@@ -15,10 +15,10 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /flux/v0.x/stdlib/universe/movingaverage/
+  - /flux/v0.x/stdlib/universe/doubleema/
+  - /flux/v0.x/stdlib/universe/timedmovingaverage/
+  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 introduced: 0.38.0
 ---

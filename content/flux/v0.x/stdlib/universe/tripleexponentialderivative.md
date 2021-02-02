@@ -15,11 +15,11 @@ menu:
 weight: 102
 flux/v0.x/tags: [technical analysis]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /flux/v0.x/stdlib/universe/movingaverage/
+  - /flux/v0.x/stdlib/universe/doubleema/
+  - /flux/v0.x/stdlib/universe/tripleema/
+  - /flux/v0.x/stdlib/universe/timedmovingaverage/
+  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-derivative, InfluxQL TRIPLE_EXPONENTIAL_DERIVATIVE()
 introduced: 0.40.0
 ---

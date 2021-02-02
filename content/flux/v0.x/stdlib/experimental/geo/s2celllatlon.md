@@ -13,7 +13,7 @@ menu:
 weight: 401
 flux/v0.x/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
 ---
 
