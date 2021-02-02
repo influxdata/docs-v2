@@ -14,15 +14,15 @@ weight: 208
 aliases:
   - /influxdb/v2.0/query-data/guides/mathematic-operations/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
-  - /influxdb/v2.0/reference/flux/language/operators/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+  - /{{< latest "flux" >}}/stdlib/universe/map
+  - /{{< latest "flux" >}}/stdlib/universe/aggregates/reduce/
+  - /{{< latest "flux" >}}/language/operators/
+  - /{{< latest "flux" >}}/function-types/#type-conversions, Flux type-conversion functions
   - /influxdb/v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 
-[Flux](/influxdb/v2.0/reference/flux), InfluxData's data scripting and query language,
+[Flux](/{{< latest "flux" >}}/), InfluxData's data scripting and query language,
 supports mathematic expressions in data transformations.
 This article describes how to use [Flux arithmetic operators](/influxdb/v2.0/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.

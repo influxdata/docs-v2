@@ -2,7 +2,7 @@
 title: Extract scalar values in Flux
 list_title: Extract scalar values
 description: >
-  Use Flux stream and table functions to extract scalar values from Flux query output.
+  Use Flux dynamic query functions to extract scalar values from Flux query output.
   This lets you, for example, dynamically set variables using query results.
 menu:
   influxdb_2_0:
@@ -11,7 +11,7 @@ menu:
 weight: 220
 influxdb/v2.0/tags: [scalar]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/
+  - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
 aliases:
   - /influxdb/v2.0/query-data/guides/scalar-values/
 list_code_example: |
@@ -19,14 +19,13 @@ list_code_example: |
   scalarValue = {
     _record =
       data
-        |> tableFind(fn: key => true)
-        |> getRecord(idx: 0)
+        |> findRecord(fn: key => true, idx: 0)
     return _record._value
   }
   ```
 ---
 
-Use Flux [stream and table functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/)
+Use Flux [dynamic query functions](/{{< latest "flux" >}}/function-types/#dynamic-queries)
 to extract scalar values from Flux query output.
 This lets you, for example, dynamically set variables using query results.
 

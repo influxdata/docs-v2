@@ -15,7 +15,7 @@ aliases:
   - /influxdb/v2.0/query-data/guides/exists/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
 list_code_example: |
   ##### Filter null values
   ```js

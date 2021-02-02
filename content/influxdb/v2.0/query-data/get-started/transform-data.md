@@ -8,8 +8,8 @@ menu:
     parent: Get started with Flux
 weight: 202
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window
+  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
+  - /{{< latest "flux" >}}/stdlib/universe/window
 ---
 
 When [querying data from InfluxDB](/influxdb/v2.0/query-data/get-started/query-influxdb),

@@ -14,10 +14,10 @@ influxdb/v2.0/tags: [flux, aggregates]
 aliases:
   - /influxdb/v2.0/query-data/guides/window-aggregate/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors
+  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
+  - /{{< latest "flux" >}}/stdlib/universe/window
+  - /{{< latest "flux" >}}/function-types/#aggregates, Flux aggregate functions
+  - /{{< latest "flux" >}}/function-types/#selectors, Flux selector functions
 list_query_example: aggregate_window
 ---
 

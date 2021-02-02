@@ -9,8 +9,8 @@ menu:
     parent: Geo-temporal data
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/shapedata/
 list_code_example: |
   ```js
   import "experimental/geo"

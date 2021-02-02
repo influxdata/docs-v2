@@ -15,7 +15,7 @@ weight: 220
 aliases:
   - /influxdb/v2.0/query-data/guides/sql/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/sql/
+  - /{{< latest "flux" >}}/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"

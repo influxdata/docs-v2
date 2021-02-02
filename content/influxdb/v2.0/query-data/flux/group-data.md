@@ -13,8 +13,8 @@ weight: 202
 aliases:
   - /influxdb/v2.0/query-data/guides/group-data/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/group
+  - /{{< latest "flux" >}}/stdlib/universe/group
+  - /{{< latest "flux" >}}/stdlib/experimental/group
 list_query_example: group
 ---
 

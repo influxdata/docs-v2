@@ -9,8 +9,8 @@ menu:
     parent: Geo-temporal data
 weight: 301
 related:
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/shapedata/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/shapedata/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/geo/shape-geo-data/
 v2: /influxdb/v2.0/query-data/flux/geo/shape-geo-data/
 list_code_example: |

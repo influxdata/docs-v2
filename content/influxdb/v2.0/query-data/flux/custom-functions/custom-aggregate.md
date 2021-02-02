@@ -10,7 +10,7 @@ weight: 301
 aliases:
   - /influxdb/v2.0/query-data/guides/custom-functions/custom-aggregate/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /i{{< latest "flux" >}}/stdlib/universe/reduce/
 ---
 
 To aggregate your data, use the Flux

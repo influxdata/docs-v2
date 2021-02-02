@@ -8,7 +8,7 @@ menu:
     parent: Get started with Flux
 weight: 203
 related:
-  - /influxdb/v2.0/reference/flux/language/types/
+  - /{{< latest "flux" >}}/language/types/
 ---
 
 

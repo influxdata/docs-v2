@@ -13,7 +13,7 @@ weight: 210
 aliases:
   - /influxdb/v2.0/query-data/guides/histograms/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram
+  - /{{< latest "flux" >}}/stdlib/universe/histogram
 list_query_example: histogram
 ---
 

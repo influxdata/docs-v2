@@ -11,15 +11,15 @@ weight: 220
 aliases:
   - /influxdb/v2.0/query-data/guides/manipulate-timestamps/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
-  - /influxdb/v2.0/reference/flux/stdlib/system/time/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
-  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
+  - /{{< latest "flux" >}}/stdlib/universe/now/
+  - /{{< latest "flux" >}}/stdlib/system/time/
+  - /{{< latest "flux" >}}/stdlib/universe/time/
+  - /{{< latest "flux" >}}/stdlib/universe/uint/
+  - /{{< latest "flux" >}}/stdlib/universe/int/
+  - /{{< latest "flux" >}}/stdlib/universe/truncatetimecolumn/
+  - /{{< latest "flux" >}}/stdlib/date/truncate/
+  - /{{< latest "flux" >}}/stdlib/experimental/addduration/
+  - /{{< latest "flux" >}}/stdlib/experimental/subduration/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.

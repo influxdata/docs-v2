@@ -11,14 +11,14 @@ menu:
     parent: Query with Flux
 weight: 206
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
-  - /influxdb/v2.0/reference/flux/stdlib/schema/measurements
-  - /influxdb/v2.0/reference/flux/stdlib/schema/fieldkeys
-  - /influxdb/v2.0/reference/flux/stdlib/schema/measurementfieldkeys
-  - /influxdb/v2.0/reference/flux/stdlib/schema/tagkeys
-  - /influxdb/v2.0/reference/flux/stdlib/schema/measurementtagkeys
-  - /influxdb/v2.0/reference/flux/stdlib/schema/tagvalues
-  - /influxdb/v2.0/reference/flux/stdlib/schema/measurementtagvalues
+  - /{{< latest "flux" >}}/stdlib/universe/buckets/
+  - /{{< latest "flux" >}}/stdlib/schema/measurements
+  - /{{< latest "flux" >}}/stdlib/schema/fieldkeys
+  - /{{< latest "flux" >}}/stdlib/schema/measurementfieldkeys
+  - /{{< latest "flux" >}}/stdlib/schema/tagkeys
+  - /{{< latest "flux" >}}/stdlib/schema/measurementtagkeys
+  - /{{< latest "flux" >}}/stdlib/schema/tagvalues
+  - /{{< latest "flux" >}}/stdlib/schema/measurementtagvalues
 list_code_example: |
   ```js
   import "influxdata/influxdb/schema"

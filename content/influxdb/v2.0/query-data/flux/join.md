@@ -12,7 +12,7 @@ weight: 210
 aliases:
   - /influxdb/v2.0/query-data/guides/join/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join
+  - /{{< latest "flux" >}}/stdlib/universe/join
 list_query_example: join
 ---
 

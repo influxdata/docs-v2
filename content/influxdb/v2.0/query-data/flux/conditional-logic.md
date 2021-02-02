@@ -15,9 +15,9 @@ aliases:
   - /influxdb/v2.0/query-data/guides/conditional-logic/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/map/
+  - /{{< latest "flux" >}}/stdlib/universe/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"

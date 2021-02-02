@@ -9,9 +9,9 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/query-data/flux/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/from
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/range
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter
+  - /{{< latest "flux" >}}/stdlib/universe/from
+  - /{{< latest "flux" >}}/stdlib/universe/range
+  - /{{< latest "flux" >}}/stdlib/universe/filter
 ---
 
 {{< duplicate-oss >}}

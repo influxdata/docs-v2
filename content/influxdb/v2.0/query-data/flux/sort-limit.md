@@ -16,8 +16,8 @@ weight: 203
 aliases:
   - /influxdb/v2.0/query-data/guides/sort-limit/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit
+  - /{{< latest "flux" >}}/stdlib/universe/sort
+  - /{{< latest "flux" >}}/stdlib/universe/limit
 list_query_example: sort_limit
 ---
 

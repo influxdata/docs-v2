@@ -11,8 +11,8 @@ weight: 220
 aliases:
   - /influxdb/v2.0/query-data/guides/monitor-states/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
+  - /{{< latest "flux" >}}/stdlib/universe/stateduration/
+  - /{{< latest "flux" >}}/stdlib/universe/statecount/
 ---
 
 Flux helps you monitor states in your metrics and events:
