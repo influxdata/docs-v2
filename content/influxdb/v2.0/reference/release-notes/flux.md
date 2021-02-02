@@ -8,7 +8,7 @@ menu:
     name: Flux
 ---
 
-## v0.103.1 [2021-02-02]
+## v0.104.0 [2021-02-02]
 
 ### Features
 - Reintroduce `IsZero` method on time windows.
