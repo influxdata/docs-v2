@@ -8,6 +8,16 @@ menu:
     name: Flux
 ---
 
+## v0.103.1 [2021-02-02]
+
+### Features
+- Reintroduce `IsZero` method on time windows.
+
+### Bug fixes
+- Break parse loop when invalid array item is found.
+
+---
+
 ## v0.103.0 [2021-02-01]
 
 ### Features
