@@ -20,7 +20,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementTagKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagkeys/).
+[`schema.measurementTagKeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/).
 {{% /warn %}}
 
 The `v1.measurementTagKeys()` function returns a list of tag keys for a specific measurement.
@@ -59,4 +59,4 @@ measurementTagKeys = (bucket, measurement) =>
 ```
 
 _**Used functions:**
-[v1.tagKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys)_
+[v1.tagKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagkeys)_

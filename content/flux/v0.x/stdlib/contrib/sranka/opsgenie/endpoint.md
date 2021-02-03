@@ -69,7 +69,7 @@ following fields:
 - `details`
 - `visibleTo`
 
-_For more information, see [`opsgenie.sendAlert()`](/influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/sendalert/)._
+_For more information, see [`opsgenie.sendAlert()`](/flux/v0.x/stdlib/contrib/sranka/opsgenie/sendalert/)._
 
 ## Examples
 

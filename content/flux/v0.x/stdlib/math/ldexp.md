@@ -13,7 +13,7 @@ weight: 301
 introduced: 0.22.0
 ---
 
-The `math.ldexp()` function is the inverse of [`math.frexp()`](/influxdb/v2.0/reference/flux/stdlib/math/frexp).
+The `math.ldexp()` function is the inverse of [`math.frexp()`](/flux/v0.x/stdlib/math/frexp).
 It returns `frac × 2**exp`.
 
 _**Output data type:** Float_

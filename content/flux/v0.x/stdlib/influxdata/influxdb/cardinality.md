@@ -86,7 +86,7 @@ The earliest time to include when calculating cardinality.
 The cardinality calculation **includes** points that match the specified start time.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
-Durations are relative to [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/).
+Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 
 _**Data type:** Duration | Time_
 
@@ -95,7 +95,7 @@ The latest time to include when calculating cardinality.
 The cardinality calculation **excludes** points that match the specified start time.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
-Durations are relative to [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/).
+Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 Defaults to `now()`.
 
 _**Data type:** Duration | Time_

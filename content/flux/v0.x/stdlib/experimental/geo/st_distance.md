@@ -19,7 +19,7 @@ introduced: 0.63.0
 
 The `geo.ST_Distance()` function returns the distance between the specified region
 and specified geographic information system (GIS) geometry.
-Define distance units with the [`geo.units` option](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#define-distance-units).
+Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units).
 
 _**Function type:** Transformation_
 
@@ -39,14 +39,14 @@ geo.ST_Distance(
 ### region
 The region to test.
 Specify record properties for the shape.
-_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Record_
 
 ### geometry
 The GIS geometry to test.
 Can be either point or linestring geometry.
-_See [GIS geometry definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#gis-geometry-definitions)._
+_See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
 
 _**Data type:** Record_
 

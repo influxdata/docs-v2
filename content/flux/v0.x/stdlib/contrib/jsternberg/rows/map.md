@@ -1,7 +1,7 @@
 ---
 title: rows.map() function
 description: >
-  The `rows.map()` function is an alternate implementation of [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+  The `rows.map()` function is an alternate implementation of [`map()`](/flux/v0.x/stdlib/universe/map/)
   that is faster, but more limited than `map()`.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/
@@ -17,7 +17,7 @@ related:
 introduced: 0.77.0
 ---
 
-The `rows.map()` function is an alternate implementation of [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+The `rows.map()` function is an alternate implementation of [`map()`](/flux/v0.x/stdlib/universe/map/)
 that is faster, but more limited than `map()`.
 `rows.map()` cannot modify [groups keys](/influxdb/v2.0/reference/glossary/#group-key) and,
 therefore, does not need to regroup tables.

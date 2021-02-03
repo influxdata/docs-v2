@@ -55,7 +55,7 @@ Requires an `r` parameter.
 _**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the
-following fields (as defined in [`pushbullet.pushNote()`](/influxdb/v2.0/reference/flux/stdlib/pushbullet/pushnote/#title)):
+following fields (as defined in [`pushbullet.pushNote()`](/flux/v0.x/stdlib/pushbullet/pushnote/#title)):
 
 - `title`
 - `text`

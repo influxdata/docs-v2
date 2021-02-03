@@ -33,7 +33,7 @@ drop(fn: (column) => column =~ /usage*/)
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### columns

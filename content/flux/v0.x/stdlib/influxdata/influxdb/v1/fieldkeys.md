@@ -20,7 +20,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/).
+[`schema.fieldKeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/).
 {{% /warn %}}
 
 The `v1.fieldKeys()` function returns [field keys](/influxdb/v2.0/reference/glossary/#field-key) in a bucket.
@@ -55,7 +55,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
+Absolute start times are defined using [time values](/flux/v0.x/language/types/#time-types).
 
 _**Data type:** Duration_
 
@@ -75,4 +75,4 @@ fieldKeys = (bucket, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[v1.tagValues](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/)_
+[v1.tagValues]((/flux/v0.x/stdlib/influxdata/influxdb/v1/tagvalues/)_

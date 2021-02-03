@@ -78,5 +78,5 @@ fromRange = (bucket, start, stop=now()) =>
 ```
 
 _**Used functions:**_  
-[from()](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)  
-[range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)  
+[from()](/flux/v0.x/stdlib/universe/from/)  
+[range()](/flux/v0.x/stdlib/universe/range/)  

@@ -20,7 +20,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementFieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementfieldkeys/).
+[`schema.measurementFieldKeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
 {{% /warn %}}
 
 The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
@@ -54,7 +54,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
+Absolute start times are defined using [time values](/flux/v0.x/language/types/#time-types).
 
 _**Data type:** Duration_
 
@@ -77,4 +77,4 @@ measurementFieldKeys = (bucket, measurement, start=-30d) =>
 ```
 
 _**Used functions:**
-[v1.fieldKeys](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/)_
+[v1.fieldKeys](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/)_

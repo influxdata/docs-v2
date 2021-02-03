@@ -63,4 +63,4 @@ measurementTagValues = (bucket, measurement, tag) =>
 ```
 
 _**Used functions:**
-[schema.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues)_
+[schema.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues)_

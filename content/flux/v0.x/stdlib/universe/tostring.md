@@ -49,5 +49,5 @@ toString = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[string()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string)_
+[map()](/flux/v0.x/stdlib/universe/map),
+[string()](/flux/v0.x/stdlib/universe/string)_

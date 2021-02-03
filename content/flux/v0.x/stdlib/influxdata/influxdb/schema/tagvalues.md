@@ -55,7 +55,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
+Absolute start times are defined using [time values](/flux/v0.x/language/types/#time-types).
 
 _**Data type:** Duration_
 
@@ -83,9 +83,9 @@ tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[from](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/),
-[range](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/),
-[filter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-[group](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/),
-[distinct](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/),
-[keep](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/)_
+[from](/flux/v0.x/stdlib/universe/from/),
+[range](/flux/v0.x/stdlib/universe/range/),
+[filter](/flux/v0.x/stdlib/universe/filter/),
+[group](/flux/v0.x/stdlib/universe/group/),
+[distinct](/flux/v0.x/stdlib/universe/distinct/),
+[keep](/flux/v0.x/stdlib/universe/keep/)_

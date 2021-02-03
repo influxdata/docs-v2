@@ -49,7 +49,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
+Absolute start times are defined using [time values](/flux/v0.x/language/types/#time-types).
 
 _**Data type:** Duration_
 
@@ -69,4 +69,4 @@ fieldKeys = (bucket, predicate=(r) => true, start=-30d) =>
 ```
 
 _**Used functions:**
-[schema.tagValues](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/)_
+[schema.tagValues](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues/)_

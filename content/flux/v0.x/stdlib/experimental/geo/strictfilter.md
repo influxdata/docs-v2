@@ -20,7 +20,7 @@ introduced: 0.63.0
 ---
 
 The `geo.strictFilter()` function filters data by latitude and longitude in a specified region.
-This filter is more strict than [`geo.gridFilter()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/),
+This filter is more strict than [`geo.gridFilter()`](/flux/v0.x/stdlib/experimental/geo/gridfilter/),
 but for the best performance, use `geo.strictFilter()` **after** `geo.gridFilter()`.
 _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) below._
 
@@ -36,7 +36,7 @@ geo.strictFilter(
 
 {{% note %}}
 `geo.strictFilter()` requires `lat` and `lon` columns in each row.
-Use [`geo.toRows()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/)
+Use [`geo.toRows()`](/flux/v0.x/stdlib/experimental/geo/gridfilter/)
 to pivot `lat` and `lon` fields into each row **before** using `geo.strictFilter()`.
 {{% /note %}}
 
@@ -67,7 +67,7 @@ In most cases, the specified geographic region does not perfectly align with S2 
 ### region
 The region containing the desired data points.
 Specify record properties for the shape.
-_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Record_
 

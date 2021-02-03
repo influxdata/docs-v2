@@ -30,7 +30,7 @@ _The `testing.assertEmpty()` function can be used to perform in-line tests in a 
 ## Examples
 
 #### Check if there is a difference between streams
-This example uses the [`testing.diff()` function](/influxdb/v2.0/reference/flux/stdlib/testing/diff)
+This example uses the [`testing.diff()` function](/flux/v0.x/stdlib/testing/diff)
 which outputs the diff for the two streams.
 The `.testing.assertEmpty()` function checks to see if the diff is empty.
 

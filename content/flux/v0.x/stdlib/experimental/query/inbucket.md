@@ -115,7 +115,7 @@ inBucket = (
 ```
 
 _**Used functions:**_  
-[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
-[query.filterFields()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filterfields/)  
-[query.filterMeasurement()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/)  
-[query.fromRange()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/fromrange/)  
+[filter()](/flux/v0.x/stdlib/universe/filter/)  
+[query.filterFields()](/flux/v0.x/stdlib/experimental/query/filterfields/)  
+[query.filterMeasurement()](/flux/v0.x/stdlib/experimental/query/filtermeasurement/)  
+[query.fromRange()](/flux/v0.x/stdlib/experimental/query/fromrange/)  

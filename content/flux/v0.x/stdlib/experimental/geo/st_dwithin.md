@@ -41,20 +41,20 @@ geo.ST_DWithin(
 ### region
 The region to test.
 Specify record properties for the shape.
-_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Record_
 
 ### geometry
 The GIS geometry to test.
 Can be either point or linestring geometry.
-_See [GIS geometry definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#gis-geometry-definitions)._
+_See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
 
 _**Data type:** Record_
 
 ### distance
 Maximum distance allowed between the region and geometry.
-_Define distance units with the [`geo.units` option](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#define-distance-units)._
+_Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units)._
 
 _**Data type:** Float_
 

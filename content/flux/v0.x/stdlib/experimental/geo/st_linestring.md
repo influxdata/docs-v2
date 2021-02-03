@@ -2,7 +2,7 @@
 title: geo.ST_LineString() function
 description: >
   The `geo.ST_LineString()` function converts a series of geographic points into
-  [linestring](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#linestring).
+  [linestring](/flux/v0.x/stdlib/experimental/geo/#linestring).
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_linestring/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_linestring/
@@ -18,7 +18,7 @@ introduced: 0.63.0
 ---
 
 The `geo.ST_LineString()` function converts a series of geographic points into
-[linestring](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#linestring).
+[linestring](/flux/v0.x/stdlib/experimental/geo/#linestring).
 Group data into meaningful, ordered paths to before converting to linestring.
 Rows in each table must have `lat` and `lon` columns.
 Output tables contain a single row with a `st_linestring` column containing the resulting linestring.

@@ -16,7 +16,7 @@ Flux string interpolation evaluates string literals containing one or more place
 and returns a result with placeholders replaced with their corresponding values.
 
 ## String interpolation syntax
-To use Flux string interpolation, enclose embedded [expressions](/influxdb/v2.0/reference/flux/language/expressions/)
+To use Flux string interpolation, enclose embedded [expressions](/flux/v0.x/language/expressions/)
 in a dollar sign and curly braces `${}`.
 Flux replaces the content between the braces with the result of the expression and
 returns a string literal.
@@ -32,7 +32,7 @@ name = "John"
 {{% note %}}
 #### Flux only interpolates string values
 Flux currently interpolates only string values (see [influxdata/flux#1775](https://github.com/influxdata/flux/issues/1775)).
-Use the [string() function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
+Use the [string() function](/flux/v0.x/stdlib/universe/string/)
 to convert non-string values to strings.
 
 ```js
@@ -44,8 +44,8 @@ count = 12
 
 
 ## Use dot notation to interpolate record values
-[Records](/influxdb/v2.0/reference/flux/language/expressions/#record-literals) consist of key-value pairs.
-Use [dot notation](/influxdb/v2.0/reference/flux/language/expressions/#member-expressions)
+[Records](/flux/v0.x/language/expressions/#record-literals) consist of key-value pairs.
+Use [dot notation](/flux/v0.x/language/expressions/#member-expressions)
 to interpolate values from a record.
 
 ```js

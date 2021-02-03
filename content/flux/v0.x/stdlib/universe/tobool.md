@@ -49,5 +49,5 @@ toBool = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[bool()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bool)_
+[map()](/flux/v0.x/stdlib/universe/map),
+[bool()](/flux/v0.x/stdlib/universe/bool)_

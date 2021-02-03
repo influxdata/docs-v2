@@ -46,7 +46,7 @@ now()
 `now()` is cached at runtime, so all instances of `now()` in a Flux script
 return the same value.
 
-[`system.time()`](/influxdb/v2.0/reference/flux/stdlib/system/time/) returns the current
+[`system.time()`](/flux/v0.x/stdlib/system/time/) returns the current
 system time of the host machine, which typically accounts for the local time zone.
 This time represents the time at which `system.time()` it is executed, so each
 instance of `system.time()` in a Flux script returns a unique value.

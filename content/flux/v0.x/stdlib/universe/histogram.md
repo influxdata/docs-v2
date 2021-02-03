@@ -62,8 +62,8 @@ _**Data type:** Array of floats_
 #### Bin helper functions
 The following helper functions can be used to generated bins.
 
-[linearBins()](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins)  
-[logarithmicBins()](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins)
+[linearBins()](/flux/v0.x/stdlib/universe/linearbins)  
+[logarithmicBins()](/flux/v0.x/stdlib/universe/logarithmicbins)
 
 ### normalize
 When `true`, will convert the counts into frequency values between 0 and 1.

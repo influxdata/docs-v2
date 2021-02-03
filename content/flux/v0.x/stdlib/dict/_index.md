@@ -15,7 +15,7 @@ weight: 11
 flux/v0.x/tags: [package, functions]
 ---
 
-The Flux dictionary package provides functions for interacting with [dictionary types](/influxdb/v2.0/reference/flux/language/types/#dictionary-types).
+The Flux dictionary package provides functions for interacting with [dictionary types](/flux/v0.x/language/types/#dictionary-types).
 Import the `dict` package.
 
 ```js

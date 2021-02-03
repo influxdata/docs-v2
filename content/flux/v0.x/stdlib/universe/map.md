@@ -35,7 +35,7 @@ map(fn: (r) => ({ _value: r._value * r._value }))
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn
@@ -132,10 +132,10 @@ Flux tables only support the following value types:
 If `map()` returns a record with an unsupported type, Flux returns an error with
 the name of the column that attempted to use the unsupported type.
 
-If mapping a **duration** value, use [`time()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
-to convert it to a time value or [`int()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/)
+If mapping a **duration** value, use [`time()`](/flux/v0.x/stdlib/universe/time/)
+to convert it to a time value or [`int()`](/flux/v0.x/stdlib/universe/int/)
 to convert it to an integer.
-For the **bytes** type, use [`string()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/) to convert the value to a string.
+For the **bytes** type, use [`string()`](/flux/v0.x/stdlib/universe/string/) to convert the value to a string.
 
 {{% note %}}
 For information about supporting other data types in Flux tables, see the

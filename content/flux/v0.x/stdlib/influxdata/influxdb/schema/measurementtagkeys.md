@@ -53,4 +53,4 @@ measurementTagKeys = (bucket, measurement) =>
 ```
 
 _**Used functions:**
-[schema.tagKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys)_
+[schema.tagKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagkeys)_

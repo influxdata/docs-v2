@@ -17,7 +17,7 @@ introduced: 0.39.0
 ---
 
 The `experimental.group()` function introduces an `extend` mode to the existing
-[`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/) function.
+[`group()`](/flux/v0.x/stdlib/universe/group/) function.
 
 _**Function type:** Transformation_
 

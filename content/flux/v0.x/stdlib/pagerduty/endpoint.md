@@ -59,7 +59,7 @@ _**Data type:** Function_
 - `summary`
 - `timestamp`
 
-_For more information, see [`pagerduty.sendEvent()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
+_For more information, see [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/)_
 
 ## Examples
 

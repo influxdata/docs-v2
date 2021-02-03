@@ -20,7 +20,7 @@ related:
 introduced: 0.7.0
 ---
 
-The `median()` function is a special application of the [`quantile()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)
+The `median()` function is a special application of the [`quantile()` function](/flux/v0.x/stdlib/universe/quantile)
 that returns the median `_value` of an input table or all non-null records in the input table
 with values that fall within the `0.5` quantile (50th percentile) depending on the [method](#method) used.
 
@@ -44,9 +44,9 @@ value that represents the `0.5` quantile.
 
 {{% note %}}
 The `median()` function can only be used with float value types.
-It is a special application of the [`quantile()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)
+It is a special application of the [`quantile()` function](/flux/v0.x/stdlib/universe/quantile)
 which uses an approximation implementation that requires floats.
-You can convert your value column to a float column using the [`toFloat()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/tofloat).
+You can convert your value column to a float column using the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat).
 {{% /note %}}
 
 ## Parameters

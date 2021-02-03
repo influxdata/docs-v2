@@ -68,7 +68,7 @@ _**Data type:** Function_
 - `text`
 - `color`
 
-_For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/stdlib/slack/message/)_
+_For more information, see [`slack.message()`](/flux/v0.x/stdlib/slack/message/)_
 
 ## Examples
 

@@ -32,7 +32,7 @@ _**Supported data types:** Integer | String | Uinteger_
 
 {{% note %}}
 `duration()` assumes **numeric** input values are **nanoseconds**.
-**String** input values must use [duration literal representation](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals).
+**String** input values must use [duration literal representation](/flux/v0.x/language/lexical-elements/#duration-literals).
 {{% /note %}}
 
 {{% note %}}
@@ -59,5 +59,5 @@ toDuration = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[duration()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration)_
+[map()](/flux/v0.x/stdlib/universe/map),
+[duration()](/flux/v0.x/stdlib/universe/duration)_

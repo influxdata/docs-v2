@@ -301,6 +301,6 @@ PostfixOperator          = MemberExpression
 Dividing by 0 or using the mod operator with a divisor of 0 will result in an error.
 {{% /warn %}}
 
-_Also see [Flux Operators](/influxdb/v2.0/reference/flux/language/operators)._
+_Also see [Flux Operators](/flux/v0.x/language/operators)._
 
 {{< page-nav prev="/flux/v0.x/spec/assignment-scope/" next="/flux/v0.x/spec/operators/" >}}

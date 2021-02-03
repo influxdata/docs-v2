@@ -26,7 +26,7 @@ introduced: 0.38.0
 The `tripleEMA()` function calculates the exponential moving average of values in
 the `_value` column grouped into `n` number of points, giving more weight to recent
 data with less lag than
-[`exponentialMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/)
+[`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/)
 and [`doubleEMA()`](http://localhost:1313/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/).
 
 _**Function type:** Transformation_  
@@ -42,7 +42,7 @@ tripleEMA(n: 5)
   - `EMA_3` is the exponential moving average of `EMA_2`.
 - A true triple exponential moving average requires at least requires at least `3 * n - 2` values.
   If not enough values exist to calculate the triple EMA, it returns a `NaN` value.
-- `tripleEMA()` inherits all [exponential moving average rules](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/#exponential-moving-average-rules).
+- `tripleEMA()` inherits all [exponential moving average rules](/flux/v0.x/stdlib/universe/exponentialmovingaverage/#exponential-moving-average-rules).
 
 ## Parameters
 

@@ -19,8 +19,8 @@ The `experimental.join()` function joins two streams of tables on the
 Use the [`fn` parameter](#fn) to map new output tables using values from input tables.
 
 {{% note %}}
-To join streams of tables with different fields or measurements, use [`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-or [`drop()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/drop/) to remove
+To join streams of tables with different fields or measurements, use [`group()`](/flux/v0.x/stdlib/universe/group/)
+or [`drop()`](/flux/v0.x/stdlib/universe/drop/) to remove
 `_field` and `_measurement` from the group key before joining.
 _See an example [below](#join-two-streams-of-tables-with-different-fields-and-measurements)._
 {{% /note %}}

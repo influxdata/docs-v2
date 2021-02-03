@@ -136,8 +136,8 @@ The following selector functions are available:
 The following functions can be used as both selectors or aggregates, but they are
 categorized as [aggregate functions](#aggregates) in this documentation:
 
-- [median()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median)
-- [quantile()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile)
+- [median()](/flux/v0.x/stdlib/universe/median)
+- [quantile()](/flux/v0.x/stdlib/universe/quantile)
 
 ---
 

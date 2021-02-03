@@ -19,7 +19,7 @@ introduced: 0.63.0
 
 The `geo.ST_Length()` function returns the [spherical length or distance](https://mathworld.wolfram.com/SphericalDistance.html)
 of the specified geographic information system (GIS) geometry.
-Define distance units with the [`geo.units` option](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#define-distance-units).
+Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units).
 
 _**Function type:** Transformation_
 
@@ -39,7 +39,7 @@ geo.ST_Length(
 The GIS geometry to measure.
 Can be either point or linestring geometry.
 Points will always return `0.0`.
-_See [GIS geometry definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#gis-geometry-definitions)._
+_See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
 
 _**Data type:** Record_
 

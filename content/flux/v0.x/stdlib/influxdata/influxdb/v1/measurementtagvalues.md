@@ -20,7 +20,7 @@ deprecated: 0.88.0
 
 {{% warn %}}
 `v1.measurementTagValues()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementTagValues()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagvalues/).
+[`schema.measurementTagValues()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagvalues/).
 {{% /warn %}}
 
 The `v1.measurementTagValues()` function returns a list of tag values for a specific measurement.
@@ -67,4 +67,4 @@ measurementTagValues = (bucket, measurement, tag) =>
 ```
 
 _**Used functions:**
-[v1.tagValues()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues)_
+[v1.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues)_

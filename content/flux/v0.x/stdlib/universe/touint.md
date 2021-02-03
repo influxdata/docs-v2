@@ -56,5 +56,5 @@ toUInt = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[uint()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint)_
+[map()](/flux/v0.x/stdlib/universe/map),
+[uint()](/flux/v0.x/stdlib/universe/uint)_

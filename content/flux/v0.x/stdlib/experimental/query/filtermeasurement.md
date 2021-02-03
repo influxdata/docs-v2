@@ -54,4 +54,4 @@ filterMeasurement = (tables=<-, measurement) =>
 ```
 
 _**Used functions:**_  
-[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+[filter()](/flux/v0.x/stdlib/universe/filter/)

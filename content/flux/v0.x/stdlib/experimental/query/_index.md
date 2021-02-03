@@ -25,7 +25,7 @@ import "experimental/query"
 {{< children type="functions" show="pages" >}}
 
 ## inBucket()
-The primary function in this package is [`query.inBucket()`](/influxdb/v2.0/reference/flux/stdlib/experimental/query/inbucket/),
+The primary function in this package is [`query.inBucket()`](/flux/v0.x/stdlib/experimental/query/inbucket/),
 which uses all other functions in this package.
 
 ```js

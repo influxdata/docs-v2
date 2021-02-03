@@ -16,7 +16,7 @@ draft: true
 
 The `logarithmicBins()` function generates a list of exponentially separated floats.
 It is a helper function meant to generate bin bounds for the
-[`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram).
+[`histogram()` function](/flux/v0.x/stdlib/universe/histogram).
 
 _**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_

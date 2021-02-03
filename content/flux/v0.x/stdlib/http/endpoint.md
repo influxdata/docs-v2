@@ -50,4 +50,4 @@ _**Data type:** Function_
 - `headers`
 - `data`
 
-_For more information, see [`http.post()`](/influxdb/v2.0/reference/flux/stdlib/http/post/)_
+_For more information, see [`http.post()`](/flux/v0.x/stdlib/http/post/)_

@@ -30,7 +30,7 @@ import "influxdata/influxdb/v1"
 {{% warn %}}
 #### Deprecated functions
 In **Flux 0.88.0**, the following InfluxDB v1 package functions moved to the
-[InfluxDB schema package](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/).
+[InfluxDB schema package](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
 These functions are still available in the `v1` package for backwards compatibility,
 but are deprecated in favor of `schema`.
 

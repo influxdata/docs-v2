@@ -45,7 +45,7 @@ _**Data type:** Array of strings_
 
 ### query
 The `query` profiler provides statistics about the execution of an entire Flux script.
-When enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+When enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
 include a table with the following columns:
 
 - **TotalDuration**: total query duration in nanoseconds.
@@ -66,7 +66,7 @@ include a table with the following columns:
 The `operator` profiler output statistics about each operation in a query.
 [Operations executed in the storage tier](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
 return as a single operation.
-When the `operator` profile is enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+When the `operator` profile is enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
 include a table with a row for each operation and the following columns:
 
 - **Type:** operation type

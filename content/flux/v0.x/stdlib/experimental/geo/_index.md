@@ -65,7 +65,7 @@ generating S2 Cell ID tokens. For example:
 - **Javascript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ### Add S2 Cell IDs to existing geo-temporal data
-Use the [`geo.shapeData()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
+Use the [`geo.shapeData()` function](/flux/v0.x/stdlib/experimental/geo/shapedata/)
 to add `s2_cell_id` tags to data that includes fields with latitude and longitude values.
 
 ```js

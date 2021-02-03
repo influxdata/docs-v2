@@ -20,7 +20,7 @@ If a column already exists, the function updates the existing value.
 If a column does not exist, the function adds it with the specified value.
 
 _Once sufficiently vetted, `experimental.set()` will replace the existing
-[`set()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/)._
+[`set()` function](/flux/v0.x/stdlib/universe/set/)._
 
 _**Function type:** Transformation_
 

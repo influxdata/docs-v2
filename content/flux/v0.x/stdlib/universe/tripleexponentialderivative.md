@@ -52,7 +52,7 @@ a negative value indicates decreasing momentum.
     - `EMA_3 = EMA(EMA(EMA(data)))`
 - If there are not enough values to calculate a triple exponential derivative,
   the output `_value` is `NaN`; all other columns are the same as the _last_ record of the input table.
-- The function behaves the same way as the [`exponentialMovingAverage()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/) function:
+- The function behaves the same way as the [`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/) function:
     - The function does not include `null` values in the calculation.
     - The function acts only on the `_value` column.
 

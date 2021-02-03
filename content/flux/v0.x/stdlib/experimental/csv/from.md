@@ -20,7 +20,7 @@ The experimental `csv.from()` function retrieves [annotated CSV](/influxdb/v2.0/
 
 {{% note %}}
 The experimental `csv.from()` function is an alternative to the standard
-[`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/).
+[`csv.from()` function](/flux/v0.x/stdlib/csv/from/).
 {{% /note %}}
 
 _**Function type:** Input_
