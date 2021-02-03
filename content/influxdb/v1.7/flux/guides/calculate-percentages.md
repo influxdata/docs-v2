@@ -19,12 +19,12 @@ Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
-1. Use [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from/),
-   [`range()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/range/) and
-   [`filter()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
+1. Use [`from()`](/{{< latest "flux" >}}/stdlib/universe/from/),
+   [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) and
+   [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to query operands.
 2. Use [`pivot()` or `join()`](/influxdb/v1.7/flux/guides/mathematic-operations/#pivot-vs-join)
    to align operand values into rows.
-3. Use [`map()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/)
+3. Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
 {{% note %}}

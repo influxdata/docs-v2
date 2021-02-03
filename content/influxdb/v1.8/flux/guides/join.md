@@ -13,7 +13,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/join/
 v2: /influxdb/v2.0/query-data/flux/join/
 ---
 
-The [`join()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/join) merges two or more
+The [`join()` function](/{{< latest "flux" >}}/stdlib/universe/join) merges two or more
 input streams, whose values are equal on a set of common columns, into a single output stream.
 Flux allows you to join on any columns common between two data streams and opens the door
 for operations such as cross-measurement joins and math across measurements.
@@ -213,7 +213,7 @@ These represent the columns with values unique to the two input tables.
 
 ## Calculate and create a new table
 With the two streams of data joined into a single table, use the
-[`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map)
+[`map()` function](/{{< latest "flux" >}}/stdlib/universe/map)
 to build a new table by mapping the existing `_time` column to a new `_time`
 column and dividing `_value_mem` by `_value_proc` and mapping it to a
 new `_value` column.

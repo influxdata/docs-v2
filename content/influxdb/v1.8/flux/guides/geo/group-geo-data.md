@@ -30,7 +30,7 @@ to group data into tracks or routes.
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
 ### Group data by area
-Use the [`geo.groupByArea()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/groupbyarea/)
+Use the [`geo.groupByArea()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
 Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering)
 
@@ -53,7 +53,7 @@ sampleGeoData
 ```
 
 ### Group data by track or route
-Use [`geo.asTracks()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/astracks/)
+Use [`geo.asTracks()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/astracks/)
 to group data points into tracks or routes and order them by time or other columns.
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 

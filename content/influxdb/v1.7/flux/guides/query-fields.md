@@ -23,7 +23,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`filter()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/filter/)
+Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
 to query data based on fields, tags, or any other column value.
 `filter()` performs operations similar to the `SELECT` statement and the `WHERE`
 clause in InfluxQL and other SQL-like query languages.
@@ -59,8 +59,8 @@ r = {foo: "bar", baz: "quz"}
 ```
 
 ## Filter by fields and tags
-The combination of [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from),
-[`range()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/range),
+The combination of [`from()`](/{{< latest "flux" >}}/stdlib/universe/from),
+[`range()`](/{{< latest "flux" >}}/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
 1. Use `from()` to define your [bucket](/influxdb/v1.7/flux/get-started/#buckets).
