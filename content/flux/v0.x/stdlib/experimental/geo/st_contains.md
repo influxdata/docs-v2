@@ -9,11 +9,11 @@ aliases:
 menu:
   flux_0_x_ref:
     name: geo.ST_Contains
-    parent: Geo
+    parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo, GIS]
+flux/v0.x/tags: [geo, tests]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
 ---
 
@@ -38,14 +38,14 @@ geo.ST_Contains(
 ### region
 The region to test.
 Specify record properties for the shape.
-_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
 _**Data type:** Record_
 
 ### geometry
 The GIS geometry to test.
 Can be either point or linestring geometry.
-_See [GIS geometry definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#gis-geometry-definitions)._
+_See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
 
 _**Data type:** Record_
 

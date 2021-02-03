@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: prometheus.histogramQuantile
-    parent: Prometheus
+    parent: prometheus
 weight: 401
 introduced: 0.51.0
 ---

@@ -35,7 +35,7 @@ _Used in [Query SQL data sources](/influxdb/v2.0/query-data/flux/sql/)._
 Bird migration data is adapted from the
 [Movebank: Animal Tracking data set on Kaggle](https://www.kaggle.com/pulkit8595/movebank-animal-tracking)
 and represents animal migratory movements throughout 2019.
-Use the [Flux Geo package](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements)
+Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/to/geo/#geo-schema-requirements)
 to query and analyze the geo-temporal data in this sample data set.
 
 <a class="btn" href="https://github.com/influxdata/influxdb2-sample-data/tree/master/bird-migration-data" target="\_blank">

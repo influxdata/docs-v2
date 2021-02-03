@@ -11,8 +11,8 @@ weight: 220
 aliases:
   - /influxdb/v2.0/query-data/guides/monitor-states/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
+  - /{{< latest "flux" >}}/stdlib/universe/stateduration/
+  - /{{< latest "flux" >}}/stdlib/universe/statecount/
 ---
 
 Flux helps you monitor states in your metrics and events:
@@ -28,7 +28,7 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. Use the [`stateDuration()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
+1. Use the [`stateDuration()`](/{{< latest "flux" >}}/stdlib/universe/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
 
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.
   - **Value:** the value (or state) to search for in the specified column.
@@ -80,7 +80,7 @@ _time                   _value        door_closed
 
 ## Count the number of consecutive states
 
-1. Use the [`stateCount()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/)
+1. Use the [`stateCount()` function](/{{< latest "flux" >}}/stdlib/universe/statecount/)
    and include the following information:
 
   - **Column to search:** any tag key, tag value, field key, field value, or measurement.

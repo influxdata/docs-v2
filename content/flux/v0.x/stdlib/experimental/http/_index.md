@@ -1,6 +1,6 @@
 ---
 title: Flux HTTP package
-list_title: HTTP package
+list_title: http package
 description: >
   The Flux Experimental HTTP package provides functions for transferring data
   using HTTP protocol.
@@ -10,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/http/
 menu:
   flux_0_x_ref:
-    name: HTTP
-    identifier: HTTP-exp
-    parent: Experimental
+    name: http
+    identifier: http-exp
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, http, package]
 ---

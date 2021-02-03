@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2.0/query-data/guides/regular-expressions/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/
+  - /{{< latest "flux" >}}/stdlib/regexp/
 list_query_example: regular_expressions
 ---
 

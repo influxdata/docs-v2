@@ -8,8 +8,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: json.encode
-    parent: JSON
+    parent: json
 weight: 202
+flux/v0.x/tags: [type-conversions]
 introduced: 0.40.0
 ---
 
@@ -23,7 +24,7 @@ import "json"
 json.encode(v: "some value")
 ```
 
-This function encodes [Flux types](/influxdb/v2.0/reference/flux/language/types/) as follows:
+This function encodes [Flux types](/flux/v0.x/spec/types/) as follows:
 
 - `time` values in [RFC3339](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp) format
 - `duration` values in number of milliseconds since the epoch

@@ -8,8 +8,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: testing.diff
-    parent: Testing
+    parent: testing
 weight: 301
+flux/v0.x/tags: [tests]
 introduced: 0.18.0
 ---
 

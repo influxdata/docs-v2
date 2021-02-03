@@ -10,12 +10,12 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.splitAfterN
-    parent: Strings
+    parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/split
-  - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter
-  - /influxdb/v2.0/reference/flux/stdlib/strings/splitn
+  - /flux/v0.x/stdlib/strings/split
+  - /flux/v0.x/stdlib/strings/splitafter
+  - /flux/v0.x/stdlib/strings/splitn
 introduced: 0.18.0
 ---
 

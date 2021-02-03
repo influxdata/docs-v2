@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.endpoint
-    parent: HTTP
+    parent: http
 weight: 202
 flux/v0.x/tags: [endpoints]
 introduced: 0.39.0
@@ -50,4 +50,4 @@ _**Data type:** Function_
 - `headers`
 - `data`
 
-_For more information, see [`http.post()`](/influxdb/v2.0/reference/flux/stdlib/http/post/)_
+_For more information, see [`http.post()`](/flux/v0.x/stdlib/http/post/)_

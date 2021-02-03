@@ -33,6 +33,6 @@ from(bucket:"example-bucket")
 ## Flux documentation
 For more information about Flux syntax, packages, and functions, see:
 
-- [Get started with Flux](/influxdb/v2.0/reference/flux/)
-- [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/)
-- [Flux language specification](/influxdb/v2.0/reference/flux/language/)
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
+- [Flux standard library](/{{< latest "flux" >}}/stdlib//)
+- [Flux language specification](/{{< latest "flux" >}}/spec/)

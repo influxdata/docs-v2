@@ -8,12 +8,12 @@ aliases:
 menu:
   flux_0_x_ref:
     name: geo.toRows
-    parent: Geo
+    parent: geo
 weight: 401
 flux/v0.x/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
+  - /flux/v0.x/stdlib/universe/pivot/
 introduced: 0.63.1
 ---
 

@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: pushbullet.pushData
-    parent: Pushbullet
+    parent: pushbullet
 weight: 202
 introduced: 0.66.0
 ---

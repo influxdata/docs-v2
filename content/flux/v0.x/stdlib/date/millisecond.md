@@ -10,7 +10,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: date.millisecond
-    parent: Date
+    parent: date
 weight: 301
 introduced: 0.37.0
 ---

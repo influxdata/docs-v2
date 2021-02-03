@@ -8,10 +8,10 @@ aliases:
 menu:
   flux_0_x_ref:
     name: aggregate.rate
-    parent: Aggregate
+    parent: aggregate
 weight: 301
 related:
-  - /influxdb/v2.0/query-data/flux/rate/
+  - /{{< latest "influxdb" >}}/query-data/flux/rate/
 introduced: 0.61.0
 ---
 
@@ -75,9 +75,9 @@ rate = (tables=<-, every, groupColumns=[], unit=1s) =>
 ```
 
 _**Used functions:**_  
-[aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)  
-[derivative()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/derivative/)  
-[experimental.group()](/influxdb/v2.0/reference/flux/stdlib/experimental/group/)  
-[group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)  
-[mean()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)  
-[sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)  
+[aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/)  
+[derivative()](/flux/v0.x/stdlib/universe/derivative/)  
+[experimental.group()](/flux/v0.x/stdlib/experimental/group/)  
+[group()](/flux/v0.x/stdlib/universe/group/)  
+[mean()](/flux/v0.x/stdlib/universe/mean/)  
+[sum()](/flux/v0.x/stdlib/universe/sum/)  

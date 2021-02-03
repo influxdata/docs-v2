@@ -8,10 +8,10 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.hasPrefix
-    parent: Strings
+    parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/hassuffix
+  - /flux/v0.x/stdlib/strings/hassuffix
 introduced: 0.18.0
 ---
 

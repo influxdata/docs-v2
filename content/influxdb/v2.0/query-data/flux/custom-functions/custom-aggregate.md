@@ -10,13 +10,13 @@ weight: 301
 aliases:
   - /influxdb/v2.0/query-data/guides/custom-functions/custom-aggregate/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /i{{< latest "flux" >}}/stdlib/universe/reduce/
 ---
 
 To aggregate your data, use the Flux
-[built-in aggregate functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
+[aggregate functions](/{{< latest "flux" >}}/function-types#aggregates)
 or create custom aggregate functions using the
-[`reduce()`function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/).
+[`reduce()`function](/{{< latest "flux" >}}/stdlib/universe/reduce/).
 
 ## Aggregate function characteristics
 Aggregate functions all have the same basic characteristics:
@@ -26,7 +26,7 @@ Aggregate functions all have the same basic characteristics:
 
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
-the [`fn` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#fn).
+the [`fn` parameter](/{{< latest "flux" >}}/stdlib/universe/reduce/#fn).
 The `fn` function maps keys to specific values using two [records](/influxdb/v2.0/query-data/get-started/syntax-basics/#records)
 specified by the following parameters:
 
@@ -36,7 +36,7 @@ specified by the following parameters:
 | `accumulator` | A record that contains values used in each row's aggregate calculation. |
 
 {{% note %}}
-The `reduce()` function's [`identity` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/#identity)
+The `reduce()` function's [`identity` parameter](/{{< latest "flux" >}}/stdlib/universe/reduce/#identity)
 defines the initial `accumulator` record.
 {{% /note %}}
 
@@ -147,7 +147,7 @@ and the `reduce()` function to aggregate rows in each input table.
 ### Create a custom average function
 This example illustrates how to create a function that averages values in a table.
 _This is meant for demonstration purposes only.
-The built-in [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/)
+The built-in [`mean()` function](/{{< latest "flux" >}}/stdlib/universe/mean/)
 does the same thing and is much more performant._
 
 {{< code-tabs-wrapper >}}

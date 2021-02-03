@@ -10,18 +10,18 @@ aliases:
 menu:
   flux_0_x_ref:
     name: geo.shapeData
-    parent: Geo
+    parent: geo
 weight: 401
 flux/v0.x/tags: [functions, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.65.0
 ---
 
 The `geo.shapeData()` function renames existing latitude and longitude fields to
 **lat** and **lon** and adds an **s2_cell_id** tag.
 Use `geo.shapeData()` to ensure geo-temporal data meets the
-[requirements of the Geo package](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements):
+[requirements of the Geo package](/flux/v0.x/stdlib/experimental/geo/#geo-schema-requirements):
 
 1. Rename existing latitude and longitude fields to `lat` and `lon`.
 2. Pivot data into row-wise sets based on `_time`.
@@ -107,8 +107,7 @@ from(bucket: "example-bucket")
 ```
 
 | _time | lat      | lon       | s2_cell_id |
-|:introduced: 0.65.0
------ |:--------:|:---------:| ----------:|
+|:----- |:--------:|:---------:| ----------:|
 | 0001  | 30.0     | 20.0      | 138c       |
 | 0002  | 30.5     | 19.8      | 1384       |
 | 0003  | 30.7     | 19.2      | 139c       |

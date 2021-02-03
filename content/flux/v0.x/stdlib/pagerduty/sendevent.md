@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: pagerduty.sendEvent
-    parent: PagerDuty
+    parent: pagerduty
 weight: 202
 introduced: 0.43.0
 ---
@@ -66,8 +66,8 @@ change the severity of previous messages.
 Supports a maximum of 255 characters.
 
 {{% note %}}
-When using [`pagerduty.endpoint()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/endpoint/)
-to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/influxdb/v2.0/reference/flux/stdlib/pagerduty/dedupkey/) to populate the `dedupkey` parameter.
+When using [`pagerduty.endpoint()`](/flux/v0.x/stdlib/pagerduty/endpoint/)
+to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/flux/v0.x/stdlib/pagerduty/dedupkey/) to populate the `dedupkey` parameter.
 {{% /note %}}
 
 _**Data type:** String_

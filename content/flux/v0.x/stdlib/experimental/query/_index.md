@@ -1,6 +1,6 @@
 ---
 title: Flux Query package
-list_title: Query package
+list_title: query package
 description: >
   The Flux Query package provides functions meant to simplify common InfluxDB queries.
   Import the `experimental/query` package.
@@ -9,8 +9,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/query/
 menu:
   flux_0_x_ref:
-    name: Query
-    parent: Experimental
+    name: query
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [package]
 ---
@@ -25,7 +25,7 @@ import "experimental/query"
 {{< children type="functions" show="pages" >}}
 
 ## inBucket()
-The primary function in this package is [`query.inBucket()`](/influxdb/v2.0/reference/flux/stdlib/experimental/query/inbucket/),
+The primary function in this package is [`query.inBucket()`](/flux/v0.x/stdlib/experimental/query/inbucket/),
 which uses all other functions in this package.
 
 ```js

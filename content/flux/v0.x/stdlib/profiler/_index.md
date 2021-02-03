@@ -9,12 +9,12 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/profiler/
 menu:
   flux_0_x_ref:
-    name: Profiler
+    name: profiler
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [functions, optimize, package]
 related:
-  - /influxdb/v2.0/query-data/optimize-queries/
+  - /{{< latest "influxdb" >}}/query-data/optimize-queries/
 introduced: 0.82.0
 ---
 
@@ -26,20 +26,18 @@ import "profiler"
 ```
 
 ## Options
-The Profiler package includes the following options:
-
-### enabledProfilers
-Enable Flux profilers.
-
-_**Data type:** Array of strings_
+The `profiler` package includes the following options:
 
 ```js
 import "profiler"
 
 option profiler.enabledProfilers = ["query", "operator"]
-
-// Query to profile
 ```
+
+### enabledProfilers
+Enable Flux profilers.
+
+_**Data type:** Array of strings_
 
 ## Available profilers
 - [query](#query)
@@ -47,7 +45,7 @@ option profiler.enabledProfilers = ["query", "operator"]
 
 ### query
 The `query` profiler provides statistics about the execution of an entire Flux script.
-When enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+When enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
 include a table with the following columns:
 
 - **TotalDuration**: total query duration in nanoseconds.
@@ -68,7 +66,7 @@ include a table with the following columns:
 The `operator` profiler output statistics about each operation in a query.
 [Operations executed in the storage tier](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
 return as a single operation.
-When the `operator` profile is enabled, results returned by [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/)
+When the `operator` profile is enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
 include a table with a row for each operation and the following columns:
 
 - **Type:** operation type

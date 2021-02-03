@@ -9,12 +9,12 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.indexAny
-    parent: Strings
+    parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/index-func/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
+  - /flux/v0.x/stdlib/strings/index-func/
+  - /flux/v0.x/stdlib/strings/lastindex/
+  - /flux/v0.x/stdlib/strings/lastindexany/
 introduced: 0.18.0
 ---
 

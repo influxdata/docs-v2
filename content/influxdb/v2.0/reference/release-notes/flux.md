@@ -21,7 +21,7 @@ menu:
 ## v0.99.0 [2020-12-14]
 
 ### Features
-- Evaluate [dictionary literals](/influxdb/v2.0/reference/flux/language/expressions/#dictionary-literals).
+- Evaluate [dictionary literals](/{{< latest "flux" >}}/spec/expressions/#dictionary-literals).
 - Infer the type of dictionary literals.
 - Parse and format dictionary literals.
 - Add a pure Flux test runner.
@@ -98,7 +98,7 @@ menu:
 
 ### Features
 - Add `fluxinit` package as an alternative to importing `builtin`.
-- Add [series `cardinality()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/) to InfluxDB package.
+- Add [series `cardinality()` function](/{{< latest "flux" >}}/stdlib/influxdb/cardinality/) to InfluxDB package.
 
 ### Bug fixes
 - Do not panic when the value column for `pivot()` does not exist.
@@ -113,9 +113,9 @@ menu:
 
 ### Features
 - Aggregate results for `operator` profiler.
-- Add contributed [`events` package](/influxdb/v2.0/reference/flux/stdlib/contrib/events/).
+- Add contributed [`events` package](/{{< latest "flux" >}}/stdlib/contrib/tomhollingworth/events/).
 - Use `tableFind` and related functions with profiler results.
-- Add duration support to [`orTime` parameter](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/#ortime)
+- Add duration support to [`orTime` parameter](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/tasks/lastsuccess/#ortime)
   of `lastSuccess()`.
 
 ### Bug fixes
@@ -132,7 +132,7 @@ menu:
 ## v0.90.0 [2020-10-19]
 
 ### Features
-- Add [Sensu package](/influxdb/v2.0/reference/flux/stdlib/contrib/sensu).
+- Add [Sensu package](/{{< latest "flux" >}}/stdlib/contrib/sranka/sensu).
 
 ### Bug fixes
 - Verify dependencies in `Dockerfile_build`.
@@ -213,8 +213,8 @@ menu:
 - Remove time-column parameters from `range()` function and update type signature.
 
 ### Features
-- Add [Opsgenie package](/influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/).
-- Implement [`lastSuccess()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/) in the `tasks` package.
+- Add [Opsgenie package](/{{< latest "flux" >}}/stdlib/contrib/sranka/opsgenie/).
+- Implement [`lastSuccess()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/tasks/lastsuccess/) in the `tasks` package.
 - Support duration values in `aggregateWindow`.
 - Update Apache Arrow to 1.0.1.
 
@@ -235,10 +235,10 @@ menu:
 ### Features
 - Improve window errors.
 - Add [BigQuery](https://cloud.google.com/bigquery) support to
-  [`sql` package](/influxdb/v2.0/reference/flux/stdlib/sql/).
+  [`sql` package](/{{< latest "flux" >}}/stdlib/sql/).
 - Add `TypeExpression` to `BuiltinStmt` and fix tests.
-- Add time-weighted average ([`timeWeightedAvg()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/)).
-- Update [`integral()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/integral/)
+- Add time-weighted average ([`timeWeightedAvg()` function](/{{< latest "flux" >}}/stdlib/universe/timeweightedavg/)).
+- Update [`integral()`](/{{< latest "flux" >}}/stdlib/universe/integral/)
   with linear interpolation.
 - Make experimental tracing an attribute of the context.
 
@@ -252,7 +252,7 @@ menu:
 ## v0.82.2 [2020-08-25]
 
 ### Features
-- Add [`tasks.lastSuccess` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/)
+- Add [`tasks.lastSuccess` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/tasks/lastsuccess/)
   to retrieve the time of the last successful run of an InfluxDB task.
 
 ---
@@ -265,7 +265,7 @@ menu:
 ## v0.82.0 [2020-08-24]
 
 ### Features
-- Add the [`profiler` package](/influxdb/v2.0/reference/flux/stdlib/profiler/).
+- Add the [`profiler` package](/{{< latest "flux" >}}/stdlib/profiler/).
 - Add a documentation URL field to Flux errors.
 - Check InfluxDB schema compatibility.
 
@@ -317,7 +317,7 @@ menu:
 - Add BigQuery support.
 - Rust flatbuffer serialization for `MonoType` and `TypeExpression`.
 - Extend with Geo package with GIS functions and
-  [unit support](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#distance-units).
+  [unit support](/{{< latest "flux" >}}/stdlib/experimental/to/geo/#distance-units).
 
 ### Bug fixes
 - String interpolation in arrays.
@@ -334,8 +334,8 @@ menu:
 ## v0.77.0 [2020-08-03]
 
 ### Features
-- Add a faster [`map()` function](/influxdb/v2.0/reference/flux/stdlib/contrib/rows/map/) _(user-contributed)_.
-- Add an [`influxdb.select()` function](/influxdb/v2.0/reference/flux/stdlib/contrib/influxdb/select/) _(user-contributed)_.
+- Add a faster [`map()` function](/{{< latest "flux" >}}/stdlib/contrib/jsternberg/rows/map/) _(user-contributed)_.
+- Add an [`influxdb.select()` function](/{{< latest "flux" >}}/stdlib/contrib/jsternberg/influxdb/select/) _(user-contributed)_.
 - Flatbuffer deserialization for type expression AST nodes.
 - Flatbuffer types for monotype and type expression AST nodes.
 - Go AST nodes for type expression syntax.
@@ -446,19 +446,19 @@ menu:
 - Apply `Timeable` constraint to integer type to support integer values in
   time-related function parameters.
 - Implement schema mutation functions without performing any copies.
-- Add [`http.pathEscape()` function](/influxdb/v2.0/reference/flux/stdlib/http/pathescape/).
+- Add [`http.pathEscape()` function](/{{< latest "flux" >}}/stdlib/http/pathescape/).
 
 ---
 
 ## v0.70.0 [2020-06-29]
 ### Features
 - Update all `date` functions to accept time and duration types.
-- Add [Microsoft Teams package](/influxdb/v2.0/reference/flux/stdlib/contrib/teams/).
+- Add [Microsoft Teams package](/{{< latest "flux" >}}/stdlib/contrib/sranka/teams/).
 - Evaluate and store `now` in execution dependencies for `tableFind()`.
 - Add `Timeable` constraint for time and duration types.
-- Add [SQL Server support](/influxdb/v2.0/reference/flux/stdlib/sql/from/#query-a-sql-server-database) to `sql` package.
-- Add [Telegram package](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/).
-- Add [Amazon Athena support](/influxdb/v2.0/reference/flux/stdlib/sql/from/#query-an-amazon-athena-database) to `sql` package.
+- Add [SQL Server support](/{{< latest "flux" >}}/stdlib/sql/from/#query-a-sql-server-database) to `sql` package.
+- Add [Telegram package](/{{< latest "flux" >}}/stdlib/contrib/sranka/telegram/).
+- Add [Amazon Athena support](/{{< latest "flux" >}}/stdlib/sql/from/#query-an-amazon-athena-database) to `sql` package.
 - Add support for macOS builds.
 
 ### Bug fixes
@@ -467,7 +467,7 @@ menu:
 - Fix the compiler's return type when `with` operator is used.
 - Include `stdlib` Flux dependencies from the Flux `build.rs`.
 - Include a hash of the sources for `libflux`.
-- Flux test for [experimental `json.parse()`](/influxdb/v2.0/reference/flux/stdlib/experimental/json/parse/).
+- Flux test for [experimental `json.parse()`](/{{< latest "flux" >}}/stdlib/experimental/to/json/parse/).
 - Reorder `go generate` call to `libflux` in `stdlib`.
 
 ---
@@ -489,9 +489,9 @@ menu:
 ## v0.69.0 [2020-06-08]
 
 ### Features
-- Add [Discord package](/influxdb/v2.0/reference/flux/stdlib/contrib/discord/)
+- Add [Discord package](/{{< latest "flux" >}}/stdlib/contrib/chobbs/discord/)
   _(contributed by [@chobbs](https://github.com/chobbs))_.
-- Add [`json.parse()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/json/parse/).
+- Add [`json.parse()` function](/{{< latest "flux" >}}/stdlib/experimental/to/json/parse/).
 
 ### Bug fixes
 - Adjust error handling in Flux `date` package.
@@ -507,15 +507,15 @@ performance, error messaging, and usability of the
 - Change signature of `group()` function.
 
 ### Features
-- Add [`fieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/) and
-  [`measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys/)
+- Add [`fieldKeys()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/v1/fieldkeys/) and
+  [`measurementFieldKeys()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/v1/measurementfieldkeys/)
   to v1 package.
 - Add a context to `plantest.RuleTestCase`.
 - Add Snowflake support to SQL package.
-- Add [`experimental.chain()`](/influxdb/v2.0/reference/flux/stdlib/experimental/chain/) function.
+- Add [`experimental.chain()`](/{{< latest "flux" >}}/stdlib/experimental/to/chain/) function.
 - Add semantic nodes for bad statement and bad expression.
-- Add [`findColumn()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
-  and [`findRecord()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) functions.
+- Add [`findColumn()`](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
+  and [`findRecord()`](/{{< latest "flux" >}}/stdlib/universe/findrecord/) functions.
 - Return `false` if `contains()` is called with an empty set.
 - Various performance optimizations.
 - Add a dynamically linked Valgrind test.
@@ -639,10 +639,10 @@ performance, error messaging, and usability of the
 ## v0.66.0 [2020-04-13]
 
 ### Features
-- Add [`epsilon` parameter](/influxdb/v2.0/reference/flux/stdlib/testing/diff/#epsilon) to `testing.diff()`.
-- Add [`experimental.alignTime()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/aligntime/).
+- Add [`epsilon` parameter](/{{< latest "flux" >}}/stdlib/testing/diff/#epsilon) to `testing.diff()`.
+- Add [`experimental.alignTime()` function](/{{< latest "flux" >}}/stdlib/experimental/to/aligntime/).
 - Add random access group lookup.
-- Add [Pushbullet package](/influxdb/v2.0/reference/flux/stdlib/pushbullet/).
+- Add [Pushbullet package](/{{< latest "flux" >}}/stdlib/pushbullet/).
 - Add a helper for testing `execute.Source`.
 
 ### Bug fixes
@@ -656,9 +656,9 @@ performance, error messaging, and usability of the
 ## v0.65.0 [2020-03-27]
 
 ### Features
-- Add [`experimental.join()`](/influxdb/v2.0/reference/flux/stdlib/experimental/join/) function.
+- Add [`experimental.join()`](/{{< latest "flux" >}}/stdlib/experimental/to/join/) function.
 - Store comments in the AST and preserve on format.
-- Add [`shapeData()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/) function to Geo package.
+- Add [`shapeData()`](/{{< latest "flux" >}}/stdlib/experimental/to/geo/shapedata/) function to Geo package.
 - Expose format to Wasm users.
 
 ### Bug fixes
@@ -1506,9 +1506,9 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ### Features
 - Add stream table index functions (
-  [`tableFind()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/),
-  [`getRecord()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/),
-  [`getColumn()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
+  [`tableFind()`](/{{< latest "flux" >}}/stdlib/universe/tablefind/),
+  [`getRecord()`](/{{< latest "flux" >}}/stdlib/universe/getrecord/),
+  [`getColumn()`](/{{< latest "flux" >}}/stdlib/universe/getcolumn/)
   ).
 - Construct invalid binary expressions when given multiple expressions.
 

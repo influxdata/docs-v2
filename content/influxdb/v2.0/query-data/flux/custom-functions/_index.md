@@ -82,7 +82,7 @@ functionName = (tables=<-) => tables |> functionOperations
 ###### Multiply row values by x
 The example below defines a `multByX` function that multiplies the `_value` column
 of each row in the input table by the `x` parameter.
-It uses the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map)
+It uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map)
 to modify each `_value`.
 
 ```js
@@ -116,9 +116,9 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 ###### Get the winner or the "winner"
 The example below defines a `getWinner` function that returns the record with the highest
 or lowest `_value` (winner versus "winner") depending on the `noSarcasm` parameter which defaults to `true`.
-It uses the [`sort()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+It uses the [`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort)
 to sort records in either descending or ascending order.
-It then uses the [`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+It then uses the [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
 to return the first record from the sorted table.
 
 ```js

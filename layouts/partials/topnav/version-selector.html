@@ -3,7 +3,7 @@
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 
-{{ if or (eq $product nil) (lt (len (findRE `v[0-2]\.[0-9]{1,2}` $currentVersion)) 1) }}
+{{ if or (eq $product nil) (lt (len (findRE `v[0-2]\.[0-9x]{1,2}` $currentVersion)) 1) }}
 {{ else }}
 <div class="dropdown">
   <p class="selected">{{ cond (in $currentVersion "v") $currentVersion (title $currentVersion) }}</p>

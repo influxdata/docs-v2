@@ -10,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/regexp/
 menu:
   flux_0_x_ref:
-    name: Regular expressions
+    name: regexp
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [regex, functions]
 ---
 

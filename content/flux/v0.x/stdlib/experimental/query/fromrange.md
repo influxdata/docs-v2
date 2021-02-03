@@ -1,5 +1,6 @@
 ---
 title: query.fromRange() function
+seotitle: Experimental query.fromRange() function
 description: >
   The `query.fromRange()` function returns all data from a specified bucket within
   given time bounds.
@@ -9,8 +10,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: query.fromRange
-    parent: Query
+    parent: query
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.60.0
 ---
 
@@ -76,5 +78,5 @@ fromRange = (bucket, start, stop=now()) =>
 ```
 
 _**Used functions:**_  
-[from()](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)  
-[range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)  
+[from()](/flux/v0.x/stdlib/universe/from/)  
+[range()](/flux/v0.x/stdlib/universe/range/)  

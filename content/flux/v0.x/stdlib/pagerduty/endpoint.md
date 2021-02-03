@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: pagerduty.endpoint
-    parent: PagerDuty
+    parent: pagerduty
 weight: 202
 flux/v0.x/tags: [endpoints]
 introduced: 0.43.0
@@ -59,7 +59,7 @@ _**Data type:** Function_
 - `summary`
 - `timestamp`
 
-_For more information, see [`pagerduty.sendEvent()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
+_For more information, see [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/)_
 
 ## Examples
 

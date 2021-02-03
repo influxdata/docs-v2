@@ -9,16 +9,17 @@ aliases:
 menu:
   flux_0_x_ref:
     name: experimental.to
-    parent: Experimental
+    parent: experimental
 weight: 302
+flux/v0.x/tags: [outputs]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
+  - /flux/v0.x/stdlib/universe/to/
 introduced: 0.40.0
 ---
 
 The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in
 a [different structure](#expected-data-structure) than the
-[built-in `to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/).
+[built-in `to()` function](/flux/v0.x/stdlib/universe/to/).
 
 _**Function type:** Output_
 
@@ -54,11 +55,10 @@ and values are stored in single columns with the **field key** as the **column n
 the **field value** as the **column value**.
 
 | _time     | _measurement     | field_key   |
-| introduced: 0.40.0
------     | ------------     | ---------   |
+| -----     | ------------     | ---------   |
 | timestamp | measurement-name | field value |
 
-If using the built-in `from()` function, use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+If using the built-in `from()` function, use [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
 to transform data into the structure `experimetnal.to()` expects.
 _[See the example below](#use-pivot-to-shape-data-for-experimentalto)._
 

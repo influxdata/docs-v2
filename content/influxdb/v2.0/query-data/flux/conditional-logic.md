@@ -15,9 +15,9 @@ aliases:
   - /influxdb/v2.0/query-data/guides/conditional-logic/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/map/
+  - /{{< latest "flux" >}}/stdlib/universe/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"
@@ -44,9 +44,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-  [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/),
-  [`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
+  [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
+  [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
+  [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce) ).
 
 ## Evaluating conditional expressions
 
@@ -104,7 +104,7 @@ from(bucket: "example-bucket")
 
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+The following example uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -151,8 +151,8 @@ from(bucket: "example-bucket")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
-and [`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
+The following example uses the [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+and [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

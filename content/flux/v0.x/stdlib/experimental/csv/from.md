@@ -1,5 +1,7 @@
 ---
 title: csv.from() function
+seotitle: Experimental csv.from() function
+list_title: csv.from() (experimental)
 description: >
   The experimental `csv.from()` function retrieves annotated CSV from a URL.
 aliases:
@@ -8,8 +10,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: csv.from *
-    parent: CSV-exp
+    parent: csv-exp
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.64.0
 ---
 
@@ -17,7 +20,7 @@ The experimental `csv.from()` function retrieves [annotated CSV](/influxdb/v2.0/
 
 {{% note %}}
 The experimental `csv.from()` function is an alternative to the standard
-[`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/).
+[`csv.from()` function](/flux/v0.x/stdlib/csv/from/).
 {{% /note %}}
 
 _**Function type:** Input_

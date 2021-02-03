@@ -12,8 +12,8 @@ menu:
     name: Get started with Flux
     parent: Query data
 related:
-  - /influxdb/cloud/reference/flux/
-  - /influxdb/cloud/reference/flux/stdlib/
+  - /{{< latest "flux" >}}/
+  - /{{< latest "flux" >}}/stdlib/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,

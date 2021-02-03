@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.pathEscape
-    parent: HTTP
+    parent: http
 weight: 202
 introduced: 0.71.0
 ---

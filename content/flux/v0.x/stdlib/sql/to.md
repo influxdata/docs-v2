@@ -8,8 +8,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: sql.to
-    parent: SQL
+    parent: sql
 weight: 202
+flux/v0.x/tags: [outputs]
 introduced: 0.35.0
 ---
 

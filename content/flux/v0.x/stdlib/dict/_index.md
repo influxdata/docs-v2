@@ -9,13 +9,13 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/dict/
 menu:
   flux_0_x_ref:
-    name: Dictionary
+    name: dict
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [package, functions]
 ---
 
-The Flux dictionary package provides functions for interacting with [dictionary types](/influxdb/v2.0/reference/flux/language/types/#dictionary-types).
+The Flux dictionary package provides functions for interacting with [dictionary types](/flux/v0.x/spec/types/#dictionary-types).
 Import the `dict` package.
 
 ```js

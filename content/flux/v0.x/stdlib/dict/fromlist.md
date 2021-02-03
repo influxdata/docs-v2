@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: dict.fromList
-    parent: Dictionary
+    parent: dict
 weight: 301
 introduced: 0.97.0
 ---

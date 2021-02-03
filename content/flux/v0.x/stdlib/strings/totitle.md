@@ -8,12 +8,12 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.toTitle
-    parent: Strings
+    parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/toupper
-  - /influxdb/v2.0/reference/flux/stdlib/strings/tolower
-  - /influxdb/v2.0/reference/flux/stdlib/strings/title
+  - /flux/v0.x/stdlib/strings/toupper
+  - /flux/v0.x/stdlib/strings/tolower
+  - /flux/v0.x/stdlib/strings/title
 introduced: 0.18.0
 ---
 

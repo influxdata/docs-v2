@@ -1,6 +1,6 @@
 ---
 title: Flux Bigtable package
-list_title: Bigtable package
+list_title: bigtable package
 description: >
   The Flux Bigtable package provides tools for working with data in Google Cloud Bigtable databases.
   Import the `experimental/bigtable` package.
@@ -9,8 +9,8 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/bigtable/
 menu:
   flux_0_x_ref:
-    name: Bigtable
-    parent: Experimental
+    name: bigtable
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, bigtable, package, google]
 ---

@@ -8,8 +8,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: math.isInf
-    parent: Math
+    parent: math
 weight: 301
+flux/v0.x/tags: [tests]
 introduced: 0.22.0
 ---
 

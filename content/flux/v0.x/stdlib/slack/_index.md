@@ -10,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/slack/
 menu:
   flux_0_x_ref:
-    name: Slack
+    name: slack
     parent: Standard library
-weight: 202
+weight: 11
 flux/v0.x/tags: [functions, slack, package]
 ---
 

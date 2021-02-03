@@ -1,6 +1,7 @@
 ---
 title: Flux CSV package
-list_title: CSV package
+list_title: csv package
+seotitle: Flux Experimental CSV package
 description: >
   The Flux Experimental CSV package provides functions for retrieving annotated CSV.
   Import the `experimental/csv` package.
@@ -9,9 +10,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/csv/
 menu:
   flux_0_x_ref:
-    name: CSV
-    identifier: CSV-exp
-    parent: Experimental
+    name: csv
+    identifier: csv-exp
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, csv, package]
 ---

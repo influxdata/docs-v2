@@ -8,10 +8,11 @@ aliases:
 menu:
   flux_0_x_ref:
     name: sql.from
-    parent: SQL
+    parent: sql
 weight: 202
+flux/v0.x/tags: [inputs]
 related:
-  - /influxdb/v2.0/query-data/flux/sql/
+  - /{{< latest "influxdb" >}}/query-data/flux/sql/
 introduced: 0.34.0
 ---
 

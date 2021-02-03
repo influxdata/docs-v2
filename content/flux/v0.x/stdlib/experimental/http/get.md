@@ -9,7 +9,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: http.get
-    parent: HTTP-exp
+    parent: http-exp
 weight: 401
 introduced: 0.39.0
 ---
@@ -72,6 +72,7 @@ _**Data type:** Record_
 ## Examples
 
 ##### Get the status of InfluxDB OSS
+{{< keep-url >}}
 ```js
 import "influxdata/influxdb/secrets"
 import "experimental/http"

@@ -11,7 +11,7 @@ flux/v0.x/tags: [flux, functions, package]
 menu:
   flux_0_x_ref:
     name: Standard library
-weight: 12
+weight: 1
 ---
 
 The Flux standard library includes built-in functions and importable packages

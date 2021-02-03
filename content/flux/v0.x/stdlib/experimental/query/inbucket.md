@@ -1,5 +1,6 @@
 ---
 title: query.inBucket() function
+seotitle: Experimental query.inBucket() function
 description: >
   The `query.inBucket()` function queries data from a specified bucket within given
   time bounds, filters data by measurement, field, and optional predicate expressions.
@@ -9,8 +10,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: query.inBucket
-    parent: Query
+    parent: query
 weight: 401
+flux/v0.x/tags: [inputs]
 introduced: 0.60.0
 ---
 
@@ -113,7 +115,7 @@ inBucket = (
 ```
 
 _**Used functions:**_  
-[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)  
-[query.filterFields()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filterfields/)  
-[query.filterMeasurement()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/)  
-[query.fromRange()](/influxdb/v2.0/reference/flux/stdlib/experimental/query/fromrange/)  
+[filter()](/flux/v0.x/stdlib/universe/filter/)  
+[query.filterFields()](/flux/v0.x/stdlib/experimental/query/filterfields/)  
+[query.filterMeasurement()](/flux/v0.x/stdlib/experimental/query/filtermeasurement/)  
+[query.fromRange()](/flux/v0.x/stdlib/experimental/query/fromrange/)  

@@ -8,10 +8,11 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.isDigit
-    parent: Strings
+    parent: strings
 weight: 301
+flux/v0.x/tags: [tests]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/isletter/
+  - /flux/v0.x/stdlib/strings/isletter/
 introduced: 0.18.0
 ---
 
@@ -24,7 +25,7 @@ import "strings"
 
 strings.isDigit(v: "A")
 
-// returns false
+// Returns false
 ```
 
 ## Parameters

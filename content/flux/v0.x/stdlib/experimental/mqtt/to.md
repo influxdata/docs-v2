@@ -8,8 +8,9 @@ aliases:
 menu:
   flux_0_x_ref:
     name: mqtt.to
-    parent: MQTT
+    parent: mqtt
 weight: 401
+flux/v0.x/tags: [outputs]
 introduced: 0.40.0
 ---
 

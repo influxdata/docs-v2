@@ -1,6 +1,6 @@
 ---
 title: Flux Geo package
-list_title: Geo package
+list_title: geo package
 description: >
   The Flux Geo package provides tools for working with geo-temporal data,
   such as filtering and grouping by geographic location.
@@ -10,12 +10,12 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/
 menu:
   flux_0_x_ref:
-    name: Geo
-    parent: Experimental
+    name: geo
+    parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, package, geo]
 related:
-  - /influxdb/v2.0/query-data/flux/geo/
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 The Flux Geo package provides tools for working with geo-temporal data,
@@ -65,7 +65,7 @@ generating S2 Cell ID tokens. For example:
 - **Javascript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ### Add S2 Cell IDs to existing geo-temporal data
-Use the [`geo.shapeData()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
+Use the [`geo.shapeData()` function](/flux/v0.x/stdlib/experimental/geo/shapedata/)
 to add `s2_cell_id` tags to data that includes fields with latitude and longitude values.
 
 ```js

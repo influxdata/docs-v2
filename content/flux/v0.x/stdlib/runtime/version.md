@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: runtime.version
-    parent: Runtime
+    parent: runtime
 weight: 401
 introduced: 0.38.0
 ---

@@ -8,12 +8,12 @@ aliases:
 menu:
   flux_0_x_ref:
     name: strings.lastIndexAny
-    parent: Strings
+    parent: strings
 weight: 301
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/strings/index/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
+  - /flux/v0.x/stdlib/strings/index/
+  - /flux/v0.x/stdlib/strings/indexany/
+  - /flux/v0.x/stdlib/strings/lastindex/
 introduced: 0.18.0
 ---
 

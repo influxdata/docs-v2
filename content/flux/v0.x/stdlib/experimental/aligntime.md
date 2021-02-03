@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: experimental.alignTime
-    parent: Experimental
+    parent: experimental
 weight: 302
 introduced: 0.66.0
 ---
@@ -75,8 +75,7 @@ from(bucket: "example-bucket")
 {{< flex >}}
 {{% flex-content %}}
 | _time                | _value |
-|:introduced: 0.66.0
------                | ------:|
+|:-----                | ------:|
 | 2020-01-01T00:00:00Z | 32.1   |
 | 2020-01-02T00:00:00Z | 32.9   |
 | 2020-01-03T00:00:00Z | 33.2   |

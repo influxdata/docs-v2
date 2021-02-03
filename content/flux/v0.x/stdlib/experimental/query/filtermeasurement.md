@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: query.filterMeasurement
-    parent: Query
+    parent: query
 weight: 401
 introduced: 0.60.0
 ---
@@ -54,4 +54,4 @@ filterMeasurement = (tables=<-, measurement) =>
 ```
 
 _**Used functions:**_  
-[filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+[filter()](/flux/v0.x/stdlib/universe/filter/)
