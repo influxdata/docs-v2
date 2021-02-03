@@ -524,7 +524,7 @@ The number of points dropped by the storage engine.
 The number of points accepted by the HTTP `/write` endpoint, but unable to be persisted.
 
 #### pointsWrittenOK
-The number of points accepted by the HTTP `/write` endpoint and persisted successfully.
+The number of points successfully accepted and persisted by the HTTP `/write` endpoint.
 
 #### promReadReq
 The number of read requests to the Prometheus `/read` endpoint.
@@ -560,7 +560,7 @@ The number of HTTP responses due to server errors.
 The number of status requests served using the HTTP `/status` endpoint.
 
 #### valuesWrittenOK
-The number of values (fields) accepted by the HTTP `/write` endpoint that persisted successfully.
+The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 
