@@ -5,7 +5,7 @@ aliases:
   - /enterprise_influxdb/v1.8/guides/Anti-Entropy/
 menu:
   enterprise_influxdb_1_8:
-    name: Use Anti-Entropy service
+    name: Use Anti-entropy service
     weight: 60
     parent: Administration
 ---
@@ -92,7 +92,7 @@ A "flapping" dashboard means data visualizations change when data is refreshed
 and pulled from a node with entropy (inconsistent data).
 It is the visual manifestation of getting [different results from the same query](#different-results-for-the-same-query).
 
-<img src="/img/kapacitor/flapping-dashboard.gif" alt="Flapping dashboard" style="width:100%; max-width:800px">
+<img src="/img/enterprise/1-6-flapping-dashboard.gif" alt="Flapping dashboard" style="width:100%; max-width:800px">
 
 ## Technical details
 

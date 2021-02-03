@@ -156,6 +156,13 @@
     }
   }
 
+  h2,h3,h4,h5,h6 {
+    & + .keep-url {
+      margin-top: -1.5rem;
+      z-index: -100;
+    }
+  }
+
   a.q-link {
     font-size: .8rem;
     vertical-align: super;

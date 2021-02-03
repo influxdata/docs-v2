@@ -12,8 +12,6 @@ menu:
     parent: guides
 ---
 
-# File-based definitions of tasks, templates, and load handlers
-
 The load directory service enables file-based definitions of Kapacitor tasks, templates, and topic handlers that are loaded on startup or when a SIGHUP signal is sent to the process.
 
 ## Configuration

@@ -32,7 +32,7 @@ _For information about recovering from a failed restore process, see
 ## Usage
 
 ```
-influxd restore [flags]
+influx restore [flags]
 ```
 
 ## Flags

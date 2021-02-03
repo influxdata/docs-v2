@@ -60,7 +60,7 @@ from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
     r._field == "usage_user" and
-    r.cpu =~ /cpu[0-2]/
+    r.cpu =~ /cpu[0-2]$/
   )
 ```
 

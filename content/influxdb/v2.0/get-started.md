@@ -56,7 +56,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-2.0.3_darwin_amd64.tar.gz.asc influxdb-2.0.3_darwin_amd64.tar.gz
+    gpg --verify influxdb2.0.3_darwin_amd64.tar.gz.asc influxdb2.0.3_darwin_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -73,7 +73,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb-2.0.3_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb2-2.0.3_darwin_amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -83,7 +83,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -207,7 +207,34 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-#### Networking ports
+### Install InfluxDB as a service with systemd
+
+{{% note %}}
+The following instructions have been tested on Ubuntu, and should work similarly on other Linux distributions.
+{{% /note %}}
+
+1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+   with the following commands:
+   ```sh
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
+   sudo dpkg -i influxdb2_2.x.x_xxx
+   ```
+   _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`)._
+2. Start the InfluxDB service:
+   ```sh
+   sudo service influxdb start
+   ```
+   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+   to start InfluxDB as a background service on startup.
+3. Restart your system and verify that the service is running correctly:
+   ```sh
+   $  sudo service influxdb status
+   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+     Active: active (running)
+   ```
+
+### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
@@ -269,7 +296,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:2.0.0-rc --reporting-disabled
+docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.3 --reporting-disabled
 ```
 {{% /note %}}
 

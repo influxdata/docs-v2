@@ -32,20 +32,26 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
     To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
     go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
 
-    - To use social sign-on, click **Google**. Note that Google social sign-on does not support email aliases.
+    - To use social sign-on, click **Google** or **Microsoft**. Note that social sign-on does not support email aliases.
     - Sign up with email by entering your name, email address, and password, then click **Create Account**.
 
-    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through Google as long as you use the same email address.  
+    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through your cloud provider as long as you use the same email address.  
 
     #### **Subscribe through a cloud provider**  
     To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
-    **Amazon Web Services (AWS)** or **Google Cloud Platform (GCP)** account:
+    **Amazon Web Services (AWS)**, **Microsoft Azure**, or **Google Cloud Platform (GCP)** account:
 
     - **AWS**  
       Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed AWS account.
+
+    - **Microsoft**  
+      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud),
+      and follow the prompts to subscribe. After you click **Set Up Your Account**,
+      enter your credentials, and then click **Start Now**.
+      All usage charges will be paid through the subscribed Microsoft account.
 
     - **GCP**  
       Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod),
@@ -54,7 +60,7 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
       All usage charges will be paid through the subscribed GCP account.
 
       {{%note%}}
-Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS or GCP Marketplaces.
+Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS, Microsoft, or GCP Marketplaces.
       {{%/note%}}
 
 2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
@@ -160,8 +166,8 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.3_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb_client_2.0.3_linux_arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2_client_2.0.3_linux_amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2_client_2.0.3_linux_arm64.tar.gz" download >influx CLI (arm)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -208,7 +214,7 @@ For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config
 
 #### Step 5: Learn `influx` CLI commands
 
- 
+
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
 
