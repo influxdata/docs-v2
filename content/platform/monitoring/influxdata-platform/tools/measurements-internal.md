@@ -559,6 +559,8 @@ The number of HTTP responses due to server errors.
 #### statusReq
 The number of status requests served using the HTTP `/status` endpoint.
 
+#### valuesWrittenOK
+The number of values (fields) accepted by the HTTP `/write` endpoint that persisted successfully.
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 
