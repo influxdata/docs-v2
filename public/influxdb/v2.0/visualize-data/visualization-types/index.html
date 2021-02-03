@@ -85,10 +85,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/light-theme.7cf4cf2c7c352b3f882453154b11094eb92195d8f54dd8e9c3f832898696c81d.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/light-theme.b2dd48a6132b97a0b9f85773afa5e44590aeac8dbf1c4e4bb53b7c93494dbd05.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/dark-theme.6bd2350f792b1609cc468afdb255f2ed9afa08cb6c263f87f0dd5a0ab01f3c44.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/dark-theme.a8acc1215ca488066690a0393b2780b3b7746c142906277ea39cf35dd3cf6a5e.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -197,40 +197,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <p class="selected">InfluxDB OSS</p>
   
-  <ul class="item-list">
+  <ul class="item-list products">
     
       
       
       
-      <li>
+      <li class='flux'>
+        <a href='/flux/v0.x/' >Flux</a>
+      </li>
+    
+      
+      
+      
+      <li >
         <a href='/kapacitor/v1.5/' >Kapacitor</a>
       </li>
     
       
       
       
-      <li>
+      <li >
         <a href='/chronograf/v1.8/' >Chronograf</a>
       </li>
     
       
       
       
-      <li>
+      <li >
         <a href='/telegraf/v1.17/' >Telegraf</a>
       </li>
     
       
       
       
-      <li>
+      <li >
         <a href='/enterprise_influxdb/v1.8/' >InfluxDB Enterprise</a>
       </li>
     
       
       
       
-      <li>
+      <li >
         <a href='/influxdb/v2.0/' class="active">InfluxDB OSS</a>
       </li>
     
@@ -242,7 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
       
       
-      <li>
+      <li >
         <a href='/influxdb/cloud/visualize-data/visualization-types/' >InfluxDB Cloud</a>
       </li>
     
@@ -257,8 +264,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="dropdown">
   <p class="selected">v2.0</p>
-  <ul class="item-list">
-    <li><a href="https://archive.docs.influxdata.com/influxdb/" class="legacy" target="_blank">older</a></li>
+  <ul class="item-list versions">
+    
+      <li><a href="https://archive.docs.influxdata.com/influxdb/" class="legacy" target="_blank">older</a></li>
+    
     
       
       
@@ -926,6 +935,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <li class="nav-item ">
                 
                 <a href="/influxdb/v2.0/query-data/common-queries/recalculate_value_column/">Recalculate the _value column</a>
+                
+              </li>
+            
+              <li class="nav-item ">
+                
+                <a href="/influxdb/v2.0/query-data/common-queries/multiple-fields-in-calculations/">Use multiple fields in a calculation</a>
                 
               </li>
             
@@ -1713,6 +1728,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 
               </li>
             
+              <li class="nav-item ">
+                
+                <a href="/influxdb/v2.0/security/tokens/use-tokens/">Use tokens</a>
+                
+              </li>
+            
             </ul>
           
         </li>
@@ -1824,6 +1845,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <li class="nav-item ">
                 
                 <a href="https://github.com/influxdata/influxdb-client-java/tree/master/client-scala">Scala</a>
+                
+              </li>
+            
+              <li class="nav-item ">
+                
+                <a href="https://github.com/influxdata/influxdb-client-swift">Swift</a>
                 
               </li>
             
@@ -2841,18 +2868,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                           <li class="nav-item ">
                             
                             <a href="/influxdb/v2.0/reference/flux/stdlib/built-in/misc/length/">length</a>
-                            
-                          </li>
-                        
-                          <li class="nav-item ">
-                            
-                            <a href="/influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins/">linearBins</a>
-                            
-                          </li>
-                        
-                          <li class="nav-item ">
-                            
-                            <a href="/influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins/">logarithmicBins</a>
                             
                           </li>
                         
@@ -4762,6 +4777,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
         </li>
       
+        <li class="nav-item ">
+          
+          <a href="/influxdb/v2.0/reference/flux/flux-vs-influxql/">Flux vs InfluxQL</a>
+          
+        </li>
+      
       </ul>
     
   </li>
@@ -4771,6 +4792,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/influxdb/v2.0/reference/api/">InfluxDB v2 API</a>
     
       <ul class="children ">
+      
+        <li class="nav-item ">
+          
+          <a href="/influxdb/v2.0/api/">View v2 API docs</a>
+          
+        </li>
       
         <li class="nav-item ">
           <a href="#" class="children-toggle "></a>
@@ -4793,6 +4820,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <li class="nav-item ">
                 
                 <a href="/influxdb/v2.0/reference/api/influxdb-1x/dbrp/">DBRP mapping</a>
+                
+              </li>
+            
+              <li class="nav-item ">
+                
+                <a href="/influxdb/v2.0/api/v1-compatibility/">View v1 compatibility API docs</a>
                 
               </li>
             
@@ -5053,6 +5086,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <li class="nav-item ">
                 
                 <a href="/influxdb/v2.0/reference/cli/influx/query/">influx query</a>
+                
+              </li>
+            
+              <li class="nav-item ">
+                
+                <a href="/influxdb/v2.0/reference/cli/influx/restore/">influx restore</a>
                 
               </li>
             
@@ -5388,12 +5427,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             
               <li class="nav-item ">
                 
-                <a href="/influxdb/v2.0/reference/cli/influx/restore/">influx restore</a>
-                
-              </li>
-            
-              <li class="nav-item ">
-                
                 <a href="/influxdb/v2.0/reference/cli/influx/version/">influx version</a>
                 
               </li>
@@ -5570,7 +5603,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
     <div class="article">
   <article class="article--content">
-    <h1>Visualization types</h1>
+    <div class="title">
+      <h1>Visualization types</h1>
+      
+
+
+
+    </div>
     
 
 
@@ -5876,7 +5915,7 @@ Set up the Band Plot visualization To see bands (boundaries) in the Band Plot vi
   </article>
 </div>
 
-    <div class="copyright">© 2020 InfluxData, Inc.</div>
+    <div class="copyright">© 2021 InfluxData, Inc.</div>
   </div>
 </div>
 
@@ -6046,6 +6085,7 @@ See the <a href="/influxdb/v2.0/reference/release-notes/influxdb/">InfluxDB OSS 
 
 
 <script type="text/javascript" src="/js/footer.bundle.e1dde679a0347e3d5f87c84c9000de1c12d4fb0c2df9d67a82f05ba3a47baf92.js" ></script>
+
 
 </html>
 

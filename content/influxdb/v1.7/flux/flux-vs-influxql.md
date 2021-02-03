@@ -256,7 +256,7 @@ cov(x: table1, y: table2, on: ["_time", "_field"])
 
 ### Cast booleans to integers
 InfluxQL supports type casting, but only for numeric data types (floats to integers and vice versa).
-[Flux type conversion functions](/{{< latest "flux"" >}}/function-types#type-conversions/)
+[Flux type conversion functions](/{{< latest "flux" >}}/function-types#type-conversions)
 provide much broader support for type conversions and let you perform some long-requested
 operations like casting a boolean values to integers.
 
