@@ -14,7 +14,7 @@
     {{ $productData := (index .Site.Data.products $product) }}
     <p class="selected">{{ cond (isset $productData "altname") $productData.altname $productData.name }}</p>
   {{ end }}
-  <ul class="item-list">
+  <ul class="item-list products">
     {{ range sort .Site.Data.products "list_order" "desc" }}
       {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
       {{ if and $isCloud (eq .altname "InfluxDB OSS")}}
@@ -29,7 +29,7 @@
         {{ end }}
       {{ end }}
       {{ $link := $scratch.Get "link" }}
-      <li>
+      <li {{ if eq .namespace "flux" }}class='flux'{{ end }}>
         <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ cond (isset . "altname") .altname .name }}</a>
       </li>
     {{ end }}

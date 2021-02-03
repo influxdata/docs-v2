@@ -7,8 +7,10 @@
 {{ else }}
 <div class="dropdown">
   <p class="selected">{{ cond (in $currentVersion "v") $currentVersion (title $currentVersion) }}</p>
-  <ul class="item-list">
-    <li><a href="https://archive.docs.influxdata.com/{{ $product }}/" class="legacy" target="_blank">older</a></li>
+  <ul class="item-list versions">
+    {{ if ne $product "flux" }}
+      <li><a href="https://archive.docs.influxdata.com/{{ $product }}/" class="legacy" target="_blank">older</a></li>
+    {{ end }}
     {{ range (index .Site.Data.products $product).versions }}
       {{ $scratch.Set "link" (print "/" $product "/" . "/") }}
       {{ $altVersionPage := $.GetPage ((replaceRE $currentVersion . $.Page.RelPermalink) | replaceRE `\/$` "") }}

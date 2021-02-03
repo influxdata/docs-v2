@@ -96,12 +96,34 @@
       list-style: none;
       display: flex;
       flex-direction: column-reverse;
+
+      &.products{
+        li {
+          &:before {
+            display: inline-block;
+            font-size: .8rem;
+            color: $g2-kevlar;
+            font-style: italic;
+            font-weight: bold;
+            opacity: .65;
+            mix-blend-mode: multiply;
+          }
+          &:last-child:before {
+            content: "Products";
+            margin: .3rem .75rem .15rem;
+          }
+          &.flux:before {
+            content: "Languages";
+            margin: .75rem .75rem .15rem;
+          }
+        }
+      }
     }
     a {
       display: block;
       text-decoration: none;
       color: $g20-white;
-      padding: .5rem 1.5rem .5rem .75rem;
+      padding: .4rem 1.5rem .4rem .75rem;
       background: rgba($g20-white, 0);
       &:hover { background: rgba($g20-white, .2) }
       &.active { background: rgba($g20-white, .2) }
