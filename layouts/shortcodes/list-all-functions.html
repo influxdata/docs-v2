@@ -14,14 +14,14 @@
     {{ if gt (len (intersect $filterArr (index .Page.Params $tagTaxonomy))) 0}}
       {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
         <li>
-          <a href="{{ .RelPermalink }}" data-tags='{{ delimit $tagList "," }}'>{{ $title }}</a>{{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+          <a href="{{ .RelPermalink }}">{{ $title }}</a>{{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
         </li>
       {{ end }}
     {{ end }}
   {{ else }}
     {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
-      <li>
-        <a href="{{ .RelPermalink }}" data-tags="{{ $tagList }}">{{ $title }}</a> {{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+      <li class="filter-item visible" data-tags='{{ replaceRE `([a-z])( )([a-z])` "$1-$3" (delimit $tagList ", ") }}'>
+        <a href="{{ .RelPermalink }}">{{ $title }}</a> {{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
       </li>
     {{ end }}
   {{ end }}

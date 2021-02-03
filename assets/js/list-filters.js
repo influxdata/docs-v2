@@ -4,7 +4,7 @@ function countTag(tag) {
 }
 
 function getFilterCounts() {
-  $('#plugin-filters label').each(function() {
+  $('#list-filters label').each(function() {
     var tagName = $('input', this).attr('name').replace(/[\W]+/, "-");
     var tagCount = countTag(tagName);
     $(this).attr('data-count', '(' + tagCount + ')');
@@ -19,29 +19,29 @@ function getFilterCounts() {
 // Get initial filter count on page load
 getFilterCounts()
 
-$("#plugin-filters input").click(function() {
+$("#list-filters input").click(function() {
 
   // List of tags to hide
-  var tagArray = $("#plugin-filters input:checkbox:checked").map(function(){
+  var tagArray = $("#list-filters input:checkbox:checked").map(function(){
       return $(this).attr('name').replace(/[\W]+/, "-");
     }).get();
 
   // List of tags to restore
-  var restoreArray = $("#plugin-filters input:checkbox:not(:checked)").map(function(){
+  var restoreArray = $("#list-filters input:checkbox:not(:checked)").map(function(){
       return $(this).attr('name').replace(/[\W]+/, "-");
     }).get();
 
   // Actions for filter select
   if ( $(this).is(':checked') ) {
     $.each( tagArray, function( index, value ) {
-      $(".plugin-card.visible:not([data-tags~='" + value + "'])").removeClass('visible').fadeOut()
+      $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').fadeOut()
     })
   } else {
     $.each( restoreArray, function( index, value ) {
-      $(".plugin-card:not(.visible)[data-tags~='" + value + "']").addClass('visible').fadeIn()
+      $(".filter-item:not(.visible)[data-tags~='" + value + "']").addClass('visible').fadeIn()
     })
     $.each( tagArray, function( index, value ) {
-      $(".plugin-card.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()
+      $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()
     })
   }
 

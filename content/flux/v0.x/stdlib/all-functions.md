@@ -14,4 +14,6 @@ weight: 9
 
 This list below contains all documented Flux functions:
 
+{{< list-filters "flux" >}}
+
 {{< list-all-functions >}}
