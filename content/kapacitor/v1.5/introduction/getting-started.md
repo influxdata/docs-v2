@@ -1,13 +1,15 @@
 ---
 title: Get started with Kapacitor
 description: Get started with Kapacitor to process your time series data.
+aliases:
+  - /kapacitor/v1.5/introduction/getting_started/
 weight: 20
 menu:
   kapacitor_1_5:
     parent: Introduction
 ---
 
-Use Kapacitor to import (stream or batch) time series data, and then transform, analyze, and act on the data. To get started using Kapacitor, use Telegraf to collect system metrics on your local machine and store them in InfluxDB. Then, use Kapacitor to process your system data.
+Use Kapacitor to import (stream or batch)  time series data, and then transform, analyze, and act on the data. To get started using Kapacitor, use Telegraf to collect system metrics on your local machine and store them in InfluxDB. Then, use Kapacitor to process your system data.
 
 - [Overview](#overview)
 - [Start InfluxDB and collect Telegraf data](#start-influxdb-and-collect-telegraf-data)
