@@ -40,14 +40,14 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 {{% warn %}}
 #### Current limitations
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
-  Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to add
+  Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to add
   scalar values to output data.
 {{% /warn %}}
 
 ## Table extraction
 Flux formats query results as a stream of tables.
-Both [`findColumn()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
-and [`findRecord()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
+Both [`findColumn()`](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
+and [`findRecord()`](/{{< latest "flux" >}}/stdlib/universe/findrecord/)
 extract the first table in a stream of tables whose [group key](/influxdb/v2.0/reference/glossary/#group-key)
 values match the `fn` [predicate function](/influxdb/v2.0/reference/glossary/#predicate-function).
 
@@ -60,7 +60,7 @@ filter and transform your data to minimize the number of tables piped-forward in
 {{% /note %}}
 
 ## Extract a column
-Use the [`findColumn()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/)
+Use the [`findColumn()` function](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
 to output an array of values from a specific column in the extracted table.
 
 _See [Sample data](#sample-data) below._
@@ -101,7 +101,7 @@ SFOTemps[2]
 ```
 
 ## Extract a row
-Use the [`findRecord()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/)
+Use the [`findRecord()` function](/{{< latest "flux" >}}/stdlib/universe/findrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
 The function outputs a record with key-value pairs for each column.
@@ -206,7 +206,7 @@ The temperature was ${string(v: lastReported._value)}°F."
 The following sample data set represents fictional temperature metrics collected
 from three locations.
 It's formatted in [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) and imported
-into the Flux query using the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/).
+into the Flux query using the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/).
 
 Place the following at the beginning of your query to use the sample data:
 

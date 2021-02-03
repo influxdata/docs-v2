@@ -59,7 +59,7 @@ Function used to identify a set of columns.
 All columns indicated must be of the same type.
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
 _**Data type:** Function_

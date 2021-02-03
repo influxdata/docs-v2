@@ -45,7 +45,7 @@ Each row in the output of `aggregateWindow` represents an aggregated window endi
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### every
@@ -54,7 +54,7 @@ The duration of windows.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [valid duration units](/flux/v0.x/language/types/#duration-types),
+`every` supports all [valid duration units](/flux/v0.x/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 

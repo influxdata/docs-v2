@@ -55,7 +55,7 @@ _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/language/types/#time-types).
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
 _**Data type:** Duration_
 

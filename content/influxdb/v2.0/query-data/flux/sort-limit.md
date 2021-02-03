@@ -3,9 +3,9 @@ title: Sort and limit data with Flux
 seotitle: Sort and limit data in InfluxDB with Flux
 list_title: Sort and limit
 description: >
-  Use the [`sort()`function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+  Use the [`sort()`function](/{{< latest "flux" >}}/stdlib/universe/sort)
   to order records within each table by specific columns and the
-  [`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+  [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
   to limit the number of records in output tables to a fixed number, `n`.
 influxdb/v2.0/tags: [sort, limit]
 menu:
@@ -21,9 +21,9 @@ related:
 list_query_example: sort_limit
 ---
 
-Use the [`sort()`function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+Use the [`sort()`function](/{{< latest "flux" >}}/stdlib/universe/sort)
 to order records within each table by specific columns and the
-[`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+[`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
 to limit the number of records in output tables to a fixed number, `n`.
 
 If you're just getting started with Flux queries, check out the following:
@@ -45,7 +45,7 @@ from(bucket:"example-bucket")
   |> sort(columns:["region", "host", "_value"])
 ```
 
-The [`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+The [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
 limits the number of records in output tables to a fixed number, `n`.
 The following example shows up to 10 records from the past hour.
 
@@ -71,6 +71,6 @@ from(bucket:"example-bucket")
 ```
 
 You now have created a Flux query that sorts and limits data.
-Flux also provides the [`top()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/top)
-and [`bottom()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/bottom)
+Flux also provides the [`top()`](/{{< latest "flux" >}}/stdlib/universe/top)
+and [`bottom()`](/{{< latest "flux" >}}/stdlib/universe/bottom)
 functions to perform both of these functions at the same time.

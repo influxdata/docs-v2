@@ -51,7 +51,7 @@ Defaults to `now()`.
 _**Data type:** Duration | Time | Integer_
 
 {{% note %}}
-Time values in Flux must be in [RFC3339 format](/flux/v0.x/language/types#timestamp-format).
+Time values in Flux must be in [RFC3339 format](/flux/v0.x/spec/types#timestamp-format).
 {{% /note %}}
 
 ### fn

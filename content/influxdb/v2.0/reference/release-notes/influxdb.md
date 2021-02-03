@@ -107,7 +107,7 @@ Highlights include:
 - Support for **upgrading to InfluxDB 2.0**:
    - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
    - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2).
-- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
+- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/{{< latest "flux" >}}/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2.0/reference/api/influxdb-1x/).
 - **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2.0/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2.0/influxdb-templates/stacks/).
 
@@ -207,7 +207,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 ### Bug Fixes
 - Enable scrapers. (Scrapers did not work in rc0.)
 - Update default number of tasks listed with `influx task list` to 100.
-- Add support for [duration unit identifiers](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals) to templates.
+- Add support for [duration unit identifiers](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals) to templates.
 - Preserve cell colors in imported and exported templates.
 - Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
 - Ensure passwords are at least 8 characters in `influx setup`.

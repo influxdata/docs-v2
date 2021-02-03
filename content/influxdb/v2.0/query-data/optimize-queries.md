@@ -24,14 +24,14 @@ These are known as "pushdown" functions and using them correctly can greatly
 reduce the amount of memory necessary to run a query.
 
 #### Pushdown functions
-- [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
-- [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+- [range()](/{{< latest "flux" >}}/stdlib/universe/range/)
+- [filter()](/{{< latest "flux" >}}/stdlib/universe/filter/)
 <!--
-[group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-[count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
-[sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
-[first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
-[last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) 
+[group()](/{{< latest "flux" >}}/stdlib/universe/group/)
+[count()](/{{< latest "flux" >}}/stdlib/universe/count/)
+[sum()](/{{< latest "flux" >}}/stdlib/universe/sum/)
+[first()](/{{< latest "flux" >}}/stdlib/universe/first/)
+[last()](/{{< latest "flux" >}}/stdlib/universe/last/) 
 -->
 
 Use pushdown functions at the beginning of your query.
@@ -60,12 +60,12 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-- [reduce()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
-- [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)
-- [join()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-- [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
-- [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+- [map()](/{{< latest "flux" >}}/stdlib/universe/map/)
+- [reduce()](/{{< latest "flux" >}}/stdlib/universe/reduce/)
+- [window()](/{{< latest "flux" >}}/stdlib/universe/window/)
+- [join()](/{{< latest "flux" >}}/stdlib/universe/join/)
+- [union()](/{{< latest "flux" >}}/stdlib/universe/union/)
+- [pivot()](/{{< latest "flux" >}}/stdlib/universe/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.

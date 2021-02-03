@@ -16,7 +16,7 @@ Flux string interpolation evaluates string literals containing one or more place
 and returns a result with placeholders replaced with their corresponding values.
 
 ## String interpolation syntax
-To use Flux string interpolation, enclose embedded [expressions](/flux/v0.x/language/expressions/)
+To use Flux string interpolation, enclose embedded [expressions](/flux/v0.x/spec/expressions/)
 in a dollar sign and curly braces `${}`.
 Flux replaces the content between the braces with the result of the expression and
 returns a string literal.
@@ -44,8 +44,8 @@ count = 12
 
 
 ## Use dot notation to interpolate record values
-[Records](/flux/v0.x/language/expressions/#record-literals) consist of key-value pairs.
-Use [dot notation](/flux/v0.x/language/expressions/#member-expressions)
+[Records](/flux/v0.x/spec/expressions/#record-literals) consist of key-value pairs.
+Use [dot notation](/flux/v0.x/spec/expressions/#member-expressions)
 to interpolate values from a record.
 
 ```js

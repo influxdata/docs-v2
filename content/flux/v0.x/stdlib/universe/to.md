@@ -122,7 +122,7 @@ _**Output data type:** Record_
 
 {{% note %}}
 Make sure `fieldFn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/flux/v0.x/language/data-model/#match-parameter-names).
+To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
 ## Examples

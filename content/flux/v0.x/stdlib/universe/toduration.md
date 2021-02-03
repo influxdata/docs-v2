@@ -32,7 +32,7 @@ _**Supported data types:** Integer | String | Uinteger_
 
 {{% note %}}
 `duration()` assumes **numeric** input values are **nanoseconds**.
-**String** input values must use [duration literal representation](/flux/v0.x/language/lexical-elements/#duration-literals).
+**String** input values must use [duration literal representation](/flux/v0.x/spec/lexical-elements/#duration-literals).
 {{% /note %}}
 
 {{% note %}}

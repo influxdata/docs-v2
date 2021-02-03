@@ -47,7 +47,7 @@ influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
 
 To migrate InfluxDB 1.x continuous queries to InfluxDB 2.0 tasks, convert the InfluxQL query syntax to Flux.
 The majority of continuous queries are simple downsampling queries and can be converted quickly
-using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
+using the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/).
 For example:
 
 ##### Example continuous query
