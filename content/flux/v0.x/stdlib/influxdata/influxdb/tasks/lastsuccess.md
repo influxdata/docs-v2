@@ -11,6 +11,7 @@ menu:
     name: tasks.lastSuccess
     parent: tasks
 weight: 301
+flux/v0.x/tags: [metadata]
 introduced: 0.84.0
 ---
 

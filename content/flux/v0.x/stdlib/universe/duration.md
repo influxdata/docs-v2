@@ -10,7 +10,7 @@ menu:
     name: duration
     parent: universe
 weight: 102
-flux/v0.x/tags: [type-conversions, transformations]
+flux/v0.x/tags: [type-conversions]
 introduced: 0.7.0
 ---
 

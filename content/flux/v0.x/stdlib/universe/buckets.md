@@ -11,6 +11,7 @@ menu:
     name: buckets
     parent: universe
 weight: 102
+flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
 introduced: 0.16.0

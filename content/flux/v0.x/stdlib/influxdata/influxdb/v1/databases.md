@@ -9,6 +9,7 @@ menu:
     name: v1.databases
     parent: v1
 weight: 301
+flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-databases, SHOW DATABASES in InfluxQL
 introduced: 0.16.0

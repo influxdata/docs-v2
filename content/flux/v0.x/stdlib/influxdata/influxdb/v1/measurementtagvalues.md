@@ -10,7 +10,7 @@ menu:
     name: v1.measurementTagValues
     parent: v1
 weight: 301
-flux/v0.x/tags: [tags]
+flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL

@@ -6,7 +6,7 @@ menu:
     name: schema.fieldKeys
     parent: schema
 weight: 301
-flux/v0.x/tags: [fields]
+flux/v0.x/tags: [metadata]
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldkeys
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/

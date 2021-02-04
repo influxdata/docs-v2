@@ -6,7 +6,7 @@ menu:
     name: v1.measurementFieldKeys
     parent: v1
 weight: 301
-flux/v0.x/tags: [fields]
+flux/v0.x/tags: [metadata]
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementfieldkeys/
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys/
