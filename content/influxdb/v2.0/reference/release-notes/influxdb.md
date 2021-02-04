@@ -46,7 +46,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Remove upgrade notice from new installs.
 - Ensure `config.toml` is initialized on new installs.
 - Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
-- Don't overwrite stack name and description on `influx stack update`.
+- Prevent `influx stack update` from overwriting stack name and description.
 - Fix timeout setup for `influxd` graceful shutdown.
 - Don't ignore failures to set password during initial user onboarding.
 - Error message improvements:
