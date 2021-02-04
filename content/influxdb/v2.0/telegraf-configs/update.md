@@ -22,7 +22,7 @@ To update a Telegraf configuration, do one of the following:
 - [Use the `influx` CLI](#use-the-influx-cli)
 
 {{% note %}}
-Telegraf doesn't detect changes to remote configurations. If you edit a remote configuration, you must re-run it for your changes to take affect.
+Telegraf doesn't detect changes to remote configurations. If you edit a remote configuration, you must restart Telegraf or send it a SIGHUP command for your changes to take effect.
 {{% /note %}}
 
 ## Use the InfluxDB UI
