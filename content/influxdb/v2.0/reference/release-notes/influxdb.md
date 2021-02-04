@@ -66,7 +66,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Prevent extra output row from GROUP BY crossing DST boundary.
 - Update Flux functions list in UI to reflect that `v1` package was renamed to `schema`.
 - Set correct `Content-Type` on v1 query responses.
-- Respect the `--skip-verify` flag when running `influx` query.
+- Respect the `--skip-verify` flag when running `influx query`.
 - Remove blank lines from payloads sent by `influx write`.
 - Fix infinite loop in Flux parser caused by invalid array expressions.
 - Support creating users without initial passwords in `influx user create`.
