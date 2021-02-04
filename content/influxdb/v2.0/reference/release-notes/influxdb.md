@@ -69,7 +69,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Respect the `--skip-verify` flag when running `influx` query.
 - Remove blank lines from payloads sent by `influx write`.
 - Fix infinite loop in Flux parser caused by invalid array expressions.
-- Allow for creating users without initial passwords in `influx user create`.
+- Support creating users without initial passwords in `influx user create`.
 - Fix incorrect errors when passing `--bucket-id` to influx write.
 
 
