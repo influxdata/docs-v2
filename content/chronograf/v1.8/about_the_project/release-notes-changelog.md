@@ -21,7 +21,7 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 ```
 
 - Upgrade to Axios 0.21.1.
-- Add support for Bitbucket `emails` endpoint with generic OAuth. for more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and [Configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
+- Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
 
 ### Bug Fixes
 
