@@ -102,6 +102,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
 - [log-level](#log-level)
+- [nats-max-payload-bytes](#nats-max-payload-bytes)
+- [nats-port](#nats-port)
 - [new-meta-store](#new-meta-store)
 - [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
@@ -573,6 +575,100 @@ log-level = "info"
 ```json
 {
   "log-level": "info"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### nats-max-payload-bytes
+Maximum number of bytes allowed in a NATS message payload.
+
+**Default:** `1048576`
+
+| influxd flag               | Environment variable             | Configuration key        |
+|:------------               |:--------------------             |:-----------------        |
+| `--nats-max-payload-bytes` | `INFLUXD_NATS_MAX_PAYLOAD_BYTES` | `nats-max-payload-bytes` |
+
+###### influxd flag
+```sh
+influxd --nats-max-payload-bytes=1048576
+```
+
+###### Environment variable
+```sh
+export INFLUXD_NATS_MAX_PAYLOAD_BYTES=1048576
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+nats-max-payload-bytes: 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+nats-max-payload-bytes = 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "nats-max-payload-bytes": 1048576
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### nats-port
+Port to be bound by the NATS streaming server. `-1` selects a random port.
+
+**Default:** `-1`
+
+| influxd flag  | Environment variable | Configuration key |
+|:------------  |:-------------------- |:----------------- |
+| `--nats-port` | `INFLUXD_NATS_PORT`  | `nats-port`       |
+
+###### influxd flag
+```sh
+influxd --nats-port=-1
+```
+
+###### Environment variable
+```sh
+export INFLUXD_NATS_PORT=-1
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+nats-port: -1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+nats-port = -1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "nats-port": -1
 }
 ```
 {{% /code-tab-content %}}
