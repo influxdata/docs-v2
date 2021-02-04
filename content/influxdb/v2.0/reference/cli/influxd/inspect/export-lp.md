@@ -1,7 +1,8 @@
 ---
 title: influxd inspect export-lp
 description: >
-  The `influxd inspect export-lp` command exports all time series data as line protocol.
+  The `influxd inspect export-lp` command exports all time series data in a bucket
+  as line protocol.
 influxdb/v2.0/tags: [inspect]
 menu:
   influxdb_2_0_ref:
