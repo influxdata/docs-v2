@@ -26,7 +26,7 @@ This release fully removes the `inmem` indexing option, along with the associate
 - `max-series-per-database`
 - `max-values-per-tag`
 
-The startup process automatically generates replacement `tsi1` indexes are automatically generated on startup for shards that need it.
+The startup process automatically generates replacement `tsi1` indexes for shards that need it.
 
 ### Features
 
