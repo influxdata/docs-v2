@@ -32,9 +32,9 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 
 - Add `--overwrite-existing-v2` flag to `influxd upgrade` to overwrite existing files at output paths (instead of aborting).
 - Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
-- Add `influxd print-config` command to support automated config inspection.
-- Add `nats-port` config option for `influxd` server.
-- Add `nats-max-payload-bytes` config option for `influxd` server.
+- Add `influxd print-config` command to support automated configuration inspection.
+- Add `nats-port` configuration option for `influxd` server.
+- Add `nats-max-payload-bytes` configuration option for `influxd` server.
 - Add `influxd inspect export-lp` command to extract data in line-protocol format.
 - Promote schema and fill query optimizations to default behavior.
 - Upgrade Flux to v0.104.0.
