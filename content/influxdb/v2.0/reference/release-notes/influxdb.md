@@ -8,6 +8,63 @@ menu:
 weight: 101
 ---
 
+## v2.0.4 General Availability [2021-02-04]
+
+### Breaking Changes
+
+#### `imnem` index option removed
+
+This release fully removes the inmem indexing option, along with the associated config options:
+- `max-series-per-database`
+- `max-values-per-tag`
+
+The startup process automatically generates replacement `tsi1` indexes are automatically generated on startup for shards that need it.
+
+### Features
+
+- Add `--overwrite-existing-v2` flag to `influxd upgrade` to overwrite existing files at output paths (instead of aborting).
+- Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
+- Add `influxd print-config` command to support automated config inspection.
+- Add `nats-port` config option for `influxd` server.
+- Add `nats-max-payload-bytes` config option for `influxd` server.
+- Add `influxd inspect export-lp` command to extract data in line-protocol format.
+- Promote schema and fill query optimizations to default behavior.
+- Upgrade Flux to v0.104.0.
+- Upgrade flux-lsp-browser to v0.5.31.
+
+### Bug Fixes
+
+- Ensure `influxdb` service sees default environment variables when running under `init.d`.
+- Don't show upgrade notice on new installs.
+- Ensure `config.toml` is initialized on new installs.
+- Include upgrade helper script in GoReleaser manifest.
+- Don't overwrite stack name and description on `influx stack update`.
+- Fix timeout setup for `influxd` graceful shutdown.
+- Don't ignore failures to set password during initial user onboarding.
+- Error message improvements:
+    - Remove duplication from task error messages.
+    - Improve error message shown when influx CLI can't find an org by name.
+    - Improve error message when opening BoltDB with unsupported file system options.
+    - Improve messages in DBRP API validation errors.
+- `influxd upgrade` improvements:
+  - Add confirmation step with file sizes before copying data files.
+  - Prevent panic in `influxd upgrade` when v1 users exist but v1 config is missing.
+- Fix logging initialization for storage engine.
+- Don't return 500 codes for partial write failures.
+- Don't leak `.tmp` files while backing up shards.
+- Allow backups to complete while a snapshot is in progress.
+- Fix silent failure to register CLI arguments as required.
+- Fix loading when `INFLUXD_CONFIG_PATH` points to a .yml file.
+- Prevent extra output row from GROUP BY crossing DST boundary.
+- Update Flux functions list in UI to reflect that v1 package was renamed to schema.
+- Set correct `Content-Type` on v1 query responses.
+- Respect the `--skip-verify` flag when running `influx` query.
+- Remove blank lines from payloads sent by `influx write`.
+- Fix infinite loop in Flux parser caused by invalid array expressions.
+- Allow for creating users without initial passwords in `influx user create`.
+- Fix incorrect errors when passing `--bucket-id` to influx write.
+
+
 ## v2.0.3 General Availability [2020-12-14]
 
 ### Breaking Changes
