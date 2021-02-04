@@ -142,7 +142,7 @@ but client requests to InfluxDB 2.0 may be silently ignored (you won't see a not
 
 ### In-memory indexing option
 
-As of the InfluxDB 2.0.4 release, 2.0 no longer supports the [in-memory (`inmem`) indexing option](/influxdb/v1.8/administration/config/#in-memory-inmem-index-settings). Any configuration, including the following two configuration options, is ignored:
+InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/administration/config/#in-memory-inmem-index-settings). The following InfluxDB 1.x configuration options associated with `inmem` indexing are ignored in the upgrade process:
 
 - `max-series-per-database`
 - `max-values-per-tag`
