@@ -51,7 +51,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Don't ignore failures to set password during initial user onboarding.
 - Error message improvements:
     - Remove duplication from task error messages.
-    - Improve error message shown when influx CLI can't find an org by name.
+    - Improve error message shown when influx CLI can't find an `org` by name.
     - Improve error message when opening BoltDB with unsupported file system options.
     - Improve messages in DBRP API validation errors.
 - `influxd upgrade` improvements:
