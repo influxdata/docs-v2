@@ -47,12 +47,12 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
   - Click the name of the configuration.
   - Add or update [Telegraf plugin settings](/telegraf/latest/plugins/) in the window that appears.
   {{% note %}}
-  The text editor window doesn't detect if any plugins or settings are misconfigured. Any errors in your configuration that may cause Telegraf to fail will be displayed when you start Telegraf.
+  The text editor window doesn't detect if any plugins or settings are misconfigured. Any errors in your configuration that may cause Telegraf to fail will appear when you start Telegraf.
   {{% /note %}}
   - Click **Save Changes** and then **Save** again to confirm.
-3. In order for your changes to take affect, you must re-run your updated Telegraf configuration using the `-config` flag. To find the exact command for your configuration file, click **Setup Instructions** from the **Telegraf** page.
+3. In order for your changes to take effect, you must start Telegraf again. To find the exact command for your configuration file, click **Setup Instructions** from the **Telegraf** page.
 
-### Edit the configuration file by downloading
+### Download and verify the configuration file
 
 1. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
@@ -61,7 +61,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
 2. Click the **name** of the Telegraf configuration to customize.
 3. Click **Download Config** to download the Telegraf configuration file to your
    local machine.
-4. Add or update [Telegraf plugin](/{{< latest "telegraf" >}}/plugins/) settings and
+4. Review the configuration file. Add or update [Telegraf plugin](/{{< latest "telegraf" >}}/plugins/) settings and
    save your changes.
 5. [Use the `influx telegrafs update` command](#use-the-influx-cli) to upload your
    modified Telegraf configuration to InfluxDB and replace the existing configuration.
