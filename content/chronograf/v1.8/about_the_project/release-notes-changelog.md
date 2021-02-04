@@ -30,7 +30,7 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 - Repair dashboard import to remap sources in variables.
 - UI updates:
   - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases the user has permissions to.
-  - Improve Send to Dashboard feedback on Data Explorer page.
+  - Improve Send to Dashboard feedback on the Data Explorer page.
 - Log Viewer updates:
   - Avoid endless networking loop.
   - Show timestamp with full nanosecond precision.
