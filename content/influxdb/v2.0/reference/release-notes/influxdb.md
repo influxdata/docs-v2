@@ -38,7 +38,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Add `influxd inspect export-lp` command to extract data in line protocol format.
 - Promote schema and fill query optimizations to default behavior.
 - Upgrade to Flux v0.104.0.
-- Upgrade flux-lsp-browser to v0.5.31.
+- Upgrade to flux-lsp-browser v0.5.31.
 
 ### Bug Fixes
 
