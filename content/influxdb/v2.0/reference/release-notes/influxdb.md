@@ -35,7 +35,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Add `influxd print-config` command to support automated configuration inspection.
 - Add `nats-port` configuration option for `influxd` server.
 - Add `nats-max-payload-bytes` configuration option for `influxd` server.
-- Add `influxd inspect export-lp` command to extract data in line-protocol format.
+- Add `influxd inspect export-lp` command to extract data in line protocol format.
 - Promote schema and fill query optimizations to default behavior.
 - Upgrade Flux to v0.104.0.
 - Upgrade flux-lsp-browser to v0.5.31.
