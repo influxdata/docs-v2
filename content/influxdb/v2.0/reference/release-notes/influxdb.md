@@ -45,7 +45,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Ensure `influxdb` service sees default environment variables when running under `init.d`.
 - Remove upgrade notice from new installs.
 - Ensure `config.toml` is initialized on new installs.
-- Include upgrade helper script in GoReleaser manifest.
+- Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
 - Don't overwrite stack name and description on `influx stack update`.
 - Fix timeout setup for `influxd` graceful shutdown.
 - Don't ignore failures to set password during initial user onboarding.
