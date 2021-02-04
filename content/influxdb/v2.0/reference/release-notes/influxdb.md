@@ -64,7 +64,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Fix silent failure to register CLI arguments as required.
 - Fix loading when `INFLUXD_CONFIG_PATH` points to a .yml file.
 - Prevent extra output row from GROUP BY crossing DST boundary.
-- Update Flux functions list in UI to reflect that v1 package was renamed to schema.
+- Update Flux functions list in UI to reflect that `v1` package was renamed to `schema`.
 - Set correct `Content-Type` on v1 query responses.
 - Respect the `--skip-verify` flag when running `influx` query.
 - Remove blank lines from payloads sent by `influx write`.
