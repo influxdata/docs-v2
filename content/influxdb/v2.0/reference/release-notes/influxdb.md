@@ -48,7 +48,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
 - Prevent `influx stack update` from overwriting stack name and description.
 - Fix timeout setup for `influxd` graceful shutdown.
-- Don't ignore failures to set password during initial user onboarding.
+- Require user to set password during initial user onboarding.
 - Error message improvements:
     - Remove duplication from task error messages.
     - Improve error message shown when influx CLI can't find an `org` by name.
