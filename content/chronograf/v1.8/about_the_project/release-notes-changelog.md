@@ -8,6 +8,33 @@ menu:
     parent: About the project
 ---
 
+## v1.8.10 [unreleased]
+
+### Features
+
+- Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands, including `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`. For example:
+
+```sh
+USE "db_name"; DROP MEASUREMENT "measurement_name"
+USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
+USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
+```
+
+- Upgrade to Axios 0.21.1.
+- Add support for Bitbucket `emails` endpoint with generic OAuth. for more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and [Configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
+
+### Bug Fixes
+
+- Repair ARMv5 build.
+- Stop async executions on unmounted LogsPage.
+- Repair dashboard import to remap sources in variables.
+- UI updates:
+  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases the user has permissions to.
+  - Improve Send to Dashboard feedback on Data Explorer page.
+- Log Viewer updates:
+  - Avoid endless networking loop.
+  - Show timestamp with full nanosecond precision.
+
 ## v1.8.9.1 [2020-12-10]
 
 ### Features
