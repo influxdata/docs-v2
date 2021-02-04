@@ -20,7 +20,7 @@ Prior to this release, competing nightly builds caused the nightly Docker tag to
 
 ### Breaking Changes
 
-#### `imnem` index option removed
+#### `inmem` index option removed
 
 This release fully removes the `inmem` indexing option, along with the associated config options:
 - `max-series-per-database`
