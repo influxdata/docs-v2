@@ -10,6 +10,7 @@ menu:
     name: tail
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/limit/
 introduced: 0.39.0

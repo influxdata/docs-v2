@@ -11,6 +11,7 @@ menu:
     name: pushbullet.endpoint
     parent: pushbullet
 weight: 202
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.66.0
 ---
 

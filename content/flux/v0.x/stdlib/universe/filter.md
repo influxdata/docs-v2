@@ -11,7 +11,7 @@ menu:
     name: filter
     parent: universe
 weight: 102
-flux/v0.x/tags: [exists]
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/query-fields/
   - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/

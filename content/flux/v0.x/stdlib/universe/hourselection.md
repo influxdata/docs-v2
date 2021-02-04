@@ -13,6 +13,7 @@ menu:
     name: hourSelection
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations, date/time]
 introduced: 0.39.0
 ---
 

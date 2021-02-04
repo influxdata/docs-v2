@@ -11,7 +11,7 @@ menu:
     name: first
     parent: universe
 weight: 102
-flux/v0.x/tags: [selectors]
+flux/v0.x/tags: [selectors, transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/first-last/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#first, InfluxQL – FIRST()

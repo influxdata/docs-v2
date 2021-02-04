@@ -12,6 +12,7 @@ menu:
     name: discord.endpoint
     parent: discord
 weight: 202
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.74.0
 ---
 

@@ -10,6 +10,7 @@ menu:
     name: aggregate.rate
     parent: aggregate
 weight: 301
+flux/v0.x/tags: [transformations, aggregate]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/rate/
 introduced: 0.61.0

@@ -11,6 +11,7 @@ menu:
     name: truncateTimeColumn
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations, date/time]
 related:
   - /flux/v0.x/stdlib/date/truncate/
 introduced: 0.37.0

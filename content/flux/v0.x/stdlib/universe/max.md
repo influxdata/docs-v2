@@ -11,7 +11,7 @@ menu:
     name: max
     parent: universe
 weight: 102
-flux/v0.x/tags: [selectors]
+flux/v0.x/tags: [selectors, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#max, InfluxQL – MAX()
 introduced: 0.7.0

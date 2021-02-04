@@ -31,7 +31,7 @@ telegraf:
       - Deprecated
 
 flux:
-  - category: Behavior
+  - category: Behaviors
     values:
       - Inputs
       - Outputs
@@ -40,3 +40,8 @@ flux:
       - Selectors
       - Dynamic queries
       - Type-conversions
+  - category: Placeholder
+    values:
+      - Notification endpoints
+      - Date/time
+      - Geotemporal

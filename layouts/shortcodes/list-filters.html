@@ -8,9 +8,10 @@
     <h5>{{ .category }}</h5>
     <ul class="filter-list">
       {{ range .values }}
+        {{ $value := lower (replaceRE `[ /]` "-" . ) }}
         <li>
-          <label for="{{ lower . }}" data-count="(0)">
-            <input type="checkbox" id="{{ lower . }}" name="{{ lower . }}">
+          <label for="{{ $value }}" data-count="(0)">
+            <input type="checkbox" id="{{ $value }}" name="{{ $value }}">
             <span class="checkbox"></span>
             {{ . }}
           </label>

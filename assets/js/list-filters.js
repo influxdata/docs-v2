@@ -5,7 +5,7 @@ function countTag(tag) {
 
 function getFilterCounts() {
   $('#list-filters label').each(function() {
-    var tagName = $('input', this).attr('name').replace(/[\W]+/, "-");
+    var tagName = $('input', this).attr('name').replace(/[\W/]+/, "-");
     var tagCount = countTag(tagName);
     $(this).attr('data-count', '(' + tagCount + ')');
     if (tagCount <= 0) {

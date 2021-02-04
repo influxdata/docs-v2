@@ -12,7 +12,7 @@ menu:
     name: mode
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
 introduced: 0.36.0

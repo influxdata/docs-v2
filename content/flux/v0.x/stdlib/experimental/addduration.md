@@ -11,6 +11,7 @@ menu:
     name: experimental.addDuration
     parent: experimental
 weight: 302
+flux/v0.x/tags: [date/time]
 related:
   - /flux/v0.x/stdlib/experimental/subduration/
 introduced: 0.39.0

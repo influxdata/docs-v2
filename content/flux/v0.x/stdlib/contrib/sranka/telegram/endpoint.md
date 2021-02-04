@@ -12,6 +12,7 @@ menu:
     parent: telegram
 weight: 201
 introduced: 0.70.0
+flux/v0.x/tags: [notification endpoints]
 ---
 
 The `telegram.endpoint()` function sends a message to a Telegram channel

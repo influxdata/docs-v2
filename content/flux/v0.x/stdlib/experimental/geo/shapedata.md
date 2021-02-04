@@ -12,7 +12,7 @@ menu:
     name: geo.shapeData
     parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo]
+flux/v0.x/tags: [transformations, geotemporal, geo]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.65.0

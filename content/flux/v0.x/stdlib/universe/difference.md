@@ -11,6 +11,7 @@ menu:
     name: difference
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 introduced: 0.7.1

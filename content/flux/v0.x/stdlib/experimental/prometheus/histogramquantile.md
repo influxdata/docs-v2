@@ -11,6 +11,7 @@ menu:
     name: prometheus.histogramQuantile
     parent: prometheus
 weight: 401
+flux/v0.x/tags: [transformations, prometheus]
 introduced: 0.51.0
 ---
 

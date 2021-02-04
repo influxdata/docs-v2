@@ -11,7 +11,7 @@ menu:
     name: rows.map
     parent: rows
 weight: 301
-flux/v0.x/tags: [functions, package, map]
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/map/
 introduced: 0.77.0

@@ -14,6 +14,7 @@ menu:
     name: increase
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/increase/
 introduced: 0.71.0

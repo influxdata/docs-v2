@@ -12,7 +12,7 @@ menu:
     name: reduce
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/custom-functions/custom-aggregate/
   - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/

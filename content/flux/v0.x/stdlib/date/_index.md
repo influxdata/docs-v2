@@ -14,7 +14,8 @@ menu:
     name: date
     parent: Standard library
 weight: 11
-flux/v0.x/tags: [date, time, functions]
+cascade:
+  flux/v0.x/tags: [date/time]
 ---
 
 The Flux date package provides date and time constants and functions.

@@ -10,6 +10,7 @@ menu:
     name: experimental.set
     parent: experimental
 weight: 302
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/set/
 introduced: 0.40.0

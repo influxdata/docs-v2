@@ -11,6 +11,7 @@ menu:
     name: rename
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 ---
 

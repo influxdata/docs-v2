@@ -13,7 +13,7 @@ menu:
     name: histogramQuantile
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, transformations]
 introduced: 0.7.0
 ---
 

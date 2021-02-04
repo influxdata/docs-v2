@@ -14,6 +14,7 @@ menu:
     name: doubleEMA
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/movingaverage/
   - /flux/v0.x/stdlib/universe/tripleema/

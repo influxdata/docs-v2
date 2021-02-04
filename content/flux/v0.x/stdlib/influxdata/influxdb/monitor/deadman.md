@@ -11,7 +11,7 @@ menu:
     name: monitor.deadman
     parent: monitor
 weight: 202
-cloud_all: true
+flux/v0.x/tags: [transformations]
 introduced: 0.39.0
 ---
 

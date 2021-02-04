@@ -11,6 +11,7 @@ menu:
     name: stateCount
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
 introduced: 0.7.0

@@ -12,6 +12,7 @@ menu:
     name: monitor.check
     parent: monitor
 weight: 202
+flux/v0.x/tags: [transformations]
 introduced: 0.39.0
 ---
 

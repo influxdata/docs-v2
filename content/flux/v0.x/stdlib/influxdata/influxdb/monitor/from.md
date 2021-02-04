@@ -12,6 +12,7 @@ menu:
     name: monitor.from
     parent: monitor
 weight: 202
+flux/v0.x/tags: [inputs]
 introduced: 0.39.0
 ---
 

@@ -13,6 +13,7 @@ menu:
     name: schema.fieldsAsCols
     parent: schema
 weight: 301
+flux/v0.x/tags: [transformations]
 introduced: 0.88.0
 ---
 

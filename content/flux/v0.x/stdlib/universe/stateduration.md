@@ -11,6 +11,7 @@ menu:
     name: stateDuration
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
   - /flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/
