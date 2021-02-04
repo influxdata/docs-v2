@@ -10,6 +10,14 @@ weight: 101
 
 ## v2.0.4 General Availability [2021-02-04]
 
+### Docker
+
+#### ARM64
+This release extends the Docker builds hosted in `quay.io` to support the Linux/ARM64 platform.
+
+#### 2.x nightly images
+Prior to this release, competing nightly builds caused the nightly Docker tag to contain outdated binaries. This conflict is fixed, and the image tagged with nightly now contains 2.x binaries built from the `HEAD` of the `master` branch.
+
 ### Breaking Changes
 
 #### `imnem` index option removed
