@@ -630,7 +630,7 @@ nats-max-payload-bytes = 1048576
 ---
 
 ### nats-port
-Port to be bound by the NATS streaming server. `-1` selects a random port.
+Port for the NATS streaming server. `-1` selects a random port.
 
 **Default:** `-1`
 

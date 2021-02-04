@@ -58,7 +58,7 @@ influxd inspect export-lp \
   --output-path path/to/export.lp
 ```
 
-##### Export data within time bounds as line protocol
+##### Export data in specified time range as line protocol
 ```sh
 influxd inspect export-lp \
   --bucket-id 12ab34cd56ef \
@@ -67,4 +67,3 @@ influxd inspect export-lp \
   --end 2021-01-31T23:59:59Z \
   --output-path path/to/export.lp
 ```
-
