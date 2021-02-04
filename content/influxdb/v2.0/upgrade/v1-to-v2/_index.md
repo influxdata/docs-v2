@@ -47,6 +47,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Dashboards](#dashboards)
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
+- [`inmem` indexing option](#inmem-indexing-option)
 
 ### Available operating system, container, and platform support
 
@@ -138,6 +139,14 @@ and test your credentials to ensure your applications, agents, and visualization
 
 If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
 but client requests to InfluxDB 2.0 may be silently ignored (you won't see a notification the request was denied).
+
+### In-memory indexing option
+
+As of the InfluxDB 2.0.4 release, 2.0 no longer supports the [in-memory (`inmem`) indexing option](/influxdb/v1.8/administration/config/#in-memory-inmem-index-settings). Any configuration, including the following two configuration options, is ignored:
+
+- `max-series-per-database`
+- `max-values-per-tag`
+
 
 ## Perform the upgrade
 
