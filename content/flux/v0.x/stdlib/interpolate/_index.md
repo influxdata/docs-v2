@@ -2,7 +2,7 @@
 title: Flux interpolate package
 list_title: interpolate package
 description: >
-  The Flux `interpolate` package  provides functions that insert rows at regular intervals
+  The Flux `interpolate` package provides functions that insert rows at regular intervals
   for missing data and interpolate values using different interpolation algorithms.
   Import the `interpolate` package.
 menu:
