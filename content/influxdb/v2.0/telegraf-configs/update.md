@@ -65,7 +65,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
    save your changes.
 5. [Use the `influx telegrafs update` command](#use-the-influx-cli) to upload your
    modified Telegraf configuration to InfluxDB and replace the existing configuration.
-6. 3. In order for your changes to take affect, you must re-run your updated Telegraf configuration using the `-config` flag. To find the exact command for your configuration file, click **Setup Instructions** from the **Telegraf** page.
+6. To apply the updated configuration, restart Telegraf. To find the exact command to start Telegraf, click **Setup Instructions** on the **Telegraf** page.
 
 ## Use the influx CLI
 
