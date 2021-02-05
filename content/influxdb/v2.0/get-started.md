@@ -224,8 +224,10 @@ The following instructions have been tested on Ubuntu, and should work similarly
    ```sh
    sudo service influxdb start
    ```
-   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
-   to start InfluxDB as a background service on startup.
+   Installing the InfluxDB package creates a service file at to start InfluxDB as a background service on startup.
+   The localtion depends on your operating system:
+     - Ubuntu: `/lib/systemd/services/influxdb.service`
+     - Debian: `/lib/systemd/system/influxdb.service`
 3. Restart your system and verify that the service is running correctly:
    ```sh
    $  sudo service influxdb status
