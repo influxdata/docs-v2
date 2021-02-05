@@ -22,6 +22,7 @@ Protocol or in JSON format. Telegraf supports the following input data formats:
 - [JSON](/telegraf/v1.15/data_formats/input/json/)
 - [logfmt](/telegraf/v1.15/data_formats/input/logfmt/)
 - [Nagios](/telegraf/v1.15/data_formats/input/nagios/)
+- [Prometheus](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheus)
 - [Value](/telegraf/v1.15/data_formats/input/value/), ie: 45 or "booyah"
 - [Wavefront](/telegraf/v1.15/data_formats/input/wavefront/)
 
