@@ -217,8 +217,8 @@ The following instructions have been tested on Ubuntu, and should work similarly
    with the following commands:
 
    ```sh
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
-   sudo dpkg -i influxdb2_2.x.x_xxx
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx
+   sudo dpkg -i influxdb2-2.x.x-xxx
    ```
 
    _Use the exact filename of the download of `.deb` package (for example, `influxdb2-2.0.4-amd64.deb`)._
