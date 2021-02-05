@@ -11,7 +11,7 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/cloud/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
 introduced: 0.88.0
 ---
 

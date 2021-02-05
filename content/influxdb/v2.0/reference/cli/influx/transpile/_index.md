@@ -8,6 +8,9 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [influxql, flux]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx transpile` command transpiles an InfluxQL query to Flux source code.
@@ -31,6 +34,10 @@ See the [InfluxQL documentation](/{{< latest "influxdb" "v1" >}}/query_language/
 |      | `--now`  | RFC3339Nano timestamp to use as `now()` time (default is current UTC time) |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Transpile InfluxQL queries to Flux
 ```sh
 ## Transpile an InfluxQL query that specifies the database,
 ## retention policy, and measurement.

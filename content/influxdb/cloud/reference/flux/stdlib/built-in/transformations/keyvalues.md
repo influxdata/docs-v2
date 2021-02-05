@@ -10,11 +10,11 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-values, InfluxQL – SHOW TAG VALUES
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-serie, InfluxQL – SHOW SERIES
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements, InfluxQL – SHOW MEASUREMENTS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-field-keys, InfluxQL – SHOW FIELD KEYS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys, InfluxQL – SHOW TAG KEYS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-values, InfluxQL – SHOW TAG VALUES
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-serie, InfluxQL – SHOW SERIES
 ---
 
 The `keyValues()` function returns a table with the input table's group key plus two columns,

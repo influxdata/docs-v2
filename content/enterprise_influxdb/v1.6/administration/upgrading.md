@@ -246,5 +246,5 @@ rk-upgrading-02:8091	1.6.6_c1.6.6
 rk-upgrading-03:8091	1.6.6_c1.6.6
 ```
 
-If you have any issues upgrading your cluster, please do not hesitate to contact support at the email address
+If you have any issues upgrading your cluster, please do not hesitate to contact InfluxData Support at the email address
 provided to you when you received your InfluxDB Enterprise license.

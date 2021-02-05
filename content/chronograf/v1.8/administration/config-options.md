@@ -258,6 +258,18 @@ The default is 1s.
 
 Environment variable: `$ETCD_REQUEST_TIMEOUT`
 
+#### `--etcd-cert=`
+
+Path to etcd PEM-encoded TLS public key certificate.
+
+Environment variable: `$ETCD_CERTIFICATE`
+
+#### `--etcd-key=`
+
+Path to private key associated with specified etcd certificate.
+
+Environment variable: `$ETCD_PRIVATE_KEY`
+
 ### Other service options
 
 #### `--custom-link <display_name>:<link_address>`

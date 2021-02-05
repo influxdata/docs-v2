@@ -1,6 +1,6 @@
 ---
 title: influx org create
-description: The `influx org create` creates a new organization in InfluxDB.
+description: The `influx org create` creates an organization in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx org create
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx org create` creates a new organization in InfluxDB.
+The `influx org create` creates an organization in InfluxDB.
 
 ## Usage
 ```
@@ -25,6 +25,22 @@ influx org create [flags]
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`          | Organization name                                                     | string      |                       |
+| `-n` | `--name`          | ({{< req >}}) Organization name                                       | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Create an organization
+```sh
+influx org create --name example-org
+```
+
+##### Create an organization with a description
+```sh
+influx org create \
+  --name example-org \
+  --description "Example organization description"
+```

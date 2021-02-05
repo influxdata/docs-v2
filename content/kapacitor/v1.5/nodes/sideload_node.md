@@ -47,7 +47,7 @@ The files paths are checked then checked in order for the specified keys and the
 | **[field](#field)&nbsp;(&nbsp;`f`&nbsp;`string`,&nbsp;`v`&nbsp;`interface{}`)** | Field is the name of a field to load from the source and its default value. The type loaded must match the type of the default value. Otherwise an error is recorded and the default value is used.  |
 | **[order](#order)&nbsp;(&nbsp;`order`&nbsp;`...string`)** | Order is a list of paths that indicate the hierarchical order. The paths are relative to the source and can have template markers like `{{.tagname}}` that will be replaced with the tag value of the point. The paths are then searched in order for the keys and the first value that is found is used. This allows for values to be overridden based on a hierarchy of tags.  |
 | **[quiet](#quiet)&nbsp;(&nbsp;)** | Suppress all error logging events from this node.  |
-| **[source](#source)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Source for the data, currently only `file://` based sources are supported  |
+| **[source](#source)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Source for the data, for example, `file://` or `http://`  |
 | **[tag](#tag)&nbsp;(&nbsp;`t`&nbsp;`string`,&nbsp;`v`&nbsp;`string`)** | Tag is the name of a tag to load from the source and its default value. The loaded values must be strings, otherwise an error is recorded and the default value is used.  |
 
 ### Chaining Methods
@@ -153,7 +153,11 @@ sideload.quiet()
 
 ### Source
 
+<<<<<<< HEAD
 Define the source of the data. The following sources are supported:
+=======
+Source for the data, for example `file://` or `http://`.
+>>>>>>> master
 
 - a **file URI** (`file://`)
 - a **URL** (`http://`)

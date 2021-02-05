@@ -1,17 +1,89 @@
 ---
-title: InfluxDB Cloud monthly updates
+title: InfluxDB Cloud updates
 description: Important changes and what's new in each InfluxDB Cloud update.
 weight: 101
 menu:
   influxdb_cloud_ref:
     parent: Release notes
-    name: Monthly updates
+    name: InfluxDB Cloud updates
 aliases:
   - /cloud/about/release-notes
   - /influxdb/cloud/reference/release-notes/influxdb-cloud
 ---
 
-InfluxDB Cloud updates occur frequently. Find a compilation of monthly updates below.
+InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
+
+## January 2021
+
+- [New AWS and Microsoft regions](#aws-and-microsoft-regions)
+- [Microsoft social sign-on](#microsoft-social-sign-on)
+- [Flux updates](#flux-updates)
+- [InfluxDB community templates](#influxdb-community-templates)
+- [Load Data updates](#load-data-updates)
+- [Visualization updates](#visualization-updates)
+- [CLI updates](#cli-updates)
+- [API updates](#api-updates)
+- [Task updates](#task-updates)
+
+### AWS and Microsoft regions
+
+- Add support for Microsoft Azure and new AWS regions:
+  - [Microsoft Azure](/influxdb/cloud/reference/regions/#microsoft-azure):
+     - West Europe (Amsterdam) region
+     - East US (Virginia) region
+  - [AWS](/influxdb/cloud/reference/regions/#amazon-web-services-aws):
+     - US East (Virginia) region
+
+### Microsoft social sign-on
+
+- Add [Microsoft (Windows Live) social sign-on](https://cloud2.influxdata.com/signup). Use your Windows Live credentials to easily sign in to your InfluxDB Cloud account.
+
+### Flux updates
+
+- Update to [Flux v0.100.0](/influxdb/cloud/reference/release-notes/flux/#v0-100-0-2021-01-07).
+
+### InfluxDB community templates
+
+- Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
+
+- Use the new [InfluxDB 2 Operational Monitoring community template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to monitor InfluxDB OSS 2.0.
+
+### Load Data updates
+
+  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/load-data/).
+  - Add support for new data sources:
+    - InfluxDB v2 Listener
+    - NSD
+    - OPC-UA
+    - Windows Event Log
+
+### Visualization updates
+
+  - Add new [Band Plot visualization](/influxdb/v2.0/visualize-data/visualization-types/band/).
+  - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
+
+### CLI updates
+
+- Usability improvements to `influx` CLI:
+  - Add option to print raw query results in [`influx query`](/influxdb/cloud/reference/cli/influx/query/).
+  - Add ability to export resources by name using [`influx export`](/influxdb/cloud/reference/cli/influx/export/).
+  - Add new processing options and enhancements to [`influx write`](/influxdb/cloud/reference/cli/influx/write/).
+  - Add `--active-config` flag to [`influx`](/influxdb/cloud/reference/cli/influx/) commands to set the configuration for a single command.
+  - Add `max-line-length` flag to the [`influx write`](/influxdb/cloud/reference/cli/influx/write/) command to address "token too long" errors for large inputs.
+  - Add `--force` flag to the [`influx stacks rm`](/influxdb/cloud/reference/cli/influx/stacks/remove/) command, which lets you remove a stack without the confirmation prompt.
+  - Allow password to be specified as a CLI option in [`influx v1 auth create`](/influxdb/cloud/reference/cli/influx/v1/auth/create/#flags).
+  - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/v1/auth/set-password/).
+  - Improve ID-related error messages for [`influx v1 dbrp`] commands.
+
+### API updates
+
+- [List all buckets](/influxdb/cloud/api/#operation/GetBuckets) in the API now supports the `after` parameter as an alternative to `offset`.
+- Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
+
+### Task updates
+
+- Record the last success and failure run times in tasks.
+- Inject the task option `latestSuccessTime` in Flux Extern.
 
 ## 2020-9-25
 

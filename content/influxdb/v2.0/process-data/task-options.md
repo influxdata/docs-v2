@@ -21,7 +21,6 @@ The following task options are available:
 - [cron](#cron)
 - [offset](#offset)
 - [concurrency](#concurrency)
-- [retry](#retry)
 
 {{% note %}}
 `every` and `cron` are mutually exclusive, but at least one is required.
@@ -98,17 +97,5 @@ _**Data type:** Integer_
 options task = {
   // ...
   concurrency: 2,
-}
-```
-
-## retry
-The number of times to retry the task before it is considered as having failed.
-
-_**Data type:** Integer_
-
-```js
-options task = {
-  // ...
-  retry: 2,
 }
 ```

@@ -20,6 +20,12 @@ and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#rete
 In InfluxDB OSS 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy (DBRP).
 
+{{% note %}}
+#### InfluxQL reference documentation
+For complete InfluxQL reference documentation, see
+[Influx Query Language in the latest InfluxDB 1.x documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
+{{% /note %}}
+
 **Complete the following steps:**
 
 1. [Verify buckets have a mapping](#verify-buckets-have-a-mapping).
@@ -208,7 +214,7 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## InfluxQL support
 
-InfluxDB OSS 2.0 support InfluxQL **read-only** queries. See supported and unsupported queries below.
+InfluxDB OSS 2.0 supports InfluxQL **read-only** queries. See supported and unsupported queries below.
 To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
 
 {{< flex >}}
@@ -218,6 +224,7 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest
 
 - `DELETE`*
 - `DROP MEASUREMENT`*
+- `EXPLAIN ANALYZE`
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
 - `SHOW MEASUREMENTS`

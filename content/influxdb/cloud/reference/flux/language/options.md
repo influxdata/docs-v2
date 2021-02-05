@@ -41,9 +41,9 @@ The `task` option schedules the execution of a Flux query.
 option task = {
     name: "foo",        // Name is required.
     every: 1h,          // Task should be run at this interval.
-    delay: 10m,         // Delay scheduling this task by this duration.
     cron: "0 2 * * *",  // Cron is a more sophisticated way to schedule. 'every' and 'cron' are mutually exclusive.
-    retry: 5,           // Number of times to retry a failed query.
+    offset: 10m,        // Delay scheduling this task by this duration.
+    concurrency: 2      // The number task of executions that can run concurrently.
 }
 ```
 

@@ -18,8 +18,8 @@ influx org members [command]
 ```
 
 ## Subcommands
-| Subcommand                                              | Description                |
-|:----------                                              |:-----------                |
+| Subcommand                                                       | Description                |
+|:----------                                                       |:-----------                |
 | [add](/influxdb/v2.0/reference/cli/influx/org/members/add)       | Add organization member    |
 | [list](/influxdb/v2.0/reference/cli/influx/org/members/list)     | List organization members  |
 | [remove](/influxdb/v2.0/reference/cli/influx/org/members/remove) | Remove organization member |

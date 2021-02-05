@@ -86,15 +86,15 @@ configure your InfluxDB connection:
 2. Under **Auth**, enable **Basic Auth**.
 3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
 
-    - **username**: InfluxDB username
-    - **password**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+    - **User**: InfluxDB username
+    - **Password**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
 
-4. Under **InfluxDB details**, set the following:
+4. Under **InfluxDB Details**, do the following:
 
-    - **Database**: The database to use when querying InfluxDB.
-      _See [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
+    - **Database**: Enter the ID of the bucket to query in InfluxDB Cloud. To retrieve your bucket ID, see how to [view buckets](/influxdb/cloud/organizations/buckets/view-buckets/).
+    - **User**: Enter the username to sign into InfluxDB.
+    - **Password**: Enter the token used to query the bucket above. To retrieve your token, see how to [view tokens](/influxdb/cloud/security/tokens/view-tokens/).
     - **HTTP Method**: Select **GET**.
-    - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
 

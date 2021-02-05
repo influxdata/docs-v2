@@ -20,7 +20,7 @@ _**Function type:** Stream and table_
 
 ```js
 findRecord(
-  fn: (key) => key._field == "fieldName",
+  fn: (key) => key._field == "fieldName"),
   idx: 0
 )
 ```

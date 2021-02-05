@@ -26,11 +26,13 @@ reduce the amount of memory necessary to run a query.
 #### Pushdown functions
 - [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
 - [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
-<!-- - [group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-- [count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
-- [sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
-- [first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
-- [last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) -->
+<!--
+[group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+[count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
+[sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
+[first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
+[last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) 
+-->
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
@@ -72,7 +74,7 @@ We're continually optimizing Flux and this list may not represent its current st
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
-results will include a minimum of ≈15.5 million points.
-Flux must store these points in memory to generate a response.
+results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
+Flux must store these points in memory to generate a response.  Use [pushdown functions](#pushdown-functions) to optimize how many points are stored in memory.
 
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.

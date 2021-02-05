@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause, InfluxQL – WHERE
 ---
 
 {{< duplicate-oss >}}

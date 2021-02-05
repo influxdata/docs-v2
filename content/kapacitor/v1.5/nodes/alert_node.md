@@ -31,6 +31,7 @@ and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
 |:---|:---|
 | **[alerta](#alerta) \( \)** | Send the alert to Alerta.  |
 | **[all](#all)&nbsp;(&nbsp;)** | Indicates an alert should trigger only if all points in a batch match the criteria. Does not apply to stream alerts.  |
+| **[bigPanda](#bigpanda) \( \)** | Send the alert to BigPanda.  |
 | **[crit](#crit)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for the CRITICAL alert level. An empty value indicates the level is invalid and is skipped.  |
 | **[critReset](#critreset)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for resetting the CRITICAL alert level to lower level.  |
 | **[details](#details)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Template for constructing a detailed HTML message for the alert. The same template data is available as the AlertNode.Message property, in addition to a Message field that contains the rendered Message value.  |
@@ -136,6 +137,7 @@ option, `global`, that indicates that all alerts implicitly use the handler.
 | Handler                       | Description                                                                           |
 | -------                       | -----------                                                                           |
 | [Alerta](#alerta)             | Post alert message to Alerta.                                                         |
+| [BigPanda](#bigpanda)         | Post alert message to BigPanda.                                                       |
 | [Discord](#discord)           | Post alert message to Discord channel.                                                |
 | [email](#email)               | Send and email with alert data.                                                       |
 | [exec](#exec)                 | Execute a command passing alert data over STDIN.                                      |
@@ -286,6 +288,31 @@ alert.all()
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
+### BigPanda
+
+Send the alert to BigPanda.
+Detailed configuration options and setup instructions are provided in the
+[BigPanda Event Handler](/kapacitor/v1.5/event_handlers/bigpanda/) article.
+
+_**Example kapacitor.conf**_  
+```toml
+[bigpanda]
+  enabled = true
+  url = "https://api.bigpanda.io/data/v2/alerts"
+  token = "BigPanda-API-auth-bearer-token"
+  app-key = "BigPanda-integration-app-key"
+```
+
+_**Example TICKscript**_
+```js
+stream
+  |alert()
+    .bigPanda()
+      .appKey('fc39458f98e91eb0310258c3b725d643')
+      .primaryProperty('device')
+      .secondaryProperty('sensor_name')
+      .topic('bigpanda-topic')
+```
 ### Category
 
 Category places this alert in a named category.
