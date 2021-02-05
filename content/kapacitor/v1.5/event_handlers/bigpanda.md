@@ -39,7 +39,7 @@ Authorization Bearer token for BigPanda REST API.
 
 BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click **New Integration**.
 Select **Alerts REST API**, click **Integrate**, and then **Create an App Key**.
- 
+
 #### `url`
 
 BigPanda Alert API url. 
