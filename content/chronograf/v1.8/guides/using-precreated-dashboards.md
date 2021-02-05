@@ -69,7 +69,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## apache
 
-**Required Telegraf plugin:** [Apache input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#apache-http-server)
+**Required Telegraf plugin:** [Apache input plugin](/{{< latest "telegraf" >}}/plugins/#apache-http-server)
 
 `apache.json`
 
@@ -79,7 +79,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## consul
 
-**Required Telegraf plugin:** [Consul input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#consul)
+**Required Telegraf plugin:** [Consul input plugin](/{{< latest "telegraf" >}}/plugins/#consul)
 
 `consul_http.json`
 
@@ -99,7 +99,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## docker
 
-**Required Telegraf plugin:** [Docker input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#docker)
+**Required Telegraf plugin:** [Docker input plugin](/{{< latest "telegraf" >}}/plugins/#docker)
 
 `docker.json`
 
@@ -119,7 +119,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## elasticsearch
 
-**Required Telegraf plugin:** [Elasticsearch input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#elasticsearch)
+**Required Telegraf plugin:** [Elasticsearch input plugin](/{{< latest "telegraf" >}}/plugins/#elasticsearch)
 
 `elasticsearch.json`
 
@@ -136,7 +136,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## haproxy
 
-**Required Telegraf plugin:** [HAProxy input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#haproxy)
+**Required Telegraf plugin:** [HAProxy input plugin](/{{< latest "telegraf" >}}/plugins/#haproxy)
 
 `haproxy.json`
 
@@ -158,7 +158,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## iis
 
-**Required Telegraf plugin:** [Windows Performance Counters input plugin](/telegraf/v1.8/plugins/inputs/#windows-performance-counters)
+**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#windows-performance-counters)
 
 `win_websvc.json`
 
@@ -166,7 +166,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## influxdb
 
-**Required Telegraf plugin:** [InfluxDB input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#influxdb-v-1)
+**Required Telegraf plugin:** [InfluxDB input plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
 
 `influxdb_database.json`
 
@@ -211,7 +211,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## Memcached (`memcached`)
 
-**Required Telegraf plugin:** [Memcached input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#memcached)
+**Required Telegraf plugin:** [Memcached input plugin](/{{< latest "telegraf" >}}/plugins/#memcached)
 
 `memcached.json`
 
@@ -231,7 +231,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## mesos
 
-**Required Telegraf plugin:** [Mesos input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#mesos)
+**Required Telegraf plugin:** [Mesos input plugin](/{{< latest "telegraf" >}}/plugins/#mesos)
 
 `mesos.json`
 
@@ -246,7 +246,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## mongodb
 
-**Required Telegraf plugin:** [MongoDB input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#mongodb)
+**Required Telegraf plugin:** [MongoDB input plugin](/{{< latest "telegraf" >}}/plugins/#mongodb)
 
 `mongodb.json`
 
@@ -258,7 +258,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## mysql
 
-**Required Telegraf plugin:** [MySQL input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#mysql)
+**Required Telegraf plugin:** [MySQL input plugin](/{{< latest "telegraf" >}}/plugins/#mysql)
 
 `mysql.json`
 
@@ -269,7 +269,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## nginx
 
-**Required Telegraf plugin:** [NGINX input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#nginx)
+**Required Telegraf plugin:** [NGINX input plugin](/{{< latest "telegraf" >}}/plugins/#nginx)
 
 `nginx.json`
 
@@ -280,7 +280,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## nsq
 
-**Required Telegraf plugin:** [NSQ input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#nsq)
+**Required Telegraf plugin:** [NSQ input plugin](/{{< latest "telegraf" >}}/plugins/#nsq)
 
 `nsq_channel.json`
 
@@ -301,7 +301,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## phpfpm
 
-**Required Telegraf plugin:** [PHPfpm input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#php-fpm)
+**Required Telegraf plugin:** [PHPfpm input plugin](/{{< latest "telegraf" >}}/plugins/#php-fpm)
 
 `phpfpm.json`
 
@@ -313,7 +313,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## ping
 
-**Required Telegraf plugin:** [Ping input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#ping)
+**Required Telegraf plugin:** [Ping input plugin](/{{< latest "telegraf" >}}/plugins/#ping)
 
 `ping.json`
 
@@ -322,7 +322,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## postgresql
 
-**Required Telegraf plugin:** [PostgreSQL input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#postgresql)
+**Required Telegraf plugin:** [PostgreSQL input plugin](/{{< latest "telegraf" >}}/plugins/#postgresql)
 
 `postgresql.json`
 
@@ -333,7 +333,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## rabbitmq
 
-**Required Telegraf plugin:** [RabbitMQ input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#rabbitmq)
+**Required Telegraf plugin:** [RabbitMQ input plugin](/{{< latest "telegraf" >}}/plugins/#rabbitmq)
 
 `rabbitmq.json`
 
@@ -344,7 +344,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## redis
 
-**Required Telegraf plugin:** [Redis input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#redis)
+**Required Telegraf plugin:** [Redis input plugin](/{{< latest "telegraf" >}}/plugins/#redis)
 
 
 `redis.json`
@@ -356,7 +356,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## riak
 
-**Required Telegraf plugin:** [Riak input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#riak)
+**Required Telegraf plugin:** [Riak input plugin](/{{< latest "telegraf" >}}/plugins/#riak)
 
 
 `riak.json`
@@ -375,7 +375,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### cpu
 
-**Required Telegraf plugin:** [CPU input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#cpu)
+**Required Telegraf plugin:** [CPU input plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
 
 `cpu.json`
 
@@ -385,13 +385,13 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 `disk.json`
 
-**Required Telegraf plugin:** [Disk input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#disk)
+**Required Telegraf plugin:** [Disk input plugin](/{{< latest "telegraf" >}}/plugins/#disk)
 
   * "System - Disk used %"
 
 ### diskio
 
-**Required Telegraf plugin:** [DiskIO input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#diskio)
+**Required Telegraf plugin:** [DiskIO input plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
 
 `diskio.json`
 
@@ -400,7 +400,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### mem
 
-**Required Telegraf plugin:** [Mem input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#mem)
+**Required Telegraf plugin:** [Mem input plugin](/{{< latest "telegraf" >}}/plugins/#mem)
 
 `mem.json`
 
@@ -408,7 +408,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### net
 
-**Required Telegraf plugin:** [Net input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#net)
+**Required Telegraf plugin:** [Net input plugin](/{{< latest "telegraf" >}}/plugins/#net)
 
 `net.json`
 
@@ -417,7 +417,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### netstat
 
-**Required Telegraf plugin:** [Netstat input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#netstat)
+**Required Telegraf plugin:** [Netstat input plugin](/{{< latest "telegraf" >}}/plugins/#netstat)
 
 `netstat.json`
 
@@ -426,7 +426,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### processes
 
-**Required Telegraf plugin:** [Processes input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#processes)
+**Required Telegraf plugin:** [Processes input plugin](/{{< latest "telegraf" >}}/plugins/#processes)
 
 `processes.json`
 
@@ -434,7 +434,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### procstat
 
-**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#procstat)
+**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#procstat)
 
 `procstat.json`
 
@@ -443,7 +443,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ### system
 
-**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#procstat)
+**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#procstat)
 
 `load.json`
 
@@ -451,7 +451,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## varnish
 
-**Required Telegraf plugin:** [Varnish](/{{< latest "telegraf" >}}/plugins/inputs/#varnish)
+**Required Telegraf plugin:** [Varnish](/{{< latest "telegraf" >}}/plugins/#varnish)
 
 `varnish.json`
 
@@ -460,7 +460,7 @@ Enable and disable apps in your Telegraf configuration file (by default, `/etc/t
 
 ## win_system
 
-**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/inputs/#windows-performance-counters)
+**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#windows-performance-counters)
 
 `win_cpu.json`
 
