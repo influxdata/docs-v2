@@ -49,7 +49,7 @@ influxd upgrade [command]
 |      | `--log-level`                    | Supported log levels are `debug`, `info`, `warn`, and `error` (default `info`)                             | string     |
 |      | `--log-path`                     | Custom log file path (default `~/upgrade.log`)                                                             | string     |
 | `-o` | `--org`                          | Primary organization name                                                                                  | string     |
-|      | `--overwrite-existing-v2`        | Overwrite existing files at the output path instead of aborting the upgrade process                        |            |
+|      | `--overwrite-existing-v2`        | Overwrite existing files at the output paths instead of aborting the upgrade process                        |            |
 | `-p` | `--password`                     | Password for username                                                                                      | string     |
 | `-r` | `--retention`                    | Duration bucket will retain data (default `0`; retains data infinitely)                                    | string     |
 | `-t` | `--token`                        | Token for username. If not specified, a token is auto-generated.                                           | string     |
