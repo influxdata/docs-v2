@@ -80,6 +80,7 @@ Configuration steps for the following supported authentication providers are pro
 * [Okta](#configure-okta-authentication)
 * [Gitlab](#configure-gitlab-authentication)
 * [Azure Active Directory](#configure-azure-active-directory-authentication)
+* [Bitbucket](#configure-bitbucket-authentication)
 * [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-2-0-provider)
 
 > If you haven't already, you must first [generate a token secret](#generate-a-token-secret) before proceeding.
@@ -368,6 +369,27 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
 
     Note: If you’ve configured TLS/SSL, modify the `PUBLIC_URL` to ensure you're using HTTPS.
 
+#### Configure Bitbucket authentication
+
+1. Complete the instructions to [Use OAuth on Bitbucket Cloud](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/), including the following information:
+
+  - **Callback URL**: <http://localhost:8888/oauth/bitbucket/callback>
+  - **Permissions**: Account read, email
+
+2. Run the following command to set Chronograf environment variables for Bitbucket in `/etc/default/chronograf`:
+
+    ```sh
+    export TOKEN_SECRET=...
+    export GENERIC_CLIENT_ID=...
+    export GENERIC_CLIENT_SECRET=...
+    export GENERIC_AUTH_URL=https://bitbucket.org/site/oauth2/authorize
+    export GENERIC_TOKEN_URL=https://bitbucket.org/site/oauth2/access_token
+    export GENERIC_API_URL=https://api.bitbucket.org/2.0/user
+    export GENERIC_SCOPES=account
+    export PUBLIC_URL=http://localhost:8888
+    export GENERIC_NAME=bitbucket
+    ```
+    
 #### Configure Chronograf to use any OAuth 2.0 provider
 
 Chronograf can be configured to work with any OAuth 2.0 provider, including those defined above, by using the generic configuration options below.
