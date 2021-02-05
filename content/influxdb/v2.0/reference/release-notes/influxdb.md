@@ -30,15 +30,24 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 
 ### Features
 
-- Add `--overwrite-existing-v2` flag to `influxd upgrade` to overwrite existing files at output paths (instead of aborting).
+#### `influxd` updates
+- Add new [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) flag `—overwrite-existing-v2` to overwrite existing files at output paths (instead of aborting).
+- Add new configuration options:
+       - [`nats-port`](/influxdb/v2.0/reference/config-options/#nats-port)
+       - [`nats-max-payload-bytes`](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes) 
+- Add new commands:
+       - Add [`influxd print-config`](/influxdb/v2.0/reference/cli/influxd/print-config/) to support automated configuration inspection.
+       - Add [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.  
+
+#### New Telegraf plugins in UI
 - Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
-- Add `influxd print-config` command to support automated configuration inspection.
-- Add `nats-port` configuration option for `influxd` server.
-- Add `nats-max-payload-bytes` configuration option for `influxd` server.
-- Add `influxd inspect export-lp` command to extract data in line protocol format.
+
+#### Performance improvements
 - Promote schema and fill query optimizations to default behavior.
-- Upgrade to Flux v0.104.0.
-- Upgrade to flux-lsp-browser v0.5.31.
+
+#### Flux updates
+- Upgrade to [Flux v0.104.0](/influxdb/v2.0/reference/release-notes/flux/#v0-104-0-2021-02-02).
+- Upgrade to `flux-lsp-browser` v0.5.31.
 
 ### Bug Fixes
 
