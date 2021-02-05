@@ -20,25 +20,34 @@ Prior to this release, competing nightly builds caused the nightly Docker tag to
 
 ### Breaking Changes
 
-#### `imnem` index option removed
+#### `inmem` index option removed
 
-This release fully removes the inmem indexing option, along with the associated config options:
+This release fully removes the `inmem` indexing option, along with the associated config options:
 - `max-series-per-database`
 - `max-values-per-tag`
 
-The startup process automatically generates replacement `tsi1` indexes are automatically generated on startup for shards that need it.
+The startup process automatically generates replacement `tsi1` indexes for shards that need it.
 
 ### Features
 
-- Add `--overwrite-existing-v2` flag to `influxd upgrade` to overwrite existing files at output paths (instead of aborting).
+#### `influxd` updates
+- Add new [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) flag `—overwrite-existing-v2` to overwrite existing files at output paths (instead of aborting).
+- Add new configuration options:
+       - [`nats-port`](/influxdb/v2.0/reference/config-options/#nats-port)
+       - [`nats-max-payload-bytes`](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes) 
+- Add new commands:
+       - Add [`influxd print-config`](/influxdb/v2.0/reference/cli/influxd/print-config/) to support automated configuration inspection.
+       - Add [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.  
+
+#### New Telegraf plugins in UI
 - Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
-- Add `influxd print-config` command to support automated config inspection.
-- Add `nats-port` config option for `influxd` server.
-- Add `nats-max-payload-bytes` config option for `influxd` server.
-- Add `influxd inspect export-lp` command to extract data in line-protocol format.
+
+#### Performance improvements
 - Promote schema and fill query optimizations to default behavior.
-- Upgrade Flux to v0.104.0.
-- Upgrade flux-lsp-browser to v0.5.31.
+
+#### Flux updates
+- Upgrade to [Flux v0.104.0](/influxdb/v2.0/reference/release-notes/flux/#v0-104-0-2021-02-02).
+- Upgrade to `flux-lsp-browser` v0.5.31.
 
 ### Bug Fixes
 
@@ -46,15 +55,15 @@ The startup process automatically generates replacement `tsi1` indexes are autom
 - Fix configuration loading issue.
 - Add Flux dictionary expressions to Swagger documetnation.
 - Ensure `influxdb` service sees default environment variables when running under `init.d`.
-- Don't show upgrade notice on new installs.
+- Remove upgrade notice from new installs.
 - Ensure `config.toml` is initialized on new installs.
-- Include upgrade helper script in GoReleaser manifest.
-- Don't overwrite stack name and description on `influx stack update`.
+- Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
+- Prevent `influx stack update` from overwriting stack name and description.
 - Fix timeout setup for `influxd` graceful shutdown.
-- Don't ignore failures to set password during initial user onboarding.
+- Require user to set password during initial user onboarding.
 - Error message improvements:
     - Remove duplication from task error messages.
-    - Improve error message shown when influx CLI can't find an org by name.
+    - Improve error message shown when influx CLI can't find an `org` by name.
     - Improve error message when opening BoltDB with unsupported file system options.
     - Improve messages in DBRP API validation errors.
 - `influxd upgrade` improvements:
@@ -67,13 +76,13 @@ The startup process automatically generates replacement `tsi1` indexes are autom
 - Fix silent failure to register CLI arguments as required.
 - Fix loading when `INFLUXD_CONFIG_PATH` points to a .yml file.
 - Prevent extra output row from GROUP BY crossing DST boundary.
-- Update Flux functions list in UI to reflect that v1 package was renamed to schema.
+- Update Flux functions list in UI to reflect that `v1` package was renamed to `schema`.
 - Set correct `Content-Type` on v1 query responses.
-- Respect the `--skip-verify` flag when running `influx` query.
+- Respect the `--skip-verify` flag when running `influx query`.
 - Remove blank lines from payloads sent by `influx write`.
 - Fix infinite loop in Flux parser caused by invalid array expressions.
-- Allow for creating users without initial passwords in `influx user create`.
-- Fix incorrect errors when passing `--bucket-id` to influx write.
+- Support creating users without initial passwords in `influx user create`.
+- Fix incorrect errors when passing `--bucket-id` to `influx write`.
 
 
 ## v2.0.3 General Availability [2020-12-14]
