@@ -371,7 +371,7 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
 
 #### Configure Bitbucket authentication
 
-1. Complete the instructions to [Use OAuth on Bitbucket Cloud](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/), including the following information:
+1. Complete the instructions to [Use OAuth on Bitbucket Cloud](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/), and include the following information:
 
   - **Callback URL**: <http://localhost:8888/oauth/bitbucket/callback>
   - **Permissions**: Account read, email
