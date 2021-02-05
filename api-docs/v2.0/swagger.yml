@@ -9938,7 +9938,6 @@ components:
         - $ref: "#/components/schemas/HeatmapViewProperties"
         - $ref: "#/components/schemas/MosaicViewProperties"
         - $ref: "#/components/schemas/BandViewProperties"
-        - $ref: "#/components/schemas/GeoViewProperties"
     View:
       required:
         - name
