@@ -42,6 +42,9 @@ The startup process automatically generates replacement `tsi1` indexes are autom
 
 ### Bug Fixes
 
+- Standardize binary naming conventions.
+- Fix configuration loading issue.
+- Add Flux dictionary expressions to Swagger documetnation.
 - Ensure `influxdb` service sees default environment variables when running under `init.d`.
 - Don't show upgrade notice on new installs.
 - Ensure `config.toml` is initialized on new installs.
