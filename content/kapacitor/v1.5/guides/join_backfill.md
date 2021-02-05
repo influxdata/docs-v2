@@ -239,7 +239,7 @@ errors
 ### Record Query and backfill with stream
 
 To provide historical data to stream tasks that process multiple measurements,
-use [multiple statements](/{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#multiple-statements)
+use [multiple statements](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#multiple-statements)
 when recording the data.
 
 First use `record query` following the pattern of this generic command:

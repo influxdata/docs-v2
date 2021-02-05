@@ -7,14 +7,12 @@ menu:
     parent: Administration
 ---
 
-# Contents
-
 * [Overview](#overview)
 * [Secure InfluxDB and Kapacitor](#secure-influxdb-and-kapacitor)
 * [Kapacitor Security](#kapacitor-security)
 * [Secure Kapacitor and Chronograf](#secure-kapacitor-and-chronograf)
 
-# Overview
+## Overview
 
 This document covers the basics of securing the open-source distribution of
 Kapacitor.  For information about security with Enterprise Kapacitor see the

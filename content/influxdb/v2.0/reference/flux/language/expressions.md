@@ -35,6 +35,7 @@ Literal = int_lit
         | pipe_receive_lit
         | RecordLiteral
         | ArrayLiteral
+        | DictLiteral
         | FunctionLiteral .
 ```
 
@@ -66,6 +67,28 @@ Array literals construct a value with the array type.
 ```js
 ArrayLiteral   = "[" ExpressionList "]" .
 ExpressionList = [ Expression { "," Expression } ] .
+```
+
+### Dictionary literals
+
+Dictionary literals construct a value with the dict type.
+
+```js
+DictLiteral     = EmptyDict | "[" AssociativeList "]" .
+EmptyDict       = "[" ":" "]" .
+AssociativeList = Association { "," AssociativeList } .
+Association     = Expression ":" Expression .
+```
+
+Keys can be arbitrary expressions.
+The type system enforces that all keys are of the same type.
+
+**Examples**
+```js
+a = "a"
+b = [:] // empty dictionary
+c = [a: 1, "b": 2] // dictionary mapping string values to integers
+d = [a: 1, 2: 3] // type error: cannot mix string and integer keys
 ```
 
 ### Function literals

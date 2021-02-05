@@ -6,7 +6,7 @@ weight: 7
 menu:
   influxdb_2_0_ref:
     name: Storage engine
-    parent: InfluxDB Internals
+    parent: InfluxDB internals
 influxdb/v2.0/tags: [storage, internals]
 products: [oss]
 ---

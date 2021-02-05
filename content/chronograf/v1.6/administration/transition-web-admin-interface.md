@@ -23,7 +23,7 @@ The following sections describe the Chronograf features that relate to the web a
 ### Web admin interface
 
 In the web admin interface, users chose the target database in the top right corner and selected from a set of query templates in the `Query Templates` dropdown.
-The templates included queries with no user-provided values (example: [`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-measurements)) and queries with user-provided values (example: [`SHOW TAG KEYS FROM "<measurement_name>"`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys)).
+The templates included queries with no user-provided values (example: [`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements)) and queries with user-provided values (example: [`SHOW TAG KEYS FROM "<measurement_name>"`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys)).
 
 ![WAI Query Templates](/img/chronograf/1-6-g-admin-webtemplates.png)
 

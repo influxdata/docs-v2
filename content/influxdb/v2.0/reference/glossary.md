@@ -188,6 +188,10 @@ Use comments with Flux statements to describe your functions.
 
 A standardized text file format used by the InfluxDB web server to create log entries when generating server log files.
 
+### compaction
+
+Compressing time series data to optimize disk usage.
+
 ### continuous query (CQ)
 
 Continuous queries are the predecessor to tasks in InfluxDB 2.0.
@@ -810,6 +814,9 @@ Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#meas
 InfluxDB scrapes data from specified targets at regular intervals and writes the data to an InfluxDB bucket.
 Data can be scraped from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
+### secret
+Secrets are key-value pairs that contain information you want to control access to, such as API keys, passwords, or certificates.
+
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
@@ -910,7 +917,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -1045,7 +1052,13 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 
 ### token
 
-Tokens verify user and organization permissions in InfluxDB.
+Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
+There are different types of athentication tokens:
+
+- **Admin token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
+  _InfluxDB Cloud does not support Admin tokens._
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
 
 Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 

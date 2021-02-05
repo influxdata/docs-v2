@@ -18,20 +18,9 @@ products: [cloud]
 
 ## Upgrade to Usage-Based Plan
 
-1. Click **Upgrade Now** in the top right corner of the {{< cloud-name "short" >}} user interface (UI).
-2. Review the terms and pricing associated with the Usage-Based Plan.
-3. Click **Sounds Good To Me**.
-4. Enter your contact information.
-   Traditionally this would be "shipping" information, but InfluxData does not ship anything.
-   This information should be the primary location where the service is consumed.
-   All service updates, security notifications and other important information are
-   sent using the information you provide.
-   The address is used to determine any applicable sales tax.
-5. Enter your payment information and click **Add Card**.
-6. Review the plan details, contact information, and credit card information.
-7. Click **Confirm & Order**.
-
-Add your payment method and view billing information in the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
+2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
+3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
 ## Access billing details
 
@@ -41,7 +30,7 @@ Add your payment method and view billing information in the {{< cloud-name "shor
     {{< nav-icon "account" >}}
 
 2. Do one of the following:
-    - If you subscribed to an InfluxDB Cloud plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS) or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS** or **GCP** link to access your billing and subscription information.
+    - If you subscribed to an InfluxDB Cloud plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS), [**Azure Marketplace**](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud), or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS**, **Microsoft**, or **GCP** link to access your billing and subscription information.
 
   - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
 
@@ -59,15 +48,12 @@ Add your payment method and view billing information in the {{< cloud-name "shor
 
 ### Add or update your payment method
 
-1. On the **Billing page**:
-   - To update, click the **Change Payment** button on the Billing page.
+- On the **Billing page**:
+   - To update your card, click the **Change Payment** button on the Billing page.
    - In the **Payment Method** section:
       - Enter your cardholder name and number
       - Select your expiration month and year
       - Enter your CVV code and select your card type
-      - Enter your card billing address
-
-2. Click **Add Card**.
 
 ### Add or update your contact information
 

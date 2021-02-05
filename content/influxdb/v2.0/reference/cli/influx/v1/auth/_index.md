@@ -18,19 +18,19 @@ influx v1 auth [flags]
 influx v1 auth [command]
 ```
 
-#### Aliases
+#### Command aliases
 `auth`, `authorization`
 
 ## Commands
 
 | Command                                                                     | Description                                  |
-|:----------------------------------------------------------------------------|----------------------------------------------|
-| [`create`](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)             | Create authorization                         |
-| [`delete`](/influxdb/v2.0/reference/cli/influx/v1/auth/delete/)             | Delete authorization                         |
-| [`list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)                 | List authorizations                          |
-| [`set-active`](/influxdb/v2.0/reference/cli/influx/v1/auth/set-active/)     | Activate an authorization                    |
-| [`set-inactive`](/influxdb/v2.0/reference/cli/influx/v1/auth/set-inactive/) | Deactivate an authorization                  |
-| [`set-password`](/influxdb/v2.0/reference/cli/influx/v1/auth/set-password/) | Set a password for an existing authorization |
+|:----------------------------------------------------------------------------|:---------------------------------------------|
+| [create](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)             | Create authorization                         |
+| [delete](/influxdb/v2.0/reference/cli/influx/v1/auth/delete/)             | Delete authorization                         |
+| [list](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)                 | List authorizations                          |
+| [set-active](/influxdb/v2.0/reference/cli/influx/v1/auth/set-active/)     | Activate an authorization                    |
+| [set-inactive](/influxdb/v2.0/reference/cli/influx/v1/auth/set-inactive/) | Deactivate an authorization                  |
+| [set-password](/influxdb/v2.0/reference/cli/influx/v1/auth/set-password/) | Set a password for an existing authorization |
 
 ## Flags
 | Flag |          | Description                     |

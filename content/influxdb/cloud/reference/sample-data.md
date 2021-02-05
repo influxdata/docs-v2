@@ -52,3 +52,35 @@ to query and analyze the geo-temporal data in this sample data set.
 </a>
 
 _Used in [Work with geo-temporal data](/influxdb/cloud/query-data/flux/geo/)._
+
+### NOAA water sample data
+
+This data set is  publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html).
+
+[The CSV data](https://influx-testdata.s3.amazonaws.com/noaa.csv) includes 15,258
+observations of water levels (ft) collected every six minutes at two stations
+(Santa Monica, CA (ID 9410840) and Coyote Creek, CA (ID 9414575)) over the period
+from August 18, 2015 through September 18, 2015.
+
+To avoid having to re-download this 10MB dataset every time you run a query,
+we recommend that you [create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
+(`noaa`) and write the NOAA data to it.
+We also recommend updating the timestamps of the data to be relative to `now()`.
+To do so, run the following:
+
+```js
+import "experimental/csv"
+
+relativeToNow = (tables=<-) =>
+  tables
+    |> elapsed()
+    |> sort(columns: ["_time"], desc: true)
+    |> cumulativeSum(columns: ["elapsed"])
+    |> map(fn: (r) => ({ r with _time: time(v: int(v: now()) - (r.elapsed * 1000000000))}))
+
+csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+  |> relativeToNow()
+  |> to(bucket: "noaa", org: "example-org")
+```
+
+_Used in [Common queries](/influxdb/cloud/query-data/common-queries/) and [Common tasks](/influxdb/cloud/process-data/common-tasks/)._

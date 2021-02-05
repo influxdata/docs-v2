@@ -63,7 +63,8 @@ The following Alerta event handler options can be set in a
 | group        | string          | Alerta group. Can be a template and has access to the same data as the AlertNode.Details property. Default: {{ .Group }}.                       |
 | value        | string          | Alerta value. Can be a template and has access to the same data as the AlertNode.Details property. Default is an empty string.                  |
 | origin       | string          | Alerta origin. If empty uses the origin from the configuration.                                                                                 |
-| service      | list of strings | List of effected Services.                                                                                                                      |
+| service      | list of strings | List of effected Services.  
+| correlate    | list of strings | List of correlated Services.                                                                                                                    |
 | timeout      | duration string | Alerta timeout. Default is 24 hours.                                                                                                            |
 
 > **Note:** The `resource` and `event` properties are required.
@@ -84,6 +85,7 @@ options:
   value: 'some-value'
   origin: 'kapacitor'
   service: ['service1', 'service2']
+  correlate: ['service1', 'service2']
   timeout: 24h
 ```
 
@@ -102,6 +104,7 @@ options:
     .value('some-value')
     .origin('kapacitor')
     .service('service1', 'service2')
+    .correlated('service1', 'service2')
     .timeout(24h)
 ```
 
@@ -145,6 +148,7 @@ stream
     .alerta()
       .resource('{{ .Name }}')
       .event('{{ .ID }}')
+      .correlated('{{ .Name }}')
 ```
 
 ### Send alerts to an Alerta room from a defined handler
@@ -189,6 +193,7 @@ options:
   resource: '{{ .Name }}'
   event: '{{ .ID }}'
   origin: 'kapacitor'
+  correlate: ['service1', 'service2']
 ```
 
 Add the handler:

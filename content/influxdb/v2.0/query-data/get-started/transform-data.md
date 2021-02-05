@@ -182,6 +182,6 @@ view the [Window and aggregate data](/influxdb/v2.0/query-data/flux/window-aggre
 ---
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/syntax-basics/">Syntax basics</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB</a>
+  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/syntax-basics/">Syntax basics</a>
 </div>

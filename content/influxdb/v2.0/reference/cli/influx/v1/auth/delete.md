@@ -25,13 +25,15 @@ influx v1 auth delete [flags]
 | `-h` | `--help`          | Help for the `delete` command                                            |            |                         |
 |      | `--hide-headers`  | Hide the table headers (default: `false`)                                |            | `$INFLUX_HIDE_HEADERS`  |
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
-| `-i` | `--id`            | Authorization ID (required)                                              | string     |                         |
+| `-i` | `--id`            | ({{< req >}}) Authorization ID                                           | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
 
 ##### Delete a v1 authorization
 ```sh

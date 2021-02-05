@@ -8,6 +8,111 @@ menu:
     name: Flux
 ---
 
+## v0.105.0 [2021-02-03]
+
+### Features
+- Add `interval` package to `window` transformation.
+
+---
+
+## v0.104.0 [2021-02-02]
+
+### Features
+- Reintroduce `IsZero` method on time windows.
+
+### Bug fixes
+- Break parse loop when invalid array item is found.
+
+---
+
+## v0.103.0 [2021-02-01]
+
+### Features
+- Add `testing/expect` package for test expectations.
+
+### Bug fixes
+- Change the default test discovery path from `./stdlib` to `.`.
+
+---
+
+## v0.102.0 [2021-01-25]
+
+### Features
+- Add `fluxdoc` command to generate JSON and HTML from Flux source code.
+- Improve performance of random access group lookup by utilizing `xxhash`.
+- Improve performance for accessing data within a `Value`.
+
+### Bug fixes
+- Clean up `interval` package.
+
+---
+
+## v0.101.0 [2021-01-19]
+
+### Features
+- Validate IP addresses from the dialer `Control` function.
+- Expose `test` command to be used by external libraries.
+
+---
+
+## v0.100.0 [2021-01-07]
+
+### Features
+- Add ability to execute tests from `.tar` and `.zip` archives.
+
+### Bug fixes
+- Fix endpoint examples in source code.
+
+---
+
+## v0.99.0 [2020-12-14]
+
+### Features
+- Evaluate [dictionary literals](/influxdb/v2.0/reference/flux/language/expressions/#dictionary-literals).
+- Infer the type of dictionary literals.
+- Parse and format dictionary literals.
+- Add a pure Flux test runner.
+
+### Bug fixes
+- Ensure `csv.from()` only returns one result.
+- Change `extern` parsing code to return a more descriptive error message.
+- Do not allow containers within a record to be null.
+- Retrieve `now` option before running a Flux script.
+- Fix misspellings in the [Flux README](https://github.com/influxdata/flux/blob/master/README.md).
+
+---
+
+## v0.98.0 [2020-12-07]
+
+### Features
+- Transform `testcase` AST into pure flux.
+- Added Rust scanner.
+
+### Bug fixes
+- Substring method now works on more indices.
+- Fix typos in `Dockerfile_build`.
+
+---
+
+## v0.97.0 [2020-12-01]
+
+### Features
+- Add dict package for interacting with dictionaries.
+- Added Ragel 7 to the Dockerfiles.
+- Add support for `testcase` statement.
+- Add Dictionary type syntax.
+- Add Dictionary type unification rule.
+
+---
+
+## v0.96.0 [2020-11-23]
+
+### Features
+- Create a Dictionary type interface and implementation.
+- Add Dictionary type (dict) to the semantic flatbuffers.
+
+---
+
 ## v0.95.0 [2020-11-16]
 
 ### Features

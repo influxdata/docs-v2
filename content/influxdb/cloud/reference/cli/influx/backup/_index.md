@@ -8,7 +8,16 @@ menu:
 weight: 101
 influxdb/cloud/tags: [backup]
 related:
-  - /influxdb/cloud/backup-restore/backup/
+  - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
+
+{{% note %}}
+#### Available with InfluxDB OSS 2.x only
+The `influx backup` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
+For information about backing up data in InfluxDB Cloud, see
+[InfluxDB Cloud durabilty](/influxdb/cloud/reference/internals/durability/) or
+[contact InfluxData Support](mailto:support@influxdata.com).
+{{% /note %}}
 
 {{< duplicate-oss >}}

@@ -28,7 +28,7 @@ If you're just getting started with Flux queries, check out the following:
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys
-Every table has a **group key** – a list of columns which for which every row in the table has the same value.
+Every table has a **group key** – a list of columns for which every row in the table has the same value.
 
 ###### Example group key
 ```js

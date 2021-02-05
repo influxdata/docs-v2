@@ -334,10 +334,11 @@ Multiple InfluxDB table array configurations can be specified,
 but one InfluxDB table array configuration must be flagged as the `default`.
 
 **Example: An InfluxDB connection grouping**
-=======
+
 {{% note %}}
+#### InfluxDB user must have admin privileges
 To use Kapacitor with an InfluxDB instance that requires authentication,
-it must authenticate using an InfluxDB user with **read and write** permissions.
+the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users).
 {{% /note %}}
 
 {{< keep-url >}}
@@ -354,6 +355,11 @@ it must authenticate using an InfluxDB user with **read and write** permissions.
   username = ""
   password = ""
   timeout = 0
+  
+  # By default, all data sent to InfluxDB is compressed in gzip format.
+  # To turn off gzip compression, add the following config setting:
+  compression = "none"
+
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair
   #   ssl-ca = "/etc/kapacitor/ca.pem"
