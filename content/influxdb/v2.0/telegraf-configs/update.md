@@ -50,7 +50,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
   The text editor window doesn't detect if any plugins or settings are misconfigured. Any errors in your configuration that may cause Telegraf to fail will appear when you start Telegraf.
   {{% /note %}}
   c. Click **Save Changes** and then **Save** again to confirm.
-3. In order for your changes to take effect, you must start Telegraf again. To find the exact command for your configuration file, click **Setup Instructions** from the **Telegraf** page.
+3. To apply the updated configuration, restart Telegraf. To find the exact command to start Telegraf, click **Setup Instructions** on the **Telegraf** page.
 
 ### Download and verify the configuration file
 
