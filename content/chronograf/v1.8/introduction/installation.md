@@ -70,7 +70,7 @@ sudo yum localinstall chronograf-<version#>.x86_64.rpm
 2. Fill out the form with the following details:
   * **Connection String**: Enter the hostname or IP of the machine that InfluxDB is running on, and be sure to include InfluxDB's default port `8086`.
   * **Connection Name**: Enter a name for your connection string.
-  * **Username** and **Password**: These fields can remain blank unless you've [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization) in InfluxDB. Chronograf user accounts and credentials should be different than credentials used for InfluxDB, to ensure distinct permissions can be applied. For example, you may want to set up a Chronograf to run as a service account with read-only permissions to InfluxDB. For more information, see how to [manage InfluxDB users in Chronograf] and [manage Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
+  * **Username** and **Password**: These fields can remain blank unless you've [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization) in InfluxDB. Chronograf user accounts and credentials should be different than credentials used for InfluxDB, to ensure distinct permissions can be applied. For example, you may want to set up Chronograf to run as a service account with read-only permissions to InfluxDB. For more information, see how to [manage InfluxDB users in Chronograf] and [manage Chronograf users](/chronograf/v1.8/administration/managing-chronograf-users/).
   * **Telegraf Database Name**: Optionally, enter a name for your Telegraf database. The default name is Telegraf.
 3. Click **Add Source**.
 
