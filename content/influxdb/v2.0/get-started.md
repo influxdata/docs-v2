@@ -209,25 +209,28 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-{{% note %}}
-The following instructions have been tested on Ubuntu, and should work similarly on other Linux distributions.
-{{% /note %}}
+{{< tabs-wrapper >}}
 
-1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+{{% tabs %}}
+[Ubuntu/Debian](#)
+[Red Hat](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+1. Download and install the appropriate `.deb` file
+   using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
    with the following commands:
    ```sh
    wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
-   sudo dpkg -i influxdb2_2.x.x_xxx
+   sudo dpkg -i influxdb2_2.x.x_xxx.deb
    ```
    _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`)._
 2. Start the InfluxDB service:
    ```sh
    sudo service influxdb start
    ```
-   Installing the InfluxDB package creates a service file at to start InfluxDB as a background service on startup.
-   The localtion depends on your operating system:
-     - Ubuntu: `/lib/systemd/services/influxdb.service`
-     - Debian: `/lib/systemd/system/influxdb.service`
+   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+   to start InfluxDB as a background service on startup.
 3. Restart your system and verify that the service is running correctly:
    ```sh
    $  sudo service influxdb status
@@ -235,6 +238,31 @@ The following instructions have been tested on Ubuntu, and should work similarly
      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
      Active: active (running)
    ```
+{{% /tab-content %}}
+{{% tab-content %}}
+1. Download and install the appropriate `.rpm` file
+   using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+   with the following commands:
+   ```sh
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
+   sudo yum localinstall influxdb2_2.x.x_xxx.rpm
+   ```
+   _Use the exact filename of the download of `.rpm` package (for example, `influxdb2_2.0.3_amd64.rpm`)._
+2. Start the InfluxDB service:
+   ```sh
+   sudo service influxdb start
+   ```
+   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+   to start InfluxDB as a background service on startup.
+3. Restart your system and verify that the service is running correctly:
+   ```sh
+   $  sudo service influxdb status
+   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+     Active: active (running)
+   ```
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ### Networking ports
 
