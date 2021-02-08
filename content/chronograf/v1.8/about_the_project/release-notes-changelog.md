@@ -8,7 +8,7 @@ menu:
     parent: About the project
 ---
 
-## v1.8.10 [2020-02-04]
+## v1.8.10 [2020-02-08]
 
 ### Features
 
@@ -29,8 +29,8 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 - Stop async executions on unmounted LogsPage.
 - Repair dashboard import to remap sources in variables.
 - UI updates:
-  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases the user has permissions to.
-  - Improve Send to Dashboard feedback on the Data Explorer page.
+  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases that the user has permissions to.
+  - Improve the Send to Dashboard feedback on the Data Explorer page.
 - Log Viewer updates:
   - Avoid endless networking loop.
   - Show timestamp with full nanosecond precision.
