@@ -288,6 +288,7 @@ curl http://localhost:8086/debug/vars
 ```
 
 Server statistics and information are displayed in JSON format.
+For information about InfluxDB HTTP server metrics, see the [`httpd` measurement](/platform/monitoring/influxdata-platform/tools/measurements-internal/#httpd).
 
 >**Note:** The [InfluxDB input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb) is available to collect metrics (using the `/debug/vars` endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the [InfluxDB input plugin README](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme).
 
