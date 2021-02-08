@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.8.4 [2020-02-01]
+## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
