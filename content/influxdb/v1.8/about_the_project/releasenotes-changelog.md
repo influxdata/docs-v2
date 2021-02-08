@@ -9,7 +9,7 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.4 [2020-02-01]
+## v1.8.4 [2021-02-01]
 
    > **Note:** InfluxDB 1.8.3 was not released. Features and bug fixes intended for 1.8.3 were rolled into InfluxDB 1.8.4.
 
