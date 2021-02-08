@@ -71,6 +71,17 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+{{% note %}}
+#### Raspberry Pi
+On systems running [Raspberry Pi OS](https://www.raspberrypi.org/software/) (previously called Raspbian),
+run
+
+```sh
+cat /etc/os-release
+```
+Replace `${DISTRIB_ID,,}` and `${DISTRIB_CODENAME}` above with the values for `ID_LIKE` and `VERSION_CODENAME`.
+{{% /note %}}
+
 **Debian:** Add the InfluxData repository with the following commands:
 
 {{< code-tabs-wrapper >}}
