@@ -42,7 +42,7 @@ Select **Alerts REST API**, click **Integrate** button, and then **Create an App
  
 #### `url`
 
-BigPanda Alert API url. 
+BigPanda Alert API URL. 
 
 ## Options
 
