@@ -46,6 +46,10 @@ Default Alerta environment.
 #### `origin`
 Default origin of alert.
 
+#### `correlate`
+
+When an alert with the same `resource` is received with an `event` in the `correlate` list of related events, the alert is correlated. For more information, see [Alerta documentation](https://docs.alerta.io/en/latest/server.html#simple-correlation).
+
 ## Options
 The following Alerta event handler options can be set in a
 [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
@@ -63,8 +67,8 @@ The following Alerta event handler options can be set in a
 | group        | string          | Alerta group. Can be a template and has access to the same data as the AlertNode.Details property. Default: {{ .Group }}.                       |
 | value        | string          | Alerta value. Can be a template and has access to the same data as the AlertNode.Details property. Default is an empty string.                  |
 | origin       | string          | Alerta origin. If empty uses the origin from the configuration.                                                                                 |
-| service      | list of strings | List of effected Services.  
-| correlate    | list of strings | List of correlated Services.                                                                                                                    |
+| correlate    | list of strings | List of related events, for example, `event1`, `event2`.                                                                                        |
+| service      | list of strings | List of effected Services.                                                                                                                      |
 | timeout      | duration string | Alerta timeout. Default is 24 hours.                                                                                                            |
 
 > **Note:** The `resource` and `event` properties are required.
@@ -84,6 +88,7 @@ options:
   group: '{{ .Group }}'
   value: 'some-value'
   origin: 'kapacitor'
+  correlate: 'event1', 'event2'
   service: ['service1', 'service2']
   correlate: ['service1', 'service2']
   timeout: 24h
@@ -103,6 +108,7 @@ options:
     .group('{{ .Group }}')
     .value('some-value')
     .origin('kapacitor')
+    .correlate('event1', 'event2')
     .service('service1', 'service2')
     .correlated('service1', 'service2')
     .timeout(24h)
