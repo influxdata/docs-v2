@@ -33,16 +33,16 @@ Set to `true` to enable the BigPanda event handler.
 
 #### `token`
 
-Authorization Bearer token for BigPanda REST API.  
+Set your authorization Bearer token for BigPanda REST API.  
 
 #### `app-key`
 
-BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click **New Integration**.
-Select **Alerts REST API**, click **Integrate**, and then **Create an App Key**.
-
+Set your BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click the **New Integration**.
+Select **Alerts REST API**, click **Integrate** button, and then **Create an App Key**.
+ 
 #### `url`
 
-BigPanda Alert API url. 
+BigPanda Alert API URL.
 
 ## Options
 
@@ -70,7 +70,7 @@ By default, the handler maps the Kapacitor task and alert properties below to th
 | `TaskName`      | task                       | 
 
 All EventData tags and fields are appended to the BigPanda Alert as **Additional attributes**.
-For more information, see [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts). 
+For more information, see [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts).
 
 ### TICKscript examples
 
