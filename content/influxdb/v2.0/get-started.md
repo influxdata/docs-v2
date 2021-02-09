@@ -209,29 +209,18 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-1. Download and install the appropriate `.deb` or `.rpm` file
-   using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
-   with the following commands:
-   {{< code-tabs-wrapper >}}
-   {{% code-tabs %}}
-   [Ubuntu/Debian](#)
-   [Red Hat/CentOS/Fedora](#)
-   {{% /code-tabs %}}
-   {{% code-tab-content %}} <!-- `.deb` -->
-   ```bash
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.deb
-   sudo dpkg -i influxdb2_2.x.x_xxx.deb
-   ```
-   _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`)._
-   {{% /code-tab-content %}}
-   {{% code-tab-content %}} <!-- `.rpm` -->
-   ```bash
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.rpm
-   sudo yum localinstall influxdb2_2.x.x_xxx.deb.rpm
-   ```
-   _Use the exact filename of the download of `.rpm` package (for example, `influxdb2_2.0.3_amd64.rpm`)._
-   {{% /code-tab-content %}}
-   {{< /code-tabs-wrapper >}}
+1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
+    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+    with the following commands:
+    ```sh
+    # Ubuntu/Debian
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.deb
+    sudo dpkg -i influxdb2_2.x.x_xxx.deb
+    # Red Hat/CentOS/Fedora
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.rpm
+    sudo yum localinstall influxdb2_2.x.x_xxx.deb.rpm
+    ```
+    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2_2.0.3_amd64.rpm`)._
 2. Start the InfluxDB service:
    ```sh
    sudo service influxdb start
