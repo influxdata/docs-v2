@@ -40,7 +40,7 @@ from(
 
 {{% note %}}
 #### Query remote InfluxDB data sources
-`from()` can retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
+Use `from()` to retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
 To query remote InfluxDB sources, include the [host](#host), [token](#token), and
 [org](#org) (or [orgID](#orgid)) parameters.
 
