@@ -235,9 +235,11 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
      Active: active (running)
    ```
 
-When installed as a service, InfluxDB stores data in `/var/lib/influxdb/`.
-(This includes `engine/` and `influxd.bolt`.)
-[`influx config`](/influxdb/v2.0/reference/cli/influx/config/) files are stored in `~/.influxdbv2/`.
+When installed as a service, InfluxDB stores data in the following locations:
+
+- **Time series data:** `/var/lib/influxdb/engine/`
+- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
+- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
 
 ### Networking ports
 
