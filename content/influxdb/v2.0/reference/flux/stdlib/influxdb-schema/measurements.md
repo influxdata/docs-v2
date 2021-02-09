@@ -11,7 +11,7 @@ weight: 301
 influxdb/v2.0/tags: [measurements]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-measurements, SHOW MEASUREMENTS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-measurements, SHOW MEASUREMENTS in InfluxQL
 introduced: 0.88.0
 ---
 

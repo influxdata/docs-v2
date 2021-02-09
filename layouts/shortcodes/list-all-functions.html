@@ -1,9 +1,9 @@
-{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
-{{ $functionsPath := print "/" $currentVersion "/reference/flux/functions" }}
+{{ $section := "influxdb" }}
+{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
 
 <ul>
-{{ range where $.Site.RegularPages.ByTitle "Section" $currentVersion }}
-  {{ if in .Title "() function"  }}
+{{ range where $.Site.RegularPages.ByTitle "Section" $section }}
+  {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
     {{ $title := replaceRE `\ function` "" .Title }}
     <li>
       <a href="{{ .RelPermalink }}">{{ $title }}</a>

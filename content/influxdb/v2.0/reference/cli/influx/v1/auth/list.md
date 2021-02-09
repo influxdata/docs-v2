@@ -17,7 +17,7 @@ The `influx v1 auth list` command lists and searches authorizations in the [Infl
 influx v1 auth list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
@@ -30,10 +30,39 @@ influx v1 auth list [flags]
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 | `-i` | `--id`            | Authorization ID                                                         | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
-| `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
-|      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                   | string     | `$INFLUX_ORG`           |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
 | `-u` | `--user`          | InfluxDB user                                                            | string     |                         |
 |      | `--user-id`       | InfluxDB user ID                                                         | string     |                         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all v1 authorizations](#list-all-v1-authorizations)
+- [List v1 authorizations associated with a username](#list-v1-authorizations-associated-with-a-username)
+- [List v1 authorizations associated with a user ID](#list-v1-authorizations-associated-with-a-user-id)
+- [List a specific v1 authorization by ID](#list-a-specific-v1-authorization-by-id)
+
+##### List all v1 authorizations
+```sh
+influx v1 auth list
+```
+
+##### List v1 authorizations associated with a username
+```sh
+influx v1 auth list --user example-username
+```
+
+##### List v1 authorizations associated with a user ID
+```sh
+influx v1 auth list --user-id 00xX00o0X001
+```
+
+##### List a specific v1 authorization by ID
+```sh
+influx v1 auth list --id 00xX00o0X001
+```

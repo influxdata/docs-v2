@@ -54,4 +54,5 @@ influxd upgrade [command]
 | `-t` | `--token`                       | Token for username. If not specified, a token is auto-generated.                                           | string     |
 | `-u` | `--username`                    | Primary username                                                                                           | string     |
 |      | `--v1-dir`                      | Path to source 1.x `db` directory containing `meta`, `data`, and `wal` sub-folders (default `~/.influxdb`) | string     |
+|      | `--v2-config-path`              | Destination path for upgraded 2.x configuration file (default `~/.influxdbv2/config.toml`)                 | string     |
 | `-v` | `--verbose`                     | Verbose output                                                                                             |            |

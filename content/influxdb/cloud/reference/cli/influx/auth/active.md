@@ -1,6 +1,7 @@
 ---
 title: influx auth active
-description: The `influx auth active` command activates an authorization.
+description: >
+  The `influx auth active` command activates an authentication token in InfluxDB.
 menu:
   influxdb_cloud_ref:
     name: influx auth active

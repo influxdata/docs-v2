@@ -58,7 +58,9 @@ this is a string
 ```
 
 ### Records
-Flux also supports records. Each value in a record can be a different data type.
+Flux also supports records, collections of key-value pairs.
+Each key must be a string.
+Values can be a different data types.
 
 ```js
 > o = {name:"Jim", age: 42, "favorite color": "red"}
@@ -97,6 +99,32 @@ Flux supports arrays. All values in an array must be the same type.
 > l = [1,2,3,n]
 > l
 [1, 2, 3, 4]
+```
+
+Use **bracket notation** to access a value at a specific index in an array:
+
+```js
+> a = ["foo","bar","baz","quz"]
+> a[0]
+foo
+```
+
+### Dictionaries
+Flux supports dictionaries, collections of key value pairs where keys can be any type,
+but all keys must be the same type.
+All values in a dictionary must be the same type.
+
+```js
+> d = [1: "foo", 2: "bar"]
+```
+
+Use the [`dict.get()` function](/influxdb/v2.0/reference/flux/stdlib/dict/get/)
+to access properties in a dictionary:
+
+```js
+> import "dict"
+> dict.get(dict: d, key: "1", default: "")
+foo
 ```
 
 ### Functions
@@ -232,5 +260,5 @@ This query will return the five data points with the highest user CPU usage over
 _More information about creating custom functions is available in the [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) documentation._
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>

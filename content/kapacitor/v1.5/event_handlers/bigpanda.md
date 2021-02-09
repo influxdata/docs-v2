@@ -42,7 +42,7 @@ Select **Alerts REST API**, click **Integrate** button, and then **Create an App
  
 #### `url`
 
-BigPanda Alert API URL. 
+BigPanda Alert API URL.
 
 ## Options
 
@@ -60,17 +60,17 @@ BigPanda uses the [primary property](https://docs.bigpanda.io/docs/primary_prope
 and the [secondary property](https://docs.bigpanda.io/docs/secondary_property) to construct the subtitle of an incident.
 See [Alert Correlation Logic](https://docs.bigpanda.io/docs/alert-correlation-logic) for more information.
 
-By default, the handler maps the Kapacitor values below to the BigPanda Alert or Event fields as follows:
+By default, the handler maps the Kapacitor task and alert properties below to the BigPanda Alert or Event fields as follows:
 
 | Value           | BigPanda Alert Field       |
 | ----            | ----                       |
-| alert ID        | check                      |
-| message         | description                |
-| details         | details                    |
-| alert task name | task                       | 
+| `id`            | check                      |
+| `message`       | description                |
+| `details`       | details                    |
+| `TaskName`      | task                       | 
 
-All EventData tags and fields are appended into BigPanda Alert as **Additional attributes**. See 
-[BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts) for more information. 
+All EventData tags and fields are appended to the BigPanda Alert as **Additional attributes**.
+For more information, see [BigPanda Alert REST API](https://docs.bigpanda.io/reference#alerts).
 
 ### TICKscript examples
 
@@ -88,23 +88,23 @@ stream
 
 ```js
 stream
-        |from()
-                .database('telegraf')
-                .retentionPolicy('autogen')
-                .measurement('cpu')
-                .groupBy('host')
-                .where(lambda: "cpu" == 'cpu-total')
-        |eval(lambda: 100.0 - "usage_idle").as('total_used')
-        |window().period(10s).every(10s)
-        |mean('total_used').as('total_used')
-        |alert()
-            .id('cpu_usage_check')
-            .message('Hey {{ index .Tags "host"}} / {{ .ID }}: is high!')
-            .details('https://example.com/dashboard/{{ index .Tags "host"}}')
-            .info(lambda: "total_used" > 70)
-            .warn(lambda: "total_used" > 80)
-            .crit(lambda: "total_used" > 90)
-            .stateChangesOnly()
-      .bigPanda()
+  |from()
+    .database('telegraf')
+    .retentionPolicy('autogen')
+    .measurement('cpu')
+    .groupBy('host')
+    .where(lambda: "cpu" == 'cpu-total')
+  |eval(lambda: 100.0 - "usage_idle").as('total_used')
+  |window().period(10s).every(10s)
+  |mean('total_used').as('total_used')
+  |alert()
+    .id('cpu_usage_check')
+    .message('Hey {{ index .Tags "host"}} / {{ .ID }}: is high!')
+    .details('https://example.com/dashboard/{{ index .Tags "host"}}')
+    .info(lambda: "total_used" > 70)
+    .warn(lambda: "total_used" > 80)
+    .crit(lambda: "total_used" > 90)
+    .stateChangesOnly()
+    .bigPanda()
       .appKey('...')
 ```

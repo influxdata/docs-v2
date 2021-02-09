@@ -31,13 +31,15 @@ influx v1 dbrp list [flags]
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 |      | `--id`            | Limit results to a specified mapping                                     | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
-| `-o` | `--org`           | Organization name                                                        | string     | `$INFLUX_ORG`           |
-|      | `--org-id`        | Organization ID                                                          | string     | `$INFLUX_ORG_ID`        |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                   | string     | `$INFLUX_ORG`           |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 |      | `--rp`            | Filter DBRP mappings by InfluxDB v1 retention policy                     | string     | `$INFLUX_ORG`           |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
 | `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
 
 ## Examples
+
+{{< cli/influx-creds-note >}}
 
 ##### List all DBRP mappings in your organization
 ```sh

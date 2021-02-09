@@ -20,28 +20,38 @@ all data is copied to your Kapacitor server or cluster through an InfluxDB subsc
 This reduces the query load on InfluxDB and isolates overhead associated with data
 manipulation to your Kapacitor server or cluster.
 
-On startup, Kapacitor will check for a subscription in InfluxDB with a name matching the Kapacitor server or cluster ID.
+On startup, Kapacitor checks for a subscription in InfluxDB with a name matching the Kapacitor server or cluster ID.
 This ID is stored inside of `/var/lib/kapacitor/`.
-If the ID file doesn't exist on startup, Kapacitor will create one.
+If the ID file doesn't exist on startup, Kapacitor creates it.
 If a subscription matching the Kapacitor ID doesn't exist in InfluxDB, Kapacitor
-will create a new subscription in InfluxDB.
-This process ensures that when Kapacitor stops, it will reconnect to the same subscription
+creates a new subscription in InfluxDB.
+This process ensures that when Kapacitor stops, it reconnects to the same subscription
 on restart as long as the contents of `/var/lib/kapacitor/` remain intact.
+
+{{% note %}}
+#### InfluxDB user must have admin privileges
+The InfluxDB user used to create subscriptions for Kapacitor must have
+[admin privileges](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users).
+Configure the InfluxDB user to use with the [`[influxdb].username` setting](/kapacitor/v1.5/administration/configuration/#influxdb)
+in your Kapacitor configuration file.
+{{% /note %}}
 
 _The directory in which Kapacitor stores its ID can be configured with the
 [`data-dir` root configuration option](/kapacitor/v1.5/administration/configuration/#organization)
 in the `kapacitor.conf`._
 
-> #### Kapacitor IDs in containerized or ephemeral filesystems
-> In containerized environments, filesystems are considered ephemeral and typically
-> do not persist between container stops and restarts.
-> If `/var/lib/kapacitor/` is not persisted, Kapacitor will create a new InfluxDB subscription
-> on startup, resulting in unnecessary "duplicate" subscriptions.
-> You will then need to manually [drop the unnecessary subscriptions](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/#remove-subscriptions).
->
-> To avoid this, InfluxData recommends that you persist the `/var/lib/kapacitor` directory.
-> Many persistence strategies are available and which to use depends on your
-> specific architecture and containerization technology.
+{{% note %}}
+#### Kapacitor IDs in containerized or ephemeral filesystems
+In containerized environments, filesystems are considered ephemeral and typically
+do not persist between container stops and restarts.
+If `/var/lib/kapacitor/` is not persisted, Kapacitor will create a new InfluxDB subscription
+on startup, resulting in unnecessary "duplicate" subscriptions.
+You will then need to manually [drop the unnecessary subscriptions](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/#remove-subscriptions).
+
+To avoid this, persist the `/var/lib/kapacitor` directory.
+Many persistence strategies are available and which to use depends on your
+specific architecture and containerization technology.
+{{% /note %}}
 
 
 ## Configure Kapacitor subscriptions

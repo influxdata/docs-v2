@@ -9,34 +9,21 @@ menu:
 v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
-Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
-This document provides a gentle introduction to those concepts and common InfluxDB terminology.
-We've provided a list below of all the terms we'll cover, but we recommend reading this document from start to finish to gain a more general understanding of our favorite time series database.
+Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#database">database</a></td>
-    <td><a href="#field-key">field key</a></td>
-    <td><a href="#field-set">field set</a></td>
-  </tr>
-  <tr>
-    <td><a href="#field-value">field value</a></td>
-    <td><a href="#measurement">measurement</a></td>
-    <td><a href="#point">point</a></td>
-  </tr>
-    <tr>
-    <td><a href="#retention-policy">retention policy</a></td>
-    <td><a href="#series">series</a></td>
-    <td><a href="#tag-key">tag key</a></td>
-  </tr>
-    <tr>
-    <td><a href="#tag-set">tag set</a></td>
-    <td><a href="#tag-value">tag value</a></td>
-    <td><a href="#timestamp">timestamp</a></td>
-  </tr>
-</table>
+- [database](/influxdb/v1.8/concepts/glossary/#database)
+- [field key](/influxdb/v1.8/concepts/glossary/#field-key)
+- [field set](/influxdb/v1.8/concepts/glossary/#field-set)
+- [field value](/influxdb/v1.8/concepts/glossary/#field-value)
+- [measurement](/influxdb/v1.8/concepts/glossary/#measurement)
+- [point](/influxdb/v1.8/concepts/glossary/#point)
+- [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+- [series](/influxdb/v1.8/concepts/glossary/#series)
+- [tag key](/influxdb/v1.8/concepts/glossary/#tag-key)
+- [tag set](/influxdb/v1.8/concepts/glossary/#tag-set)
+- [tag value](/influxdb/v1.8/concepts/glossary/#tag-value)
+- [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp)
 
-Check out the [glossary](/influxdb/v1.8/concepts/glossary/) if you prefer the cold, hard facts.
 
 ### Sample data
 

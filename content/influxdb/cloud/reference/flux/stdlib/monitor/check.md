@@ -66,11 +66,21 @@ The message is stored in the `_message` column.
 _**Data type:** Function_
 
 ### data
-Meta data used to identify this check.
-
-**InfluxDB populates check data.**
+Metadata used to identify this check and append tags to each row.
 
 _**Data type:** Record_
+
+The data record should contain the following fields:
+
+- **_check_id**: check ID
+- **_check_name**: check name
+- **_type**: check type (threshold, deadman, or custom)
+- **tags**: tags to append to each checked record (for example: `{foo: "bar", baz: "quz"}`)
+
+The InfluxDB monitoring and alerting system uses `monitor.check()` to store information
+about checks and automatically assigns the `_check_id` and `_check_name` values.
+If writing a custom check task, we recommend using **unique arbitrary** values
+for `_check_id` and `_check_name`.
 
 ## Examples
 

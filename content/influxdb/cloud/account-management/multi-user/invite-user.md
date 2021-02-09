@@ -12,11 +12,19 @@ aliases:
   - /influxdb/v2.0/account-management/multi-user/invite-user/
 ---
 
+Use the InfluxDB Cloud user interface (UI) to invite users to collaborate in
+your InfluxDB Cloud organization.
+
+- [Invite a user](#invite-a-user)
+- [Withdraw an invitation](#withdraw-an-invitation)
+
 ## Invite a user
 
-1. In the {{< cloud-name "short" >}} UI, select the user avatar in the left navigation menu, and select **Users**.
+1. In the {{< cloud-name "short" >}} UI, click your user avatar in the left
+   navigation menu, and select **Users**.
 
     {{< nav-icon "account" >}}
+
 2. Under **Add a new user to your organization**, enter the email address of the user to invite.
    (Users must be invited one at a time.)
 3. Click **Add & Invite**.
@@ -33,6 +41,7 @@ Accounts can have up to 50 pending invitations at one time.
 1. In the {{< cloud-name "short" >}} UI, select the user avatar in the left navigation menu, and select **Users**.
 
     {{< nav-icon "account" >}}
+
 2. Click the {{< icon "delete" >}} next to the invitation you want to withdraw.
 3. Confirm the withdrawl.
 

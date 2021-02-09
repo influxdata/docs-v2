@@ -7,6 +7,11 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [tasks]
+cascade:
+  related:
+    - /influxdb/v2.0/process-data/
+    - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx task` command and its subcommands manage tasks in InfluxDB.
@@ -18,8 +23,8 @@ influx task [command]
 ```
 
 ### Subcommands
-| Subcommand                                       | Description          |
-|:----------                                       |:-----------          |
+| Subcommand                                                | Description          |
+|:----------                                                |:-----------          |
 | [create](/influxdb/v2.0/reference/cli/influx/task/create) | Create task          |
 | [delete](/influxdb/v2.0/reference/cli/influx/task/delete) | Delete task          |
 | [list](/influxdb/v2.0/reference/cli/influx/task/list)     | List tasks           |

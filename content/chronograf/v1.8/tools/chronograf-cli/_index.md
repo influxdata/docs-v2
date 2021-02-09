@@ -19,17 +19,17 @@ chronograf [flags]
 
 ## Chronograf service flags
 
-| Flag                         | Description                                                                                                                               | Env. Variable        |
-|:-----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|:---------------------|
-| `--host`                     | IP the Chronograf service listens on. By default, `0.0.0.0`                                                                               | `$HOST`              |
-| `--port`                     | Port the Chronograf service listens on for insecure connections. By default, `8888`                                                       | `$PORT`              |
-| `-b`,`--bolt-path`           | File path to the BoltDB file. By default, `./chronograf-v1.db`                                                                            | `$BOLT_PATH`         |
-| `-c`,`--canned-path`         | File path to the directory of canned dashboard files. By default, `/usr/share/chronograf/canned`                                          | `$CANNED_PATH`       |
-| `--resources-path`           | Path to directory of canned dashboards, sources, Kapacitor connections, and organizations. By default, `/usr/share/chronograf/resources`  | `$RESOURCES_PATH`    |
-| `-b`, `--basepath`           | URL path prefix under which all Chronograf routes will be mounted.                                                                        | `$BASE_PATH`         |
-| `--status-feed-url`          | URL of JSON feed to display as a news feed on the client status page. By default, `https://www.influxdata.com/feed/json`                  | `$STATUS_FEED_URL`   |
-| `-v`, `--version`            | Displays the version of the Chronograf service                                                                                            |                      |
-| `-h`, `--host-page-disabled` | Disables the hosts page                                                                                                                   | `$HOST_PAGE_DISABLED`|
+| Flag                         | Description                                                                                                                              | Env. Variable        |
+|:-----------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|:---------------------|
+| `--host`                     | IP the Chronograf service listens on. By default, `0.0.0.0`                                                                              | `$HOST`              |
+| `--port`                     | Port the Chronograf service listens on for insecure connections. By default, `8888`                                                      | `$PORT`              |
+| `-b`,`--bolt-path`           | File path to the BoltDB file. By default, `./chronograf-v1.db`                                                                           | `$BOLT_PATH`         |
+| `-c`,`--canned-path`         | File path to the directory of canned dashboard files. By default, `/usr/share/chronograf/canned`                                         | `$CANNED_PATH`       |
+| `--resources-path`           | Path to directory of canned dashboards, sources, Kapacitor connections, and organizations. By default, `/usr/share/chronograf/resources` | `$RESOURCES_PATH`    |
+| `-p`, `--basepath`           | URL path prefix under which all Chronograf routes will be mounted.                                                                       | `$BASE_PATH`         |
+| `--status-feed-url`          | URL of JSON feed to display as a news feed on the client status page. By default, `https://www.influxdata.com/feed/json`                 | `$STATUS_FEED_URL`   |
+| `-v`, `--version`            | Displays the version of the Chronograf service                                                                                           |                      |
+| `-h`, `--host-page-disabled` | Disables the hosts page                                                                                                                  | `$HOST_PAGE_DISABLED`|
 
 ## InfluxDB connection flags
 
@@ -49,23 +49,23 @@ chronograf [flags]
 
 ## TLS (Transport Layer Security) flags
 
-| Flag    | Description                                                | Env. Variable      |
-|:---------|:------------------------------------------------------------|:--------------------|
-| `--cert` | File path to PEM-encoded public key certificate            | `$TLS_CERTIFICATE` |
-| `--key` | File path to private key associated with given certificate | `$TLS_PRIVATE_KEY` |
-| `--tls-ciphers` | Comma-separated list of supported cipher suites. Use `help` to print available ciphers. | `$TLS_CIPHERS` |
-| `--tls-min-version` | Minimum version of the TLS protocol that will be negotiated. (default: 1.2) | `$TLS_MIN_VERSION` |
-| `--tls-max-version` | Maximum version of the TLS protocol that will be negotiated. | `$TLS_MAX_VERSION` |
+| Flag                | Description                                                                             | Env. Variable       |
+|:---------           |:------------------------------------------------------------                            |:--------------------|
+| `--cert`            | File path to PEM-encoded public key certificate                                         | `$TLS_CERTIFICATE`  |
+| `--key`             | File path to private key associated with given certificate                              | `$TLS_PRIVATE_KEY`  |
+| `--tls-ciphers`     | Comma-separated list of supported cipher suites. Use `help` to print available ciphers. | `$TLS_CIPHERS`      |
+| `--tls-min-version` | Minimum version of the TLS protocol that will be negotiated. (default: 1.2)             | `$TLS_MIN_VERSION`  |
+| `--tls-max-version` | Maximum version of the TLS protocol that will be negotiated.                            | `$TLS_MAX_VERSION`  |
 
 ## Other service option flags
 
-| Flag                                         | Description                                                             | Env. Variable         |
-|:---------------------------------------------|:------------------------------------------------------------------------|:----------------------|
-| `--custom-link` <display_name>:<link_address>| Custom link added to Chronograf user menu options. Useful for providing links to internal company resources for your Chronograf users. Can be used when any OAuth 2.0 authentication is enabled. To add another custom link, repeat the custom link option. |                       |
-| `-r`, `--reporting-disabled`                 | Disables reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.                                                                                                         | `$REPORTING_DISABLED` |
-| `-l`, `--log-level`                          | Sets the logging level. Valid values include `info` (default), `debug`, and `error`.                                                                                                                                                                        | `$LOG_LEVEL`          |
-| `-d`, `--develop`                            | Runs the Chronograf service in developer mode                                                                                                                                                                                                               |                       |
-| `-h`, `--help`                               | Displays command line help for Chronograf                                                                                                                                                                                                                   |                       |
+| Flag                         | Description                                                                                                                                         | Env. Variable         |
+|:---------------------------- |:------------------------------------------------------------------------                                                                            |:----------------------|
+| `--custom-link`              | Adds a custom link to Chronograf user menu options using `<display_name>:<link_address>` syntax. For multiple custom links, include multiple flags. |                       |
+| `-r`, `--reporting-disabled` | Disables reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`. | `$REPORTING_DISABLED` |
+| `-l`, `--log-level`          | Sets the logging level. Valid values include `info` (default), `debug`, and `error`.                                                                | `$LOG_LEVEL`          |
+| `-d`, `--develop`            | Runs the Chronograf service in developer mode                                                                                                       |                       |
+| `-h`, `--help`               | Displays command line help for Chronograf                                                                                                           |                       |
 
 ## Authentication option flags
 
@@ -124,3 +124,15 @@ chronograf [flags]
 | `--generic-auth-url`      | Authorization endpoint URL for the OAuth 2.0 provider                          | `$GENERIC_AUTH_URL`      |
 | `--generic-token-url`     | Token endpoint URL for the OAuth 2.0 provider                                  | `$GENERIC_TOKEN_URL`     |
 | `--generic-api-url`       | URL that returns OpenID UserInfo-compatible information                        | `$GENERIC_API_URL`       |
+
+### etcd flags
+
+| Flag                      | Description                                                                                                | Env. Variable           |
+|:--------------------------|:-----------------------------------------------------------------------------------------------------------|:------------------------|
+| `-e`, `--etcd-endpoints`  | etcd endpoint URL (include multiple flags for multiple endpoints)                                          | `$ETCD_ENDPOINTS`       |
+| `--etcd-username`         | etcd username                                                                                              | `$ETCD_USERNAME`        |
+| `--etcd-password`         | etcd password                                                                                              | `$ETCD_PASSWORD`        |
+| `--etcd-dial-timeout`     | Total time to wait before timing out while connecting to etcd endpoints (0 means no timeout, default: -1s) | `$ETCD_DIAL_TIMEOUT`    |
+| `--etcd-request-timeout`  | Total time to wait before timing out the etcd view or update (0 means no timeout, default: -1s)            | `$ETCD_REQUEST_TIMEOUT` |
+| `--etcd-cert`             | Path to PEM encoded TLS public key certificate for use with TLS                                            | `$ETCD_CERTIFICATE`     |
+| `--etcd-key`              | Path to private key associated with given certificate for use with TLS                                     | `$ETCD_PRIVATE_KEY`     |

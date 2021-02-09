@@ -148,19 +148,20 @@ If type inference determines all the properties in a record, it is said to be "b
 Not all keys may be known in the type of a record, in which case the record is said to be "unbounded."
 An unbounded record may contain any property in addition to the properties it is known to contain.
 
+### Dictionary types
+A _dictionary type_ is a collection that associates keys to values.
+Keys must be comparable and of the same type.
+Values must also be of the same type.
+
 ### Function types
 A _function type_ represents a set of all functions with the same argument and result types.
-
-{{% note %}}
-[IMPL#249](https://github.com/influxdata/platform/issues/249) Specify type inference rules.
-{{% /note %}}
 
 ### Generator types
 A _generator type_ represents a value that produces an unknown number of other values.
 The generated values may be of any other type, but must all be the same type.
 
 {{% note %}}
-[IMPL#658](https://github.com/influxdata/platform/query/issues/658) Implement Generators types.
+[IMPL#412](https://github.com/influxdata/flux/issues/412) Implement Generators types.
 {{% /note %}}
 
 ## Polymorphism

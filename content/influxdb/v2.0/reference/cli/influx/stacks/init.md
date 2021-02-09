@@ -27,8 +27,8 @@ influx stacks init [flags]
 |      | `--hide-headers`      | Hide table headers (default `false`)                                  |                 | `INFLUX_HIDE_HEADERS` |
 |      | `--host`              | HTTP address of InfluxDB (default `http://localhost:8086`)            | string          | `INFLUX_HOST`         |
 |      | `--json`              | Output data as JSON (default `false`)                                 |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`               | Organization name                                                     | string          | `INFLUX_ORG`          |
-|      | `--org-id`            | Organization ID                                                       | string          | `INFLUX_ORG_ID`       |
+| `-o` | `--org`               | Organization name (mutually exclusive with `--org-id`)                | string          | `INFLUX_ORG`          |
+|      | `--org-id`            | Organization ID (mutually exclusive with `--org`)                     | string          | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`       | Skip TLS certificate verification                                     |                 |                       |
 | `-d` | `--stack-description` | Stack description                                                     | string          |                       |
 | `-n` | `--stack-name`        | Stack name                                                            | string          |                       |
@@ -37,22 +37,16 @@ influx stacks init [flags]
 
 ## Examples
 
-### Initialize a stack with a name and description
+{{< cli/influx-creds-note >}}
+
+##### Initialize a stack with a name and description
 
 ```sh
-# Use environment variables
-influx stack init -n $STACK_NAME -d $STACK_DESCRIPTION
-
-# Use strings
 influx stack init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
 ```
 
-### Initialize a stack with a name and URLs to associate with the stack
+##### Initialize a stack with a name and URLs to associate with the stack
 
 ```sh
-# Use environment variables
-influx stack init -n $STACK_NAME -u $PATH_TO_TEMPLATE
-
-# Use strings
 influx stack init -n "Example Stack" -u https://example.com/template-1.yml
 ```

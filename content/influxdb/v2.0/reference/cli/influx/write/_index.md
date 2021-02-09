@@ -9,12 +9,15 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [write]
-related:
-  - /influxdb/v2.0/write-data/
-  - /influxdb/v2.0/write-data/developer-tools/csv/
-  - /influxdb/v2.0/reference/syntax/line-protocol/
-  - /influxdb/v2.0/reference/syntax/annotated-csv/
-  - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
+cascade:
+  related:
+    - /influxdb/v2.0/write-data/
+    - /influxdb/v2.0/write-data/developer-tools/csv/
+    - /influxdb/v2.0/reference/syntax/line-protocol/
+    - /influxdb/v2.0/reference/syntax/annotated-csv/
+    - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
+    - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.
@@ -23,11 +26,36 @@ Write data using [line protocol](/influxdb/v2.0/reference/syntax/line-protocol),
 [extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/).
 If you write CSV data, CSV annotations determine how the data translates into line protocol.
 
+
 ## Usage
 ```
 influx write [flags]
 influx write [command]
 ```
+
+{{% note %}}
+### Required data
+To write data to InfluxDB, you must provide the following for each row:
+
+- **measurement**
+- **field**
+- **value**
+
+#### Line protocol
+In **line protocol**, the [structure of the line data](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+determines the measurement, field, and value.
+
+#### Annotated CSV
+In **annotated CSV**, measurements, fields, and values are represented by the
+`_measurement`, `_field`, and `_value` columns.
+Their types are determined by CSV annotations.
+To successfully write annotated CSV to InfluxDB, include all
+[annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
+
+#### Extended annotated CSV
+In **extended annotated CSV**, measurements, fields, and values and their types are determined by
+[CSV annotations](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#csv-annotations).
+{{% /note %}}
 
 ## Subcommands
 | Subcommand                                                 | Description                         |
@@ -35,49 +63,54 @@ influx write [command]
 | [dryrun](/influxdb/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
-| Flag |                     | Description                                                                     | Input type | {{< cli/mapped >}}    |
-|:-----|:--------------------|:--------------------------------------------------------------------------------|:----------:|:----------------------|
-| `-c` | `--active-config`   | CLI configuration to use for command                                            | string     |                       |
-| `-b` | `--bucket`          | Bucket name                                                                     | string     | `INFLUX_BUCKET_NAME`  |
-|      | `--bucket-id`       | Bucket ID                                                                       | string     | `INFLUX_BUCKET_ID`    |
-|      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string     | `INFLUX_CONFIGS_PATH` |
-|      | `--debug`           | Output errors to stderr                                                         |            |                       |
-|      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string     |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                           | string     |                       |
-| `-f` | `--file`            | File to import                                                                  | string     |                       |
-|      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                      | string     |                       |
-|      | `--header`          | Prepend header line to CSV input data                                           | string     |                       |
-| `-h` | `--help`            | Help for the `dryrun` command                                                   |            |                       |
-|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:9999`)                      | string     | `INFLUX_HOST`         |
-|      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`) | integer    |                       |
-| `-o` | `--org`             | Organization name                                                               | string     | `INFLUX_ORG`          |
-|      | `--org-id`          | Organization ID                                                                 | string     | `INFLUX_ORG_ID`       |
-| `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string     | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string     |                       |
-|      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer    |                       |
-|      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |            |                       |
-|      | `--skip-verify`     | Skip TLS certificate verification                                               |            |                       |
-| `-t` | `--token`           | Authentication token                                                            | string     | `INFLUX_TOKEN`        |
-| `-u` | `--url`             | URL to import data from                                                         | string     |                       |
+| Flag |                     | Description                                                                     | Input type  | {{< cli/mapped >}}    |
+|:-----|:--------------------|:--------------------------------------------------------------------------------|:----------: |:----------------------|
+| `-c` | `--active-config`   | CLI configuration to use for command                                            | string      |                       |
+| `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                             | string      | `INFLUX_BUCKET_NAME`  |
+|      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                  | string      | `INFLUX_BUCKET_ID`    |
+|      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string      | `INFLUX_CONFIGS_PATH` |
+|      | `--debug`           | Output errors to stderr                                                         |             |                       |
+|      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string      |                       |
+|      | `--error-file`      | Path to a file used for recording rejected row errors                           | string      |                       |
+| `-f` | `--file`            | File to import                                                                  | stringArray |                       |
+|      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                      | string      |                       |
+|      | `--header`          | Prepend header line to CSV input data                                           | string      |                       |
+| `-h` | `--help`            | Help for the `write` command                                                    |             |                       |
+|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:9999`)                      | string      | `INFLUX_HOST`         |
+|      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`) | integer     |                       |
+| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
+|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
+| `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
+|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
+|      | `--skip-verify`     | Skip TLS certificate verification                                               |             |                       |
+|      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer     |                       |
+|      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |             |                       |
+| `-t` | `--token`           | Authentication token                                                            | string      | `INFLUX_TOKEN`        |
+| `-u` | `--url`             | URL to import data from                                                         | stringArray |                       |
 
 ## Examples
 
-- [Write line protocol](#line-protocol)
-  - [via stdin](#write-line-protocol-via-stdin)
-  - [from a file](#write-line-protocol-from-a-file)
-  - [from multiple files](#write-line-protocol-from-multiple-files)
-  - [from a URL](#write-line-protocol-from-a-url)
-  - [from multiple URLs](#write-line-protocol-from-multiple-urls)
-  - [from multiple sources](#write-line-protocol-from-multiple-sources)
+{{< cli/influx-creds-note >}}
 
-- [Write CSV data](#csv)
-  - [via stdin](#write-annotated-csv-data-via-stdin)
-  - [from a file](#write-annotated-csv-data-from-a-file)
-  - [from multiple files](#write-annotated-csv-data-from-multiple-files)
-  - [from a URL](#write-annotated-csv-data-from-a-url)
-  - [from multiple URLs](#write-annotated-csv-data-from-multiple-urls)
-  - [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
-  - [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
+###### Write line protocol
+
+- [via stdin](#write-line-protocol-via-stdin)
+- [from a file](#write-line-protocol-from-a-file)
+- [from multiple files](#write-line-protocol-from-multiple-files)
+- [from a URL](#write-line-protocol-from-a-url)
+- [from multiple URLs](#write-line-protocol-from-multiple-urls)
+- [from multiple sources](#write-line-protocol-from-multiple-sources)
+
+###### Write CSV data
+
+- [annotated CSV via stdin](#write-annotated-csv-data-via-stdin)
+- [extended annotated CSV via stdin](#write-extended-annotated-csv-data-via-stdin)
+- [from a file](#write-annotated-csv-data-from-a-file)
+- [from multiple files](#write-annotated-csv-data-from-multiple-files)
+- [from a URL](#write-annotated-csv-data-from-a-url)
+- [from multiple URLs](#write-annotated-csv-data-from-multiple-urls)
+- [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
+- [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
 
 
 ### Line protocol
@@ -139,10 +172,31 @@ influx write \
 influx write \
   --bucket example-bucket \
   --format csv \
-  "#datatype measurement,tag,tag,field,field,ignored,time
-m,cpu,host,time_steal,usage_user,nothing,time
-cpu,cpu1,host1,0,2.7,a,1482669077000000000
-cpu,cpu1,host2,0,2.2,b,1482669087000000000
+  "#group,false,false,false,false,true,true
+#datatype,string,long,dateTime:RFC3339,double,string,string
+#default,_result,,,,,
+,result,table,_time,_value,_field,_measurement
+,,0,2020-12-18T18:16:11Z,72.7,temp,sensorData
+,,0,2020-12-18T18:16:21Z,73.8,temp,sensorData
+,,0,2020-12-18T18:16:31Z,72.7,temp,sensorData
+,,0,2020-12-18T18:16:41Z,72.8,temp,sensorData
+,,0,2020-12-18T18:16:51Z,73.1,temp,sensorData
+"
+```
+
+##### Write extended annotated CSV data via stdin
+```sh
+influx write \
+  --bucket example-bucket \
+  --format csv \
+  "#constant measurement,sensorData
+#datatype,datetime:RFC3339,double
+time,temperature
+2020-12-18T18:16:11Z,72.7
+2020-12-18T18:16:21Z,73.8
+2020-12-18T18:16:31Z,72.7
+2020-12-18T18:16:41Z,72.8
+2020-12-18T18:16:51Z,73.1
 "
 ```
 
