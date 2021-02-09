@@ -209,10 +209,6 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-{{% note %}}
-As of InfluxDB 2.0.3, `systemd` is required for Linux service support.
-{{% /note %}}
-
 1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
     [InfluxData downloads page](https://portal.influxdata.com/downloads/)
     with the following commands:
@@ -240,6 +236,7 @@ As of InfluxDB 2.0.3, `systemd` is required for Linux service support.
    ```
 
 When installed as a service, InfluxDB stores data in `/var/lib/influxdb/`.
+`influx config` files are stored in `~/.influxdbv2/`.
 
 ### Networking ports
 
