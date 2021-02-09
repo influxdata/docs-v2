@@ -209,45 +209,29 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-{{< tabs-wrapper >}}
-
-{{% tabs %}}
-[Ubuntu/Debian](#)
-[Red Hat](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-1. Download and install the appropriate `.deb` file
+1. Download and install the appropriate `.deb` or `.rpm` file
    using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
    with the following commands:
-   ```sh
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Ubuntu/Debian](#)
+   [Red Hat/CentOS/Fedora](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}} <!-- `.deb` -->
+   ```bash
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.deb
    sudo dpkg -i influxdb2_2.x.x_xxx.deb
    ```
    _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`)._
-2. Start the InfluxDB service:
-   ```sh
-   sudo service influxdb start
-   ```
-   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
-   to start InfluxDB as a background service on startup.
-3. Restart your system and verify that the service is running correctly:
-   ```sh
-   $  sudo service influxdb status
-   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
-     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
-     Active: active (running)
-   ```
-{{% /tab-content %}}
-{{% tab-content %}}
-1. Download and install the appropriate `.rpm` file
-   using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
-   with the following commands:
-   ```sh
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
-   sudo yum localinstall influxdb2_2.x.x_xxx.rpm
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}} <!-- `.rpm` -->
+   ```bash
+   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx.rpm
+   sudo yum localinstall influxdb2_2.x.x_xxx.deb.rpm
    ```
    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2_2.0.3_amd64.rpm`)._
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
 2. Start the InfluxDB service:
    ```sh
    sudo service influxdb start
@@ -261,8 +245,6 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
      Active: active (running)
    ```
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 ### Networking ports
 
