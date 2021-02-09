@@ -64,3 +64,23 @@
     margin-top: 2.5rem
   }
 }
+
+///////////////////////////////// Media Queries ////////////////////////////////
+
+@include media(small) {
+  #callout-url-selector {
+    top: .55rem;
+    right: 5.15rem;
+
+    p:after {
+      top: .15rem;
+      right: -16px;
+      border-width: 7px 0 7px 8px;
+      border-color: transparent transparent transparent #C231D9;
+    }
+
+    &.start-position {
+      margin-top: 2.5rem
+    }
+  }
+}
