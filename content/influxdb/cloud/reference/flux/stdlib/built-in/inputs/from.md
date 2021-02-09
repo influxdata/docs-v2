@@ -45,7 +45,7 @@ from(
 To query remote InfluxDB sources, include the [host](#host), [token](#token), and
 [org](#org) or [orgID](#orgid) parameters.
 
-`from()` **cannot** retrieve data from **remote InfluxDB OSS 1.x instances or remote InfluxDB Enterprise 1.x clusters**
+`from()` **cannot retrieve data** from **remote** InfluxDB OSS 1.x or InfluxDB Enterprise 1.x data sources
 _(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 {{% /note %}}
 
