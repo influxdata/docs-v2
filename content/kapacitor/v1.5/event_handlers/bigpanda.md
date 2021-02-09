@@ -33,11 +33,11 @@ Set to `true` to enable the BigPanda event handler.
 
 #### `token`
 
-Authorization Bearer token for BigPanda REST API.  
+Set your authorization Bearer token for BigPanda REST API.  
 
 #### `app-key`
 
-BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click the **New Integration**.
+Set your BigPanda integration App Key. To get your App Key, log in to your BigPanda account and select **Integrations** in the header toolbar, and then click the **New Integration**.
 Select **Alerts REST API**, click **Integrate** button, and then **Create an App Key**.
  
 #### `url`
