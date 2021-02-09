@@ -236,7 +236,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
    ```
 
 When installed as a service, InfluxDB stores data in `/var/lib/influxdb/`.
-`influx config` files are stored in `~/.influxdbv2/`.
+[`influx config`](/influxdb/v2.0/reference/cli/influx/config/) files are stored in `~/.influxdbv2/`.
 
 ### Networking ports
 
