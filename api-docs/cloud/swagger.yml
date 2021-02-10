@@ -11741,7 +11741,7 @@ components:
           type: string
         operator:
           type: string
-          enum: ["equal", "notequal", "equalregex", "notequalregex"]
+          enum: ["equal"]
     StatusRule:
       type: object
       properties:
