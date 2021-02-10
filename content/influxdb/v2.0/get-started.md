@@ -326,7 +326,7 @@ docker exec -it influxdb /bin/bash
 The instructions below use minikube or kind, but the steps should be similar in any Kubernetes cluster.
 InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) available.
 
-1. [Install minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or
+1. Install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or
    [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).
 
 2. Start a local cluster:
