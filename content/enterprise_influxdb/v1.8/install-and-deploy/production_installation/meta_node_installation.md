@@ -103,7 +103,7 @@ sudo dpkg -i influxdb-meta_1.8.2-c1.8.2_amd64.deb
 
 ```
 wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
-sudo yum localinstall influxdb-meta-1.8.2-c1.8.2.x86_64.rpm
+sudo yum localinstall influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
 ```
 
 ##### Verify the authenticity of release download (recommended)
@@ -126,7 +126,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-meta-1.8.2-c1.8.2.x86_64.rpm.asc influxdb-meta-1.8.2-c1.8.2.x86_64.rpm
+    gpg --verify influxdb-meta-1.8.2_c1.8.2.x86_64.rpm.asc influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
     ```
 
     The output from this command should include the following:
