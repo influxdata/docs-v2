@@ -241,6 +241,20 @@ When installed as a service, InfluxDB stores data in the following locations:
 - **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
 - **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
 
+### Pass arguments to systemd
+
+1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
+
+   ```
+   ARG1="--http-bind-address :8087"
+   ARG2="<another argument here>"
+   ```
+2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
+
+   ```
+   ExecStart=/usr/bin/influxd $ARG1 $ARG2
+   ```
+
 ### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
