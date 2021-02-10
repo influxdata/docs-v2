@@ -14,8 +14,16 @@ menu:
 
 The `sideload` node adds fields and tags to points based on hierarchical data from various sources.
 
-Example:
+- [SideloadNode example](#sideloadnode-example)
+- [Constructor](#constructor)
+- [Property methods](#property-methods): [field](#field), [order](#order), [quiet](#quiet), [source](#source), [tag](#tag)
+- [Chaining methods](#chaining-methods)
 
+### SideloadNode example
+
+The following example shows how to add a field `cpu_threshold` and a tag `foo` to each point based on the value loaded from the hierarchical source.
+The list of templates in the `.order()` property are evaluated using the points tags.
+The files paths are checked then checked in order for the specified keys and the first value that is found is used.
 
 ```js
 |sideload()
@@ -24,10 +32,6 @@ Example:
   .field('cpu_threshold', 0.0)
   .tag('foo', 'unknown')
 ```
-
-Add a field `cpu_threshold` and a tag `foo` to each point based on the value loaded from the hierarchical source.
-The list of templates in the `.order()` property are evaluated using the points tags.
-The files paths are checked then checked in order for the specified keys and the first value that is found is used.
 
 
 ### Constructor
@@ -45,8 +49,6 @@ The files paths are checked then checked in order for the specified keys and the
 | **[quiet](#quiet)&nbsp;(&nbsp;)** | Suppress all error logging events from this node.  |
 | **[source](#source)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Source for the data, for example, `file://` or `http://`  |
 | **[tag](#tag)&nbsp;(&nbsp;`t`&nbsp;`string`,&nbsp;`v`&nbsp;`string`)** | Tag is the name of a tag to load from the source and its default value. The loaded values must be strings, otherwise an error is recorded and the default value is used.  |
-
-
 
 ### Chaining Methods
 [Alert](#alert),
@@ -151,16 +153,66 @@ sideload.quiet()
 
 ### Source
 
-Source for the data, for example `file://` or `http://`.
+Define the source of the data. The following sources are supported:
 
+- a **file URI** (`file://`)
+- a **URL** (`http://`)
+- an **endpoint name**. Use a plain string (without `file://` or `http://`) to ensure the source is interpreted as an endpoint in the `[[httpost]]` section in the Kapacitor configuration.
+
+#### Source examples
+##### File source
 
 ```js
-sideload.source(value string)
+|sideload()
+  .source('file:///path/to/dir')
+  .order('host/{{.host}}.yml', 'hostgroup/{{.hostgroup}}.yml')
+  .field('cpu_threshold', 0.0)
+  .tag('foo', 'unknown')
+```
+##### URL source
+
+```js
+|sideload()
+  .source('http://localhost:5000/threshold/')
+  .order('host/{{.host}}.yml', 'hostgroup/{{.hostgroup}}.yml')
+  .field('cpu_threshold', 0.0)
+  .tag('foo', 'unknown')
+```
+
+##### Endpoint source
+
+```js
+|sideload()
+  .source('host1')
+  .order('host/{{.host}}.yml', 'hostgroup/{{.hostgroup}}.yml')
+  .field('cpu_threshold', 0.0)
+  .tag('foo', 'unknown')
+```
+
+{{% note %}}
+Kapacitor loads **URL** or **endpoint** sources once using an HTTP `GET` request when a task is enabled, and then on subsequent calls to the `/sideload/reload` endpoint.
+{{% /note %}}
+
+An HTTP source endpoint should return a JSON object where each property is a key name specified in the order statement and its value is an object with a set of key-value pairs.
+
+```js
+{
+    "host1": {
+        "cpu_threshold": 99.9,
+        "disable": "false"
+    },
+    "host2": {
+        "cpu_threshold": 85,
+        "disable": "true"
+    },
+    "host3": {
+        "cpu_threshold": 56,
+        "disable": "false"
+    }
+}
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
-
 ### Tag
 
 Tag is the name of a tag to load from the source and its default value.
