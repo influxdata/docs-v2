@@ -20,12 +20,12 @@ USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
 USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
 ```
 
-- Upgrade to Axios 0.21.1.
 - Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
 
 ### Bug Fixes
 
 - Repair ARMv5 build.
+- Upgrade to Axios 0.21.1.
 - Stop async executions on unmounted LogsPage.
 - Repair dashboard import to remap sources in variables.
 - UI updates:
