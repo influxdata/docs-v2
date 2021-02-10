@@ -244,13 +244,11 @@ When installed as a service, InfluxDB stores data in the following locations:
 #### Pass arguments to systemd
 
 1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
-
    ```
    ARG1="--http-bind-address :8087"
    ARG2="<another argument here>"
    ```
 2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
-
    ```
    ExecStart=/usr/bin/influxd $ARG1 $ARG2
    ```
