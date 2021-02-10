@@ -153,11 +153,7 @@ sideload.quiet()
 
 ### Source
 
-<<<<<<< HEAD
 Define the source of the data. The following sources are supported:
-=======
-Source for the data, for example `file://` or `http://`.
->>>>>>> master
 
 - a **file URI** (`file://`)
 - a **URL** (`http://`)
