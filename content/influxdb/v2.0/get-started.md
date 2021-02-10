@@ -241,7 +241,7 @@ When installed as a service, InfluxDB stores data in the following locations:
 - **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
 - **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
 
-### Pass arguments to systemd
+#### Pass arguments to systemd
 
 1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
 
