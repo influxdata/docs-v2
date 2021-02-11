@@ -43,7 +43,22 @@ Since many users will only care about their aggregates and not every single metr
 gathered, there is also a `drop_original` argument, which tells Telegraf to only
 emit the aggregates and not the original metrics.
 
-**NOTE** Since aggregator plugins only aggregate metrics within their periods,
-historical data is not supported. In other words, if your metric timestamp is more
-than `now() - period` in the past, it will not be aggregated. If this is a feature
-that you need, please comment on this [GitHub issue](https://github.com/influxdata/telegraf/issues/1992).
+{{% note %}}
+#### Aggregator plugins do not support historical data
+Since aggregator plugins only aggregate metrics within their periods,
+historical data is not supported.
+In other words, if your metric timestamp is more
+than `now() - period` in the past, it is not aggregated.
+
+For more information, see [influxdata/telegraf#1992](https://github.com/influxdata/telegraf/issues/1992).
+{{% /note %}}
+
+{{% note %}}
+#### Behavior of processors and aggregators when used together
+When using both aggregator and processor plugins in Telegraf v1.17, processor plugins
+process each batch of data and then pass the processed data to aggregator plugins.
+After aggregating points, processor plugins process the aggregated data again.
+This can have unintended consequences, such as executing mathematical operations twice.
+
+For more information, see [influxdata/telegraf#7993](https://github.com/influxdata/telegraf/issues/7993).
+{{% /note %}}
