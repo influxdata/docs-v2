@@ -130,13 +130,12 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **X & Y Axis**: Show only the point being currently hovered over.
 
 ###### X Axis
-- **X Axis Tick Generator**:
-  - **Auto**: X-axis timestamp ticks are automatically generated.
-  - **Custom**: Customize how many timestamp ticks appear.
-    - **Total Ticks**: The total number of timestamp ticks to display.
-    - **Tick Start**: The time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
-    - **Date Picker**: 
-    - **Tick Step**: The number of milliseconds in between each timestamp tick.
+- **Generate X Axis Tick Marks**:
+- **Auto**: Automatically generate tick marks.
+- **Custom**: Customize how many timestamp ticks appear.
+- **Total Tick Marks**: The total number of timestamp ticks to display.
+- **Start Tick Marks At**: The time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
+- **Tick Mark Interval**: The number of milliseconds in between each timestamp tick.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
@@ -146,8 +145,21 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **Binary**: Binary multiple prefix.
 - **Y Axis Prefix**: Prefix to be added to y-value.
 - **Y Axis Suffix**: Suffix to be added to y-value.
+- **Generate X Axis Tick Marks**:
+- **Auto**: Automatically generate tick marks.
+- **Custom**: Customize how many timestamp ticks appear.
+- **Total Tick Marks**: The total number of timestamp ticks to display.
+- **Start Tick Marks At**: The value to start displaying ticks for our y-axis data.
+- **Tick Mark Interval**: The number of milliseconds in between each timestamp tick.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
+
+###### Legend
+- **Legend Orientation**: Determines the orientation of the legend that appears upon hover.
+  - **Horizontal**: Display the legend horizontally.
+  - **Vertical**: Display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Display legend rows in colors. 
