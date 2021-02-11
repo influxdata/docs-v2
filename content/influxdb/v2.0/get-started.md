@@ -209,36 +209,59 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-{{% note %}}
-The following instructions have been tested on Ubuntu, and should work similarly on other Linux distributions.
-{{% /note %}}
+1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
+    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+    with the following commands:
 
-1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
-   with the following commands:
+    ```sh
+    # Ubuntu/Debian
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx.deb
+    sudo dpkg -i influxdb2_2.x.x_xxx.deb
 
-   ```sh
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx
-   sudo dpkg -i influxdb2-2.x.x-xxx
-   ```
+    # Red Hat/CentOS/Fedora
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx.rpm
+    sudo yum localinstall influxdb2_2.x.x_xxx.deb.rpm
+    ```
+    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-2.0.3-amd64.rpm`)._
 
-   _Use the exact filename of the download of `.deb` package (for example, `influxdb2-2.0.4-amd64.deb`)._
+2.  Start the InfluxDB service:
 
-2. Start the InfluxDB service:
+    ```sh
+    sudo service influxdb start
+    ```
 
-   ```sh
-   sudo service influxdb start
-   ```
-
-   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
-   to start InfluxDB as a background service on startup.
+    Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+    to start InfluxDB as a background service on startup.
 
 3. Restart your system and verify that the service is running correctly:
 
+    ```
+    $  sudo service influxdb status
+    ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+      Active: active (running)
+    ```
+
+When installed as a service, InfluxDB stores data in the following locations:
+
+- **Time series data:** `/var/lib/influxdb/engine/`
+- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
+- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
+
+To customize your InfluxDB configuration, use either
+[command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
+See InfluxDB [configuration options](/influxdb/v2.0/reference/config-options/) for more information.
+
+#### Pass arguments to systemd
+
+1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
    ```
-   $  sudo service influxdb status
-   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
-     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
-     Active: active (running)
+   ARG1="--http-bind-address :8087"
+   ARG2="<another argument here>"
+   ```
+2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
+   ```
+   ExecStart=/usr/bin/influxd $ARG1 $ARG2
    ```
 
 ### Networking ports
@@ -323,15 +346,20 @@ docker exec -it influxdb /bin/bash
 
 ### Install InfluxDB in a Kubernetes cluster
 
-The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
+The instructions below use **minikube** or **kind**, but the steps should be similar in any Kubernetes cluster.
 InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) available.
 
-1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
+1. Install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or
+   [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).
 
-2. Start Minikube:
+2. Start a local cluster:
 
     ```sh
+    # with minikube
     minikube start
+
+    # with kind
+    kind create cluster
     ```
 
 3. Apply the [sample InfluxDB configuration](https://github.com/influxdata/docs-v2/blob/master/static/downloads/influxdb-k8-minikube.yaml) by running:
