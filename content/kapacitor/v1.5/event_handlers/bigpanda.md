@@ -105,6 +105,5 @@ stream
     .warn(lambda: "total_used" > 80)
     .crit(lambda: "total_used" > 90)
     .stateChangesOnly()
-    .bigPanda()
-      .appKey('...')
+    .appKey('...')
 ```
