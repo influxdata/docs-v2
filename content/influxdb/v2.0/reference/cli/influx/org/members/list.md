@@ -26,3 +26,13 @@ influx org members list [flags]
 | `-n` | `--name`         | Organization name                                          | string      | `INFLUX_ORG`          |
 |      | `--skip-verify`  | Skip TLS certificate verification                          |             |                       |
 | `-t` | `--token`        | Authentication token                                       | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### List members of an organization
+```sh
+influx org members list \
+  --name example-org
+```

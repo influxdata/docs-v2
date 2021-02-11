@@ -132,6 +132,6 @@ Flux queries can be extended in many ways to form powerful scripts.
 
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/">Get started with Flux</a>
+  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>

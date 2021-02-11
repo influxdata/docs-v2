@@ -7,7 +7,6 @@
   font-weight: $medium;
   color: $g20-white;
   box-shadow: 2px 2px 6px rgba($g2-kevlar, .35);
-  z-index: 10;
 
   // temp styles for animation
   transition: margin .3s ease-out;
@@ -63,5 +62,25 @@
 
   &.start-position {
     margin-top: 2.5rem
+  }
+}
+
+///////////////////////////////// Media Queries ////////////////////////////////
+
+@include media(small) {
+  #callout-url-selector {
+    top: .55rem;
+    right: 5.15rem;
+
+    p:after {
+      top: .15rem;
+      right: -16px;
+      border-width: 7px 0 7px 8px;
+      border-color: transparent transparent transparent #C231D9;
+    }
+
+    &.start-position {
+      margin-top: 2.5rem
+    }
   }
 }

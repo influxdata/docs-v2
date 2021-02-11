@@ -3,11 +3,32 @@ title: InfluxDB Enterprise 1.8 release notes
 description: >
   Important changes and and what's new in each version InfluxDB Enterprise.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     name: Release notes
     weight: 10
     parent: About the project
 ---
+
+## v1.8.4 [2020-02-08]
+
+The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+
+   > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
+
+### Features
+
+#### Update your InfluxDB Enterprise license without restarting nodes
+
+- Add a new InfluxDB Enterprise license key (or license file) to your configuration settings to **upgrade without restarting your data nodes**. Restart your meta nodes as usual.
+For more information, see how to update the license on your [meta nodes](/enterprise_influxdb/v1.8/administration/config-meta-nodes/#enterprise-license-settings) and [data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes/#enterprise-license-settings).
+
+### Bug fixes
+
+- Wrap TCP mux–based HTTP server with a function that adds custom headers.
+- Correct output for `influxd-ctl show shards`.
+- Properly encode/decode `control.Shard.Err`.
 
 ## v1.8.2 [2020-08-24]
 

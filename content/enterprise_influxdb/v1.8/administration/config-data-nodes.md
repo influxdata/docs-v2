@@ -1181,6 +1181,12 @@ Controls whether queries are logged when executed by the CQ service.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
 
+#### `query-stats-enabled = false`
+
+Write continuous query execution statistics to the default monitor store.
+
+Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
+
 #### `run-interval = "1s"`
 
 The interval for how often continuous queries will be checked whether they need to run.

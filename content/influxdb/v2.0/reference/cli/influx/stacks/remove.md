@@ -18,7 +18,7 @@ The `influx stacks remove` command removes an InfluxDB stack and all associated 
 influx stacks remove [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `remove`, `rm`, `uninstall`
 
 ## Flags
@@ -31,8 +31,17 @@ influx stacks remove [flags]
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |                 | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string          | `INFLUX_HOST`         |
 |      | `--json`          | Output data as JSON (default `false`)                                 |                 | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`           | Organization name                                                     | string          | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID                                                       | string          | `INFLUX_ORG_ID`       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string          | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string          | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |                 |                       |
 |      | `--stack-id`      | Stack IDs to remove                                                   | list of strings |                       |
 | `-t` | `--token`         | Authentication token                                                  | string          | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Remove a stack and all of its associated resources
+```sh
+influx stacks remove --stack-id 0Xx0oox00XXoxxoo1
+```

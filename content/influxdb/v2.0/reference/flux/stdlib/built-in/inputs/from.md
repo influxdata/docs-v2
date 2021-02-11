@@ -10,7 +10,7 @@ menu:
     parent: built-in-inputs
 weight: 401
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#from-clause, InfluxQL - FROM
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
 ---
 
 The `from()` function retrieves data from an InfluxDB data source.
@@ -19,7 +19,6 @@ Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
 _**Function type:** Input_  
-_**Output data type:** Record_
 
 ```js
 from(
@@ -39,13 +38,17 @@ from(
 )
 ```
 
-## Parameters
-
 {{% note %}}
-[host](#host), [org](#org) or [orgID](#orgid), and [token](#token) parameters
-are only required when querying data from a **different organization** or a
-**remote InfluxDB instance**.
+#### Query remote InfluxDB data sources
+Use `from()` to retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
+To query remote InfluxDB sources, include the [host](#host), [token](#token), and
+[org](#org) (or [orgID](#orgid)) parameters.
+
+`from()` **cannot retrieve data** from **remote** InfluxDB OSS 1.x or InfluxDB Enterprise 1.x data sources
+_(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 {{% /note %}}
+
+## Parameters
 
 ### bucket
 Name of the bucket to query.

@@ -68,6 +68,7 @@ _**Data type:** Record_
 ## Examples
 
 ##### Get the status of InfluxDB OSS
+{{< keep-url >}}
 ```js
 import "influxdata/influxdb/secrets"
 import "experimental/http"

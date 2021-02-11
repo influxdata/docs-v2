@@ -23,7 +23,7 @@ If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade
 
 Specifically, the upgrade process does the following:
 
-1. Reads the existing InfluxDB 1.x configuration file and generates an equivalent InfluxDB 2.0 configuration file at `~/.influxdbv2/config.toml`.
+1. Reads the existing InfluxDB 1.x configuration file and generates an equivalent InfluxDB 2.0 configuration file at `~/.influxdbv2/config.toml` or at a custom path specified with the `--v2-config-path` flag.
 2. Upgrades metadata and storage engine paths to `~/.influxdbv2/meta` and `~/.influxdbv2/engine`, respectively (unless otherwise specified).
 3. Writes existing data and write ahead log (WAL) files into InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 4. Creates [database and retention policy (DBRP) mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) required to query data with InfluxQL.
@@ -55,7 +55,7 @@ InfluxDB 2.0 requires 64-bit operating systems.
 {{% /warn %}}
 
 InfluxDB 2.0 is currently available for macOS and Linux.
-Docker images, ARM builds, and Windows builds are not currently available,
+Docker images and Windows builds are not currently available,
 but are planned for subsequent releases.
 
 ### Continuous queries
@@ -138,7 +138,7 @@ and test your credentials to ensure your applications, agents, and visualization
 
 If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
 but client requests to InfluxDB 2.0 may be silently ignored (you won't see a notification the request was denied).
- 
+
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
@@ -164,6 +164,12 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 
     ```sh
     influxd upgrade --config-file <path to v1 config file>
+    ```
+
+    To store the upgraded 2.0 configuration file in a custom location, include the `--v2-config-path` flag:
+
+    ```sh
+    influxd upgrade --v2-config-path <destination path for v2 config file>
     ```
 
 5. Follow the prompts to set up a new InfluxDB 2.0 instance.

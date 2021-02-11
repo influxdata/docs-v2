@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/concepts/clustering/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     name: Clustering
     weight: 10
     parent: Concepts
@@ -17,30 +17,17 @@ This document describes in detail how clustering works in InfluxDB Enterprise. I
 
 An InfluxDB Enterprise installation consists of three separate software processes: data nodes, meta nodes, and the Enterprise web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
 
-```text
-    ┌───────┐     ┌───────┐
-    │       │     │       │
-    │ Meta1 │◀───▶│ Meta2 │
-    │       │     │       │
-    └───────┘     └───────┘
-        ▲             ▲
-        │             │
-        │  ┌───────┐  │
-        │  │       │  │
-        └─▶│ Meta3 │◀─┘
-           │       │
-           └───────┘
+{{< diagram >}}
+flowchart TB
+  subgraph meta[Meta Nodes]
+      Meta1 <-- TCP :8089 --> Meta2 <-- TCP :8089 --> Meta3
+  end
+  meta <-- HTTP :8091 --> data
+  subgraph data[Data Nodes]
+    Data1 <-- TCP :8088 --> Data2
+  end
+{{< /diagram >}}
 
-─────────────────────────────────
-          ╲│╱    ╲│╱
-      ┌────┘      └──────┐
-      │                  │
-  ┌───────┐          ┌───────┐
-  │       │          │       │
-  │ Data1 │◀────────▶│ Data2 │
-  │       │          │       │
-  └───────┘          └───────┘
-```
 
 The meta nodes communicate with each other via a TCP protocol and the Raft consensus protocol that all use port `8089` by default. This port must be reachable between the meta nodes. The meta nodes also expose an HTTP API bound to port `8091` by default that the `influxd-ctl` command uses.
 

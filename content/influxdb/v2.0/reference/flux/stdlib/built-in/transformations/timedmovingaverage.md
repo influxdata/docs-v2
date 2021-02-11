@@ -53,7 +53,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Calculate a seven day moving average every day
+###### Calculate a five year moving average every year
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -7y)
@@ -64,7 +64,7 @@ from(bucket: "example-bucket"):
   |> timedMovingAverage(every: 1y, period: 5y)
 ```
 
-###### Calculate a five year moving average every year
+###### Calculate a seven day moving average every day
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -50d)

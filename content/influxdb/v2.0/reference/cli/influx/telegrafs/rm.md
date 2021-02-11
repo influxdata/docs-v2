@@ -16,7 +16,7 @@ The `influx telegrafs rm` command removes Telegraf configurations from InfluxDB.
 influx telegrafs rm [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `rm`, `remove`
 
 ## Flags
@@ -26,14 +26,23 @@ influx telegrafs rm [flags]
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`   |
 | `-h` | `--help`          | Help for the `rm` command                                             |             |                        |
 |      | `--hide-headers`  | Hide the table headers                                                |             | `$INFLUX_HIDE_HEADERS` |
-| `-i` | `--id`            | Telegraf configuration ID to remove                                   | strings     |                        |
+| `-i` | `--id`            | Telegraf configuration ID to remove                                   | stringArray |                        |
 |      | `--json`          | Output data as json                                                   |             | `$INFLUX_OUTPUT_JSON`  |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                        |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`         |
 
 ## Examples
-```sh
-# Remove a single Telegraf configuration
-influx telegrafs rm -i $ID
 
-# Remove multiple Telegraf configurations
-influx telegrafs rm -i $ID1 -i $ID2
+{{< cli/influx-creds-note >}}
+
+##### Remove a Telegraf configuration
+```sh
+influx telegrafs rm --id ab12cd34ef56
+```
+
+##### Remove multiple Telegraf configurations
+```sh
+influx telegrafs rm \
+  --i 0Xx0oox00XXoxxoo1 \
+  --i oox0Xx0ox00XXxoo2
 ```

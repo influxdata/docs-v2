@@ -63,5 +63,5 @@ _**Data type:** Function_
 ```js
 import "influxdata/influxdb/monitor"
 
-monitor.logs(start: -1h)
+monitor.logs(start: -2h, fn: (r) => true)
 ```

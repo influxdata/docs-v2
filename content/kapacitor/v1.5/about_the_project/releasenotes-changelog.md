@@ -6,6 +6,39 @@ menu:
     parent: About the project
 ---
 
+
+## v1.5.8 [2020-01-27]
+
+## Breaking changes
+
+- Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
+
+## Features
+
+#### New event handler
+
+- Add new [BigPanda event handler](/kapacitor/v1.5/event_handlers/bigpanda).
+
+#### New configuration options
+
+- Add support for the `correlate` option in the [Alerta event handler](/kapacitor/v1.5/event_handlers/alerta/), thanks @nermolaev!
+- Add the `details` option to the [OpsGenie v2 event handler](/kapacitor/v1.5/event_handlers/opsgenie/v2/); set this option to `true` to use the Kapacitor alert details as OpsGenie description text, thanks @JamesClonk!
+
+#### Support for HTTP sources in SideLoadNode
+
+- Add support for HTTP [sources](/kapacitor/v1.5/nodes/sideload_node/#source) in `SideloadNode` configuration, thanks @jregovic!
+
+#### Performance and security improvements
+
+- Add the InfluxDB `subscription-path` option to allow Kapacitor to run behind a reverse proxy, thanks @aspring!
+  For more information, see the example in [Kapacitor to InfluxDB TLS configuration over HTTP API](/kapacitor/v1.5/administration/security/#secure-influxdb-and-kapacitor).
+- Send data to InfluxDB compressed as `gzip` by default. Although, this default configuration does not appear in the Kapacitor configuration file, you can add `compression = "none"` to the [InfluxDB section](/kapacitor/v1.5/administration/configuration/#influxdb) of your Kapacitor configuration file.
+- Preallocate `GroupIDs` to increase performance by reducing allocations.
+
+### Bug fixes
+
+- Rename the alert-handler match function `duration()` to `alertDuration()` to avoid name collision with the type conversion function of the same name.
+
 ## v1.5.7 [2020-10-26]
 
 ## Features

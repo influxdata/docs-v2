@@ -6,13 +6,13 @@ menu:
     name: influxdb.cardinality
     parent: influxdb-pkg
 weight: 301
-influxdb/v2.0/tags: [cardinality]
+influxdb/cloud/tags: [cardinality]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality, SHOW CARDINALITY in InfluxQL
 introduced: 0.92.0
 ---
 
-The `influxdb.cardinality()` function returns the [series cardinality](/{{< latest "influxdb" "v2" >}}/reference/glossary#series-cardinality) of data stored in InfluxDB Cloud.
+The `influxdb.cardinality()` function returns the [series cardinality](/influxdb/cloud/reference/glossary#series-cardinality) of data stored in InfluxDB Cloud.
 
 {{% cloud %}}
 **InfluxDB Cloud** supports the `influxdb.cardinality()` function, but **InfluxDB OSS does not**.
@@ -68,12 +68,13 @@ _**Data type:** String_
 
 ### host
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/influxdb/cloud/reference/urls/)._
+_See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions) or
+[InfluxDB OSS URLs](/influxdb/cloud/reference/urls/)._
 
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/{{< latest "influxdb" "v2" >}}/security/tokens/).
+InfluxDB [authentication token](/influxdb/cloud/security/tokens/).
 
 _**Data type:** String_
 
@@ -109,8 +110,8 @@ _**Data type:** Function_
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket"
-  start: -1y,
+  bucket: "example-bucket",
+  start: -1y
 )
 ```
 
@@ -119,7 +120,7 @@ influxdb.cardinality(
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket"
+  bucket: "example-bucket",
   start: -1y,
   predicate: (r) => r._measurement == "example-measurement"
 )
@@ -130,7 +131,7 @@ influxdb.cardinality(
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket"
+  bucket: "example-bucket",
   start: -1y,
   predicate: (r) => r.exampleTag == "foo"
 )

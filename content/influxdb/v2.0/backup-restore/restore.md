@@ -33,10 +33,10 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
     ```sh
     # Syntax
-    influxd restore <path-to-backup-directory>
+    influx restore <path-to-backup-directory>
 
     # Example
-    influxd restore ~/backups/2020-01-20_12-00/
+    influx restore ~/backups/2020-01-20_12-00/
     ```
 
     _For more information about restore options and flags, see the

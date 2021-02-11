@@ -1,7 +1,7 @@
 ---
 title: influx setup
 description: >
-  The `influx setup` command walks through the initial InfluxDB setup process,
+  The `influx setup` command walks through the initial InfluxDB OSS setup process,
   creating a default user, organization, and bucket.
 menu:
   influxdb_2_0_ref:
@@ -9,10 +9,19 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [get-started]
+related:
+  - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/setup/
 ---
 
-The `influx setup` command walks through the initial InfluxDB setup process,
+The `influx setup` command walks through the initial InfluxDB OSS setup process,
 creating a default user, organization, and bucket.
+
+{{% note %}}
+The **Admin token** created in the InfluxDB setup process has full read and write
+access to all organizations in the database.
+{{% /note %}}
 
 ## Usage
 ```
@@ -39,3 +48,20 @@ influx setup [flags]
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
 milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
 {{% /note %}}
+
+## Examples
+
+##### Start interactive InfluxDB setup
+```sh
+influx setup
+```
+
+##### Set up InfluxDB with all required information and skip confirmation
+```sh
+influx setup \
+  --org example-org \
+  --bucket example-bucket \
+  --username example-user \
+  --password ExAmPl3PA55W0rD \
+  --force  
+```

@@ -4,9 +4,11 @@ description: >
   Monitor and repair shards on InfluxDB Enterprise data nodes the InfluxDB Anti-Entropy API.
 menu:
   enterprise_influxdb_1_8:
-    name: Anti-Entropy API
+    name: Anti-entropy API
     weight: 70
-    parent: Administration
+    parent: Use Anti-entropy service
+aliases:
+  - /enterprise_influxdb/v1.8/administration/anti-entropy-api/
 ---
 
 >**Note:** The Anti-Entropy API is available from the meta nodes and is only available when the Anti-Entropy service is enabled in the data node configuration settings. For information on the configuration settings, see

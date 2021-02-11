@@ -7,6 +7,7 @@ menu:
     name: influx user update
     parent: influx user
 weight: 201
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/update/
 ---
 
 The `influx user update` command updates information related to a user in InfluxDB.
@@ -24,8 +25,19 @@ influx user update [flags]
 | `-h` | `--help`          | Help for the `update` command                                         |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`            | **(Required)** User ID                                                | string      |                       |
+| `-i` | `--id`            | ({{< req >}}) User ID                                                 | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Username                                                              | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update a username
+```sh
+influx user update \
+  --id 0Xx0oox00XXoxxoo1 \
+  --name new-username
+```

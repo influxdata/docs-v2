@@ -1,7 +1,8 @@
 ---
 title: influx v1 dbrp
 description: >
-  The `influx v1 dbrp` subcommands provide database retention policy (DBRP) mapping management for the InfluxDB 1.x compatibility API.
+  The `influx v1 dbrp` subcommands manage database and retention policy mappings (DBRP)
+  for the [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 menu:
   influxdb_2_0_ref:
     name: influx v1 dbrp
@@ -10,7 +11,8 @@ weight: 101
 influxdb/v2.0/tags: [DBRP]
 ---
 
-The `influx v1 dbrp` subcommands provide database retention policy (DBRP) management for the [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
+The `influx v1 dbrp` subcommands manage database and retention policy mappings (DBRP)
+for the [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 
 ## Usage
 ```
