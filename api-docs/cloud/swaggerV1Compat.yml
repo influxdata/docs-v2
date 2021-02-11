@@ -118,7 +118,7 @@ paths:
           name: Accept
           schema:
             type: string
-            description: Specifies how query results should be encoded in the response.
+            description: Specifies how query results should be encoded in the response. **Note:** When using `application/csv`, query results include epoch timestamps instead of RFC3339 timestamps.
             default: application/json
             enum:
               - application/json
