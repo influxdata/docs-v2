@@ -8,6 +8,53 @@ menu:
     name: Flux
 ---
 
+## v0.105.0 [2021-02-03]
+
+### Features
+- Add `interval` package to `window` transformation.
+
+---
+
+## v0.104.0 [2021-02-02]
+
+### Features
+- Reintroduce `IsZero` method on time windows.
+
+### Bug fixes
+- Break parse loop when invalid array item is found.
+
+---
+
+## v0.103.0 [2021-02-01]
+
+### Features
+- Add `testing/expect` package for test expectations.
+
+### Bug fixes
+- Change the default test discovery path from `./stdlib` to `.`.
+
+---
+
+## v0.102.0 [2021-01-25]
+
+### Features
+- Add `fluxdoc` command to generate JSON and HTML from Flux source code.
+- Improve performance of random access group lookup by utilizing `xxhash`.
+- Improve performance for accessing data within a `Value`.
+
+### Bug fixes
+- Clean up `interval` package.
+
+---
+
+## v0.101.0 [2021-01-19]
+
+### Features
+- Validate IP addresses from the dialer `Control` function.
+- Expose `test` command to be used by external libraries.
+
+---
+
 ## v0.100.0 [2021-01-07]
 
 ### Features

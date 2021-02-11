@@ -43,7 +43,6 @@ option task = {
     every: 1h,
     offset: 0m,
     concurrency: 1,
-    retry: 5
 }
 ```
 
@@ -63,7 +62,7 @@ For convenience, consider creating a variable that includes the sourced data wit
 the required time range and any relevant filters.
 
 ```js
-data = from(bucket: "telegraf/default")
+data = from(bucket: "example-bucket")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -121,7 +120,7 @@ to send the transformed data to another bucket:
 
 ```js
 // ...
-|> to(bucket: "telegraf_downsampled", org: "my-org")
+|> to(bucket: "example-downsampled", org: "my-org")
 ```
 
 {{% note %}}
@@ -139,11 +138,10 @@ option task = {
     every: 1h,
     offset: 0m,
     concurrency: 1,
-    retry: 5
 }
 
 // Data source
-data = from(bucket: "telegraf/default")
+data = from(bucket: "example-bucket")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -157,6 +155,6 @@ data
     fn: mean
   )
   // Data destination
-  |> to(bucket: "telegraf_downsampled")
+  |> to(bucket: "example-downsampled")
 
 ```
