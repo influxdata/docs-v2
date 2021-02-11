@@ -17,9 +17,10 @@ influxd inspect [subcommand]
 ```
 
 ## Subcommands
-| Subcommand                                                                 | Description           |
-|:----------                                                                 |:-----------           |
-| [export-index](/influxdb/v2.0/reference/cli/influxd/inspect/export-index/) | Export TSI index data |
+| Subcommand                                                                 | Description                      |
+|:----------                                                                 |:-----------                      |
+| [export-index](/influxdb/v2.0/reference/cli/influxd/inspect/export-index/) | Export TSI index data            |
+| [export-lp](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/)       | Export TSM data to line protocol |
 
 <!-- | [build-tsi](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/)                    | Rebuild the TSI index and series file | -->
 <!-- | [compact-series-file](/influxdb/v2.0/reference/cli/influxd/inspect/compact-series-file) | Compact the series file               | -->
