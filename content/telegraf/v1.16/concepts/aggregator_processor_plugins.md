@@ -3,7 +3,7 @@ title: Telegraf aggregator and processor plugins
 description: Aggregator and processor plugins work between the input plugins and output plugins to aggregate and process metrics in Telegraf.
 menu:
   telegraf_1_16:
-    name: Aggregator and processor plugins
+    name: Aggregator & processor plugins
     weight: 20
     parent: Concepts
 ---
@@ -56,9 +56,11 @@ For more information, see [influxdata/telegraf#1992](https://github.com/influxda
 {{% note %}}
 #### Behavior of processors and aggregators when used together
 When using both aggregator and processor plugins in Telegraf v1.17, processor plugins
-process each batch of data and then pass the processed data to aggregator plugins.
-After aggregating points, processor plugins process the aggregated data again.
+process data and then pass it to aggregator plugins.
+After aggregator plugins aggregate the data, they pass it back to processor plugins.
 This can have unintended consequences, such as executing mathematical operations twice.
+_See [influxdata/telegraf#7993](https://github.com/influxdata/telegraf/issues/7993)._
 
-For more information, see [influxdata/telegraf#7993](https://github.com/influxdata/telegraf/issues/7993).
+If using custom processor scripts, they must be idempotent (repeatable, without side-effects).
+For custom processes that are not idempotent, use [namepass or namedrop](/telegraf/v1.17/administration/configuration/#input-config-namepass-and-namedrop) to avoid issues when aggregated data is processed a second time.
 {{% /note %}}
