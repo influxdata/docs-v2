@@ -19,11 +19,9 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ### Features
 
-#### Update your InfluxDB Enterprise license without restarting nodes
+#### Update your InfluxDB Enterprise license without restarting data nodes
 
-- Add a new InfluxDB Enterprise license key (or license file) to your configuration settings to **upgrade without restarting your data nodes**. Restart your meta nodes as usual.
-For more information, see how to update the license on your [meta nodes](/enterprise_influxdb/v1.8/administration/config-meta-nodes/#enterprise-license-settings) and [data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes/#enterprise-license-settings).
-
+Add the ability to [renew or update your license key or file](/enterprise_influxdb/v1.8/administration/renew-license/) without restarting data nodes.
 ### Bug fixes
 
 - Wrap TCP mux–based HTTP server with a function that adds custom headers.

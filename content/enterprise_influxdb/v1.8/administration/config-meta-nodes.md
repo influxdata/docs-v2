@@ -47,7 +47,6 @@ Environment variable: `INFLUXDB_HOSTNAME`
 -----
 
 ### Enterprise license settings
-
 #### `[enterprise]`
 
 The `[enterprise]` section contains the parameters for the meta node's
@@ -66,10 +65,7 @@ Use the same key for all nodes in the same cluster.
 {{% warn %}}The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-InfluxData recommends performing rolling restarts on the nodes after the license key update.
-Restart one meta node or data node service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a
-time as long as there are two or more data nodes.
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -88,17 +84,11 @@ Each server in the cluster independently verifies its license.
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-InfluxData recommends performing rolling restarts on the nodes after the
-license file update.
-Restart one meta node or data node service at a time and wait for it to come back
-up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a
-time as long as there are two or more data nodes.
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 
 -----
-
 ### Meta node settings
 
 #### `[meta]`
