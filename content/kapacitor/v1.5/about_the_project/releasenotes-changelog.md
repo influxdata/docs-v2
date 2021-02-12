@@ -6,10 +6,13 @@ menu:
     parent: About the project
 ---
 
-
 ## v1.5.8 [2020-01-27]
 
-## Breaking changes
+{{% warn %}}
+If you've installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a regression in batch tasks that may cause data loss.
+{{% /warn %}}
+
+<!--## Breaking changes
 
 - Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
 
@@ -38,6 +41,8 @@ menu:
 ### Bug fixes
 
 - Rename the alert-handler match function `duration()` to `alertDuration()` to avoid name collision with the type conversion function of the same name.
+
+-->
 
 ## v1.5.7 [2020-10-26]
 
