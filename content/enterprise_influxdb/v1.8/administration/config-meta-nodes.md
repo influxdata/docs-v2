@@ -65,7 +65,7 @@ Use the same key for all nodes in the same cluster.
 {{% warn %}}The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** See how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -84,7 +84,7 @@ Each server in the cluster independently verifies its license.
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** See how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 

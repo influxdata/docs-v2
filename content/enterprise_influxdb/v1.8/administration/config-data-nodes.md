@@ -94,7 +94,7 @@ The `license-key` and `license-path` settings are
 mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** See how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -107,7 +107,7 @@ Contact [sales@influxdb.com](mailto:sales@influxdb.com) if a license file is req
 The license file should be saved on every server in the cluster, including Meta, Data, and Enterprise nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user. Each server in the cluster independently verifies its license.
 
-> **Note:** See how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 {{% warn %}}
 Use the same license file for all nodes in the same cluster.
