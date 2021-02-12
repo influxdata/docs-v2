@@ -9,7 +9,7 @@ menu:
 ## v1.5.8 [2020-01-27]
 
 {{% warn %}}
-If you've installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a regression in batch tasks that may cause data loss.
+If you’ve installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a defect wherein large batch tasks will not completely write all points back to InfluxDB. This primarily affects downsampling tasks where information is written to another retention policy. If the source retention policy is short there is the potential for the source data to age out and the downsample to have never been fully written.
 {{% /warn %}}
 
 <!--## Breaking changes
