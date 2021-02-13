@@ -19,8 +19,8 @@ InfluxDB client libraries are developed by the open source community. These clie
 Thanks to the open source community for your contributions, commitment, and effort!
 
 ## C++
-* [influxdb-cxx](https://github.com/awegrzyn/influxdb-cxx.git)
-  * Maintained by [Adam Wegrzynek (awegrzyn)](https://github.com/awegrzyn)
+* [influxdb-cxx](https://github.com/offa/influxdb-cxx)
+  * Maintained by [offa](https://github.com/offa)
 
 ## Elixir
 
