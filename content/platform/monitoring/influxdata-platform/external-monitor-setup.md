@@ -98,7 +98,7 @@ from the local Kapacitor `/debug/vars` endpoint.
 ```toml
 # ...
 
-[[inputs.influxdb]]
+[[inputs.kapacitor]]
   # ...
   ## Multiple URLs from which to read Kapacitor-formatted JSON
   ## Default is "http://localhost:9092/kapacitor/v1/debug/vars".
