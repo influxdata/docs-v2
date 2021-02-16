@@ -1,4 +1,4 @@
-baseURL = "https://docs.influxdata.com/"
+baseURL = "https://test2.docs.influxdata.com/"
 languageCode = "en-us"
 title = "InfluxDB Documentation"
 
