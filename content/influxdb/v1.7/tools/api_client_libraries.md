@@ -1,6 +1,6 @@
 ---
 title: InfluxDB client libraries
-description: InfluxDB client libraries include support for Elixir, Go, Haskell, Java, JavaScript/Node.js, Lisp, MATLAB, .Net, Perl, PHP, Python, R, Ruby, Rust, Scala, Sensu, and the SNMP agent.
+description: InfluxDB client libraries include support for Elixir, C++, Go, Haskell, Java, JavaScript/Node.js, Lisp, MATLAB, .Net, Perl, PHP, Python, R, Ruby, Rust, Scala, Sensu, and the SNMP agent.
 aliases:
     - /influxdb/v1.7/clients/api_client_libraries/
     - /influxdb/v1.7/clients/
