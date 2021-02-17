@@ -9,11 +9,11 @@ menu:
     weight: 40
 weight: 6
 aliases:
-  - /telegraf/v1.16/plugins/plugins-list/
-  - /telegraf/v1.16/plugins/aggregators/
-  - /telegraf/v1.16/plugins/inputs/
-  - /telegraf/v1.16/plugins/outputs/
-  - /telegraf/v1.16/plugins/processors/
+  - /telegraf/v1.17/plugins/plugins-list/
+  - /telegraf/v1.17/plugins/aggregators/
+  - /telegraf/v1.17/plugins/inputs/
+  - /telegraf/v1.17/plugins/outputs/
+  - /telegraf/v1.17/plugins/processors/
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.

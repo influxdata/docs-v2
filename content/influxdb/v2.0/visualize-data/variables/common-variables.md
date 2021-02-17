@@ -46,7 +46,7 @@ import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
   bucket: "bucket-name",
-  measurement: "measurment-name",
+  measurement: "measurement-name",
   tag: "_field"
 )
 ```

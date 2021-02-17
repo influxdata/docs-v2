@@ -8,6 +8,13 @@ menu:
     name: Flux
 ---
 
+## v0.105.0 [2021-02-03]
+
+### Features
+- Add `interval` package to `window` transformation.
+
+---
+
 ## v0.104.0 [2021-02-02]
 
 ### Features

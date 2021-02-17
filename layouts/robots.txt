@@ -1,0 +1,1 @@
+User-agent: *{{ if ne .Site.BaseURL "https://docs.influxdata.com/" }} Disallow: /{{ end }}

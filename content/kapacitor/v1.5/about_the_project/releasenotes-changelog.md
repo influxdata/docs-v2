@@ -6,10 +6,13 @@ menu:
     parent: About the project
 ---
 
-
 ## v1.5.8 [2020-01-27]
 
-## Breaking changes
+{{% warn %}}
+If you’ve installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a defect wherein large batch tasks will not completely write all points back to InfluxDB. This primarily affects downsampling tasks where information is written to another retention policy. If the source retention policy is short there is the potential for the source data to age out and the downsample to have never been fully written.
+{{% /warn %}}
+
+<!--## Breaking changes
 
 - Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
 
@@ -38,6 +41,8 @@ menu:
 ### Bug fixes
 
 - Rename the alert-handler match function `duration()` to `alertDuration()` to avoid name collision with the type conversion function of the same name.
+
+-->
 
 ## v1.5.7 [2020-10-26]
 
