@@ -31,7 +31,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
    - In the **Upper Column Name** field, select a function for the upper boundary.
    - In the **Main Column Name** field, select a function for the main boundary.
    - In the **Lower Column Name** field, select a function for the lower boundary.
-6. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](options) and [Y Axis](y-axis) below.
+6. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
 
     **Tip:** If you do not see shaded boundaries in the **Band Plot** visualization, verify the query window period includes a sufficient number of data points for the selected aggregate function. By default, the window period is automatically set to ten seconds (`10s`). To adjust your window period, select **Custom**, and then enter a supported time unit (for example nanoseconds (`ns`), microseconds (`us`), milliseconds (`ms`), seconds (`s`), or hours (`h`).
 

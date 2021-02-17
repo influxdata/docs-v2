@@ -58,7 +58,7 @@ Restart the InfluxDB service for your configuration changes to take effect:
 
 ### Step 3: Create an admin user.
 
-Because authentication is enabled, you need to create an [admin user](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) before you can do anything else in the database.
+Because authentication is enabled, you need to create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) before you can do anything else in the database.
 Run the `curl` command below to create an admin user, replacing:
 
 * `localhost` with the IP or hostname of your InfluxDB OSS instance or one of your InfluxDB Enterprise data nodes
@@ -92,7 +92,7 @@ On the **Chronograf Admin** page:
 ![InfluxDB OSS user management](/img/chronograf/1-6-admin-usermanagement-oss.png)
 
 InfluxDB users are either admin users or non-admin users.
-See InfluxDB's [authentication and authorization](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) documentation for more information about those user types.
+See InfluxDB's [authentication and authorization](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) documentation for more information about those user types.
 
 > ***Note:*** Note that Chronograf currently does not support assigning InfluxDB database `READ`or `WRITE` access to non-admin users.
 >This is a known issue.
@@ -189,15 +189,15 @@ Permission to create databases, create [retention policies](/{{< latest "influxd
 Permission to manage users and roles; create users, drop users, grant admin status to users, grant permissions to users, revoke admin status from users, revoke permissions from users, change user passwords, view user permissions, and view users and their admin status.
 
 **Relevant InfluxQL queries**:
-[`CREATE USER`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`DROP USER`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#general-admin-and-non-admin-user-management),
-[`GRANT ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`GRANT [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management),
-[`REVOKE ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`REVOKE [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management),
-[`SET PASSWORD`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#general-admin-and-non-admin-user-management),
-[`SHOW GRANTS`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management), and
-[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands)
+[`CREATE USER`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`DROP USER`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#general-admin-and-non-admin-user-management),
+[`GRANT ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`GRANT [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management),
+[`REVOKE ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`REVOKE [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management),
+[`SET PASSWORD`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#general-admin-and-non-admin-user-management),
+[`SHOW GRANTS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management), and
+[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands)
 
 **Pages in Chronograf that require this permission**: Data Explorer, Dashboards, Users and Roles on the Admin page
 

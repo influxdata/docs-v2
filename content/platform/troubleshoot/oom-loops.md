@@ -55,7 +55,7 @@ into what queries have room for optimization.
 #### View your InfluxDB logs
 
 If a query is killed, it is logged by InfluxDB.
-View your [InfluxDB logs](/influxdb/latest/administration/logs/) for hints as to what queries are being killed.
+View your [InfluxDB logs](/{{< latest "influxdb" "v1" >}}/administration/logs/) for hints as to what queries are being killed.
 
 #### Estimate query cost
 

@@ -35,7 +35,7 @@ Users looking to upgrade to InfluxDB 1.4 from versions prior to 1.3 should view 
 [Differences between InfluxDB 0.12 and InfluxDB 0.11](/influxdb/v0.12/concepts/011_vs_012/)
 
 ##### 0.10 users:
-[Differences between InfluxDB 0.11 and InfluxDB 0.10](/influxdb/v1.3/concepts/010_vs_011/)
+[Differences between InfluxDB 0.11 and InfluxDB 0.10](/influxdb/v1.3/administration/previous_differences/)
 
 ##### 0.9 users:
 [Differences between InfluxDB 0.9 and InfluxDB 0.10](/influxdb/v0.10/concepts/09_vs_010/)

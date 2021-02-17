@@ -9,6 +9,7 @@ menu:
     name: Manage multiple users
 aliases:
   - /influxdb/v2.0/account-management/multi-user/
+  - /influxdb/cloud/users/
 ---
 
 {{< cloud-name >}} accounts support multiple users in an organization.

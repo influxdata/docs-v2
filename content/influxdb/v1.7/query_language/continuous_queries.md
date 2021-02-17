@@ -983,4 +983,4 @@ Kapacitor, InfluxData's data processing engine, can do the same work as
 continuous queries in InfluxDB databases.
 
 To learn when to use Kapacitor instead of InfluxDB and how to perform the same CQ
-functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/examples/continuous_queries/).
+functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/guides/continuous_queries/).

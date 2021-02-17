@@ -65,7 +65,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 ## Features
 
 - Add [Microsoft Teams event handler](/kapacitor/v1.5/event_handlers/microsoftteams/), thanks @mmindenhall!
-- Add [Discord event handler](/kapacitor/v1.5/event_handler/discord/), thanks @mattnotmitt!
+- Add [Discord event handler](/kapacitor/v1.5/event_handlers/discord/), thanks @mattnotmitt!
 - Add [support for TLS 1.3](/kapacitor/v1.5/administration/configuration/#transport-layer-security-tls-settings).
 
 ### Bug fixes

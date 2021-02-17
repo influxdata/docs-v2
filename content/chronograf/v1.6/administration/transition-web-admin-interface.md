@@ -8,7 +8,7 @@ aliases:
   - /chronograf/v1.6/guides/transition-web-admin-interface/
 ---
 
-Versions 1.3 and later of [InfluxDB](/{{< latest "influxdb" "v1" >}}/) and [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) do not support the [web admin interface](/{{< latest "influxdb" "v1" >}}/tools/web_admin/), the builtin user interface for writing and querying data in InfluxDB.
+Versions 1.3 and later of [InfluxDB](/{{< latest "influxdb" "v1" >}}/) and [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) do not support the [web admin interface](https://archive.docs.influxdata.com/influxdb/v1.2/tools/web_admin/), the builtin user interface for writing and querying data in InfluxDB.
 Chronograf replaces the web admin interface with improved tooling for querying data, writing data, and database management.
 
 The following sections describe the Chronograf features that relate to the web admin interface:
