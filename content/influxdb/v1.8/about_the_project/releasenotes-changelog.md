@@ -10,9 +10,6 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
 ## v1.8.4 [2021-02-01]
-
-   > **Note:** InfluxDB 1.8.3 was not released. Features and bug fixes intended for 1.8.3 were rolled into InfluxDB 1.8.4.
-
 ### Features
 
 - Use the latest version of InfluxQL package.
@@ -32,6 +29,21 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
  
     Now, these durations are logged correctly.
     
+- ArrayFilterCursor truncation for multi-block data.
+- Multi-measurement queries now return all applicable series.
+- Lock map before writes.
+
+## v1.8.3 [2020-09-30]
+
+### Features
+
+- Use latest version of InfluxQL package.
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
+- Add the ability to track number of values written via `/debug/vars`.
+- Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
+
+### Bug fixes
+
 - ArrayFilterCursor truncation for multi-block data.
 - Multi-measurement queries now return all applicable series.
 - Lock map before writes.
