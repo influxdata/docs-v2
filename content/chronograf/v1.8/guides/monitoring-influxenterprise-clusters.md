@@ -2,7 +2,7 @@
 title: Monitor InfluxDB Enterprise clusters
 description: Use Chronograf dashboards with an InfluxDB OSS server to measure and monitor InfluxDB Enterprise clusters.
 aliases:
-  - /chronograf/v1.8/guides/monitor-an-influxenterprise-cluster/
+  - /chronograf/v1.8/guides/monitor-an-InfluxDB Enterprise-cluster/
 menu:
   chronograf_1_8:
     weight: 80
@@ -10,20 +10,20 @@ menu:
 
 ---
 
-[InfluxEnterprise](/{{< latest "enterprise_influxdb" >}}/) offers high availability and a highly scalable clustering solution for your time series data needs.
+[InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) offers high availability and a highly scalable clustering solution for your time series data needs.
 Use Chronograf to assess your cluster's health and to monitor the infrastructure behind your project.
 
-This guide offers step-by-step instructions for using Chronograf, [InfluxDB](/{{< latest "influxdb" "v1" >}}/), and [Telegraf](/{{< latest "telegraf" >}}/) to monitor data nodes in your InfluxEnterprise cluster.
+This guide offers step-by-step instructions for using Chronograf, [InfluxDB](/{{< latest "influxdb" "v1" >}}/), and [Telegraf](/{{< latest "telegraf" >}}/) to monitor data nodes in your InfluxDB Enterprise cluster.
 
 ## Requirements
 
-You have a fully-functioning InfluxEnterprise cluster with authentication enabled.
-See the InfluxEnterprise documentation for
+You have a fully-functioning InfluxDB Enterprise cluster with authentication enabled.
+See the InfluxDB Enterprise documentation for
 [detailed setup instructions](/{{< latest "enterprise_influxdb" >}}/production_installation/).
 This guide uses an InfluxData Enterprise cluster with three meta nodes and three data nodes; the steps are also applicable to other cluster configurations.
 
 InfluxData recommends using a separate server to store your monitoring data.
-It is possible to store the monitoring data in your cluster and [connect the cluster to Chronograf](/chronograf/v1.8/troubleshooting/frequently-asked-questions/#how-do-i-connect-chronograf-to-an-influxenterprise-cluster), but, in general, your monitoring data should live on a separate server.
+It is possible to store the monitoring data in your cluster and [connect the cluster to Chronograf](/chronograf/v1.8/troubleshooting/frequently-asked-questions/#how-do-i-connect-chronograf-to-an-InfluxDB Enterprise-cluster), but, in general, your monitoring data should live on a separate server.
 
 You're working on an Ubuntu installation.
 Chronograf and the other components of the TICK stack are supported on several operating systems and hardware architectures. Check out the [downloads page](https://portal.influxdata.com/downloads) for links to the binaries of your choice.
@@ -34,7 +34,7 @@ Before we begin, here's an overview of the final monitoring setup:
 
 ![Architecture diagram](/img/chronograf/1-6-cluster-diagram.png)
 
-The diagram above shows an InfluxEnterprise cluster that consists of three meta nodes (M) and three data nodes (D).
+The diagram above shows an InfluxDB Enterprise cluster that consists of three meta nodes (M) and three data nodes (D).
 Each data node has its own [Telegraf](/{{< latest "telegraf" >}}/) instance (T).
 
 Each Telegraf instance is configured to collect node CPU, disk, and memory data using the Telegraf [system stats](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugin.

@@ -11,7 +11,7 @@ menu:
     parent: Introduction
 ---
 
-Now that you successfully [installed and set up](/enterprise_influxdb/v1.8/introduction/meta_node_installation/) InfluxDB Enterprise, use [Chronograf to setup your cluster as a data source.](/{{< latest "chronograf" >}}/guides/monitor-an-influxenterprise-cluster/)
+Now that you successfully [installed and set up](/enterprise_influxdb/v1.8/introduction/meta_node_installation/) InfluxDB Enterprise, use [Chronograf to setup your cluster as a data source.](/{{< latest "chronograf" >}}/guides/monitor-an-InfluxDB Enterprise-cluster/)
 
 More details on leveraging [Chronograf and getting started are available.](/{{< latest "chronograf" >}}/introduction/getting-started/)
 

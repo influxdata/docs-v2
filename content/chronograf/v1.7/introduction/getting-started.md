@@ -23,5 +23,5 @@ Chronograf allows you to quickly see data you have stored in InfluxDB so you can
 * Use [alert endpoints](/chronograf/v1.7/guides/configuring-alert-endpoints/) in Chronograf to send alert messages to specific URLs and applications.
 
 ### Infrastructure monitoring
-* [View all hosts](/chronograf/v1.7/guides/monitoring-influxenterprise-clusters/#step-4-explore-the-monitoring-data-in-chronograf) and their statuses in your infrastructure.
+* [View all hosts](/chronograf/v1.7/guides/monitoring-InfluxDB Enterprise-clusters/#step-4-explore-the-monitoring-data-in-chronograf) and their statuses in your infrastructure.
 * [Use pre-created dashboards](/chronograf/v1.7/guides/using-precreated-dashboards/) to monitor your applications.

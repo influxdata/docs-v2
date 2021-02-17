@@ -156,13 +156,13 @@ Assign permissions and roles to both admin and non-admin users.
 #### AddRemoveNode
 Permission to add or remove nodes from a cluster.
 
-**Relevant `influxd-ctl` arguments**:
-[`add-data`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#add-data),
-[`add-meta`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#add-meta),
-[`join`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#join),
-[`remove-data`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#remove-data),
-[`remove-meta`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#remove-meta), and
-[`leave`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#leave)
+**Relevant `influxd-ctl` commands**:
+[`add-data`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#add-data),
+[`add-meta`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#add-meta),
+[`join`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#join),
+[`remove-data`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#remove-data),
+[`remove-meta`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#remove-meta), and
+[`leave`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#leave)
 
 **Pages in Chronograf that require this permission**: NA
 
@@ -170,7 +170,7 @@ Permission to add or remove nodes from a cluster.
 Permission to copy shards.
 
 **Relevant `influxd-ctl` arguments**:
-[copy-shard](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#copy-shard)
+[copy-shard](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#copy-shard)
 
 **Pages in Chronograf that require this permission**: NA
 
