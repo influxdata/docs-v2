@@ -10,15 +10,8 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
 ## v1.8.4 [2021-02-01]
-
-   > **Note:** InfluxDB 1.8.3 was not released. Features and bug fixes intended for 1.8.3 were rolled into InfluxDB 1.8.4.
-
 ### Features
 
-- Use the latest version of InfluxQL package.
-- Add `-lponly` flag to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export).
-- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
-- Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 - Add `stat_total_allocated` to Flux logging.
  To ensure Flux logging is enabled, set both `flux-enabled` and `flux-log-enabled` to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
 
@@ -31,7 +24,18 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
   - `stat_execute_duration`
  
     Now, these durations are logged correctly.
-    
+
+## v1.8.3 [2020-09-30]
+
+### Features
+
+- Use latest version of InfluxQL package.
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
+- Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
+
+### Bug fixes
+
 - ArrayFilterCursor truncation for multi-block data.
 - Multi-measurement queries now return all applicable series.
 - Lock map before writes.
