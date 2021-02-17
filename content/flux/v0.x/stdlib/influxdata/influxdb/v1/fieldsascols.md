@@ -13,6 +13,7 @@ menu:
     name: v1.fieldsAsCols
     parent: v1
 weight: 301
+flux/v0.x/tags: [transformations]
 introduced: 0.16.0
 deprecated: 0.88.0
 ---

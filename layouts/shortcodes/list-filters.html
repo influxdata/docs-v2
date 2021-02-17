@@ -1,14 +1,17 @@
-<div id="plugin-filters">
+{{ $source := .Get 0 | default "telegraf"}}
 
-  {{ range .Site.Data.telegraf_plugin_filters.filters }}
+<div id="list-filters">
+
+  {{ range ( index .Site.Data.list_filters $source) }}
   {{ $numValues := len .values }}
   <div class="filter-category{{ if gt $numValues 6 }} two-columns{{ else if gt $numValues 12 }} three-columns{{ end }}">
     <h5>{{ .category }}</h5>
     <ul class="filter-list">
       {{ range .values }}
+        {{ $value := lower (replaceRE `[ /]` "-" . ) }}
         <li>
-          <label for="{{ lower . }}" data-count="(0)">
-            <input type="checkbox" id="{{ lower . }}" name="{{ lower . }}">
+          <label for="{{ $value }}" data-count="(0)">
+            <input type="checkbox" id="{{ $value }}" name="{{ $value }}">
             <span class="checkbox"></span>
             {{ . }}
           </label>

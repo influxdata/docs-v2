@@ -12,6 +12,7 @@ menu:
     name: timeShift
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations, date/time]
 introduced: 0.7.0
 ---
 

@@ -11,7 +11,7 @@ menu:
     name: min
     parent: universe
 weight: 102
-flux/v0.x/tags: [selectors]
+flux/v0.x/tags: [selectors, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#min, InfluxQL – MIN()
 introduced: 0.7.0

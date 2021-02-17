@@ -13,6 +13,7 @@ menu:
     name: kaufmansER
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/kaufmansama/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()

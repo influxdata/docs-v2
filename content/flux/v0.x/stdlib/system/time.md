@@ -12,6 +12,7 @@ menu:
     name: system.time
     parent: system
 weight: 401
+flux/v0.x/tags: [date/time]
 related:
   - /flux/v0.x/stdlib/universe/now/
 introduced: 0.18.0

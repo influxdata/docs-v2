@@ -10,6 +10,7 @@ menu:
     name: query.filterFields
     parent: query
 weight: 401
+flux/v0.x/tags: [transformations]
 introduced: 0.60.0
 ---
 

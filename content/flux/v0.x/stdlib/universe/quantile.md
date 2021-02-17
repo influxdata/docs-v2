@@ -12,7 +12,7 @@ menu:
     name: quantile
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, selectors, transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/percentile-quantile/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()

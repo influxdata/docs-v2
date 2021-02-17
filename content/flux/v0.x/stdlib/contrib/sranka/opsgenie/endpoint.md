@@ -10,6 +10,7 @@ menu:
     name: opsgenie.endpoint
     parent: opsgenie
 weight: 301
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.84.0
 ---
 

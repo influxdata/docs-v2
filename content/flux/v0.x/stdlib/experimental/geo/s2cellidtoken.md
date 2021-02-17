@@ -10,7 +10,7 @@ menu:
     name: geo.s2CellIDToken
     parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo]
+flux/v0.x/tags: [geotemporal, geo]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0

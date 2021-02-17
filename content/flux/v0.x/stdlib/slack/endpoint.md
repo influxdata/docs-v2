@@ -11,7 +11,7 @@ menu:
     name: slack.endpoint
     parent: slack
 weight: 202
-flux/v0.x/tags: [endpoints]
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.41.0
 ---
 

@@ -10,7 +10,7 @@ menu:
     name: geo.gridFilter
     parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo]
+flux/v0.x/tags: [transformations, geotemporal, geo]
 related:
   - /flux/v0.x/stdlib/experimental/geo/strictfilter/
   - /flux/v0.x/stdlib/experimental/geo/filterRows/

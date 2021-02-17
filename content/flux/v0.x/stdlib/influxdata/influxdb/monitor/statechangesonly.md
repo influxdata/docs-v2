@@ -11,6 +11,7 @@ menu:
     name: monitor.stateChangesOnly
     parent: monitor
 weight: 202
+flux/v0.x/tags: [transformations]
 introduced: 0.65.0
 ---
 

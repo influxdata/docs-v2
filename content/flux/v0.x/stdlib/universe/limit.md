@@ -11,6 +11,7 @@ menu:
     name: limit
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
   - /flux/v0.x/stdlib/universe/tail/

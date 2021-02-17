@@ -13,6 +13,7 @@ menu:
     name: holtWinters
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
 introduced: 0.38.0

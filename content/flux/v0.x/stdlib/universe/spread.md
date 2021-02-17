@@ -11,7 +11,7 @@ menu:
     name: spread
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
 introduced: 0.7.0

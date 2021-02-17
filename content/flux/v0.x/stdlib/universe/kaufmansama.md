@@ -13,6 +13,7 @@ menu:
     name: kaufmansAMA
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/kaufmanser/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()

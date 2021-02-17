@@ -11,6 +11,7 @@ menu:
     name: window
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/window-aggregate/
   - /flux/v0.x/stdlib/built-in/universe/aggregatewindow/

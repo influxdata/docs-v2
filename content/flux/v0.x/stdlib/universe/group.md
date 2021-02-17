@@ -11,6 +11,7 @@ menu:
     name: group
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/group-data/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY

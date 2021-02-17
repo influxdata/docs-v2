@@ -8,20 +8,20 @@
 {{ range where $.Site.RegularPages.ByTitle "Section" $section }}
   {{ $title := cond (isset .Page.Params "list_title") (replaceRE `\ function` "" .Page.Params.list_title) (replaceRE `\ function` "" .Title) }}
   {{ $deprecated := isset .Page.Params "deprecated" }}
-  {{ $tagList := index .Page.Params $tagTaxonomy | default "" }}
+  {{ $tagList := index .Page.Params $tagTaxonomy | default (slice "") }}
 
   {{ if ne $filters "" }}
     {{ if gt (len (intersect $filterArr (index .Page.Params $tagTaxonomy))) 0}}
       {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
         <li>
-          <a href="{{ .RelPermalink }}" data-tags='{{ delimit $tagList "," }}'>{{ $title }}</a>{{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+          <a href="{{ .RelPermalink }}">{{ $title }}</a>{{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
         </li>
       {{ end }}
     {{ end }}
   {{ else }}
     {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
-      <li>
-        <a href="{{ .RelPermalink }}" data-tags="{{ $tagList }}">{{ $title }}</a> {{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+      <li class="filter-item visible" data-tags='{{ replaceRE "/" "-" (delimit (apply $tagList "urlize" ".") " ") }}'>
+        <a href="{{ .RelPermalink }}">{{ $title }}</a> {{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
       </li>
     {{ end }}
   {{ end }}

@@ -11,7 +11,7 @@ menu:
     name: toFloat
     parent: universe
 weight: 102
-flux/v0.x/tags: [type-conversions]
+flux/v0.x/tags: [type-conversions, transformations]
 introduced: 0.7.0
 ---
 

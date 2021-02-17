@@ -1,8 +1,8 @@
 ---
-title: Flux function types and behaviors
+title: Flux function types and categories
 description: >
   Flux functions each share a set of behaviors or traits that define how the function works.
-  View high-level function behavior categories that represent distinct and important function behaviors.
+  View high-level function types and categories that represent distinct and important function behaviors.
 menu:
   flux_0_x_ref:
     name: Function types
@@ -50,18 +50,17 @@ Flux functions each share a set of behaviors or traits that define how the funct
 The following categories represent high-level function behaviors.
 This list is not all-inclusive, but covers distinct and important function behaviors.
 
+## Function types
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [Transformations](#transformations)
   - [Aggregates](#aggregates)
   - [Selectors](#selectors)
 - [Dynamic queries](#dynamic-queries)
-- [Type conversions](#type-conversions)
-- [Tests](#tests)
 
 ---
 
-## Inputs
+### Inputs
 Flux input functions return data from data sources.
 The following input functions are available:
 
@@ -69,7 +68,7 @@ The following input functions are available:
 
 ---
 
-## Outputs
+### Outputs
 Flux output functions yield results or send data to a specified output destination.
 The following output functions are are available:
 
@@ -77,7 +76,7 @@ The following output functions are are available:
 
 ---
 
-## Transformations
+### Transformations
 Flux transformation take a stream of tables as input, transform the data in some way,
 and output a stream of tables.
 Transformations cover a broad range of functions, but the following categorizations
@@ -87,14 +86,14 @@ highlight important behaviors associated with specific transformation functions.
 - [Selectors](#selectors)
 
 {{% note %}}
-#### aggregateWindow helper function
+##### aggregateWindow helper function
 The [`aggregateWindow()` function](/flux/v0.x/stdlib/universe/aggregatewindow)
 windows or groups data by time and applies an aggregate or selector function
 to input tables.
 **All aggregate and selector functions** work with `aggregateWindow()`.
 {{% /note %}}
 
-### Aggregates
+#### Aggregates
 Flux's aggregate transformations take values from an input table and aggregate them in some way.
 Output tables contain a single row with the aggregated value.
 
@@ -112,7 +111,7 @@ Any output table will have the following properties:
 
 {{< list-all-functions filters="aggregates" >}}
 
-#### Aggregate selectors
+##### Aggregate selectors
 The following functions are both aggregates and selectors.
 Each returns `n` values after performing an aggregate operation.
 They are categorized as [selector functions](#selectors) in this documentation:
@@ -124,7 +123,7 @@ They are categorized as [selector functions](#selectors) in this documentation:
 - [lowestCurrent()](/flux/v0.x/stdlib/universe/lowestcurrent)
 - [lowestMin()](/flux/v0.x/stdlib/universe/lowestmin)
 
-### Selectors
+#### Selectors
 Flux selector functions return one or more records based on function logic.
 The output table is different than the input table, but individual row values are not.
 
@@ -132,7 +131,7 @@ The following selector functions are available:
 
 {{< list-all-functions filters="selectors" >}}
 
-#### Selectors and aggregates
+##### Selectors and aggregates
 The following functions can be used as both selectors or aggregates, but they are
 categorized as [aggregate functions](#aggregates) in this documentation:
 
@@ -141,7 +140,7 @@ categorized as [aggregate functions](#aggregates) in this documentation:
 
 ---
 
-## Dynamic queries
+### Dynamic queries
 Flux dynamic query functions extract a table from a stream of tables and access its
 columns and records.
 For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flux/scalar-values/).
@@ -150,7 +149,13 @@ For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flu
 
 ---
 
-## Type conversions
+## Function categories
+
+- [Type conversions](#type-conversions)
+- [Tests](#tests)
+- [Date/time](#datetime)
+
+### Type conversions
 Flux type conversion functions convert scalar values or columns to a specific data type.
 The following type conversion functions are available:
 
@@ -158,9 +163,22 @@ The following type conversion functions are available:
 
 ---
 
-## Tests
+### Tests
 Flux testing functions test various aspects of data.
 Tests return either `true` or `false`, a transformed stream of tables, or, upon failure, an error.
 The following testing functions are available:
 
 {{< list-all-functions filters="tests" >}}
+
+---
+
+## Date/time
+Flux date/time functions return or manipulate [time](/flux/v0.x/spec/types/#time-types)
+or [duration](/flux/v0.x/spec/types/#duration-types) values.
+
+{{< list-all-functions filters="date/time" >}}
+
+---
+
+## Metadata
+Flux metadata functions return metadata from the input stream or from an underlying data source.

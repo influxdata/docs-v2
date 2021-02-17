@@ -11,7 +11,7 @@ menu:
     name: geo.ST_Length
     parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo, GIS]
+flux/v0.x/tags: [geotemporal, geo, GIS]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
@@ -20,8 +20,6 @@ introduced: 0.63.0
 The `geo.ST_Length()` function returns the [spherical length or distance](https://mathworld.wolfram.com/SphericalDistance.html)
 of the specified geographic information system (GIS) geometry.
 Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units).
-
-_**Function type:** Transformation_
 
 ```js
 import "experimental/geo"

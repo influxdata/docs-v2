@@ -11,6 +11,7 @@ menu:
     name: teams.endpoint
     parent: teams
 weight: 202
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.70.0
 ---
 

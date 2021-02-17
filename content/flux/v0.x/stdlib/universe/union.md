@@ -11,6 +11,7 @@ menu:
     name: union
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/join/
 introduced: 0.7.0

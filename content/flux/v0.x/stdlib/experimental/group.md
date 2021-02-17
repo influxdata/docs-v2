@@ -11,6 +11,7 @@ menu:
     name: experimental.group
     parent: experimental
 weight: 302
+flux/v0.x/tags: [transformations]
 related:
   - /flux/v0.x/stdlib/universe/group/
 introduced: 0.39.0

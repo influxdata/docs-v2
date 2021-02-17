@@ -11,6 +11,7 @@ menu:
     name: join
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/join/
   - /flux/v0.x/stdlib/universe/union/

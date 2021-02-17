@@ -1,4 +1,4 @@
-filters:
+telegraf:
   - category: Plugin type
     values:
       - Input
@@ -29,3 +29,21 @@ filters:
     values:
       - New
       - Deprecated
+
+flux:
+  - category: Function types
+    values:
+      - Inputs
+      - Outputs
+      - Transformations
+      - Aggregates
+      - Selectors
+      - Dynamic queries
+  - category: Function Categories
+    values:
+      - Type-conversions
+      - Tests
+      - Date/time
+      - Metadata
+      - Notification endpoints
+      - Geotemporal

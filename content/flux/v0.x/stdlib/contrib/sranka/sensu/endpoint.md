@@ -16,6 +16,7 @@ related:
   - https://docs.sensu.io/sensu-go/latest/api/events/, Sensu Events API
   - https://docs.sensu.io/sensu-go/latest/api/apikeys/, Sensu APIKeys API
   - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu handlers
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.90.0
 ---
 

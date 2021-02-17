@@ -12,6 +12,10 @@ menu:
 weight: 9
 ---
 
-This list below contains all documented Flux functions:
+This list below contains all documented Flux functions.
+For more information about Flux function types, behaviors, and categories,
+see [Flux function types and categories](/flux/v0.x/function-types/).
+
+{{< list-filters "flux" >}}
 
 {{< list-all-functions >}}

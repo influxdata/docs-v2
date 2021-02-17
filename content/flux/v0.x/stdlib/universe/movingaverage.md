@@ -12,6 +12,7 @@ menu:
     name: movingAverage
     parent: universe
 weight: 102
+flux/v0.x/tags: [transformations]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/moving-average/
   - /flux/v0.x/stdlib/universe/timedmovingaverage/

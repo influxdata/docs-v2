@@ -12,7 +12,7 @@ menu:
     name: influxdb.select
     parent: contrib_influxdb
 weight: 301
-flux/v0.x/tags: [functions, package, query]
+flux/v0.x/tags: [inputs]
 related:
   - /flux/v0.x/stdlib/universe/from/
   - /flux/v0.x/stdlib/universe/range/

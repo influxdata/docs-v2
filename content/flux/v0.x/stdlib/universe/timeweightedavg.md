@@ -9,7 +9,7 @@ menu:
     name: timeWeightedAvg
     parent: universe
 weight: 102
-flux/v0.x/tags: [aggregates]
+flux/v0.x/tags: [aggregates, transformations]
 related:
   - /flux/v0.x/stdlib/universe/integral/
 introduced: 0.83.0

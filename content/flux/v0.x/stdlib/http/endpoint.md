@@ -11,7 +11,7 @@ menu:
     name: http.endpoint
     parent: http
 weight: 202
-flux/v0.x/tags: [endpoints]
+flux/v0.x/tags: [notification endpoints]
 introduced: 0.39.0
 ---
 

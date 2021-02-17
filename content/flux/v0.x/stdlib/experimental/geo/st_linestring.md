@@ -11,7 +11,7 @@ menu:
     name: geo.ST_LineString
     parent: geo
 weight: 401
-flux/v0.x/tags: [functions, geo, GIS]
+flux/v0.x/tags: [transformations, geotemporal, geo, aggregates]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
