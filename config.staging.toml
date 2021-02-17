@@ -15,6 +15,10 @@ preserveTaxonomyNames = true
 # Generate a robots.txt
 enableRobotsTXT = true
 
+# Custom staging params
+[params]
+  environment = "staging"
+
 # Markdown rendering options
 [blackfriday]
 hrefTargetBlank = true

@@ -1,1 +1,1 @@
-User-agent: *{{ if ne .Site.BaseURL "https://docs.influxdata.com/" }} Disallow: /{{ end }}
+User-agent: *{{ if eq .Site.Params.environment "staging" }} Disallow: /{{ end }}
