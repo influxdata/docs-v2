@@ -16,9 +16,9 @@ menu:
 - MQTT Consumer (`mqtt_consumer`): Fix reconnection issues.
 - SNMP (`snmp`): Add support to expose IPv4/IPv6 as connection-schemes.
 - Ping (`ping`):
-        - Fix a timeout for `deadline` configuration.
-        - Update README with correct cmd for native ping on Linux.
-        - Fix percentile calculations.
+  - Fix a timeout for `deadline` configuration.
+  - Update README with correct cmd for native ping on Linux.
+  - Fix percentile calculations.
 ### Output plugin updates
 
 - Warp10 (`warp10`): url encode comma in tags value.
