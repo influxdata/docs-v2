@@ -154,7 +154,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## iis
 
-**Required Telegraf plugin:** [Windows Performance Counters input plugin](/telegraf/v1.8/plugins/inputs/#windows-performance-counters)
+**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#win_perf_counters)
 
 `win_websvc.json`
 
