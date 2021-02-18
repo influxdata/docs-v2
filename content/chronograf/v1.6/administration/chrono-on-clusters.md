@@ -19,4 +19,4 @@ Enter the HTTP bind address of one of your cluster's meta nodes into that input 
 Note that the example above assumes that you do not have authentication enabled.
 If you have authentication enabled, the form requires username and password information.
 
-For details about monitoring InfluxDB Enterprise clusters, see [Monitoring InfluxDB Enterprise clusters](/chronograf/v1.6/guides/monitoring-InfluxDB Enterprise-clusters/).
+For details about monitoring InfluxDB Enterprise clusters, see [Monitoring InfluxDB Enterprise clusters](/chronograf/v1.6/guides/monitoring-influxenterprise-clusters/).
