@@ -12,17 +12,18 @@ menu:
 ### Input plugin updates
 
 - Filestat (`filestat`): Skip missing files.
-- x509 Certificate (`x509_cert`): Fix a timeout issue.
 - MQTT Consumer (`mqtt_consumer`): Fix reconnection issues.
-- SNMP (`snmp`): Add support to expose IPv4/IPv6 as connection-schemes.
 - Ping (`ping`):
   - Fix a timeout for `deadline` configuration.
   - Update README with correct cmd for native ping on Linux.
   - Fix percentile calculations.
+- SNMP (`snmp`): Add support to expose IPv4/IPv6 as connection-schemes.
+- x509 Certificate (`x509_cert`): Fix a timeout issue.
+- 
 ### Output plugin updates
 
-- Warp10 (`warp10`): url encode comma in tags value.
 - InfluxDB v1.x (`influxdb`): Validate InfluxDB response after creating a database to avoid JSON parsing errors.
+- Warp10 (`warp10`): Add support for commas in tags to be URL encoded.
 
 ### Miscellaneous fixes and updates
 
