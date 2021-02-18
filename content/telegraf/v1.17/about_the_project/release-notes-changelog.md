@@ -9,6 +9,8 @@ menu:
 ---
 ## v.1.17.3 [2021-2-17]
 
+- Update to Go 1.15.8.
+
 ### Input plugin updates
 
 - Filestat (`filestat`): Skip missing files.
@@ -27,7 +29,6 @@ menu:
 
 ### Miscellaneous fixes and updates
 
-- Update to Go 1.15.8.
 - Telegraf configuration file (`telegraf.conf`): Resolve issue reading `flush_jitter` output.
 - Library updates:
    - Update `github.com/gopcua/opcua` to 0.1.13.
