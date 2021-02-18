@@ -6,6 +6,7 @@ menu:
     name: influxd
     weight: 10
     parent: Tools
+canonical: /{{< latest "influxdb" "v1" >}}/tools/influxd/
 v2: /influxdb/v2.0/reference/cli/influxd/
 ---
 

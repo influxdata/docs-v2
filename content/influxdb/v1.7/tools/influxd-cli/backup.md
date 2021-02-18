@@ -6,6 +6,7 @@ menu:
     name: influxd backup
     weight: 10
     parent: influxd
+canonical: /{{< latest "influxdb" "v1" >}}/tools/influxd/backup/
 v2: /influxdb/v2.0/reference/cli/influx/backup/
 ---
 
