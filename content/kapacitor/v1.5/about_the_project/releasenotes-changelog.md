@@ -338,7 +338,7 @@ Create the below snippet as the file `/tmp/prom/localhost.json`:
 Start the Prometheues `node_exporter` locally.
 
 Now, startup Kapacitor and it will discover the `localhost:9100` `node_exporter` target and begin scrapping it for metrics.
-For more details on the scraping and discovery systems, see the full documentation [here](/kapacitor/v1.3/pull_metrics/scraping-and-discovery/).
+For more details on the scraping and discovery systems, see the full documentation [here](/{{< latest "kapacitor" >}}/working/scraping-and-discovery/).
 
 The second major feature with this release are changes to the alert topic system.
 The previous release introduced this new system as a technical preview and with this release the alerting service has been simplified.
@@ -493,7 +493,7 @@ stream
 ```
 
 The API exposes endpoints to query the state of each alert and endpoints for configuring alert handlers.
-See the [API docs](/kapacitor/v1.5/api/api/) for more details.
+See the [API docs](/kapacitor/v1.5/working/api/) for more details.
 The kapacitor CLI has been updated with commands for defining alert handlers.
 
 This release introduces a new feature where you can window based off the number of points instead of their time.

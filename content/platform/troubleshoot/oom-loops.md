@@ -59,7 +59,7 @@ View your [InfluxDB logs](/{{< latest "influxdb" "v1" >}}/administration/logs/) 
 
 #### Estimate query cost
 
-InfluxQL's [`EXPLAIN` statement](/influxdb/latest/query_language/spec#explain)
+InfluxQL's [`EXPLAIN` statement](/{{< latest "influxdb" "v1" >}}/query_language/spec#explain)
 parses and plans a query, then outputs a summary of estimated costs.
 This allows you to estimate how resource-intensive a query may be before having to
 run the actual query.
@@ -86,7 +86,7 @@ SIZE OF BLOCKS: 23252999
 
 #### Analyze actual query cost
 
-InfluxQL's [`EXPLAIN ANALYZE` statement](/influxdb/latest/query_language/spec/#explain-analyze)
+InfluxQL's [`EXPLAIN ANALYZE` statement](/{{< latest "influxdb" "v1" >}}/query_language/spec/#explain-analyze)
 actually executes a query and counts the costs during runtime.
 
 ###### Example EXPLAIN ANALYZE statement
