@@ -4,7 +4,6 @@ about: Propose changes to InfluxData documentation content, structure, layout, e
 title: ''
 labels: Proposal
 assignees: ''
-
 ---
 
 _Describe your proposal here._
