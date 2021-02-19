@@ -263,3 +263,24 @@ This value must be the same value as the
 To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
+
+### TLS settings
+
+For more information, see the [TLS documentation for data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes#tls-settings).
+
+#### Recommended "modern compatibility" cipher settings
+
+```toml
+ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+            "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+            "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+            "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+            "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+            "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+]
+
+min-version = "tls1.2"
+
+max-version = "tls1.2"
+
+```
