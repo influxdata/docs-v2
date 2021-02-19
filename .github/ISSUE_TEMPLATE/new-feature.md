@@ -24,14 +24,14 @@ Include pertinent details, such as:
 
 <!--
 IMPORTANT
-1. For features tied to a specific product release, add a milestone using the
+1. Apply product labels to this issue as applicable. For example, if a feature
+   is included in both InfluxDB open source (OSS) and Cloud, add both
+   `InfluxDB v2` and `InfluxDB Cloud` labels.
+
+2. For features tied to a specific product release, add a milestone using the
    following convention:
 
    <product-name> <semantic-version>
 
    Examples: InfluxDB 2.0.5, Telegraf 1.18.0
-
-2. Apply product labels to this issue as applicable. For example, if a feature
-   is included in both InfluxDB open source (OSS) and Cloud, add both
-   `InfluxDB v2` and `InfluxDB Cloud` labels.
 -->
