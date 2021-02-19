@@ -13,7 +13,7 @@ _Describe the issue here._
 - _Provide relevant URLs (the doc page in question, project issues, community threads, etc.)_
 
 <!--
-For InfluxDB 2.0 documentation issues, create an issue in this repository. For project issues (bugs, unexpected behavior, etc.), create an issue in the appropriate project repository:
+For InfluxDB 2.0 documentation issues, create an issue in this repository. For software issues (bugs, unexpected behavior, etc.) in specific projects, create an issue in the appropriate repository:
 
 - InfluxDB issues at https://github.com/influxdata/influxdb
 - Telegraf issues at https://github.com/influxdata/telegraf
