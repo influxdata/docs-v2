@@ -98,6 +98,7 @@ For example, in the band chart above, the lines represent the mean `usage_system
 To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
 
 ###### Data
+
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
 - **Time Format**: Select the time format. Options include:
@@ -114,11 +115,13 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - `dddd, MMMM D, YYYY HH:mm:ss`
 
 ###### Aggregate functions
+
 - **Upper Column Name**: Aggregate function to display for upper bounds of data.
 - **Main Column Name**: Aggregate function to display for main graph line.
 - **Lower Column Name**: Aggregate function to display for lower bounds of data.
 
 ###### Options
+
 - **Interpolation**:
   - **Line**: Display a time series in a line graph.
   - **Smooth**: Display a time series in a line graph with smooth point interpolation.
@@ -130,36 +133,39 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **X & Y Axis**: Show only the point being currently hovered over.
 
 ###### X Axis
-- **Generate X Axis Tick Marks**:
-- **Auto**: Automatically generate tick marks.
-- **Custom**: Customize how many timestamp ticks appear.
-- **Total Tick Marks**: The total number of timestamp ticks to display.
-- **Start Tick Marks At**: The time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
-- **Tick Mark Interval**: The number of milliseconds in between each timestamp tick.
+
+- **Generate X Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter one of the following: total number of tick marks, when to start tick marks at, or tick mark interval.
+- **Total Tick Marks**: Enter the total number of timestamp ticks to display.
+- **Start Tick Marks At**: Enter the time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
+- **Tick Mark Interval**: Enter the number of milliseconds in between each timestamp tick.
 
 ###### Y Axis
-- **Y Axis Label**: Label for the y-axis.
-- **Y Value Unit Prefix**:
-  - **None**: No prefix.
-  - **SI**: International System of Units (SI) or metric prefix.
-  - **Binary**: Binary multiple prefix.
-- **Y Axis Prefix**: Prefix to be added to y-value.
-- **Y Axis Suffix**: Suffix to be added to y-value.
-- **Generate X Axis Tick Marks**:
-- **Auto**: Automatically generate tick marks.
-- **Custom**: Customize how many timestamp ticks appear.
-- **Total Tick Marks**: The total number of timestamp ticks to display.
-- **Start Tick Marks At**: The value to start displaying ticks for our y-axis data.
-- **Tick Mark Interval**: The number of milliseconds in between each timestamp tick.
-- **Y Axis Domain**: The y-axis value range.
-  - **Auto**: Automatically determine the value range based on values in the data set.
-  - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
-      - **Min**: Minimum y-axis value.
-      - **Max**: Maximum y-axis value.
+
+- **Y Axis Label**: Enter the label for the y-axis.
+- **Y Value Unit Prefix**: Select the prefix to add to the y-value:
+  - **None**: Select to include no prefix.
+  - **SI**: Select to add an International System of Units (SI) or metric prefix.
+  - **Binary**: Select to add a binary multiple prefix.
+- **Y Axis Prefix**: Enter the prefix to add to the y-value.
+- **Y Axis Suffix**: Enter the suffix to add to the y-value.
+- **Generate X Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the number of tick marks.
+  - **Total Tick Marks**: Enter the total number of timestamp ticks to display.
+  - **Start Tick Marks At**: Enter the value to start displaying ticks for our y-axis data.
+  - **Tick Mark Interval**: Enter the number of milliseconds in between each timestamp tick.
+- **Y Axis Domain**: Select the method to generate the y-axis value range:
+  - **Auto**: Select to automatically determine the value range based on values in the data set.
+  - **Custom**: To customize the y-axis domain, manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
+    - **Min**: Enter the minimum y-axis value.
+    - **Max**: Enter the maximum y-axis value.
 
 ###### Legend
-- **Legend Orientation**: Determines the orientation of the legend that appears upon hover.
-  - **Horizontal**: Display the legend horizontally.
-  - **Vertical**: Display the legend vertically.
+
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
-- **Colorize Rows**: Display legend rows in colors. 
+- **Colorize Rows**: Select to display legend rows in colors.
