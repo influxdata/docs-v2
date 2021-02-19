@@ -69,7 +69,7 @@ crosses certain thresholds. The example TICKscript [below](#example-tickscript-a
 sets warning and critical disk usage thresholds and sends a message to Slack
 whenever those thresholds are crossed.
 
-_For information about Kapacitor tasks and alerts, see the [Kapacitor alerts](/kapacitor/latest/working/alerts/) documentation._
+_For information about Kapacitor tasks and alerts, see the [Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/) documentation._
 
 #### Example TICKscript alert for disk usage
 ```

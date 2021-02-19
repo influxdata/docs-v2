@@ -949,6 +949,6 @@ precision data.
 
 Kapacitor, InfluxData's data processing engine, can do the same work as
 InfluxDB's CQs.
-Check out [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/examples/continuous_queries/) to learn when
+Check out [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/guides/continuous_queries/) to learn when
 to use Kapacitor instead of InfluxDB and how to perform the same CQ
 functionality with a TICKscript.

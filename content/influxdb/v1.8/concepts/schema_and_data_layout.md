@@ -47,7 +47,7 @@ In general, your queries should guide what gets stored as a tag and what gets st
 Not required, but simplifies writing queries because you won't have to wrap tag or field names in double quotes.
 See [InfluxQL](https://github.com/influxdata/influxql/blob/master/README.md#keywords) and [Flux](https://github.com/influxdata/flux/blob/master/docs/SPEC.md#keywords) keywords to avoid.
 
-Also, if a tag or field name contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/flux/latest/introduction/getting-started/syntax-basics/#objects) in Flux.
+Also, if a tag or field name contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/{{< latest "influxdb" "v2" >}}/query-data/get-started/syntax-basics/#records) in Flux.
 
 ### Discouraged schema design
 

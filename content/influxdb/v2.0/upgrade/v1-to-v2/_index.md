@@ -211,7 +211,7 @@ It is also saved (for troubleshooting and debugging) in the current directory to
 
 ### Post-upgrade
 
-To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](influxdb/v2.0/reference/cli/influx/v1/auth/list/).
+To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/).
 
 ## Further reading
 

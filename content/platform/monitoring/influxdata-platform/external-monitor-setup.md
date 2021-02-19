@@ -64,7 +64,7 @@ the host machine:
 - Swap
 - System (load, number of CPUs, number of users, uptime, etc.)
 
-Use other [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/inputs/) to collect
+Use other [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins) to collect
 a variety of metrics.
 
 #### Monitor InfluxDB performance metrics

@@ -14,11 +14,7 @@ related:
   - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
-The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
-
-{{% warn %}}
-Shut down the `influxd` server before restoring data.
-{{% /warn %}}
+The `influx restore` command restores backup data and metadata from an InfluxDB OSS backup directory.
 
 ### The restore process
 When restoring data from a backup file set, InfluxDB temporarily moves existing
@@ -82,5 +78,3 @@ influx restore \
   --new-bucket new-example-bucket \
   --input /path/to/backup/dir/
 ```
-
-

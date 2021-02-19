@@ -106,7 +106,7 @@ To configure Kapacitor with HipChat, the following is needed:
 
 Your token appears in the table just above the `Create new token` section:
 
-![HipChat token](/img/kapacitor/hipchat-token.png)
+![HipChat token](/img/kapacitor/1-4-hipchat-token.png)
 
 
 ##  Using the HipChat Event Handler

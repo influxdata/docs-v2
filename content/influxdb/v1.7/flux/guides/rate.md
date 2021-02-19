@@ -18,7 +18,7 @@ v2: /influxdb/v2.0/query-data/flux/rate/
 ---
 
 
-Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)
+Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/derivative/)
 to calculate the rate of change between subsequent values or the
 [`aggregate.rate()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
@@ -26,7 +26,7 @@ If time between points varies, these functions normalize points to a common time
 making values easily comparable.
 
 ## Rate of change between subsequent values
-Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/derivative/)
+Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/derivative/)
 to calculate the rate of change per unit of time between subsequent _non-null_ values.
 
 ```js

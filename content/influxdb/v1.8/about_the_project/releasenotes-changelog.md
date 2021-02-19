@@ -22,7 +22,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
   - `stat_total_duration`
   - `stat_compile_duration`
   - `stat_execute_duration`
- 
+
     Now, these durations are logged correctly.
 
 ## v1.8.3 [2020-09-30]
@@ -96,7 +96,7 @@ This release updates support for the Flux language and queries. To learn about F
 
 #### Forward compatibility
 
-- [InfluxDB 2.0 API compatibility endpoints](/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-20-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1.8/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.

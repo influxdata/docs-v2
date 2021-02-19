@@ -33,7 +33,7 @@ InfluxQL is a SQL-like query language you can use to interact with data in Influ
 
 ## Explore data with Flux
 
-Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/flux/v0.7/introduction/getting-started).
+Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
 > ***Note:*** Flux v0.7 is a technical preview included with [InfluxDB v1.7](/influxdb/v1.7). It is still in active development and many functions provided by InfluxQL and TICKscript have yet to be implemented.
 

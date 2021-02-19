@@ -6,7 +6,8 @@ menu:
     name: influxd restore
     weight: 10
     parent: influxd
-v2: /influxdb/v2.0/reference/cli/influxd/restore/
+canonical: /{{< latest "influxdb" "v1" >}}/tools/influxd/restore/
+v2: /influxdb/v2.0/reference/cli/influx/restore/
 ---
 The `influxd restore` command restores backup data and metadata from an InfluxDB backup directory.
 

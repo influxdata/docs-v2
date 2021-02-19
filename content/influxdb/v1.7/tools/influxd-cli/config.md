@@ -6,6 +6,7 @@ menu:
     name: influxd config
     weight: 10
     parent: influxd
+canonical: /{{< latest "influxdb" "v1" >}}/tools/influxd/config/
 ---
 The `influxd config` command displays the default configuration.
 
