@@ -162,6 +162,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - **Min**: Enter the minimum y-axis value.
     - **Max**: Enter the maximum y-axis value.
 
+<!--
 ###### Legend
 
 - **Legend Orientation**: Select the orientation of the legend that appears upon hover:
@@ -169,3 +170,5 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
+
+-->
