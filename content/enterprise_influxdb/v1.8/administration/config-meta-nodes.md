@@ -266,7 +266,7 @@ Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
 ### TLS settings
 
-For more information, see the [TLS settings for data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes#tls-settings).
+For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes#tls-settings).
 
 #### Recommended "modern compatibility" cipher settings
 
