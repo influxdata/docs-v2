@@ -13,7 +13,7 @@ menu:
   * [Global options](#global-options)
   * [Enterprise license `[enterprise]`](#enterprise)
   * [Meta node `[meta]`](#meta)
-  * [TLS [tls]](#tls-settings)
+  * [TLS `[tls]`](#tls-settings)
 
 ## Meta node configuration settings
 
