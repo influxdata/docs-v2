@@ -146,7 +146,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 - **Y Axis Label**: Enter the label for the y-axis.
 - **Y-Value Unit Prefix**: Select the prefix to add to the y-value:
   - **None**: Select to add no prefix.
-  - **SI**: Select to add an International System of Units (SI) or metric prefix.
+  - **SI**: (default) Select to add an International System of Units (SI) or metric prefix.
   - **Binary**: Select to add a binary multiple prefix.
 - **Y Axis Prefix**: Enter the prefix to add to the y-value.
 - **Y Axis Suffix**: Enter the suffix to add to the y-value.
