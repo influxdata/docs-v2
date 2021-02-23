@@ -12,7 +12,7 @@ menu:
 
 ### Features
 - Add new [experimental `integral()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/integral/) signature.
-- Add new experimental `window()` function signature.
+- Add new [experimental `window()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/window/) signature.
 
 # Bug fixes
 - Switch from `HashMap` to `BTreeMap` in the conversion functions from AST to semantic.

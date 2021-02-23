@@ -2,7 +2,7 @@
 title: experimental.integral() function
 description: >
   The `integral()` function computes the area under the curve per unit of time of subsequent non-null records.
-  Input data must have `_time` and `_value` columns.
+  Input tables must have `_time` and `_value` columns.
 menu:
   influxdb_2_0_ref:
     name: experimental.integral
@@ -17,7 +17,7 @@ introduced: 0.106.0
 The `experimental.integral()` function computes the area under the curve per
 [`unit`](#unit) of time of subsequent non-null records.
 The curve is defined using `_time` as the domain and record values as the range.
-**Input data must have `_time` and `_value` columns.**
+**Input tables must have `_time` and `_value` columns.**
 
 ```js
 integral(
