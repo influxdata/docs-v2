@@ -11,7 +11,7 @@ menu:
 ## v0.106.0 [2021-02-22]
 
 ### Features
-- Add new experimental `integral()` function signature.
+- Add new [experimental `integral()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/integral/) signature.
 - Add new experimental `window()` function signature.
 
 # Bug fixes
