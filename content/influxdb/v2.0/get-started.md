@@ -317,10 +317,10 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
 
 ### Persist data outside the InfluxDB container
 
-1. Create a new directory in which to store your data, and change to that directory.
+1. Create a new directory to store your data in and navigate into the directory.
+   
    ```sh
-   mkdir my-influxdb-docker-data
-   cd my-influxdb-docker-data/
+   mkdir path/to/influxdb-docker-volume && cd $_
    ```
 2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
    persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
