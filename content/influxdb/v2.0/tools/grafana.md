@@ -81,6 +81,13 @@ To successfully authenticate with and query the 1.x compatibility API:
 - [Create a InfluxDB DBRP mapping](#create-an-influxdb-dbrp-mapping)
 
 #### Create an InfluxDB v1 authorization
+
+{{% note %}}
+Setting up an InfluxDB v1 authorization is only required if you need to authenticate
+with InfluxDB OSS 2.0 using a username and password.
+You can also use [use token authentication](#token-authentication) to authenticate with InfluxDB.
+{{% /note %}}
+
 Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets. Provide the following:
 
@@ -130,15 +137,31 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         ```
     - **Access**: Server (default)
 
-2. Under **InfluxDB Details**, do the following:
+2. Configure InfluxDB authentication:
 
-    - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#create-an-influxdb-dbrp-mapping)
-    - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
-    - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
-    - **HTTP Method**: Select **GET**
+    - ##### Token authentication
 
-    <!--  -->
-    {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql-oss.png" />}}
+      Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB Cloud authentication token:
+
+      - **Header**: Enter `Authorization`
+      - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
+        For example:
+
+        ```
+        Token y0uR5uP3rSecr3tT0k3n
+        ```
+
+    - ##### Authenicate with username and password
+
+        Under **InfluxDB Details**, do the following:
+
+        - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#create-an-influxdb-dbrp-mapping)
+        - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
+        - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
+        - **HTTP Method**: Select **GET**
+
+        <!--  -->
+        {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
 
 3. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 data source
    and returns the results of the test.
