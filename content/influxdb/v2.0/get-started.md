@@ -334,6 +334,32 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
        quay.io/influxdb/influxdb:v2.0.4
    ```
 
+### Configure InfluxDB with Docker
+
+To mount an InfluxDB configuration file and use it from within Docker:
+
+1. follow the steps above in ["Persist data outside the InfluxDB container"](#persist-data-outside-the-influxdb-container).
+
+2. Use the command below to generate the default configuration file on the host file system:
+
+    ```console
+    $ docker run \
+        --rm quay.io/influxdb/influxdb:v2.0.4 \
+        influxd print-config > config.yml
+    ```
+
+3. Modify the default configuration, which will now be available under `$PWD`.
+
+4. Then start the InfluxDB container:
+
+   ```console
+   $ docker run -p 8086:8086 \
+         -v $PWD/config.yml:/etc/influxdb2/config.yml:ro \
+         quay.io/influxdb/influxdb:v2.0.4
+   ```
+
+(Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.0/reference/config-options/).)
+
 ### Console into the InfluxDB container
 
 To use the `influx` command line interface, console into the `influxdb` Docker container:
