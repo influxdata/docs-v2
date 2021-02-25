@@ -132,10 +132,10 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
 2. Under **InfluxDB Details**, do the following:
 
-    - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#create-an-influxdb-dbrp-mapping).
-    - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization).
-    - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization).
-    - **HTTP Method**: Select **GET**.
+    - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#create-an-influxdb-dbrp-mapping)
+    - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
+    - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
+    - **HTTP Method**: Select **GET**
 
     <!--  -->
     {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql-oss.png" />}}
