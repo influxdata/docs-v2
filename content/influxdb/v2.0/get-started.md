@@ -315,30 +315,7 @@ docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
-{{% note %}}
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting the InfluxDB container.
-
-```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4 --reporting-disabled
-```
-{{% /note %}}
-
-### Console into the InfluxDB container (optional)
-
-To use the `influx` command line interface, console into the `influxdb` Docker container:
-
-```bash
-docker exec -it influxdb /bin/bash
-```
-
-### Persist data outside the InfluxDB container (optional)
+### Persist data outside the InfluxDB container
 
 1. Create a new directory in which to store your data, and change to that directory.
    ```sh
@@ -355,6 +332,30 @@ docker exec -it influxdb /bin/bash
        -v $PWD:/root/.influxdbv2 \
        quay.io/influxdb/influxdb:v2.0.4 && \
    ```
+
+### Console into the InfluxDB container
+
+To use the `influx` command line interface, console into the `influxdb` Docker container:
+
+```bash
+docker exec -it influxdb /bin/bash
+```
+
+{{% note %}}
+#### InfluxDB "phone home"
+
+By default, InfluxDB sends telemetry data back to InfluxData.
+The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
+information about what data is collected and how it is used.
+
+To opt-out of sending telemetry data back to InfluxData, include the
+`--reporting-disabled` flag when starting the InfluxDB container.
+
+```bash
+docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4 --reporting-disabled
+```
+{{% /note %}}
+
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
 
