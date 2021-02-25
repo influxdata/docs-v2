@@ -60,7 +60,7 @@ configure your InfluxDB connection:
     - **Default Bucket**: The default [bucket](/influxdb/cloud/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
-    {{< img-hd src="/img/influxdb/2-0-visualize-grafana.png" />}}
+    {{< img-hd src="/img/influxdb/cloud-tools-grafana.png" />}}
 
 2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB datasource
    and returns the results of the test.
@@ -71,34 +71,87 @@ configure your InfluxDB connection:
 
 ## Configure Grafana to use InfluxQL
 
-With **InfluxQL** selected as the query language in your InfluxDB data source,
-configure your InfluxDB connection:
+1. [Set up the InfluxDB 1.x compatibility API](#set-up-the-influxdb-1x-compatibility-api)
+2. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
+
+### Set up the InfluxDB 1.x compatibility API
+Grafana uses the [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/)
+to query InfluxDB Cloud using InfluxQL.
+To successfully authenticate with and query the 1.x compatibility API:
+
+- [Create a InfluxDB v1 authorization](#create-an-influxdb-v1-authorization)
+- [Create a InfluxDB DBRP mapping](#create-an-influxdb-dbrp-mapping)
+
+#### Create an InfluxDB v1 authorization
+Use the [`influx v1 auth create` command](/influxdb/cloud/reference/cli/influx/v1/auth/create/)
+to grant read/write permissions to specific buckets. Provide the following:
+
+- [bucket IDs](/influxdb/cloud/organizations/buckets/view-buckets/) to grant read
+  or write permissions to
+- new username
+- new password _(when prompted)_
+
+<!--  -->
+```sh
+influx v1 auth create \
+  --read-bucket 00xX00o0X001 \
+  --write-bucket 00xX00o0X001 \
+  --username example-user
+```
+
+#### Create an InfluxDB DBRP mapping
+When using InfluxQL to query InfluxDB Cloud, the query must specify a database and a retention policy.
+Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/v1/dbrp/create/)
+command to create a database/retention policy (DBRP) mapping that maps a database
+and retention policy combination to an InfluxDB Cloud [bucket](/influxdb/cloud/reference/glossary/#bucket).
+
+{{% note %}}
+##### Automatically create DBRP mappings on write
+When using the InfluxDB 1.x compatibility API to write data to InfluxDB Cloud,
+InfluxDB Cloud automatically creates DBRP mappings for buckets whose names match the
+`db/rp` naming pattern of the database and retention policy specified in the write request.
+For more information, see [Database and retention policy mapping – Writing data](/influxdb/cloud/reference/api/influxdb-1x/dbrp/#when-writing-data).
+{{% /note %}}
+
+Provide the following:
+
+- database name
+- retention policy
+- [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
+
+```sh
+influx v1 dbrp create \
+  --db example-db \
+  --rp example-rp \
+  --bucket-id 00xX00o0X001 \
+  --default
+```
+
+_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
+
+### Configure your InfluxDB connection
+With **InfluxQL** selected as the query language in your InfluxDB data source settings:
 
 1. Under **HTTP**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/influxdb/cloud/reference/urls/).
+    - **URL**: Your [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/).
 
         ```sh
-        https://cloud2.influxdata.com
+        https://cloud2.influxdata.com/
         ```
     - **Access**: Server (default)
 
-2. Under **Auth**, enable **Basic Auth**.
-3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
+2. Under **InfluxDB Details**, do the following:
 
-    - **User**: InfluxDB username
-    - **Password**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
-
-4. Under **InfluxDB Details**, do the following:
-
-    - **Database**: Enter the ID of the bucket to query in InfluxDB Cloud. To retrieve your bucket ID, see how to [view buckets](/influxdb/cloud/organizations/buckets/view-buckets/).
-    - **User**: Enter the username to sign into InfluxDB.
-    - **Password**: Enter the token used to query the bucket above. To retrieve your token, see how to [view tokens](/influxdb/cloud/security/tokens/view-tokens/).
+    - **Database**: Enter the database name [mapped to your InfluxDB Cloud bucket](#create-an-influxdb-dbrp-mapping).
+    - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization).
+    - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization).
     - **HTTP Method**: Select **GET**.
 
-    {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
+    <!--  -->
+    {{< img-hd src="/img/influxdb/cloud-tools-grafana-influxql.png" />}}
 
-5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB datasource
+3. Click **Save & Test**. Grafana attempts to connect to the InfluxDB Cloud data source
    and returns the results of the test.
 {{% /tab-content %}}
 <!--------------------------- END INFLUXQL CONTENT --------------------------->
