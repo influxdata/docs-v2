@@ -41,10 +41,8 @@ youtube-telegraf-plugin - Gather view and subscriber stats from your youtube vid
 ## v1.15.4 [2020-10-20]
 
 ### Bug fixes
-- `agent` 
-  - Fix panic error on streaming processers
-- `common.shim` 
-  - Fix an issue with loading the processor configuration from `execd`
+- `agent`: Fix panic error on streaming processers.
+- `common.shim`: Fix an issue with loading the processor configuration from `execd`.
 
 ## v.1.15.3 [2020-09-11]
 
