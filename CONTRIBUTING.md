@@ -480,17 +480,32 @@ Each expandable block needs a label that users can click to expand or collpase t
 Pass the label as a string to the shortcode.
 
 ```md
-{{% expand "Lable 1"}}
+{{% expand "Lable 1" %}}
 Markdown content associated with label 1.
 {{% /expand %}}
 
-{{% expand "Lable 2"}}
+{{% expand "Lable 2" %}}
 Markdown content associated with label 2.
 {{% /expand %}}
 
-{{% expand "Lable 3"}}
+{{% expand "Lable 3" %}}
 Markdown content associated with label 3.
 {{% /expand %}}
+```
+
+Use the optional `{{< expand-wrapper >}}` shortcode around a group of `{{% expand %}}`
+shortcodes to ensure proper spacing around the expandable elements:
+
+```md
+{{< expand-wrapper >}}
+{{% expand "Lable 1" %}}
+Markdown content associated with label 1.
+{{% /expand %}}
+
+{{% expand "Lable 2" %}}
+Markdown content associated with label 2.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 ```
 
 ### Generate a list of children articles
