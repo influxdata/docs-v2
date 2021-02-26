@@ -72,14 +72,37 @@ configure your InfluxDB connection:
 ## Configure Grafana to use InfluxQL
 To query InfluxDB Cloud from Grafana using InfluxQL:
 
-1. [Create an InfluxDB DBRP mapping](#create-an-influxdb-dbrp-mapping)
-2. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
+1. [Download and set up the `influx` CLI](#download-and-set-up-the-influx-cli)
+2. [Create an InfluxDB DBRP mapping](#create-an-influxdb-dbrp-mapping)
+3. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
+
+### Download and set up the influx CLI
+1. [Download the latest version of the `influx` CLI](/influxdb/cloud/get-started/#optional-download-install-and-use-the-influx-cli)
+   appropriate for your local operating system.
+2. Create a CLI configuration that provides the required InfluxDB Cloud **host**,
+   **organization**, and **authentication token** to all CLI commands.
+   Provide the following:
+
+   - [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/)
+   - [organization name](/influxdb/cloud/organizations/) _(by default, your email address)_
+   - [authentication token](/influxdb/cloud/security/tokens/)
+
+    ```sh
+    influx config create \
+      --host-url https://cloud2.influxdata.com \
+      --org example-org \
+      --token My5uP3rSeCr37t0k3n \
+      --name example-config-name
+    ```
+
+    For more information about `influx` CLI configurations,
+    see [`influx config`](/influxdb/cloud/reference/cli/influx/config/).
 
 ### Create an InfluxDB DBRP mapping
 When using InfluxQL to query InfluxDB Cloud, the query must specify a database and a retention policy.
 Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/v1/dbrp/create/)
-command to create a database/retention policy (DBRP) mapping that maps a database
-and retention policy combination to an InfluxDB Cloud [bucket](/influxdb/cloud/reference/glossary/#bucket).
+command to create a database/retention policy (DBRP) mapping that associates a database
+and retention policy combination with an InfluxDB Cloud [bucket](/influxdb/cloud/reference/glossary/#bucket).
 
 {{% note %}}
 ##### Automatically create DBRP mappings on write

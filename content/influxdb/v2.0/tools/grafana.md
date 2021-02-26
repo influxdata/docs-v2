@@ -84,11 +84,11 @@ To query InfluxDB OSS 2.0 with InfluxQL, the following must exist:
     _(separate from the credentials used to log into the InfluxDB user interface)_.
 - **Database and retention policy (DBRP) mappings**  
   When using InfluxQL to query InfluxDB 2.0, the query must specify a database and a retention policy.
-  DBRP mappings map database and retention policy combinations to InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+  DBRP mappings associate database and retention policy combinations with InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 
-When migrating from InfluxDB 1.x to 2.0 using the [official migration process](/influxdb/v2.0/upgrade/v1-to-v2/),
+When upgrading from InfluxDB 1.x to 2.0 using the [official upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/),
 InfluxDB creates v1 compatible authorizations for all _non-admin_ 1.x users and all necessary DBRP mappings.
-Grafana dashboards should work against a migrated database without change.
+Grafana dashboards should work against a upgraded database without change.
 
 If you manually migrated from InfluxDB 1.x to InfluxDB 2.0 or are starting with
 a fresh 2.0 installation, you **must [manually create any necessary DBRP mappings](#view-and-create-influxdb-dbrp-mappings)**.
