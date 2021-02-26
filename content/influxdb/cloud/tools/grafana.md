@@ -81,7 +81,8 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
    appropriate for your local operating system.
 2. Create a CLI configuration that provides the required InfluxDB Cloud **host**,
    **organization**, and **authentication token** to all CLI commands.
-   Provide the following:
+   Use the [`influx config create` command](/influxdb/cloud/reference/cli/influx/config/create/)
+   and provide the following:
 
    - [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/)
    - [organization name](/influxdb/cloud/organizations/) _(by default, your email address)_
