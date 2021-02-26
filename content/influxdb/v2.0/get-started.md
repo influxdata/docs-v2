@@ -350,7 +350,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
 3. Modify the default configuration, which will now be available under `$PWD`.
 
-4. Then start the InfluxDB container:
+4. Start the InfluxDB container:
 
    ```sh
    $ docker run -p 8086:8086 \
