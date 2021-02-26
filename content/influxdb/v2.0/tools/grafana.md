@@ -77,10 +77,11 @@ To query InfluxDB OSS 2.0 with InfluxQL, the following must exist:
 
 - **Valid authentication credentials** (either of the following)
   - **v2 authentication token**  
-    InfluxDB OSS 2.0 [token authentication](/influxdb/v2.0/security/tokens/).
+    InfluxDB OSS 2.0 [authentication token](/influxdb/v2.0/security/tokens/).
   - **v1 compatible authentication credentials**  
     InfluxDB OSS 2.0 provides a [1.x compatible authentication API](#view-and-create-influxdb-v1-authorizations)
-    that let's you authenticate with a username and password like InfluxDB 1.x.
+    that let's you authenticate with a username and password like InfluxDB 1.x
+    _(separate from the credentials used to log into the InfluxDB user interface)_.
 - **Database and retention policy (DBRP) mappings**  
   When using InfluxQL to query InfluxDB 2.0, the query must specify a database and a retention policy.
   DBRP mappings map database and retention policy combinations to InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
@@ -90,8 +91,9 @@ InfluxDB creates v1 compatible authorizations for all _non-admin_ 1.x users and 
 Grafana dashboards should work against a migrated database without change.
 
 If you manually migrated from InfluxDB 1.x to InfluxDB 2.0 or are starting with
-a fresh 2.0 installation, you must [manually create any necessary DBRP mappings](#view-and-create-influxdb-dbrp-mappings)
-and we recommend using token authentication.
+a fresh 2.0 installation, you **must [manually create any necessary DBRP mappings](#view-and-create-influxdb-dbrp-mappings)**.
+**We recommend using token authentication** unless your Grafana configuration already
+is already configured to authenticate with username and password.
 
 {{< expand-wrapper >}}
 {{% expand "View and create InfluxDB v1 authorizations" %}}
