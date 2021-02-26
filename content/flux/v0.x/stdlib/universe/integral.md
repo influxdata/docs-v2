@@ -28,13 +28,14 @@ integral(
   unit: 10s,
   column: "_value",
   timeColumn: "_time",
-  interpolation: ""
+  interpolate: ""
 )
 ```
 
 ## Parameters
 
 ### unit
+({{< req >}})
 Time duration used when computing the integral.
 
 _**Data type:** Duration_
