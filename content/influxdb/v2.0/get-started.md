@@ -352,7 +352,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
 4. Then start the InfluxDB container:
 
-   ```console
+   ```sh
    $ docker run -p 8086:8086 \
          -v $PWD/config.yml:/etc/influxdb2/config.yml:ro \
          influxdb:2.0.4
