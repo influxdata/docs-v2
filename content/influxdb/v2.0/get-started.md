@@ -342,7 +342,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
 2. Use the command below to generate the default configuration file on the host file system:
 
-    ```console
+    ```sh
     $ docker run \
         --rm influxdb:2.0.4 \
         influxd print-config > config.yml
