@@ -22,13 +22,14 @@ The curve is defined using `_time` as the domain and record values as the range.
 ```js
 integral(
   unit: 10s,
-  interpolation: ""
+  interpolate: ""
 )
 ```
 
 ## Parameters
 
 ### unit
+({{< req >}})
 Time duration used when computing the integral.
 
 _**Data type:** Duration_

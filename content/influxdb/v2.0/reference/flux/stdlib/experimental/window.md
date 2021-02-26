@@ -13,6 +13,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
+introduced: 0.106.0
 ---
 
 The `window()` function groups records based on a time value.
@@ -43,6 +44,7 @@ including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
 ### every
+({{< req >}})
 Duration of time between windows.
 Defaults to `period` value.
 
