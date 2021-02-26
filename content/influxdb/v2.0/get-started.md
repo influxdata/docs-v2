@@ -311,7 +311,7 @@ Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4
+docker run --name influxdb -p 8086:8086 influxdb:2.0.4
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -331,7 +331,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
        --name influxdb \
        -p 8086:8086 \
        --volume $PWD:/root/.influxdbv2 \
-       quay.io/influxdb/influxdb:v2.0.4
+       influxdb:2.0.4
    ```
 
 ### Configure InfluxDB with Docker
@@ -344,7 +344,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
     ```console
     $ docker run \
-        --rm quay.io/influxdb/influxdb:v2.0.4 \
+        --rm influxdb:2.0.4 \
         influxd print-config > config.yml
     ```
 
@@ -355,7 +355,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
    ```console
    $ docker run -p 8086:8086 \
          -v $PWD/config.yml:/etc/influxdb2/config.yml:ro \
-         quay.io/influxdb/influxdb:v2.0.4
+         influxdb:2.0.4
    ```
 
 (Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.0/reference/config-options/).)
@@ -364,7 +364,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
 To use the `influx` command line interface, console into the `influxdb` Docker container:
 
-```bash
+```sh
 docker exec -it influxdb /bin/bash
 ```
 
@@ -378,8 +378,8 @@ information about what data is collected and how it is used.
 To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
-```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4 --reporting-disabled
+```sh
+docker run -p 8086:8086 influxdb:2.0.4 --reporting-disabled
 ```
 {{% /note %}}
 
