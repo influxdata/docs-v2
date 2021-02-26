@@ -338,7 +338,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
 
 To mount an InfluxDB configuration file and use it from within Docker:
 
-1. follow the steps above in ["Persist data outside the InfluxDB container"](#persist-data-outside-the-influxdb-container).
+1. Follow the steps above in ["Persist data outside the InfluxDB container"](#persist-data-outside-the-influxdb-container).
 
 2. Use the command below to generate the default configuration file on the host file system:
 
