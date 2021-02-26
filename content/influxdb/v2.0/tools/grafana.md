@@ -76,36 +76,34 @@ configure your InfluxDB connection:
 To query InfluxDB OSS 2.0 with InfluxQL, the following must exist:
 
 - **Valid authentication credentials** (either of the following)
-  - v1 compatible authentication credentials
-  - v2 authentication token
-- **Database and retention policy (DBRP) mappings**
+  - **v2 authentication token**  
+    InfluxDB OSS 2.0 [token authentication](/influxdb/v2.0/security/tokens/).
+  - **v1 compatible authentication credentials**  
+    InfluxDB OSS 2.0 provides a [1.x compatible authentication API](#view-and-create-influxdb-v1-authorizations)
+    that let's you authenticate with a username and password like InfluxDB 1.x.
+- **Database and retention policy (DBRP) mappings**  
+  When using InfluxQL to query InfluxDB 2.0, the query must specify a database and a retention policy.
+  DBRP mappings map database and retention policy combinations to InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
 
-Did you migrate from InfluxDB 1.x to 2.0 using the [official migration process](/influxdb/v2.0/upgrade/v1-to-v2/)?
-  - Did you have authentication enabled on InfluxDB 1.x before migrating?
-    - Yes: Use the same _non-admin_ username and password you used with your InfluxDB 1.x instance.
-    - No: Create a new  
+When migrating from InfluxDB 1.x to 2.0 using the [official migration process](/influxdb/v2.0/upgrade/v1-to-v2/),
+InfluxDB creates v1 compatible authorizations for all _non-admin_ 1.x users and all necessary DBRP mappings.
+Grafana dashboards should work against a migrated database without change.
 
-Are you using Grafana with a fresh InfluxDB OSS 2.0 instance?
-  - Use token authentication and manually create DBRP mappings.
-  -
-
-if you have been using Grafana with InfluxDB 1.x and have upgraded to InfluxDB 2.x and want to continue using InfluxQL so your dashboards continue to work....you need to ensure two things have happened:
-
-in the upgrade process: the appropriate DBRP mappings were created AND
-the username/password that you previously used are present in the v1 auth setup....
-If you didn't upgrade, but are starting from scratch and simply redirecting new data to a new InfluxDB v2.... you'll still need to check these things.
-
-Second, you can also use the native 2.0 token-based authentication scheme.
+If you manually migrated from InfluxDB 1.x to InfluxDB 2.0 or are starting with
+a fresh 2.0 installation, you must [manually create any necessary DBRP mappings](#view-and-create-influxdb-dbrp-mappings)
+and we recommend using token authentication.
 
 {{< expand-wrapper >}}
-{{% expand "Create an InfluxDB v1 authorization" %}}
+{{% expand "View and create InfluxDB v1 authorizations" %}}
+#### View existing v1 authorizations
+Use the [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)
+to list existing InfluxDB v1 compatible authorizations.
 
-{{% note %}}
-Setting up an InfluxDB v1 authorization is only required if you need to authenticate
-with InfluxDB OSS 2.0 using a username and password.
-You can also use [use token authentication](#) to authenticate with InfluxDB.
-{{% /note %}}
+```sh
+influx v1 auth list
+```
 
+#### Create a v1 authorization
 Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets. Provide the following:
 
@@ -122,12 +120,18 @@ influx v1 auth create \
   --username example-user
 ```
 {{% /expand %}}
-{{% expand "Create an InfluxDB DBRP mapping" %}}
+{{% expand "View and create InfluxDB DBRP mappings" %}}
+#### View existing DBRP mappings
+Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)
+to list existing DBRP mappings.
 
-When using InfluxQL to query InfluxDB 2.0, the query must specify a database and a retention policy.
+```sh
+influx v1 dbrp list
+```
+
+#### Create a DBRP mapping
 Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
-command to create a database/retention policy (DBRP) mapping that maps a database
-and retention policy combination to an InfluxDB 2.0 [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+command to create a DBRP mapping.
 Provide the following:
 
 - database name
@@ -172,13 +176,13 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         Token y0uR5uP3rSecr3tT0k3n
         ```
 
-    - ##### Authenicate with username and password
+    - ##### Authenticate with username and password
 
         Under **InfluxDB Details**, do the following:
 
-        - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#create-an-influxdb-dbrp-mapping)
-        - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
-        - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#create-an-influxdb-v1-authorization)
+        - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#view-and-create-influxdb-dbrp-mappings)
+        - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-v1-authorizations)
+        - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-dbrp-mappings)
         - **HTTP Method**: Select **GET**
 
         <!--  -->

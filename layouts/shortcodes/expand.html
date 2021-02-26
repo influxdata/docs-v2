@@ -1,6 +1,6 @@
 {{ $expandLabel := .Get 0 }}
-<div class="expand">
-  <p class="expand-label" id="{{ $expandLabel | anchorize }}">
+<div class="expand" id="{{ $expandLabel | anchorize }}">
+  <p class="expand-label">
       <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
   </p>
   <div class="expand-content" style="display: none;" >
