@@ -1242,7 +1242,7 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 ### `[tls]`
 
 Global configuration settings for Transport Layer Security (TLS) in InfluxDB.
-For more information, see [Enabling HTTPS](/v1.8/administration/https_setup/).
+For more information, see [Enabling HTTPS](/influxdb/v1.8/administration/https_setup/).
 
 If the TLS configuration settings is not specified,
 InfluxDB supports all of the cipher suite IDs listed and all TLS versions implemented in the [Constants section of the Go `crypto/tls` package documentation](https://golang.org/pkg/crypto/tls/#pkg-constants),

@@ -89,7 +89,7 @@ following fields:
 - `text`
 - `status`
 
-_For more information, see [`sensu.event()` parameters](/v2.0/reference/flux/stdlib/contrib/sensu/event/#parameters)._
+_For more information, see [`sensu.event()` parameters](/influxdb/v2.0/reference/flux/stdlib/contrib/sensu/event/#parameters)._
 
 ## Examples
 

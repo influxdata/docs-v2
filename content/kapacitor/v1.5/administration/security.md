@@ -16,7 +16,7 @@ menu:
 
 This document covers the basics of securing the open-source distribution of
 Kapacitor.  For information about security with Enterprise Kapacitor see the
-[Enterprise Kapacitor](/enterprise_kapacitor/v1.5/) documentation.
+[Enterprise Kapacitor](https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/) documentation.
 
 When seeking to secure Kapacitor it is assumed that the Kapacitor server will be
 communicating with an already secured InfluxDB server.  It will also make its

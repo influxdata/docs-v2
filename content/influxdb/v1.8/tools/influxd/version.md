@@ -21,6 +21,6 @@ influxd version [flags]
 
 ## Flags
 
-| Flag           | Description                    |
-|:----           |:-----------                    |
-| `-h`, `-help` | Help for the `version` command |
+| Flag |         | Description                    |
+|:---- |:---     |:-----------                    |
+| `-h` | `-help` | Help for the `version` command |

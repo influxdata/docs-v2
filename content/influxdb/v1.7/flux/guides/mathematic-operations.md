@@ -67,7 +67,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/{{< latest "flux" >}}/stdlib/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -89,7 +89,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/{{< latest "flux" >}}/stdlib/custom-functions/#functions-that-manipulate-piped-forward-data).
+- [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
 

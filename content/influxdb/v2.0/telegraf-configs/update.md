@@ -45,7 +45,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
 
 2. To edit the configuration file:
   a. Click the name of the configuration.
-  b. Add or update [Telegraf plugin settings](/telegraf/latest/plugins/) in the window that appears.
+  b. Add or update [Telegraf plugin settings](/{{< latest "telegraf" >}}/plugins/) in the window that appears.
   {{% note %}}
   The text editor window doesn't detect if any plugins or settings are misconfigured. Any errors in your configuration that may cause Telegraf to fail when you restart it.
   {{% /note %}}

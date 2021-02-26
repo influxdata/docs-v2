@@ -4374,7 +4374,11 @@ InfluxDB then rounds those averages down to the nearest integer.
 
 _InfluxQL does not currently support histogram generation.
 For information about creating histograms with data stored in InfluxDB, see
+<<<<<<< HEAD
 [Flux's `histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram)._
+=======
+[Flux's `histogram()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/histogram)._
+>>>>>>> master
 
 ### LN()
 

@@ -35,7 +35,7 @@ telegram.message(
 
 {{% note %}}
 For information about retrieving your Telegram **bot token** and **channel ID**,
-see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
+see [Set up a Telegram bot](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
 {{% /note %}}
 
 ## Parameters

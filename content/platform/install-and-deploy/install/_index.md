@@ -18,7 +18,7 @@ Install and configure the InfluxData platform (TICK stack) using one of the foll
   - Install InfluxData 1.x Enterprise:
       1. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/)
       2. [Install InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/install-and-deploy/)
-      3. [Install Kapacitor Enterprise](/enterprise_kapacitor/latest/introduction/installation_guide/)
+      3. [Install Kapacitor Enterprise](https://archive.docs.influxdata.com/enterprise_kapacitor/latest/introduction/installation_guide/)
 
 {{% note %}}
 Windows support is experimental.

@@ -311,9 +311,62 @@ Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4
+docker run --name influxdb -p 8086:8086 influxdb:2.0.4
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
+
+### Persist data outside the InfluxDB container
+
+1. Create a new directory to store your data in and navigate into the directory.
+
+   ```sh
+   mkdir path/to/influxdb-docker-data-volume && cd $_
+   ```
+2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
+   persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
+   the host file system.
+
+   ```sh
+   docker run \
+       --name influxdb \
+       -p 8086:8086 \
+       --volume $PWD:/root/.influxdbv2 \
+       influxdb:2.0.4
+   ```
+
+### Configure InfluxDB with Docker
+
+To mount an InfluxDB configuration file and use it from within Docker:
+
+1. [Persist data outside the InfluxDB container](#persist-data-outside-the-influxdb-container).
+
+2. Use the command below to generate the default configuration file on the host file system:
+
+    ```sh
+    $ docker run \
+        --rm influxdb:2.0.4 \
+        influxd print-config > config.yml
+    ```
+
+3. Modify the default configuration, which will now be available under `$PWD`.
+
+4. Start the InfluxDB container:
+
+   ```sh
+   $ docker run -p 8086:8086 \
+         -v $PWD/config.yml:/etc/influxdb2/config.yml:ro \
+         influxdb:2.0.4
+   ```
+
+(Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.0/reference/config-options/).)
+
+### Console into the InfluxDB container
+
+To use the `influx` command line interface, console into the `influxdb` Docker container:
+
+```sh
+docker exec -it influxdb /bin/bash
+```
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -325,18 +378,10 @@ information about what data is collected and how it is used.
 To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
-```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.4 --reporting-disabled
+```sh
+docker run -p 8086:8086 influxdb:2.0.4 --reporting-disabled
 ```
 {{% /note %}}
-
-### Console into the InfluxDB Container (Optional)
-
-To use the `influx` command line interface, console into the `influxdb` Docker container:
-
-```bash
-docker exec -it influxdb /bin/bash
-```
 
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
@@ -453,7 +498,7 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
         -o example-org \
         -t mySuP3rS3cr3tT0keN \
         -a
-      ```  
+      ```
     This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).

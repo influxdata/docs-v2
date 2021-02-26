@@ -81,13 +81,12 @@ configure your InfluxDB connection:
         ```
     - **Access**: Server (default)
 
-2. Under **Auth**, enable **Basic Auth**.
-3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
+2. Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication credentials:
 
-    - **User**: InfluxDB username
-    - **Password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - **Header**: "Authorization"
+    - **Value**: use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/) (for example: `Token y0uR5uP3rSecr3tT0k3n`)
 
-4. Under **InfluxDB Details**, do the following:
+3. Under **InfluxDB Details**, do the following:
 
     - **Database**: Enter the ID of the bucket to query in InfluxDB 2.0. To retrieve your bucket ID, see how to [view buckets](/influxdb/v2.0/organizations/buckets/view-buckets/).
     - **User**: Enter the username to sign into InfluxDB.
@@ -96,7 +95,7 @@ configure your InfluxDB connection:
 
     {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
 
-5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
+4. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
    and returns the results of the test.
 {{% /tab-content %}}
 <!--------------------------- END INFLUXQL CONTENT --------------------------->

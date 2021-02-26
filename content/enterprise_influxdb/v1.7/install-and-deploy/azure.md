@@ -18,7 +18,7 @@ This guide requires the following:
 - Microsoft Azure account with access to the [Azure Marketplace](https://azuremarketplace.microsoft.com/).
 - SSH access to cluster instances.
 
-To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/_index).
+To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/).
 
 ## Deploy a cluster
 

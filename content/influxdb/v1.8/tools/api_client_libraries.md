@@ -1,7 +1,7 @@
 ---
 title: InfluxDB client libraries
 description: >
-  InfluxDB client libraries includes support for Arduino, C#, Go, Java, JavaScript, PHP, Python, and Ruby.
+  InfluxDB client libraries includes support for Arduino, C#, C++, Go, Java, JavaScript, PHP, Python, and Ruby.
 aliases:
     - /influxdb/v1.8/clients/api_client_libraries/
     - /influxdb/v1.8/clients/
@@ -30,6 +30,10 @@ Functionality varies between client libraries. Refer to client libraries on GitH
 
 - [influxdb-client-csharp](https://github.com/influxdata/influxdb-client-csharp)
   - Maintained by [InfluxData](https://github.com/influxdata)
+
+## C++
+* [influxdb-cxx](https://github.com/offa/influxdb-cxx)
+  * Maintained by [offa](https://github.com/offa)
 
 ### Go
 

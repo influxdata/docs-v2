@@ -155,7 +155,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 ### Features
 
-- Update to [Flux v0.65.0](/flux/v0.65/about_the_project/releasenotes-changelog/#v0-65-0-2020-03-27).
+- Update to Flux v0.65.0.
 
 ### Bug Fixes
 
@@ -1112,7 +1112,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Features
 
-  * Add line-protocol proxy for InfluxDB/InfluxEnterprise Cluster data sources
+  * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
   * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1.8/guides/advanced-kapacitor/#tickscript-management)
   * Allow users to delete Kapacitor configurations

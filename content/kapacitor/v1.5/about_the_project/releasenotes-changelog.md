@@ -65,7 +65,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 ## Features
 
 - Add [Microsoft Teams event handler](/kapacitor/v1.5/event_handlers/microsoftteams/), thanks @mmindenhall!
-- Add [Discord event handler](/kapacitor/v1.5/event_handler/discord/), thanks @mattnotmitt!
+- Add [Discord event handler](/kapacitor/v1.5/event_handlers/discord/), thanks @mattnotmitt!
 - Add [support for TLS 1.3](/kapacitor/v1.5/administration/configuration/#transport-layer-security-tls-settings).
 
 ### Bug fixes
@@ -338,7 +338,7 @@ Create the below snippet as the file `/tmp/prom/localhost.json`:
 Start the Prometheues `node_exporter` locally.
 
 Now, startup Kapacitor and it will discover the `localhost:9100` `node_exporter` target and begin scrapping it for metrics.
-For more details on the scraping and discovery systems, see the full documentation [here](/kapacitor/v1.3/pull_metrics/scraping-and-discovery/).
+For more details on the scraping and discovery systems, see the full documentation [here](/{{< latest "kapacitor" >}}/working/scraping-and-discovery/).
 
 The second major feature with this release are changes to the alert topic system.
 The previous release introduced this new system as a technical preview and with this release the alerting service has been simplified.
@@ -493,7 +493,7 @@ stream
 ```
 
 The API exposes endpoints to query the state of each alert and endpoints for configuring alert handlers.
-See the [API docs](/kapacitor/v1.5/api/api/) for more details.
+See the [API docs](/kapacitor/v1.5/working/api/) for more details.
 The kapacitor CLI has been updated with commands for defining alert handlers.
 
 This release introduces a new feature where you can window based off the number of points instead of their time.

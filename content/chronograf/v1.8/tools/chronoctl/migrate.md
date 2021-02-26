@@ -20,7 +20,7 @@ chronoctl migrate [flags]
 ```
 
 ## Flags
-| Flag           | Description                         | Input type  |
-|:----           |:-----------                         |:----------: |
-| `-f`, `--from` | Full path to BoltDB file or etcd (e.g. 'bolt:///path/to/chronograf-v1.db' or 'etcd://user:pass@localhost:2379 (default: chronograf-v1.db)    |  string       |
-| `-t`, `--to`   | Full path to BoltDB file or etcd (e.g. 'bolt:///path/to/chronograf-v1.db' or 'etcd://user:pass@localhost:2379 (default: etcd://localhost:2379) | string      |
+| Flag |          | Description                                                                                                                                       | Input type  |
+|:---- |:---      |:-----------                                                                                                                                       |:----------: |
+| `-f` | `--from` | Full path to BoltDB file or etcd (e.g. `bolt:///path/to/chronograf-v1.db` or `etcd://user:pass@localhost:2379` (default: `chronograf-v1.db`)      | string      |
+| `-t` | `--to`   | Full path to BoltDB file or etcd (e.g. `bolt:///path/to/chronograf-v1.db` or `etcd://user:pass@localhost:2379` (default: `etcd://localhost:2379`) | string      |

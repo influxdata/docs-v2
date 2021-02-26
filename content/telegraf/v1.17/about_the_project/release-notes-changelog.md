@@ -7,6 +7,33 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v.1.17.3 [2021-2-17]
+
+- Update to Go 1.15.8.
+
+### Input plugin updates
+
+- Filestat (`filestat`): Skip missing files.
+- MQTT Consumer (`mqtt_consumer`): Fix reconnection issues.
+- Ping (`ping`):
+  - Fix a timeout for `deadline` configuration.
+  - Update README with correct cmd for native ping on Linux.
+  - Fix percentile calculations.
+- SNMP (`snmp`): Add support to expose IPv4/IPv6 as connection-schemes.
+- x509 Certificate (`x509_cert`): Fix a timeout issue.
+- 
+### Output plugin updates
+
+- InfluxDB v1.x (`influxdb`): Validate InfluxDB response after creating a database to avoid JSON parsing errors.
+- Warp10 (`warp10`): Add support for commas in tags to be URL encoded.
+
+### Miscellaneous fixes and updates
+
+- Telegraf configuration file (`telegraf.conf`): Resolve issue reading `flush_jitter` output.
+- Library updates:
+   - Update `github.com/gopcua/opcua` to 0.1.13.
+   - Update `go-ping` to latest version.
+
 ## v.1.17.2 [2021-1-28]
 
 ### Input plugin updates

@@ -14,8 +14,7 @@ related:
 products: [oss]
 ---
 
-Use the `influx restore` command to restore backup data and metadata from InfluxDB.
-You must stop InfluxDB before restoring data.
+Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
 
 {{% cloud %}}
 The `influx restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
@@ -28,19 +27,18 @@ If the restore process fails, InfluxDB preserves the data in the temporary locat
 _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
 ## Restore data with the influx CLI
-1. **Stop the `influxd` server.**
-2. Use the `influx restore` command and specify the path to the backup directory in the first argument.
+Use the `influx restore` command and specify the path to the backup directory in the first argument.
 
-    ```sh
-    # Syntax
-    influx restore <path-to-backup-directory>
+```sh
+# Syntax
+influx restore <path-to-backup-directory>
 
-    # Example
-    influx restore ~/backups/2020-01-20_12-00/
-    ```
+# Example
+influx restore ~/backups/2020-01-20_12-00/
+```
 
-    _For more information about restore options and flags, see the
-    [`influx restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
+_For more information about restore options and flags, see the
+[`influx restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
 
 
 ## Recover from a failed restore

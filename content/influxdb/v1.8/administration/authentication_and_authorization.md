@@ -2,7 +2,7 @@
 title: Authentication and authorization in InfluxDB
 description: Set up and manage authentication and authorization in InfluxDB OSS.
 aliases:
-    - influxdb/v1.8/administration/authentication_and_authorization/
+  /influxdb/v1.8/query_language/authentication_and_authorization/
 menu:
   influxdb_1_8:
     name: Manage authentication and authorization

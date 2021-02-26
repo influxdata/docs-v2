@@ -160,7 +160,7 @@ Table: keys: [_start, _stop, _field, _measurement, cpu]
 
 **Note that the group key is output with each table: `Table: keys: <group-key>`.**
 
-![Group example data set](/img/grouping-data-set.png)
+![Group example data set](/img/flux/grouping-data-set.png)
 
 ### Group by CPU
 Group the `dataSet` stream by the `cpu` column.
@@ -249,7 +249,7 @@ Table: keys: [cpu]
 
 The visualization remains the same.
 
-![Group by CPU](/img/grouping-data-set.png)
+![Group by CPU](/img/flux/grouping-data-set.png)
 
 ### Group by time
 Grouping data by the `_time` column is a good illustration of how grouping changes the structure of your data.
@@ -374,7 +374,7 @@ Table: keys: [_time]
 Because each timestamp is structured as a separate table, when visualized, all
 points that share the same timestamp appear connected.
 
-![Group by time](/img/grouping-by-time.png)
+![Group by time](/img/flux/grouping-by-time.png)
 
 {{% note %}}
 With some further processing, you could calculate the average CPU usage across all CPUs per point
@@ -666,7 +666,7 @@ Table: keys: [_time, cpu]
 
 When visualized, tables appear as individual, unconnected points.
 
-![Group by CPU and time](/img/grouping-by-cpu-time.png)
+![Group by CPU and time](/img/flux/grouping-by-cpu-time.png)
 
 Grouping by `cpu` and `_time` is a good illustration of how grouping works.
 
