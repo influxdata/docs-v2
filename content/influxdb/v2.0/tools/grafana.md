@@ -67,30 +67,38 @@ configure your InfluxDB connection:
 <!----------------------------- END FLUX CONTENT ----------------------------->
 <!-------------------------- BEGIN INFLUXQL CONTENT -------------------------->
 {{% tab-content %}}
+
 ## Configure Grafana to use InfluxQL
 
-1. [Set up InfluxDB compatibility](#set-up-influxdb-compatibility)
-2. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
+To query InfluxDB OSS 2.0 with InfluxQL, find your use case below, and then complete the instructions to configure Grafana:
 
-### Set up InfluxDB compatibility
-To query InfluxDB OSS 2.0 with InfluxQL, you must successfully authenticate with
-InfluxDB and database/retention policy (DBRP) mappings must exist.
+- [Installed a new InfluxDB 2.0 instance](#installed-a-new-influxdb-20-instance)
+- [Upgraded from InfluxDB 1.x to 2.0 (following the official upgrade)](#upgraded-from-influxdb-1x-to-20)
+- [Manually migrated from InfluxDB 1.x to 2.0](#manually-migrated-from-influxdb-1x-to-20)
 
-- **Are you starting with a fresh InfluxDB 2.0 instance?**
-  - **Authentication:** use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
-  - **DBRP mappings:** [manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
+### Installed a new InfluxDB 2.0 instance
+To configure Grafana to use InfluxQL with a new install of InfluxDB 2.0, do the following:
 
-- **Did you upgrade from InfluxDB 1.x to 2.0 using the [official upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/)?**
-  - **Authentication:** use the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
-    created for in the upgrade process.
-  - **DBRP mappings:** InfluxDB automatically created DBRP mappings in the upgrade process.
+1. [Authenticate with InfluxDB 2.0 tokens](/influxdb/v2.0/security/tokens/).
+2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
-- **Did you manually migrate from InfluxDB 1.x to 2.0?**
-  - **Authentication:** If your InfluxDB 1.x instance required authentication,
-    [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
-    to match your previous 1.x username and password.
-    Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
-  - **DBRP mappings:** [manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
+### Upgraded from InfluxDB 1.x to 2.0
+To configure Grafana to use InfluxQL when you've upgraded from InfluxDB 1.x to
+InfluxDB 2.0 (following the [official upgrade](/influxdb/v2.0/upgrade/v1-to-v2/)):
+
+1. Authenticate using the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+   created during the upgrade process.
+2. Use the DBRP mappings InfluxDB automatically created in the upgrade process (no action necessary).
+
+### Manually migrated from InfluxDB 1.x to 2.0
+To configure Grafana to use InfluxQL when you've manually migrated from InfluxDB
+1.x to InfluxDB 2.0, do the following:
+
+1. If your InfluxDB 1.x instance required authentication,
+   [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+   to match your previous 1.x username and password.
+   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
+2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 {{< expand-wrapper >}}
 {{% expand "View and create InfluxDB v1 authorizations" %}}
@@ -174,7 +182,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
     - ##### Token authentication
 
-      Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB Cloud authentication token:
+      Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication token:
 
       - **Header**: Enter `Authorization`
       - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).

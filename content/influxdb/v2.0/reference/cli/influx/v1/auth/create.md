@@ -31,11 +31,11 @@ influx v1 auth create [flags]
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                     | string      | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                          | string      | `$INFLUX_ORG_ID`        |
 |      | `--password`      | Password to set on the authorization                                                                       |             |                         |
-|      | `--read-bucket`   | Bucket ID(s) to assign read permissions to                                                                 | stringArray |                         |
+|      | `--read-bucket`   | Bucket ID to assign read permissions to                                                                    | stringArray |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                          |             |                         |
 | `-t` | `--token`         | Authentication token                                                                                       | string      | `$INFLUX_TOKEN`         |
 |      | `--username`      | ({{< req >}}) Token username                                                                               | string      |                         |
-|      | `--write-bucket`  | Bucket ID(s) to assign write permissions to                                                                | stringArray |                         |
+|      | `--write-bucket`  | Bucket ID to assign write permissions to                                                                   | stringArray |                         |
 
 ## Examples
 
