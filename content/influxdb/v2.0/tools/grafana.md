@@ -74,7 +74,7 @@ configure your InfluxDB connection:
 
 ### Set up InfluxDB compatibility
 To query InfluxDB OSS 2.0 with InfluxQL, you must successfully authenticate with
-InfluxDB and database/retention policy (DBRP) mappings must exist.
+InfluxDB and have database/retention policy (DBRP) mappings.
 
 - **Are you starting with a fresh InfluxDB 2.0 instance?**
   - **Authentication:** use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
