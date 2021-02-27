@@ -95,7 +95,7 @@ InfluxDB and database/retention policy (DBRP) mappings must exist.
 {{< expand-wrapper >}}
 {{% expand "View and create InfluxDB v1 authorizations" %}}
 
-InfluxDB OSS 2.0 provides a 1.x compatible authentication API that let's you
+InfluxDB OSS 2.0 provides a 1.x compatible authentication API that lets you
 authenticate with a username and password like InfluxDB 1.x
 _(separate from the credentials used to log into the InfluxDB user interface)_.
 
@@ -126,7 +126,7 @@ influx v1 auth create \
 {{% /expand %}}
 {{% expand "View and create InfluxDB DBRP mappings" %}}
 
-DBRP mappings associate database and retention policy combinations with
+InfluxDB DBRP mappings associate database and retention policy combinations with
 InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket)
 
 #### View existing DBRP mappings
