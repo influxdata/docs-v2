@@ -1,5 +1,5 @@
 {{ $expandLabel := .Get 0 }}
-<div class="expand">
+<div class="expand" id="{{ $expandLabel | anchorize }}">
   <p class="expand-label">
       <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
   </p>
