@@ -73,30 +73,32 @@ configure your InfluxDB connection:
 2. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
 
 ### Set up InfluxDB compatibility
-To query InfluxDB OSS 2.0 with InfluxQL, the following must exist:
+To query InfluxDB OSS 2.0 with InfluxQL, you must successfully authenticate with
+InfluxDB and database/retention policy (DBRP) mappings must exist.
 
-- **Valid authentication credentials** (either of the following)
-  - **v2 authentication token**  
-    InfluxDB OSS 2.0 [authentication token](/influxdb/v2.0/security/tokens/).
-  - **v1 compatible authentication credentials**  
-    InfluxDB OSS 2.0 provides a [1.x compatible authentication API](#view-and-create-influxdb-v1-authorizations)
-    that let's you authenticate with a username and password like InfluxDB 1.x
-    _(separate from the credentials used to log into the InfluxDB user interface)_.
-- **Database and retention policy (DBRP) mappings**  
-  When using InfluxQL to query InfluxDB 2.0, the query must specify a database and a retention policy.
-  DBRP mappings associate database and retention policy combinations with InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+- **Are you starting with a fresh InfluxDB 2.0 instance?**
+  - **Authentication:** use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
+  - **DBRP mappings:** [manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
-When upgrading from InfluxDB 1.x to 2.0 using the [official upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/),
-InfluxDB creates v1 compatible authorizations for all _non-admin_ 1.x users and all necessary DBRP mappings.
-Grafana dashboards should work against a upgraded database without change.
+- **Did you upgrade from InfluxDB 1.x to 2.0 using the [official upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/)?**
+  - **Authentication:** use the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+    created for in the upgrade process.
+  - **DBRP mappings:** InfluxDB automatically created DBRP mappings in the upgrade process.
 
-If you manually migrated from InfluxDB 1.x to InfluxDB 2.0 or are starting with
-a fresh 2.0 installation, you **must [manually create any necessary DBRP mappings](#view-and-create-influxdb-dbrp-mappings)**.
-**We recommend using token authentication** unless your Grafana configuration already
-is already configured to authenticate with username and password.
+- **Did you manually migrate from InfluxDB 1.x to 2.0?**
+  - **Authentication:** If your InfluxDB 1.x instance required authentication,
+    [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+    to match your previous 1.x username and password.
+    Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
+  - **DBRP mappings:** [manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 {{< expand-wrapper >}}
 {{% expand "View and create InfluxDB v1 authorizations" %}}
+
+InfluxDB OSS 2.0 provides a 1.x compatible authentication API that let's you
+authenticate with a username and password like InfluxDB 1.x
+_(separate from the credentials used to log into the InfluxDB user interface)_.
+
 #### View existing v1 authorizations
 Use the [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)
 to list existing InfluxDB v1 compatible authorizations.
@@ -123,6 +125,10 @@ influx v1 auth create \
 ```
 {{% /expand %}}
 {{% expand "View and create InfluxDB DBRP mappings" %}}
+
+DBRP mappings associate database and retention policy combinations with
+InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket)
+
 #### View existing DBRP mappings
 Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)
 to list existing DBRP mappings.
