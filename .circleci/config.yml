@@ -23,7 +23,7 @@ jobs:
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NodeJS dependencies
-          command: sudo yarn global add postcss-cli@8.3.0 autoprefixer@9.8.6 redoc-cli@0.9.12
+          command: sudo yarn global add postcss-cli@8.3.0 autoprefixer@9.8.6 mobx-react-lite@2.2.2 redoc-cli
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
