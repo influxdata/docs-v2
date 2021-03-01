@@ -10,4 +10,10 @@ weight: 101
 influxdb/cloud/tags: [authorization]
 ---
 
+{{% cloud %}}
+#### Not supported in InfluxDB Cloud
+**InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
+To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/security/tokens/).
+{{% /cloud %}}
+
 {{< duplicate-oss >}}
