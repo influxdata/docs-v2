@@ -151,7 +151,7 @@ command to create a DBRP mapping.
 Provide the following:
 
 - database name
-- retention policy
+- retention policy name _(not retention period)_
 - [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
 
 ```sh

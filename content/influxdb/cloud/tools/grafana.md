@@ -116,7 +116,7 @@ For more information, see [Database and retention policy mapping – Writing dat
 Provide the following:
 
 - database name
-- retention policy
+- retention policy name _(not retention period)_
 - [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
 
 ```sh
