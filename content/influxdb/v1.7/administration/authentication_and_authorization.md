@@ -1,7 +1,5 @@
 ---
 title: Authentication and authorization in InfluxDB
-aliases:
-    - influxdb/v1.7/administration/authentication_and_authorization/
 menu:
   influxdb_1_7:
     name: Authentication and authorization

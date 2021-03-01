@@ -9,6 +9,8 @@
 - [\--influxql-max-select-point](/influxdb/v2.0/reference/config-options/#influxql-max-select-point)
 - [\--influxql-max-select-series](/influxdb/v2.0/reference/config-options/#influxql-max-select-series)
 - [\--log-level](/influxdb/v2.0/reference/config-options/#log-level)
+- [\--nats-max-payload-bytes](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes)
+- [\--nats-port](/influxdb/v2.0/reference/config-options/#nats-port)
 - [\--new-meta-store](/influxdb/v2.0/reference/config-options/#new-meta-store)
 - [\--new-meta-store-read-only](/influxdb/v2.0/reference/config-options/#new-meta-store-read-only)
 - [\--no-tasks](/influxdb/v2.0/reference/config-options/#no-tasks)

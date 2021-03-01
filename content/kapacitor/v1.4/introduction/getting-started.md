@@ -48,7 +48,7 @@ The TICKStack services can be installed to run on the host machine as a part of 
 
 If you would like to explore using Docker deployments of these components, [check out these instructions.](/kapacitor/v1.4/introduction/install-docker/)
 
-<!-- Install [InfluxDB](/{{< latest "influxdb" "v1" >}}/introduction/installation/), [Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) and [Kapacitor](/kapacitor/v1.3/introduction/installation/), on the same host, using the Linux system packages (`.deb`,`.rpm`) if available. -->
+<!-- Install [InfluxDB](/{{< latest "influxdb" "v1" >}}/introduction/installation/), [Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) and [Kapacitor](/{{< latest "kapacitor" >}}/introduction/installation/), on the same host, using the Linux system packages (`.deb`,`.rpm`) if available. -->
 
 The applications InfluxDB, Telegraf and Kapacitor will need to be installed in that order and on the same host.
 

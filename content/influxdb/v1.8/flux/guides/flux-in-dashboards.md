@@ -9,7 +9,6 @@ menu:
     parent: Query with Flux
 weight: 30
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/flux-in-dashboards/
-v2: /influxdb/v2.0/query-data/flux/flux-in-dashboards/
 ---
 
 [Chronograf](/{{< latest "chronograf" >}}/) is the web user interface for managing for the

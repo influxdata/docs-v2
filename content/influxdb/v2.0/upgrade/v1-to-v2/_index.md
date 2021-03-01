@@ -17,8 +17,7 @@ The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB
 {{% note %}}
 #### Docker users
 
-We are working on the upgrade process to ensure a smooth upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker.
-If you're upgrading from InfluxDB 1.x on Docker, we recommend waiting to upgrade until we finalize an updated Docker release given the current process is undefined.
+To upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker, see  "Upgrading from InfluxDB 1.x" in the [Docker Hub documentation](https://hub.docker.com/_/influxdb) for instructions and examples.
 {{% /note %}}
 
 Specifically, the upgrade process does the following:
@@ -47,6 +46,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Dashboards](#dashboards)
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
+- [`inmem` indexing option](#inmem-indexing-option)
 
 ### Available operating system, container, and platform support
 
@@ -139,6 +139,14 @@ and test your credentials to ensure your applications, agents, and visualization
 If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
 but client requests to InfluxDB 2.0 may be silently ignored (you won't see a notification the request was denied).
 
+### In-memory indexing option
+
+InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/administration/config/#in-memory-inmem-index-settings). The following InfluxDB 1.x configuration options associated with `inmem` indexing are ignored in the upgrade process:
+
+- `max-series-per-database`
+- `max-values-per-tag`
+
+
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
@@ -202,7 +210,7 @@ It is also saved (for troubleshooting and debugging) in the current directory to
 
 ### Post-upgrade
 
-To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](influxdb/v2.0/reference/cli/influx/v1/auth/list/).
+To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/).
 
 ## Further reading
 

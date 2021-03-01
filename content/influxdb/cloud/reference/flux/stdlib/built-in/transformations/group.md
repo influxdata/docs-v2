@@ -11,7 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/cloud/query-data/flux/group-data/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY
 ---
 
 The `group()` function groups records based on their values for specific columns.

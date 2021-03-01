@@ -17,7 +17,10 @@
       This page documents an earlier version of {{ $productName }}.
       <a href="/{{ $product }}/{{ $stableVersion }}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.
       {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
-        <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+        <!-- Check if page exists in latest major version docs -->
+        {{ if gt (len (.GetPage ((replaceRE `v[1-2]\.[0-9]{1,2}` (index .Site.Data.products $product).latest .RelPermalink) | replaceRE `\/$` "")).Title) 0 }}
+          <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+        {{ end }}
       {{ else if and (ne (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) (.Page.Params.v2) }}
         <!-- Check if the v2 equivalent page exists -->
         {{ if $v2PageExists }}

@@ -4,7 +4,7 @@ description: Terms related to InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/glossary/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     weight: 20
     parent: Concepts
 ---
@@ -74,4 +74,4 @@ Legacy user interface for the InfluxDB Enterprise.
 
 This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
 
-If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/{{< latest "chronograf" >}}/guides/transition-web-admin-interface/) is available.
+If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1.7/guides/transition-web-admin-interface/).

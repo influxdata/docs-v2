@@ -9,13 +9,29 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.4 [2021-02-01]
+### Features
+
+- Add `stat_total_allocated` to Flux logging.
+ To ensure Flux logging is enabled, set both `flux-enabled` and `flux-log-enabled` to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
+
+### Bug fixes
+
+- Add durations to Flux logging, including the log compilation, execution, and total request duration. Previously, the following stats were incorrectly logging `0.000ms`:
+
+  - `stat_total_duration`
+  - `stat_compile_duration`
+  - `stat_execute_duration`
+
+    Now, these durations are logged correctly.
+
 ## v1.8.3 [2020-09-30]
 
 ### Features
 
 - Use latest version of InfluxQL package.
-- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/).
-- Add the ability to track number of values written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 
 ### Bug fixes
@@ -80,7 +96,7 @@ This release updates support for the Flux language and queries. To learn about F
 
 #### Forward compatibility
 
-- [InfluxDB 2.0 API compatibility endpoints](/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-20-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1.8/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.

@@ -30,7 +30,7 @@ Before proceeding with the Kapacitor upgrade, ensure that InfluxDB and Telegraf 
    * Telegraf 1.6
    * Kapacitor 1.4.1
 
-For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/{{< latest "influxdb" "v1" >}}/administration/upgrading/#main-nav) documentation. For instructions on upgrading Telegraf, please see the [Telegraf upgrade](/{{< latest "telegraf" >}}/administration/upgrading/#main-nav) documentation.
+For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/{{< latest "influxdb" "v1" >}}/administration/upgrading/#main-nav) documentation.
 
 For information about what is new in the latest Kapacitor release, please see the [Changelog](https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md) available on GitHub.
 

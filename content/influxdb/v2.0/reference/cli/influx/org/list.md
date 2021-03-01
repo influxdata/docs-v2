@@ -17,7 +17,7 @@ The `influx org list` lists and searches for organizations in InfluxDB.
 influx org list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
@@ -33,3 +33,26 @@ influx org list [flags]
 | `-n` | `--name`          | Organization name                                                     | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all organizations](#list-all-organizations)
+- [List a specific organization by name](#list-a-specific-organization-by-name)
+- [List a specific organization by ID](#list-a-specific-organization-by-id)
+
+##### List all organizations
+```sh
+influx org list
+```
+
+##### List a specific organization by name
+```sh
+influx org list --name example-org
+```
+
+##### List a specific organization by ID
+```sh
+influx org list --id 0Xx0oox00XXoxxoo1
+```

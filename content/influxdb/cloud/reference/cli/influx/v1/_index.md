@@ -7,6 +7,10 @@ menu:
     name: influx v1
     parent: influx
 weight: 101
+cascade:
+  related:
+    - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 {{< duplicate-oss >}}

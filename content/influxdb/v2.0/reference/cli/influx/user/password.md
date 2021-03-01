@@ -8,6 +8,7 @@ menu:
 weight: 201
 related:
   - /influxdb/v2.0/users/change-password/
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
 ---
 
 The `influx user password` command updates the password for a user in InfluxDB.
@@ -28,3 +29,19 @@ influx user password [flags]
 | `-n` | `--name`          | Username                                                              | string      |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update a user password using a username
+```sh
+influx user password --name example-username
+# Prompts for password
+```
+
+##### Update a user password using a user ID
+```sh
+influx user password --id 0Xx0oox00XXoxxoo1
+# Prompts for password
+```

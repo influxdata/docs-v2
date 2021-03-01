@@ -168,7 +168,7 @@ The number of data nodes in a cluster **must be evenly divisible by the replicat
 
 > **Important:** If the replication factor isn't evenly divisible into the number of data nodes, data may be distributed unevenly across the cluster and cause poor performance. Likewise, decreasing the replication factor (fewer copies of data in a cluster) may reduce performance depending on query and write load.
 
-Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
+Related entries: [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
 [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp)
 
 ## retention policy (RP)

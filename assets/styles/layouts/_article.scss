@@ -89,6 +89,10 @@
     box-shadow: 1px 3px 10px $article-shadow;
   }
 
+  ul + p > img {
+    margin-top: 1.5rem;
+  }
+
   hr {
     border-width: 1px 0 0;
     border-color: $article-hr;
@@ -102,6 +106,7 @@
           "article/children",
           "article/code",
           "article/cloud",
+          "article/diagrams",
           "article/enterprise",
           "article/expand",
           "article/feedback",
@@ -139,6 +144,13 @@
     &.key {
       font-size: .9rem;
       font-weight: $medium;
+    }
+  }
+
+  h2,h3,h4,h5,h6 {
+    & + .keep-url {
+      margin-top: -1.5rem;
+      z-index: -100;
     }
   }
 

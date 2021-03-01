@@ -80,7 +80,7 @@ Next, start the InfluxDB process:
 
 #### Step 4: Create an admin user
 
-Create an [admin user](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
+Create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
 Because you enabled authentication, you must perform this step before moving on to the next section.
 Run the command below to create an admin user, replacing `chronothan` and `supersecret` with your own username and password.
 Note that the password requires single quotes.

@@ -3,7 +3,7 @@ title: InfluxDB Cloud data durability
 description: >
   InfluxDB Cloud ensures the durability of all stored data by replicating data across
   multiple availability zones in a cloud region, automatically creating backups,
-  and verifying that replicated data is consistent and backups are readable.
+  and verifying that replicated data is consistent and readable.
 weight: 101
 menu:
   influxdb_cloud_ref:
@@ -14,7 +14,7 @@ influxdb/cloud/tags: [backups, internals]
 
 InfluxDB Cloud replicates all data in the storage tier across two availability
 zones in a cloud region, automatically creates backups, and verifies that replicated
-data is consistent and that data is readable.
+data is consistent and readable.
 
 ##### On this page
 

@@ -2,6 +2,8 @@
 title: Deploy an InfluxDB Enterprise cluster on Azure Cloud Platform
 description: >
   Deploy an InfluxDB Enterprise cluster on Microsoft Azure cloud computing service.
+aliases:
+  - /enterprise_influxdb/v1.8/install-and-deploy/azure/
 menu:
   enterprise_influxdb_1_8:
     name: Azure

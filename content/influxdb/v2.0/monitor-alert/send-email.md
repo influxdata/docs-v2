@@ -43,6 +43,12 @@ Send an alert email using a third party service, such as [SendGrid](https://send
    - Use the `map()` function to evaluate the criteria to send an alert using `http.post()`.
    - Specify your email service `url` (endpoint), include applicable request `headers`, and verify your request `data` format follows the format specified for your email service.
 
+{{% note %}}
+#### Escape double quotes in your request body
+To successfully byte-encode request bodies (`data`) in the `http.post()` function,
+escape all double-quote characters with a backslash (`\"`).
+{{% /note %}}
+
 #### Examples
 
 {{< tabs-wrapper >}}
@@ -78,19 +84,31 @@ numberOfCrits
   |> map(fn: (r) => (if r._value > 3 then {
     r with _value: http.post(
       url: "https://api.sendgrid.com/v3/mail/send",
-      headers: {"Content-Type": "application/json", Authorization: "Bearer ${SENDGRID_APIKEY}"},
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${SENDGRID_APIKEY}"
+      },
       data: bytes(v: "{
-        \"personalizations\": [{
-          \"to\": [{
-           \"email\": \”jane.doe@example.com\"}],
-           \"subject\": \”InfluxData critical alert\"
-            }],
-          \"from\": {\"email\": \"john.doe@example.com\"},
-          \"content\": [{
+        \"personalizations\": [
+          {
+            \"to\": [
+              {
+                \"email\": \"jane.doe@example.com\"
+              }
+            ]
+          }
+        ],
+        \"from\": {
+          \"email\": \"john.doe@example.com\"
+        },
+        \"subject\": \"InfluxDB critical alert\",
+        \"content\": [
+          {
             \"type\": \"text/plain\",
-             \"value\": \”Example alert text\"
-        }]
-        }\""))} else {r with _value: 0}))
+            \"value\": \"There have been ${string(v: r._value)} critical statuses.\"
+          }
+        ]
+      }"))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
@@ -120,26 +138,38 @@ AWS_CALCULATED_SIGNATURE = secrets.get(key: "AWS_CALCULATED_SIGNATURE")
 
 numberOfCrits = from(bucket: "_monitoring")
 	|> range(start: -task.every)
-	|> filter(fn: (r) => (r.measurement == "statuses" and r._level == "crit")
+	|> filter(fn: (r) => r.measurement == "statuses" and r._level == "crit")
 	|> count()
 
 numberOfCrits
   |> map(fn: (r) => (if r._value > 3 then {
       r with _value: http.post(
         url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
-        headers: {"Content-Type": "application/json", Authorization: "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"},
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"
+        },
         data: bytes(v: "{
-          \"personalizations\": [{
-            \"to\": [{
-            \"email\": \”jane.doe@example.com\"}],
-            \"subject\": \”InfluxData critical alert\"
-            }],
-            \"from\": {\"email\": \"john.doe@example.com\"},
-            \"content\": [{
-              \"type\": \"text/plain\",
-              \"value\": \”Example alert text\"
-            }]
-        }\""))} else {r with _value: 0}))
+          \"Content\": {
+            \"Simple\": {
+              \"Body\": {
+                \"Text\": {
+                  \"Charset\": \"UTF-8\",
+                  \"Data\": \"There have been ${string(v: r._value)} critical statuses.\"
+                }
+              },
+              \"Subject\": {
+                \"Charset\": \"UTF-8\",
+                \"Data\": \"InfluxDB critical alert\"
+              }
+            }
+          },
+          \"Destination\": {
+            \"ToAddresses\": [
+              \"john.doe@example.com\"
+            ]
+          }
+        }"))} else {r with _value: 0}))
 ```
 
 For details on the request syntax, see [SendEmail API v2 reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html).
@@ -169,22 +199,30 @@ MAILJET_SECRET_APIKEY = secrets.get(key: "MAILJET_SECRET_APIKEY")
 
 numberOfCrits = from(bucket: "_monitoring")
 	|> range(start: -task.every)
-	|> filter(fn: (r) => (r.measurement == "statuses" and "r.level" == "crit")
+	|> filter(fn: (r) => r.measurement == "statuses" and "r.level" == "crit")
 	|> count()
 
 numberOfCrits
 	|> map(fn: (r) => (if r._value > 3 then {
     r with _value: http.post(  
       url: "https://api.mailjet.com/v3.1/send",
-      headers: {"Content-type": "application/json", Authorization: "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"},
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"
+      },
       data: bytes(v: "{
-        \"Messages\": [{
-          \"From\": {\"Email\": \”jane.doe@example.com\"},
-          \"To\": [{\"Email\": \"john.doe@example.com\"]},
-          \"Subject\": \”InfluxData critical alert\",
-          \"TextPart\": \”Example alert text\"
-          \"HTMLPart\":  `"<h3>Hello, to review critical alerts, review your <a href=\"https://www.example-dashboard.com/\">Critical Alert Dashboard</a></h3>}]}'
-        }\""))} else {r with _value: 0}))
+      	\"Messages\": [{
+      		\"From\": {
+      			\"Email\": \"jane.doe@example.com\"
+      		},
+      		\"To\": [{
+      			\"Email\": \"john.doe@example.com\"
+      		}],
+      		\"Subject\": \"InfluxDB critical alert\",
+      		\"TextPart\": \"There have been ${string(v: r._value)} critical statuses.\",
+      		\"HTMLPart\": \"<h3>${string(v: r._value)} critical statuses</h3><p>There have been ${string(v: r._value)} critical statuses.\"
+      	}]
+      }"))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}
@@ -220,14 +258,16 @@ numberOfCrits
 	|> map(fn: (r) =>
 		(if r._value > 1 then {r with _value: http.post(
       url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
-      headers: {"Content-type": "application/json", Authorization: "Basic api:${MAILGUN_APIKEY}"},
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Basic api:${MAILGUN_APIKEY}"
+      },
       data: bytes(v: "{
-          \"from\": \"Username <mailgun@YOUR_DOMAIN_NAME>\",
-          \"to\"=\"YOU@YOUR_DOMAIN_NAME\",
-          \"to\"=\"email@example.com\",
-          \"subject\"=\"Critical InfluxData alert\",
-          \"text\"=\"You have critical alerts to review\"
-        }\""))} else {r with _value: 0}))
+        \"from\": \"Username <mailgun@YOUR_DOMAIN_NAME>\",
+        \"to\": \"email@example.com\",
+        \"subject\": \"InfluxDB critical alert\",
+        \"text\": \"There have been ${string(v: r._value)} critical statuses.\"
+      }"))} else {r with _value: 0}))
 ```
 
 {{% /tab-content %}}

@@ -17,7 +17,7 @@ The `influx task run list` command outputs information related to runs of a task
 influx task run list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
@@ -34,5 +34,32 @@ influx task run list [flags]
 |      | `--limit`         | Limit the number of results                                           | integer     |                       |
 |      | `--run-id`        | Run ID                                                                | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-|      | `--task-id`       | **(Required)** Task ID                                                | string      |                       |
+|      | `--task-id`       | ({{< req >}}) Task ID                                                 | string      |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all runs of a task](#list-all-runs-of-a-task)
+- [List a specific run of a task](#list-a-specific-run-of-a-task)
+- [Limit the number of returned task runs to 20](#limit-the-number-of-returned-task-runs-to-20)
+
+##### List all runs of a task
+```sh
+influx task run list --task-id 0Xx0oox00XXoxxoo1
+```
+
+##### List a specific run of a task
+```sh
+influx task run list \
+  --task-id 0Xx0oox00XXoxxoo1 \
+  --run-id ox0Xx0ooxx00XXoo2
+```
+
+##### Limit the number of returned task runs to 20
+```sh
+influx task run list \
+  --task-id 0Xx0oox00XXoxxoo1 \
+  --limit 20
+```

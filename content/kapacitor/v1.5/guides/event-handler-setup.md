@@ -53,7 +53,7 @@ person icon in the top right corner.
 
     Your token appears in the table just above the **Create new token** section:
 
-    ![HipChat token](/img/kapacitor/hipchat-token.png)
+    ![HipChat token](/img/kapacitor/1-4-hipchat-token.png)
 
 ### Configuration
 
@@ -312,24 +312,24 @@ The default `url` setting (`https://api.telegram.org/bot`) requires no additiona
 
 The optional configuration settings are:
 
-`chat_id`  
+##### chat_id  
 Set to your Telegram [chat ID](#telegram-chat-id). This serves as the default chat ID if the TICKscript doesn't specify a chat ID.
 
-`parse-mode`  
+##### parse-mode  
 Set to `Markdown` or `HTML` for Markdown-formatted or HTML-formatted alert messages.
 The default `parse-mode` is `Markdown`.
 
-`disable-web-page-preview`  
+##### disable-web-page-preview  
 Set to `true` to disable [link previews](https://telegram.org/blog/link-preview) in alert messages.
 
-`disable-notification`  
+##### disable-notification  
 Set to `true` to disable notifications on iOS devices and disable sounds on Android devices.
 When set to `true`, Android users continue to receive notifications.
 
-`global`  
+##### global  
 Set to `true` to send all alerts to Telegram without needing to specify Telegram in TICKscripts.
 
-`state-changes-only`  
+##### state-changes-only  
 Set to `true` to only send an alert to Telegram if the alert state changes.
 This setting only applies if the `global` setting is also set to `true`.
 

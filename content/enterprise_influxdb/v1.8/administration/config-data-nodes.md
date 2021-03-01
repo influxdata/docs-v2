@@ -94,9 +94,7 @@ The `license-key` and `license-path` settings are
 mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-InfluxData recommends performing rolling restarts on the nodes after the license key update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -108,9 +106,8 @@ Contact [sales@influxdb.com](mailto:sales@influxdb.com) if a license file is req
 
 The license file should be saved on every server in the cluster, including Meta, Data, and Enterprise nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user. Each server in the cluster independently verifies its license.
-InfluxData recommends performing rolling restarts on the nodes after the license file update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 {{% warn %}}
 Use the same license file for all nodes in the same cluster.
@@ -1180,6 +1177,12 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_ENABLED`
 Controls whether queries are logged when executed by the CQ service.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
+
+#### `query-stats-enabled = false`
+
+Write continuous query execution statistics to the default monitor store.
+
+Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
 
 #### `run-interval = "1s"`
 

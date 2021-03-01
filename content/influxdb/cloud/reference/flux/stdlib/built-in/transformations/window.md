@@ -12,7 +12,7 @@ weight: 402
 related:
   - /influxdb/cloud/query-data/flux/window-aggregate/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY time()
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 The `window()` function groups records based on a time value.

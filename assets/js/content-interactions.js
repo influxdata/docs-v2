@@ -20,10 +20,7 @@ var elementWhiteList = [
   "a.url-trigger"
 ]
 
-$('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
-  e.preventDefault();
-
-  var target = this.hash;
+function scrollToAnchor(target) {
   var $target = $(target);
 
   $('html, body').stop().animate({
@@ -31,6 +28,11 @@ $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
   }, 400, 'swing', function () {
     window.location.hash = target;
   });
+}
+
+$('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
+  e.preventDefault();
+  scrollToAnchor(this.hash);
 });
 
 ///////////////////////////// Left Nav Interactions /////////////////////////////
@@ -79,6 +81,24 @@ function tabbedContent(container, tab, content) {
 
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
 tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
+
+//////////////////////// Activate Tabs with Query Params ////////////////////////
+
+const queryParams = new URLSearchParams(window.location.search);
+tab = queryParams.get('t')
+
+if (tab !== null) {
+  var anchor = window.location.hash
+  var targetTab = $('.tabs a:contains("' + tab +'")')
+
+  targetTab.click()
+
+  if (anchor !== "") {
+    scrollToAnchor(anchor)
+  }
+}
+
+// TO-DO: Add/update query params when clicking a tab
 
 /////////////////////////////// Truncate Content ///////////////////////////////
 

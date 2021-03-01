@@ -27,7 +27,8 @@ are taken:
 ### The Data generator
 
 Data for such a website can be primed and generated to InfluxDB using the Python
-3 script rolled into [page.zip](/downloads/pages.zip)([sha256](/downloads/pages.zip.sha256)) and created for this purpose.
+3 script rolled into [pages.zip](/downloads/pages.zip) ([md5](/downloads/pages.zip.md5), [sha256](/downloads/pages.zip.sha256))
+and created for this purpose.
 It leverages the [InfluxDB-Python](https://github.com/influxdata/influxdb-python) library.
 See that Github project for instructions on how to install the library in Python.
 
@@ -239,7 +240,7 @@ errors
 ### Record Query and backfill with stream
 
 To provide historical data to stream tasks that process multiple measurements,
-use [multiple statements](/{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#multiple-statements)
+use [multiple statements](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#multiple-statements)
 when recording the data.
 
 First use `record query` following the pattern of this generic command:

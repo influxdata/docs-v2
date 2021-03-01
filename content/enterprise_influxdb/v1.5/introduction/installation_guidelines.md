@@ -46,13 +46,13 @@ If you alter the default ports in the configuration file(s), ensure the configur
 
 #### Synchronize time between hosts
 
-InfluxEnterprise uses hosts' local time in UTC to assign timestamps to data and for coordination purposes.
+InfluxDB Enterprise uses hosts' local time in UTC to assign timestamps to data and for coordination purposes.
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
 
 #### Use SSDs
 
 Clusters require sustained availability of 1000-2000 IOPS from the attached storage.
-SANs must guarantee at least 1000 IOPS is always available to InfluxEnterprise
+SANs must guarantee at least 1000 IOPS is always available to InfluxDB Enterprise
 nodes or they may not be sufficient.
 SSDs are strongly recommended, and we have had no reports of IOPS contention from any customers running on SSDs.
 

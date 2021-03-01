@@ -6,7 +6,7 @@ aliases:
 menu:
   enterprise_influxdb_1_8:
     name: Install and deploy
-    weight: 70
+    weight: 30
 ---
 
 Install or deploy your InfluxDB Enterprise cluster in the environment of your choice:

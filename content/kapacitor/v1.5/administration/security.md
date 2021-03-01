@@ -7,18 +7,16 @@ menu:
     parent: Administration
 ---
 
-# Contents
-
 * [Overview](#overview)
 * [Secure InfluxDB and Kapacitor](#secure-influxdb-and-kapacitor)
 * [Kapacitor Security](#kapacitor-security)
 * [Secure Kapacitor and Chronograf](#secure-kapacitor-and-chronograf)
 
-# Overview
+## Overview
 
 This document covers the basics of securing the open-source distribution of
 Kapacitor.  For information about security with Enterprise Kapacitor see the
-[Enterprise Kapacitor](/enterprise_kapacitor/v1.5/) documentation.
+[Enterprise Kapacitor](https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/) documentation.
 
 When seeking to secure Kapacitor it is assumed that the Kapacitor server will be
 communicating with an already secured InfluxDB server.  It will also make its
@@ -162,6 +160,7 @@ This results in the following file:
                 "startup-timeout": "5m0s",
                 "subscription-mode": "cluster",
                 "subscription-protocol": "https",
+                "subscription-path": "",
                 "subscriptions": {},
                 "subscriptions-sync-interval": "1m0s",
                 "timeout": "0s",
@@ -207,15 +206,27 @@ Similar commands:
 
 * To change the URLS:
 
-`curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the `subscription-protocol`:
 
-`curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
+
+* If Kapacitor is behind a reverse proxy, set the `subscription-path` to append to the InfluxDB subscription URL:
+
+```sh
+curl -kv -d '{ "set": { "subscription-path": "/path/behind/reverse-proxy" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the path to the CA Certificate:
 
-`curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 Other properties can be set in a similar fashion.
 

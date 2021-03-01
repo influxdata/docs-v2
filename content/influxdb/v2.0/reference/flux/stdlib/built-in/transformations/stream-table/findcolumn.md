@@ -21,7 +21,7 @@ _**Function type:** Stream and table_
 
 ```js
 findColumn(
-  fn: (key) => key._field == "fieldName"),
+  fn: (key) => key._field == "fieldName",
   column: "_value"
 )
 ```

@@ -18,7 +18,7 @@ The `influx bucket list` command lists and searches for buckets in InfluxDB.
 influx bucket list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
@@ -32,7 +32,30 @@ influx bucket list [flags]
 | `-i` | `--id`            | Bucket ID                                                             | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Bucket name                                                           | string      | `INFLUX_BUCKET_NAME`  |
-| `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID                                                       | string      | `INFLUX_ORG_ID`       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+- [List all buckets](#list-all-buckets)
+- [List a bucket by name](#list-a-bucket-by-name)
+- [List a bucket by ID](#list-a-bucket-by-id)
+
+##### List all buckets
+```sh
+influx bucket list
+```
+
+##### List a bucket by name
+```sh
+influx bucket list --name example-bucket
+```
+
+##### List a bucket by ID
+```sh
+influx bucket list --id 06c86c40a9f36000
+```
