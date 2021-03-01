@@ -151,7 +151,7 @@ command to create a DBRP mapping.
 Provide the following:
 
 - database name
-- retention policy
+- retention policy name _(not retention period)_
 - [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
 
 ```sh
@@ -182,15 +182,15 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
     - ##### Token authentication
 
-      Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication token:
+        Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication token:
 
-      - **Header**: Enter `Authorization`
-      - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
-        For example:
+        - **Header**: Enter `Authorization`
+        - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
+          For example:
 
-        ```
-        Token y0uR5uP3rSecr3tT0k3n
-        ```
+          ```
+          Token y0uR5uP3rSecr3tT0k3n
+          ```
 
     - ##### Authenticate with username and password
 

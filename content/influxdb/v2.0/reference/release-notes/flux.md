@@ -8,6 +8,19 @@ menu:
     name: Flux
 ---
 
+## v0.106.0 [2021-02-22]
+
+### Features
+- Add new [experimental `integral()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/integral/) signature.
+- Add new [experimental `window()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/window/) signature.
+
+# Bug fixes
+- Switch from `HashMap` to `BTreeMap` in the conversion functions from AST to semantic.
+- Track and reduce memory used by `tdigest`.
+- Detect and break infinite loops while parsing arrays.
+
+---
+
 ## v0.105.0 [2021-02-03]
 
 ### Features

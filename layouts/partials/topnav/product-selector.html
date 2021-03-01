@@ -12,7 +12,7 @@
     <p class="selected">{{ index .Site.Data.products.influxdb_cloud.altname }}</p>
   {{ else }}
     {{ $productData := (index .Site.Data.products $product) }}
-    <p class="selected">{{ cond (isset $productData "altname") $productData.altname $productData.name }}</p>
+    <p class="selected">{{ if $productData.altname }}{{ $productData.altname }}{{ else }}{{ $productData.name }}{{ end }}</p>
   {{ end }}
   <ul class="item-list">
     {{ range sort .Site.Data.products "list_order" "desc" }}
@@ -30,7 +30,7 @@
       {{ end }}
       {{ $link := $scratch.Get "link" }}
       <li>
-        <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ cond (isset . "altname") .altname .name }}</a>
+        <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
       </li>
     {{ end }}
   </ul>

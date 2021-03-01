@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:erbium
         environment:
-          HUGO_VERSION: "0.59.1"
+          HUGO_VERSION: "0.81.0"
           S3DEPLOY_VERSION: "2.3.5"
     steps:
       - checkout

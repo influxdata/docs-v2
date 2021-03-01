@@ -22,7 +22,7 @@ influx write -t <token> -b BUCKET -o org-name <LINE PROTOCOL>
 
 ```
 export INFLUX_TOKEN=my-token
-influx write -b my-bucket -org my-org "meaurement field=1"
+influx write -t $INFLUX_TOKEN -b my-bucket -o my-org "measurement field=1"
 ```
 
 {{% note %}}

@@ -156,6 +156,9 @@ Consult your CA if you are unsure about how to use these files.
 
          # Use a separate private key location.
          https-private-key = "influxdb-data.key"
+
+         # If using a self-signed certificate:
+         https-insecure-tls = true
        ```
 
     3. Configure the data nodes to use HTTPS when communicating with the meta nodes.
