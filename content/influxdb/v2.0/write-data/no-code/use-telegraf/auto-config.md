@@ -25,6 +25,8 @@ Only a subset of plugins are configurable using the InfluxDB UI.
 To use plugins other than those listed, you must [manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config).
 {{% /note %}}
 
+{{< youtube M8KP7FAb2L0 >}}
+
 {{% note %}}
 _View the [requirements](/influxdb/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
