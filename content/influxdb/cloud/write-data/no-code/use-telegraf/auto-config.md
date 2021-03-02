@@ -122,6 +122,8 @@ set INFLUX_TOKEN=YourAuthenticationToken
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+{{< youtube qFS2zANwIrc >}}
+
 ### Start the Telegraf service
 
 Start the Telegraf service using the `-config` flag to specify the location of the generated Telegraf configuration file.
