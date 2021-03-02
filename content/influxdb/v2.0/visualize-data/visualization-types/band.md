@@ -98,6 +98,7 @@ For example, in the band chart above, the lines represent the mean `usage_system
 To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
 
 ###### Data
+
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
 - **Time Format**: Select the time format. Options include:
@@ -114,31 +115,60 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - `dddd, MMMM D, YYYY HH:mm:ss`
 
 ###### Aggregate functions
+
 - **Upper Column Name**: Aggregate function to display for upper bounds of data.
 - **Main Column Name**: Aggregate function to display for main graph line.
 - **Lower Column Name**: Aggregate function to display for lower bounds of data.
 
 ###### Options
+
 - **Interpolation**:
-  - **Line**: Display a time series in a line graph.
+  - **Linear**: Display a time series in a line graph.
   - **Smooth**: Display a time series in a line graph with smooth point interpolation.
   - **Step**: Display a time series in a staircase graph.
 - **Line Colors**: Select a color scheme to use for your graph.
 - **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
-  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
-  - **Y Axis**: Show all points with the same y value along the x-axis.
-  - **X & Y Axis**: Show only the point being currently hovered over.
+  - **auto** or **X-Axis**: Show all points with the same x value along the y-axis.
+  - **Y-Axis**: Show all points with the same y value along the x-axis.
+  - **X-Y Axis**: Show only the point being currently hovered over.
 
-###### Y Axis
-- **Y Axis Label**: Label for the y-axis.
-- **Y Value Unit Prefix**:
-  - **None**: No prefix.
-  - **SI**: International System of Units (SI) or metric prefix.
-  - **Binary**: Binary multiple prefix.
-- **Y Axis Prefix**: Prefix to be added to y-value.
-- **Y Axis Suffix**: Suffix to be added to y-value.
-- **Y Axis Domain**: The y-axis value range.
-  - **Auto**: Automatically determine the value range based on values in the data set.
-  - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
-      - **Min**: Minimum y-axis value.
-      - **Max**: Maximum y-axis value.
+###### X-Axis
+
+- **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the following:
+    - **Total Tick Marks**: Enter the total number of timestamp ticks to display.
+    - **Start Tick Marks At**: Enter the time, in RFC3339 format, to start displaying ticks. Use the **Date Picker** field to automatically generate an RFC3339 formatted timestamp for this field.
+    - **Tick Mark Interval**: Enter the number of milliseconds in between each timestamp tick.
+
+###### Y-Axis
+
+- **Y Axis Label**: Enter the label for the y-axis.
+- **Y-Value Unit Prefix**: Select the prefix to add to the y-value:
+  - **None**: Select to add no prefix.
+  - **SI**: (default) Select to add an International System of Units (SI) or metric prefix.
+  - **Binary**: Select to add a binary multiple prefix.
+- **Y Axis Prefix**: Enter the prefix to add to the y-value.
+- **Y Axis Suffix**: Enter the suffix to add to the y-value.
+- **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+    - **Total Tick Marks**: Enter the total number of timestamp ticks to display.
+    - **Start Tick Marks At**: Enter the time, in RFC3339 format, to start displaying ticks.
+    - **Tick Mark Interval**: Enter the number of milliseconds in between each timestamp tick.
+- **Y Axis Domain**: Select the method to generate the y-axis value range:
+  - **Auto**: Select to automatically determine the value range based on values in the data set.
+  - **Custom**: To customize the y-axis domain, manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
+    - **Min**: Enter the minimum y-axis value.
+    - **Max**: Enter the maximum y-axis value.
+
+<!--
+###### Legend
+
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
+
+-->

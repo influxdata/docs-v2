@@ -85,20 +85,25 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 //////////////////////// Activate Tabs with Query Params ////////////////////////
 
 const queryParams = new URLSearchParams(window.location.search);
-tab = queryParams.get('t')
+var anchor = window.location.hash
 
-if (tab !== null) {
-  var anchor = window.location.hash
-  var targetTab = $('.tabs a:contains("' + tab +'")')
+tab = $('<textarea />').html(queryParams.get('t')).text();
 
+if (tab !== "") {
+  var targetTab = $('.tabs a:contains("' + tab + '")')
   targetTab.click()
-
-  if (anchor !== "") {
-    scrollToAnchor(anchor)
-  }
+  if (anchor !== "") { scrollToAnchor(anchor) }
 }
 
-// TO-DO: Add/update query params when clicking a tab
+$('.tabs p a').click(function() {
+  if ($(this).is(':not(":first-child")')) {
+    queryParams.set('t', $(this).html())
+    window.history.replaceState({}, '', `${location.pathname}?${queryParams}${anchor}`);
+  } else {
+    queryParams.delete('t')
+    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+  }
+})
 
 /////////////////////////////// Truncate Content ///////////////////////////////
 
