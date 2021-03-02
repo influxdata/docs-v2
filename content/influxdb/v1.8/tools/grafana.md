@@ -16,13 +16,15 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB v1.8** instance.
 
 {{% note %}}
-The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
-For information about using InfluxDB with other versions of Grafana,
-see the [Grafana documentation](https://grafana.com/docs/grafana/v7.0/features/datasources/influxdb/).
+#### Required
+- The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
+  For information about using InfluxDB with other versions of Grafana,
+  see the [Grafana documentation](https://grafana.com/docs/grafana/v7.0/features/datasources/influxdb/).
+- To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/influxdb/v1.8/flux/installation/)
+  in your InfluxDB configuration file.
 {{% /note %}}
 
-1. [Start InfluxDB](/influxdb/v1.8/get-started/)
-   _(to use **Flux**, [enable Flux](/influxdb/v1.8/flux/installation/) in your InfluxDB configuration file)_.
+1. [Start InfluxDB](/influxdb/v1.8/get-started/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
@@ -80,7 +82,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 With **Flux** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 
-1. Ensure [Flux is enabled](/influxdb/v1.8/flux/installation/).
+1. Ensure [Flux is enabled](/influxdb/v1.8/flux/installation/) in InfluxDB.
 
 2. Under **Connection**, enter the following:
 
