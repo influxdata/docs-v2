@@ -76,7 +76,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 |      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                      | string      |                       |
 |      | `--header`          | Prepend header line to CSV input data                                           | string      |                       |
 | `-h` | `--help`            | Help for the `write` command                                                    |             |                       |
-|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:9999`)                      | string      | `INFLUX_HOST`         |
+|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)                      | string      | `INFLUX_HOST`         |
 |      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`) | integer     |                       |
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
