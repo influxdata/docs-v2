@@ -132,10 +132,15 @@ influx v1 auth create \
   --username example-user
 ```
 {{% /expand %}}
-{{% expand "View and create InfluxDB DBRP mappings" %}}
+{{< expand "View and create InfluxDB DBRP mappings" >}}
 
+When using InfluxQL to query InfluxDB, the query must specify a database and a retention policy.
 InfluxDB DBRP mappings associate database and retention policy combinations with
-InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket)
+InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+
+DBRP mappings do not affect the retention period of the target bucket.
+These mappings allow queries following InfluxDB 1.x conventions to successfully
+query InfluxDB 2.0 buckets.
 
 #### View existing DBRP mappings
 Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)
@@ -153,7 +158,17 @@ Provide the following:
 - database name
 - retention policy name _(not retention period)_
 - [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
+- _(optional)_ `--default` flag if you want the retention policy to be the default retention
+  policy for the specified database
 
+#### Examples
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[DB with one RP](#)
+[DB with multiple RPs](#)
+{{% /code-tabs %}}
+{{< code-tab-content >}}
 ```sh
 influx v1 dbrp create \
   --db example-db \
@@ -161,9 +176,31 @@ influx v1 dbrp create \
   --bucket-id 00xX00o0X001 \
   --default
 ```
+{{< /code-tab-content >}}
+{{< code-tab-content >}}
+```sh
+# Create telegraf/autogen DBRP mapping with autogen
+# as the default RP for the telegraf DB
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp autogen \
+  --bucket-id 00xX00o0X001 \
+  --default
+
+# Create telegraf/downsampled-daily DBRP mapping that
+# writes to a different bucket
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp downsampled-daily \
+  --bucket-id 00xX00o0X002
+```
+{{< /code-tab-content >}}
+{{< /code-tabs-wrapper >}}
 
 _For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
-{{% /expand %}}
+{{< /expand >}}
 {{< /expand-wrapper >}}
 
 ### Configure your InfluxDB connection
