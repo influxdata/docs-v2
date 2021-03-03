@@ -92,7 +92,7 @@ configure your InfluxDB connection:
         http://localhost:8086/
         ```
 
-    - **Organization**: Provide an arbitrary value
+    - **Organization**: Provide an arbitrary value.
     - **Token**: If [InfluxDB authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization/),
       provide your InfluxDB username and password using the following syntax:
 

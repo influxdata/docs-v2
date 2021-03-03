@@ -90,9 +90,8 @@ configure your InfluxDB connection:
         http://localhost:8086/
         ```
 
-    - **Organization**: Provide an arbitrary value
-    - **Token**: If [InfluxDB authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization/),
-      provide your InfluxDB Enterprise username and password using the following syntax:
+    - **Organization**: Provide an arbitrary value.
+    - **Token**: Provide your InfluxDB Enterprise username and password using the following syntax:
 
       ```sh
       # Syntax
@@ -102,7 +101,9 @@ configure your InfluxDB connection:
       johndoe:mY5uP3rS3crE7pA5Sw0Rd
       ```
 
-      If authentication is not enabled, leave blank.
+      We recommend [enabling authentication](/influxdb/v1.8/administration/authentication_and_authorization/)
+      on all InfluxDB Enterprise clusters. If you choose to leave authentication disabled,
+      leave this field blank.
 
     - **Default Bucket**: Provide a default database and retention policy combination
       using the following syntax:
