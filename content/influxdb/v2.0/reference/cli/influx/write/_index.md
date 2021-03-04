@@ -165,6 +165,20 @@ influx write \
   --url https://example.com/line-protocol-2.txt
 ```
 
+##### Write line protocol from a compressed file
+```sh
+# The influx CLI assumes files with the .gz extension use gzip compression 
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.gz
+
+# Specify gzip compression for gzipped files without the .gz extension
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.comp \
+  --compression gzip
+```
+
 ---
 
 ### CSV
@@ -247,20 +261,6 @@ influx write \
   --header "#constant measurement,birds" \
   --header "#datatype dataTime:2006-01-02,long,tag" \
   --file path/to/data.csv
-```
-
-##### Write line protocol from a compressed file
-```sh
-# The influx CLI assumes files with the .gz extension use gzip compression 
-influx write \
-  --bucket example-bucket \
-  --file path/to/line-protocol.txt.gz
-
-# Specify gzip compression for gzipped files without the .gz extension
-influx write \
-  --bucket example-bucket \
-  --file path/to/line-protocol.txt.comp \
-  --compression gzip
 ```
 
 ##### Write annotated CSV data from a compressed file
