@@ -167,12 +167,12 @@ INTO "example-db"."example-rp"."example-measurement"
 {{< /code-tabs-wrapper >}}
 
 ##### Write pivoted data to InfluxDB
-InfluxDB 1.x pivots queried fields into columns and returns tables with a column for each field.
-InfluxDB 2.0 does not pivot fields into columns by default, but it is possible
-with [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
+InfluxDB 1.x query results include a column for each field.
+InfluxDB 2.0 does not do this by default, but it is possible with
+[`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
 or [`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/).
 
-If you use `to()` to write _pivoted data_ back to InfluxDB 2.0, each field columns is stored as a tag.
+If you use `to()` to write _pivoted data_ back to InfluxDB 2.0, each field column is stored as a tag.
 To write pivoted fields back to InfluxDB as fields, import the `experimental` package
 and use the [`experimental.to()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/to/).
 
