@@ -295,6 +295,8 @@ GROUP BY "location"
 ##### Group by time
 Use the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 to group data into time windows and perform an aggregation on each window.
+In CQs, the interval specified in the `GROUP BY time()` clause determines the CQ execution interval.
+Use the `GROUP BY time()` interval to set the `every` task option.
 
 ###### InfluxQL
 ```sql
@@ -306,12 +308,17 @@ GROUP BY time(1h)
 
 ###### Flux
 ```js
+options task = {
+  name: "task-name",
+  every: 1h
+}
+
 // ...
   |> filter(fn: (r) =>
     r._measurement == "example-measurement" and
     r._field == "example-field"
   )
-  |> aggregateWindow(every: 1h, fn: mean)
+  |> aggregateWindow(every: task.every, fn: mean)
 ```
 
 #### RESAMPLE clause
