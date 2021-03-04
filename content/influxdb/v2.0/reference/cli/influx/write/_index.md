@@ -101,6 +101,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 - [from a URL](#write-line-protocol-from-a-url)
 - [from multiple URLs](#write-line-protocol-from-multiple-urls)
 - [from multiple sources](#write-line-protocol-from-multiple-sources)
+- [from a compressed file](#write-line-protocol-from-a-compressed-file)
 
 ###### Write CSV data
 
@@ -112,7 +113,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 - [from multiple URLs](#write-annotated-csv-data-from-multiple-urls)
 - [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
 - [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
-
+- [from a compressed file](#write-annotated-csv-data-from-a-compressed-file)
 
 ### Line protocol
 
@@ -248,3 +249,30 @@ influx write \
   --file path/to/data.csv
 ```
 
+##### Write line protocol from a compressed file
+```sh
+# The influx CLI assumes files with the .gz extension use gzip compression 
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.gz
+
+# Specify gzip compression for gzipped files without the .gz extension
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.comp \
+  --compression gzip
+```
+
+##### Write annotated CSV data from a compressed file
+```sh
+# The influx CLI assumes files with the .gz extension use gzip compression 
+influx write \
+  --bucket example-bucket \
+  --file path/to/data.csv.gz
+
+# Specify gzip compression for gzipped files without the .gz extension
+influx write \
+  --bucket example-bucket \
+  --file path/to/data.csv.comp \
+  --compression gzip
+```
