@@ -69,7 +69,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 | `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                                          | string      | `INFLUX_BUCKET_NAME`  |
 |      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                               | string      | `INFLUX_BUCKET_ID`    |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                        | string      | `INFLUX_CONFIGS_PATH` |
-|      | `--compression`     | Input compression, either `none` or `gzip`. Defaults to `none` unless input ends with `.gz`. | string      |                       |
+|      | `--compression`     | Input compression (`none` or `gzip`, default is `none` unless input file ends with `.gz`.) | string      |                       |
 |      | `--debug`           | Output errors to stderr                                                                      |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                                | string      |                       |
 |      | `--error-file`      | Path to a file used for recording rejected row errors                                        | string      |                       |
@@ -247,5 +247,4 @@ influx write \
   --header "#datatype dataTime:2006-01-02,long,tag" \
   --file path/to/data.csv
 ```
-
 
