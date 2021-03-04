@@ -61,7 +61,7 @@ For example:
 CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
 BEGIN
   SELECT mean("example-field")
-  INTO "average-example-measurement"
+  INTO "average-example-measurement"."retain30d"
   FROM "example-measurement"
   GROUP BY time(1h)
 END
@@ -82,7 +82,7 @@ from(bucket: "my-db/")
   |> set(key: "_measurement", as: "average-example-measurement")
   |> to(
     org: "example-org",
-    bucket: "my-db/downsample-daily"
+    bucket: "my-db/retain30d"
   )
 ```
 
@@ -165,6 +165,42 @@ INTO "example-db"."example-rp"."example-measurement"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+##### Write pivoted data to InfluxDB
+InfluxDB 1.x pivots queried fields into columns and returns tables with a column for each field.
+InfluxDB 2.0 does not pivot fields into columns by default, but it is possible
+with [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
+or [`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/).
+
+If you use `to()` to write _pivoted data_ back to InfluxDB 2.0, each field columns is stored as a tag.
+To write pivoted fields back to InfluxDB as fields, import the `experimental` package
+and use the [`experimental.to()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/to/).
+
+###### InfluxQL
+```sql
+CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
+BEGIN
+  SELECT mean("example-field-1"), mean("example-field-2")
+  INTO "example-db"."30d-rp"
+  FROM "example-measurement"
+  GROUP BY time(1h)
+END
+```
+
+###### Flux
+```js
+import "experimental"
+
+// ...
+
+from(bucket: "my-db/")
+  |> range(start: -task.every)
+  |> filter(fn: (r) => r._measurement == "example-measurement")
+  |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
+  |> aggregateWindow(every: task.every, fn: mean)
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> experimental.to(bucket: "example-db/example-rp")
+```
 
 #### FROM clause
 The from clause defines the measurement to query.
@@ -284,9 +320,8 @@ The CQ `RESAMPLE` clause uses data from the last specified duration to calculate
 The `EVERY` interval in `RESAMPLE` defines how often the CQ runs.
 The `FOR` interval defines the total time range queried by the CQ.
 
-To accomplish this same functionality in a Flux task, import the `experimental` package
-and use [`experimental.subDuration()`](/influxdb/v2.0/reference/flux/stdlib/experimental/subduration/)
-to set the `start` parameter in the `range()` function.
+To accomplish this same functionality in a Flux task, set the `start` parameter
+in the `range()` function to the negative `FOR` duration.
 Define the task execution interval in the `task` options.
 For example:
 
@@ -313,7 +348,7 @@ options task = {
 }
 
 from(bucket: "my-db/")
-  |> range(start: experimental.subDuration(d: 30m, from: now()))
+  |> range(start: -30m)
   |> filter(fn: (r) =>
     r._measurement == "example-measurement" and
     r._field == "example-field" and
