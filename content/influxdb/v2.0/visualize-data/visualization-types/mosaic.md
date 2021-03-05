@@ -58,7 +58,7 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
 - **Y Label Separator**: If there's more than one column on the y-axis, enter a delimiter to separate the label, such as a comma or space. If there's no separator specified, the labels are a continuous string of all y columns.
 - **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
   - **Auto**: Select to automatically generate tick marks.
-  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter the following:
     - **Total Tick Marks**: Enter the total number of ticks to display.
     - **Start Tick Marks At**: Enter the value to start ticks at.
     - **Tick Mark Interval**: Enter the interval in between each tick.
