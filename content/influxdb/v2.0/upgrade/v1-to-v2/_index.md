@@ -55,7 +55,7 @@ InfluxDB 2.0 requires 64-bit operating systems.
 {{% /warn %}}
 
 InfluxDB 2.0 is currently available for macOS and Linux.
-(Windows builds are not currently available, but are planned for subsequent releases.)
+Windows builds are not currently available, but are planned for subsequent releases.
 
 ### Continuous queries
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
