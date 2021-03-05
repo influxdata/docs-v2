@@ -3,7 +3,8 @@ title: Mosaic visualization
 list_title: Mosaic
 list_image: /img/influxdb/2-0-visualizations-mosaic-example.png
 description: >
-  The Mosaic visualization displays data from two or more qualitative variables.
+  The Mosaic visualization displays state changes in your time series data.
+  This visualization type is useful when you want to show changes in string-based states over time.
 weight: 206
 menu:
   influxdb_2_0:
@@ -12,15 +13,16 @@ menu:
 draft: true
 ---
 
-The **Mosaic** visualization displays data from two or more qualitative variables.
+The **Mosaic** visualization displays state changes in your time series data.
+This visualization type is useful when you want to show changes in string-based states over time.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="Mosaic data visualization" />}}
 
 Select the **Mosaic** option from the visualization dropdown in the upper left.
 
 ## Mosaic behavior
-The mosaic visualization displays string values in a graph.
-
+The mosaic visualization displays colored tiles based on string values in a specified column.
+Each unique string value is represented by a different color.
 
 ## Mosaic controls
 To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
@@ -70,3 +72,16 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
+
+## Example query
+The following query uses the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data)
+to display changes in water levels over time.
+Use `level description` as the **Fill Column** in the [visualization controls](#data).
+
+```js
+from(bucket: "noaa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "h2o_feet")
+  |> filter(fn: (r) => r._field == "level description")
+  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
+```
