@@ -169,6 +169,16 @@ pre[class*="language-"] {
 	.sd ,		/* Literal.String.Doc */
 	.w  		/* Text.Whitespace */
 					{ font-style: italic }
+
+  // Javascript / Flux specific styles (duration values)
+  .language-js {
+    .mi + .nx { color: $article-code-accent5; }
+  }
+
+  // SQL / InfluxQL specific styles (duration values)
+  .language-sql {
+    .mi + .n { color: $article-code-accent5; }
+  }
 }
 
 .note {

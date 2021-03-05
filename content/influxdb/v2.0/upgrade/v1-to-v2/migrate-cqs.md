@@ -61,7 +61,7 @@ For example:
 CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
 BEGIN
   SELECT mean("example-field")
-  INTO "average-example-measurement"."retain30d"
+  INTO "my-db"."example-rp"."average-example-measurement"
   FROM "example-measurement"
   GROUP BY time(1h)
 END
@@ -79,10 +79,10 @@ from(bucket: "my-db/")
   |> filter(fn: (r) => r._measurement == "example-measurement")
   |> filter(fn: (r) => r._field == "example-field")
   |> aggregateWindow(every: 1h, fn: mean)
-  |> set(key: "_measurement", as: "average-example-measurement")
+  |> set(key: "_measurement", value: "average-example-measurement")
   |> to(
     org: "example-org",
-    bucket: "my-db/retain30d"
+    bucket: "my-db/example-rp"
   )
 ```
 
@@ -181,7 +181,7 @@ and use the [`experimental.to()` function](/influxdb/v2.0/reference/flux/stdlib/
 CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
 BEGIN
   SELECT mean("example-field-1"), mean("example-field-2")
-  INTO "example-db"."30d-rp"
+  INTO "example-db"."example-rp"."example-measurement"
   FROM "example-measurement"
   GROUP BY time(1h)
 END
@@ -189,8 +189,6 @@ END
 
 ###### Flux
 ```js
-import "experimental"
-
 // ...
 
 from(bucket: "my-db/")
@@ -347,8 +345,6 @@ END
 
 ###### Flux
 ```js
-import "experimental"
-
 options task = {
   name: "resample-example",
   every: 1m
@@ -363,7 +359,8 @@ from(bucket: "my-db/")
   )
   |> aggregateWindow(every: 1m, fn: mean)
   |> exponentialMovingAverage(n: 30)
-  |> to(bucket: "resample-average-example-measurement")
+  |> set(key: "_measurement", value: "resample-average-example-measurement")
+  |> to(bucket: "my-db/")
 ```
 
 ## Create new InfluxDB tasks
