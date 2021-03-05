@@ -3,7 +3,8 @@ title: Mosaic visualization
 list_title: Mosaic
 list_image: /img/influxdb/2-0-visualizations-mosaic-example.png
 description: >
-  The Mosaic visualization displays data from two or more qualitative variables.
+  The Mosaic visualization displays state changes in your time series data.
+  This visualization type is useful when you want to show changes in string-based states over time.
 weight: 206
 menu:
   influxdb_cloud:
@@ -11,15 +12,16 @@ menu:
     parent: Visualization types
 ---
 
-The **Mosaic** visualization displays data from two or more qualitative variables.
+The **Mosaic** visualization displays state changes in your time series data.
+This visualization type is useful when you want to show changes in string-based states over time.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="Mosaic data visualization" />}}
 
 Select the **Mosaic** option from the visualization dropdown in the upper left.
 
 ## Mosaic behavior
-The mosaic visualization displays string values in a graph.
-
+The mosaic visualization displays colored tiles based on string values in a specified column.
+Each unique string value is represented by a different color.
 
 ## Mosaic controls
 To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
@@ -69,3 +71,23 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
+
+## Example query
+The following query uses the [Website Monitoring demo data](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data)
+to display changes in response times for monitored URLs.
+The query assigns a `responseTimeSummary` string value based on the response time range.
+Use `responseTimeSummary` as the **Fill Column** in the [visualization controls](#data).
+
+```js
+from(bucket: "Website Monitoring Bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "http_response")
+  |> filter(fn: (r) => r._field == "response_time")
+  |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false)
+  |> map(fn: (r) => ({
+    r with responseTimeSummary:
+      if r._value > 0.6 then "high"
+      else if r._value > 0.4 then "medium"
+      else "ok"
+  }))
+```
