@@ -107,6 +107,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [new-meta-store](#new-meta-store)
 - [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
+- [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
 - [query-initial-memory-bytes](#query-initial-memory-bytes)
 - [query-max-memory-bytes](#query-max-memory-bytes)
