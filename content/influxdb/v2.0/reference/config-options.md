@@ -107,6 +107,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [new-meta-store](#new-meta-store)
 - [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
+- [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
 - [query-initial-memory-bytes](#query-initial-memory-bytes)
 - [query-max-memory-bytes](#query-max-memory-bytes)
@@ -814,6 +815,54 @@ no-tasks = true
 ```json
 {
   "no-tasks": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### pprof-disabled
+Disable the `/debug/pprof` HTTP endpoint.
+This endpoint provides runtime profiling data and can be helpful when debugging.
+
+**Default:** `false`
+
+| influxd flag       | Environment variable     | Configuration key |
+|:-------------------|:-------------------------|:------------------|
+| `--pprof-disabled` | `INFLUXD_PPROF_DISABLED` | `pprof-disabled`  |
+
+###### influxd flag
+```sh
+influxd --pprof-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_PPROF_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+pprof-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+pprof-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "pprof-disabled": true
 }
 ```
 {{% /code-tab-content %}}
