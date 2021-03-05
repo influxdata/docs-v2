@@ -3,7 +3,7 @@ title: Mosaic visualization
 list_title: Mosaic
 list_image: /img/influxdb/2-0-visualizations-mosaic-example.png
 description: >
-  The Mosaic view displays the single value most recent value for a time series in a mosaic view.
+  The Mosaic visualization displays data from two or more qualitative variables.
 weight: 206
 menu:
   influxdb_2_0:
