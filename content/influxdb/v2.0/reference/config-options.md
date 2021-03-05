@@ -821,6 +821,54 @@ no-tasks = true
 
 ---
 
+### pprof-disabled
+Don't expose debugging information over HTTP at `/debug/pprof`.
+
+**Default:** `false`
+
+| influxd flag       | Environment variable | Configuration key |
+|:-------------------|:---------------------|:------------------|
+| `--pprof-disabled` | ``                   | ``                |
+
+###### influxd flag
+```sh
+influxd --pprof-disabled
+```
+<!--
+###### Environment variable
+```sh
+export INFLUXD_NO_TASKS=true
+```
+-->
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+pprof-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+pprof-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "pprof-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### query-concurrency
 Number of queries allowed to execute concurrently.
 

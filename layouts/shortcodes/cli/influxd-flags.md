@@ -14,6 +14,7 @@
 - [\--new-meta-store](/influxdb/v2.0/reference/config-options/#new-meta-store)
 - [\--new-meta-store-read-only](/influxdb/v2.0/reference/config-options/#new-meta-store-read-only)
 - [\--no-tasks](/influxdb/v2.0/reference/config-options/#no-tasks)
+- [\--pprof-disabled](/influxdb/v2.0/reference/config-options/#pprof-disabled)
 - [\--query-concurrency](/influxdb/v2.0/reference/config-options/#query-concurrency)
 - [\--query-initial-memory-bytes](/influxdb/v2.0/reference/config-options/#query-initial-memory-bytes)
 - [\--query-max-memory-bytes](/influxdb/v2.0/reference/config-options/#query-max-memory-bytes)
