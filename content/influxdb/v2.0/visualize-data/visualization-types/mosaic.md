@@ -75,7 +75,7 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
 
 ## Example query
 The following query uses the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data)
-to display changes water levels over time.
+to display changes in water levels over time.
 Use `level description` as the **Fill Column** in the [visualization controls](#data).
 
 ```js
