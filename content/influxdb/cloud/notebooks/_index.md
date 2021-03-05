@@ -21,6 +21,8 @@ Notebooks are a way to build and annotate processes and data flows for time seri
 - Build runbooks.
 - Document data processing steps.
 
+{{< youtube Rs16uhxK0h8 >}}
+
 To learn how to use notebooks, check out the following articles:
 
 {{< children >}}
