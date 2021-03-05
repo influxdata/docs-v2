@@ -1,19 +1,18 @@
 ---
-title: Use Grafana with InfluxDB
-seotitle: Use Grafana with InfluxDB v1.7
+title: Use Grafana with InfluxDB Enterprise
+seotitle: Use Grafana with InfluxDB Enterprise v1.7
 description: >
-  Configure Grafana to query and visualize data from InfluxDB v1.7.
+  Configure Grafana to query and visualize data from InfluxDB Enterprise v1.7.
 menu:
-  influxdb_1_7:
+  enterprise_influxdb_1_7:
     name: Grafana
     weight: 60
     parent: Tools
-v2: /influxdb/v2.0/tools/grafana/
 canonical: /{{< latest "influxdb" >}}/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
-to visualize data from your **InfluxDB v1.7** instance.
+to visualize data from your **InfluxDB Enterprise v1.7** instance.
 
 {{% note %}}
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
@@ -21,7 +20,7 @@ For information about using InfluxDB with other versions of Grafana,
 see the [Grafana documentation](https://grafana.com/docs/grafana/v7.0/features/datasources/influxdb/).
 {{% /note %}}
 
-1. [Start InfluxDB](/influxdb/v1.7/get-started/).
+1. [Set up an InfluxDB Enterprise cluster](/enterprise_influxdb/v1.7/install-and-deploy/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
@@ -46,7 +45,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
 1. Under **HTTP**, enter the following:
 
-    - **URL**: Your **InfluxDB URL**.
+    - **URL**: Your **InfluxDB Enterprise URL** or **load balancer URL**.
 
         ```sh
         http://localhost:8086/
@@ -56,26 +55,25 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 2. Under **InfluxDB Details**, enter the following:
 
     - **Database**: your database name
-    - **User**: your InfluxDB username _(if [authentication is enabled](/influxdb/v1.7/administration/authentication_and_authorization/))_
-    - **Password**: your InfluxDB password _(if [authentication is enabled](/influxdb/v1.7/administration/authentication_and_authorization/))_
+    - **User**: your InfluxDB Enterprise username _(if [authentication is enabled](/influxdb/v1.7/administration/authentication_and_authorization/))_
+    - **Password**: your InfluxDB Enterprise password _(if [authentication is enabled](/influxdb/v1.7/administration/authentication_and_authorization/))_
     - **HTTP Method**: select **GET** or **POST** _(for differences between the two,
       see the [query HTTP endpoint documentation](/influxdb/v1.7/tools/api/#query-http-endpoint))_
 
 3. Provide a **[Min time interval](https://grafana.com/docs/grafana/latest/datasources/influxdb/#min-time-interval)**
    (default is 10s).
 
-    {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
+    {{< img-hd src="/img/enterprise/1-7-tools-grafana-influxql.png" />}}
 
-4. Click **Save & Test**. Grafana attempts to connect to InfluxDB and returns
+4. Click **Save & Test**. Grafana attempts to connect to InfluxDB Enterprise and returns
    the result of the test.
-
 {{% /tab-content %}}
 
 {{% tab-content %}}
 ## Configure Grafana to use Flux
-To query InfluxDB using Flux from Grafana, **upgrade to InfluxDB 1.8.1+**:
+To query InfluxDB Enterprise using Flux from Grafana, **upgrade to InfluxDB Enterprise 1.8.1+**:
 
-- [Upgrade to InfluxDB 1.8.x](/influxdb/v1.8/administration/upgrading/)
-- [Use Grafana with InfluxDB 1.8](/influxdb/v1.8/tools/grafana/).
+- [Upgrade to InfluxDB Enterprise 1.8.x](/enterprise_influxdb/v1.8/administration/upgrading/)
+- [Use Grafana with InfluxDB Enterprise 1.8](/enterprise_influxdb/v1.8/tools/grafana/).
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

@@ -53,6 +53,15 @@ The InfluxDB UI provides multiple ways to create a task:
    See [Task options](/influxdb/v2.0/process-data/task-options) for detailed information about each option.
 5. Select a token to use from the **Token** dropdown.
 6. In the right panel, enter your task script.
+
+    {{% note %}}
+##### Leave out the options tasks assignment
+When creating a _new_ task in the InfluxDB Task UI, leave out the `options task`
+assignment that defines [task options](/influxdb/v2.0/process-data/task-options/).
+The InfluxDB UI injects this code using settings specified in the **Task options**
+fields in the left panel when you save the task.
+    {{% /note %}}
+
 7. Click **Save** in the upper right.
 
 ### Import a task
