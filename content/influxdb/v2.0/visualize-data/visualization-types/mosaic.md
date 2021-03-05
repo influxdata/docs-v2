@@ -10,7 +10,7 @@ menu:
   influxdb_2_0:
     name: Mosaic
     parent: Visualization types
-draft: false
+draft: true
 ---
 
 The **Mosaic** visualization displays state changes in your time series data.
