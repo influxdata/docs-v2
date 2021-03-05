@@ -6,10 +6,9 @@ description: >
   The Mosaic visualization displays data from two or more qualitative variables.
 weight: 206
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Mosaic
     parent: Visualization types
-draft: true
 ---
 
 The **Mosaic** visualization displays data from two or more qualitative variables.
