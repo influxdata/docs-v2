@@ -838,7 +838,7 @@ influxd --pprof-disabled
 
 ###### Environment variable
 ```sh
-export INFLUXD_NO_TASKS=true
+export INFLUXD_PPROF_DISABLED=true
 ```
 
 ###### Configuration file
