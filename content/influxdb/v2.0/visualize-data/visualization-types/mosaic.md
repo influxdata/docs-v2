@@ -13,7 +13,7 @@ menu:
 
 The **Mosaic** visualization displays data from two or more qualitative variables.
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="mosaic example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-mosaic-example.png" alt="Mosaic data visualization" />}}
 
 Select the **Mosaic** option from the visualization dropdown in the upper left.
 
