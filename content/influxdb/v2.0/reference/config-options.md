@@ -823,7 +823,8 @@ no-tasks = true
 ---
 
 ### pprof-disabled
-Disable the `/debug/pprof`  HTTP endpoint. This endpoint provides runtime profiling data and can be helpful when debugging.
+Disable the `/debug/pprof` HTTP endpoint.
+This endpoint provides runtime profiling data and can be helpful when debugging.
 
 **Default:** `false`
 
