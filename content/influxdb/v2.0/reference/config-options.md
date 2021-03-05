@@ -826,20 +826,19 @@ Don't expose debugging information over HTTP at `/debug/pprof`.
 
 **Default:** `false`
 
-| influxd flag       | Environment variable | Configuration key |
-|:-------------------|:---------------------|:------------------|
-| `--pprof-disabled` | ``                   | ``                |
+| influxd flag       | Environment variable     | Configuration key |
+|:-------------------|:-------------------------|:------------------|
+| `--pprof-disabled` | `INFLUXD_PPROF_DISABLED` | `pprof-disabled`  |
 
 ###### influxd flag
 ```sh
 influxd --pprof-disabled
 ```
-<!--
+
 ###### Environment variable
 ```sh
 export INFLUXD_NO_TASKS=true
 ```
--->
 
 ###### Configuration file
 {{< code-tabs-wrapper >}}
