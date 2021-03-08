@@ -35,12 +35,24 @@ authenticate with a username and password like InfluxDB 1.x
 We call such authorizations _v1 compatibility authorizations_.
 (Compatibility authorizations are _separate from_ the credentials used to log into the InfluxDB user interface.)
 
-<!-- a v1 auth setup -- how to add a v1 auth username/password combo -->
+### The `influx v1` command
+
+Use the `influx v1` command to TK.
+
+The `influx v1` is part of the InfluxDB 2.0 `influx` CLI.
+Like all operations in 2.0, `influx v1` commands must be authenticated with a token.
 
 
-<!-- Note: influx v1 requires an authentication token -->
+When upgrading from 1.x to 2.0, this means you must 
+
+1. install 2.0
+2. create your username and password in the UI (remember, this is not he same as an authorization)
+3. in the UI, create a token
+
+Then, when completing the tasks below either pass this token on the command line, set as an environment variable, or setup a CLI config.
 
 #### Create a v1 compatibility authorization
+<!-- a v1 auth setup -- how to add a v1 auth username/password combo -->
 Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets.
 Provide the following:
