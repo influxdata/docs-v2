@@ -31,8 +31,8 @@ data = from(bucket: "example-bucket") |> range(start: -10m) # ...
 
 {{% note %}}
 #### Remove unnecessary columns in large datasets
-When using the `influx query` command to query and download large sets of data,
-drop columns such as `_start` and `_stop` to optimize the downloaded data.
+When using the `influx query` command to query and download large datasets,
+drop columns such as `_start` and `_stop` to optimize the download file size.
 
 ```js
 // ...
