@@ -1,7 +1,7 @@
 ---
 title: join() function
 description: >
-  The `join()` function merges two or more input streams into a single output stream
+  The `join()` function merges two input streams into a single output stream
   based on columns with equal values.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/transformations/join
@@ -16,7 +16,7 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/
 ---
 
-The `join()` function merges two or more input streams into a single output stream
+The `join()` function merges two input streams into a single output stream
 based on columns with equal values.
 Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.

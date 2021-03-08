@@ -1,7 +1,7 @@
 ---
 title: join() function
 description: >
-  The `join()` function merges two or more input streams into a single output stream
+  The `join()` function merges two input streams into a single output stream
   based on columns with equal values.
 aliases:
   - /influxdb/cloud/reference/flux/functions/transformations/join
