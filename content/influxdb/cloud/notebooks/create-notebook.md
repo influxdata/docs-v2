@@ -30,9 +30,9 @@ This guide walks through the basics of creating a notebook. For specific example
 4. By default, a **Metric Selector** and **Visualization** cell appear (see [Cell types](#cell-types) below for details.)
 5. Click the **+** icon to add a cell. See [Cell types](#cell-types) below for details on each type of cell.
 6. Click **Preview** to preview the results of each cell in a raw data table without writing any data.
-  {{% warn %}}
-  If your cell contains a custom script that makes a call (for example, the `to()` function in Flux), clicking **Preview** might still write data.
-  {{% /warn %}}
+    {{% warn %}}
+If your cell contains a custom script that uses the `to()` function to write data, clicking **Preview** will write data.
+    {{% /warn %}}
 7. Click the dropdown menu next to **Preview** and select **Run** to show the results of each cell and write it to the specified output bucket.
 7. Click the eye icon to hide a cell.
 
