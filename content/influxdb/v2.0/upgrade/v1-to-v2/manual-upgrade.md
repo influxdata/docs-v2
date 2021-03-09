@@ -31,6 +31,11 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
    Then, when completing the tasks below either 
    pass this token [on the command line](), set as an [environment variable](), or setup a [CLI configuration]().
 
+## Migrate data
+
+To selectively migrate data, use the 1.x [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
+Then write the exported line protocol to InfluxDB 2.0.
+
 ## Create authorizations
 If you do **not** have authorization enabled in 1.x, do one of the following:
 
