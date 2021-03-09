@@ -39,11 +39,15 @@ cp -R .influxdb/ .influxdb_bak/
 ```
 {{% /warn %}}
 
-To migrate all data, use the `influxd upgrade` tool.
-<!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
 
-To selectively migrate data, use the v1 [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
-Then write the exported line protocol to InfluxDB 2.0.
+1. stop ruunning 1.x
+1. Do one of the follwoing:
+   - **Migrate all data**:
+     To migrate all data, use the `influxd upgrade` tool.
+     <!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
+   - **Migrate specified data**:
+     To selectively migrate data, use the v1 [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
+     Then write the exported line protocol to InfluxDB 2.0.
 
 ## Create authorizations
 If you do **not** have authorization enabled in 1.x, do one of the following:
