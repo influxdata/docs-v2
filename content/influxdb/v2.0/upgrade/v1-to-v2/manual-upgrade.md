@@ -17,6 +17,8 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
 
 {{% note %}}
 To automatically upgrade from InfluxDB 1.x to InfluxDB 2.0, use the [`influx upgrade` command](/influxdb/v2.0/upgrade/v1-to-v2/).
+
+If you won't be using 1.x client libraries to write data to InfluxDB 2.0, we recommend you use `influx upgrade` to automatically upgrade.
 {{% /note %}}
 
 ## Create authorizations
