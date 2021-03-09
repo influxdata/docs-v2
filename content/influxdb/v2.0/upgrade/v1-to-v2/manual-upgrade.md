@@ -1,7 +1,7 @@
 ---
-title: Manually upgrade from 1.x to InfluxDB 2.0
+title: Manually upgrade from InfluxDB 1.x to 2.0
 description: >
-  Manually upgrade from 1.x to InfluxDB 2.0
+  Manually upgrade from InfluxDB 1.x to InfluxDB 2.0.
 menu:
   influxdb_2_0:
     parent: InfluxDB 1.x to 2.0
@@ -58,8 +58,8 @@ to grant read/write permissions to specific buckets.
 Provide the following:
 
 - a list of [bucket IDs](/influxdb/v2.0/organizations/buckets/view-buckets/) for which to grant read or write permissions
-- a new username
-- a new password _(when prompted)_
+- New v1 auth username
+- New v1 auth password _(when prompted)_
 
 ```sh
 influx v1 auth create \
