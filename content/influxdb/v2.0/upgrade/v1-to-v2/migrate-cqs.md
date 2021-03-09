@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB 1.x to 2.0
     name: Migrate CQs
-weight: 101
+weight: 102
 related:
   - /influxdb/v2.0/query-data/get-started/
   - /influxdb/v2.0/query-data/flux/
