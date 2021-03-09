@@ -65,18 +65,18 @@ The InfluxDB upgrade process requires extra volumes to be mounted into the 2.x c
 Use **environment variables** and **Docker mounts** to specify and configure the
 appropriate mount paths for the following:
 
--	1.x data on disk
--	Custom 1.x configuration file (if any)
+- 1.x data on disk
+- Custom 1.x configuration file (if any)
 - 2.x data on disk (`/var/lib/influxdb2`)
 - 2.x configuration directory (`/etc/influxdb2`)
 
 The InfluxDB upgrade process searches for mounted 1.x data and configuration files
 in the following priority order:
 
-1.	1.x configuration file specified by the `DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG` environment variable
-2.	1.x data directory specified by the `DOCKER_INFLUXDB_INIT_UPGRADE_V1_DIR` environment variable
-3.	1.x configuration file mounted at `/etc/influxdb/influxdb.conf`
-4.	1.x data directory mounted at `/var/lib/influxdb`
+1. 1.x configuration file specified by the `DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG` environment variable
+2. 1.x data directory specified by the `DOCKER_INFLUXDB_INIT_UPGRADE_V1_DIR` environment variable
+3. 1.x configuration file mounted at `/etc/influxdb/influxdb.conf`
+4. 1.x data directory mounted at `/var/lib/influxdb`
 
 {{% note %}}
 #### Avoid data loss
