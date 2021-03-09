@@ -15,13 +15,13 @@ related:
 To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
 
 1. [Install 2.0](#install-influxdb-2.0)
-1. [Migrate data](#migrate-data)
-1. [Create authorizations](#create-authorizations)
-1. [Create DBRP mappings](#create-dbrp-mapping)
+2. [Migrate data](#migrate-data)
+3. [Create authorizations](#create-authorizations)
+4. [Create DBRP mappings](#create-dbrp-mapping)
 
 {{% note %}}
-If you won't be using 1.x client libraries to write data to InfluxDB 2.0, we recommend you use automatic upgrade process.
-To automatically upgrade from InfluxDB 1.x to InfluxDB 2.0, use the [`influx upgrade` command](/influxdb/v2.0/upgrade/v1-to-v2/).
+If you won't be using 1.x client libraries to write data to InfluxDB 2.0,
+we recommend you use the [automatic upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/).
 {{% /note %}}
 
 ## Install InfluxDB 2.0
@@ -39,7 +39,6 @@ cp -R .influxdb/ .influxdb_bak/
 ```
 {{% /warn %}}
 
-
 1. stop running 1.x
 1. Do one of the following:
    - **Migrate all data**:
@@ -52,20 +51,24 @@ cp -R .influxdb/ .influxdb_bak/
 ## Create authorizations
 If you do **not** have authorization enabled in 1.x, do one of the following:
 
-- (Recommended) Enable authorization with a [token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
-- To authenticate using an InfluxDB 1.x username and password, enable _v1 compatibility authorizations_ using the [v1 compatibility API](...). Note, v1 compatibility authorizations_ are _separate from_ the credentials used to log into the InfluxDB user interface.)
+- (_Recommended_) Enable authorization with a [token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
+- To authenticate using an InfluxDB 1.x username and password,
+  enable _v1 compatibility authorizations_ using the [v1 compatibility API](...).
+  Note that v1 compatibility authorizations_ are _separate from_ the credentials used to log into the InfluxDB user interface.
 
 #### Create a v1 compatibility authorization
-<!-- The `influx v1` is part of the InfluxDB 2.0 `influx` CLI. -->
-<!-- Like all operations in 2.0, `influx v1` commands must be authenticated with a token. -->
+{{% note %}}
+The `influx v1` is part of the InfluxDB 2.0 `influx` CLI.
+Like all operations in 2.0, `influx v1` commands must be authenticated with a token.
+{{% /note %}}
 
 Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets.
 Provide the following:
 
 - a list of [bucket IDs](/influxdb/v2.0/organizations/buckets/view-buckets/) for which to grant read or write permissions
-- New v1 auth username
-- New v1 auth password _(when prompted)_
+- new v1 auth username
+- new v1 auth password _(when prompted)_
 
 ```sh
 influx v1 auth create \
@@ -112,7 +115,6 @@ influx v1 dbrp create \
 ```
 
 _For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
-
 
 <!--
 ## Other actions
