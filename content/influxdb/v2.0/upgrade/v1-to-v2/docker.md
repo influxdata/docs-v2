@@ -51,13 +51,13 @@ The automated InfluxDB upgrade process bootstraps an initial admin user,
 Set the following [environment variables in your Docker container](https://docs.docker.com/search/?q=environment%20variables)
 to provide setup credentials:
 
--	`DOCKER_INFLUXDB_INIT_USERNAME`: Username to set for the admin user ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_PASSWORD`: Password to set for the admin user ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_ORG`: Name to set for the initial organization ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_BUCKET`: Name to set for the initial bucket ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_RETENTION`: Duration for the initial bucket's retention period.
+- `DOCKER_INFLUXDB_INIT_USERNAME`: Username to set for the admin user ({{< req >}}).
+- `DOCKER_INFLUXDB_INIT_PASSWORD`: Password to set for the admin user ({{< req >}}).
+- `DOCKER_INFLUXDB_INIT_ORG`: Name to set for the initial organization ({{< req >}}).
+- `DOCKER_INFLUXDB_INIT_BUCKET`: Name to set for the initial bucket ({{< req >}}).
+- `DOCKER_INFLUXDB_INIT_RETENTION`: Duration for the initial bucket's retention period.
   If not set, the initial bucket will retain data forever.
--	`DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: Authentication token to associate with the admin user.
+- `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: Authentication token to associate with the admin user.
   If not set, InfluxDB automatically generates a token.
 
 ### File system mounts
