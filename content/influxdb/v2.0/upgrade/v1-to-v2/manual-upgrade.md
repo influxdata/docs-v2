@@ -30,6 +30,21 @@ To automatically upgrade from InfluxDB 1.x to InfluxDB 2.0, use the [`influx upg
 <!-- The `influx v1` is part of the InfluxDB 2.0 `influx` CLI. -->
 <!-- Like all operations in 2.0, `influx v1` commands must be authenticated with a token. -->
 
+## Migrate data
+{{% warn %}}
+Before doing any data migration,
+stop your running InfluxDB 1.x instance and make a backup copy of all 1.x data:
+```sh
+cp -R .influxdb/ .influxdb_bak/
+```
+{{% /warn %}}
+
+To migrate all data, use the `influxd upgrade` tool.
+<!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
+
+To selectively migrate data, use the v1 [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
+Then write the exported line protocol to InfluxDB 2.0.
+
 ## Create authorizations
 If you do **not** have authorization enabled in 1.x, do one of the following:
 
@@ -92,20 +107,8 @@ influx v1 dbrp create \
 
 _For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
 
-## Migrate data
-{{% warn %}}
-Before doing any data migration,
-stop your running InfluxDB 1.x instance and make a backup copy of all 1.x data:
-```sh
-cp -R .influxdb/ .influxdb_bak/
-```
-{{% /warn %}}
 
-To migrate all data, use the `influxd upgrade` tool.
-<!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
-
-To selectively migrate data, use the v1 [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
-Then write the exported line protocol to InfluxDB 2.0.
-
+<!--
 ## Other actions
 See also [Migrate continuous queries to tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
+-->
