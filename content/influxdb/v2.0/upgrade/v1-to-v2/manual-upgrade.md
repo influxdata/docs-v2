@@ -22,20 +22,10 @@ If you won't be using 1.x client libraries to write data to InfluxDB 2.0, we rec
 {{% /note %}}
 
 ## Create authorizations
-InfluxDB 2.0 requires authorization.
-If you do not have authorization enabled in 1.x, you will need to enable some kind of authorization
-either username and password, or [token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)-based authorization.
+If you do **not** have authorization enabled in 1.x, do one of the following:
+- (Recommended) Enable authorization with a [token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token). 
+- To authenticate using an InfluxDB 1.x username and password, enable _v1 compatibility authorizations_ using the [v1 compatibility API](...). Note, v1 compatibility authorizations_ are _separate from_ the credentials used to log into the InfluxDB user interface.)
 
-Token-based authorization is the standard method in InfluxDB 2.0.
-We recommend using this method if possible.
-
-However, the [v1 compatibility API]() provides a wrapper for using username and password so that users can continue to use 1.x clients and libraries
-(that expect basic auth) with InfluxDB 2.0
-
-InfluxDB OSS 2.0 provides a 1.x compatible authentication API that lets you
-authenticate with a username and password like InfluxDB 1.x
-We call such authorizations _v1 compatibility authorizations_.
-(Compatibility authorizations are _separate from_ the credentials used to log into the InfluxDB user interface.)
 
 ### The `influx v1` command
 
