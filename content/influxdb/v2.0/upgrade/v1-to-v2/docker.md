@@ -134,7 +134,8 @@ docker run -p 8086:8086 \
 
     - Volume mount for the InfluxDB 1.x data directory
     - Volume mount for the InfluxDB 1.x configuration file
-    - Volume mount for the InfluxDB 2.x data directory
+    - Volume mount for the InfluxDB 2.x data directory (`/var/lib/influxdb2`)
+    - Volume mount for the InfluxDB 2.x configuration directory (`/etc/influxdb2`)
     - InfluxDB [initialization mode](#upgrade-initialization-mode) environment variable
     - InfluxDB [initialization credential](#influxdb-2x-initialization-credentials) environment variables
     - `influxdb:2.0` Docker image
@@ -144,6 +145,7 @@ docker run -p 8086:8086 \
   -v influxdb:/var/lib/influxdb \
   -v $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro \
   -v influxdb2:/var/lib/influxdb2 \
+  -v influxdb2:/etc/influxdb2 \
   -e DOCKER_INFLUXDB_INIT_MODE=upgrade \
   -e DOCKER_INFLUXDB_INIT_USERNAME=my-user \
   -e DOCKER_INFLUXDB_INIT_PASSWORD=my-password \
@@ -181,6 +183,7 @@ To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the 
 - Volume mount for the InfluxDB 1.x data directory
 - Volume mount for the InfluxDB 1.x configuration file
 - Volume mount for the InfluxDB 2.x data directory
+- Volume mount for the InfluxDB 2.x configuration directory
 - InfluxDB [initialization mode](#upgrade-initialization-mode) environment variable
 - InfluxDB [initialization credential](#influxdb-2x-initialization-credentials) environment variables
 - InfluxDB 2.x [v1 configuration file path](#file-system-mounts) environment variable:
@@ -196,15 +199,16 @@ docker run -p 8086:8086 \
   -v influxdb:/root/influxdb/data \
   -v $PWD/influxdb.conf:/root/influxdb/influxdb.conf:ro \
   -v influxdb2:/root/influxdb2/data \
+  -v influxdb2:/root/influxdb2 \
   -e DOCKER_INFLUXDB_INIT_MODE=upgrade \
   -e DOCKER_INFLUXDB_INIT_USERNAME=my-user \
   -e DOCKER_INFLUXDB_INIT_PASSWORD=my-password \
   -e DOCKER_INFLUXDB_INIT_ORG=my-org \
   -e DOCKER_INFLUXDB_INIT_BUCKET=my-bucket \
   -e DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG=/root/influxdb/influxdb.conf \
-  -e DOCKER_INFLUXDB_CONFIG_PATH=/root/influxdb2/config.toml \
-  -e DOCKER_INFLUXDB_BOLT_PATH=/root/influxdb2/influxdb.bolt \
-  -e DOCKER_INFLUXDB_ENGINE_PATH=/root/influxdb2/engine \
+  -e INFLUXD_CONFIG_PATH=/root/influxdb2/config.toml \
+  -e INFLUXD_BOLT_PATH=/root/influxdb2/influxdb.bolt \
+  -e INFLUXD_ENGINE_PATH=/root/influxdb2/engine \
   influxdb:2.0
 ```
 {{% /tab-content %}}
@@ -215,7 +219,8 @@ To use default InfluxDB 2.x paths, start the InfluxDB container with the followi
 
 - Volume mount for the InfluxDB 1.x data directory
 - Volume mount for the InfluxDB 1.x configuration file
-- Volume mount for the InfluxDB 2.x data directory
+- Volume mount for the InfluxDB 2.x data directory (`/var/lib/influxdb2`)
+- Volume mount for the InfluxDB 2.x configuration directory (`/etc/influxdb2`)
 - InfluxDB [initialization mode](#upgrade-initialization-mode) environment variable
 - InfluxDB [initialization credential](#influxdb-2x-initialization-credentials) environment variables
 - InfluxDB 2.x [v1 configuration file path](#file-system-mounts) environment variable:
@@ -227,6 +232,7 @@ docker run -p 8086:8086 \
   -v influxdb:/root/influxdb/data \
   -v $PWD/influxdb.conf:/root/influxdb/influxdb.conf:ro \
   -v influxdb2:/var/lib/influxdb2 \
+  -v influxdb2:/etc/influxdb2 \
   -e DOCKER_INFLUXDB_INIT_MODE=upgrade \
   -e DOCKER_INFLUXDB_INIT_USERNAME=my-user \
   -e DOCKER_INFLUXDB_INIT_PASSWORD=my-password \
