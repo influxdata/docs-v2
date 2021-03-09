@@ -9,12 +9,12 @@ menu:
 weight: 10
 ---
 
-To migrate all data, use the `influxd upgrade` tool.
-<!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
+The recommended path for most users is to follow ["Automatically upgrade from InfluxDB 1.x to InfluxDB 2.0"]().
 
-If you will be continuing to use 1.x client libraries to write data to InfluxDB 2.0,
-**and** do not have auth enabled,
+If you **do not** have authorization enable in InfluxDB 1.x,
 see the [manual upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade).
+
+<!-- If you will be continuing to use 1.x client libraries to write data to InfluxDB 2.0, -->
 
 {{< children >}}
 
