@@ -14,7 +14,9 @@ Use the automated upgrade process built into the [InfluxDB 2.x Docker image](htt
 to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 
 - [Upgrade requirements](#upgrade-requirements)
-- [Upgrade examples](#upgrade-examples)
+- [Minimal upgrade](#minimal-upgrade)
+- [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1-x-configuration-file)
+- [Upgrade with custom paths](#upgrade-with-custom-paths)
 
 {{% note %}}
 #### Export continuous queries before upgrading
@@ -44,15 +46,16 @@ see [Upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
 The automated InfluxDB upgrade process bootstraps an initial admin user,
 [organization](/influxdb/v2.0/reference/glossary/#organization), and
 [bucket](/influxdb/v2.0/reference/glossary/#bucket) required by InfluxDB 2.x.
-Use the following environment variables to provide setup credentials:
+Set the following [environment variables in your Docker container](https://docs.docker.com/search/?q=environment%20variables)
+to provide setup credentials:
 
--	`DOCKER_INFLUXDB_INIT_USERNAME`: username to set for the admin user ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_PASSWORD`: password to set for the admin user ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_ORG`: name to set for the initial organization ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_BUCKET`: name to set for the initial bucket ({{< req >}}).
--	`DOCKER_INFLUXDB_INIT_RETENTION`: duration for the initial bucket's retention period
+-	`DOCKER_INFLUXDB_INIT_USERNAME`: Username to set for the admin user ({{< req >}}).
+-	`DOCKER_INFLUXDB_INIT_PASSWORD`: Password to set for the admin user ({{< req >}}).
+-	`DOCKER_INFLUXDB_INIT_ORG`: Name to set for the initial organization ({{< req >}}).
+-	`DOCKER_INFLUXDB_INIT_BUCKET`: Name to set for the initial bucket ({{< req >}}).
+-	`DOCKER_INFLUXDB_INIT_RETENTION`: Duration for the initial bucket's retention period.
   If not set, the initial bucket will retain data forever.
--	`DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: The authentication token to associate with the admin user.
+-	`DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: Authentication token to associate with the admin user.
   If not set, InfluxDB automatically generates a token.
 
 ### File system mounts
@@ -81,14 +84,7 @@ We recommend mounting volumes at both paths to avoid losing data.
 ### Upgrade initialization mode
 Set the `DOCKER_INFLUXDB_INIT_MODE` environment variable to `upgrade`.
 
-## Upgrade examples
-The examples below demonstrate different InfluxDB Docker upgrade scenarios.
-
-- [Minimal upgrade](#minimal-upgrade)
-- [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1-x-configuration-file)
-- [Upgrade with custom paths](#upgrade-with-custom-paths)
-
-### Minimal upgrade
+## Minimal upgrade
 If you're currently running a minimal InfluxDB 1.x deployment similar to:
 
 ```sh
@@ -100,7 +96,7 @@ docker run -p 8086:8086 \
 **To upgrade this minimal deployment to InfluxDB 2.x:**
 
 1.  Stop the running InfluxDB 1.x container.
-2.  Start the InfluxDB container and specify the following:
+2.  Start the InfluxDB container with the following:
 
     - Volume mount for the InfluxDB 1.x data directory
     - Volume mount for the InfluxDB 2.x data directory
@@ -120,7 +116,7 @@ docker run -p 8086:8086 \
       influxdb:2.0
     ```
 
-### Upgrade with a custom InfluxDB 1.x configuration file
+## Upgrade with a custom InfluxDB 1.x configuration file
 If you're currently running an InfluxDB 1.x deployment with a custom configuration
 file similar to:
 
@@ -134,7 +130,7 @@ docker run -p 8086:8086 \
 **To upgrade an InfluxDB 1.x deployment with a custom configuration file to InfluxDB 2.x:**
 
 1.  Stop the running InfluxDB 1.x container.
-2.  Start the InfluxDB container and specify the following:
+2.  Start the InfluxDB container with the following:
 
     - Volume mount for the InfluxDB 1.x data directory
     - Volume mount for the InfluxDB 1.x configuration file
@@ -156,7 +152,7 @@ docker run -p 8086:8086 \
   influxdb:2.0
 ```
 
-### Upgrade with custom paths
+## Upgrade with custom paths
 If you're currently running an InfluxDB 1.x deployment with the data directory and
 configuration file mounted at custom paths similar to:
 
@@ -180,7 +176,7 @@ docker run -p 8086:8086 \
 <!-------------------------- BEGIN KEEP CUSTOM PATHS -------------------------->
 {{% tab-content %}}
 
-To retain your custom InfluxDB 1.x paths, start the InfluxDB container and specify the following:
+To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the following:
 
 - Volume mount for the InfluxDB 1.x data directory
 - Volume mount for the InfluxDB 1.x configuration file
@@ -215,7 +211,7 @@ docker run -p 8086:8086 \
 <!--------------------------- END KEEP CUSTOM PATHS --------------------------->
 <!-------------------------- BEGIN USE 2.x DEFAULTS --------------------------->
 {{% tab-content %}}
-To use InfluxDB 2.x default paths, start the InfluxDB container and specify the following:
+To use default InfluxDB 2.x paths, start the InfluxDB container with the following:
 
 - Volume mount for the InfluxDB 1.x data directory
 - Volume mount for the InfluxDB 1.x configuration file
