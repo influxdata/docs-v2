@@ -41,7 +41,6 @@ Some or all might apply to your specific installation and use case.
 The sections below contain our recommendations for addressing possible gaps in the upgrade process.
 Consider whether you need to address any of the following before upgrading.
 
-- [Manual upgrade path]()
 - [Available operating system, container, and platform support](#available-operating-system-container-and-platform-support)
 - [Continuous queries](#continuous-queries)
 - [Supported protocols](#supported-protocols)
@@ -51,13 +50,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
 - [`inmem` indexing option](#inmem-indexing-option)
-
-### Manual upgrade path
-
-Whenever possible, we recommend using the automatic upgrade process documented in this guide.
-However, we also provide guidance on [manually upgrading from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/reference/upgrading/).
-The manual upgrade path is for those who need to migrate without breaking existing 1.x client library integrations,
-or who otherwise prefer more control.
+- [Manual upgrade path](#manual-upgrade-path)
 
 ### Available operating system, container, and platform support
 
@@ -155,6 +148,13 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 
 - `max-series-per-database`
 - `max-values-per-tag`
+
+### Manual upgrade path
+
+Whenever possible, we recommend using the automatic upgrade process documented in this guide.
+However, we also provide guidance on [manually upgrading from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/reference/upgrading/).
+The manual upgrade path is for those who need to migrate without breaking existing 1.x client library integrations,
+or who otherwise prefer more control.
 
 ## Perform the upgrade
 
