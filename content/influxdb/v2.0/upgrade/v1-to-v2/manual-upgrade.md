@@ -12,17 +12,17 @@ related:
   - /influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/
 ---
 
-To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
-
-1. [Install 2.0](#install-influxdb-2.0)
-2. [Migrate data](#migrate-data)
-3. [Create authorizations](#create-authorizations)
-4. [Create DBRP mappings](#create-dbrp-mapping)
-
 {{% note %}}
 If you won't be using 1.x client libraries to write data to InfluxDB 2.0,
 we recommend you use the [automatic upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/).
 {{% /note %}}
+
+To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
+
+1. [Install InfluxDB 2.0](#install-influxdb-2.0)
+2. [Migrate data](#migrate-data)
+3. [Create authorizations](#create-authorizations)
+4. [Create DBRP mappings](#create-dbrp-mapping)
 
 ## Install InfluxDB 2.0
 1. [Download and install InfluxDB 2.0](/influxdb/v2.0/get-started/).

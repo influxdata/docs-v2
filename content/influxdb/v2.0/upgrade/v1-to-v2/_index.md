@@ -13,6 +13,11 @@ related:
   - /influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/
 ---
 
+{{% note %}}
+If you will be using 1.x client libraries to write data to InfluxDB 2.0,
+see the [manual upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade).
+{{% /note %}}
+
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB 2.0.
 
@@ -50,7 +55,6 @@ Consider whether you need to address any of the following before upgrading.
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
 - [`inmem` indexing option](#inmem-indexing-option)
-- [Manual upgrade path](#manual-upgrade-path)
 
 ### Available operating system, container, and platform support
 
@@ -148,13 +152,6 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 
 - `max-series-per-database`
 - `max-values-per-tag`
-
-### Manual upgrade path
-
-Whenever possible, we recommend using the automatic upgrade process documented in this guide.
-However, we also provide guidance on [manually upgrading from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/reference/upgrading/).
-The manual upgrade path is for those who need to migrate without breaking existing 1.x client library integrations,
-or who otherwise prefer more control.
 
 ## Perform the upgrade
 
