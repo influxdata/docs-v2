@@ -36,7 +36,9 @@ To account for theses differences, the InfluxDB Docker image migrates
 - [Upgrade initialization mode](#upgrade-initialization-mode)
 
 {{% note %}}
-To ensure InfluxDB reboots post-upgrade without overwriting migrated data, the upgrade won't run if an existing boltdb file is found at the configured path.
+To ensure InfluxDB reboots post-upgrade without overwriting migrated data,
+the upgrade won't run if an existing boltdb file is found at the
+[configured 2.x configuration path](#file-system-mounts).
 {{% /note %}}
 
 Find more information about the automated InfluxDB upgrade process,
@@ -65,6 +67,8 @@ appropriate mount paths for the following:
 
 -	1.x data on disk
 -	Custom 1.x configuration file (if any)
+- 2.x data on disk (`/var/lib/influxdb2`)
+- 2.x configuration directory (`/etc/influxdb2`)
 
 The InfluxDB upgrade process searches for mounted 1.x data and configuration files
 in the following priority order:
@@ -186,9 +190,9 @@ To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the 
 - Volume mount for the InfluxDB 2.x configuration directory
 - InfluxDB [initialization mode](#upgrade-initialization-mode) environment variable
 - InfluxDB [initialization credential](#influxdb-2x-initialization-credentials) environment variables
-- InfluxDB 1.x [configuration file path](#file-system-mounts) environment variable:
+- InfluxDB 2.x [v1 configuration file path](#file-system-mounts) environment variable:
     - `DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG`
-- InfluxDB 2.x custom path environment variables:
+- InfluxDB 1.x custom path environment variables:
     - `INFLUXD_CONFIG_PATH`
     - `INFLUXD_BOLT_PATH`
     - `INFLUXD_ENGINE_PATH`
