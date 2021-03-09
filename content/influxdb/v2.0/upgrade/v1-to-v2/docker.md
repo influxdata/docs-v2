@@ -186,9 +186,9 @@ To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the 
 - InfluxDB 2.x [v1 configuration file path](#file-system-mounts) environment variable:
     - `DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG`
 - InfluxDB 1.x custom path environment variables:
-    - `DOCKER_INFLUXDB_CONFIG_PATH`
-    - `DOCKER_INFLUXDB_BOLT_PATH`
-    - `DOCKER_INFLUXDB_ENGINE_PATH`
+    - `INFLUXD_CONFIG_PATH`
+    - `INFLUXD_BOLT_PATH`
+    - `INFLUXD_ENGINE_PATH`
 - `influxdb:2.0` Docker image
 
 ```sh
