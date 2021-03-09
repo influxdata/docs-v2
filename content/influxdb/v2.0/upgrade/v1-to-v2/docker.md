@@ -186,9 +186,9 @@ To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the 
 - Volume mount for the InfluxDB 2.x configuration directory
 - InfluxDB [initialization mode](#upgrade-initialization-mode) environment variable
 - InfluxDB [initialization credential](#influxdb-2x-initialization-credentials) environment variables
-- InfluxDB 2.x [v1 configuration file path](#file-system-mounts) environment variable:
+- InfluxDB 1.x [configuration file path](#file-system-mounts) environment variable:
     - `DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG`
-- InfluxDB 1.x custom path environment variables:
+- InfluxDB 2.x custom path environment variables:
     - `INFLUXD_CONFIG_PATH`
     - `INFLUXD_BOLT_PATH`
     - `INFLUXD_ENGINE_PATH`
