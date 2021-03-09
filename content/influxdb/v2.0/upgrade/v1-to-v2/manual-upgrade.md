@@ -40,8 +40,8 @@ cp -R .influxdb/ .influxdb_bak/
 {{% /warn %}}
 
 
-1. stop ruunning 1.x
-1. Do one of the follwoing:
+1. stop running 1.x
+1. Do one of the following:
    - **Migrate all data**:
      To migrate all data, use the `influxd upgrade` tool.
      <!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
