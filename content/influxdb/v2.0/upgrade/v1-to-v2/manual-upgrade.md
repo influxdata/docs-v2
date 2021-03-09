@@ -7,6 +7,9 @@ menu:
     parent: InfluxDB 1.x to 2.0
     name: Manually upgrade
 weight: 11
+related:
+  - /influxdb/v2.0/upgrade/v1-to-v2/
+  - /influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/
 ---
 
 To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
@@ -22,13 +25,10 @@ To automatically upgrade from InfluxDB 1.x to InfluxDB 2.0, use the [`influx upg
 {{% /note %}}
 
 ## Install InfluxDB 2.0
-1. Download and Install InfluxDB 2.0.
-2. As part of the installation process, you will create username and password.
+1. [Download and install InfluxDB 2.0](/influxdb/v2.0/get-started/).
+2. As part of the installation process, you will create a username and password.
 3. Log in to the UI, and create a token.
    Then, when completing the tasks below either pass this token on the command line, set as an environment variable, or setup a CLI config.
-
-<!-- The `influx v1` is part of the InfluxDB 2.0 `influx` CLI. -->
-<!-- Like all operations in 2.0, `influx v1` commands must be authenticated with a token. -->
 
 ## Migrate data
 {{% warn %}}
@@ -52,7 +52,9 @@ If you do **not** have authorization enabled in 1.x, do one of the following:
 - To authenticate using an InfluxDB 1.x username and password, enable _v1 compatibility authorizations_ using the [v1 compatibility API](...). Note, v1 compatibility authorizations_ are _separate from_ the credentials used to log into the InfluxDB user interface.)
 
 #### Create a v1 compatibility authorization
-<!-- a v1 auth setup -- how to add a v1 auth username/password combo -->
+<!-- The `influx v1` is part of the InfluxDB 2.0 `influx` CLI. -->
+<!-- Like all operations in 2.0, `influx v1` commands must be authenticated with a token. -->
+
 Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets.
 Provide the following:
