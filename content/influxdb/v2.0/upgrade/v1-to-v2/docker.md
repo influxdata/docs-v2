@@ -19,23 +19,22 @@ to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 {{% note %}}
 #### Export continuous queries before upgrading
 The automated upgrade process **does not** migrate InfluxDB 1.x continuous queries (CQs)
-to InfluxDB 2.x tasks. Export all of your CQs before upgrading to InfluxDB 2.x.
+to InfluxDB 2.x tasks (the 2.0 equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
 For information about exporting and migrating CQs to tasks, see
 [Migrate continuous queries to tasks](/influxdb/v2.0/upgrade/v1-to-v2/migrate-cqs/).
 {{% /note %}}
 
 ## Upgrade requirements
-InfluxDB 2.x provides a 1.x-compatible API, but expects a different storage layout on disk.
-To account for theses differences, the InfluxDB Docker image contains extra functionality to migrate
-1.x data and configuration into 2.x layouts automatically before booting the `influxd` server.
+InfluxDB 2.x provides a 1.x compatibility API, but expects a different storage layout on disk.
+To account for theses differences, the InfluxDB Docker image migrates
+1.x data and into 2.x-compatible data automatically before booting the `influxd` server.
 
 - [InfluxDB 2.x initialization credentials](#influxdb-2x-initialization-credentials)
 - [File system mounts](#file-system-mounts)
 - [Upgrade initialization mode](#upgrade-initialization-mode)
 
 {{% note %}}
-The automated upgrade process will not run if an existing boltdb file is found at the configured path.
-This behavior allows for the InfluxDB container to reboot post-upgrade without overwriting migrated data.
+To ensure InfluxDB reboots post-upgrade without overwriting migrated data, the upgrade won't run if an existing boltdb file is found at the configured path.
 {{% /note %}}
 
 Find more information about the automated InfluxDB upgrade process,
@@ -54,7 +53,7 @@ Use the following environment variables to provide setup credentials:
 -	`DOCKER_INFLUXDB_INIT_RETENTION`: duration for the initial bucket's retention period
   If not set, the initial bucket will retain data forever.
 -	`DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: The authentication token to associate with the admin user.
-  If not set, InfluxDB auto-generates a token.
+  If not set, InfluxDB automatically generates a token.
 
 ### File system mounts
 The InfluxDB upgrade process requires extra volumes to be mounted into the 2.x container.
@@ -74,7 +73,7 @@ in the following priority order:
 
 {{% note %}}
 #### Avoid data loss
-The automated upgrade process generates both data and configuration files, by default,
+By default, the automated upgrade process generates both data and configuration files
 under `/var/lib/influxdb2` and `/etc/influxdb2`.
 We recommend mounting volumes at both paths to avoid losing data.
 {{% /note %}}
@@ -83,7 +82,7 @@ We recommend mounting volumes at both paths to avoid losing data.
 Set the `DOCKER_INFLUXDB_INIT_MODE` environment variable to `upgrade`.
 
 ## Upgrade examples
-The examples below provide information for different InfluxDB Docker upgrade scenarios.
+The examples below demonstrate different InfluxDB Docker upgrade scenarios.
 
 - [Minimal upgrade](#minimal-upgrade)
 - [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1-x-configuration-file)
@@ -122,7 +121,7 @@ docker run -p 8086:8086 \
     ```
 
 ### Upgrade with a custom InfluxDB 1.x configuration file
-If you're currently running an InfluxDB 1.x deployment with custom configuration
+If you're currently running an InfluxDB 1.x deployment with a custom configuration
 file similar to:
 
 ```sh

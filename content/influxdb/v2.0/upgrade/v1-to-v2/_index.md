@@ -17,7 +17,7 @@ The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB
 {{% note %}}
 #### Docker users
 
-For information about how to upgrade from InfluxDB 1.x to 2.0 when using Docker,
+To upgrade from InfluxDB 1.x to InfluxDB 2.0 using Docker,
 see [Upgrade from InfluxDB 1.x to 2.0 with Docker](/influxdb/v2.0/upgrade/v1-to-v2/docker/).
 {{% /note %}}
 
