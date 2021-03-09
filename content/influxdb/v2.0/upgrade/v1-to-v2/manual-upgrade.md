@@ -9,11 +9,11 @@ menu:
 weight: 11
 ---
 
-To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, the following tasks are required (at minimum):
+To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
 
-- [Migrate data](#migrate-data)
-- [Create authorizations](#create-authorization-token)
-- [Create DBRP mappings](#create-dbrp-mapping)
+1. [Migrate data](#migrate-data)
+2. [Create authorizations](#create-authorization-token)
+3. [Create DBRP mappings](#create-dbrp-mapping)
 
 {{% note %}}
 To automatically upgrade from InfluxDB 1.x to InfluxDB 2.0, use the [`influx upgrade` command](/influxdb/v2.0/upgrade/v1-to-v2/).
