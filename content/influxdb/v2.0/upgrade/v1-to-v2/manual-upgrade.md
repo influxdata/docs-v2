@@ -28,25 +28,8 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0, do the following:
 1. [Download and install InfluxDB 2.0](/influxdb/v2.0/get-started/).
 2. As part of the installation process, you will create a username and password.
 3. Log in to the UI, and create a token.
-   Then, when completing the tasks below either pass this token on the command line, set as an environment variable, or setup a CLI config.
-
-## Migrate data
-{{% warn %}}
-Before doing any data migration,
-stop your running InfluxDB 1.x instance and make a backup copy of all 1.x data:
-```sh
-cp -R .influxdb/ .influxdb_bak/
-```
-{{% /warn %}}
-
-1. stop running 1.x
-1. Do one of the following:
-   - **Migrate all data**:
-     To migrate all data, use the `influxd upgrade` tool.
-     <!-- Is there a way to use `influxd upgrade` for time series data only, and ignore other resources/configs? -->
-   - **Migrate specified data**:
-     To selectively migrate data, use the v1 [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) command to export data as line protocol.
-     Then write the exported line protocol to InfluxDB 2.0.
+   Then, when completing the tasks below either 
+   pass this token [on the command line](), set as an [environment variable](), or setup a [CLI configuration]().
 
 ## Create authorizations
 If you do **not** have authorization enabled in 1.x, do one of the following:
@@ -54,7 +37,7 @@ If you do **not** have authorization enabled in 1.x, do one of the following:
 - (_Recommended_) Enable authorization with a [token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
 - To authenticate using an InfluxDB 1.x username and password,
   enable _v1 compatibility authorizations_ using the [v1 compatibility API](...).
-  Note that v1 compatibility authorizations_ are _separate from_ the credentials used to log into the InfluxDB user interface.
+  Note that v1 compatibility authorizations are _separate from_ the credentials used to log into the InfluxDB user interface.
 
 #### Create a v1 compatibility authorization
 {{% note %}}
