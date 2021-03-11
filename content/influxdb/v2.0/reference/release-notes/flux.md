@@ -8,6 +8,22 @@ menu:
     name: Flux
 ---
 
+## v0.107.0 [2021-03-09]
+
+### Features
+- Add new [`kaufmansAMA()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/) signature.
+- Add new [aggregate function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/) signatures.
+- Add `extends` capability to `testcase` block.
+
+### Bug fixes
+- Update CSV package to handle large files.
+- Add tests and fix the `NoHeader` configuration for the `csv` decoder.
+- Remove `interval` package and documentation.
+- Disable line wrap linter.
+- Fix typo in comment.
+
+---
+
 ## v0.106.0 [2021-02-22]
 
 ### Features
