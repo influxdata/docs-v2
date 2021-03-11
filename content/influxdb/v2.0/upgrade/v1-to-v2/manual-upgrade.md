@@ -35,10 +35,11 @@ All InfluxDB 2.0 `influx` CLI examples below assume the required **host**,
 {{% /note %}}
 
 ## Migrate custom configuration settings
-If you're using custom configuration settings in your InfluxDB 1.x instance,
-apply those same custom settings to InfluxDB 2.0 using `influxd` flags,
-environment variables, or a 2.0 configuration file.
-For more information about configuring InfluxDB 2.0, see [Configuration options](/influxdb/v2.0/reference/config-options/).
+If you're using custom configuration settings in your InfluxDB 1.x instance, do the following:
+
+1. Compare 1.x and 2.0 configuration settings by expanding **View configuration option parity**. 
+2. Apply your 1.x custom settings to the comparable InfluxDB 2.0 settings using `influxd` flags, environment variables, or a 2.0 configuration file.
+   For more information about configuring InfluxDB 2.0, see [Configuration options](/influxdb/v2.0/reference/config-options/).
 
 {{< expand-wrapper >}}
 {{% expand "View configuration option parity" %}}
@@ -129,7 +130,7 @@ The following 1.x configuration groups **do not** apply to InfluxDB 2.0:
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-With custom configuration settings in place, **restart `influxd`**.
+3. **Restart `influxd`**.
 
 ## Create DBRP mappings
 InfluxDB database and retention policy (DBRP) mappings associate database and
