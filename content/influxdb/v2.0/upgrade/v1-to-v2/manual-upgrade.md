@@ -24,6 +24,13 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0:
 5. [Migrate time series data](#migrate-time-series-data)
 6. [Migrate continuous queries](#migrate-continuous-queries)
 
+{{% note %}}
+#### Required 2.x credentials
+All InfluxDB 2.0 `influx` CLI examples below assume the required **host**,
+**organization**, and **authentication token** credentials are provided by your
+[`influx` CLI configuration](/influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials).
+{{% /note %}}
+
 ## Install InfluxDB 2.0
 [Download, install, and set up InfluxDB 2.0](/influxdb/v2.0/get-started/).
 
@@ -125,83 +132,121 @@ The following 1.x configuration groups **do not** apply to InfluxDB 2.0:
 With custom configuration settings in place, **restart `influxd`**.
 
 ## Create authorizations
-InfluxDB 2.0 requires authentication and provides two methods for authenticating requests:
+InfluxDB 2.0 requires authentication and provides two authentication methods:
 
 - [Token authentication](#token-authentication)
 - [1.x compatible authorizations](#1x-compatible-authorizations)
 
 ### Token authentication
-Use InfluxDB [2.0 token authentication](/influxdb/v2.0/security/tokens/)
+Use [InfluxDB 2.0 token authentication](/influxdb/v2.0/security/tokens/) to
+authenticate requests to InfluxDB 2.0.
 
 ##### Recommended if:
-- Your 1.x instances **does not have authentication enabled**.
+- Your 1.x instance **does not have authentication enabled**.
 
-### 1.x compatible authorizations
+{{% note %}}
+#### Use tokens with basic authentication
+To use tokens with InfluxDB clients that require an InfluxDB username and password,
+provide an arbitrary user name and pass the token as the password.
+{{% /note %}}
+
+### 1.x-compatible authorizations
 InfluxDB 2.0 provides a [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/)
 that lets you authenticate using a username and password as in InfluxDB 1.x.
 If authentication is enabled in your InfluxDB 1.x instance,
 [create a 1.x-compatible authorization](#create-a-1x-compatible-authorization)
-to allow external clients to connect to your InfluxDB 2.0 instance without any change.
+with the same username and password as your InfluxDB 1.x instance to allow
+external clients to connect to your InfluxDB 2.0 instance without any change.
 
 ##### Recommended if:
-- Your 1.x instances **has authentication enabled**.
-- You're using InfluxDB 1.x clients or client libraries.
+- Your 1.x instance **has authentication enabled**.
+- You're using **InfluxDB 1.x clients or client libraries** configured with
+  InfluxDB usernames and passwords.
 
 {{% note %}}
-1.x compatibility authorizations are _separate from_ the credentials used to log
-into the InfluxDB user interface.
+1.x compatibility authorizations are separate from credentials used to log
+into the InfluxDB 2.0 user interface (UI).
 {{% /note %}}
 
 #### Create a 1.x-compatible authorization
-Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
-to grant read/write permissions to specific buckets.
+Use the InfluxDB 2.0 [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
+to create a 1.x-compatible authorization that grants read/write permissions to specific 2.0 buckets.
 Provide the following:
 
-- a list of [bucket IDs](/influxdb/v2.0/organizations/buckets/view-buckets/) for which to grant read or write permissions
+- list of [bucket IDs](/influxdb/v2.0/organizations/buckets/view-buckets/) to
+  grant read or write permissions to
 - new v1 auth username
 - new v1 auth password _(when prompted)_
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Single bucket](#)
+[Mutiple buckets](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 influx v1 auth create \
   --read-bucket 00xX00o0X001 \
   --write-bucket 00xX00o0X001 \
   --username example-user
 ```
-
-#### View existing v1 authorizations
-Use the [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)
-to list existing InfluxDB v1 compatible authorizations.
-To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/).
-
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```sh
-influx v1 auth list
+influx v1 auth create \
+  --read-bucket 00xX00o0X001 \
+  --read-bucket 00xX00o0X002 \
+  --write-bucket 00xX00o0X001 \
+  --write-bucket 00xX00o0X002 \
+  --username example-user
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-## Create DBRP mapping
-InfluxDB DBRP mappings associate database and retention policy pairs
-with InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+For information about managing 1.x compatible authorizations, see the
+[`influx v1 auth` command documentation](/influxdb/v2.0/reference/cli/influx/v1/auth/).
 
-1. [Create buckets in InfluxDB 2.0](/influxdb/v2.0/organizations/buckets/).
-   We recommend creating a bucket for each unique 1.x database and retention
-   policy combination using the following convention:
+## Create DBRP mappings
+InfluxDB database and retention policy (DBRP) mappings associate database and
+retention policy combinations with InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+These mappings allow InfluxDB 1.x clients to successfully query and write to
+InfluxDB 2.0 buckets while using the 1.x DBRP convention.
+
+_For more information about DBRP mapping, see
+[Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
+
+**To map a DBRP combination to an InfluxDB 2.0 bucket:**
+
+1.  **Create a bucket**  
+    [Create an InfluxDB 2.0 bucket](/influxdb/v2.0/organizations/buckets/create-bucket/).
+    We recommend creating a bucket for each unique 1.x database and retention
+    policy combination using the following naming convention:
 
     ```sh
-    # Convention
+    # Naming convention
     db-name/rp-name
 
     # Example
     telegraf/autogen
     ```
 
-#### Create a DBRP mapping
-Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
-command to create a DBRP mapping.
-Provide the following:
+2.  **Create a DBRP mapping**  
+    Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
+    command to create a DBRP mapping.
+    Provide the following:
 
-- database name
-- retention policy
-- [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
+    - database name
+    - retention policy name _(not retention period)_
+    - [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
+    - _(optional)_ `--default` flag if you want the retention policy to be the default retention
+      policy for the specified database
 
+    {{< code-tabs-wrapper >}}
+    {{% code-tabs %}}
+[DB with one RP](#)
+[DB with multiple RPs](#)
+    {{% /code-tabs %}}
+    {{% code-tab-content %}}
 ```sh
 influx v1 dbrp create \
   --db example-db \
@@ -209,25 +254,50 @@ influx v1 dbrp create \
   --bucket-id 00xX00o0X001 \
   --default
 ```
-
-_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
-
-#### View existing DBRP mappings
-Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/) to list existing DBRP mappings.
-
+    {{% /code-tab-content %}}
+    {{% code-tab-content %}}
 ```sh
-influx v1 dbrp list
+# Create telegraf/autogen DBRP mapping with autogen
+# as the default RP for the telegraf DB
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp autogen \
+  --bucket-id 00xX00o0X001 \
+  --default
+
+# Create telegraf/downsampled-daily DBRP mapping that
+# writes to a different bucket
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp downsampled-daily \
+  --bucket-id 00xX00o0X002
 ```
+    {{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
+
+3.  **Confirm the DBRP mapping was created**  
+    Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/) to list existing DBRP mappings.
+
+    ```sh
+    influx v1 dbrp list
+    ```
+
+For information about managing DBRP mappings, see the
+[`influx v1 dbrp` command documentation](/influxdb/v2.0/reference/cli/influx/v1/dbrp/).
 
 
 ## Migrate time series data
+To migrate time series data from your InfluxDB 1.x instance to InfluxDB 2.0:
+
 1. Use the **InfluxDB 1.x** [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect/#export)
    to export time series data as line protocol.
    Include the `-lponly` flag to exclude comments and the data definition
    language (DDL) from the output file.
 
-   _We recommend exporting each database and retention policy combination separately
-   to easily write data to the appropriate InfluxDB 2.0 bucket._
+   _We recommend exporting each DBRP combination separately to easily write data
+   to a corresponding InfluxDB 2.0 bucket._
 
     ```sh
     # Syntax
@@ -245,9 +315,8 @@ influx v1 dbrp list
       -lponly
     ```
 
-2. Write the exported line protocol to an InfluxDB 2.0 bucket.
-   The following example uses the **InfluxDB 2.0** [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/)
-   to write exported to InfluxDB 2.0:
+2. Use the **InfluxDB 2.0** [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/)
+   to write the exported line protocol to InfluxDB 2.0.
 
     ```sh
     # Syntax
@@ -261,8 +330,8 @@ influx v1 dbrp list
       --file /path/to/example-db_example-rp.lp
     ```
 
-    Repeat this process for each bucket.
-    _For other ways to write line protocol to InfluxDB 2.0, see [Write data](/influxdb/v2.0/write-data/)._
+Repeat this process for each bucket.
+
 
 ## Migrate continuous queries
 For information about migrating InfluxDB 1.x continuous queries to InfluxDB 2.0 tasks,
