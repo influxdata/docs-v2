@@ -34,7 +34,7 @@ All users can export a dashboard. To import a dashboard, a user must have an Adm
    > No time series data is exported with a dashboard.
    > Exports include only dashboard-related information as mentioned above.
 
-2. Rename the `.json` extention to `.dashboard`, and save the dashboard file in the `/usr/share/chronograf/canned` directory.
+2. Rename the `.json` extension to `.dashboard`, and save the dashboard file in the `/usr/share/chronograf/canned` directory.
 
 ## Import a dashboard
 
