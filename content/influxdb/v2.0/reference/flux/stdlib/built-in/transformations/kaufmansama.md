@@ -17,15 +17,12 @@ related:
 ---
 
 The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
-using values in an input table.
+of input tables using the `_value` column in each table.
 
 _**Function type:** Transformation_
 
 ```js
-kaufmansAMA(
-  n: 10,
-  column: "_value"
-)
+kaufmansAMA(n: 10)
 ```
 
 Kaufman's Adaptive Moving Average is a trend-following indicator designed to account
@@ -38,18 +35,14 @@ The period or number of points to use in the calculation.
 
 _**Data type:** Integer_
 
-### column
-The column to operate on.
-Defaults to `"_value"`.
-
-_**Data type:** String_
-
 ## Examples
 ```js
-from(bucket: "telegraf/autogen"):
+from(bucket: "example-bucket"):
   |> range(start: -7d)
-  |> kaufmansAMA(
-    n: 10,
-    column: "_value"
-  )
+  |> kaufmansAMA(n: 10)
 ```
+
+{{% expand "Function changelog" %}}
+##### v0.107.0
+- Removed `column` parameter to only support operations on the `_value` column.
+{{% /expand %}}
