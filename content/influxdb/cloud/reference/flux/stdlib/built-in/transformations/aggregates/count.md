@@ -10,48 +10,8 @@ menu:
     parent: built-in-aggregates
 weight: 501
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()  
+  - /influxdb/cloud/reference/flux/stdlib/experimental/count/
 ---
 
-The `count()` function outputs the number of records in a column.
-It counts both null and non-null records.
-
-_**Function type:** Aggregate_  
-_**Output data type:** Integer_
-
-```js
-count(column: "_value")
-```
-
-{{% note %}}
-#### Empty tables
-`count()` returns `0` for empty tables.
-To keep empty tables in your data, set the following parameters for the following functions:
-
-| Function                                                                                              | Parameter           |
-|:--------                                                                                              |:---------           |
-| [filter()](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
-| [window()](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
-| [aggregateWindow()](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
-{{% /note %}}
-
-## Parameters
-
-### column
-The column on which to operate.
-Defaults to `"_value"`.
-
-_**Data type:** String_
-
-## Examples
-```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> count()
-```
-
-```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> count(column: "_value")
-```
+{{< duplicate-oss >}}

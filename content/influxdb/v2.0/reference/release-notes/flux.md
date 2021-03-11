@@ -11,8 +11,8 @@ menu:
 ## v0.107.0 [2021-03-09]
 
 ### Features
-- Add new [`kaufmansAMA()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/) signature.
-- Add new [aggregate function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/) signatures.
+- Add new [`experimental.kaufmansAMA()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/kaufmansama/) signature.
+- Add new [experimental aggregate function](/influxdb/v2.0/reference/flux/stdlib/experimental/#experimental-functions) signatures.
 - Add `extends` capability to `testcase` block.
 
 ### Bug fixes

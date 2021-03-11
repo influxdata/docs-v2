@@ -11,6 +11,8 @@ menu:
     name: histogramQuantile
     parent: built-in-aggregates
 weight: 501
+related:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/historgramquantile/
 ---
 
 The `histogramQuantile()` function approximates a quantile given a histogram that
