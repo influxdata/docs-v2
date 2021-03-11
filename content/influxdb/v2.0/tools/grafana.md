@@ -84,7 +84,7 @@ To configure Grafana to use InfluxQL with a new install of InfluxDB 2.0, do the 
 
 ### Upgraded from InfluxDB 1.x to 2.0
 To configure Grafana to use InfluxQL when you've upgraded from InfluxDB 1.x to
-InfluxDB 2.0 (following the [official upgrade](/influxdb/v2.0/upgrade/v1-to-v2/)):
+InfluxDB 2.0 (following an [official upgrade guide](/influxdb/v2.0/upgrade/v1-to-v2/)):
 
 1. Authenticate using the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
    created during the upgrade process.

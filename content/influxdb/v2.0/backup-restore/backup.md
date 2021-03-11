@@ -18,13 +18,14 @@ data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
 
-{{% warn %}}
-#### InfluxDB 1.x/2.0 Compatibility
-The `influx backup` command is not compatible with versions of InfluxDB prior to 2.0.0.
-In addition, the `backup` and `restore` commands do not function across 1.x and 2.x releases.
-Use the `influx upgrade` command instead.
-For more information, see [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
-{{% /warn %}}
+{{% note %}}
+#### InfluxDB 1.x/2.0 compatibility
+The InfluxDB 2.0 `influx backup` command is not compatible with versions of InfluxDB prior to 2.0.0.
+**For information about migrating data between InfluxDB 1.x and 2.0, see:**
+
+- [Automatically upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/automatic-upgrade/)
+- [Manually upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/)
+{{% /note %}}
 
 {{% cloud %}}
 The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.

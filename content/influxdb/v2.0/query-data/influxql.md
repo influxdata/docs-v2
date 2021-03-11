@@ -35,11 +35,10 @@ For complete InfluxQL reference documentation, see
 ## Verify buckets have a mapping
 
 {{% note %}}
-When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/), InfluxDB
-automatically creates buckets for each database and retention policy combination
-and DBRP mappings for those buckets.
+When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/),
+Database and retention policy combinations are mapped to InfluxDB 2.0 buckets.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
-If you're not sure how data was written into a bucket, we recommend verifying the bucket has a mapping.
+If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 {{% /note %}}
 
 Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.0/reference/api/)
