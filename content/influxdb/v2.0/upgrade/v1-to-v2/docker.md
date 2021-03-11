@@ -1,5 +1,6 @@
 ---
 title: Upgrade from InfluxDB 1.x to 2.0 with Docker
+list_title: Upgrade from 1.x to 2.0 with Docker
 description: >
   Use the automated upgrade process built into the InfluxDB 2.x Docker image to
   update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
