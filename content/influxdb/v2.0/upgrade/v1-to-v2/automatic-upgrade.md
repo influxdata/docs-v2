@@ -11,21 +11,13 @@ weight: 10
 aliases:
   - /influxdb/v2.0/reference/upgrading/influxd-upgrade-guide/
 related:
+  - /influxdb/v2.0/reference/cli/influxd/upgrade/
   - /influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/
+  - /influxdb/v2.0/upgrade/v1-to-v2/docker/
 ---
-
-{{% note %}}
-If you will be using 1.x client libraries to write data to InfluxDB 2.0,
-see the [manual upgrade process](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade).
-{{% /note %}}
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB 2.0.
 The `upgrade` command provides an in-place upgrade from InfluxDB 1.x to InfluxDB 2.0.
-
-{{% note %}}
-#### Docker users
-To upgrade from InfluxDB 1.x to InfluxDB 2.0 on Docker, see  "Upgrading from InfluxDB 1.x" in the [Docker Hub documentation](https://hub.docker.com/_/influxdb) for instructions and examples.
-{{% /note %}}
 
 Specifically, the upgrade process does the following:
 
@@ -38,7 +30,7 @@ Specifically, the upgrade process does the following:
 When starting InfluxDB 2.0 after running `influxdb upgrade`, InfluxDB must build a new time series index (TSI).
 Depending on the volume of data present, this may take some time.
 
-## Before you begin: important considerations
+## Important considerations before you begin
 
 Before upgrading to InfluxDB 2.0, consider the following guidelines.
 Some or all might apply to your specific installation and use case.
@@ -57,14 +49,15 @@ Consider whether you need to address any of the following before upgrading.
 
 ### Available operating system, container, and platform support
 
-{{% warn %}}
-InfluxDB 2.0 requires 64-bit operating systems.
-{{% /warn %}}
-
 InfluxDB 2.0 is currently available for macOS and Linux.
 Windows builds are not currently available, but are planned for subsequent releases.
 
+{{% note %}}
+InfluxDB 2.0 requires 64-bit operating systems.
+{{% /note %}}
+
 ### Continuous queries
+
 Continuous queries are replaced by **tasks** in InfluxDB 2.0.
 By default, `influxd upgrade` writes all continuous queries to `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
@@ -83,7 +76,7 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
 
 - Kapacitor Batch-style TICKscripts work with the 1.x read compatible API.
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-- InfluxDB 2.0 has no subsriptions API and does not support Kapacitor stream tasks.
+- InfluxDB 2.0 has no subscriptions API and does not support Kapacitor stream tasks.
   To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
   Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
   to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2) to write to InfluxDB v2.
@@ -113,9 +106,12 @@ However, it *does not migrate administrative users*.
 To review users with admin permissions, in the InfluxDB 1.x CLI, run `show users`.
 Any users labeled "admin" *will not* be migrated.
 
-If using an admin user for visualization or Chronograf's administrative functions, create a new read-only user before upgrading.
-Admin rights are granted to the primary user created in the InfluxDB 2.0 setup process which runs at the end of the upgrade process.
-This provides you with the opportunity to re-assess who should be granted admin-level access in your InfluxDB 2.0 setup.
+If using an admin user for visualization or Chronograf administrative functions,
+create a new read-only user before upgrading.
+Admin rights are granted to the primary user created in the InfluxDB 2.0 setup
+process which runs at the end of the upgrade process.
+This provides you with the opportunity to re-assess who should be granted
+admin-level access in your InfluxDB 2.0 setup.
 
 ### Dashboards
 
@@ -213,10 +209,21 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 The output of the upgrade prints to standard output.
 It is also saved (for troubleshooting and debugging) in the current directory to a file called `upgrade.log` located in the home directory of the user running `influxdb upgrade`.
 
-### Post-upgrade
+## Post-upgrade
 
-To verify 1.x users were successfully migrated to 2.0, run [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/).
+### Verity 1.x users were migrated to 2.0
 
-## Further reading
+To verify 1.x users were successfully migrated to 2.0, run
+[`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/).
 
-For more information on upgrading, see the [`influxd upgrade` reference documentation](/influxdb/v2.0/reference/cli/influxd/upgrade/).
+#### Add authorizations for external clients
+
+If your InfluxDB 1.x instance **did not have authentication enabled** and the
+`influx v1 auth list` doesn't return any users, external clients connected to
+your 1.x instance will not be able to access InfluxDB 2.0, which requires authentication.
+
+**For these external clients to work with InfluxDB 2.0:**
+
+1. [Manually create a 1.x-compatible authorization](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#create-a-1x-compatible-authorization).
+2. Update the client configuration to use the username and password associated
+   with your 1.x-compatible authorization.
