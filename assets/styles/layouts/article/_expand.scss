@@ -1,9 +1,13 @@
 // Styles for accordian-like expandable content blocks
 
+.expand-wrapper {
+  margin: 2rem 0 2rem;
+}
+
 .expand {
   border-top: 1px solid $article-hr;
   padding: .75rem 0;
-  &:last-of-type { border-bottom: 1px solid $article-hr; }
+  &:last-of-type, &:only-child { border-bottom: 1px solid $article-hr; }
 }
 
 .expand-label {
@@ -46,4 +50,8 @@
   &.open {
     &:before, &:after { transform: rotate(180deg); }
   }
+}
+
+.expand-content {
+  padding-top: 1rem;
 }

@@ -8,6 +8,83 @@ menu:
 weight: 101
 ---
 
+## v2.0.4 General Availability [2021-02-04]
+
+### Docker
+
+#### ARM64
+This release extends the Docker builds hosted in `quay.io` to support the Linux/ARM64 platform.
+
+#### 2.x nightly images
+Prior to this release, competing nightly builds caused the nightly Docker tag to contain outdated binaries. This conflict is fixed, and the image tagged with nightly now contains 2.x binaries built from the `HEAD` of the `master` branch.
+
+### Breaking Changes
+
+#### `inmem` index option removed
+
+This release fully removes the `inmem` indexing option, along with the associated config options:
+- `max-series-per-database`
+- `max-values-per-tag`
+
+The startup process automatically generates replacement `tsi1` indexes for shards that need it.
+
+### Features
+
+#### `influxd` updates
+- Add new [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) flag `—overwrite-existing-v2` to overwrite existing files at output paths (instead of aborting).
+- Add new configuration options:
+       - [`nats-port`](/influxdb/v2.0/reference/config-options/#nats-port)
+       - [`nats-max-payload-bytes`](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes) 
+- Add new commands:
+       - Add [`influxd print-config`](/influxdb/v2.0/reference/cli/influxd/print-config/) to support automated configuration inspection.
+       - Add [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.  
+
+#### New Telegraf plugins in UI
+- Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
+
+#### Performance improvements
+- Promote schema and fill query optimizations to default behavior.
+
+#### Flux updates
+- Upgrade to [Flux v0.104.0](/influxdb/v2.0/reference/release-notes/flux/#v0-104-0-2021-02-02).
+- Upgrade to `flux-lsp-browser` v0.5.31.
+
+### Bug Fixes
+
+- Standardize binary naming conventions.
+- Fix configuration loading issue.
+- Add Flux dictionary expressions to Swagger documetnation.
+- Ensure `influxdb` service sees default environment variables when running under `init.d`.
+- Remove upgrade notice from new installs.
+- Ensure `config.toml` is initialized on new installs.
+- Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
+- Prevent `influx stack update` from overwriting stack name and description.
+- Fix timeout setup for `influxd` graceful shutdown.
+- Require user to set password during initial user onboarding.
+- Error message improvements:
+    - Remove duplication from task error messages.
+    - Improve error message shown when influx CLI can't find an `org` by name.
+    - Improve error message when opening BoltDB with unsupported file system options.
+    - Improve messages in DBRP API validation errors.
+- `influxd upgrade` improvements:
+  - Add confirmation step with file sizes before copying data files.
+  - Prevent panic in `influxd upgrade` when v1 users exist but v1 config is missing.
+- Fix logging initialization for storage engine.
+- Don't return 500 codes for partial write failures.
+- Don't leak `.tmp` files while backing up shards.
+- Allow backups to complete while a snapshot is in progress.
+- Fix silent failure to register CLI arguments as required.
+- Fix loading when `INFLUXD_CONFIG_PATH` points to a .yml file.
+- Prevent extra output row from GROUP BY crossing DST boundary.
+- Update Flux functions list in UI to reflect that `v1` package was renamed to `schema`.
+- Set correct `Content-Type` on v1 query responses.
+- Respect the `--skip-verify` flag when running `influx query`.
+- Remove blank lines from payloads sent by `influx write`.
+- Fix infinite loop in Flux parser caused by invalid array expressions.
+- Support creating users without initial passwords in `influx user create`.
+- Fix incorrect errors when passing `--bucket-id` to `influx write`.
+
+
 ## v2.0.3 General Availability [2020-12-14]
 
 ### Breaking Changes

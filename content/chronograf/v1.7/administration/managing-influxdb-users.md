@@ -23,9 +23,9 @@ The **Chronograf Admin** provides InfluxDB user management for InfluxDB OSS and 
 ## Enabling authentication
 
 Follow the steps below to enable authentication.
-The steps are the same for InfluxDB OSS instances and InfluxEnterprise clusters.
+The steps are the same for InfluxDB OSS instances and InfluxDB Enterprise clusters.
 
-> ***InfluxEnterprise clusters:***
+> ***InfluxDB Enterprise clusters:***
 > Repeat the first three steps for each data node in a cluster.
 
 ### Step 1: Enable authentication.
@@ -60,7 +60,7 @@ Restart the InfluxDB service for your configuration changes to take effect:
 Because authentication is enabled, you need to create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) before you can do anything else in the database.
 Run the `curl` command below to create an admin user, replacing:
 
-* `localhost` with the IP or hostname of your InfluxDB OSS instance or one of your InfluxEnterprise data nodes
+* `localhost` with the IP or hostname of your InfluxDB OSS instance or one of your InfluxDB Enterprise data nodes
 * `chronothan` with your own username
 * `supersecret` with your own password (note that the password requires single quotes)
 
@@ -273,8 +273,8 @@ Permission to create, drop, and view [subscriptions](/{{< latest "influxdb" "v1"
 Permission to view cluster statistics and diagnostics.
 
 **Relevant InfluxQL queries**:
-[`SHOW DIAGNOSTICS`](/influxdb/administration/server_monitoring/#show-diagnostics) and
-[`SHOW STATS`](/influxdb/administration/server_monitoring/#show-stats)
+[`SHOW DIAGNOSTICS`](/{{< latest "influxdb" "v1" >}}/administration/server_monitoring/#show-diagnostics) and
+[`SHOW STATS`](/{{< latest "influxdb" "v1" >}}/administration/server_monitoring/#show-stats)
 
 **Pages in Chronograf that require this permission**: Data Explorer, Dashboards
 

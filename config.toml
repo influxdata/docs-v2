@@ -12,6 +12,9 @@ pygmentsUseClasses = true
 # Preserve case in article tags
 preserveTaxonomyNames = true
 
+# Generate a robots.txt
+enableRobotsTXT = true
+
 # Markdown rendering options
 [blackfriday]
 hrefTargetBlank = true

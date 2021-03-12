@@ -58,13 +58,14 @@ The following will delete points in the `sensorData` measurement:
 _measurement="sensorData"
 ```
 
+<!--
 ### Delete points with a specific field
 The following will delete points with the `temperature` field:
 
 ```sql
 _field="temperature"
 ```
-
+ -->
 ### Delete points with a specific tag set
 The following will delete points from the `prod-1.4` host in the `us-west` region:
 

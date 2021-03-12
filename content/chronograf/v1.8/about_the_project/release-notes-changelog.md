@@ -8,29 +8,30 @@ menu:
     parent: About the project
 ---
 
-## v1.8.10 [2020-02-04]
+## v1.8.10 [2020-02-08]
 
 ### Features
 
-- Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands, including `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`. For example:
+- Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands. Now, in Chronograf Data Explorer, if you select a metaquery template (InfluxQL command) that requires you to specify an active database, such as `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`, the `USE` command is prepended to your InfluxQL command as follows:
 
-```sh
+```
+>>>>>>> c9cc1028a5aae0097eaad28b6841111d192c82c1
 USE "db_name"; DROP MEASUREMENT "measurement_name"
 USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
 USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
 ```
 
-- Upgrade to Axios 0.21.1.
 - Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
 
 ### Bug Fixes
 
 - Repair ARMv5 build.
+- Upgrade to Axios 0.21.1.
 - Stop async executions on unmounted LogsPage.
 - Repair dashboard import to remap sources in variables.
 - UI updates:
-  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases the user has permissions to.
-  - Improve Send to Dashboard feedback on the Data Explorer page.
+  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases that the user has permissions to.
+  - Improve the Send to Dashboard feedback on the Data Explorer page.
 - Log Viewer updates:
   - Avoid endless networking loop.
   - Show timestamp with full nanosecond precision.
@@ -155,7 +156,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 ### Features
 
-- Update to [Flux v0.65.0](/flux/v0.65/about_the_project/releasenotes-changelog/#v0-65-0-2020-03-27).
+- Update to Flux v0.65.0.
 
 ### Bug Fixes
 
@@ -1112,7 +1113,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Features
 
-  * Add line-protocol proxy for InfluxDB/InfluxEnterprise Cluster data sources
+  * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
   * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1.8/guides/advanced-kapacitor/#tickscript-management)
   * Allow users to delete Kapacitor configurations

@@ -32,7 +32,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 Download InfluxDB v2.0 for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_darwin_amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -50,13 +50,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_darwin_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb2.0.3_darwin_amd64.tar.gz.asc influxdb2.0.3_darwin_amd64.tar.gz
+    gpg --verify influxdb2-2.0.4-darwin-amd64.tar.gz.asc influxdb2-2.0.4-darwin-amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -73,7 +73,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-2.0.3_darwin_amd64.tar.gz
+tar zxvf ~/Downloads/influxdb2-2.0.4-darwin-amd64.tar.gz
 ```
 
 #### (Optional) Place the binaries in your $PATH
@@ -83,7 +83,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.4-darwin-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -152,8 +152,8 @@ influxd --reporting-disabled
 
 Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_linux_amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_linux_arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -171,13 +171,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb2-2.0.3_linux_amd64.tar.gz.asc influxdb2-2.0.3_linux_amd64.tar.gz
+    gpg --verify influxdb2-2.0.4-linux-amd64.tar.gz.asc influxdb2-2.0.4-linux-amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -194,10 +194,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb2-2.0.3_linux_amd64.tar.gz
+tar xvzf path/to/influxdb2-2.0.4-linux-amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-2.0.3_linux_amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.4-linux-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -209,29 +209,59 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
 
 ### Install InfluxDB as a service with systemd
 
-{{% note %}}
-The following instructions have been tested on Ubuntu, and should work similarly on other Linux distributions.
-{{% /note %}}
+1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
+    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+    with the following commands:
 
-1. Download and install the appropriate `.deb` file using a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
-   with the following commands:
-   ```sh
-   wget https://dl.influxdata.com/influxdb/releases/influxdb2_2.x.x_xxx
-   sudo dpkg -i influxdb2_2.x.x_xxx
-   ```
-   _Use the exact filename of the download of `.deb` package (for example, `influxdb2_2.0.3_amd64.deb`)._
-2. Start the InfluxDB service:
-   ```sh
-   sudo service influxdb start
-   ```
-   Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
-   to start InfluxDB as a background service on startup.
+    ```sh
+    # Ubuntu/Debian
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx.deb
+    sudo dpkg -i influxdb2_2.x.x_xxx.deb
+
+    # Red Hat/CentOS/Fedora
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.x.x-xxx.rpm
+    sudo yum localinstall influxdb2_2.x.x_xxx.deb.rpm
+    ```
+    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-2.0.3-amd64.rpm`)._
+
+2.  Start the InfluxDB service:
+
+    ```sh
+    sudo service influxdb start
+    ```
+
+    Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+    to start InfluxDB as a background service on startup.
+
 3. Restart your system and verify that the service is running correctly:
-   ```sh
-   $  sudo service influxdb status
-   ● influxdb.service - InfluxDB is an open-source, distributed, time series database
-     Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
-     Active: active (running)
+
+    ```
+    $  sudo service influxdb status
+    ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+      Active: active (running)
+    ```
+
+When installed as a service, InfluxDB stores data in the following locations:
+
+- **Time series data:** `/var/lib/influxdb/engine/`
+- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
+- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
+
+To customize your InfluxDB configuration, use either
+[command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
+See InfluxDB [configuration options](/influxdb/v2.0/reference/config-options/) for more information.
+
+#### Pass arguments to systemd
+
+1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
+   ```
+   ARG1="--http-bind-address :8087"
+   ARG2="<another argument here>"
+   ```
+2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
+   ```
+   ExecStart=/usr/bin/influxd $ARG1 $ARG2
    ```
 
 ### Networking ports
@@ -281,9 +311,62 @@ Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 quay.io/influxdb/influxdb:v2.0.3
+docker run --name influxdb -p 8086:8086 influxdb:2.0.4
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
+
+### Persist data outside the InfluxDB container
+
+1. Create a new directory to store your data in and navigate into the directory.
+
+   ```sh
+   mkdir path/to/influxdb-docker-data-volume && cd $_
+   ```
+2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
+   persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
+   the host file system.
+
+   ```sh
+   docker run \
+       --name influxdb \
+       -p 8086:8086 \
+       --volume $PWD:/root/.influxdbv2 \
+       influxdb:2.0.4
+   ```
+
+### Configure InfluxDB with Docker
+
+To mount an InfluxDB configuration file and use it from within Docker:
+
+1. [Persist data outside the InfluxDB container](#persist-data-outside-the-influxdb-container).
+
+2. Use the command below to generate the default configuration file on the host file system:
+
+    ```sh
+    docker run \
+      --rm influxdb:2.0.4 \
+      influxd print-config > config.yml
+    ```
+
+3. Modify the default configuration, which will now be available under `$PWD`.
+
+4. Start the InfluxDB container:
+
+    ```sh
+    docker run -p 8086:8086 \
+      -v $PWD/config.yml:/etc/influxdb2/config.yml \
+      influxdb:2.0.4
+    ```
+
+(Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.0/reference/config-options/).)
+
+### Console into the InfluxDB container
+
+To use the `influx` command line interface, console into the `influxdb` Docker container:
+
+```sh
+docker exec -it influxdb /bin/bash
+```
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -295,18 +378,10 @@ information about what data is collected and how it is used.
 To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
-```bash
-docker run -p 8086:8086 quay.io/influxdb/influxdb:v2.0.3 --reporting-disabled
+```sh
+docker run -p 8086:8086 influxdb:2.0.4 --reporting-disabled
 ```
 {{% /note %}}
-
-### Console into the InfluxDB Container (Optional)
-
-To use the `influx` command line interface, console into the `influxdb` Docker container:
-
-```bash
-docker exec -it influxdb /bin/bash
-```
 
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
@@ -316,15 +391,20 @@ docker exec -it influxdb /bin/bash
 
 ### Install InfluxDB in a Kubernetes cluster
 
-The instructions below use Minikube, but the steps should be similar in any Kubernetes cluster.
+The instructions below use **minikube** or **kind**, but the steps should be similar in any Kubernetes cluster.
 InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) available.
 
-1. [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
+1. Install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or
+   [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).
 
-2. Start Minikube:
+2. Start a local cluster:
 
     ```sh
+    # with minikube
     minikube start
+
+    # with kind
+    kind create cluster
     ```
 
 3. Apply the [sample InfluxDB configuration](https://github.com/influxdata/docs-v2/blob/master/static/downloads/influxdb-k8-minikube.yaml) by running:
@@ -333,11 +413,9 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
     kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
     ```
 
-    <div class="warn block">
-      <p>
-        Always inspect YAML manifests before running <code>kubectl apply -f &lt;url&gt;</code>!
-      </p>
-    </div>
+    {{% warn %}}
+Always inspect YAML manifests before running `kubectl apply -f <url>`!
+    {{% /warn %}}
 
     This creates an `influxdb` Namespace, Service, and StatefulSet.
     A PersistentVolumeClaim is also created to store data written to InfluxDB.
@@ -420,7 +498,7 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
         -o example-org \
         -t mySuP3rS3cr3tT0keN \
         -a
-      ```  
+      ```
     This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).

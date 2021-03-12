@@ -152,7 +152,7 @@ password:
 >
 ## Authenticate Telegraf requests to InfluxDB
 >
-Authenticating [Telegraf](/telegraf/v1.3/) requests to an InfluxDB instance with
+Authenticating [Telegraf](/{{< latest "telegraf" >}}/) requests to an InfluxDB instance with
 authentication enabled requires some additional steps.
 In Telegraf's configuration file (`/etc/telegraf/telegraf.conf`), uncomment
 and edit the `username` and `password` settings:

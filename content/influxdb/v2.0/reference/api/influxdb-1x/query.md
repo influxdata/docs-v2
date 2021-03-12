@@ -81,7 +81,7 @@ The following precisions are available:
 
 ##### Query using basic authentication
 ```sh
-curl --request GET https://cloud2.influxdata.com/query \
+curl --request GET http://localhost:8086/query \
   --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -89,7 +89,7 @@ curl --request GET https://cloud2.influxdata.com/query \
 
 ##### Query a non-default retention policy
 ```sh
-curl --request GET https://cloud2.influxdata.com/query \
+curl --request GET http://localhost:8086/query \
   --header "Authorization: Basic username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
@@ -98,7 +98,7 @@ curl --request GET https://cloud2.influxdata.com/query \
 
 ##### Execute multiple queries
 ```sh
-curl --request GET https://cloud2.influxdata.com/query \
+curl --request GET http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
@@ -106,7 +106,7 @@ curl --request GET https://cloud2.influxdata.com/query \
 
 ##### Return query results with millisecond Unix timestamps
 ```sh
-curl --request GET https://cloud2.influxdata.com/query \
+curl --request GET http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
@@ -116,7 +116,7 @@ curl --request GET https://cloud2.influxdata.com/query \
 
 ##### Use curl to execute InfluxQL queries from a file
 ```sh
-curl --request GET https://cloud2.influxdata.com/query \
+curl --request GET http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --form "q=@path/to/influxql.txt" \

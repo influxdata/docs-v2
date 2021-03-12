@@ -42,7 +42,7 @@ For more information, see [InfluxQL support](/influxdb/cloud/query-data/influxql
 
 ## Explore data with Flux
 
-Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/flux/v0.7/introduction/getting-started).
+Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
 1. Open the Data Explorer and click **Add a Query**.
 2. To the right of the source dropdown above the graph placeholder, select **Flux** as the source type.

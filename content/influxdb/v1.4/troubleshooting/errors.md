@@ -318,4 +318,4 @@ It will be in the `killed` state, which means the signal has been sent, but the
 query itself has not hit an interrupt point.
 
 **Resources:**
-[Query Management](/influxdb/v1.0/troubleshooting/query_management/)
+[Query Management](/influxdb/v1.4/troubleshooting/query_management/)

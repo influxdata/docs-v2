@@ -14,7 +14,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/moving-average/
 v2: /influxdb/v2.0/query-data/flux/moving-average/
 ---
 
-Use the [`movingAverage()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/movingaverage/)
+Use the [`movingAverage()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/movingaverage/)
 or [`timedMovingAverage()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/)
 functions to return the moving average of data.
 

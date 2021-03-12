@@ -89,7 +89,7 @@ Available options:
 
 {{% warn %}}
 The default setting for `subscription-mode` is `cluster`, however this should
-not be used with [Kapacitor Enterprise](/enterprise_kapacitor/).
+not be used with [Kapacitor Enterprise](https://archive.docs.influxdata.com/enterprise_kapacitor/latest/).
 Multi-node Kapacitor Enterprise clusters should only use the `server` subscription-mode,
 otherwise subscription data will not be received.
 {{% /warn %}}

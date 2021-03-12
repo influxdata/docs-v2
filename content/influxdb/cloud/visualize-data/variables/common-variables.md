@@ -64,7 +64,7 @@ v1.tagValues(bucket: "bucket-name", tag: "host")
 ## List Docker containers
 List all Docker containers when using the Docker Telegraf plugin.
 
-_**Telegraf plugin:** [Docker](/{{< latest "telegraf" >}}/plugins/inputs/#docker)_  
+_**Telegraf plugin:** [Docker](/{{< latest "telegraf" >}}/plugins/#docker)_  
 _**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
 _**Flux functions:** [v1.tagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues/)_
 
@@ -76,7 +76,7 @@ v1.tagValues(bucket: "bucket-name", tag: "container_name")
 ## List Kubernetes pods
 List all Kubernetes pods when using the Kubernetes Telegraf plugin.
 
-_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/inputs/#kubernetes)_  
+_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/#kubernetes)_  
 _**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
 _**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
 
@@ -92,7 +92,7 @@ v1.measurementTagValues(
 ## List Kubernetes nodes
 List all Kubernetes nodes when using the Kubernetes Telegraf plugin.
 
-_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/inputs/#kubernetes)_  
+_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/#kubernetes)_  
 _**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
 _**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
 

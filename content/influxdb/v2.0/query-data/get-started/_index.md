@@ -87,6 +87,6 @@ The [Execute queries](/influxdb/v2.0/query-data/execute-queries) guide walks thr
 the different tools available for querying InfluxDB with Flux.
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/">Introduction to Flux</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB with Flux</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/">Introduction to Flux</a>
+  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB with Flux</a>
 </div>

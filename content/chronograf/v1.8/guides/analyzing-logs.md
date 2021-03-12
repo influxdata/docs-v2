@@ -11,7 +11,7 @@ Chronograf gives you the ability to view, search, filter, visualize, and analyze
 This helps to recognize and diagnose patterns, then quickly dive into logged events that lead up to events.
 
 ## Logging setup
-Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/inputs/):
+Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins):
 
 [syslog](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/syslog)  
 

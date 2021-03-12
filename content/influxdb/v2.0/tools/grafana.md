@@ -59,7 +59,7 @@ configure your InfluxDB connection:
     - **Default Bucket**: The default [bucket](/influxdb/v2.0/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
-    {{< img-hd src="/img/influxdb/2-0-visualize-grafana.png" />}}
+    {{< img-hd src="/img/influxdb/2-0-tools-grafana.png" />}}
 
 2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
    and returns the results of the test.
@@ -67,10 +67,144 @@ configure your InfluxDB connection:
 <!----------------------------- END FLUX CONTENT ----------------------------->
 <!-------------------------- BEGIN INFLUXQL CONTENT -------------------------->
 {{% tab-content %}}
+
 ## Configure Grafana to use InfluxQL
 
-With **InfluxQL** selected as the query language in your InfluxDB data source,
-configure your InfluxDB connection:
+To query InfluxDB OSS 2.0 with InfluxQL, find your use case below, and then complete the instructions to configure Grafana:
+
+- [Installed a new InfluxDB 2.0 instance](#installed-a-new-influxdb-20-instance)
+- [Upgraded from InfluxDB 1.x to 2.0 (following the official upgrade)](#upgraded-from-influxdb-1x-to-20)
+- [Manually migrated from InfluxDB 1.x to 2.0](#manually-migrated-from-influxdb-1x-to-20)
+
+### Installed a new InfluxDB 2.0 instance
+To configure Grafana to use InfluxQL with a new install of InfluxDB 2.0, do the following:
+
+1. [Authenticate with InfluxDB 2.0 tokens](/influxdb/v2.0/security/tokens/).
+2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
+
+### Upgraded from InfluxDB 1.x to 2.0
+To configure Grafana to use InfluxQL when you've upgraded from InfluxDB 1.x to
+InfluxDB 2.0 (following an [official upgrade guide](/influxdb/v2.0/upgrade/v1-to-v2/)):
+
+1. Authenticate using the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+   created during the upgrade process.
+2. Use the DBRP mappings InfluxDB automatically created in the upgrade process (no action necessary).
+
+### Manually migrated from InfluxDB 1.x to 2.0
+To configure Grafana to use InfluxQL when you've manually migrated from InfluxDB
+1.x to InfluxDB 2.0, do the following:
+
+1. If your InfluxDB 1.x instance required authentication,
+   [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
+   to match your previous 1.x username and password.
+   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.0/security/tokens/).
+2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
+
+{{< expand-wrapper >}}
+{{% expand "View and create InfluxDB v1 authorizations" %}}
+
+InfluxDB OSS 2.0 provides a 1.x compatible authentication API that lets you
+authenticate with a username and password like InfluxDB 1.x
+_(separate from the credentials used to log into the InfluxDB user interface)_.
+
+#### View existing v1 authorizations
+Use the [`influx v1 auth list`](/influxdb/v2.0/reference/cli/influx/v1/auth/list/)
+to list existing InfluxDB v1 compatible authorizations.
+
+```sh
+influx v1 auth list
+```
+
+#### Create a v1 authorization
+Use the [`influx v1 auth create` command](/influxdb/v2.0/reference/cli/influx/v1/auth/create/)
+to grant read/write permissions to specific buckets. Provide the following:
+
+- [bucket IDs](/influxdb/v2.0/organizations/buckets/view-buckets/) to grant read
+  or write permissions to
+- new username
+- new password _(when prompted)_
+
+<!--  -->
+```sh
+influx v1 auth create \
+  --read-bucket 00xX00o0X001 \
+  --write-bucket 00xX00o0X001 \
+  --username example-user
+```
+{{% /expand %}}
+{{< expand "View and create InfluxDB DBRP mappings" >}}
+
+When using InfluxQL to query InfluxDB, the query must specify a database and a retention policy.
+InfluxDB DBRP mappings associate database and retention policy combinations with
+InfluxDB 2.0 [buckets](/influxdb/v2.0/reference/glossary/#bucket).
+
+DBRP mappings do not affect the retention period of the target bucket.
+These mappings allow queries following InfluxDB 1.x conventions to successfully
+query InfluxDB 2.0 buckets.
+
+#### View existing DBRP mappings
+Use the [`influx v1 dbrp list`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/)
+to list existing DBRP mappings.
+
+```sh
+influx v1 dbrp list
+```
+
+#### Create a DBRP mapping
+Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
+command to create a DBRP mapping.
+Provide the following:
+
+- database name
+- retention policy name _(not retention period)_
+- [bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/)
+- _(optional)_ `--default` flag if you want the retention policy to be the default retention
+  policy for the specified database
+
+#### Examples
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[DB with one RP](#)
+[DB with multiple RPs](#)
+{{% /code-tabs %}}
+{{< code-tab-content >}}
+```sh
+influx v1 dbrp create \
+  --db example-db \
+  --rp example-rp \
+  --bucket-id 00xX00o0X001 \
+  --default
+```
+{{< /code-tab-content >}}
+{{< code-tab-content >}}
+```sh
+# Create telegraf/autogen DBRP mapping with autogen
+# as the default RP for the telegraf DB
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp autogen \
+  --bucket-id 00xX00o0X001 \
+  --default
+
+# Create telegraf/downsampled-daily DBRP mapping that
+# writes to a different bucket
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp downsampled-daily \
+  --bucket-id 00xX00o0X002
+```
+{{< /code-tab-content >}}
+{{< /code-tabs-wrapper >}}
+
+_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)._
+{{< /expand >}}
+{{< /expand-wrapper >}}
+
+### Configure your InfluxDB connection
+With **InfluxQL** selected as the query language in your InfluxDB data source settings:
 
 1. Under **HTTP**, enter the following:
 
@@ -81,22 +215,33 @@ configure your InfluxDB connection:
         ```
     - **Access**: Server (default)
 
-2. Under **Auth**, enable **Basic Auth**.
-3. Under **Basic Auth Details**, provide your InfluxDB authentication credentials:
+2. Configure InfluxDB authentication:
 
-    - **User**: InfluxDB username
-    - **Password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - ##### Token authentication
 
-4. Under **InfluxDB Details**, do the following:
+        Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication token:
 
-    - **Database**: Enter the ID of the bucket to query in InfluxDB 2.0. To retrieve your bucket ID, see how to [view buckets](/influxdb/v2.0/organizations/buckets/view-buckets/).
-    - **User**: Enter the username to sign into InfluxDB.
-    - **Password**: Enter the token used to query the bucket above. To retrieve your token, see how to [view tokens](/influxdb/v2.0/security/tokens/view-tokens/).
-    - **HTTP Method**: Select **GET**.
+        - **Header**: Enter `Authorization`
+        - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
+          For example:
 
-    {{< img-hd src="/img/influxdb/2-0-visualize-grafana-influxql.png" />}}
+          ```
+          Token y0uR5uP3rSecr3tT0k3n
+          ```
 
-5. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 datasource
+    - ##### Authenticate with username and password
+
+        Under **InfluxDB Details**, do the following:
+
+        - **Database**: Enter the database name [mapped to your InfluxDB 2.0 bucket](#view-and-create-influxdb-dbrp-mappings)
+        - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-v1-authorizations)
+        - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-dbrp-mappings)
+        - **HTTP Method**: Select **GET**
+
+        <!--  -->
+        {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
+
+3. Click **Save & Test**. Grafana attempts to connect to the InfluxDB 2.0 data source
    and returns the results of the test.
 {{% /tab-content %}}
 <!--------------------------- END INFLUXQL CONTENT --------------------------->

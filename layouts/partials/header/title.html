@@ -24,6 +24,10 @@
 {{ $scratch.Set "pageTitle" "" }}
 {{ if or (eq $product "platform") (gt (len $productPathData) 2) }}
   {{ $scratch.Set "pageTitle" (cond (ne .Params.seotitle nil) .Params.seotitle .Title) }}
+  <!-- Add Experimental to title if page has experimental in path -->
+  {{ if and (in .RelPermalink "/experimental/") (eq (len (findRE `[e,E]xperimental` ($scratch.Get "pageTitle") )) 0) }}
+    {{ $scratch.Set "pageTitle" (print "Experimental " ($scratch.Get "pageTitle")) }}
+  {{ end }}
 {{ end }}
 
 {{ $pageTitle := $scratch.Get "pageTitle" }}

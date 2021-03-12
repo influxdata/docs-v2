@@ -11,6 +11,7 @@ weight: 101
 influxdb/v2.0/tags: [query]
 related:
   - /influxdb/v2.0/query-data/
+  - /influxdb/v2.0/query-data/execute-queries/influx-query/
   - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
@@ -22,6 +23,17 @@ or a literal Flux query contained in a file.
 ```
 influx query [query literal] [flags]
 ```
+
+{{% note %}}
+#### Remove unnecessary columns in large datasets
+When using the `influx query` command to query and download large datasets,
+drop columns such as `_start` and `_stop` to optimize the download file size.
+
+```js
+// ...
+  |> drop(columns: ["_start", "_stop"])
+```
+{{% /note %}}
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}   |

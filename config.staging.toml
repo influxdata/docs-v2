@@ -1,0 +1,34 @@
+baseURL = "https://test2.docs.influxdata.com/"
+languageCode = "en-us"
+title = "InfluxDB Documentation"
+
+# Git history information for lastMod-type functionality
+enableGitInfo = true
+
+# Syntax Highlighting
+pygmentsCodefences = true
+pygmentsUseClasses = true
+
+# Preserve case in article tags
+preserveTaxonomyNames = true
+
+# Generate a robots.txt
+enableRobotsTXT = true
+
+# Custom staging params
+[params]
+  environment = "staging"
+
+# Markdown rendering options
+[blackfriday]
+hrefTargetBlank = true
+smartDashes = false
+
+[taxonomies]
+  "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+  "influxdb/cloud/tag" = "influxdb/cloud/tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

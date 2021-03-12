@@ -61,7 +61,7 @@ The number of data nodes in a cluster **must be evenly divisible by the replicat
 
 > **Important:** If the replication factor isn't evenly divisible into the number of data nodes, data may be distributed unevenly across the cluster and cause poor performance. Likewise, decreasing the replication factor (fewer copies of data in a cluster) may reduce performance.
 
-Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
+Related entries: [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
 [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp)
 
 ## web console
@@ -70,4 +70,4 @@ Legacy user interface for the InfluxDB Enterprise.
 
 This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
 
-If you are transitioning from the Enterprise Web Console to Chronograf and helpful [transition guide](/{{< latest "chronograf" >}}/guides/transition-web-admin-interface/) is available.
+If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1.7/guides/transition-web-admin-interface/).

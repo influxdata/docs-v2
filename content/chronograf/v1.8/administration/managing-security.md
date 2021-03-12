@@ -49,7 +49,7 @@ Chronograf will use this secret to generate the JWT Signature for all access tok
     ```
 
 {{% note %}}
-***InfluxEnterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
+***InfluxDB Enterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
 set the `TOKEN_SECRET` environment variable on each server to ensure that users can stay logged in.
 {{% /note %}}
 
