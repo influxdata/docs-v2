@@ -2,7 +2,7 @@
 title: math.erfcinv() function
 description: The math.erfcinv() function returns the inverse of `math.erfc()`.
 aliases:
-  - /v2.0/reference/flux/functions/math/erfcinv/
+  - /influxdb/v2.0/reference/flux/functions/math/erfcinv/
 menu:
   influxdb_2_0_ref:
     name: math.erfcinv

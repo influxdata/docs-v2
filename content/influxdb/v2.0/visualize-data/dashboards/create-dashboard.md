@@ -10,8 +10,6 @@ menu:
     name: Create a dashboard
     parent: Manage dashboards
 weight: 201
-aliases:
-  - /v2.0/visualize-data/dashboards/create-dashboard/
 ---
 
 ## Create a new dashboard
@@ -75,10 +73,10 @@ aliases:
 #### Add data to your dashboard
 
 1. From your dashboard, click **{{< icon "add-cell" >}} Add Cell**.
-2. Create a query in the Data Explorer following the instructions in [Explore metrics](/v2.0/visualize-data/explore-metrics).
+2. Create a query in the Data Explorer following the instructions in [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics).
 3. Enter a name for your cell in the upper left.
 4. Click the checkmark icon (**{{< icon "checkmark" >}}**) to save the cell to your dashboard.
-You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/v2.0/visualize-data/explore-metrics).
+You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics).
 
 #### Add a note to your dashboard
 1. From your dashboard, click **{{< icon "note" >}} Add Note** in the upper left.

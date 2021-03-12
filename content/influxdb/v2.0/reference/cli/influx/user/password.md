@@ -6,10 +6,9 @@ menu:
     name: influx user password
     parent: influx user
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/user/password/
 related:
   - /influxdb/v2.0/users/change-password/
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
 ---
 
 The `influx user password` command updates the password for a user in InfluxDB.
@@ -20,12 +19,29 @@ influx user password [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}   |
-|:---- |:---              |:-----------                                                           |:----------: |:------------------   |
-|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH` |
-| `-h` | `--help`         | Help for the `password` command                                       |             |                      |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`        |
-| `-i` | `--id`           | User ID                                                               | string      |                      |
-| `-n` | `--name`         | Username                                                              | string      |                      |
-|      | `--skip-verify`  | Skip TLS certificate verification                                     |             |                      |
-| `-t` | `--token`        | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
+| Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}   |
+|:---- |:---               |:-----------                                                           |:----------: |:------------------   |
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                      |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH` |
+| `-h` | `--help`          | Help for the `password` command                                       |             |                      |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`        |
+| `-i` | `--id`            | User ID                                                               | string      |                      |
+| `-n` | `--name`          | Username                                                              | string      |                      |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update a user password using a username
+```sh
+influx user password --name example-username
+# Prompts for password
+```
+
+##### Update a user password using a user ID
+```sh
+influx user password --id 0Xx0oox00XXoxxoo1
+# Prompts for password
+```

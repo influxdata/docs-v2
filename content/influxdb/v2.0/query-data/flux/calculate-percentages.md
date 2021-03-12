@@ -2,8 +2,8 @@
 title: Calculate percentages with Flux
 list_title: Calculate percentages
 description: >
-  Use [`pivot()` or `join()`](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
-  and the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+  Use [`pivot()` or `join()`](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
+  and the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
   to align operand values into rows and calculate a percentage.
 menu:
   influxdb_2_0:
@@ -11,13 +11,12 @@ menu:
     parent: Query with Flux
 weight: 209
 aliases:
- - /v2.0/query-data/guides/calculate-percentages/
- - /v2.0/query-data/flux/calculate-percentages/
+ - /influxdb/v2.0/query-data/guides/calculate-percentages/
 related:
   - /influxdb/v2.0/query-data/flux/mathematic-operations
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map
-  - /v2.0/reference/flux/stdlib/built-in/transformations/pivot
-  - /v2.0/reference/flux/stdlib/built-in/transformations/join
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join
 list_query_example: percentages
 ---
 
@@ -27,18 +26,18 @@ Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
-1. Use [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from/),
-   [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range/) and
-   [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
-2. Use [`pivot()` or `join()`](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
+1. Use [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/),
+   [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) and
+   [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
+2. Use [`pivot()` or `join()`](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
    to align operand values into rows.
-3. Use [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+3. Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
 {{% note %}}
 The following examples use `pivot()` to align operands into rows because
 `pivot()` works in most cases and is more performant than `join()`.
-_See [Pivot vs join](/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)._
+_See [Pivot vs join](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)._
 {{% /note %}}
 
 ```js
@@ -171,7 +170,7 @@ from(bucket: "example-bucket")
 
 #### Calculate percentages using multiple measurements
 
-1. Ensure measurements are in the same [bucket](/v2.0/reference/glossary/#bucket).
+1. Ensure measurements are in the same [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 2. Use `filter()` to include data from both measurements.
 3. Use `group()` to ungroup data and return a single table.
 4. Use `pivot()` to pivot fields into columns.

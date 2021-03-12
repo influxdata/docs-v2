@@ -1,0 +1,60 @@
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $isCloud := eq $currentVersion "cloud" }}
+
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-open');return false;"><a href="#">&#59675;</a></div>
+
+    <div class="cards">
+      <div class="card main" id="get-started">
+        {{ if $isCloud }}
+          <h1>Get started with <span class="avoid-wrap">InfluxDB Cloud</span></h1>
+          <a class="btn" href="get-started">Get started</a>
+        {{ else }}
+          <h1>Get started with <span class="avoid-wrap">InfluxDB OSS {{ replaceRE "v" "" $currentVersion }}</span></h1>
+          <a class="btn" href="get-started">Get started</a>
+        {{ end }}
+      </div>
+      {{ partial "svgs/hive.svg" }}
+      <div class="group">
+
+        <a class="card sm" href="write-data">
+          <h3>Write Data</h3>
+          <p>Write data to InfluxDB using a number of different options.</p>
+        </a>
+
+        <a class="card sm"href="query-data">
+          <h3>Query Data</h3>
+          <p>Use Flux to query and transform your data.</p>
+        </a>
+
+        <a class="card sm" href="process-data">
+          <h3>Process Data</h3>
+          <p>Use InfluxDB tasks to process and downsample data.</p>
+        </a>
+
+        <a class="card sm" href="visualize-data">
+          <h3>Visualize Data</h3>
+          <p>Build powerful dashboards to visualize your data.</p>
+        </a>
+
+        <a class="card sm" href="monitor-alert">
+          <h3>Monitor & Alert</h3>
+          <p>Monitor metrics and send alerts with InfluxDB.</p>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- {{ partial "article.html" . }} -->
+    <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

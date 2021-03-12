@@ -4,7 +4,7 @@ description: >
   The `date.quarter()` function returns the quarter of the year for a specified time.
   Results range from `[1-4]`.
 aliases:
-  - /v2.0/reference/flux/functions/date/quarter/
+  - /influxdb/v2.0/reference/flux/functions/date/quarter/
 menu:
   influxdb_2_0_ref:
     name: date.quarter
@@ -31,9 +31,8 @@ date.quarter(t: 2019-07-17T12:05:21.012Z)
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration | Integer_
+_**Data type:** Time | Duration_
 
 ## Examples
 
@@ -55,13 +54,4 @@ option now = () => 2020-02-11T12:21:03.293534940Z
 date.quarter(t: -7mo)
 
 // Returns 3
-```
-
-##### Return the quarter for a nanosecond Unix timestamp
-```js
-import "date"
-
-date.quarter(t: 1581423663293534940)
-
-// Returns 1
 ```

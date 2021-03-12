@@ -6,8 +6,6 @@ description: >
   A histogram is a way to view the distribution of data.
   The y-axis is dedicated to count, and the x-axis is divided into bins.
 weight: 204
-aliases:
-  - /v2.0/visualize-data/visualization-types/histogram/
 menu:
   influxdb_2_0:
     name: Histogram
@@ -19,7 +17,7 @@ The y-axis is dedicated to count, and the X-axis is divided into bins.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram example" />}}
 
-Select the **Histogram** option from the visualization dropdown in the upper right.
+Select the **Histogram** option from the visualization dropdown in the upper left.
 
 ## Histogram behavior
 The Histogram visualization is a bar graph that displays the number of data points
@@ -63,7 +61,7 @@ the visualization dropdown.
 ### View error counts by severity over time
 The following example uses the Histogram visualization to show the number of errors
 "binned" by time and segmented by severity.
-_It utilizes data from the [Telegraf Syslog plugin](/v2.0/reference/telegraf-plugins/#syslog)._
+_It utilizes data from the [Telegraf Syslog plugin](/{{< latest "telegraf" >}}/plugins//#syslog)._
 
 ##### Query for errors by severity code
 ```js

@@ -7,7 +7,7 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/bucket/update/
+  - /influxdb/v2.0/reference/cli/influx/bucket/update/
 ---
 
 The `influx bucket update` command updates information associated with buckets in InfluxDB.
@@ -18,21 +18,40 @@ influx bucket update [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                           |:----------: |:------------------    |
-|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-| `-d` | `--description`  | Bucket description                                                    | string      |                       |
-| `-h` | `--help`         | Help for the `update` command                                         |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`           | **(Required)** Bucket ID                                              | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`         | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
-| `-r` | `--retention`    | New duration bucket will retain data                                  | duration    |                       |
-|      | `--skip-verify`  | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`        | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---               |:-----------                                                           |:----------: |:------------------    |
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
+| `-d` | `--description`   | Bucket description                                                    | string      |                       |
+| `-h` | `--help`          | Help for the `update` command                                         |             |                       |
+|      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+| `-i` | `--id`            | ({{< req >}}) Bucket ID                                               | string      |                       |
+|      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`          | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
+| `-r` | `--retention`     | New duration bucket will retain data                                  | duration    |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
 milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
 {{% /note %}}
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Update the name of a bucket
+```sh
+influx bucket update \
+  --id 06c86c40a9f36000
+  --name new-bucket-name
+```
+
+##### Update the retention period of a bucket
+```sh
+influx bucket update \
+  --id 06c86c40a9f36000
+  --retention 90d
+```

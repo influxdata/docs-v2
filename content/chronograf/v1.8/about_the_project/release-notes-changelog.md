@@ -1,6 +1,6 @@
 ---
 title: Chronograf 1.8 release notes
-description: Features, breaking features, user interface improvements, and bug fixes for the latest and earlier Chronograf releases for the InfluxData time series platform.
+description: Important changes and what's new in each version of Chronograf.
 menu:
   chronograf_1_8:
     name: Release notes
@@ -8,7 +8,114 @@ menu:
     parent: About the project
 ---
 
+## v1.8.10 [2020-02-08]
+
+### Features
+
+- Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands. Now, in Chronograf Data Explorer, if you select a metaquery template (InfluxQL command) that requires you to specify an active database, such as `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`, the `USE` command is prepended to your InfluxQL command as follows:
+
+```
+USE "db_name"; DROP MEASUREMENT "measurement_name"
+USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
+USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
+```
+
+- Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
+
+### Bug Fixes
+
+- Repair ARMv5 build.
+- Upgrade to Axios 0.21.1.
+- Stop async executions on unmounted LogsPage.
+- Repair dashboard import to remap sources in variables.
+- UI updates:
+  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases that the user has permissions to.
+  - Improve the Send to Dashboard feedback on the Data Explorer page.
+- Log Viewer updates:
+  - Avoid endless networking loop.
+  - Show timestamp with full nanosecond precision.
+
+## v1.8.9.1 [2020-12-10]
+
+### Features
+- Configure etcd with client TLS certificate.
+- Support Flux in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Support Flux Schema Explorer in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Let users specify InfluxDB v2 authentication.
+- Validate credentials before creating or updating InfluxDB sources.
+- Use fully qualified bucket names when using Flux in the Data Explorer.
+- Upgrade Go to 1.15.5.
+- Upgrade Node.js to 14 LTS.
+
+### Bug Fixes
+- Prevent briefly displaying "No Results" in dashboard cells upon refresh.
+- Warn about unsupported queries when creating or editing alert rules.
+- Use the `AND` logical operator with not-equal (`!=`) tag comparisons in generated TICKscript `where` filters.
+- Disable InfluxDB admin page when administration is not possible
+  (while using InfluxDB Cloud or InfluxDB OSS 2.x sources).
+- Use token authentication against InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Avoid blank screen on Windows.
+- Repair visual comparison with time variables (`:upperDashboardTime:` and `:dashboardTime:`).
+- Repair possible millisecond differences in duration computation.
+- Remove deprecated React SFC type.
+
+## v.1.8.8 [2020-11-04]
+
+## Features
+
+- Add the option to select a recovery action in the [OpsGenie2](/chronograf/v1.8/guides/configuring-alert-endpoints/#opsgenie2) configuration.
+
+## Bug Fixes
+
+- Ensure the alert rule name is correctly displayed in the Alert Rules and TICKscript lists.
+- Resolve the issue that caused a truncated dashboard name.
+- Ensure the TICKscript editor is scrollable in Firefox.
+- Apply default timeouts in server connections to ensure a shared HTTP transport connection is used between Chronograf and InfluxDB or Kapacitor.
+- Retain the selected time zone (local or UTC) in the range picker.
+- Export CSV with a time column formatted according to the selected time zone (local or UTC).
+
+## v.1.8.7 [2020-10-06]
+
+{{% warn %}}
+This release includes breaking changes:
+TLS1.2 is now the default minimum required TLS version. If you have clients that require older TLS versions, use one of the following when starting Chronograf:
+  - The `--tls-min-version=1.1` option
+  - The `TLS_MIN_VERSION=1.1` environment variable
+{{% /warn %}}
+
+## Features
+- Allow to configure HTTP basic access authentication.
+- Allow setting token-prefix in Alerta configuration.
+- Make session inactivity duration configurable.
+- Allow configuration of TLS ciphers and versions.
+
+## Bug Fixes
+- Disable default dashboard auto-refresh.
+- Fix to user migration.
+- Add `isPresent` filter to rule TICKscript.
+- Make vertical scrollbar visible when rows overflow in TableGraph.
+- Upgrade `papaparse` to 5.3.0.
+- Require well-formatted commit messages in pull request.
+- Upgrade `node` to v12.
+
+## v1.8.6 [2020-08-27]
+
+### Features
+
+- Upgrade Dockerfile to use Alpine 3.12.
+
+### Bug Fixes
+
+- Escape tag values in Query Builder.
+- Sort namespaces by database and retention policy.
+- Make MySQL protoboard more useful by using derivatives for counter values.
+- Add HTTP security headers.
+- Resolve an issue that caused existing data to be overwritten when there were multiple results for a specific time. Now, all query results are successfully shown in the Table visualization.
+- Resolve an issue that prevented boolean field and tag values from being displayed. Now, field and tag values are printed in TICKscript logs.
+
 ## v1.8.5 [2020-07-08]
+
+### Bug Fixes
 
 - Fix public-url generic OAuth configuration issue.
 - Fix crash when starting Chronograf built by Go 1.14 on Windows.
@@ -26,6 +133,8 @@ menu:
 - Avoid duplication of `csv.from` in functions list.
 
 ## v1.8.4 [2020-05-01]
+
+### Bug Fixes
 
 - Fix misaligned tables when scrolling.
 
@@ -46,7 +155,7 @@ menu:
 
 ### Features
 
-- Update to [Flux v0.65.0](/flux/v0.65/about_the_project/releasenotes-changelog/#v0-65-0-2020-03-27).
+- Update to Flux v0.65.0.
 
 ### Bug Fixes
 
@@ -920,9 +1029,9 @@ menu:
 ### UI improvements
 
   * When dashboard time range is changed, reset graphs that are zoomed in
-  * [Bar graph](/chronograf/latest/guides/visualization-types/#bar-graph) option added to dashboard
+  * [Bar graph](/chronograf/v1.8/guides/visualization-types/#bar-graph) option added to dashboard
   * Redesign source management table to be more intuitive
-  * Redesign [Line + Single Stat](/chronograf/latest/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
+  * Redesign [Line + Single Stat](/chronograf/v1.8/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
 
 
 ## v1.3.2.0 [2017-06-05]
@@ -938,7 +1047,7 @@ menu:
 
 ### Features
 
-  * Add UI to the Data Explorer for [writing data to InfluxDB](/chronograf/latest/guides/querying-data/)
+  * Add UI to the Data Explorer for [writing data to InfluxDB](/chronograf/v1.8/guides/querying-data/)
 
 ### UI improvements
 
@@ -958,26 +1067,26 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Remove the query templates dropdown from dashboard cell editor mode
   * Fix the backwards sort arrows in table column headers
   * Make the logout button consistent with design
   * Fix the loading spinner on graphs
   * Filter out any template variable values that are empty, whitespace, or duplicates
-  * Allow users to click the add query button after selecting singleStat as the [visualization type](/chronograf/latest/guides/visualization-types)
+  * Allow users to click the add query button after selecting singleStat as the [visualization type](/chronograf/v1.8/guides/visualization-types)
   * Add a query for windows uptime - thank you, @brianbaker!
 
 ### Features
 
   * Add log event handler- thank you, @mpchadwick!
   * Update Go (golang) vendoring to dep and committed vendor directory
-  * Add autocomplete functionality to [template variable](/chronograf/latest/guides/dashboard-template-variables) dropdowns
+  * Add autocomplete functionality to [template variable](/chronograf/v1.8/guides/dashboard-template-variables) dropdowns
 
 ### UI improvements
 
   * Refactor scrollbars to support non-webkit browsers
   * Increase the query builder's default height in cell editor mode and in the data explorer
-  * Make the [template variables](/chronograf/latest/guides/dashboard-template-variables) manager more space efficient
+  * Make the [template variables](/chronograf/v1.8/guides/dashboard-template-variables) manager more space efficient
   * Add page spinners to pages that did not have them
   * Denote which source is connected in the sources table
   * Use milliseconds in the InfluxDB dashboard instead of nanoseconds
@@ -987,25 +1096,25 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix the link to home when using the [`--basepath` option](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix the link to home when using the [`--basepath` option](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Remove the notification to login on the login page
   * Support queries that perform math on functions
   * Prevent the creation of blank template variables
   * Ensure thresholds for Kapacitor Rule Alerts appear on page load
   * Update the Kapacitor configuration page when the configuration changes
-  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1.8/administration/config-options/#basepath-p)
   * Show red indicator on Hosts Page for an offline host
   * Support escaping from presentation mode in Safari
   * Re-implement level colors on the alerts page
   * Fix router bug introduced by upgrading to react-router v3.0
-  * Show legend on [Line+Stat](/chronograf/latest/guides/visualization-types/#line-graph-single-stat) visualization type
+  * Show legend on [Line+Stat](/chronograf/v1.8/guides/visualization-types/#line-graph-single-stat) visualization type
   * Prevent queries with `:dashboardTime:` from breaking the query builder
 
 ### Features
 
-  * Add line-protocol proxy for InfluxDB/InfluxEnterprise Cluster data sources
+  * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
-  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/latest/guides/advanced-kapacitor/#tickscript-management)
+  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1.8/guides/advanced-kapacitor/#tickscript-management)
   * Allow users to delete Kapacitor configurations
 
 ### UI improvements

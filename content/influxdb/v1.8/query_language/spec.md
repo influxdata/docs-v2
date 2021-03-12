@@ -1,10 +1,13 @@
 ---
 title: Influx Query Language (InfluxQL) reference
+description: List of resources for Influx Query Language (InfluxQL).
 menu:
   influxdb_1_8:
     name: InfluxQL reference
     weight: 90
     parent: InfluxQL
+aliases:
+  - /influxdb/v2.0/query_language/spec/
 ---
 
 ## Introduction
@@ -25,9 +28,9 @@ Find Influx Query Language (InfluxQL) definitions and details, including:
 
 To learn more about InfluxQL, browse the following topics:
 
-* [Explore your data with InfluxQL](/influxdb/v1.8/query_language/data_exploration/)
-* [Explore your schema with InfluxQL](/influxdb/v1.8/query_language/schema_exploration/)
-* [Database management](/influxdb/v1.8/query_language/database_management/)
+* [Explore your data with InfluxQL](/influxdb/v1.8/query_language/explore-data/)
+* [Explore your schema with InfluxQL](/influxdb/v1.8/query_language/explore-schema/)
+* [Database management](/influxdb/v1.8/query_language/manage-database/)
 * [Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/).
 
 InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
@@ -228,10 +231,10 @@ regex_lit           = "/" { unicode_char } "/" .
 
 > **Note:** InfluxQL supports using regular expressions when specifying:
 >
-* [field keys](/influxdb/v1.8/concepts/glossary/#field-key) and [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement)
-* [measurements](/influxdb/v1.8/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement)
-* [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) and string [field values](/influxdb/v1.8/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1.8/query_language/data_exploration/#the-where-clause).
-* [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1.8/query_language/data_exploration/#group-by-tags)
+* [field keys](/influxdb/v1.8/concepts/glossary/#field-key) and [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement)
+* [measurements](/influxdb/v1.8/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement)
+* [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) and string [field values](/influxdb/v1.8/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1.8/query_language/explore-data/#the-where-clause).
+* [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1.8/query_language/explore-data/#group-by-tags)
 >
 >Currently, InfluxQL does not support using regular expressions to match
 >non-string field values in the
@@ -422,7 +425,7 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHAR
 
 ### CREATE SUBSCRIPTION
 
-Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/kapacitor/latest/introduction/).
+Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/{{< latest "kapacitor" >}}/introduction/).
 
 ```
 create_subscription_stmt = "CREATE SUBSCRIPTION" subscription_name "ON" db_name "." retention_policy "DESTINATIONS" ("ANY"|"ALL") host { "," host} .
@@ -612,7 +615,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -983,7 +986,7 @@ Estimates or counts exactly the cardinality of the series for the current databa
 [Series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
 - [When do I need more RAM?](/influxdb/v1.8/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/influxdb/v1.8/guides/hardware_sizing/)
-- [Don't have too many series](/influxdb/v1.8/concepts/schema_and_data_layout/#don-t-have-too-many-series)
+- [Don't have too many series](/influxdb/v1.8/concepts/schema_and_data_layout/#avoid-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.

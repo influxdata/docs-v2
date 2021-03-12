@@ -3,7 +3,7 @@ title: slack.endpoint() function
 description: >
   The `slack.endpoint()` function sends a message to Slack that includes output data.
 aliases:
-  - /v2.0/reference/flux/functions/slack/endpoint/
+  - /influxdb/v2.0/reference/flux/functions/slack/endpoint/
 menu:
   influxdb_2_0_ref:
     name: slack.endpoint
@@ -54,27 +54,18 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the POST request.
-Requires an  `r` parameter.
-
-{{% note %}}
-_You should rarely need to override the default `mapFn` parameter.
-To see the default `mapFn` value or for insight into possible overrides, view the
-[`slack.endpoint()` source code](https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux)._
-{{% /note %}}
+({{< req >}}) A function that builds the record used to generate the POST request.
+Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 
-- `username`
 - `channel`
-- `workspace`
 - `text`
-- `iconEmoji`
 - `color`
 
-_For more information, see [`slack.message()`](/v2.0/reference/flux/stdlib/slack/message/)_
+_For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/stdlib/slack/message/)_
 
 ## Examples
 
@@ -84,20 +75,17 @@ import "slack"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "SLACK_TOKEN")
-e = slack.endpoint(token: token)
+toSlack = slack.endpoint(token: token)
 
 crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+  |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
 
 crit_statuses
-  |> e(mapFn: (r) => ({
-      username: r.username,
-      channel: r.channel,
-      workspace: r.workspace,
-      text: r.text,
-      iconEmoji: r.iconEmoji,
-      color: r.color,
+  |> toSlack(mapFn: (r) => ({
+      channel: "Alerts",
+      text: r._message,
+      color: "danger",
     })
   )()
 ```

@@ -5,7 +5,7 @@ description: >
   The Flux regular expressions package includes functions that provide enhanced
   regular expression functionality. Import the `regexp` package.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/
+  - /influxdb/v2.0/reference/flux/functions/regexp/
 menu:
   influxdb_2_0_ref:
     name: Regular expressions

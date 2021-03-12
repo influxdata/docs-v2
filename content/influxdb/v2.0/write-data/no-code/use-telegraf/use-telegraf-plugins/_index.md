@@ -3,8 +3,7 @@ title: Use Telegraf plugins
 description: >
   Use Telegraf plugins to capture and write metrics to InfluxDB.
 aliases:
-  - /v2.0/write-data/use-telegraf/use-telegraf-plugins/
-  - /v2.0/write-data/no-code/use-telegraf/use-telegraf-plugins/
+  - /influxdb/v2.0/write-data/use-telegraf/use-telegraf-plugins/
 menu:
   influxdb_2_0:
     name: Use Telegraf plugins

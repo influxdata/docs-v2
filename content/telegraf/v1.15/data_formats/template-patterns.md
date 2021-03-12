@@ -8,8 +8,6 @@ menu:
     parent: Data formats
 ---
 
-
-
 Template patterns are a mini language that describes how a dot delimited
 string should be mapped to and from [metrics][].
 

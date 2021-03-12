@@ -2,8 +2,8 @@
 title: lowestAverage() function
 description: The `lowestAverage()` function calculates the average of each table in the input stream returns the lowest `n` records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/lowestaverage
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/lowestaverage/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestaverage
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestaverage/
 menu:
   influxdb_2_0_ref:
     name: lowestAverage

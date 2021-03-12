@@ -5,9 +5,7 @@ description: >
   InfluxDB identifies unique data points by their measurement, tag set, and timestamp.
   This article discusses methods for preserving data from two points with a common
   measurement, tag set, and timestamp but a different field set.
-weight: 202
-aliases:
-  - /v2.0/write-data/best-practices/duplicate-points/
+weight: 204
 menu:
   influxdb_2_0:
     name: Handle duplicate points
@@ -16,7 +14,7 @@ influxdb/v2.0/tags: [best practices, write]
 ---
 
 InfluxDB identifies unique data points by their measurement, tag set, and timestamp
-(each a part of [Line protocol](/v2.0/reference/syntax/line-protocol) used to write data to InfluxDB).
+(each a part of [Line protocol](/influxdb/v2.0/reference/syntax/line-protocol) used to write data to InfluxDB).
 
 ```txt
 web,host=host2,region=us_west firstByte=15.0 1559260800000000000

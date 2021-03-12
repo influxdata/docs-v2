@@ -2,7 +2,7 @@
 title: regexp.getString() function
 description: The `regexp.getString()` function returns the source string used to compile a regular expression.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/getstring/
+  - /influxdb/v2.0/reference/flux/functions/regexp/getstring/
 menu:
   influxdb_2_0_ref:
     name: regexp.getString

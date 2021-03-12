@@ -3,7 +3,7 @@ title: pagerduty.endpoint() function
 description: >
   The `pagerduty.endpoint()` function sends a message to PagerDuty that includes output data.
 aliases:
-  - /v2.0/reference/flux/functions/pagerduty/endpoint/
+  - /influxdb/v2.0/reference/flux/functions/pagerduty/endpoint/
 menu:
   influxdb_2_0_ref:
     name: pagerduty.endpoint
@@ -37,12 +37,12 @@ _**Data type:** String_
 The output function requires a `mapFn` parameter.
 
 ### mapFn
-A function that builds the object used to generate the POST request.
+({{< req >}}) A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
 
 _**Data type:** Function_
 
-The returned object must include the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 
 - `routingKey`
 - `client`
@@ -56,7 +56,7 @@ The returned object must include the following fields:
 - `summary`
 - `timestamp`
 
-_For more information, see [`pagerduty.sendEvent()`](/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
+_For more information, see [`pagerduty.sendEvent()`](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/)_
 
 ## Examples
 
@@ -66,14 +66,14 @@ import "pagerduty"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "PAGERDUTY_TOKEN")
-e = pagerduty.endpoint(token: token)
+toPagerDuty = pagerduty.endpoint(token: token)
 
 crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+  |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
 
 crit_statuses
-  |> e(mapFn: (r) => ({ r with
+  |> toPagerDuty(mapFn: (r) => ({ r with
       routingKey: r.routingKey,
       client: r.client,
       clientURL: r.clientURL,

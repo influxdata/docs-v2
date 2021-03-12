@@ -15,7 +15,7 @@ Any section that is not currently implemented is commented with a **[IMPL#XXX]**
 {{% /note %}}
 
 A **type** defines the set of values and operations on those values.
-Types are never explicitly declared as part of the syntax except as part of a [builtin statement](#system-built-ins).
+Types are never explicitly declared as part of the syntax except as part of a [builtin statement](/influxdb/v2.0/reference/flux/language/system-built-ins/).
 Types are always inferred from the usage of the value.
 Type inference follows a Hindley-Milner style inference system.
 
@@ -76,7 +76,7 @@ The time type name is `time`.
 The time type is nullable.
 
 #### Timestamp format
-Flux supports [RFC3339 timestamps](/v2.0/reference/glossary/#rfc3339-timestamp):
+Flux supports [RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp):
 
 - `YYYY-MM-DD`
 - `YYYY-MM-DDT00:00:00Z`
@@ -136,53 +136,63 @@ An _array type_ represents a sequence of values of any other type.
 All values in the array must be of the same type.
 The length of an array is the number of elements in the array.
 
-### Object types
-An _object type_ represents a set of unordered key and value pairs.
+### Record types
+A _record type_ represents a set of unordered key and value pairs.
 The key must always be a string.
-The value may be any other type, and need not be the same as other values within the object.
+The value may be any other type, and need not be the same as other values within the record.
+
+Keys in a record may only be referenced statically.
+
+Type inference determines the properties that are present in a record.
+If type inference determines all the properties in a record, it is said to be "bounded."
+Not all keys may be known in the type of a record, in which case the record is said to be "unbounded."
+An unbounded record may contain any property in addition to the properties it is known to contain.
+
+### Dictionary types
+A _dictionary type_ is a collection that associates keys to values.
+Keys must be comparable and of the same type.
+Values must also be of the same type.
 
 ### Function types
 A _function type_ represents a set of all functions with the same argument and result types.
-
-{{% note %}}
-[IMPL#249](https://github.com/influxdata/platform/issues/249) Specify type inference rules.
-{{% /note %}}
 
 ### Generator types
 A _generator type_ represents a value that produces an unknown number of other values.
 The generated values may be of any other type, but must all be the same type.
 
 {{% note %}}
-[IMPL#658](https://github.com/influxdata/platform/query/issues/658) Implement Generators types.
+[IMPL#412](https://github.com/influxdata/flux/issues/412) Implement Generators types.
 {{% /note %}}
 
-#### Polymorphism
-Flux types can be polymorphic, meaning that a type may take on many different types.
-Flux supports let-polymorphism and structural polymorphism.
+## Polymorphism
+Flux functions can be polymorphic, meaning a function can be applied to arguments of different types.
+Flux supports parametric, record, and ad hoc polymorphism.
 
-##### Let-polymorphism
-Let-polymorphism is the concept that each time an identifier is referenced, it may take on a different type.
+### Parametric polymorphism
+Parametric polymorphism is the notion that a function can be applied uniformly to arguments of any type.
 For example:
 
 ```js
-add = (a,b) => a + b
-add(a:1,b:2) // 3
-add(a:1.5,b:2.0) // 3.5
+f = (x) => x
+f(x: 1)
+f(x: 1.1)
+f(x: "1")
+f(x: true)
+f(x: f)
 ```
 
 The identifiers, `a` and `b`, in the body of the `add` function are used as both `int` and `float` types.
 
-##### Structural polymorphism
-Structural polymorphism is the concept that structures (objects in Flux) can be
-used by the same function even if the structures themselves are different.
+### Record polymorphism
+Record polymorphism is the notion that a function can be applied to different types of records.
 For example:
 
 ```js
 john = {name:"John", lastName:"Smith"}
 jane = {name:"Jane", age:44}
 
-// John and Jane are objects with different types.
-// We can still define a function that can operate on both objects safely.
+// John and Jane are records with different types.
+// We can still define a function that can operate on both records safely.
 
 // name returns the name of a person
 name = (person) => person.name
@@ -195,7 +205,76 @@ device = {id: 125325, lat: 15.6163, lon: 62.6623}
 name(person:device) // Type error, "device" does not have a property name.
 ```
 
-Objects of differing types can be used as the same type so long as they both contain the necessary properties.
-Necessary properties are determined by the use of the object.
-This form of polymorphism means that checks are performed during type inference and not during runtime.
-Type errors are found and reported before runtime.
+Records of differing types can be passed to the same function as long as they contain the necessary properties.
+The necessary properties are determined by the use of the record.
+
+### Ad hoc polymorphism
+Ad hoc polymorphism is the notion that a function can be applied to arguments of
+different types with different behavior depending on the type.
+
+```js
+add = (a, b) => a + b
+
+// Integer addition
+add(a: 1, b: 1)
+
+// String concatenation
+add(a: "str", b: "ing")
+
+// Addition not defined for boolean data types
+add(a: true, b: false)
+```
+
+## Type constraints
+Type constraints are to implement static ad hoc polymorphism.
+For example, the following function is defined only for `Addable` types:
+
+```js
+add = (a, b) => a + b
+```
+
+Passing a record to `add()` results in compile-time type error because records are not addable.
+
+```js
+// Records are not Addable and will result in an error.
+add(a: {}, b: {})
+```
+
+Constraints are never explicitly declared but rather inferred from the context.
+
+### Addable constraint
+Addable types are those the binary arithmetic operator `+` accepts.
+Integer, Uinteger, Float, and String types are `Addable`.
+
+### Subtractable constraint
+Subtractable types are those the binary arithmetic operator `-` accepts.
+Integer, Uinteger, and Float types are `Subtractable`.
+
+### Divisible constraint
+Divisible types are those the binary arithmetic operator `\` accepts.
+Integer, Uinteger, and Float types are `Divisible`.
+
+### Numeric Constraint
+Integer, Uinteger, and Float types are `Numeric`.
+
+### Comparable Constraint
+Comparable types are those the binary comparison operators `<`, `<=`, `>`, or `>=` accept.
+Integer, Uinteger, Float, String, Duration, and Time types are `Comparable`.
+
+### Equatable Constraint
+Equatable types are those that can be compared for equality using the `==` or `!=` operators.
+Boolean, Integer, Uinteger, Float, String, Duration, Time, Bytes, Array, and Record types are `Equatable`.
+
+### Nullable Constraint
+Nullable types are those that can be _null_.
+Boolean, Integer, Uinteger, Float, String, Duration, and Time types are `Nullable`.
+
+### Record Constraint
+Records are the only types that fall under this constraint.
+
+### Negatable Constraint
+Negatable types ore those the unary arithmetic operator `-` accepts.
+Integer, Uinteger, Float, and Duration types are `Negatable`.
+
+### Timeable Constraint
+Duration and Time types are `Timeable`.

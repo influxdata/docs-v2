@@ -1,10 +1,11 @@
 ---
 title: Install the InfluxData TICK stack (OSS)
+list_title: TICK stack (OSS)
 description: Install and configure the open source InfluxData TICK stack – Telegraf, InfluxDB, Chronograf, and Kapacitor.
 alias: /platform/installation/oss-install
 menu:
   platform:
-    name: Install InfluxData TICK stack (OSS)
+    name: TICK stack (OSS)
     parent: install-platform
     weight: 2
 ---
@@ -18,22 +19,22 @@ to be installed, configured, and started separately.
 
 ## Install Telegraf
 
-The [Telegraf installation instructions](https://docs.influxdata.com/telegraf/latest/introduction/installation/)
+The [Telegraf installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)
 walk through installing and configuring Telegraf.
 
 ## Install InfluxDB
 
-The [InfluxDB OSS installation instructions](https://docs.influxdata.com/influxdb/latest/introduction/installation/)
+The [InfluxDB OSS installation instructions](/{{< latest "influxdb" "v1" >}}/introduction/installation/)
 walk through installing and configuring the open source version of InfluxDB.
 
 ## Install Chronograf
 
-The [Chronograf installation instructions](https://docs.influxdata.com/chronograf/latest/introduction/installation/)
+The [Chronograf installation instructions](/{{< latest "chronograf" >}}/introduction/installation/)
 walk through installing and configuring Chronograf.
 
 ## Install Kapacitor
 
-The [Kapacitor OSS installation instructions](https://docs.influxdata.com/kapacitor/latest/introduction/installation/)
+The [Kapacitor OSS installation instructions](/{{< latest "kapacitor" >}}/introduction/installation/)
 walk through installing and configuring the open source version of Kapacitor.
 
 ## InfluxData Sandbox

@@ -1,27 +1,29 @@
 ---
-title: Managing Chronograf security
-description: Managing Chronograf security using authentication and authorization with OAuth 2.0 providers (GitHub, Google, Heroku, Okta, and generic). Also covers TLS and HTTPS setup.
+title: Manage Chronograf security
+description: Manage Chronograf security with OAuth 2.0 providers.
 aliases: /chronograf/v1.8/administration/security-best-practices/
 menu:
   chronograf_1_8:
-    name: Managing Chronograf security
+    name: Manage Chronograf security
     weight: 70
     parent: Administration
 ---
 
 To enhance security, configure Chronograf to authenticate and authorize with [OAuth 2.0](https://oauth.net/) and use TLS/HTTPS.
+(Basic authentication with username and password is also available.)
 
-* [Configure OAuth 2.0](#configure-oauth-2-0)
+* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0)
   1. [Generate a Token Secret](#generate-a-token-secret)
   2. [Set configurations for your OAuth provider](#set-configurations-for-your-oauth-provider)
   3. [Configure authentication duration](#configure-authentication-duration)
+* [Configure Chronograf to authenticate with a username and password](#configure-chronograf-to-authenticate-with-a-username-and-password)
 * [Configure TLS (Transport Layer Security) and HTTPS](#configure-tls-transport-layer-security-and-https)
 
-## Configure OAuth 2.0
+## Configure Chronograf to authenticate with OAuth 2.0
 
 > After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.
-> You can then set up [multiple organizations](https://docs.influxdata.com/chronograf/latest/administration/managing-organizations/)
-> and [users](https://docs.influxdata.com/chronograf/latest/administration/managing-influxdb-users/).
+> You can then set up [multiple organizations](/chronograf/v1.8/administration/managing-organizations/)
+> and [users](/chronograf/v1.8/administration/managing-influxdb-users/).
 
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 
@@ -33,12 +35,12 @@ To configure any of the supported OAuth 2.0 providers to work with Chronograf,
 you must configure the `TOKEN_SECRET` environment variable (or command line option).
 Chronograf will use this secret to generate the JWT Signature for all access tokens.
 
-1. Generate a secret, high-entropy pseudo-random string.
+1. Generate a high-entropy pseudo-random string.
 
-    > For example, to do this with OpenSSL, run this command:
-    > ```
-    > openssl rand -base64 256 | tr -d '\n'
-    > ```
+    For example, to do this with OpenSSL, run this command:
+    ```sh
+    openssl rand -base64 256 | tr -d '\n'
+    ```
 
 2. Set the environment variable:
 
@@ -46,8 +48,10 @@ Chronograf will use this secret to generate the JWT Signature for all access tok
     TOKEN_SECRET=<mysecret>
     ```
 
-> ***InfluxEnterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
-> set the `TOKEN_SECRET` environment variable on each server to ensure that users can stay logged in.
+{{% note %}}
+***InfluxDB Enterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
+set the `TOKEN_SECRET` environment variable on each server to ensure that users can stay logged in.
+{{% /note %}}
 
 ### JWKS Signature Verification (optional)
 
@@ -183,7 +187,7 @@ Separate multiple domains using commas.
 For example, to permit access only from `biffspleasurepalace.com` and `savetheclocktower.com`, set the environment variable as follows:
 
 ```sh
-export GOOGLE_DOMAINS=biffspleasurepalance.com,savetheclocktower.com
+export GOOGLE_DOMAINS=biffspleasurepalace.com,savetheclocktower.com
 ```
 
 #### Configure Auth0 authentication
@@ -377,8 +381,8 @@ When using the generic configuration, some or all of the following environment v
 * `GENERIC_TOKEN_URL`: Provider's token [endpoint](https://tools.ietf.org/html/rfc6749#section-3.2) URL used by the Chronograf client to obtain an access token
 * `USE_ID_TOKEN`: Enable OpenID [id_token](https://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.3.3) processing
 * `JWKS_URL`: Provider's JWKS [endpoint](https://tools.ietf.org/html/rfc7517#section-4.7) used by the client to validate RSA signatures
-* `GENERIC_API_URL`: Provider's [OpenID UserInfo endpoint](https://connect2id.com/products/server/docs/api/userinfo)] URL used by Chronograf to request user data
-* `GENERIC_API_KEY`: JSON lookup key for [OpenID UserInfo](https://connect2id.com/products/server/docs/api/userinfo)] (known to be required for Microsoft Azure, with the value `userPrincipalName`)
+* `GENERIC_API_URL`: Provider's [OpenID UserInfo endpoint](https://connect2id.com/products/server/docs/api/userinfo) URL used by Chronograf to request user data
+* `GENERIC_API_KEY`: JSON lookup key for [OpenID UserInfo](https://connect2id.com/products/server/docs/api/userinfo) (known to be required for Microsoft Azure, with the value `userPrincipalName`)
 * `GENERIC_SCOPES`: [Scopes](https://tools.ietf.org/html/rfc6749#section-3.3) of user data required for your instance of Chronograf, such as user email and OAuth provider organization
   - Multiple values must be space-delimited, e.g. `user:email read:org`
   - These may vary by OAuth 2.0 provider
@@ -417,7 +421,21 @@ JWKS_URL="https://example.com/adfs/discovery/keys"
 TOKEN_SECRET="ZNh2N9toMwUVQxTVEe2ZnnMtgkh3xqKZ"
 ```
 
-> _**Note:**_ Do not use special characters for the GENERIC_CLIENT_ID as AD FS will split strings here, finally resulting in an identifier mismatch.
+{{% note %}}
+Do not use special characters for the `GENERIC_CLIENT_ID` as AD FS may split strings at the special character, resulting in an identifier mismatch.
+{{% /note %}}
+
+{{% note %}}
+#### Troubleshoot OAuth errors
+
+##### ERRO[0053]
+A **ERRO[0053]** error indicates that a primary email is not found for the specified user.
+A user must have a primary email.
+
+```
+ERRO[0053] Unable to get OAuth Group malformed email address, expected "..." to contain @ symbol
+```
+{{% /note %}}
 
 ### Configure authentication duration
 
@@ -441,6 +459,28 @@ export AUTH_DURATION=1080h
 To require re-authentication every time the browser is closed, set `AUTH_DURATION` to `0`.
 This makes the cookie transient (aka "in-memory").
 
+## Configure Chronograf to authenticate with a username and password
+
+Chronograf can be configured to authenticate users by username and password ("basic authentication").
+Turn on basic authentication access to restrict HTTP requests to Chronograf to selected users.
+
+{{% warn %}}
+[OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0) is the preferred method for authentication.
+Only use basic authentication in cases where an OAuth 2.0 integration is not possible.
+{{% /warn %}}
+
+When using basic authentication, *all users have SuperAdmin status*; Chronograf authorization rules are not enforced.
+For more information, see [Cross-organization SuperAdmin status](/chronograf/v1.8/administration/managing-chronograf-users/#cross-organization-superadmin-status).
+
+To enable basic authentication, run chronograf with the `-htpasswd` flag or use the `HTPASSWD` environment variable.
+
+```sh
+chronograf —htpasswd <path to .htpasswd file>
+```
+
+The `.htpasswd` file contains users and their passwords, and should be created with a password file utility tool such as `apache2-utils`.
+For more information about how to restrict access with basic authentication, see NGINX documentation on [Restricting Access with HTTP Basic Authentication](https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/).
+
 ## Configure TLS (Transport Layer Security) and HTTPS
 
 The TLS (Transport Layer Security) cryptographic protocol is supported in Chronograf to provides server authentication, data confidentiality, and data integrity.
@@ -453,7 +493,9 @@ Chronograf includes command line and environment variable options for configurin
 Use of the TLS cryptographic protocol provides server authentication, data confidentiality, and data integrity.
 When configured, users can use HTTPS to securely communicate with your Chronograf applications.
 
-> ***Note:*** Using HTTPS helps guard against nefarious agents sniffing the JWT and using it to spoof a valid user against the Chronograf server.
+{{% note %}}
+Using HTTPS helps guard against nefarious agents sniffing the JWT and using it to spoof a valid user against the Chronograf server.
+{{% /note %}}
 
 ### Configuring TLS for Chronograf
 
@@ -468,7 +510,9 @@ All Chronograf command line options have corresponding environment variables.
 1. Specify the certificate file using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
 2. Specify the key file using the `TLS_PRIVATE_KEY` environment variable (or `--key` CLI option).
 
-> ***Note:*** If both the TLS certificate and key are in the same file, specify them using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
+{{% note %}}
+If both the TLS certificate and key are in the same file, specify them using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
+{{% /note %}}
 
 #### Example with CLI options
 ```sh

@@ -9,7 +9,7 @@ menu:
     parent: Troubleshooting
 ---
 
-When you have challenges with the InfluxDB Enterprise product, please contact support
+When you have challenges with the InfluxDB Enterprise product, please contact InfluxData Support
 using the email we provided at the time of the signup.
 That will ensure your support tickets are routed directly to our private release
 support team.

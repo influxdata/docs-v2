@@ -1,11 +1,12 @@
 ---
 title: Deploy the InfluxData Platform (TICK stack) in Docker containers
+list_title: Deploy the TICK Sandbox in Docker
 description: Install the InfluxData Sandbox, the quickest way to get a TICK stack up and running and ready for exploration and testing.
 aliases:
   - /platform/installation/sandbox-install
 menu:
   platform:
-    name: Deploy InfluxData Platform (OSS)
+    name: Docker sandbox
     parent: deploy-platform
     weight: 1
 ---

@@ -10,17 +10,19 @@ menu:
 
 Kapacitor is open source and we welcome contributions from the community.
 
-If you want Kapacitor to be able to output to you own endpoint see this [How To](/kapacitor/v1.5/about_the_project/custom_output/).
+If you want Kapacitor to be able to output to you own endpoint see
+[Contributing new Kapacitor output nodes](/kapacitor/v1.5/working/custom_output/).
 
-## [Release Notes/Changelog](/kapacitor/v1.5/about_the_project/releasenotes-changelog/)
+## Kapacitor release notes
+View the [Kapacitor release notes](/kapacitor/v1.5/about_the_project/releasenotes-changelog/)
+for important information about Kapacitor releases.
 
-## [Contributing](https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md)
+## Contributions and licenses
+- [Contribute to Kapacitor](https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md)
+- [Contributor License Agreement (CLA)](https://influxdata.com/community/cla/)
+- [Licenses](https://github.com/influxdata/kapacitor/blob/master/LICENSE)
 
-## [CLA](https://influxdata.com/community/cla/)
-
-## [Licenses](https://github.com/influxdata/kapacitor/blob/master/LICENSE)
-
-## Third Party Software
+### Third Party Software
 InfluxData products contain third party software, which means the copyrighted, patented, or otherwise legally protected
 software of third parties that is incorporated in InfluxData products.
 

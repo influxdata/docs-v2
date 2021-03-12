@@ -8,8 +8,6 @@ menu:
     name: View endpoint history
     parent: Manage notification endpoints
 weight: 202
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/view/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/

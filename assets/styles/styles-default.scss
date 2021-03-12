@@ -4,15 +4,16 @@
 @import "tools/icomoon",
         "tools/media-queries.scss",
         "tools/mixins.scss",
-        "tools/tooltips";
+        "tools/tooltips",
+        "tools/normalize.scss";
 
 // Import default light theme
 @import "themes/theme-light.scss";
 
 // Import Layout Styles
-@import "normalize/import-now",
-        "layouts/global",
+@import "layouts/global",
         "layouts/top-nav",
+        "layouts/homepage",
         "layouts/sidebar",
         "layouts/sidebar-toggle",
         "layouts/content-wrapper",
@@ -24,7 +25,8 @@
         "layouts/error-page",
         "layouts/url-selector",
         "layouts/feature-callouts",
-        "layouts/v1-overrides";
+        "layouts/v1-overrides",
+        "layouts/notifications";
 
 // Import Product-specifc color schemes
 @import "product-overrides/telegraf",

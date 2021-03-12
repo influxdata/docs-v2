@@ -16,6 +16,7 @@
       padding: .75rem 1.25rem .75rem .75rem;
       &:before {
         content: "\e90a";
+        display: inline-block;
         font-family: "icomoon";
         margin-right: .5rem;
         vertical-align: middle;
@@ -24,8 +25,10 @@
     &.next {
       margin: 0 0 0 auto;
       padding: .75rem .75rem .75rem 1.25rem;
-      &:after {
+      flex-direction: row-reverse;
+      &:before {
         content: "\e90c";
+        display: inline-block;
         font-family: "icomoon";
         margin-left: .5rem;
         vertical-align: middle;

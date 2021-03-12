@@ -1,5 +1,6 @@
 ---
 title: Explore your schema using InfluxQL
+description: Useful query syntax for exploring schema in InfluxQL.
 menu:
   influxdb_1_8:
     name: Explore your schema
@@ -7,6 +8,7 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v1.8/query_language/schema_exploration/
+v2: /influxdb/v2.0/query-data/flux/explore-schema/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
@@ -199,10 +201,10 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/data_exploration/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/data_exploration/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/data_exploration/#regular-expressions).
+[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -431,9 +433,9 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`LIMIT` clause](/influxdb/v1.8/query_language/data_exploration/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/data_exploration/#the-offset-clause),
-and on [Regular expressions in queries](/influxdb/v1.8/query_language/data_exploration/#regular-expressions).
+[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
+and on [Regular expressions in queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -591,10 +593,10 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/data_exploration/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/data_exploration/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/data_exploration/#regular-expressions).
+[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -808,10 +810,10 @@ Supported operators in the `WITH` and `WHERE` clauses:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/data_exploration/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/data_exploration/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/data_exploration/#regular-expressions).
+[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -939,7 +941,7 @@ string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-pa
 
 The `FROM` clause is also optional.
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/data_exploration/#the-basic-select-statement).
+[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement).
 
 > **Note:** A field's data type [can differ](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
 [shards](/influxdb/v1.8/concepts/glossary/#shard).
@@ -1177,7 +1179,7 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
 
 #### Example filtering `SHOW TAG KEYS` by time
 
-1. Specify a shard duration on a new database or [alter an existing shard duration](/influxdb/v1.8/query_language/database_management/#modify-retention-policies-with-alter-retention-policy). To specify a 1h shard duration when creating a new database, run the following command:
+1. Specify a shard duration on a new database or [alter an existing shard duration](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy). To specify a 1h shard duration when creating a new database, run the following command:
 
     ```sh
     > CREATE database mydb with duration 7d REPLICATION 1 SHARD DURATION 1h name myRP;

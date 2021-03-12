@@ -2,14 +2,14 @@
 title: strings.isDigit() function
 description: The strings.isDigit() function tests if a single character string is a digit (0-9).
 aliases:
-  - /v2.0/reference/flux/functions/strings/isdigit/
+  - /influxdb/v2.0/reference/flux/functions/strings/isdigit/
 menu:
   influxdb_2_0_ref:
     name: strings.isDigit
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/isletter/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/isletter/
 ---
 
 The `strings.isDigit()` function tests if a single-character string is a digit (0-9).

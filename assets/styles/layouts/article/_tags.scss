@@ -11,7 +11,7 @@
     padding: .35rem .6rem;
     font-style: italic;
     font-weight: $medium;
-    color: rgba($article-text, .75);
+    color: rgba($article-text, .75) !important;
     font-size: .8rem;
     border-radius: 1rem;
 
@@ -21,7 +21,7 @@
     }
 
     &:hover {
-      color: $g20-white;
+      color: $g20-white !important;
     }
   }
 }

@@ -1,5 +1,6 @@
 ---
 title: Install InfluxDB OSS
+description: Install, start, and configure InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Install InfluxDB
@@ -7,6 +8,7 @@ menu:
     parent: Introduction
 aliases:
   - /influxdb/v1.8/introduction/installation/
+v2: /influxdb/v2.0/get-started/
 ---
 
 This page provides directions for installing, starting, and configuring InfluxDB open source (OSS).
@@ -74,7 +76,7 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 
 {{% code-tab-content %}}
 ```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -98,7 +100,7 @@ echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo 
 
 {{% code-tab-content %}}
 ```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -231,20 +233,20 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.0_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.3_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-1.8.0_linux_amd64.tar.gz.asc influxdb-1.8.0_linux_amd64.tar.gz
+    gpg --verify influxdb-1.8.3_linux_amd64.tar.gz.asc influxdb-1.8.3_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:

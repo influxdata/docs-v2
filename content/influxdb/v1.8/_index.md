@@ -1,6 +1,6 @@
 ---
 title: InfluxDB 1.8 documentation
-
+description: Overview of documentation available for InfluxDB.
 menu:
   influxdb_1_8:
     name: InfluxDB v1.8
@@ -28,4 +28,4 @@ It compiles into a single binary with no external dependencies.
 * Continuous queries automatically compute aggregate data to make frequent queries more efficient.
 
 The open source edition of InfluxDB runs on a single node.
-If you require high availability to eliminate a single point of failure, consider the [InfluxDB Enterprise Edition](https://docs.influxdata.com/influxdb/latest/high_availability/).
+If you require high availability to eliminate a single point of failure, consider the [InfluxDB Enterprise Edition](/{{< latest "enterprise_influxdb" "v1" >}}/).

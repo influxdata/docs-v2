@@ -1,6 +1,6 @@
 ---
-title: Creating a live leaderboard for game scores
-description: Tutorial on using Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
+title: Create a live leaderboard for game scores
+description: This example uses Chronograf to build a leaderboard for gamers to be able to see player scores in realtime.
 menu:
   chronograf_1_8:
     name: Live leaderboard of game scores
@@ -40,7 +40,7 @@ Add the following settings the `[[udp]]` secton in  your Kapacitor configuration
     retention-policy = "autogen"
 ```
 
-Using this configuration, Kapacitor will listen on port `9100` for UDP packets in [Line Protocol](/influxdb/latest/write_protocols/line_protocol_tutorial/) format.
+Using this configuration, Kapacitor will listen on port `9100` for UDP packets in [Line Protocol](/{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_tutorial/) format.
 Incoming data will be scoped to be in the `game.autogen` database and retention policy.
 Restart Kapacitor so that the UDP listener service starts.
 
@@ -187,6 +187,7 @@ max
 
 Since we are writing data back to InfluxDB create a database `game` for our results.
 
+{{< keep-url >}}
 ```
 curl -G 'http://localhost:8086/query?' --data-urlencode 'q=CREATE DATABASE game'
 ```
@@ -274,6 +275,7 @@ Hit the endpoint several times to see that the scores are updating once a second
 
 Now, let's check InfluxDB to see our historical data.
 
+{{< keep-url >}}
 ```bash
 curl \
     -G 'http://localhost:8086/query?db=game' \

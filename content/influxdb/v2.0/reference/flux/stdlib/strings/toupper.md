@@ -2,16 +2,16 @@
 title: strings.toUpper() function
 description: The strings.toUpper() function converts a string to uppercase.
 aliases:
-  - /v2.0/reference/flux/functions/strings/toupper/
+  - /influxdb/v2.0/reference/flux/functions/strings/toupper/
 menu:
   influxdb_2_0_ref:
     name: strings.toUpper
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/totitle
-  - /v2.0/reference/flux/stdlib/strings/tolower
-  - /v2.0/reference/flux/stdlib/strings/title
+  - /influxdb/v2.0/reference/flux/stdlib/strings/totitle
+  - /influxdb/v2.0/reference/flux/stdlib/strings/tolower
+  - /influxdb/v2.0/reference/flux/stdlib/strings/title
 ---
 
 The `strings.toUpper()` function converts a string to uppercase.

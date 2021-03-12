@@ -6,9 +6,383 @@ menu:
     name: InfluxDB
     parent: Release notes
 weight: 101
-aliases:
-  - /v2.0/reference/release-notes/influxdb/
 ---
+
+## v2.0.4 General Availability [2021-02-04]
+
+### Docker
+
+#### ARM64
+This release extends the Docker builds hosted in `quay.io` to support the Linux/ARM64 platform.
+
+#### 2.x nightly images
+Prior to this release, competing nightly builds caused the nightly Docker tag to contain outdated binaries. This conflict is fixed, and the image tagged with nightly now contains 2.x binaries built from the `HEAD` of the `master` branch.
+
+### Breaking Changes
+
+#### `inmem` index option removed
+
+This release fully removes the `inmem` indexing option, along with the associated config options:
+- `max-series-per-database`
+- `max-values-per-tag`
+
+The startup process automatically generates replacement `tsi1` indexes for shards that need it.
+
+### Features
+
+#### `influxd` updates
+- Add new [`influxd upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) flag `—overwrite-existing-v2` to overwrite existing files at output paths (instead of aborting).
+- Add new configuration options:
+       - [`nats-port`](/influxdb/v2.0/reference/config-options/#nats-port)
+       - [`nats-max-payload-bytes`](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes) 
+- Add new commands:
+       - Add [`influxd print-config`](/influxdb/v2.0/reference/cli/influxd/print-config/) to support automated configuration inspection.
+       - Add [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.  
+
+#### New Telegraf plugins in UI
+- Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
+
+#### Performance improvements
+- Promote schema and fill query optimizations to default behavior.
+
+#### Flux updates
+- Upgrade to [Flux v0.104.0](/influxdb/v2.0/reference/release-notes/flux/#v0-104-0-2021-02-02).
+- Upgrade to `flux-lsp-browser` v0.5.31.
+
+### Bug Fixes
+
+- Standardize binary naming conventions.
+- Fix configuration loading issue.
+- Add Flux dictionary expressions to Swagger documetnation.
+- Ensure `influxdb` service sees default environment variables when running under `init.d`.
+- Remove upgrade notice from new installs.
+- Ensure `config.toml` is initialized on new installs.
+- Include upgrade helper script (`influxdb2-upgrade.sh`) in GoReleaser manifest.
+- Prevent `influx stack update` from overwriting stack name and description.
+- Fix timeout setup for `influxd` graceful shutdown.
+- Require user to set password during initial user onboarding.
+- Error message improvements:
+    - Remove duplication from task error messages.
+    - Improve error message shown when influx CLI can't find an `org` by name.
+    - Improve error message when opening BoltDB with unsupported file system options.
+    - Improve messages in DBRP API validation errors.
+- `influxd upgrade` improvements:
+  - Add confirmation step with file sizes before copying data files.
+  - Prevent panic in `influxd upgrade` when v1 users exist but v1 config is missing.
+- Fix logging initialization for storage engine.
+- Don't return 500 codes for partial write failures.
+- Don't leak `.tmp` files while backing up shards.
+- Allow backups to complete while a snapshot is in progress.
+- Fix silent failure to register CLI arguments as required.
+- Fix loading when `INFLUXD_CONFIG_PATH` points to a .yml file.
+- Prevent extra output row from GROUP BY crossing DST boundary.
+- Update Flux functions list in UI to reflect that `v1` package was renamed to `schema`.
+- Set correct `Content-Type` on v1 query responses.
+- Respect the `--skip-verify` flag when running `influx query`.
+- Remove blank lines from payloads sent by `influx write`.
+- Fix infinite loop in Flux parser caused by invalid array expressions.
+- Support creating users without initial passwords in `influx user create`.
+- Fix incorrect errors when passing `--bucket-id` to `influx write`.
+
+
+## v2.0.3 General Availability [2020-12-14]
+
+### Breaking Changes
+
+#### `influxd upgrade`
+
+Previously, `influxd upgrade` would attempt to write upgraded `config.toml` files into the same directory as the source
+`influxdb.conf` file. If this failed, a warning would be logged and `config.toml` would write into the `home` directory of the user who launched the upgrade.
+
+This release breaks this behavior in two ways:
+
+- By default, `config.toml` writes into the same directory as the Bolt DB and engine files (`~/.influxdbv2/`)
+- If writing upgraded config fails, the `upgrade` process exits with an error instead of falling back to the `HOME` directory
+
+To override the default configuration path (`~/.influxdbv2/`), use the new `--v2-config-path` option to specify the output path to the v2 configuration file (`config.toml`). For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
+
+#### InfluxDB v2 packaging
+
+We've renamed the InfluxDB v2 DEB and RPM packages to clarify versions. The package name is now `influxdb2` and conflicts with any previous `influxdb` package (including initial 2.0.0, 2.0.1, and 2.0.2 packages).
+
+This release also defines v2-specific path defaults and provides [helper scripts](https://github.com/influxdata/influxdb/blob/master/scripts/influxdb2-upgrade.sh) for `influxd upgrade` and cleanup cases.
+
+### Features
+
+- Allow password to be specified as a CLI option in [`influx v1 auth create`](/influxdb/cloud/reference/cli/influx/auth/create/).
+- Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
+- Implement [delete with predicate](/influxdb/v2.0/write-data/delete-data/).
+- Improve ID-related error messages for `influx v1 dbrp` commands.
+- Update Flux to [v0.99.0](/influxdb/v2.0/reference/release-notes/flux/#v0-99-0-2020-12-15).
+- Update `flux-lsp-browser` to v0.5.25.
+- Support for ARM64 preview build.
+
+### Bug Fixes
+
+- Don't log bodies of v1 write request bodies.
+- Fix panic when writing a point with 100 or more tags.
+- Fix validation of existing DB names when creating DBRP mappings.
+- Enforce max value of 2147483647 on query concurrency to avoid startup panic.
+- Automatically migrate existing DBRP mappings from old schema to avoid panic.
+- Optimize shard lookup in groups containing only one shard.
+- Always respect the `--name` option in `influx setup`.
+- Allow for 0 (infinite) values for `--retention` in `influx setup`.
+- Fix panic when using a `null` value as a record or array in a Flux query.
+
+## v2.0.2 General Availability [2020-11-19]
+
+### Breaking changes
+
+#### DBRP HTTP API now matches Swagger documentation
+
+Previously, the database retention policy (DBRP) mapping API did not match the swagger spec. If you're using scripts based on the previous implementation instead of the swagger spec, you'll need to either update them or use the new [DBRP CLI commands](/influxdb/v2.0/reference/cli/influx/v1/dbrp/) instead.
+
+### Features
+- Improvements to upgrade from 1.x to 2.x:
+    - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
+    - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
+- Upgrade to [Flux v0.95.0](/influxdb/v2.0/reference/release-notes/flux/#v0-95-0-2020-11-17).
+- Upgrade `flux-lsp-browser` to v.0.5.23.
+- Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2.0/reference/cli/influx/v1/dbrp/).
+- Filter task runs by time.
+
+### Bug Fixes
+- Fixes to `influx upgrade` command:
+  - Remove internal subcommands from help text.
+  - Validate used input paths upfront.
+- Add locking during TSI iteration creation.
+- Fix various typos.
+- Use `--skip-verify` flag for backup/restore CLI command. This is passed to the underlying HTTP client for the `BackupService` and `RestoreService` to support backup and restore on servers with self-signed certificates.
+- Don't automatically print help on `influxd` errors.
+- Add `SameSite=Strict` flag to session cookie.
+- Ensure `SHOW DATABASES` returns a list of the unique databases only.
+- Allow scraper to ignore insecure certificates on an endpoint.
+- Ensure Flux reads across all shards.
+- Use the associated default retention policies defined within the DBRP mapping if no retention policy is specified as part of a v1 write API call.
+- Add locking during TSI iterator creation.
+- Allow self-signed certificates for scraper targets.
+- Bump version in `package.json` so it appears correctly.
+
+## v2.0.1 General Availability [2020-11-10]
+
+InfluxDB 2.0 general availability (GA) introduces the first **production-ready** open source version of InfluxDB 2.0. This release comprises all features and bug fixes included in prior alpha, beta, and release candidate versions.
+
+{{% note %}}
+#### Known issues
+
+##### Delete with predicate API not implemented
+
+The delete with predicate API (`/api/v2/delete`) has not been implemented and currently returns a `501 Not implemented` message. This API will be implemented post GA.
+
+##### Duplicate DBRP mappings per database
+
+When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/) with the same database name in InfluxDB 1.x, SHOW DATABASES incorrectly returns duplicates.
+{{% /note %}}
+
+Highlights include:
+
+- Support for **upgrading to InfluxDB 2.0**:
+   - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
+   - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2).
+- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/influxdb/v2.0/reference/flux/stdlib/) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
+- Support for [InfluxDB 1.x API compatibility](/influxdb/v2.0/reference/api/influxdb-1x/).
+- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2.0/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2.0/influxdb-templates/stacks/).
+
+If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2.0/get-started/) and [InfluxDB key concepts](/influxdb/v2.0/reference/key-concepts/).
+
+## v2.0.0 [2020-11-09]
+
+### Features
+- Improve  UI for v1 `influx auth` commands.
+- Upgrade to [Flux v0.94.0](/influxdb/v2.0/reference/release-notes/flux/#v0-94-0-2020-11-10)
+- Upgrade `flux-lsp-browser` to v0.5.22.
+- Add [RAS Telegraf input plugin](/telegraf/v1.16/plugins//#ras).
+
+### Bug Fixes
+
+- Remove unused `security-script` option from `influx upgrade` command.
+- Fix parsing of retention policy CLI arguments in `influx setup` and `influxd upgrade`.
+- Create CLI configs during upgrade to v2.
+- Allow write-only v1 tokens to find database retention policies (DBRPs).
+- Update `v1 auth` description.
+- Use `db`/`rp` naming convention when migrating databases to buckets.
+- Improve help text for `influxd` and `--no-password` switch.
+- Use `10` instead of `MaxInt` when rewriting query-concurrency.
+- Remove bucket and mapping auto-creation from `/write` 1.x compatibility API.
+- Fix misuse of `reflect.SliceHeader`.
+
+## v2.0.0-rc.4 [2020-11-05]
+
+### Features
+
+- Upgrade to [Flux v0.93.0](/influxdb/v2.0/reference/release-notes/flux/#v0-93-0-2020-11-02).
+- Add `influx backup` and `influx restore` CLI commands to support backing up and restoring data in InfluxDB 2.0.
+- Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
+
+### Bug Fixes
+
+- Add a new `CreateUniquePhysicalNode` method, which reads and applies the plan node ID in context. Each physical node has a unique ID to support planner rules applied more than once in a query. Previously, the same node ID (hence the same dataset ID) caused the execution engine to generate undefined results.
+- A cloned task is now only activated when you select **Active**. Previously, a cloned task was activated if the original task was activated.
+- Reduce the `influx` binary file size.
+- Isolate the `TelegrafConfigService` and remove URM interactions.
+- Use the updated HTTP client for the authorization service.
+- Make `tagKeys` and `tagValues` work for edge cases involving fields.
+- Correctly parse float as 64-bits.
+- Add simple metrics related to installed templates.
+- Remove extra multiplication of retention policies in onboarding.
+- Use the `fluxinit` package to initialize the Flux library instead of builtin.
+- Add Logger to the constructor function to ensure the log field is initialized.
+- Return an empty iterator instead of null in `tagValues`.
+- Fix the `/ready` response content type to return `application/json`.
+
+## v2.0.0-rc.3 [2020-10-29]
+
+### Features
+
+- Upgrade to [Flux v0.91.0](/influxdb/v2.0/reference/release-notes/flux/#v0910-2020-10-26).
+- Enable window aggregate mean pushdown.
+- Add `newMultiShardArrayCursors` to aggregate array cursors.
+- UI updates:
+  - Upgrade `papaparse` to 5.2.0.
+  - Upgrade `flux-lsp-browser` to v0.5.21.
+  - Add properties for storing your tick generation selections, including a `generateAxisTicks` property to turn this feature on and off.
+  - Update generate ticks into an array of properties for each axis.
+  - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
+
+### Bug Fixes
+
+- Resolve `invalid operation: fs.Bavail` error that occurred in some cases using when `DiskUsage()`. Now, `fs.Bavail` is always converted to `unit64` to ensure the types in an expression align.
+- Refactor notifications to isolate the `notification/endpoint/service` package and move the rule service into its own package.
+- Update to clear log out.
+- Refactor to allow `newIndexSeriesCursor()` to accept an `influxql.Expr`.
+- Remove unreferenced packages.
+
+## v2.0.0-rc.2 [2020-10-22]
+
+### Features
+
+- Upgrade to [Flux v0.90.0](/influxdb/v2.0/reference/release-notes/flux/#v0900-2020-10-19).
+- Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
+- Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
+- Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
+
+### Bug Fixes
+
+- Update `pkger` test templates to use valid Flux to avoid `found unexpected argument end` error. Previously, any template with a `v.dashboardVariable` returned an `undefined identifier v` error.
+- Update the InfluxDB configuration file `/etc/influxdb/influxdb.conf` to recognize the user's home directory. Previously, if a user (other than root user) ran the `upgrade` command, a permissions error occurred.
+- Remove the Telegraf RAS Daemon plugin and other miscellaneous Telegraf plugin updates.
+- Update the `derivative` in the InfluxDB UI (`ui/src/timeMachiner`) to specify the `unit` is one second (`1s`).
+- Enable the new `AuthorizationService` from authorization package in the `launcher` package (`cmd\influxd\launcher`).
+- Update `config upgrade` to save the correct InfluxDB configuration filename.
+
+## v2.0.0-rc.1 [2020-10-14]
+
+### Features
+- Add [`influx upgrade`](/influxdb/v2.0/reference/cli/influxd/upgrade/) command for upgrading from 1.x to 2.0.
+- Upgrade to Flux v0.89.0.
+
+### Bug Fixes
+- Enable scrapers. (Scrapers did not work in rc0.)
+- Update default number of tasks listed with `influx task list` to 100.
+- Add support for [duration unit identifiers](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals) to templates.
+- Preserve cell colors in imported and exported templates.
+- Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
+- Ensure passwords are at least 8 characters in `influx setup`.
+
+## v2.0.0-rc.0 [2020-09-29]
+
+{{% warn %}}
+#### Manual upgrade required
+
+To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/),
+{{% /warn %}}
+
+### Breaking changes
+
+#### Manual upgrade
+
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2.0/reference/upgrading/rc-upgrade-guide/).
+
+#### Port update to 8086
+
+- Change the default port of InfluxDB from 9999 back to 8086. If you would still like to run on port 9999, you can start `influxd` with the `--http-bind-address` option. You must also [update any InfluxDB CLI configuration profiles](/influxdb/v2.0/reference/cli/influx/config/set/) with the new port number.
+
+#### Support for 1.x storage engine and InfluxDB 1.x compatibility API
+
+- Port the TSM1 storage engine. This change supports a multi-shared storage engine and InfluxQL writes and queries using the InfluxDB 1.x API compatibility [`/write`](/influxdb/v2.0/reference/api/influxdb-1x/write/) and [`/query`](/influxdb/v2.0/reference/api/influxdb-1x/query/) endpoints.
+
+#### Disable delete with predicate API
+
+- Disable the delete with predicate API (`/api/v2/delete`). This API now returns a `501 Not implemented` message.
+
+### Features
+
+#### Load Data redesign
+
+- Update the Load Data page to increase discovery and ease of use. Now, you can [load data from sources in the InfluxDB user interface](/influxdb/v2.0/write-data/load-data/).
+
+#### Community templates added to InfluxDB UI
+
+- Add [InfluxDB community templates](/influxdb/v2.0/influxdb-templates/) directly in the InfluxDB user interface (UI).
+
+#### New data sources
+
+- Add InfluxDB v2 Listener, NSD, OPC-UA, and Windows Event Log to the Sources page.
+
+#### CLI updates
+
+- Add option to print raw query results in [`influx query`](/influxdb/v2.0/reference/cli/influx/query/).
+- Add ability to export resources by name using [`influx export`](/influxdb/v2.0/reference/cli/influx/export/).
+- Add new processing options and enhancements to [`influx write`](/influxdb/v2.0/reference/cli/influx/write/).
+- Add `--active-config` flag to [`influx` commands](/influxdb/v2.0/reference/cli/influx/#commands) to set the configuration for a single command.
+- Add `influxd`[configuration options](/influxdb/v2.0/reference/config-options/#configuration-options) for storage options and InfluxQL coordinator tuning.
+- Add `max-line-length` switch to the [`influx write`](/influxdb/v2.0/reference/cli/influx/write/) command to address `token too long errors` for large inputs.
+
+#### API updates
+
+- List buckets in the API now supports the `after` (ID) parameter as an alternative to `offset`.
+
+#### Task updates
+
+- Record last success and failure run times in the task.
+- Inject the task option `latestSuccessTime` in Flux `Extern`.
+
+### Bug Fixes
+
+- Add description to [`influx auth`](/influxdb/v2.0/reference/cli/influx/auth/) command outputs.
+- Resolve issues with check triggers in notification tasks by including the edge of the observed boundary.
+- Detect and provide warning about duplicate tag names when writing CSV data using `influx write`.
+- Ensure the group annotation does not override the existing line part (measurement, field, tag, time) in a CSV group annotation.
+- Added `PATCH` to the list of allowed methods.
+
+## v2.0.0-beta.16 [2020-08-06]
+
+{{% warn %}}
+This release includes breaking changes:
+- Remove `influx repl` command. To use the Flux REPL, build the REPL from source.
+- Drop deprecated `/packages` route tree.
+- Support more types for template `envRef` default value and require explicit default values.
+- Remove orgs/labels nested routes from the API.
+{{% /warn %}}
+
+### Features
+
+- Add resource links to a stack's resources from public HTTP API list/read calls.
+- Enhance resource creation experience when limits are reached.
+- Add `dashboards` command to `influx` CLI.
+- Allow user onboarding to optionally set passwords.
+- Limit query response sizes for queries built in QueryBuilder by requiring an aggregate window.
+
+### Bug Fixes
+
+- Require all `influx` CLI flag arguments to be valid.
+- Dashboard cells correctly map results when multiple queries exist.
+- Dashboard cells and overlay use UTC as query time when toggling to UTC timezone.
+- Bucket names may not include quotation marks.
+
+### UI Improvements
+
+- Alerts page filter inputs now have tab indices for keyboard navigation.
 
 ## v2.0.0-beta.15 [2020-07-23]
 
@@ -21,6 +395,7 @@ aliases:
 - Enable dynamic destination for the `influx` CLI configuration file.
 
 ### Bug Fixes
+
 - Allow 0 to be the custom set minimum value for y domain.
 - Single Stat cells render properly in Safari.
 - Limit variable querying when submitting queries to used variables.
@@ -36,6 +411,7 @@ aliases:
 - Update Flux to v.0.71.1.
 
 ### Bug Fixes
+
 - Don't overwrite build date set via `ldflags`.
 - Fix issue where define query was unusable after importing a Check.
 - Update documentation links
@@ -73,7 +449,7 @@ aliases:
 
 ### Features
 
-- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/v2.0/get-started/#optional-download-and-install-the-influx-cli) and then learn more about how the [influx - InfluxDB command line interface](/v2.0/reference/cli/influx/) works.
+- Add option for Cloud users to use the `influx` CLI to interact with a Cloud instance. For more information, see how to [download and install the influx CLI](/influxdb/v2.0/get-started/) and then learn more about how the [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/) works.
 - Consolidate `influx apply` commands under templates. Remove some nesting of the `influx` CLI commands.
 - Make all `influx apply` applications stateful through stacks.
 - Add ability to export a stack's existing resource state using `influx export`.
@@ -180,17 +556,17 @@ The beta 11 version was **not released**. Changes below are included in the beta
 
 ### Features
 
-- Add option to display dashboards in [light mode](/v2.0/visualize-data/dashboards/control-dashboard/#toggle-dark-mode-and-light-mode).
-- Add [shell `completion` commands](/v2.0/reference/cli/influx/completion/) to the `influx` CLI.
+- Add option to display dashboards in [light mode](/influxdb/v2.0/visualize-data/dashboards/control-dashboard/#toggle-dark-mode-and-light-mode).
+- Add [shell `completion` commands](/influxdb/v2.0/reference/cli/influx/completion/) to the `influx` CLI.
   specified shell (`bash` or `zsh`).
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
-- [Delete bucket by name](/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
+- [Delete bucket by name](/influxdb/v2.0/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add helper module to write line protocol to specified url, org, and bucket.
-- Add [`pkg stack`](/v2.0/reference/cli/influx/pkg/stack) for stateful package management.
+- Add [`pkg stack`](/influxdb/v2.0/reference/cli/influx/stacks) for stateful package management.
 - Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.
 - Add ability to output CLI output as JSON and hide table headers.
-- Add an [easy way to switch configurations](/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.
+- Add an [easy way to switch configurations](/influxdb/v2.0/reference/cli/influx/config/#quickly-switch-between-configurations) using the `influx` CLI.
 
 ### Bug fixes
 
@@ -537,7 +913,7 @@ The `map()` function panics if the first record processed has a `null` value.
 
 ### Features
 - Add `influxd inspect verify-wal` tool.
-- Move to [Flux 0.34.2](/v2.0/reference/release-notes/flux/#v0-34-2-2019-06-27) -
+- Move to [Flux 0.34.2](/influxdb/v2.0/reference/release-notes/flux/#v0342-2019-06-27) -
   includes new string functions and initial multi-datasource support with `sql.from()`.
 - Only click save once to save cell.
 - Enable selecting more columns for line visualizations.
@@ -608,7 +984,7 @@ The `map()` function panics if the first record processed has a `null` value.
 {{% warn %}}
 **This will remove all tasks from your InfluxDB v2.0 instance.**
 
-Before upgrading, [export all existing tasks](/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/v2.0/process-data/manage-tasks/create-task/#import-a-task).
+Before upgrading, [export all existing tasks](/influxdb/v2.0/process-data/manage-tasks/export-task/). After upgrading, [reimport your exported tasks](/influxdb/v2.0/process-data/manage-tasks/create-task/#import-a-task).
 {{% /warn %}}
 
 ### Features

@@ -1,6 +1,7 @@
 ---
 title: Configure InfluxDB Enterprise clusters
-description: Covers the InfluxDB Enterprise configuration settings, including global options, meta node options, and data node options
+description: >
+  Learn about global options, meta node options, data node options and other InfluxDB Enterprise configuration settings, including
 aliases:
     - /enterprise/v1.8/administration/configuration/
 menu:

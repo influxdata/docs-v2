@@ -7,8 +7,6 @@ menu:
     name: influxd
     parent: Command line tools
 weight: 102
-aliases:
-  - /v2.0/reference/cli/influxd/
 related:
   - /influxdb/v2.0/reference/config-options/
 products: [oss]
@@ -25,18 +23,19 @@ influxd [command]
 
 {{% note %}}
 For information about other available InfluxDB configuration methods, see
-[InfluxDB configuration options](/v2.0/reference/config-options/).
+[InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
 {{% /note %}}
 
 ## Commands
 
-| Command                                          | Description                                       |
-|:-------                                          |:-----------                                       |
-| [generate](/v2.0/reference/cli/influxd/generate) | Generate time series data sets using TOML schema. |
-| [inspect](/v2.0/reference/cli/influxd/inspect)   | Inspect on-disk database data.                    |
-| [restore](/v2.0/reference/cli/influxd/restore)   | Restore data and metadata from a backup file set  |
-| [run](/v2.0/reference/cli/influxd/run)           | Start the influxd server _**(default)**_          |
-| [version](/v2.0/reference/cli/influxd/version)   | Output the current version of InfluxDB            |
+| Command                                                           | Description                                                  |
+|:----------------------------------------------------------        |:-------------------------------------------------            |
+| [generate](/influxdb/v2.0/reference/cli/influxd/generate)         | Generate time series data sets using TOML schema             |
+| [inspect](/influxdb/v2.0/reference/cli/influxd/inspect)           | Inspect on-disk database data                                |
+| [print-config](/influxdb/v2.0/reference/cli/influxd/print-config) | Print full influxd configuration for the current environment |
+| [run](/influxdb/v2.0/reference/cli/influxd/run)                   | Start the influxd server _**(default)**_                     |
+| [upgrade](/influxdb/v2.0/reference/cli/influxd/upgrade)           | Upgrade a 1.x version of InfluxDB to 2.0                     |
+| [version](/influxdb/v2.0/reference/cli/influxd/version)           | Output the current version of InfluxDB                       |
 
 ## Flags
 

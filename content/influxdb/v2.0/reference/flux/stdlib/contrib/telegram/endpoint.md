@@ -28,7 +28,7 @@ telegram.endpoint(
 
 {{% note %}}
 For information about retrieving your Telegram **bot token** and **channel ID**,
-see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
+see [Set up a Telegram bot](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
 {{% /note %}}
 
 ## Parameters
@@ -40,7 +40,7 @@ Default is `https://api.telegram.org/bot`.
 _**Data type:** String_
 
 ### token
-<span class="req">Required</span>
+({{< req >}})
 Telegram bot token.
 
 _**Data type:** String_
@@ -74,7 +74,7 @@ following fields:
 - `text`
 - `silent`
 
-_For more information, see [`telegram.message()`](/v2.0/reference/flux/stdlib/contrib/telegram/message/)._
+_For more information, see [`telegram.message()` parameters](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/message/#parameters)._
 
 ## Examples
 

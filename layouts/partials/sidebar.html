@@ -1,35 +1,33 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
+{{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $scratch := newScratch }}
 
 <!-- Menu Key -->
-{{ $scratch.Set "menuKey" "menu"}}
+{{ .Scratch.Set "menuKey" "menu"}}
 {{ if eq $product "platform" }}
-  {{ $scratch.Set "menuKey" "platform" }}
+  {{ .Scratch.Set "menuKey" "platform" }}
 {{ else }}
-  {{ $scratch.Set "menuKey" (print $product (replaceRE "[v.]" "_" $currentVersion)) }}
+  {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
 
-{{ $menuKey := $scratch.Get "menuKey" }}
+{{ $menuKey := .Scratch.Get "menuKey" }}
 
 <!-- Search placeholder -->
-{{ $scratch.Set "searchPlaceholder" "Search"}}
+{{ .Scratch.Set "searchPlaceholder" "Search"}}
 
 {{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]\.` $currentVersion nil)) 0) }}
-  {{ $scratch.Set "searchPlaceholder" "Search the docs" }}
+  {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
 {{ else if (eq $currentVersion nil) }}
-  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
-{{ else if (and (eq $product "influxdb") (or (eq $currentVersion "v1.7") (eq $currentVersion "v1.8")) ) }}
-  {{ $scratch.Set "searchPlaceholder"  (print (index .Site.Data.products $product).name " " $currentVersion " & Flux") }}
-{{ else if (and (eq $product "influxdb") (in $currentVersion "v2") )}}
-  {{ $scratch.Set "searchPlaceholder"  (print "InfluxDB Cloud, OSS, & Flux") }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
+{{ else if eq $product "influxdb" }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
 {{ else }}
-  {{ $scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
 {{ end }}
 
-{{ $searchPlaceholder := $scratch.Get "searchPlaceholder" }}
+{{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}
 
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>

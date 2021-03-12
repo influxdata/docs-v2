@@ -4,7 +4,7 @@ description: >
   The `http.post()` function submits an HTTP POST request to the specified URL with headers and data.
   The HTTP status code is returned.
 aliases:
-  - /v2.0/reference/flux/functions/http/post/
+  - /influxdb/v2.0/reference/flux/functions/http/post/
 menu:
   influxdb_2_0_ref:
     name: http.post
@@ -21,7 +21,7 @@ _**Function type:** Output_
 import "http"
 
 http.post(
-  url: "http://localhost:9999/",
+  url: "http://localhost:8086/",
   headers: {x:"a", y:"b", z:"c"},
   data: bytes(v: "body")
 )
@@ -37,7 +37,7 @@ _**Data type:** String_
 ### headers
 Headers to include with the POST request.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 {{% note %}}
 ##### Header keys with special characters

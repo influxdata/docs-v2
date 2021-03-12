@@ -2,7 +2,7 @@
 title: math.exp2() function
 description: The math.exp2() function returns `2**x`, the base-2 exponential of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/exp2/
+  - /influxdb/v2.0/reference/flux/functions/math/exp2/
 menu:
   influxdb_2_0_ref:
     name: math.exp2

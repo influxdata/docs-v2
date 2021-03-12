@@ -1,0 +1,23 @@
+# Notification data structure
+#
+# - id: unqiue ID for notification, cannot start with digit, no spaces, a-z and 0-9
+#   level: note or warn
+#   scope:
+#     - list of URL paths to show notification on, no scope shows everywhere
+#   message: |
+#     Markdown message content.
+
+- id: v2-ga
+  level: note
+  scope:
+    - /
+  message: |
+    ### InfluxDB OSS 2.0 now generally available!
+
+    **InfluxDB OSS 2.0** is now generally available and ready for production use.
+    See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/).
+
+    For information about upgrading to InfluxDB OSS 2.0, see:
+
+    - [Upgrade from InfluxDB OSS 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
+    - [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2/)

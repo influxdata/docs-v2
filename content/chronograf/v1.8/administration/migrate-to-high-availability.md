@@ -1,6 +1,7 @@
 ---
 title: Migrate to a Chronograf HA configuration
-description: Migrate a Chronograf single instance configuration using BoltDB to a Chronograf high-availability (HA) cluster configuration using etcd.
+description: >
+  Migrate a Chronograf single instance configuration using BoltDB to a Chronograf high-availability (HA) cluster configuration using etcd.
 menu:
   chronograf_1_8:
     weight: 10
@@ -20,7 +21,7 @@ Use [`chronoctl`](/chronograf/v1.8/tools/chronoctl/) to migrate your Chronograf 
       $ chronoctl migrate -f bolt:///path/to/chronograf-v1.db -t etcd://localhost:2379
     ```
 
-    > **Note:** 
+    > **Note:**
       If you have authentication on `etcd`, use the standard URI format to define a username and password. For example, `etcd://user:pass@localhost:2379`
 
 5. Update links to Chronograf (for example, from external sources) to reflect your new URLs:

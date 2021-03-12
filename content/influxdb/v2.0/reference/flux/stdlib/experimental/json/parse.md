@@ -10,7 +10,7 @@ weight: 401
 ---
 
 The `json.parse()` function takes JSON data as bytes and returns a value.
-The function can return lists, objects, strings, booleans, and float values.
+The function can return lists, records, strings, booleans, and float values.
 All numeric values are returned as floats.
 
 _**Function type:** Type conversion_
@@ -19,7 +19,7 @@ _**Function type:** Type conversion_
 import "experimental/json"
 
 json.parse(
-  data: bytes(v: "{\"\"a\"\":1,\"\"b\"\":2,\"\"c\"\":3}")
+  data: bytes(v: "{\"a\":1,\"b\":2,\"c\":3}")
 )
 ```
 

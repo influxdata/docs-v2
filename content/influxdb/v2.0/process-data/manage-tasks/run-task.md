@@ -8,8 +8,6 @@ menu:
     name: Run a task
     parent: Manage tasks
 weight: 203
-aliases:
-  - /v2.0/process-data/manage-tasks/run-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/run
   - /influxdb/v2.0/reference/cli/influx/task/retry

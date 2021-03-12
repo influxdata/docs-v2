@@ -3,7 +3,10 @@
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
+{{ $notifications := resources.Get "js/notifications.js" }}
+{{ $keybindings := resources.Get "js/keybindings.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $featureCallouts $notifications $keybindings | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
@@ -16,3 +19,22 @@
 
 <!-- Load footer.js -->
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>
+
+{{ if .Page.HasShortcode "diagram" }}
+<!-- Load mermaid.js for diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad:true,
+    mermaid: {
+      callback:function(id) {
+        $('.mermaid').css('opacity', 1);
+      }
+    },
+    themeVariables: {
+      fontFamily: "Rubik",
+      fontSize: '18px',
+    }
+  })
+</script>
+{{ end }}

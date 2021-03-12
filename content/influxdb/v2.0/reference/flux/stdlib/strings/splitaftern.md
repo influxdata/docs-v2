@@ -4,16 +4,16 @@ description: >
   The strings.splitAfterN() function splits a string after a specified separator and returns
   an array of `i` substrings.
 aliases:
-  - /v2.0/reference/flux/functions/strings/splitaftern/
+  - /influxdb/v2.0/reference/flux/functions/strings/splitaftern/
 menu:
   influxdb_2_0_ref:
     name: strings.splitAfterN
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/split
-  - /v2.0/reference/flux/stdlib/strings/splitafter
-  - /v2.0/reference/flux/stdlib/strings/splitn
+  - /influxdb/v2.0/reference/flux/stdlib/strings/split
+  - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter
+  - /influxdb/v2.0/reference/flux/stdlib/strings/splitn
 ---
 
 The `strings.splitAfterN()` function splits a string after a specified separator and returns

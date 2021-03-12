@@ -5,7 +5,7 @@ description: >
   The Flux testing package provides functions that test piped-forward data in specific ways.
   Import the `testing` package.
 aliases:
-  - /v2.0/reference/flux/functions/testing/
+  - /influxdb/v2.0/reference/flux/functions/testing/
 menu:
   influxdb_2_0_ref:
     name: Testing

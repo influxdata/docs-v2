@@ -8,9 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/inspect/report-tsi/
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect report-tsi` command analyzes Time Series Index (TSI) files

@@ -1,5 +1,6 @@
 ---
 title: TICKscript syntax
+description: Syntax for the TICKscript language.
 aliases:
   - /kapacitor/v1.5/tick/spec/
 menu:
@@ -10,20 +11,18 @@ menu:
     parent: tick
 ---
 
-# Table of Contents
+* [Concepts](#concepts)
+* [TICKscript syntax](#tickscript-syntax)
+  * [Code representation](#code-representation)
+  * [Variables and literals](#variables-and-literals)
+  * [Statements](#statements)
+* [Taxonomy of node types](#taxonomy-of-node-types)
+* [InfluxQL in TICKscript](#influxql-in-tickscript)
+* [Lambda expressions](#lambda-expressions)
+* [Summary of variable use between syntax sub-spaces](#summary-of-variable-use-between-syntax-sub-spaces)
+* [Gotchas](#gotchas)
 
-   * [Concepts](#concepts)
-   * [TICKscript syntax](#tickscript-syntax)
-      * [Code representation](#code-representation)
-      * [Variables and literals](#variables-and-literals)
-      * [Statements](#statements)
-   * [Taxonomy of node types](#taxonomy-of-node-types)
-   * [InfluxQL in TICKscript](#influxql-in-tickscript)
-   * [Lambda expressions](#lambda-expressions)
-   * [Summary of variable use between syntax sub-spaces](#summary-of-variable-use-between-syntax-sub-spaces)
-   * [Gotchas](#gotchas)
-
-# Concepts
+## Concepts
 
 The sections [Introduction](/kapacitor/v1.5/tick/introduction/) and [Getting Started](/kapacitor/v1.5/introduction/getting-started/) present the key concepts of **nodes** and **pipelines**.  Nodes represent process invocation units, that either take data as a batch, or in a point by point stream, and then alter that data, store that data, or based on changes in that data trigger some other activity  such as an alert.  Pipelines are simply logically organized chains of nodes.
 
@@ -46,11 +45,11 @@ To summarize, the two syntax subspaces to be aware of in TICKscript are:
 
 As mentioned in Getting Started, a pipeline is a Directed Acylic Graph (DAG). (For more information see [Wolfram](http://mathworld.wolfram.com/AcyclicDigraph.html) or [Wikipedia](https://en.wikipedia.org/wiki/Directed_acyclic_graph)). It contains a finite number of nodes (a.k.a. vertices) and edges.  Each edge is directed from one node to another.  No edge path can lead back to an earlier node in the path, which would result in a cycle or loop.  TICKscript paths (a.k.a pipelines and chains) typically begin with a data source definition node with an edge to a data set definition node and then pass their results down to data manipulation and processing nodes.
 
-# TICKscript syntax
+## TICKscript syntax
 
 TICKscript is case sensitive and uses Unicode. The TICKscript parser scans TICKscript code from top to bottom and left to right instantiating variables and nodes and then chaining or linking them together into pipelines as they are encountered.  When loading a TICKscript the parser checks that a chaining method called on a node is valid.  If an invalid chaining method is encountered, the parser will throw an error with the message "no method or property &lt;identifier&gt; on &lt;node type&gt;".
 
-## Code representation
+### Code representation
 
 Source files should be encoded using **UTF-8**.  A script is broken into **declarations** and **expressions**.  Declarations result in the creation of a variable and occur on one line.  Expressions can cover more than one line and result in the creation of an entire pipeline, a pipeline **chain** or a pipeline **branch**.
 
@@ -58,7 +57,7 @@ Source files should be encoded using **UTF-8**.  A script is broken into **decla
 
 **Comments** can be created on a single line by using a pair of forward slashes "//" before the text.  Comment forward slashes can be preceded by whitespace and need not be the first characters of a newline.
 
-### Keywords
+#### Keywords
 
 Keywords are tokens that have special meaning within a language and therefore cannot be used as identifiers for functions or variables.  TICKscript is compact and contains only a small set of keywords.
 
@@ -77,7 +76,7 @@ Keywords are tokens that have special meaning within a language and therefore ca
 
 Since the set of native node types available in TICKscript is limited, each node type, such as `batch` or `stream`, could be considered key.  Node types and their taxonomy are discussed in detail in the section [Taxonomy of node types](#taxonomy-of-node-types) below.
 
-### Operators
+#### Operators
 
 TICKscript has support for traditional mathematical operators as well as a few which make sense in its data processing domain.
 
@@ -113,11 +112,11 @@ Standard operators are used in TICKscript and in Lambda expressions.
 
 Chaining operators are used within expressions to define pipelines or pipeline segments.
 
-## Variables and literals
+### Variables and literals
 
 Variables in TICKscript are useful for storing and reusing values and for providing a friendly mnemonic for quickly understanding what a variable represents. They are typically declared along with the assignment of a literal value.  In a TICKscript intended to be used as a [template task](/kapacitor/v1.5/guides/template_tasks/) they can also be declared with simply a type identifier.
 
-### Variables
+#### Variables
 
 Variables are declared using the keyword `var` at the start of a declaration.
 Variables are immutable and cannot be reassigned new values later on in the script, though they can be used in other declarations and can be passed into methods.
@@ -126,7 +125,7 @@ Variables are also used in template tasks as placeholders to be filled when the 
 For a detailed presentation on working with **template tasks** see the guide [Template tasks](/kapacitor/v1.5/guides/template_tasks/).
 If a TICKscript proves useful, it may be desirable to reuse it as a template task in order to quickly create other similar tasks.  For this reason it is recommended to use variables as much as possible.
 
-#### Naming variables
+##### Naming variables
 
 Variable identifiers must begin with a standard ASCII letter and can be followed by any number of letters, digits and underscores.  Both upper and lower case can be used.  In a TICKscript to be used to define a task directly, the type the variable holds depends on the literal value it is assigned.  In a TICKscript written for a task template, the type can also be set using the keyword for the type the variable will hold.  In a TICKscript to be used to define a task directly, using the type identifier will result in a compile time error `invalid TICKscript: missing value for var "<VARNAME>".`.
 
@@ -149,11 +148,11 @@ var period = 12h
 var critical = 3.0
 ```
 
-### Literal values
+#### Literal values
 
 Literal values are parsed into instances of the types available in TICKscript.  They can be declared directly in method arguments or can be assigned to variables.  The parser interprets types based on context and creates instances of the following primitives: Boolean, string, float, integer. Regular expressions, lists, lambda expressions, duration structures and nodes are also recognized.  The rules the parser uses to recognize a type are discussed in the following Types section.
 
-#### Types
+##### Types
 
 TICKscript recognizes five type identifiers.  These identifiers can be used directly in TICKscripts intended for template tasks.  Otherwise, the type of the literal will be interpreted from its declaration.
 
@@ -167,7 +166,7 @@ TICKscript recognizes five type identifiers.  These identifiers can be used dire
 | **float** | In a template task, declare a variable as type `float64`. | `var my_ratio float` |
 | **lambda** | In a template task, declare a variable as a Lambda expression type. | `var crit lambda` |
 
-##### Booleans
+###### Booleans
 Boolean values are generated using the Boolean keywords: `TRUE` and `FALSE`.  Note that these keywords use all upper case letters.  The parser will throw an error when using lower case characters, e.g. `True` or `true`.
 
 **Example 3 &ndash; Boolean literals**
@@ -182,7 +181,7 @@ var true_bool = TRUE
 
 In Example 3 above the first line shows a simple assignment using a Boolean literal.  The second example shows using the Boolean literal `FALSE` in a method call.
 
-##### Numerical types
+###### Numerical types
 
 Any literal token containing only digits and optionally a decimal will lead to the generation of an instance of a numerical type.  TICKscript understands two numerical types based on Go: `int64` and `float64`.  Any numerical token containing a decimal point will result in the creation of a `float64` value.  Any numerical token that ends without containing a decimal point will result in the creation of an `int64` value.  If an integer is prefixed with the zero character, `0`, it is interpreted as an octal.
 
@@ -195,7 +194,7 @@ var my_octal = 0400
 ```
 In Example 4 above `my_int` is of type `int64`, `my_float` is of type `float64` and `my_octal` is of type `int64` octal.
 
-##### Duration literals
+###### Duration literals
 
 Duration literals define a span of time.  Their syntax follows the same syntax present in [InfluxQL](/influxdb/v1.4/query_language/spec/#literals).  A duration literal is comprised of two parts: an integer and a duration unit.  It is essentially an integer terminated by one or a pair of reserved characters, which represent a unit of time.
 
@@ -229,7 +228,7 @@ var views = batch
 In Example 5 above the first two lines show the declaration of Duration types.  The first represents a time span of 10 seconds and the second a time frame of 10 seconds.  The final example shows declaring duration literals directly in method calls.
 
 
-##### Strings
+###### Strings
 Strings begin with either one or three single quotation marks: `'` or `'''`.  Strings can be concatenated using the addition `+` operator.  To escape quotation marks within a string delimited by a single quotation mark use the backslash character.  If it is to be anticipated that many single quotation marks will be encountered inside the string, delimit it using triple single quotation marks instead.  A string delimited by triple quotation marks requires no escape sequences. In both string demarcation cases, the double quotation mark, which is used to access field and tag values, can be used without an escape.
 
 **Example 6 &ndash; Basic strings**
@@ -259,7 +258,7 @@ batch
 ```
 In Example 7 above the string is broken up to make the query more easily understood.
 
-##### String templates
+###### String templates
 
 String templates allow node properties, tags and fields to be added to a string.  The format follows the same format provided by the Go [text.template](https://golang.org/pkg/text/template/) package.  This is useful when writing alert messages.  To add a property, tag or field value to a string template, it needs to be wrapped inside of double curly braces: "{{}}".
 
@@ -278,7 +277,7 @@ String templates can also include flow statements such as `if...else` as well as
 ```
 .message('{{ .ID }} is {{ if eq .Level "OK" }}alive{{ else }}dead{{ end }}: {{ index .Fields "emitted" | printf "%0.3f" }} points/10s.')
 ```
-##### String lists
+###### String lists
 
 A string list is a collection of strings declared between two brackets.  They can be declared with literals, identifiers for other variables, or with the asterisk wild card, "\*".  They can be passed into methods that take multiple string parameters.  They are especially useful in template tasks.  Note that when used in function calls, list contents get exploded and the elements are used as all the arguments to the function.  When a list is given, it is understood that the list contains all the arguments to the function.
 
@@ -328,7 +327,7 @@ stream
 
 Example 10, taken from the examples in the [code repository](https://github.com/influxdata/kapacitor/blob/1de435db363fa8ece4b50e26d618fc225b38c70f/examples/load/templates/implicit_template.tick), defines `implicit_template.tick`.  It uses the `groups` list to hold a variable arguments to be passed to the `from.groupBy()` method.  The contents of the `groups` list will be determined when the template is used to create a new task.
 
-##### Regular expressions
+###### Regular expressions
 
 Regular expressions begin and end with a forward slash: `/`. The regular expression syntax is the same as Perl, Python and other languages. For details on the syntax see the Go [regular expression library](https://golang.org/pkg/regexp/syntax/).
 
@@ -350,7 +349,7 @@ var south_afr = stream
 ```
 In Example 11 the first three lines show the assignment of regular expressions to variables.  The `locals` stream uses the regular expression assigned to the variable `local_ips`. The `south_afr` stream uses a regular expression comparison with the regular expression declared literally as a part of the lambda expression.
 
-##### Lambda expressions as literals
+###### Lambda expressions as literals
 
 A lambda expression is a parameter representing a short easily understood function to be passed into a method call or held in a variable. It can wrap a Boolean expression, a mathematical expression, a call to an internal function or a combination of these three.  Lambda expressions always operate on point data.  They are generally compact and as such are used as literals, which eventually get passed into node methods.  Internal functions that can be used in Lambda expressions are discussed in the sections [Type conversion](#type-conversion) and [Lambda expressions](#lambda-expressions) below.  Lambda expressions are presented in detail in the topic [Lambda Expressions](/kapacitor/v1.5/tick/expr/).
 
@@ -379,7 +378,7 @@ var alert = data
 Example 12 above shows that a lambda expression can be directly assigned to a variable.  In the eval node a lambda statement is used which calls the sigma function. The alert node uses lambda expressions to define the log levels of given events.
 
 
-##### Nodes
+###### Nodes
 
 Like the simpler types, node types are declared and can be assigned to variables.
 
@@ -410,11 +409,11 @@ var alert = data
 ```
 In Example 13 above, in the first section, five nodes are created.  The top level node `stream` is assigned to the variable `data`. The `stream` node is then used as the root of the pipeline to which the nodes `from`, `eval`, `window` and `mean` are chained in order. In the second section the pipeline is then extended using assignment to the variable `alert`, so that a second `eval` node can be applied to the data.
 
-#### Working with tags, fields and variables
+##### Working with tags, fields and variables
 
 In any script it is not enough to simply declare variables.  The values they hold must also be accessed.  In TICKscript it is also necessary to work with values held in tags and fields drawn from an InfluxDB data series.  This is most evident in the examples presented so far.  In addition values generated by lambda expressions can be added as new fields to the data set in the pipeline and then accessed as named results of those expressions. The following section explores working not only with variables but also with tag and field values, that can be extracted from the data, as well as with named results.
 
-##### Accessing values
+###### Accessing values
 
 Accessing data tags and fields, using string literals and accessing TICKscript variables each involves a different syntax.  Additionally it is possible to access the results of lambda expressions used with certain nodes.
 
@@ -779,7 +778,7 @@ alert
 ```
 Example 29 shows a `batch`&rarr;`query` pipeline broken into three expressions using two variables.  The first expression declares the data frame, the second expression the alert thresholds and the final expression sets the `log` property of the `alert` node.  The entire pipeline begins with the declaration of the `batch` node and ends with the call to the property method `log()`.
 
-# Taxonomy of node types
+## Taxonomy of node types
 
 To aid in understanding the roles that different nodes play in a pipeline, a short taxonomy has been defined.  For complete documentation on each node type see the topic [TICKscript Nodes](/kapacitor/v1.5/nodes/).
 
@@ -857,7 +856,7 @@ User defined functions are nodes that implement functionality defined by user pr
    * [`noOp`](/kapacitor/v1.5/nodes/no_op_node/) - a helper node that performs no operations.  Do not use it!
 
 
-# InfluxQL in TICKscript
+## InfluxQL in TICKscript
 
 InfluxQL occurs in a TICKscript primarily in a `query` node, whose chaining method takes an InfluxQL query string.  This will nearly always be a `SELECT` statement.
 
@@ -911,7 +910,7 @@ Note that the select statement gets passed directly to the InfluxDB API.  Within
 
 See the [InfluxQL](/influxdb/v1.3/query_language/) documentation for a complete introduction to working with the query language.
 
-# Lambda expressions
+## Lambda expressions
 
 Lambda expressions occur in a number of chaining and property methods.  Two of the most common usages are in the creation of an `eval` node and in defining threshold properties on an `alert` node.  They are declared with the keyword "lambda" followed by a colon: `lambda:`.  They can contain mathematical and Boolean operations as well as calls to a large library of internal functions.  With many nodes, their results can be captured by setting an `as` property on the node.
 
@@ -964,12 +963,9 @@ alert
 Example 33 contains four lambda expressions.  The first expression is passed to the `eval` node.  It calls the internal stateful function `sigma`, into which it passes the named result `stat`, which is set using the `AS` clause in the query string of the `query` node.  Through the `.as()` setter of the `eval` node its result is named `sigma`.  Three other lambda expressions occur inside the threshold determining property methods of the `alert` node.  These lambda expressions also access the named results `stat` and `sigma` as well as variables declared at the start of the script.  They each define a series of Boolean operations, which set the level of the alert message.
 
 
-# Summary of variable use between syntax sub-spaces
+## Summary of variable use between syntax sub-spaces
 
 The following section summarizes how to access variables and data series tags and fields in TICKscript and the different syntax sub-spaces.
-
-
-<!-- see defect 1238 -->
 
 ### TICKscript variable
 
@@ -981,41 +977,41 @@ var my_field = `usage_idle`
 var my_num = 2.71
 ```
 
-   **Accessing...**
+**Accessing...**
 
-   * In **TICKscript** simply use the identifier.
+* In **TICKscript** simply use the identifier.
 
-   ```js
-      var my_other_num = my_num + 3.14
-      ...
-         |default()
-            .tag('bar', my_var)
-      ...
-   ```
+```js
+var my_other_num = my_num + 3.14
+...
+   |default()
+      .tag('bar', my_var)
+...
+```
 
-   * In a **query string** simply use the identifier with string concatenation.
+* In a **query string** simply use the identifier with string concatenation.
 
-   ```js
-      ...
-         |query('SELECT ' + my_field + ' FROM "telegraf"."autogen".cpu WHERE host = \'' + my_var + '\'' )
-      ...
-   ```
+```js
+...
+   |query('SELECT ' + my_field + ' FROM "telegraf"."autogen".cpu WHERE host = \'' + my_var + '\'' )
+...
+```
 
-   * In a **lambda expression** simply use the identifier.
+* In a **lambda expression** simply use the identifier.
 
-   ```js
-      ...
-        .info(lambda: "stat" > my_num )
-      ...
-   ```
+```js
+...
+  .info(lambda: "stat" > my_num )
+...
+```
 
-   * In an **InfluxQL node** use the identifier.  Note that in most cases strings will be used as field or tag names.
+* In an **InfluxQL node** use the identifier.  Note that in most cases strings will be used as field or tag names.
 
-   ```js
-      ...
-         |mean(my_var)
-      ...
-   ```
+```js
+...
+   |mean(my_var)
+...
+```
 
 ### Tag, Field or Named Result
 
@@ -1033,50 +1029,50 @@ Examples
 **Accessing...**
 
 
-   * In a **TICKscript** method call use single quotes.
+* In a **TICKscript** method call use single quotes.
 
-   ```js
-      ...
-         |derivative('mean')
-      ...
-   ```
+```js
+...
+   |derivative('mean')
+...
+```
 
-   * In a **query string** use the identifier directly in the string.
+* In a **query string** use the identifier directly in the string.
 
-   ```js
-      ...
-         |query('SELECT cpu, usage_idle FROM "telegraf"."autogen".cpu')
-      ...
-   ```
+```js
+...
+   |query('SELECT cpu, usage_idle FROM "telegraf"."autogen".cpu')
+...
+```
 
-   * In a **lambda expression** use double quotes.
+* In a **lambda expression** use double quotes.
 
-   ```js
-      ...
-         |eval(lambda: 100.0 - "usage_idle")
-      ...
-         |alert
-             .info(lambda: "sigma" > 2 )
-      ...
-   ```
+```js
+...
+   |eval(lambda: 100.0 - "usage_idle")
+...
+   |alert
+       .info(lambda: "sigma" > 2 )
+...
+```
 
-   * In an **InfluxQL node**  use single quotes.
+* In an **InfluxQL node**  use single quotes.
 
-   ```js
-      ...
-         |mean('used')
-      ...
-   ```
+```js
+...
+   |mean('used')
+...
+```
 
-# Gotchas
+## Gotchas
 
-## Literals versus field values
+### Literals versus field values
 
 Please keep in mind that literal string values are declared using single quotes.  Double quotes are used only in lambda expressions to access the values of tags and fields.  In most instances using double quotes in place of single quotes will be caught as an error: `unsupported literal type`.  On the other hand, using single quotes when double quotes were intended, i.e. accessing a field value, will not be caught and, if this occurs in a lambda expression, the literal value may be used instead of the desired value of a tag, or a field.
 
 As of Kapacitor 1.3 it is possible to declare a variable using double quotes, which is invalid, and the parser will not flag it as an error.  For example `var my_var = "foo"` will pass so long as it is not used.  However, when this variable is used in a Lambda expression or other method call, it will trigger a compilation error: `unsupported literal type *ast.ReferenceNode`.
 
-## Circular rewrites
+### Circular rewrites
 
 When using the InfluxDBOut node, be careful not to create circular rewrites to the same database and the same measurement from which data is being read.
 
@@ -1102,10 +1098,10 @@ In such a case, the above script will loop infinitely adding a new data point wi
 
 <!-- defect 589 -->
 
-## Alerts and ids
+### Alerts and ids
 
 When using the `deadman` method along with one or more `alert` nodes or when using more than one `alert` node in a pipeline, be sure to set the ID property with the property method `id()`.  The value of ID must be unique on each node.  Failure to do so will lead Kapacitor to assume that they are all the same group of alerts, and so some alerts may not appear as expected.
 
-# Where to next?
+## Where to next?
 
 See the [examples](https://github.com/influxdata/kapacitor/tree/master/examples) in the code base on Github.  See also the detailed use case solutions in the section [Guides](/kapacitor/v1.5/guides).

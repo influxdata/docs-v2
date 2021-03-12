@@ -8,7 +8,7 @@ menu:
     parent: Experimental
 weight: 302
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/set/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
 ---
 
 The `experimental.set()` function sets multiple static column values on all records.
@@ -16,7 +16,7 @@ If a column already exists, the function updates the existing value.
 If a column does not exist, the function adds it with the specified value.
 
 _Once sufficiently vetted, `experimental.set()` will replace the existing
-[`set()` function](/v2.0/reference/flux/stdlib/built-in/transformations/set/)._
+[`set()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/)._
 
 _**Function type:** Transformation_
 
@@ -31,11 +31,11 @@ experimental.set(
 ## Parameters
 
 ### o
-An object that defines the columns and values to set.
+A record that defines the columns and values to set.
 The key of each key-value pair defines the column name.
 The value of each key-value pair defines the column value.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 

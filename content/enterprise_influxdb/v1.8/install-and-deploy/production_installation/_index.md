@@ -6,7 +6,7 @@ aliases:
 menu:
   enterprise_influxdb_1_8:
     name: Install in your environment
-    weight: 40
+    weight: 10
     parent: Install and deploy
 ---
 

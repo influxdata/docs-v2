@@ -2,8 +2,8 @@
 title: drop() function
 description: The `drop()` function removes specified columns from a table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/drop
-  - /v2.0/reference/flux/functions/built-in/transformations/drop/
+  - /influxdb/v2.0/reference/flux/functions/transformations/drop
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/drop/
 menu:
   influxdb_2_0_ref:
     name: drop
@@ -17,7 +17,7 @@ When a dropped column is part of the group key, it will be removed from the key.
 If a specified column is not present in a table, it will return an error.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 drop(columns: ["col1", "col2"])
@@ -30,7 +30,7 @@ drop(fn: (column) => column =~ /usage*/)
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### columns

@@ -8,8 +8,6 @@ menu:
     name: Delete a task
     parent: Manage tasks
 weight: 206
-aliases:
-  - /v2.0/process-data/manage-tasks/delete-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/delete
 ---

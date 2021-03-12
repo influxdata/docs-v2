@@ -7,10 +7,19 @@ menu:
     parent: InfluxDB v1
 weight: 301
 influxdb/v2.0/tags: [fields]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementfieldkeys/
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-field-keys, SHOW FIELD KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
+introduced: 0.68.0
+deprecated: 0.88.0
 ---
+
+{{% warn %}}
+`v1.measurementFieldKeys()` was deprecated in **Flux v0.88.0** in favor of
+[`schema.measurementFieldKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementfieldkeys/).
+{{% /warn %}}
 
 The `v1.measurementFieldKeys()` function returns a list of fields in a measurement.
 The return value is always a single table with a single column, `_value`.
@@ -28,22 +37,22 @@ v1.measurementFieldKeys(
 ## Parameters
 
 ### bucket
-The bucket to list field keys from.
+Bucket to retrieve field keys from.
 
 _**Data type:** String_
 
 ### measurement
-The measurement to list field keys from.
+Measurement to list field keys from.
 
 _**Data type:** String_
 
 ### start
-The oldest time to include in results.
+Oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
 
 _**Data type:** Duration_
 
@@ -66,4 +75,4 @@ measurementFieldKeys = (bucket, measurement, start=-30d) =>
 ```
 
 _**Used functions:**
-[v1.fieldKeys](/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/)_
+[v1.fieldKeys](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/)_

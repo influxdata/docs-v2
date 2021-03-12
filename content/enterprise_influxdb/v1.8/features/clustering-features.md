@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Enterprise cluster features
+description: Overview of features related to InfluxDB Enterprise clustering. 
 aliases:
     - /enterprise/v1.8/features/clustering-features/
 menu:
@@ -69,7 +70,7 @@ you should set the lease-duration to a value greater than the aggregate executio
 
 Based on the current way in which CQs are configured to execute, the way to address parallelism is by using
 Kapacitor for the more complex CQs that you are attempting to run.
-[See Kapacitor as a continuous query engine](/kapacitor/latest/guides/continuous_queries/).
+[See Kapacitor as a continuous query engine](/{{< latest "kapacitor" >}}/guides/continuous_queries/).
 However, you can keep the more simplistic and highly performant CQs within the database –
 but ensure that the lease duration is greater than their aggregate execution time to ensure that
 “extra” load is not being unnecessarily introduced on your cluster.

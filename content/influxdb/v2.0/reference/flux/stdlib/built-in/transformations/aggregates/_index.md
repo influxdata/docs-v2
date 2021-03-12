@@ -5,8 +5,8 @@ description: >
   Flux's aggregate transformations take values from an input table and aggregate them in some way.
   Output tables contain a single row with the aggregated value.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/
 menu:
   influxdb_2_0_ref:
     parent: built-in-transformations
@@ -34,7 +34,7 @@ Any output table will have the following properties:
 - It will not have a `_time` column.
 
 ### aggregateWindow helper function
-The [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
+The [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
 does most of the work needed when aggregating data.
 It windows and aggregates the data, then combines windowed tables into a single output table.
 
@@ -48,9 +48,9 @@ The following functions are both aggregates and selectors.
 Each returns `n` values after performing an aggregate operation.
 They are categorized as selector functions in this documentation:
 
-- [highestAverage](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestaverage)
-- [highestCurrent](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestcurrent)
-- [highestMax](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestmax)
-- [lowestAverage](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestaverage)
-- [lowestCurrent](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent)
-- [lowestMin](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestmin)
+- [highestAverage](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestaverage)
+- [highestCurrent](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestcurrent)
+- [highestMax](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/highestmax)
+- [lowestAverage](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestaverage)
+- [lowestCurrent](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent)
+- [lowestMin](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestmin)

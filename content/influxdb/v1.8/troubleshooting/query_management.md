@@ -1,11 +1,11 @@
 ---
 title: InfluxQL query management
-
+description: Show, kill, and manage queries in InfluxQL.
 menu:
   influxdb_1_8:
     name: Query management
     weight: 20
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 Manage your InfluxQL queries using the following:
@@ -14,7 +14,7 @@ Manage your InfluxQL queries using the following:
 - [KILL QUERIES](#stop-currently-running-queries-with-kill-query) to stop queries overloading your system
 - [Configuration settings](#configuration-settings-for-query-management) to prevent and halt the execution of inefficient queries
 
-> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/flux/v0.50/introduction/getting-started/).
+> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/influxdb/v1.8/flux/get-started/).
 
 ## List currently-running queries with `SHOW QUERIES`
 

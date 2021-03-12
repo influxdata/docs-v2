@@ -9,11 +9,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/regular-expressions/
-  - /v2.0/query-data/flux/regular-expressions/
+  - /influxdb/v2.0/query-data/guides/regular-expressions/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/regexp/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/
 list_query_example: regular_expressions
 ---
 
@@ -24,8 +23,8 @@ This guide shows how to use regular expressions in your Flux scripts.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Go regular expression syntax
 Flux uses Go's [regexp package](https://golang.org/pkg/regexp/) for regular expression search.
@@ -61,7 +60,7 @@ from(bucket: "example-bucket")
   |> filter(fn: (r) =>
     r._measurement == "cpu" and
     r._field == "usage_user" and
-    r.cpu =~ /cpu[0-2]/
+    r.cpu =~ /cpu[0-2]$/
   )
 ```
 

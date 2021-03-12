@@ -1,9 +1,9 @@
 ---
-title: Replacing InfluxDB Enterprise cluster meta nodes and data nodes
-
+title: Replace InfluxDB Enterprise cluster meta nodes and data nodes
+description: Replace meta and data nodes in an InfluxDB Enterprise cluster.
 menu:
   enterprise_influxdb_1_8:
-    name: Replacing cluster nodes
+    name: Replace cluster nodes
     weight: 10
     parent: Guides
 ---
@@ -24,7 +24,7 @@ Data nodes hold raw time-series data and metadata. Data shards are both distribu
 
 ## Scenarios
 
-### Replacing nodes in clusters with security enabled
+### Replace nodes in clusters with security enabled
 Many InfluxDB Enterprise clusters are configured with security enabled, forcing secure TLS encryption between all nodes in the cluster.
 Both `influxd-ctl` and `curl`, the command line tools used when replacing nodes, have options that facilitate the use of TLS.
 
@@ -55,19 +55,19 @@ curl [-k, --insecure] <url>
 curl -k https://localhost:8091/status
 ```
 
-### Replacing meta nodes in a functional cluster
+### Replace meta nodes in a functional cluster
 
-If all meta nodes in the cluster are fully functional, simply follow the steps for [replacing meta nodes](#replacing-meta-nodes-in-an-influxdb-enterprise-cluster).
+If all meta nodes in the cluster are fully functional, simply follow the steps for [replacing meta nodes](#replace-meta-nodes-in-an-influxdb-enterprise-cluster).
 
-### Replacing an unresponsive meta node
+### Replace an unresponsive meta node
 
-If replacing a meta node that is either unreachable or unrecoverable, you need to forcefully remove it from the meta cluster. Instructions for forcefully removing meta nodes are provided in the [step 2.2](#2-2-remove-the-non-leader-meta-node) of the [replacing meta nodes](#replacing-meta-nodes-in-an-influxdb-enterprise-cluster) process.
+If replacing a meta node that is either unreachable or unrecoverable, you need to forcefully remove it from the meta cluster. Instructions for forcefully removing meta nodes are provided in the [step 2.2](#2-2-remove-the-non-leader-meta-node) of the [replacing meta nodes](#replace-meta-nodes-in-an-influxdb-enterprise-cluster) process.
 
-### Replacing responsive and unresponsive data nodes in a cluster
+### Replace responsive and unresponsive data nodes in a cluster
 
-The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replacing-data-nodes-in-an-influxdb-enterprise-cluster).
+The process of replacing both responsive and unresponsive data nodes is the same. Simply follow the instructions for [replacing data nodes](#replace-data-nodes-in-an-influxdb-enterprise-cluster).
 
-### Reconnecting a data node with a failed disk
+### Reconnect a data node with a failed disk
 
 A disk drive failing is never a good thing, but it does happen, and when it does,
 all shards on that node are lost.
@@ -92,7 +92,7 @@ The AE process will detect the missing shards and begin to sync data from other
 shards in the same shard group.
 
 
-## Replacing meta nodes in an InfluxDB Enterprise cluster
+## Replace meta nodes in an InfluxDB Enterprise cluster
 
 [Meta nodes](/enterprise_influxdb/v1.8/concepts/clustering/#meta-nodes) together form a [Raft](https://raft.github.io/) cluster in which nodes elect a leader through consensus vote.
 The leader oversees the management of the meta cluster, so it is important to replace non-leader nodes before the leader node.
@@ -212,15 +212,15 @@ The new meta node should appear in the output:
 Data Nodes
 ==========
 ID	TCP Address	Version
-4	enterprise-data-01:8088	1.5.x-c1.5.x
-5	enterprise-data-02:8088	1.5.x-c1.5.x
+4	enterprise-data-01:8088	1.8.x-c1.8.x
+5	enterprise-data-02:8088	1.8.x-c1.8.x
 
 Meta Nodes
 ==========
 TCP Address	Version
-enterprise-meta-01:8091	1.5.x-c1.5.x
-enterprise-meta-03:8091	1.5.x-c1.5.x
-enterprise-meta-04:8091	1.5.x-c1.5.x # <-- The newly added meta node
+enterprise-meta-01:8091	1.8.x-c1.8.x
+enterprise-meta-03:8091	1.8.x-c1.8.x
+enterprise-meta-04:8091	1.8.x-c1.8.x # <-- The newly added meta node
 ```
 
 #### 2.5. Remove and replace all other non-leader meta nodes
@@ -258,7 +258,7 @@ curl localhost:8091/status | jq
 Remove the old leader node and replace it by following steps [2.1-2.4](#2-1-provision-a-new-meta-node).
 The minimum number of meta nodes you should have in your cluster is 3.
 
-## Replacing data nodes in an InfluxDB Enterprise cluster
+## Replace data nodes in an InfluxDB Enterprise cluster
 
 [Data nodes](/enterprise_influxdb/v1.8/concepts/clustering/#data-nodes) house all raw time series data and metadata.
 The process of replacing data nodes is as follows:
@@ -298,15 +298,15 @@ The new data node should appear in the output:
 Data Nodes
 ==========
 ID	TCP Address	Version
-4	enterprise-data-03:8088	1.5.x-c1.5.x # <-- The newly added data node
-5	enterprise-data-02:8088	1.5.x-c1.5.x
+4	enterprise-data-03:8088	1.8.x-c1.8.x # <-- The newly added data node
+5	enterprise-data-02:8088	1.8.x-c1.8.x
 
 Meta Nodes
 ==========
 TCP Address	Version
-enterprise-meta-01:8091	1.5.x-c1.5.x
-enterprise-meta-02:8091	1.5.x-c1.5.x
-enterprise-meta-03:8091	1.5.x-c1.5.x
+enterprise-meta-01:8091	1.8.x-c1.8.x
+enterprise-meta-02:8091	1.8.x-c1.8.x
+enterprise-meta-03:8091	1.8.x-c1.8.x
 ```
 
 Inspect your cluster's shard distribution with `influxd-ctl show-shards`.
@@ -348,7 +348,7 @@ enterprise-data-02:8088  enterprise-data-03:8088  telegraf  autogen  3        11
 > **Important:** If replacing other data nodes in the cluster, make sure shards are completely copied from nodes in the same shard group before replacing the other nodes.
 View the [Anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/#concepts) documentation for important information regarding anti-entropy and your database's replication factor.
 
-## Troubleshooting
+## Troubleshoot
 
 ### Cluster commands result in timeout without error
 

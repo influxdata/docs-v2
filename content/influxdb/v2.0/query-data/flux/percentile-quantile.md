@@ -6,8 +6,6 @@ description: >
   Use the `quantile()` function to return all values within the `q` quantile or
   percentile of input data.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/percentile-quantile/
 menu:
   influxdb_2_0:
     parent: Query with Flux
@@ -15,11 +13,11 @@ menu:
 influxdb/v2.0/tags: [query, percentile, quantile]
 related:
   - /influxdb/v2.0/query-data/flux/query-median/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_query_example: quantile
 ---
 
-Use the [`quantile()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
+Use the [`quantile()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
 to return a value representing the `q` quantile or percentile of input data.
 
 ## Percentile versus quantile
@@ -31,9 +29,9 @@ For example, the **`0.5` quantile** is the same as the **50th percentile**.
 ## Select a method for calculating the quantile
 Select one of the following methods to calculate the quantile:
 
-- [estimate_tdigest](#estimate-tdigest)
-- [exact_mean](#exact-mean)
-- [exact_selector](#exact-selector)
+- [estimate_tdigest](#estimate_tdigest)
+- [exact_mean](#exact_mean)
+- [exact_selector](#exact_selector)
 
 ### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
@@ -115,7 +113,7 @@ If calculating the `0.5` quantile or 50th percentile:
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
+The examples below use the [example data variable](/influxdb/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value representing the 99th percentile
@@ -148,13 +146,13 @@ data
 ```
 
 ## Use quantile() with aggregateWindow()
-[`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
-It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
+It is primarily used to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/).
 
 To specify the [quantile calculation method](#select-a-method-for-calculating-the-quantile) in
-`aggregateWindow()`, use the [full function syntax](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+`aggregateWindow()`, use the [full function syntax](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data

@@ -3,14 +3,14 @@ title: truncateTimeColumn() function
 description: >
   The `truncateTimeColumn()` function truncates all input table `_time` values to a specified unit.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/truncatetimecolumn/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/truncatetimecolumn/
 menu:
   influxdb_2_0_ref:
     name: truncateTimeColumn
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/date/truncate/
+  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
 ---
 
 The `truncateTimeColumn()` function truncates all input table `_time` values to a specified unit.

@@ -6,8 +6,6 @@ menu:
     name: influx config list
     parent: influx config
 weight: 201
-aliases:
-  - /v2.0/reference/cli/influx/config/list/
 ---
 
 The `influx config list` command lists all InfluxDB connection configurations in
@@ -20,7 +18,7 @@ An asterisk (`*`) indicates the active configuration.
 influx config list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`
 
 ## Flags

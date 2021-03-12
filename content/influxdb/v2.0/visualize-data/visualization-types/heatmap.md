@@ -6,8 +6,6 @@ description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.
 weight: 203
-aliases:
-  - /v2.0/visualize-data/visualization-types/heatmap/
 menu:
   influxdb_2_0:
     name: Heatmap
@@ -21,7 +19,7 @@ represents different concentrations of data points.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
 
-Select the **Heatmap** option from the visualization dropdown in the upper right.
+Select the **Heatmap** option from the visualization dropdown in the upper left.
 
 ## Heatmap behavior
 Heatmaps divide data points into "bins" – segments of the visualization with upper
@@ -37,6 +35,18 @@ the visualization dropdown.
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    - `YYYY-MM-DD HH:mm:ss ZZ`
+    - `DD/MM/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.SSS`
+    - `YYYY/MM/DD HH:mm:ss`
+    - `hh:mm a`
+    - `HH:mm`
+    - `HH:mm:ss`
+    - `HH:mm:ss.sss`
+    - `MMMM D, YYYY HH:mm:ss`
+    - `dddd, MMMM D, YYYY HH:mm:ss`
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your heatmap.
@@ -66,8 +76,8 @@ the visualization dropdown.
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/v2.0/reference/telegraf-plugins/#mem)
-and [CPU](/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/{{< latest "telegraf" >}}/plugins//#mem)
+and [CPU](/{{< latest "telegraf" >}}/plugins//#cpu) input plugins.
 
 ###### Join CPU and memory usage
 The following query joins CPU and memory usage on `_time`.
@@ -104,7 +114,7 @@ between column values.
 ## Important notes
 
 ### Differences between a heatmap and a scatter plot
-Heatmaps and [Scatter plots](/v2.0/visualize-data/visualization-types/scatter/)
+Heatmaps and [Scatter plots](/influxdb/v2.0/visualize-data/visualization-types/scatter/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, heatmaps provide better visibility into point density.
 

@@ -298,6 +298,7 @@ but one InfluxDB table array configuration must be flagged as the `default`.
 
 **Example 8 &ndash; An InfluxDB Connection grouping**
 
+{{< keep-url >}}
 ```toml
 ...
 [[influxdb]]

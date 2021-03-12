@@ -33,18 +33,19 @@ Literal = int_lit
         | duration_lit
         | date_time_lit
         | pipe_receive_lit
-        | ObjectLiteral
+        | RecordLiteral
         | ArrayLiteral
+        | DictLiteral
         | FunctionLiteral .
 ```
 
-### Object literals
+### Record literals
 
-Object literals construct a value with the object type.
+Record literals construct a value with the record type.
 
 ```js
-ObjectLiteral  = "{" ObjectBody "}" .
-ObjectBody     = WithProperties | PropertyList .
+RecordLiteral  = "{" RecordBody "}" .
+RecordBody     = WithProperties | PropertyList .
 WithProperties = identifier "with" PropertyList .
 PropertyList   = [ Property { "," Property } ] .
 Property       = identifier [ ":" Expression ]
@@ -66,6 +67,28 @@ Array literals construct a value with the array type.
 ```js
 ArrayLiteral   = "[" ExpressionList "]" .
 ExpressionList = [ Expression { "," Expression } ] .
+```
+
+### Dictionary literals
+
+Dictionary literals construct a value with the dict type.
+
+```js
+DictLiteral     = EmptyDict | "[" AssociativeList "]" .
+EmptyDict       = "[" ":" "]" .
+AssociativeList = Association { "," AssociativeList } .
+Association     = Expression ":" Expression .
+```
+
+Keys can be arbitrary expressions.
+The type system enforces that all keys are of the same type.
+
+**Examples**
+```js
+a = "a"
+b = [:] // empty dictionary
+c = [a: 1, "b": 2] // dictionary mapping string values to integers
+d = [a: 1, 2: 3] // type error: cannot mix string and integer keys
 ```
 
 ### Function literals
@@ -171,21 +194,21 @@ IndexExpression = "[" Expression "]" .
 ```
 
 ## Member expressions
-Member expressions access a property of an object.
+Member expressions access a property of a record.
 They are specified using an expression in one of the following forms:
 
 ```js
-obj.k
+rec.k
 // or
-obj["k"]
+rec["k"]
 ```
 
 The property being accessed must be either an identifier or a string literal.
 In either case the literal value is the name of the property being accessed, the identifier is not evaluated.
-It is not possible to access an object's property using an arbitrary expression.
+It is not possible to access a record's property using an arbitrary expression.
 
-If `obj` contains an entry with property `k`, both `obj.k` and `obj["k"]` return the value associated with `k`.
-If `obj` does **not** contain an entry with property `k`, both `obj.k` and `obj["k"]` return _null_.
+If `rec` contains an entry with property `k`, both `rec.k` and `rec["k"]` return the value associated with `k`.
+If `rec` does **not** contain an entry with property `k`, both `rec.k` and `rec["k"]` return _null_.
 
 ```js
 MemberExpression        = DotExpression  | MemberBracketExpression .
@@ -223,18 +246,19 @@ Operators with a lower number have higher precedence.
 | 1          | `a()`              | Function call                        |
 |            | `a[]`              | Member or index access               |
 |            | `.`                | Member access                        |
-| 2          | `^`                | Exponentiation                       |
-| 3          | `*` `/` `%`        | Multiplication, division, and modulo |
-| 4          | `+` `-`            | Addition and subtraction             |
-| 5          |`==` `!=`           | Comparison operators                 |
+| 2          | <code>\|></code>   | Pipe forward                         |
+| 3          | `^`                | Exponentiation                       |
+| 4          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 5          | `+` `-`            | Addition and subtraction             |
+| 6          |`==` `!=`           | Comparison operators                 |
 |            | `<` `<=`           |                                      |
 |            | `>` `>=`           |                                      |
 |            |`=~` `!~`           |                                      |
-| 6          | `not`              | Unary logical operator               |
+| 7          | `not`              | Unary logical operator               |
 |            | `exists`           | Null check operator                  |
-| 7          | `and`              | Logical AND                          |
-| 8          | `or`               | Logical OR                           |
-| 9          | `if` `then` `else` | Conditional                          |
+| 8          | `and`              | Logical AND                          |
+| 9          | `or`               | Logical OR                           |
+| 10         | `if` `then` `else` | Conditional                          |
 
 The operator precedence is encoded directly into the grammar as the following.
 
@@ -274,4 +298,4 @@ PostfixOperator          = MemberExpression
 Dividing by 0 or using the mod operator with a divisor of 0 will result in an error.
 {{% /warn %}}
 
-_Also see [Flux Operators](/v2.0/reference/flux/language/operators)._
+_Also see [Flux Operators](/influxdb/v2.0/reference/flux/language/operators)._

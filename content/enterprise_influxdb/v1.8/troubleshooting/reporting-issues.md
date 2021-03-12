@@ -1,14 +1,15 @@
 ---
-title: Reporting issues
+title: Report issues
+description: Contact support to report issues with InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/troubleshooting/reporting-issues/
 menu:
   enterprise_influxdb_1_8:
     weight: 20
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
-When you have challenges with the InfluxDB Enterprise product, please contact support
+When you have challenges with the InfluxDB Enterprise product, please contact InfluxData Support
 using the email we provided at the time of the signup.
 That will ensure your support tickets are routed directly to our private release
 support team.

@@ -2,15 +2,15 @@
 title: sum() function
 description: The `sum()` function computes the sum of non-null records in a specified column.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/sum
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/sum/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/sum
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/sum/
 menu:
   influxdb_2_0_ref:
     name: sum
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#sum, InfluxQL – SUM()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sum, InfluxQL – SUM()
 ---
 
 The `sum()` function computes the sum of non-null records in a specified column.

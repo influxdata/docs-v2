@@ -80,7 +80,7 @@ FROM "apple_stand"."autogen"."variety"
 FROM "apple_stand"."autogen"."variety"'>
 \*</div>
 
-If visualized as a [stacked graph](/chronograf/v1.5/guides/visualization-types/#stacked-graph)
+If visualized as a [stacked graph](/{{< latest "chronograf" >}}/guides/visualization-types/#stacked-graph)
 in Chronograf, it would look like:
 
 ![Percentage of total per apple variety](/img/influxdb/1-5-calc-percentage-apple-variety.png)
@@ -109,7 +109,7 @@ _**Note the following about this query:**_
 - It includes an explicitly limited time window. Without it, aggregate functions
   are very resource-intensive.
 
-If visualized as a [stacked graph](/chronograf/v1.5/guides/visualization-types/#stacked-graph)
+If visualized as a [stacked graph](/{{< latest "chronograf" >}}/guides/visualization-types/#stacked-graph)
 in Chronograf, it would look like:
 
 ![Hourly average percentage of total per apple variety](/img/influxdb/1-5-calc-percentage-hourly-apple-variety.png)

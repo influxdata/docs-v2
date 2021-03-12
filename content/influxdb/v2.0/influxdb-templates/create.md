@@ -8,8 +8,6 @@ menu:
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
-aliases:
-  - /v2.0/influxdb-templates/create/
 influxdb/v2.0/tags: [templates]
 related:
   - /influxdb/v2.0/reference/cli/influx/export/
@@ -27,32 +25,28 @@ UI and export the resources as a template.
 Templatable resources are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
-
-**InfluxDB OSS** supports multiple organizations so you can create new organizations
-for the sole purpose of building and maintaining a template.
-In **InfluxDB Cloud**, your user account is an organization.
-**We recommend using InfluxDB OSS to create InfluxDB templates.**
 {{% /note %}}
 
 **To create a template:**
 
-1. [Start InfluxDB](/v2.0/get-started/).
-2. [Create a new organization](/v2.0/organizations/create-org/).
+1. [Start InfluxDB](/influxdb/v2.0/get-started/).
+2. [Create a new organization](/influxdb/v2.0/organizations/create-org/).
 3. In the InfluxDB UI add one or more of the following templatable resources:
 
-   - [buckets](/v2.0/organizations/buckets/create-bucket/)
-   - [checks](/v2.0/monitor-alert/checks/create/)
-   - [dashboards](/v2.0/visualize-data/dashboards/create-dashboard/)
-   - [dashboard variables](/v2.0/visualize-data/variables/create-variable/)
-   - [labels](/v2.0/visualize-data/labels/)
-   - [notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/)
-   - [notification rules](/v2.0/monitor-alert/notification-rules/create/)
-   - [tasks](/v2.0/process-data/manage-tasks/create-task/)
-   - [Telegraf configurations](/v2.0/write-data/use-telegraf/)
+   - [buckets](/influxdb/v2.0/organizations/buckets/create-bucket/)
+   - [checks](/influxdb/v2.0/monitor-alert/checks/create/)
+   - [dashboards](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/)
+   - [dashboard variables](/influxdb/v2.0/visualize-data/variables/create-variable/)
+   - [labels](/influxdb/v2.0/visualize-data/labels/)
+   - [notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create/)
+   - [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/)
+   - [tasks](/influxdb/v2.0/process-data/manage-tasks/create-task/)
+   - [Telegraf configurations](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
 4. Export the template _(see [below](#export-a-template))_.
 
 ## Export a template
+
 Do one of the following to export a template:
 
 - [Export all resources in an organization](#export-all-resources)
@@ -60,6 +54,7 @@ Do one of the following to export a template:
 - [Export a stack and its associated resources](#export-a-stack)
 
 ### Export all resources
+
 To export all templatable resources within an organization to a template manifest,
 use the `influx export all` command.
 Provide the following:
@@ -71,6 +66,7 @@ Provide the following:
   **JSON** (`.json`) are supported.
 
 ###### Export all resources to a template
+
 ```sh
 # Syntax
 influx export all -o <org-name> -f <file-path> -t <token>
@@ -83,11 +79,13 @@ influx export all \
 ```
 
 #### Export resources filtered by labelName or resourceKind
+
 The `influx export all` command has an optional `--filter` flag that exports
 only resources that match specified label names or resource kinds.
-Provide multiple filters for both `labelName` and `resourceKind`
+Provide multiple filters for both `labelName` and `resourceKind`.
 
 ###### Export only dashboards and buckets with specific labels
+
 The following example exports resources that match this predicate logic:
 
 ```js
@@ -108,11 +106,11 @@ influx export all \
 ```
 
 For information about flags, see the
-[`influx export all` documentation](/v2.0/reference/cli/influx/export/all/).
+[`influx export all` documentation](/influxdb/v2.0/reference/cli/influx/export/all/).
 
 ### Export specific resources
-To export specific resources within an organization to a template manifest,
-use the `influx export` with resource flags for each resource to include.
+
+To export specific resources within an organization to a template manifest, use the `influx export` with resource flags for each resource to include.
 Provide the following:
 
 - **Organization name** or **ID**
@@ -120,16 +118,17 @@ Provide the following:
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.
-- **Resource flags** with corresponding lists of resource IDs to include in the template.
+- **Resource flags** with corresponding lists of resource IDs or resource names to include in the template.
   For information about what resource flags are available, see the
-  [`influx export` documentation](/v2.0/reference/cli/influx/export/).
+  [`influx export` documentation](/influxdb/v2.0/reference/cli/influx/export/).
 
 ###### Export specific resources to a template
+
 ```sh
 # Syntax
 influx export all -o <org-name> -f <file-path> -t <token> [resource-flags]
 
-# Example
+# Export specific resources by ID
 influx export all \
   -o my-org \
   -f ~/templates/awesome-template.yml \
@@ -137,9 +136,19 @@ influx export all \
   --buckets=00x000ooo0xx0xx,o0xx0xx00x000oo \
   --dashboards=00000xX0x0X00x000 \
   --telegraf-configs=00000x0x000X0x0X0
+
+# Export specific resources by name
+influx export all \
+  -o my-org \
+  -f ~/templates/awesome-template.yml \
+  -t $INFLUX_TOKEN \
+  --bucket-names=bucket1,bucket2 \
+  --dashboard-names=dashboard1,dashboard2 \
+  --telegraf-config-names=telegrafconfig1,telegrafconfig2
 ```
 
 ### Export a stack
+
 To export a stack and all its associated resources as a template, use the
 `influx export stack` command.
 Provide the following:
@@ -152,6 +161,7 @@ Provide the following:
 - **Stack ID**
 
 ###### Export a stack as a template
+
 ```sh
 # Syntax
 influx export stack \
@@ -169,6 +179,7 @@ influx export stack \
 ```
 
 ## Include user-definable resource names
+
 After exporting a template manifest, replace resource names with **environment references**
 to let users customize resource names when installing your template.
 
@@ -180,7 +191,7 @@ to let users customize resource names when installing your template.
     - `endpointName` _(unique to `NotificationRule` resources)_
 
 3.  Replace the resource field value with an `envRef` object with a `key` property
-    that reference the key of a key-value pair the user provides when installing the template.
+    that references the key of a key-value pair the user provides when installing the template.
     During installation, the `envRef` object is replaced by the value of the
     referenced key-value pair.
     If the user does not provide the environment reference key-value pair, InfluxDB
@@ -219,7 +230,7 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [applying the template](/v2.0/influxdb-templates/use/#apply-templates).
+when [applying the template](/influxdb/v2.0/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 
@@ -235,6 +246,7 @@ exist in the template and what keys to use to replace them._
 
 {{% note %}}
 #### Resource fields that support environment references
+
 Only the following fields support environment references:
 
 - `metadata.name`
@@ -243,6 +255,7 @@ Only the following fields support environment references:
 {{% /note %}}
 
 ## Share your InfluxDB templates
+
 Share your InfluxDB templates with the entire InfluxData community.
 **Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/)
 repository on GitHub.**

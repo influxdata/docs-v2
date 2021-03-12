@@ -4,7 +4,7 @@ description: >
   The `slack.message()` function sends a single message to a Slack channel.
   The function works with either with the chat.postMessage API or with a Slack webhook.
 aliases:
-  - /v2.0/reference/flux/functions/slack/message/
+  - /influxdb/v2.0/reference/flux/functions/slack/message/
 menu:
   influxdb_2_0_ref:
     name: slack.message
@@ -24,11 +24,8 @@ import "slack"
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "Fluxtastic",
-  channel: "#flux",
-  workspace: "",
+  channel: "#flux",,
   text: "This is a message from the Flux slack.message() function.",
-  iconEmoji: "wave",
   color: "good"
 )
 ```
@@ -57,42 +54,18 @@ A token is only required if using the Slack chat.postMessage API.
 
 _**Data type:** String_
 
-### username
-The username to use when posting the message to a Slack channel. <span class="required">Required</span>
-
-_**Data type:** String_
-
 ### channel
-The name of channel to post the message to. <span class="required">Required</span>
-
-_**Data type:** String_
-
-### workspace
-The name of the Slack workspace to use if there are multiple.
-Defaults to `""`.
+({{< req >}}) The name of channel to post the message to.
 
 _**Data type:** String_
 
 ### text
-The text to display in the Slack message. <span class="required">Required</span>
+({{< req >}}) The text to display in the Slack message.
 
 _**Data type:** String_
-
-### iconEmoji
-The name of emoji to use as the user avatar when posting the message to Slack.
-<span class="required">Required</span>
-
-_**Data type:** String_
-
-{{% note %}}
-#### Things to know about iconEmoji
-- **Do not** enclose the name in colons `:` as you do in the Slack client.
-- `iconEmoji` only appears as the user avatar when using the Slack chat.postMessage API.
-{{% /note %}}
 
 ### color
-The color to include with the message.
-<span class="required">Required</span>
+({{< req >}}) The color to include with the message.
 
 **Valid values include:**
 
@@ -120,8 +93,8 @@ lastReported =
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "johndoe",
   channel: "#system-status",
   text: "The last reported status was \"${lastReported.status}\"."
+  color: "warning"
 )
 ```

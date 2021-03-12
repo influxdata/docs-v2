@@ -1,10 +1,11 @@
 ---
 title: SNMP trap event handler
-description: The "snmptrap" event handler allows you to send Kapacitor alerts SNMP traps. This page includes configuration options and usage examples.
+description: >
+  The "snmptrap" event handler allows you to send Kapacitor alerts SNMP traps. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: SNMP Trap
-    weight: 1600
+    weight: 1700
     parent: Event handlers
 ---
 
@@ -38,7 +39,7 @@ Number of retries when sending traps.
 
 ## Options
 The following SNMP trap event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.snmpTrap()` in a TICKscript.
 
 | Name      | Type   | Description                                                                     |

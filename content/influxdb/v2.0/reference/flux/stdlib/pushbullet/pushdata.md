@@ -45,11 +45,11 @@ Defaults to `""`.
 _**Data type:** String_
 
 ### data
-<span class="req">Required</span>  
+({{< req >}})
 Data to send to the Pushbullet API.
 The function JSON-encodes data before sending it to Pushbullet.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 
 

@@ -12,13 +12,12 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/conditional-logic/
-  - /v2.0/query-data/flux/conditional-logic/
+  - /influxdb/v2.0/query-data/guides/conditional-logic/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"
@@ -29,8 +28,8 @@ Flux provides `if`, `then`, and `else` conditional expressions that allow for po
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Conditional expression syntax
 ```js
@@ -45,9 +44,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-  [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/),
-  [`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
+  [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+  [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/),
+  [`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
 
 ## Evaluating conditional expressions
 
@@ -81,7 +80,7 @@ overdue = if dueDate < now() then true else false
 ```
 
 ### Create conditional filters
-The following example uses an example `metric` [dashboard variable](/v2.0/visualize-data/variables/)
+The following example uses an example `metric` [dashboard variable](/influxdb/v2.0/visualize-data/variables/)
 to change how the query filters data.
 `metric` has three possible values:
 
@@ -105,7 +104,7 @@ from(bucket: "example-bucket")
 
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+The following example uses the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -152,8 +151,8 @@ from(bucket: "example-bucket")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
-and [`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
+The following example uses the [`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+and [`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

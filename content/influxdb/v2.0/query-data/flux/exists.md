@@ -3,7 +3,7 @@ title: Check if a value exists
 seotitle: Use Flux to check if a value exists
 list_title: Exists
 description: >
-  Use the Flux `exists` operator to check if an object contains a key or if that
+  Use the Flux `exists` operator to check if a record contains a key or if that
   key's value is `null`.
 influxdb/v2.0/tags: [exists]
 menu:
@@ -12,11 +12,10 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/exists/
-  - /v2.0/query-data/flux/exists/
+  - /influxdb/v2.0/query-data/guides/exists/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
 list_code_example: |
   ##### Filter null values
   ```js
@@ -25,7 +24,7 @@ list_code_example: |
   ```
 ---
 
-Use the Flux `exists` operator to check if an object contains a key or if that
+Use the Flux `exists` operator to check if a record contains a key or if that
 key's value is `null`.
 
 ```js
@@ -40,13 +39,13 @@ exists p.height
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 Use `exists` with row functions (
-[`filter()`](/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-[`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/),
-[`reduce()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/))
+[`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
+[`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/),
+[`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/))
 to check if a row includes a column or if the value for that column is `null`.
 
 #### Filter null values

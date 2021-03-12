@@ -80,7 +80,7 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Inputs
 
-- [Arista LANZ Consumer](`lanz`) - Contributed by [@timhughes](https://github.com/timhughes)
+- [Arista LANZ Consumer](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/lanz) (`lanz`) - Contributed by [@timhughes](https://github.com/timhughes)
 - [ClickHouse](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/clickhouse/README.md)(`clickhouse`) - Contributed by [@kshvakov](https://github.com/kshvakov)
 - [Execd](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/execd/README.md)(`execd`) - Contributed by [@jgraichen](https://github.com/jgraichen)
 - [Event Hub Consumer](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/eventhub_consumer/README.md)(`eventhub_consumer`) - Contributed by [@R290](https://github.com/R290)
@@ -92,13 +92,13 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Processors
 
-- [Dedup](`dedup`) - Contributed by [@igomura](https://github.com/igomura)
-- [S2 Geo](`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
-- [Template](`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
+- [Dedup](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/dedup) (`dedup`) - Contributed by [@igomura](https://github.com/igomura)
+- [S2 Geo](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/s2geo) (`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
+- [Template](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/template) (`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
 
 #### Outputs
 
-- [Warp10](`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
+- [Warp10](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/outputs/warp10) (`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
 
 ### Features
 

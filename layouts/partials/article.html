@@ -1,12 +1,12 @@
 <div class="article">
   <article class="article--content">
     <h1>{{ .Title }}</h1>
-    {{ partial "article/product-tags.html" . }}
     {{ partial "article/stable-version.html" . }}
     {{ partial "article/flux-experimental.html" . }}
+    {{ partial "article/flux-contrib.html" . }}
     {{ .Content }}
     {{ partial "article/related.html" . }}
     {{ partial "article/tags.html" . }}
-    {{ partial "article/_feedback.html" . }}
+    {{ partial "article/feedback.html" . }}
   </article>
 </div>

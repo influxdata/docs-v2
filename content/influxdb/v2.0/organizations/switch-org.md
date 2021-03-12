@@ -2,8 +2,6 @@
 title: Switch organizations
 seotitle: Switch organizations in InfluxDB
 description: Switch from one organization to another in the InfluxDB UI
-aliases:
-  - /v2.0/organizations/switch-org/
 menu:
   influxdb_2_0:
     name: Switch organizations
