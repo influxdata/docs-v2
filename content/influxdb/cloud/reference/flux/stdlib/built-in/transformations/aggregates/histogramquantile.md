@@ -2,7 +2,7 @@
 title: histogramQuantile() function
 description: >
  The `histogramQuantile()` function approximates a quantile given a histogram
- that approximates the cumulative distribution of the dataset.
+ with the cumulative distribution of the dataset.
 aliases:
   - /influxdb/cloud/reference/flux/functions/transformations/aggregates/histogramquantile
   - /influxdb/cloud/reference/flux/functions/built-in/transformations/aggregates/histogramquantile/

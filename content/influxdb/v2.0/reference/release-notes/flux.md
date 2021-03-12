@@ -13,7 +13,7 @@ menu:
 ### Features
 - Add new [`experimental.kaufmansAMA()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/kaufmansama/) signature.
 - Add new [experimental aggregate function](/influxdb/v2.0/reference/flux/stdlib/experimental/#experimental-functions) signatures.
-- Add `extends` capability to `testcase` block.
+- Add `extends` capability to `testcase` block to extend tests using a relative path to another file.
 
 ### Bug fixes
 - Update CSV package to handle large files.

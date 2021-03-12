@@ -33,8 +33,8 @@ experimental.quantile(
 )
 ```
 
-When using the `estimate_tdigest` or `exact_mean` methods, it outputs non-null
-records with values that fall within the specified quantile.
+When using the `estimate_tdigest` or `exact_mean` methods, the function outputs
+non-null records with values that fall within the specified quantile.
 
 When using the `exact_selector` method, it outputs the non-null record with the
 value that represents the specified quantile.

@@ -2,7 +2,7 @@
 title: experimental.histogramQuantile() function
 description: >
  The `experimental.histogramQuantile()` function approximates a quantile given a histogram
- that approximates the cumulative distribution of the dataset.
+ with the cumulative distribution of the dataset.
 menu:
   influxdb_cloud_ref:
     name: experimental.histogramQuantile

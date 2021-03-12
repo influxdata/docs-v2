@@ -1,8 +1,8 @@
 ---
 title: experimental.histogramQuantile() function
 description: >
- The `experimental.histogramQuantile()` function approximates a quantile given a histogram
- that approximates the cumulative distribution of the dataset.
+ The `experimental.histogramQuantile()` function approximates a quantile given a
+ histogram with the cumulative distribution of the dataset.
 menu:
   influxdb_2_0_ref:
     name: experimental.histogramQuantile
@@ -12,8 +12,8 @@ related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/
 ---
 
-The `experimental.histogramQuantile()` function approximates a quantile given a histogram that
-approximates the cumulative distribution of the dataset.
+The `experimental.histogramQuantile()` function approximates a quantile given a
+histogram with the cumulative distribution of the dataset.
 Each input table represents a single histogram.
 The histogram tables must have two columns – a count column (`_value`) and an upper bound column (`le`).
 
