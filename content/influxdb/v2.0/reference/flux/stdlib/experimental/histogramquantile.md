@@ -15,11 +15,10 @@ related:
 The `experimental.histogramQuantile()` function approximates a quantile given a
 histogram with the cumulative distribution of the dataset.
 Each input table represents a single histogram.
-The histogram tables must have two columns – a count column (`_value`) and an upper bound column (`le`).
+Each input table represents a single histogram. Input tables must have two columns—a count column (`_value`) and an upper bound column (`le`), and neither column can be part of the group key. 
 
-Input tables must include `le` and `_value` columns neither can be part of the group key.
 The count is the number of values that are less than or equal to the upper bound value (`le`).
-Input tables can have any number of records, each representing an entry in the histogram.
+Input tables can have an unlimited number of records; each record represents an entry in the histogram.
 The counts must be monotonically increasing when sorted by upper bound (`le`).
 If any values in the `_value` or `le` columns are `null`, the function returns an error.
 
@@ -28,7 +27,7 @@ If the either of the bounds used in interpolation are infinite,
 then the other finite bound is used and no interpolation is performed.
 
 The output table has the same group key as the input table.
-The function returns the value of the desired quantile from the histogram in the
+The function returns the value of the specified quantile from the histogram in the
 `_value` column and drops all columns not part of the group key.
 
 _**Function type:** Aggregate_  

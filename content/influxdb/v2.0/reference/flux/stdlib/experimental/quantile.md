@@ -16,8 +16,7 @@ related:
 ---
 
 The `experimental.quantile()` function outputs non-null records with values in
-the `_value` column that fall within the specified quantile or the non-null
-record with the value in the `_value` column that represents the specified quantile.
+the `_value` column that fall within the specified quantile or represent the specified quantile.
 Which it returns depends on the [method](#method) used.
 The `_value` column must contain float values.
 
@@ -42,7 +41,7 @@ value that represents the specified quantile.
 ## Parameters
 
 ### q
-A value between 0 and 1 indicating the desired quantile.
+A value between 0 and 1 thats specifies the quantile.
 
 _**Data type:** Float_
 
