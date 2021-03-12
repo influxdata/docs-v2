@@ -11,7 +11,7 @@ weight: 203
 A _block_ is a possibly empty sequence of statements within matching braces (`{}`).
 
 ```
-Block         = "{" StatementList "} .
+Block         = "{" StatementList "}" .
 StatementList = { Statement } .
 ```
 

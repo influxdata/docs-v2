@@ -10,15 +10,15 @@ menu:
 weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
-  - /v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
   - /influxdb/v2.0/query-data/flux/geo/
 ---
 
 The `geo.filterRows()` function filters data by a specified geographic region with
 the option of strict filtering.
-This function is a combination of [`geo.gridFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/)
-and [`geo.strictFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/).
+This function is a combination of [`geo.gridFilter()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/gridfilter/)
+and [`geo.strictFilter()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/).
 
 _**Function type:** Transformation_
 
@@ -39,8 +39,8 @@ geo.filterRows(
 {{% note %}}
 #### s2_cell_id must be part of the group key
 To filter geo-temporal data with `geo.filterRows()`, `s2_cell_id` must be part
-of the [group key](/v2.0/reference/glossary/#group-key).
-To add `s2_cell_id` to the group key, use [`experimental.group`](/v2.0/reference/flux/stdlib/experimental/group):
+of the [group key](/influxdb/v2.0/reference/glossary/#group-key).
+To add `s2_cell_id` to the group key, use [`experimental.group`](/influxdb/v2.0/reference/flux/stdlib/experimental/group):
 
 ```js
 import "experimental"
@@ -76,10 +76,10 @@ In most cases, the specified geographic region does not perfectly align with S2 
 
 ### region
 The region containing the desired data points.
-Specify object properties for the shape.
-_See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+Specify record properties for the shape.
+_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### minSize
 Minimum number of cells that cover the specified region.
@@ -196,19 +196,30 @@ filterRows = (
   maxSize=-1,
   level=-1,
   s2cellIDLevel=-1,
-  correlationKey=["_time"],
   strict=true
 ) => {
+  _columns =
+    |> columns(column: "_value")
+    |> tableFind(fn: (key) => true )
+    |> getColumn(column: "_value")
   _rows =
-    tables
-      |> gridFilter(
-        region,
-        minSize: minSize,
-        maxSize: maxSize,
-        level: level,
-        s2cellIDLevel: s2cellIDLevel
-      )
-      |> toRows(correlationKey)
+    if contains(value: "lat", set: _columns) then
+      tables
+        |> gridFilter(
+          region: region,
+          minSize: minSize,
+          maxSize: maxSize,
+          level: level,
+          s2cellIDLevel: s2cellIDLevel)
+    else
+      tables
+        |> gridFilter(
+          region: region,
+          minSize: minSize,
+          maxSize: maxSize,
+          level: level,
+          s2cellIDLevel: s2cellIDLevel)
+        |> toRows()
   _result =
     if strict then
       _rows

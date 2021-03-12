@@ -2,7 +2,7 @@
 title: sleep() function
 description: The `sleep()` function delays execution by a specified duration.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/misc/sleep/
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/sleep/
 menu:
   influxdb_2_0_ref:
     name: sleep
@@ -27,10 +27,10 @@ sleep(
 Defines input tables.
 `sleep()` accepts piped-forward data and passes it on unmodified after the
 specified [duration](#duration).
-If data is not piped-forward into `sleep()`, set `v` to specify a stream object.
+If data is not piped-forward into `sleep()`, set `v` to specify a stream of tables.
 The examples [below](#examples) illustrate how.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### duration
 The length of time to delay execution.

@@ -5,6 +5,8 @@ menu:
     name: Glossary
     weight: 20
     parent: Concepts
+canonical: /{{< latest "influxdb" "v2" >}}/reference/glossary/
+v2: /influxdb/v2.0/reference/glossary/
 ---
 
 ## aggregation
@@ -166,7 +168,7 @@ The number of data nodes in a cluster **must be evenly divisible by the replicat
 
 > **Important:** If the replication factor isn't evenly divisible into the number of data nodes, data may be distributed unevenly across the cluster and cause poor performance. Likewise, decreasing the replication factor (fewer copies of data in a cluster) may reduce performance depending on query and write load.
 
-Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
+Related entries: [duration](/influxdb/v1.7/concepts/glossary/#duration), [node](/influxdb/v1.7/concepts/glossary/#node),
 [retention policy](/influxdb/v1.7/concepts/glossary/#retention-policy-rp)
 
 ## retention policy (RP)
@@ -290,7 +292,7 @@ Related entries: [database](/influxdb/v1.7/concepts/glossary/#database), [retent
 
 ## subscription
 
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
@@ -346,7 +348,7 @@ Related entries: [aggregation](/influxdb/v1.7/concepts/glossary/#aggregation), [
 
 ## TSM (Time Structured Merge tree)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.7/concepts/storage_engine/) for more.
+The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/influxdb/v1.7/concepts/storage_engine/) for more.
 
 ## user
 

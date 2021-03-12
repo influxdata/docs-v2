@@ -8,11 +8,10 @@ description: >
 menu:
   influxdb_2_0:
     name: Client libraries
+    identifier: write-client-libraries
     parent: Developer tools
-aliases:
-  - /v2.0/write-data/developer-tools/client-libraries/
 ---
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
 
-See [Client libraries reference](/v2.0/reference/api/client-libraries/) for more information.
+See [Client libraries reference](/influxdb/v2.0/tools/client-libraries/) for more information.

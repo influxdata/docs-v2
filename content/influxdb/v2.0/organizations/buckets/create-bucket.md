@@ -7,12 +7,17 @@ menu:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
-aliases:
-  - /v2.0/organizations/create-org/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create a bucket.
+
+{{% note %}}
+#### Bucket limits
+A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
+{{% /note %}}
 
 ## Create a bucket in the InfluxDB UI
 
@@ -46,7 +51,7 @@ There are two places you can create a bucket in the UI.
 
 ## Create a bucket using the influx CLI
 
-Use the [`influx bucket create` command](/v2.0/reference/cli/influx/bucket/create)
+Use the [`influx bucket create` command](/influxdb/v2.0/reference/cli/influx/bucket/create)
 to create a new bucket. A bucket requires the following:
 
 - bucket name

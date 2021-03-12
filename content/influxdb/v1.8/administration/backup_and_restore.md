@@ -1,6 +1,7 @@
 ---
 title: Back up and restore InfluxDB OSS
-description: Using InfluxDB OSS backup and restore utilities for online, Enterprise-compatible use and portability between InfluxDB Enterprise and InfluxDB OSS servers.
+description: >
+  To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
   - /influxdb/v1.8/administration/backup-and-restore/
 menu:
@@ -8,6 +9,7 @@ menu:
     name: Back up and restore
     weight: 60
     parent: Administration
+v2: /influxdb/v2.0/backup-restore/
 ---
 
 ## Overview
@@ -16,16 +18,16 @@ The InfluxDB OSS `backup` utility provides:
 
 * Option to run backup and restore functions on online (live) databases.
 * Backup and restore functions for single or multiple databases, along with optional timestamp filtering.
-* Data can be imported from [InfluxDB Enterprise](/enterprise_influxdb/latest/) clusters
+* Data can be imported from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters
 * Backup files that can be imported into an InfluxDB Enterprise database.
 
-> **InfluxDB Enterprise users:** See [Backing up and restoring in InfluxDB Enterprise](/enterprise_influxdb/latest/administration/backup-and-restore/).
+> **InfluxDB Enterprise users:** See [Backing up and restoring in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
 
 > ***Note:*** Prior to InfluxDB OSS 1.5, the `backup` utility created backup file formats incompatible with InfluxDB Enterprise. This legacy format is still supported in the new `backup` utility as input for the new *online* restore function. The *offline* backup and restore utilities in InfluxDB OSS versions 1.4 and earlier are deprecated, but are documented below in [Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
 
 ## Online backup and restore (for InfluxDB OSS)
 
-Use the `backup` and `restore` utilities to back up and restore between `influxd` instances with the same versions or with only minor version differences. For example, you can back up from 1.7.3 and restore on 1.8.0.
+Use the `backup` and `restore` utilities to back up and restore between `influxd` instances with the same versions or with only minor version differences. For example, you can back up from 1.7.3 and restore on 1.8.2.
 
 ### Configuring remote connections
 
@@ -275,7 +277,7 @@ Optional flags also include:
 
 - `-retention <retention-policy-name>`
   - This flag can be used to backup a specific retention policy. For more information on retention policies, see
-  [Retention policy management](/influxdb/v1.8/query_language/database_management/#retention-policy-management). If unspecified, all retention policies will be backed up.
+  [Retention policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management). If unspecified, all retention policies will be backed up.
 
 - `-shard <shard ID>` - This flag can be used to backup a specific
   shard ID. To see which shards are available, you can run the command

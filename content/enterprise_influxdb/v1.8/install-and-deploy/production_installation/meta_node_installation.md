@@ -10,21 +10,13 @@ menu:
 ---
 
 InfluxDB Enterprise offers highly scalable clusters on your infrastructure
-and a management UI ([via Chronograf](https://docs.influxdata.com/chronograf/latest) for working with clusters.
+and a management UI ([via Chronograf](/{{< latest "chronograf" >}}) for working with clusters.
 The Production Installation process is designed for users looking to
 deploy InfluxDB Enterprise in a production environment.
 The following steps will get you up and running with the first essential component of
 your InfluxDB Enterprise cluster: the meta nodes.
 
-> If you wish to evaluate InfluxDB Enterprise in a non-production
-environment, feel free to follow the instructions outlined in the
-[QuickStart installation](/enterprise_influxdb/v1.8/install-and-deploy/quickstart_installation) section.
-Please note that if you install InfluxDB Enterprise with the QuickStart Installation process you
-will need to reinstall InfluxDB Enterprise with the Production Installation
-process before using the product in a production environment.
-
-<br>
-# Meta node setup description and requirements
+## Meta node setup description and requirements
 
 The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.8/concepts/glossary/#meta-node), with each meta node running on its own server.
 <br>
@@ -61,9 +53,12 @@ If the meta nodes cannot reach `portal.influxdata.com` on port `80` or `443`,
 you'll need to set the `license-path` setting instead of the `license-key`
 setting in the meta node configuration file.
 
-<br>
-# Meta node setup
-## Step 1: Add appropriate DNS entries for each of your servers
+#### User account
+
+The installation package creates an `influxdb` user used to run the influxdb meta service. The `influxdb` user also owns certain files needed to start the service. In some cases, local policies may prevent the local user account from being created and the service fails to start. Contact your systems administrator for assistance with this requirement.
+
+## Meta node setup
+### Step 1: Add appropriate DNS entries for each of your servers
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
 The addition of DNS entries and IP assignment is usually site and policy specific; contact your DNS administrator for assistance as necessary.
@@ -91,47 +86,47 @@ Resolve any connectivity issues before proceeding with the installation.
 A healthy cluster requires that every meta node can communicate with every other
 meta node.
 
-## Step 2: Set up, configure, and start the meta services
+### Step 2: Set up, configure, and start the meta services
 
 Perform the following steps on each meta server.
 
-### I. Download and install the meta service
+#### I. Download and install the meta service
 
-#### Ubuntu & Debian (64-bit)
-
-```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.0-c1.8.0_amd64.deb
-sudo dpkg -i influxdb-meta_1.8.0-c1.8.0_amd64.deb
-```
-
-#### RedHat & CentOS (64-bit)
+##### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
-sudo yum localinstall influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.2-c1.8.2_amd64.deb
+sudo dpkg -i influxdb-meta_1.8.2-c1.8.2_amd64.deb
 ```
 
-#### Verify the authenticity of release download (recommended)
+##### RedHat & CentOS (64-bit)
+
+```
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
+sudo yum localinstall influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
+```
+
+##### Verify the authenticity of release download (recommended)
 
 For added security, follow these steps to verify the signature of your InfluxDB download with `gpg`.
 
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.0_c1.8.0.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.2_c1.8.2.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-meta-1.8.0_c1.8.0.x86_64.rpm.asc influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
+    gpg --verify influxdb-meta-1.8.2_c1.8.2.x86_64.rpm.asc influxdb-meta-1.8.2_c1.8.2.x86_64.rpm
     ```
 
     The output from this command should include the following:
@@ -140,7 +135,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
     gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
     ```
 
-### II. Edit the configuration file
+#### II. Edit the configuration file
 
 In `/etc/influxdb/influxdb-meta.conf`:
 
@@ -155,7 +150,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
 ```
 # Hostname advertised by this host for remote addresses.  This must be resolvable by all
 # other nodes in the cluster
-hostname="<enterprise-meta-0x>" 
+hostname="<enterprise-meta-0x>"
 
 [enterprise]
   # license-key and license-path are mutually exclusive, use only one and leave the other blank
@@ -165,7 +160,7 @@ hostname="<enterprise-meta-0x>"
   license-path = "/path/to/readable/JSON.license.file" # Mutually exclusive with license-key
 ```
 
-### III. Start the meta service
+#### III. Start the meta service
 
 On sysvinit systems, enter:
 ```
@@ -195,7 +190,7 @@ must pass the `-single-server flag` when starting the single meta node.
 Please note that a cluster with only one meta node is **not** recommended for
 production environments.
 
-## Step 3: Join the meta nodes to the cluster
+### Step 3: Join the meta nodes to the cluster
 
 From one and only one meta node, join all meta nodes including itself.
 In our example, from `enterprise-meta-01`, run:
@@ -231,9 +226,9 @@ The expected output is:
     Meta Nodes
     ==========
     TCP Address               Version
-    enterprise-meta-01:8091   1.8.0-c1.8.0
-    enterprise-meta-02:8091   1.8.0-c1.8.0
-    enterprise-meta-03:8091   1.8.0-c1.8.0
+    enterprise-meta-01:8091   1.8.2-c1.8.2
+    enterprise-meta-02:8091   1.8.2-c1.8.2
+    enterprise-meta-03:8091   1.8.2-c1.8.2
 
 
 Note that your cluster must have at least three meta nodes.

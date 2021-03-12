@@ -21,7 +21,7 @@ It creates unnecessary overhead, particularly for busy clusters, that can overlo
 Metrics stored in the `_internal` database primarily measure workload performance
 and should only be tested in non-production environments.
 
-To disable the `_internal` database, set [`store-enabled`](/influxdb/latest/administration/config/#monitoring-settings-monitor)
+To disable the `_internal` database, set [`store-enabled`](/{{< latest "influxdb" "v1" >}}/administration/config/#monitoring-settings-monitor)
 to `false` under the `[monitor]` section of your **InfluxDB configuration file**.
 
 ```toml
@@ -77,7 +77,7 @@ to visualize InfluxDB `_internal` metrics.
 - [hh](#hh-enterprise-only) (Enterprise only)
   - [writeShardReq](#writeshardreq)
   - [writeShardReqPoints](#writeshardreqpoints)
-- [hh_database](#hh-database) (Enterprise only)
+- [hh_database](#hh-database-enterprise-only) (Enterprise only)
   - [bytesRead](#bytesread)
   - [bytesWritten](#byteswritten)
   - [queueBytes](#queuebytes)
@@ -111,7 +111,7 @@ to visualize InfluxDB `_internal` metrics.
   - [promReadReq](#promreadreq)
   - [promWriteReq](#promwritereq)
   - [fluxQueryReq](#fluxqueryreq)
-  - [fluxQueryDurationNs](#fluxquerydurationns)
+  - [fluxQueryDurationNs](#fluxqueryreqdurationns)
   - [queryReq](#queryreq)
   - [queryReqDurationNs](#queryreqdurationns)
   - [queryRespBytes](#queryrespbytes)
@@ -220,7 +220,7 @@ to visualize InfluxDB `_internal` metrics.
   - [numFiles](#numfiles)
 - [tsm1_wal](#tsm1-wal)
   - [currentSegmentDiskBytes](#currentsegmentdiskbytes)
-  - [oldSegmentsDiskBytes](#oldsegmentsdiskbytes)
+  - [oldSegmentDiskBytes](#oldsegmentdiskbytes)
   - [writeErr](#writeerr)
   - [writeOk](#writeok)
 - [write](#write)
@@ -228,13 +228,15 @@ to visualize InfluxDB `_internal` metrics.
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
   - [pointReqLocal](#pointreqlocal-enterprise-only) (Enterprise only)
   - [pointReqRemote](#pointreqremote-enterprise-only) (Enterprise only)
+  - [pointsWrittenOK](#pointsWrittenOK)
   - [req](#req)
   - [subWriteDrop](#subwritedrop)
   - [subWriteOk](#subwriteok)
+  - [valuesWrittenOK](#valuesWrittenOK)
   - [writeDrop](#writedrop)
   - [writeError](#writeerror)
   - [writeOk](#writeok)
-  - [writePartial](#writePartial-enterprise-only) (Enterprise only)
+  - [writePartial](#writepartial-enterprise-only) (Enterprise only)
   - [writeTimeout](#writetimeout)
 {{% /truncate %}}
 
@@ -365,7 +367,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/latest/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/{{< latest "enterprise_influxdb" >}}/administration/configuration/#retry-concurrency-20) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later. This was not the intended behavior of this stat.
@@ -438,7 +440,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/latest/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/{{< latest "enterprise_influxdb" >}}/administration/configuration/#retry-concurrency-20) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later.
@@ -522,7 +524,7 @@ The number of points dropped by the storage engine.
 The number of points accepted by the HTTP `/write` endpoint, but unable to be persisted.
 
 #### pointsWrittenOK
-The number of points accepted by the HTTP `/write` endpoint and persisted successfully.
+The number of points successfully accepted and persisted by the HTTP `/write` endpoint.
 
 #### promReadReq
 The number of read requests to the Prometheus `/read` endpoint.
@@ -557,6 +559,8 @@ The number of HTTP responses due to server errors.
 #### statusReq
 The number of status requests served using the HTTP `/status` endpoint.
 
+#### valuesWrittenOK
+The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 
@@ -963,6 +967,9 @@ Then if the write attempt fails, we check again if HH exists, and if so, add the
 This statistic does not distinguish between requests that are directly written to
 the destination node versus enqueued into the hinted handoff queue for the destination node.  
 
+#### pointsWrittenOK
+Number of points written to the HTTP `/write` endpoint and persisted successfully.
+
 #### req
 The total number of batches of points requested to be written to this node.
 
@@ -971,6 +978,9 @@ The total number of batches of points that failed to be sent to the subscription
 
 #### subWriteOk
 The total number of batches of points that were successfully sent to the subscription dispatcher.
+
+#### valuesWrittenOK
+Number of values (fields) written to the HTTP `/write` endpoint and persisted successfully.
 
 #### writeDrop
 The total number of write requests for points that have been dropped due to timestamps

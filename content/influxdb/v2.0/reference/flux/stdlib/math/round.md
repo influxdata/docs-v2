@@ -2,7 +2,7 @@
 title: math.round() function
 description: The math.round() function returns the nearest integer, rounding half away from zero.
 aliases:
-  - /v2.0/reference/flux/functions/math/round/
+  - /influxdb/v2.0/reference/flux/functions/math/round/
 menu:
   influxdb_2_0_ref:
     name: math.round

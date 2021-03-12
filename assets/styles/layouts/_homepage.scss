@@ -1,0 +1,355 @@
+//////////////////////////////// HOMEPAGE STYLES ///////////////////////////////
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .section {
+    display: flex;
+    width: 100%;
+    padding: 0rem 3rem;
+    flex-grow: 1;
+
+    .row{
+      flex-direction: row;
+    }
+
+    .half { width: 50%; }
+    .third { width: 33.33%; }
+    .quarter { width: 25%; }
+    .two-thirds { width: 66.67%; }
+    .three-quarters { width: 75%; }
+  }
+
+  ///////////////////////////// HERO SECTION STYLES ////////////////////////////
+
+  .hero {
+    position: relative;
+    padding-top: 3.5rem;
+    padding-bottom: 4.5rem;
+    @include gradient($grad-WarpSpeed)
+    color: $g20-white;
+    z-index: 0;
+    // overflow: hidden;
+
+    h2 {
+      margin: 1.25rem 0 .5rem;
+      font-weight: 300;
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.85rem;
+    }
+
+    #hero-img {
+      position: absolute;
+      max-width: 50%;
+      max-height: 135%;
+      bottom: -25%;
+      right: 0;
+    }
+
+    .actions {
+      display: flex;
+      margin: 1.25rem 0 .75rem 0;
+    }
+
+    a.btn {
+      position: relative;
+      display: inline-block;
+      flex: 1 0;
+      margin: 0 .5rem .5rem 0;
+      padding: 1.25rem 2.25rem;
+      color: $article-btn-text !important;
+      border-radius: $radius;
+      font-weight: $medium;
+      font-size: 1.1rem;
+      text-decoration: none;
+      text-align: center;
+      z-index: 1;
+      @include gradient($home-btn-gradient);
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $radius;
+        @include gradient($home-btn-gradient-hover, 270deg);
+        opacity: 0;
+        transition: opacity .2s;
+        z-index: -1;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  //////////////////////////// SEARCH SECTION STYLES ///////////////////////////
+  .search {
+    padding-top: 2rem;
+    padding-bottom: 2.25rem;
+
+    .sidebar--search {
+      max-width: 55%;
+      font-size: 1.1rem;
+
+      input {
+        padding: .75em 2.35rem .75rem 1rem
+      }
+
+      &:after {
+        font-size: 2rem;
+        top: .35rem;
+        right: .45rem;
+      }
+      .algolia-autocomplete.algolia-autocomplete-left, .algolia-autocomplete.algolia-autocomplete-right {
+        .ds-dropdown-menu {
+          top: auto !important;
+          left: 0 !important;
+          margin-bottom: 1.5rem;
+
+          &:after {
+            content: "";
+            box-shadow: 2px 2px 10px $sidebar-search-shadow;
+            height: 100%;
+            width: 100%;
+            mix-blend-mode: multiply;
+          }
+        }
+      }
+    }
+  }
+
+  /////////////////////////////// PRODUCT CARDS ////////////////////////////////
+
+  .group-wrapper {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    border-radius: $radius;
+    background-color: $sidebar-search-bg;
+    box-shadow: 2px 2px 10px $sidebar-search-shadow;
+    overflow: hidden;
+    color: $article-text;
+
+    h2 {
+      margin-top: .5rem;
+      font-weight: $medium;
+      color: $article-heading-alt;
+      a {color: inherit; &:hover{color: inherit;}}
+    }
+    p {
+      line-height: 1.45rem;
+      max-width: 700px;
+    }
+    a {
+      color: $article-link;
+      text-decoration: none;
+      font-weight: $medium;
+      &:hover{ color: $article-link-hover; }
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem .75rem;
+    flex: 1 0;
+
+    .card-content p { margin-bottom: 0; }
+
+    span.version {
+      font-size: 1.15rem;
+      opacity: .65;
+    }
+  }
+
+  #tick-cards {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    color: $g20-white;
+    @include gradient($home-tick-bg-gradient, 45deg)
+
+    h2 { color: $article-heading-alt; }
+
+    a {
+      display: inline-block;
+      position: relative;
+      &:after{
+        content: "";
+        margin-top: .15rem;
+        width: 0;
+        display: block;
+        height: 2px;
+        @include gradient($grad-whiteFade)
+        transition: width .2s;
+      }
+      &:hover{
+        &:after { width: 100%; }
+      }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      color: $article-text;
+      transition: color .2s;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity .4s;
+      }
+
+      &.telegraf:after {@include gradient($telegraf-home-card-gradient);}
+      &.influxdb:after {@include gradient($default-home-card-gradient);}
+      &.chronograf:after {@include gradient($chronograf-home-card-gradient);}
+      &.kapacitor:after {@include gradient($kapacitor-home-card-gradient);}
+
+      &:hover {
+        color: $g20-white;
+        h2, a {color: $g20-white;}
+        &:after { opacity: 1; }
+      }
+
+
+    }
+  }
+
+  #enterprise {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  //////////////////////////// HOMEPAGE MEDIA QUERIES ////////////////////////////
+
+  @include media(large) {
+    overflow-x: hidden;
+    .hero #hero-img{
+      max-height: 130%;
+      max-width: 70%;
+      right: -20%;
+      bottom: -30%;
+    }
+  }
+
+  @media (max-width: 1020px) {
+    #tick-stack #tick-cards .card { width: 50%; flex: none;}
+    .section {
+      .quarter { width: 33.33%; }
+      .three-quarters { width: 66.64%; }
+    }
+  }
+
+  @media (max-width: 920px) {
+    .section {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      &.hero { padding-top: 2rem; padding-bottom: 3rem;}
+      &.search,
+      &#enterprise { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    }
+    .hero {
+      #hero-img{ display: none; }
+      .half { width: 100%; }
+    }
+    .search {
+      .sidebar--search { max-width: 100%; }
+    }
+  }
+
+  @include media(medium) {
+    .search .algolia-autocomplete.algolia-autocomplete-right, .algolia-autocomplete.algolia-autocomplete-right {
+      .ds-dropdown-menu {
+        width: 100%;
+      }
+    }
+  }
+
+  @include media(small) {
+    .section {
+
+      .quarter, .three-quarters { width: 100%; }
+
+      &.hero {
+        order: 2;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+        h2 { font-size: 2rem; margin-top: .5rem; }
+        p { font-size: 1rem; line-height: 1.5rem; }
+        .actions { flex-direction: column; }
+      }
+      &.search {
+        order: 1;
+        padding: 0 1rem .5rem;
+        width: 100%;
+
+        .sidebar--search {
+          max-width: 100%;
+          font-size: 1rem;
+
+          input {
+            padding: .5em 2.15rem .5rem .75rem
+          }
+
+          &:after {
+            top: .15rem;
+            right: .25rem;
+            font-size: 1.75rem;
+          }
+          .algolia-autocomplete.algolia-autocomplete-right, .algolia-autocomplete.algolia-autocomplete-right {
+            .ds-dropdown-menu {
+              width: 100vw;
+              left: -1rem !important;
+              right: inherit;
+            }
+          }
+        }
+      }
+      &#tick-stack {
+        order: 3;
+        padding-left: 0;
+        padding-right: 0;
+        #tick-cards {
+          flex-direction: column;
+          .card {
+            width: 100%;
+            color: $g20-white;
+            a {color: $g20-white;}
+            &:after { opacity: 1; }
+          }
+        }
+      }
+      &#enterprise { order: 4; padding-left: 0; padding-right: 0; }
+    }
+    .group-wrapper {flex-direction: column;}
+    .row {
+      flex-direction: column;
+    }
+    .card {
+
+    }
+  }
+
+}

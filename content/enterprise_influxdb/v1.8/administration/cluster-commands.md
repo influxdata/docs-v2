@@ -1,8 +1,10 @@
 ---
 title: Manage InfluxDB Enterprise clusters
-description: Use the "influxd-ctl" and "influx" command line tools to manage InfluxDB Enterprise clusters and data.
+description: >
+  Use the `influxd-ctl` and `influx` command line tools to manage InfluxDB Enterprise clusters and data.
 aliases:
     - /enterprise/v1.8/features/cluster-commands/
+    - /enterprise_influxdb/v1.8/features/cluster-commands/
 menu:
   enterprise_influxdb_1_8:
     name: Manage clusters
@@ -453,7 +455,6 @@ Shard 21179 removed from repair queue
 
 Joins a meta node and/or data node to a cluster.
 By default, `influxd-ctl` joins the local meta node and/or data node into a new cluster.
-Use `join` instead of the [`add-meta`](#add-meta) or [`add-data`](#add-data) arguments when performing a [QuickStart Installation](/enterprise_influxdb/v1.8/quickstart_installation/cluster_installation/) of an InfluxDB Enterprise cluster.
 
 #### Syntax
 
@@ -473,8 +474,6 @@ Print verbose information about the join.
 
 Address of a meta node in an existing cluster.
 Use this argument to add the un-joined meta node and/or data node to an existing cluster.
-
-Resources: [QuickStart installation](/enterprise_influxdb/v1.8/quickstart_installation/cluster_installation/)
 
 #### Examples
 
@@ -592,9 +591,9 @@ Killed shard copy 39 from cluster-data-node-02:8088 to cluster-data-node-03:8088
 ### `leave`
 
 Removes a meta node and/or data node from the cluster.
-Use `leave` instead of the [`remove-meta`](#remove-meta) and [`remove-data`](#remove-data) arguments if you set up your InfluxDB Enterprise cluster with the [QuickStart Installation](/enterprise_influxdb/v1.8/quickstart_installation/cluster_installation/) process.
 
-{{% warn %}}The `leave` argument is destructive; it erases all metastore information from meta nodes and all data from data nodes.
+{{% warn %}}
+The `leave` argument is destructive; it erases all metastore information from meta nodes and all data from data nodes.
 Use `leave` only if you want to *permanently* remove a node from a cluster.
 {{% /warn %}}
 
@@ -969,6 +968,133 @@ Shards
 ID  Database             Retention Policy  Desired Replicas  Shard Group  Start                 End                              Expires               Owners
 51  telegraf             autogen           2                 37           2017-03-13T00:00:00Z  2017-03-20T00:00:00Z                                   [{26 cluster-data-node-01:8088} {33 cluster-data-node-03:8088}]
 52  telegraf             autogen           2                 37           2017-03-13T00:00:00Z  2017-03-20T00:00:00Z                                   [{5 cluster-data-node-02:8088} {26 cluster-data-node-01:8088}]
+```
+
+##### Use the verbose flag to view more shard owner detail
+
+Use the verbose flag to show more detail about each shard owner, including the state (hot/cold), last modified date and time, and size on disk.
+
+```bash
+$ influxd-ctl  show-shards -v
+
+Shards
+==========
+ID  Database             Retention Policy  Desired Replicas  Shard Group  Start                 End                              Expires                Owners
+1   telegraf             autogen           2                 1            2020-04-27T00:00:00Z  2020-05-04T00:00:00Z                                   [{4 localhost:8188 hot 2020-04-28 13:59:50.022558549 -0400 EDT 1784222 <nil>} {5 localhost:8288 hot 2020-04-28 13:59:50.02605612 -0400 EDT 1785568 <nil>}]
+2   stress               autogen           2                 2            2020-04-27T00:00:00Z  2020-05-04T00:00:00Z                                   [{4 localhost:8188 hot 2020-04-28 13:50:57.076073713 -0400 EDT 102637693 <nil>} {5 localhost:8288 hot 2020-04-28 13:50:57.136074013 -0400 EDT 102915477 <nil>}]
+3   _internal            monitor           1                 3            2020-04-28T00:00:00Z  2020-04-29T00:00:00Z             2020-05-06T00:00:00Z  [{5 localhost:8288 hot 2020-04-28 13:59:50.017341511 -0400 EDT 627431 <nil>}]
+4   _internal            monitor           1                 3            2020-04-28T00:00:00Z  2020-04-29T00:00:00Z             2020-05-06T00:00:00Z  [{4 localhost:8188 hot 2020-04-28 13:59:50.01737255 -0400 EDT 1014827 <nil>}]
+```
+
+##### Use the verbose flag in a curl request
+
+```bash
+curl -X GET 'localhost:8191/show-shards?verbose=true' | jq .
+
+Sample output:
+
+[
+  {
+    "id": "1",
+    "database": "telegraf",
+    "retention-policy": "autogen",
+    "replica-n": 2,
+    "shard-group-id": "1",
+    "start-time": "2020-04-27T00:00:00Z",
+    "end-time": "2020-05-04T00:00:00Z",
+    "expire-time": "0001-01-01T00:00:00Z",
+    "truncated-at": "0001-01-01T00:00:00Z",
+    "owners": [
+      {
+        "id": "4",
+        "tcpAddr": "localhost:8188",
+        "state": "hot",
+        "last-modified": "2020-04-28T14:01:50.026425382-04:00",
+        "size": 1949209,
+        "err": null
+      },
+      {
+        "id": "5",
+        "tcpAddr": "localhost:8288",
+        "state": "hot",
+        "last-modified": "2020-04-28T14:01:50.028726299-04:00",
+        "size": 1950785,
+        "err": null
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "database": "stress",
+    "retention-policy": "autogen",
+    "replica-n": 2,
+    "shard-group-id": "2",
+    "start-time": "2020-04-27T00:00:00Z",
+    "end-time": "2020-05-04T00:00:00Z",
+    "expire-time": "0001-01-01T00:00:00Z",
+    "truncated-at": "0001-01-01T00:00:00Z",
+    "owners": [
+      {
+        "id": "4",
+        "tcpAddr": "localhost:8188",
+        "state": "hot",
+        "last-modified": "2020-04-28T13:50:57.076073713-04:00",
+        "size": 102637693,
+        "err": null
+      },
+      {
+        "id": "5",
+        "tcpAddr": "localhost:8288",
+        "state": "hot",
+        "last-modified": "2020-04-28T13:50:57.136074013-04:00",
+        "size": 102915477,
+        "err": null
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "database": "_internal",
+    "retention-policy": "monitor",
+    "replica-n": 1,
+    "shard-group-id": "3",
+    "start-time": "2020-04-28T00:00:00Z",
+    "end-time": "2020-04-29T00:00:00Z",
+    "expire-time": "2020-05-06T00:00:00Z",
+    "truncated-at": "0001-01-01T00:00:00Z",
+    "owners": [
+      {
+        "id": "5",
+        "tcpAddr": "localhost:8288",
+        "state": "hot",
+        "last-modified": "2020-04-28T14:01:50.023569927-04:00",
+        "size": 690633,
+        "err": null
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "database": "_internal",
+    "retention-policy": "monitor",
+    "replica-n": 1,
+    "shard-group-id": "3",
+    "start-time": "2020-04-28T00:00:00Z",
+    "end-time": "2020-04-29T00:00:00Z",
+    "expire-time": "2020-05-06T00:00:00Z",
+    "truncated-at": "0001-01-01T00:00:00Z",
+    "owners": [
+      {
+        "id": "4",
+        "tcpAddr": "localhost:8188",
+        "state": "hot",
+        "last-modified": "2020-04-28T14:01:50.022177797-04:00",
+        "size": 1117271,
+        "err": null
+      }
+    ]
+  }
+]
 ```
 
 ### `update-data`

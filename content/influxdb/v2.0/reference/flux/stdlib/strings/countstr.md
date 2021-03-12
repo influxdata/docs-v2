@@ -4,7 +4,7 @@ description: >
   The strings.countStr() function counts the number of non-overlapping instances
   of a substring appears in a string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/countstr/
+  - /influxdb/v2.0/reference/flux/functions/strings/countstr/
 menu:
   influxdb_2_0_ref:
     name: strings.countStr

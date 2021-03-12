@@ -4,6 +4,7 @@
   position: relative;
   border-radius: $radius 0 0 $radius;
   overflow: hidden;
+  z-index: 0;
 
   .copyright {
     padding: .5rem 1rem .5rem .5rem;

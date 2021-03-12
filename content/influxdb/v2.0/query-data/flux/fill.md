@@ -3,22 +3,20 @@ title: Fill null values in data
 seotitle: Fill null values in data
 list_title: Fill
 description: >
-  Use the [`fill()` function](/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
+  Use the [`fill()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
   to replace _null_ values.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/fill/
 menu:
   influxdb_2_0:
     parent: Query with Flux
     name: Fill
 influxdb/v2.0/tags: [query, fill]
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/fill/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/
 list_query_example: fill_null
 ---
 
-Use the [`fill()` function](/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
+Use the [`fill()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/)
 to replace _null_ values with:
 
 - [the previous non-null value](#fill-with-the-previous-value)
@@ -82,8 +80,8 @@ data
 
 ## Fill with a specified value
 To fill _null_ values with a specified value, use the `value` parameter to specify the fill value.
-_The fill value must match the [data type](/v2.0/reference/flux/language/types/#basic-types)
-of the [column](/v2.0/reference/flux/stdlib/built-in/transformations/fill/#column)._
+_The fill value must match the [data type](/influxdb/v2.0/reference/flux/language/types/#basic-types)
+of the [column](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/fill/#column)._
 
 ```js
 data

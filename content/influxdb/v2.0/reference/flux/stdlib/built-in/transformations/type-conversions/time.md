@@ -2,7 +2,7 @@
 title: time() function
 description: The `time()` function converts a single value to a time.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/time/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/time/
 menu:
   influxdb_2_0_ref:
     name: time

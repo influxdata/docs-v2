@@ -1,21 +1,19 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+  Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
   configuration flags, setting environment variables, or defining configuration
   options in a configuration file.
 menu:
   influxdb_2_0_ref:
     name: Configuration options
 weight: 3
-aliases:
-  - /v2.0/reference/config-options/
 products: [oss]
 related:
   - /influxdb/v2.0/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using [`influxd`](/v2.0/reference/cli/influxd/)
+Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.0/reference/cli/influxd/)
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
@@ -93,14 +91,19 @@ Only non-default settings need to be defined in the configuration file.
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
-[`influxd` service](/v2.0/reference/cli/influxd):
+[`influxd` service](/influxdb/v2.0/reference/cli/influxd):
 
 - [assets-path](#assets-path)
 - [bolt-path](#bolt-path)
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
 - [http-bind-address](#http-bind-address)
+- [influxql-max-select-buckets](#influxql-max-select-buckets)
+- [influxql-max-select-point](#influxql-max-select-point)
+- [influxql-max-select-series](#influxql-max-select-series)
 - [log-level](#log-level)
+- [nats-max-payload-bytes](#nats-max-payload-bytes)
+- [nats-port](#nats-port)
 - [new-meta-store](#new-meta-store)
 - [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
@@ -113,9 +116,26 @@ To configure InfluxDB, use the following configuration options when starting the
 - [secret-store](#secret-store)
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
+- [storage-cache-max-memory-size](#storage-cache-max-memory-size)
+- [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
+- [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
+- [storage-compact-full-write-cold-duration](#storage-compact-full-write-cold-duration)
+- [storage-compact-throughput-burst](#storage-compact-throughput-burst)
+- [storage-max-concurrent-compactions](#storage-max-concurrent-compactions)
+- [storage-max-index-log-file-size](#storage-max-index-log-file-size)
+- [storage-retention-check-interval](#storage-retention-check-interval)
+- [storage-series-file-max-concurrent-snapshot-compactions](#storage-series-file-max-concurrent-snapshot-compactions)
+- [storage-series-id-set-cache-size](#storage-series-id-set-cache-size)
+- [storage-shard-precreator-advance-period](#storage-shard-precreator-advance-period)
+- [storage-shard-precreator-check-interval](#storage-shard-precreator-check-interval)
+- [storage-tsm-use-madv-willneed](#storage-tsm-use-madv-willneed)
+- [storage-validate-keys](#storage-validate-keys)
+- [storage-wal-fsync-delay](#storage-wal-fsync-delay)
 - [store](#store)
 - [tls-cert](#tls-cert)
 - [tls-key](#tls-key)
+- [tls-min-version](#tls-min-version)
+- [tls-strict-ciphers](#tls-strict-ciphers)
 - [tracing-type](#tracing-type)
 - [vault-addr](#vault-addr)
 - [vault-cacert](#vault-cacert)
@@ -177,7 +197,7 @@ assets-path = "/path/to/custom/assets-dir"
 ---
 
 ### bolt-path
-Define the path to the [BoltDB](https://github.com/boltdb/bolt) database.
+Path to the [BoltDB](https://github.com/boltdb/bolt) database.
 BoltDB is a key value store written in Go.
 InfluxDB uses BoltDB to store data including organization and
 user information, UI data, REST resources, and other key value data.
@@ -273,7 +293,7 @@ e2e-testing = true
 ---
 
 ### engine-path
-Define the path to persistent storage engine files where InfluxDB stores all
+Path to persistent storage engine files where InfluxDB stores all
 Time-Structure Merge Tree (TSM) data on disk.
 
 **Default:** `~/.influxdbv2/engine`  
@@ -321,10 +341,10 @@ engine-path = "/users/user/.influxdbv2/engine"
 ---
 
 ### http-bind-address
-Define the bind address for the InfluxDB HTTP API.
+Bind address for the InfluxDB HTTP API.
 Customize the URL and port for the InfluxDB API and UI.
 
-**Default:** `:9999`  
+**Default:** `:8086`  
 
 | influxd flag          | Environment variable        | Configuration key   |
 |:------------          |:--------------------        |:-----------------   |
@@ -332,12 +352,12 @@ Customize the URL and port for the InfluxDB API and UI.
 
 ###### influxd flag
 ```sh
-influxd --http-bind-address=:9999
+influxd --http-bind-address=:8086
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_HTTP_BIND_ADDRESS=:9999
+export INFLUXD_HTTP_BIND_ADDRESS=:8086
 ```
 
 ###### Configuration file
@@ -349,18 +369,163 @@ export INFLUXD_HTTP_BIND_ADDRESS=:9999
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-http-bind-address: ":9999"
+http-bind-address: ":8086"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-http-bind-address = ":9999"
+http-bind-address = ":8086"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "http-bind-address": ":9999"
+  "http-bind-address": ":8086"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### influxql-max-select-buckets
+Maximum number of group by time buckets a `SELECT` statement can create.
+`0` allows an unlimited number of buckets.
+
+**Default:** `0`
+
+| influxd flag                    | Environment variable                  | Configuration key             |
+|:------------                    |:--------------------                  |:-----------------             |
+| `--influxql-max-select-buckets` | `INFLUXD_INFLUXQL_MAX_SELECT_BUCKETS` | `influxql-max-select-buckets` |
+
+###### influxd flag
+```sh
+influxd --influxql-max-select-buckets=0
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INFLUXQL_MAX_SELECT_BUCKETS=0
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+influxql-max-select-buckets: 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+influxql-max-select-buckets = 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "influxql-max-select-buckets": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### influxql-max-select-point
+Maximum number of points a `SELECT` statement can process.
+`0` allows an unlimited number of points.
+This is only checked every second so queries will not be aborted immediately when hitting the limit.
+
+**Default:** `0`
+
+| influxd flag                  | Environment variable                | Configuration key           |
+|:------------                  |:--------------------                |:-----------------           |
+| `--influxql-max-select-point` | `INFLUXD_INFLUXQL_MAX_SELECT_POINT` | `influxql-max-select-point` |
+
+###### influxd flag
+```sh
+influxd --influxql-max-select-point=0
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INFLUXQL_MAX_SELECT_POINT=0
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+influxql-max-select-point: 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+influxql-max-select-point = 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "influxql-max-select-point": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### influxql-max-select-series
+Maximum number of series a `SELECT` statement can return.
+`0` allows an unlimited number of series.
+
+**Default:** `0`
+
+| influxd flag                   | Environment variable                 | Configuration key            |
+|:------------                   |:--------------------                 |:-----------------            |
+| `--influxql-max-select-series` | `INFLUXD_INFLUXQL_MAX_SELECT_SERIES` | `influxql-max-select-series` |
+
+###### influxd flag
+```sh
+influxd --influxql-max-select-series=0
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INFLUXQL_MAX_SELECT_SERIES=0
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+influxql-max-select-series: 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+influxql-max-select-series = 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "influxql-max-select-series": 0
 }
 ```
 {{% /code-tab-content %}}
@@ -369,7 +534,7 @@ http-bind-address = ":9999"
 ---
 
 ### log-level
-Define the log output level.
+Log output level.
 InfluxDB outputs log entries with severity levels greater than or equal to the level specified.
 
 **Options:** `debug`, `info`, `error`  
@@ -410,6 +575,100 @@ log-level = "info"
 ```json
 {
   "log-level": "info"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### nats-max-payload-bytes
+Maximum number of bytes allowed in a NATS message payload.
+
+**Default:** `1048576`
+
+| influxd flag               | Environment variable             | Configuration key        |
+|:------------               |:--------------------             |:-----------------        |
+| `--nats-max-payload-bytes` | `INFLUXD_NATS_MAX_PAYLOAD_BYTES` | `nats-max-payload-bytes` |
+
+###### influxd flag
+```sh
+influxd --nats-max-payload-bytes=1048576
+```
+
+###### Environment variable
+```sh
+export INFLUXD_NATS_MAX_PAYLOAD_BYTES=1048576
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+nats-max-payload-bytes: 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+nats-max-payload-bytes = 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "nats-max-payload-bytes": 1048576
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### nats-port
+Port for the NATS streaming server. `-1` selects a random port.
+
+**Default:** `-1`
+
+| influxd flag  | Environment variable | Configuration key |
+|:------------  |:-------------------- |:----------------- |
+| `--nats-port` | `INFLUXD_NATS_PORT`  | `nats-port`       |
+
+###### influxd flag
+```sh
+influxd --nats-port=-1
+```
+
+###### Environment variable
+```sh
+export INFLUXD_NATS_PORT=-1
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+nats-port: -1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+nats-port = -1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "nats-port": -1
 }
 ```
 {{% /code-tab-content %}}
@@ -998,6 +1257,732 @@ session-renew-disabled = true
 
 ---
 
+### storage-cache-max-memory-size
+Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
+
+**Default:** `1073741824`
+
+| influxd flag                      | Environment variable                    | Configuration key               |
+|:------------                      |:--------------------                    |:-----------------               |
+| `--storage-cache-max-memory-size` | `INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE` | `storage-cache-max-memory-size` |
+
+###### influxd flag
+```sh
+influxd --storage-cache-max-memory-size=1073741824
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE=1073741824
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-cache-max-memory-size: 1073741824
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-cache-max-memory-size = 1073741824
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-cache-max-memory-size": 1073741824
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-cache-snapshot-memory-size
+Size (in bytes) at which the storage engine will snapshot the cache
+and write it to a TSM file to make more memory available.
+
+**Default:** `26214400`)
+
+| influxd flag                           | Environment variable                         | Configuration key                    |
+|:------------                           |:--------------------                         |:-----------------                    |
+| `--storage-cache-snapshot-memory-size` | `INFLUXD_STORAGE_CACHE_SNAPSHOT_MEMORY_SIZE` | `storage-cache-snapshot-memory-size` |
+
+###### influxd flag
+```sh
+influxd --storage-cache-snapshot-memory-size=26214400
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_CACHE_SNAPSHOT_MEMORY_SIZE=26214400
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-cache-snapshot-memory-size: 26214400
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-cache-snapshot-memory-size = 26214400
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-cache-snapshot-memory-size": 26214400
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-cache-snapshot-write-cold-duration
+Duration at which the storage engine will snapshot the cache and
+write it to a new TSM file if the shard hasn't received writes or deletes.
+
+**Default:** `10m0s`
+
+| influxd flag                                   | Environment variable                                 | Configuration key                            |
+|:------------                                   |:--------------------                                 |:-----------------                            |
+| `--storage-cache-snapshot-write-cold-duration` | `INFLUXD_STORAGE_CACHE_SNAPSHOT_WRITE_COLD_DURATION` | `storage-cache-snapshot-write-cold-duration` |
+
+###### influxd flag
+```sh
+influxd --storage-cache-snapshot-write-cold-duration=10m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_CACHE_SNAPSHOT_WRITE_COLD_DURATION=10m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-cache-snapshot-write-cold-duration: 10m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-cache-snapshot-write-cold-duration = "10m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-cache-snapshot-write-cold-duration": "10m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-compact-full-write-cold-duration
+Duration at which the storage engine will compact all TSM files in a
+shard if it hasn't received writes or deletes.
+
+**Default:** `4h0m0s`
+
+| influxd flag                                 | Environment variable                               | Configuration key                          |
+|:------------                                 |:--------------------                               |:-----------------                          |
+| `--storage-compact-full-write-cold-duration` | `INFLUXD_STORAGE_COMPACT_FULL_WRITE_COLD_DURATION` | `storage-compact-full-write-cold-duration` |
+
+###### influxd flag
+```sh
+influxd --storage-compact-full-write-cold-duration=4h0m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_COMPACT_FULL_WRITE_COLD_DURATION=4h0m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-compact-full-write-cold-duration: 4h0m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-compact-full-write-cold-duration = "4h0m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-compact-full-write-cold-duration": "4h0m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-compact-throughput-burst
+Rate limit (in bytes per second) that TSM compactions can write to disk.
+
+**Default:** `50331648`
+
+| influxd flag                         | Environment variable                       | Configuration key                  |
+|:------------                         |:--------------------                       |:-----------------                  |
+| `--storage-compact-throughput-burst` | `INFLUXD_STORAGE_COMPACT_THROUGHPUT_BURST` | `storage-compact-throughput-burst` |
+
+###### influxd flag
+```sh
+influxd --storage-compact-throughput-burst=50331648
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_COMPACT_THROUGHPUT_BURST=50331648
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-compact-throughput-burst: 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-compact-throughput-burst = 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-compact-throughput-burst": 50331648
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-max-concurrent-compactions
+Maximum number of full and level compactions that can run concurrently.
+A value of `0` results in 50% of `runtime.GOMAXPROCS(0)` used at runtime.
+Any number greater than zero limits compactions to that value.
+_This setting does not apply to cache snapshotting._
+
+**Default:** `0`
+
+| influxd flag                           | Environment variable                         | Configuration key                    |
+|:------------                           |:--------------------                         |:-----------------                    |
+| `--storage-max-concurrent-compactions` | `INFLUXD_STORAGE_MAX_CONCURRENT_COMPACTIONS` | `storage-max-concurrent-compactions` |
+
+###### influxd flag
+```sh
+influxd --storage-max-concurrent-compactions=0
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_MAX_CONCURRENT_COMPACTIONS=0
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-max-concurrent-compactions: 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-max-concurrent-compactions = 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-max-concurrent-compactions": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-max-index-log-file-size
+Size (in bytes) at which an index write-ahead log (WAL) file will compact into an index file.
+Lower sizes will cause log files to be compacted more quickly and result in lower
+heap usage at the expense of write throughput.
+
+**Default:** `1048576`
+
+| influxd flag                        | Environment variable                      | Configuration key                 |
+|:------------                        |:--------------------                      |:-----------------                 |
+| `--storage-max-index-log-file-size` | `INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE` | `storage-max-index-log-file-size` |
+
+###### influxd flag
+```sh
+influxd --storage-max-index-log-file-size=1048576
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE=1048576
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-max-index-log-file-size: 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-max-index-log-file-size = 1048576
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-max-index-log-file-size": 1048576
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-retention-check-interval
+Interval of retention policy enforcement checks.
+
+**Default:** `30m0s`
+
+| influxd flag                         | Environment variable                       | Configuration key                  |
+|:------------                         |:--------------------                       |:-----------------                  |
+| `--storage-retention-check-interval` | `INFLUXD_STORAGE_RETENTION_CHECK_INTERVAL` | `storage-retention-check-interval` |
+
+###### influxd flag
+```sh
+influxd --storage-retention-check-interval=30m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE=30m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-retention-check-interval: 30m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-retention-check-interval = "30m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-retention-check-interval": "30m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-series-file-max-concurrent-snapshot-compactions
+Maximum number of snapshot compactions that can run concurrently across
+all series partitions in a database.
+
+**Default:** `0`
+
+| influxd flag                                                | Environment variable                                              | Configuration key                                         |
+|:------------                                                |:--------------------                                              |:-----------------                                         |
+| `--storage-series-file-max-concurrent-snapshot-compactions` | `INFLUXD_STORAGE_SERIES_FILE_MAX_CONCURRENT_SNAPSHOT_COMPACTIONS` | `storage-series-file-max-concurrent-snapshot-compactions` |
+
+###### influxd flag
+```sh
+influxd --storage-series-file-max-concurrent-snapshot-compactions=0
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_SERIES_FILE_MAX_CONCURRENT_SNAPSHOT_COMPACTIONS=0
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-series-file-max-concurrent-snapshot-compactions: 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-series-file-max-concurrent-snapshot-compactions = 0
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-series-file-max-concurrent-snapshot-compactions": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-series-id-set-cache-size
+Size of the internal cache used in the TSI index to store
+previously calculated series results.
+Cached results are returned quickly rather than needing to be recalculated when
+a subsequent query with the same tag key/value predicate is executed.
+Setting this value to `0` will disable the cache and may decrease query performance.
+
+**Default:** `100`
+
+{{% note %}}
+This value should only be increased if the set of regularly used tag key/value
+predicates across all measurements for a database is larger than 100.
+An increase in cache size may lead to an increase in heap usage.
+{{% /note %}}
+
+| influxd flag                                                | Environment variable                                              | Configuration key                                         |
+|:------------                                                |:--------------------                                              |:-----------------                                         |
+| `--storage-series-id-set-cache-size` | `INFLUXD_STORAGE_SERIES_ID_SET_CACHE_SIZE` | `storage-series-id-set-cache-size` |
+
+###### influxd flag
+```sh
+influxd --storage-series-id-set-cache-size=100
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_SERIES_ID_SET_CACHE_SIZE=100
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-series-id-set-cache-size: 100
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-series-id-set-cache-size = 100
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-series-id-set-cache-size": 100
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-shard-precreator-advance-period
+The time before a shard group's end-time that the successor shard group is created.
+
+**Default:** `30m0s`
+
+| influxd flag                                | Environment variable                              | Configuration key                         |
+|:------------                                |:--------------------                              |:-----------------                         |
+| `--storage-shard-precreator-advance-period` | `INFLUXD_STORAGE_SHARD_PRECREATOR_ADVANCE_PERIOD` | `storage-shard-precreator-advance-period` |
+
+###### influxd flag
+```sh
+influxd --storage-shard-precreator-advance-period=30m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_SHARD_PRECREATOR_ADVANCE_PERIOD=30m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-shard-precreator-advance-period: 30m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-shard-precreator-advance-period = "30m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-shard-precreator-advance-period": "30m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-shard-precreator-check-interval
+Interval of pre-create new shards check.
+
+**Default:** `10m0s`
+
+| influxd flag                                | Environment variable                              | Configuration key                         |
+|:------------                                |:--------------------                              |:-----------------                         |
+| `--storage-shard-precreator-check-interval` | `INFLUXD_STORAGE_SHARD_PRECREATOR_CHECK_INTERVAL` | `storage-shard-precreator-check-interval` |
+
+###### influxd flag
+```sh
+influxd --storage-shard-precreator-check-interval=10m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_SHARD_PRECREATOR_CHECK_INTERVAL=10m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-shard-precreator-check-interval: 10m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-shard-precreator-check-interval = "10m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-shard-precreator-check-interval": "10m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-tsm-use-madv-willneed
+Inform the kernel that InfluxDB intends to page in mmap'd sections of TSM files.
+
+**Default:** `false`
+
+| influxd flag                      | Environment variable                    | Configuration key               |
+|:------------                      |:--------------------                    |:-----------------               |
+| `--storage-tsm-use-madv-willneed` | `INFLUXD_STORAGE_TSM_USE_MADV_WILLNEED` | `storage-tsm-use-madv-willneed` |
+
+###### influxd flag
+```sh
+influxd --storage-tsm-use-madv-willneed
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_TSM_USE_MADV_WILLNEED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-tsm-use-madv-willneed: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-tsm-use-madv-willneed = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-tsm-use-madv-willneed": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-validate-keys
+Validate incoming writes to ensure keys have only valid unicode characters.
+
+**Default:** `false`
+
+| influxd flag              | Environment variable            | Configuration key       |
+|:------------              |:--------------------            |:-----------------       |
+| `--storage-validate-keys` | `INFLUXD_STORAGE_VALIDATE_KEYS` | `storage-validate-keys` |
+
+###### influxd flag
+```sh
+influxd --storage-validate-keys
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_VALIDATE_KEYS=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-validate-keys: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-validate-keys = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-validate-keys": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-wal-fsync-delay
+Duration a write will wait before fsyncing.
+A duration greater than `0` batches multiple fsync calls.
+This is useful for slower disks or when WAL write contention is present.
+
+**Default:** `0s`
+
+| influxd flag                | Environment variable              | Configuration key         |
+|:------------                |:--------------------              |:-----------------         |
+| `--storage-wal-fsync-delay` | `INFLUXD_STORAGE_WAL_FSYNC_DELAY` | `storage-wal-fsync-delay` |
+
+###### influxd flag
+```sh
+influxd --storage-wal-fsync-delay=0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_WAL_FSYNC_DELAY=0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-wal-fsync-delay: 0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-wal-fsync-delay = "0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-wal-fsync-delay": "0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### store
 Specifies the data store for REST resources.
 
@@ -1056,7 +2041,7 @@ store = "bolt"
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -1104,7 +2089,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](https://v2.docs.influxdata.com/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -1148,8 +2133,107 @@ tls-key = "/path/to/influxdb.key"
 
 ---
 
+### tls-min-version
+Minimum accepted TLS version.
+
+**Default:** `1.2`
+
+| influxd flag        | Environment variable      | Configuration key |
+|:------------        |:--------------------      |:----------------- |
+| `--tls-min-version` | `INFLUXD_TLS_MIN_VERSION` | `tls-min-version` |
+
+###### influxd flag
+```sh
+influxd --tls-min-version=1.2
+```
+
+###### Environment variable
+```sh
+export INFLUXD_TLS_MIN_VERSION=1.2
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+tls-min-version: "1.2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+tls-min-version = "1.2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "tls-min-version": "1.2"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### tls-strict-ciphers
+Restrict accepted TLS ciphers to:
+
+- ECDHE_RSA_WITH_AES_256_GCM_SHA384
+- ECDHE_RSA_WITH_AES_256_CBC_SHA
+- RSA_WITH_AES_256_GCM_SHA384
+- RSA_WITH_AES_256_CBC_SHA
+
+**Default:** `false`
+
+| influxd flag           | Environment variable         | Configuration key    |
+|:------------           |:--------------------         |:-----------------    |
+| `--tls-strict-ciphers` | `INFLUXD_TLS_STRICT_CIPHERS` | `tls-strict-ciphers` |
+
+###### influxd flag
+```sh
+influxd --tls-strict-ciphers
+```
+
+###### Environment variable
+```sh
+export INFLUXD_TLS_STRICT_CIPHERS=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+tls-strict-ciphers: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+tls-strict-ciphers = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "tls-strict-ciphers": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### tracing-type
-Enables tracing in InfluxDB and specifies the tracing type.
+Enable tracing in InfluxDB and specifies the tracing type.
 Tracing is disabled by default.
 
 **Options:** `log`, `jaeger`

@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     name: Process data
 weight: 4
-aliases:
-  - /v2.0/process-data/
 influxdb/v2.0/tags: [tasks]
 ---
 

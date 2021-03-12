@@ -7,26 +7,24 @@ menu:
     name: Transform data
     parent: Get started with Flux
 weight: 202
-aliases:
-  - /v2.0/query-data/get-started/transform-data/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
-  - /v2.0/reference/flux/stdlib/built-in/transformations/window
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window
 ---
 
-When [querying data from InfluxDB](/v2.0/query-data/get-started/query-influxdb),
+When [querying data from InfluxDB](/influxdb/v2.0/query-data/get-started/query-influxdb),
 you often need to transform that data in some way.
 Common examples are aggregating data into averages, downsampling data, etc.
 
-This guide demonstrates using [Flux functions](/v2.0/reference/flux/stdlib) to transform your data.
+This guide demonstrates using [Flux functions](/influxdb/v2.0/reference/flux/stdlib) to transform your data.
 It walks through creating a Flux script that partitions data into windows of time,
 averages the `_value`s in each window, and outputs the averages as a new table.
-(Remember, Flux structures all data in [tables](/v2.0/query-data/get-started/#tables).)
+(Remember, Flux structures all data in [tables](/influxdb/v2.0/query-data/get-started/#tables).)
 
 It's important to understand how the "shape" of your data changes through each of these operations.
 
 ## Query data
-Use the query built in the previous [Query data from InfluxDB](/v2.0/query-data/get-started/query-influxdb)
+Use the query built in the previous [Query data from InfluxDB](/influxdb/v2.0/query-data/get-started/query-influxdb)
 guide, but update the range to pull data from the last hour:
 
 ```js
@@ -41,14 +39,14 @@ from(bucket:"example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/v2.0/query-data/guides/custom-functions) in your Flux queries.
-_Functions are covered in detail in the [Flux functions](/v2.0/reference/flux/stdlib) documentation._
+You can also [create custom functions](/influxdb/v2.0/query-data/flux/custom-functions) in your Flux queries.
+_Functions are covered in detail in the [Flux functions](/influxdb/v2.0/reference/flux/stdlib) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
 Aggregate functions take a set of `_value`s in a table, aggregate them, and transform
 them into a new value.
 
-This example uses the [`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean)
+This example uses the [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean)
 to average values within each time window.
 
 {{% note %}}
@@ -58,12 +56,12 @@ It's just good to understand the steps in the process.
 {{% /note %}}
 
 ## Window your data
-Flux's [`window()` function](/v2.0/reference/flux/stdlib/built-in/transformations/window) partitions records based on a time value.
+Flux's [`window()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window) partitions records based on a time value.
 Use the `every` parameter to define a duration of each window.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [valid duration units](/v2.0/reference/flux/language/types/#duration-types),
+`every` supports all [valid duration units](/influxdb/v2.0/reference/flux/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
@@ -87,7 +85,7 @@ When visualized, each table is assigned a unique color.
 
 ## Aggregate windowed data
 Flux aggregate functions take the `_value`s in each table and aggregate them in some way.
-Use the [`mean()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean) to average the `_value`s of each table.
+Use the [`mean()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean) to average the `_value`s of each table.
 
 ```js
 from(bucket:"example-bucket")
@@ -113,7 +111,7 @@ Aggregate functions don't infer what time should be used for the aggregate value
 Therefore the `_time` column is dropped.
 
 A `_time` column is required in the [next operation](#unwindow-aggregate-tables).
-To add one, use the [`duplicate()` function](/v2.0/reference/flux/stdlib/built-in/transformations/duplicate)
+To add one, use the [`duplicate()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/duplicate)
 to duplicate the `_stop` column as the `_time` column for each windowed table.
 
 ```js
@@ -158,7 +156,7 @@ process helps to understand how data changes "shape" as it is passed through eac
 
 Flux provides (and allows you to create) "helper" functions that abstract many of these steps.
 The same operation performed in this guide can be accomplished using the
-[`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow).
+[`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow).
 
 ```js
 from(bucket:"example-bucket")
@@ -179,11 +177,11 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Window and aggregate data](/v2.0/query-data/guides/window-aggregate) guide._
+view the [Window and aggregate data](/influxdb/v2.0/query-data/flux/window-aggregate) guide._
 
 ---
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/syntax-basics/">Syntax basics</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/query-influxdb/">Query InfluxDB</a>
+  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/syntax-basics/">Syntax basics</a>
 </div>

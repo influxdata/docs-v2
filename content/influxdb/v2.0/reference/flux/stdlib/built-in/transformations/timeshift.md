@@ -2,9 +2,9 @@
 title: timeShift() function
 description: The `timeShift()` function adds a fixed duration to time columns.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/shift
-  - /v2.0/reference/flux/functions/built-in/transformations/shift
-  - /v2.0/reference/flux/functions/built-in/transformations/timeshift/
+  - /influxdb/v2.0/reference/flux/functions/transformations/shift
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/shift
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/timeshift/
 menu:
   influxdb_2_0_ref:
     name: timeShift

@@ -7,8 +7,6 @@ menu:
   influxdb_2_0:
     parent: Manage checks
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/checks/create/
 related:
   - /influxdb/v2.0/monitor-alert/notification-rules/
   - /influxdb/v2.0/monitor-alert/notification-endpoints/
@@ -87,16 +85,16 @@ in a specified amount of time.
 
     Use custom tags to associate additional metadata with the check.
     Common metadata tags across different checks lets you easily group and organize checks.
-    You can also use custom tags in [notification rules](/v2.0/monitor-alert/notification-rules/create/).
+    You can also use custom tags in [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/).
 
 3.  In the **Status Message Template** column, enter the status message template for the check.
-    Use [Flux string interpolation](/v2.0/reference/flux/language/string-interpolation/)
+    Use [Flux string interpolation](/influxdb/v2.0/reference/flux/language/string-interpolation/)
     to populate the message with data from the query.
 
     {{% note %}}
 #### Flux only interpolates string values
 Flux currently interpolates only string values.
-Use the [string() function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
+Use the [string() function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
 to convert non-string values to strings.
 
 ```js
@@ -105,7 +103,7 @@ count = 12
 ```
     {{% /note %}}
 
-    Check data is represented as an object, `r`.
+    Check data is represented as a record, `r`.
     Access specific column values using dot notation: `r.columnName`.
 
     Use data from the following columns:

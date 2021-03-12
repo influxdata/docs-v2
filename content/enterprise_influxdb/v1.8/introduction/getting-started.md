@@ -1,5 +1,6 @@
 ---
 title: Getting started with InfluxDB Enterprise
+description: Set up your cluster as a data source in Chronograf.
 aliases:
   - /enterprise_influxdb/v1.8/introduction/getting_started/
   - /enterprise/v1.8/introduction/getting_started/
@@ -10,9 +11,9 @@ menu:
     parent: Introduction
 ---
 
-Now that you successfully [installed and set up](/enterprise_influxdb/v1.8/introduction/meta_node_installation/) InfluxDB Enterprise, use [Chronograf to setup your cluster as a data source.](/chronograf/latest/guides/monitor-an-influxenterprise-cluster/)
+Now that you successfully [installed and set up](/enterprise_influxdb/v1.8/introduction/meta_node_installation/) InfluxDB Enterprise, use [Chronograf to setup your cluster as a data source.](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-cluster/monitoring-influxenterprise-cluster/monitoring-influxenterprise-cluster/)
 
-More details on leveraging [Chronograf and getting started are available.](/chronograf/latest/introduction/getting-started/)
+More details on leveraging [Chronograf and getting started are available.](/{{< latest "chronograf" >}}/introduction/getting-started/)
 
 
 ### Where to from here?

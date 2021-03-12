@@ -1,6 +1,6 @@
 ---
-title: Using the HTTP input plugin with Citi Bike data
-description:
+title: Using the HTTP input plugin with JSON endpoints
+description: Collect live metrics on Citi Bike stations in New York City with the HTTP input plugin.
 menu:
   telegraf_1_15:
     name: Using the HTTP plugin
@@ -10,7 +10,7 @@ menu:
 
 This example walks through using the Telegraf HTTP input plugin to collect live metrics on Citi Bike stations in New York City. Live station data is available in JSON format from [NYC OpenData](https://data.cityofnewyork.us/NYC-BigApps/Citi-Bike-Live-Station-Feed-JSON-/p94q-8hxh).
 
-For the following example to work, configure [`influxdb` output plugin](/telegraf/v1.15/plugins/plugin-list/#influxdb). This plugin is what allows Telegraf to write the metrics to your InfluxDB.
+For the following example to work, configure [`influxdb` output plugin](/telegraf/v1.15/plugins/#influxdb_v2). This plugin is what allows Telegraf to write the metrics to your InfluxDB.
 
 ## Configure the HTTP Input plugin in your Telegraf configuration file
 
@@ -19,7 +19,7 @@ To retrieve data from the Citi Bike URL endpoint, enable the `inputs.http` input
 Specify the following options:
 
 ### `urls`
-One or more URLs to read metrics from. For this example,  use `https://feeds.citibikenyc.com/stations/stations.json`.
+One or more URLs to read metrics from. For this example,  use `https://gbfs.citibikenyc.com/gbfs/en/station_information.json`.
 
 ### `data_format`
 The format of the data in the HTTP endpoints that Telegraf will ingest. For this example, use JSON.
@@ -93,7 +93,7 @@ The timezone We'll set this to the Unix TZ value where our bike data takes place
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/v1.15/introduction/getting-started/#start-the-telegraf-service).
+[Start the Telegraf service](/telegraf/v1.15/introduction/getting-started/#start-telegraf-service).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 

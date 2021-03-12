@@ -9,8 +9,6 @@ menu:
     name: Task options
     parent: Process data
 weight: 105
-aliases:
-  - /v2.0/process-data/task-options/
 influxdb/v2.0/tags: [tasks, flux]
 ---
 
@@ -23,7 +21,6 @@ The following task options are available:
 - [cron](#cron)
 - [offset](#offset)
 - [concurrency](#concurrency)
-- [retry](#retry)
 
 {{% note %}}
 `every` and `cron` are mutually exclusive, but at least one is required.
@@ -42,6 +39,7 @@ options task = {
 ```
 
 ## every
+
 The interval at which the task runs.
 
 _**Data type:** Duration_
@@ -72,6 +70,7 @@ options task = {
 ```
 
 ## offset
+
 Delays the execution of the task but preserves the original time range.
 For example, if a task is to run on the hour, a `10m` offset will delay it to 10
 minutes after the hour, but all time ranges defined in the task are relative to
@@ -83,7 +82,7 @@ _**Data type:** Duration_
 ```js
 options task = {
   // ...
-  offset: "0 * * * *",
+  offset: 10m,
 }
 ```
 
@@ -98,17 +97,5 @@ _**Data type:** Integer_
 options task = {
   // ...
   concurrency: 2,
-}
-```
-
-## retry
-The number of times to retry the task before it is considered as having failed.
-
-_**Data type:** Integer_
-
-```js
-options task = {
-  // ...
-  retry: 2,
 }
 ```

@@ -8,6 +8,10 @@
   {{ .Scratch.Set "icon" "data-explorer" }}
   {{ .Scratch.Set "title" "Data Explorer" }}
   {{ .Scratch.Set "short_title" "Explore" }}
+{{ else if or (eq $navIcon "notebooks") (eq $navIcon "books") }}
+  {{ .Scratch.Set "icon" "book-pencil" }}
+  {{ .Scratch.Set "title" "Notebooks" }}
+  {{ .Scratch.Set "short_title" "Books" }}
 {{ else if or (eq $navIcon "dashboards") (eq $navIcon "boards") }}
   {{ .Scratch.Set "icon" "dashboards" }}
   {{ .Scratch.Set "title" "Dashboards" }}
@@ -40,13 +44,13 @@
     <div class="nav-item account small">
       <div class="acct-inner">
         <div class="acct-icon">
-          <span class="icon icon-ui-user"></span>
+          <span class="icon icon-user"></span>
         </div>
       </div>
     </div>
     <div class="nav-item account">
       <div class="acct-inner">
-        <div class="acct-icon"><span class="icon icon-ui-user"></span></div>
+        <div class="acct-icon"><span class="icon icon-user"></span></div>
         <div class="acct-label">
           <div class="username">username</div>
           <div class="orgname">org-name</div>
@@ -61,7 +65,7 @@
   <div class="nav-items">
     <div class="nav-item">
       <div class="nav-icon small">
-        <span class ="icon icon-ui-{{ $icon }}"></span>
+        <span class ="icon icon-{{ $icon }}"></span>
         <div class="nav-icon-label">
           {{ $shortTitle }}
         </div>
@@ -69,7 +73,7 @@
     </div>
     <div class="nav-item">
       <div class="nav-icon">
-        <span class ="icon icon-ui-{{ $icon }}"></span>
+        <span class ="icon icon-{{ $icon }}"></span>
         <div class="nav-icon-label">
           {{ $title }}
         </div>

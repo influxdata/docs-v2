@@ -2,40 +2,44 @@
 title: keyValues() function
 description: The `keyValues()` function returns a table with the input table's group key plus two columns, _key and _value, that correspond to unique column + value pairs from the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/keyvalues
-  - /v2.0/reference/flux/functions/built-in/transformations/keyvalues/
+  - /influxdb/v2.0/reference/flux/functions/transformations/keyvalues
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keyvalues/
 menu:
   influxdb_2_0_ref:
     name: keyValues
     parent: built-in-transformations
 weight: 402
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-measurements, InfluxQL – SHOW MEASUREMENTS
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-field-keys, InfluxQL – SHOW FIELD KEYS
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-keys, InfluxQL – SHOW TAG KEYS
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-tag-values, InfluxQL – SHOW TAG VALUES
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration/#show-serie, InfluxQL – SHOW SERIES
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements, InfluxQL – SHOW MEASUREMENTS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-field-keys, InfluxQL – SHOW FIELD KEYS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys, InfluxQL – SHOW TAG KEYS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-values, InfluxQL – SHOW TAG VALUES
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-serie, InfluxQL – SHOW SERIES
 ---
 
 The `keyValues()` function returns a table with the input table's group key plus two columns,
 `_key` and `_value`, that correspond to unique column + value pairs from the input table.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
 
 ```js
 keyValues(keyColumns: ["usage_idle", "usage_user"])
+```
 
+<!--
+```js
 // OR
 
 keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))
-```
+``` -->
 
 ## Parameters
 
+<!--
 {{% note %}}
 `keyColumns` and `fn` are mutually exclusive. Only one may be used at a time.
 {{% /note %}}
+-->
 
 ### keyColumns
 
@@ -45,13 +49,14 @@ Each input table must have all of the columns listed by the `keyColumns` paramet
 
 _**Data type:** Array of strings_
 
+<!--
 ### fn
 
 Function used to identify a set of columns.
 All columns indicated must be of the same type.
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 _**Data type:** Function_
@@ -61,6 +66,7 @@ _**Data type:** Function_
 - Only one of `keyColumns` or `fn` may be used in a single call.
 - All columns indicated must be of the same type.
 - Each input table must have all of the columns listed by the `keyColumns` parameter.
+-->
 
 ## Examples
 
@@ -73,6 +79,7 @@ from(bucket: "example-bucket")
   |> keyValues(keyColumns: ["usage_idle", "usage_user"])
 ```
 
+<!--
 ##### Get key values from columns matching a regular expression
 
 ```js
@@ -80,4 +87,5 @@ from(bucket: "example-bucket")
   |> range(start: -30m)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage_.*/))
-```  
+```
+ -->

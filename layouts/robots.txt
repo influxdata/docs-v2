@@ -1,0 +1,1 @@
+User-agent: *{{ if eq .Site.Params.environment "staging" }} Disallow: /{{ end }}

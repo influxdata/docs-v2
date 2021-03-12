@@ -10,14 +10,12 @@ menu:
     parent: Query with Flux
     name: Cumulative sum
 influxdb/v2.0/tags: [query, cumulative sum]
-aliases:
-  - /v2.0/query-data/flux/cumulativesum/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/
 list_query_example: cumulative_sum
 ---
 
-Use the [`cumulativeSum()` function](/v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/)
+Use the [`cumulativeSum()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/)
 to calculate a running total of values.
 `cumulativeSum` sums the values of subsequent records and returns each row updated with the summed total.
 
@@ -45,7 +43,7 @@ to calculate a running total of values.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
+The examples below use the [example data variable](/influxdb/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ##### Calculate the running total of values
@@ -55,10 +53,10 @@ data
 ```
 
 ## Use cumulativeSum() with aggregateWindow()
-[`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, then removes the time-based segmentation.
-It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
+It is primarily used to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/).
 
 `aggregateWindow()` expects an aggregate function that returns a single row for each time window.
 To use `cumulativeSum()` with `aggregateWindow`, use `sum` in `aggregateWindow()`,

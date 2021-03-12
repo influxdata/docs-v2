@@ -2,15 +2,15 @@
 title: integral() function
 description: The `integral()` function computes the area under the curve per unit of time of subsequent non-null records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/integral
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/integral
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/integral/
 menu:
   influxdb_2_0_ref:
     name: integral
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#integral, InfluxQL – INTEGRAL()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
 ---
 
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.
@@ -20,23 +20,47 @@ _**Function type:** Aggregate_
 _**Output data type:** Float_
 
 ```js
-integral(unit: 10s, column: "_value")
+integral(
+  unit: 10s,
+  column: "_value",
+  timeColumn: "_time",
+  interpolation: ""
+)
 ```
 
 ## Parameters
 
 ### unit
-The time duration used when computing the integral.
+Time duration used when computing the integral.
 
 _**Data type:** Duration_
 
 ### column
-The column on which to operate.
+Column on which to operate.
 Defaults to `"_value"`.
 
 _**Data type:** String_
 
+### timeColumn
+Column that contains time values to use in the operation.
+Defaults to `"_time"`.
+
+_**Data type:** String_
+
+### interpolate
+Type of interpolation to use.
+Defaults to `""`.
+
+Use one of the following interpolation options:
+
+- _empty sting for no interpolation_
+- linear
+
+_**Data type:** String_
+
 ## Examples
+
+##### Calculate the integral
 ```js
 from(bucket: "example-bucket")
   |> range(start: -5m)
@@ -45,4 +69,15 @@ from(bucket: "example-bucket")
     r._field == "usage_system"
   )
   |> integral(unit:10s)
+```
+
+##### Calculate the integral with linear interpolation
+```js
+from(bucket: "example-bucket")
+  |> range(start: -5m)
+  |> filter(fn: (r) =>
+    r._measurement == "cpu" and
+    r._field == "usage_system"
+  )
+  |> integral(unit:10s, interpolate: "linear")
 ```

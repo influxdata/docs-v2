@@ -82,7 +82,7 @@ CREATE SUBSCRIPTION "mysub" ON "mydb"."autogen" DESTINATIONS ANY 'http://host1.e
 Subscriptions can use HTTP, HTTPS, or UDP transport protocols.
 Which to use is determined by the protocol expected by the subscription endpoint.
 If creating a Kapacitor subscription, this is defined by the `subscription-protocol`
-option in the `[[influxdb]]` section of your [`kapacitor.conf`](/kapacitor/latest/administration/subscription-management/#subscription-protocol).
+option in the `[[influxdb]]` section of your [`kapacitor.conf`](/{{< latest "kapacitor" >}}/administration/subscription-management/#subscription-protocol).
 
 _**kapacitor.conf**_
 ```toml

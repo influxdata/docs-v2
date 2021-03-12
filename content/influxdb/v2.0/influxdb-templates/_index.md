@@ -1,31 +1,31 @@
 ---
 title: InfluxDB templates
 description: >
-  InfluxDB templates are prepackaged InfluxDB configurations that contain everything
+  InfluxDB templates are preconfigured InfluxDB resources and can contain everything
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: influxdb_2_0
 weight: 9
-aliases:
-  - /v2.0/influxdb-templates
 influxdb/v2.0/tags: [templates]
 ---
 
-InfluxDB templates are prepackaged InfluxDB configurations that contain everything
+InfluxDB templates are preconfigured InfluxDB resources and can contain everything
 from dashboards and Telegraf configurations to notifications and alerts.
-Use InfluxDB templates to quickly set up a fresh instance of InfluxDB, back up your
-dashboard configuration, or share your configuration with the InfluxData community.
+Use InfluxDB templates to quickly get set up monitoring a specific technology,
+set up a fresh instance of InfluxDB, back up your dashboard configuration, or
+share your configuration with the InfluxData community.
 
 **InfluxDB templates do the following:**
 
-- Reduce setup time
-- Facilitate secure, portable, source-controlled InfluxDB platform states.
+- Reduce setup time by giving you resources that are already configured for your use-case.
+- Facilitate secure, portable, and source-controlled InfluxDB resource states.
 - Simplify sharing and using pre-built InfluxDB solutions.
 
 {{< youtube 2JjW4Rym9XE >}}
 
 ## Template manifests
-A template consists of a single file known as a **manifest** that defines the
-InfluxDB state and associated [resources](#template-resources).
+
+A template consists of one or more files known as **manifests** that define the
+InfluxDB [resources](#template-resources).
 Template manifests support the following formats:
 
 - [YAML](https://yaml.org/)
@@ -40,12 +40,13 @@ Template manifests are compatible with
 The `metadata.name` field in manifests uniquely identifies each resource in the template.
 `metadata.name` values must be [DNS-1123](https://tools.ietf.org/html/rfc1123) compliant.
 If resources in the template depend on other InfluxDB resources, all dependencies
-must be included in the template.
+should be included in the template, otherwise, the resources may not be usable.
 
-_See [Create an InfluxDB template](/v2.0/influxdb-templates/create/) for information about
+_See [Create an InfluxDB template](/influxdb/v2.0/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources
+
 Include the following **resources** in a template:
 
 - buckets
@@ -59,11 +60,12 @@ Include the following **resources** in a template:
 - Telegraf configurations
 
 ## Stacks
-**InfluxDB stacks** are stateful InfluxDB templates.
-When you apply a template, InfluxDB associates resources in the template with a stack.
-Use stacks to add, update, or remove templated resources over time.
 
-For more information, see [InfluxDB Stacks](#influxdb-stacks) below.
+Use **InfluxDB stacks** to manage InfluxDB templates.
+When you apply a template, InfluxDB associates resources in the template with a stack.
+Use stacks to add, update, or remove InfluxDB templates over time.
+
+For more information, see [InfluxDB stacks](#influxdb-stacks) below.
 
 ---
 

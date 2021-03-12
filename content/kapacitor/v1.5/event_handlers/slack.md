@@ -1,10 +1,11 @@
 ---
 title: Slack event handler
-description: The Slack event handler allows you to send Kapacitor alerts to Slack. This page includes configuration options and usage examples.
+description: >
+  The Slack event handler allows you to send Kapacitor alerts to Slack. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Slack
-    weight: 1500
+    weight: 1600
     parent: Event handlers
 ---
 
@@ -84,7 +85,7 @@ _This is necessary if using a self-signed certificate._
 
 ## Options
 The following Slack event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.slack()` in a TICKscript.
 
 | Name       | Type   | Description                                                                                                                   |

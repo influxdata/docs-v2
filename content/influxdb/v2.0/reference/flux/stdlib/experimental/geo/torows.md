@@ -1,7 +1,7 @@
 ---
 title: geo.toRows() function
 description: >
-  The geo.toRows() function ...
+  The geo.toRows() function pivots data into row-wise sets base on time.
 menu:
   influxdb_2_0_ref:
     name: geo.toRows
@@ -10,10 +10,10 @@ weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
   - /influxdb/v2.0/query-data/flux/geo/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/pivot/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
 ---
 
-The `geo.toRows()` function pivots data into row-wise sets base on time or other correlation columns.
+The `geo.toRows()` function pivots data into row-wise sets base on time.
 For geo-temporal datasets, output rows include `lat` and `lon` columns required by
 many Geo package functions.
 
@@ -22,18 +22,8 @@ _**Function type:** Transformation_
 ```js
 import "experimental/geo"
 
-geo.toRows(
-  correlationKey: ["_time"]
-)
+geo.toRows()
 ```
-
-## Parameters
-
-### correlationKey
-List of columns used to uniquely identify a row for output.
-Default is `["_time"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js
@@ -49,9 +39,5 @@ from(bucket: "example-bucket")
 ```js
 toRows = (tables=<-, correlationKey=["_time"]) =>
   tables
-    |> pivot(
-      rowKey: correlationKey,
-      columnKey: ["_field"],
-      valueColumn: "_value"
-    )
+    |> v1.fieldsAsCols()
 ```

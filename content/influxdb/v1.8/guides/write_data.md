@@ -1,12 +1,14 @@
 ---
 title: Write data with the InfluxDB API
-
+description: >
+  Use the command line interface (CLI) to write data into InfluxDB with the API.
 menu:
   influxdb_1_8:
     weight: 10
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/writing_data/
+v2: /influxdb/v2.0/write-data/
 ---
 
 Write data into InfluxDB using the [command line interface](/influxdb/v1.8/tools/shell/), [client libraries](/influxdb/v1.8/clients/api/), and plugins for common data formats such as [Graphite](/influxdb/v1.8/write_protocols/graphite/).
@@ -34,7 +36,7 @@ curl -i -XPOST 'http://localhost:8086/write?db=mydb'
 --data-binary 'cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000'
 ```
 
-- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/influxdb/v1.8/tools/api/#client-libraries):
+- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/influxdb/v1.8/tools/api/#api-v2-write-http-endpoint):
 
 ```bash
 curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
@@ -107,7 +109,7 @@ cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702
 Write the data in `cpu_data.txt` to the `mydb` database with:
 
 ```bash
-curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary @cpu_data.txt`
+curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary @cpu_data.txt
 ```
 
 > **Note:** If your data file has more than 5,000 points, it may be necessary to split that file into several files in order to write your data in batches to InfluxDB.

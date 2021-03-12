@@ -5,6 +5,7 @@ menu:
     name: influx
     weight: 10
     parent: Tools
+v2: /influxdb/v2.0/reference/cli/influx/
 ---
 
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
@@ -17,7 +18,7 @@ influx [flags]
 ```
 
 
-## Flags
+## Flags {.no-shorthand}
 
 | Flag              | Description                                                                                           |
 |-------------------|-------------------------------------------------------------------------------------------------------|

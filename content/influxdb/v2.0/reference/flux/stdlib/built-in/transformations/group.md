@@ -2,8 +2,8 @@
 title: group() function
 description: The `group()` function groups records based on their values for specific columns.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/group
-  - /v2.0/reference/flux/functions/built-in/transformations/group/
+  - /influxdb/v2.0/reference/flux/functions/transformations/group
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/group/
 menu:
   influxdb_2_0_ref:
     name: group
@@ -11,7 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/group-data/
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-group-by-clause, InfluxQL – GROUP BY
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY
 ---
 
 The `group()` function groups records based on their values for specific columns.
@@ -35,7 +35,7 @@ group()
 {{% warn %}}
 #### Group does not guarantee sort order
 `group()` does not guarantee the sort order of output records.
-To ensure data is sorted correctly, use [`sort()`](/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
+To ensure data is sorted correctly, use [`sort()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
 after `group()`.
 
 ```js

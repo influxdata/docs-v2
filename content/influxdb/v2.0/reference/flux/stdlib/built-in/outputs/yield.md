@@ -2,15 +2,15 @@
 title: yield() function
 description: The `yield()` function indicates the input tables received should be delivered as a result of the query.
 aliases:
-  - /v2.0/reference/flux/functions/outputs/yield
-  - /v2.0/reference/flux/functions/built-in/outputs/yield/
+  - /influxdb/v2.0/reference/flux/functions/outputs/yield
+  - /influxdb/v2.0/reference/flux/functions/built-in/outputs/yield/
 menu:
   influxdb_2_0_ref:
     name: yield
     parent: built-in-outputs
 weight: 401
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-basic-select-statement, InfluxQL – SELECT AS
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
 ---
 
 The `yield()` function indicates the input tables received should be delivered as a result of the query.
@@ -18,7 +18,7 @@ Yield outputs the input stream unmodified.
 A query may have multiple results, each identified by the name provided to the `yield()` function.
 
 _**Function type:** Output_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 yield(name: "custom-name")

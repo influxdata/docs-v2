@@ -56,7 +56,7 @@ _**Data type:** String_
 ## Examples
 
 {{% note %}}
-The example below uses [InfluxDB secrets](/v2.0/security/secrets/) to populate
+The example below uses [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
 sensitive connection credentials.
 {{% /note %}}
 

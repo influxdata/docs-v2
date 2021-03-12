@@ -3,8 +3,8 @@ oss:
   providers:
     - name: Default
       regions:
-        - name: localhost:9999
-          url: http://localhost:9999
+        - name: localhost:8086
+          url: http://localhost:8086
     - name: Custom
       url: http://example.com:8080
 
@@ -17,6 +17,9 @@ cloud:
         - name: US West (Oregon)
           location: Oregon, USA
           url: https://us-west-2-1.aws.cloud2.influxdata.com
+        - name: US East (Virginia)
+          location: Virginia, USA
+          url: https://us-east-1-1.aws.cloud2.influxdata.com
         - name: EU Frankfurt
           location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
@@ -32,3 +35,7 @@ cloud:
         - name: West Europe (Amsterdam)
           location: Amsterdam, Netherlands
           url: https://westeurope-1.azure.cloud2.influxdata.com
+        - name: East US (Virginia)
+          location: Virginia, USA
+          url: https://eastus-1.azure.cloud2.influxdata.com
+          

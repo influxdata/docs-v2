@@ -9,15 +9,13 @@ menu:
   influxdb_2_0_ref:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
-aliases:
-  - /v2.0/reference/annotated-csv/
 related:
-  - /v2.0/reference/flux/stdlib/csv/from/
+  - /influxdb/v2.0/reference/flux/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
 or write data to InfluxDB using annotated CSV and the `influx write` command.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
@@ -166,7 +164,7 @@ Subsequent columns contain annotation values as shown in the table below.
 
 
 {{% note %}}
-To encode a table with its [group key](/v2.0/reference/glossary/#group-key),
+To encode a table with its [group key](/influxdb/v2.0/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
@@ -188,7 +186,7 @@ If a table has no rows, the `default` annotation provides the group key values.
 ## Line protocol elements
 The `datatype` annotation accepts accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
-[`influx write` command](/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+[`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -204,7 +202,7 @@ Columns with [data types](#data-types) (other than `dateTime`) in the
 Columns without a specified data type default to `field` when converted to line protocol
 and **column values are left unmodified** in line protocol.
 _See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
-[line protocol data types and format](/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
+[line protocol data types and format](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
 A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
@@ -213,7 +211,7 @@ If there are multiple `time` or `dateTime` columns, the last column (on the righ
 is used as the timestamp in line protocol.
 Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/v2.0/write-data/#timestamp-precision)),
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/v2.0/write-data/#timestamp-precision)),
 **RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation
@@ -249,7 +247,7 @@ test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 157873741
 
 ## Annotated CSV in Flux
 Flux requires all annotation and header rows in annotated CSV.
-The example below illustrates how to use the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
+The example below illustrates how to use the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
 to read annotated CSV in Flux:
 
 ```js

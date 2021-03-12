@@ -5,7 +5,7 @@ description: >
   A package consists of one or more source files.
   Each source file is parsed individually and composed into a single package.
 aliases:
-  - /v2.0/reference/flux/language/programs
+  - /influxdb/v2.0/reference/flux/language/programs
 menu:
   influxdb_2_0_ref:
     parent: Flux specification

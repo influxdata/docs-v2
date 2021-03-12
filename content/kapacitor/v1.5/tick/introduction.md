@@ -1,6 +1,6 @@
 ---
 title: Introducing the TICKscript language
-
+description: Overview of the TICKscript language in Kapacitor.
 menu:
   kapacitor_1_5_ref:
     name: Introduction
@@ -8,14 +8,14 @@ menu:
     parent: tick
     weight: 1
 ---
-# Contents
+
 * [Overview](#overview)
 * [Nodes](#nodes)
 * [Pipelines](#pipelines)
 * [Basic examples](#basic-examples)
 * [Where to next](#where-to-next)
 
-# Overview
+## Overview
 
 Kapacitor uses a Domain Specific Language(DSL) named **TICKscript** to define **tasks** involving the extraction, transformation and loading of data and involving, moreover, the tracking of arbitrary changes and the detection of events within data.  One common task is defining alerts.  TICKscript is used in `.tick` files to define **pipelines** for processing data.  The TICKscript language is designed to chain together the invocation of data processing operations defined in **nodes**.  The Kapacitor [Getting Started](/kapacitor/v1.5/introduction/getting-started/) guide introduces TICKscript basics in the context of that product.  For a better understanding of what follows, it is recommended that the reader review that document first.
 
@@ -26,7 +26,7 @@ These methods come in two forms.
 * **Property methods** &ndash; A property method modifies the internal properties of a node and returns a reference to the same node.  Property methods are called using dot ('.') notation.
 * **Chaining methods** &ndash; A chaining method creates a new child node and returns a reference to it.  Chaining methods are called using pipe ('|') notation.
 
-# Nodes
+## Nodes
 
 In TICKscript the fundamental type is the **node**.  A node has **properties** and, as mentioned, chaining methods.  A new node can be created from a parent or sibling node using a chaining method of that parent or sibling node.  For each **node type** the signature of this method will be the same, regardless of the parent or sibling node type.  The chaining method can accept zero or more arguments used to initialize internal properties of the new node instance.  Common node types are `batch`, `query`, `stream`, `from`, `eval` and `alert`, though there are dozens of others.
 
@@ -41,7 +41,7 @@ Each node type **wants** data in either batch or stream mode.  Some can handle b
 
 The [node reference documentation](/kapacitor/v1.5/nodes/) lists the property and chaining methods of each node along with examples and descriptions.
 
-# Pipelines
+## Pipelines
 
 Every TICKscript is broken into one or more **pipelines**.  Pipelines are chains of nodes logically organized along edges that cannot cycle back to earlier nodes in the chain.  The nodes within a pipeline can be assigned to variables. This allows the results of different pipelines to be combined using, for example, a `join` or a `union` node.  It also allows for sections of the pipeline to be broken into reasonably understandable self-descriptive functional units.  In a simple TICKscript there may be no need to assign pipeline nodes to variables.  The initial node in the pipeline sets the processing type for the Kapacitor task they define.  These can be either `stream` or `batch`.  These two types of pipelines cannot be combined.
 
@@ -74,7 +74,7 @@ When connecting nodes and then creating a new Kapacitor task, Kapacitor will che
 ```
 Example 1 shows a runtime error that is thrown because a field value has gone missing from the pipeline.  This can often happen following an `eval` node when the property `keep()` of the `eval` node has not been set.  In general Kapacitor cannot anticipate all the modalities of the data that the task will encounter at runtime.  Some tasks may not be written to handle all deviations or exceptions from the norm, such as when fields or tags go missing.  In these cases Kapacitor will log an error.
 
-# Basic examples
+## Basic examples
 
 **Example 2 &ndash; An elementary stream &rarr; from() pipeline**
 ```js
@@ -143,7 +143,7 @@ It contains two property methods, which are called from the `query()` node.
    * `period()`&ndash; sets the period in time which the batch of data will cover.
    * `every()`&ndash; sets the frequency at which the batch of data will be processed.
 
-### Where to next?
+## Where to next?
 
 For basic examples of working with TICKscript see the latest examples in the code base on [GitHub](https://github.com/influxdata/kapacitor/tree/master/examples).
 

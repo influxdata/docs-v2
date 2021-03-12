@@ -2,8 +2,8 @@
 title: highestAverage() function
 description: The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/selectors/highestaverage
-  - /v2.0/reference/flux/functions/built-in/transformations/selectors/highestaverage/
+  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/highestaverage
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/highestaverage/
 menu:
   influxdb_2_0_ref:
     name: highestAverage

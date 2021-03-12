@@ -1,0 +1,8 @@
+$osxFont: -apple-system, BlinkMacSystemFont, $rubik, 'Helvetica Neue', Arial, sans-serif;
+
+.keybinding {
+  font-family: $rubik;
+  code { font-family: $rubik; }
+  &.osx code {font-family: $osxFont;}
+  code.osx {font-family: $osxFont;}
+}

@@ -5,31 +5,33 @@ menu:
     weight: 200
 ---
 
-But wait, there's more!
-Check out these resources to learn more about InfluxDB.
+View these external resources to learn more about InfluxDB.
 
-## [InfluxData Blog](https://www.influxdata.com/blog/)
+## InfluxData Blog
 
-Check out the InfluxData Blog for announcements, updates, and
+Check out the [InfluxData Blog](https://www.influxdata.com/blog/) for announcements, updates, and
 weekly [tech tips](https://www.influxdata.com/category/tech-tips/).
 
-## [Technical Papers](https://www.influxdata.com/_resources/techpapers-new/)
+## Technical Papers
 
-InfluxData's Technical Papers series offer in-depth analysis on performance, time series,
+InfluxData's [Technical Papers](https://www.influxdata.com/_resources/techpapers-new/)
+series offer in-depth analysis on performance, time series,
 and benchmarking InfluxDB vs. other popular databases.
 
-## [Meetup Videos](https://www.influxdata.com/_resources/videosnew//)
+## Meetup Videos
 
-Check out our growing Meetup videos collection for introductory content, how-tos, and more.
+Check out our growing [Meetup videos](https://www.influxdata.com/_resources/videosnew//)
+collection for introductory content, how-tos, and more.
 
-## [Virtual Training Videos](https://www.influxdata.com/_resources/videosnew/)
+## Virtual Training Videos
 
-Watch the videos from our weekly training webinar.
+Watch the [virtual training videos](https://www.influxdata.com/_resources/videosnew/) from our weekly training webinar.
 
-## [Virtual Training Schedule](https://www.influxdata.com/virtual-training-courses/)
+## Virtual Training Schedule
 
-Check out our virtual training schedule to register for future webinars.
+Check out our [virtual training schedule](https://www.influxdata.com/virtual-training-courses/)
+to register for future webinars.
 
-## [Events](https://www.influxdata.com/events/)
+## Events
 
-Find out what's happening at InfluxDB and sign up for upcoming events.
+Find out what's happening at InfluxDB and sign up for upcoming [events](https://www.influxdata.com/events/).

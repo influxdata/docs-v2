@@ -1,7 +1,7 @@
 ---
 title: experimental.objectKeys() function
 description: >
-  The `experimental.objectKeys()` function returns an array of keys in a specified object.
+  The `experimental.objectKeys()` function returns an array of keys in a specified record.
 menu:
   influxdb_2_0_ref:
     name: experimental.objectKeys
@@ -9,7 +9,7 @@ menu:
 weight: 302
 ---
 
-The `experimental.objectKeys()` function returns an array of keys in a specified object.
+The `experimental.objectKeys()` function returns an array of keys in a specified record.
 
 _**Function type:** Transformation_
 
@@ -26,13 +26,13 @@ experimental.objectKeys(
 ## Parameters
 
 ### o
-The object to return keys from.
+The record to return keys from.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 
-### Return all keys in an object
+### Return all keys in a record
 ```js
 import "experimental"
 

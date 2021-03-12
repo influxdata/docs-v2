@@ -2,17 +2,15 @@
 title: difference() function
 description: The `difference()` function computes the difference between subsequent non-null records.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/difference
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/difference
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
 menu:
   influxdb_2_0_ref:
     name: difference
     parent: built-in-transformations
 weight: 402
-aliases:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/difference
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#difference, InfluxQL – DIFFERENCE()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
 
 The `difference()` function computes the difference between subsequent records.  
@@ -111,7 +109,7 @@ from(bucket: "example-bucket")
 
 #### With keepFirst set to true
 ```js
-|> difference(nonNegative: false, keepfirst: true):
+|> difference(nonNegative: false, keepFirst: true):
 ```
 ###### Output table
 | _time | _value | tag |

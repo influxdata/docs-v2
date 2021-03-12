@@ -1,5 +1,6 @@
 ---
 title: Custom anomaly detection using Kapacitor
+description: Detect anomalies in Kapacitor with user-defined functions (UDFs). 
 aliases:
     - kapacitor/v1.5/examples/anomaly_detection/
 menu:

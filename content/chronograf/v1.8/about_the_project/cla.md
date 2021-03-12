@@ -1,6 +1,7 @@
 ---
 title: InfluxData Contributor License Agreement (CLA)
-description: Before contributing to the Chronograf project, you need to submit the InfluxData Contributor License Agreement.
+description: >
+  Before contributing to the Chronograf project, submit the InfluxData Contributor License Agreement.
 menu:
   chronograf_1_8:
     weight: 30

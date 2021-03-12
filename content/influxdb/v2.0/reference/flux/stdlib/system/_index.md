@@ -5,7 +5,7 @@ description: >
   The Flux system package provides functions for reading values from the system.
   Import the `system` package.
 aliases:
-  - /v2.0/reference/flux/functions/system/
+  - /influxdb/v2.0/reference/flux/functions/system/
 menu:
   influxdb_2_0_ref:
     name: System

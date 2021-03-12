@@ -1,5 +1,6 @@
 ---
 title: Manage security in InfluxDB Enterprise
+description: Protect the data in your InfluxDB Enterprise instance.
 menu:
   enterprise_influxdb_1_8:
     name: Manage security
@@ -10,7 +11,7 @@ menu:
 Some customers may choose to install InfluxDB Enterprise with public internet access, however doing so can inadvertently expose your data and invite unwelcome attacks on your database.
 Check out the sections below for how protect the data in your InfluxDB Enterprise instance.
 
-## Enabling authentication
+## Enable authentication
 
 Password protect your InfluxDB Enterprise instance to keep any unauthorized individuals
 from accessing your data.
@@ -18,7 +19,7 @@ from accessing your data.
 Resources:
 [Set up Authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
 
-## Managing users and permissions
+## Manage users and permissions
 
 Restrict access by creating individual users and assigning them relevant
 read and/or write permissions.
@@ -28,7 +29,7 @@ Resources:
 [User management commands](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands),
 [Fine-grained authorization](/enterprise_influxdb/v1.8/guides/fine-grained-authorization/)
 
-## Enabling HTTPS
+## Enable HTTPS
 
 Using HTTPS secures the communication between clients and the InfluxDB server, and, in
 some cases, HTTPS verifies the authenticity of the InfluxDB server to clients (bi-directional authentication).

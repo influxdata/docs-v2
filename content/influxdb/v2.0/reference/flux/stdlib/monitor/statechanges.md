@@ -4,7 +4,7 @@ description: >
   The `monitor.stateChanges()` function detects state changes in a stream of tables and
   outputs records that change from `fromLevel` to `toLevel`.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/statechanges/
+  - /influxdb/v2.0/reference/flux/functions/monitor/statechanges/
 menu:
   influxdb_2_0_ref:
     name: monitor.stateChanges

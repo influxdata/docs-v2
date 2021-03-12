@@ -3,7 +3,7 @@ title: Transform data with mathematic operations
 seotitle: Transform data with mathematic operations in Flux
 list_title: Transform data with math
 description: >
-  Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map)
+  Use the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map)
   to remap column values and apply mathematic operations.
 influxdb/v2.0/tags: [math, flux]
 menu:
@@ -12,26 +12,25 @@ menu:
     parent: Query with Flux
 weight: 208
 aliases:
-  - /v2.0/query-data/guides/mathematic-operations/
-  - /v2.0/query-data/flux/mathematic-operations/
+  - /influxdb/v2.0/query-data/guides/mathematic-operations/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/map
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
-  - /v2.0/reference/flux/language/operators/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/language/operators/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/
   - /influxdb/v2.0/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 
-[Flux](/v2.0/reference/flux), InfluxData's data scripting and query language,
+[Flux](/influxdb/v2.0/reference/flux), InfluxData's data scripting and query language,
 supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/v2.0/reference/flux/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/influxdb/v2.0/reference/flux/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Basic mathematic operations
 ```js
@@ -46,7 +45,7 @@ If you're just getting started with Flux queries, check out the following:
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/v2.0/reference/cli/influx/repl">Flux read-eval-print-loop (REPL)</a>.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v2.0/tools/repl/">Flux Read-Eval-Print Loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type
@@ -58,7 +57,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
+To convert operands to the same type, use [type-conversion functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -77,7 +76,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/v2.0/query-data/guides/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/influxdb/v2.0/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -99,9 +98,9 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
+- [Handle piped-forward data](/influxdb/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
-- Use the [`map()` function](/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
+- Use the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -165,7 +164,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)
+[`float()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float)
 and format the denominator in the division operation as a float.
 
 ```js
@@ -186,7 +185,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentates](/v2.0/query-data/flux/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentates](/influxdb/v2.0/query-data/flux/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

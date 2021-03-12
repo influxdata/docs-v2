@@ -560,8 +560,8 @@ Environment variable: `INFLUXDB_MONITOR_STORE_INTERVAL`
 
 {{% warn %}} In version 1.3, the web admin interface is no longer available in InfluxDB.
 The interface does not run on port `8083` and InfluxDB ignores the `[admin]` section in the configuration file if that section is present.
-[Chronograf](/chronograf/v1.3/) replaces the web admin interface with improved tooling for querying data, writing data, and database management.
-See [Chronograf's transition guide](/chronograf/v1.3/guides/transition-web-admin-interface/) for more information.
+[Chronograf](/{{< latest "chronograf" >}}/) replaces the web admin interface with improved tooling for querying data, writing data, and database management.
+See [Chronograf's transition guide](/chronograf/v1.7/guides/transition-web-admin-interface/) for more information.
 {{% /warn %}}
 
 ## [http]
@@ -759,7 +759,7 @@ Environment variable: `INFLUXDB_GRAPHITE_PROTOCOL`
 
 The number of nodes that must confirm the write.
 If the requirement is not met the return value will be either `partial write` if some points in the batch fail or `write failure` if all points in the batch fail.
-For more information, see the Query String Parameters for Writes section in the [Line Protocol Syntax Reference ](/influxdb/v1.3/write_protocols/write_syntax/).
+For more information, see the Query String Parameters for Writes section in the [Line Protocol Syntax Reference ](/influxdb/v1.3/write_protocols/line_protocol_reference/).
 
 Environment variable: `INFLUXDB_GRAPHITE_CONSISTENCY_LEVEL`
 

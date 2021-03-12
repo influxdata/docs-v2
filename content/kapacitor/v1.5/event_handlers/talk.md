@@ -1,10 +1,11 @@
 ---
 title: Talk event handler
-description: The Talk event handler allows you to send Kapacitor alerts to Talk. This page includes configuration options and usage examples.
+description: >
+  The Talk event handler allows you to send Kapacitor alerts to Talk. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Talk
-    weight: 1700
+    weight: 1800
     parent: Event handlers
 ---
 
@@ -12,7 +13,7 @@ menu:
 a centralized hub.
 Kapacitor can be configured to send alert messages to Talk.
 
-## Conifiguration
+## Configuration
 Configuration as well as default [option](#options) values for the Talk event
 handler are set in your `kapacitor.conf`.
 Below is an example configuration:
@@ -36,7 +37,7 @@ The default authorName.
 
 ## Options
 The following Talk event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.talk()` in a TICKscript.
 
 | Name  | Type   | Description    |

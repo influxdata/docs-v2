@@ -4,18 +4,18 @@ description: >
   The `strings.trimSuffix()` function removes a suffix from a string.
   Strings that do not end with the suffix are returned unchanged.
 aliases:
-  - /v2.0/reference/flux/functions/strings/trimsuffix/
+  - /influxdb/v2.0/reference/flux/functions/strings/trimsuffix/
 menu:
   influxdb_2_0_ref:
     name: strings.trimSuffix
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/trim
-  - /v2.0/reference/flux/stdlib/strings/trimleft
-  - /v2.0/reference/flux/stdlib/strings/trimright
-  - /v2.0/reference/flux/stdlib/strings/trimprefix
-  - /v2.0/reference/flux/stdlib/strings/trimspace
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trim
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimleft
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimright
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
 ---
 
 The `strings.trimSuffix()` function removes a suffix from a string.

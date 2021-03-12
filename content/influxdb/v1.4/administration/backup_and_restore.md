@@ -14,13 +14,13 @@ The [metastore](/influxdb/v1.4/concepts/glossary/#metastore) is backed up in its
 The metrics are backed up per-database in a separate operation from the metastore backup.
 Per-database backups can be full, incremental (since a RFC3339 formatted time), or for a specific shard ID.
 
-> **Note:** Backups are not interchangeable between InfluxDB OSS and [InfluxEnterprise](/enterprise/latest/).
-You cannot restore an OSS backup to an InfluxEnterprise data node, nor can you restore
-an InfluxEnterprise backup to an OSS instance.
+> **Note:** Backups are not interchangeable between InfluxDB OSS and [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/).
+You cannot restore an OSS backup to an InfluxDB Enterprise data node, nor can you restore
+an InfluxDB Enterprise backup to an OSS instance.
 >
-If you are working with an InfluxEnterprise cluster, please see the [Backup
-and Restore Guide](/enterprise/latest/guides/backup-and-restore/) in the
-InfluxEnterprise documentation.
+If you are working with an InfluxDB Enterprise cluster, please see the [Backup
+and Restore Guide](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/) in the
+InfluxDB Enterprise documentation.
 
 ### Backing up the metastore
 

@@ -2,15 +2,15 @@
 title: count() function
 description: The `count()` function outputs the number of non-null records in a column.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/count
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/count
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
 menu:
   influxdb_2_0_ref:
     name: count
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#count, InfluxQL – COUNT()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
 ---
 
 The `count()` function outputs the number of records in a column.
@@ -30,9 +30,9 @@ To keep empty tables in your data, set the following parameters for the followin
 
 | Function                                                                                              | Parameter           |
 |:--------                                                                                              |:---------           |
-| [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
-| [window()](/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
-| [aggregateWindow()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
+| [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
+| [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
+| [aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
 ## Parameters

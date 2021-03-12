@@ -1,6 +1,7 @@
 ---
 title: Kapacitor command line client
-description: The 'kapacitor' command line utility is used to manage Kapacitor servers and processes, providing access to server statistics as well as other management tasks.
+description: >
+  The 'kapacitor' command line utility is used to manage Kapacitor servers and processes, providing access to server statistics as well as other management tasks.
 menu:
   kapacitor_1_5:
     name: Kapacitor CLI
@@ -8,7 +9,6 @@ menu:
     parent: work-w-kapacitor
 ---
 
-# Contents
 * [General options](#general-options)
 * [Core commands](#core-commands)
 * [Server management](#server-management)
@@ -57,8 +57,8 @@ This can be used to run `kapacitor` commands on a remote Kapacitor server.
 > username and password as query parameters, `u` and `p` respectively, in the Kapacitor URL.
 > For both convenience and security, InfluxData recommends storing these credentials as
 > part of the Kapacitor URL in the `KAPACITOR_URL` environment variable.
->
->```sh
+
+```sh
 export KAPACITOR_URL=https://192.168.67.88:9092?u=username&p=password
 
 # When KAPACITOR_URL is defined, the -url flag isn't necessary.
@@ -111,7 +111,7 @@ ability to push task definitions to other servers.
 The `backup` command creates a backup of the Kapacitor database at a specified filepath.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor backup [PATH_TO_BACKUP_FILE]
 
 # Example
@@ -127,7 +127,7 @@ The `stats` command displays statistics about the Kapacitor server.
 It requires either the `general` or `ingress` argument.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor stats <general|ingress>
 ```
 
@@ -220,7 +220,7 @@ discovery and scraping of data. _For more information about services see the
 The `list service-tests` lists all service tests currently available on the server.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor list service-tests [ <SERVICE_NAME> | <PATTERN> ]
 
 # Example
@@ -306,7 +306,7 @@ The `logs` command outputs the entire Kapacitor log stream or the log stream of 
 Log streams can be filtered by log level.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor logs [service=<SERVICE_ID>] [lvl=<LEVEL>]
 ```
 
@@ -383,7 +383,7 @@ The `watch` command follows logs associated with a **task**.
 > This is different from the `logs` command, which allows tracking logs associated with a service.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor watch <TASK_ID> [<TAGS> ...]
 ```
 
@@ -420,7 +420,7 @@ argument `-no-wait` will spawn the replay into a separate process and exit leavi
 it to run in the background.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor record batch (-no-wait) [-past <WINDOW_IN_PAST> | -start <START_TIME> -stop <STOP_TIME>] [-recording-id <ID>] -task <TASK_ID>
 
 # Example
@@ -439,7 +439,7 @@ process and exit leaving it to run in the background.
 > duration has expired. It returns the recording ID in the console.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor record stream -duration <DURATION> (-no-wait) (-recording-id <ID> ) -task <TASK_ID>
 
 # Example
@@ -455,7 +455,7 @@ The optional boolean argument `-no-wait` will spawn the replay into a separate
 process and exit leaving it to run in the background.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor record query [-cluster <INFLUXDB_CLUSTER_NAME>] [-no-wait] -query <QUERY> [-recording-id <RECORDING_ID>] -type <stream|batch>
 
 # Example
@@ -475,7 +475,7 @@ when not provided will be generated. The optional Boolean argument `-no-wait` wi
 spawn the replay into a separate process and exit leaving it to run in the background.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor replay [-no-wait] [-real-clock] [-rec-time] -recording <ID> [-replay-id <REPLAY_ID>] -task <TASK_ID>
 
 # Example
@@ -492,7 +492,7 @@ With the query argument, the replay executes an InfluxDB query against the task.
 The query should include the database, retention policy and measurement string.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor replay-live query [-cluster <CLUSTER_URL>] [-no-wait] -query <QUERY> [-real-clock] [-rec-time] [-replay-id <REPLAY_ID>] -task <TASK_ID>
 
 # Example
@@ -515,7 +515,7 @@ Use of present times is the default behavior.
 With the batch argument the replay executes the task with batch data already stored to InfluxDB. It takes the following form:
 
 ```bash
-# Pattern
+# Syntax
 kapacitor replay-live batch [-no-wait] [ -past <TIME_WINDOW> | -start <START_TIME> -stop <STOP_TIME> ] [-real-clock] [-rec-time] [-replay-id <REPLAY_ID>] -task <TASK_ID>
 
 # Example
@@ -569,7 +569,7 @@ bbe8567c-a642-4da9-83ef-2a7d32ad5eb1 cpu_alert       4e0f09c5-1426-4778-8f9b-c4a
 The `delete recordings` command deletes one or more recordings.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete recordings <Recording-ID | Pattern>
 
 # Examples
@@ -593,7 +593,7 @@ To verify results, use the `list recordings` command.
 The `delete replays` command deletes one or more replays.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete replays <Replay-ID | Pattern>
 
 # Examples
@@ -629,7 +629,7 @@ The `define-topic-handler` command defines or redefines a topic handler based on
 the contents of a topic handler script.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor define-topic-handler <PATH_TO_HANDLER_SCRIPT>
 
 # Example
@@ -669,7 +669,7 @@ cpu        slack      slack
 Use the `show-topic` command to see the details of a topic.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor show-topic [TOPIC_ID]
 
 # Example
@@ -687,7 +687,7 @@ cpu:nil OK       cpu:nil is OK 13 Nov 17 13:34 CET
 The `show-topic-handler` command outputs the topic-handler's contents to the console.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor show-topic-handler [TOPIC_ID] [HANDLER_ID]
 
 # Example
@@ -703,7 +703,7 @@ Options: {"channel":"#kapacitor"}
 Use the `delete topics` command to remove one or more topics.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete topics <Topic-ID | Pattern>
 
 # Examples
@@ -724,7 +724,7 @@ To verify the results, use the `list topics` command.
 The `topic-handlers` command removes a topic handler.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete topic-handlers [TOPIC_ID] [HANDLER_ID]
 
 # Example
@@ -757,7 +757,7 @@ It takes one of the following three forms:
 
 #### Define a straight-forward task
 ```bash
-# Pattern
+# Syntax
 kapacitor define <TASK_ID> -tick <PATH_TO_TICKSCRIPT> -type <stream|batch> [-no-reload] -dbrp <DATABASE>.<RETENTION_POLICY>
 
 # Example
@@ -779,7 +779,7 @@ To verify the results, use the `list tasks` command.
 
 #### Define a task from a template
 ```bash
-# Pattern
+# Syntax
 kapacitor define <TASK_ID> -template <TEMPLATE_ID> -vars <PATH_TO_VARS_FILE> [-no-reload] -dbrp <DATABASE>.<RETENTION_POLICY>
 
 # Example
@@ -801,7 +801,7 @@ To verify the results, use the `list tasks` command.
 
 #### Define a task from a template with a descriptor file
 ```bash
-# Pattern
+# Syntax
 kapacitor define <TASK_ID> -file <PATH_TO_TEMPLATE_FILE> [-no-reload]
 
 # Example
@@ -824,7 +824,7 @@ To verify the results, use the `list tasks` command.
 Use this command to load a task template to Kapacitor. It takes the following form:
 
 ```bash
-# Pattern
+# Syntax
 kapacitor define-template <TEMPLATE_ID> -tick <PATH_TO_TICKSCRIPT> -type <string|batch>
 
 # Example
@@ -846,7 +846,7 @@ The `enable` command enables one or more tasks.
 When tasks are first created, they are in a `disabled` state.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor enable <TASK_ID>
 
 # Example
@@ -860,7 +860,7 @@ To verify the results, use the `list tasks` command.
 The `disable` command disables one or more active tasks.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor disable <TASK_ID>...
 
 # Examples
@@ -876,7 +876,7 @@ The `reload` command disables and then reenables one or more tasks.
 It's useful when troubleshooting a tasks to stop and start it again.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor reload <TASK_ID>
 kapacitor reload cpu_alert
 ```
@@ -914,7 +914,7 @@ generic_mean_alert stream    crit,field,groups,measurement,slack_channel,warn,wh
 The `show` command outputs the details of a task.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor show [-replay <REPLAY_ID>] <TASK_ID>
 
 # Example
@@ -963,7 +963,7 @@ alert2 [alerts_triggered="147" avg_exec_time_ns="1.665189ms" crits_triggered="10
 The `show-template` command outputs the details of a task template.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor show-template <TEMPLATE_ID>
 
 # Example
@@ -1040,7 +1040,7 @@ mean3 -> alert4;
 The `delet tasks` command removes one or more tasks.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete tasks <Task-IDs | Pattern>
 
 # Example
@@ -1060,7 +1060,7 @@ To verify the results, use the `list tasks` command.
 The `delete templates` command removes one or more templates.
 
 ```bash
-# Pattern
+# Syntax
 kapacitor delete templates <Tempalte-IDs | Pattern>
 
 # Example

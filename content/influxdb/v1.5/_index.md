@@ -28,4 +28,4 @@ It compiles into a single binary with no external dependencies.
 * Continuous queries automatically compute aggregate data to make frequent queries more efficient.
 
 The open source edition of InfluxDB runs on a single node.
-If you require high availability to eliminate a single point of failure, consider the [InfluxDB Enterprise Edition](https://docs.influxdata.com/influxdb/v1.5/high_availability/).
+If you require high availability to eliminate a single point of failure, consider the [InfluxDB Enterprise Edition](/enterprise_influxdb/v1.5/).

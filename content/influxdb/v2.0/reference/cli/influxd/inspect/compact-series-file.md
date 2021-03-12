@@ -8,12 +8,10 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/inspect/compact-series-file/
-products: [oss]
+draft: true
 ---
 
-The `influxd inspect compact-series-file` command compacts the [series file](/v2.0/reference/glossary/#series-file)
+The `influxd inspect compact-series-file` command compacts the [series file](/influxdb/v2.0/reference/glossary/#series-file)
 by removing deleted series.
 
 ## Usage

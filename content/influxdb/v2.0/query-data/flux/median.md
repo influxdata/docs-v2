@@ -3,11 +3,9 @@ title: Find median values
 seotitle: Find median values in Flux
 list_title: Median
 description: >
-  Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
+  Use the [`median()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
   to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 weight: 210
-aliases:
-  - /v2.0/query-data/flux/median/
 menu:
   influxdb_2_0:
     parent: Query with Flux
@@ -15,20 +13,20 @@ menu:
 influxdb/v2.0/tags: [query, median]
 related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
 list_query_example: median
 ---
 
-Use the [`median()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
+Use the [`median()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/)
 to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 
 ## Select a method for calculating the median
 Select one of the following methods to calculate the median:
 
-- [estimate_tdigest](#estimate-tdigest)
-- [exact_mean](#exact-mean)
-- [exact_selector](#exact-selector)
+- [estimate_tdigest](#estimate_tdigest)
+- [exact_mean](#exact_mean)
+- [exact_selector](#exact_selector)
 
 ### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
@@ -104,7 +102,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/v2.0/query-data/flux/#example-data-variable).
+The examples below use the [example data variable](/influxdb/v2.0/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value that represents the median
@@ -135,13 +133,13 @@ data
 ```
 
 ## Use median() with aggregateWindow()
-[`aggregateWindow()`](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
-It is primarily used to [downsample data](/v2.0/process-data/common-tasks/downsample-data/).
+It is primarily used to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/).
 
 To specify the [median calculation method](#select-a-method-for-calculating-the-median) in `aggregateWindow()`, use the
-[full function syntax](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+[full function syntax](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data

@@ -13,4 +13,4 @@ menu:
 Now that you've installed the meta nodes and data nodes, you are ready to install Chronograf
 to provide you with a user interface to access the InfluxDB Enterprise instance.
 
-[Installation instruction for Chronograf](/chronograf/latest/introduction/installation/)
+[Installation instruction for Chronograf](/{{< latest "chronograf" >}}/introduction/installation/)

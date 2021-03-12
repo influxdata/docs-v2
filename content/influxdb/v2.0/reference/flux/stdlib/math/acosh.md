@@ -2,7 +2,7 @@
 title: math.acosh() function
 description: The math.acosh() function returns the inverse hyperbolic cosine of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/acosh/
+  - /influxdb/v2.0/reference/flux/functions/math/acosh/
 menu:
   influxdb_2_0_ref:
     name: math.acosh
