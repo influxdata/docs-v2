@@ -17,20 +17,15 @@ Migrate a running instance of InfluxDB open source (OSS) to an InfluxDB Enterpri
 
 - An InfluxDB OSS instance running **InfluxDB 1.7.10 or later**.
 - An InfluxDB Enterprise cluster running **InfluxDB Enterprise 1.7.10 or later**
-
-  {{% note %}}
-  Make sure your OSS and Enterprise version is the same, for example, InfluxDB 1.8 and InfluxDB Enterprise 1.8.
-  {{% /note %}}
-
+- Your **OSS and Enterprise version is the same**, for example, InfluxDB 1.8 and InfluxDB Enterprise 1.8.
 - Network accessibility between the OSS instances and all data and meta nodes.
 
-{{% warn %}}
-**Migrating does the following:**
+  {{% warn %}}
+  **Migrating does the following:**
 
-- Deletes data in existing InfluxDB Enterprise data nodes (not applicable if you're migrating to a new cluster)
-- Transfers all users from the OSS instance to the InfluxDB Enterprise cluster
-
-{{% /warn %}}
+  - Deletes data in existing InfluxDB Enterprise data nodes (not applicable if you're migrating to a new cluster)
+  - Transfers all users from the OSS instance to the InfluxDB Enterprise cluster
+  {{% /warn %}}
 
 ## Migrate to InfluxDB Enterprise
 
@@ -285,46 +280,45 @@ sudo systemctl start influxdb
 
 After you upgrade your OSS instance to InfluxDB Enterprise, add the node to your Enterprise cluster.
 
-From a **meta** node in the cluster, run:
+- From a **meta** node in the cluster, run:
 
-```bash
-influxd-ctl add-data <new-data-node-hostname>:8088
-```
+    ```bash
+    influxd-ctl add-data <new-data-node-hostname>:8088
+    ```
 
-It should output:
+    The output should look like:
 
-```bash
-Added data node y at new-data-node-hostname:8088
-```
+    ```bash
+    Added data node y at new-data-node-hostname:8088
+    ```
 
 #### Add existing data nodes back to the cluster
 
 If you removed any existing data nodes from your InfluxDB Enterprise cluster,
 add them back to the cluster.
 
-From a **meta** node in the InfluxDB Enterprise cluster, run the following for
+1. From a **meta** node in the InfluxDB Enterprise cluster, run the following for
 **each data node**:
 
-```bash
-influxd-ctl add-data <the-hostname>:8088
-```
+    ```bash
+    influxd-ctl add-data <the-hostname>:8088
+    ```
 
-It should output:
+    It should output:
 
-```bash
-Added data node y at the-hostname:8088
-```
+    ```bash
+    Added data node y at the-hostname:8088
+    ```
 
-Verify that all nodes are now members of the cluster as expected:
+2. Verify that all nodes are now members of the cluster as expected:
 
-```bash
-influxd-ctl show
-```
+    ```bash
+    influxd-ctl show
+    ```
 
 Once added to the cluster, InfluxDB synchronizes data stored on the upgraded OSS
 node with other data nodes in the cluster.
 It may take a few minutes before the existing data is available.
-
 
 ## Rebalance the cluster
 
