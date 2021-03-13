@@ -105,7 +105,7 @@ Environment variable: `$CANNED_PATH`
 Path to directory of sources (.src files), Kapacitor connections (.kap files), organizations (.org files), and dashboards (.dashboard files).
 
 {{% note %}}
-**Note:** If you have a dashboard with the `.json` extension, rename it with the `.dashboard` extension to ensure the dashboard is loaded.
+**Note:** If you have a dashboard with the `.json` extension, rename it with the `.dashboard` extension in this directory to ensure the dashboard is loaded.
 {{% /note %}}
 
 Default value: `/usr/share/chronograf/resources`
