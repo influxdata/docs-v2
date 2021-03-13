@@ -4,18 +4,18 @@ description: >
   The `relativeStrengthIndex()` function measures the relative speed and change of
   values in an input table.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/relativestrengthindex/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/relativestrengthindex/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/relativestrengthindex/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/relativestrengthindex/
 menu:
   influxdb_2_0_ref:
     name: relativeStrengthIndex
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#relative-strength-index, InfluxQL RELATIVE_STRENGTH_INDEX()
 ---
 
 The `relativeStrengthIndex()` function measures the relative speed and change of

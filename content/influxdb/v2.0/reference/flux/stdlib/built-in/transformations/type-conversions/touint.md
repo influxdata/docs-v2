@@ -2,8 +2,8 @@
 title: toUInt() function
 description: The `toUInt()` function converts all values in the `_value` column to UIntegers.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/touint
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/touint/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/touint
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/touint/
 menu:
   influxdb_2_0_ref:
     name: toUInt
@@ -52,5 +52,5 @@ toUInt = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[uint()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[uint()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint)_

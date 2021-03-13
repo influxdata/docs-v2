@@ -4,19 +4,19 @@ description: >
   The `timedMovingAverage()` function calculates the mean of values in a defined time
   range at a specified frequency.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
 menu:
   influxdb_2_0_ref:
     name: timedMovingAverage
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average, InfluxQL MOVING_AVERAGE()
 ---
 
 The `timedMovingAverage()` function calculates the mean of values in a defined time
@@ -53,7 +53,7 @@ _**Data type:** String_
 
 ## Examples
 
-###### Calculate a seven day moving average every day
+###### Calculate a five year moving average every year
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -7y)
@@ -64,7 +64,7 @@ from(bucket: "example-bucket"):
   |> timedMovingAverage(every: 1y, period: 5y)
 ```
 
-###### Calculate a five year moving average every year
+###### Calculate a seven day moving average every day
 ```js
 from(bucket: "example-bucket"):
   |> range(start: -50d)

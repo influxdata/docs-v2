@@ -19,7 +19,7 @@ _**Function type:** Miscellaneous_
 import "experimental/http"
 
 http.get(
-  url: "http://localhost:9999/",
+  url: "http://localhost:8086/",
   headers: {x:"a", y:"b", z:"c"},
   timeout: 30s
 )
@@ -35,7 +35,7 @@ _**Data type:** String_
 ### headers
 Headers to include with the GET request.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### timeout
 Timeout for the GET request.
@@ -44,7 +44,7 @@ Default is `30s`.
 _**Data type:** Duration_
 
 ## Response format
-`http.get` returns an object that contains the following:
+`http.get` returns a record that contains the following:
 
 - [statusCode](#statuscode)
 - [body](#body)
@@ -63,7 +63,7 @@ _**Data type:** Byte Array_
 ### headers
 Headers included with the response.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 
@@ -76,7 +76,7 @@ import "csv"
 token = secrets.get(key: "READONLY_TOKEN")
 
 response = http.get(
-    url: "http://localhost:9999/health",
+    url: "http://localhost:8086/health",
     headers: {Authorization: "Token ${token}"}
   )
 

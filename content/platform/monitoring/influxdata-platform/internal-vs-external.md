@@ -29,9 +29,9 @@ internal goroutine statistics, write statistics, series cardinality, and others,
 and stores them in the `_internal` database.
 _For the recommendation about `_internal` databases, see [Disable the `_internal` database in production clusters](#disable-the-internal-database-in-production-clusters) below._
 
-[Monitoring dashboards](/platform/monitoring/monitoring-dashboards) are available
+[Monitoring dashboards](/platform/monitoring/influxdata-platform/monitoring-dashboards/) are available
 that visualize the default metrics provided in each of these databases.
-You can also [configure Kapacitor alerts](/kapacitor/latest/working/alerts/)
+You can also [configure Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/)
 to monitor and alert on each of these metrics.
 
 ### Pros of internal monitoring
@@ -71,7 +71,7 @@ _For information about setting up an external monitoring TICK stack, see [Setup 
 
 [Monitoring dashboards](/platform/monitoring/influxdata-platform/monitoring-dashboards) are available
 that visualize the default metrics provided by the Telegraf agents.
-You can also [configure Kapacitor alerts](/kapacitor/latest/working/alerts/)
+You can also [configure Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/)
 to monitor and alert on each of these metrics.
 
 ### Pros of external monitoring
@@ -96,7 +96,7 @@ It creates unnecessary overhead, particularly for busy clusters, that can overlo
 Metrics stored in the `_internal` database primarily measure workload performance,
 which should only be tested in non-production environments.
 
-To disable the `_internal` database, set [`store-enabled`](/influxdb/latest/administration/config/#monitoring-settings-monitor)
+To disable the `_internal` database, set [`store-enabled`](/{{< latest "influxdb" "v1" >}}/administration/config/#monitoring-settings-monitor)
 to `false` under the `[monitor]` section of your `influxdb.conf`.
 
 _**influxdb.conf**_

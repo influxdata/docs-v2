@@ -20,8 +20,8 @@ To enhance security, configure Chronograf to authenticate and authorize with [OA
 ## Configure OAuth 2.0
 
 > After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.
-> You can then set up [multiple organizations](https://docs.influxdata.com/chronograf/latest/administration/managing-organizations/)
-> and [users](https://docs.influxdata.com/chronograf/latest/administration/managing-influxdb-users/).
+> You can then set up [multiple organizations](/chronograf/v1.7/administration/managing-organizations/)
+> and [users](/chronograf/v1.7/administration/managing-influxdb-users/).
 
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 
@@ -46,7 +46,7 @@ Chronograf will use this secret to generate the JWT Signature for all access tok
     TOKEN_SECRET=<mysecret>
     ```
 
-> ***InfluxEnterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
+> ***InfluxDB Enterprise clusters:*** If you are running multiple Chronograf servers in a high availability configuration,
 > set the `TOKEN_SECRET` environment variable on each server to ensure that users can stay logged in.
 
 ### JWKS Signature Verification (optional)

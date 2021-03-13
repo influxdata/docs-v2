@@ -1,11 +1,9 @@
 ---
 title: Create a Telegraf configuration
 description: >
-  Use the InfluxDB UI or the [`influx` CLI](/v2.0/reference/cli/influx/)
+  Use the InfluxDB UI or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
   to create an Telegraf configuration.
 weight: 101
-aliases:
-  - /v2.0/telegraf-configs/create/
 menu:
   influxdb_2_0:
     name: Create a config
@@ -16,7 +14,7 @@ related:
   - /influxdb/v2.0/telegraf-configs/update/
 ---
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
 to create a Telegraf configuration.
 
 To create a Telegraf configuration, do one of the following:
@@ -29,15 +27,15 @@ To create a Telegraf configuration, do one of the following:
 Use the InfluxDB UI to automatically generate and store new Telegraf configurations in InfluxDB.
 Creating the configuration in the UI lets you select from a list of available technologies
 and generates a Telegraf configuration to collect metrics from those technologies.
-For more information, see [Automatically configure Telegraf](/v2.0/write-data/no-code/use-telegraf/auto-config/).
+For more information, see [Automatically configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/).
 
 Telegraf has an extensive list of plugins for many different technologies and use cases.
 Not all plugins are available through the InfluxDB UI, but you can
-[create and upload custom Telegraf configurations](#create-custom-influxdb-telegraf-configuration)
-that include any of the available [Telegraf plugins](/v2.0/reference/telegraf-plugins).
+[create and upload custom Telegraf configurations](#create-a-custom-telegraf-configuration)
+that include any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
 
 ## Use the influx CLI
-Use the [`influx telegrafs create` command](/v2.0/reference/cli/influx/telegrafs/create/)
+Use the [`influx telegrafs create` command](/influxdb/v2.0/reference/cli/influx/telegrafs/create/)
 to upload a Telegraf configuration file from your local machine and create a new Telegraf
 configuration in InfluxDB.
 
@@ -69,8 +67,8 @@ influx telegrafs create \
 ## Create a custom Telegraf configuration
 
 1. Create a custom Telegraf configuration file that includes the `outputs.influxdb_v2`
-   output plugin. _See [Manually configure Telegraf](/v2.0/write-data/no-code/use-telegraf/manual-config/)_
+   output plugin. _See [Manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/)_
    for more information.
-2. Add and customize [Telegraf plugins](/v2.0/reference/telegraf-plugins) and save your changes.
+2. Add and customize [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/) and save your changes.
 3. [Use the `influx telegrafs create` command](#use-the-influx-cli) to upload your
    custom Telegraf configuration to InfluxDB.

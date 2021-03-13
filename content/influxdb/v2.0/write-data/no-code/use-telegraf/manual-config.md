@@ -6,16 +6,15 @@ description: >
   output plugin to write to InfluxDB v2.0.
   Start Telegraf using the custom configuration.
 aliases:
-  - /v2.0/collect-data/use-telegraf/manual-config
-  - /v2.0/write-data/use-telegraf/manual-config
-  - /v2.0/write-data/no-code/use-telegraf/manual-config
+  - /influxdb/v2.0/collect-data/use-telegraf/manual-config
+  - /influxdb/v2.0/write-data/use-telegraf/manual-config
 menu:
   influxdb_2_0:
     parent: Telegraf (agent)
 weight: 202
 influxdb/v2.0/tags: [manually, plugin, mqtt]
 related:
-  - /influxdb/v2.0/reference/telegraf-plugins/
+  - /{{< latest "telegraf" >}}/plugins//
   - /influxdb/v2.0/telegraf-configs/create/
   - /influxdb/v2.0/telegraf-configs/update/
 ---
@@ -27,7 +26,7 @@ then start Telegraf using the custom configuration file.
 {{< youtube qFS2zANwIrc >}}
 
 {{% note %}}
-_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
+_View the [requirements](/influxdb/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
@@ -36,13 +35,13 @@ Configure Telegraf input and output plugins in the Telegraf configuration file (
 Input plugins collect metrics.
 Output plugins define destinations where metrics are sent.
 
-_See [Telegraf plugins](/v2.0/reference/telegraf-plugins/) for a complete list of available plugins._
+_See [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//) for a complete list of available plugins._
 
 ### Manually add Telegraf plugins
 
-To manually add any of the available [Telegraf plugins](/v2.0/reference/telegraf-plugins/), follow the steps below.
+To manually add any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//), follow the steps below.
 
-1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/v2.0/reference/telegraf-plugins/).
+1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
 2. Click **View** to the right of the plugin name to open the plugin page on GitHub. For example, view the MQTT plugin GitHub page [here](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/mqtt_consumer/README.md).
 3. Copy and paste the example configuration into your Telegraf configuration file (typically named `telegraf.conf`).
 
@@ -66,12 +65,12 @@ The InfluxDB output plugin configuration contains the following options:
 
 ##### urls
 An array of URLs for your InfluxDB v2.0 instances.
-See [InfluxDB URLs](/v2.0/reference/urls/) for information about which URLs to use.
+See [InfluxDB URLs](/influxdb/v2.0/reference/urls/) for information about which URLs to use.
 **{{< cloud-name "short">}} requires HTTPS**.
 
 ##### token
 Your InfluxDB v2.0 authorization token.
-For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/).
+For information about viewing tokens, see [View tokens](/influxdb/v2.0/security/tokens/view-tokens/).
 
 {{% note %}}
 ###### Avoid storing tokens in `telegraf.conf`
@@ -114,7 +113,7 @@ set INFLUX_TOKEN=YourAuthenticationToken
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-_See the [example `telegraf.conf` below](#example-influxdb-v2-configuration)._
+_See the [example `telegraf.conf` below](#example-influxdb_v2-configuration)._
 {{% /note %}}
 
 ##### organization
@@ -130,7 +129,7 @@ The example below illustrates an `influxdb_v2` configuration.
 # ...
 
 [[outputs.influxdb_v2]]
-  urls = ["http://localhost:9999"]
+  urls = ["http://localhost:8086"]
   token = "$INFLUX_TOKEN"
   organization = "example-org"
   bucket = "example-bucket"
@@ -146,12 +145,12 @@ enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.0 ins
 
 ## Add a custom Telegraf configuration to InfluxDB
 To add a custom or manually configured Telegraf configuration to your collection
-of Telegraf configurations in InfluxDB, use the [`influx telegrafs create`](/v2.0/reference/cli/influx/telegrafs/create/)
-or [`influx telegrafs update`](/v2.0/reference/cli/influx/telegrafs/update/) commands.
+of Telegraf configurations in InfluxDB, use the [`influx telegrafs create`](/influxdb/v2.0/reference/cli/influx/telegrafs/create/)
+or [`influx telegrafs update`](/influxdb/v2.0/reference/cli/influx/telegrafs/update/) commands.
 For more information, see:
 
-- [Create a Telegraf configuration](/v2.0/telegraf-configs/create/#use-the-influx-cli)
-- [Update a Telegraf configuration](/v2.0/telegraf-configs/update/#use-the-influx-cli)
+- [Create a Telegraf configuration](/influxdb/v2.0/telegraf-configs/create/#use-the-influx-cli)
+- [Update a Telegraf configuration](/influxdb/v2.0/telegraf-configs/update/#use-the-influx-cli)
 
 ## Start Telegraf
 

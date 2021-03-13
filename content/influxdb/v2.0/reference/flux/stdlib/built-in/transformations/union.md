@@ -2,15 +2,15 @@
 title: union() function
 description: The `union()` function concatenates two or more input streams into a single output stream.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/union
-  - /v2.0/reference/flux/functions/built-in/transformations/union/
+  - /influxdb/v2.0/reference/flux/functions/transformations/union
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/union/
 menu:
   influxdb_2_0_ref:
     name: union
     parent: built-in-transformations
 weight: 402
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/join/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/
 ---
 
 The `union()` function concatenates two or more input streams into a single output stream.
@@ -21,7 +21,7 @@ The output schemas of the `union()` function is the union of all input schemas.
 A sort operation may be added if a specific sort order is needed.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 union(tables: [table1, table2])
@@ -50,7 +50,7 @@ union(tables: [bucket1, bucket2])
 
 ## union() versus join()
 `union()` merges separate streams of tables into a single stream of tables and
-groups rows of data based on existing [group keys](/v2.0/reference/glossary/#group-key).
+groups rows of data based on existing [group keys](/influxdb/v2.0/reference/glossary/#group-key).
 `union()` does not modify individual rows of data.
 `join()` creates new rows based on common values in one or more specified columns.
 Output rows also contain the differing values from each of the joined streams.

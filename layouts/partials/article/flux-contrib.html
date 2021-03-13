@@ -1,0 +1,25 @@
+{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
+{{ $contribPath := print "/influxdb/" $currentVersion "/reference/flux/stdlib/contrib/" }}
+
+{{ if in .RelPermalink $contribPath }}
+  {{ if not (eq .RelPermalink $contribPath) }}
+    {{ if eq .Kind "page" }}
+      {{ $name := replaceRE `^\w*\.\w*\(\)` "<code>$0</code>" .Title }}
+      <div class="note block">
+        <p>
+          The {{ $name | safeHTML }} is a user-contributed function maintained by
+          the <a href="#package-author-and-maintainer">package author</a> and can
+          be updated or removed at any time.
+        </p>
+      </div>
+    {{ else if eq .Kind "section" }}
+      <div class="note block">
+        <p>
+          The {{ if $.Params.list_title }}{{ $.Params.list_title }}{{ else }}{{ .Title }}{{ end }}
+          is a user-contributed package maintained by the <a href="#package-author-and-maintainer">package author</a>
+          and can be updated or removed at any time.
+        </p>
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}

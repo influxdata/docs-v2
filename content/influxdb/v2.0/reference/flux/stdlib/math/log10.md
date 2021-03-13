@@ -2,7 +2,7 @@
 title: math.log10() function
 description: The math.log10() function returns the decimal logarithm of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/log10/
+  - /influxdb/v2.0/reference/flux/functions/math/log10/
 menu:
   influxdb_2_0_ref:
     name: math.log10

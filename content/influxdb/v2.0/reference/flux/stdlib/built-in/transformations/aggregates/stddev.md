@@ -2,15 +2,16 @@
 title: stddev() function
 description: The `stddev()` function computes the standard deviation of non-null records in a specified column.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/stddev
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/stddev
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
 menu:
   influxdb_2_0_ref:
     name: stddev
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#stddev, InfluxQL – STDDEV()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#stddev, InfluxQL – STDDEV()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/stddev/
 ---
 
 The `stddev()` function computes the standard deviation of non-null records in a specified column.

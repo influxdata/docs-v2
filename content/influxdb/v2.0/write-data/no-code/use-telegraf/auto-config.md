@@ -5,9 +5,8 @@ description: >
   Use the InfluxDB UI to automatically generate a Telegraf configuration,
   then start Telegraf using the generated configuration file.
 aliases:
-  - /v2.0/collect-data/use-telegraf/auto-config
-  - /v2.0/write-data/use-telegraf/auto-config
-  - /v2.0/write-data/no-code/use-telegraf/auto-config
+  - /influxdb/v2.0/collect-data/use-telegraf/auto-config
+  - /influxdb/v2.0/write-data/use-telegraf/auto-config
 menu:
   influxdb_2_0:
     parent: Telegraf (agent)
@@ -23,17 +22,19 @@ start Telegraf using the generated configuration file.
 
 {{% note %}}
 Only a subset of plugins are configurable using the InfluxDB UI.
-To use plugins other than those listed, you must [manually configure Telegraf](/v2.0/write-data/no-code/use-telegraf/manual-config).
+To use plugins other than those listed, you must [manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config).
 {{% /note %}}
 
+{{< youtube M8KP7FAb2L0 >}}
+
 {{% note %}}
-_View the [requirements](/v2.0/write-data/no-code/use-telegraf#requirements)
+_View the [requirements](/influxdb/v2.0/write-data/no-code/use-telegraf#requirements)
 for using Telegraf with InfluxDB v2.0._
 {{% /note %}}
 
 ## Create a Telegraf configuration
 
-1. Open the InfluxDB UI _(default: [localhost:9999](http://localhost:9999))_.
+1. Open the InfluxDB UI _(default: [localhost:8086](http://localhost:8086))_.
 2. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}
@@ -47,7 +48,7 @@ for using Telegraf with InfluxDB v2.0._
    To configure a plugin or access plugin documentation, click the plugin name.
 
    {{% note %}}
-   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/v2.0/write-data/no-code/use-telegraf/manual-config/).
+   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/).
    {{% /note %}}
 
 8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
@@ -80,12 +81,12 @@ If you plan to monitor a Windows host using the System plugin, you must complete
 
 ## Start Telegraf
 
-Requests to the [InfluxDB v2 API](/v2.0/reference/api/) must include an authentication token.
+Requests to the [InfluxDB v2 API](/influxdb/v2.0/reference/api/) must include an authentication token.
 A token identifies specific permissions to the InfluxDB instance.
 
 ### Configure your token as an environment variable
 
-1. Find your authentication token. _For information about viewing tokens, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+1. Find your authentication token. _For information about viewing tokens, see [View tokens](/influxdb/v2.0/security/tokens/view-tokens/)._
 
 2. To configure your token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
 
@@ -141,10 +142,10 @@ For the exact command, see the Telegraf configuration **Setup Instructions** in 
 {{% /note %}}
 
 ```sh
-telegraf -config http://localhost:9999/api/v2/telegrafs/0xoX00oOx0xoX00o
+telegraf -config http://localhost:8086/api/v2/telegrafs/0xoX00oOx0xoX00o
 ```
 
 ## Manage Telegraf configurations
 
 For more information about managing Telegraf configurations in InfluxDB, see
-[Telegraf configurations](/v2.0/telegraf-configs/).
+[Telegraf configurations](/influxdb/v2.0/telegraf-configs/).

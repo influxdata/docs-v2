@@ -1,5 +1,6 @@
 ---
 title: Docker Install
+description: Install Kapacitor with Docker.
 weight: 70
 menu:
   kapacitor_1_5:
@@ -125,6 +126,7 @@ At this point there should be running on the host machine: InfluxDB, Telegraf an
 
 The running configuration can be further inspected by using the `influx` command line client directly from the InfluxDB Container.
 
+{{< keep-url >}}
 ```
 $ docker exec -it tik_influxdb_1 influx --precision rfc3339
 Connected to http://localhost:8086 version 1.3.3

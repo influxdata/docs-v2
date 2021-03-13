@@ -1,12 +1,14 @@
 ---
 title: Authentication and authorization in InfluxDB
+description: Set up and manage authentication and authorization in InfluxDB OSS.
 aliases:
-    - influxdb/v1.8/administration/authentication_and_authorization/
+  /influxdb/v1.8/query_language/authentication_and_authorization/
 menu:
   influxdb_1_8:
     name: Manage authentication and authorization
     weight: 20
     parent: Administration
+v2: /influxdb/v2.0/security/tokens/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB.
@@ -186,11 +188,8 @@ For testing, you can manually generate UNIX timestamps using [https://www.unixti
 
 Encode the payload using your shared secret.
 You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
-The generated token should look similar to the following:
 
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg
-```
+The generated token follows this format: `<header>.<payload>.<signature>`
 
 ##### 3. Include the token in HTTP requests
 Include your generated token as part of the ``Authorization`` header in HTTP requests.
@@ -207,15 +206,14 @@ Be sure your token has not expired.
 ###### Example query request with JWT authentication
 
 ```bash
-curl -XGET "http://localhost:8086/query?db=demodb" \
+curl -G "http://localhost:8086/query?db=demodb" \
   --data-urlencode "q=SHOW DATABASES" \
-  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg"
+--header "Authorization: Bearer <header>.<payload>.<signature>"
 ```
-
 
 ## Authenticate Telegraf requests to InfluxDB
 
-Authenticating [Telegraf](/telegraf/latest/) requests to an InfluxDB instance with
+Authenticating [Telegraf](/{{< latest "telegraf" >}}/) requests to an InfluxDB instance with
 authentication enabled requires some additional steps.
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), uncomment
 and edit the `username` and `password` settings.
@@ -257,7 +255,7 @@ Database management:
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`CREATE RETENTION POLICY`, `ALTER RETENTION POLICY`, and `DROP RETENTION POLICY`  
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`CREATE CONTINUOUS QUERY` and `DROP CONTINUOUS QUERY`  
 
-See the [database management](/influxdb/v1.8/query_language/database_management/) and [continuous queries](/influxdb/v1.8/query_language/continuous_queries/) pages for a complete discussion of the commands listed above.
+See the [database management](/influxdb/v1.8/query_language/manage-database/) and [continuous queries](/influxdb/v1.8/query_language/continuous_queries/) pages for a complete discussion of the commands listed above.
 
 User management:  
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;Admin user management:  
@@ -277,7 +275,7 @@ Non-admin users can have one of the following three privileges per database:
 &nbsp;&nbsp;&nbsp;◦&nbsp;&nbsp;&nbsp;`ALL` (both `READ` and `WRITE` access)  
 
 `READ`, `WRITE`, and `ALL` privileges are controlled per user per database. A new non-admin user has no access to any database until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user) by an admin user.
-Non-admin users can [`SHOW`](/influxdb/v1.8/query_language/schema_exploration/#show-databases) the databases on which they have `READ` and/or `WRITE` permissions.
+Non-admin users can [`SHOW`](/influxdb/v1.8/query_language/explore-schema/#show-databases) the databases on which they have `READ` and/or `WRITE` permissions.
 
 ### User management commands
 

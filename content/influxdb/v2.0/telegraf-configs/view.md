@@ -1,7 +1,7 @@
 ---
 title: View Telegraf configurations
 description: >
-  Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+  Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
   to view and download InfluxDB Telegraf configurations.
 weight: 102
 menu:
@@ -9,12 +9,11 @@ menu:
     name: View configs
     parent: Telegraf configurations
 aliases:
-  - /v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/
-  - /v2.0/collect-data/use-telegraf/auto-config/view-telegraf-config
-  - /v2.0/telegraf-configs/view/
+  - /influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/
+  - /influxdb/v2.0/collect-data/use-telegraf/auto-config/view-telegraf-config
 ---
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/v2.0/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/)
 to view and download InfluxDB Telegraf configurations.
 
 To view Telegraf configurations, do one of the following:
@@ -38,7 +37,7 @@ Setup instructions include commands for adding your InfluxDB authentication toke
 as an environment variable and starting Telegraf with the specific configuration.
 
 ## Use the influx CLI
-Use the [`influx telegrafs` command](/v2.0/reference/cli/influx/telegrafs/) to
+Use the [`influx telegrafs` command](/influxdb/v2.0/reference/cli/influx/telegrafs/) to
 list Telegraf configurations stored in InfluxDB.
 
 ```sh

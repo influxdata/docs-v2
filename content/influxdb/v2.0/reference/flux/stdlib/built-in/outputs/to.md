@@ -2,15 +2,15 @@
 title: to() function
 description: The `to()` function writes data to an InfluxDB v2.0 bucket.
 aliases:
-  - /v2.0/reference/flux/functions/outputs/to
-  - /v2.0/reference/flux/functions/built-in/outputs/to/
+  - /influxdb/v2.0/reference/flux/functions/outputs/to
+  - /influxdb/v2.0/reference/flux/functions/built-in/outputs/to/
 menu:
   influxdb_2_0_ref:
     name: to
     parent: built-in-outputs
 weight: 401
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#the-into-clause, InfluxQL – SELECT INTO
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause, InfluxQL – SELECT INTO
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
@@ -108,17 +108,17 @@ identified by [`fieldFn`](#fieldfn).
 _**Data type:** Array of strings_
 
 ### fieldFn
-Function that takes a record from the input table and returns an object.
-For each record from the input table, `fieldFn` returns an object that maps the
+Function that takes a record from the input table and returns a record.
+For each record from the input table, `fieldFn` returns a record that maps the
 output field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
 
 _**Data type:** Function_
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 {{% note %}}
 Make sure `fieldFn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ## Examples

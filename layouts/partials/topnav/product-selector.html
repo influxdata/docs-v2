@@ -1,19 +1,36 @@
+{{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $isCloud := eq "influxdb/cloud" (print $product "/" $currentVersion )}}
+{{ $isOSSv2 := in (print $product "/" $currentVersion ) "influxdb/v2."}}
 
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") }}
-    <p class="selected">Select component</p>
-  {{ else if and (eq $product "influxdb") (in $currentVersion "v2")}}
-    <p class="selected">{{ (index .Site.Data.products $product).altname }}</p>
+    <p class="selected">Select product</p>
+  {{ else if $isCloud }}
+    <p class="selected">{{ index .Site.Data.products.influxdb_cloud.altname }}</p>
   {{ else }}
-    <p class="selected">{{ (index .Site.Data.products $product).name }}</p>
+    {{ $productData := (index .Site.Data.products $product) }}
+    <p class="selected">{{ if $productData.altname }}{{ $productData.altname }}{{ else }}{{ $productData.name }}{{ end }}</p>
   {{ end }}
   <ul class="item-list">
     {{ range sort .Site.Data.products "list_order" "desc" }}
+      {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
+      {{ if and $isCloud (eq .altname "InfluxDB OSS")}}
+        {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
+        {{ if gt (len $altOSSPage.Title) 0 }}
+          {{ $scratch.Set "link" $altOSSPage.RelPermalink }}
+        {{ end }}
+      {{ else if and $isOSSv2 (eq .altname "InfluxDB Cloud") }}
+        {{ $altCloudPage := $.GetPage ((replaceRE $currentVersion "cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+        {{ if gt (len $altCloudPage.Title) 0 }}
+          {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
+        {{ end }}
+      {{ end }}
+      {{ $link := $scratch.Get "link" }}
       <li>
-        <a href="/{{ .namespace }}/{{ .latest }}" {{ if eq .namespace $product }}class="active"{{ end }}>{{ cond (ne .altname nil) .altname .name }}</a>
+        <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
       </li>
     {{ end }}
   </ul>

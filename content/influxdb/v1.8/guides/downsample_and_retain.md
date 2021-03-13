@@ -1,17 +1,19 @@
 ---
 title: Downsample and retain data
+description: Downsample data to keep high precision while preserving storage.
 menu:
   influxdb_1_8:
     weight: 30
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/downsampling_and_retention/
+v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 ---
 
 InfluxDB can handle hundreds of thousands of data points per second. Working with that much data over a long period of time can create storage concerns.
 A natural solution is to downsample the data; keep the high precision raw data for only a limited time, and store the lower precision, summarized data longer.
 This guide describes how to automate the process of downsampling data and expiring old data using InfluxQL. To downsample and retain data using Flux and InfluxDB 2.0,
-see [Process Data with InfluxDB tasks](https://v2.docs.influxdata.com/v2.0/process-data/).
+see [Process Data with InfluxDB tasks](/influxdb/v2.0/process-data/).
 
 ### Definitions
 
@@ -26,7 +28,7 @@ This guide doesn't go into detail about the syntax for creating and managing CQs
 If you're new to these concepts, we recommend reviewing the following:
 
 - [CQ documentation](/influxdb/v1.8/query_language/continuous_queries/) and
-- [RP documentation](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+- [RP documentation](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 ### Sample data
 
@@ -80,7 +82,7 @@ We make the `DEFAULT` RP keep data for two hours, because we want InfluxDB to
 automatically write the incoming ten-second resolution data to that RP.
 
 Use the
-[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/database_management/#create-retention-policies-with-create-retention-policy)
+[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
 statement to create a `DEFAULT` RP:
 
 ```sql
@@ -111,7 +113,7 @@ Next we want to create another retention policy that keeps data for 52 weeks and
 Ultimately, the 30-minute rollup data will be stored in this RP.
 
 Use the
-[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/database_management/#create-retention-policies-with-create-retention-policy)
+[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
 statement to create a non-`DEFAULT` retention policy:
 
 ```sql
@@ -218,5 +220,5 @@ Using a combination of RPs and CQs, we've successfully set up our database to
 automatically keep the high precision raw data for a limited time, create lower
 precision data, and store that lower precision data for a longer period of time.
 Now that you have a general understanding of how these features can work
-together, check out the detailed documentation on [CQs](/influxdb/v1.8/query_language/continuous_queries/) and [RPs](/influxdb/v1.8/query_language/database_management/#retention-policy-management)
+together, check out the detailed documentation on [CQs](/influxdb/v1.8/query_language/continuous_queries/) and [RPs](/influxdb/v1.8/query_language/manage-database/#retention-policy-management)
 to see all that they can do for you.

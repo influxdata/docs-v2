@@ -6,8 +6,6 @@ description: >
   The Table option displays the results of queries in a tabular view, which is
   sometimes easier to analyze than graph views of data.
 weight: 207
-aliases:
-  - /v2.0/visualize-data/visualization-types/table/
 menu:
   influxdb_2_0:
     name: Table
@@ -19,14 +17,14 @@ sometimes easier to analyze than graph views of data.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-table-example.png" alt="Table example" />}}
 
-Select the **Table** option from the visualization dropdown in the upper right.
+Select the **Table** option from the visualization dropdown in the upper left.
 
 ## Table behavior
 The table visualization renders queried data in structured, easy-to-read tables.
 Columns and rows match those in the query output.
 If query results contain multiple tables, only one table is shown at a time.
 Select other output tables in the far left column of the table visualization.
-Tables are identified by their [group key](/v2.0/query-data/get-started/#group-keys).
+Tables are identified by their [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
 
 ## Table Controls
 To view **Table** controls, click **{{< icon "gear" >}} Customize** next to
@@ -34,14 +32,17 @@ the visualization dropdown.
 
 - **Default Sort Field**: Select the default sort field. Default is **time**.
 - **Time Format**: Select the time format. Options include:
-    - `MM/DD/YYYY HH:mm:ss` (default)
+    - `YYYY-MM-DD HH:mm:ss ZZ`
+    - `DD/MM/YYYY HH:mm:ss.sss`
+    - `MM/DD/YYYY HH:mm:ss.sss`
     - `MM/DD/YYYY HH:mm:ss.SSS`
-    - `YYYY-MM-DD HH:mm:ss`
+    - `YYYY/MM/DD HH:mm:ss`
+    - `hh:mm a`
+    - `HH:mm`
     - `HH:mm:ss`
-    - `HH:mm:ss.SSS`
+    - `HH:mm:ss.sss`
     - `MMMM D, YYYY HH:mm:ss`
     - `dddd, MMMM D, YYYY HH:mm:ss`
-    - `Custom`
 - **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
     - **Auto** or **Custom**: Enable or disable auto-setting.
 

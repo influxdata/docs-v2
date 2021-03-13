@@ -7,8 +7,7 @@ menu:
     parent: influx task log
 weight: 301
 aliases:
-  - /v2.0/reference/cli/influx/task/log/list
-  - /v2.0/reference/cli/influx/task/log/find
+  - /influxdb/v2.0/reference/cli/influx/task/log/list
 ---
 
 The `influx task log list` command outputs log information related to a task.
@@ -18,18 +17,35 @@ The `influx task log list` command outputs log information related to a task.
 influx task log list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`, `find`
 
 ## Flags
-| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                           |:----------: |:------------------    |
-|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-| `-h` | `--help`         | Help for the `list` command                                           |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`         |
-|      | `--run-id`       | Run ID                                                                | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`  | Skip TLS certificate verification                                     |             |                       |
-|      | `--task-id`      | **(Required)** Task ID                                                | string      |                       |
-| `-t` | `--token`        | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---               |:-----------                                                           |:----------: |:------------------    |
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
+| `-h` | `--help`          | Help for the `list` command                                           |             |                       |
+|      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+|      | `--run-id`        | Run ID                                                                | string      |                       |
+|      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
+|      | `--task-id`       | ({{< req >}}) Task ID                                                 | string      |                       |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### List logs from all task executions
+```sh
+influx task log list --task-id 0Xx0oox00XXoxxoo1
+```
+
+##### List logs from a specific task execution
+```sh
+influx task log list \
+  --task-id 0Xx0oox00XXoxxoo1 \
+  --run-id ox0Xx0ooxx00XXoo2
+```

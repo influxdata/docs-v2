@@ -1,6 +1,7 @@
 ---
 title: Live leaderboard of game scores
-description: Tutorial on using Kapacitor stream processing and Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
+description: >
+  Tutorial on using Kapacitor stream processing and Chronograf to build a leaderboard for gamers to be able to see player scores in realtime. Historical data is also available for post-game analysis.
 aliases:
     - kapacitor/v1.5/examples/live_leaderboard/
 menu:
@@ -189,6 +190,7 @@ max
 
 Since we are writing data back to InfluxDB create a database `game` for our results.
 
+{{< keep-url >}}
 ```
 curl -G 'http://localhost:8086/query?' --data-urlencode 'q=CREATE DATABASE game'
 ```
@@ -276,6 +278,7 @@ Hit the endpoint several times to see that the scores are updating once a second
 
 Now, let's check InfluxDB to see our historical data.
 
+{{< keep-url >}}
 ```bash
 curl \
     -G 'http://localhost:8086/query?db=game' \

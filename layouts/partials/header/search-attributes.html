@@ -1,0 +1,16 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $latestV2 := (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
+{{ $fluxPath := print "/influxdb/" $latestV2 "/reference/flux/" }}
+{{ $isFlux := cond (in .RelPermalink $fluxPath) true false }}
+
+{{ if not .IsHome }}
+  {{ if or (eq $currentVersion (index $.Site.Data.products $product).latest) (eq $currentVersion (index $.Site.Data.products $product).latest_override) (eq $currentVersion "cloud") }}
+    <meta name="docsearch:latest" content="true">
+  {{ end }}
+{{ end }}
+
+{{ if $isFlux }}
+  <meta name="docsearch:flux" content="true">
+{{ end }}

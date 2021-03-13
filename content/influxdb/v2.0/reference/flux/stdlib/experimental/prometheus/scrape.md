@@ -9,7 +9,7 @@ menu:
     parent: Prometheus
 weight: 401
 related:
-  - /influxdb/v2.0/write-data/scrape-data/scrapable-endpoints/
+  - /influxdb/v2.0/write-data/no-code/scrape-data//scrapable-endpoints/
 ---
 
 The `prometheus.scrape()` function retrieves [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)
@@ -22,7 +22,7 @@ _**Function type:** Input_
 import "experimental/prometheus"
 
 prometheus.scrape(
-  url: "http://localhost:9999/metrics"
+  url: "http://localhost:8086/metrics"
 )
 ```
 

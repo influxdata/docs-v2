@@ -4,7 +4,7 @@ description: >
   The `monitor.check()` function checks input data and assigns a level
   (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/check/
+  - /influxdb/v2.0/reference/flux/functions/monitor/check/
 menu:
   influxdb_2_0_ref:
     name: monitor.check
@@ -70,7 +70,7 @@ Meta data used to identify this check.
 
 **InfluxDB populates check data.**
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ## Examples
 
@@ -82,7 +82,7 @@ from(bucket: "telegraf")
   |> range(start: -1h)
   |> filter(fn: (r) =>
       r._measurement == "disk" and
-      r._field = "used_percent"
+      r._field == "used_percent"
   )
   |> group(columns: ["_measurement"])
   |> monitor.check(

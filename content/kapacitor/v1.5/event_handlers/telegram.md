@@ -1,10 +1,11 @@
 ---
 title: Telegram event handler
-description: The Telegram event handler allows you to send Kapacitor alerts to Telegram. This page includes configuration options and usage examples.
+description: >
+  The Telegram event handler allows you to send Kapacitor alerts to Telegram. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Telegram
-    weight: 1900
+    weight: 2000
     parent: Event handlers
 ---
 
@@ -68,7 +69,7 @@ This only applies if the `global` is also set to `true`.
 
 ## Options
 The following Telegram event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.telegram()` in a TICKscript.
 
 | Name                     | Type   | Description                                                                                   |

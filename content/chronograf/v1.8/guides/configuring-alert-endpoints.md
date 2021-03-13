@@ -1,11 +1,11 @@
 ---
-title: Configuring Chronograf alert endpoints
+title: Configure Chronograf alert endpoints
 aliases:
   - /chronograf/v1.8/guides/configure-kapacitor-event-handlers/
-description: Use Chronograf alert endpoints to send alert messages using Chronograf support for Alerta, Exec, HipChat, HTTP/Post, Kafka, Log, OpsGenie, PagerDuty, Sensu, Slack, SMTP/email, Talk, Telegram, TCP, and VictorOps.
+description: Send alert messages with Chronograf alert endpoints.
 menu:
   chronograf_1_8:
-    name: Configuring alert endpoints
+    name: Configure alert endpoints
     weight: 70
     parent: Guides
 ---
@@ -17,7 +17,7 @@ This guide offers step-by-step instructions for configuring Chronograf alert end
 
 ## Kapacitor event handlers supported in Chronograf
 
-Chronograf integrates with [Kapacitor](/kapacitor/latest/), InfluxData's data processing platform, to send alert messages to event handlers.
+Chronograf integrates with [Kapacitor](/{{< latest "kapacitor" >}}/), InfluxData's data processing platform, to send alert messages to event handlers.
 Chronograf supports the following event handlers:
 
 * Alerta
@@ -39,7 +39,7 @@ Chronograf supports the following event handlers:
 * TCP
 * VictorOps
 
-To configure a Kapacitor event handler in Chronograf, [install Kapacitor](/kapacitor/latest/introduction/installation/) and [connect it to Chronograf](/kapacitor/latest/working/kapa-and-chrono/#add-a-kapacitor-instance).
+To configure a Kapacitor event handler in Chronograf, [install Kapacitor](/{{< latest "kapacitor" >}}/introduction/installation/) and [connect it to Chronograf](/{{< latest "kapacitor" >}}/working/kapa-and-chrono/#add-a-kapacitor-instance).
 The **Configure Kapacitor** page includes the event handler configuration options.
 
 
@@ -47,13 +47,30 @@ The **Configure Kapacitor** page includes the event handler configuration option
 
 Alert endpoint configurations appear on the Chronograf Configure Kapacitor page.
 You must have a connected Kapacitor instance to access the configurations.
-For more information, see [Kapacitor installation instructions](/kapacitor/latest/introduction/installation/) and how to [connect a Kapacitor instance](/kapacitor/latest/working/kapa-and-chrono/#add-a-kapacitor-instance) to Chronograf.
+For more information, see [Kapacitor installation instructions](/{{< latest "kapacitor" >}}/introduction/installation/) and how to [connect a Kapacitor instance](/{{< latest "kapacitor" >}}/working/kapa-and-chrono/#add-a-kapacitor-instance) to Chronograf.
 
 Note that the configuration options in the **Configure alert endpoints** section are not all-inclusive.
-Some event handlers allow users to customize event handler configurations per [alert rule](/chronograf/latest/guides/create-a-kapacitor-alert/).
+Some event handlers allow users to customize event handler configurations per [alert rule](/chronograf/v1.8/guides/create-a-kapacitor-alert/).
 For example, Chronograf's Slack integration allows users to specify a default channel in the **Configure alert endpoints** section and a different channel for individual alert rules.
 
-### HipChat
+### Alerta
+
+**To configure an Alerta alert endpoint:**
+
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **Alerta** tab.
+2. Enter the following:
+
+  * **Environment**: Alerta environment. Can be a template and has access to the same data as the AlertNode.Details property. Default is set from the configuration.
+  * **Origin**: Alerta origin. If empty, uses the origin from the configuration.
+  * **Token**: Default Alerta authentication token..
+  * **Token Prefix**: Default token prefix. If you receive invalid token errors, you may need to change this to “Key”.
+  * **User**: Alerta user.
+  * **Configuration Enabled**: Check to enable configuration.
+
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
+
+See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 [HipChat](https://www.hipchat.com/) is an Atlassian web service for group chat, video chat, and screen sharing.
 Configure Chronograf to send alert messages to a HipChat room.
@@ -87,7 +104,7 @@ The following steps describe how to create the API access token:
 
 Your token appears in the table just above the **Create new token** section:
 
-![HipChat token](/img/chronograf/latest/g-eventhandlers-hipchattoken.png)
+![HipChat token](/img/chronograf/1-6-g-eventhandlers-hipchattoken.png)
 
 
 ### Kafka
@@ -112,8 +129,7 @@ Your token appears in the table just above the **Create new token** section:
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-See [Kafka event handler (Kapacitor)](/kapacitor/latest/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
-
+See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 ### OpsGenie
 
@@ -133,15 +149,19 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
   * **API Key**: API key (or GenieKey). The API Key can be found by signing into your [OpsGenie account](https://app.opsgenie.com/auth/login) and selecting the **Settings** menu option in the **Admin** menu.
   * **Teams**: List of [OpsGenie teams](https://docs.opsgenie.com/docs/teams) to be alerted.
   * **Recipients** field, enter the list of [OpsGenie team members](https://docs.opsgenie.com/docs/teams#section-team-members)) to receive alerts.
+  * **Select recovery action**. Specify one of the following actions to take when an alert recovers:
+
+     - Add a note to the alert
+     - Close the alert
 
 4. Click **Save Changes** to save the configuration settings.
 5. Click **Send Test Alert** to verify the configuration.
 
 See [Alert API](https://docs.opsgenie.com/docs/alert-api) in the OpsGenie documentation for details on the OpsGenie Alert API
 
-See [OpsGenie V2 event handler](/kapacitor/latest/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
+See [OpsGenie V2 event handler](/{{< latest "kapacitor" >}}/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
 
-See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/kapacitor/latest/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
+See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 ### PagerDuty
 
@@ -165,7 +185,7 @@ Send an alerts about recognized events to PagerDuty using the Chronograf PagerDu
 
 See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2) for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
 
-See [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/kapacitor/latest/nodes/alert_node/#pagerduty-v2) in the Kapacitor documentation for details about enabling a new "Generic API" service using TICKscripts.
+See [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2) in the Kapacitor documentation for details about enabling a new "Generic API" service using TICKscripts.
 
 ### Pushover
 

@@ -17,8 +17,48 @@
 {{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
 
 {{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
-{{ if ge (len (findRE "[^/]+.*?" .RelPermalink)) 2 }}
-  {{ $scratch.Set "canonicalURL" (print $baseURL (replaceRE `v[0-9]\.[0-9]{1,2}` $latestMinorVersion .RelPermalink))}}
+
+<!-- Override canonical URL with 'canonical' frontmatter, support latest shortcode -->
+{{ if .Page.Params.canonical }}
+  <!-- Support the latest shortcode in canonical overrides -->
+  {{ if in .Page.Params.canonical "{{< latest" }}
+
+    {{ $product := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 0) }}
+    {{ $majorVersion := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 1) }}
+    {{ $minorVersions := (index $.Site.Data.products $product).versions }}
+
+    {{ $scratch.Set "latestVersion" (index $.Site.Data.products $product).latest }}
+    {{ if gt (len $majorVersion) 0 }}
+      {{ if eq $majorVersion "v1" }}
+        {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+      {{ else if eq $majorVersion "v2" }}
+        {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+      {{ end }}
+    {{ end }}
+
+    {{ $productLatestVersion := $scratch.Get "latestVersion" }}
+    {{ $replaceLatest := replaceRE `\{\{\< latest \".*\" \>\}\}` (print $product "/" $productLatestVersion) .Page.Params.canonical }}
+    {{ $scratch.Set "canonicalURL" (print $baseURL $replaceLatest) }}
+  {{ else }}
+    {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
+  {{ end }}
+<!-- InfluxDB OSS 2.0 vs Cloud canonical -->
+<!-- If corresponding cloud page exists and uses duplicate-oss shortcode, set cloud to canonical -->
+{{ else if and (eq $product "influxdb") (eq $currentVersion $latestVersion) }}
+  {{ $correspondingPage := replaceRE `v2\.[0-9]{1,2}` "cloud" (print .Page.File) }}
+  {{ if fileExists $correspondingPage }}
+    {{ if (.Site.GetPage $correspondingPage).HasShortcode "duplicate-oss" }}
+      {{ $scratch.Set "canonicalURL" (print $baseURL (.Site.GetPage $correspondingPage).RelPermalink) }}
+    {{ end }}
+  {{ end }}
+<!-- Find the latest version of the page if canonical is not set and version is not cloud -->
+{{ else if and (ge (len (findRE "[^/]+.*?" .RelPermalink)) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
+  {{ range ( index $.Site.Data.products $product ).versions }}
+    {{ $currentURL := $.Page.RelPermalink }}
+    {{ if gt (len ($.GetPage ((replaceRE $currentVersion . $currentURL) | replaceRE `\/$` "")).Title) 0 }}
+      {{ $scratch.Set "canonicalURL" (print $baseURL (replaceRE `v[0-9]\.[0-9]{1,2}` . $currentURL)) }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 
 {{ $canonicalURL := $scratch.Get "canonicalURL" }}

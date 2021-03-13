@@ -2,8 +2,8 @@
 title: pivot() function
 description: The `pivot()` function collects values stored vertically (column-wise) in a table and aligns them horizontally (row-wise) into logical sets.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/pivot
-  - /v2.0/reference/flux/functions/built-in/transformations/pivot/
+  - /influxdb/v2.0/reference/flux/functions/transformations/pivot
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/pivot/
 menu:
   influxdb_2_0_ref:
     name: pivot
@@ -15,7 +15,7 @@ The `pivot()` function collects values stored vertically (column-wise) in a tabl
 and aligns them horizontally (row-wise) into logical sets.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
@@ -41,7 +41,8 @@ The output is constructed as follows:
   determined from the input tables by the value in `valueColumn` at the row identified by the
   `rowKey` values and the new column's label.
   If no value is found, the value is set to `null`.
-
+- Any column that is not part of the group key or not specified in the `rowKey`,
+  `columnKey` and `valueColumn` parameters is dropped.
 
 ## Parameters
 

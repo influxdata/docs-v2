@@ -1,6 +1,7 @@
 ---
 title: InfluxDB schema design and data layout
-description: Covers general guidelines for InfluxDB schema design and data layout.
+description: >
+  General guidelines for InfluxDB schema design and data layout.
 menu:
   influxdb_1_8:
     name: Schema design and data layout
@@ -46,7 +47,7 @@ In general, your queries should guide what gets stored as a tag and what gets st
 Not required, but simplifies writing queries because you won't have to wrap tag or field names in double quotes.
 See [InfluxQL](https://github.com/influxdata/influxql/blob/master/README.md#keywords) and [Flux](https://github.com/influxdata/flux/blob/master/docs/SPEC.md#keywords) keywords to avoid.
 
-Also, if a tag or field name contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/flux/latest/introduction/getting-started/syntax-basics/#objects) in Flux.
+Also, if a tag or field name contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/{{< latest "influxdb" "v2" >}}/query-data/get-started/syntax-basics/#records) in Flux.
 
 ### Discouraged schema design
 
@@ -61,7 +62,7 @@ We recommend that you:
 
 [Tags](/influxdb/v1.8/concepts/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/influxdb/v1.8/concepts/glossary/#series) in the database, also known as high series cardinality. High series cardinality is a primary driver of high memory usage for many database workloads.
 
-See [Hardware sizing guidelines](/influxdb/v1.8/guides/hardware_sizing/#general-hardware-guidelines-for-a-single-node) for [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+See [Hardware sizing guidelines](/influxdb/v1.8/guides/hardware_sizing/) for [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
 
 #### Avoid the same name for a tag and a field
 
@@ -117,7 +118,7 @@ from(bucket:"<database>/<retention_policy>")
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
-  
+
 ##### InfluxQL
 
 ```
@@ -169,7 +170,7 @@ from(bucket:"<database>/<retention_policy>")
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
-  
+
 ##### InfluxQL
 
 ```
@@ -196,7 +197,7 @@ If no shard group duration is provided, the shard group duration is determined b
 | > 6 months  | 7 days  |
 
 The shard group duration is also configurable per RP.
-To configure the shard group duration, see [Retention Policy Management](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+To configure the shard group duration, see [Retention Policy Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 ### Shard group duration tradeoffs
 
@@ -218,7 +219,7 @@ A shard group will only be removed once a shard group's duration *end time* is o
 
 For example, if your RP has a duration of one day, InfluxDB will drop an hour's worth of data every hour and will always have 25 shard groups. One for each hour in the day and an extra shard group that is partially expiring, but isn't removed until the whole shard group is older than 24 hours.
 
->**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/influxdb/v1.8/query_language/schema_exploration/#filter-meta-queries-by-time).
+>**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/influxdb/v1.8/query_language/explore-schema/#filter-meta-queries-by-time).
 
 ### Shard group duration recommendations
 
@@ -233,7 +234,7 @@ Here are some recommendations for longer shard group durations:
 | > 3 months  | 30 days  |
 | infinite  | 52 weeks or longer  |
 
-> **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+> **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 In extreme cases where data covers decades and will never be deleted, a long shard group duration like `1040w` (20 years) is perfectly valid.
 
 Other factors to consider before setting shard group duration:

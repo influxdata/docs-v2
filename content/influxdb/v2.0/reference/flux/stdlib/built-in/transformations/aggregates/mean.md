@@ -2,15 +2,16 @@
 title: mean() function
 description: The `mean()` function computes the mean or average of non-null records in the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/aggregates/mean
-  - /v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/mean
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/mean/
 menu:
   influxdb_2_0_ref:
     name: mean
     parent: built-in-aggregates
 weight: 501
 related:
-  - https://docs.influxdata.com/influxdb/latest/query_language/functions/#mean, InfluxQL – MEAN()
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mean, InfluxQL – MEAN()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mean/
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.

@@ -4,7 +4,7 @@ description: >
   The `tableFind()` function extracts the first table in a stream of tables whose
   group key values match a predicate. If no table is found, the function errors.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
 menu:
   influxdb_2_0_ref:
     name: tableFind
@@ -27,7 +27,7 @@ tableFind(fn: (key) => key._field == "fieldName")
 
 {{% note %}}
 Make sure `fn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/v2.0/reference/flux/language/data-model/#match-parameter-names).
+To learn why, see [Match parameter names](/influxdb/v2.0/reference/flux/language/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn
@@ -57,6 +57,6 @@ t = from(bucket:"example-bucket")
 ```
 
 {{% note %}}
-You can use `t` from the example above as input for [`getColumn()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
-and [`getRecord()`](/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/).
+You can use `t` from the example above as input for [`getColumn()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
+and [`getRecord()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/).
 {{% /note %}}

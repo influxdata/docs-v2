@@ -1,26 +1,46 @@
 ---
 title: Write CSV data to InfluxDB
 description: >
-  Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data
-  to InfluxDB. Include annotations with the CSV data to determine how the data translates
-  into [line protocol](/v2.0/reference/syntax/line-protocol/).
+  Write CSV data with the [`influx write` command](#influx-write-command) or Flux.
+  Include annotations with the CSV data to determine how the data translates into
+  [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
 menu:
   influxdb_2_0:
     name: Write CSV data
     parent: Developer tools
 aliases:
-  - /v2.0/write-data/csv/
-  - /v2.0/write-data/developer-tools/csv/
+  - /influxdb/v2.0/write-data/csv/
 weight: 204
 related:
   - /influxdb/v2.0/reference/syntax/line-protocol/
   - /influxdb/v2.0/reference/syntax/annotated-csv/
   - /influxdb/v2.0/reference/cli/influx/write/
 ---
+Write CSV data with the following methods:
+- [Flux](#flux)
+- [influx write command](#influx-write-command)
 
-Use the [`influx write` command](/v2.0/reference/cli/influx/write/) to write CSV data
-to InfluxDB. Include [Extended annotated CSV](/v2.0/reference/syntax/annotated-csv/extended/)
-annotations to specify how the data translates into [line protocol](/v2.0/reference/syntax/line-protocol/).
+### Flux
+
+Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
+ 
+{{< youtube wPKZ9i0DulQ >}}
+
+The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
+
+```js
+import "experimental/csv"
+
+csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+  |> to(bucket: "noaa", org: "example-org")
+```
+
+### influx write command
+
+Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write CSV data
+to InfluxDB. Include [Extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/)
+annotations to specify how the data translates into [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
 Include annotations in the CSV file or inject them using the `--header` flag of
 the `influx write` command.
 
@@ -40,7 +60,7 @@ influx write -b example-bucket -f path/to/example.csv
 
 ##### example.csv
 ```
-#datatype measurement,tag,float,dateTime:RFC3339
+#datatype measurement,tag,double,dateTime:RFC3339
 m,host,used_percent,time
 mem,host1,64.23,2020-01-01T00:00:00Z
 mem,host2,72.01,2020-01-01T00:00:00Z
@@ -65,26 +85,42 @@ To test the CSV to line protocol conversion process, use the `influx write dryru
 command to print the resulting line protocol to stdout rather than write to InfluxDB.
 {{% /note %}}
 
+{{% note %}}
+##### "too many open files" errors
+
+When attempting to write large amounts of CSV data into InfluxDB, you might see an error like the following:
+
+```
+Error: Failed to write data: unexpected error writing points to database: [shard <#>] fcntl: too many open files.
+```
+
+To fix this error, run the following command to increase the number of open files allowed by the OS (works on both Linux and MacOS):
+
+```
+ulimit -n 10000
+```
+{{% /note %}}
+
 ## CSV Annotations
 Use **CSV annotations** to specify which element of line protocol each CSV column
 represents and how to format the data. CSV annotations are rows at the beginning
 of a CSV file that describe column properties.
 
-The `influx write` command supports [Extended annotated CSV](/v2.0/reference/syntax/annotated-csv/extended)
+The `influx write` command supports [Extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended)
 which provides options for specifying how CSV data should be converted into line
 protocol and how data is formatted.
 
 To write data to InfluxDB, data must include the following:
 
-- [measurement](/v2.0/reference/syntax/line-protocol/#measurement)
-- [field set](/v2.0/reference/syntax/line-protocol/#field-set)
-- [timestamp](/v2.0/reference/syntax/line-protocol/#timestamp) _(Optional but recommended)_
-- [tag set](/v2.0/reference/syntax/line-protocol/#tag-set) _(Optional)_
+- [measurement](/influxdb/v2.0/reference/syntax/line-protocol/#measurement)
+- [field set](/influxdb/v2.0/reference/syntax/line-protocol/#field-set)
+- [timestamp](/influxdb/v2.0/reference/syntax/line-protocol/#timestamp) _(Optional but recommended)_
+- [tag set](/influxdb/v2.0/reference/syntax/line-protocol/#tag-set) _(Optional)_
 
 Use CSV annotations to specify which of these elements each column represents.
 
 ## Write raw query results back to InfluxDB
-Flux returns query results in [Annotated CSV](/v2.0/reference/syntax/annotated-csv/).
+Flux returns query results in [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
 These results include all annotations necessary to write the data back to InfluxDB.
 
 ## Inject annotation headers
@@ -96,7 +132,7 @@ to inject annotation rows into the CSV data.
 influx write -b example-bucket \
   -f path/to/example.csv \
   --header "#constant measurement,birds" \
-  --header "#datatype dataTime:2006-01-02,long,tag"
+  --header "#datatype dateTime:2006-01-02,long,tag"
 ```
 
 {{< flex >}}
@@ -141,7 +177,7 @@ influx write -b example-bucket \
 ##### headers.csv
 ```
 #constant measurement,birds
-#datatype dataTime:2006-01-02,long,tag
+#datatype dateTime:2006-01-02,long,tag
 ```
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -212,7 +248,7 @@ influx write -b example-bucket \
 
 ## Skip rows with errors
 If a row in your CSV data is missing an
-[element required to write to InfluxDB](/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
+[element required to write to InfluxDB](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
 or data is incorrectly formatted, when processing the row, the `influx write` command
 returns an error and cancels the write request.
 To skip rows with errors, use the `--skipRowOnError` flag.
@@ -227,6 +263,14 @@ influx write -b example-bucket \
 Skipped rows are ignored and are not written to InfluxDB.
 {{% /warn %}}
 
+Use the `--errors-file` flag to record errors to a file.
+The error file identifies all rows that cannot be imported and includes error messages for debugging.
+For example:
+
+```error : line 3: column 'a': '1.1' cannot fit into long data type
+cpu,1.1
+```
+
 ## Advanced examples
 
 - [Define constants](#define-constants)
@@ -239,7 +283,7 @@ Skipped rows are ignored and are not written to InfluxDB.
 ---
 
 ### Define constants
-Use the Extended annotated CSV [`#constant` annotation](/v2.0/reference/syntax/annotated-csv/extended/#constant)
+Use the Extended annotated CSV [`#constant` annotation](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#constant)
 to add a column and value to each row in the CSV data.
 
 {{< flex >}}
@@ -270,7 +314,7 @@ example,source=csv count=18 1578096000000000000
 ---
 
 ### Annotation shorthand
-Extended annotated CSV supports [annotation shorthand](/v2.0/reference/syntax/annotated-csv/extended/#annotation-shorthand),
+Extended annotated CSV supports [annotation shorthand](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#annotation-shorthand),
 which lets you define the **column label**, **datatype**, and **default value** in the column header.
 
 {{< flex >}}
@@ -341,7 +385,7 @@ example count=18i 1578096000000000000
 ---
 
 ### Ignore columns
-Use the Extended annotated CSV [`#datatype ignored` annotation](/v2.0/reference/syntax/annotated-csv/extended/#ignored)
+Use the Extended annotated CSV [`#datatype ignored` annotation](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#ignored)
 to ignore columns when writing CSV data to InfluxDB.
 
 {{< flex >}}
@@ -371,7 +415,7 @@ m count=18i 1578096000000000000
 
 ### Use alternate numeric formats
 If your CSV data contains numeric values that use a non-default fraction separator (`.`)
-or contain group separators, [define your numeric format](/v2.0/reference/syntax/annotated-csv/extended/#double)
+or contain group separators, [define your numeric format](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#double)
 in the `double`, `long`, and `unsignedLong` datatype annotations.
 
 {{% note %}}
@@ -465,9 +509,9 @@ example lbs=2014u 1578096000000000000
 ---
 
 ### Use alternate boolean format
-Line protocol supports only [specific boolean values](/v2.0/reference/syntax/line-protocol/#boolean).
+Line protocol supports only [specific boolean values](/influxdb/v2.0/reference/syntax/line-protocol/#boolean).
 If your CSV data contains boolean values that line protocol does not support,
-[define your boolean format](/v2.0/reference/syntax/annotated-csv/extended/#boolean)
+[define your boolean format](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#boolean)
 in the `boolean` datatype annotation.
 
 {{< flex >}}
@@ -499,7 +543,7 @@ example verified=false 1578096000000000000
 ### Use different timestamp formats
 The `influx write` command automatically detects **RFC3339** and **number** formatted
 timestamps when converting CSV to line protocol.
-If using a different timestamp format, [define your timestamp format](/v2.0/reference/syntax/annotated-csv/extended/#datetime)
+If using a different timestamp format, [define your timestamp format](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#datetime)
 in the `dateTime` datatype annotation.
 
 {{< flex >}}

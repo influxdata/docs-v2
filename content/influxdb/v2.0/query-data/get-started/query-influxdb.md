@@ -7,13 +7,11 @@ menu:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201
-aliases:
-  - /v2.0/query-data/get-started/query-influxdb/
 related:
   - /influxdb/v2.0/query-data/flux/
-  - /v2.0/reference/flux/stdlib/built-in/inputs/from
-  - /v2.0/reference/flux/stdlib/built-in/transformations/range
-  - /v2.0/reference/flux/stdlib/built-in/transformations/filter
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
@@ -25,8 +23,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
-It requires a [`bucket`](/v2.0/reference/flux/stdlib/built-in/inputs/from#bucket) parameter.
+Flux's [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
+It requires a [`bucket`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -38,11 +36,11 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/v2.0/reference/flux/stdlib/built-in/transformations/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range)
 function, which specifies a time range for your query.
 It accepts two parameters: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/v2.0/reference/flux/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/v2.0/reference/flux/language/lexical-elements#date-and-time-literals).
+Ranges can be **relative** using negative [durations](/influxdb/v2.0/reference/flux/language/lexical-elements#duration-literals)
+or **absolute** using [timestamps](/influxdb/v2.0/reference/flux/language/lexical-elements#date-and-time-literals).
 
 ###### Example relative time ranges
 ```js
@@ -79,13 +77,13 @@ The `filter()` function has one parameter, `fn`, which expects an anonymous func
 with logic that filters data based on columns or attributes.
 
 Flux's anonymous function syntax is similar to Javascript's.
-Records or rows are passed into the `filter()` function as an object (`r`).
-The anonymous function takes the object and evaluates it to see if it matches the defined filters.
+Records or rows are passed into the `filter()` function as a record (`r`).
+The anonymous function takes the record and evaluates it to see if it matches the defined filters.
 Use the `and` relational operator to chain multiple filters.
 
 ```js
 // Pattern
-(r) => (r.objectProperty comparisonOperator comparisonExpression)
+(r) => (r.recordProperty comparisonOperator comparisonExpression)
 
 // Example with single filter
 (r) => (r._measurement == "cpu")
@@ -134,6 +132,6 @@ Flux queries can be extended in many ways to form powerful scripts.
 
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/">Get started with Flux</a>
+  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>

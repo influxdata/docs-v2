@@ -1,12 +1,77 @@
 ---
 title: Telegraf 1.15 release notes
-description: See the new features, bug fixes, breaking changes, and enhancements in the latest and earlier Telegraf releases.
+description: Important features and changes in the latest version of Telegraf.
 menu:
   telegraf_1_15:
     name: Release notes
     weight: 10
     parent: About the project
 ---
+
+
+## v1.16 [2020-10-21]
+
+### Features
+- agent Send metrics in FIFO order
+- inputs.modbus extend support of fixed point values on input
+- inputs.mongodb Added new metric "pages written from cache"
+- inputs.sqlserver added new counter - Lock Timeouts (timeout > 0)/sec
+- `inputs.clickhouse` Add additional metrics to clickhouse input plugin
+- `inputs.http_listener_v2`: Make http header tags case insensitive
+
+### Bug fixes
+- `inputs.tail`: Close file to ensure it has been flushed.
+- `build`: Fix `darwin` package build flags.
+- `shim`: Fix bug with loading plugins with no config.
+- `agent`: Fix issue with `execd restart_delay` being ignored.
+- `Outputs.opentsdb now skips NaN and Inf JSON values
+
+New Input Plugins
+proxmox - Contributed by @effitient
+opcua - Contributed by @influxdata
+New Output Plugins
+dynatrace - Contributed by @thschue
+sumologic - Contributed by @pmalek-sumo
+New External Plugins
+See EXTERNAL_PLUGINS.md for a full list of external plugins
+
+awsalarms - Simple plugin to gather/monitor alarms generated in AWS.
+youtube-telegraf-plugin - Gather view and subscriber stats from your youtube videos
+
+## v1.15.4 [2020-10-20]
+
+### Bug fixes
+- `agent`: Fix panic error on streaming processers.
+- `common.shim`: Fix an issue with loading the processor configuration from `execd`.
+
+## v.1.15.3 [2020-09-11]
+
+### Features
+- `processors.starlark`:
+  - Improve the quality of docs by executing them as tests.
+  - Add pivot example.
+- `outputs.application_insights`: Added ability to set endpoint url.
+- `inputs.sqlserver`: Added new counter - Lock Timeouts (timeout > 0)/sec.
+
+### Bug fixes
+
+- `agent`: Fix minor error message race condition.
+- `build`: Update dockerfiles to Go 1.14.
+- `shim`:
+  - Fix bug in logger affecting `AddError`.
+  - Fix issue with `config.Duration`.
+- `inputs.eventhub_consumer`: Fix string to int conversion.
+- `inputs.http_listener_v2`: Make http header tags case-insensitive.
+- `inputs.modbus`: Extend support of fixed point values.
+- `inputs.ping`: Fix issue for FreeBSD's ping6.
+- `inputs.vsphere`: Fixed missing cluster name.
+- `outputs.opentsdb` Fix JSON handling of values `NaN` and `Inf`.
+
+## v1.15.2 [2020-07-31]
+
+### Bug Fixes
+- Fix RPM `/var/log/telegraf` permissions.
+- Fix tail following on EOF.
 
 ## v1.15.1 [2020-07-22]
 
@@ -208,7 +273,7 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Inputs
 
-- [Arista LANZ Consumer](`lanz`) - Contributed by [@timhughes](https://github.com/timhughes)
+- [Arista LANZ Consumer](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/lanz/README.md) - Contributed by [@timhughes](https://github.com/timhughes)
 - [ClickHouse](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/clickhouse/README.md)(`clickhouse`) - Contributed by [@kshvakov](https://github.com/kshvakov)
 - [Execd](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/execd/README.md)(`execd`) - Contributed by [@jgraichen](https://github.com/jgraichen)
 - [Event Hub Consumer](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/eventhub_consumer/README.md)(`eventhub_consumer`) - Contributed by [@R290](https://github.com/R290)
@@ -220,13 +285,13 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Processors
 
-- [Dedup](`dedup`) - Contributed by [@igomura](https://github.com/igomura)
-- [S2 Geo](`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
-- [Template](`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
+- [Dedup](https://github.com/influxdata/telegraf/blob/master/plugins/processors/dedup/README.md)(`dedup`) - Contributed by [@igomura](https://github.com/igomura)
+- [S2 Geo](https://github.com/influxdata/telegraf/blob/master/plugins/processors/s2geo/README.md)(`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
+- [Template](https://github.com/influxdata/telegraf/blob/master/plugins/processors/template/README.md) (`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
 
 #### Outputs
 
-- [Warp10](`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
+- [Warp10](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/warp10/README.md)(`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
 
 ### Features
 

@@ -2,8 +2,8 @@
 title: toInt() function
 description: The `toInt()` function converts all values in the `_value` column to integers.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/toint
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/toint/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/toint
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/toint/
 menu:
   influxdb_2_0_ref:
     name: toInt
@@ -52,5 +52,5 @@ toInt = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[int()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[int()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int)_

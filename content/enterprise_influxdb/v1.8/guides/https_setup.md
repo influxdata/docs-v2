@@ -1,5 +1,7 @@
 ---
 title: Enable HTTPS for InfluxDB Enterprise
+description: >
+  Enabling HTTPS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
 menu:
   enterprise_influxdb_1_8:
     name: Enable HTTPS
@@ -49,7 +51,7 @@ Regardless of your certificate's type, InfluxDB Enterprise supports certificates
 a private key file (`.key`) and a signed certificate file (`.crt`) file pair, as well as certificates
 that combine the private key file and the signed certificate file into a single bundled file (`.pem`).
 
-## Setup HTTPS in an InfluxDB Enterprise cluster
+## Set up HTTPS in an InfluxDB Enterprise cluster
 
 1. **Download or generate certificate files**
 
@@ -115,6 +117,11 @@ Consult your CA if you are unsure about how to use these files.
 
       # If using a self-signed certificate:
       https-insecure-tls = true
+
+      # Use TLS when communicating with data notes
+      data-use-tls = true
+      data-insecure-tls = true
+
     ```
 
 5. **Enable HTTPS within the configuration file for each data node**
@@ -156,6 +163,9 @@ Consult your CA if you are unsure about how to use these files.
 
          # Use a separate private key location.
          https-private-key = "influxdb-data.key"
+
+         # If using a self-signed certificate:
+         https-insecure-tls = true
        ```
 
     3. Configure the data nodes to use HTTPS when communicating with the meta nodes.
@@ -245,7 +255,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 
-Connecting [Telegraf](/telegraf/latest/)
+Connecting [Telegraf](/{{< latest "telegraf" >}}/)
 to an HTTPS-enabled InfluxDB Enterprise instance requires some additional steps.
 
 In Telegraf's configuration file (`/etc/telegraf/telegraf.conf`), under the OUTPUT PLUGINS section,

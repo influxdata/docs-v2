@@ -4,7 +4,7 @@ description: >
   The `getColumn()` function extracts a column from a table given its label.
   If the label is not present in the set of columns, the function errors.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
 menu:
   influxdb_2_0_ref:
     name: getColumn
@@ -26,7 +26,7 @@ getColumn(column: "_value")
 {{% note %}}
 #### Use tableFind() to extract a single table
 `getColumn()` requires a single table as input.
-Use [`tableFind()`](/v2.0/reference/flux/functions/built-in/transformations/stream-table/tablefind/)
+Use [`tableFind()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
 to extract a single table from a stream of tables.
 {{% /note %}}
 

@@ -251,7 +251,7 @@ Note that you will need to fully qualify the measurement to query data in the no
 ```
 
 ## How do I cancel a long-running query?
-You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](https://docs.influxdata.com/influxdb/v1.3/query_language/spec/#show-queries) command,
+You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](/influxdb/v1.3/query_language/spec/#show-queries) command,
 you can use the [`KILL QUERY`](/influxdb/v1.6/troubleshooting/query_management/#stop-currently-running-queries-with-kill-query) command to stop it.
 
 ## Why can't I query Boolean field values?

@@ -6,6 +6,7 @@ menu:
   influxdb_1_4:
     weight: 10
     parent: Write protocols
+canonical: /{{< latest "influxdb" "v2" >}}/reference/syntax/line-protocol/
 ---
 
 

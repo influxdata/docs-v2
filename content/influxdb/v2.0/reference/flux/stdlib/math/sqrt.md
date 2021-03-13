@@ -2,7 +2,7 @@
 title: math.sqrt() function
 description: The math.sqrt() function returns the square root of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/sqrt/
+  - /influxdb/v2.0/reference/flux/functions/math/sqrt/
 menu:
   influxdb_2_0_ref:
     name: math.sqrt

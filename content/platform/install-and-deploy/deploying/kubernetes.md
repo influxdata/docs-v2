@@ -1,25 +1,25 @@
 ---
 title: Deploy InfluxData Platform components in Kubernetes
+list_title: Deploy with Kubernetes
 description: Deploy the InfluxData Platform components in Kubernetes
 menu:
   platform:
-    name: Deploy InfluxData Platform in Kubernetes
+    name: Kubernetes
+    identifier: deploy-k8s
     parent: deploy-platform
     weight: 4
 ---
 
-## Deploy the TICK stack in Kubernetes
-
-Instructions for installing and configuring all components of the open source TICK stack – Telegraf, InfluxDB, Chronograf, and Kapacitor in Kubernetes.
+Install and configure the TICK stack—Telegraf, InfluxDB, Chronograf, and Kapacitor—in Kubernetes.
 
 ### Use Helm Charts to deploy InfluxData Platform components
 
-InfluxData recommends using the [Helm Stable](https://github.com/helm/charts/tree/master/stable) repository for installing the TICK stack.
+InfluxData recommends using the [Helm Stable](https://github.com/helm/charts/tree/master/stable) repository to install the TICK stack:
 
-- [Telegraf](https://github.com/helm/charts/tree/master/stable/telegraf)
-- [InfluxDB](https://github.com/helm/charts/tree/master/stable/influxdb)
-- [Chronograf](https://github.com/helm/charts/tree/master/stable/chronograf)
-- [Kapacitor](https://github.com/helm/charts/tree/master/stable/kapacitor)
+- [Telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf)
+- [InfluxDB](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb)
+- [Chronograf](https://github.com/influxdata/helm-charts/tree/master/charts/chronograf)
+- [Kapacitor](https://github.com/influxdata/helm-charts/tree/master/charts/kapacitor)
 
 ### Use the InfluxDB Operator
 

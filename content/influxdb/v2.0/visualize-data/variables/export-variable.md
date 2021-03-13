@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Use and manage variables
 weight: 204
-aliases:
-  - /v2.0/visualize-data/variables/export-variable/
 influxdb/v2.0/tags: [variables]
 ---
 Export dashboard variables from the InfluxDB user interface (UI).

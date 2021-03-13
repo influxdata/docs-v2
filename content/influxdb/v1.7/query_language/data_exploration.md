@@ -6,6 +6,7 @@ menu:
     name: Data exploration
     weight: 20
     parent: InfluxQL
+v2: /influxdb/v2.0/query-data/flux/query-fields/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
@@ -1071,7 +1072,7 @@ for details on the `time_interval`.
 
 The `offset_interval` is a
 [duration literal](/influxdb/v1.7/query_language/spec/#durations).
-It shifts forward or back tje InfluxDB database's preset time boundaries.
+It shifts forward or back the InfluxDB database's preset time boundaries.
 The `offset_interval` can be positive or negative.
 
 ##### `fill(<fill_option>)`
@@ -1959,7 +1960,7 @@ with the most recent timestamps first.
 InfluxQL returns series in sorted order,
 which lets you limit or offset query results by series (rather than by row) using
 [slimit](/influxdb/v1.7/query_language/data_exploration/#the-slimit-clause) and
-[soffset](https://docs.influxdata.com/influxdb/v1.7/query_language/data_exploration/#the-soffset-clause).
+[soffset](/influxdb/v1.7/query_language/data_exploration/#the-soffset-clause).
 This is useful for paging through results by time.
 
 

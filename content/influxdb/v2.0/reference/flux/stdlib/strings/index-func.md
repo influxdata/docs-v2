@@ -4,16 +4,16 @@ description: >
   The strings.index() function returns the index of the first instance of a substring
   in another string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/index-func/
+  - /influxdb/v2.0/reference/flux/functions/strings/index-func/
 menu:
   influxdb_2_0_ref:
     name: strings.index
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/indexany/
-  - /v2.0/reference/flux/stdlib/strings/lastindex/
-  - /v2.0/reference/flux/stdlib/strings/lastindexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindexany/
 ---
 
 The `strings.index()` function returns the index of the first instance of a substring

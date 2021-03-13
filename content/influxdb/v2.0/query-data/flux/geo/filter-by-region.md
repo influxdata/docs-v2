@@ -7,11 +7,9 @@ menu:
     name: Filter by region
     parent: Geo-temporal data
 weight: 302
-aliases:
-  - /v2.0/query-data/flux/geo/filter-by-region/
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/
-  - /v2.0/reference/flux/stdlib/experimental/geo/filterrows/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterrows/
 list_code_example: |
   ```js
   import "experimental/geo"
@@ -24,13 +22,13 @@ list_code_example: |
   ```
 ---
 
-Use the [`geo.filterRows` function](/v2.0/reference/flux/stdlib/experimental/geo/filterrows/)
+Use the [`geo.filterRows` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterrows/)
 to filter geo-temporal data by geographic region:
 
 1. [Define a geographic region](#define-a-geographic-region)
 2. [Use strict or non-strict filtering](#strict-and-non-strict-filtering)
 
-The following example uses the [sample bird migration data](/v2.0/query-data/flux/geo/#sample-data)
+The following example uses the [sample bird migration data](/influxdb/v2.0/query-data/flux/geo/#sample-data)
 and queries data points **within 200km of Cairo, Egypt**:
 
 ```js
@@ -52,7 +50,7 @@ Define a geographic region using one of the the following shapes:
 - [polygon](#polygon)
 
 ### box
-Define a box-shaped region by specifying an object containing the following properties:
+Define a box-shaped region by specifying a record containing the following properties:
 
 - **minLat:** minimum latitude in decimal degrees (WGS 84) _(Float)_
 - **maxLat:** maximum latitude in decimal degrees (WGS 84) _(Float)_
@@ -70,7 +68,7 @@ Define a box-shaped region by specifying an object containing the following prop
 ```
 
 ### circle
-Define a circular region by specifying an object containing the following properties:
+Define a circular region by specifying a record containing the following properties:
 
 - **lat**: latitude of the circle center in decimal degrees (WGS 84) _(Float)_
 - **lon**: longitude of the circle center in decimal degrees (WGS 84) _(Float)_
@@ -86,12 +84,12 @@ Define a circular region by specifying an object containing the following proper
 ```
 
 ### polygon
-Define a polygonal region with an object containing the latitude and longitude for
+Define a polygonal region with a record containing the latitude and longitude for
 each point in the polygon:
 
-- **points**: points that define the custom polygon _(Array of objects)_
+- **points**: points that define the custom polygon _(Array of records)_
 
-    Define each point with an object containing the following properties:
+    Define each point with a record containing the following properties:
 
       - **lat**: latitude in decimal degrees (WGS 84) _(Float)_
       - **lon**: longitude in decimal degrees (WGS 84) _(Float)_

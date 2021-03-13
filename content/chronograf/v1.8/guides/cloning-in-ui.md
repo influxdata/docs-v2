@@ -1,6 +1,7 @@
 ---
-title: Cloning dashboards and cells
-description: Dashboards and their cells can be cloned, or copied, to be used as templates for easily creating new dashboards and cells.
+title: Clone dashboards and cells
+description: >
+  Clone a dashboard or a cell and use the copy as a starting point to create new dashboard or cells.
 menu:
   chronograf_1_8:
     weight: 70
@@ -9,7 +10,7 @@ menu:
 
 This guide explains how to clone, or duplicate, a dashboard or a cell for use as starting points for creating dashboards or cells using the copy as a template.
 
-## Cloning dashboards
+## Clone dashboards
 
 Dashboards in Chronograf can be cloned (or copied) to be used to create a dashboard based on the original. Rather than building a new dashboard from scratch, you can clone a dashboard and make changes to the dashboard copy.
 
@@ -25,7 +26,7 @@ Dashboards in Chronograf can be cloned (or copied) to be used to create a dashbo
 
   You can now change the dashboard name and customize the dashboard.
 
-## Cloning cells
+## Clone cells
 
 Cells in Chronograf dashboards can be cloned, or copied, to quickly create a cell copy that can be edited for another use.
 

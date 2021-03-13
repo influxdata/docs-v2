@@ -7,9 +7,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/inspect/verify-seriesfile/
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect verify-seriesfile` command verifies the integrity of series files.

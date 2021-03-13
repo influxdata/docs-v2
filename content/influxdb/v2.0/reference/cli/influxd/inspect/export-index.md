@@ -8,9 +8,6 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/inspect/export-index/
-products: [oss]
 ---
 
 The `influxd inspect export-index` command exports all series in a TSI index to

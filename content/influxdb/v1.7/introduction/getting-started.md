@@ -7,6 +7,7 @@ menu:
     name: Getting started
     weight: 30
     parent: Introduction
+v2: /influxdb/v2.0/get-started/
 ---
 
 With InfluxDB open source (OSS) [installed](/influxdb/v1.7/introduction/installation), you're ready to start doing some awesome things.
@@ -37,7 +38,7 @@ InfluxDB shell 1.7.x
 * The InfluxDB API runs on port `8086` by default.
 Therefore, `influx` will connect to port `8086` and `localhost` by default.
 If you need to alter these defaults, run `influx --help`.
-* The [`-precision` argument](/influxdb/v1.7/tools/shell/#influx-options) specifies the format/precision of any returned timestamps.
+* The [`-precision` argument](/influxdb/v1.7/tools/shell/#influx-arguments) specifies the format/precision of any returned timestamps.
 In the example above, `rfc3339` tells InfluxDB to return timestamps in [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt) (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`).
 
 The command line is now ready to take input in the form of the Influx Query Language (a.k.a InfluxQL) statements.

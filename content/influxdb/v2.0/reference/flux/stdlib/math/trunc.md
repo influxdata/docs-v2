@@ -2,7 +2,7 @@
 title: math.trunc() function
 description: The math.trunc() function returns the integer value of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/trunc/
+  - /influxdb/v2.0/reference/flux/functions/math/trunc/
 menu:
   influxdb_2_0_ref:
     name: math.trunc

@@ -4,7 +4,7 @@ description: >
   The strings.substring() function returns a substring based on `start` and `end` parameters.
   Indices are based on UTF code points.
 aliases:
-  - /v2.0/reference/flux/functions/strings/substring/
+  - /influxdb/v2.0/reference/flux/functions/strings/substring/
 menu:
   influxdb_2_0_ref:
     name: strings.substring
@@ -20,7 +20,7 @@ _**Output data type:** String_
 ```js
 import "strings"
 
-strings.substring(v: "influx", start: 0, end: 3)
+strings.substring(v: "influx", start: 0, end: 4)
 
 // returns "infl"
 ```
@@ -33,12 +33,12 @@ The string value to search.
 _**Data type:** String_
 
 ### start
-The starting index of the substring.
+The starting inclusive index of the substring.
 
 _**Data type:** Integer_
 
 ### end
-The ending index of the substring.
+The ending exclusive index of the substring.
 
 _**Data type:** Integer_
 
@@ -51,7 +51,7 @@ import "strings"
 data
   |> map(fn: (r) => ({
       r with
-      abbr: strings.substring(v: r.name, start: 0, end: 3)
+      abbr: strings.substring(v: r.name, start: 0, end: 4)
     })
   )
 ```

@@ -1,11 +1,12 @@
 ---
 title: InfluxDB error messages
-description: Covers InfluxDB error messages, their descriptions, and common resolutions.
+description: >
+  Covers InfluxDB error messages, their descriptions, and common resolutions.
 menu:
   influxdb_1_8:
     name: Error messages
     weight: 30
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page documents errors, their descriptions, and, where applicable,
@@ -27,7 +28,7 @@ The relevant `SHOW` queries include `SHOW RETENTION POLICIES`, `SHOW SERIES`,
 `SHOW MEASUREMENTS`, `SHOW TAG KEYS`, `SHOW TAG VALUES`, and `SHOW FIELD KEYS`.
 
 **Resources:**
-[Schema exploration](/influxdb/v1.8/query_language/schema_exploration/),
+[Schema exploration](/influxdb/v1.8/query_language/explore-schema/),
 [InfluxQL reference](/influxdb/v1.8/query_language/spec/)
 
 ## `error: max series per database exceeded: < >`
@@ -235,7 +236,7 @@ time                   water_level
 ```
 
 **Resources:**
-[Data Exploration](/influxdb/v1.8/query_language/data_exploration/#time-syntax)
+[Data Exploration](/influxdb/v1.8/query_language/explore-data/#time-syntax)
 
 ## `unable to parse < >: bad timestamp`
 
@@ -349,7 +350,7 @@ It will be in the `killed` state, which means the signal has been sent, but the
 query itself has not hit an interrupt point.
 
 **Resources:**
-[Query management](/influxdb/v1.0/troubleshooting/query_management/)
+[Query management](/influxdb/v1.8/troubleshooting/query_management/)
 
 ## Common `-import` errors
 

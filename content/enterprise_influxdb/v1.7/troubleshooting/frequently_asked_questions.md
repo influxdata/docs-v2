@@ -14,7 +14,7 @@ menu:
 **Known issues**
 
 * [Why do I see entropy when rebalancing shards?]
-(#why-do-I-see-entropy-when-rebalancing-shards?)
+(#why-do-i-see-entropy-when-rebalancing-shards)
 
 **Log errors**
 

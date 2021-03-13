@@ -1,6 +1,7 @@
 ---
 title: Manage subscriptions in InfluxDB
-description: InfluxDB uses subscriptions to copy all written data to a local or remote endpoint. This article walks through how InfluxDB subscriptions work, how to configure them, and how to manage them.
+description: >
+  Manage subscriptions, which copy all written data to a local or remote endpoint, in InfluxDB OSS.
 menu:
   influxdb_1_8:
     parent: Administration
@@ -99,7 +100,7 @@ CREATE SUBSCRIPTION "mysub" ON "mydb"."autogen" DESTINATIONS ANY 'http://host1.e
 Subscriptions can use HTTP, HTTPS, or UDP transport protocols.
 Which to use is determined by the protocol expected by the subscription endpoint.
 If creating a Kapacitor subscription, this is defined by the `subscription-protocol`
-option in the `[[influxdb]]` section of your [`kapacitor.conf`](/kapacitor/latest/administration/subscription-management/#subscription-protocol).
+option in the `[[influxdb]]` section of your [`kapacitor.conf`](/{{< latest "kapacitor" >}}/administration/subscription-management/#subscription-protocol).
 
 _**kapacitor.conf**_
 

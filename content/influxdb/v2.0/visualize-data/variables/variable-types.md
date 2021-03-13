@@ -6,8 +6,6 @@ menu:
   influxdb_2_0:
     parent: Use and manage variables
 weight: 207
-aliases:
-  - /v2.0/visualize-data/variables/variable-types/
 influxdb/v2.0/tags: [variables]
 ---
 
@@ -45,19 +43,19 @@ buckets()
   |> keep(columns: ["_value"])
 ```
 
-_For examples of dashboard variable queries, see [Common variable queries](/v2.0/visualize-data/variables/common-variables)._
+_For examples of dashboard variable queries, see [Common variable queries](/influxdb/v2.0/visualize-data/variables/common-variables)._
 
 {{% note %}}
 #### Important things to note about variable queries
 - The variable will only use values from the `_value` column.
   If the data you’re looking for is in a column other than `_value`, use the
-  [`rename()`](/v2.0/reference/flux/stdlib/built-in/transformations/rename/) or
-  [`map()`](/v2.0/reference/flux/stdlib/built-in/transformations/map/) functions
+  [`rename()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/rename/) or
+  [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) functions
   to change the name of that column to `_value`.
 - The variable will only use the first table in the output stream.
-  Use the [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group)
+  Use the [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group)
   to group everything into a single table.
-- Do not use any [predefined dashboard variables](/v2.0/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
+- Do not use any [predefined dashboard variables](/influxdb/v2.0/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
 {{% /note %}}
 
 ## CSV

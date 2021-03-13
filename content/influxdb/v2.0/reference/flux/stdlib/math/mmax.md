@@ -2,8 +2,8 @@
 title: math.mMax() function
 description: The math.mMax() function returns the larger of `x` or `y`.
 aliases:
-  - /v2.0/reference/flux/functions/math/m_max/
-  - /v2.0/reference/flux/stdlib/math/m_max/
+  - /influxdb/v2.0/reference/flux/functions/math/m_max/
+  - /influxdb/v2.0/reference/flux/stdlib/math/m_max/
 menu:
   influxdb_2_0_ref:
     name: math.mMax

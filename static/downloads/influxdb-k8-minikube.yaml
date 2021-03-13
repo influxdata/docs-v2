@@ -23,10 +23,10 @@ spec:
                 app: influxdb
         spec:
             containers:
-              - image: quay.io/influxdb/influxdb:2.0.0-beta
+              - image: quay.io/influxdb/influxdb:v2.0.4
                 name: influxdb
                 ports:
-                  - containerPort: 9999
+                  - containerPort: 8086
                     name: influxdb
                 volumeMounts:
                   - mountPath: /root/.influxdbv2
@@ -50,8 +50,8 @@ metadata:
 spec:
     ports:
       - name: influxdb
-        port: 9999
-        targetPort: 9999
+        port: 8086
+        targetPort: 8086
     selector:
         app: influxdb
     type: ClusterIP
