@@ -39,7 +39,7 @@ All users can export a dashboard. To import a dashboard, a user must have an Adm
 
 Automatically load the dashboard as a resource (useful for adding a dashboard to a deployment).
 
-1. Rename the `.json` extension to `.dashboard`.
+1. Rename the dashboard `.json` extension to `.dashboard`.
 2. Use the [`resources-path` configuration option](/chronograf/v1.8/administration/config-options/#--resources-path) to save the dashboard in the `/resources` directory (by default, `/usr/share/chronograf/resources`).
 
 ## Import a dashboard
