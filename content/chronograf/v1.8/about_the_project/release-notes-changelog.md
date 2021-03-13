@@ -15,7 +15,6 @@ menu:
 - Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands. Now, in Chronograf Data Explorer, if you select a metaquery template (InfluxQL command) that requires you to specify an active database, such as `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`, the `USE` command is prepended to your InfluxQL command as follows:
 
 ```
->>>>>>> c9cc1028a5aae0097eaad28b6841111d192c82c1
 USE "db_name"; DROP MEASUREMENT "measurement_name"
 USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
 USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
