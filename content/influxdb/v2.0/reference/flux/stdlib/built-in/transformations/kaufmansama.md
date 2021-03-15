@@ -2,7 +2,7 @@
 title: kaufmansAMA() function
 description: >
   The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
-  using values in an input table.
+  of input tables using values in each input table.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
@@ -14,10 +14,11 @@ weight: 402
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmanser/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/kaufmansama/
 ---
 
 The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
-using values in an input table.
+of input tables using values in each input table.
 
 _**Function type:** Transformation_
 
@@ -46,7 +47,7 @@ _**Data type:** String_
 
 ## Examples
 ```js
-from(bucket: "telegraf/autogen"):
+from(bucket: "example-bucket"):
   |> range(start: -7d)
   |> kaufmansAMA(
     n: 10,

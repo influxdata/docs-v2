@@ -1,33 +1,34 @@
 ---
-title: count() function
-description: The `count()` function outputs the number of non-null records in a column.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/count
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/count/
+title: experimental.count() function
+description: >
+  The `experimental.count()` function outputs the number of records in each input table
+  and returns the count in the `_value` column.
 menu:
   influxdb_2_0_ref:
-    name: count
-    parent: built-in-aggregates
-weight: 501
+    name: experimental.count
+    parent: Experimental
+weight: 302
 related:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/count/
 ---
 
-The `count()` function outputs the number of records in each input table and outputs
-the count in the specified [`column`](#column).
-The function counts both null and non-null records.
+The `experimental.count()` function outputs the number of records in each input table
+and returns the count in the `_value` column.
+This function counts both null and non-null records.
 
 _**Function type:** Aggregate_  
 _**Output data type:** Integer_
 
 ```js
-count(column: "_value")
+import "experimental"
+
+experimental.count()
 ```
 
 {{% note %}}
 #### Empty tables
-`count()` returns `0` for empty tables.
+`experimental.count()` returns `0` for empty tables.
 To keep empty tables in your data, set the following parameters for the following functions:
 
 | Function                                                                                              | Parameter           |
@@ -37,23 +38,11 @@ To keep empty tables in your data, set the following parameters for the followin
 | [aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
-## Parameters
-
-### column
-The column on which to operate.
-Defaults to `"_value"`.
-
-_**Data type:** String_
-
 ## Examples
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> count()
-```
+import "experimental"
 
-```js
 from(bucket: "example-bucket")
   |> range(start: -5m)
-  |> count(column: "_value")
+  |> experimental.count()
 ```

@@ -11,6 +11,7 @@ weight: 104
 influxdb/v2.0/tags: [influxql, query, write]
 related:
   - /influxdb/v2.0/query-data/influxql
+  - /influxdb/v2.0/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
@@ -20,18 +21,23 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 
 ## Authentication
 InfluxDB 2.0 requires all query and write requests to be authenticated.
-Use **basic authentication** or **token authentication** to authenticate requests to
-InfluxDB 1.x compatibility endpoints.
+Use **1.x-compatible authorizations** or **token authentication** to authenticate
+requests to InfluxDB 1.x compatibility endpoints.
 
-### Basic Authentication
-Basic authentications requires the following credentials:
+### 1.x-compatible authorizations
+1.x-compatible authorizations include the following credentials:
 
 - **username**: InfluxDB username
 - **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 
-There are multiple ways to provide basic authentication credentials.
+For information about creating and managing 1.x-compatible authorizations, see:
+
+- [influx v1 auth](/influxdb/v2.0/reference/cli/influx/v1/auth/)
+- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+
+There are multiple ways to provide 1.x-compatible authorization credentials to InfluxDB 2.0.
 The example below uses the `Authorization` header with the `Basic` scheme to
-provide the required credentials:
+provide the required 1.x-compatible username and password:
 
 ##### Basic authentication with authorization header
 ```sh

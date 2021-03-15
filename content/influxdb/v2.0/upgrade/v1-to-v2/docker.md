@@ -1,5 +1,6 @@
 ---
 title: Upgrade from InfluxDB 1.x to 2.0 with Docker
+list_title: Upgrade from 1.x to 2.0 with Docker
 description: >
   Use the automated upgrade process built into the InfluxDB 2.x Docker image to
   update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
@@ -42,7 +43,7 @@ the upgrade won't run if an existing boltdb file is found at the
 {{% /note %}}
 
 Find more information about the automated InfluxDB upgrade process,
-see [Upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/).
+see [Automatically upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/automatic-upgrade/).
 
 ### InfluxDB 2.x initialization credentials
 The automated InfluxDB upgrade process bootstraps an initial admin user,
