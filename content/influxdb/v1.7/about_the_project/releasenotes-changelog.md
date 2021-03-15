@@ -16,6 +16,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 
 ### Bug fixes
 
+- (Affects build from source only): Switch the influxdb build from `dep` and `Gopkg.toml` to `go mod` to resolve issue that required a module with the incorrect version.
 - Update sorting method (`sortKey`) to use null byte as a delimiter, not comma.
 - Replace panic with error while encoding and decoding corrupt data.
 - Resolve incorrect error type in type switch.
