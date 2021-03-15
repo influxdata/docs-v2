@@ -9,10 +9,6 @@ menu:
     name: Create a notebook
     parent: Notebooks
 ---
-{{% note %}}
-**Notebooks is currently an early-access feature.**
-[Submit a request](https://w2.influxdata.com/notebooks-early-access/) for early access, and we'll send you a confirmation notebooks is available in your account.
-{{% /note %}}
 
 Create a notebook to explore, visualize, and process your data.
 
