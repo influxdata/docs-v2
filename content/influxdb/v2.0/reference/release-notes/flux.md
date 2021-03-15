@@ -8,6 +8,17 @@ menu:
     name: Flux
 ---
 
+## v0.108.0 [2021-03-15]
+
+### Features
+- Add BigPanda notification support.
+- Add Zenoss notifications support.
+- Add VictorOps notifications support.
+
+### Bug fixes
+- Classify "Option not found error" as internal.
+- Remove `as_user` param from `slack.message` payload.
+
 ## v0.107.0 [2021-03-09]
 
 ### Features
