@@ -39,13 +39,10 @@ There are multiple ways to provide 1.x-compatible authorization credentials to I
 The example below uses the `Authorization` header with the `Basic` scheme to
 provide the required 1.x-compatible username and password:
 
-##### Basic authentication with authorization header
+##### Basic authentication
 ```sh
-# Header syntax
-Authorization: Basic <username>:<password>
-
-# Header example
-Authorization: Basic admin:mYSuP3rs3cREtT0k3N
+# --user syntax
+<username>:<password
 ```
 
 ### Token Authentication
