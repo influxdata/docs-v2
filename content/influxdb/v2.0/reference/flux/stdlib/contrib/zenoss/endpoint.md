@@ -31,7 +31,7 @@ zenoss.endpoint(
 
 ### url
 ({{< req >}})
-Zenoss events [public endpoint](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints) URL.
+Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
 _**Data type:** String_
 

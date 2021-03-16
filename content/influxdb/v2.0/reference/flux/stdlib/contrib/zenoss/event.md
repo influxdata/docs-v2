@@ -37,7 +37,7 @@ zenoss.event(
 
 ### url
 ({{< req >}})
-Zenoss events [public endpoint](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints) URL.
+Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
 _**Data type:** String_
 
@@ -140,7 +140,6 @@ _**Data type:** String_
 ```js
 import "contrib/bonitoo-io/zenoss"
 import "influxdata/influxdb/secrets"
-import "strings"
 
 username = secrets.get(key: "ZENOSS_USERNAME")
 password = secrets.get(key: "ZENOSS_PASSWORD")
@@ -162,7 +161,8 @@ zenoss.event(
     severity:
       if lastReported._value < 1.0 then "Critical"
       else if lastReported._value < 5.0 then "Warning"
-      else "Info",
+      else if lastReported._value < 20.0 then "Info"
+      else "Clear"
 )
 ```
 {{% note %}}

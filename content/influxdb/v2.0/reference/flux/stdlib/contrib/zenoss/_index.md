@@ -20,6 +20,8 @@ Import the `contrib/bonitoo-io/zenoss` package:
 import "contrib/bonitoo-io/zenoss"
 ```
 
+## Functions
+
 {{< children type="functions" show="pages" >}}
 
 {{% note %}}
