@@ -17,7 +17,7 @@ related:
   - /influxdb/v2.0/query-data/influxql
 ---
 
-The `/query` 1.x compatibility endpoint queries InfluxDB OSS 2.0 using **InfluxQL**.
+The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
