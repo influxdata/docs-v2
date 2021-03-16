@@ -84,7 +84,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 | access-log-path                    |                                                                                                                                   |
 | access-log-status-filters          |                                                                                                                                   |
 | write-tracing                      |                                                                                                                                   |
-| pprof-enabled                      |                                                                                                                                   |
+| pprof-enabled                      | [pprof-disabled](/influxdb/v2.0/reference/config-options/#pprof-disabled)                                                         |
 | pprof-auth-enabled                 |                                                                                                                                   |
 | debug-pprof-enabled                |                                                                                                                                   |
 | ping-auth-enabled                  |                                                                                                                                   |
@@ -99,7 +99,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 | max-body-size                      |                                                                                                                                   |
 | max-concurrent-write-limit         |                                                                                                                                   |
 | max-enqueued-write-limit           |                                                                                                                                   |
-| enqueued-write-timeout             |                                                                                                                                   |
+| enqueued-write-timeout             | [http-write-timeout](/influxdb/v2.0/reference/config-options/#http-write-timeout)                                                 |
 |                                    |                                                                                                                                   |
 | **[logging]**                      |                                                                                                                                   |
 | format                             |                                                                                                                                   |

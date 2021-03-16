@@ -98,14 +98,17 @@ To configure InfluxDB, use the following configuration options when starting the
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
 - [http-bind-address](#http-bind-address)
+- [http-idle-timeout](#http-idle-timeout)
+- [http-read-header-timeout](#http-read-header-timeout)
+- [http-read-timeout](#http-read-timeout)
+- [http-write-timeout](#http-write-timeout)
 - [influxql-max-select-buckets](#influxql-max-select-buckets)
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
 - [log-level](#log-level)
+- [metrics-disabled](#metrics-disabled)
 - [nats-max-payload-bytes](#nats-max-payload-bytes)
 - [nats-port](#nats-port)
-- [new-meta-store](#new-meta-store)
-- [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
 - [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
@@ -133,6 +136,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-validate-keys](#storage-validate-keys)
 - [storage-wal-fsync-delay](#storage-wal-fsync-delay)
 - [store](#store)
+- [testing-always-allow-setup](#testing-always-allow-setup)
 - [tls-cert](#tls-cert)
 - [tls-key](#tls-key)
 - [tls-min-version](#tls-min-version)
@@ -389,6 +393,214 @@ http-bind-address = ":8086"
 
 ---
 
+### http-idle-timeout
+Maximum duration the server should keep established connections alive while waiting for new requests.
+Set to `0` for no timeout.
+
+**Default:** `3m0s`
+
+| influxd flag          | Environment variable        | Configuration key   |
+|:------------          |:--------------------        |:-----------------   |
+| `--http-idle-timeout` | `INFLUXD_HTTP_IDLE_TIMEOUT` | `http-idle-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-idle-timeout=3m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_IDLE_TIMEOUT=3m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-idle-timeout: 3m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-idle-timeout = "3m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-idle-timeout": "3m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-read-header-timeout
+Maximum duration the server should try to read HTTP headers for new requests.
+Set to `0` for no timeout.
+
+**Default:** `10s`
+
+| influxd flag                 | Environment variable               | Configuration key          |
+|:------------                 |:--------------------               |:-----------------          |
+| `--http-read-header-timeout` | `INFLUXD_HTTP_READ_HEADER_TIMEOUT` | `http-read-header-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-read-header-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_READ_HEADER_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-read-header-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-read-header-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-read-header-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-read-timeout
+Maximum duration the server should try to read the entirety of new requests.
+Set to `0` for no timeout.
+
+**Default:** `0`
+
+{{% note %}}
+#### Set timeouts specific to your workload
+Although no `http-read-timeout` is set by default, we **strongly recommend**
+setting a timeout specific to your workload.
+HTTP timeouts protect against large amounts of open connections that could
+potentially hurt performance.
+{{% /note %}}
+
+| influxd flag          | Environment variable        | Configuration key   |
+|:------------          |:--------------------        |:-----------------   |
+| `--http-read-timeout` | `INFLUXD_HTTP_READ_TIMEOUT` | `http-read-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-read-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_READ_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-read-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-read-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-read-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-write-timeout
+Maximum duration the server should spend processing and responding to write requests.
+Set to `0` for no timeout.
+
+**Default:** `0`
+
+{{% note %}}
+#### Set timeouts specific to your workload
+Although no `http-write-timeout` is set by default, we **strongly recommend**
+setting a timeout specific to your workload.
+HTTP timeouts protect against large amounts of open connections that could
+potentially hurt performance.
+{{% /note %}}
+
+| influxd flag           | Environment variable         | Configuration key    |
+|:------------           |:--------------------         |:-----------------    |
+| `--http-write-timeout` | `INFLUXD_HTTP_WRITE_TIMEOUT` | `http-write-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-write-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_WRITE_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-write-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-write-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-write-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### influxql-max-select-buckets
 Maximum number of group by time buckets a `SELECT` statement can create.
 `0` allows an unlimited number of buckets.
@@ -583,6 +795,53 @@ log-level = "info"
 
 ---
 
+### metrics-disabled
+Disable the HTTP `/metrics` endpoint which exposes internal InfluxDB metrics.
+
+**Default:** `false`  
+
+| influxd flag         | Environment variable       | Configuration key  |
+|:------------         |:--------------------       |:-----------------  |
+| `--metrics-disabled` | `INFLUXD_METRICS_DISABLED` | `metrics-disabled` |
+
+###### influxd flag
+```sh
+influxd --metrics-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_METRICS_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+metrics-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+metrics-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "metrics-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### nats-max-payload-bytes
 Maximum number of bytes allowed in a NATS message payload.
 
@@ -670,102 +929,6 @@ nats-port = -1
 ```json
 {
   "nats-port": -1
-}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
----
-
-### new-meta-store
-Enable the new meta store.
-
-**Default:** `false`
-
-| influxd flag       | Environment variable     | Configuration key |
-|:------------       |:--------------------     |:----------------- |
-| `--new-meta-store` | `INFLUXD_NEW_META_STORE` | `new-meta-store`  |
-
-###### influxd flag
-```sh
-influxd --new-meta-store
-```
-
-###### Environment variable
-```sh
-export INFLUXD_NEW_META_STORE=true
-```
-
-###### Configuration file
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[YAML](#)
-[TOML](#)
-[JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```yml
-new-meta-store: true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```toml
-new-meta-store = true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{
-  "new-meta-store": true
-}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
----
-
-### new-meta-store-read-only
-Toggle read-only mode for the new meta store.
-If `true`, reads are duplicated between old and new meta stores
-(if [new meta store](#new-meta-store) is enabled).
-
-**Default:** `true`
-
-| influxd flag                 | Environment variable               | Configuration key          |
-|:------------                 |:--------------------               |:-----------------          |
-| `--new-meta-store-read-only` | `INFLUXD_NEW_META_STORE_READ_ONLY` | `new-meta-store-read-only` |
-
-###### influxd flag
-```sh
-influxd --new-meta-store-read-only
-```
-
-###### Environment variable
-```sh
-export INFLUXD_NEW_META_STORE_READ_ONLY=true
-```
-
-###### Configuration file
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[YAML](#)
-[TOML](#)
-[JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```yml
-new-meta-store-read-only: true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```toml
-new-meta-store-read-only = true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{
-  "new-meta-store-read-only": true
 }
 ```
 {{% /code-tab-content %}}
@@ -2079,6 +2242,54 @@ store = "bolt"
 ```json
 {
   "store": "bolt"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### testing-always-allow-setup
+Ensures the `/api/v2/setup` endpoint always returns `true` to allow onboarding.
+This configuration option is primary used in continuous integration tests.
+
+**Default:** `false`
+
+| influxd flag                   | Environment variable                 | Configuration key            |
+|:------------                   |:--------------------                 |:-----------------            |
+| `--testing-always-allow-setup` | `INFLUXD_TESTING_ALWAYS_ALLOW_SETUP` | `testing-always-allow-setup` |
+
+###### influxd flag
+```sh
+influxd --testing-always-allow-setup
+```
+
+###### Environment variable
+```sh
+export INFLUXD_TESTING_ALWAYS_ALLOW_SETUP=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+testing-always-allow-setup: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+testing-always-allow-setup = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "testing-always-allow-setup": true
 }
 ```
 {{% /code-tab-content %}}
