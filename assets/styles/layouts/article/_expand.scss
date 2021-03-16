@@ -7,7 +7,7 @@
 .expand {
   border-top: 1px solid $article-hr;
   padding: .75rem 0;
-  &:last-of-type { border-bottom: 1px solid $article-hr; }
+  &:last-of-type, &:only-child { border-bottom: 1px solid $article-hr; }
 }
 
 .expand-label {

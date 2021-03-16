@@ -105,6 +105,10 @@ Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/v
 command to create a database/retention policy (DBRP) mapping that associates a database
 and retention policy combination with an InfluxDB Cloud [bucket](/influxdb/cloud/reference/glossary/#bucket).
 
+DBRP mappings do not affect the retention period of the target bucket.
+These mappings allow queries following InfluxDB 1.x conventions to successfully
+query InfluxDB Cloud buckets.
+
 {{% note %}}
 ##### Automatically create DBRP mappings on write
 When using the InfluxDB 1.x compatibility API to write data to InfluxDB Cloud,
@@ -116,9 +120,19 @@ For more information, see [Database and retention policy mapping – Writing dat
 Provide the following:
 
 - database name
-- retention policy
+- retention policy name _(not retention period)_
 - [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
+- _(optional)_ `--default` flag if you want the retention policy to be the default retention
+  policy for the specified database
 
+#### Examples
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[DB with one RP](#)
+[DB with multiple RPs](#)
+{{% /code-tabs %}}
+{{< code-tab-content >}}
 ```sh
 influx v1 dbrp create \
   --db example-db \
@@ -126,6 +140,28 @@ influx v1 dbrp create \
   --bucket-id 00xX00o0X001 \
   --default
 ```
+{{< /code-tab-content >}}
+{{< code-tab-content >}}
+```sh
+# Create telegraf/autogen DBRP mapping with autogen
+# as the default RP for the telegraf DB
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp autogen \
+  --bucket-id 00xX00o0X001 \
+  --default
+
+# Create telegraf/downsampled-daily DBRP mapping that
+# writes to a different bucket
+
+influx v1 dbrp create \
+  --db telegraf \
+  --rp downsampled-daily \
+  --bucket-id 00xX00o0X002
+```
+{{< /code-tab-content >}}
+{{< /code-tabs-wrapper >}}
 
 _For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
 

@@ -250,7 +250,8 @@ Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION`
 #### `max-concurrent-compactions = 0`
 
 The maximum number of concurrent full and level compactions that can run at one time.  
-A value of `0` results in 50% of `runtime.GOMAXPROCS(0)` used at runtime.  
+A value of `0` (unlimited compactions) results in 50% of `runtime.GOMAXPROCS(0)` used at runtime,
+so when 50% of the CPUs aren't available, compactions are limited.
 Any number greater than `0` limits compactions to that value.  
 This setting does not apply to cache snapshotting.
 
@@ -397,22 +398,17 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### `allow-out-of-order = "false"`
+#### allow-out-of-order = "false"
 
-By default, this option is set to false and writes are processed in the order that they are received. This means
-if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
+By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
-If this option is set to true, writes are allowed to process in an order that differs from the order they were received.
-This can reduce the time required to drain the HH queue and increase throughput during recovery.
-**Do not enable if your use case involves updating points.** Updating a point means the measurement name, tag keys,
-and timestamp are the same as a previous write and only the value is different.
+If true, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
 
-Allowing out of order writes when updating points may cause incorrect values. For example,
-if the point `cpu v=1.0 1234` arrives on `node1` and attempts to replicate on `node2`
-but `node2` is down, `node1` writes the point to its local HH queue. If `node2` comes back online
-and a new point `cpu v=20. 1234` arrives at `node1` and updates the original point, the updated point
-is sent to `node2` (bypassing the HH queue). Because the updated point arrives at `node2` before the
-original point, and second point value is stored before the original point value.
+**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write.
+
+For example, if you have two points with the same measurement (`cpu`), field key (`v`), and timestamp (`1234`), the following could happen:
+
+Point 1 (`cpu v=1.0 1234`) arrives at `node1`, attempts to replicate on `node2`, and finds `node2` is down, so point 1 goes to the local HH queue. Now, `node2` comes back online and point 2 `cpu v=20. 1234` arrives at `node1`, overwrites point 1, and is written to `node2` (bypassing the HH queue). Because the point 2 arrives at `node2` before point 1, point 2 is stored before point 1.
 
 Environment variable: `INFLUXDB_CLUSTER_ALLOW_OUT_OF_ORDER`
 

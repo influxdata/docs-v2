@@ -153,16 +153,16 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 - **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
   - **Auto**: Select to automatically generate tick marks.
   - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
-    - **Total Tick Marks**: Enter the total number of timestamp ticks to display.
-    - **Start Tick Marks At**: Enter the time, in RFC3339 format, to start displaying ticks.
-    - **Tick Mark Interval**: Enter the number of milliseconds in between each timestamp tick.
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **Y Axis Domain**: Select the method to generate the y-axis value range:
   - **Auto**: Select to automatically determine the value range based on values in the data set.
   - **Custom**: To customize the y-axis domain, manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
     - **Min**: Enter the minimum y-axis value.
     - **Max**: Enter the maximum y-axis value.
 
-<!--
+
 ###### Legend
 
 - **Legend Orientation**: Select the orientation of the legend that appears upon hover:
@@ -170,5 +170,3 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
-
--->

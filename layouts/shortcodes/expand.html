@@ -1,9 +1,10 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
 {{ $expandLabel := .Get 0 }}
 <div class="expand" id="{{ $expandLabel | anchorize }}">
   <p class="expand-label">
       <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
   </p>
   <div class="expand-content" style="display: none;" >
-      {{ .Inner | markdownify | safeHTML }}
+      {{ .Inner }}
   </div>
 </div>
