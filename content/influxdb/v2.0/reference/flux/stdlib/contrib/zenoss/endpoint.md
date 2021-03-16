@@ -56,7 +56,7 @@ Default is `"EventsRouter"`.
 _**Data type:** String_
 
 ### method
-[EvensRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
+[EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
 Default is `"add_event"`.
 
 _**Data type:** String_
