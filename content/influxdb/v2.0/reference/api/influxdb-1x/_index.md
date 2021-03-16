@@ -41,11 +41,8 @@ provide the required 1.x-compatible username and password:
 
 ##### Basic authentication with authorization header
 ```sh
-# Header syntax
-Authorization: Basic <username>:<password>
-
-# Header example
-Authorization: Basic admin:mYSuP3rs3cREtT0k3N
+# --user syntax
+<username>:<password
 ```
 
 ### Token Authentication

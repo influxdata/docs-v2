@@ -17,7 +17,7 @@ related:
   - /influxdb/v2.0/query-data/influxql
 ---
 
-The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 2.0 using **InfluxQL**.
+The `/query` 1.x compatibility endpoint queries InfluxDB OSS 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
@@ -29,13 +29,19 @@ specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp).
 
 {{% note %}}
-If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
+If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
 you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
 ## Authentication
+
 Use **basic authentication** or **token authentication**.
+
+{{% note %}}
+**Note:** If using basic authentication, include the `--user` option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
+{{% /note %}}
+
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Query string parameters
@@ -90,7 +96,7 @@ curl --request GET http://localhost:8086/query \
 ##### Query a non-default retention policy
 ```sh
 curl --request GET http://localhost:8086/query \
-  --header "Authorization: Basic username:YourAuthToken" \
+  --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
