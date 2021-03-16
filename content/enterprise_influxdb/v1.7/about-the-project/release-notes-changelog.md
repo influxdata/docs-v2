@@ -8,6 +8,16 @@ menu:
     parent: About the project
 ---
 
+## v1.7.11 [2020-03-12]
+
+The InfluxDB Enterprise 1.7.11 release builds on the InfluxDB OSS 1.7.11 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.7/about_the_project/releasenotes-changelog/).
+
+### Features
+
+- Hinted handoff improvement to allow out-of-order writes. Add a configuration option `allow-out-of-order-writes` to the [`cluster`] section of the data node configuration file. This option defaults to `false` to match the existing behavior. There are some important operational considerations to review before enabling this feature. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [allow-out-of-order-writes](/enterprise_influxdb/v1.7/administration/config-data-nodes/#allow-out-of-order-false) for more detail.
+
 ## v1.7.10 [2020-02-07]
 
 The InfluxDB Enterprise 1.7.10 release builds on the InfluxDB OSS 1.7.10 release.
