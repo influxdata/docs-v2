@@ -46,10 +46,10 @@ encode the line protocol.
 ## Query string parameters
 
 ### u
-(Optional) The **username** to authenticate the request.
+(Optional) The 1.x **username** to authenticate the request.
 
 ### p
-(Optional) The **password** to authenticate the request.
+(Optional) The 1.x **password** to authenticate the request.
 ### db
 ({{< req >}}) The **database** to write data to.
 This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
