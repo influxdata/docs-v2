@@ -10,10 +10,10 @@ menu:
 ## v1.18 [2021-3-17]
 
 ### Features
-- Update to Go 1.16.0.
-- Add code signing for Windows and Mac.
-- More SNMP v3 authentication protocols including SHA-512.
-- Added support for [DataDog distributions](https://docs.datadoghq.com/metrics/distributions/#counting-distribution-metrics) metric type.
+- Update to Go 1.16.2.
+- Add code signing for Windows and macOS.
+- More SNMP v3 authentication protocols, including SHA-512.
+- Add support for [DataDog distributions](https://docs.datadoghq.com/metrics/distributions/#counting-distribution-metrics) metric type.
 
 ### New plugins
 

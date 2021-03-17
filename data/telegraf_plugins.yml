@@ -178,7 +178,7 @@ input:
     description: |
       The Beat input plugin collects metrics from the given Elastic Beat instances.
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, applications]
 
   - name: Beanstalkd
     id: beanstalkd
@@ -329,7 +329,7 @@ input:
     description: |
       The CSGO input plugin gahers metrics from Counter-Strike: Global Offensive servers.
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, web, servers]
 
   - name: Disk
     id: disk
@@ -350,7 +350,7 @@ input:
     description: |
       The Directory Monitoring input plugin monitors a single directory and takes in each file placed in the directory. The plugin gathers all files in the directory at a configurable interval, and parses the ones that haven't been picked up yet.
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, systems]
 
   - name: Disque
     id: disque
@@ -1092,7 +1092,7 @@ input:
     description: |
       The NFS input plugin collects data from an NFS Client per-mount statistics (`/proc/self/mountstats`). By default, the plugin collects only a limited number of general system-level metrics.
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, networking, systems]
 
   - name: NGINX
     id: nginx
@@ -1293,7 +1293,7 @@ input:
     description: |
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, applications]
 
   - name: Postfix
     id: postfix
@@ -1420,7 +1420,7 @@ input:
     description: |
       The RavenDB input plugin reads metrics from [RavenDB](https://ravendb.net/).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, data-stores]
 
   - name: Redfish
     id: redfish
@@ -1493,7 +1493,7 @@ input:
     description: |
       The SMCIPMITool input plugin parses the output of [SMCIPMITool](https://www.supermicro.com/en/solutions/management-software/ipmi-utilities).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, servers, networking]
 
   - name: S.M.A.R.T.
     id: smart
@@ -1974,7 +1974,7 @@ output:
     description: |
       The Grafana Loki output sends logs to [Loki](https://grafana.com/oss/loki/).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, logging]
 
   - name: Graylog
     id: graylog
@@ -2159,14 +2159,14 @@ output:
     description: |
       The Sensu output plugin writes metrics events to [Sensu Go](https://sensu.io/).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, applications]
 
   - name: SignalFX
     id: signalfx
     description: |
       The SignalFX output plugin sends metrics to [SignalFX](https://docs.signalfx.com/en/latest/).
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, applications]
 
   - name: Socket Writer
     id: socket_writer
@@ -2342,7 +2342,7 @@ processor:
     description: |
       The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
     introduced: 1.18.0
-    tags: []
+    tags: [linux, macos, windows, cloud]
 
   - name: Converter
     id: converter

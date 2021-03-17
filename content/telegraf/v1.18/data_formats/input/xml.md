@@ -8,7 +8,7 @@ menu:
     parent: Input data formats
 ---
 
-The Wavefront input data format parses Wavefront data into Telegraf metrics.
+The Wavefront input data format parse Wavefront data into Telegraf metrics.
 For more information on the Wavefront native data format, see
 [Wavefront Data Format](https://docs.wavefront.com/wavefront_data_format.html) in the Wavefront documentation.
 
