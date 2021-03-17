@@ -50,6 +50,7 @@ encode the line protocol.
 
 ### p
 (Optional) The 1.x **password** to authenticate the request.
+
 ### db
 ({{< req >}}) The **database** to write data to.
 This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
