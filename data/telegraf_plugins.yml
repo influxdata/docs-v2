@@ -1293,7 +1293,7 @@ input:
     description: |
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
-    tags: [linux, macos, windows, applications]
+    tags: [linux, macos, windows, applications, external]
 
   - name: Postfix
     id: postfix
