@@ -27,8 +27,8 @@ requests to InfluxDB 1.x compatibility endpoints.
 ### 1.x-compatible authorizations
 1.x-compatible authorizations include the following credentials:
 
-- **username**: InfluxDB username
-- **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+- **username (`-u`)**: InfluxDB 1.x username
+- **password (`-p`)**: InfluxDB 1.x password
 
 For information about creating and managing 1.x-compatible authorizations, see:
 
