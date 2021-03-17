@@ -9,6 +9,27 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.5 [TBD]
+### Features
+
+- Add report-disk for disk usage by measurement
+- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
+- Make meta queries respect QueryTimeout values
+- influx_inspect export to standard out
+
+### Bug fixes
+
+- Successful writes increment write error statistics incorrectly.
+- unsupported value: +Inf" error not handled gracefully.
+- Group By queries with offset that crosses a DST boundary can fail.
+- cp.Mux.Serve() closes all net.Listener instances silently on error.
+- regexp handling should comply with PromQL.
+- SELECT INTO doesn't return error with unsupported value
+- "snapshot in progress" error during backup
+- data race when accessing tombstone stats
+- minimize lock contention when adding new fields or measure
+- infinite recursion bug (#20862)
+
 ## v1.8.4 [2021-02-01]
 ### Features
 
