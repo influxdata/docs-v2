@@ -30,6 +30,7 @@
       {{ end }}
       {{ $link := $scratch.Get "link" }}
       <li>
+      <li {{ if eq .namespace "flux" }}class='flux'{{ end }}>
         <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
       </li>
     {{ end }}
