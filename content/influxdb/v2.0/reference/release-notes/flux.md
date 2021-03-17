@@ -11,13 +11,13 @@ menu:
 ## v0.108.0 [2021-03-15]
 
 ### Features
-- Add BigPanda notification support.
-- Add Zenoss notifications support.
-- Add VictorOps notifications support.
+- Add [BigPanda notification support](/influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/).
+- Add [Zenoss notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/).
+- Add [VictorOps notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/victorops/).
 
 ### Bug fixes
 - Classify "Option not found error" as internal.
-- Remove `as_user` param from `slack.message` payload.
+- Remove `as_user` parameter from `slack.message` payload.
 
 ## v0.107.0 [2021-03-09]
 
