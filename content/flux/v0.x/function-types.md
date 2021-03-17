@@ -50,6 +50,9 @@ Flux functions each share a set of behaviors or traits that define how the funct
 The following categories represent high-level function behaviors.
 This list is not all-inclusive, but covers distinct and important function behaviors.
 
+- [Function types](#function-types)
+- [Function categories](#function-categories)
+
 ## Function types
 - [Inputs](#inputs)
 - [Outputs](#outputs)
@@ -172,7 +175,7 @@ The following testing functions are available:
 
 ---
 
-## Date/time
+### Date/time
 Flux date/time functions return or manipulate [time](/flux/v0.x/spec/types/#time-types)
 or [duration](/flux/v0.x/spec/types/#duration-types) values.
 
@@ -180,5 +183,14 @@ or [duration](/flux/v0.x/spec/types/#duration-types) values.
 
 ---
 
-## Metadata
+### Metadata
 Flux metadata functions return metadata from the input stream or from an underlying data source.
+
+{{< list-all-functions filters="metadata" >}}
+
+---
+
+### Notification endpoints
+Flux notification endpoint functions send notifications to external endpoints or services.
+
+{{< list-all-functions filters="notification endpoints" >}}
