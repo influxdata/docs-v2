@@ -8,6 +8,38 @@ menu:
     name: Flux
 ---
 
+## v0.108.1 [2021-03-15]
+- _Internal code cleanup._
+
+---
+
+## v0.108.0 [2021-03-15]
+
+### Features
+- Add [BigPanda notification support](/influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/).
+- Add [Zenoss notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/).
+- Add [VictorOps notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/victorops/).
+
+### Bug fixes
+- Classify "Option not found error" as internal.
+- Remove `as_user` parameter from `slack.message` payload.
+
+## v0.107.0 [2021-03-09]
+
+### Features
+- Add new [`experimental.kaufmansAMA()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/kaufmansama/) signature.
+- Add new [experimental aggregate function](/influxdb/v2.0/reference/flux/stdlib/experimental/#experimental-functions) signatures.
+- Add `extends` capability to `testcase` block to extend tests using a relative path to another file.
+
+### Bug fixes
+- Update CSV package to handle large files.
+- Add tests and fix the `NoHeader` configuration for the `csv` decoder.
+- Remove `interval` package and documentation.
+- Disable line wrap linter.
+- Fix typo in comment.
+
+---
+
 ## v0.106.0 [2021-02-22]
 
 ### Features

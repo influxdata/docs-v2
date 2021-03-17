@@ -29,7 +29,7 @@ derivative(
   unit: 1s,
   nonNegative: true,
   columns: ["_value"],
-  timeSrc: "_time"
+  timeColumn: "_time"
 )
 ```
 
@@ -54,7 +54,7 @@ Defaults to `["_value"]`.
 
 _**Data type:** String_
 
-### timeSrc
+### timeColumn
 The column containing time values.
 Defaults to `"_time"`.
 

@@ -75,10 +75,8 @@ _For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/std
 ##### Send critical statuses to a Slack endpoint
 ```js
 import "slack"
-import "influxdata/influxdb/secrets"
 
-token = secrets.get(key: "SLACK_TOKEN")
-toSlack = slack.endpoint(token: token)
+toSlack = slack.endpoint(url: https://hooks.slack.com/services/EXAMPLE-WEBHOOK-URL)
 
 crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)

@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/spread
 introduced: 0.7.0
 ---
 

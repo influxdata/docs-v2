@@ -11,6 +11,8 @@ menu:
     name: skew
     parent: universe
 weight: 102
+related:
+  - /flux/v0.x/experimental/skew/
 flux/v0.x/tags: [aggregates, transformations]
 introduced: 0.7.0
 ---

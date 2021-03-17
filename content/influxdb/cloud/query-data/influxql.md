@@ -133,7 +133,7 @@ Include the following in your request:
 {{% /note %}}
 
 ```sh
-curl --request GET https://cloud2.influxdata.com/query?db=example-db \
+curl --get https://cloud2.influxdata.com/query?db=example-db \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```

@@ -14,6 +14,7 @@ weight: 102
 flux/v0.x/tags: [aggregates, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+  - /flux/v0.x/stdlib/experimental/spread
 introduced: 0.7.0
 ---
 

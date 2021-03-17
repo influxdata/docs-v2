@@ -13,7 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mean, InfluxQL – MEAN()
-introduced: 0.7.0
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mean/
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.

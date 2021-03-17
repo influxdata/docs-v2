@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB 1.x to 2.0
     name: Migrate CQs
-weight: 101
+weight: 102
 related:
   - /influxdb/v2.0/query-data/get-started/
   - /influxdb/v2.0/query-data/flux/
@@ -61,7 +61,7 @@ For example:
 CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
 BEGIN
   SELECT mean("example-field")
-  INTO "average-example-measurement"
+  INTO "my-db"."example-rp"."average-example-measurement"
   FROM "example-measurement"
   GROUP BY time(1h)
 END
@@ -79,10 +79,10 @@ from(bucket: "my-db/")
   |> filter(fn: (r) => r._measurement == "example-measurement")
   |> filter(fn: (r) => r._field == "example-field")
   |> aggregateWindow(every: 1h, fn: mean)
-  |> set(key: "_measurement", as: "average-example-measurement")
+  |> set(key: "_measurement", value: "average-example-measurement")
   |> to(
     org: "example-org",
-    bucket: "my-db/downsample-daily"
+    bucket: "my-db/example-rp"
   )
 ```
 
@@ -165,6 +165,40 @@ INTO "example-db"."example-rp"."example-measurement"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+##### Write pivoted data to InfluxDB
+InfluxDB 1.x query results include a column for each field.
+InfluxDB 2.0 does not do this by default, but it is possible with
+[`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
+or [`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/).
+
+If you use `to()` to write _pivoted data_ back to InfluxDB 2.0, each field column is stored as a tag.
+To write pivoted fields back to InfluxDB as fields, import the `experimental` package
+and use the [`experimental.to()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/to/).
+
+###### InfluxQL
+```sql
+CREATE CONTINUOUS QUERY "downsample-daily" ON "my-db"
+BEGIN
+  SELECT mean("example-field-1"), mean("example-field-2")
+  INTO "example-db"."example-rp"."example-measurement"
+  FROM "example-measurement"
+  GROUP BY time(1h)
+END
+```
+
+###### Flux
+```js
+// ...
+
+from(bucket: "my-db/")
+  |> range(start: -task.every)
+  |> filter(fn: (r) => r._measurement == "example-measurement")
+  |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
+  |> aggregateWindow(every: task.every, fn: mean)
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> experimental.to(bucket: "example-db/example-rp")
+```
 
 #### FROM clause
 The from clause defines the measurement to query.
@@ -259,6 +293,8 @@ GROUP BY "location"
 ##### Group by time
 Use the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
 to group data into time windows and perform an aggregation on each window.
+In CQs, the interval specified in the `GROUP BY time()` clause determines the CQ execution interval.
+Use the `GROUP BY time()` interval to set the `every` task option.
 
 ###### InfluxQL
 ```sql
@@ -270,12 +306,17 @@ GROUP BY time(1h)
 
 ###### Flux
 ```js
+options task = {
+  name: "task-name",
+  every: 1h
+}
+
 // ...
   |> filter(fn: (r) =>
     r._measurement == "example-measurement" and
     r._field == "example-field"
   )
-  |> aggregateWindow(every: 1h, fn: mean)
+  |> aggregateWindow(every: task.every, fn: mean)
 ```
 
 #### RESAMPLE clause
@@ -284,9 +325,8 @@ The CQ `RESAMPLE` clause uses data from the last specified duration to calculate
 The `EVERY` interval in `RESAMPLE` defines how often the CQ runs.
 The `FOR` interval defines the total time range queried by the CQ.
 
-To accomplish this same functionality in a Flux task, import the `experimental` package
-and use [`experimental.subDuration()`](/influxdb/v2.0/reference/flux/stdlib/experimental/subduration/)
-to set the `start` parameter in the `range()` function.
+To accomplish this same functionality in a Flux task, set the `start` parameter
+in the `range()` function to the negative `FOR` duration.
 Define the task execution interval in the `task` options.
 For example:
 
@@ -305,15 +345,13 @@ END
 
 ###### Flux
 ```js
-import "experimental"
-
 options task = {
   name: "resample-example",
   every: 1m
 }
 
 from(bucket: "my-db/")
-  |> range(start: experimental.subDuration(d: 30m, from: now()))
+  |> range(start: -30m)
   |> filter(fn: (r) =>
     r._measurement == "example-measurement" and
     r._field == "example-field" and
@@ -321,7 +359,8 @@ from(bucket: "my-db/")
   )
   |> aggregateWindow(every: 1m, fn: mean)
   |> exponentialMovingAverage(n: 30)
-  |> to(bucket: "resample-average-example-measurement")
+  |> set(key: "_measurement", value: "resample-average-example-measurement")
+  |> to(bucket: "my-db/")
 ```
 
 ## Create new InfluxDB tasks

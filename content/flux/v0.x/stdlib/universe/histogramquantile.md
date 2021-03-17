@@ -13,6 +13,8 @@ menu:
     name: histogramQuantile
     parent: universe
 weight: 102
+related:
+  - /flux/v0.x/stdlib/experimental/histogramquantile/
 flux/v0.x/tags: [aggregates, transformations]
 introduced: 0.7.0
 ---

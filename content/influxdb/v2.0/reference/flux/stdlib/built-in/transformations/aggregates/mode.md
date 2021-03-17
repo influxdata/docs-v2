@@ -14,6 +14,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mode/
 introduced: 0.36.0
 ---
 

@@ -13,6 +13,7 @@ weight: 501
 related:
   - /influxdb/cloud/query-data/flux/percentile-quantile/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+  - /influxdb/cloud/reference/flux/stdlib/experimental/quantile/
 ---
 
 {{< duplicate-oss >}}

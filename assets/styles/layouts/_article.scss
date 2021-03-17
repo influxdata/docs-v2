@@ -102,6 +102,10 @@
     box-shadow: 1px 3px 10px $article-shadow;
   }
 
+  ul + p > img {
+    margin-top: 1.5rem;
+  }
+
   hr {
     border-width: 1px 0 0;
     border-color: $article-hr;

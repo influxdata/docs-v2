@@ -14,6 +14,7 @@ weight: 102
 flux/v0.x/tags: [aggregates, transformations]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
+  - /flux/v0.x/stdlib/experimental/integral/
 introduced: 0.7.0
 ---
 

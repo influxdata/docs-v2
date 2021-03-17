@@ -8,10 +8,6 @@ menu:
     name: Manage notebooks
     parent: Notebooks
 ---
-{{% note %}}
-**Notebooks is currently an early-access feature.**
-[Submit a request](https://w2.influxdata.com/notebooks-early-access/) for early access, and we'll send you a confirmation notebooks is available in your account.
-{{% /note %}}
 
 View, update, and delete notebooks in the UI.
 

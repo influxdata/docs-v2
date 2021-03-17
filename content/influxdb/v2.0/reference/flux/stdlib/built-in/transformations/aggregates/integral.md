@@ -13,6 +13,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/integral/
 introduced: 0.7.0
 ---
 

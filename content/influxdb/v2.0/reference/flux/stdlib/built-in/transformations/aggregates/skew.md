@@ -11,6 +11,8 @@ menu:
     name: skew
     parent: built-in-aggregates
 weight: 501
+related:
+  - /influxdb/v2.0/reference/flux/experimental/skew/
 introduced: 0.7.0
 ---
 

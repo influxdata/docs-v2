@@ -27,7 +27,7 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
     {{< nav-icon "data" >}}
 
-2. Click **Settings** under the bucket you want to rename.
+2. Click **Settings** to the right of the bucket you want to rename.
 3. Click **Rename**.
 3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
 4. Update the bucket's name and click **Change Bucket Name**.
@@ -37,10 +37,17 @@ If you change a bucket name, be sure to update the bucket in the above places as
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
-
+    
 2. Click **Settings** next to the bucket you want to update.
-3. In the window that appears, edit the bucket's retention policy.
-4. Click **Save Changes**.
+3. In the window that appears, under **Delete data**, select a retention period:
+
+    - **Never**: data in the bucket is retained indefinitely.
+    - **Older Than**: select a predefined retention period from the dropdown menu.
+    
+    {{% note %}}
+Use the [`influx bucket update` command](#update-a-buckets-retention-policy) to set a custom retention policy.
+    {{% /note %}}
+5. Click **Save Changes**.
 
 ## Update a bucket using the influx CLI
 
