@@ -32,7 +32,7 @@ to the `/write` endpoint.
 Use **basic authentication** or **token authentication**.
 
 {{% note %}}
-**Note:** If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
+If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
 {{% /note %}}
 
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
