@@ -4,13 +4,18 @@ description: >
   The `experimental.spread()` function outputs the difference between the minimum
   and maximum values in the `_value` column for each input table.
 menu:
-  influxdb_2_0_ref:
+  flux_0_x_ref:
     name: experimental.spread
-    parent: Experimental
+    parent: experimental
 weight: 302
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/spread/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/spread/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/spread/
+  - /flux/v0.x/stdlib/universe/spread/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+flux/v0.x/tags: [transformations, aggregates]
+introduced: 0.107.0
 ---
 
 The `experimental.spread()` function outputs the difference between the minimum
