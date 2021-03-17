@@ -64,7 +64,6 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 
 > ***Note:*** Command line options take precedence over corresponding environment variables.
 
-
 ## Chronograf service options
 
 #### `--host=`
@@ -95,7 +94,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/chronograf/v1.8/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/v1.8/guides/using-precreated-dashboards) files. Canned dashboards (also known as pre-created dashboards or application layouts) cannot be edited. They're delivered with Chronograf and available depending on which Telegraf input plugins you have enabled.
 
 Default value: `/usr/share/chronograf/canned`
 
@@ -103,7 +102,11 @@ Environment variable: `$CANNED_PATH`
 
 #### `--resources-path=`
 
-Path to directory of canned dashboards, sources, Kapacitor connections, and organizations.
+Path to directory of sources (.src files), Kapacitor connections (.kap files), organizations (.org files), and dashboards (.dashboard files).
+
+{{% note %}}
+**Note:** If you have a dashboard with the `.json` extension, rename it with the `.dashboard` extension in this directory to ensure the dashboard is loaded.
+{{% /note %}}
 
 Default value: `/usr/share/chronograf/resources`
 
@@ -229,7 +232,6 @@ ETCD_ENDPOINTS=localhost:2379
 ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
 ```
 
-
 #### `--etcd-username=`
 
 Username to log into etcd.
@@ -345,7 +347,6 @@ Environment variable: `$PUBLIC_URL`
 The secret for signing tokens.
 
 Environment variable: `$TOKEN_SECRET`
-
 
 ### GitHub-specific OAuth 2.0 authentication options
 
