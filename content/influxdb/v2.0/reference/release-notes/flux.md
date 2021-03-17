@@ -8,6 +8,11 @@ menu:
     name: Flux
 ---
 
+## v0.108.1 [2021-03-15]
+- _Internal code cleanup._
+
+---
+
 ## v0.108.0 [2021-03-15]
 
 ### Features
