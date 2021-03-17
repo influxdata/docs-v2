@@ -8,7 +8,7 @@ menu:
     weight: 20
 ---
 
-The InfluxDB 1.0 platform can be manually installed and configured or
+The InfluxDB 1.x platform can be manually installed and configured or
 can be deployed leveraging containers and other technologies that can speed up
 and provide consistent resources.
 
