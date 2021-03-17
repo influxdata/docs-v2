@@ -9,7 +9,7 @@ menu:
     parent: install-and-deploy-platform
 ---
 
-There are multiple ways to deploy the InfluxData Platform (also known
+There are multiple ways to deploy the InfluxDB 1.x platform (also known
 as the TICK stack). See if one of the following container-based
 installation options meets your requirements.
 

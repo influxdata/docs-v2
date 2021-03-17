@@ -8,8 +8,7 @@ menu:
     weight: 40
 ---
 
-The InfluxData Platform and its TICK stack components integrate with a number of
-platforms and technologies. These pages document the integrations and provide
+The InfluxDB 1.x platform integrates with a number of platforms and technologies. These pages document the integrations and provide
 links to additional material.
 
 {{< children >}}
