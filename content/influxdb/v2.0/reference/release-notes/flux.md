@@ -8,6 +8,22 @@ menu:
     name: Flux
 ---
 
+## v0.108.1 [2021-03-15]
+- _Internal code cleanup._
+
+---
+
+## v0.108.0 [2021-03-15]
+
+### Features
+- Add [BigPanda notification support](/influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/).
+- Add [Zenoss notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/).
+- Add [VictorOps notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/victorops/).
+
+### Bug fixes
+- Classify "Option not found error" as internal.
+- Remove `as_user` parameter from `slack.message` payload.
+
 ## v0.107.0 [2021-03-09]
 
 ### Features
