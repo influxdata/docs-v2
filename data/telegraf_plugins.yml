@@ -173,6 +173,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, systems]
 
+  - name: Beat
+    id: beat
+    description: |
+      The Beat input plugin collects metrics from the given Elastic Beat instances.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications]
+
   - name: Beanstalkd
     id: beanstalkd
     description: |
@@ -317,6 +324,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems]
 
+  - name: CS:GO
+    id: csgo
+    description: |
+      The CSGO input plugin gahers metrics from Counter-Strike: Global Offensive servers.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, web, servers]
+
   - name: Disk
     id: disk
     description: |
@@ -329,6 +343,13 @@ input:
     description: |
       The DiskIO input plugin gathers metrics about disk IO by device.
     introduced: 0.10.0
+    tags: [linux, macos, windows, systems]
+
+  - name: Directory Monitoring
+    id: directory_monitor
+    description: |
+      The Directory Monitoring input plugin monitors a single directory and takes in each file placed in the directory. The plugin gathers all files in the directory at a configurable interval, and parses the ones that haven't been picked up yet.
+    introduced: 1.18.0
     tags: [linux, macos, windows, systems]
 
   - name: Disque
@@ -1066,6 +1087,13 @@ input:
     introduced: 0.10.3
     tags: [linux, macos, windows, networking]
 
+  - name: NFS
+    id: nfsclient
+    description: |
+      The NFS input plugin collects data from an NFS Client per-mount statistics (`/proc/self/mountstats`). By default, the plugin collects only a limited number of general system-level metrics.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, networking, systems]
+
   - name: NGINX
     id: nginx
     description: |
@@ -1260,6 +1288,13 @@ input:
     introduced: 0.1.8
     tags: [linux, macos, windows, networking]
 
+  - name: Plex Webhook
+    id: plex
+    description: |
+      The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications, external]
+
   - name: Postfix
     id: postfix
     description: |
@@ -1380,6 +1415,13 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, servers, web]
 
+  - name: RavenDB
+    id: ravendb
+    description: |
+      The RavenDB input plugin reads metrics from [RavenDB](https://ravendb.net/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: Redfish
     id: redfish
     description: |
@@ -1445,6 +1487,13 @@ input:
       in accordance with the [sflow.org](https://sflow.org/) specification.
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
+
+  - name: SMCIPMITool
+    id: smc_ipmi
+    description: |
+      The SMCIPMITool input plugin parses the output of [SMCIPMITool](https://www.supermicro.com/en/solutions/management-software/ipmi-utilities).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, servers, networking]
 
   - name: S.M.A.R.T.
     id: smart
@@ -1920,6 +1969,13 @@ output:
     introduced: 0.10.1
     tags: [linux, macos, windows, data-stores]
 
+  - name: Grafani Loki
+    id: loki
+    description: |
+      The Grafana Loki output sends logs to [Loki](https://grafana.com/oss/loki/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, logging]
+
   - name: Graylog
     id: graylog
     description: |
@@ -2098,6 +2154,19 @@ output:
     deprecated: 1.2.1
     tags: [linux, macos, windows, applications]
 
+  - name: Sensu
+    id: sensu
+    description: |
+      The Sensu output plugin writes metrics events to [Sensu Go](https://sensu.io/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications]
+
+  - name: SignalFX
+    id: signalfx
+    description: |
+      The SignalFX output plugin sends metrics to [SignalFX](https://docs.signalfx.com/en/latest/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications]
 
   - name: Socket Writer
     id: socket_writer
@@ -2155,6 +2224,13 @@ output:
     introduced: 1.5.0
     tags: [linux, macos, windows, applications, cloud]
 
+  - name: XML
+    id: xml
+    description: |
+      The XML parser plugin parses an XML string into metric fields using XPath expressions.
+    introduced: 1.18.0
+    tags: []
+
   - name: Yandex Cloud Monitoring
     id: yandex_cloud_monitoring
     description: |
@@ -2176,6 +2252,13 @@ aggregator:
       and `stdev` for a set of values, emitting the aggregate every period seconds.
     introduced: 1.5.0
     tags: [linux, macos, windows]
+
+  - name: Derivative
+    id: derivative
+    description: |
+      The derivative aggregator plugin estimates the derivative for all fields of the aggregated metrics.
+    introduced: 1.18.0
+    tags: []
 
   - name: Final
     id: final
@@ -2220,6 +2303,13 @@ aggregator:
     introduced: 1.1.0
     tags: [linux, macos, windows]
 
+  - name: Quantile
+    id: quantile
+    description: |
+      The quantile aggregator plugin aggregates specified quantiles for each numeric field per metric it sees and emits the quantiles every designated `period`.
+    introduced: 1.18.0
+    tags: []
+
   - name: ValueCounter
     id: valuecounter
     description: |
@@ -2247,6 +2337,13 @@ aggregator:
 #   %%      %%  %%   %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%  %%   %%%%    #
 
 processor:
+  - name: AWS EC2 Metadata
+    id: aws_ec2
+    description: |
+      The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, cloud]
+
   - name: Converter
     id: converter
     description: |
@@ -2311,6 +2408,13 @@ processor:
     description: |
       The `filepath` processor plugin maps certain Go functions from [path/filepath](https://golang.org/pkg/path/filepath/) onto tag and field values.
     introduced: 1.15.0
+    tags: [linux, macos, windows]
+
+  - name: GeoIP
+    id: geoip
+    description: |
+      The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
+    introduced: 1.18.0
     tags: [linux, macos, windows]
 
   - name: Network Interface Name
