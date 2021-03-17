@@ -132,6 +132,9 @@ Include the following:
 
 {{< req type="key" >}}
 
+If you haven't set up your organization and authentication token in for the active InfluxDB connection configuration in the influx CLI, you must include your organization (--org) and authentication token (--token) with each command.
+
+- {{< req "\*" >}} **org** and **token** to authenticate. We recommend setting your organization and authentication in your active InfluxDB connection configuration in the influx CLI, so you don't have to add to each command. To set up your active InfluxDB configuration, see [`influx config set`](/influxdb/v2.0/reference/cli/influx/config/set/).
 - {{< req "\*" >}} **database name** to map
 - {{< req "\*" >}} **retention policy** name to map
 - {{< req "\*" >}} [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
