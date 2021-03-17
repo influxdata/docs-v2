@@ -34,7 +34,7 @@ option bigpanda.defaultTokenPrefix = "Bearer"
 ```
 
 ### defaultUrl
-Default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
+The default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
 for functions in the BigPanda package.
 Default is `https://api.bigpanda.io/data/v2/alerts`.
 
