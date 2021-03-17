@@ -55,6 +55,7 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 
 ### p
 (Optional) The 1.x **password** to authenticate the request.
+
 ### db
 ({{< req >}}) The **database** to query data from.
 This is mapped to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
