@@ -377,7 +377,7 @@ Does not include comments or data definition language (DDL), like `CREATE DATABA
 
 ##### [ `-out <export_dir>` or `-out -`]
 
-Location to export shard data. Specify an export directory to export a file, or add a hyphen after `-out -` to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
+Location to export shard data. Specify an export directory to export a file, or add a hyphen after out (`-out -`) to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
 
 Default value is `"$HOME/.influxdb/export"`.
 
@@ -454,16 +454,16 @@ The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
 
-### `report-disk <data_dir>`
+### `report-disk`
 
-Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurement or shard is using the most space. The default location is `~/.influxdb/data/`.
+Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurement or shard is using the most space.
 
 Calculates the total disk size by database (`db`), retention policy (`rp`), shard (`shard`), tsm file (`tsm_file`), and measurement (`measurement`).
 
 #### Syntax
 
 ```
-influx_inspect report-disk [ options ] <data_dir>
+influx_inspect report-disk [ options ]
 ```
 
 #### Options
@@ -473,6 +473,58 @@ Optional arguments are in brackets.
 ##### [ `-detailed` ]
 
 Include this flag to report disk usage by measurement.
+
+##### -datadir <data_dir>
+
+The path to the data directory. Default location is `"$HOME/.influxdb/data"`.
+
+#### Examples
+
+##### Report on disk size by shard
+
+```bash
+influx_inspect report-disk ~/.influxdb/data/
+```
+
+##### Output
+
+```bash
+{
+  "Summary": {"shards": 2, "tsm_files": 8, "total_tsm_size": 149834637 },
+  "Shard": [
+    {"db": "stress", "rp": "autogen", "shard": "3", "tsm_files": 7, "size": 147022321},
+    {"db": "telegraf", "rp": "autogen", "shard": "2", "tsm_files": 1, "size": 2812316}
+  ]
+}
+```
+
+##### Report on disk size by measurement
+
+```bash
+influx_inspect report-disk -detailed ~/.influxdb/data/
+```
+
+##### Output
+
+```bash
+{
+  "Summary": {"shards": 2, "tsm_files": 8, "total_tsm_size": 149834637 },
+  "Shard": [
+    {"db": "stress", "rp": "autogen", "shard": "3", "tsm_files": 7, "size": 147022321},
+    {"db": "telegraf", "rp": "autogen", "shard": "2", "tsm_files": 1, "size": 2812316}
+  ],
+  "Measurement": [
+    {"db": "stress", "rp": "autogen", "measurement": "ctr", "size": 107900000},
+    {"db": "telegraf", "rp": "autogen", "measurement": "cpu", "size": 1784211},
+    {"db": "telegraf", "rp": "autogen", "measurement": "disk", "size": 374121},
+    {"db": "telegraf", "rp": "autogen", "measurement": "diskio", "size": 254453},
+    {"db": "telegraf", "rp": "autogen", "measurement": "mem", "size": 171120},
+    {"db": "telegraf", "rp": "autogen", "measurement": "processes", "size": 59691},
+    {"db": "telegraf", "rp": "autogen", "measurement": "swap", "size": 42310},
+    {"db": "telegraf", "rp": "autogen", "measurement": "system", "size": 59561}
+  ]
+}
+```
 
 ### `reporttsi`
 
