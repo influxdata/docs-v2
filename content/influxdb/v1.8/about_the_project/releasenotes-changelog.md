@@ -12,23 +12,23 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ## v1.8.5 [TBD]
 ### Features
 
-- Add report-disk for disk usage by measurement
+- Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
+- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out -`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-) flag. Using this option writes to `stdout`, and sends status messages to standard error (`stderr`).
 - Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
-- Make meta queries respect QueryTimeout values
-- influx_inspect export to standard out
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
 
 ### Bug fixes
 
-- Successful writes increment write error statistics incorrectly.
-- unsupported value: +Inf" error not handled gracefully.
-- Group By queries with offset that crosses a DST boundary can fail.
-- cp.Mux.Serve() closes all net.Listener instances silently on error.
-- regexp handling should comply with PromQL.
-- SELECT INTO doesn't return error with unsupported value
-- "snapshot in progress" error during backup
-- data race when accessing tombstone stats
-- minimize lock contention when adding new fields or measure
-- infinite recursion bug (#20862)
+-  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
+- Correct JSON marshalling error format.
+- Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
+- Previously, `cp.Mux.Serve()` closed all net.Listener instances silently on error, resulting in "connection refused" errors to the meta node. Now, InfluxDB correctly logs all Listener closure errors.
+- Fix `regexp` handling to comply with PromQL.
+- Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
+- Resolve the "snapshot in progress" error that occurred during a backup.
+- Fix data race when accessing tombstone statistics (`TombstoneStat`).
+- Minimize lock contention when adding new fields or measurements.
+- Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
 
 ## v1.8.4 [2021-02-01]
 ### Features
