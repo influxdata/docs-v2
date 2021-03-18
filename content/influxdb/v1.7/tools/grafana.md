@@ -21,7 +21,7 @@ For information about using InfluxDB with other versions of Grafana,
 see the [Grafana documentation](https://grafana.com/docs/grafana/v7.0/features/datasources/influxdb/).
 {{% /note %}}
 
-1. [Start InfluxDB](/influxdb/v1.7/get-started/).
+1. [Start InfluxDB](/influxdb/v1.7/introduction/getting-started/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
