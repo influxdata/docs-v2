@@ -1892,6 +1892,13 @@ output:
     introduced: 0.1.7
     tags: [linux, macos, windows, messaging]
 
+  - name: BigQuery Google Cloud
+    id: bigquery
+    description: |
+      The BigQuery output plugin writes to [Google Cloud's BigQuery](https://cloud.google.com/bigquery).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, cloud]
+
   - name: CrateDB
     id: cratedb
     description: |
