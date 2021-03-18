@@ -1892,7 +1892,7 @@ output:
     introduced: 0.1.7
     tags: [linux, macos, windows, messaging]
 
-  - name: BigQuery Google Cloud
+  - name: BigQuery
     id: bigquery
     description: |
       The BigQuery output plugin writes to [Google Cloud's BigQuery](https://cloud.google.com/bigquery).
