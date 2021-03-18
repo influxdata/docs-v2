@@ -374,9 +374,10 @@ YYYY-MM-DDTHH:MM:SS+07:00
 Output data in line protocol format only.
 Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
 
-##### [ `-out <export_dir>` ]
+##### [ `-out <export_dir>` or `-out -`]
 
-The location for the export file.
+Location to export shard data. Specify an export directory to export a file, or add a hyphen after `-out -` to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
+
 Default value is `"$HOME/.influxdb/export"`.
 
 ##### [ `-retention <rp_name> ` ]
