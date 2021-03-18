@@ -24,7 +24,6 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 - Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
 - Improved error logging for TCP connection closures.
 - Fix `regexp` handling to comply with PromQL.
-- Fix `regexp` handling to comply with PromQL.
 - Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
 - Resolve the "snapshot in progress" error that occurred during a backup.
 - Fix data race when accessing tombstone statistics (`TombstoneStat`).
