@@ -22,7 +22,6 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 -  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
 - Correct JSON marshalling error format.
 - Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
-- Previously, `cp.Mux.Serve()` closed all net.Listener instances silently on error, resulting in "connection refused" errors to the meta node. Now, InfluxDB correctly logs all Listener closure errors.
 - Fix `regexp` handling to comply with PromQL.
 - Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
 - Resolve the "snapshot in progress" error that occurred during a backup.
