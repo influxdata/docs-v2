@@ -66,9 +66,9 @@ Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in ta
 
 Click the CSV icon to save the cells contents as a CSV file.
 
-### Manually refresh dashboard
+### Manually refresh a dashboard cell
 
-Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashboard's data.
+Click the refresh button ({{< icon "refresh" >}}) to manually refresh a cell's data.
 
 ### Select time range
 
