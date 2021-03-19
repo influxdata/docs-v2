@@ -60,11 +60,19 @@ You can also [manually configure the shard group duration](#) for each bucket.
 To view your bucket's shard group duration, use the
 [`influx bucket list` command](/influxdb/v2.0/reference/cli/influx/bucket/list/).
 
-<!-- Shard diagram -->
+### Shard group diagram
+The following diagram represents a **bucket** with a **4d retention period**
+and a **1d shard group duration**:
+
+---
+
+{{< html-diagram/shards >}}
+
+---
 
 ## Shard life-cycle
 
-### Shared precreation
+### Shard precreation
   - [`storage-shard-precreator-advance-period`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-advance-period)
   - [`storage-shard-precreator-check-interval`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-check-interval)
 
