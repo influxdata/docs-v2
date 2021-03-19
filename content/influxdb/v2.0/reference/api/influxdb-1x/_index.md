@@ -11,6 +11,7 @@ weight: 104
 influxdb/v2.0/tags: [influxql, query, write]
 related:
   - /influxdb/v2.0/query-data/influxql
+  - /influxdb/v2.0/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
@@ -20,26 +21,27 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 
 ## Authentication
 InfluxDB 2.0 requires all query and write requests to be authenticated.
-Use **basic authentication** or **token authentication** to authenticate requests to
-InfluxDB 1.x compatibility endpoints.
+Use **1.x-compatible authorizations** or **token authentication** to authenticate
+requests to InfluxDB 1.x compatibility endpoints.
 
-### Basic Authentication
-Basic authentications requires the following credentials:
+### 1.x-compatible authorizations
+Include the following credentials in your 1.x-compatible authorizations:
 
-- **username**: InfluxDB username
-- **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+- **username**: InfluxDB 1.x username
+- **password**: InfluxDB 1.x password
 
-There are multiple ways to provide basic authentication credentials.
-The example below uses the `Authorization` header with the `Basic` scheme to
-provide the required credentials:
+For information about creating and managing 1.x-compatible authorizations, see:
 
-##### Basic authentication with authorization header
+- [influx v1 auth](/influxdb/v2.0/reference/cli/influx/v1/auth/)
+- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+
+There are multiple ways to provide 1.x-compatible authorization credentials to InfluxDB 2.0.
+When providing the 1.x-compatible username and password, use the following syntax for basic authentication (or include the `-u` and `-p` parameters in your request).
+
+##### Basic authentication
 ```sh
-# Header syntax
-Authorization: Basic <username>:<password>
-
-# Header example
-Authorization: Basic admin:mYSuP3rs3cREtT0k3N
+# --user syntax
+<username>:<password>
 ```
 
 ### Token Authentication

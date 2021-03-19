@@ -12,6 +12,7 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mode/
 ---
 
 The `mode()` function computes the mode or value that occurs most often in a

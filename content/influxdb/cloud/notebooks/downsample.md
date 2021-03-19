@@ -9,17 +9,15 @@ menu:
     name: Downsample data with notebooks
     parent: Notebooks
 ---
-{{% note %}}
-**Notebooks is currently an early-access feature.**
-[Submit a request](https://w2.influxdata.com/notebooks-early-access/) for early access, and we'll send you a confirmation notebooks is available in your account.
-{{% /note %}}
 
-Downsample data to reduce the overall disk usage as data collects over time. over time.
+Downsample data to reduce the overall disk usage as data collects over time.
 Learn how to create a notebook that downsamples data—walk through the following example to create a notebook that does the following:
 
 - Inputs InfluxDB Cloud demo data from the Website Monitoring Bucket
 - Downsamples data by aggregating data within windows of time with a Flux script
 - Outputs downsampled data to a bucket
+
+{{< youtube 0lS7n47kZog >}}
 
 ## Requirements
 

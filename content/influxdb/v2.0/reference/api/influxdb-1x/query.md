@@ -29,13 +29,19 @@ specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp).
 
 {{% note %}}
-If you have an existing bucket that does't follow the **database/retention-policy** naming convention,
+If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
 you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
 ## Authentication
+
 Use **basic authentication** or **token authentication**.
+
+{{% note %}}
+**Note:** If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
+{{% /note %}}
+
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Query string parameters
@@ -43,6 +49,12 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 {{% note %}}
 **URL-encode** all query string parameters.
 {{% /note %}}
+
+### u
+(Optional) The 1.x **username** to authenticate the request.
+
+### p
+(Optional) The 1.x **password** to authenticate the request.
 
 ### db
 ({{< req >}}) The **database** to query data from.
@@ -81,7 +93,7 @@ The following precisions are available:
 
 ##### Query using basic authentication
 ```sh
-curl --request GET http://localhost:8086/query \
+curl --get http://localhost:8086/query \
   --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -89,8 +101,8 @@ curl --request GET http://localhost:8086/query \
 
 ##### Query a non-default retention policy
 ```sh
-curl --request GET http://localhost:8086/query \
-  --header "Authorization: Basic username:YourAuthToken" \
+curl --get http://localhost:8086/query \
+  --user "username:YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -98,7 +110,7 @@ curl --request GET http://localhost:8086/query \
 
 ##### Execute multiple queries
 ```sh
-curl --request GET http://localhost:8086/query \
+curl --get http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
@@ -106,7 +118,7 @@ curl --request GET http://localhost:8086/query \
 
 ##### Return query results with millisecond Unix timestamps
 ```sh
-curl --request GET http://localhost:8086/query \
+curl --get http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
@@ -116,7 +128,7 @@ curl --request GET http://localhost:8086/query \
 
 ##### Use curl to execute InfluxQL queries from a file
 ```sh
-curl --request GET http://localhost:8086/query \
+curl --get http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "db=mydb" \
   --form "q=@path/to/influxql.txt" \

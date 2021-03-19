@@ -35,11 +35,10 @@ For complete InfluxQL reference documentation, see
 ## Verify buckets have a mapping
 
 {{% note %}}
-When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/), InfluxDB
-automatically creates buckets for each database and retention policy combination
-and DBRP mappings for those buckets.
+When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/),
+Database and retention policy combinations are mapped to InfluxDB 2.0 buckets.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
-If you're not sure how data was written into a bucket, we recommend verifying the bucket has a mapping.
+If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 {{% /note %}}
 
 Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.0/reference/api/)
@@ -133,6 +132,7 @@ Include the following:
 
 {{< req type="key" >}}
 
+- {{< req "\*" >}} **org** and **token** to authenticate. We recommend setting your organization and token to your active InfluxDB connection configuration in the influx CLI, so you don't have to add these parameters to each command. To set up your active InfluxDB configuration, see [`influx config set`](/influxdb/v2.0/reference/cli/influx/config/set/).
 - {{< req "\*" >}} **database name** to map
 - {{< req "\*" >}} **retention policy** name to map
 - {{< req "\*" >}} [Bucket ID](/influxdb/v2.0/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
@@ -204,7 +204,7 @@ Include the following in your request:
 {{% /note %}}
 
 ```sh
-curl --request GET http://localhost:8086/query?db=example-db \
+curl --get http://localhost:8086/query?db=example-db \
   --header "Authorization: Token YourAuthToken" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
