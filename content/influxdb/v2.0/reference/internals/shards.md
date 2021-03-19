@@ -11,6 +11,7 @@ menu:
 weight: 102
 influxdb/v2.0/tags: [storage, internals]
 related:
+  - /influxdb/v2.0/reference/internals/storage-engine/
   - /influxdb/v2.0/organizations/buckets/
   - /influxdb/v2.0/reference/cli/influx/bucket/
 ---
@@ -61,8 +62,14 @@ of the bucket:
 | between 2 days and 6 months | 1d                           |
 | greater than 6 months       | 7d                           |
 
-You can also [manually configure the shard group duration](#) for each bucket.
-**Shard group durations must be less than the bucket's retention period.**
+#### Manage shard group durations
+To configure a custom bucket shard group duration, use the `--shard-group-duration`
+flag with the [`influx bucket create`](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
+and [`influx bucket update`](/influxdb/v2.0/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
+
+{{% note %}}
+Shard group durations must be shorter than the bucket's retention period.
+{{% /note %}}
 
 To view your bucket's shard group duration, use the
 [`influx bucket list` command](/influxdb/v2.0/reference/cli/influx/bucket/list/).
