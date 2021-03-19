@@ -463,9 +463,14 @@ Calculates the total disk size in bytes by database (`db`), retention policy (`r
 #### Syntax
 
 ```
-influx_inspect report-disk [ options ]
+influx_inspect report-disk [ options ] <path>
 ```
 
+##### `<path>`
+
+Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `"$HOME/.influxdb/data"`.
+
+When specifying the path, wildcards (`*`) can replace one or more characters.
 #### Options
 
 Optional arguments are in brackets.
@@ -473,10 +478,6 @@ Optional arguments are in brackets.
 ##### [ `-detailed` ]
 
 Include this flag to report disk usage by measurement.
-
-##### -datadir <data_dir>
-
-The path to the data directory. Default location is `"$HOME/.influxdb/data"`.
 
 #### Examples
 
