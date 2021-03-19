@@ -912,11 +912,11 @@ Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-
 ### shard
 
 A shard contains encoded and compressed data for a specific set of [series](#series).
-Each [TSM file](#tsm-time-structured-merge-tree) on disk represents a shard.
+A shard consists of multiple [TSM files](#tsm-time-structured-merge-tree) on disk.
 All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
 A shard belongs to a single [shard group](#shard-group).
 
-For more information, see [Shards and shard groups](/influxdb/v2.0/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
 Related entries: [series](#series), [shard duration](#shard-duration),
 [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
@@ -928,7 +928,7 @@ Every bucket that contains data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
 
-For more information, see [Shards and shard groups](/influxdb/v2.0/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
 Related entries: [bucket](#bucket), [retention period](#retention-period),
 [series](#series), [shard](#shard), [shard duration](#shard-duration)
@@ -940,7 +940,7 @@ The interval is determined by the `shard-group-duration` of the [bucket](#bucket
 
 For more information, see:
 
-- [Shards and shard groups](/influxdb/v2.0/reference/internals/shards/)
+- [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/)
 - [Manage buckets](/influxdb/v2.0/organizations/buckets/)
 
 <!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#retention-policy-management) for more information.
