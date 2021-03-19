@@ -471,6 +471,7 @@ influx_inspect report-disk [ options ] <path>
 Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `"$HOME/.influxdb/data"`.
 
 When specifying the path, wildcards (`*`) can replace one or more characters.
+
 #### Options
 
 Optional arguments are in brackets.
