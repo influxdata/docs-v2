@@ -11,7 +11,7 @@ influxdb/v2.0/tags: [buckets]
 ---
 
 A **bucket** is a named location where time series data is stored.
-All buckets have a **retention policy**, a duration of time that each data point persists.
+All buckets have a **retention period**, a duration of time that each data point persists.
 A bucket belongs to an organization.
 
 The following articles provide information about managing buckets:
