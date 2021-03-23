@@ -2,7 +2,7 @@
 title: Manage security in InfluxDB Enterprise
 description: Protect the data in your InfluxDB Enterprise instance.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Manage security
     weight: 110
     parent: Administration

@@ -5,7 +5,7 @@ aliases:
     - /enterprise/v1.8/introduction/
 
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Introduction
     weight: 20
 ---

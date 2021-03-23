@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/guides/smtp-server/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: SMTP server setup
     weight: 20
     parent: Guides
