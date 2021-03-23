@@ -1,12 +1,12 @@
 ---
-title: InfluxDB Enterprise 1.8 documentation
+title: InfluxDB Enterprise 1.9 documentation
 description: >
   Documentation for InfluxDB Enterprise, which adds clustering, high availability, fine-grained authorization, and more to InfluxDB OSS.
 aliases:
-    - /enterprise/v1.8/
+    - /enterprise/v1.9/
 menu:
   enterprise_influxdb_1_8:
-    name: InfluxDB Enterprise v1.8
+    name: InfluxDB Enterprise v1.9
 weight: 1
 ---
 
