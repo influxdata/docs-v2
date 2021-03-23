@@ -5,7 +5,7 @@ description: >
 aliases:
   - /enterprise/v1.8/guides/migration/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Migrate InfluxDB OSS to Enterprise
     weight: 10
     parent: Guides

@@ -4,7 +4,7 @@ description: Overview of features related to InfluxDB Enterprise clustering.
 aliases:
     - /enterprise/v1.8/features/clustering-features/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Cluster features
     weight: 20
     parent: Enterprise features

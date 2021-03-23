@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/concepts/clustering/
 menu:
-  enterprise_influxdb_1_8_ref:
+  enterprise_influxdb_1_9_ref:
     name: Clustering
     weight: 10
     parent: Concepts

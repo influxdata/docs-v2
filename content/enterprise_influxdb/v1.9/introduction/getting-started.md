@@ -5,7 +5,7 @@ aliases:
   - /enterprise_influxdb/v1.8/introduction/getting_started/
   - /enterprise/v1.8/introduction/getting_started/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Getting started
     weight: 40
     parent: Introduction

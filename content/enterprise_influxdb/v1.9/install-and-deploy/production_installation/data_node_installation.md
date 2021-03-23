@@ -3,7 +3,7 @@ title: Step 2 - Install InfluxDB Enterprise data nodes
 aliases:
     - /enterprise_influxdb/v1.8/production_installation/data_node_installation/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Step 2 - Install data nodes
     weight: 20
     parent: Install in your environment

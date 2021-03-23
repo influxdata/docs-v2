@@ -6,7 +6,7 @@ aliases:
     - /enterprise/v1.8/features/cluster-commands/
     - /enterprise_influxdb/v1.8/features/cluster-commands/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Manage clusters
     weight: 40
     parent: Administration

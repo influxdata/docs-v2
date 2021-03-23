@@ -5,7 +5,7 @@ description: >
 alias:
   -/docs/v1.5/administration/fga
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Fine-grained authorization
     weight: 10
     parent: Guides

@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise_influxdb/v1.8/other-options/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Deploy in cloud
     identifier: deploy-in-cloud-enterprise
     weight: 30

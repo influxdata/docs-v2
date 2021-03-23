@@ -5,7 +5,7 @@ description: >
 aliases:
   - /enterprise_influxdb/v1.8/install-and-deploy/azure/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Azure
     weight: 20
     parent: deploy-in-cloud-enterprise
