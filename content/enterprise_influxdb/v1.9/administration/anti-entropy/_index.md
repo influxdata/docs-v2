@@ -2,7 +2,7 @@
 title: Use Anti-Entropy service in InfluxDB Enterprise
 description: The Anti-Entropy service monitors and repairs shards in InfluxDB.
 aliases:
-  - /enterprise_influxdb/v1.8/guides/Anti-Entropy/
+  - /enterprise_influxdb/v1.9/guides/Anti-Entropy/
 menu:
   enterprise_influxdb_1_9:
     name: Use Anti-entropy service
@@ -33,7 +33,7 @@ If data inconsistencies are detected among shards in a shard group, [invoke the 
 In the repair process, the Anti-Entropy service will sync the necessary updates from other shards
 within a shard group.
 
-By default, the service performs consistency checks every 5 minutes. This interval can be modified in the [`anti-entropy.check-interval`](/enterprise_influxdb/v1.8/administration/config-data-nodes/#check-interval-5m) configuration setting.
+By default, the service performs consistency checks every 5 minutes. This interval can be modified in the [`anti-entropy.check-interval`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval-5m) configuration setting.
 
 The Anti-Entropy service can only address missing or inconsistent shards when
 there is at least one copy of the shard available.
@@ -167,7 +167,7 @@ Consider the following scenario:
 
 1. A shard goes cold.
 2. Anti-Entropy detects entropy.
-3. Entropy is reported by the [Anti-Entropy `/status` API](/enterprise_influxdb/v1.8/administration/anti-entropy-api/#get-status) or with the `influxd-ctl entropy show` command.
+3. Entropy is reported by the [Anti-Entropy `/status` API](/enterprise_influxdb/v1.9/administration/anti-entropy-api/#get-status) or with the `influxd-ctl entropy show` command.
 4. Shard takes a write, gets compacted, or something else causes it to go hot.
   _These actions are out of Anti-Entropy's control._
 5. A repair is requested, but is ignored because the shard is now hot.
@@ -177,7 +177,7 @@ until it either shows as being in the queue, being repaired, or no longer in the
 
 ## Configuration
 
-The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.8/administration/config-data-nodes#anti-entropy) section of the data node configuration.
+The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/config-data-nodes#anti-entropy) section of the data node configuration.
 
 To enable the Anti-Entropy service, change the default value of the `[anti-entropy].enabled = false` setting to `true` in the `influxdb.conf` file of each of your data nodes.
 
@@ -227,12 +227,12 @@ Once a repair has started, requests to cancel it are ignored.
 
 > Stopping a entropy repair for a **missing** shard operation is not currently supported.
 > It may be possible to stop repairs for missing shards with the
-> [`influxd-ctl kill-copy-shard`](/enterprise_influxdb/v1.8/administration/cluster-commands/#kill-copy-shard) command.
+> [`influxd-ctl kill-copy-shard`](/enterprise_influxdb/v1.9/administration/cluster-commands/#kill-copy-shard) command.
 
 ## InfluxDB Anti-Entropy API
 
 The Anti-Entropy service uses an API for managing and monitoring entropy.
-Details on the available API endpoints can be found in [The InfluxDB Anti-Entropy API](/enterprise_influxdb/v1.8/administration/anti-entropy-api).
+Details on the available API endpoints can be found in [The InfluxDB Anti-Entropy API](/enterprise_influxdb/v1.9/administration/anti-entropy-api).
 
 ## Use cases
 
@@ -285,7 +285,7 @@ Queued Shards: [21179 25165]
 
 If a data node suddenly disappears due to a catastrophic hardware failure or for any other reason, as soon as a new data node is online, the Anti-Entropy service will copy the correct shards to the new replacement node. The time it takes for the copying to complete is determined by the number of shards to be copied and how much data is stored in each.
 
-_View the [Replacing Data Nodes](/enterprise_influxdb/v1.8/guides/replacing-nodes/#replace-data-nodes-in-an-influxdb-enterprise-cluster) documentation for instructions on replacing data nodes in your InfluxDB Enterprise cluster._
+_View the [Replacing Data Nodes](/enterprise_influxdb/v1.9/guides/replacing-nodes/#replace-data-nodes-in-an-influxdb-enterprise-cluster) documentation for instructions on replacing data nodes in your InfluxDB Enterprise cluster._
 
 ### Replacing a machine that is running a data node
 
@@ -302,7 +302,7 @@ remaining replicas in the cluster.
 In rare cases, the currently active shard, or the shard to which new data is
 currently being written, may find itself with inconsistent data.
 Because the Anti-Entropy process can't write to hot shards, you must stop writes to the new
-shard using the [`influxd-ctl truncate-shards` command](/enterprise_influxdb/v1.8/administration/cluster-commands/#truncate-shards),
+shard using the [`influxd-ctl truncate-shards` command](/enterprise_influxdb/v1.9/administration/cluster-commands/#truncate-shards),
 then add the inconsistent shard to the entropy repair queue:
 
 ```bash
