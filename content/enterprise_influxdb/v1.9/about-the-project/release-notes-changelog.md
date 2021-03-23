@@ -9,6 +9,22 @@ menu:
     parent: About the project
 ---
 
+v1.9.0 [unreleased]
+-------------------
+
+### Features
+<!-- - [#3131](https://github.com/influxdata/plutonium/pull/3131): Allow out-of-order-writes. -->
+
+- Improve diagnostics for license problems. <!-- https://github.com/influxdata/plutonium/pull/3310 -->
+- Ingress metrics now work. <!-- https://github.com/influxdata/plutonium/pull/3304 -->
+- Support authorization for Kapacitor via LDAP. <!-- https://github.com/influxdata/plutonium/pull/3239 -->
+
+### Bugfixes
+- Show databases now checks read write permissions. <!-- https://github.com/influxdata/plutonium/pull/3341 -->
+- Anti-entrpoy: Update `tsm1.BlockCount()` call to match signature <!-- https://github.com/influxdata/plutonium/pull/3152 -->
+- Remove extraneous nil check from points writer. <!-- https://github.com/influxdata/plutonium/pull/3141 -->
+- Restore: Ensure a newline is printed after a successful copy <!-- https://github.com/influxdata/plutonium/pull/3137 -->
+
 ## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
