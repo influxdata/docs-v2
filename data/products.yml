@@ -41,5 +41,5 @@ enterprise_influxdb:
   name: "InfluxDB Enterprise"
   namespace: enterprise_influxdb
   list_order: 3
-  versions: [v1.5, v1.6, v1.7, v1.8]
+  versions: [v1.5, v1.6, v1.7, v1.8, v1.9]
   latest: v1.8
