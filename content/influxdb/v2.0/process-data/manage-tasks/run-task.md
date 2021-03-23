@@ -59,7 +59,7 @@ influx task retry-failed \
 influx task retry-failed \
   --dry-run
 
-# Retry failed tasks runs that occurred in a specific time range
+# Retry failed task runs that occurred in a specific time range
 influx task retry-failed \
   --after 2021-01-01T00:00:00Z \
   --before 2021-01-01T23:59:59Z
