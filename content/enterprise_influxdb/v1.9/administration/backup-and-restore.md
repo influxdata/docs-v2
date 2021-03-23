@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/guides/backup-and-restore/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Back up and restore
     weight: 80
     parent: Administration

@@ -3,7 +3,7 @@ title: InfluxDB Anti-Entropy API
 description: >
   Monitor and repair shards on InfluxDB Enterprise data nodes the InfluxDB Anti-Entropy API.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Anti-entropy API
     weight: 70
     parent: Use Anti-entropy service

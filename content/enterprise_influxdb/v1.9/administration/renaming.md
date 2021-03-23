@@ -4,7 +4,7 @@ description: Rename a host within your InfluxDB Enterprise instance.
 aliases:
     - /enterprise/v1.8/administration/renaming/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Rename hosts
     weight: 100
     parent: Administration

@@ -4,7 +4,7 @@ description: Upgrade to the latest version of InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/administration/upgrading/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Upgrade
     weight: 50
     parent: Administration

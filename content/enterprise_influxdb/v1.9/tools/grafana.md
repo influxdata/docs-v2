@@ -4,7 +4,7 @@ seotitle: Use Grafana with InfluxDB Enterprise v1.8
 description: >
   Configure Grafana to query and visualize data from InfluxDB Enterprise v1.8.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Grafana
     weight: 60
     parent: Tools

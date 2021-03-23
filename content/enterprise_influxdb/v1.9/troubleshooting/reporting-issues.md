@@ -4,7 +4,7 @@ description: Contact support to report issues with InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/troubleshooting/reporting-issues/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 20
     parent: Troubleshoot
 ---

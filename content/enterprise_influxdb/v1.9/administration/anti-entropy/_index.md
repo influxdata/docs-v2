@@ -4,7 +4,7 @@ description: The Anti-Entropy service monitors and repairs shards in InfluxDB.
 aliases:
   - /enterprise_influxdb/v1.8/guides/Anti-Entropy/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Use Anti-entropy service
     weight: 60
     parent: Administration

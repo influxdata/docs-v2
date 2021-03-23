@@ -5,7 +5,7 @@ aliases:
     - /enterprise_influxdb/v1.8/other-options/
     - /enterprise_influxdb/v1.8/install-and-deploy/aws/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: AWS
     identifier: deploy-on-aws
     weight: 30
