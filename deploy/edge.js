@@ -8,7 +8,7 @@ const latestVersions = {
   'telegraf': 'v1.18',
   'chronograf': 'v1.8',
   'kapacitor': 'v1.5',
-  'enterprise': 'v1.8',
+  'enterprise': 'v1.9',
   };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
