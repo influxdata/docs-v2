@@ -3,7 +3,7 @@ title: Configure InfluxDB Enterprise data nodes
 description: >
   Configure InfluxDB Enterprise data node settings and environmental variables.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Configure data nodes
     weight: 20
     parent: Administration

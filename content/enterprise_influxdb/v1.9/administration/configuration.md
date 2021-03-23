@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/administration/configuration/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Configure clusters
     weight: 10
     parent: Administration

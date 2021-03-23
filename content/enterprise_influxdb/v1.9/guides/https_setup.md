@@ -3,7 +3,7 @@ title: Enable HTTPS for InfluxDB Enterprise
 description: >
   Enabling HTTPS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Enable HTTPS
     weight: 100
     parent: Guides

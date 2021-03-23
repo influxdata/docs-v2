@@ -3,7 +3,7 @@ title: InfluxDB Enterprise startup process
 description: >
   On startup, InfluxDB Enterprise starts all subsystems and services in a deterministic order.
 menu:
-  enterprise_influxdb_1_8_ref:
+  enterprise_influxdb_1_9_ref:
     weight: 10
     name: Startup process
     parent: Concepts

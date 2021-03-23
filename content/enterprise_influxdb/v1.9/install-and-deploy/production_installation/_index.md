@@ -4,7 +4,7 @@ description: Install InfluxDB Enterprise in your own on-premise environment.
 aliases:
     - /enterprise_influxdb/v1.8/production_installation/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Install in your environment
     weight: 10
     parent: Install and deploy
