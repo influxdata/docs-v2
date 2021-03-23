@@ -45,7 +45,7 @@ influx task retry-failed [flags]
 - [Retry failed task runs that occurred in a specific time range](#retry-failed-task-runs-that-occurred-in-a-specific-time-range)
 - [Retry failed runs for a limited number of tasks](#retry-failed-runs-for-a-limited-number-of-tasks)
 - [Retry a limited number of failed runs for a task](#retry-a-limited-number-of-failed-runs-for-a-task)
-- [View runs that will retry before actually retrying](#view-runs-that-will-retry-before-actually-retrying)
+- [Print information about runs that will be retried](#print-information-about-runs-that-will-be-retried)
 
 ##### Retry failed tasks for a specific task
 ```sh
@@ -85,7 +85,7 @@ influx task retry-failed \
   --run-limit 5
 ```
 
-##### View runs that will retry before actually retrying
+##### Print information about runs that will be retried
 ```sh
 influx task retry-failed \
   --dry-run

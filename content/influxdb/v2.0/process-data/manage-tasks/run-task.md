@@ -55,7 +55,7 @@ to retry failed task runs.
 influx task retry-failed \
   --id 0000000000000000
 
-# View runs that will retry before actually retrying
+# Print information about runs that will be retried
 influx task retry-failed \
   --dry-run
 
