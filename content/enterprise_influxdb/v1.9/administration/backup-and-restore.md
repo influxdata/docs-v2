@@ -73,7 +73,7 @@ influxd-ctl [global-options] backup [backup-options] <path-to-backup-directory>
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.8/administration/cluster-commands/#global-options)
+Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Backup options
@@ -199,7 +199,7 @@ Backed up to backup_dir in 51.388233ms, transferred 481 bytes
 >
 > 1. Stop the `influxd` service.
 > 2. Set `[anti-entropy].enabled` to `false` in the influx configuration file (by default, influx.conf).
-> 3. Restart the `influxd` service and wait for the data node to receive read and write requests and for the [hinted handoff queue](/enterprise_influxdb/v1.8/concepts/clustering/#hinted-handoff) to drain.
+> 3. Restart the `influxd` service and wait for the data node to receive read and write requests and for the [hinted handoff queue](/enterprise_influxdb/v1.9/concepts/clustering/#hinted-handoff) to drain.
 > 4. Once AE is disabled on all data nodes and each node returns to a healthy state, you're ready to restore the backup. For details on how to restore your backup, see examples below.
 > 5. After restoring the backup, restart AE services on each data node.
 
@@ -243,7 +243,7 @@ The system automatically drops the `_internal` database when it performs a compl
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.8/administration/cluster-commands/#global-options)
+Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options
@@ -273,7 +273,7 @@ complete restore.
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.8/administration/cluster-commands/#global-options)
+Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options

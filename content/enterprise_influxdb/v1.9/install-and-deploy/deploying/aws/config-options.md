@@ -3,14 +3,14 @@ title: AWS configuration options
 description: >
   Configuration options when deploying InfluxDB Enterprise on Amazon Web Services (AWS).
 aliases:
-    - /enterprise_influxdb/v1.8/install-and-deploy/aws/config-options/
+    - /enterprise_influxdb/v1.9/install-and-deploy/aws/config-options/
 menu:
   enterprise_influxdb_1_9:
     name: AWS configuration options
     weight: 30
     parent: deploy-on-aws
 ---
-When deploying InfluxDB Enterprise on AWS using the template described in [Deploy an InfluxDB Enterprise cluster on Amazon Web Services](/enterprise_influxdb/v1.8/install-and-deploy/aws/setting-up-template), the following configuration options are available:
+When deploying InfluxDB Enterprise on AWS using the template described in [Deploy an InfluxDB Enterprise cluster on Amazon Web Services](/enterprise_influxdb/v1.9/install-and-deploy/aws/setting-up-template), the following configuration options are available:
 
 - **VPC ID**: The VPC ID of your existing Virtual Private Cloud (VPC).
 - **Subnets**: A list of SubnetIds in your Virtual Private Cloud (VPC) where nodes will be created. The subnets must be in the same order as the availability zones they reside in. For a list of which availability zones correspond to which subnets, see the [Subnets section of your VPC dashboard](https://console.aws.amazon.com/vpc/home?region=us-east-1#subnets:sort=SubnetId).

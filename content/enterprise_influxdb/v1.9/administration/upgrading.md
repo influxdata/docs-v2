@@ -23,7 +23,7 @@ To successfully perform a rolling upgrade of InfluxDB Enterprise clusters to 1.8
 Before performing an upgrade, create a full backup of your InfluxDB Enterprise cluster. Also, if you create incremental backups, trigger a final incremental backup.
 
 > ***Note:*** For information on performing a final incremental backup or a full backup,
-> see [Back up and restore InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/administration/backup-and-restore/).
+> see [Back up and restore InfluxDB Enterprise clusters](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 
 ## Upgrade meta nodes
 
@@ -68,7 +68,7 @@ sudo yum localinstall influxdb-meta-1.8.2-c1.8.2.x86_64.rpm
 
 Migrate any custom settings from your previous meta node configuration file.
 
-To enable HTTPS, you must update the meta node configuration file (`influxdb-meta.conf`). For information, see [Enable HTTPS within the configuration file for each Meta Node](/enterprise_influxdb/v1.8/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
+To enable HTTPS, you must update the meta node configuration file (`influxdb-meta.conf`). For information, see [Enable HTTPS within the configuration file for each Meta Node](/enterprise_influxdb/v1.9/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
 
 ### Restart the `influxdb-meta` service
 
@@ -88,7 +88,7 @@ sudo systemctl restart influxdb-meta
 
 After upgrading _**all**_ meta nodes, check your node version numbers using the
 `influxd-ctl show` command.
-The [`influxd-ctl` utility](/enterprise_influxdb/v1.8/administration/cluster-commands/) is available on all meta nodes.
+The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/administration/cluster-commands/) is available on all meta nodes.
 
 ```bash
 ~# influxd-ctl show
@@ -165,15 +165,15 @@ sudo yum localinstall influxdb-data-1.8.2-c1.8.2.x86_64.rpm
 
 Migrate any custom settings from your previous data node configuration file.
 
-- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](/enterprise_influxdb/v1.8/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
+- To enable HTTPS, see [Enable HTTPS within the configuration file for each Data Node](/enterprise_influxdb/v1.9/guides/https_setup/#set-up-https-in-an-influxdb-enterprise-cluster).
 
 - To enable TSI, open `/etc/influxdb/influxdb.conf`, and then adjust and save the settings shown in the following table.
 
     | Section | Setting                                                   |
     | --------| ----------------------------------------------------------|
-    | `[data]` |  <ul><li>To use Time Series Index (TSI) disk-based indexing, add [`index-version = "tsi1"`](/enterprise_influxdb/v1.8/administration/config-data-nodes#index-version-inmem) <li>To use TSM in-memory index, add [`index-version = "inmem"`](/enterprise_influxdb/v1.8/administration/config-data-nodes#index-version-inmem) <li>Add [`wal-fsync-delay = "0s"`](/enterprise_influxdb/v1.8/administration/config-data-nodes#wal-fsync-delay-0s) <li>Add [`max-concurrent-compactions = 0`](/enterprise_influxdb/v1.8/administration/config-data-nodes#max-concurrent-compactions-0)<li>Set[`cache-max-memory-size`](/enterprise_influxdb/v1.8/administration/config-data-nodes#cache-max-memory-size-1g) to `1073741824` |
-    | `[cluster]`| <ul><li>Add [`pool-max-idle-streams = 100`](/enterprise_influxdb/v1.8/administration/config-data-nodes#pool-max-idle-streams-100) <li>Add[`pool-max-idle-time = "1m0s"`](/enterprise_influxdb/v1.8/administration/config-data-nodes#pool-max-idle-time-60s) <li>Remove `max-remote-write-connections`
-    |[`[anti-entropy]`](/enterprise_influxdb/v1.8/administration/config-data-nodes#anti-entropy)| <ul><li>Add `enabled = true` <li>Add `check-interval = "30s"` <li>Add `max-fetch = 10`|
+    | `[data]` |  <ul><li>To use Time Series Index (TSI) disk-based indexing, add [`index-version = "tsi1"`](/enterprise_influxdb/v1.9/administration/config-data-nodes#index-version-inmem) <li>To use TSM in-memory index, add [`index-version = "inmem"`](/enterprise_influxdb/v1.9/administration/config-data-nodes#index-version-inmem) <li>Add [`wal-fsync-delay = "0s"`](/enterprise_influxdb/v1.9/administration/config-data-nodes#wal-fsync-delay-0s) <li>Add [`max-concurrent-compactions = 0`](/enterprise_influxdb/v1.9/administration/config-data-nodes#max-concurrent-compactions-0)<li>Set[`cache-max-memory-size`](/enterprise_influxdb/v1.9/administration/config-data-nodes#cache-max-memory-size-1g) to `1073741824` |
+    | `[cluster]`| <ul><li>Add [`pool-max-idle-streams = 100`](/enterprise_influxdb/v1.9/administration/config-data-nodes#pool-max-idle-streams-100) <li>Add[`pool-max-idle-time = "1m0s"`](/enterprise_influxdb/v1.9/administration/config-data-nodes#pool-max-idle-time-60s) <li>Remove `max-remote-write-connections`
+    |[`[anti-entropy]`](/enterprise_influxdb/v1.9/administration/config-data-nodes#anti-entropy)| <ul><li>Add `enabled = true` <li>Add `check-interval = "30s"` <li>Add `max-fetch = 10`|
     |`[admin]`| Remove entire section.|
 
     For more information about TSI, see [TSI overview](/influxdb/v1.8/concepts/time-series-index/) and [TSI details](/influxdb/v1.8/concepts/tsi-details/).
@@ -222,7 +222,7 @@ Restart routing read and write requests to the data node server (port 8086) thro
 
 After upgrading _**all**_ data nodes, check your node version numbers using the
 `influxd-ctl show` command.
-The [`influxd-ctl` utility](/enterprise_influxdb/v1.8/administration/cluster-commands/) is available on all meta nodes.
+The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/administration/cluster-commands/) is available on all meta nodes.
 
 ```bash
 ~# influxd-ctl show

@@ -31,7 +31,7 @@ A **service** is a process that provides specific functionality.
 ### TSDBStore
 The TSDBStore subsystem starts and manages the TSM storage engine.
 This includes services such as the points writer (write), reads (query),
-and [hinted handoff (HH)](/enterprise_influxdb/v1.8/concepts/clustering/#hinted-handoff).
+and [hinted handoff (HH)](/enterprise_influxdb/v1.9/concepts/clustering/#hinted-handoff).
 TSDBSTore first opens all the shards and loads write-ahead log (WAL) data into the in-memory write cache.
 If `influxd` was cleanly shutdown previously, there will not be any WAL data.
 It then loads a portion of each shard's index.
@@ -77,7 +77,7 @@ The Stats service monitors cluster-level statistics.
 
 ### Anti-entropy
 The Anti-entropy (AE) subsystem is responsible for reconciling differences between shards.
-For more information, see [Use anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/).
+For more information, see [Use anti-entropy](/enterprise_influxdb/v1.9/administration/anti-entropy/).
 
 ### HTTP API
 The InfluxDB HTTP API service provides a public facing interface to interact with

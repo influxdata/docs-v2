@@ -46,18 +46,18 @@ Complete the following tasks:
 Upgrade InfluxDB OSS and InfluxDB Enterprise to the latest stable version. Make sure the OSS and Enterprise version is the same.
 
 - [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
-- [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/upgrading/)
+- [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/upgrading/)
 
 ### Set up InfluxDB Enterprise meta nodes
 
 Set up all meta nodes in your InfluxDB Enterprise cluster.
 For information about installing and setting up meta nodes, see
-[Install meta nodes](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation).
+[Install meta nodes](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/meta_node_installation).
 
 {{% note %}}
 #### Add the OSS instance to the meta /etc/hosts files
 
-When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/#step-1-add-appropriate-dns-entries-for-each-of-your-servers)
+When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/meta_node_installation/#step-1-add-appropriate-dns-entries-for-each-of-your-servers)
 on each meta node, include the IP and host name of your InfluxDB OSS instance so meta nodes can communicate with the OSS instance.
 {{% /note %}}
 
@@ -323,8 +323,8 @@ It may take a few minutes before the existing data is available.
 ## Rebalance the cluster
 
 1. Use the [ALTER RETENTION POLICY](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
-   statement to increase the [replication factor](/enterprise_influxdb/v1.8/concepts/glossary/#replication-factor)
+   statement to increase the [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor)
    on all existing retention polices to the number of data nodes in your cluster.
-2. [Rebalance your cluster manually](/enterprise_influxdb/v1.8/guides/rebalance/)
+2. [Rebalance your cluster manually](/enterprise_influxdb/v1.9/guides/rebalance/)
    to meet the desired replication factor for existing shards.
 3. If you were using [Chronograf](/{{< latest "chronograf" >}}/), add your Enterprise instance as a new data source.

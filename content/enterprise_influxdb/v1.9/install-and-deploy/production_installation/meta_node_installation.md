@@ -1,7 +1,7 @@
 ---
 title: Step 1 - Install InfluxDB Enterprise meta nodes
 aliases:
-    - /enterprise_influxdb/v1.8/production_installation/meta_node_installation/
+    - /enterprise_influxdb/v1.9/production_installation/meta_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Step 1 - Install meta nodes
@@ -18,7 +18,7 @@ your InfluxDB Enterprise cluster: the meta nodes.
 
 ## Meta node setup description and requirements
 
-The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.8/concepts/glossary/#meta-node), with each meta node running on its own server.
+The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
 <br>
 You **must** have a minimum of three meta nodes in a cluster.
 InfluxDB Enterprise clusters require at least three meta nodes and an __**odd number**__
@@ -30,7 +30,7 @@ Note: Deploying multiple meta nodes on the same server is strongly discouraged s
 InfluxData recommends deploying meta nodes on relatively small footprint servers.
 
 See the
-[Clustering Guide](/enterprise_influxdb/v1.8/concepts/clustering#optimal-server-counts)
+[Clustering Guide](/enterprise_influxdb/v1.9/concepts/clustering#optimal-server-counts)
 for more on cluster architecture.
 
 ### Other requirements
@@ -236,6 +236,6 @@ If you do not see your meta nodes in the output, please retry adding them to
 the cluster.
 
 Once your meta nodes are part of your cluster move on to [the next steps to
-set up your data nodes](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/data_node_installation/).
+set up your data nodes](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/data_node_installation/).
 Please do not continue to the next steps if your meta nodes are not part of the
 cluster.
