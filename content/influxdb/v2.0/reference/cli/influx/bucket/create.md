@@ -35,7 +35,7 @@ influx bucket create [flags]
 | `-n` | `--name`                 | Bucket name                                                           | string      | `INFLUX_BUCKET_NAME`  |
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
 |      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
-| `-r` | `--retention`            | Duration bucket will retain data (0 is infinite, default is 0)        | duration    |                       |
+| `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)            | duration    |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                | string      |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`                | Authentication token                                                  | string      | `INFLUX_TOKEN`        |

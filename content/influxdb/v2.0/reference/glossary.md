@@ -788,16 +788,16 @@ To maintain data availability for queries, the replication factor should be less
 Data is fully available when the replication factor is greater than the number of unavailable data nodes.
 Data may be unavailable when the replication factor is less than the number of unavailable data nodes.
 Any replication factor greater than two gives you additional fault tolerance and query capacity within the cluster.
+-->
 
 ### retention policy (RP)
+Retention policy is an InfluxDB 1.x concept that represents the duration of time
+that each data point in the retention policy persists.
+The InfluxDB 2.x equivalent is [retention period](#retention-period).
+For more information about retention policies, see the
+[latest 1.x documentation](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 
-Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
-
-<!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
-
-Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
-
--->
+Related entries:  [retention period](#retention-period),
 
 ### RFC3339 timestamp
 A timestamp that uses the human readable DateTime format proposed in
