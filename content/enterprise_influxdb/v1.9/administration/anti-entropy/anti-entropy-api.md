@@ -8,13 +8,13 @@ menu:
     weight: 70
     parent: Use Anti-entropy service
 aliases:
-  - /enterprise_influxdb/v1.8/administration/anti-entropy-api/
+  - /enterprise_influxdb/v1.9/administration/anti-entropy-api/
 ---
 
 >**Note:** The Anti-Entropy API is available from the meta nodes and is only available when the Anti-Entropy service is enabled in the data node configuration settings. For information on the configuration settings, see
-> [Anti-Entropy settings](/enterprise_influxdb/v1.8/administration/config-data-nodes/#anti-entropy-ae-settings).
+> [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/config-data-nodes/#anti-entropy-ae-settings).
 
-Use the [Anti-Entropy service](/enterprise_influxdb/v1.8/administration/anti-entropy) in InfluxDB Enterprise to monitor and repair entropy in data nodes and their shards. To access the Anti-Entropy API and work with this service, use [`influx-ctl entropy`](/enterprise_influxdb/v1.8/administration/cluster-commands/#entropy) (also available on meta nodes).
+Use the [Anti-Entropy service](/enterprise_influxdb/v1.9/administration/anti-entropy) in InfluxDB Enterprise to monitor and repair entropy in data nodes and their shards. To access the Anti-Entropy API and work with this service, use [`influx-ctl entropy`](/enterprise_influxdb/v1.9/administration/cluster-commands/#entropy) (also available on meta nodes).
 
 The base URL is:
 

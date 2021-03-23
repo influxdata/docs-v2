@@ -3,7 +3,7 @@ title: Deploy an InfluxDB Enterprise cluster on Azure Cloud Platform
 description: >
   Deploy an InfluxDB Enterprise cluster on Microsoft Azure cloud computing service.
 aliases:
-  - /enterprise_influxdb/v1.8/install-and-deploy/azure/
+  - /enterprise_influxdb/v1.9/install-and-deploy/azure/
 menu:
   enterprise_influxdb_1_9:
     name: Azure
@@ -22,7 +22,7 @@ This guide requires the following:
 - Microsoft Azure account with access to the [Azure Marketplace](https://azuremarketplace.microsoft.com/).
 - SSH access to cluster instances.
 
-To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/).
+To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/install-and-deploy/).
 
 ## Deploy a cluster
 
