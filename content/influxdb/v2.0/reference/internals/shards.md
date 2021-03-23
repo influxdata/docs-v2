@@ -61,7 +61,7 @@ of the bucket:
 | between 2 days and 6 months | 1d                           |
 | greater than 6 months       | 7d                           |
 
-#### Manage shard group durations
+##### Shard group duration configuration options
 To configure a custom bucket shard group duration, use the `--shard-group-duration`
 flag with the [`influx bucket create`](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
 and [`influx bucket update`](/influxdb/v2.0/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
@@ -86,13 +86,14 @@ and a **1d shard group duration**:
 ## Shard life-cycle
 
 ### Shard precreation
-InfluxDB **shard precreation service** creates new shards with future start and end times before data arrives.
-It does not create shards that are either wholly or partially in the past.
+The InfluxDB **shard precreation service** pre-creates shards with future start
+and end times for each shard group based on the shard group duration.
 
-#### Configure shard precreation
-To configure the InfluxDB shard precreation service, use the following `influxd`
-configuration settings:
+The precreator service does not pre-create shards for past time ranges.
+When backfilling historical data, InfluxDB creates shards for past time ranges as needed,
+resulting in temporarily lower write throughput.
 
+##### Shard precreation-related configuration settings
 - [`storage-shard-precreator-advance-period`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-advance-period)
 - [`storage-shard-precreator-check-interval`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-check-interval)
 
@@ -102,7 +103,7 @@ A shard can be in one of two states: **hot** or **cold**.
 - **Hot shards:** [Un-compacted](#shard-compaction) shards actively being written to.
 - **Cold shards:** [Compacted](#shard-compaction) shards not actively being written to.
 
-To write to a shard, the shard must be hot (un-compacted).
+To write to a shard, the shard must be hot.
 Typically, only the most recent shard group contains hot shards, but when backfilling
 historical data, all shards that receive newly written historical data are hot
 until the backfill is complete and the shards are re-compacted.
@@ -117,9 +118,7 @@ InfluxDB compacts shards at regular intervals to compress time series data and o
 - **Level 4 (L4):** **Full compaction**—InfluxDB iterates over L3-compacted file blocks
   and combines multiple blocks containing the same series into one block in a new file.
 
-#### Configure shard compaction
-To configure the InfluxDB compaction service, use the following `influxd` configuration settings:
-
+##### Shard compaction-related configuration settings
 - [`storage-compact-full-write-cold-duration`](/influxdb/v2.0/reference/config-options/#storage-compact-full-write-cold-duration)
 - [`storage-compact-throughput-burst`](/influxdb/v2.0/reference/config-options/#storage-compact-throughput-burst)
 - [`storage-max-concurrent-compactions`](/influxdb/v2.0/reference/config-options/#storage-max-concurrent-compactions)
@@ -145,8 +144,5 @@ remain on disk until:
 2. The retention enforcement service deletes the shard group.
 {{% /note %}}
 
-#### Configure retention enforcement
-To configure the InfluxDB retention enforcement service, use the following
-`influxd` configuration setting:
-
+##### Retention enforcement-related configuration settings
 - [`storage-retention-check-interval`](/influxdb/v2.0/reference/config-options/#storage-retention-check-interval)
