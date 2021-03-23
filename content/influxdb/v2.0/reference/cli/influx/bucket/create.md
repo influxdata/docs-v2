@@ -73,8 +73,8 @@ influx bucket create \
 ```
 
 ##### Create a custom shard group duration
-Custom shard group durations are only suppored in **InfluxDB OSS**.
-The shard group duration must be shorter than the buckets retention period.
+Custom shard group durations are only supported in **InfluxDB OSS**.
+The shard group duration must be shorter than the buckets retention period. For more information, see [InfluxDB shards and shard groups](/influxdb/v2.0/reference/internals/shards/).
 
 ```sh
 influx bucket create \

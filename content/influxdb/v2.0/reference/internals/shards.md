@@ -38,10 +38,9 @@ A single shard contains multiple series, multiple [TSM files](#tsm-time-structur
 and belongs to a [shard group](#shard-groups).
 
 ## Shard groups
-Shard groups are logical containers for InfluxDB shards.
-A single shard group contains time series data for a specific time range defined by
+A shard group belongs to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket) and contains time series data for a specific time range defined by
 the [shard group duration](#shard-group-duration).
-A shard group belongs to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+.
 
 {{% note %}}
 In **InfluxDB OSS**, a shard group typically contains only a single shard.
@@ -87,8 +86,7 @@ and a **1d shard group duration**:
 ## Shard life-cycle
 
 ### Shard precreation
-The InfluxDB **shard precreation service** creates new shards before data actually arrives.
-The precreator service only creates shards with future start and end times.
+InfluxDB **shard precreation service** creates new shards with future start and end times before data arrives.
 It does not create shards that are either wholly or partially in the past.
 
 #### Configure shard precreation
@@ -104,21 +102,16 @@ A shard can be in one of two states: **hot** or **cold**.
 - **Hot shards:** [Un-compacted](#shard-compaction) shards actively being written to.
 - **Cold shards:** [Compacted](#shard-compaction) shards not actively being written to.
 
-To write to a shard, it but must be un-compacted.
+To write to a shard, the shard must be hot (un-compacted).
 Typically, only the most recent shard group contains hot shards, but when backfilling
 historical data, all shards that receive newly written historical data are hot
 until the backfill is complete and the shards are re-compacted.
 
 ### Shard compaction
-Compaction is the process by which InfluxDB compresses time series data to optimize disk usage.
-InfluxDB compacts shards at regular intervals using different compaction levels.
-
-#### Compaction levels
-There are four levels of compaction:
-
+InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage. InfluxDB uses the following four compaction levels:
 - **Level 1 (L1):** InfluxDB flushes all newly written data held in an in-memory cache to disk.
-- **Level 2 (L2):** InfluxDB iterates over L1-compacted file blocks (over a certain size)
-  and combines multiple blocks containing the same series into one block in a new file.
+- **Level 2 (L2):** InfluxDB compacts up to eight L1-compacted files into one or more L2 files by
+     combining multiple blocks containing the same series into fewer blocks in one or more new files.
 - **Level 3 (L3):** InfluxDB iterates over L2-compacted file blocks (over a certain size)
   and combines multiple blocks containing the same series into one block in a new file.
 - **Level 4 (L4):** **Full compaction**—InfluxDB iterates over L3-compacted file blocks

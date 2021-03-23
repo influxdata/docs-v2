@@ -35,7 +35,7 @@ influx bucket update [flags]
 |      | `--json`                 | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
 | `-r` | `--retention`            | New duration bucket will retain data                                  | duration    |                       |
-|      | `--shard-group-duration` | New shard group duration for the bucket (OSS only)                    | string      |                       |
+|      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                    | string      |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`                | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
