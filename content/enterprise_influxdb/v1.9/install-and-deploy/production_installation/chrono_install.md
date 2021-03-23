@@ -1,7 +1,7 @@
 ---
 title: Step 3 - Install Chronograf
 aliases:
-    - /enterprise_influxdb/v1.8/production_installation/chrono_install/
+    - /enterprise_influxdb/v1.9/production_installation/chrono_install/
 menu:
   enterprise_influxdb_1_9:
     name: Step 3 - Install Chronograf

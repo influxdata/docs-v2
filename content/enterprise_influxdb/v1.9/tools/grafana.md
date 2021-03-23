@@ -23,7 +23,7 @@ to visualize data from your **InfluxDB Enterprise v1.8** instance.
   in your InfluxDB data node configuration file.
 {{% /note %}}
 
-1. [Set up an InfluxDB Enterprise cluster](/enterprise_influxdb/v1.8/install-and-deploy/).
+1. [Set up an InfluxDB Enterprise cluster](/enterprise_influxdb/v1.9/install-and-deploy/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,

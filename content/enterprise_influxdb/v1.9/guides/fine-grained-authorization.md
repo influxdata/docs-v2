@@ -38,7 +38,7 @@ You must have [admin permissions](/influxdb/v1.8/administration/authentication_a
 4. _(Optional)_ [Create roles](#manage-roles).
    Roles let you grant permissions to groups of users assigned to each role.
 
-    > For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.8/features/users/).
+    > For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.9/features/users/).
 
 5. [Set up restrictions](#manage-restrictions).
    Restrictions apply to all non-admin users.

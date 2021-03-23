@@ -75,7 +75,7 @@ For more detail on authentication, see [Authentication and authorization in Infl
    For detail, see the [sample LDAP configuration file](#sample-ldap-configuration) below.
 
     > To use fine-grained authorization (FGA) with LDAP, you must map InfluxDB Enterprise roles to key-value pairs in the LDAP database.
-    For more information, see [Fine-grained authorization in InfluxDB Enterprise](/enterprise_influxdb/v1.8/guides/fine-grained-authorization/).
+    For more information, see [Fine-grained authorization in InfluxDB Enterprise](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/).
     The InfluxDB admin user doesn't include permissions for InfluxDB Enterprise roles.
 
 3. Restart all meta and data nodes in your InfluxDB Enterprise cluster to load your updated configuration.

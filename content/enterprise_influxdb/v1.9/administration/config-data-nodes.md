@@ -57,13 +57,13 @@ Change this option to true to disable reporting.
 
 #### `bind-address = ":8088"`
 
-The TCP bind address used by the RPC service for inter-node communication and [backup and restore](/enterprise_influxdb/v1.8/administration/backup-and-restore/).
+The TCP bind address used by the RPC service for inter-node communication and [backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 
 Environment variable: `INFLUXDB_BIND_ADDRESS`
 
 #### `hostname = "localhost"`
 
-The hostname of the [data node](/enterprise_influxdb/v1.8/concepts/glossary/#data-node). This must be resolvable by all other nodes in the cluster.
+The hostname of the [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node). This must be resolvable by all other nodes in the cluster.
 
 Environment variable: `INFLUXDB_HOSTNAME`
 
@@ -94,7 +94,7 @@ The `license-key` and `license-path` settings are
 mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.9/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -107,7 +107,7 @@ Contact [sales@influxdb.com](mailto:sales@influxdb.com) if a license file is req
 The license file should be saved on every server in the cluster, including Meta, Data, and Enterprise nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user. Each server in the cluster independently verifies its license.
 
-> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.9/administration/renew-license/).
 
 {{% warn %}}
 Use the same license file for all nodes in the same cluster.
@@ -160,7 +160,7 @@ Environment variable: `INFLUXDB_META_META_AUTH_ENABLED`
 #### `meta-internal-shared-secret = ""`
 
 The shared secret used by the internal API for JWT authentication between InfluxDB nodes.
-This value must be the same as the [`internal-shared-secret`](/enterprise_influxdb/v1.8/administration/config-meta-nodes/#internal-shared-secret) specified in the meta node configuration file.
+This value must be the same as the [`internal-shared-secret`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#internal-shared-secret) specified in the meta node configuration file.
 
 Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
@@ -590,7 +590,7 @@ Environment variable: `INFLUXDB_HINTED_HANDOFF_PURGE_INTERVAL`
 
 ## Anti-Entropy (AE) settings
 
-For information about the Anti-Entropy service, see [Anti-entropy service in InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/anti-entropy).
+For information about the Anti-Entropy service, see [Anti-entropy service in InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/anti-entropy).
 
 ### `[anti-entropy]`
 
