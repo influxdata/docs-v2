@@ -8,8 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx task retry-failed` command retries failed InfluxDB a task runs.
-
+The `influx task retry-failed` command retries failed InfluxDB task runs.
 ## Usage
 ```
 influx task retry-failed [flags]
