@@ -27,7 +27,7 @@ read and/or write permissions.
 Resources:
 [User types and privileges](/influxdb/v1.8/administration/authentication_and_authorization/#user-types-and-privileges),
 [User management commands](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands),
-[Fine-grained authorization](/enterprise_influxdb/v1.8/guides/fine-grained-authorization/)
+[Fine-grained authorization](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/)
 
 ## Enable HTTPS
 
@@ -36,7 +36,7 @@ some cases, HTTPS verifies the authenticity of the InfluxDB server to clients (b
 The communicatio between the meta nodes and the data nodes are also secured via HTTPS.
 
 Resources:
-[Enabling HTTPS](/enterprise_influxdb/v1.8/guides/https_setup/)
+[Enabling HTTPS](/enterprise_influxdb/v1.9/guides/https_setup/)
 
 ## Secure your host
 
@@ -45,7 +45,7 @@ Resources:
 For InfluxDB Enterprise data nodes, close all ports on each host except for port `8086`.
 You can also use a proxy to port `8086`.  By default, data nodes and meta nodes communicate with each other over '8088','8089',and'8091'
 
-For InfluxDB Enterprise, [backing up and restoring](/enterprise_influxdb/v1.8/administration/backup-and-restore/) is performed from the meta nodes.
+For InfluxDB Enterprise, [backing up and restoring](/enterprise_influxdb/v1.9/administration/backup-and-restore/) is performed from the meta nodes.
 
 
 ### AWS Recommendations

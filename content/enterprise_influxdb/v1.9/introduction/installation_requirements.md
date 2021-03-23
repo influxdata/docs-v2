@@ -2,21 +2,21 @@
 title: Installation requirements
 description: Requirements for installing and deploying InfluxDB Enterprise.
 aliases:
-  - /enterprise_influxdb/v1.8/introduction/meta_node_installation/
-  - /enterprise_influxdb/v1.8/introduction/data_node_installation/
+  - /enterprise_influxdb/v1.9/introduction/meta_node_installation/
+  - /enterprise_influxdb/v1.9/introduction/data_node_installation/
   - /enterprise/v1.8/introduction/installation_guidelines/
-  - /enterprise_influxdb/v1.8/introduction/installation_guidelines/
+  - /enterprise_influxdb/v1.9/introduction/installation_guidelines/
 menu:
   enterprise_influxdb_1_9:
     weight: 20
     parent: Introduction
 ---
 
-Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.8/concepts/clustering/).
+Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/install-and-deploy/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/).
 
 ## Requirements for InfluxDB Enterprise clusters
 
-InfluxDB Enterprise clusters require a license. To use a license key, all nodes in the cluster must be able to contact https://portal.influxdata.com via port `80` or port `443`. If nodes in the cluster cannot communicate with https://portal.influxdata.com, you must use the `license-path` configuration setting. For more information, see [Enterprise license settings](/enterprise_influxdb/v1.8/administration/config-data-nodes/#enterprise-license-settings).
+InfluxDB Enterprise clusters require a license. To use a license key, all nodes in the cluster must be able to contact https://portal.influxdata.com via port `80` or port `443`. If nodes in the cluster cannot communicate with https://portal.influxdata.com, you must use the `license-path` configuration setting. For more information, see [Enterprise license settings](/enterprise_influxdb/v1.9/administration/config-data-nodes/#enterprise-license-settings).
 
 Nodes attempt to download a new license file for the given key every four hours. If a node cannot connect to the server and retrieve a new license file, the node uses the existing license file. After a license expires, nodes have the following grace periods:
 

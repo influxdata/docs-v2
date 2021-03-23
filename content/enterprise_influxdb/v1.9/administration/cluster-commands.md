@@ -4,7 +4,7 @@ description: >
   Use the `influxd-ctl` and `influx` command line tools to manage InfluxDB Enterprise clusters and data.
 aliases:
     - /enterprise/v1.8/features/cluster-commands/
-    - /enterprise_influxdb/v1.8/features/cluster-commands/
+    - /enterprise_influxdb/v1.9/features/cluster-commands/
 menu:
   enterprise_influxdb_1_9:
     name: Manage clusters
@@ -56,7 +56,7 @@ Content
 ## `influxd-ctl` cluster management utility
 
 Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
-The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.8/concepts/glossary/#meta-node).
+The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 
 ### Syntax
 
@@ -121,7 +121,7 @@ influxd-ctl -auth-type jwt -secret oatclusters show
 
 The `influxd-ctl` utility uses JWT authentication with the shared secret `oatclusters`.
 
-If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.8/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.8/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
+If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.9/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
 
 ```bash
 Error: unable to parse authentication credentials.
@@ -143,7 +143,7 @@ In the following example, the `influxd-ctl` utility uses basic authentication fo
 influxd-ctl -auth-type basic -user admini -pwd mouse show
 ```
 
-If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.8/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.8/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
+If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.9/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
 
 ```bash
 Error: unable to parse authentication credentials.
@@ -161,7 +161,7 @@ Error: authorization failed.
 
 Adds a data node to a cluster.
 By default, `influxd-ctl` adds the specified data node to the local meta node's cluster.
-Use `add-data` instead of the [`join` argument](#join) when performing a [production installation](/enterprise_influxdb/v1.8/production_installation/data_node_installation/) of an InfluxDB Enterprise cluster.
+Use `add-data` instead of the [`join` argument](#join) when performing a [production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/) of an InfluxDB Enterprise cluster.
 
 ##### Syntax
 
@@ -169,7 +169,7 @@ Use `add-data` instead of the [`join` argument](#join) when performing a [produc
 add-data <data-node-TCP-bind-address>
 ```
 
-Resources: [Production installation](/enterprise_influxdb/v1.8/production_installation/data_node_installation/)
+Resources: [Production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/)
 
 ##### Examples
 
@@ -199,9 +199,9 @@ Added data node 3 at cluster-data-node:8088
 
 Adds a meta node to a cluster.
 By default, `influxd-ctl` adds the specified meta node to the local meta node's cluster.
-Use `add-meta` instead of the [`join` argument](#join) when performing a [Production Installation](/enterprise_influxdb/v1.8/production_installation/meta_node_installation/) of an InfluxDB Enterprise cluster.
+Use `add-meta` instead of the [`join` argument](#join) when performing a [Production Installation](/enterprise_influxdb/v1.9/production_installation/meta_node_installation/) of an InfluxDB Enterprise cluster.
 
-Resources: [Production installation](/enterprise_influxdb/v1.8/production_installation/data_node_installation/)
+Resources: [Production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/)
 
 #### Syntax
 
@@ -263,7 +263,7 @@ TCP address of the target data node.
 
 ###### [ `-full` ]
 
-Perform a [full backup](/enterprise_influxdb/v1.8/administration/backup-and-restore/#backup-utility).
+Perform a [full backup](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup-utility).
 
 ###### [ `-rp <rp_name>` ]
 
@@ -284,7 +284,7 @@ Specify the type of back up to perform:
 - `full` back up metastore and shard data
 - `incremental` back up metastore and shard data that have changed since the last incremental backup. If there are no existing incremental backups, the system automatically performs a full backup.
 
-Resources: [Back up and restore InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/backup-and-restore/)
+Resources: [Back up and restore InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/)
 
 #### Examples
 
@@ -346,7 +346,7 @@ Copies a [shard](/influxdb/v1.8/concepts/glossary/#shard) from a source data nod
 influxd-ctl copy-shard <data-node-source-TCP-address> <data-node-destination-TCP-address> <shard-id>
 ```
 
-Resources: [Rebalance InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/guides/rebalance/)
+Resources: [Rebalance InfluxDB Enterprise clusters](/enterprise_influxdb/v1.9/guides/rebalance/)
 
 #### Examples
 
@@ -388,7 +388,7 @@ cluster-data-node-02:8088  cluster-data-node-03:8088  telegraf  autogen  34     
 
 ### `entropy`
 
-Manage entropy and the [anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/) process among shards in a cluster.
+Manage entropy and the [anti-entropy](/enterprise_influxdb/v1.9/administration/anti-entropy/) process among shards in a cluster.
 It includes the following subcommands:
 
 **`show`**  
@@ -673,7 +673,7 @@ Successfully left cluster
 ### `remove-data`
 
 Removes a data node from a cluster.
-Use `remove-data` instead of the [`leave`](#leave) argument if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.8/production_installation/) process.
+Use `remove-data` instead of the [`leave`](#leave) argument if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.9/production_installation/) process.
 
 {{% warn %}}The `remove-data` argument is destructive; it erases all data from the specified data node.
 Use `remove-data` only if you want to *permanently* remove a data node from a cluster.
@@ -708,7 +708,7 @@ Removed data node at cluster-data-node-03:8088
 ### `remove-meta`
 
 Removes a meta node from the cluster.
-Use `remove-meta` instead of the [`leave`](#leave) command if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.8/production_installation/) process.
+Use `remove-meta` instead of the [`leave`](#leave) command if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.9/production_installation/) process.
 
 {{% warn %}}The `remove-meta` argument is destructive; it erases all metastore information from the specified meta node.
 Use `remove-meta` only if you want to *permanently* remove a meta node from a cluster.
@@ -781,7 +781,7 @@ Removing a shard is an irrecoverable, destructive action; please be cautious wit
 influxd-ctl remove-shard <data-node-source-TCP-address> <shard-id>
 ```
 
-Resources: [Rebalance cluster](/enterprise_influxdb/v1.8/guides/rebalance/)
+Resources: [Rebalance cluster](/enterprise_influxdb/v1.9/guides/rebalance/)
 
 #### Examples
 
@@ -858,7 +858,7 @@ Name of the single retention policy to restore.
 
 Identifier of the [shard](/influxdb/v1.8/concepts/glossary/#shard) to restore.
 
-Resources: [Backing up and restoring in InfluxDB Enterprise](/enterprise_influxdb/v1.8/administration/backup-and-restore/)
+Resources: [Backing up and restoring in InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/)
 
 #### Examples
 
@@ -907,7 +907,7 @@ Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 
 ### `show`
 
-Shows all [meta nodes](/enterprise_influxdb/v1.8/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.8/concepts/glossary/#data-node) that are part of the cluster.
+Shows all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) that are part of the cluster.
 The output includes the InfluxDB Enterprise version number.
 
 #### Syntax
@@ -942,7 +942,7 @@ cluster-node-03:8091	1.3.x-c1.3.x
 
 ### `show-shards`
 
-Outputs details about existing [shards](/influxdb/v1.8/concepts/glossary/#shard) of the cluster, including shard ID, database, [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp), desired replicas, [shard group](/influxdb/v1.8/concepts/glossary/#shard-group), starting timestamp, ending timestamp, expiration timestamp, and [data node](/enterprise_influxdb/v1.8/concepts/glossary/#data-node) owners.
+Outputs details about existing [shards](/influxdb/v1.8/concepts/glossary/#shard) of the cluster, including shard ID, database, [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp), desired replicas, [shard group](/influxdb/v1.8/concepts/glossary/#shard-group), starting timestamp, ending timestamp, expiration timestamp, and [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) owners.
 
 #### Syntax
 
@@ -1099,7 +1099,7 @@ Sample output:
 
 ### `update-data`
 
-Updates a data node's address in the [meta store](/enterprise_influxdb/v1.8/concepts/glossary/#meta-service).
+Updates a data node's address in the [meta store](/enterprise_influxdb/v1.9/concepts/glossary/#meta-service).
 
 #### Syntax
 
@@ -1182,7 +1182,7 @@ Determines when to truncate shards after [`now()`](/influxdb/v1.8/concepts/gloss
 By default, the tool sets the delay to one minute.
 The `duration` is an integer followed by a [duration unit](/influxdb/v1.8/query_language/spec/#durations).
 
-Resources: [Cluster rebalancing](/enterprise_influxdb/v1.8/guides/rebalance/)
+Resources: [Cluster rebalancing](/enterprise_influxdb/v1.9/guides/rebalance/)
 
 #### Examples
 
@@ -1225,6 +1225,6 @@ ID  Database             Retention Policy  Desired Replicas  Shard Group  Start 
 ## `influx` command line interface (CLI)
 
 Use the `influx` command line interface (CLI) to write data to your cluster, query data interactively, and view query output in different formats.
-The `influx` CLI is available on all [data nodes](/enterprise_influxdb/v1.8/concepts/glossary/#data-node).
+The `influx` CLI is available on all [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node).
 
 See [InfluxDB command line interface (CLI/shell)](/influxdb/v1.8/tools/shell/) in the InfluxDB OSS documentation for details on using the `influx` command line interface utility.

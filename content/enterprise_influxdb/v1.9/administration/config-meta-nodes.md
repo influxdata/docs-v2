@@ -40,7 +40,7 @@ It will be removed in future versions.
 
 #### `hostname = ""`
 
-The hostname of the [meta node](/enterprise_influxdb/v1.8/concepts/glossary/#meta-node).
+The hostname of the [meta node](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 This must be resolvable and reachable by all other members of the cluster.
 
 Environment variable: `INFLUXDB_HOSTNAME`
@@ -66,7 +66,7 @@ Use the same key for all nodes in the same cluster.
 {{% warn %}}The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.9/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -85,7 +85,7 @@ Each server in the cluster independently verifies its license.
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
+> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.9/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 
@@ -232,7 +232,7 @@ For example, [continuous queries](/influxdb/v1.8/concepts/glossary/#continuous-q
 (CQs) use a lease so that all data nodes aren't running the same CQs at once.
 
 For more details about `lease-duration` and its impact on continuous queries, see
-[Configuration and operational considerations on a cluster](/enterprise_influxdb/v1.8/features/clustering-features/#configuration-and-operational-considerations-on-a-cluster).
+[Configuration and operational considerations on a cluster](/enterprise_influxdb/v1.9/features/clustering-features/#configuration-and-operational-considerations-on-a-cluster).
 
 Environment variable: `INFLUXDB_META_LEASE_DURATION`
 
@@ -259,14 +259,14 @@ The shared secret used by the internal API for JWT authentication for
 inter-node communication within the cluster.
 Set this to a long pass phrase.
 This value must be the same value as the
-[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1.8/administration/config-data-nodes#meta-internal-shared-secret) in the data node configuration file.
+[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-internal-shared-secret) in the data node configuration file.
 To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
 ### TLS settings
 
-For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes#tls-settings).
+For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1.9/administration/config-data-nodes#tls-settings).
 
 #### Recommended "modern compatibility" cipher settings
 

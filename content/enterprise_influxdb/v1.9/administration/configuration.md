@@ -14,8 +14,8 @@ menu:
 This page contains general information about configuring InfluxDB Enterprise clusters.
 For complete listings and descriptions of the configuration settings, see:
 
-* [Configure data nodes](/enterprise_influxdb/v1.8/administration/config-data-nodes)
-* [Configure meta nodes](/enterprise_influxdb/v1.8/administration/config-meta-nodes)
+* [Configure data nodes](/enterprise_influxdb/v1.9/administration/config-data-nodes)
+* [Configure meta nodes](/enterprise_influxdb/v1.9/administration/config-meta-nodes)
 
 ## Use configuration files
 

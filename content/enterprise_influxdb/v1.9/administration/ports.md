@@ -17,7 +17,7 @@ menu:
 The default port that runs the InfluxDB HTTP service.
 It is used for the primary public write and query API.
 Clients include the CLI, Chronograf, InfluxDB client libraries, Grafana, curl, or anything that wants to write and read time series data to and from InfluxDB.
-[Configure this port](/enterprise_influxdb/v1.8/administration/config-data-nodes/#bind-address-8088)
+[Configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address-8088)
 in the data node configuration file.
 
 _See also: [API Reference](/influxdb/v1.8/tools/api/)._
