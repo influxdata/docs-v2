@@ -458,7 +458,7 @@ Note: This can use a lot of memory.
 
 Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurements or shards are using the most space.
 
-Calculates the total disk size in bytes by database (`db`), retention policy (`rp`), shard (`shard`), tsm file (`tsm_file`), and measurement (`measurement`).
+Calculates the total disk size (`total_tsm_size`) in bytes, the number of shards (`shards`), and the number of tsm files (`tsm_files`) for the entire directory, and the disk size (`size`) and the number of tsm files (`tsm_files`) for each shard. Use the `-detailed` flag to report disk usage (`size`) by database (`db`), retention policy (`rp`), and measurement (`measurement`).
 
 #### Syntax
 
