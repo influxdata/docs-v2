@@ -5,7 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.9/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: InfluxDB Enterprise v1.9
 weight: 1
 ---
