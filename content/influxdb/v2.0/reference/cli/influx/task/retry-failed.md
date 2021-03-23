@@ -1,6 +1,6 @@
 ---
 title: influx task retry-failed
-description: The `influx task retry-failed` command retries failed InfluxDB a task runs.
+description: The `influx task retry-failed` command retries failed InfluxDB task runs.
 menu:
   influxdb_2_0_ref:
     name: influx task retry-failed
@@ -22,7 +22,7 @@ influx task retry-failed [flags]
 | `-c` | `--active-config` | CLI configuration to use for command                                      | string      |                       |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)     | string      |`INFLUX_CONFIGS_PATH`  |
 |      | `--before`        | Retry task runs that occurred before this time (RFC3339 timestamp)        | string      |                       |
-|      | `--dry-run`       | Print information about runs that would be retried                        |             |                       |
+|      | `--dry-run`       | Print information about task runs that would be retried                        |             |                       |
 | `-h` | `--help`          | Help for the `list` command                                               |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                      |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                | string      | `INFLUX_HOST`         |
