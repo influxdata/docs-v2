@@ -100,22 +100,41 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
 
 ### User migration
 
-`influxd upgrade` migrates existing 1.x users and their permissions.
-However, it **does not** migrate the following users:
+`influxd upgrade` migrates existing 1.x users and their permissions **except** the following users:
 
-- administrative (admin) users
-- non-admin users without privileges
+- [1.x admin users](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users)
+- [1.x non-admin users](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-users)
+  that have not been granted any privileges
 
-To review users with admin permissions, run
-[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#show-all-existing-users-and-their-admin-status)
-against your InfluxDB 1.x instance.
+{{< expand-wrapper >}}
+{{% expand "Review 1.x user privileges" %}}
+**To review 1.x users with admin privileges**, run the following against your InfluxDB 1.x instance:
+
+```sql
+SHOW USERS
+```
+
+**To review the specific privileges granted to each 1.x user**, run the following for each user in your InfluxDB 1.x instance:
+
+```sql
+SHOW GRANTS FOR "<username>"
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 If using an admin user for visualization or Chronograf administrative functions,
-create a new read-only user before upgrading.
-Admin rights are granted to the primary user created in the InfluxDB 2.0 setup
-process which runs at the end of the upgrade process.
-This provides you with the opportunity to re-assess who should be granted
-admin-level access in your InfluxDB 2.0 setup.
+**create a new read-only user before upgrading**:
+
+##### Create a read-only 1.x user
+```sh
+> CREATE USER <username> WITH PASSWORD '<password>'
+> GRANT READ ON <database> TO "<username>"
+```
+
+InfluxDB 2.0 only grants admin privileges to the primary user created in the
+InfluxDB 2.0 setup process which runs at the end of the upgrade process.
+This provides you with the opportunity to reassess who to grant admin-level
+access to in your InfluxDB 2.0 setup.
 
 ### Dashboards
 
