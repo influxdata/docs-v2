@@ -1,8 +1,8 @@
 ---
-title: Set up monitoring dashboards
+title: Set up 1.x monitoring dashboards
 description: >
   Set up dashboards to visualize and monitor the health and performance of your
-  InfluxData TICK stack.
+  InfluxData 1.x TICK stack.
 aliases:
   - /platform/monitoring/monitoring-dashboards/
   - /platform/monitoring/monitoring-dashboards/dashboard-oss-monitoring/ 

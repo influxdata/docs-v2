@@ -9,9 +9,11 @@ menu:
 weight: 2
 ---
 
-![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
+To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
 
-Before following the steps below, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/).
+To get started with the **InfluxData 1.x** platform, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/), and then follow the steps below.
+
+![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
 
 ## Understand how Telegraf writes data to InfluxDB
 

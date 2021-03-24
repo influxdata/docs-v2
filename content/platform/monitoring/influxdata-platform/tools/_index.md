@@ -1,5 +1,5 @@
 ---
-title: Tools for monitoring the InfluxData Platform (TICK stack)
+title: Tools for monitoring the InfluxData 1.x Platform (TICK stack)
 description: Use the "internal" measurements, SHOW DIAGNOSTICS, and SHOW STATS to monitor your InfluxData Platform.
 aliases:
   - /platform/monitoring/tools/
