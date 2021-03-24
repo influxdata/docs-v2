@@ -8,8 +8,8 @@ menu:
     weight: 20
 ---
 
-The InfluxDB 1.x platform can be manually installed and configured or
-can be deployed leveraging containers and other technologies that can speed up
-and provide consistent resources.
+To install and configure the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
+
+To install and configure InfluxDB 1.x platform manually or deploy leveraging containers and other technologies, follow the links below.
 
 {{< children >}}
