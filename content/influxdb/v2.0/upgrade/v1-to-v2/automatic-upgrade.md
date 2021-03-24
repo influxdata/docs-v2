@@ -114,11 +114,15 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
 SHOW USERS
 ```
 
+Users with `admin` set to `true` will **not** be migrated.
+
 **To review the specific privileges granted to each 1.x user**, run the following for each user in your InfluxDB 1.x instance:
 
 ```sql
 SHOW GRANTS FOR "<username>"
 ```
+
+If no grants appear, the user will **not** be migrated.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
