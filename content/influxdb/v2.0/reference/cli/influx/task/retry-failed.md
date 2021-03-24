@@ -38,7 +38,7 @@ influx task retry-failed [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Retry failed task runs for a specific task](#retry-failed-task-runs-for-a-specific-task)
+- [Retry failed task runs for a specific task ID](#retry-failed-task-runs-for-a-specific-task-id)
 - [Retry failed task runs that occurred before a specific time](#retry-failed-task-runs-that-occurred-before-a-specific-time)
 - [Retry failed task runs that occurred after a specific time](#retry-failed-task-runs-that-occurred-after-a-specific-time)
 - [Retry failed task runs that occurred in a specific time range](#retry-failed-task-runs-that-occurred-in-a-specific-time-range)
@@ -46,25 +46,25 @@ influx task retry-failed [flags]
 - [Retry a limited number of failed runs for a task](#retry-a-limited-number-of-failed-runs-for-a-task)
 - [Print information about runs that will be retried](#print-information-about-runs-that-will-be-retried)
 
-##### Retry failed tasks for a specific task
+##### Retry failed task runs for a specific task ID
 ```sh
 influx task retry-failed \
   --id 0Xx0oox00XXoxxoo1
 ```
 
-##### Retry failed tasks runs that occurred before a specific time
+##### Retry failed task runs that occurred before a specific time
 ```sh
 influx task retry-failed \
   --before 2021-01-01T00:00:00Z
 ```
 
-##### Retry failed tasks runs that occurred after a specific time
+##### Retry failed task runs that occurred after a specific time
 ```sh
 influx task retry-failed \
   --after 2021-01-01T00:00:00Z
 ```
 
-##### Retry failed tasks runs that occurred in a specific time range
+##### Retry failed task runs that occurred in a specific time range
 ```sh
 influx task retry-failed \
   --after 2021-01-01T00:00:00Z \
