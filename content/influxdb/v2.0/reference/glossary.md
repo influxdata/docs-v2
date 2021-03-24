@@ -912,7 +912,7 @@ Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-
 ### shard
 
 A shard contains encoded and compressed data for a specific set of [series](#series).
-A shard consists of multiple [TSM files](#tsm-time-structured-merge-tree) on disk.
+A shard consists of one or more [TSM files](#tsm-time-structured-merge-tree) on disk.
 All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
 A shard belongs to a single [shard group](#shard-group).
 

@@ -34,7 +34,7 @@ Learn the relationships between buckets, shards, and shard groups.
 A shard contains encoded and compressed time series data for a given time range
 defined by the [shard group duration](#shard-group-duration).
 All points in a [series](#series) within the shard's time range are stored in the same shard.
-A single shard contains multiple series, multiple [TSM files](#tsm-time-structured-merge-tree) on disk,
+A single shard contains multiple series, one or more [TSM files](#tsm-time-structured-merge-tree) on disk,
 and belongs to a [shard group](#shard-groups).
 
 ## Shard groups
@@ -110,6 +110,7 @@ until the backfill is complete and the shards are re-compacted.
 
 ### Shard compaction
 InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage. InfluxDB uses the following four compaction levels:
+
 - **Level 1 (L1):** InfluxDB flushes all newly written data held in an in-memory cache to disk.
 - **Level 2 (L2):** InfluxDB compacts up to eight L1-compacted files into one or more L2 files by
      combining multiple blocks containing the same series into fewer blocks in one or more new files.
