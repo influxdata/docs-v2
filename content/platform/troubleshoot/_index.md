@@ -1,5 +1,5 @@
 ---
-title: Troubleshoot issues using InfluxData Platform monitoring
+title: Troubleshoot issues using InfluxData 1.x Platform monitoring
 description: placeholder
 menu:
   platform:

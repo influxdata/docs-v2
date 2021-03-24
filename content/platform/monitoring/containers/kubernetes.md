@@ -1,5 +1,5 @@
 ---
-title: Monitor Kubernetes using the InfluxData Platform
+title: Monitor Kubernetes using the InfluxData 1.x Platform
 description: Use the InfluxData 1.x TICK stack to monitor Kubernetes.
 menu:
   platform:

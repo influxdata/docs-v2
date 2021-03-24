@@ -1,5 +1,5 @@
 ---
-title: Configure a watcher of watchers system to monitor InfluxDB servers
+title: Configure a watcher of watchers system to monitor InfluxDB 1.x servers
 description: How to set up an external InfluxData 1.x TICK stack that monitors another Enterprise or OSS TICK stack.
 aliases:
   - /platform/monitoring/external-monitor-setup/
