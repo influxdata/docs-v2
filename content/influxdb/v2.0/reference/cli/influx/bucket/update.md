@@ -63,7 +63,7 @@ influx bucket update \
 ```
 
 ##### Update the shard group duration of a bucket
-Custom shard group durations are only suppored in **InfluxDB OSS**.
+Custom shard group durations are only supported in **InfluxDB OSS**.
 The shard group duration must be shorter than the buckets retention period.
 
 ```sh
