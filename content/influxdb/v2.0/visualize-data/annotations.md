@@ -1,7 +1,7 @@
 ---
 title: Use annotations in dashboards
 description: >
-  Add annotations to your dashboards to provide useful, contextual information about single points in time or time intervals. Use annotations to correlate the effects of important events, such as system changes or outages across multiple metrics.
+  Add annotations to your dashboards to provide useful, contextual information about single points in time.
 influxdb/v2.0/tags: [labels]
 menu:
   influxdb_2_0:
@@ -10,7 +10,9 @@ menu:
 weight: 104
 ---
 
-Add annotations to your dashboards to provide useful, contextual information about single points in time or time intervals. Use annotations to correlate the effects of important events, such as system changes or outages across multiple metrics.
+Add annotations to your dashboards to provide useful, contextual information about single points in time.
+
+<!-- On the Settings page, Annotation not implemented. 404. -->
 
 #### Create an annotation
 
@@ -18,37 +20,49 @@ Add annotations to your dashboards to provide useful, contextual information abo
 
     {{< nav-icon "dashboards" >}}
 
-2. Select the dashboard to add the annotation to. Or [create a new dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/).
-3. Click **Annotations**, and then search for an annotation stream (find out more/clarify).
-3. _(Optional)_ Select **Enable 1-Click Annotations** to (find out more/clarify).
-4. Click the gear <insert graphic> to open the Annotations tab on the Settings page.
-5. Click **Create Label**.
+2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/).
+3. Click **Annotations**. The **Show Annotations** and **Enable 1-Click Annotations** options appear selected. To add an annotation, the **Enable 1-Click Annotations** option must be selected.
+4. In any dashboard cell, click the point in time to add the annotation.
+5. On the **Add Annotation** page:
+   - Verify the start time, and update if needed.
+   - Enter a message to associate with the selected start time.
 
+5. Click **Save Annotation**. The annotation appears as a line at the specified start time in all dashboard cells.
+
+<!-->
+TBD not yet implemented
 #### Edit an annotation
 
-1. In the label list view, click the name of the label you would like to edit.
-   The **Edit Label** overlay will appear.
-2. Make the desired changes to the label.
-3. Click **Save Changes**.
+1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-#### View annotations
+    {{< nav-icon "dashboards" >}}
 
-1. In the navigation menu on the left, select **Settings** > **Annotations**.
-Click **{{< icon "plus" >}} Create Label**.
-2. Enter a **Name** for the label.
-3. Enter a description for the label _(Optional)_.
-4. Select a **Color** for the label.
-5. Click **Create Label**.
+2. Open the dashboard with the annotation to edit, and then click the annotation to open it.
+3. Update the text (or timestamp?), and then click **Save Annotation**.
+-->
 
+#### View or hide annotations
+
+By default, annotations are visible.
+Select or clear the **Show Annotations** option to hide or show annotations.
+
+1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
+
+    {{< nav-icon "dashboards" >}}
+
+2. Open a dashboard with annotations, click **Annotations**, and then do one of the following:
+   - To hide annotations, clear the **Show Annotations** option.
+   - To show annotations, select the **Show Annotations** option.
+
+<!-->
+
+TBD not yet implemented
 #### Delete an annotation
 
-1. In the label list view, hover over the label you would like to delete and click **{{< icon "trash" >}}**.
-2. Click **Delete**.
+1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-### Add annotations to a dashboard
+    {{< nav-icon "dashboards" >}}
+2. Open a dashboard with the annotation to delete, click **Annotations**, and select the **Show Annotations** option.
+3. Click the annotation line to delete, and then click **Delete**.
 
-1. In the list view of dashboards, tasks, or other assets, hover over the item to which you would like to add a label.
-2. Click the {{< icon "add-label" >}} icon that appears below the name.
-   The **Add Labels** overlay will appear.
-3. Type the name of the label you would like to add to filter the list of available labels.
-   Click the label you would like to add.
+-->
