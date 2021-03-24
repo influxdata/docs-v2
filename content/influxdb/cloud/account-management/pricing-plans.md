@@ -69,7 +69,7 @@ To protect against any intentional or unintentional harm, Usage-Based Plans incl
 - **Queries:** 3000MB every 5 minutes
 - **Storage:** Unlimited retention
 {{% note %}}
-Increase the retention period up to 1 year by [updating a bucket’s retention policy in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-policy-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-policy) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+Increase the retention period up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
 {{% /note %}}
 - **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
 - **Create:**
