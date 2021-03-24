@@ -33,6 +33,11 @@ influxd inspect export-lp [flags]
 
 ## Examples
 
+- [Export all data in a bucket as line protocol](#export-all-data-in-a-bucket-as-line-protocol)
+- [Export data in measurements as line protocol](#export-data-in-measurements-as-line-protocol)
+- [Export data in specified time range as line protocol](#export-data-in-specified-time-range-as-line-protocol)
+- [Export data as line protocol to stdout](#export-data-as-line-protocol-to-stdout)
+
 ##### Export all data in a bucket as line protocol
 ```sh
 influxd inspect export-lp \
@@ -66,4 +71,12 @@ influxd inspect export-lp \
   --start 2021-01-01T00:00:00Z \
   --end 2021-01-31T23:59:59Z \
   --output-path path/to/export.lp
+```
+
+##### Export data as line protocol to stdout
+```sh
+influxd inspect export-lp \
+  --bucket-id 12ab34cd56ef \
+  --engine-path ~/.influxdbv2/engine \
+  --output-path -
 ```
