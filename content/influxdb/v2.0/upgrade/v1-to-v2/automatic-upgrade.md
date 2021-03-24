@@ -135,10 +135,8 @@ If using an admin user for visualization or Chronograf administrative functions,
 > GRANT READ ON <database> TO "<username>"
 ```
 
-InfluxDB 2.0 only grants admin privileges to the primary user created in the
-InfluxDB 2.0 setup process which runs at the end of the upgrade process.
-This provides you with the opportunity to reassess who to grant admin-level
-access to in your InfluxDB 2.0 setup.
+InfluxDB 2.0 only grants admin privileges to the primary user set up during the InfluxDB 2.0 upgrade.
+This provides you with the opportunity to reassess who to grant admin permissions when setting up InfluxDB 2.0.
 
 ### Dashboards
 
