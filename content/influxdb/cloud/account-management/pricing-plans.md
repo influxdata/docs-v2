@@ -34,7 +34,7 @@ Use this plan as much and as long as you want within the Free Plan rate limits:
 - **Query:** 300MB every 5 minutes
 - **Storage:** 30-day data retention
 {{% note %}}
-Data retention is determined by the time at which data is written to InfluxDB; not the timestamp of the data point. You can write data with timestamps older than 30 days, but 30 days after that data is written, it is evicted.
+To write historical data older than 30 days or retain data for more than 30 days, upgrade to the Cloud [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) plan.
 {{% /note %}}
 - **Series cardinality:** 10,000
 - **Create:**
@@ -44,7 +44,6 @@ Data retention is determined by the time at which data is written to InfluxDB; n
   - Up to 2 checks
   - Up to 2 notification rules
   - Unlimited Slack notification endpoints
-
 
 _To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
@@ -69,6 +68,9 @@ To protect against any intentional or unintentional harm, Usage-Based Plans incl
 - **Ingest batch size:** 50MB
 - **Queries:** 3000MB every 5 minutes
 - **Storage:** Unlimited retention
+{{% note %}}
+Increase the retention period up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+{{% /note %}}
 - **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
 - **Create:**
   - Unlimited dashboards
