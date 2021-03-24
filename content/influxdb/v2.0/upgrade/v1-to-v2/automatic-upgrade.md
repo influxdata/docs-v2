@@ -101,10 +101,14 @@ You can continue to use Kapacitor with InfluxDB OSS 2.0 under the following scen
 ### User migration
 
 `influxd upgrade` migrates existing 1.x users and their permissions.
-However, it *does not migrate administrative users*.
+However, it **does not** migrate the following users:
 
-To review users with admin permissions, in the InfluxDB 1.x CLI, run `show users`.
-Any users labeled "admin" *will not* be migrated.
+- administrative (admin) users
+- non-admin users without privileges
+
+To review users with admin permissions, run
+[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#show-all-existing-users-and-their-admin-status)
+against your InfluxDB 1.x instance.
 
 If using an admin user for visualization or Chronograf administrative functions,
 create a new read-only user before upgrading.
