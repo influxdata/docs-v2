@@ -40,7 +40,6 @@ and belongs to a [shard group](#shard-groups).
 ## Shard groups
 A shard group belongs to an InfluxDB [bucket](/influxdb/v2.0/reference/glossary/#bucket) and contains time series data for a specific time range defined by
 the [shard group duration](#shard-group-duration).
-.
 
 {{% note %}}
 In **InfluxDB OSS**, a shard group typically contains only a single shard.
