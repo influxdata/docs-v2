@@ -1,5 +1,5 @@
 ---
-title: Integrate the InfluxData TICK stack
+title: Integrate the InfluxData 1.x TICK stack
 description: Discover all ways the TICK stack integrates into your favorite projects.
 menu:
   platform:

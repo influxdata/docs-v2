@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot high disk usage
 list_title: High disk usage
-description: Identify and troubleshoot high disk usage when using the InfluxData TICK stack.
+description: Identify and troubleshoot high disk usage when using the InfluxData 1.x TICK stack.
 menu:
   platform:
     name: Disk usage

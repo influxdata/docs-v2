@@ -33,7 +33,7 @@ Kapacitor tasks define work to do on a set of data using [TICKscript](/kapacitor
 
 To get started, do the following:
 
-1. If you haven't already, [download and install the InfluxData TICK stack (OSS)](/platform/install-and-deploy/install/oss-install).
+1. If you haven't already, [download and install the InfluxData 1.x TICK stack (OSS)](/platform/install-and-deploy/install/oss-install).
 2. [Start InfluxDB and start Telegraf](#start-influxdb-and-collect-telegraf-data). By default, Telegraf starts sending system metrics to InfluxDB and creates a 'telegraf' database.
 3. Start Kapacitor.
 

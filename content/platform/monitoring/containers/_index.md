@@ -1,6 +1,6 @@
 ---
 title: Monitor containers using the InfluxData Platform
-description: Use the InfluxData TICK stack to monitor containers, including Kubernetes and Docker
+description: Use the InfluxData 1.x TICK stack to monitor containers, including Kubernetes and Docker
 menu:
   platform:
     name: Monitor containers
