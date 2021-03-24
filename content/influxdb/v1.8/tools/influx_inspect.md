@@ -458,7 +458,11 @@ Note: This can use a lot of memory.
 
 Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurements or shards are using the most space.
 
-Calculates the total disk size (`total_tsm_size`) in bytes, the number of shards (`shards`), and the number of tsm files (`tsm_files`) for the specified directory. Also calculates the disk size (`size`) and number of tsm files (`tsm_files`) for each shard. Use the `-detailed` flag to report disk usage (`size`) by database (`db`), retention policy (`rp`), and measurement (`measurement`).
+Calculates the total disk  size (`total_tsm_size`) in bytes, the number of shards (`shards`), and the number of tsm files (`tsm_files`) for the specified directory. Also calculates the disk size (`size`) and number of tsm files (`tsm_files`) for each shard. Use the `-detailed` flag to report disk usage (`size`) by database (`db`), retention policy (`rp`), and measurement (`measurement`).
+
+{{% note %}}
+For new instances or instances with minimal data, the disk usage may appear blank until the first time that data is flushed from the WAL directory ([`wal-dir`](/enterprise_influxdb/v1.8/administration/config-data-nodes/#wal-dir--varlibinfluxdbwal)) to the TSM directory ([`dir`](/enterprise_influxdb/v1.8/administration/config-data-nodes/#dir--varlibinfluxdbdata)).
+{{% /note %}}
 
 #### Syntax
 
