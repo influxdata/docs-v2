@@ -12,8 +12,6 @@ weight: 104
 
 Add annotations to your dashboards to provide useful, contextual information about single points in time.
 
-<!-- On the Settings page, Annotation not implemented. 404. -->
-
 #### Create an annotation
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
