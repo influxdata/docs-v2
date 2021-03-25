@@ -29,12 +29,16 @@ name = "John"
 
 String interpolation expressions must satisfy the Stringable constraint.
 
-Arbitrary Expression Interpolation example:
+##### Arbitrary expression interpolation example:
+```js
+n = duration(v: "1m") 
+"the answer is ${n}"
+// the answer is 1m
 
-    n = duration(v: "1m") 
-    "the answer is ${n}" // the answer is 1m
-    t0 = time(v: "2016-06-13T17:43:50.1004002Z")
-    "the answer is ${t0}" // the answer is 2016-06-13T17:43:50.1004002Z
+t0 = time(v: "2016-06-13T17:43:50.1004002Z")
+"the answer is ${t0}"
+// the answer is 2016-06-13T17:43:50.1004002Z
+```
 
 ## Use dot notation to interpolate record values
 [Records](/influxdb/v2.0/reference/flux/language/expressions/#record-literals) consist of key-value pairs.
