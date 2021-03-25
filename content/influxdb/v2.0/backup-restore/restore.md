@@ -99,7 +99,7 @@ influx restore \
 ```
 
 {{% note %}}
-#### Restore to a brand new InfluxDB server
+#### Restore to a new InfluxDB server
 If using a backup to populate a new InfluxDB server:
 
 1. Retrieve the [admin token](/influxdb/v2.0/security/tokens/#admin-token) from your source InfluxDB instance.
@@ -116,6 +116,17 @@ If using a backup to populate a new InfluxDB server:
       --input /backups/2020-01-20_12-00/ \
       --full
     ```
+
+If you do not provide the admin token from your source InfluxDB instance as the
+admin token in your new instance, the restore process and all subsequent attempts
+to authenticate with the new server will fail.
+
+1. The first restore API call uses the auto-generated token to authenticate with
+   the new server and overwrites the entire key-value store in the new server, including
+   the auto-generated token.
+2. The second restore API call attempts to upload time series data, but uses the
+   auto-generated token to authenticate with new server.
+   That token is overwritten in first restore API call and the process fails to authenticate.
 {{% /note %}}
 
 
