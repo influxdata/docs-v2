@@ -55,7 +55,7 @@ In no particular order, we recommend that you:
 [Tags](/influxdb/v1.7/concepts/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of series in the database, known colloquially as high series cardinality.
 High series cardinality is a primary driver of high memory usage for many database workloads.
 
-See [Hardware sizing guidelines](/influxdb/v1.7/guides/hardware_sizing/#general-hardware-guidelines-for-a-single-node) for [series cardinality](/influxdb/v1.7/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+See [Hardware sizing guidelines](/influxdb/v1.7/guides/hardware_sizing/) for [series cardinality](/influxdb/v1.7/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
 
 ### Don't use the same name for a tag and a field
 

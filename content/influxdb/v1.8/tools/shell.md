@@ -1,6 +1,6 @@
 ---
 title: Using influx - InfluxDB command line interface
-
+description: InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
 menu:
   influxdb_1_8:
     name: Using influx
@@ -82,7 +82,7 @@ Set the write consistency level.
 The database to which `influx` connects.
 
 `-execute 'command'`
-Execute an [InfluxQL](/influxdb/v1.8/query_language/data_exploration/) command and quit.
+Execute an [InfluxQL](/influxdb/v1.8/query_language/explore-data/) command and quit.
 See [-execute](/influxdb/v1.8/tools/shell/#execute-an-influxql-command-and-quit-with-execute).
 
 `-format 'json|csv|column'`
@@ -245,9 +245,9 @@ $ influx -format=json -pretty
 
 The import file has two sections:
 
-* **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/influxdb/v1.8/query_language/database_management/) for creating the relevant [database](/influxdb/v1.8/concepts/glossary/) and managing the [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+* **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/influxdb/v1.8/query_language/manage-database/) for creating the relevant [database](/influxdb/v1.8/concepts/glossary/) and managing the [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
 If your database and retention policy already exist, your file can skip this section.
-* **DML (Data Manipulation Language)**: Lists the relevant database and (if desired) retention policy and contains the data in [line protocol](/influxdb/v1.8/concepts/glossary/#line-protocol).
+* **DML (Data Manipulation Language)**: Lists the relevant database and (if desired) retention policy and contains the data in [line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol).
 
 Example:
 
@@ -373,7 +373,7 @@ If you do not specify the retention policy, `influx` automatically queries the `
 
 #### Write data to InfluxDB with `insert`
 
-Enter `insert` followed by the data in [line protocol](/influxdb/v1.8/concepts/glossary/#line-protocol) to write data to InfluxDB.
+Enter `insert` followed by the data in [line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) to write data to InfluxDB.
 Use `insert into <retention policy> <line protocol>` to write data to a specific [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
 
 Write data to a single field in the measurement `treasures` with the tag `captain_id = pirate_king`.
@@ -394,4 +394,4 @@ Using retention policy oneday
 
 Execute all InfluxQL queries in `influx`.
 
-See [Data exploration](/influxdb/v1.8/query_language/data_exploration/), [Schema exploration](/influxdb/v1.8/query_language/schema_exploration/), [Database management](/influxdb/v1.8/query_language/database_management/), [Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/) for InfluxQL documentation.
+See [Data exploration](/influxdb/v1.8/query_language/explore-data/), [Schema exploration](/influxdb/v1.8/query_language/explore-schema/), [Database management](/influxdb/v1.8/query_language/manage-database/), [Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/) for InfluxQL documentation.

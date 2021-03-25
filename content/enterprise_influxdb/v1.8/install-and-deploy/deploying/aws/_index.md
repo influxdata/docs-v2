@@ -1,6 +1,6 @@
-
 ---
 title: Deploy InfluxDB Enterprise clusters on Amazon Web Services
+description: Deploy InfluxDB Enterprise clusters on Amazon Web Services (AWS).
 aliases:
     - /enterprise_influxdb/v1.8/other-options/
     - /enterprise_influxdb/v1.8/install-and-deploy/aws/

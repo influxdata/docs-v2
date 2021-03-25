@@ -9,8 +9,8 @@ menu:
 weight: 401
 influxdb/v2.0/tags: [functions, geo]
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
-  - /v2.0/reference/flux/stdlib/experimental/geo/filterRows/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterRows/
   - /influxdb/v2.0/query-data/flux/geo/
 ---
 
@@ -20,8 +20,8 @@ It compares input data to a set of S2 Cell ID tokens located in the specified [r
 {{% note %}}
 S2 Grid cells may not perfectly align with the defined region, so results may include
 data with coordinates outside the region, but inside S2 grid cells partially covered by the region.
-Use [`toRows()`](/v2.0/reference/flux/stdlib/experimental/geo/torows/) and
-[`geo.strictFilter()`](/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/)
+Use [`toRows()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/torows/) and
+[`geo.strictFilter()`](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/)
 after `geo.gridFilter()` to precisely filter points.
 _See [Non-strict and strict filtering](#non-strict-and-strict-filtering) below._
 {{% /note %}}
@@ -43,8 +43,8 @@ geo.gridFilter(
 {{% note %}}
 #### s2_cell_id must be part of the group key
 To filter geo-temporal data with `geo.gridFilter()`, `s2_cell_id` must be part
-of the [group key](/v2.0/reference/glossary/#group-key).
-To add `s2_cell_id` to the group key, use [`experimental.group`](/v2.0/reference/flux/stdlib/experimental/group):
+of the [group key](/influxdb/v2.0/reference/glossary/#group-key).
+To add `s2_cell_id` to the group key, use [`experimental.group`](/influxdb/v2.0/reference/flux/stdlib/experimental/group):
 
 ```js
 import "experimental"
@@ -80,10 +80,10 @@ In most cases, the specified geographic region does not perfectly align with S2 
 
 ### region
 The region containing the desired data points.
-Specify object properties for the shape.
-_See [Region definitions](/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
+Specify record properties for the shape.
+_See [Region definitions](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### minSize
 Minimum number of cells that cover the specified region.

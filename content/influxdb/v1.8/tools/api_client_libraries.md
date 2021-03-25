@@ -1,6 +1,7 @@
 ---
 title: InfluxDB client libraries
-description: InfluxDB client libraries includes support for Arduino, C#, Go, Java, JavaScript, PHP, Python, and Ruby.
+description: >
+  InfluxDB client libraries includes support for Arduino, C#, C++, Go, Java, JavaScript, PHP, Python, and Ruby.
 aliases:
     - /influxdb/v1.8/clients/api_client_libraries/
     - /influxdb/v1.8/clients/
@@ -9,11 +10,12 @@ menu:
   influxdb_1_8:
     weight: 30
     parent: Tools
+v2: /influxdb/v2.0/tools/client-libraries/
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB 2.0 API and support both **InfluxDB 1.8+** and **InfluxDB 2.0**.
 
->**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud 2.0. For more information, see [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-2.0-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
+>**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud. For more information, see [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
 
 ## Client libraries
 
@@ -28,6 +30,10 @@ Functionality varies between client libraries. Refer to client libraries on GitH
 
 - [influxdb-client-csharp](https://github.com/influxdata/influxdb-client-csharp)
   - Maintained by [InfluxData](https://github.com/influxdata)
+
+## C++
+* [influxdb-cxx](https://github.com/offa/influxdb-cxx)
+  * Maintained by [offa](https://github.com/offa)
 
 ### Go
 
@@ -91,7 +97,7 @@ To install and use the Python client library, follow the [instructions below](#i
     ```
 
     > **Note:** The database (and retention policy, if applicable) are converted to a [bucket](https://v2. docs.influxdata.com/v2.0/reference/glossary/#bucket) data store compatible with InfluxDB 2.0.
-  
+
 5. Instantiate a writer object using the client object and the write_api method. Use the `write_api` method to configure the writer object.
 
     ```sh
@@ -101,7 +107,7 @@ To install and use the Python client library, follow the [instructions below](#i
 
 6. Create a point object and write it to InfluxDB using the write method of the API writer object. The write method requires three parameters: database, (optional) retention policy, and record.
 
-    ```sh 
+    ```sh
     p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
     write_api.write(database:rp, record=p)
     ```

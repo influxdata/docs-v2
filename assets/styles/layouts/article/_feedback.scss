@@ -1,4 +1,98 @@
 .feedback {
-  border-color: rgba($article-note-base, .75);
-  background: rgba($article-text, .05);
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  border-radius: $radius;
+  box-shadow: 1px 2px 6px $article-shadow;
+  background: rgba($article-text, .03);
+}
+
+.support {
+  padding-right: 2rem;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 0;
+    list-style: none;
+
+    li {display: inline-block}
+
+    a {
+      margin-right: 1.5rem;
+      color: $article-heading-alt;
+
+      &:hover {
+        color: $article-link;
+        border-radius: calc($radius * 1.5);
+      }
+
+      &.community:before {
+        content: "\e900";
+        color: $article-heading-alt;
+        margin: 0 .25rem 0 -.25rem;
+        font-size: 1.65rem;
+        font-family: 'icomoon';
+        vertical-align: middle;
+      }
+      &.slack:before {
+        content: url('/svgs/slack.svg');
+        display: inline-block;
+        height: 1.1rem;
+        width: 1.1rem;
+        vertical-align: text-top;
+        margin-right: .5rem;
+      }
+    }
+  }
+}
+
+.actions {
+  min-width: 230px;
+  padding-bottom: 1.75rem;
+
+  a {
+    display: block;
+    padding-left: .7rem;
+    font-size: .85rem;
+
+    &.btn {
+      color: $article-text !important;
+      background: $feedback-btn-bg !important;
+
+      &:hover {
+        color: $g20-white !important;
+      }
+    }
+
+
+    &:before {
+      display: inline-block;
+      margin-right: .5rem;
+      font-family: 'icomoon';
+    }
+
+    &.edit:before {
+      content: "\e92e";
+      font-size: .75rem;
+      vertical-align: top;
+    }
+    &.issue:before {
+      content: "\e933";
+      font-size: .95rem;
+    }
+  }
+}
+
+///////////////////////////////// Media Queries ////////////////////////////////
+
+@include media(medium) {
+  .feedback {
+    flex-direction: column;
+  }
+}
+
+@include media(small) {
+  .actions { padding-bottom: 1rem; }
 }

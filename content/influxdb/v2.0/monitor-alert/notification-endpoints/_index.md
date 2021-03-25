@@ -8,15 +8,12 @@ menu:
   influxdb_2_0:
     parent: Monitor & alert
 weight: 102
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
 Notification endpoints store information to connect to a third party service.
-If you're using the Free Plan, create a Slack endpoint.
-If you're using the Usage-based Plan, create a connection to a HTTP, Slack, or PagerDuty endpoint.
+Create a connection to a HTTP, Slack, or PagerDuty endpoint.
 
 {{< children >}}

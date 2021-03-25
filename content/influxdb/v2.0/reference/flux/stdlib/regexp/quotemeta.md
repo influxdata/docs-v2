@@ -3,7 +3,7 @@ title: regexp.quoteMeta() function
 description: >
   The `regexp.quoteMeta()` function escapes all regular expression metacharacters inside of a string.
 aliases:
-  - /v2.0/reference/flux/functions/regexp/quotemeta/
+  - /influxdb/v2.0/reference/flux/functions/regexp/quotemeta/
 menu:
   influxdb_2_0_ref:
     name: regexp.quoteMeta

@@ -31,7 +31,7 @@ telegram.message(
 
 {{% note %}}
 For information about retrieving your Telegram **bot token** and **channel ID**,
-see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
+see [Set up a Telegram bot](/influxdb/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
 {{% /note %}}
 
 ## Parameters
@@ -43,13 +43,13 @@ Default is `https://api.telegram.org/bot`.
 _**Data type:** String_
 
 ### token
-<span class="req">Required</span>
+({{< req >}})
 Telegram bot token.
 
 _**Data type:** String_
 
 ### channel
-<span class="req">Required</span>
+({{< req >}})
 Telegram channel ID.
 
 _**Data type:** String_
@@ -79,7 +79,7 @@ _**Data type:** Boolean_
 
 ## Examples
 
-##### Send the last reported status to a Microsoft Teams channel
+##### Send the last reported status to Telegram
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/telegram"

@@ -1,14 +1,16 @@
 ---
 title: InfluxDB line protocol tutorial
+description: Tutorial for using InfluxDB line protocol.
 aliases:
     - /influxdb/v1.8/write_protocols/line/
 menu:
   influxdb_1_8:
     weight: 20
     parent: Write protocols
+v2: /influxdb/v2.0/reference/syntax/line-protocol/
 ---
 
-The InfluxDB line protocol is a text based format for writing points to the
+The InfluxDB line protocol is a text-based format for writing points to the
 database.
 Points must be in line protocol format for InfluxDB to successfully parse and
 write points (unless you're using a [service plugin](/influxdb/v1.8/supported_protocols/)).

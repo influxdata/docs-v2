@@ -82,7 +82,7 @@ The [File output plugin](https://github.com/influxdata/telegraf/blob/release-1.1
 Plugin ID: `cloud_pubsub`
 
 The [Google PubSub output plugin]() publishes metrics to a [Google Cloud PubSub](https://cloud.google.com/pubsub) topic
-as one of the supported [output data formats](/telegraf/data_formats/output).
+as one of the supported [output data formats](/telegraf/v1.10/data_formats/output).
 
 ### Graphite
 
@@ -150,7 +150,7 @@ The metrics from each input plugin will be written to a separate Azure Monitor n
 
 Plugin ID: `mqtt`
 
-The [MQTT Producer output plugin](https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/mqtt/README.md) writes to the MQTT server using [supported output data formats](/telegraf/v1.8/data_formats/output/).
+The [MQTT Producer output plugin](https://github.com/influxdata/telegraf/blob/release-1.10/plugins/outputs/mqtt/README.md) writes to the MQTT server using [supported output data formats](/telegraf/v1.10/data_formats/output/).
 
 ### NATS Output
 

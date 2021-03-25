@@ -9,8 +9,7 @@ menu:
 weight: 102
 influxdb/v2.0/tags: [write, line protocol, syntax]
 aliases:
-  - /v2.0/reference/line-protocol
-  - /v2.0/reference/syntax/line-protocol/
+  - /influxdb/v2.0/reference/line-protocol
 related:
   - /influxdb/v2.0/write-data/
 ---
@@ -51,7 +50,7 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 ```
 
 ### Measurement
-<span class="required">Required</span> –
+({{< req >}})
 The measurement name.
 InfluxDB accepts one measurement per point.
 _Measurement names are case-sensitive and subject to [naming restrictions](#naming-restrictions)._
@@ -71,7 +70,7 @@ _**Key data type:** [String](#string)_
 _**Value data type:** [String](#string)_
 
 ### Field set
-<span class="required">Required</span> –
+({{< req >}})
 All field key-value pairs for the point.
 Points must have at least one field.
 _Field keys and string values are case-sensitive.
@@ -90,7 +89,7 @@ measurementName fieldKey="field string value" 1556813561098000000
 
 ### Timestamp
 _**Optional**_ –
-The [unix timestamp](/v2.0/reference/glossary/#unix-timestamp) for the data point.
+The [unix timestamp](/influxdb/v2.0/reference/glossary/#unix-timestamp) for the data point.
 InfluxDB accepts one timestamp per point.
 If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
 
@@ -101,7 +100,7 @@ _**Data type:** [Unix timestamp](#unix-timestamp)_
 - To ensure a data point includes the time a metric is observed (not received by InfluxDB),
   include the timestamp.
 - If your timestamps are not in nanoseconds, specify the precision of your timestamps
-  when [writing the data to InfluxDB](/v2.0/write-data/#timestamp-precision).
+  when [writing the data to InfluxDB](/influxdb/v2.0/write-data/#timestamp-precision).
 {{% /note %}}
 
 ### Whitespace
@@ -192,7 +191,7 @@ Quoted field values are interpreted as strings.
 {{% /note %}}
 
 ### Unix timestamp
-Unix timestamp in a [specified precision](/v2.0/reference/glossary/#unix-timestamp).
+Unix timestamp in a [specified precision](/influxdb/v2.0/reference/glossary/#unix-timestamp).
 Default precision is nanoseconds (`ns`).
 
 | Minimum timestamp      | Maximum timestamp     |

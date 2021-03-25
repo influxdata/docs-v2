@@ -16,10 +16,10 @@ Starting in version 1.5, the InfluxDB OSS `backup` utility provides:
 
 * Option to run backup and restore functions on online (live) databases.
 * Backup and restore functions for single or multiple databases, along with optional timestamp filtering.
-* Data can be imported from [InfluxDB Enterprise](/enterprise_influxdb/latest/) clusters
+* Data can be imported from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters
 * Backup files that can be imported into an InfluxDB Enterprise database.
 
-> **InfluxDB Enterprise users:** See [Backing up and restoring in InfluxDB Enterprise](/enterprise_influxdb/latest/administration/backup-and-restore/).
+> **InfluxDB Enterprise users:** See [Backing up and restoring in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
 
 > ***Note:*** Prior to InfluxDB OSS 1.5, the `backup` utility created backup file formats incompatible with InfluxDB Enterprise.  This legacy format is still supported in the new `backup` utility as input for the new *online* restore function. The *offline* backup and restore utilities in InfluxDB OSS versions 1.4 and earlier are deprecated, but are documented below in [Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
 

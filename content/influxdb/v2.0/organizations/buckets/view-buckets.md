@@ -7,13 +7,9 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
-aliases:
-  - /v2.0/organizations/create-org/buckets/view-bucket/
 ---
 
-## View a list of buckets
-
-### View buckets in the InfluxDB UI
+## View buckets in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
@@ -22,11 +18,11 @@ aliases:
     A list of buckets with their retention policies and IDs appears.
 
 2. Click a bucket to open it in the **Data Explorer**.
-3. Click the bucket ID to copy it to the clipboard.
+3. Click the **bucket ID** to copy it to the clipboard.
 
-### View buckets using the influx CLI
+## View buckets using the influx CLI
 
-Use the [`influx bucket list` command](/v2.0/reference/cli/influx/bucket/list)
+Use the [`influx bucket list` command](/influxdb/v2.0/reference/cli/influx/bucket/list)
 to view a buckets in an organization.
 
 ```sh
@@ -34,5 +30,5 @@ influx bucket list
 ```
 
 Other filtering options such as filtering by organization, name, or ID are available.
-See the [`influx bucket list` documentation](/v2.0/reference/cli/influx/bucket/list)
+See the [`influx bucket list` documentation](/influxdb/v2.0/reference/cli/influx/bucket/list)
 for information about other available flags.

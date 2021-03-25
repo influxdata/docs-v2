@@ -7,23 +7,21 @@ menu:
     name: Syntax basics
     parent: Get started with Flux
 weight: 203
-aliases:
-  - /v2.0/query-data/get-started/syntax-basics/
 related:
-  - /v2.0/reference/flux/language/types/
+  - /influxdb/v2.0/reference/flux/language/types/
 ---
 
 
 Flux, at its core, is a scripting language designed specifically for working with data.
 This guide walks through a handful of simple expressions and how they are handled in Flux.
 
-## Use the influx CLI's REPL
-Use the `influx repl` command to open the interactive read-eval-print-loop (REPL).
+## Use the Flux REPL
+Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to open the interactive Read-Eval-Print Loop (REPL).
 Run the commands provided in this guide in the REPL.
 
-##### Start in the influx CLI in Flux mode
+##### Start the Flux REPL
 ```bash
-influx repl --org org-name
+./flux repl
 ```
 
 ## Basic Flux syntax
@@ -59,14 +57,16 @@ this is a string
 2
 ```
 
-### Objects
-Flux also supports objects. Each value in an object can be a different data type.
+### Records
+Flux also supports records, collections of key-value pairs.
+Each key must be a string.
+Values can be a different data types.
 
 ```js
 > o = {name:"Jim", age: 42, "favorite color": "red"}
 ```
 
-Use **dot notation** to access a properties of an object:
+Use **dot notation** to access a properties of a record:
 
 ```js
 > o.name
@@ -87,7 +87,7 @@ red
 ```
 
 {{% note %}}
-Use bracket notation to reference object properties with special or
+Use bracket notation to reference record properties with special or
 white space characters in the property key.
 {{% /note %}}
 
@@ -99,6 +99,32 @@ Flux supports arrays. All values in an array must be the same type.
 > l = [1,2,3,n]
 > l
 [1, 2, 3, 4]
+```
+
+Use **bracket notation** to access a value at a specific index in an array:
+
+```js
+> a = ["foo","bar","baz","quz"]
+> a[0]
+foo
+```
+
+### Dictionaries
+Flux supports dictionaries, collections of key value pairs where keys can be any type,
+but all keys must be the same type.
+All values in a dictionary must be the same type.
+
+```js
+> d = [1: "foo", 2: "bar"]
+```
+
+Use the [`dict.get()` function](/influxdb/v2.0/reference/flux/stdlib/dict/get/)
+to access properties in a dictionary:
+
+```js
+> import "dict"
+> dict.get(dict: d, key: "1", default: "")
+foo
 ```
 
 ### Functions
@@ -127,7 +153,7 @@ data |> someFunction() |> anotherFunction()
 
 ## Real-world application of basic syntax
 This likely seems familiar if you've already been through through the other
-[getting started guides](/v2.0/query-data/get-started).
+[getting started guides](/influxdb/v2.0/query-data/get-started).
 Flux's syntax is inspired by Javascript and other functional scripting languages.
 As you begin to apply these basic principles in real-world use cases such as creating data stream variables,
 custom functions, etc., the power of Flux and its ability to query and process data will become apparent.
@@ -231,8 +257,8 @@ cpuUsageUser |> topN(n:5) |> yield()
 
 This query will return the five data points with the highest user CPU usage over the last hour.
 
-_More information about creating custom functions is available in the [Custom functions](/v2.0/query-data/guides/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) documentation._
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/v2.0/query-data/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
 </div>

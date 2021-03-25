@@ -4,7 +4,7 @@ description: >
   The math.hypot() function returns the square root of `p*p + q*q`,
   taking care to avoid unnecessary overflow and underflow.
 aliases:
-  - /v2.0/reference/flux/functions/math/hypot/
+  - /influxdb/v2.0/reference/flux/functions/math/hypot/
 menu:
   influxdb_2_0_ref:
     name: math.hypot

@@ -42,7 +42,7 @@ InfluxDB 1.7.10 (both OSS and Enterprise) fixed an issue that prevented upgradin
 an InfluxDB OSS instance to InfluxDB Enterprise successfully.
 Upgrade to **InfluxDB 1.7.10** or later before proceeding.
 
-- [Upgrade InfluxDB OSS](/influxdb/latest/administration/upgrading/)
+- [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
 - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.7/administration/upgrading/)
 
 ## Set up InfluxDB Enterprise meta nodes
@@ -52,7 +52,7 @@ For information about installing and setting up meta nodes, see
 
 {{% note %}}
 #### Add the OSS instance to the meta /etc/hosts files
-When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.7/install-and-deploy/production_installation/meta_node_installation/#step-1-modify-the-etc-hosts-file)
+When [modifying the `/etc/hosts` file](/enterprise_influxdb/v1.7/install-and-deploy/production_installation/meta_node_installation/#step-1-add-appropriate-dns-entries-for-each-of-your-servers)
 on each meta node, include the IP and host name of your InfluxDB OSS instance so
 meta nodes can communicate with the OSS instance.
 {{% /note %}}
@@ -279,4 +279,4 @@ It may take a few minutes before the existing data is available.
     > **Note:** The number of data nodes in a cluster **must be** evenly divisible by the replication factor. For example, a replication factor of 2 works with 2, 4, 6, or 8 data nodes. A replication factor of 3 works with 3, 6, or 9 data nodes.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.7/guides/rebalance/)
    to meet the desired replication factor for existing shards.
-3. If you were using [Chronograf](/chronograf/latest/), add your Enterprise instance as a new data source.
+3. If you were using [Chronograf](/{{< latest "chronograf" >}}/), add your Enterprise instance as a new data source.

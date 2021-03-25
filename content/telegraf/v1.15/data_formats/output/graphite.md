@@ -1,6 +1,6 @@
 ---
 title: Graphite output data format
-description: Use the "Graphite" output data format to serialize data from Telegraf metrics.
+description: Use the Graphite output data format to serialize data from Telegraf metrics.
 menu:
   telegraf_1_15:
     name: Graphite output

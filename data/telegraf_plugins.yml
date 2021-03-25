@@ -30,6 +30,15 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Amazon CloudWatch Alarms
+    id: awsalarms
+    description: |
+      The Amazon CloudWatch Alarms input plugin pulls alarm statistics from Amazon CloudWatch.
+    introduced: 1.16.0
+    link: https://github.com/vipinvkmenon/awsalarms
+    tags: [linux, macos, windows, cloud, external]
+    external: true
+
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
     description: |
@@ -50,7 +59,7 @@ input:
     id: kinesis_consumer
     description: |
       The Amazon Kinesis Consumer input plugin reads from a Kinesis data stream and creates
-      metrics using one of the supported [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input).
+      metrics using one of the supported [input data formats](/{{< latest "telegraf" >}}/data_formats/input).
     introduced: 1.10.0
     tags: [linux, macos, windows, cloud, messaging]
 
@@ -164,6 +173,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, systems]
 
+  - name: Beat
+    id: beat
+    description: |
+      The Beat input plugin collects metrics from the given Elastic Beat instances.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications]
+
   - name: Beanstalkd
     id: beanstalkd
     description: |
@@ -234,10 +250,16 @@ input:
   - name: Cisco GNMI Telemetry
     id: cisco_telemetry_gnmi
     description: |
-      Cisco GNMI Telemetry is an input plugin that consumes telemetry data similar to the GNMI specification.
+      > The `inputs.cisco_telementry_gnmi` plugin was renamed to `inputs.gmni`
+      in **Telegraf 1.15.0** to better reflect its general support for gNMI devices.
+      See the [gNMI plugin](#gnmi).
+
+      Cisco GNMI Telemetry input plugin consumes telemetry data similar to the GNMI specification.
       This GRPC-based protocol can utilize TLS for authentication and encryption.
       This plugin has been developed to support GNMI telemetry as produced by Cisco IOS XR (64-bit) version 6.5.1 and later.
     introduced: 1.11.0
+    deprecated: 1.14.5
+    link: https://github.com/influxdata/telegraf/tree/release-1.14/plugins/inputs/cisco_telemetry_gnmi
     tags: [linux, macos, windows, applications]
 
   - name: Cisco Model-driven Telemetry (MDT)
@@ -302,6 +324,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems]
 
+  - name: CS:GO
+    id: csgo
+    description: |
+      The CSGO input plugin gahers metrics from Counter-Strike: Global Offensive servers.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, web, servers]
+
   - name: Disk
     id: disk
     description: |
@@ -314,6 +343,13 @@ input:
     description: |
       The DiskIO input plugin gathers metrics about disk IO by device.
     introduced: 0.10.0
+    tags: [linux, macos, windows, systems]
+
+  - name: Directory Monitoring
+    id: directory_monitor
+    description: |
+      The Directory Monitoring input plugin monitors a single directory and takes in each file placed in the directory. The plugin gathers all files in the directory at a configurable interval, and parses the ones that haven't been picked up yet.
+    introduced: 1.18.0
     tags: [linux, macos, windows, systems]
 
   - name: Disque
@@ -393,7 +429,7 @@ input:
   - name: Exec
     id: exec
     description: |
-      The Exec input plugin parses supported [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/)
+      The Exec input plugin parses supported [Telegraf input data formats](/{{< latest "telegraf" >}}/data_formats/input/)
       (line protocol, JSON, Graphite, Value, Nagios, Collectd, and Dropwizard) into metrics.
       Each Telegraf metric includes the measurement name, tags, fields, and timestamp.
     introduced: 0.1.5
@@ -403,7 +439,7 @@ input:
     id: execd
     description: |
       The Execd input plugin runs an external program as a daemon. Programs must output metrics in an accepted
-      [Telegraf input data format](https://docs.influxdata.com/telegraf/latest/data_formats/input/)
+      [Telegraf input data format](/{{< latest "telegraf" >}}/data_formats/input/)
       on its standard output. Configure `signal` to send a signal to the daemon running on each collection interval.
       The program output on standard error is mirrored to the Telegraf log.
     introduced: 1.14.0
@@ -435,7 +471,7 @@ input:
       then use the [Tail input plugin](#tail).
 
       > To parse metrics from multiple files that are formatted in one of the supported
-      > [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input),
+      > [input data formats](/{{< latest "telegraf" >}}/data_formats/input),
       > use the [Multifile input plugin](#multifile).
     introduced: 1.8.0
     tags: [linux, macos, windows, systems]
@@ -475,6 +511,20 @@ input:
     description: |
       Gathers repository information from GitHub-hosted repositories.
     introduced: 1.11.0
+    tags: [linux, macos, windows, applications]
+
+  - name: gNMI
+    id: gnmi
+    description: |
+      The gNMI plugin consumes telemetry data based on the
+      [gNMI](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) `Subscribe` method.
+      The plugin supports TLS for authentication and encryption.
+      This input plugin is vendor-agnostic and is supported on any platform that supports the gNMI spec.
+
+      **For Cisco devices:**
+      The gNMI plugin is optimized to support gNMI telemetry as produced by
+      Cisco IOS XR (64-bit) version 6.5.1, Cisco NX-OS 9.3 and Cisco IOS XE 16.12 and later.
+    introduced: 1.15.0
     tags: [linux, macos, windows, applications]
 
   - name: Google Cloud PubSub
@@ -528,7 +578,7 @@ input:
     id: http
     description: |
       The HTTP input plugin collects metrics from one or more HTTP (or HTTPS) endpoints.
-      The endpoint should have metrics formatted in one of the [supported input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
+      The endpoint should have metrics formatted in one of the [supported input data formats](/{{< latest "telegraf" >}}/data_formats/input/).
       Each data format has its own unique set of configuration options which can be added to the input configuration.
     introduced: 1.6.0
     tags: [linux, macos, windows, servers, web]
@@ -558,10 +608,10 @@ input:
   - name: HTTP Listener v2
     id: http_listener_v2
     description: |
-      The HTTP Listener v2 input plugin listens for messages sent via HTTP POST.
-      Messages are expected in [line protocol format](https://docs.influxdata.com/telegraf/latest/data_formats/input/influx)
-      ONLY (other [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest//data_formats/input/) are not supported).
-      This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB v2110 HTTP API.
+      The HTTP Listener v2 input plugin listens for metrics sent via HTTP.
+      Metrics may be sent in any supported [Telegraf input data format](/{{< latest "telegraf" >}}/data_formats/input/influx).
+      Note the plugin previously known as `http_listener` has been renamed `influxdb_listener`.
+      To use Telegraf as a proxy/relay for InfluxDB, we recommend using [`influxdb_listener`](/{{< latest "telegraf" >}}/plugins/#influxdb_listener).
     introduced: 1.9.0
     tags: [linux, macos, windows, servers, web]
 
@@ -609,13 +659,14 @@ input:
 
       To collect data on an InfluxDB 2.x instance running on localhost, the configuration for the
       Prometheus input plugin would be:
-      <div class="keep-url">
+
+      <div class="keep-url"></div>
+
       ```toml
       [[inputs.prometheus]]
         ## An array of urls to scrape metrics from.
-        urls = ["http://localhost:9999/metrics"]
+        urls = ["http://localhost:8086/metrics"]
       ```
-      </div>
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
@@ -623,7 +674,7 @@ input:
     id: influxdb_listener
     description: |
       The InfluxDB Listener input plugin listens for requests sent
-      according to the [InfluxDB HTTP API](https://docs.influxdata.com/influxdb/latest/guides/writing_data/).
+      according to the [InfluxDB HTTP API](/influxdb/v1.8/guides/write_data/).
       The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
       for the HTTP `/write` endpoint of the InfluxDB HTTP API.
 
@@ -632,8 +683,8 @@ input:
       >
       > This plugin is compatible with **InfluxDB 1.x** only.
 
-      The `/write` endpoint supports the `precision` query parameter and can be set
-      to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and
+      The `/write` endpoint supports the `precision` query parameter and can be
+      set to `ns`, `u`, `ms`, `s`, `m`, `h`. Other parameters are ignored and
       defer to the output plugins configuration.
 
       When chaining Telegraf instances using this plugin, `CREATE DATABASE` requests
@@ -642,6 +693,34 @@ input:
       submits data to InfluxDB determines the destination database.
     introduced: 1.9.0
     tags: [linux, macos, windows, data-stores]
+
+  - name: InfluxDB v2 Listener
+    id: influxdb_v2_listener
+    description: |
+      The InfluxDB v2 Listener input plugin listens for requests sent
+      according to the [InfluxDB HTTP API](/{{< latest "influxdb" >}}/reference/api/).
+      The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
+      for the HTTP `/api/v2/write` endpoint of the InfluxDB HTTP API.
+
+      The `/api/v2/write` endpoint supports the `precision` query parameter and
+      can be set to `ns`, `u`, `ms`, or `s`. Other parameters are ignored and
+      defer to the output plugins configuration.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, data-stores]
+
+  - name: Intel Powerstat
+    id: intel_powerstat
+    description: |
+      The Intel Powerstat input plugin collects information provided by the monitoring features of Intel Powerstat.
+    introduced: 1.17.0
+    tags: [linux]
+
+  - name: Intel RDT
+    id: intel_rdt
+    description: |
+      The Intel RDT input plugin collects information provided by the monitoring features of Intel Resource Director Technology (RDT).
+    introduced: 1.16.0
+    tags: [linux, macos, windows, systems]
 
   - name: Interrupts
     id: interrupts
@@ -930,7 +1009,7 @@ input:
     id: mqtt_consumer
     description: |
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
-      Messages are in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
+      Messages are in the [Telegraf input data formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 0.10.3
     tags: [linux, macos, windows, messaging, IoT]
 
@@ -942,7 +1021,7 @@ input:
       This is often useful creating custom metrics from the `/sys` or `/proc` filesystems.
 
       > To parse metrics from a single file formatted in one of the supported
-      > [input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input),
+      > [input data formats](/{{< latest "telegraf" >}}/data_formats/input),
       > use the [file input plugin](#file).
     introduced: 1.10.0
     tags: [linux, macos, windows]
@@ -958,7 +1037,7 @@ input:
     id: nats_consumer
     description: |
       The NATS Consumer input plugin reads from specified NATS subjects and adds messages to InfluxDB.
-      Messages are expected in the [Telegraf input data formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
+      Messages are expected in the [Telegraf input data formats](/{{< latest "telegraf" >}}/data_formats/input/).
       A Queue Group is used when subscribing to subjects so multiple instances of Telegraf
       can read from a NATS cluster in parallel.
     introduced: 0.10.3
@@ -1007,6 +1086,13 @@ input:
       It can also check response text.
     introduced: 0.10.3
     tags: [linux, macos, windows, networking]
+
+  - name: NFS
+    id: nfsclient
+    description: |
+      The NFS input plugin collects data from an NFS Client per-mount statistics (`/proc/self/mountstats`). By default, the plugin collects only a limited number of general system-level metrics.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, networking, systems]
 
   - name: NGINX
     id: nginx
@@ -1070,11 +1156,18 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, servers, web]
 
+  - name: NSD
+    id: nsd
+    description: |
+      The NSD input plugin collects metrics from [NSD](https://www.nlnetlabs.nl/projects/nsd/about/), an authoritative DNS name server.
+    introduced: 1.0.0
+    tags: [linux, macos, windows, web, servers]
+
   - name: NSQ
     id: nsq
     description: |
       The NSQ input plugin collects metrics from NSQD API endpoints.
-    introduced: 1.0.0
+    introduced: 1.16.0
     tags: [linux, macos, windows, messaging]
 
   - name: NSQ Consumer
@@ -1108,6 +1201,21 @@ input:
       binary to pull GPU stats including memory and GPU usage, temp and other.
     introduced: 1.7.0
     tags: [linux, macos, windows, systems]
+
+  - name: Octoprint
+    id: octoprint
+    description: |
+      The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
+    introduced: 1.16.0
+    link: https://github.com/BattleBas/octoprint-telegraf-plugin
+    tags: [linux, macos, windows, external]
+
+  - name: OPC UA
+    id: opcua
+    description: |
+      The OPC UA plugin gathers metrics from client devices using the [OPC Foundation's Unified Architecture (UA)](https://opcfoundation.org/about/opc-technologies/opc-ua/) machine-to-machine communication protocol for industrial automation.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, iot]
 
   - name: OpenLDAP
     id: openldap
@@ -1179,6 +1287,13 @@ input:
       and other packet statistics.
     introduced: 0.1.8
     tags: [linux, macos, windows, networking]
+
+  - name: Plex Webhook
+    id: plex
+    description: |
+      The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications, external]
 
   - name: Postfix
     id: postfix
@@ -1260,6 +1375,13 @@ input:
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
 
+  - name: Proxmox
+    id: proxmox
+    description: |
+      The Proxmox plugin gathers metrics about containers and VMs using the [Proxmox API](https://pve.proxmox.com/wiki/Proxmox_VE_API).
+    introduced: 1.16.0
+    tags: [linux, macos, windows]
+
   - name: Puppet Agent
     id: puppetagent
     description: |
@@ -1285,6 +1407,20 @@ input:
       URI and adds the statistics to InfluxDB.
     introduced: 0.10.3
     tags: [linux, macos, windows, servers, web]
+
+  - name: RAS
+    id: ras
+    description: |
+      The RAS input plugin gathers and counts errors provided by [RASDaemon](https://github.com/mchehab/rasdaemon), a RAS (reliability, availability, and serviceability) logging tool.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, servers, web]
+
+  - name: RavenDB
+    id: ravendb
+    description: |
+      The RavenDB input plugin reads metrics from [RavenDB](https://ravendb.net/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, data-stores]
 
   - name: Redfish
     id: redfish
@@ -1320,6 +1456,13 @@ input:
     introduced: 0.10.4
     tags: [linux, macos, windows, data-stores]
 
+  - name: Riemann Listener
+    id: riemann_listener
+    description: |
+      The Riemann Listener input plugin listens for messages Riemann clients using Riemann-Protobuff format.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
+
   - name: Salesforce
     id: salesforce
     description: |
@@ -1344,6 +1487,13 @@ input:
       in accordance with the [sflow.org](https://sflow.org/) specification.
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
+
+  - name: SMCIPMITool
+    id: smc_ipmi
+    description: |
+      The SMCIPMITool input plugin parses the output of [SMCIPMITool](https://www.supermicro.com/en/solutions/management-software/ipmi-utilities).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, servers, networking]
 
   - name: S.M.A.R.T.
     id: smart
@@ -1388,7 +1538,7 @@ input:
     description: |
       The Socket Listener input plugin listens for messages from streaming (TCP, UNIX)
       or datagram (UDP, unixgram) protocols. Messages are expected in the
-      [Telegraf Input Data Formats](https://docs.influxdata.com/telegraf/latest/data_formats/input/).
+      [Telegraf Input Data Formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 1.3.0
     tags: [linux, macos, windows, networking]
 
@@ -1468,6 +1618,14 @@ input:
       number of users logged in. It is basically equivalent to the UNIX `uptime` command.
     introduced: 0.1.6
     tags: [linux, macos, windows, systems]
+
+  - name: SystemD Timings
+    id: systemd_timings
+    description: |
+      The SystemD Timings plugin collects systemd boot timing metrics.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, systems, external]
+    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
 
   - name: Systemd Units
     id: systemd_units
@@ -1620,6 +1778,13 @@ input:
     introduced: 0.10.2
     tags: [windows, systems]
 
+  - name: Windows Eventlog
+    id: win_eventlog
+    description: |
+      The Windows Eventlog input plugin reports Windows event logging. **Windows Vista and later only**.
+    introduced: 1.16.0
+    tags: [windows, servers, systems]
+
   - name: Windows Services
     id: win_services
     description: |
@@ -1650,6 +1815,14 @@ input:
       accessible using the local file or network connection.
     introduced: 1.8.0
     tags: [linux, macos, windows, networking]
+
+  - name: YouTube
+    id: youtube
+    description: |
+      The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
+    introduced: 1.16.0
+    link: https://github.com/inabagumi/youtube-telegraf-plugin
+    tags: [linux, macos, windows, external]
 
   - name: ZFS
     id: zfs
@@ -1687,6 +1860,13 @@ output:
     introduced: 0.2.5
     tags: [linux, macos, windows, cloud, messaging]
 
+  - name: AWS Timestream
+    id: timestream
+    description: |
+      The Timestream output plugin writes metrics to the [Amazon Timestream](https://aws.amazon.com/timestream/) service.
+    introduced: 1.16.0
+    tags: [linux, macos, windows, cloud]
+
   - name: Amon
     id: amon
     description: |
@@ -1719,6 +1899,13 @@ output:
     introduced: 0.1.7
     tags: [linux, macos, windows, messaging]
 
+  - name: BigQuery
+    id: bigquery
+    description: |
+      The BigQuery output plugin writes to [Google Cloud's BigQuery](https://cloud.google.com/bigquery).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, cloud]
+
   - name: CrateDB
     id: cratedb
     description: |
@@ -1744,12 +1931,19 @@ output:
     introduced: 1.2.0
     tags: [linux, macos, windows]
 
+  - name: Dynatrace
+    id: dynatrace
+    description: |
+      The Dynatrace output plugin sends metrics to [Dynatrace](http://www.dynatrace.com).
+    introduced: 1.16.0
+    tags: [linux, macos, windows]
+
   - name: Elasticsearch
     id: elasticsearch
     description: |
       The Elasticsearch output plugin writes to Elasticsearch via HTTP using
-      [Elastic](http://olivere.github.io/elastic/). Currently it only supports
-      Elasticsearch 5.x series.
+      [Elastic](http://olivere.github.io/elastic/).
+      It supports Elasticsearch releases from 5.x up to 7.x.
     introduced: 0.1.5
     tags: [linux, macos, windows, data-stores]
 
@@ -1778,7 +1972,7 @@ output:
     id: cloud_pubsub
     description: |
       The Google PubSub output plugin publishes metrics to a [Google Cloud PubSub](https://cloud.google.com/pubsub)
-      topic as one of the supported [output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output).
+      topic as one of the supported [output data formats](/{{< latest "telegraf" >}}/data_formats/output).
     introduced: 1.10.0
     tags: [linux, macos, windows, messaging, cloud]
 
@@ -1788,6 +1982,13 @@ output:
       The Graphite output plugin writes to [Graphite](http://graphite.readthedocs.org/en/latest/index.html) via raw TCP.
     introduced: 0.10.1
     tags: [linux, macos, windows, data-stores]
+
+  - name: Grafani Loki
+    id: loki
+    description: |
+      The Grafana Loki output sends logs to [Loki](https://grafana.com/oss/loki/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, logging]
 
   - name: Graylog
     id: graylog
@@ -1848,6 +2049,13 @@ output:
     introduced: 0.2.0
     tags: [linux, macos, windows, cloud]
 
+  - name: Logz.io
+    id: logzio
+    description: |
+      The Logz.io output plugin sends metrics to Logz.io over HTTPs.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
+
   - name: Microsoft Azure Application Insights
     id: application_insights
     description: |
@@ -1883,7 +2091,7 @@ output:
     id: mqtt
     description: |
       The MQTT Producer output plugin writes to the MQTT server using
-      [supported output data formats](https://docs.influxdata.com/telegraf/latest/data_formats/output/).
+      [supported output data formats](/{{< latest "telegraf" >}}/data_formats/output/).
     introduced: 0.2.0
     tags: [linux, macos, windows, messaging, IoT]
 
@@ -1927,7 +2135,7 @@ output:
       The Prometheus Client output plugin starts a [Prometheus](https://prometheus.io/) Client,
       it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
     introduced: 0.2.1
-    tags: [linux, macos, windows, applications, data-stores]
+    tags: [linux, macos, windows, applications]
 
   - name: Riemann
     id: riemann
@@ -1944,6 +2152,20 @@ output:
     link: https://github.com/influxdata/telegraf/tree/master/plugins/outputs/riemann_legacy
     introduced: 0.2.3
     deprecated: 1.2.1
+    tags: [linux, macos, windows, applications]
+
+  - name: Sensu
+    id: sensu
+    description: |
+      The Sensu output plugin writes metrics events to [Sensu Go](https://sensu.io/).
+    introduced: 1.18.0
+    tags: [linux, macos, windows, applications]
+
+  - name: SignalFX
+    id: signalfx
+    description: |
+      The SignalFX output plugin sends metrics to [SignalFX](https://docs.signalfx.com/en/latest/).
+    introduced: 1.18.0
     tags: [linux, macos, windows, applications]
 
   - name: Socket Writer
@@ -1969,6 +2191,17 @@ output:
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
 
+  - name: Sumo Logic
+    id: sumologic
+    description: |
+      This plugin sends metrics to [Sumo Logic HTTP Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source/Upload-Metrics-to-an-HTTP-Source)
+      in HTTP messages using one of the following supported data formats
+      * `graphite` - for Content-Type of `application/vnd.sumologic.graphite`
+      * `carbon2` - for Content-Type of `application/vnd.sumologic.carbon2`
+      * `prometheus` - for Content-Type of `application/vnd.sumologic.prometheus`
+    introduced: 1.16.0
+    tags: [linux, macos, windows, logging]
+
   - name: Syslog
     id: syslog
     description: |
@@ -1991,6 +2224,19 @@ output:
     introduced: 1.5.0
     tags: [linux, macos, windows, applications, cloud]
 
+  - name: XML
+    id: xml
+    description: |
+      The XML parser plugin parses an XML string into metric fields using XPath expressions.
+    introduced: 1.18.0
+    tags: []
+
+  - name: Yandex Cloud Monitoring
+    id: yandex_cloud_monitoring
+    description: |
+      The Yandex Cloud Monitoring output plugin sends custom metrics to Yandex Cloud Monitoring.
+    introduced: 1.17.0
+    tags: [linux, macos, windows]
 
 #    %%%%    %%%%    %%%%   %%%%%   %%%%%%   %%%%    %%%%   %%%%%%   %%%%   %%%%%    %%%%    #
 #   %%  %%  %%      %%      %%  %%  %%      %%      %%  %%    %%    %%  %%  %%  %%  %%       #
@@ -2006,6 +2252,13 @@ aggregator:
       and `stdev` for a set of values, emitting the aggregate every period seconds.
     introduced: 1.5.0
     tags: [linux, macos, windows]
+
+  - name: Derivative
+    id: derivative
+    description: |
+      The derivative aggregator plugin estimates the derivative for all fields of the aggregated metrics.
+    introduced: 1.18.0
+    tags: []
 
   - name: Final
     id: final
@@ -2050,6 +2303,13 @@ aggregator:
     introduced: 1.1.0
     tags: [linux, macos, windows]
 
+  - name: Quantile
+    id: quantile
+    description: |
+      The quantile aggregator plugin aggregates specified quantiles for each numeric field per metric it sees and emits the quantiles every designated `period`.
+    introduced: 1.18.0
+    tags: []
+
   - name: ValueCounter
     id: valuecounter
     description: |
@@ -2077,6 +2337,13 @@ aggregator:
 #   %%      %%  %%   %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%  %%   %%%%    #
 
 processor:
+  - name: AWS EC2 Metadata
+    id: aws_ec2
+    description: |
+      The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
+    introduced: 1.18.0
+    tags: [linux, macos, windows, cloud]
+
   - name: Converter
     id: converter
     description: |
@@ -2141,6 +2408,13 @@ processor:
     description: |
       The `filepath` processor plugin maps certain Go functions from [path/filepath](https://golang.org/pkg/path/filepath/) onto tag and field values.
     introduced: 1.15.0
+    tags: [linux, macos, windows]
+
+  - name: GeoIP
+    id: geoip
+    description: |
+      The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
+    introduced: 1.18.0
     tags: [linux, macos, windows]
 
   - name: Network Interface Name

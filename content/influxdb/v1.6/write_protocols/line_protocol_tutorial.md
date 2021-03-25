@@ -474,7 +474,7 @@ on the [HTTP API](/influxdb/v1.6/tools/api/#write-http-endpoint), the
 [UDP](/influxdb/v1.6/tools/udp/),
 [Graphite](/influxdb/v1.6/tools/graphite/),
 [CollectD](/influxdb/v1.6/tools/collectd/), and
-[OpenTSDB](/influxdb/v1.6/tools/opentsdb/)).
+[OpenTSDB](/influxdb/v1.6/supported_protocols/opentsdb/)).
 
 ### Duplicate points
 

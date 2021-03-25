@@ -7,20 +7,10 @@
   {{ partial "footer/feature-callout.html" . }}
 
   <!-- Docsearch JS -->
-  <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script>
-  docsearch({
-    apiKey: 'ba4435a9d456ac0d954cc276206eac06',
-    appId: 'WHM9UWMP6M',
-    indexName: 'influxdata',
-    inputSelector: '#algolia-search-input',
-    // Set debug to true if you want to inspect the dropdown
-    debug: true,
-    algoliaOptions: {
-      'facetFilters': ["version:{{ $currentVersion }}"]
-  },
-  });
-  </script>
+  {{ partial "footer/search.html" . }}
+
+  <!-- Docs Notifications -->
+  {{ partial "footer/notifications.html" . }}
 
   </body>
   {{ partial "footer/javascript.html" . }}

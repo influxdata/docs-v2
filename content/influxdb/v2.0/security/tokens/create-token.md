@@ -3,14 +3,12 @@ title: Create a token
 seotitle: Create an authentication token in InfluxDB
 description: Create an authentication token in InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
-  - /v2.0/users/tokens/create-token/
+  - /influxdb/v2.0/users/tokens/create-token/
 menu:
   influxdb_2_0:
     name: Create a token
     parent: Manage tokens
 weight: 201
-aliases:
-  - /v2.0/security/tokens/create-token/
 ---
 
 Create authentication tokens using the InfluxDB user interface (UI) or the `influx`
@@ -34,9 +32,9 @@ Tokens are visible only to the user who created them and stop working when the u
 
 ## Create a token using the influx CLI
 
-Use the [`influx auth create` command](/v2.0/reference/cli/influx/auth/create) to create a token.
+Use the [`influx auth create` command](/influxdb/v2.0/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
-See the [available flags](/v2.0/reference/cli/influx/auth/create#flags).
+See the [available flags](/influxdb/v2.0/reference/cli/influx/auth/create#flags).
 
 ```sh
 # Syntax
@@ -44,7 +42,8 @@ influx auth create -o <org-name> [permission-flags]
 
 # Example
 influx auth create -o my-org \
-  --read-buckets 03a2bbf46309a000 03ace3a87c269000 \
+  --read-bucket 03a2bbf46309a000 \
+  --read-bucket 3a87c03ace269000 \
   --read-dashboards \
   --read-tasks \
   --read-telegrafs \
@@ -52,5 +51,5 @@ influx auth create -o my-org \
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/v2.0/reference/cli/influx/auth/list)
+See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.

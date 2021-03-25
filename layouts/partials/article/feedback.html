@@ -1,0 +1,46 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $latestV2 := cond (isset .Site.Data.products.influxdb "latest_override") .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ .Scratch.Set "product" (index $productPathData 0) }}
+{{ if in (.Scratch.Get "product") "influxdb" }}
+  {{ .Scratch.Set "product" "influxdb" }}
+{{ end }}
+
+{{ $product := .Scratch.Get "product" }}
+{{ $productName := (index .Site.Data.products $product).name }}
+{{ $supportBlacklist := slice "chronograf" "kapacitor" }}
+
+{{ if .File }}
+  {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
+  {{ if .Page.HasShortcode "duplicate-oss" }}
+    {{ .Scratch.Set "pageGithubLink" (replaceRE "/cloud/" (print "/" $latestV2 "/") (.Scratch.Get "pageGithubLink")) }}
+  {{ end }}
+{{ else }}
+  {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
+{{ end }}
+{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $product "/issues/new/choose/") }}
+{{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
+{{ $productGithubLink := .Scratch.Get "productGithubLink" }}
+
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for {{ $productName }} and this documentation.
+      To find support, the following resources are available:
+    </p>
+    <ul>
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
+    </ul>
+    {{ if not (in $supportBlacklist $product) }}
+      <p><strong>InfluxDB Cloud{{ if eq $product "influxdb" }} and InfluxDB Enterprise{{ end }} customers</strong> can <a href="mailto:support@influxdata.com" target="_blank">contact InfluxData Support</a>.</p>
+    {{ end }}
+  </div>
+  <div class="actions">
+    <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="{{ $productGithubLink }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+  </div>
+</div>

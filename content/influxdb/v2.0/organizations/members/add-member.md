@@ -7,15 +7,9 @@ menu:
     name: Add a member
     parent: Manage members
 weight: 201
-aliases:
-  - /v2.0/organizations/create-org/members/add-members/
 ---
 
 Use the `influx` command line interface (CLI) to add a member to an organization.
-
-{{% cloud %}}
-To manage members of an organization in {{< cloud-name >}}, see [Manage multiple users](/v2.0/account-management/multi-user/).
-{{% /cloud %}}
 
 <!-- ## Add a member to an organization in the InfluxDB UI
 
@@ -39,4 +33,4 @@ influx user list
 influx org members add -n <org-name> -m <user-ID>
 ```
 
-For more information, see the [`influx org members add` command](/v2.0/reference/cli/influx/org/members/add).
+For more information, see the [`influx org members add` command](/influxdb/v2.0/reference/cli/influx/org/members/add).

@@ -20,7 +20,7 @@ menu:
 
 | Setters | Description |
 |:---|:---|
-| **[idle](#idle)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on idle time since the last received message. Must be greater than zero.  |
+| **[idle](#idle)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on idle time since the last received message. Must be greater than zero **and longer than the window `period`**.  |
 | **[period](#period)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Emit barrier based on periodic timer.  The timer is based on system clock rather than message time. Must be greater than zero.  |
 
 
@@ -40,15 +40,16 @@ emitted barrier will be dropped.
 Example:
 
 
-```javascript
-    stream
-        |barrier().idle(5s)
-        |window()
-            .period(10s)
-            .every(5s)
-        |top(10, 'value')
-        //Post the top 10 results over the last 10s updated every 5s.
-        |httpPost('http://example.com/api/top10')
+```js
+stream
+  |barrier()
+    .idle(11s) // Must be longer than the window period
+  |window()
+    .period(10s)
+    .every(5s)
+  |top(10, 'value')
+  //Post the top 10 results over the last 10s updated every 5s.
+  |httpPost('http://example.com/api/top10')
 ```
 
 
@@ -66,12 +67,18 @@ Property methods are marked using the `.` operator.
 ### Idle
 
 Emit barrier based on idle time since the last received message.
-Must be greater than zero.
+Must be greater than zero **and longer than the associated window `period`**.
 
 
 ```javascript
 barrier.idle(value time.Duration)
 ```
+
+{{% warn %}}
+#### Barrier idle time and window period
+`idle` must be greater than `period` of the associated [window](/kapacitor/v1.4/nodes/window_node/).
+If `idle` times are less than the window `period`, data may be lost.
+{{% /warn %}}
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
@@ -421,7 +428,7 @@ Returns: [GroupByNode](/kapacitor/v1.4/nodes/group_by_node/)
 
 ### HoltWinters
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 
 
 ```javascript
@@ -434,7 +441,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.4/nodes/influx_q_l_node/)
 
 ### HoltWintersWithFit
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 This method also outputs all the points used to fit the data in addition to the forecasted data.
 
 

@@ -1,6 +1,6 @@
 ---
 title: Chronograf configuration options
-description: Details on configuration settings (command line options and environment variables) for Chronograf services, Kapacitor and InfluxDB connections, and OAuth 2.0 authentication providers.
+description: Review options available in the Chronograf configuration file and environment variables. 
 menu:
   chronograf_1_7:
     name: Configuration options
@@ -78,7 +78,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/chronograf/latest/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/v1.7/guides/using-precreated-dashboards) files.
 
 Default value: `/usr/share/chronograf/canned`
 
@@ -119,7 +119,7 @@ $ chronograf -v
 ## InfluxDB connection options
 
 > InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.src` file](/chronograf/v1.7/administration/creating-connections/#managing-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.src` file](/chronograf/v1.7/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
 
 ### `--influxdb-url=`
 
@@ -144,7 +144,7 @@ Environment variable: `$INFLUXDB_PASSWORD`
 ## Kapacitor connection options
 
 > Kapacitor connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.kap` file](/chronograf/v1.7/administration/creating-connections/#managing-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.kap` file](/chronograf/v1.7/administration/creating-connections/#manage-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
 
 ### `--kapacitor-url=`
 
@@ -345,7 +345,7 @@ Lists are comma-separated.
 
 ### Generic OAuth 2.0 authentication options
 
-See [Configuring Generic authentication](/chronograf/v1.7/administration/managing-security/#configure-generic-authentication) for more information.
+See [Configuring Generic authentication](/chronograf/v1.7/administration/managing-security/#configure-chronograf-to-use-any-oauth-2-0-provider) for more information.
 
 #### `--generic-name=`
 

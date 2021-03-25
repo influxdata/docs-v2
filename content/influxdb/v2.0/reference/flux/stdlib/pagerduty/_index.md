@@ -5,7 +5,7 @@ description: >
   The Flux PagerDuty package provides functions for sending data to PagerDuty.
   Import the `pagerduty` package.
 aliases:
-  - /v2.0/reference/flux/functions/pagerduty/
+  - /influxdb/v2.0/reference/flux/functions/pagerduty/
 menu:
   influxdb_2_0_ref:
     name: PagerDuty

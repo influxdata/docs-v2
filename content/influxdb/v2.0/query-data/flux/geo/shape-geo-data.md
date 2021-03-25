@@ -8,26 +8,15 @@ menu:
     name: Shape geo-temporal data
     parent: Geo-temporal data
 weight: 301
-aliases:
-  - /v2.0/query-data/flux/geo/shape-geo-data/
 related:
-  - /v2.0/reference/flux/stdlib/experimental/geo/
-  - /v2.0/reference/flux/stdlib/experimental/geo/shapedata/
-  - /v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/
 list_code_example: |
   ```js
   import "experimental/geo"
 
   sampleGeoData
-    |> map(fn: (r) => ({ r with
-      _field:
-        if r._field == "latitude" then "lat"
-        else if r._field == "longitude" then "lon"
-        else r._field
-      }))
-    |> map(fn: (r) => ({ r with
-      s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
-    }))  
+    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
   ```
 ---
 
@@ -40,7 +29,7 @@ Functions in the Geo package require the following data schema:
 
 ## Shape geo-temporal data
 If your data already contains latitude and longitude fields, use the
-[`geo.shapeData()`function](/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
+[`geo.shapeData()`function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
 to rename the fields to match the requirements of the Geo package, pivot the data
 into row-wise sets, and generate S2 cell ID tokens for each point.
 
@@ -66,7 +55,7 @@ Grid and S2 cell ID accuracy are defined by a [level](https://s2geometry.io/reso
 
 {{% note %}}
 To filter more quickly, use higher S2 Cell ID levels,
-but know that that higher levels increase [series cardinality](/v2.0/reference/glossary/#series-cardinality).
+but know that that higher levels increase [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
 {{% /note %}}
 
 The Geo package requires S2 cell IDs as tokens.
@@ -105,12 +94,13 @@ Library to generate `s2_cell_id` tags. For example:
 
 - **Go:** [s2.CellID.ToToken()](https://godoc.org/github.com/golang/geo/s2#CellID.ToToken)
 - **Python:** [s2sphere.CellId.to_token()](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
+- **Crystal:** [cell.to_token(level)](https://github.com/spider-gazelle/s2_cells#usage)
 - **JavaScript:** [s2.cellid.toToken()](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ### Generate S2 cell ID tokens with Flux
-Use the [`geo.s2CellIDToken()` function](/v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken/)
+Use the [`geo.s2CellIDToken()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken/)
 with existing longitude (`lon`) and latitude (`lat`) field values to generate and add the S2 cell ID token.
-First, use the [`geo.toRows()` function](/v2.0/reference/flux/stdlib/experimental/geo/torows/)
+First, use the [`geo.toRows()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/torows/)
 to pivot **lat** and **lon** fields into row-wise sets:
 
 ```js
@@ -126,6 +116,6 @@ from(bucket: "example-bucket")
 ```
 
 {{% note %}}
-The [`geo.shapeData()`function](/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
+The [`geo.shapeData()`function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/)
 generates S2 cell ID tokens as well.
 {{% /note %}}

@@ -1,5 +1,6 @@
 ---
 title: InfluxDB tools
+description: Tools and utilities for interacting with InfluxDB.
 aliases:
     - /influxdb/v1.8/clients/
     - /influxdb/v1.8/write_protocols/json/
@@ -7,34 +8,35 @@ menu:
   influxdb_1_8:
     name: Tools
     weight: 60
-
+v2: /influxdb/v2.0/tools/
 ---
 
 This section covers the available tools for interacting with InfluxDB.
 
-## [`influx` command line interface (CLI)](/influxdb/v1.8/tools/influx-cli/)
+## `influx` command line interface (CLI)
 
-The InfluxDB command line interface (`influx`) includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
+The [InfluxDB command line interface (`influx`)](/influxdb/v1.8/tools/influx-cli/)
+includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
 
-## [`influxd` command](/influxdb/v1.8/tools/influxd)
+## `influxd` command
 
-The `influxd` command starts and runs all the processes necessary for InfluxDB to function.
+The [`influxd` command](/influxdb/v1.8/tools/influxd) starts and runs all the processes necessary for InfluxDB to function.
 
-## [InfluxDB API client libraries](/influxdb/v1.8/tools/api_client_libraries/)
+## InfluxDB API client libraries
 
-The list of client libraries for interacting with the InfluxDB API.
+The list of [client libraries](/influxdb/v1.8/tools/api_client_libraries/) for interacting with the InfluxDB API.
 
-## [Influx Inspect disk shard utility](/influxdb/v1.8/tools/influx_inspect/)
+## Influx Inspect disk shard utility
 
-Influx Inspect is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
+[Influx Inspect](/influxdb/v1.8/tools/influx_inspect/) is a tool designed to view detailed information about on disk shards, as well as export data from a shard to line protocol that can be inserted back into the database.
 
-## [InfluxDB inch tool](/influxdb/v1.8/tools/inch/)
+## InfluxDB inch tool
 
-Use the InfluxDB inch tool to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
+Use the [InfluxDB `inch` tool](/influxdb/v1.8/tools/inch/) to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
 
 ## Graphs and dashboards
 
-Use [Chronograf](/chronograf/latest/) or [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/) dashboards to visualize your time series data.
+Use [Chronograf](/{{< latest "chronograf" >}}/) or [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/) dashboards to visualize your time series data.
 
 > **Tip:** Use template variables in your dashboards to filter meta query results by a specified period of time (see example below).
 
@@ -56,4 +58,4 @@ WHERE time > now() - 1h GROUP BY time(1h), host, team, status, location END;
 SHOW TAG VALUES FROM "your.system"."host_info" WITH KEY = “host”
 ```
 
-> **Note:** In Chronograf, you can also filter meta query results for a specified time range by [creating a `custom meta query` template variable](/chronograf/latest/guides/dashboard-template-variables/#create-custom-template-variables) and adding a time range filter.
+> **Note:** In Chronograf, you can also filter meta query results for a specified time range by [creating a `custom meta query` template variable](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/#create-custom-template-variables) and adding a time range filter.

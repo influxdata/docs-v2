@@ -4,7 +4,7 @@ description: >
   The `slack.message()` function sends a single message to a Slack channel.
   The function works with either with the chat.postMessage API or with a Slack webhook.
 aliases:
-  - /v2.0/reference/flux/functions/slack/message/
+  - /influxdb/v2.0/reference/flux/functions/slack/message/
 menu:
   influxdb_2_0_ref:
     name: slack.message
@@ -24,11 +24,8 @@ import "slack"
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "Fluxtastic",
   channel: "#flux",
-  workspace: "",
   text: "This is a message from the Flux slack.message() function.",
-  iconEmoji: "wave",
   color: "good"
 )
 ```
@@ -52,47 +49,23 @@ used to interact with Slack.
 Defaults to `""`.
 
 {{% note %}}
-A token is only required if using the Slack chat.postMessage API.
+A token is only required if using the Slack `chat.postMessage` API.
 {{% /note %}}
-
-_**Data type:** String_
-
-### username
-The username to use when posting the message to a Slack channel. <span class="required">Required</span>
 
 _**Data type:** String_
 
 ### channel
-The name of channel to post the message to. <span class="required">Required</span>
-
-_**Data type:** String_
-
-### workspace
-The name of the Slack workspace to use if there are multiple.
-Defaults to `""`.
+({{< req >}}) The name of channel to post the message to.
 
 _**Data type:** String_
 
 ### text
-The text to display in the Slack message. <span class="required">Required</span>
+({{< req >}}) The text to display in the Slack message.
 
 _**Data type:** String_
-
-### iconEmoji
-The name of emoji to use as the user avatar when posting the message to Slack.
-<span class="required">Required</span>
-
-_**Data type:** String_
-
-{{% note %}}
-#### Things to know about iconEmoji
-- **Do not** enclose the name in colons `:` as you do in the Slack client.
-- `iconEmoji` only appears as the user avatar when using the Slack chat.postMessage API.
-{{% /note %}}
 
 ### color
-The color to include with the message.
-<span class="required">Required</span>
+({{< req >}}) The color to include with the message.
 
 **Valid values include:**
 
@@ -105,7 +78,26 @@ _**Data type:** String_
 
 ## Examples
 
-##### Send the last reported status to Slack
+##### Send the last reported status to Slack using a Slack webhook
+```js
+import "slack"
+
+lastReported =
+  from(bucket: "example-bucket")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses")
+    |> last()
+    |> findRecord(fn: (key) => true, idx: 0)
+
+slack.message(
+  url: "https://hooks.slack.com/services/EXAMPLE-WEBHOOK-URL",
+  channel: "#system-status",
+  text: "The last reported status was \"${lastReported.status}\"."
+  color: "warning"
+)
+```
+
+##### Send the last reported status to Slack using chat.postMessage API
 ```js
 import "slack"
 
@@ -120,8 +112,8 @@ lastReported =
 slack.message(
   url: "https://slack.com/api/chat.postMessage",
   token: "mySuPerSecRetTokEn",
-  username: "johndoe",
   channel: "#system-status",
   text: "The last reported status was \"${lastReported.status}\"."
+  color: "warning"
 )
 ```

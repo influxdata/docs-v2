@@ -2,8 +2,8 @@
 title: duplicate() function
 description: The `duplicate()` function duplicates a specified column in a table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/duplicate
-  - /v2.0/reference/flux/functions/built-in/transformations/duplicate/
+  - /influxdb/v2.0/reference/flux/functions/transformations/duplicate
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/duplicate/
 menu:
   influxdb_2_0_ref:
     name: duplicate
@@ -16,7 +16,7 @@ If the specified column is part of the group key, it will be duplicated, but wil
 not be part of the output table's group key.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 duplicate(column: "column-name", as: "duplicate-name")

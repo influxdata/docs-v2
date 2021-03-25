@@ -15,7 +15,7 @@ has become a popular way to deploy and manage containers across multiple servers
 {{% note %}}
 This page is about using Kubernetes with the TICK stack and 1.x versions of InfluxDB.
 
-To start experimenting with InfluxDB 2.0 and Kubernetes, go to the **Kubernetes** section of the [Get Started page for InfluxDB 2.0](https://v2.docs.influxdata.com/v2.0/get-started/).
+To start experimenting with InfluxDB 2.0 and Kubernetes, go to the **Kubernetes** section of the [Get Started page for InfluxDB 2.0](/influxdb/v2.0/get-started/).
 {{% /note %}}
 
 There are several ways use the InfluxData Platform with Kubernetes:
@@ -47,7 +47,7 @@ See the [kube-influxdb Getting Started guide](https://github.com/influxdata/kube
 
 ### Collect Kubernetes metrics with Telegraf
 
-The [Telegraf metrics collection agent](/telegraf/latest/introduction/getting-started/)
+The [Telegraf metrics collection agent](/{{< latest "telegraf" >}}/introduction/getting-started/)
 can collect many types of metrics in a Kubernetes cluster, like [Docker container metrics](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/docker/README.md)
 and [stats from kubelets](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kubernetes).
 It can even scrape [Prometheus metrics API endpoints](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/prometheus).
@@ -63,7 +63,7 @@ using Prometheus for metrics collection. See the
 [FAQ](#frequently-asked-questions) for more information on why a more flexible
 time series data store is useful.
 
-Read about [Prometheus remote read and write API support in InfluxDB](/influxdb/latest/supported_protocols/prometheus/).
+Read about [Prometheus remote read and write API support in InfluxDB](/{{< latest "influxdb" "v1" >}}/supported_protocols/prometheus/).
 
 ## Deploy the TICK stack in Kubernetes
 Instructions for installing and configuring all components of the open source

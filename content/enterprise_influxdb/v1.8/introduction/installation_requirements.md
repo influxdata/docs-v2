@@ -1,10 +1,11 @@
 ---
 title: Installation requirements
+description: Requirements for installing and deploying InfluxDB Enterprise.
 aliases:
   - /enterprise_influxdb/v1.8/introduction/meta_node_installation/
   - /enterprise_influxdb/v1.8/introduction/data_node_installation/
-  - /chronograf/latest/introduction/installation
   - /enterprise/v1.8/introduction/installation_guidelines/
+  - /enterprise_influxdb/v1.8/introduction/installation_guidelines/
 menu:
   enterprise_influxdb_1_8:
     weight: 20

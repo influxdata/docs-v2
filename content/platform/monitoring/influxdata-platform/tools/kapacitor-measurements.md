@@ -37,63 +37,63 @@ Kapacitor exposes the following measurements and fields through the
 `/kacapitor/v1/debug/vars` endpoint.
 
 - [kapacitor](#kapacitor)
-    - [num_enabled_tasks](#num_enabled_tasks)
-    - [num_subscriptions](#num_subscriptions)
-    - [num_tasks](#num_tasks)
-- [kapacitor_edges](#kapacitor_edges)
+    - [num_enabled_tasks](#num-enabled-tasks)
+    - [num_subscriptions](#num-subscriptions)
+    - [num_tasks](#num-tasks)
+- [kapacitor_edges](#kapacitor-edges)
     - [collected](#collected)
     - [emitted](#emitted)
-- [kapacitor_ingress](#kapacitor_ingress)
-    - [points_received](#points_received)
-- [kapacitor_load](#kapacitor_load)
+- [kapacitor_ingress](#kapacitor-ingress)
+    - [points_received](#points-received)
+- [kapacitor_load](#kapacitor-load)
     - [errors](#errors)
-- [kapacitor_memstats](#kapacitor_memstats)
-    - [alloc_bytes](#alloc_bytes)
-    - [buck_hash_sys_bytes](#buck_hash_sys_bytes)
+- [kapacitor_memstats](#kapacitor-memstats)
+    - [alloc_bytes](#alloc-bytes)
+    - [buck_hash_sys_bytes](#buck-hash-sys-bytes)
     - [frees](#frees)
-    - [gc_sys_bytes](#gc_sys_bytes)
-    - [gcc_pu_fraction](#gcc_pu_fraction)
-    - [heap_alloc_bytes](#heap_alloc_bytes)
-    - [heap_idle_bytes](#heap_idle_bytes)
-    - [heap_in_use_bytes](#heap_in_use_bytes)
-    - [heap_objects](#heap_objects)
-    - [heap_released_bytes](#heap_released_bytes)
-    - [heap_sys_bytes](#heap_sys_bytes)
-    - [last_gc_ns](#last_gc_ns)
+    - [gc_sys_bytes](#gc-sys-bytes)
+    - [gcc_pu_fraction](#gcc-pu-fraction)
+    - [heap_alloc_bytes](#heap-alloc-bytes)
+    - [heap_idle_bytes](#heap-idle-bytes)
+    - [heap_in_use_bytes](#heap-in-use-bytes)
+    - [heap_objects](#heap-objects)
+    - [heap_released_bytes](#heap-released-bytes)
+    - [heap_sys_bytes](#heap-sys-bytes)
+    - [last_gc_ns](#last-gc-ns)
     - [lookups](#lookups)
     - [mallocs](#mallocs)
-    - [mcache_in_use_bytes](#mcache_in_use_bytes)
-    - [mcache_sys_bytes](#mcache_sys_bytes)
-    - [mspan_in_use_bytes](#mspan_in_use_bytes)
-    - [mspan_sys_bytes](#mspan_sys_bytes)
-    - [next_gc_ns](#next_gc_ns)
-    - [num_gc](#num_gc)
-    - [other_sys_bytes](#other_sys_bytes)
-    - [pause_total_ns](#pause_total_ns)
-    - [stack_in_use_bytes](#stack_in_use_bytes)
-    - [stack_sys_bytes](#stack_sys_bytes)
-    - [sys_bytes](#sys_bytes)
-    - [total_alloc_bytes](#total_alloc_bytes)
-- [kapacitor_nodes](#kapacitor_nodes)
-    - [alerts_inhibited](#alerts_inhibited)
-    - [alerts_triggered](#alerts_triggered)
-    - [avg_exec_time_ns](#avg_exec_time_ns)
-    - [crits_triggered](#crits_triggered)
+    - [mcache_in_use_bytes](#mcache-in-use-bytes)
+    - [mcache_sys_bytes](#mcache-sys-bytes)
+    - [mspan_in_use_bytes](#mspan-in-use-bytes)
+    - [mspan_sys_bytes](#mspan-sys-bytes)
+    - [next_gc_ns](#next-gc-ns)
+    - [num_gc](#num-gc)
+    - [other_sys_bytes](#other-sys-bytes)
+    - [pause_total_ns](#pause-total-ns)
+    - [stack_in_use_bytes](#stack-in-use-bytes)
+    - [stack_sys_bytes](#stack-sys-bytes)
+    - [sys_bytes](#sys-bytes)
+    - [total_alloc_bytes](#total-alloc-bytes)
+- [kapacitor_nodes](#kapacitor-nodes)
+    - [alerts_inhibited](#alerts-inhibited)
+    - [alerts_triggered](#alerts-triggered)
+    - [avg_exec_time_ns](#avg-exec-time-ns)
+    - [crits_triggered](#crits-triggered)
     - [errors](#errors)
-    - [infos_triggered](#infos_triggered)
-    - [oks_triggered](#oks_triggered)
-    - [points_written](#points_written)
-    - [warns_triggered](#warns_triggered)
-    - [write_errors](#write_errors)
-- [kapacitor_topics](#kapacitor_topics)
+    - [infos_triggered](#infos-triggered)
+    - [oks_triggered](#oks-triggered)
+    - [points_written](#points-written)
+    - [warns_triggered](#warns-triggered)
+    - [write_errors](#write-errors)
+- [kapacitor_topics](#kapacitor-topics)
     - [collected](#collected)
 
 ---
 
 ### kapacitor
 The `kapacitor` measurement stores fields with information related to
-[Kapacitor tasks](/kapacitor/latest/introduction/getting-started/#kapacitor-tasks)
-and [subscriptions](/kapacitor/latest/administration/subscription-management/).
+[Kapacitor tasks](/{{< latest "kapacitor" >}}/introduction/getting-started/#kapacitor-tasks)
+and [subscriptions](/{{< latest "kapacitor" >}}/administration/subscription-management/).
 
 #### num_enabled_tasks
 The number of enabled Kapacitor tasks.
@@ -108,7 +108,7 @@ The total number of Kapacitor tasks.
 
 ### kapacitor_edges
 The `kapacitor_edges` measurement stores fields with information related to
-[edges](/kapacitor/latest/tick/introduction/#pipelines)
+[edges](/{{< latest "kapacitor" >}}/tick/introduction/#pipelines)
 in Kapacitor TICKscripts.
 
 #### collected
@@ -130,7 +130,7 @@ The number of points received by Kapacitor.
 
 ### kapacitor_load
 The `kapacitor_load` measurement stores fields with information related to the
-[Kapacitor Load Directory service](/kapacitor/latest/guides/load_directory/).
+[Kapacitor Load Directory service](/{{< latest "kapacitor" >}}/guides/load_directory/).
 
 #### errors
 The number of errors reported from the load directory service.
@@ -225,7 +225,7 @@ The total number of bytes allocated, even if freed.
 
 ### kapacitor_nodes
 The `kapacitor_nodes` measurement stores fields related to events that occur in
-[TICKscript nodes](/kapacitor/latest/nodes/).
+[TICKscript nodes](/{{< latest "kapacitor" >}}/nodes/).
 
 #### alerts_inhibited
 The total number of alerts inhibited by TICKscripts.
@@ -264,7 +264,7 @@ The number of errors that occurred when writing to InfluxDB or other write endpo
 
 ### kapacitor_topics
 The `kapacitor_topics` measurement stores fields related to
-[Kapacitor topics](/kapacitor/latest/working/using_alert_topics/).
+[Kapacitor topics](/{{< latest "kapacitor" >}}/working/using_alert_topics/).
 
 #### collected
 The number of events collected by Kapacitor topics.  

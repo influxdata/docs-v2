@@ -92,12 +92,12 @@ Function operators facilitate the creation of functions and control the flow of 
 |:--------:            |:-----------        | --------                             | -------                                                                                                                                                                 |
 | <code>&#124;></code> | Pipe&#8209;forward | <code>data &#124;> function()</code> | Tables contained in the "data" variable are piped into the function.                                                                                                    |
 | `<-`                 | Pipe&#8209;receive | `tables=<-`                          | The "tables" variable or parameter is assigned to data piped into the operation. _This operator is used for any data type passed into a function; not just table data._ |
-| `=>`                 | Arrow              | `(r) => r.tag1 == "tagvalue"`        | The arrow passes an object or parameters into function operations.                                                                                                      |
+| `=>`                 | Arrow              | `(r) => r.tag1 == "tagvalue"`        | The arrow passes a record or parameters into function operations.                                                                                                      |
 | `()`                 | Function call      | `top(n:10)`                          | Call the `top` function setting the `n` parameter to `10` and perform the associated operations.                                                                        |
 
 ---
 
-_See [Custom functions](/v2.0/query-data/flux/custom-functions) for examples of function operators is use._
+_See [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) for examples of function operators is use._
 
 ---
 
@@ -116,7 +116,7 @@ Literal constructors define fixed values.
 | Operator | Description  |
 |:--------:| -----------  |
 | `[ ]`    | List / array |
-| `{ }`    | Object       |
+| `{ }`    | Record       |
 | `""`     | String       |
 
 ## Miscellaneous operators
@@ -131,19 +131,21 @@ Literal constructors define fixed values.
 The table below outlines operator precedence.
 Operators with a lower number have higher precedence.
 
-| Precedence | Operator           | Description               |
-|:----------:|:--------:          |:--------------------------|
-| 1          | `a()`              | Function call             |
-|            | `a[]`              | Member or index access    |
-|            | `.`                | Member access             |
-| 2          | `*` `/`            |Multiplication and division|
-| 3          | `+` `-`            | Addition and subtraction  |
-| 4          |`==` `!=`           | Comparison operators      |
-|            | `<` `<=`           |                           |
-|            | `>` `>=`           |                           |
-|            |`=~` `!~`           |                           |
-| 5          | `not`              | Unary logical operator    |
-|            | `exists`           | Null check operator       |
-| 6          | `and`              | Logical AND               |
-| 7          | `or`               | Logical OR                |
-| 8          | `if` `then` `else` | Conditional               |
+| Precedence | Operator           | Description                          |
+|:----------:|:--------:          |:--------------------------           |
+| 1          | `a()`              | Function call                        |
+|            | `a[]`              | Member or index access               |
+|            | `.`                | Member access                        |
+| 2          | <code>\|></code>   | Pipe forward                         |
+| 3          | `^`                | Exponentiation                       |
+| 4          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 5          | `+` `-`            | Addition and subtraction             |
+| 6          |`==` `!=`           | Comparison operators                 |
+|            | `<` `<=`           |                                      |
+|            | `>` `>=`           |                                      |
+|            |`=~` `!~`           |                                      |
+| 7          | `not`              | Unary logical operator               |
+|            | `exists`           | Null check operator                  |
+| 8          | `and`              | Logical AND                          |
+| 9          | `or`               | Logical OR                           |
+| 10         | `if` `then` `else` | Conditional                          |

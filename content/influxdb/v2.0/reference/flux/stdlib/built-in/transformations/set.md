@@ -2,8 +2,8 @@
 title: set() function
 description: The `set()` function assigns a static value to each record in the input table.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/set
-  - /v2.0/reference/flux/functions/built-in/transformations/set/
+  - /influxdb/v2.0/reference/flux/functions/transformations/set
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/set/
 menu:
   influxdb_2_0_ref:
     name: set
@@ -16,7 +16,7 @@ The key may modify an existing column or add a new column to the tables.
 If the modified column is part of the group key, the output tables are regrouped as needed.
 
 _**Function type:** Transformation_  
-_**Output data type:** Object_
+_**Output data type:** Record_
 
 ```js
 set(key: "myKey",value: "myValue")

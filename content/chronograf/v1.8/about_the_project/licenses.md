@@ -1,5 +1,6 @@
 ---
 title: Open source license for Chronograf
+description: Find the open source license for Chronograf.
 menu:
   chronograf_1_8:
     Name: Open source license

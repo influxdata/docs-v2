@@ -7,8 +7,6 @@ menu:
     name: Delete a bucket
     parent: Manage buckets
 weight: 203
-aliases:
-  - /v2.0/organizations/create-org/buckets/delete-bucket/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
@@ -25,7 +23,7 @@ to delete a bucket.
 
 ## Delete a bucket using the influx CLI
 
-Use the [`influx bucket delete` command](/v2.0/reference/cli/influx/bucket/delete)
+Use the [`influx bucket delete` command](/influxdb/v2.0/reference/cli/influx/bucket/delete)
 to delete a bucket a bucket by name or ID.
 
 ### Delete a bucket by name

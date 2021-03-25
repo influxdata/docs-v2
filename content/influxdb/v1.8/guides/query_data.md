@@ -1,5 +1,6 @@
 ---
 title: Query data with the InfluxDB API
+description: Query data with Flux and InfluxQL in the InfluxDB API.
 alias:
   -/docs/v1.8/query_language/querying_data/
 menu:
@@ -8,6 +9,7 @@ menu:
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/querying_data/
+v2: /influxdb/v2.0/query-data/
 ---
 
 
@@ -37,7 +39,7 @@ $ curl -XPOST localhost:8086/api/v2/query -sS \
         |> range(start:-5m)
         |> filter(fn:(r) => r._measurement == "cpu")'  
 ```
-Flux returns [annotated CSV](https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/):
+Flux returns [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/):
 
 ```
 {,result,table,_start,_stop,_time,_value,_field,_measurement,cpu,host
@@ -51,7 +53,7 @@ The header row defines column labels for the table. The `cpu` [measurement](/inf
 
 ### Flux
 
-Check out the [Get started with Flux](https://v2.docs.influxdata.com/v2.0/query-data/get-started/) to learn more about building queries with Flux.
+Check out the [Get started with Flux](/influxdb/v2.0/query-data/get-started/) to learn more about building queries with Flux.
 For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints).
 
 ## Query data with InfluxQL
@@ -105,5 +107,5 @@ While this is useful for debugging or when querying directly with tools like `cu
 
 ### InfluxQL
 
-Check out the [Data Exploration page](/influxdb/v1.8/query_language/data_exploration/) to get acquainted with InfluxQL.
+Check out the [Data Exploration page](/influxdb/v1.8/query_language/explore-data/) to get acquainted with InfluxQL.
 For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/influxdb/v1.8/tools/api/#influxdb-1-x-http-endpoints).

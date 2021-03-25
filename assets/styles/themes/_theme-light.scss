@@ -82,6 +82,7 @@ $article-table-scrollbar: $g14-chromium !default;
 $article-note-base: $gr-rainforest !default;
 $article-note-heading: $gr-emerald !default;
 $article-note-text: $gr-emerald !default;
+$article-note-strong: $gr-emerald !default;
 $article-note-link: $b-ocean !default;
 $article-note-link-hover: $br-magenta !default;
 $article-note-table-header: $grad-green-dark !default;
@@ -176,11 +177,20 @@ $landing-btn-text: $g20-white !default;
 $landing-btn-grad: $grad-blue !default;
 $landing-btn-grad-hover: $grad-blue-light !default;
 
+// Home page colors
+$home-btn-gradient: $grad-NineteenEightyFour !default;
+$home-btn-gradient-hover: $grad-PastelGothic !default;
+$home-tick-bg-gradient: $grad-grey-mist !default;
+$default-home-card-gradient: $grad-PastelGothic !default;
+
 // Tooltip colors
 $tooltip-color: $p-amethyst !default;
 $tooltip-color-alt: $p-twilight !default;
 $tooltip-bg: $p-amethyst !default;
 $tooltip-text: $g20-white !default;
+
+// Support and feedback buttons
+$feedback-btn-bg: $g16-pearl !default;
 
 // URL Modal colors
 $modal-field-bg: $g20-white !default;
@@ -198,6 +208,9 @@ $svg-table-code-string: #12A290 !default;
 $svg-geo-s2-cell: $b-hydrogen !default;
 $svg-geo-region: $br-galaxy !default;
 $svg-geo-point: $p-potassium !default;
+
+// Diagram colors
+$diagram-arrow: $g14-chromium !default;
 
 @import "light/telegraf",
         "light/chronograf",

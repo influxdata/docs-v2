@@ -8,8 +8,6 @@ menu:
   influxdb_2_0:
     name: Visualize data
 weight: 5
-aliases:
-  - /v2.0/visualize-data/
 ---
 
 The InfluxDB user interface (UI) provides tools for building custom dashboards to visualize your data.

@@ -1,6 +1,6 @@
 ---
-title: Analyzing logs with Chronograf
-description: View, search, filter, visualize, and analyze log information using Chronograf and InfluxDB.
+title: Analyze logs with Chronograf
+description: Analyze log information using Chronograf.
 menu:
   chronograf_1_8:
     weight: 120
@@ -11,11 +11,11 @@ Chronograf gives you the ability to view, search, filter, visualize, and analyze
 This helps to recognize and diagnose patterns, then quickly dive into logged events that lead up to events.
 
 ## Logging setup
-Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/telegraf/latest/plugins/inputs/):
+Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins):
 
 [syslog](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/syslog)  
 
-## Viewing logs in Chronograf
+## View logs in Chronograf
 Chronograf has a dedicated log viewer accessed by clicking the **Log Viewer** button in the left navigation.
 
 <img src="/img/chronograf/1-6-logs-nav-log-viewer.png" alt="Log viewer in the left nav" style="width:100%;max-width:209px;"/>
@@ -27,7 +27,7 @@ _Other log inputs and alternate log measurement options will be available in fut
 
 <img src="/img/chronograf/1-7-log-viewer-overview.png" alt="Chronograf log viewer" style="width:100%;max-width:1016px;"/>
 
-### Searching and filtering logs
+### Search and filter logs
 Search for logs using keywords or regular expressions.
 They can also be filtered by clicking values in the log table such as `severity` or `facility`.
 Any tag values included with the log entry can be used as a filter.
@@ -40,14 +40,14 @@ You can also use search operators to filter your results. For example, if you wa
 
 To remove filters, click the `×` next to the tag key by which you no longer want to filter.
 
-### Selecting specific times
+### Select specific times
 In the log viewer, you can select time ranges from which to view logs.
 By default, logs are streamed and displayed relative to "now," but it is possible to view logs from a past window of time.
 timeframe selection allows you to go to to a specific event and see logs for a time window both preceding and following that event. The default window is one minute, meaning the graph shows logs from thirty seconds before and the target time. Click the dropdown menu change the window.
 
 ![Selecting time ranges](/img/chronograf/1-7-log-viewer-specific-time.gif)
 
-## Configuring the log viewer
+## Configure the log viewer
 The log viewer can be customized to fit your specific needs.
 Open the log viewer configuration options by clicking the gear button in the top right corner of the log viewer. Once done, click **Save** to apply the changes.
 

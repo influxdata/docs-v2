@@ -2,7 +2,7 @@
 title: math.log2() function
 description: The math.log2() function returns the binary logarithm of `x`.
 aliases:
-  - /v2.0/reference/flux/functions/math/log2/
+  - /influxdb/v2.0/reference/flux/functions/math/log2/
 menu:
   influxdb_2_0_ref:
     name: math.log2

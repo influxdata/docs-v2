@@ -7,14 +7,12 @@ menu:
     name: Update endpoints
     parent: Manage notification endpoints
 weight: 203
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/update/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
-To update the notification endpoint details, complete the procedures below as needed. To update the notification endpoint selected for a notification rule, see [update notification rules](/v2.0/monitor-alert/notification-rules/update/).
+To update the notification endpoint details, complete the procedures below as needed. To update the notification endpoint selected for a notification rule, see [update notification rules](/influxdb/v2.0/monitor-alert/notification-rules/update/).
 
 ## Add a label to notification endpoint
 
@@ -65,4 +63,4 @@ To update the notification endpoint details, complete the procedures below as ne
 2. Select **Notification Endpoints** near to top of the page.
 3. Click the endpoint to update.
 4. Update details as needed, and then click **Edit Notification Endpoint**.
-   For details about each field, see [Create notification endpoints](/v2.0/monitor-alert/notification-endpoints/create/).
+   For details about each field, see [Create notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/create/).

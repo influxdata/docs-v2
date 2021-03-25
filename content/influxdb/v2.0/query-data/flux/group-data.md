@@ -2,7 +2,7 @@
 title: Group data in InfluxDB with Flux
 list_title: Group
 description: >
-  Use the [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group)
+  Use the [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group)
   to group data with common values in specific columns.
 influxdb/v2.0/tags: [group]
 menu:
@@ -11,11 +11,10 @@ menu:
     parent: Query with Flux
 weight: 202
 aliases:
-  - /v2.0/query-data/guides/group-data/
-  - /v2.0/query-data/flux/group-data/
+  - /influxdb/v2.0/query-data/guides/group-data/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/transformations/group
-  - /v2.0/reference/flux/stdlib/experimental/group
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/group
 list_query_example: group
 ---
 
@@ -25,11 +24,11 @@ This guide walks through grouping data in Flux and provides examples of how data
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys
-Every table has a **group key** – a list of columns which for which every row in the table has the same value.
+Every table has a **group key** – a list of columns for which every row in the table has the same value.
 
 ###### Example group key
 ```js
@@ -41,7 +40,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/v2.0/reference/flux/stdlib/built-in/transformations/group) defines the
+Flux's [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

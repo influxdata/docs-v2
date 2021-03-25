@@ -2,8 +2,8 @@
 title: fill() function
 description: The `fill()` function replaces all null values in an input stream and replace them with a non-null value.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/fill
-  - /v2.0/reference/flux/functions/built-in/transformations/fill/
+  - /influxdb/v2.0/reference/flux/functions/transformations/fill
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/fill/
 menu:
   influxdb_2_0_ref:
     name: fill
@@ -11,7 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/fill/
-  - https://docs.influxdata.com/influxdb/latest/query_language/data_exploration/#group-by-time-intervals-and-fill, InfluxQL – FILL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals-and-fill, InfluxQL – FILL
 ---
 
 The `fill()` function replaces all null values in an input stream with a non-null value.

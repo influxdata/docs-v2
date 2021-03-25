@@ -1,6 +1,7 @@
 ---
 title: Chronograf configuration options
-description: Details on configuration settings (command line options and environment variables) for Chronograf services, Kapacitor and InfluxDB connections, and OAuth 2.0 authentication providers.
+description: >
+  Options available in the Chronograf configuration file and environment variables.
 menu:
   chronograf_1_8:
     name: Configuration options
@@ -8,7 +9,7 @@ menu:
     parent: Administration
 ---
 
-Chronograf is configured using the configuration file (/etc/default/chronograf) and environment variables. If you do not uncomment a configuration option, the system uses its default setting. The configuration settings in this document are set to their default settings. For more information, see [Configuration Chronograf](/chronograf/v1.8/administration/configuration/).
+Chronograf is configured using the configuration file (/etc/default/chronograf) and environment variables. If you do not uncomment a configuration option, the system uses its default setting. The configuration settings in this document are set to their default settings. For more information, see [Configure Chronograf](/chronograf/v1.8/administration/configuration/).
 
 * [Usage](#usage)
 * [Chronograf service options](#chronograf-service-options)
@@ -63,7 +64,6 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 
 > ***Note:*** Command line options take precedence over corresponding environment variables.
 
-
 ## Chronograf service options
 
 #### `--host=`
@@ -94,7 +94,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/chronograf/latest/guides/using-precreated-dashboards) files.
+The path to the directory of [canned dashboards](/chronograf/v1.8/guides/using-precreated-dashboards) files. Canned dashboards (also known as pre-created dashboards or application layouts) cannot be edited. They're delivered with Chronograf and available depending on which Telegraf input plugins you have enabled.
 
 Default value: `/usr/share/chronograf/canned`
 
@@ -102,7 +102,11 @@ Environment variable: `$CANNED_PATH`
 
 #### `--resources-path=`
 
-Path to directory of canned dashboards, sources, Kapacitor connections, and organizations.
+Path to directory of sources (.src files), Kapacitor connections (.kap files), organizations (.org files), and dashboards (.dashboard files).
+
+{{% note %}}
+**Note:** If you have a dashboard with the `.json` extension, rename it with the `.dashboard` extension in this directory to ensure the dashboard is loaded.
+{{% /note %}}
 
 Default value: `/usr/share/chronograf/resources`
 
@@ -135,7 +139,7 @@ $ chronograf -v
 ## InfluxDB connection options
 
 > InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.src` file](/chronograf/v1.8/administration/creating-connections/#managing-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.src` file](/chronograf/v1.8/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
 
 ### `--influxdb-url=`
 
@@ -160,7 +164,7 @@ Environment variable: `$INFLUXDB_PASSWORD`
 ## Kapacitor connection options
 
 > Kapacitor connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
-> To persist connection details, [include them in a `.kap` file](/chronograf/v1.8/administration/creating-connections/#managing-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
+> To persist connection details, [include them in a `.kap` file](/chronograf/v1.8/administration/creating-connections/#manage-kapacitor-connections-using-kap-files) located in your [`--resources-path`](#resources-path).
 
 ### `--kapacitor-url=`
 
@@ -204,7 +208,29 @@ Environment variable: `$TLS_PRIVATE_KEY`
 
 List of etcd endpoints.
 
+##### CLI example
+
+```sh
+## Single parameter
+--etcd-endpoints=localhost:2379
+
+## Mutiple parameters
+--etcd-endpoints=localhost:2379 \
+--etcd-endpoints=192.168.1.61:2379 \
+--etcd-endpoints=192.192.168.1.100:2379
+```
+
 Environment variable: `$ETCD_ENDPOINTS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+ETCD_ENDPOINTS=localhost:2379
+
+## Mutiple parameters
+ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
+```
 
 #### `--etcd-username=`
 
@@ -233,6 +259,18 @@ Total time to wait before timing out an etcd view or update request.
 The default is 1s.
 
 Environment variable: `$ETCD_REQUEST_TIMEOUT`
+
+#### `--etcd-cert=`
+
+Path to etcd PEM-encoded TLS public key certificate.
+
+Environment variable: `$ETCD_CERTIFICATE`
+
+#### `--etcd-key=`
+
+Path to private key associated with specified etcd certificate.
+
+Environment variable: `$ETCD_PRIVATE_KEY`
 
 ### Other service options
 
@@ -279,12 +317,6 @@ Environment variable: `$HOST_PAGE_DISABLED=true`
 
 ### General authentication options
 
-#### `--token-secret=` | `-t`
-
-The secret for signing tokens.
-
-Environment variable: `$TOKEN_SECRET`
-
 #### `--auth-duration=`
 
 The total duration (in hours) of cookie life for authentication.
@@ -295,6 +327,14 @@ Authentication expires on browser close when `--auth-duration=0`.
 
 Environment variable: `$AUTH_DURATION`
 
+#### `--inactivity-duration=`
+
+The duration that a token is valid without any new activity.
+
+Default value: `5m`
+
+Environment variable: `$INACTIVITY_DURATION`
+
 #### `--public-url=`
 
 The public URL required to access Chronograf using a web browser. For example, if you access Chronograf using the default URL, the public URL value would be `http://localhost:8888`.
@@ -302,6 +342,11 @@ Required for Google OAuth 2.0 authentication. Used for Auth0 and some generic OA
 
 Environment variable: `$PUBLIC_URL`
 
+#### `--token-secret=` | `-t`
+
+The secret for signing tokens.
+
+Environment variable: `$TOKEN_SECRET`
 
 ### GitHub-specific OAuth 2.0 authentication options
 
@@ -323,7 +368,29 @@ Environment variable: `$GH_CLIENT_SECRET`
 
 [Optional] Specify a GitHub organization membership required for a user.
 
+##### CLI example
+
+```sh
+## Single parameter
+--github-organization=org1
+
+## Mutiple parameters
+--github-organization=org1 \
+--github-organization=org2 \
+--github-organization=org3
+```
+
 Environment variable: `$GH_ORGS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+GH_ORGS=org1
+
+## Mutiple parameters
+GH_ORGS=org1,org2,org3
+```
 
 ### Google-specific OAuth 2.0 authentication options
 
@@ -345,7 +412,28 @@ Environment variable: `$GOOGLE_CLIENT_SECRET`
 
 [Optional] Restricts authorization to users from specified Google email domains.
 
+##### CLI example
+
+```sh
+## Single parameter
+--google-domains=delorean.com
+
+## Mutiple parameters
+--google-domains=delorean.com \
+--google-domains=savetheclocktower.com
+```
+
 Environment variable: `$GOOGLE_DOMAINS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+GOOGLE_DOMAINS=delorean.com
+
+## Mutiple parameters
+GOOGLE_DOMAINS=delorean.com,savetheclocktower.com
+```
 
 ### Auth0-specific OAuth 2.0 authentication options
 
@@ -377,7 +465,29 @@ Environment variable: `$AUTH0_CLIENT_SECRET`
 Organizations are set using an "organization" key in the user's `app_metadata`.
 Lists are comma-separated and are only available when using environment variables.
 
+##### CLI example
+
+```sh
+## Single parameter
+--auth0-organizations=org1
+
+## Mutiple parameters
+--auth0-organizations=org1 \
+--auth0-organizations=org2 \
+--auth0-organizations=org3
+```
+
 Environment variable: `$AUTH0_ORGS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+AUTH0_ORGS=org1
+
+## Mutiple parameters
+AUTH0_ORGS=org1,org2,org3
+```
 
 ### Heroku-specific OAuth 2.0 authentication options
 
@@ -395,14 +505,34 @@ The Heroku Secret for OAuth 2.0 support.
 
 ### `--heroku-organization=`                      
 The Heroku organization memberships required for access to Chronograf.
-Lists are comma-separated.
+
+##### CLI example
+
+```sh
+## Single parameter
+--heroku-organization=org1
+
+## Mutiple parameters
+--heroku-organization=org1 \
+--heroku-organization=org2 \
+--heroku-organization=org3
+```
 
 **Environment variable:** `$HEROKU_ORGS`
 
+##### Environment variable example
+
+```sh
+## Single parameter
+HEROKU_ORGS=org1
+
+## Mutiple parameters
+HEROKU_ORGS=org1,org2,org3
+```
 
 ### Generic OAuth 2.0 authentication options
 
-See [Configuring Generic authentication](/chronograf/v1.8/administration/managing-security/#configure-generic-authentication) for more information.
+See [Configure OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-oauth-2-0) for more information.
 
 #### `--generic-name=`
 
@@ -429,7 +559,29 @@ The scopes requested by provider of web client.
 
 Default value: `user:email`
 
+##### CLI example
+
+```sh
+## Single parameter
+--generic-scopes=api
+
+## Mutiple parameters
+--generic-scopes=api \
+--generic-scopes=openid \
+--generic-scopes=read_user
+```
+
 Environment variable: `$GENERIC_SCOPES`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+GENERIC_SCOPES=api
+
+## Mutiple parameters
+GENERIC_SCOPES=api,openid,read_user
+```
 
 #### `--generic-domains=`
 
@@ -437,7 +589,28 @@ The email domain required for user email addresses.
 
 Example: `--generic-domains=example.com`
 
+##### CLI example
+
+```sh
+## Single parameter
+--generic-domains=delorean.com
+
+## Mutiple parameters
+--generic-domains=delorean.com \
+--generic-domains=savetheclocktower.com
+```
+
 Environment variable: `$GENERIC_DOMAINS`
+
+##### Environment variable example
+
+```sh
+## Single parameter
+GENERIC_DOMAINS=delorean.com
+
+## Mutiple parameters
+GENERIC_DOMAINS=delorean.com,savetheclocktower.com
+```
 
 #### `--generic-auth-url=`
 

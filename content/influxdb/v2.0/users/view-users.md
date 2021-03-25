@@ -7,8 +7,6 @@ menu:
     name: View users
     parent: Manage users
 weight: 102
-aliases:
-  - /v2.0/users/view-users/
 products: [oss]
 ---
 
@@ -23,7 +21,7 @@ There is no list of users in the InfluxDB UI.
 
 ## View users using the influx CLI
 
-Use the [`influx user list` command](/v2.0/reference/cli/influx/user/list)
+Use the [`influx user list` command](/influxdb/v2.0/reference/cli/influx/user/list)
 to view users.
 
 ```sh
@@ -31,5 +29,5 @@ influx user list
 ```
 
 Filtering options such as filtering by username or ID are available.
-See the [`influx user list` documentation](/v2.0/reference/cli/influx/user/list)
+See the [`influx user list` documentation](/influxdb/v2.0/reference/cli/influx/user/list)
 for information about other available flags.

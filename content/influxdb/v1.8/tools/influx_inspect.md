@@ -1,10 +1,12 @@
 ---
 title: Influx Inspect disk utility
-description: Use the "influx_inspect" commands to manage InfluxDB disks and shards.
+description: >
+  Use the `influx_inspect` commands to manage InfluxDB disks and shards.
 menu:
   influxdb_1_8:
     weight: 50
     parent: Tools
+v2: /influxdb/v2.0/reference/cli/influxd/inspect/
 ---
 
 Influx Inspect is an InfluxDB disk utility that can be used to:
@@ -367,6 +369,10 @@ YYYY-MM-DDTHH:MM:SS+07:00
 ```
 
 > **Note:** With offsets, avoid replacing the + or - sign with a Z. It may cause an error or print Z (ISO 8601 behavior) instead of the time zone offset.
+
+##### [ `-lponly` ]
+Output data in line protocol format only.
+Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
 
 ##### [ `-out <export_dir>` ]
 

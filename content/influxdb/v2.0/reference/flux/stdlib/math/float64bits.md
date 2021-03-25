@@ -2,7 +2,7 @@
 title: math.float64bits() function
 description: The math.float64bits() function returns the IEEE 754 binary representation of `f`, with the sign bit of `f` and the result in the same bit position.
 aliases:
-  - /v2.0/reference/flux/functions/math/float64bits/
+  - /influxdb/v2.0/reference/flux/functions/math/float64bits/
 menu:
   influxdb_2_0_ref:
     name: math.float64bits

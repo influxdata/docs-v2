@@ -42,7 +42,7 @@ Plugin ID: `valuecounter`
 
 The [ValueCounter aggregator plugin](https://github.com/influxdata/telegraf/blob/release-1.9/plugins/aggregators/valuecounter/README.md) counts the occurrence of values in fields and emits the counter once every 'period' seconds.
 
-A use case for the ValueCounter aggregator plugin is when you are processing an HTTP access log with the [Logparser input plugin](/telegraf/v1.8/plugins/inputs/#logparser) and want to count the HTTP status codes.
+A use case for the ValueCounter aggregator plugin is when you are processing an HTTP access log with the [Logparser input plugin](/telegraf/v1.9/plugins/inputs/#logparser) and want to count the HTTP status codes.
 
 The fields which will be counted must be configured with the fields configuration directive. When no fields are provided, the plugin will not count any fields.
 The results are emitted in fields, formatted as `originalfieldname_fieldvalue = count`.

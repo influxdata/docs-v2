@@ -1,6 +1,7 @@
 ---
 title: InfluxDB inch tool
-description: Use the InfluxDB inch tool to test InfluxDB performance. Adjust the number of points and tag values to test ingesting different tag cardinalities.
+description: >
+  Use the InfluxDB inch tool to test InfluxDB performance. Adjust the number of points and tag values to test ingesting different tag cardinalities.
 menu:
   influxdb_1_8:
     weight: 50
@@ -32,7 +33,7 @@ Use the InfluxDB inch tool to simulate streaming data to InfluxDB and measure yo
     ```
 
     This example starts generating a workload with:
-  
+
     - 8 concurrent (`-c`) write streams
     - 10000 points per batch (`-b`)
     - tag cardinality (`-t`) of 10000 unique series (2x5000x1)

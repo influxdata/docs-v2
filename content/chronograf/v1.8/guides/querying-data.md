@@ -3,11 +3,12 @@ title: Explore data in Chronograf
 description: Query and visualize data in the Data Explorer.
 menu:
   chronograf_1_8:
-    name: Exploring data in Chronograf
+    name: Explore data in Chronograf
     weight: 130
     parent: Guides
 ---
-Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/latest/guides/visualization-types/) for your query.
+
+Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/v1.8/guides/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
@@ -17,13 +18,21 @@ To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 - In the upper-right corner of the page, select the time to view metrics and events by clicking one of the following:
   - **UTC** for Coordinated Universal Time
-  - **Local** for the local time reported by your browser 
+  - **Local** for the local time reported by your browser
 
 > **Note:** If your organization spans multiple time zones, we recommend using UTC (Coordinated Universal Time) to ensure that everyone sees metrics and events for the same time.
 
 ## Explore data with InfluxQL
 
-InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/influxdb/latest/query_language/).
+InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
+
+{{% note %}}
+#### Limited InfluxQL support in InfluxDB Cloud and OSS 2.x
+Chronograf interacts with **InfluxDB Cloud** and **InfluxDB OSS 2.x** through the
+[v1 compatibility API](/influxdb/cloud/reference/api/influxdb-1x/).
+The v1 compatibility API provides limited InfluxQL support.
+For more information, see [InfluxQL support](/influxdb/cloud/query-data/influxql/#influxql-support).
+{{% /note %}}
 
 1. Open the Data Explorer and click **Add a Query**.
 2. To the right of the source dropdown above the graph placeholder, select **InfluxQL** as the source type.
@@ -33,10 +42,7 @@ InfluxQL is a SQL-like query language you can use to interact with data in Influ
 
 ## Explore data with Flux
 
-Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/flux/v0.7/introduction/getting-started).
-
-> ***Note:*** Flux v0.7 is a technical preview included with [InfluxDB v1.8](/influxdb/v1.8). It is still in active development and many functions provided by InfluxQL and TICKscript have yet to be implemented.
-
+Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
 1. Open the Data Explorer and click **Add a Query**.
 2. To the right of the source dropdown above the graph placeholder, select **Flux** as the source type.
@@ -53,12 +59,12 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 
     ```js
     from(bucket: "telegraf/autogen")
-    |> range(start: dashboardTime)
-    |> filter(fn: (r) => r._measurement == "cpu" and (r._field == "usage_system"))
-    |> window(every: autoInterval)
-    |> toFloat()
-    |> percentile(percentile: 0.95)
-    |> group(except: ["_time", "_start", "_stop", "_value"])
+      |> range(start: dashboardTime)
+      |> filter(fn: (r) => r._measurement == "cpu" and (r._field == "usage_system"))
+      |> window(every: autoInterval)
+      |> toFloat()
+      |> percentile(percentile: 0.95)
+      |> group(except: ["_time", "_start", "_stop", "_value"])
     ```
     * Alternatively, you can enter your entire script manually.
 
@@ -66,7 +72,7 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 
 ## Visualize your query
 
-Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/latest/guides/visualization-types/).
+Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/v1.8/guides/visualization-types/).
 
 ## Add queries to dashboards
 

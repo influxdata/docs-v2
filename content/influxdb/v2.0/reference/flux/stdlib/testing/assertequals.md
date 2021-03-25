@@ -2,8 +2,8 @@
 title: testing.assertEquals() function
 description: The testing.assertEquals() function tests whether two streams have identical data.
 aliases:
-  - /v2.0/reference/flux/functions/tests/assertequals
-  - /v2.0/reference/flux/functions/testing/assertequals/
+  - /influxdb/v2.0/reference/flux/functions/tests/assertequals
+  - /influxdb/v2.0/reference/flux/functions/testing/assertequals/
 menu:
   influxdb_2_0_ref:
     name: testing.assertEquals
@@ -38,12 +38,12 @@ _**Data type:** String_
 The stream containing data to test.
 Defaults to piped-forward data (`<-`).
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 ### want
 The stream that contains the expected data to test against.
 
-_**Data type:** Object_
+_**Data type:** Record_
 
 
 ## Examples

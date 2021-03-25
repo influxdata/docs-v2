@@ -7,8 +7,6 @@ menu:
     name: Export a task
     parent: Manage tasks
 weight: 205
-aliases:
-  - /v2.0/process-data/manage-tasks/export-task/
 ---
 
 InfluxDB lets you export tasks from the InfluxDB user interface (UI).

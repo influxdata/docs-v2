@@ -2,28 +2,26 @@
 title: Delete predicate syntax
 list_title: Delete predicate
 description: >
-  The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine
-  what data points to delete.
+  InfluxDB uses an InfluxQL-like predicate syntax to determine what data points to delete.
 menu:
   influxdb_2_0_ref:
     parent: Syntax
     name: Delete predicate
 weight: 104
-aliases:
-  - /v2.0/reference/release-notes/syntax/delete-predicate/
 influxdb/v2.0/tags: [syntax, delete]
 related:
+  - /influxdb/v2.0/write-data/delete-data/
   - /influxdb/v2.0/reference/cli/influx/delete/
 ---
 
-The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine
-what data [points](/v2.0/reference/glossary/#point) to delete.
-InfluxDB uses the delete predicate to evaluate the [series keys](/v2.0/reference/glossary/#series-key)
+InfluxDB uses an InfluxQL-like predicate syntax to determine what data
+[points](/influxdb/v2.0/reference/glossary/#point) to delete.
+InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/v2.0/reference/glossary/#series-key)
 of points in the time range specified in the delete request.
 Points with series keys that evaluate to `true` for the given predicate are deleted.
 Points with series keys that evaluate to `false` are preserved.
 
-A delete predicate is comprised of one or more [predicate expressions](/v2.0/reference/glossary/#predicate-expression).
+A delete predicate is comprised of one or more [predicate expressions](/influxdb/v2.0/reference/glossary/#predicate-expression).
 The left operand of the predicate expression is the column name.
 The right operand is the column value.
 Operands are compared using [comparison operators](#comparison-operators).
@@ -60,13 +58,14 @@ The following will delete points in the `sensorData` measurement:
 _measurement="sensorData"
 ```
 
+<!--
 ### Delete points with a specific field
 The following will delete points with the `temperature` field:
 
 ```sql
 _field="temperature"
 ```
-
+ -->
 ### Delete points with a specific tag set
 The following will delete points from the `prod-1.4` host in the `us-west` region:
 

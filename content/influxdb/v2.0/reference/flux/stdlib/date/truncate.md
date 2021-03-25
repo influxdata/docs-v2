@@ -3,7 +3,7 @@ title: date.truncate() function
 description: >
   The `date.truncate()` function truncates a time to a specified unit.
 aliases:
-  - /v2.0/reference/flux/functions/date/truncate/
+  - /influxdb/v2.0/reference/flux/functions/date/truncate/
 menu:
   influxdb_2_0_ref:
     name: date.truncate
@@ -32,9 +32,8 @@ date.truncate(
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-Integers are **nanosecond** [Unix timestamps](/v2.0/reference/glossary/#unix-timestamp).
 
-_**Data type:** Time | Duration | Integer_
+_**Data type:** Time | Duration_
 
 ### unit
 The unit of time to truncate to.
@@ -76,18 +75,4 @@ date.truncate(t: -1m, unit: 1m)
 
 date.truncate(t: -1h, unit: 1h)
 // Returns 2019-12-31T23:00:00.000000000Z
-```
-
-##### Truncate time values using nanosecond Unix timestamps
-```js
-import "date"
-
-date.truncate(t: 1559570341000000000, unit: 1s)
-// Returns 2019-06-03T13:59:01.000000000Z
-
-date.truncate(t: 1559570341000000000, unit: 1m)
-// Returns 2019-06-03T13:59:00.000000000Z
-
-date.truncate(t: 1559570341000000000, unit: 1h)
-// Returns 2019-06-03T13:00:00.000000000Z
 ```

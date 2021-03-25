@@ -6,8 +6,6 @@ description: >
   The Graph + Single Stat view displays the specified time series in a line graph
   and overlays the single most recent value as a large numeric value.
 weight: 202
-aliases:
-  - /v2.0/visualize-data/visualization-types/graph-single-stat/
 menu:
   influxdb_2_0:
     name: Graph + Single Stat
@@ -22,7 +20,7 @@ and overlays the single most recent value as a large numeric value.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-single-stat-example-8.png" alt="Line Graph + Single Stat example" />}}
 
-Select the **Graph + Single Stat** option from the visualization dropdown in the upper right.
+Select the **Graph + Single Stat** option from the visualization dropdown in the upper left.
 
 ## Graph + Single Stat behavior
 The Graph visualization color codes each table (or series) in the queried data set.
@@ -46,15 +44,25 @@ the visualization dropdown.
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    {{< ui/timestamp-formats >}}
 
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.
 - **Shade Area Below Lines**: Shade in the area below the graph lines.
+- **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
+  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
+  - **Y Axis**: Show all points with the same y value along the x-axis.
+  - **X & Y Axis**: Show only the point currently being hovered over.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
-- **Y Tick Prefix**: Prefix to be added to y-value.
-- **Y Tick Suffix**: Suffix to be added to y-value.
+- **Y Value Unit Prefix**:
+  - **None**: No prefix.
+  - **SI**: International System of Units (SI) or metric prefix.
+  - **Binary**: Binary multiple prefix.
+- **Y Axis Prefix**: Prefix to be added to y-value.
+- **Y Axis Suffix**: Suffix to be added to y-value.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.

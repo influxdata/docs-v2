@@ -1,11 +1,13 @@
 ---
 title: influxd run
-description: The `influxd run` command starts and runs all the processes necessary for InfluxDB to function.
+description: >
+  The `influxd run` command starts and runs all the processes necessary for InfluxDB to function.
 menu:
   influxdb_1_8:
     name: influxd run
     weight: 10
     parent: influxd
+v2: /influxdb/v2.0/reference/cli/influxd/run/
 ---
 
 The `influxd run` command is the default command for `influxd`.
@@ -24,11 +26,11 @@ influxd
 influxd run
 ```
 
-## Flags
+## Flags {.no-shorthand}
 
-| Flag          | Description                                                                                                                                                                                                                                                                                                                    |
-|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `-config`     | Path to the configuration file. This defaults to the environment variable `INFLUXDB_CONFIG_PATH`, `~/.influxdb/influxdb.conf`, or `/etc/influxdb/influxdb.conf` if a file is present at either of these locations.  Disable the automatic loading of a configuration file using the null device (such as `/dev/null`). |
-| `-pidfile`    | Write process ID to a file.                                                                                                                                                                                                                                                                                                    |
-| `-cpuprofile` | Write CPU profiling information to a file.                                                                                                                                                                                                                                                                                     |
-| `-memprofile` | Write memory usage information to a file.                                                                                                                                                                                                                                                                                      |
+| Flag          | Description                                                                                                                                                                                                                                                                                                           |
+|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  |
+| `-config`     | Path to the configuration file. This defaults to the environment variable `INFLUXDB_CONFIG_PATH`, `~/.influxdb/influxdb.conf`, or `/etc/influxdb/influxdb.conf` if a file is present at either of these locations. Disable the automatic loading of a configuration file using the null device (such as `/dev/null`). |
+| `-pidfile`    | Write process ID to a file.                                                                                                                                                                                                                                                                                           |
+| `-cpuprofile` | Write CPU profiling information to a file.                                                                                                                                                                                                                                                                            |
+| `-memprofile` | Write memory usage information to a file.                                                                                                                                                                                                                                                                             |

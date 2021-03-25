@@ -7,8 +7,6 @@ menu:
     name: View run history
     parent: Manage tasks
 weight: 203
-aliases:
-  - /v2.0/process-data/manage-tasks/task-run-history/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/run/find
 ---

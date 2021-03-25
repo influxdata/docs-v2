@@ -7,7 +7,7 @@ menu:
     weight: 130
     parent: Guides
 ---
-Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/latest/guides/visualization-types/) for your query.
+Explore and visualize your data in the **Data Explorer**. For both InfluxQL and Flux, Chronograf allows you to move seamlessly between using the builder or templates and manually editing the query; when possible, the interface automatically populates the builder with the information from your raw query. Choose between [visualization types](/chronograf/v1.7/guides/visualization-types/) for your query.
 
 To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
@@ -23,7 +23,7 @@ To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 ## Explore data with InfluxQL
 
-InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/influxdb/latest/query_language/).
+InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
 
 1. Open the Data Explorer and click **Add a Query**.
 2. To the right of the source dropdown above the graph placeholder, select **InfluxQL** as the source type.
@@ -33,7 +33,7 @@ InfluxQL is a SQL-like query language you can use to interact with data in Influ
 
 ## Explore data with Flux
 
-Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/flux/v0.7/introduction/getting-started).
+Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
 > ***Note:*** Flux v0.7 is a technical preview included with [InfluxDB v1.7](/influxdb/v1.7). It is still in active development and many functions provided by InfluxQL and TICKscript have yet to be implemented.
 
@@ -66,7 +66,7 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 
 ## Visualize your query
 
-Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/latest/guides/visualization-types/).
+Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/v1.7/guides/visualization-types/).
 
 ## Add queries to dashboards
 

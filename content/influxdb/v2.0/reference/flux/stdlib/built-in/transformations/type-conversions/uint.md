@@ -2,7 +2,7 @@
 title: uint() function
 description: The `uint()` function converts a single value to a UInteger.
 aliases:
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/uint/
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/uint/
 menu:
   influxdb_2_0_ref:
     name: uint

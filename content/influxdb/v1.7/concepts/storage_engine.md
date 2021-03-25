@@ -6,6 +6,7 @@ menu:
     name: In-memory indexing with TSM
     weight: 60
     parent: Concepts
+v2: /influxdb/v2.0/reference/internals/storage-engine/
 ---
 
 ## The InfluxDB storage engine and the Time-Structured Merge Tree (TSM)

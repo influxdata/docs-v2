@@ -2,7 +2,7 @@
 title: v1.measurementTagKeys() function
 description: The v1.measurementTagKeys() function returns a list of tag keys for a specific measurement.
 aliases:
-  - /v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
 menu:
   influxdb_2_0_ref:
     name: v1.measurementTagKeys
@@ -11,8 +11,15 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - https://docs.influxdata.com/influxdb/latest/query_language/schema_exploration#show-tag-keys, SHOW TAG KEYS in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
+introduced: 0.16.0
+deprecated: 0.88.0
 ---
+
+{{% warn %}}
+`v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
+[`schema.measurementTagKeys()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagkeys/).
+{{% /warn %}}
 
 The `v1.measurementTagKeys()` function returns a list of tag keys for a specific measurement.
 The return value is always a single table with a single column, `_value`.
@@ -29,12 +36,12 @@ v1.measurementTagKeys(
 ## Parameters
 
 ### bucket
-The bucket from which to return tag keys for a specific measurement.
+Bucket to return tag keys from for a specific measurement.
 
 _**Data type:** String_
 
 ### measurement
-The measurement from which to return tag keys.
+Measurement to return tag keys from.
 
 _**Data type:** String_
 
@@ -50,4 +57,4 @@ measurementTagKeys = (bucket, measurement) =>
 ```
 
 _**Used functions:**
-[v1.tagKeys()](/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys)_
+[v1.tagKeys()](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys)_

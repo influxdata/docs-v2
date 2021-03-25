@@ -1,12 +1,59 @@
 ---
 title: InfluxDB Enterprise 1.8 release notes
-
+description: >
+  Important changes and and what's new in each version InfluxDB Enterprise.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     name: Release notes
     weight: 10
     parent: About the project
 ---
+
+## v1.8.4 [2020-02-08]
+
+The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+
+   > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
+
+### Features
+
+#### Update your InfluxDB Enterprise license without restarting data nodes
+
+Add the ability to [renew or update your license key or file](/enterprise_influxdb/v1.8/administration/renew-license/) without restarting data nodes.
+### Bug fixes
+
+- Wrap TCP mux–based HTTP server with a function that adds custom headers.
+- Correct output for `influxd-ctl show shards`.
+- Properly encode/decode `control.Shard.Err`.
+
+## v1.8.2 [2020-08-24]
+
+The InfluxDB Enterprise 1.8.2 release builds on the InfluxDB OSS 1.8.2 and 1.8.1 releases.
+Due to a defect in InfluxDB OSS 1.8.1, InfluxDB Enterprise 1.8.1 was not released.
+This release resolves the defect and includes the features and bug fixes listed below.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/).
+
+### Features
+
+#### Hinted handoff improvements
+
+- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [allow-out-of-order-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#allow-out-of-order-false) for more detail.
+- Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [max-pending-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#max-pending-writes-1024) for more detail.
+- Update the hinted handoff queue to ensure various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
+- In certain scenarios, the hinted-handoff queue would fail to drain. Upon node startup, the queue segment files are now verified and truncated if any are corrupted. Some additional logging has been added when a node starts writing to the hinted handoff queue as well.
+
+#### `influxd-ctl` CLI improvements
+
+- Add a verbose flag to [`influxd-ctl show-shards`](/enterprise_influxdb/v1.8/administration/cluster-commands/#show-shards). This option provides more information about each shard owner, including the state (hot/cold), last modified date and time, and size on disk.
+
+### Bug fixes
+
+- Resolve a cluster read service issue that caused a panic. Previously, if no tags keys or values were read, the cluster read service returned a nil cursor. Now, an empty cursor is returned.
+- LDAP configuration: `GroupSearchBaseDNs`, `SearchFilter`, `GroupMembershipSearchFilter`, and `GroupSearchFilter` values in the LDAP section of the configuration file are now all escaped.
+- Eliminate orphaned, temporary directories when an error occurs during `processCreateShardSnapshotRequest()` and provide useful log information regarding the reason a temporary directory is created.
 
 ## v1.8 [2020-04-27]
 
@@ -311,7 +358,7 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1.7/about_the_project/rel
 ## v1.5.0 [2018-03-06]
 
 > ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
-> notes](https://docs.influxdata.com/influxdb/v1.5/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+> notes](/influxdb/v1.5/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1.5/about_the_project/whats_new/).
 
@@ -430,7 +477,7 @@ Please see the OSS [release notes](/influxdb/v1.3/about_the_project/releasenotes
 
 ## v1.3.4 [2017-08-23]
 
-This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](https://docs.influxdata.com/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
 
 ### Bugfixes
 
@@ -438,7 +485,7 @@ This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OS
 
 ## v1.3.3 [2017-08-10]
 
-This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](https://docs.influxdata.com/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
 
 ### Bugfixes
 
@@ -803,4 +850,4 @@ Backup and restore has been updated to fix issues and refine existing capabiliti
 The Enterprise Web Console has officially been deprecated and will be eliminated entirely by the end of 2017.
 No additional features will be added and no additional bug fix releases are planned.
 
-For browser-based access to InfluxDB Enterprise, [Chronograf](/chronograf/latest/introduction) is now the recommended tool to use.
+For browser-based access to InfluxDB Enterprise, [Chronograf](/{{< latest "chronograf" >}}/introduction) is now the recommended tool to use.

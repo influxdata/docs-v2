@@ -24,7 +24,7 @@ To choose a strategy that best suits your use case, we recommend considering you
 
 - [Backup and restore utilities](#backup-and-restore-utilities) (suits **most InfluxDB Enterprise applications**)
 - [Export and import commands](#export-and-import-commands) (best for **backfill or recovering shards as files**)
-- [Take AWS snapshot with EBS volumes as backup for data recovery](#take-aws-snapshots-with-ebs-volumes) (optimal **convenience if budget permits**)
+- [Take AWS snapshots as backup](#take-aws-snapshots-as-backup) (optimal **convenience if budget permits**)
 - [Run two clusters in separate AWS regions](#run-two-clusters-in-separate-aws-regions) (also optimal **convenience if budget permits**, more custom work upfront)
 
  > Test your backup and restore strategy for all applicable scenarios.
@@ -91,7 +91,7 @@ For a complete list of the global `influxd-ctl` options, see the [influxd-ctl do
 
 ### Backup examples
 
-{{%expand "> Store incremental backups in different directories" %}}
+{{% expand "Store incremental backups in different directories" %}}
 
 > If you're backing up different units, for example all retention policies in a database and a specific retention policy, store backups in different directories.
 
@@ -102,9 +102,9 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 influxd-ctl backup -db myfirstdb -rp autogen ./myfirstdb-autogen-backup
 ```
 
-{{% /expand%}}
+{{% /expand %}}
 
-{{%expand "> Store incremental backups in the same directory" %}}
+{{%expand "Store incremental backups in the same directory" %}}
 
 > If you're backing up multiple copies of the same database, store backups in the same directory.
 
@@ -116,7 +116,7 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 {{% /expand%}}
 
-{{%expand "> Perform an incremental back up" %}}
+{{%expand "Perform an incremental back up" %}}
 
 > Perform an incremental backup into the current directory with the command below.
 
@@ -144,7 +144,7 @@ $ ls
 
 {{% /expand%}}
 
-{{%expand "> Perform an full back up" %}}
+{{%expand "Perform an full back up" %}}
 
 > Perform a full backup into a specific directory with the command below:
 
@@ -171,7 +171,7 @@ Backed up to backup_dir in 51.388233ms, transferred 333793 bytes
 
 {{% /expand%}}
 
-{{%expand "> Perform an incremental back up on a single database" %}}
+{{%expand "Perform an incremental back up on a single database" %}}
 
 > Point at a remote meta server and back up only one database into a given directory (the directory must already exist):
 
@@ -242,7 +242,7 @@ For a complete list of the global `influxd-ctl` options, see the [influxd-ctl do
 
 #### Restore examples
 
-{{%expand "> Restore from an incremental backup" %}}
+{{% expand "Restore from an incremental backup" %}}
 
 ```bash
 influxd-ctl restore <path-to-backup-directory>
@@ -262,7 +262,7 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 {{% /expand%}}
 
-{{%expand "> Restore from a full backup" %}}
+{{% expand "Restore from a full backup" %}}
 
 ```bash
 influxd-ctl restore -full <path-to-manifest-file>
@@ -281,7 +281,7 @@ Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 
 {{% /expand%}}
 
-{{%expand "> Restore from an incremental backup for a single database and give the database a new name" %}}
+{{% expand "Restore from an incremental backup for a single database and give the database a new name" %}}
 
 ```bash
 influxd-ctl restore -db <src> -newdb <dest> <path-to-backup-directory>
@@ -301,7 +301,7 @@ Restored from my-incremental-backup/ in 66.715524ms, transferred 588800 bytes
 
 {{% /expand%}}
 
-{{%expand "> Restore from an incremental backup for a single database and give the database a new name" %}}
+{{% expand "Restore from an incremental backup for a single database and give the database a new name" %}}
 
 > Your `telegraf` database was mistakenly dropped, but you have a recent backup so you've only lost a small amount of data.
 
@@ -345,11 +345,11 @@ time                  written
 
 #### Common issues with restore
 
-{{%expand "> Restore writes information not part of the original backup" %}}
+{{% expand "Restore writes information not part of the original backup" %}}
 
 ##### Restore writes information not part of the original backup
 
-If a [restore from an incremental backup](#syntax-to-restore-from-an-incremental-backup) does not limit the restore to the same database, retention policy, and shard specified by the backup command, the restore may appear to restore information that was not part of the original backup.
+If a [restore from an incremental backup](#restore-examples) does not limit the restore to the same database, retention policy, and shard specified by the backup command, the restore may appear to restore information that was not part of the original backup.
 Backups consist of a shard data backup and a metastore backup.
 The **shard data backup** contains the actual time series data: the measurements, tags, fields, and so on.
 The **metastore backup** contains user information, database names, retention policy names, shard metadata, continuous queries, and subscriptions.
@@ -364,13 +364,13 @@ The unintended data, however, include only the metastore information, not the sh
 
 {{% /expand%}}
 
-{{%expand "> Restore a backup created prior to version 1.2.0" %}}
+{{% expand "Restore a backup created prior to version 1.2.0" %}}
 
 ##### Restore a backup created prior to version 1.2.0
 
 InfluxDB Enterprise introduced incremental backups in version 1.2.0.
 To restore a backup created prior to version 1.2.0, be sure to follow the syntax
-for [restoring from a full backup](#syntax-to-restore-from-a-full-backup).
+for [restoring from a full backup](#restore-examples).
 
 {{% /expand%}}
 
@@ -380,13 +380,13 @@ Use the InfluxDB `influx_inspect export` and `influx -import` commands to create
 
 ### Export data
 
-Use the [`influx_inspect export` command](/influxdb/latest/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster. Options include:
+Use the [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster. Options include:
 
 - Exporting all, or specific, databases
 - Filtering with starting and ending timestamps
 - Using gzip compression for smaller files and faster exports
 
-For details on optional settings and usage, see [`influx_inspect export` command](/influxdb/latest/tools/influx_inspect#export).
+For details on optional settings and usage, see [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect#export).
 
 In the following example, the database is exported filtered to include only one day and compressed for optimal speed and file size.
 
@@ -396,7 +396,7 @@ influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -
 
 ### Import data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](https://docs.influxdata.com/influxdb/latest/tools/shell/#import).
+After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/{{< latest "influxdb" "v1" >}}/tools/shell/#import).
 
 In the following example, the compressed data file is imported into the specified database.
 
@@ -404,7 +404,7 @@ In the following example, the compressed data file is imported into the specifie
 influx -import -database myDB -compress
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with -import](https://docs.influxdata.com/influxdb/latest/tools/shell/#import-data-from-a-file-with-import).
+For details on using the `influx -import` command, see [Import data from a file with -import](/{{< latest "influxdb" "v1" >}}/tools/shell/#import-data-from-a-file-with-import).
 
 ## Take AWS snapshots as backup
 
@@ -412,7 +412,7 @@ Use AWS snapshots of data nodes to recover data by exporting line protocol of hi
 
 1. Schedule AWS snapshots. For example, take snapshots of data node directories (include `/data` directory at minimum, `wal` directory, and other directories as needed.)
 2. To recover data from a snapshot, create an EC2 system with InfluxDB data node programs (the data node process doesn't need to run).
-3. Attach the snapshot to your recovery EC2 system. Attach additional volumes as needed for more space. 
+3. Attach the snapshot to your recovery EC2 system. Attach additional volumes as needed for more space.
 >**Note:** Extracting shards via `influx_inspect` (using compress) uses roughly 1.5 times the space as the shard. We recommend provisioning 2.5 times the space that the shards use on disk. (See AWS documentation for procedures to upsize AWS volumes in use.)
 4. Use `influx_inspect export` to extract line protocol (based on database, rp and time) as needed.
 5. [Re-import extracted line protocol](#import-data).

@@ -4,18 +4,18 @@ description: >
   The strings.trim() function removes leading and trailing characters specified
   in the cutset from a string.
 aliases:
-  - /v2.0/reference/flux/functions/strings/trim/
+  - /influxdb/v2.0/reference/flux/functions/strings/trim/
 menu:
   influxdb_2_0_ref:
     name: strings.trim
     parent: Strings
 weight: 301
 related:
-  - /v2.0/reference/flux/stdlib/strings/trimleft
-  - /v2.0/reference/flux/stdlib/strings/trimright
-  - /v2.0/reference/flux/stdlib/strings/trimprefix
-  - /v2.0/reference/flux/stdlib/strings/trimsuffix
-  - /v2.0/reference/flux/stdlib/strings/trimspace
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimleft
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimright
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix
+  - /influxdb/v2.0/reference/flux/stdlib/strings/trimspace
 ---
 
 The `strings.trim()` function removes leading and trailing characters specified

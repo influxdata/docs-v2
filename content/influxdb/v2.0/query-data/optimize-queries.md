@@ -3,8 +3,6 @@ title: Optimize Flux queries
 description: >
   Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 weight: 104
-aliases:
-  - /v2.0/query-data/optimize-queries/
 menu:
   influxdb_2_0:
     name: Optimize queries
@@ -26,13 +24,15 @@ These are known as "pushdown" functions and using them correctly can greatly
 reduce the amount of memory necessary to run a query.
 
 #### Pushdown functions
-- [range()](/v2.0/reference/flux/stdlib/built-in/transformations/range/)
-- [filter()](/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
-- [group()](/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-- [count()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
-- [sum()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
-- [first()](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
-- [last()](/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/)
+- [range()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
+- [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+<!--
+[group()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
+[count()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/count/)
+[sum()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/sum/)
+[first()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/)
+[last()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) 
+-->
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
@@ -43,10 +43,10 @@ subsequent operations there.
 from(bucket: "example-bucket")
   |> range(start: -1h)                       //
   |> filter(fn: (r) => r.sensor == "abc123") // Pushed to the data source
-  |> group(columns: ["_field", "host"])      //
 
-  |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     // Run in memory
+  |> group(columns: ["_field", "host"])      //
+  |> aggregateWindow(every: 5m, fn: max)     // Run in memory
+  |> filter(fn: (r) => r._value >= 90.0)     //
   |> top(n: 10)                              //
 ```
 
@@ -60,12 +60,12 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-- [reduce()](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
-- [window()](/v2.0/reference/flux/stdlib/built-in/transformations/window/)
-- [join()](/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-- [union()](/v2.0/reference/flux/stdlib/built-in/transformations/union/)
-- [pivot()](/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+- [map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+- [reduce()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
+- [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)
+- [join()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
+- [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
+- [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.
@@ -74,7 +74,7 @@ We're continually optimizing Flux and this list may not represent its current st
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
-results will include a minimum of ≈15.5 million points.
-Flux must store these points in memory to generate a response.
+results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
+Flux must store these points in memory to generate a response.  Use [pushdown functions](#pushdown-functions) to optimize how many points are stored in memory.
 
-To query data over large periods of time, create a task to [downsample data](/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
+To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.

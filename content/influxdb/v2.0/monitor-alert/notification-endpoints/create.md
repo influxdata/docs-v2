@@ -7,14 +7,12 @@ menu:
     name: Create endpoints
     parent: Manage notification endpoints
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/create/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
-To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/v2.0/monitor-alert/notification-rules/create) to send alerts to third party services on [check statuses](/v2.0/monitor-alert/checks/create).
+To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create) to send alerts to third party services on [check statuses](/influxdb/v2.0/monitor-alert/checks/create).
 
 ## Create a notification endpoint in the UI
 
@@ -24,16 +22,7 @@ To send notifications about changes in your data, start by creating a notificati
 
 2.  Select **Notification Endpoints** near to top of the page.
 3.  Click **{{< icon "plus" >}} Create**.
-4.  From the **Destination** drop-down list, select a destination endpoint to send notifications.
-    The following endpoints are available for InfluxDB 2.0 OSS, the InfluxDB Cloud 2.0 Free Plan,
-    and the InfluxDB Cloud 2.0 Usage-based Plan:
-
-    | Endpoint      | OSS                      | Free Plan _(Cloud)_      | Usage-based Plan _(Cloud)_   |
-    |:--------      |:--------:                |:-------------------:     |:----------------------------:|
-    | **Slack**     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
-    | **PagerDuty** | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
-    | **HTTP**      | **{{< icon "check" >}}** |                          | **{{< icon "check" >}}**     |
-
+4.  From the **Destination** drop-down list, select a destination endpoint to send notifications
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter enter information to connect to the endpoint:
 

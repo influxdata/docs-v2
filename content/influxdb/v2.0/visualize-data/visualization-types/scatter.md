@@ -5,8 +5,6 @@ list_image: /img/influxdb/2-0-visualizations-scatter-example.png
 description: >
   The Scatter view uses a scatter plot to display time series data.
 weight: 208
-aliases:
-  - /v2.0/visualize-data/visualization-types/scatter/
 menu:
   influxdb_2_0:
     name: Scatter
@@ -19,7 +17,7 @@ The **Scatter** view uses a scatter plot to display time series data.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-scatter-example.png" alt="Scatter plot example" />}}
 
-Select the **Scatter** option from the visualization dropdown in the upper right.
+Select the **Scatter** option from the visualization dropdown in the upper left.
 
 ## Scatter behavior
 The scatter visualization maps each data point to X and Y coordinates.
@@ -37,6 +35,8 @@ the visualization dropdown.
 - **Fill Column**: Define a column containing values that should be differentiated with fill color.
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    {{< ui/timestamp-formats >}}
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your scatter plot.
@@ -58,8 +58,8 @@ the visualization dropdown.
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/v2.0/reference/telegraf-plugins/#mem)
-and [CPU](/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/{{< latest "telegraf" >}}/plugins//#mem)
+and [CPU](/{{< latest "telegraf" >}}/plugins//#cpu) input plugins.
 
 ###### Query CPU and memory usage
 The following query creates a union of CPU and memory usage.
@@ -75,6 +75,7 @@ cpu = from(bucket: "example-bucket")
   )
   // Scale CPU usage
   |> map(fn: (r) => ({
+      r with
       _value: r._value + 60.0,
       _time: r._time
       })
@@ -98,7 +99,7 @@ In the Scatter visualization controls, points are differentiated based on their 
 ## Important notes
 
 ### Differences between a scatter plot and a heatmap
-Scatter plots and [Heatmaps](/v2.0/visualize-data/visualization-types/heatmap/)
+Scatter plots and [Heatmaps](/influxdb/v2.0/visualize-data/visualization-types/heatmap/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, scatterplots can "hide" points if they share the same X and Y coordinates.
 

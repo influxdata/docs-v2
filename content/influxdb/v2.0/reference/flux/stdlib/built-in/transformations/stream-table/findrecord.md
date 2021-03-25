@@ -14,13 +14,13 @@ related:
 
 The `findRecord()` function returns a record at a specified index from the first
 table in a stream of tables where the group key values match the specified predicate.
-The function returns an empty object if no table is found or if the index is out of bounds.
+The function returns an empty record if no table is found or if the index is out of bounds.
 
 _**Function type:** Stream and table_  
 
 ```js
 findRecord(
-  fn: (key) => key._field == "fieldName",
+  fn: (key) => key._field == "fieldName"),
   idx: 0
 )
 ```

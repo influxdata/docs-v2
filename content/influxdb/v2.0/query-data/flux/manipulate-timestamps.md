@@ -9,18 +9,17 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/manipulate-timestamps/
-  - /v2.0/query-data/flux/manipulate-timestamps/
+  - /influxdb/v2.0/query-data/guides/manipulate-timestamps/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/misc/now/
-  - /v2.0/reference/flux/stdlib/system/time/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
-  - /v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
-  - /v2.0/reference/flux/stdlib/date/truncate/
-  - /v2.0/reference/flux/stdlib/experimental/addduration/
-  - /v2.0/reference/flux/stdlib/experimental/subduration/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/system/time/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
+  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.
@@ -35,8 +34,8 @@ Use Flux to process and manipulate timestamps to suit your needs.
 {{% note %}}
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 {{% /note %}}
 
 
@@ -46,9 +45,9 @@ If you're just getting started with Flux queries, check out the following:
 - [RFC3339 to Unix nanosecond](#rfc3339-to-unix-nanosecond)
 
 ### Unix nanosecond to RFC3339
-Use the [`time()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
-to convert a [Unix **nanosecond** timestamp](/v2.0/reference/glossary/#unix-timestamp)
-to an [RFC3339 timestamp](/v2.0/reference/glossary/#rfc3339-timestamp).
+Use the [`time()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/)
+to convert a [Unix **nanosecond** timestamp](/influxdb/v2.0/reference/glossary/#unix-timestamp)
+to an [RFC3339 timestamp](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp).
 
 ```js
 time(v: 1568808000000000000)
@@ -56,7 +55,7 @@ time(v: 1568808000000000000)
 ```
 
 ### RFC3339 to Unix nanosecond
-Use the [`uint()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/)
+Use the [`uint()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/uint/)
 to convert an RFC3339 timestamp to a Unix nanosecond timestamp.
 
 ```js
@@ -65,7 +64,7 @@ uint(v: 2019-09-18T12:00:00.000000000Z)
 ```
 
 ## Calculate the duration between two timestamps
-Flux doesn't support mathematical operations using [time type](/v2.0/reference/flux/language/types/#time-types) values.
+Flux doesn't support mathematical operations using [time type](/influxdb/v2.0/reference/flux/language/types/#time-types) values.
 To calculate the duration between two timestamps:
 
 1. Use the `uint()` function to convert each timestamp to a Unix nanosecond timestamp.
@@ -82,7 +81,7 @@ duration(v: time2 - time1)
 
 {{% note %}}
 Flux doesn't support duration column types.
-To store a duration in a column, use the [`string()` function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
+To store a duration in a column, use the [`string()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
 to convert the duration to a string.
 {{% /note %}}
 
@@ -91,7 +90,7 @@ to convert the duration to a string.
 - [Current system time](#current-system-time)
 
 ### Current UTC time
-Use the [`now()` function](/v2.0/reference/flux/stdlib/built-in/misc/now/) to
+Use the [`now()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) to
 return the current UTC time in RFC3339 format.
 
 ```js
@@ -104,7 +103,7 @@ return the same value.
 {{% /note %}}
 
 ### Current system time
-Import the `system` package and use the [`system.time()` function](/v2.0/reference/flux/stdlib/system/time/)
+Import the `system` package and use the [`system.time()` function](/influxdb/v2.0/reference/flux/stdlib/system/time/)
 to return the current system time of the host machine in RFC3339 format.
 
 ```js
@@ -120,9 +119,9 @@ in a Flux script returns a unique value.
 
 ## Normalize irregular timestamps
 To normalize irregular timestamps, truncate all `_time` values to a specified unit
-with the [`truncateTimeColumn()` function](/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/).
-This is useful in [`join()`](/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-and [`pivot()`](/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+with the [`truncateTimeColumn()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/).
+This is useful in [`join()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
+and [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 operations where points should align by time, but timestamps vary slightly.
 
 ```js
@@ -160,12 +159,12 @@ data
 - [Subtract a duration from a timestamp](#subtract-a-duration-from-a-timestamp)
 
 ### Add a duration to a timestamp
-The [`experimental.addDuration()` function](/v2.0/reference/flux/stdlib/experimental/addduration/)
+The [`experimental.addDuration()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/addduration/)
 adds a duration to a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.addDuration()`, you accept the
-[risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+[risks of experimental functions](/influxdb/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 ```js
@@ -180,12 +179,12 @@ experimental.addDuration(
 ```
 
 ### Subtract a duration from a timestamp
-The [`experimental.subDuration()` function](/v2.0/reference/flux/stdlib/experimental/subduration/)
+The [`experimental.subDuration()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/subduration/)
 subtracts a duration from a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.subDuration()`, you accept the
-[risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+[risks of experimental functions](/influxdb/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
 {{% /warn %}}
 
 ```js
@@ -197,4 +196,23 @@ experimental.subDuration(
 )
 
 // Returns 2019-09-16T06:00:00.000000000Z
+```
+
+### Shift a timestamp forward or backward
+
+The [timeShift()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timeshift/) function adds the specified duration of time to each value in time columns (`_start`, `_stop`, `_time`).
+
+Shift forward in time:
+
+```js
+from(bucket: "example-bucket")
+	|> range(start: -5m)
+	|> timeShift(duration: 12h)
+```
+Shift backward in time:
+
+```js
+from(bucket: "example-bucket")
+	|> range(start: -5m)
+	|> timeShift(duration: -12h)
 ```

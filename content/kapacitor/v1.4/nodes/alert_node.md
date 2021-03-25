@@ -28,7 +28,7 @@ menu:
 | **[email](#email)&nbsp;(&nbsp;`to`&nbsp;`...string`)** | Email the alert data.  |
 | **[exec](#exec)&nbsp;(&nbsp;`executable`&nbsp;`string`,&nbsp;`args`&nbsp;`...string`)** | Execute a command whenever an alert is triggered and pass the alert data over STDIN in JSON format.  |
 | **[flapping](#flapping)&nbsp;(&nbsp;`low`&nbsp;`float64`,&nbsp;`high`&nbsp;`float64`)** | Perform flap detection on the alerts. The method used is similar method to Nagios: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html  |
-| **[hipChat](#hipchat)&nbsp;(&nbsp;)** | Send the alert to HipChat. For step-by-step instructions on setting up Kapacitor with HipChat, see the [Event Handler Setup Guide](https://docs.influxdata.com//kapacitor/latest/guides/event-handler-setup/#hipchat-setup). To allow Kapacitor to post to HipChat, go to the URL https://www.hipchat.com/docs/apiv2 for information on how to get your room id and tokens.  |
+| **[hipChat](#hipchat)&nbsp;(&nbsp;)** | Send the alert to HipChat. For step-by-step instructions on setting up Kapacitor with HipChat, see the [Event Handler Setup Guide](//kapacitor/v1.4/guides/event-handler-setup/#hipchat-setup). To allow Kapacitor to post to HipChat, go to the URL https://www.hipchat.com/docs/apiv2 for information on how to get your room id and tokens.  |
 | **[history](#history)&nbsp;(&nbsp;`value`&nbsp;`int64`)** | Number of previous states to remember when computing flapping levels and checking for state changes. Minimum value is 2 in order to keep track of current and previous states.  |
 | **[id](#id)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Template for constructing a unique ID for a given alert.  |
 | **[idField](#idfield)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Optional field key to add to the data, containing the alert ID as a string.  |
@@ -52,7 +52,7 @@ menu:
 | **[stateChangesOnly](#statechangesonly)&nbsp;(&nbsp;`maxInterval`&nbsp;`...time.Duration`)** | Only sends events where the state changed. Each different alert level OK, INFO, WARNING, and CRITICAL are considered different states.  |
 | **[talk](#talk)&nbsp;(&nbsp;)** | Send the alert to Talk. To use Talk alerting you must first follow the steps to create a new incoming webhook.  |
 | **[tcp](#tcp)&nbsp;(&nbsp;`address`&nbsp;`string`)** | Send JSON alert data to a specified address over TCP.  |
-| **[telegram](#telegram)&nbsp;(&nbsp;)** | Send the alert to Telegram. For step-by-step instructions on setting up Kapacitor with Telegram, see the [Event Handler Setup Guide](https://docs.influxdata.com//kapacitor/latest/guides/event-handler-setup/#telegram-setup). To allow Kapacitor to post to Telegram,  |
+| **[telegram](#telegram)&nbsp;(&nbsp;)** | Send the alert to Telegram. For step-by-step instructions on setting up Kapacitor with Telegram, see the [Event Handler Setup Guide](//kapacitor/v1.4/guides/event-handler-setup/#telegram-setup). To allow Kapacitor to post to Telegram,  |
 | **[topic](#topic)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Topic specifies the name of an alert topic to which, alerts will be published. Alert handlers can be configured per topic, see the API documentation.  |
 | **[victorOps](#victorops)&nbsp;(&nbsp;)** | Send alert to VictorOps. To use VictorOps alerting you must first enable the 'Alert Ingestion API' in the 'Integrations' section of VictorOps. Then place the API key from the URL into the 'victorops' section of the Kapacitor configuration.  |
 | **[warn](#warn)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for the WARNING alert level. An empty value indicates the level is invalid and is skipped.  |
@@ -67,7 +67,7 @@ menu:
 ### Description
 
 An [AlertNode](/kapacitor/v1.4/nodes/alert_node/) can trigger an event of varying severity levels and pass the event to alert handlers.
-The criteria for triggering an alert is specified using a [lambda expression](/kapacitor/latest/tick/expr/).
+The criteria for triggering an alert is specified using a [lambda expression](/kapacitor/v1.4/tick/expr/).
 See [AlertNode.Info,](/kapacitor/v1.4/nodes/alert_node/#info) [AlertNode.Warn,](/kapacitor/v1.4/nodes/alert_node/#warn) and [AlertNode.Crit](/kapacitor/v1.4/nodes/alert_node/#crit) below.
 
 Different event handlers can be configured for each [AlertNode.](/kapacitor/v1.4/nodes/alert_node/)
@@ -608,7 +608,7 @@ alert.flapping(low float64, high float64)
 ### HipChat
 
 Send the alert to HipChat.
-For step-by-step instructions on setting up Kapacitor with HipChat, see the [Event Handler Setup Guide](https://docs.influxdata.com//kapacitor/latest/guides/event-handler-setup/#hipchat-setup).
+For step-by-step instructions on setting up Kapacitor with HipChat, see the [Event Handler Setup Guide](//kapacitor/v1.4/guides/event-handler-setup/#hipchat-setup).
 To allow Kapacitor to post to HipChat,
 go to the URL https://www.hipchat.com/docs/apiv2 for
 information on how to get your room id and tokens.
@@ -1925,7 +1925,7 @@ alert.tcp(address string)
 ### Telegram
 
 Send the alert to Telegram.
-For step-by-step instructions on setting up Kapacitor with Telegram, see the [Event Handler Setup Guide](https://docs.influxdata.com//kapacitor/latest/guides/event-handler-setup/#telegram-setup).
+For step-by-step instructions on setting up Kapacitor with Telegram, see the [Event Handler Setup Guide](//kapacitor/v1.4/guides/event-handler-setup/#telegram-setup).
 To allow Kapacitor to post to Telegram,
 
 Example:
@@ -2515,7 +2515,7 @@ Returns: [GroupByNode](/kapacitor/v1.4/nodes/group_by_node/)
 
 ### HoltWinters
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 
 
 ```javascript
@@ -2528,7 +2528,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.4/nodes/influx_q_l_node/)
 
 ### HoltWintersWithFit
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 This method also outputs all the points used to fit the data in addition to the forecasted data.
 
 

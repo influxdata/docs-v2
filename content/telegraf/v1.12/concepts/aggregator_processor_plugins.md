@@ -10,37 +10,24 @@ menu:
 
 Besides the input plugins and output plugins, Telegraf includes aggregator and processor plugins, which are used to aggregate and process metrics as they pass through Telegraf.
 
-```
-┌───────────┐
-│           │
-│    CPU    │───┐
-│           │   │
-└───────────┘   │
-                │
-┌───────────┐   │                                              ┌───────────┐
-│           │   │                                              │           │
-│  Memory   │───┤                                          ┌──▶│ InfluxDB  │
-│           │   │                                          │   │           │
-└───────────┘   │    ┌─────────────┐     ┌─────────────┐   │   └───────────┘
-                │    │             │     │Aggregate    │   │
-┌───────────┐   │    │Process      │     │ - mean      │   │   ┌───────────┐
-│           │   │    │ - transform │     │ - quantiles │   │   │           │
-│   MySQL   │───┼──▶ │ - decorate  │────▶│ - min/max   │───┼──▶│   File    │
-│           │   │    │ - filter    │     │ - count     │   │   │           │
-└───────────┘   │    │             │     │             │   │   └───────────┘
-                │    └─────────────┘     └─────────────┘   │
-┌───────────┐   │                                          │   ┌───────────┐
-│           │   │                                          │   │           │
-│   SNMP    │───┤                                          └──▶│   Kafka   │
-│           │   │                                              │           │
-└───────────┘   │                                              └───────────┘
-                │
-┌───────────┐   │
-│           │   │
-│  Docker   │───┘
-│           │
-└───────────┘
-```
+{{< diagram >}}
+  graph TD
+  Process[Process<br/> - transform<br/> - decorate<br/> - filter]
+  Aggregate[Aggregate<br/> - transform<br/> - decorate<br/> - filter]
+
+  CPU --> Process
+  Memory --> Process
+  MySQL --> Process
+  SNMP --> Process
+  Docker --> Process
+  Process --> Aggregate
+  Aggregate --> InfluxDB
+  Aggregate --> File
+  Aggregate --> Kafka
+
+style Process text-align:left
+style Aggregate text-align:left
+{{< /diagram >}}
 
 **Processor plugins** process metrics as they pass through and immediately emit
 results based on the values they process. For example, this could be printing

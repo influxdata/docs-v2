@@ -1,9 +1,10 @@
 ---
-title: Configuring Chronograf
-description: Configuration of Chronograf, including custom default settings, security, multiple users, and multiple organizations.
+title: Configure Chronograf
+description: >
+  Configure Chronograf, including security, multiple users, and multiple organizations.
 menu:
   chronograf_1_8:
-    name: Configuring
+    name: Configure
     weight: 20
     parent: Administration
 ---
@@ -20,7 +21,7 @@ Use one of the following commands to start Chronograf:
 
 - **If you installed Chronograf using an official Debian or RPM package and are running a distro with `systemd`. For example, Ubuntu 15 or later.**
 
-  ```sh 
+  ```sh
   systemctl start chronograf
   ```
 
@@ -30,7 +31,7 @@ Use one of the following commands to start Chronograf:
   service chronograf start
   ```
 
-- **mIf you built Chronograf from source:**
+- **If you built Chronograf from source:**
 
   ```bash
   $GOPATH/bin/chronograf
@@ -39,7 +40,7 @@ Use one of the following commands to start Chronograf:
 ## Set custom default Chronograf configuration options
 
 Custom default Chronograf configuration settings can be defined in `/etc/default/chronograf`.
-This file consists of key-value pairs. See keys (environment variables) for [Chronograf configuration options](https://docs.influxdata.com/chronograf/v1.8/administration/config-options), and set values for the keys you want to configure.
+This file consists of key-value pairs. See keys (environment variables) for [Chronograf configuration options](/chronograf/v1.8/administration/config-options), and set values for the keys you want to configure.
 
 ```conf
 HOST=0.0.0.0

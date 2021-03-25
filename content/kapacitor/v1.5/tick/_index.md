@@ -1,6 +1,6 @@
 ---
 title: TICKscript language reference
-
+description: List of resources for working with TICKscript.
 menu:
   kapacitor_1_5_ref:
     name: TICKscript language reference

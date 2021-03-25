@@ -5,11 +5,9 @@ menu:
     weight: 10
 ---
 
-## [Release notes/changelog](/enterprise_influxdb/v1.7/about-the-project/release-notes-changelog/)
+{{< children hlevel="h2" >}}
 
-
-
-## [Commercial license](https://www.influxdata.com/legal/slsa/)
+## Commercial license
 
 InfluxDB Enterprise is available with a commercial license.  [Contact sales for more information](https://www.influxdata.com/contact-sales/).
 

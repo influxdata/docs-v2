@@ -7,8 +7,6 @@ menu:
     name: Manage buckets
     parent: Manage organizations
 weight: 105
-aliases:
-  - /v2.0/organizations/create-org/buckets/
 influxdb/v2.0/tags: [buckets]
 ---
 

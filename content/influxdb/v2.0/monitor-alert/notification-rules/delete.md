@@ -3,8 +3,6 @@ title: Delete notification rules
 description: >
   If you no longer need to receive an alert, delete the associated notification rule.
 weight: 204
-aliases:
-  - /v2.0/monitor-alert/notification-rules/delete/
 menu:
   influxdb_2_0:
     parent: Manage notification rules

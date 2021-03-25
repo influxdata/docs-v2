@@ -2,8 +2,8 @@
 title: toBool() function
 description: The `toBool()` function converts all values in the `_value` column to booleans.
 aliases:
-  - /v2.0/reference/flux/functions/transformations/type-conversions/tobool
-  - /v2.0/reference/flux/functions/built-in/transformations/type-conversions/tobool/
+  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tobool
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tobool/
 menu:
   influxdb_2_0_ref:
     name: toBool
@@ -45,5 +45,5 @@ toBool = (tables=<-) =>
 ```
 
 _**Used functions:**
-[map()](/v2.0/reference/flux/stdlib/built-in/transformations/map),
-[bool()](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bool)_
+[map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map),
+[bool()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bool)_

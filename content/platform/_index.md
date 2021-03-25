@@ -9,11 +9,21 @@ menu:
 weight: 1
 ---
 
-**InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events. Explore both versions of our platform below--[**InfluxData 1.x**](#influxdata-1-x) and [**InfluxDB 2.0**](#influxdb-2-0).
+**InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events. Explore both versions of our platform below--[**InfluxDB 2.0**](#influxdb-2-0) and [**InfluxData 1.x**](#influxdata-1-x).
+
+## InfluxDB 2.0
+
+The **InfluxDB 2.0 platform** consolidates InfluxDB, Chronograf, and Kapacitor from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
+
+  - [InfluxDB OSS 2.0](/influxdb/v2.0/get-started/): open source platform solution in a single binary
+  - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
+  - [Telegraf](#telegraf): collect data
+
+InfluxDB Enterprise 2.0 is in development.
 
 ## InfluxData 1.x
 
-The **InfluxData 1.x platform** includes the following open source components ([TICK stack](#tick-stack-components)):
+The **InfluxData 1.x platform** includes the following open source components ([TICK stack](#influxdata-1-x-tick-stack)):
 
   - [Telegraf](#telegraf): collect data
   - [InfluxDB](#influxdb): store data
@@ -26,23 +36,14 @@ The **InfluxData 1.x platform** includes the following open source components ([
   - [Kapacitor Enterprise](#kapacitor-enterprise)
   - [InfluxCloud 1.x](https://help.influxcloud.net) (hosted cloud solution)
 
-## InfluxDB 2.0
-
-The **InfluxDB 2.0 platform** consolidates components from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
-
-  - [InfluxDB 2.0 OSS](https://v2.docs.influxdata.com/v2.0/get-started/): open source platform solution in a single binary
-  - [InfluxDB Cloud 2.0](https://v2.docs.influxdata.com/v2.0/get-started/) (**commercial offering**): hosted cloud solution
-
-InfluxDB Enterprise 2.0 is in development.
-
 ## InfluxData 1.x TICK stack
 
 ### Telegraf
 
 Telegraf is a data collection agent that captures data from a growing list of sources
-and translates it into [InfluxDB line protocol format](/influxdb/latest/write_protocols/line_protocol_reference/)
+and translates it into [InfluxDB line protocol format](/{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_reference/)
 for storage in InfluxDB. Telegraf's extensible architecture makes it easy to
-create [plugins](/telegraf/latest/plugins/) that both pull data (input plugins) and push data (output plugins)
+create [plugins](/{{< latest "telegraf" >}}/plugins/) that both pull data (input plugins) and push data (output plugins)
 to and from different sources and endpoints.
 
 ### InfluxDB
@@ -86,13 +87,13 @@ InfluxDB Enterprise provides functionality necessary to run a high-availability 
 #### Hinted handoff
 
 Data is written across nodes using an eventually consistent write model.
-All writes are added to the [Hinted Handoff Queue (HHQ)](/enterprise_influxdb/latest/concepts/clustering/#hinted-handoff),
+All writes are added to the [Hinted Handoff Queue (HHQ)](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/#hinted-handoff),
 then written to other nodes in the cluster.
 
 #### Anti-Entropy
 
 InfluxDB Enterprise's
-[Anti-Entropy (AE)](/enterprise_influxdb/latest/administration/anti-entropy/)
+[Anti-Entropy (AE)](/{{< latest "enterprise_influxdb" >}}/administration/anti-entropy/)
 process ensures data shards in the cluster are in sync. When "entropy" (out-of-sync
 data) is detected, AE will repair the affected shards, syncing the missing data.
 
@@ -142,7 +143,7 @@ communication between your Kapacitor Enterprise and InfluxDB Enterprise clusters
 
 To get started with the **InfluxData 1.x** platform, see
 
-[Installation and Configuration](/platform/installation)  
+[Installation and Configuration](/platform/install-and-deploy/)  
 [Getting Started](/platform/introduction/getting-started)
 
-To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud 2.0**](https://v2.docs.influxdata.com/v2.0/get-started/) or [**InfluxDB 2.0 OSS**](https://v2.docs.influxdata.com/v2.0/get-started/).
+To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).

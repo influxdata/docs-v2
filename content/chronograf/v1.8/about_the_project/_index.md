@@ -1,6 +1,6 @@
 ---
 title: About the Chronograf project
-description: Chronograf is the UI component of the InfluxData time series platform. This section includes documentation about the Chronograf project, release notes and changelogs, what's new, contributing, and licenses.
+description: Learn about Chronograf, the user interface (UI) for InfluxDB.
 menu:
   chronograf_1_8:
     name: About the project
@@ -10,21 +10,7 @@ Chronograf is the user interface component of the [InfluxData time series platfo
 
 Follow the links below for more information.
 
-## [Chronograf 1.8 release notes](/chronograf/v1.8/about_the_project/release-notes-changelog/)
-
-The [Chronograf 1.8 release notes](/chronograf/v1.8/about_the_project/release-notes-changelog/) includes details about features, bug fixes, and breaking changes for current and earlier Chronograf OSS releases.
-
-## [Contributing to Chronograf](https://github.com/influxdata/chronograf/blob/master/CONTRIBUTING.md)
-
-See [Contributing to InfluxDB OSS](https://github.com/influxdata/chronograf/blob/master/CONTRIBUTING.md) for information about how you can contribute to the InfluxDB OSS GitHub project.
-
-### [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/)
-
-In order to begin contributing to InfluxDB OSS project, you need to complete and sign the [InfluxData Contributor License Agreement (CLA)](https://influxdata.com/community/cla/).
-
-## [Open source license for Chronograf](https://github.com/influxdata/chronograf/blob/master/LICENSE/)
-
-See the [open source license for Chronograf](https://github.com/influxdata/chronograf/blob/master/LICENSE/) for conditions and restrictions for the use of the Chronograf source code.
+{{< children >}}
 
 Chronograf is released under the GNU Affero General Public License. This Free Software Foundation license is fairly new,
 and differs from the more widely known and understood GPL.

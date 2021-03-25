@@ -1,8 +1,8 @@
 ---
-title: Set up monitoring dashboards
+title: Set up 1.x monitoring dashboards
 description: >
   Set up dashboards to visualize and monitor the health and performance of your
-  InfluxData TICK stack.
+  InfluxData 1.x TICK stack.
 aliases:
   - /platform/monitoring/monitoring-dashboards/
   - /platform/monitoring/monitoring-dashboards/dashboard-oss-monitoring/ 
@@ -33,7 +33,7 @@ Telegraf input plugins. To view prebuilt dashboards:
 ## Import monitoring dashboards
 Use the dashboards below to visualize and monitor key TICK stack metrics.
 Download the dashboard file and import it into Chronograf.
-For detailed instructions, see [Importing a dashboard](/chronograf/latest/administration/import-export-dashboards/#importing-a-dashboard).
+For detailed instructions, see [Importing a dashboard](/{{< latest "chronograf" >}}/administration/import-export-dashboards/#importing-a-dashboard).
 
 - [Monitor InfluxDB OSS](#monitor-influxdb-oss)
 - [Monitor InfluxDB Enterprise](#monitor-influxdb-enterprise)

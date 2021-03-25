@@ -20,10 +20,7 @@ var elementWhiteList = [
   "a.url-trigger"
 ]
 
-$('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
-  e.preventDefault();
-
-  var target = this.hash;
+function scrollToAnchor(target) {
   var $target = $(target);
 
   $('html, body').stop().animate({
@@ -31,6 +28,11 @@ $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
   }, 400, 'swing', function () {
     window.location.hash = target;
   });
+}
+
+$('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
+  e.preventDefault();
+  scrollToAnchor(this.hash);
 });
 
 ///////////////////////////// Left Nav Interactions /////////////////////////////
@@ -80,6 +82,29 @@ function tabbedContent(container, tab, content) {
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
 tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
+//////////////////////// Activate Tabs with Query Params ////////////////////////
+
+const queryParams = new URLSearchParams(window.location.search);
+var anchor = window.location.hash
+
+tab = $('<textarea />').html(queryParams.get('t')).text();
+
+if (tab !== "") {
+  var targetTab = $('.tabs a:contains("' + tab + '")')
+  targetTab.click()
+  if (anchor !== "") { scrollToAnchor(anchor) }
+}
+
+$('.tabs p a').click(function() {
+  if ($(this).is(':not(":first-child")')) {
+    queryParams.set('t', $(this).html())
+    window.history.replaceState({}, '', `${location.pathname}?${queryParams}${anchor}`);
+  } else {
+    queryParams.delete('t')
+    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+  }
+})
+
 /////////////////////////////// Truncate Content ///////////////////////////////
 
 $(".truncate-toggle").click(function(e) {
@@ -93,13 +118,6 @@ $('.expand-label').click(function() {
   $(this).children('.expand-toggle').toggleClass('open')
   $(this).next('.expand-content').slideToggle(200)
 })
-
-//////////////////// Replace Missing Images with Placeholder ///////////////////
-
-$(".article--content img").on("error", function() {
-  $(this).attr("src", "/img/coming-soon.svg");
-  $(this).attr("style", "max-width:500px;");
-});
 
 ////////////////////////// Inject tooltips on load //////////////////////////////
 

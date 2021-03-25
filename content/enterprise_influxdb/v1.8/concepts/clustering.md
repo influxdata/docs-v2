@@ -1,9 +1,11 @@
 ---
 title: Clustering in InfluxDB Enterprise
+description: >
+  Learn how meta nodes, data nodes, and the Enterprise web server interact in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/clustering/
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     name: Clustering
     weight: 10
     parent: Concepts
@@ -15,30 +17,17 @@ This document describes in detail how clustering works in InfluxDB Enterprise. I
 
 An InfluxDB Enterprise installation consists of three separate software processes: data nodes, meta nodes, and the Enterprise web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
 
-```text
-    ┌───────┐     ┌───────┐
-    │       │     │       │
-    │ Meta1 │◀───▶│ Meta2 │
-    │       │     │       │
-    └───────┘     └───────┘
-        ▲             ▲
-        │             │
-        │  ┌───────┐  │
-        │  │       │  │
-        └─▶│ Meta3 │◀─┘
-           │       │
-           └───────┘
+{{< diagram >}}
+flowchart TB
+  subgraph meta[Meta Nodes]
+      Meta1 <-- TCP :8089 --> Meta2 <-- TCP :8089 --> Meta3
+  end
+  meta <-- HTTP :8091 --> data
+  subgraph data[Data Nodes]
+    Data1 <-- TCP :8088 --> Data2
+  end
+{{< /diagram >}}
 
-─────────────────────────────────
-          ╲│╱    ╲│╱
-      ┌────┘      └──────┐
-      │                  │
-  ┌───────┐          ┌───────┐
-  │       │          │       │
-  │ Data1 │◀────────▶│ Data2 │
-  │       │          │       │
-  └───────┘          └───────┘
-```
 
 The meta nodes communicate with each other via a TCP protocol and the Raft consensus protocol that all use port `8089` by default. This port must be reachable between the meta nodes. The meta nodes also expose an HTTP API bound to port `8091` by default that the `influxd-ctl` command uses.
 
@@ -90,7 +79,7 @@ Data nodes hold the actual time series data. The minimum number of data nodes to
 
 ## Chronograf
 
-[Chronograf](/chronograf/latest/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
+[Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
 It makes owning the monitoring and alerting for your infrastructure easy to setup and maintain.
 It talks directly to the data and meta nodes over their HTTP protocols, which are bound by default to ports `8086` for data nodes and port `8091` for meta nodes.
 

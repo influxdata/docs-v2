@@ -8,6 +8,7 @@ menu:
   telegraf_1_14:
     parent: Plugins
 weight: 6
+canonical: /{{< latest "telegraf" >}}/plugins/
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.

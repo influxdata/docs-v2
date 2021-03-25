@@ -2,7 +2,7 @@
 title: math.acos() function
 description: The math.acos() function returns the arccosine of `x` in radians.
 aliases:
-  - /v2.0/reference/flux/functions/math/acos/
+  - /influxdb/v2.0/reference/flux/functions/math/acos/
 menu:
   influxdb_2_0_ref:
     name: math.acos

@@ -7,8 +7,7 @@ menu:
     parent: influx config
 weight: 201
 aliases:
-  - /v2.0/reference/cli/influx/config/delete/
-  - /v2.0/reference/cli/influx/config/rm/
+  - /influxdb/v2.0/reference/cli/influx/config/delete/
 ---
 
 The `influx config rm` command removes an InfluxDB connection configuration
@@ -19,7 +18,7 @@ from the `configs` file (by default, stored at `~/.influxdbv2/configs`).
 influx config rm <config-name> [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `rm`, `remove`, `delete`
 
 
@@ -31,10 +30,13 @@ influx config rm <config-name> [flags]
 |      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
 
 ## Examples
-```sh
-# Delete a connection configuration
-influx config rm local-config
 
-# Delete multiple connection configurations
+##### Delete a connection configuration
+```sh
+influx config rm local-config
+```
+
+##### Delete multiple connection configurations
+```sh
 influx config rm config-1 config-2
 ```

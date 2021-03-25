@@ -5,7 +5,7 @@ description: >
   The Flux Monitor package provides tools for monitoring and alerting with InfluxDB.
   Import the `influxdata/influxdb/monitor` package.
 aliases:
-  - /v2.0/reference/flux/functions/monitor/
+  - /influxdb/v2.0/reference/flux/functions/monitor/
 menu:
   influxdb_2_0_ref:
     name: InfluxDB Monitor

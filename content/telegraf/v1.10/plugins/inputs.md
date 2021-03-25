@@ -336,7 +336,7 @@ capturing and storing these metrics locally within the `_internal` database for 
 Plugin ID: `influxdb_listener`
 
 The [InfluxDB Listener input plugin](https://github.com/influxdata/telegraf/blob/release-1.10/plugins/inputs/influxdb_listener/README.md) listens for requests sent
-according to the [InfluxDB HTTP API](/influxdb/latest/guides/writing_data/).  The intent of the
+according to the [InfluxDB HTTP API](/{{< latest "influxdb" "v1" >}}/guides/writing_data/).  The intent of the
 plugin is to allow Telegraf to serve as a proxy, or router, for the HTTP `/write`
 endpoint of the InfluxDB HTTP API.
 

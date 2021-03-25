@@ -8,7 +8,7 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/latest/querying-data) . 
+Chronograf's dashboard views support the following visualization types, which can be selected in the **Visualization Type** selection view of the [Data Explorer](/chronograf/v1.7/guides/querying-data).
 
 [Visualization Type selector](/img/chronograf/1-6-viz-types-selector.png)
 
@@ -25,7 +25,6 @@ Each of the available visualization types and available user controls are descri
 * [Note](#note)
 
 For information on adding and displaying annotations in graph views, see [Adding annotations to Chronograf views](/chronograf/v1.7/guides/annotations/).
-
 
 ### Line Graph
 
@@ -180,10 +179,10 @@ The **Single Stat** view displays the most recent value of the specified time se
 
 ![Single Stat view](/img/chronograf/1-6-viz-single-stat-selector.png)
 
-If a cell's query includes a [`GROUP BY` tag](/influxdb/latest/query_language/data_exploration/#group-by-tags) clause, Chronograf sorts the different [series](/influxdb/latest/concepts/glossary/#series) lexicographically and shows the most recent [field value](/influxdb/latest/concepts/glossary/#field-value) associated with the first series.
-For example, if a query groups by the `name` [tag key](/influxdb/latest/concepts/glossary/#tag-key) and `name` has two [tag values](/influxdb/latest/concepts/glossary/#tag-value) (`chronelda` and `chronz`), Chronograf shows the most recent field value associated with the `chronelda` series.
+If a cell's query includes a [`GROUP BY` tag](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-tags) clause, Chronograf sorts the different [series](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#series) lexicographically and shows the most recent [field value](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#field-value) associated with the first series.
+For example, if a query groups by the `name` [tag key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-key) and `name` has two [tag values](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-value) (`chronelda` and `chronz`), Chronograf shows the most recent field value associated with the `chronelda` series.
 
-If a cell's query includes more than one [field key](/influxdb/latest/concepts/glossary/#field-key) in the [`SELECT` clause](/influxdb/latest/query_language/data_exploration/#select-clause), Chronograf returns the most recent field value associated with the first field key in the `SELECT` clause.
+If a cell's query includes more than one [field key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#field-key) in the [`SELECT` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#select-clause), Chronograf returns the most recent field value associated with the first field key in the `SELECT` clause.
 For example, if a query's `SELECT` clause is `SELECT "chronogiraffe","chronelda"`, Chronograf shows the most recent field value associated with the `chronogiraffe` field key.
 
 #### Single Stat Controls
