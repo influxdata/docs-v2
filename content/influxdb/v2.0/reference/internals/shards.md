@@ -26,7 +26,7 @@ Learn the relationships between buckets, shards, and shard groups.
   - [Shard group diagram](#shard-group-diagram)
 - [Shard life-cycle](#shard-life-cycle)
   - [Shard precreation](#shard-precreation)
-  - [Shard states](#shard-states)
+  - [Shard writes](#shard-writes)
   - [Shard compaction](#shard-compaction)
 - [Shard deletion](#shard-deletion)
 
@@ -96,19 +96,19 @@ resulting in temporarily lower write throughput.
 - [`storage-shard-precreator-advance-period`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-advance-period)
 - [`storage-shard-precreator-check-interval`](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-check-interval)
 
-### Shard states
-A shard can be in one of two states: **hot** or **cold**.
+### Shard writes
+InfluxDB writes time series data to un-compacted or "hot" shards.
+When a shard is no longer actively written to, InfluxDB progressively compresses
+or [compacts](#shard-compaction) the shards.
+Compacted shards are considered "cold" shards.
 
-- **Hot shards:** [Un-compacted](#shard-compaction) shards actively being written to.
-- **Cold shards:** [Compacted](#shard-compaction) shards not actively being written to.
-
-To write to a shard, the shard must be hot.
-Typically, only the most recent shard group contains hot shards, but when backfilling
-historical data, all shards that receive newly written historical data are hot
-until the backfill is complete and the shards are re-compacted.
+Typically, InfluxDB writes data to the most recent shard group, but when backfilling
+historical data InfluxDB writes to older shards that must first be un-compacted.
+When the backfill is complete, InfluxDB re-compacts the older shards.
 
 ### Shard compaction
-InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage. InfluxDB uses the following four compaction levels:
+InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage.
+InfluxDB uses the following four compaction levels:
 
 - **Level 1 (L1):** InfluxDB flushes all newly written data held in an in-memory cache to disk.
 - **Level 2 (L2):** InfluxDB compacts up to eight L1-compacted files into one or more L2 files by
