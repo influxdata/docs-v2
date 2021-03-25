@@ -290,13 +290,13 @@ _View the [Replacing Data Nodes](/enterprise_influxdb/v1.8/guides/replacing-node
 
 To replace a machine running a data node, start the Anti-Entropy service to copy shards to the new machines by doing one of the following:
 
-- For nodes with more than ≈20 GB of data on disk, ?
-- For nodes with less than ≈20 GB of data on disk, run the `influxd-ctl update-data` command, and then shut down the retired node without causing any interruption to the cluster.
-
-The Anti-Entropy process continues to copy the appropriate shards from the remaining replicas in the cluster.
-
- `influxd-ctl update-data` 
-
+- On a meta node in your cluster, run [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data), and then shut down the retired data node without causing any interruption to the cluster. The Anti-Entropy process continues to copy the appropriate shards from the remaining replicas in the cluster.
+- For nodes where the data set is too large or shaped in such a way that AE cannot be enabled, complete the following steps:
+  a. On a meta node in your cluster, run [`influxd-ctl show-shard`] to review the desired number of replicas for each shard in the cluster.
+  b. Run [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data) to retire the old node address and add the new node address.
+  c. Manually rebalance shards using the following tools:
+     - To copy shards to the new node, use [influxd-ctl copy-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#copy-shard). Make sure to copy the correct number of shard replicas.
+     - To remove shards from old node, use [influxd-ctl remove-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#remove-shard).
 
 ### Fixing entropy in active shards
 
