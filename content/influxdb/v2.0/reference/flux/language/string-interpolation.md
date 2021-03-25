@@ -27,11 +27,12 @@ name = "John"
 // My name is John.
 ```
 
-String interpolation expressions must satisfy the Stringable constraint.
+String interpolation expressions must satisfy the
+[Stringable constraint](/influxdb/v2.0/reference/flux/language/types/#stringable-constraint).
 
 Arbitrary Expression Interpolation example:
 
-    n = duration(v: "1m") 
+    n = duration(v: "1m")
     "the answer is ${n}" // the answer is 1m
     t0 = time(v: "2016-06-13T17:43:50.1004002Z")
     "the answer is ${t0}" // the answer is 2016-06-13T17:43:50.1004002Z
