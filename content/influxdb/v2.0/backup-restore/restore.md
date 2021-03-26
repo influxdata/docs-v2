@@ -17,21 +17,20 @@ products: [oss]
 Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
 
 {{% cloud %}}
-The `influx restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
+Restores **not supported in {{< cloud-name "short" >}}**.
 {{% /cloud %}}
 
 - [Restore data with the influx CLI](#restore-data-with-the-influx-cli)
 - [Recover from a failed restore](#recover-from-a-failed-restore)
 
-When restoring data from a backup file set, InfluxDB temporarily moves existing data and metadata.
-Once the process completes, InfluxDB deletes the temporary data.
+InfluxDB moves existing data and metadata to a temporary location. If the restore fails, InfluxDB preserves existing data for recovery, otherwise this data is deleted. 
 If the restore process fails, InfluxDB preserves the data in the temporary location.
 _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
 {{% note %}}
 #### Cannot restore to existing buckets
 The `influx restore` command cannot restore data to existing buckets.
-Use the `--new-bucket` flag to create a bucket with a new name and restore data into it.
+Use the `--new-bucket` flag to create a new bucket to restore data to.
 To restore data and retain bucket names, [delete existing buckets](/influxdb/v2.0/organizations/buckets/delete-bucket/)
 and then begin the restore process.
 {{% /note %}}
@@ -58,7 +57,7 @@ influx restore \
 ```
 
 ### Restore data from a specific bucket
-To restore data from a specific bucket in a backup directory, provide the following:
+To restore data from a bucket, provide the following:
 
 - backup directory path
 - bucket name or ID
