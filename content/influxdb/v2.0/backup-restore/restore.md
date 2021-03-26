@@ -14,17 +14,18 @@ related:
 products: [oss]
 ---
 
-Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
-
 {{% cloud %}}
 Restores **not supported in {{< cloud-name "short" >}}**.
 {{% /cloud %}}
 
+Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
+
 - [Restore data with the influx CLI](#restore-data-with-the-influx-cli)
 - [Recover from a failed restore](#recover-from-a-failed-restore)
 
-InfluxDB moves existing data and metadata to a temporary location. If the restore fails, InfluxDB preserves existing data for recovery, otherwise this data is deleted. 
-If the restore process fails, InfluxDB preserves the data in the temporary location.
+InfluxDB moves existing data and metadata to a temporary location.
+If the restore fails, InfluxDB preserves temporary data for recovery,
+otherwise this data is deleted.
 _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
 {{% note %}}
@@ -46,8 +47,7 @@ _For more information about restore options and flags, see the
 - [Restore and replace all InfluxDB data](#restore-and-replace-all-influxdb-data)
 
 ### Restore all time series data
-To restore all time series data from a bucket directory into buckets with the
-same name as the backup source buckets, provide the following:
+To restore all time series data from a backup directory, provide the following:
 
 - backup directory path
 
@@ -57,7 +57,7 @@ influx restore \
 ```
 
 ### Restore data from a specific bucket
-To restore data from a bucket, provide the following:
+To restore data from a specific backup bucket, provide the following:
 
 - backup directory path
 - bucket name or ID
@@ -74,8 +74,9 @@ influx restore \
   --bucket-id 000000000000
 ```
 
-If a bucket with the same name as the backed up bucket already exists, use the
-`--new-bucket` flag to create a new bucket with a different name and restore data into it.
+If a bucket with the same name as the backed up bucket already exists in InfluxDB,
+use the `--new-bucket` flag to create a new bucket with a different name and
+restore data into it.
 
 ```sh
 influx restore \
