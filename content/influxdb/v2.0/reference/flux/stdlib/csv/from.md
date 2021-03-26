@@ -70,7 +70,8 @@ _**Data type:** String_
 
 ##### Available modes
 - **annotations:** Use CSV annotations to determine column data types.
-- **raw:** Parse all columns as strings. Does not require CSV annotations.
+- **raw:** Parse all columns as strings. Requires a [header row](/influxdb/v2.0/reference/syntax/annotated-csv/#rows),
+  but does not require CSV annotations.
 
 ## Examples
 
