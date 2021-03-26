@@ -39,8 +39,8 @@ csv.from(
 
 ### csv
 CSV data.
-Supports [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) or raw
-CSV based on the [`mode`](#mode).
+Supports [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) or raw CSV.
+Use [`mode`](#mode) to specify the parsing mode.
 
 {{% note %}}
 Annotated CSV data must include all [annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
@@ -64,6 +64,7 @@ _**Data type:** String_
 
 ### mode
 CSV parsing mode.
+Default is `annotations`.
 
 _**Data type:** String_
 
