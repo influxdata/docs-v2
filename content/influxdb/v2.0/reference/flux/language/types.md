@@ -273,8 +273,12 @@ Boolean, Integer, Uinteger, Float, String, Duration, and Time types are `Nullabl
 Records are the only types that fall under this constraint.
 
 ### Negatable Constraint
-Negatable types ore those the unary arithmetic operator `-` accepts.
+Negatable types are those the unary arithmetic operator `-` accepts.
 Integer, Uinteger, Float, and Duration types are `Negatable`.
 
 ### Timeable Constraint
 Duration and Time types are `Timeable`.
+
+##### Stringable Constraint
+Stringable types are those that can be evaluated and expressed in string interpolation.
+String, Integer, Uinteger, Float, Boolean, Time, and Duration types are `Stringable`.

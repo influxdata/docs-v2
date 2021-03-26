@@ -8,6 +8,28 @@ menu:
     name: Flux
 ---
 
+## v0.109.1 [2021-03-24]
+
+### Bug fixes
+- Perform testing checks as part of query `done`.
+- Delimited multi-result encoder properly releases results before checking for errors.
+
+---
+
+## v0.109.0 [2021-03-23]
+
+### Features
+- Add support for null values in string interpolation.
+- Add support for all basic datatypes in string interpolation.
+- Add support for parsing CSV files without annotations.
+- Support formatting the AST from `libflux`.
+
+### Bug fixes
+- Add error handling for wrong number of fields for raw CSV.
+- Change Rust version to be updated manually.
+
+---
+
 ## v0.108.1 [2021-03-15]
 - _Internal code cleanup._
 
