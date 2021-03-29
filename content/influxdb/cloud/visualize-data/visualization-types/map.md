@@ -36,52 +36,47 @@ Choose from the following map visualization modes:
 - [Point](#point)
 - [Circle](#circle)
 - [Heat](#heat)
-- [Track](#track)
+<!-- - [Track](#track) -->
+
+##### Customize Geo Options
+Use the following options to customize each map visualization mode:
+
+- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
+- **Latitude**: Default latitude to center the map on.
+- **Longitude**: Default longitude to center the map on.
+- **Zoom**: Zoom level.
+
+_Some map modes have additional options._
 
 #### Point
 The **Point** mode displays each geo-temporal point on the map using a map pin icon.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-map-point-example.png" alt="Map data visualization" />}}
 
-##### Customize Geo Options
-- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
-- **Latitude**: Default latitude to center the map on.
-- **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level.
-
 #### Circle
-The **Circle** mode displays... <!-- NEED CONTENT -->
+The **Circle** mode displays each geo-temporal point on the map using a circle icon.
+<!-- Need to know what controls the radius of each circle or if they're all the same. -->
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-map-circle-example.png" alt="Map data visualization" />}}
 
-##### Customize Geo Options
-- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
-- **Latitude**: Default latitude to center the map on.
-- **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level.
-
 #### Heat
-The **Heat** mode displays... <!-- NEED CONTENT -->
+The **Heat** mode displays displays the density of geo-temporal points on the map.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-map-heat-example.png" alt="Map data visualization" />}}
 
-##### Customize Geo Options
-- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
-- **Latitude**: Default latitude to center the map on.
-- **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level.
-- **Radius**:
+##### Addtional options
+- **Radius**: Bloom radius of each point.
 
-#### Track
+<!-- #### Track
 The **Track** mode displays... <!-- NEED CONTENT -->
 
 <!-- insert image -->
 
-##### Customize Geo Options
+<!-- ##### Customize Geo Options
 - **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
 - **Latitude**: Default latitude to center the map on.
 - **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level.
+- **Zoom**: Zoom level. -->
 
 ## Example query
 The following query uses the [Bird migration sample data](/influxdb/cloud/reference/sample-data/#bird-migration-sample-data)
