@@ -29,19 +29,19 @@ name = "John"
 // My name is John.
 ```
 
-{{% note %}}
-#### Flux only interpolates string values
-Flux currently interpolates only string values (see [influxdata/flux#1775](https://github.com/influxdata/flux/issues/1775)).
-Use the [string() function](/flux/v0.x/stdlib/universe/string/)
-to convert non-string values to strings.
+String interpolation expressions must satisfy the
+[Stringable constraint](/flux/v0.x/spec/types/#stringable-constraint).
 
+##### Arbitrary expression interpolation example:
 ```js
-count = 12
+n = duration(v: "1m")
+"the answer is ${n}"
+// the answer is 1m
 
-"I currently have ${string(v: count)} cats."
+t0 = time(v: "2016-06-13T17:43:50.1004002Z")
+"the answer is ${t0}"
+// the answer is 2016-06-13T17:43:50.1004002Z
 ```
-{{% /note %}}
-
 
 ## Use dot notation to interpolate record values
 [Records](/flux/v0.x/spec/expressions/#record-literals) consist of key-value pairs.
