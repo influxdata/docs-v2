@@ -30,6 +30,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 - Fix data race when accessing tombstone statistics (`TombstoneStat`).
 - Minimize lock contention when adding new fields or measurements.
 - Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
+- Update `influx_inspect` help text.
 
 ## v1.8.4 [2021-02-01]
 ### Features
