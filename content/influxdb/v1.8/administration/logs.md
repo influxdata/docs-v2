@@ -98,7 +98,7 @@ The following examples show the HTTP access log format:
 #### GET request format
 
 ```
-172.13.8.13,172.39.5.169 - - [21/Jul/2019:03:01:27 +0000] "GET /query?db=metrics&q=SELECT+MEAN%28value%29+as+average_cpu%2C+MAX%28value%29+as+peak_cpu+FROM+%22foo.load%22+WHERE+time+%3E%3D+now%28%29+-+1m+AND+org_id+%21%3D+%27%27+AND+group_id+%21%3D+%27%27+GROUP+BY+org_id%2Cgroup_id HTTP/1.0" 200 11450 "-" "Baz Service" d6ca5a13-at63-11o9-8942-000000000000 9337349
+[httpd] 172.13.8.13,172.39.5.169 - - [21/Jul/2019:03:01:27 +0000] "GET /query?db=metrics&q=SELECT+MEAN%28value%29+as+average_cpu%2C+MAX%28value%29+as+peak_cpu+FROM+%22foo.load%22+WHERE+time+%3E%3D+now%28%29+-+1m+AND+org_id+%21%3D+%27%27+AND+group_id+%21%3D+%27%27+GROUP+BY+org_id%2Cgroup_id HTTP/1.0" 200 11450 "-" "Baz Service" d6ca5a13-at63-11o9-8942-000000000000 9337349
 ```
 
 #### POST request format
