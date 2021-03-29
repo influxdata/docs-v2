@@ -41,7 +41,7 @@ Choose from the following map visualization modes:
 #### Point
 The **Point** mode displays each geo-temporal point on the map using a map pin icon.
 
-<!-- insert image -->
+{{< img-hd src="/img/influxdb/2-0-visualizations-map-point-example.png" alt="Map data visualization" />}}
 
 ##### Customize Geo Options
 - **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
@@ -52,7 +52,7 @@ The **Point** mode displays each geo-temporal point on the map using a map pin i
 #### Circle
 The **Circle** mode displays... <!-- NEED CONTENT -->
 
-<!-- insert image -->
+{{< img-hd src="/img/influxdb/2-0-visualizations-map-circle-example.png" alt="Map data visualization" />}}
 
 ##### Customize Geo Options
 - **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
@@ -63,7 +63,7 @@ The **Circle** mode displays... <!-- NEED CONTENT -->
 #### Heat
 The **Heat** mode displays... <!-- NEED CONTENT -->
 
-<!-- insert image -->
+{{< img-hd src="/img/influxdb/2-0-visualizations-map-heat-example.png" alt="Map data visualization" />}}
 
 ##### Customize Geo Options
 - **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
