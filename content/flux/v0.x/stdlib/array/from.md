@@ -5,15 +5,15 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/array/from/
   - /influxdb/cloud/reference/flux/stdlib/array/from/
-  - /influxdb/v2.0/reference/flux/stdlib/array/from/
-  - /influxdb/cloud/reference/flux/stdlib/array/from/
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/array/from/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/array/from/
 menu:
   flux_0_x_ref:
     name: array.from
     parent: array
 weight: 401
 flux/v0.x/tags: [inputs]
-introduced: 0.79.0
+introduced: 0.103.0
 ---
 
 The `array.from()` function constructs a table from an array of records.
