@@ -28,7 +28,13 @@ to the `/write` endpoint.
 </pre>
 
 ## Authentication
+
 Use **basic authentication** or **token authentication**.
+
+{{% note %}}
+If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
+{{% /note %}}
+
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Request body
@@ -38,6 +44,12 @@ The examples [below](#write-examples) use the curl `--data-binary` flag to binar
 encode the line protocol.
 
 ## Query string parameters
+
+### u
+(Optional) The 1.x **username** to authenticate the request.
+
+### p
+(Optional) The 1.x **password** to authenticate the request.
 
 ### db
 ({{< req >}}) The **database** to write data to.

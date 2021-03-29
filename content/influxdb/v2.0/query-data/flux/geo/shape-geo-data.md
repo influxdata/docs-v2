@@ -94,6 +94,7 @@ Library to generate `s2_cell_id` tags. For example:
 
 - **Go:** [s2.CellID.ToToken()](https://godoc.org/github.com/golang/geo/s2#CellID.ToToken)
 - **Python:** [s2sphere.CellId.to_token()](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
+- **Crystal:** [cell.to_token(level)](https://github.com/spider-gazelle/s2_cells#usage)
 - **JavaScript:** [s2.cellid.toToken()](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ### Generate S2 cell ID tokens with Flux

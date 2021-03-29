@@ -158,12 +158,14 @@ We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
 See the [API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint) for more information.
 
-> #### Setup Tip:
->
+{{% note %}}
+#### Setup Tip: 
+
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
 InfluxDB uses a host's local time in UTC to assign timestamps to data; if
 hosts' clocks aren't synchronized with NTP, the timestamps on the data written
 to InfluxDB can be inaccurate.
+{{% /note %}}
 
 ## Data types
 
@@ -201,7 +203,7 @@ Field values can be floats, integers, strings, or Booleans:
     Store the field value `82` as a float:
 
     ```
-weather,location=us-midwest temperature=82 1465839830100400200
+    weather,location=us-midwest temperature=82 1465839830100400200
     ```
 
 * Integers - append an `i` to the field value to tell InfluxDB to store the
@@ -210,7 +212,7 @@ number as an integer.
     Store the field value `82` as an integer:
 
     ```
-weather,location=us-midwest temperature=82i 1465839830100400200
+    weather,location=us-midwest temperature=82i 1465839830100400200
     ```
 
 * Strings - double quote string field values (more on quoting in line protocol
@@ -219,7 +221,7 @@ weather,location=us-midwest temperature=82i 1465839830100400200
     Store the field value `too warm` as a string:
 
     ```
-weather,location=us-midwest temperature="too warm" 1465839830100400200
+    weather,location=us-midwest temperature="too warm" 1465839830100400200
     ```
 
 * Booleans - specify TRUE with `t`, `T`, `true`, `True`, or `TRUE`. Specify
@@ -228,7 +230,7 @@ FALSE with `f`, `F`, `false`, `False`, or `FALSE`.
     Store the field value `true` as a Boolean:
 
     ```
-weather,location=us-midwest too_hot=true 1465839830100400200
+    weather,location=us-midwest too_hot=true 1465839830100400200
     ```
 
     > **Note:** Acceptable Boolean syntax differs for data writes and data
@@ -273,8 +275,8 @@ It's not valid line protocol.
     Example:
 
     ```
-> INSERT weather,location=us-midwest temperature=82 "1465839830100400200"
-ERR: {"error":"unable to parse 'weather,location=us-midwest temperature=82 \"1465839830100400200\"': bad timestamp"}
+    > INSERT weather,location=us-midwest temperature=82 "1465839830100400200"
+    ERR: {"error":"unable to parse 'weather,location=us-midwest temperature=82 \"1465839830100400200\"': bad timestamp"}
     ```
 
 * Never single quote field values (even if they're strings!).
@@ -283,8 +285,8 @@ It's also not valid line protocol.
     Example:
 
     ```
-> INSERT weather,location=us-midwest temperature='too warm'
-ERR: {"error":"unable to parse 'weather,location=us-midwest temperature='too warm'': invalid boolean"}
+    > INSERT weather,location=us-midwest temperature='too warm'
+    ERR: {"error":"unable to parse 'weather,location=us-midwest temperature='too warm'': invalid boolean"}
     ```
 
 * Do not double or single quote measurement names, tag keys, tag values, and field
@@ -295,25 +297,25 @@ name.
     Example:
 
     ```
-> INSERT weather,location=us-midwest temperature=82 1465839830100400200
-> INSERT "weather",location=us-midwest temperature=87 1465839830100400200
-> SHOW MEASUREMENTS
-name: measurements
-------------------
-name
-"weather"
-weather
+    > INSERT weather,location=us-midwest temperature=82 1465839830100400200
+    > INSERT "weather",location=us-midwest temperature=87 1465839830100400200
+    > SHOW MEASUREMENTS
+    name: measurements
+    ------------------
+    name
+    "weather"
+    weather
     ```
 
     To query data in `"weather"` you need to double quote the measurement name and
 escape the measurement's double quotes:
 
     ```
-> SELECT * FROM "\"weather\""
-name: "weather"
----------------
-time				            location	 temperature
-2016-06-13T17:43:50.1004002Z	us-midwest	 87
+    > SELECT * FROM "\"weather\""
+    name: "weather"
+    ---------------
+    time				            location	 temperature
+    2016-06-13T17:43:50.1004002Z	us-midwest	 87
     ```
 
 * Do not double quote field values that are floats, integers, or Booleans.
@@ -322,9 +324,9 @@ InfluxDB will assume that those values are strings.
     Example:
 
     ```
-> INSERT weather,location=us-midwest temperature="82"
-> SELECT * FROM weather WHERE temperature >= 70
->
+    > INSERT weather,location=us-midwest temperature="82"
+    > SELECT * FROM weather WHERE temperature >= 70
+    >
     ```
 
 * Do double quote field values that are strings.
@@ -332,12 +334,12 @@ InfluxDB will assume that those values are strings.
     Example:
 
     ```
-> INSERT weather,location=us-midwest temperature="too warm"
-> SELECT * FROM weather
-name: weather
--------------
-time				            location	 temperature
-2016-06-13T19:10:09.995766248Z	us-midwest	 too warm
+    > INSERT weather,location=us-midwest temperature="too warm"
+    > SELECT * FROM weather
+    name: weather
+    -------------
+    time				            location	 temperature
+    2016-06-13T19:10:09.995766248Z	us-midwest	 too warm
     ```
 
 ## Special characters and keywords
@@ -350,17 +352,17 @@ to escape:
 * commas `,`
 
     ```
-weather,location=us\,midwest temperature=82 1465839830100400200
+    weather,location=us\,midwest temperature=82 1465839830100400200
     ```
 * equal signs `=`
 
     ```
-weather,location=us-midwest temp\=rature=82 1465839830100400200
+    weather,location=us-midwest temp\=rature=82 1465839830100400200
     ```
 * spaces
 
     ```
-weather,location\ place=us-midwest temperature=82 1465839830100400200
+    weather,location\ place=us-midwest temperature=82 1465839830100400200
     ```
 
 For measurements always use a backslash character `\` to escape:
@@ -368,13 +370,13 @@ For measurements always use a backslash character `\` to escape:
 * commas `,`
 
     ```
-wea\,ther,location=us-midwest temperature=82 1465839830100400200
+    wea\,ther,location=us-midwest temperature=82 1465839830100400200
     ```
 
 * spaces
 
     ```
-wea\ ther,location=us-midwest temperature=82 1465839830100400200
+    wea\ ther,location=us-midwest temperature=82 1465839830100400200
     ```
 
 For string field values use a backslash character `\` to escape:
@@ -382,7 +384,7 @@ For string field values use a backslash character `\` to escape:
 * double quotes `"`
 
     ```
-weather,location=us-midwest temperature="too\"hot\"" 1465839830100400200
+    weather,location=us-midwest temperature="too\"hot\"" 1465839830100400200
     ```
 
 line protocol does not require users to escape the backslash character `\` but

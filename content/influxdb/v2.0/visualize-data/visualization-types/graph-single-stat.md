@@ -45,17 +45,7 @@ the visualization dropdown.
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
 - **Time Format**: Select the time format. Options include:
-    - `YYYY-MM-DD HH:mm:ss ZZ`
-    - `DD/MM/YYYY HH:mm:ss.sss`
-    - `MM/DD/YYYY HH:mm:ss.sss`
-    - `MM/DD/YYYY HH:mm:ss.SSS`
-    - `YYYY/MM/DD HH:mm:ss`
-    - `hh:mm a`
-    - `HH:mm`
-    - `HH:mm:ss`
-    - `HH:mm:ss.sss`
-    - `MMMM D, YYYY HH:mm:ss`
-    - `dddd, MMMM D, YYYY HH:mm:ss`
+    {{< ui/timestamp-formats >}}
 
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.

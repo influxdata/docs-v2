@@ -32,14 +32,8 @@ the visualization dropdown.
 
 - **Default Sort Field**: Select the default sort field. Default is **time**.
 - **Time Format**: Select the time format. Options include:
-    - `MM/DD/YYYY HH:mm:ss` (default)
-    - `MM/DD/YYYY HH:mm:ss.SSS`
-    - `YYYY-MM-DD HH:mm:ss`
-    - `HH:mm:ss`
-    - `HH:mm:ss.SSS`
-    - `MMMM D, YYYY HH:mm:ss`
-    - `dddd, MMMM D, YYYY HH:mm:ss`
-    - `Custom`
+    {{< ui/timestamp-formats >}}
+    
 - **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
     - **Auto** or **Custom**: Enable or disable auto-setting.
 
