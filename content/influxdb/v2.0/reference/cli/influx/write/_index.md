@@ -243,7 +243,7 @@ influx write \
 influx write \
   --bucket example-bucket \
   --header "#constant measurement,birds" \
-  --header "#datatype dataTime:2006-01-02,long,tag" \
+  --header "#datatype dateTime:2006-01-02,long,tag" \
   --file path/to/data.csv
 ```
 
