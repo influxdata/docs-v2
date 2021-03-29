@@ -158,12 +158,14 @@ We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
 See the [API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint) for more information.
 
-> #### Setup Tip:
->
+{{% note %}}
+#### Setup Tip: 
+
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
 InfluxDB uses a host's local time in UTC to assign timestamps to data; if
 hosts' clocks aren't synchronized with NTP, the timestamps on the data written
 to InfluxDB can be inaccurate.
+{{% /note %}}
 
 ## Data types
 
