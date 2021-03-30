@@ -6,6 +6,22 @@ menu:
     parent: About the project
 ---
 
+## v1.5.9 [TBD]
+
+## Features
+
+- Send full event payload on pagerduty resolve, thanks @asvinours!
+- Add default color theme to teams alerts, thanks @NoamShaish!
+- Add barrier handling to `FlattenNode`.
+- Fix TICKScript AST for BigPanda.
+
+### Bug fixes
+
+- Ensure large batch writes with `influx` gzip are completely written to InfluxDB.
+- Update function node name `ServiceNow` handler to camelcase.
+- Fix memory leaks in `JoinNode` and `UnionNode`.
+- Avoid infinite hang when closing Kafka writer and prevent the timeout error that occurred when updating the Kafka configuration file (`kapacitor.conf`) via http.
+
 ## v1.5.8 [2020-01-27]
 
 {{% warn %}}
