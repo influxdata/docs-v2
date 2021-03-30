@@ -111,7 +111,8 @@ The following examples show the HTTP access log format:
 Note: One or more password `p` values are replaced by a single `[REDACTED]`.
 {{% /note %}}
 
-#### HTTTP access log
+#### HTTP access log
+
 | HTTP access log              | Example                                                                                                                      |
 |---                           |---                                                                                                                           |
 |Host                          |`172.13.8.13,172.39.5.169`                                                                                                    |
