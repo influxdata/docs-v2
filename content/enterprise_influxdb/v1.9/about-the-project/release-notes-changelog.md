@@ -13,11 +13,12 @@ v1.9.0 [unreleased]
 -------------------
 
 ### Features
-<!-- - [#3131](https://github.com/influxdata/plutonium/pull/3131): Allow out-of-order-writes. -->
-
-- Improve diagnostics for license problems. <!-- https://github.com/influxdata/plutonium/pull/3310 -->
-- Ingress metrics now work. <!-- https://github.com/influxdata/plutonium/pull/3304 -->
-- Support authorization for Kapacitor via LDAP. <!-- https://github.com/influxdata/plutonium/pull/3239 -->
+- Allow user-defined *node labels*.
+  Node labels allows cluster operators to assign arbitrary key-value pairs to meta and data nodes in a cluster.
+  For instance an operator might want to label nodes with the availability zone in which they're located.
+- Improve diagnostics for license problems.
+- Ingress metrics now work.
+- Support authorization for Kapacitor via LDAP.
 
 ### Bugfixes
 - Show databases now checks read write permissions. <!-- https://github.com/influxdata/plutonium/pull/3341 -->
