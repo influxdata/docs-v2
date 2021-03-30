@@ -13,7 +13,7 @@ menu:
 - Send full event payload on pagerduty resolve, thanks @asvinours!
 - Add default color theme to teams alerts, thanks @NoamShaish!
 - Add barrier handling to `FlattenNode`.
-- Fix TICKScript AST for BigPanda.
+- Fix TICKscript AST for BigPanda.
 
 ### Bug fixes
 
