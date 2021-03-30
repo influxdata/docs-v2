@@ -111,7 +111,7 @@ influx task create --org my-org -f /tasks/cq-mean-1h.flux
 ```sh
 influx task create --org my-org - # <return> to open stdin pipe
 
-options task = {
+option task = {
   name: "task-name",
   every: 6h
 }
