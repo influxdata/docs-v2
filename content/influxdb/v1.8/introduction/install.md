@@ -68,17 +68,19 @@ For Ubuntu users, add the InfluxData repository with the following commands:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
 source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+echo "deb [signed-by=/etc/apt/keyrings/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
 source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+echo "deb [signed-by=/etc/apt/keyrings/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -92,7 +94,8 @@ For Debian users, add the InfluxData repository:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -100,7 +103,8 @@ echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo 
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
