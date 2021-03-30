@@ -1,14 +1,15 @@
 ---
-title: Get started with InfluxDB Cloud
+title: Sign up for InfluxDB Cloud
 description: >
   InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
   platform purpose-built to collect, store, process and visualize metrics and events.
 menu:
   influxdb_cloud:
-    name: Get started
+    name: Sign up
 weight: 2
 influxdb/cloud/tags: [get-started, install]
 aliases:
+  - /influxdb/cloud/get-started
   - /influxdb/v2.0/cloud/get-started
 ---
 
