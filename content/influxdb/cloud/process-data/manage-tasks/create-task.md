@@ -55,8 +55,8 @@ The InfluxDB UI provides multiple ways to create a task:
 6. In the right panel, enter your task script.
 
     {{% note %}}
-##### Leave out the options tasks assignment
-When creating a _new_ task in the InfluxDB Task UI, leave out the `options task`
+##### Leave out the option tasks assignment
+When creating a _new_ task in the InfluxDB Task UI, leave out the `option task`
 assignment that defines [task options](/influxdb/v2.0/process-data/task-options/).
 The InfluxDB UI injects this code using settings specified in the **Task options**
 fields in the left panel when you save the task.
@@ -111,7 +111,7 @@ influx task create --org my-org -f /tasks/cq-mean-1h.flux
 ```sh
 influx task create --org my-org - # <return> to open stdin pipe
 
-options task = {
+option task = {
   name: "task-name",
   every: 6h
 }
