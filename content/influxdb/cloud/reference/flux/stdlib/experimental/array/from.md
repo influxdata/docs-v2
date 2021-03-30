@@ -5,7 +5,8 @@ description: >
 menu:
   influxdb_cloud_ref:
     name: array.from
-    parent: Array
+    identifier: experimental-array-from
+    parent: experimental-array
 weight: 401
 ---
 
