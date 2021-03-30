@@ -16,6 +16,16 @@ The following variable types are available:
 - [Query](#query)
 - [CSV](#csv)
 
+
+## Use dashboard variables
+[Dashboard variables](/influxdb/v2.0/visualize-data/variables/)
+are stored in a `v` record associated with each dashboard.
+Reference each variable using dot-notation (e.g. `v.variableName`).
+
+When building Flux queries for dashboard cells, view available dashboard variables
+in the **Variables** tab next to the Functions tab.
+Click a variable name to add it to your query and select a value from the **Value** dropdown.
+
 ## Map
 Map variables use a list of key value pairs in CSV format to map keys to specific values.
 Keys populate the variable's value list in the InfluxDB user interface (UI), but
