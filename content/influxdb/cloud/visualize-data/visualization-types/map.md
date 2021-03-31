@@ -15,70 +15,66 @@ The **Map** visualization displays geo-temporal data on a geographic map.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-map-point-example.png" alt="Map data visualization" />}}
 
-Select the **Map** option from the visualization dropdown in the upper left.
+## Set up the Map visualization
 
-## Map behavior
-The map visualization displays geo-temporal data using **lat** and **lon** field values in query results.
-Input data must have the following **fields**:
+To view geo-temporal data on a geographic map, set up a Map visualization.
 
-- **lat:** latitude in **decimal degrees** (WGS 84)
-- **lon:** longitude in **decimal degrees** (WGS 84)
+### Set up the Map visualization
 
-The visualization associates latitude and longitude values using the timestamps and tag set of each point.
-Latitude and longitude field values that share a common timestamp and tag set are mapped as a single geo-temporal point.
+1.  Configure map visualizations in either the **Data Explorer** or a **Dashboard**:
 
-## Map controls
-To view **Map** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
+    {{< tabs-wrapper >}}
+{{% tabs %}}
+[Data Explorer](#)
+[Dashboards](#)
+{{% /tabs %}}
+{{% tab-content %}}
+{{< nav-icon "data-explorer" >}}
 
-### Map visualization modes
-Choose from the following map visualization modes:
+Click the **Data Explorer** icon in the navigation bar.
+{{% /tab-content %}}
+{{% tab-content %}}
+{{< nav-icon "dashboards" >}}
 
-- [Point](#point)
-- [Circle](#circle)
-- [Heat](#heat)
-<!-- - [Track](#track) -->
+1.  Click the **Dashboards** icon in the navigation bar.
+2.  Click the name the dashboard to update.
+3.  **To edit an existing cell**, click the **<span class="inline icon-cog-thick middle small"></span>**
+    icon on the cell and then **<span class="inline icon-pencil middle small"></span> Configure**.  
+    **To create a new cell**, click **<span class="inline icon-add-cell small"></span> Add Cell**.
 
-##### Customize Geo Options
-Use the following options to customize each map visualization mode:
+{{% /tab-content %}}
+    {{< /tabs-wrapper >}}
 
-- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
-- **Latitude**: Default latitude to center the map on.
-- **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level.
+2.  Use the **Query Builder** or the **Script Editor** to enter your query.
+    To determine the location of data points on a geographic map,
+    you must include the following fields with your input data:
 
-_Some map modes have additional options._
+    - **lat**: latitude in decimal degrees (WGS 84)
+    - **lon**: longitude in decimal degrees (WGS 84)
 
-#### Point
-The **Point** mode displays each geo-temporal point on the map using a map pin icon.
+    _See [Example queries](#example-queries)._
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-map-point-example.png" alt="Map data visualization" />}}
+3.  Select the **Map** option from the visualization drop-down list in the upper left,
+    and then select one of the following:
 
-#### Circle
-The **Circle** mode displays each geo-temporal point on the map using a circle icon.
-<!-- Need to know what controls the radius of each circle or if they're all the same. -->
+    - **Point**: Display each geo-temporal point on the map using a map pin icon
+        {{< img-hd src="/img/influxdb/2-0-visualizations-map-point-example.png" alt="Map data visualization" />}}
+    - **Circle**: Display each geo-temporal point on the map using a circle icon.
+        {{< img-hd src="/img/influxdb/2-0-visualizations-map-circle-example.png" alt="Map data visualization" />}}
+    - **Heat**: Display the density of geo-temporal points on the map. More points near a location will appear brighter on the map.
+        {{< img-hd src="/img/influxdb/2-0-visualizations-map-heat-example.png" alt="Map data visualization" />}}
 
-{{< img-hd src="/img/influxdb/2-0-visualizations-map-circle-example.png" alt="Map data visualization" />}}
+4.  Set the following custom options for the map:
 
-#### Heat
-The **Heat** mode displays displays the density of geo-temporal points on the map.
-
-{{< img-hd src="/img/influxdb/2-0-visualizations-map-heat-example.png" alt="Map data visualization" />}}
-
-##### Addtional options
-- **Radius**: Bloom radius of each point.
-
-<!-- #### Track
-The **Track** mode displays... <!-- NEED CONTENT -->
-
-<!-- insert image -->
-
-<!-- ##### Customize Geo Options
-- **Allow pan and zoom**: Toggle users' ability to pan and zoom the map.
-- **Latitude**: Default latitude to center the map on.
-- **Longitude**: Default longitude to center the map on.
-- **Zoom**: Zoom level. -->
+    - **Allow Pan and Zoom**: Select this check box to enable panning and zooming on the map.
+    - **Latitude**: Slide to set the default latitude to center the map on.
+    - **Longitude**: Slide to set the default longitude to center the map on.
+    - **Zoom**: Slide to set the default zoom level on the map.
+    - **Radius**: _(Heat map only)_ Slide to adjust the bloom radius for geo-temporal points on the map.
 
 ## Example query
+
+### View a bird's migration path
 The following query uses the [Bird migration sample data](/influxdb/cloud/reference/sample-data/#bird-migration-sample-data)
 to display the migration path of a specific bird.
 
