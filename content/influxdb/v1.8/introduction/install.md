@@ -59,7 +59,7 @@ please see the
 Debian and Ubuntu users can install the latest stable version of InfluxDB using the
 `apt-get` package manager.
 
-For Ubuntu users, add the InfluxData repository with the following commands:
+For Ubuntu/Debian users, add the InfluxData repository with the following commands:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -67,50 +67,21 @@ For Ubuntu users, add the InfluxData repository with the following commands:
 [curl](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
-source /etc/lsb-release
-echo "deb [signed-by=/etc/apt/keyrings/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```sh
+wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor > /etc/apt/trusted.gpg.d/influxdb.gpg
+export DISTRIB_ID=$(lsb_release -si); export DISTRIB_CODENAME=$(lsb_release -sc)
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" > /etc/apt/sources.list.d/influxdb.list
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```bash
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
-source /etc/lsb-release
-echo "deb [signed-by=/etc/apt/keyrings/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```sh
+curl -s https://repos.influxdata.com/influxdb.key | gpg --dearmor > /etc/apt/trusted.gpg.d/influxdb.gpg
+export DISTRIB_ID=$(lsb_release -si); export DISTRIB_CODENAME=$(lsb_release -sc)
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" > /etc/apt/sources.list.d/influxdb.list
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-For Debian users, add the InfluxData repository:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[wget](#)
-[curl](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```bash
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
-source /etc/os-release
-echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```bash
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdb.gpg > /dev/null
-source /etc/os-release
-echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 
 Then, install and start the InfluxDB service:
 
