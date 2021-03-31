@@ -24,12 +24,23 @@ values are used when actually processing the query.
 The most common use case for map variables is aliasing simple, human-readable keys
 to complex values.
 
-##### Map variable CSV example
+##### Map variable example
 ```js
 Juanito MacNeil,"5TKl6l8i4idg15Fxxe4P"
 Astrophel Chaudhary,"bDhZbuVj5RV94NcFXZPm"
 Ochieng Benes,"YIhg6SoMKRUH8FMlHs3V"
 Mila Emile,"o61AhpOGr5aO3cYVArC0"
+```
+
+With `map_variable_example` defined as above,
+choose the desired value for the variable in the script editor when entering a query like this:
+
+```js
+from(bucket: "telegraf")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement] == "cpu" )
+  |> filter(fn: (r) => r["_field"] == "usage_user" )
+  |> filter(fn: (r) => r["cpu"] == v.map_variable_example)
 ```
 
 ## Query
