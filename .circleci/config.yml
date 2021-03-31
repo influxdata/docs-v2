@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:erbium
+      - image: cimg/node:14.16
         environment:
           HUGO_VERSION: "0.81.0"
           S3DEPLOY_VERSION: "2.3.5"
