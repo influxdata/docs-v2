@@ -10,24 +10,33 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables allow you to alter specific components of cells' queries
-without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
 
 ## Using template variables
-Template variables are used in cell queries and titles when creating Chronograf dashboards.
-Within the query, template variables are referenced by surrounding the variable name with colons (`:`).
 
-```sql
-SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
-```
+Be careful when quoting template variables in your queries. When creating a custom meta query, template values are not automatically quoted. Quote template variables as follows:
 
-You can use either [predefined template variables](#predefined-template-variables)
+- For **predefined meta queries**, add colons around the template variable:
+ 
+    
+  ```sql
+  SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
+  ```
+
+- For **custom queries, CSV, or map queries**, add single quotes and colons around template variable:
+
+  ```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "cpu" = ':cpu_custom_query:' or ':cpu_csv:' or ':cpu_map:' and time > :dashboardTime
+
+Use either [predefined template variables](#predefined-template-variables)
 or [custom template variables](#create-custom-template-variables).
 Variable values are then selected in your dashboard user-interface (UI).
 
 ![Using template variables](/img/chronograf/1-6-template-vars-use.gif)
 
 ## Predefined template variables
+
 Chronograf includes predefined template variables controlled by elements in the Chrongraf UI.
 These template variables can be used in any of your cells' queries.
 
@@ -36,6 +45,7 @@ These template variables can be used in any of your cells' queries.
 [`:interval:`](#interval)
 
 ### dashboardTime
+
 The `:dashboardTime:` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
 
 <img src="/img/chronograf/1-6-template-vars-time-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard time selector"/>
