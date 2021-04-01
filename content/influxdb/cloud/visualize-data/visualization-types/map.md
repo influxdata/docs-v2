@@ -46,15 +46,24 @@ Click the **Data Explorer** icon in the navigation bar.
     {{< /tabs-wrapper >}}
 
 2.  Use the **Query Builder** or the **Script Editor** to enter your query.
-    To determine the location of data points on a geographic map,
-    you must include the following fields with your input data:
+    To determine the location of points on a geographic map, query results must
+    include the following **fields**:
 
     - **lat**: latitude in decimal degrees (WGS 84)
     - **lon**: longitude in decimal degrees (WGS 84)
 
+    _**Or**_ the following **tag**:
+
+    - **s2_cell_id**: [S2 Cell ID](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering) as a token
+
+    {{% note %}}
+If query results include `lat` and `lon` fields _and_ an `s2_cell_id` tag,
+the map uses the `lat` and `lon` fields to determine point locations.
+    {{% /note %}}
+
     _See [Example queries](#example-queries)._
 
-3.  Select the **Map** option from the visualization drop-down list in the upper left,
+<!-- 3.  Select the **Map** option from the visualization drop-down list in the upper left,
     and then select one of the following:
 
     - **Point**: Display each geo-temporal point on the map using a map pin icon
@@ -70,7 +79,7 @@ Click the **Data Explorer** icon in the navigation bar.
     - **Latitude**: Slide to set the default latitude to center the map on.
     - **Longitude**: Slide to set the default longitude to center the map on.
     - **Zoom**: Slide to set the default zoom level on the map.
-    - **Radius**: _(Heat map only)_ Slide to adjust the bloom radius for geo-temporal points on the map.
+    - **Radius**: _(Heat map only)_ Slide to adjust the bloom radius for geo-temporal points on the map. -->
 
 ## Example queries
 
