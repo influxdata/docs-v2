@@ -194,8 +194,7 @@ To have InfluxDB start at system boot, add `influxd_enable="YES"` to `/etc/rc.co
 
 {{% tab-content %}}
 
-MacOS users can install InfluxDB using the [Homebrew](http://brew.sh/) package manager.
-Once `brew` is installed, you can install InfluxDB by running:
+Use [Homebrew](http://brew.sh/) to install InfluxDB on macOS:
 
 ```bash
 brew update
