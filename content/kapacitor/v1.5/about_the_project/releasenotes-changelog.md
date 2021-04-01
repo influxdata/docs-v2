@@ -6,7 +6,7 @@ menu:
     parent: About the project
 ---
 
-## v1.5.9 [TBD]
+## v1.5.9 [2021-04-01]
 
 ## Features
 
