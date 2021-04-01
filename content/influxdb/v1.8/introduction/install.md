@@ -201,18 +201,6 @@ brew update
 brew install influxdb@1
 ```
 
-To have launchd start InfluxDB 1.8 now and restart at login:
-
-```bash
-brew services start influxdb@1
-```
-
-Or, if you don't want/need launchctl, in a separate terminal window you can just run:
-
-```bash
-influxd -config /usr/local/etc/influxdb.conf
-```
-
 {{% note %}}
 ##### Multiple versions of InfluxDB with Homebrew
 Installing both InfluxDB 1.8 and InfluxDB 2.0 with Homebrew
