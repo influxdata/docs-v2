@@ -72,7 +72,10 @@ Click the **Data Explorer** icon in the navigation bar.
     - **Zoom**: Slide to set the default zoom level on the map.
     - **Radius**: _(Heat map only)_ Slide to adjust the bloom radius for geo-temporal points on the map.
 
-## Example query
+## Example queries
+
+- [View a bird's migration path](#view-a-birds-migration-path)
+- [View earthquakes reported by USGS](#view-earthquakes-reported-by-usgs)
 
 ### View a bird's migration path
 The following query uses the [Bird migration sample data](/influxdb/cloud/reference/sample-data/#bird-migration-sample-data)
@@ -86,3 +89,14 @@ from(bucket: "migration")
   |> filter(fn: (r) => r.id == "91864A")  
   |> aggregateWindow(every: v.windowPeriod, fn: last)
 ```
+
+### View earthquakes reported by USGS
+The following query uses the [United States Geological Survey (USGS) earthquake data](/influxdb/cloud/reference/sample-data/#usgs-earthquake-data) to display the locations of earthquakes.
+
+```js
+from(bucket: "usgs")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "earthquakes")
+  |> filter(fn: (r) => r._field == "lat" or r._field == "lon")
+```
+
