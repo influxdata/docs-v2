@@ -58,7 +58,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 - Add the `.recoveryaction()` method to support overriding the OpsGenieV2 alert recovery action in a TICKscript, thanks @zabullet!
 - Add support for templating URLs in the [`httpPost` node](/kapacitor/v1.5/nodes/http_post_node/) and [`alert` node](/kapacitor/v1.5/nodes/alert_node/). To set up an template:
   - For the `alert` node, see [alert templates](/kapacitor/v1.5/event_handlers/post/#alert-templates).
-  - For the `http post` node, see [row, a templates](/kapacitor/v1.5/event_handlers/post/#row-templates).
+  - For the `http post` node, see [row templates](/kapacitor/v1.5/event_handlers/post/#row-templates).
 - Upgrade `github.com/gorhill/cronexpr`, thanks @wuguanyu!
 - Add the [ServiceNow event handler](/kapacitor/v1.5/event_handlers/servicenow/) to support ServiceNow integration and provide proxy support.
 
