@@ -924,7 +924,7 @@ Related entries: [series](#series), [shard duration](#shard-duration),
 ### shard group
 
 Shard groups are logical containers for shards organized by [bucket](#bucket).
-Every bucket that contains data has at least one shard group.
+Every bucket with data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
 
@@ -935,8 +935,7 @@ Related entries: [bucket](#bucket), [retention period](#retention-period),
 
 ### shard group duration
 
-The duration of time each each [shard group](#shard-group) spans.
-The interval is determined by the `shard-group-duration` of the [bucket](#bucket).
+The duration of time or interval that each [shard group](#shard-group) covers. Set the `shard-group-duration` for each [bucket](#bucket).
 
 For more information, see:
 

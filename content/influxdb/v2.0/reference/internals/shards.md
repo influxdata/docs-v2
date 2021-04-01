@@ -2,7 +2,7 @@
 title: InfluxDB shards and shard groups
 description: >
   Learn the relationships between buckets, shards, and shard groups.
-  InfluxDB organizes time series data in into **shards** when storing data to disk.
+  InfluxDB organizes time series data into **shards** when storing data to disk.
   Shards are grouped into **shard groups**.
 menu:
   influxdb_2_0_ref:
@@ -16,7 +16,7 @@ related:
   - /influxdb/v2.0/reference/cli/influx/bucket/
 ---
 
-InfluxDB organizes time series data in into **shards** when storing data to disk.
+InfluxDB organizes time series data into **shards** when storing data to disk.
 Shards are grouped into **shard groups**.
 Learn the relationships between buckets, shards, and shard groups.
 
@@ -33,7 +33,7 @@ Learn the relationships between buckets, shards, and shard groups.
 ## Shards
 A shard contains encoded and compressed time series data for a given time range
 defined by the [shard group duration](#shard-group-duration).
-All points in a [series](#series) within the shard's time range are stored in the same shard.
+All points in a [series](#series) within the specified shard group duration are stored in the same shard.
 A single shard contains multiple series, one or more [TSM files](#tsm-time-structured-merge-tree) on disk,
 and belongs to a [shard group](#shard-groups).
 
@@ -48,9 +48,8 @@ distributed across multiple data nodes.
 {{% /note %}}
 
 ### Shard group duration
-The **shard group duration** determines the time range a shard group covers
-and the interval at which new shard groups are created.
-By default, InfluxDB determines shard group durations using
+The **shard group duration** specifies the time range for each shard group and determines how often to create a new shard group. 
+By default, InfluxDB sets the shard group duration according to
 the [retention period](/influxdb/v2.0/reference/glossary/#retention-period)
 of the bucket:
 
@@ -98,12 +97,10 @@ resulting in temporarily lower write throughput.
 
 ### Shard writes
 InfluxDB writes time series data to un-compacted or "hot" shards.
-When a shard is no longer actively written to, InfluxDB progressively compresses
-or [compacts](#shard-compaction) the shards.
-Compacted shards are considered "cold" shards.
+When a shard is no longer actively written to, InfluxDB [compacts](#shard-compaction) shard data, resulting in a "cold" shard.
 
 Typically, InfluxDB writes data to the most recent shard group, but when backfilling
-historical data InfluxDB writes to older shards that must first be un-compacted.
+historical data, InfluxDB writes to older shards that must first be un-compacted.
 When the backfill is complete, InfluxDB re-compacts the older shards.
 
 ### Shard compaction
@@ -138,7 +135,7 @@ In buckets with an infinite retention period, shards remain on disk indefinitely
 #### InfluxDB only deletes cold shards
 InfluxDB only deletes **cold** shards.
 If backfilling data beyond a bucket's retention period, the backfilled data will
-remain on disk until:
+remain on disk until one of the following occurs:
 
 1. The shard returns to a cold state.
 2. The retention enforcement service deletes the shard group.
