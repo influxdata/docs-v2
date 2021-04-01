@@ -30,8 +30,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 {{% tab-content %}}
 ### Install InfluxDB v2.0
 
-We recommend installing InfluxDB v2.0 using [Homebrew](https://brew.sh/) on MacOS.
-With Homebrew installed, run:
+We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2.0 on macOS:
 
 ```sh
 brew update
