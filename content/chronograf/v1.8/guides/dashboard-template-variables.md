@@ -11,8 +11,8 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables let you to alter specific components of cells' queries
-without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
+
 - [Use template variables](#use-template-variables)
 - [Quoting template variables](#quoting-template-variables)
 - [Predefined template variables](#predefined-template-variables)
