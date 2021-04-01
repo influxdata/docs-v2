@@ -169,31 +169,27 @@ To have InfluxDB start at system boot, add `influxd_enable="YES"` to `/etc/rc.co
 
 {{% tab-content %}}
 
-Users of macOS 10.8 and higher can install InfluxDB using the [Homebrew](http://brew.sh/) package manager.
-Once `brew` is installed, you can install InfluxDB by running:
+Use [Homebrew](http://brew.sh/) to install InfluxDB on macOS:
 
 ```bash
 brew update
-brew install influxdb
+brew install influxdb@1
 ```
 
-To have `launchd` start InfluxDB at login, run:
+{{% note %}}
+##### Multiple versions of InfluxDB with Homebrew
+Installing both InfluxDB 1.8 and InfluxDB 2.0 with Homebrew
+can result in unexpected path and naming conflicts.
+You can always run the desired version by specifying the full path:
 
-```bash
-ln -sfv /usr/local/opt/influxdb/*.plist ~/Library/LaunchAgents
+```sh
+$ /usr/local/opt/influxdb/bin/influxd version
+InfluxDB 2.0.4 (git: none) build_date: 2021-04-01T17:55:08Z
+$ /usr/local/opt/influxdb@1/bin/influxd version
+InfluxDB v1.8.4 (git: unknown unknown)
 ```
 
-And then to start InfluxDB now, run:
-
-```bash
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.influxdb.plist
-```
-
-Or, if you don't want/need launchctl, in a separate terminal window you can just run:
-
-```bash
-influxd -config /usr/local/etc/influxdb.conf
-```
+{{% /note %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
