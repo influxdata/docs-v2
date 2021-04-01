@@ -59,6 +59,8 @@ Click the **Data Explorer** icon in the navigation bar.
     {{% note %}}
 If query results include `lat` and `lon` fields _and_ an `s2_cell_id` tag,
 the map uses the `lat` and `lon` fields to determine point locations.
+If results only include the `s2_cell_id`, the map uses the center of the S2 cell
+as the point location.
     {{% /note %}}
 
     _See [Example queries](#example-queries)._
