@@ -124,7 +124,7 @@ InfluxDB uses the following four compaction levels:
 - [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.0/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
 
 ## Shard deletion
-The InfluxDB **retention enforcement** service routinely checks for shard groups
+The InfluxDB **retention enforcement service** routinely checks for shard groups
 older than their bucket's retention period.
 Once the start time of a shard group is beyond the bucket's retention period,
 InfluxDB deletes the shard group and associated shards and TSM files.
