@@ -923,10 +923,9 @@ Related entries: [series](#series), [shard duration](#shard-duration),
 
 ### shard group
 
-Shard groups are logical containers for shards organized by [bucket](#bucket).
+Shard groups are logical containers for shards and contain all shards with data
+for a specified interval known as the [shard group duration](#shard-group-duration).
 Every bucket that contains data has at least one shard group.
-A shard group contains all shards with data for the time interval covered by the shard group.
-The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
 
 For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
