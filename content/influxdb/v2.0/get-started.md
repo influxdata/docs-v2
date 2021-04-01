@@ -28,9 +28,17 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0
+### Install InfluxDB v2.0
 
-Download InfluxDB v2.0 for macOS.
+We recommend installing InfluxDB v2.0 using [Homebrew](https://brew.sh/) on MacOS.
+With Homebrew installed, run:
+
+```sh
+brew update
+brew install influxdb
+```
+
+You can also download the InfluxDB v2.0 binaries for macOS directly:
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
