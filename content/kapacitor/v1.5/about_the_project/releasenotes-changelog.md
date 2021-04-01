@@ -42,7 +42,7 @@ menu:
 - Update function node name `ServiceNow` handler to camelcase.
 - Fix memory leaks in `JoinNode` and `UnionNode`.
 - Avoid infinite hang when closing Kafka writer and prevent the timeout error that occurred when updating the Kafka configuration file (`kapacitor.conf`) via http.
-- Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
+- Remove support for `darwin/386` builds (Go no longer supports).
 - Rename the alert-handler match function `duration()` to `alertDuration()` to avoid name collision with the type conversion function of the same name.
 
 ## v1.5.8 [2020-01-27]
