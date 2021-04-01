@@ -12,28 +12,62 @@ menu:
 
 Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
 
+- [Use template variables](#use-template-variables)
+- [Quoting template variables](#quoting-template-variables)
+- [Predefined template variables](#predefined-template-variables)
+- [Create custom template variables](#create-custom-template-variables)
+- [Template variable types](#template-variable-types)
+- [Reserved variable names](#reserved-variable-names)
+- [Advanced template variable usage](#advanced-template-variable-usage)
+
 ## Using template variables
-
-Be careful when quoting template variables in your queries. When creating a custom meta query, template values are not automatically quoted. Quote template variables as follows:
-
-- For **predefined meta queries**, add colons around the template variable:
- 
-    
-  ```sql
-  SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
-  ```
-
-- For **custom queries, CSV, or map queries**, add single quotes and colons around template variable:
-
-  ```sql
-  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-  WHERE "cpu" = ':cpu_custom_query:' or ':cpu_csv:' or ':cpu_map:' and time > :dashboardTime
 
 Use either [predefined template variables](#predefined-template-variables)
 or [custom template variables](#create-custom-template-variables).
 Variable values are then selected in your dashboard user-interface (UI).
 
 ![Using template variables](/img/chronograf/1-6-template-vars-use.gif)
+
+## Quoting template variables
+
+For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not add quotes** (single or double) to your queries. Chronograf adds quoting as follows:
+
+```sql
+  SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
+``````
+
+For **custom queries**, **CSV**, or **map queries**, you must quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
+.
+- For numerical values, **do not quote**.
+- For string values, you can choose to quote the values in the variable definition (or not). For example, if you define a custom CSV variable named `host` with the following values:
+
+```sh
+'host1','host2','host3'
+```
+
+You do not include quotes in the query:
+
+```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = :host: and time > :dashboardTime
+```
+
+Alternatively, leave the template variable values as strings without quotes, and then quote the variables in your queries. In this case, you define the `host` variable would be defined without quotes:
+
+```sh
+host1,host2,host3
+```
+
+And then add single quotes in the query as follows:
+
+```sql
+SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = ':host:' and time > :dashboardTime
+```
+
+When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
+
+If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
 
 ## Predefined template variables
 
