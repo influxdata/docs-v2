@@ -74,18 +74,24 @@ value3
 value4
 ```
 
-## Use dashboard variables
+## Use custom dashboard variables
 
-Once defined, use dashboard variables to allow selecting particular values when creating queries.
-For example, with `map_variable_example` defined as above,
-choose the desired value for the variable in the script editor when entering a query like this:
+Use the Flux `v` record and [dot or bracket notation](/influxdb/v2.0/query-data/get-started/syntax-basics/#records) to access custom dashboard variables. 
+
+For example, to use a custom dashboard variable named `exampleVar` in a query,
+reference the variable with `v.exampleVar`:
 
 ```js
 from(bucket: "telegraf")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement] == "cpu" )
-  |> filter(fn: (r) => r["_field"] == "usage_user" )
-  |> filter(fn: (r) => r["cpu"] == v.map_variable_example)
+  |> filter(fn: (r) => r._measurement == "cpu" )
+  |> filter(fn: (r) => r._field == "usage_user" )
+  |> filter(fn: (r) => r.cpu == v.exampleVar)  
 ```
+
+**To select variable values:**
+
+- **In a dashboard:** Use the dashboard variable drop-down menus at the top of your dashboard.
+- **In the Script Editor:** Click the **Variables** tab on the right of the Script Editor, click the name of the variable, and then select the variable value from the drop-down menu.
 
 _For more on using dashboard variables, see [Use and manage variables](/influxdb/v2.0/visualize-data/variables/)._
