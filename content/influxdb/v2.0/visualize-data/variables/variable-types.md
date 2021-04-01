@@ -16,7 +16,7 @@ The following variable types are available:
 - [Query](#query)
 - [CSV](#csv)
 
-## Map
+### Map
 Map variables use a list of key value pairs in CSV format to map keys to specific values.
 Keys populate the variable's value list in the InfluxDB user interface (UI), but
 values are used when actually processing the query.
@@ -32,18 +32,7 @@ Ochieng Benes,"YIhg6SoMKRUH8FMlHs3V"
 Mila Emile,"o61AhpOGr5aO3cYVArC0"
 ```
 
-With `map_variable_example` defined as above,
-choose the desired value for the variable in the script editor when entering a query like this:
-
-```js
-from(bucket: "telegraf")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement] == "cpu" )
-  |> filter(fn: (r) => r["_field"] == "usage_user" )
-  |> filter(fn: (r) => r["cpu"] == v.map_variable_example)
-```
-
-## Query
+### Query
 Query variable values are populated using the `_value` column of a Flux query.
 
 ##### Query variable example
@@ -69,7 +58,7 @@ _For examples of dashboard variable queries, see [Common variable queries](/infl
 - Do not use any [predefined dashboard variables](/influxdb/v2.0/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
 {{% /note %}}
 
-## CSV
+### CSV
 CSV variables use a CSV-formatted list to populate variable values.
 A common use case is when the list of potential values is static and cannot be
 queried from InfluxDB.
@@ -84,3 +73,19 @@ value2
 value3
 value4
 ```
+
+## Use dashboard variables
+
+Once defined, use dashboard variables to allow selecting particular values when creating queries.
+For example, with `map_variable_example` defined as above,
+choose the desired value for the variable in the script editor when entering a query like this:
+
+```js
+from(bucket: "telegraf")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement] == "cpu" )
+  |> filter(fn: (r) => r["_field"] == "usage_user" )
+  |> filter(fn: (r) => r["cpu"] == v.map_variable_example)
+```
+
+_For more on using dashboard variables, see [Use and manage variables](/influxdb/v2.0/visualize-data/variables/)._
