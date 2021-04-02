@@ -1,0 +1,85 @@
+///////////////////////////////// Shard diagram ////////////////////////////////
+#shard-diagram {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  margin: 2.5rem auto 3rem;
+
+  p {margin-bottom: 0; line-height: 1.25em;}
+
+  .periods {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .timeline {
+    display: flex;
+    flex-direction: row;
+    margin-top: .25rem;
+    padding:  0 .5rem;
+
+    .interval {
+      border-top: 1px solid $article-text;
+      border-right: 1px solid $article-text;
+      height: .75rem;
+      flex-grow: 1;
+      &:first-child {
+        border-left: 1px solid $article-text;
+      }
+    }
+  }
+  .shard-groups {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: .25rem;
+    padding: .5rem;
+    line-height: 1rem;
+
+    .shard-group {
+      margin:  0 .25rem;
+      text-align: center;
+      padding: .5rem;
+      border-radius: .5rem;
+      background: $html-diagram-shard-group-bg;
+      flex-grow: 1;
+      box-shadow: 2px 2px 8px $article-shadow;
+      p:first-child {margin-bottom: .75rem;}
+
+      .shard {
+        display: block;
+        margin-top: .5rem;
+        padding: .65rem 1rem;
+        color: #fff;
+        border-radius: .25rem;
+        @include gradient($article-table-header, 90deg)
+        background-attachment: fixed;
+      }
+    }
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  #shard-diagram {
+    flex-direction: row;
+    .periods {flex-direction: column; margin-right: .5rem; }
+    .timeline {
+      flex-direction: column;
+      padding: .5rem 0;
+      .interval {
+        width: .75rem;
+        border-top: none;
+        border-right: none;
+        border-left: 1px solid $article-text;
+        border-bottom: 1px solid $article-text;
+        &:first-child{ border-top: 1px solid $article-text; }
+      }
+    }
+    .shard-groups {
+      flex-direction: column;
+      .shard-group { margin: .25rem 0;}
+    }
+  }
+};
