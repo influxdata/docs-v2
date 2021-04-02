@@ -21,29 +21,21 @@ To view geo-temporal data on a geographic map, set up a Map visualization.
 
 ### Set up the Map visualization
 
-1.  Configure map visualizations in either the **Data Explorer** or a **Dashboard**:
+1.  Do one of the following:
 
-    {{< tabs-wrapper >}}
-{{% tabs %}}
-[Data Explorer](#)
-[Dashboards](#)
-{{% /tabs %}}
-{{% tab-content %}}
-{{< nav-icon "data-explorer" >}}
+    - Click  **Data Explorer** in the navigation bar.
 
-Click the **Data Explorer** icon in the navigation bar.
-{{% /tab-content %}}
-{{% tab-content %}}
-{{< nav-icon "dashboards" >}}
+        {{< nav-icon "data-explorer" >}}
 
-1.  Click the **Dashboards** icon in the navigation bar.
-2.  Click the name the dashboard to update.
-3.  **To edit an existing cell**, click the **<span class="inline icon-cog-thick middle small"></span>**
-    icon on the cell and then **<span class="inline icon-pencil middle small"></span> Configure**.  
-    **To create a new cell**, click **<span class="inline icon-add-cell small"></span> Add Cell**.
+    - Click **Dashboards** in the navigation bar:
 
-{{% /tab-content %}}
-    {{< /tabs-wrapper >}}
+        {{< nav-icon "dashboards" >}}
+
+        Click the name of the dashboard to update and then do one of the following:
+
+        - **To edit an existing cell**, click the **{{< icon "cog" >}}** icon on
+          the cell and then **{{< icon "edit" >}} Configure**.
+        - **To create a new cell**, click **{{< icon "add-cell" >}} Add Cell**.
 
 2.  Use the **Query Builder** or the **Script Editor** to enter your query.
     To determine the location of points on a geographic map, query results must
@@ -52,9 +44,7 @@ Click the **Data Explorer** icon in the navigation bar.
     - **lat**: latitude in decimal degrees (WGS 84)
     - **lon**: longitude in decimal degrees (WGS 84)
 
-    _**Or**_ the following **tag**:
-
-    - **s2_cell_id**: [S2 Cell ID](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering) as a token
+    _**Or**_ the  `s2_cell_id` **tag**  ([S2 Cell ID](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering) as a token)
 
     {{% note %}}
 If query results include `lat` and `lon` fields _and_ an `s2_cell_id` tag,

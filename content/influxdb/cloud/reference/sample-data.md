@@ -90,13 +90,13 @@ _Used in [Common queries](/influxdb/cloud/query-data/common-queries/) and [Commo
 The United States Geological Survey (USGS) collects earthquake data and makes
 this data publicly available.
 Each earthquake event includes information such as latitude and longitude
-coordinates, magnitude, depth, etc.
+coordinates, magnitude, depth, and [more](#collected-usgs-data).
 
-**To periodically retrieve and write USGS earthquake data to InfluxDB:**
+**To periodically retrieve and write USGS earthquake data to InfluxDB**
 
 1. [Create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/) named `usgs`.
 2. [Create a new task](/influxdb/cloud/process-data/manage-tasks/create-task/)
-   and use the following the following Flux script:
+   and include the following Flux script:
 
    {{% truncate %}}
 ```js
@@ -137,12 +137,13 @@ csv.from(csv: usgsCSV, mode: "raw")
     {{% /truncate %}}
     {{% note %}}
 USGS updates earthquake data every minute.
-This task retrieves earthquake data for the current day, so set your task's
-`every` interval between `1m` and `24h`, depending on how often you want to
-retrieve new data.
+This task retrieves earthquake data for the current day.
+Set your task's `every` interval between `1m` and `24h`, depending on how often
+you want to retrieve new data.
     {{% /note %}}
 
-The task writes to following to InfluxDB:
+#### Collected USGS data
+The task above writes the following to InfluxDB:
 
 **Fields:**  
 [lat](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#latitude),
