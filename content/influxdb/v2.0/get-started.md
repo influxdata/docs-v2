@@ -28,13 +28,27 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Download and install InfluxDB v2.0
+### Install InfluxDB v2.0
 
-Download InfluxDB v2.0 for macOS.
+- [Use Homebrew](#use-homebrew)
+- [Manually download and install](#manually-download-and-install)
+
+#### Use Homebrew
+
+We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2.0 on macOS:
+
+```sh
+brew update
+brew install influxdb
+```
+
+#### Manually download and install
+
+You can also download the InfluxDB v2.0 binaries for macOS directly:
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
-### (Optional) Verify the authenticity of downloaded binary
+##### (Optional) Verify the authenticity of downloaded binary
 
 For added security, use `gpg` to verify the signature of your download.
 (Most operating systems include the `gpg` command by default.
@@ -65,7 +79,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
     ```
 
-### Unpackage the InfluxDB binaries
+##### Unpackage the InfluxDB binaries
 
 To unpackage the downloaded archive, **double click the archive file in Finder**
 or run the following command in a macOS command prompt application such
@@ -76,7 +90,7 @@ or run the following command in a macOS command prompt application such
 tar zxvf ~/Downloads/influxdb2-2.0.4-darwin-amd64.tar.gz
 ```
 
-#### (Optional) Place the binaries in your $PATH
+##### (Optional) Place the binaries in your $PATH
 
 If you choose, you can place `influx` and `influxd` in your `$PATH` or you can
 prefix the executables with `./` to run then in place.
@@ -93,7 +107,7 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-#### Networking ports
+##### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).

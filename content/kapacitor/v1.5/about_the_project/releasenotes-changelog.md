@@ -6,15 +6,7 @@ menu:
     parent: About the project
 ---
 
-## v1.5.8 [2020-01-27]
-
-{{% warn %}}
-If you’ve installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a defect wherein large batch tasks will not completely write all points back to InfluxDB. This primarily affects downsampling tasks where information is written to another retention policy. If the source retention policy is short there is the potential for the source data to age out and the downsample to have never been fully written.
-{{% /warn %}}
-
-<!--## Breaking changes
-
-- Remove support for `darwin/386` builds (Go no longer supports), and add support for `darwin/arm64` builds.
+## v1.5.9 [2021-04-01]
 
 ## Features
 
@@ -38,11 +30,26 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 - Send data to InfluxDB compressed as `gzip` by default. Although, this default configuration does not appear in the Kapacitor configuration file, you can add `compression = "none"` to the [InfluxDB section](/kapacitor/v1.5/administration/configuration/#influxdb) of your Kapacitor configuration file.
 - Preallocate `GroupIDs` to increase performance by reducing allocations.
 
+#### Miscellaneous event updates
+
+- Send the full event payload to [Pagerduty](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent) when the `eventAction` is `resolve`, thanks @asvinours!
+- Add the default color theme to [Microsoft Teams](/kapacitor/v1.5/event_handlers/microsoftteams/) alerts, thanks @NoamShaish!
+- Add barrier handling to [FlattenNode](/kapacitor/v1.5/nodes/flatten_node/) to ensure points are successfully emitted.
+
 ### Bug fixes
 
+- Ensure large batch writes with `influx` gzip are completely written to InfluxDB.
+- Update function node name `ServiceNow` handler to camelcase.
+- Fix memory leaks in `JoinNode` and `UnionNode`.
+- Avoid infinite hang when closing Kafka writer and prevent the timeout error that occurred when updating the Kafka configuration file (`kapacitor.conf`) via http.
+- Remove support for `darwin/386` builds (Go no longer supports).
 - Rename the alert-handler match function `duration()` to `alertDuration()` to avoid name collision with the type conversion function of the same name.
 
--->
+## v1.5.8 [2020-01-27]
+
+{{% warn %}}
+If you’ve installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a defect wherein large batch tasks will not completely write all points back to InfluxDB. This primarily affects downsampling tasks where information is written to another retention policy. If the source retention policy is short there is the potential for the source data to age out and the downsample to have never been fully written.
+{{% /warn %}}
 
 ## v1.5.7 [2020-10-26]
 

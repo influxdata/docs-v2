@@ -7,6 +7,7 @@ description: >
 menu:
   influxdb_cloud_ref:
     name: Array
+    identifier: experimental-array
     parent: Experimental
 weight: 301
 influxdb/v2.0/tags: [functions, array, package, table]

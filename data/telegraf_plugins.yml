@@ -2338,7 +2338,7 @@ aggregator:
 
 processor:
   - name: AWS EC2 Metadata
-    id: aws_ec2
+    id: aws/ec2
     description: |
       The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
     introduced: 1.18.0

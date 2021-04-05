@@ -32,7 +32,7 @@ The name of the task. _**Required**_.
 _**Data type:** String_
 
 ```js
-options task = {
+option task = {
   name: "taskName",
   // ...
 }
@@ -45,7 +45,7 @@ The interval at which the task runs.
 _**Data type:** Duration_
 
 ```js
-options task = {
+option task = {
   // ...
   every: 1h,
 }
@@ -63,7 +63,7 @@ Cron scheduling is based on system time.
 _**Data type:** String_
 
 ```js
-options task = {
+option task = {
   // ...
   cron: "0 * * * *",
 }
@@ -80,7 +80,7 @@ A common use case is offsetting execution to account for data that may arrive la
 _**Data type:** Duration_
 
 ```js
-options task = {
+option task = {
   // ...
   offset: 10m,
 }
@@ -94,7 +94,7 @@ other running task executions complete.
 _**Data type:** Integer_
 
 ```js
-options task = {
+option task = {
   // ...
   concurrency: 2,
 }
