@@ -10,6 +10,8 @@ menu:
     parent: Contributed
 weight: 202
 influxdb/v2.0/tags: [functions, tickscript, package]
+cascade:
+  introduced: 0.111.0
 ---
 
 The Flux TICKscript package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
