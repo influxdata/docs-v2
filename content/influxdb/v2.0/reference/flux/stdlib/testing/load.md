@@ -7,6 +7,7 @@ menu:
     name: testing.load
     parent: Testing
 weight: 301
+introduced: 0.112.0
 ---
 
 The `testing.load()` function loads tests data from a raw stream of tables.
