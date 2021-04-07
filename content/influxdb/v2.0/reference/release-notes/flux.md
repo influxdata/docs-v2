@@ -8,6 +8,18 @@ menu:
     name: Flux
 ---
 
+## v0.111.0 [2021-03-30]
+
+### Features
+- Use `FnvHasher` for hash maps.
+- Add [`tickscript` package](/influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/).
+
+### Bug fixes
+- When finding the parent directory's root, skip the current directory.
+- Fix `if else` statement in `aggregate.window()`.
+
+---
+
 ## v0.109.1 [2021-03-24]
 
 ### Bug fixes
