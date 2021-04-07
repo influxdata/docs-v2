@@ -17,7 +17,7 @@ menu:
 - [Docker Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker)(`docker`):
   Fix panic when parsing container statistics.
 - [Exec Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec)(`exec`):
-  Plugin does not truncate messages in debug mode.
+  Fix truncated messages in debug mode; debug mode now shows full messages.
 - [IPMI Sensor Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ipmi_sensor)(`ipmi_sensor`):
   Fix panic by implementing a length check to plugin.
 - [MySQL Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql)(`mysql`):
