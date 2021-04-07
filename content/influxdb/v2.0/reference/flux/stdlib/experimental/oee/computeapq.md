@@ -73,13 +73,21 @@ _**Data type:** String_
 ({{< req >}})
 Total time that equipment is expected to produce parts.
 
-_**Data type:** Duration_
+_**Data type:** Duration | Integer_
+
+{{% note %}}
+Integer values represent nanoseconds.
+{{% /note %}}
 
 ### idealCycleTime
 ({{< req >}})
 Ideal minimum time to produce one part.
 
-_**Data type:** Duration_
+_**Data type:** Duration | Integer_
+
+{{% note %}}
+Integer values represent nanoseconds.
+{{% /note %}}
 
 ## Examples
 
