@@ -25,7 +25,7 @@ menu:
 - [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient) (`nfsclient`):
   Fix integer overflow in fields received by mountstat.
 - [Ping Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ping) (`ping`):
-  Fix an issue when `method=”native”` by always calling `SetPrivileged(true)`.
+  Resolve error that prevented the agent from running when an unprivileged UDP ping was sent. Now, `SetPrivileged(true)` is always true in native mode to ensure a privileged ICMP ping is sent.
 - [SNMP Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/snmp) (`snmp`):
   Fix `init()` when no MIBs are installed.
 - [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver) (`sqlserver`):
