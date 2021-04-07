@@ -6,6 +6,7 @@ menu:
     name: testing.benchmark
     parent: Testing
 weight: 301
+draft: true
 ---
 
 The `testing.benchmark()` function collects benchmark data for a Flux test case.
