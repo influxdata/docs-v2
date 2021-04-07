@@ -8,6 +8,7 @@ menu:
     name: tickscript.defineCheck
     parent: TICKscript
 weight: 302
+introduced: 0.111.0
 ---
 
 The `tickscript.defineCheck()` function creates and returns a record with custom check data required by
@@ -62,7 +63,7 @@ tickscript.defineCheck(
   name: "Example check name",
 )
 
-// Returns: {
+// The function above returns: {
 //   _check_id: "000000000000",
 //   _check_name: "Example check name",
 //   _type: "custom",

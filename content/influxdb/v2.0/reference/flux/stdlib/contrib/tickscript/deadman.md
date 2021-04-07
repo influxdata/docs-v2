@@ -10,6 +10,7 @@ menu:
 weight: 302
 related:
   - /{{< latest "kapacitor" >}}/nodes/batch_node/#deadman, Kapacitor BatchNode – Deadman
+introduced: 0.111.0
 ---
 
 The `tickscript.deadman()` function detects low data throughput and writes a point
@@ -57,13 +58,13 @@ Default is `0`.
 _**Data type:** Integer_
 
 ### id
-Function to return the InfluxDB check ID provided by the [`check` record](#check).
+Function that returns the InfluxDB check ID provided by the [`check` record](#check).
 Default is `(r) => "${r._check_id}"`.
 
 _**Data type:** Function_
 
 ### message
-Function to return the InfluxDB check message using data from input rows.
+Function that returns the InfluxDB check message using data from input rows.
 Default is `(r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive")`.
 
 _**Data type:** Function_

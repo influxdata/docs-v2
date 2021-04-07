@@ -11,6 +11,7 @@ menu:
 weight: 302
 related:
   - /{{< latest "kapacitor" >}}/nodes/alert_node/, Kapacitor AlertNode
+introduced: 0.111.0
 ---
 
 The `tickscript.alert()` function identifies events of varying severity levels
@@ -45,7 +46,7 @@ _See [`tickscript.defineCheck()`](/influxdb/v2.0/reference/flux/stdlib/contrib/t
 _**Data type:** Record_
 
 ### id
-Function to return the InfluxDB check ID provided by the [`check` record](#check).
+Function that returns the InfluxDB check ID provided by the [`check` record](#check).
 Default is `(r) => "${r._check_id}"`.
 
 _**Data type:** Function_
