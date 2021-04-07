@@ -8,14 +8,19 @@ menu:
     parent: Guides
 ---
 
-## Introduction
+Use this guide to replace both meta nodes and data nodes in an InfluxDB Enterprise cluster:
 
-Nodes in an InfluxDB Enterprise cluster may need to be replaced at some point due to hardware needs, hardware issues, or something else entirely.
-This guide outlines processes for replacing both meta nodes and data nodes in an InfluxDB Enterprise cluster.
-
+- Concepts
+- Scenarios:
+  - Replace nodes in clusters with security enabled
+  - Replace meta nodes in a functional cluster
+  - Replace an unresponsive meta node
+  - Replace responsive and unresponsive data nodes in a cluster
+  - Reconnect a data node with a failed disk
+  ## Replace meta nodes in an InfluxDB Enterprise cluster
 ## Concepts
 
-Meta nodes manage and monitor both the uptime of nodes in the cluster as well as distribution of [shards](/influxdb/v1.8/concepts/glossary/#shard) among nodes in the cluster.
+Meta nodes manage and monitor both the uptime of nodes in the cluster and the distribution of [shards](/influxdb/v1.8/concepts/glossary/#shard) among nodes in the cluster.
 They hold information about which data nodes own which shards; information on which the
 [anti-entropy](/enterprise_influxdb/v1.8/administration/anti-entropy/) (AE) process depends.
 
@@ -76,9 +81,7 @@ If a disk drive fails, all shards on that node are lost. Often in this scenario,
 
 To restart AE and sync shards across the cluster, connect the `influxd` process running on the newly replaced disk to the cluster by doing one of the following:
 
-- For nodes with more than ≈20 GB of data on disk, ?
-
-- For nodes with less than ≈20 GB of data on disk, log in to any meta node in your cluster and use the [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data) command
+- For nodes with less than data (typically, less than 20 GB) of data on disk, log in to any meta node in your cluster and use the [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data) command
 to [update the failed data node to itself](#2-replace-the-old-data-node-with-the-new-data-node).
 
 ```bash
@@ -89,8 +92,15 @@ influxd-ctl update-data <data-node-tcp-bind-address> <data-node-tcp-bind-address
 influxd-ctl update-data enterprise-data-01:8088 enterprise-data-01:8088
 ```
 
-The AE process will detect the missing shards and begin to sync data from other
-shards in the same shard group.
+The AE process will detect the missing shards and begin to sync data from other shards in the same shard group.
+
+- For nodes where the data set is too large or shaped in such a way that AE cannot be enabled, complete the following steps:
+
+   a. On a meta node in your cluster, run [`influxd-ctl show-shard`] to review the desired number of replicas for each shard in the cluster.
+   b. Run [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data) to retire the old node address and add the new node address.
+   c. Manually rebalance shards using the following tools:
+     - To copy shards to the new node, use [influxd-ctl copy-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#copy-shard). Make sure to copy the correct number of shard replicas.
+     - To remove shards from old node, use [influxd-ctl remove-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#remove-shard).
 
 ## Replace meta nodes in an InfluxDB Enterprise cluster
 
