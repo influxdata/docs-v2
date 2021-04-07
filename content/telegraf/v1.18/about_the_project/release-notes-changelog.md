@@ -37,10 +37,10 @@ menu:
 
 - [Azure Monitor Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_monitor)(`azure_monitor`):
   Fixed an issue to handle error when initializing the authentication object.
-- [Yandex Cloud Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/yandex_cloud_monitoring) (`yandex_cloud_monitoring`):
+- [Yandex Cloud Monitoring Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/yandex_cloud_monitoring) (`yandex_cloud_monitoring`):
   Fixed an issue to use correct computed metadata URL to get `folder-id`.
 
-### Processor updates
+### Processor plugin updates
 
 - [ifName](https://github.com/influxdata/telegraf/tree/master/plugins/processors/ifname)(`ifname`):
   Retrieves interface name more efficiently.
