@@ -1,15 +1,17 @@
 ---
 title: testing.benchmark() function
-description: The `testing.benchmark()` function collects benchmark data for a Flux test case.
+description: >
+  The `testing.benchmark()` function allows for accurate benchmark tests by executing
+  a test case without the additional overhead of comparing input and output tables.
 menu:
   influxdb_2_0_ref:
     name: testing.benchmark
     parent: Testing
 weight: 301
-draft: true
 ---
 
-The `testing.benchmark()` function collects benchmark data for a Flux test case.
+The `testing.benchmark()` function allows for accurate benchmark tests by executing
+a test case without the additional overhead of comparing input and output tables.
 
 _**Function type:** Test_  
 
@@ -33,6 +35,9 @@ _**Data type:** Function_
 ##### Define and benchmark a test case
 ```js
 import "testing"
+import "profiler"
+
+option profiler.enabledProfilers = ["query", "operator"]
 
 inData = "
 #datatype,string,long,string,dateTime:RFC3339,string,double
