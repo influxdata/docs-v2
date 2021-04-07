@@ -11,6 +11,7 @@ weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/select/
   - /{{< latest "kapacitor" >}}/nodes/query_node/
+introduced: 0.111.0
 ---
 
 The `tickscript.selectWindow()` function changes a column's name, windows rows by time,
@@ -102,7 +103,7 @@ data
 | 2021-01-01T02:30:00Z | 3.3    |
 {{% /flex-content %}}
 {{% flex-content %}}
-##### Ouput data
+##### Output data
 | _time               | example-name |
 |:-----               | ------------:|
 | 2021-01-01T00:59:59 | 2.0          |

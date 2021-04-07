@@ -11,6 +11,7 @@ weight: 302
 related:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/selectwindow/
   - /{{< latest "kapacitor" >}}/nodes/query_node/
+introduced: 0.111.0
 ---
 
 The `tickscript.select()` function changes a column's name and optionally applies
@@ -85,7 +86,7 @@ data
 | 2021-01-01T02:00:00Z | 4.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
-##### Ouput data
+##### Output data
 | _time                | example-name |
 |:-----                | ------------:|
 | 2021-01-01T00:00:00Z | 1.2          |
@@ -117,7 +118,7 @@ data
 | 2021-01-01T02:00:00Z | 4.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
-##### Ouput data
+##### Output data
 | sum |
 |:---:|
 | 8.4 |
@@ -147,7 +148,7 @@ data
 | 2021-01-01T02:00:00Z | 4.0    |
 {{% /flex-content %}}
 {{% flex-content %}}
-##### Ouput data
+##### Output data
 | _time                | max |
 |:-----                | ---:|
 | 2021-01-01T02:00:00Z | 4.0 |
