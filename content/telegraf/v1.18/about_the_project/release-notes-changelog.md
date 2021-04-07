@@ -15,35 +15,35 @@ menu:
 ### Input plugin updates
 
 - [Docker Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker)(`docker`):
-  Fixed panic when parsing container statistics.
+  Fix panic when parsing container statistics.
 - [Exec Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec)(`exec`):
   Plugin does not truncate messages in debug mode.
 - [IPMI Sensor Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ipmi_sensor)(`ipmi_sensor`):
-  Fixed panic by implementing a length check to plugin.
+  Fix panic by implementing a length check to plugin.
 - [MySQL Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql)(`mysql`):
-  Fixed the ability to handle ‘binary logs’ query for MySQL version 8.0+.
+  Fix the ability to handle ‘binary logs’ query for MySQL version 8.0+.
 - [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient)(`nfsclient`):
-  Fixed integer overflow in fields received by mountstat.
+  Fix integer overflow in fields received by mountstat.
 - [Ping Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ping)(`ping`):
-  Fixed an issue when `method=”native”` by always calling `SetPrivileged(true)`.
+  Fix an issue when `method=”native”` by always calling `SetPrivileged(true)`.
 - [SNMP Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/snmp)(`snmp`):
-  Fixed `init()` when no MIBs are installed.
+  Fix `init()` when no MIBs are installed.
 - [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver)(`sqlserver`):
-  Fixed `sqlserver_process_cpu` calculation.
+  Fix `sqlserver_process_cpu` calculation.
 - [Tail Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/tail)(`tail`):
   Added configurable option to override `path` tag.
 
 ### Output plugin updates
 
 - [Azure Monitor Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_monitor)(`azure_monitor`):
-  Fixed an issue to handle error when initializing the authentication object.
+  Fix an issue to handle error when initializing the authentication object.
 - [Yandex Cloud Monitoring Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/yandex_cloud_monitoring) (`yandex_cloud_monitoring`):
-  Fixed an issue to use correct computed metadata URL to get `folder-id`.
+  Fix an issue to use correct computed metadata URL to get `folder-id`.
 
 ### Processor plugin updates
 
 - [ifName](https://github.com/influxdata/telegraf/tree/master/plugins/processors/ifname)(`ifname`):
-  Retrieves interface name more efficiently.
+  Retrieve interface name more efficiently.
 
 
 ## v1.18 [2021-3-17]
