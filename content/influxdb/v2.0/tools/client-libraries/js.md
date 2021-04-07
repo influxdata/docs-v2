@@ -72,7 +72,7 @@ Use the Javascript library to write data to and query data from InfluxDB in a br
    ```
 
 ## Write data to InfluxDB with JavaScript
-Use the Javascript library to write data to InfluxDB in a Nodejs environment.
+Use the Javascript library to write data to InfluxDB in a Node.js environment.
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
 2. Use the `getWriteApi` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
