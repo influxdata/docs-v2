@@ -14,35 +14,35 @@ menu:
 
 ### Input plugin updates
 
-- [Docker Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker)(`docker`):
+- [Docker Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker) (`docker`):
   Fix panic when parsing container statistics.
-- [Exec Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec)(`exec`):
+- [Exec Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec) (`exec`):
   Fix truncated messages in debug mode; debug mode now shows full messages.
-- [IPMI Sensor Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ipmi_sensor)(`ipmi_sensor`):
+- [IPMI Sensor Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ipmi_sensor) (`ipmi_sensor`):
   Fix panic by implementing a length check to plugin.
-- [MySQL Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql)(`mysql`):
+- [MySQL Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql) (`mysql`):
   Fix the ability to handle ‘binary logs’ query for MySQL version 8.0+.
-- [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient)(`nfsclient`):
+- [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient) (`nfsclient`):
   Fix integer overflow in fields received by mountstat.
-- [Ping Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ping)(`ping`):
+- [Ping Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ping) (`ping`):
   Fix an issue when `method=”native”` by always calling `SetPrivileged(true)`.
-- [SNMP Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/snmp)(`snmp`):
+- [SNMP Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/snmp) (`snmp`):
   Fix `init()` when no MIBs are installed.
-- [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver)(`sqlserver`):
+- [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver) (`sqlserver`):
   Fix `sqlserver_process_cpu` calculation.
-- [Tail Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/tail)(`tail`):
+- [Tail Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/tail) (`tail`):
   Added configurable option to override `path` tag.
 
 ### Output plugin updates
 
-- [Azure Monitor Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_monitor)(`azure_monitor`):
+- [Azure Monitor Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_monitor) (`azure_monitor`):
   Fix an issue to handle error when initializing the authentication object.
 - [Yandex Cloud Monitoring Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/yandex_cloud_monitoring) (`yandex_cloud_monitoring`):
   Fix an issue to use correct computed metadata URL to get `folder-id`.
 
 ### Processor plugin updates
 
-- [ifName](https://github.com/influxdata/telegraf/tree/master/plugins/processors/ifname)(`ifname`):
+- [ifName](https://github.com/influxdata/telegraf/tree/master/plugins/processors/ifname) (`ifname`):
   Retrieve interface name more efficiently.
 
 
