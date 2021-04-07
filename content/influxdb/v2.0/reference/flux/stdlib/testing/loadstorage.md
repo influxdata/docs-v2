@@ -1,6 +1,6 @@
 ---
 title: testing.loadStorage() function
-description: The `testing.loadStorage()` function ...
+description: The `testing.loadStorage()` function loads test data as if it were queried from InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: testing.loadStorage
