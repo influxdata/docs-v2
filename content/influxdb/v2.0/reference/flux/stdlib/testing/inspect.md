@@ -1,7 +1,7 @@
 ---
 title: testing.inspect() function
 description: >
-  The `testing.inspect()` function returns the information about a test case.
+  The `testing.inspect()` function returns information about a test case.
 menu:
   influxdb_2_0_ref:
     name: testing.inspect
@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `testing.inspect()` function returns the information about a test case.
+The `testing.inspect()` function returns information about a test case.
 
 _**Function type:** Test_  
 

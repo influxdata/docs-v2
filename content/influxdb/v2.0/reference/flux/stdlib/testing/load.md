@@ -24,7 +24,7 @@ testing.load()
 
 ### tables
 Input data.
-Default is piped-forward data (`<-`).
+Default is piped-forward data ([`<-`](/influxdb/v2.0/reference/flux/language/expressions/#pipe-expressions)).
 
 ## Examples
 
