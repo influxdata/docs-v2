@@ -52,7 +52,7 @@ SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu"
 WHERE "host" = :host: and time > :dashboardTime
 ```
 
-Alternatively, leave the template variable values as strings without quotes, and then quote the variables in your queries. In this case, you define the `host` variable would be defined without quotes:
+Alternatively, leave the template variable values as strings without quotes, and then quote the variables in your queries. In this case, you define the `host` variable using unquoted values:
 
 ```sh
 host1,host2,host3
