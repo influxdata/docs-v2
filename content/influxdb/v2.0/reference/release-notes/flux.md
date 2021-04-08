@@ -13,7 +13,7 @@ menu:
 ### Features
 - Add [`testing.load`](#) for using raw tables in tests.
 - Add remaining experimental built-in types without column parameters.
-- Add [OEE (overall equipment efficiency) package](#).
+- Add [OEE (overall equipment effectiveness) package](/influxdb/v2.0/reference/flux/stdlib/experimental/oee/).
 
 ### Bug fixes
 - Use new crate name in `buildinfo`.
