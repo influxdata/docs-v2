@@ -11,7 +11,7 @@ menu:
 ## v0.112.0 [2021-04-06]
 
 ### Features
-- Add [`testing.load`](#) for using raw tables in tests.
+- Add [`testing.load`](/influxdb/v2.0/reference/flux/stdlib/testing/load/) for using raw tables in tests.
 - Add remaining experimental built-in types without column parameters.
 - Add [OEE (overall equipment effectiveness) package](/influxdb/v2.0/reference/flux/stdlib/experimental/oee/).
 
