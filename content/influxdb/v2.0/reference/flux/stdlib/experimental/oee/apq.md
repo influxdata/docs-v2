@@ -2,7 +2,7 @@
 title: oee.APQ() function
 description: >
   The `oee.APQ()` function computes availability, performance, quality (APQ)
-  and overall equipment effectiveness (OEE).
+  and overall equipment effectiveness (OEE) from a single stream of tables.
 menu:
   influxdb_2_0_ref:
     name: oee.APQ
@@ -11,7 +11,7 @@ weight: 401
 ---
 
 The `oee.APQ()` function computes availability, performance, quality (APQ)
-and overall equipment effectiveness (OEE).
+and overall equipment effectiveness (OEE) from a single string of tables.
 
 ```js
 import "experimental/oee"
@@ -28,7 +28,7 @@ Input tables must have the following columns:
 
 - **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
 - **_time**: Timestamp of the production event.
-- **state**: State that represents start or stop events.
+- **state**: String that represents start or stop events or the production state.
 - **partCount**: Cumulative total of parts produced.
 - **badCount**: Cumulative total of parts that do not meet quality standards.
 
@@ -41,7 +41,7 @@ and the following columns:
 - **oee**: Overall equipment effectiveness.
 - **performance**: Ratio of production efficiency.
 - **quality**: Ratio of production quality.
-- **runTime**: Nanoseconds production was in a running state.
+- **runTime**: Total nanoseconds spent in the running state..
 
 ## Parameters
 
@@ -77,6 +77,9 @@ Default is piped-forward data.
 _See [Required input schema](#required-input-schema)._
 
 ## Examples
+
+The following example uses [production data](#input-data-productiondata) (`productionData`)
+and `oee.APQ()` to calculate the APQ and OEE of an eight hour production window.
 
 #### Input data (productionData)
 | _start               | _stop                | _time                | state   | partCount | badCount |

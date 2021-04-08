@@ -34,7 +34,7 @@ and the following columns:
 - **oee**: Overall equipment effectiveness.
 - **performance**: Ratio of production efficiency.
 - **quality**: Ratio of production quality.
-- **runTime**: Nanoseconds production was in a running state.
+- **runTime**: Total nanoseconds spent in the running state.
 
 ## Parameters
 
@@ -45,7 +45,7 @@ Each row must contain the following columns:
 
 - **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
 - **_time**: Timestamp of the production event.
-- **state**: State that represents start or stop events.
+- **state**: String that represents start or stop events or the production state.
   Use [`runningState`](#runningstate) to specify which value in the `state`
   column represents a running state.
 

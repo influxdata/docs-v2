@@ -2,7 +2,7 @@
 title: Flux OEE package
 list_title: OEE package
 description: >
-  The Flux OEE package provides functions for calculating overall equipment efficiency (OEE).
+  The Flux OEE package provides functions for calculating overall equipment effectiveness (OEE).
   Import the `experimental/oee` package.
 menu:
   influxdb_2_0_ref:
