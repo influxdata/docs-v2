@@ -81,7 +81,7 @@ Add single quotes in your query as follows:
 
 ```sql
 SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-  WHERE "host" = ':host:' and time > :dashboardTime
+WHERE "host" = ':host:' and time > :dashboardTime
 ```
 
 ## Predefined template variables
