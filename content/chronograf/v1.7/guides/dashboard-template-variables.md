@@ -62,7 +62,7 @@ And then add single quotes in the query as follows:
 
 ```sql
 SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-  WHERE "host" = ':host:' and time > :dashboardTime
+WHERE "host" = ':host:' and time > :dashboardTime
 ```
 
 When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
