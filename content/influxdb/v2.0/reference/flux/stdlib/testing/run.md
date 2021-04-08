@@ -52,9 +52,9 @@ outData = "
 "
 
 t_sum = (table=<-) =>
-	(table
+  (table
     |> range(start:2021-01-01T00:00:00Z, stop:2021-01-03T01:00:00Z)
-		|> sum())
+    |> sum())
 
 test _sum = () =>
   ({input: testing.loadStorage(csv: inData), want: testing.loadMem(csv: outData), fn: t_sum})

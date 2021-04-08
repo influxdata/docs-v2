@@ -1,8 +1,8 @@
 ---
 title: testing.loadMem() function
 description: >
-  The `testing.loadMem()` function loads test data from memory to emulate query
-  results returned by Flux.
+  The `testing.loadMem()` function loads annotated CSV test data from memory to
+  emulate query results returned by Flux.
 menu:
   influxdb_2_0_ref:
     name: testing.loadMem
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `testing.loadMem()` function loads test data from memory to emulate query
-results returned by Flux.
+The `testing.loadMem()` function loads [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+test data from memory to emulate query results returned by Flux.
 
 _**Function type:** Test_  
 

@@ -1,7 +1,7 @@
 ---
 title: testing.load() function
 description: >
-  The `testing.load()` function loads tests data from a raw stream of tables.
+  The `testing.load()` function loads tests data from a stream of tables.
 menu:
   influxdb_2_0_ref:
     name: testing.load
@@ -10,7 +10,7 @@ weight: 301
 introduced: 0.112.0
 ---
 
-The `testing.load()` function loads tests data from a raw stream of tables.
+The `testing.load()` function loads tests data from a stream of tables.
 
 _**Function type:** Test_  
 
@@ -29,6 +29,9 @@ Default is piped-forward data ([`<-`](/influxdb/v2.0/reference/flux/language/exp
 ## Examples
 
 ##### Load a raw stream of tables in a test case
+The following test uses [`array.from()`](/influxdb/v2.0/reference/flux/stdlib/array/from/)
+to create two streams of tables to compare in the test.
+
 ```js
 import "testing"
 import "array"

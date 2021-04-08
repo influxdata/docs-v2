@@ -1,8 +1,9 @@
 ---
 title: testing.benchmark() function
 description: >
-  The `testing.benchmark()` function allows for accurate benchmark tests by executing
-  a test case without the additional overhead of comparing input and output tables.
+  The `testing.benchmark()` function executes a test case without comparing test output with the expected test output.
+  This lets you accurately benchmark a test case without the added overhead of comparing
+  test output that occurs in [`testing.run()`](/influxdb/v2.0/reference/flux/stdlib/testing/run/).
 menu:
   influxdb_2_0_ref:
     name: testing.benchmark
@@ -10,8 +11,9 @@ menu:
 weight: 301
 ---
 
-The `testing.benchmark()` function allows for accurate benchmark tests by executing
-a test case without the additional overhead of comparing input and output tables.
+The `testing.benchmark()` function executes a test case without comparing test output with the expected test output.
+This lets you accurately benchmark a test case without the added overhead of comparing
+test output that occurs in [`testing.run()`](/influxdb/v2.0/reference/flux/stdlib/testing/run/).
 
 _**Function type:** Test_  
 
@@ -33,6 +35,9 @@ _**Data type:** Function_
 ## Examples
 
 ##### Define and benchmark a test case
+The following script defines a test case for the `sum()` function and enables
+[profilers](/influxdb/v2.0/reference/flux/stdlib/profiler/) to measure query performance.
+
 ```js
 import "testing"
 import "profiler"
@@ -58,9 +63,9 @@ outData = "
 "
 
 t_sum = (table=<-) =>
-	(table
+  (table
     |> range(start:2021-01-01T00:00:00Z, stop:2021-01-03T01:00:00Z)
-		|> sum())
+    |> sum())
 
 test _sum = () =>
   ({input: testing.loadStorage(csv: inData), want: testing.loadMem(csv: outData), fn: t_sum})

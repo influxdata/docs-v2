@@ -1,6 +1,8 @@
 ---
 title: testing.loadStorage() function
-description: The `testing.loadStorage()` function ...
+description: >
+  The `testing.loadStorage()` function loads annotated CSV test data as if it were queried from InfluxDB.
+  This function ensures tests behave correctly in both the Flux and InfluxDB test suites.
 menu:
   influxdb_2_0_ref:
     name: testing.loadStorage
@@ -8,7 +10,8 @@ menu:
 weight: 301
 ---
 
-The `testing.loadStorage()` function loads test data as if it were queried from InfluxDB.
+The `testing.loadStorage()` function loads [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+test data as if it were queried from InfluxDB.
 This function ensures tests behave correctly in both the Flux and InfluxDB test suites.
 Test data requires the following columns:
 
