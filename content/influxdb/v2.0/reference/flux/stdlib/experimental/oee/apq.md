@@ -1,7 +1,7 @@
 ---
 title: oee.APQ() function
 description: >
-  The `oee.APQ()` function computes availability, performance, quality (APQ)
+  The `oee.APQ()` function computes availability, performance, and quality (APQ)
   and overall equipment effectiveness (OEE).
 menu:
   influxdb_2_0_ref:
@@ -11,7 +11,7 @@ weight: 401
 ---
 
 The `oee.APQ()` function computes availability, performance, quality (APQ)
-and overall equipment effectiveness (OEE).
+and overall equipment effectiveness (OEE) in producing parts. Provide the required input schema to ensure this function successfully calculates APQ and OEE.
 
 ```js
 import "experimental/oee"
@@ -24,17 +24,16 @@ oee.APQ(
 ```
 
 #### Required input schema
-Input tables must have the following columns:
+You must include the following columns in your production data input tables:
 
-- **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
+- **_stop**: Right time boundary timestamp (typically assigned by [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) or [`window()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)).
 - **_time**: Timestamp of the production event.
 - **state**: State that represents start or stop events.
 - **partCount**: Cumulative total of parts produced.
 - **badCount**: Cumulative total of parts that do not meet quality standards.
 
 #### Output schema
-For each input table, the `oee.APQ` function outputs a table with a single row
-and the following columns:
+For each input table, the `oee.APQ` function outputs a table with a single row that includes the following columns:
 
 - **_time**: Timestamp associated with the APQ calculation.
 - **availability**: Ratio of time production was in a running state.
@@ -107,4 +106,3 @@ productionData
 | _time                | availability  | oee    | performance  | quality  | runTime        |
 |:-----                | ------------: | ---:   | -----------: | -------: | -------:       |
 | 2021-01-01T08:00:01Z | 0.9563        | 0.9370 | 0.9897       | 0.9899   | 27541000000000 |
-
