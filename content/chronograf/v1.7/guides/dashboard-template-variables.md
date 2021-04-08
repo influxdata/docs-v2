@@ -33,8 +33,8 @@ Variable values are then selected in your dashboard user-interface (UI).
 For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not add quotes** (single or double) to your queries. Chronograf adds quoting as follows:
 
 ```sql
-  SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
-``````
+SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
+```
 
 For **custom queries**, **CSV**, or **map queries**, you must quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
 .
