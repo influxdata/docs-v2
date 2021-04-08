@@ -1,8 +1,8 @@
 ---
 title: oee.computeAPQ() function
 description: >
-  The `oee.computeAPQ()` function computes availability, performance, quality (APQ)
-  and overall equipment effectiveness (OEE).
+  The `oee.computeAPQ()` function computes availability, performance, and quality (APQ)
+  and overall equipment effectiveness (OEE) using two separate input streams—production events and parts events.
 menu:
   influxdb_2_0_ref:
     name: oee.computeAPQ
@@ -10,8 +10,9 @@ menu:
 weight: 401
 ---
 
-The `oee.computeAPQ()` function computes availability, performance, quality (APQ)
-and overall equipment effectiveness (OEE).
+The `oee.computeAPQ()` function computes availability, performance, and quality (APQ)
+and overall equipment effectiveness (OEE) using two separate input streams—[production events](#productionevents)
+and [part events](#partevents).
 
 ```js
 import "experimental/oee"
@@ -40,7 +41,7 @@ and the following columns:
 
 ### productionEvents
 ({{< req >}})
-Start and stop events stream for the production process.
+Production events stream that contains the production state or start and stop events.
 Each row must contain the following columns:
 
 - **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
@@ -53,10 +54,12 @@ _**Data type:** Stream of Tables_
 
 ### partEvents
 ({{< req >}})
-Part counts stream.
-Each row must contain cumulative counts in the following columns:
+Part events that contains the running totals of parts produced and parts that do not meet quality standards.
+Each row must contain the following columns:
 
-- **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
+- **_stop**: Right time boundary timestamp (typically assigned by
+  [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
+  or [`window()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)).
 - **_time**: Timestamp of the parts event.
 - **partCount:** Cumulative total of parts produced.
 - **badCount** Cumulative total of parts that do not meet quality standards.
@@ -90,6 +93,10 @@ Integer values represent nanoseconds.
 {{% /note %}}
 
 ## Examples
+
+The following example uses two streams of data ([productionData](#productiondata)
+and [partsData](#partsdata)) and `oee.APQ()` to calculate the APQ and OEE of an
+eight hour production window.
 
 #### Input data
 

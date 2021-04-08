@@ -27,7 +27,9 @@ oee.APQ(
 #### Required input schema
 You must include the following columns in your production data input tables:
 
-- **_stop**: Right time boundary timestamp (typically assigned by [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) or [`window()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)).
+- **_stop**: Right time boundary timestamp (typically assigned by
+  [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/)
+  or [`window()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)).
 - **_time**: Timestamp of the production event.
 - **state**: String that represents start or stop events or the production state.
 - **partCount**: Cumulative total of parts produced.
