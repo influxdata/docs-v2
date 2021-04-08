@@ -65,8 +65,8 @@ If you define a custom CSV variable named `host` with the following values:
 Do not include quotes in your query:
 
 ```sql
-  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-  WHERE "host" = :host: and time > :dashboardTime
+SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+WHERE "host" = :host: and time > :dashboardTime
 ```
 
 ### Template variables without quotes
