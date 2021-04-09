@@ -1,7 +1,7 @@
 ---
 title: experimental.max() function
 description: >
-  The `experimental.max()` function selects record with the highest value in the
+  The `experimental.max()` function selects the record with the highest value in the
   `_value` column for each input table.
 menu:
   influxdb_2_0_ref:
@@ -14,7 +14,7 @@ related:
 introduced: 0.112.0
 ---
 
-The `experimental.max()` function selects record with the highest value in the
+The `experimental.max()` function selects the record with the highest value in the
 `_value` column for each input table.
 
 _**Function type:** Selector_
