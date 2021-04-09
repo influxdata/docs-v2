@@ -169,7 +169,7 @@ v2: /influxdb/v2.0/get-started/
 ```
 
 ### Prepend and append content to a page
-Use the `prepend` and `append` frontmatter to pre/append content to a page.
+Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
 Each has the following fields:
 
 - **block:** _(Optional)_ block style to wrap content in (note, warn, cloud, or enterprise)
