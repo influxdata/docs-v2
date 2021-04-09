@@ -4,7 +4,9 @@
     {{ partial "article/stable-version.html" . }}
     {{ partial "article/flux-experimental.html" . }}
     {{ partial "article/flux-contrib.html" . }}
+    {{ partial "article/prepend.html" . }}
     {{ .Content }}
+    {{ partial "article/append.html" . }}
     {{ partial "article/related.html" . }}
     {{ partial "article/tags.html" . }}
     {{ partial "article/feedback.html" . }}
