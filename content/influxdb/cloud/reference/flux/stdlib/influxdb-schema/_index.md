@@ -18,7 +18,8 @@ cascade:
     block: cloud
     content: |
       #### Supported in the InfluxDB Cloud UI
-           The `schema` package can retrieve schema information from the InfluxDB Cloud user interface (UI), but **not** from the [Flux REPL](/influxdb/cloud/tools/repl/).
+      The `schema` package can retrieve schema information from the InfluxDB
+      Cloud user interface (UI), but **not** from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.
