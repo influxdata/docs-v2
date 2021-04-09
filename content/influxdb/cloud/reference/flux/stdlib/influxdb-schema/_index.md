@@ -18,11 +18,7 @@ cascade:
     block: cloud
     content: |
       #### Supported in the InfluxDB Cloud UI
-      The `schema` package can retrieve schema information from InfluxDB Cloud when
-      used in the InfluxDB Cloud user interface (UI), but it **cannot** when using
-      the [Flux REPL](/influxdb/cloud/tools/repl/).
-      In the REPL, there is no way to provide the host, organization, and token
-      required to authorize with InfluxDB Cloud.
+           The `schema` package can retrieve schema information from the InfluxDB Cloud user interface (UI), but **not** from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.

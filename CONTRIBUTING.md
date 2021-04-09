@@ -173,7 +173,7 @@ Use the `prepend` and `append` frontmatter to add content to the top or bottom o
 Each has the following fields:
 
 - **block:** _(Optional)_ block style to wrap content in (note, warn, cloud, or enterprise)
-- **content:** _**(Required)**_ markdown content to pre/append.
+- **content:** _**(Required)**_ markdown content to add.
 
 ```yaml
 append:
@@ -183,7 +183,7 @@ append:
     This is just an example note block that gets appended to the article.
 ```
 
-Use this frontmatter with [cascade](#cascade) to pre/append the same content to
+Use this frontmatter with [cascade](#cascade) to add the same content to
 all children pages as well.
 
 ```yaml
