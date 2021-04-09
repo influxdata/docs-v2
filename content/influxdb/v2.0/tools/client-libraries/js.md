@@ -48,7 +48,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
     ```
 
 ## Boilerplate for the InfluxDB Javascript client library  
-Use the Javascript library to write data to and query data from InfluxDB.
+Use the Javascript library to write data to and query data from InfluxDB in a browser.
 
 1. To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
 
@@ -72,12 +72,16 @@ Use the Javascript library to write data to and query data from InfluxDB.
    ```
 
 ## Write data to InfluxDB with JavaScript
-Use the Javascript library to write data to InfluxDB.
+Use the Javascript library to write data to InfluxDB in a Node.js environment.
 
-1. Use the `getWriteApi` method of the InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
+1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
+2. Use the `getWriteApi` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
 
   ```js
-  const writeApi = InfluxDB.getWriteApi(org, bucket)
+  import {InfluxDB, Point} from '@influxdata/influxdb-client'
+ 
+  const influxDB = new InfluxDB({url, token})
+  const writeApi = influxDB.getWriteApi(org, bucket)
   ```
 
    The `useDefaultTags` method instructs the write api to use default tags when writing points. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint` method. The `tag` and `floatField` methods add key value pairs for the tags and fields, respectively.  Close the client to flush all pending writes and finish.
@@ -85,10 +89,11 @@ Use the Javascript library to write data to InfluxDB.
    ```js
    writeApi.useDefaultTags({location: 'browser'})
    const point1 = new Point('temperature')
-          .tag('example', 'index.html')
-          .floatField('value', 24)
-        writeApi.writePoint(point1)
-        console.log(`${point1}`)
+       .tag('example', 'index.html')
+       .floatField('value', 24)
+   console.log(`${point1}`)
+
+   writeApi.writePoint(point1)
    writeApi.close()
    ```
 
@@ -97,13 +102,16 @@ Use the Javascript library to write data to InfluxDB.
 ```js
 const influxDB = new InfluxDB({proxy, token})
 const writeApi = influxDB.getWriteApi(org, bucket)
+
 // setup default tags for all writes through this API
 writeApi.useDefaultTags({location: 'browser'})
 const point1 = new Point('temperature')
   .tag('example', 'index.html')
   .floatField('value', 24)
-writeApi.writePoint(point1)
 console.log(` ${point1}`)
+
+writeApi.writePoint(point1)
+
 // flush pending writes and close writeApi
 writeApi
   .close()
