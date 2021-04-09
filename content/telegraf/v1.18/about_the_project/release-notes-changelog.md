@@ -7,6 +7,45 @@ menu:
     weight: 10
     parent: About the project
 ---
+
+## v1.18.1 [2021-04-07]
+
+- Agent: Closes running outputs when agent reloads on SIGHUP.
+
+### Input plugin updates
+
+- [Docker Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker) (`docker`):
+  Fix panic when parsing container statistics.
+- [Exec Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec) (`exec`):
+  Fix truncated messages in debug mode; debug mode now shows full messages.
+- [IPMI Sensor Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ipmi_sensor) (`ipmi_sensor`):
+  Fix panic by implementing a length check to plugin.
+- [MySQL Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql) (`mysql`):
+  Fix the ability to handle ‘binary logs’ query for MySQL version 8.0+.
+- [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient) (`nfsclient`):
+  Fix integer overflow in fields received by mountstat.
+- [Ping Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ping) (`ping`):
+  Resolve error that prevented the agent from running when an unprivileged UDP ping was sent. Now, `SetPrivileged(true)` is always true in native mode to ensure a privileged ICMP ping is sent.
+- [SNMP Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/snmp) (`snmp`):
+  Fix `init()` when no MIBs are installed.
+- [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver) (`sqlserver`):
+  Fix `sqlserver_process_cpu` calculation.
+- [Tail Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/tail) (`tail`):
+  Added configurable option to override `path` tag.
+
+### Output plugin updates
+
+- [Azure Monitor Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_monitor) (`azure_monitor`):
+  Fix an issue to handle error when initializing the authentication object.
+- [Yandex Cloud Monitoring Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/yandex_cloud_monitoring) (`yandex_cloud_monitoring`):
+  Fix an issue to use correct computed metadata URL to get `folder-id`.
+
+### Processor plugin updates
+
+- [ifName](https://github.com/influxdata/telegraf/tree/master/plugins/processors/ifname) (`ifname`):
+  Retrieve interface name more efficiently.
+
+
 ## v1.18 [2021-3-17]
 
 ### Features
