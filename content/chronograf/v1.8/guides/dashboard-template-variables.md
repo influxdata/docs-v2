@@ -47,16 +47,22 @@ SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :das
 
 For **custom queries**, **CSV**, or **map queries**, quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
 
-- For numerical values, **do not add** quotes.
-- For string values, choose to quote the values in the variable definition (or not). For example, if you use template variable strings in regular expression syntax (where quotes may cause errors), do not include quotes.
+- For numerical values, **do not quote**.
+- For string values, choose to quote the values in the variable definition (or not).  See [String examples](#string-examples) below.
 
 {{% note %}}
-**Tip:** When using custom meta queries that return strings, typically, you quote variable values in a dashboard query, given InfluxQL returns results without quotes.
+**Tips for quoting strings:**
+- When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
+
+- If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
 {{% /note %}}
 
-### Template variables without quotes
+#### String examples
 
-If you define a custom CSV variable named `host` with the following values:
+Add single quotes when you define template variables, or in your queries, but not both.
+##### Example 1: Add single quotes in variable definition
+
+If you define a custom CSV variable named `host` using single quotes:
 
 ```sh
 'host1','host2','host3'
@@ -69,7 +75,7 @@ SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu"
 WHERE "host" = :host: and time > :dashboardTime
 ```
 
-### Template variables without quotes
+##### Example 2: Add single quotes in query
 
 If you define a custom CSV variable named `host` without quotes:
 
@@ -77,7 +83,7 @@ If you define a custom CSV variable named `host` without quotes:
 host1,host2,host3
 ```
 
-Add single quotes in your query as follows:
+Add single quotes in your query:
 
 ```sql
 SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 

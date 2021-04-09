@@ -36,38 +36,50 @@ For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not 
 SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
 ```
 
-For **custom queries**, **CSV**, or **map queries**, you must quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
-.
+For **custom queries**, **CSV**, or **map queries**, quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
+
 - For numerical values, **do not quote**.
-- For string values, you can choose to quote the values in the variable definition (or not). For example, if you define a custom CSV variable named `host` with the following values:
+- For string values, choose to quote the values in the variable definition (or not). See [String examples](#string-examples) below.
 
-```sh
-'host1','host2','host3'
-```
+{{% note %}}
+**Tips for quoting strings:**
+- When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
 
-You do not include quotes in the query:
+- If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
+{{% /note %}}
 
-```sql
-SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-WHERE "host" = :host: and time > :dashboardTime
-```
+#### String examples
 
-Alternatively, leave the template variable values as strings without quotes, and then quote the variables in your queries. In this case, you define the `host` variable using unquoted values:
+Add single quotes when you define template variables, or in your queries, but not both.
+##### Example 1: Add single quotes in variable definition
 
-```sh
-host1,host2,host3
-```
+  If you define a custom CSV variable named `host` using single quotes:
 
-And then add single quotes in the query as follows:
+  ```sh
+  'host1','host2','host3'
+  ```
 
-```sql
-SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
-WHERE "host" = ':host:' and time > :dashboardTime
-```
+  Do not include quotes in the query:
 
-When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
+  ```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = :host: and time > :dashboardTime
+  ```
 
-If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
+##### Example 2: Add single quotes in query
+
+  If you define a custom CSV variable named `host` without quotes:
+
+  ```sh
+  host1,host2,host3
+  ```
+
+  Add single quotes in your query:
+
+  ```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = ':host:' and time > :dashboardTime
+  ```
 
 ## Predefined template variables
 
