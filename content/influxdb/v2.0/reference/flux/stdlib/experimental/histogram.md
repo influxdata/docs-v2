@@ -33,12 +33,12 @@ experimental.histogram(
 
 #### Output schema
 `experimental.histogram()` outputs a single table for each input table.
-Each table in the output represents a unique historgram.
+Each output table represents a unique histogram.
 Output tables have the same group key as the corresponding input table.
 
 The function does the following:
 
-- Drops columns that are not part of the group key
+- Drops columns that are not part of the group key.
 - Adds an `le` column to store upper bound values.
 - Stores bin counts in the `_value` column.
 
@@ -48,8 +48,7 @@ _**Data type:** String_
 
 ### bins
 ({{< req >}})
-A list of upper bounds to use when computing the histogram frequencies.
-Bins should contain a bin whose bound is the maximum value of the data set.
+A list of upper bounds to use when computing the histogram frequencies, including the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
 
 _**Data type:** Array of floats_
@@ -76,7 +75,7 @@ Default is pipe-forwarded data.
 
 ## Examples
 
-##### Histogram with dynamically generated bins
+#### Histogram with dynamically generated bins
 ```js
 import "experimental"
 
