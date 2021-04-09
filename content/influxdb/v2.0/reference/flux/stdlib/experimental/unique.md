@@ -16,7 +16,6 @@ introduced: 0.112.0
 The `experimental.unique()` function returns all records containing unique
 values in the `_value` column.
 `null` is considered a unique value.
-Group keys, columns, and values are **not** modified.
 
 _**Function type:** Selector_
 
@@ -25,6 +24,13 @@ import "experimental"
 
 experimental.unique()
 ```
+
+#### Output schema
+`experimental.unique()` outputs a single table for each input table and does
+the following:
+
+- Outputs a single record for each unique value.
+- Leaves group keys, columns, and values **unmodified**.
 
 {{% warn %}}
 #### Empty tables

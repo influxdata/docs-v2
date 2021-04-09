@@ -38,6 +38,8 @@ Input data.
 Default is pipe-forwarded data.
 
 ## Examples
+
+#### Return the first non-null value
 ```js
 import "experimental"
 

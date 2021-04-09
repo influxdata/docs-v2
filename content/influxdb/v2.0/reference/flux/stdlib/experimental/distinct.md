@@ -25,6 +25,13 @@ import "experimental"
 experimental.distinct()
 ```
 
+#### Output schema
+`experimental.distinct()` outputs a single table for each input table and does
+the following:
+
+- Outputs a single record for each distinct value.
+- Drops all columns **not** in the group key.
+
 {{% warn %}}
 #### Empty tables
 `experimental.distinct()` drops empty tables.
@@ -37,6 +44,8 @@ Input data.
 Default is pipe-forwarded data.
 
 ## Examples
+
+#### Return distinct values for each input table
 ```js
 import "experimental"
 
@@ -45,7 +54,7 @@ data
 ```
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "two-thirds" %}}
 ##### Input data
 | _time                | _field | _value |
 |:-----                |:------ | ------:|
@@ -56,7 +65,7 @@ data
 | 2021-01-01T00:04:00Z | ver    | v3     |
 | 2021-01-01T00:05:00Z | ver    | v3     |
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "third" %}}
 ##### Output data
 | _value |
 | ------:|

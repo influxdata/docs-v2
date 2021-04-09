@@ -32,6 +32,10 @@ experimental.fill(usePrevious: true)
 
 ## Parameters
 
+{{% note %}}
+`value` and `usePrevious` are mutually exclusive.
+{{% /note %}}
+
 ### value
 Value to replace null values with.
 Data type must match the type of the `_value` column.
@@ -40,10 +44,6 @@ _**Data type:** Boolean | Integer | UInteger | Float | String | Time | Duration_
 
 ### usePrevious
 When `true`, replaces null values with the value of the previous non-null row.
-
-{{% note %}}
-Cannot be used with `value`.
-{{% /note %}}
 
 _**Data type:** Boolean_
 
