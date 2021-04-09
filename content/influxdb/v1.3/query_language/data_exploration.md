@@ -1754,11 +1754,16 @@ The following query does not maintain the series context for tags; tags will be 
 SELECT * INTO "copy_NOAA_water_database"."autogen".:MEASUREMENT FROM "NOAA_water_database"."autogen"./.*/
 ```
 
-When moving large amounts of data, we recommend sequentially running `INTO` queries for different measurements and using time boundaries in the [`WHERE` clause](#time-syntax).
-This prevents your system from running out of memory.
-The codeblock below provides sample syntax for those queries:
+When moving large amounts of data, to avoid running out of memory, sequentially
+run `INTO` queries for different measurements and time boundaries.
+Use the [`WHERE` clause](#time-syntax) to define time boundaries for each query.
 
-```
+{{% note %}}
+`INTO` queries without time boundaries fail with the error: `ERR: no data received`.
+{{% /note %}}
+
+##### Move large amounts of data with sequential queries
+```sql
 SELECT *
 INTO <destination_database>.<retention_policy_name>.<measurement_name>
 FROM <source_database>.<retention_policy_name>.<measurement_name>
