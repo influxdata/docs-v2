@@ -8,6 +8,20 @@ menu:
     name: Flux
 ---
 
+## v0.112.0 [2021-04-06]
+
+### Features
+- Add [`testing.load`](/influxdb/v2.0/reference/flux/stdlib/testing/load/) for using raw tables in tests.
+- Add remaining experimental built-in types without column parameters.
+- Add [OEE (overall equipment effectiveness) package](/influxdb/v2.0/reference/flux/stdlib/experimental/oee/).
+
+### Bug fixes
+- Use new crate name in `buildinfo`.
+- Add bounded time ranges to fix test cases.
+- Move `derive` helper attribute after `derive` macro.
+
+---
+
 ## v0.111.0 [2021-03-30]
 
 ### Features
