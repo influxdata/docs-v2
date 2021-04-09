@@ -1,7 +1,7 @@
 ---
 title: experimental.last() function
 description: >
-  The `experimental.last()` function selects the last record with a non-null
+  The `experimental.last()` function returns the last record with a non-null
   value in the `_value` column.
 menu:
   influxdb_2_0_ref:
@@ -15,7 +15,7 @@ related:
 introduced: 0.112.0
 ---
 
-The `experimental.last()` function selects the last record with a non-null
+The `experimental.last()` function returns the last record with a non-null
 value in the `_value` column.
 
 _**Function type:** Selector_

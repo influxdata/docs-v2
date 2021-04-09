@@ -1,7 +1,7 @@
 ---
 title: experimental.first() function
 description: >
-  The `experimental.first()` function selects the first record with a non-null
+  The `experimental.first()` function returns the first record with a non-null
   value in the `_value` column.
 menu:
   influxdb_2_0_ref:
@@ -15,7 +15,7 @@ related:
 introduced: 0.112.0
 ---
 
-The `experimental.first()` function selects the first record with a non-null
+The `experimental.first()` function returns the first record with a non-null
 value in the `_value` column.
 
 _**Function type:** Selector_
