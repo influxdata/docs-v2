@@ -70,7 +70,7 @@ multiply = (x, y) => x * y
 ```
 
 ## Functions that use piped-forward data
-Most Flux functions manipulate data piped-forward into the function.
+Most Flux functions use data piped-forward into the function.
 In order for a custom function to process piped-forward data, one of the function
 parameters must capture the input tables using the `<-` pipe-receive expression.
 
