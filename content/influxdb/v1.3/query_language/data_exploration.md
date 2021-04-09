@@ -1754,8 +1754,8 @@ The following query does not maintain the series context for tags; tags will be 
 SELECT * INTO "copy_NOAA_water_database"."autogen".:MEASUREMENT FROM "NOAA_water_database"."autogen"./.*/
 ```
 
-When moving large amounts of data, to avoid running out of memory, we recommend
-sequentially running `INTO` queries for different measurements.
+When moving large amounts of data, to avoid running out of memory, sequentially
+run `INTO` queries for different measurements and time boundaries.
 Use the [`WHERE` clause](#time-syntax) to define time boundaries for each query.
 
 {{% note %}}
