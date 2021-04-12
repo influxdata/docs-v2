@@ -8,6 +8,13 @@ menu:
     name: Flux
 ---
 
+## v0.112.1 [2021-04-12]
+
+### Bug fixes
+- Add `Comment` fields to Go AST structs to preserve comments in the AST.
+
+----
+
 ## v0.112.0 [2021-04-06]
 
 ### Features
