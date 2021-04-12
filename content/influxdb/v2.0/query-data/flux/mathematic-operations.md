@@ -98,7 +98,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/influxdb/v2.0/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
+- [Handle piped-forward data](/influxdb/v2.0/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
 

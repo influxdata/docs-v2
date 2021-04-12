@@ -8,10 +8,17 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: array.from
-    parent: Array
+    identifier: experimental-array-from
+    parent: experimental-array
 weight: 401
 introduced: 0.79.0
 ---
+
+{{% note %}}
+#### Promoted from experimental
+**Flux v0.103.0** promoted the array package and the `array.from` function out of the experimental package.
+[View `array.from`](/influxdb/v2.0/reference/flux/stdlib/array/from/).
+{{% /note %}}
 
 The experimental `array.from()` function constructs a table from an array of records.
 Each record in the array is converted into an output row or record.

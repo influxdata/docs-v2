@@ -240,17 +240,22 @@
 
 td,label,li {
   &:after {
-    display: inline-block;
-    vertical-align: text-bottom;
+    display: inline;
+    vertical-align: middle;
     font-style: italic;
     font-weight: $medium;
     font-size: .75em;
     margin-left: .35rem;
-    padding: .1rem .3rem .12rem;
+    padding: .1rem .3rem .12rem .32rem;
     line-height: .75rem;
     border-radius: 1rem;
   }
 
+  &.beta:after {
+    content: "beta";
+    color: $g20-white;
+    @include gradient($grad-blue);
+  }
 }
 
 label:after {

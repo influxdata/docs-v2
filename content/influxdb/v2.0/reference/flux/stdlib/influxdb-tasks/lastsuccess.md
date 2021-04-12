@@ -36,7 +36,7 @@ _**Data type:** Time | Duration_
 ```js
 import "influxdata/influxdb/tasks"
 
-options task = {
+option task = {
   name: "Example task",
   every: 30m
 }

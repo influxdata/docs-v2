@@ -11,24 +11,87 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables let you to alter specific components of cells' queries
-without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
+
+- [Use template variables](#use-template-variables)
+- [Quoting template variables](#quoting-template-variables)
+- [Predefined template variables](#predefined-template-variables)
+- [Create custom template variables](#create-custom-template-variables)
+- [Template variable types](#template-variable-types)
+- [Reserved variable names](#reserved-variable-names)
+- [Advanced template variable usage](#advanced-template-variable-usage)
 
 ## Use template variables
-Template variables are used in cell queries and titles when creating Chronograf dashboards.
-Within the query, template variables are referenced by surrounding the variable name with colons (`:`).
+
+When creating Chronograf dashboards, use template variables in cell queries and titles.
+
+In the query, surround template variables names with colons (`:`) as follows:
 
 ```sql
 SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
 ```
 
-You can use either [predefined template variables](#predefined-template-variables)
+Use either [predefined template variables](#predefined-template-variables)
 or [custom template variables](#create-custom-template-variables).
-Variable values are then selected in your dashboard user-interface (UI).
+After you set up variables, variables are available to select in your dashboard user-interface (UI).
 
 ![Using template variables](/img/chronograf/1-6-template-vars-use.gif)
 
+## Quoting template variables
+
+For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not add quotes** (single or double) to your queries. Chronograf will add quotes as follows:
+
+```sql
+SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
+```
+
+For **custom queries**, **CSV**, or **map queries**, quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
+
+- For numerical values, **do not quote**.
+- For string values, choose to quote the values in the variable definition (or not).  See [String examples](#string-examples) below.
+
+{{% note %}}
+**Tips for quoting strings:**
+- When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
+
+- If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
+{{% /note %}}
+
+#### String examples
+
+Add single quotes when you define template variables, or in your queries, but not both.
+##### Example 1: Add single quotes in variable definition
+
+If you define a custom CSV variable named `host` using single quotes:
+
+```sh
+'host1','host2','host3'
+```
+
+Do not include quotes in your query:
+
+```sql
+SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+WHERE "host" = :host: and time > :dashboardTime
+```
+
+##### Example 2: Add single quotes in query
+
+If you define a custom CSV variable named `host` without quotes:
+
+```sh
+host1,host2,host3
+```
+
+Add single quotes in your query:
+
+```sql
+SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+WHERE "host" = ':host:' and time > :dashboardTime
+```
+
 ## Predefined template variables
+
 Chronograf includes predefined template variables controlled by elements in the Chrongraf UI.
 These template variables can be used in any of your cells' queries.
 
@@ -83,6 +146,7 @@ GROUP BY time(:interval:)
 ```
 
 ## Create custom template variables
+
 Template variables are essentially an array of potential values used to populate parts of your cells' queries.
 Chronograf lets you create custom template variables powered by meta queries or CSV uploads that return an array of possible values.
 
@@ -97,10 +161,8 @@ To create a template variable:
    If using the CSV or Map types, upload or input the CSV with the desired values in the appropriate format then select a default value.
 6. Click **Create**.
 
-
 Once created, the template variable can be used in any of your cell's queries or titles
 and a dropdown for the variable will be included at the top of your dashboard.
-
 
 ## Template Variable Types
 Chronograf supports the following template variable types:
@@ -237,7 +299,6 @@ SELECT "purchases" FROM "animals"."autogen"."customers" WHERE "petname" = :csvVa
 #### CSV variable use cases
 CSV template variables are great when the array of values necessary for your variable can't be pulled from InfluxDB using a meta query.
 They allow you to use custom variable values.
-
 
 ### Map
 Vary part of a query with a customized list of key-value pairs in CSV format.

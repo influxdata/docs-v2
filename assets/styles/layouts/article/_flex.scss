@@ -11,6 +11,7 @@
   &.half { width: calc(50% - 1rem); }
   &.third { width: calc(33.33% - 1rem); }
   &.quarter { width: calc(25% - 1rem); }
+  &.two-thirds { width: calc(66% - 2rem);}
 
   table {
     margin-bottom: 1rem;
@@ -23,7 +24,9 @@
 
 @include media(small) {
   .flex-container {
-    &.half, &.third { width: calc(100% - 1rem); }
+    &.half,
+    &.third,
+    &.two-thirds { width: calc(100% - 1rem); }
     &.quarter { width: calc(50% - 1rem); }
   }
 }
