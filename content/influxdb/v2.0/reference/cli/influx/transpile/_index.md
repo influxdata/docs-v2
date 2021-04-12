@@ -10,7 +10,7 @@ related:
 
 {{% warn %}}
 ### Removed in InfluxDB OSS 2.0.5
-The `influx transpile` command was removed in **InfluxDB 2.0.5.**.
+The `influx transpile` command was removed in **InfluxDB 2.0.5**.
 [Use InfluxQL to query InfluxDB 2.0](/influxdb/v2.0/query-data/influxql/).
 For information about manually converting InfluxQL queries to Flux, see:
 
