@@ -25,7 +25,7 @@ Flux's functional syntax lets you create custom functions.
 This guide walks through the basics of creating your own function.
 
 - [Function definition structure](#function-definition-structure)
-- [Functions that use piped-forward data](#functions-that-use-piped-forward-data)
+- [use-piped-forward-data-in-a-custom-function](#use-piped-forward-data-in-a-custom-function)
 - [Define parameter defaults](#define-parameter-defaults)
 - [Define functions with scoped variables](#define-functions-with-scoped-variables)
 
@@ -69,7 +69,7 @@ multiply = (x, y) => x * y
 30
 ```
 
-## Functions that use piped-forward data
+## Use piped-forward data in a custom function
 Most Flux functions process piped-forward data.
 To process piped-forward data, one of the function
 parameters must capture the input tables using the `<-` pipe-receive expression.
@@ -118,39 +118,39 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 
 ### Example functions with defaults
 
-#### Get the winner or the "winner"
-The example below defines a `getWinner` function that returns the record with the highest
-or lowest `_value` (winner versus "winner") depending on the `noSarcasm` parameter which defaults to `true`.
+#### Get a list of leaders
+The example below defines a `leaderBoard` function that returns a limited number
+of records sorted by values in specified columns.
 It uses the [`sort()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
 to sort records in either descending or ascending order.
 It then uses the [`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
-to return the first record from the sorted table.
+to return a specified number of records from the sorted table.
 
 ```js
 // Function definition
-getWinner = (tables=<-, noSarcasm:true) =>
+leaderBoard = (tables=<-, limit=4, columns=["_value"], desc=true) =>
   tables
-    |> sort(desc: noSarcasm)
-    |> limit(n:1)
+    |> sort(columns: columns, desc: desc)
+    |> limit(n: limit)
 
 // Function usage
-// Get the winner
+// Get the 4 highest scoring players
 from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
+    r._measurement == "player-stats" and
+    r._field == "total-points"
   )
-  |> getWinner()
+  |> leaderBoard()
 
-// Get the "winner"
+// Get the 10 shortest race times
 from(bucket: "example-bucket")
   |> range(start: -1m)
   |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
+    r._measurement == "race-times" and
+    r._field == "elapsed-time"
   )
-  |> getWinner(noSarcasm: false)
+  |> leaderBoard(limit: 10, desc: false)
 ```
 
 ## Define functions with scoped variables
