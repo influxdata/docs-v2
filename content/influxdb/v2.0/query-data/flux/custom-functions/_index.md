@@ -21,7 +21,7 @@ list_code_example: |
   ```
 ---
 
-Flux's functional syntax allows for custom functions.
+Flux's functional syntax lets you create custom functions.
 This guide walks through the basics of creating your own function.
 
 - [Function definition structure](#function-definition-structure)
@@ -70,8 +70,8 @@ multiply = (x, y) => x * y
 ```
 
 ## Functions that use piped-forward data
-Most Flux functions use data piped-forward into the function.
-In order for a custom function to process piped-forward data, one of the function
+Most Flux functions process piped-forward data.
+To process piped-forward data, one of the function
 parameters must capture the input tables using the `<-` pipe-receive expression.
 
 In the example below, the `tables` parameter is assigned to the `<-` expression,
@@ -224,4 +224,3 @@ hexName(hex: "#000000")
 hexName(hex: "#8b8b8b")
 // Returns "No known name"
 ```
-
