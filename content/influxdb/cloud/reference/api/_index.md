@@ -22,7 +22,7 @@ curl --request POST https://cloud2.influxdata.com/api/v2/write \
   --data-urlencode "bucket=example-bucket"
 ```
 
-## InfluxDB v2 API Documentation
+## InfluxDB Cloud API documentation
 <a class="btn" href="/influxdb/cloud/api/">InfluxDB Cloud API documentation</a>
 
 ## InfluxDB v1 compatibility API documentation
