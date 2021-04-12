@@ -23,7 +23,7 @@ curl --request POST https://cloud2.influxdata.com/api/v2/write \
 ```
 
 ## InfluxDB v2 API Documentation
-<a class="btn" href="/influxdb/cloud/api/">InfluxDB OSS 2.0 API documentation</a>
+<a class="btn" href="/influxdb/cloud/api/">InfluxDB Cloud API documentation</a>
 
 ## InfluxDB v1 compatibility API documentation
 The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/cloud/reference/api/influxdb-1x/)
