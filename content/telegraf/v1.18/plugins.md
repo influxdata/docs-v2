@@ -30,7 +30,7 @@ It supports four categories of plugins including input, output, aggregator, and 
 
 ## Input plugins
 Telegraf input plugins are used with the InfluxData time series platform to collect
-metrics from the system, services, or third party APIs.
+metrics from the system, services, or third-party APIs.
 
 {{< telegraf/plugins type="input" >}}
 
