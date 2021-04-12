@@ -24,16 +24,16 @@ list_code_example: |
 Flux's functional syntax lets you create custom functions.
 This guide walks through the basics of creating your own function.
 
-- [Function definition structure](#function-definition-structure)
-- [use-piped-forward-data-in-a-custom-function](#use-piped-forward-data-in-a-custom-function)
+- [Function definition syntax](#function-definition-syntax)
+- [Use piped-forward data in a custom function](#use-piped-forward-data-in-a-custom-function)
 - [Define parameter defaults](#define-parameter-defaults)
 - [Define functions with scoped variables](#define-functions-with-scoped-variables)
 
-## Function definition structure
-The basic structure for defining functions in Flux is as follows:
+## Function definition syntax
+The basic syntax for defining functions in Flux is as follows:
 
 ```js
-// Basic function definition structure
+// Basic function definition syntax
 functionName = (functionParameters) => functionOperations
 ```
 
@@ -65,7 +65,7 @@ square = (n) => n * n
 multiply = (x, y) => x * y
 
 // Function usage
-> multiply(x:2, y:15)
+> multiply(x: 2, y: 15)
 30
 ```
 
@@ -155,7 +155,7 @@ from(bucket: "example-bucket")
 
 ## Define functions with scoped variables
 To create custom functions with variables scoped to the function, place your
-function operations and variables in a [block (`{}`)](/influxdb/v2.0/reference/flux/language/blocks/)
+function operations and variables inside of a [block (`{}`)](/influxdb/v2.0/reference/flux/language/blocks/)
 and use a `return` statement to return a specific variable.
 
 ```js
