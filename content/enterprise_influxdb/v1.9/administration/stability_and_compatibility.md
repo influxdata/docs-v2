@@ -3,7 +3,7 @@ title: Stability and compatibility
 description: >
   API and storage engine compatibility and stability in InfluxDB OSS.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 90
     parent: Administration
 ---

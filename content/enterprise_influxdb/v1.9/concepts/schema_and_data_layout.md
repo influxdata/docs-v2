@@ -3,7 +3,7 @@ title: InfluxDB schema design and data layout
 description: >
   General guidelines for InfluxDB schema design and data layout.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Schema design and data layout
     weight: 50
     parent: Concepts

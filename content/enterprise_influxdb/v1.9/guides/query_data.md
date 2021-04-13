@@ -4,7 +4,7 @@ description: Query data with Flux and InfluxQL in the InfluxDB API.
 alias:
   -/docs/v1.8/query_language/querying_data/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 20
     parent: Guides
 aliases:

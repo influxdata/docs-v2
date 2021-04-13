@@ -3,7 +3,7 @@ title: Time Series Index (TSI) overview
 description: >
   The Time Series Index (TSI) storage engine supports high cardinality in time series data.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Time Series Index (TSI) overview
     weight: 70
     parent: Concepts

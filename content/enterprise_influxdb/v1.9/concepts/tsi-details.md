@@ -2,7 +2,7 @@
 title: Time Series Index (TSI) details
 description: Enable and understand the Time Series Index (TSI).
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Time Series Index (TSI) details
     weight: 80
     parent: Concepts

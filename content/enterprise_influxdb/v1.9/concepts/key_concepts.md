@@ -2,7 +2,7 @@
 title: InfluxDB key concepts
 description: Covers key concepts to learn about InfluxDB.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Key concepts
     weight: 10
     parent: Concepts
