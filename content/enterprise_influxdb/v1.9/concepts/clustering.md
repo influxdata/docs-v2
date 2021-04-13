@@ -3,7 +3,7 @@ title: Clustering in InfluxDB Enterprise
 description: >
   Learn how meta nodes, data nodes, and the Enterprise web server interact in InfluxDB Enterprise.
 aliases:
-    - /enterprise/v1.8/concepts/clustering/
+    - /enterprise/v1.9/concepts/clustering/
 menu:
   enterprise_influxdb_1_9_ref:
     name: Clustering
