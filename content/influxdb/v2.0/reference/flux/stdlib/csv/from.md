@@ -22,22 +22,28 @@ _**Function type:** Input_
 ```js
 import "csv"
 
-csv.from(csv: csvData)
+csv.from(
+  csv: csvData,
+  mode: "annotations"
+)
 
 // OR
 
-csv.from(file: "/path/to/data-file.csv")
+csv.from(
+  file: "/path/to/data-file.csv",
+  mode: "annotations"
+)
 ```
 
 ## Parameters
 
 ### csv
-Annotated CSV text.
+CSV data.
+Supports [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) or raw CSV.
+Use [`mode`](#mode) to specify the parsing mode.
 
 {{% note %}}
-CSV data must use Annotated CSV syntax and include all
-[annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
-For more information, see [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/).
+Annotated CSV data must include all [annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
 {{% /note %}}
 
 _**Data type:** String_
@@ -56,16 +62,43 @@ However, the [Flux REPL](/influxdb/v2.0/tools/repl/) does support the `file` par
 
 _**Data type:** String_
 
+### mode
+CSV parsing mode.
+Default is `annotations`.
+
+_**Data type:** String_
+
+##### Available modes
+- **annotations:** Use CSV annotations to determine column data types.
+- **raw:** Parse all columns as strings and use the first row as the
+  [header row](/influxdb/v2.0/reference/syntax/annotated-csv/#rows) and all
+  subsequent rows as data.
+
 ## Examples
 
-### Query CSV data from a file
+- [Query annotated CSV data from a file](#query-annotated-csv-data-from-a-file)
+- [Query raw CSV data from a file](#query-raw-csv-data-from-a-file)
+- [Query an annotated CSV string](#query-an-annotated-csv-string)
+- [Query a raw CSV string](#query-a-raw-csv-string)
+
+##### Query annotated CSV data from a file
 ```js
 import "csv"
 
 csv.from(file: "/path/to/data-file.csv")
 ```
 
-### Query raw CSV-formatted text
+##### Query raw CSV data from a file
+```js
+import "csv"
+
+csv.from(
+  file: "/path/to/data-file.csv",
+  mode: "raw"
+)
+```
+
+##### Query an annotated CSV string
 ```js
 import "csv"
 
@@ -80,4 +113,21 @@ csvData = "
 "
 
 csv.from(csv: csvData)
+```
+
+##### Query a raw CSV string
+```js
+import "csv"
+
+csvData = "
+_start,_stop,_time,region,host,_value
+2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
+2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
+2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
+"
+
+csv.from(
+  csv: csvData,
+  mode: "raw"
+)
 ```

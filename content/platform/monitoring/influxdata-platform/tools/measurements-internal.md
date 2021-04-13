@@ -1,5 +1,5 @@
 ---
-title: InfluxDB _internal measurements and fields
+title: InfluxDB _internal 1.x measurements and fields
 description: >
   Use and understand the InfluxDB _internal measurements statistics and field keys
   that monitor InfluxDB and InfluxDB Enterprise servers.

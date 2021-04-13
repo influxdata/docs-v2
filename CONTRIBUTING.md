@@ -86,9 +86,14 @@ list_note: # Used in children shortcode type="list" to add a small note next to 
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
 list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
   # References to examples in data/query_examples
-products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
 canonical: # Path to canonical page, overrides auto-gen'd canonical URL
 v2: # Path to v2 equivalent page
+prepend: # Prepend markdown content to an article (especially powerful with cascade)
+  block: # (Optional) Wrap content in a block style (note, warn, cloud)
+  content: # Content to prepend to article
+append: # Append markdown content to an article (especially powerful with cascade)
+  block: # (Optional) Wrap content in a block style (note, warn, cloud)
+  content: # Content to append to article
 ```
 
 ### Title usage
@@ -155,12 +160,39 @@ canonical: /path/to/canonical/doc/
 canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
 ```
 
-## v2 equivalent documentation
+### v2 equivalent documentation
 To display a notice on a 1.x page that links to an equivalent 2.0 page,
 add the following frontmatter to the 1.x page:
 
 ```yaml
 v2: /influxdb/v2.0/get-started/
+```
+
+### Prepend and append content to a page
+Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
+Each has the following fields:
+
+- **block:** _(Optional)_ block style to wrap content in (note, warn, cloud, or enterprise)
+- **content:** _**(Required)**_ markdown content to add.
+
+```yaml
+append:
+  block: note
+  content: |
+    #### This is example markdown content
+    This is just an example note block that gets appended to the article.
+```
+
+Use this frontmatter with [cascade](#cascade) to add the same content to
+all children pages as well.
+
+```yaml
+cascade:
+  append:
+    block: note
+    content: |
+      #### This is example markdown content
+      This is just an example note block that gets appended to the article.
 ```
 
 ### Cascade
@@ -176,7 +208,7 @@ cascade:
 ```
 
 `cascade` applies the frontmatter to all children unless the child already includes
-those frontmatter keys. Frontmaatter defined on the page overrides fronmattered
+those frontmatter keys. Frontmatter defined on the page overrides frontmatter
 "cascaded" from a parent.
 
 ## Shortcodes

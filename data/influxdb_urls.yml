@@ -29,6 +29,10 @@ cloud:
         - name: US Central (Iowa)
           location: Iowa, USA
           url: https://us-central1-1.gcp.cloud2.influxdata.com
+        - name: Europe West (Belgium)
+          location: St. Ghislain, Belgium
+          url: https://europe-west1-1.gcp.cloud2.influxdata.com
+          status: beta
     - name: Microsoft Azure
       short_name: Azure
       regions:
@@ -38,4 +42,3 @@ cloud:
         - name: East US (Virginia)
           location: Virginia, USA
           url: https://eastus-1.azure.cloud2.influxdata.com
-          

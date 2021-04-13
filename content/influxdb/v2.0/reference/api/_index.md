@@ -24,7 +24,7 @@ curl --request POST http://localhost:8086/api/v2/write \
   --data-urlencode "bucket=example-bucket"
 ```
 
-## InfluxDB v2 API Documentation
+## InfluxDB v2 API documentation
 <a class="btn" href="/influxdb/v2.0/api/">InfluxDB OSS 2.0 API documentation</a>
 
 #### View InfluxDB API documentation locally

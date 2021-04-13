@@ -43,19 +43,19 @@ Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortab
     **Amazon Web Services (AWS)**, **Microsoft Azure**, or **Google Cloud Platform (GCP)** account:
 
     - **AWS**  
-      Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS),
+      Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS/?href=_ptnr_web_docs_gettingstarted),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed AWS account.
 
     - **Microsoft**  
-      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud),
+      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud?ocid=iflxdbcloud_influxdata_docs_gettingstarted),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed Microsoft account.
 
     - **GCP**  
-      Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod),
+      Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?utm_campaign=influxdb-cloud&utm_medium=docs&utm_source=influxdata),
       and follow the prompts to subscribe. After you click **Set Up Your Account**,
       enter your credentials, and then click **Start Now**.
       All usage charges will be paid through the subscribed GCP account.

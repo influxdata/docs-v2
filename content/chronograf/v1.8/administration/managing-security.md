@@ -497,7 +497,7 @@ For more information, see [Cross-organization SuperAdmin status](/chronograf/v1.
 To enable basic authentication, run chronograf with the `-htpasswd` flag or use the `HTPASSWD` environment variable.
 
 ```sh
-chronograf —htpasswd <path to .htpasswd file>
+chronograf —-htpasswd <path to .htpasswd file>
 ```
 
 The `.htpasswd` file contains users and their passwords, and should be created with a password file utility tool such as `apache2-utils`.
