@@ -1055,8 +1055,8 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
 There are different types of athentication tokens:
 
-- **Admin token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Admin tokens._
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
+  _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
 

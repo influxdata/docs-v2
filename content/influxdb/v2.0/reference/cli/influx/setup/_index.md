@@ -19,7 +19,7 @@ The `influx setup` command walks through the initial InfluxDB OSS setup process,
 creating a default user, organization, and bucket.
 
 {{% note %}}
-The **Admin token** created in the InfluxDB setup process has full read and write
+The **Operator token** created in the InfluxDB setup process has full read and write
 access to all organizations in the database.
 {{% /note %}}
 
