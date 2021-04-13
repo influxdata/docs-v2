@@ -171,4 +171,19 @@ influx apply \
 ## Migrate data
 Discuss handling of existing data (similar to the 1.x to Cloud path with exporting data to LP) and then importing using CLI.
 
+- What about system buckets?
+
+- Bucket ID
+- InfluxDB engine path
+
+Use the [`influxd inspect export-lp` command](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/)
+to export all data from a bucket in your **InfluxDB OSS instance** as line protocol.
+
+```sh
+influxd inspect export-lp \
+  --bucket-id 12ab34cd56ef \
+  --engine-path ~/.influxdbv2/engine \
+  --output-path path/to/export.lp
+```
+
 ## Users: Invite additional users to the Cloud account
