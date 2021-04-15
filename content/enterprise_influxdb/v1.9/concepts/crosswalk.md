@@ -18,7 +18,7 @@ InfluxDB is designed to store large volumes of time series data and quickly perf
 In InfluxDB, a timestamp identifies a single point in any given data series.
 This is like an SQL database table where the primary key is pre-set by the system and is always time.
 
-InfluxDB also recognizes that your [schema](/influxdb/v1.8/concepts/glossary/#schema) preferences may change over time.
+InfluxDB also recognizes that your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema) preferences may change over time.
 In InfluxDB you don't have to define schemas up front.
 Data points can have one of the fields on a measurement, all of the fields on a measurement, or any number in-between.
 You can add new fields to a measurement simply by writing a point for that new field.
@@ -100,8 +100,8 @@ Referencing the example above, in general:
 * InfluxDB points (for example, `2015-04-16T12:00:00Z	5`) are similar to SQL rows.
 
 Building on this comparison of database terminology,
-InfluxDB [continuous queries](/influxdb/v1.8/concepts/glossary/#continuous-query-cq)
-and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) are
+InfluxDB [continuous queries](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq)
+and [retention policies](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) are
 similar to stored procedures in an SQL database.
 They're specified once and then performed regularly and automatically.
 
@@ -110,7 +110,7 @@ SQL `JOIN`s aren't available for InfluxDB measurements; your schema design shoul
 And, as we mentioned above, a measurement is like an SQL table where the primary index is always pre-set to time.
 InfluxDB timestamps must be in UNIX epoch (GMT) or formatted as a date-time string valid under RFC3339.
 
-For more detailed descriptions of the InfluxDB terms mentioned in this section see our [Glossary of Terms](/influxdb/v1.8/concepts/glossary/).
+For more detailed descriptions of the InfluxDB terms mentioned in this section see our [Glossary of Terms](/enterprise_influxdb/v1.9/concepts/glossary/).
 
 ## Query languages
 InfluxDB supports multiple query languages:
@@ -120,12 +120,12 @@ InfluxDB supports multiple query languages:
 
 ### Flux
 
-[Flux](/influxdb/v1.8/flux/) is a data scripting language designed for querying, analyzing, and acting on time series data.
+[Flux](/enterprise_influxdb/v1.9/flux/) is a data scripting language designed for querying, analyzing, and acting on time series data.
 Beginning with **InfluxDB 1.8.0**, Flux is available for production use along side InfluxQL.
 
 For those familiar with [InfluxQL](#influxql), Flux is intended to address
 many of the outstanding feature requests that we've received since introducing InfluxDB 1.0.
-For a comparison between Flux and InfluxQL, see [Flux vs InfluxQL](/influxdb/v1.8/flux/flux-vs-influxql/).
+For a comparison between Flux and InfluxQL, see [Flux vs InfluxQL](/enterprise_influxdb/v1.9/flux/flux-vs-influxql/).
 
 Flux is the primary language for working with data in [InfluxDB OSS 2.0](/influxdb/v2.0/get-started)
 and [InfluxDB Cloud](/influxdb/cloud/get-started/),
@@ -194,11 +194,11 @@ The options for specifying time durations with `now()` are:
 | w        | weeks   		|
 
 InfluxQL also supports regular expressions, arithmetic in expressions, `SHOW` statements, and `GROUP BY` statements.
-See our [data exploration](/influxdb/v1.8/query_language/explore-data/) page for an in-depth discussion of those topics.
+See our [data exploration](/enterprise_influxdb/v1.9/query_language/explore-data/) page for an in-depth discussion of those topics.
 InfluxQL functions include `COUNT`, `MIN`, `MAX`, `MEDIAN`, `DERIVATIVE` and more.
-For a full list check out the [functions](/influxdb/v1.8/query_language/functions/) page.
+For a full list check out the [functions](/enterprise_influxdb/v1.9/query_language/functions/) page.
 
-Now that you have the general idea, check out our [Getting Started Guide](/influxdb/v1.8/introduction/getting-started/).
+Now that you have the general idea, check out our [Getting Started Guide](/enterprise_influxdb/v1.9/introduction/getting-started/).
 
 ## InfluxDB is not CRUD
 
@@ -211,9 +211,9 @@ It becomes more useful when combined with the rest of the series and visualized.
 This is where trends over time begin to show, and actionable insight can be drawn from the data.
 In addition, time series data is generally written once and rarely updated.
 
-The result is that InfluxDB is not a full CRUD database but more like a CR-ud, prioritizing the performance of creating and reading data over update and destroy, and [preventing some update and destroy behaviors](/influxdb/v1.8/concepts/insights_tradeoffs/) to make create and read more performant:
+The result is that InfluxDB is not a full CRUD database but more like a CR-ud, prioritizing the performance of creating and reading data over update and destroy, and [preventing some update and destroy behaviors](/enterprise_influxdb/v1.9/concepts/insights_tradeoffs/) to make create and read more performant:
 
-* To update a point, insert one with [the same measurement, tag set, and timestamp](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
-* You can [drop or delete a series](/influxdb/v1.8/query_language/manage-database/#drop-series-from-the-index-with-drop-series), but not individual points based on field values. As a workaround, you can search for the field value, retrieve the time, then [DELETE based on the `time` field](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete).
+* To update a point, insert one with [the same measurement, tag set, and timestamp](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
+* You can [drop or delete a series](/enterprise_influxdb/v1.9/query_language/manage-database/#drop-series-from-the-index-with-drop-series), but not individual points based on field values. As a workaround, you can search for the field value, retrieve the time, then [DELETE based on the `time` field](/enterprise_influxdb/v1.9/query_language/manage-database/#delete-series-with-delete).
 * You can't update or rename tags yet - see GitHub issue [#4157](https://github.com/influxdata/influxdb/issues/4157) for more information. To modify the tag of a series of points, find the points with the offending tag value, change the value to the desired one, write the points back, then drop the series with the old tag value.
 * You can't delete tags by tag key (as opposed to value) - see GitHub issue [#8604](https://github.com/influxdata/influxdb/issues/8604).

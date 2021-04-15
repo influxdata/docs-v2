@@ -8,12 +8,12 @@ menu:
     weight: 20
     parent: Guides
 aliases:
-  - /influxdb/v1.8/guides/querying_data/
+  - /enterprise_influxdb/v1.9/guides/querying_data/
 v2: /influxdb/v2.0/query-data/
 ---
 
 
-The InfluxDB API is the primary means for querying data in InfluxDB (see the [command line interface](/influxdb/v1.8/tools/shell/) and [client libraries](/influxdb/v1.8/tools/api_client_libraries/) for alternative ways to query the database).
+The InfluxDB API is the primary means for querying data in InfluxDB (see the [command line interface](/enterprise_influxdb/v1.9/tools/shell/) and [client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/) for alternative ways to query the database).
 
 Query data with the InfluxDB API using [Flux](#query-data-with-flux) or [InfluxQL](#query-data-with-influxql).
 
@@ -49,18 +49,18 @@ Flux returns [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/):
 ,_result,0,2020-04-07T18:02:54.924273Z,2020-04-07T19:02:54.924273Z,2020-04-07T18:08:49Z,6.915093159934975,usage_user,cpu,cpu-total,host1}
 ```
 
-The header row defines column labels for the table. The `cpu` [measurement](/influxdb/v1.8/concepts/glossary/#measurement) has four points, each represented by one of the record rows. For example the first point has a [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp) of `2020-04-07T18:08:19`.  
+The header row defines column labels for the table. The `cpu` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) has four points, each represented by one of the record rows. For example the first point has a [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) of `2020-04-07T18:08:19`.  
 
 ### Flux
 
 Check out the [Get started with Flux](/influxdb/v2.0/query-data/get-started/) to learn more about building queries with Flux.
-For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/enterprise_influxdb/v1.9/tools/api/#influxdb-2-0-api-compatibility-endpoints).
 
 ## Query data with InfluxQL
 
 To perform an InfluxQL query, send a `GET` request to the `/query` endpoint, set the URL parameter `db` as the target database, and set the URL parameter `q` as your query.
 You can also use a `POST` request by sending the same parameters either as URL parameters or as part of the body with `application/x-www-form-urlencoded`.
-The example below uses the InfluxDB API to query the same database that you encountered in [Writing Data](/influxdb/v1.8/guides/writing_data/).
+The example below uses the InfluxDB API to query the same database that you encountered in [Writing Data](/enterprise_influxdb/v1.9/guides/writing_data/).
 
 ```bash
 curl -G 'http://localhost:8086/query?pretty=true' --data-urlencode "db=mydb" --data-urlencode "q=SELECT \"value\" FROM \"cpu_load_short\" WHERE \"region\"='us-west'"
@@ -107,5 +107,5 @@ While this is useful for debugging or when querying directly with tools like `cu
 
 ### InfluxQL
 
-Check out the [Data Exploration page](/influxdb/v1.8/query_language/explore-data/) to get acquainted with InfluxQL.
-For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/influxdb/v1.8/tools/api/#influxdb-1-x-http-endpoints).
+Check out the [Data Exploration page](/enterprise_influxdb/v1.9/query_language/explore-data/) to get acquainted with InfluxQL.
+For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/enterprise_influxdb/v1.9/tools/api/#influxdb-1-x-http-endpoints).

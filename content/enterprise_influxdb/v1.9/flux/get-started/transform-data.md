@@ -7,12 +7,12 @@ menu:
     parent: get-started
     weight: 2
 aliases:
-  - /influxdb/v1.8/flux/getting-started/transform-data/
+  - /enterprise_influxdb/v1.9/flux/getting-started/transform-data/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/transform-data/
 v2: /influxdb/v2.0/query-data/get-started/transform-data/
 ---
 
-When [querying data from InfluxDB](/influxdb/v1.8/flux/get-started/query-influxdb),
+When [querying data from InfluxDB](/enterprise_influxdb/v1.9/flux/get-started/query-influxdb),
 you often need to transform that data in some way.
 Common examples are aggregating data into averages, downsampling data, etc.
 
@@ -23,7 +23,7 @@ averages the `_value`s in each window, and outputs the averages as a new table.
 It's important to understand how the "shape" of your data changes through each of these operations.
 
 ## Query data
-Use the query built in the previous [Query data from InfluxDB](/influxdb/v1.8/flux/get-started/query-influxdb)
+Use the query built in the previous [Query data from InfluxDB](/enterprise_influxdb/v1.9/flux/get-started/query-influxdb)
 guide, but update the range to pull data from the last hour:
 
 ```js
@@ -174,11 +174,11 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Windowing and aggregating data](/influxdb/v1.8/flux/guides/window-aggregate) guide._
+view the [Windowing and aggregating data](/enterprise_influxdb/v1.9/flux/guides/window-aggregate) guide._
 
 ---
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v1.8/flux/get-started/query-influxdb/">Query InfluxDB</a>
-  <a class="btn next" href="/influxdb/v1.8/flux/get-started/syntax-basics/">Syntax basics</a>
+  <a class="btn prev" href="/enterprise_influxdb/v1.9/flux/get-started/query-influxdb/">Query InfluxDB</a>
+  <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/syntax-basics/">Syntax basics</a>
 </div>

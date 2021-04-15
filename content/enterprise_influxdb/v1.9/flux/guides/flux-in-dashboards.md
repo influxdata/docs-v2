@@ -20,7 +20,7 @@ This guide walks through using Flux queries in Chronograf dashboard cells.
 
 ---
 
-_**Chronograf v1.8+** and **InfluxDB v1.8 with [Flux enabled](/influxdb/v1.8/flux/installation)**
+_**Chronograf v1.8+** and **InfluxDB v1.8 with [Flux enabled](/enterprise_influxdb/v1.9/flux/installation)**
 are required to use Flux in dashboards._
 
 ---
@@ -32,7 +32,7 @@ To the right of the **Source dropdown** above the graph preview, select **Flux**
 {{< img-hd src="/img/influxdb/1-7-flux-dashboard-cell.png" alt="Flux in Chronograf dashboard cells" />}}
 
 > The Flux source type is only available if your data source has
-> [Flux enabled](/influxdb/v1.8/flux/installation).
+> [Flux enabled](/enterprise_influxdb/v1.9/flux/installation).
 
 This will provide **Schema**, **Script**, and **Functions** panes.
 
@@ -127,7 +127,7 @@ dataSet
 The `autoInterval` template variable represents the refresh interval of the dashboard
 and is controlled by the refresh interval dropdown.
 It's typically used to align window intervals created in
-[windowing and aggregation](/influxdb/v1.8/flux/guides/window-aggregate) operations with dashboard refreshes.
+[windowing and aggregation](/enterprise_influxdb/v1.9/flux/guides/window-aggregate) operations with dashboard refreshes.
 
 ```js
 dataSet

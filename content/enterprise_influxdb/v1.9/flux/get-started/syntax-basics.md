@@ -7,7 +7,7 @@ menu:
     parent: get-started
     weight: 3
 aliases:
-  - /influxdb/v1.8/flux/getting-started/syntax-basics/
+  - /enterprise_influxdb/v1.9/flux/getting-started/syntax-basics/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/syntax-basics/
 v2: /influxdb/v2.0/query-data/get-started/syntax-basics/
 ---
@@ -133,7 +133,7 @@ data |> someFunction() |> anotherFunction()
 ```
 
 ## Real-world application of basic syntax
-This likely seems familiar if you've already been through through the other [getting started guides](/influxdb/v1.8/flux/get-started).
+This likely seems familiar if you've already been through through the other [getting started guides](/enterprise_influxdb/v1.9/flux/get-started).
 Flux's syntax is inspired by Javascript and other functional scripting languages.
 As you begin to apply these basic principles in real-world use cases such as creating data stream variables,
 custom functions, etc., the power of Flux and its ability to query and process data will become apparent.
@@ -234,5 +234,5 @@ cpuUsageUser |> topN(n:5) |> yield()
 This query will return the five data points with the highest user CPU usage over the last hour.
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v1.8/flux/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/enterprise_influxdb/v1.9/flux/get-started/transform-data/">Transform your data</a>
 </div>

@@ -158,7 +158,7 @@ at which point the repair is finished.
 The Anti-Entropy service does its best to avoid hot shards (shards that are currently receiving writes)
 because they change quickly.
 While write replication between shard owner nodes (with a
-[replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor)
+[replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor)
 greater than 1) typically happens in milliseconds, this slight difference is
 still enough to cause the appearance of entropy where there is none.
 

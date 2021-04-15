@@ -3,9 +3,9 @@ title: InfluxDB client libraries
 description: >
   InfluxDB client libraries includes support for Arduino, C#, C++, Go, Java, JavaScript, PHP, Python, and Ruby.
 aliases:
-    - /influxdb/v1.8/clients/api_client_libraries/
-    - /influxdb/v1.8/clients/
-    - /influxdb/v1.8/clients/api
+    - /enterprise_influxdb/v1.9/clients/api_client_libraries/
+    - /enterprise_influxdb/v1.9/clients/
+    - /enterprise_influxdb/v1.9/clients/api
 menu:
   enterprise_influxdb_1_9:
     weight: 30
@@ -15,7 +15,7 @@ v2: /influxdb/v2.0/tools/client-libraries/
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB 2.0 API and support both **InfluxDB 1.8+** and **InfluxDB 2.0**.
 
->**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud. For more information, see [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
+>**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud. For more information, see [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.9/tools/api/#influxdb-2-0-api-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
 
 ## Client libraries
 

@@ -9,7 +9,7 @@ menu:
     parent: Concepts
 ---
 
-Find overview and background information on Time Series Index (TSI) in this topic. For detail, including how to enable and configure TSI, see [Time Series Index (TSI) details](/influxdb/v1.8/concepts/tsi-details/).
+Find overview and background information on Time Series Index (TSI) in this topic. For detail, including how to enable and configure TSI, see [Time Series Index (TSI) details](/enterprise_influxdb/v1.9/concepts/tsi-details/).
 
 ## Overview
 
@@ -33,7 +33,7 @@ This meant that for every measurement, tag key-value pair, and field name, there
 For users with a high number of ephemeral series, memory utilization continued increasing as new time series were created.
 And, startup times increased since all of that data would have to be loaded onto the heap at start time.
 
-> For details, see [TSM-based data storage and in-memory indexing](/influxdb/v1.8/concepts/storage_engine/).
+> For details, see [TSM-based data storage and in-memory indexing](/enterprise_influxdb/v1.9/concepts/storage_engine/).
 
 ### Time Series Index (TSI)
 
@@ -42,7 +42,7 @@ This means that we let the operating system handle being the Least Recently Used
 Much like the TSM engine for raw time series data we have a write-ahead log with an in-memory structure that gets merged at query time with the memory-mapped index.
 Background routines run constantly to compact the index into larger and larger files to avoid having to do too many index merges at query time.
 Under the covers, we’re using techniques like Robin Hood Hashing to do fast index lookups and HyperLogLog++ to keep sketches of cardinality estimates.
-The latter will give us the ability to add things to the query languages like the [SHOW CARDINALITY](/influxdb/v1.8/query_language/spec#show-cardinality) queries.
+The latter will give us the ability to add things to the query languages like the [SHOW CARDINALITY](/enterprise_influxdb/v1.9/query_language/spec#show-cardinality) queries.
 
 ### Issues solved by TSI and remaining to be solved
 

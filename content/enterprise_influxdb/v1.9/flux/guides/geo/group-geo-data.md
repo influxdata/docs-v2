@@ -38,7 +38,7 @@ Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hi
 - Specify the [S2 cell level](https://s2geometry.io/resources/s2cell_statistics)
   to use when calculating geographic areas with the `level` parameter.
 
-The following example uses the [sample bird migration data](/influxdb/v1.8/flux/guides/geo/#sample-data)
+The following example uses the [sample bird migration data](/enterprise_influxdb/v1.9/flux/guides/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them by geographic area:
 
 ```js
@@ -60,7 +60,7 @@ Data must contain a unique identifier for each track. For example: `id` or `tid`
 - Specify columns that uniquely identify each track or route with the `groupBy` parameter.
 - Specify which columns to sort by with the `sortBy` parameter. Default is `["_time"]`.
 
-The following example uses the [sample bird migration data](/influxdb/v1.8/flux/guides/geo/#sample-data)
+The following example uses the [sample bird migration data](/enterprise_influxdb/v1.9/flux/guides/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them into routes unique
 to each bird:
 

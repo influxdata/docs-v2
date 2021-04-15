@@ -19,22 +19,22 @@ common resolutions.
 ## `error: database name required`
 
 The `database name required` error occurs when certain `SHOW` queries do
-not specify a [database](/influxdb/v1.8/concepts/glossary/#database).
+not specify a [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 Specify a database with an `ON` clause in the `SHOW` query, with `USE <database_name>` in the
-[CLI](/influxdb/v1.8/tools/shell/), or with the `db` query string parameter in
-the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+[CLI](/enterprise_influxdb/v1.9/tools/shell/), or with the `db` query string parameter in
+the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The relevant `SHOW` queries include `SHOW RETENTION POLICIES`, `SHOW SERIES`,
 `SHOW MEASUREMENTS`, `SHOW TAG KEYS`, `SHOW TAG VALUES`, and `SHOW FIELD KEYS`.
 
 **Resources:**
-[Schema exploration](/influxdb/v1.8/query_language/explore-schema/),
-[InfluxQL reference](/influxdb/v1.8/query_language/spec/)
+[Schema exploration](/enterprise_influxdb/v1.9/query_language/explore-schema/),
+[InfluxQL reference](/enterprise_influxdb/v1.9/query_language/spec/)
 
 ## `error: max series per database exceeded: < >`
 
 The `max series per database exceeded` error occurs when a write causes the
-number of [series](/influxdb/v1.8/concepts/glossary/#series) in a database to
+number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in a database to
 exceed the maximum allowable series per database.
 The maximum allowable series per database is controlled by the
 `max-series-per-database` setting in the `[data]` section of the configuration
@@ -47,7 +47,7 @@ By default `max-series-per-database` is set to one million.
 Changing the setting to `0` allows an unlimited number of series per database.
 
 **Resources:**
-[Database Configuration](/influxdb/v1.8/administration/config/#max-series-per-database-1000000)
+[Database Configuration](/enterprise_influxdb/v1.9/administration/config/#max-series-per-database-1000000)
 
 ## `error parsing query: found < >, expected identifier at line < >, char < >`
 
@@ -84,8 +84,8 @@ Query 2 is missing a measurement name between `FROM` and `WHERE`.
 ### InfluxQL keywords
 
 In some cases the `expected identifier` error occurs when one of the
-[identifiers](/influxdb/v1.8/concepts/glossary/#identifier) in the query is an
-[InfluxQL Keyword](/influxdb/v1.8/query_language/spec/#keywords).
+[identifiers](/enterprise_influxdb/v1.9/concepts/glossary/#identifier) in the query is an
+[InfluxQL Keyword](/enterprise_influxdb/v1.9/query_language/spec/#keywords).
 To successfully query an identifier that's also a keyword, enclose that
 identifier in double quotes.
 
@@ -122,8 +122,8 @@ Double quote `limit` to avoid the error:
 While using double quotes is an acceptable workaround, we recommend that you avoid using InfluxQL keywords as identifiers for simplicity's sake.
 
 **Resources:**
-[InfluxQL Keywords](/influxdb/v1.8/query_language/spec/#keywords),
-[Query Language Documentation](/influxdb/v1.8/query_language/)
+[InfluxQL Keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords),
+[Query Language Documentation](/enterprise_influxdb/v1.9/query_language/)
 
 ## `error parsing query: found < >, expected string at line < >, char < >`
 
@@ -149,14 +149,14 @@ string:
 Note that you should not include the single quotes when authenticating requests.
 
 **Resources:**
-[Authentication and Authorization](/influxdb/v1.8/administration/authentication_and_authorization/)
+[Authentication and Authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/)
 
 ## `error parsing query: mixing aggregate and non-aggregate queries is not supported`
 
 The `mixing aggregate and non-aggregate` error occurs when a `SELECT` statement
-includes both an [aggregate function](/influxdb/v1.8/query_language/functions/)
-and a standalone [field key](/influxdb/v1.8/concepts/glossary/#field-key) or
-[tag key](/influxdb/v1.8/concepts/glossary/#tag-key).
+includes both an [aggregate function](/enterprise_influxdb/v1.9/query_language/functions/)
+and a standalone [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) or
+[tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 
 Aggregate functions return a single calculated value and there is no obvious
 single value to return for any unaggregated fields or tags.
@@ -205,7 +205,7 @@ of `square` in the `peg` measurement, and there is no obvious single tag value
 to return from the four unaggregated values of the `force` tag.
 
 **Resources:**
-[Functions](/influxdb/v1.8/query_language/functions/)
+[Functions](/enterprise_influxdb/v1.9/query_language/functions/)
 
 ## `invalid operation: time and \*influxql.VarRef are not compatible`
 
@@ -236,14 +236,14 @@ time                   water_level
 ```
 
 **Resources:**
-[Data Exploration](/influxdb/v1.8/query_language/explore-data/#time-syntax)
+[Data Exploration](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax)
 
 ## `unable to parse < >: bad timestamp`
 
 ### Timestamp syntax
 
 The `bad timestamp` error occurs when the
-[line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) includes a
+[line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) includes a
 timestamp in a format other than a UNIX timestamp.
 
 **Example**
@@ -306,40 +306,40 @@ Use a comma instead of a space between the two fields to avoid the error:
 ```
 
 **Resources:**
-[InfluxDB line protocol tutorial](/influxdb/v1.8/write_protocols/line_protocol_tutorial/),
-[InfluxDB line protocol reference](/influxdb/v1.8/write_protocols/line_protocol_reference/)
+[InfluxDB line protocol tutorial](/enterprise_influxdb/v1.9/write_protocols/line_protocol_tutorial/),
+[InfluxDB line protocol reference](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/)
 
 ## `unable to parse < >: time outside range`
 
 The `time outside range` error occurs when the timestamp in the
-[InfluxDB line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol)
+[InfluxDB line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol)
 falls outside the valid time range for InfluxDB.
 
 The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`.
 The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`.
 
 **Resources:**
-[InfluxDB line protocol tutorial](/influxdb/v1.8/write_protocols/line_protocol_tutorial/#data-types),
-[InfluxDB line protocol reference](/influxdb/v1.8/write_protocols/line_protocol_reference/#data-types)
+[InfluxDB line protocol tutorial](/enterprise_influxdb/v1.9/write_protocols/line_protocol_tutorial/#data-types),
+[InfluxDB line protocol reference](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types)
 
 ## write failed for shard < >: engine: cache maximum memory size exceeded
 
 The `cache maximum memory size exceeded` error occurs when the cached
 memory size increases beyond the
-[`cache-max-memory-size` setting](/influxdb/v1.8/administration/config/#cache-max-memory-size-1g)
+[`cache-max-memory-size` setting](/enterprise_influxdb/v1.9/administration/config/#cache-max-memory-size-1g)
 in the configuration file.
 
 By default, `cache-max-memory-size` is set to 512mb.
 This value is fine for most workloads, but is too small for larger write volumes
-or for datasets with higher [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality).
+or for datasets with higher [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality).
 If you have lots of RAM you could set it to `0` to disable the cached memory
 limit and never get this error.
 You can also examine the `memBytes` field in the`cache` measurement in the
-[`_internal` database](/influxdb/v1.8/administration/server_monitoring/#internal-monitoring)
+[`_internal` database](/enterprise_influxdb/v1.9/administration/server_monitoring/#internal-monitoring)
 to get a sense of how big the caches are in memory.
 
 **Resources:**
-[Database Configuration](/influxdb/v1.8/administration/config/)
+[Database Configuration](/enterprise_influxdb/v1.9/administration/config/)
 
 ## `already killed`
 
@@ -350,7 +350,7 @@ It will be in the `killed` state, which means the signal has been sent, but the
 query itself has not hit an interrupt point.
 
 **Resources:**
-[Query management](/influxdb/v1.8/troubleshooting/query_management/)
+[Query management](/enterprise_influxdb/v1.9/troubleshooting/query_management/)
 
 ## Common `-import` errors
 
@@ -370,7 +370,7 @@ Find common errors that occur when importing data in the command line interface 
   - [Unnamed import file](#unnamed-import-file)
   - [Docker container cannot read host files](#docker-container-cannot-read-host-files)
 
-  >**Note:** To learn how to use the `-import` command, see [Import data from a file with `-import`](/influxdb/v1.8/tools/shell/#import-data-from-a-file-with-import).
+  >**Note:** To learn how to use the `-import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1.9/tools/shell/#import-data-from-a-file-with-import).
 
 ### Inconsistent data types
 

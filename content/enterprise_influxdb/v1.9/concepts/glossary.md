@@ -81,7 +81,7 @@ If you are transitioning from the Enterprise Web Console to Chronograf, see how 
 ## aggregation
 
 An InfluxQL function that returns an aggregated value across a set of points.
-For a complete list of the available and upcoming aggregations, see [InfluxQL functions](/influxdb/v1.8/query_language/functions/#aggregations).
+For a complete list of the available and upcoming aggregations, see [InfluxQL functions](/enterprise_influxdb/v1.9/query_language/functions/#aggregations).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -96,13 +96,13 @@ Related entries: [InfluxDB line protocol](#influxdb-line-protocol), [point](#poi
 
 ## bucket
 
-A bucket is a named location where time series data is stored in **InfluxDB 2.0**. In InfluxDB 1.8+, each combination of a database and a retention policy (database/retention-policy) represents a bucket. Use the [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api#influxdb-2-0-api-compatibility-endpoints) included with InfluxDB 1.8+ to interact with buckets.
+A bucket is a named location where time series data is stored in **InfluxDB 2.0**. In InfluxDB 1.8+, each combination of a database and a retention policy (database/retention-policy) represents a bucket. Use the [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.9/tools/api#influxdb-2-0-api-compatibility-endpoints) included with InfluxDB 1.8+ to interact with buckets.
 
 ## continuous query (CQ)
 
 An InfluxQL query that runs automatically and periodically within a database.
 Continuous queries require a function in the `SELECT` clause and must include a `GROUP BY time()` clause.
-See [Continuous Queries](/influxdb/v1.8/query_language/continuous_queries/).
+See [Continuous Queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
 
 
 Related entries: [function](#function)
@@ -117,7 +117,7 @@ Related entries: [continuous query](#continuous-query-cq), [retention policy](#r
 
 The attribute of the retention policy that determines how long InfluxDB stores data.
 Data older than the duration are automatically dropped from the database.
-See [Database Management](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy) for how to set duration.
+See [Database Management](/enterprise_influxdb/v1.9/query_language/manage-database/#create-retention-policies-with-create-retention-policy) for how to set duration.
 
 Related entries: [retention policy](#retention-policy-rp)
 
@@ -158,7 +158,7 @@ Related entries: [field](#field), [field key](#field-key), [field set](#field-se
 ## function
 
 InfluxQL aggregations, selectors, and transformations.
-See [InfluxQL Functions](/influxdb/v1.8/query_language/functions/) for a complete list of InfluxQL functions.
+See [InfluxQL Functions](/enterprise_influxdb/v1.9/query_language/functions/) for a complete list of InfluxQL functions.
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
@@ -167,7 +167,7 @@ Related entries: [aggregation](#aggregation), [selector](#selector), [transforma
 Tokens that refer to continuous query names, database names, field keys,
 measurement names, retention policy names, subscription names, tag keys, and
 user names.
-See [Query Language Specification](/influxdb/v1.8/query_language/spec/#identifiers).
+See [Query Language Specification](/enterprise_influxdb/v1.9/query_language/spec/#identifiers).
 
 Related entries:
 [database](#database),
@@ -179,7 +179,7 @@ Related entries:
 
 ## InfluxDB line protocol
 
-The text based format for writing points to InfluxDB. See [InfluxDB line protocol](/influxdb/v1.8/write_protocols/).
+The text based format for writing points to InfluxDB. See [InfluxDB line protocol](/enterprise_influxdb/v1.9/write_protocols/).
 
 ## measurement
 
@@ -214,7 +214,7 @@ In InfluxDB, a point represents a single data record, similar to a row in a SQL 
 
 You cannot store more than one point with the same timestamp in a series.
 If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, and any ties go to the new field set.
-For more information about duplicate points, see [How does InfluxDB handle duplicate points?](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
+For more information about duplicate points, see [How does InfluxDB handle duplicate points?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
 
 Related entries: [field set](#field-set), [series](#series), [timestamp](#timestamp)
 
@@ -230,7 +230,7 @@ Related entries: [point](#point), [schema](#schema), [values per second](#values
 ## query
 
 An operation that retrieves data from InfluxDB.
-See [Data Exploration](/influxdb/v1.8/query_language/explore-data/), [Schema Exploration](/influxdb/v1.8/query_language/explore-schema/), [Database Management](/influxdb/v1.8/query_language/manage-database/).
+See [Data Exploration](/enterprise_influxdb/v1.9/query_language/explore-data/), [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema/), [Database Management](/enterprise_influxdb/v1.9/query_language/manage-database/).
 
 ## replication factor  
 
@@ -247,7 +247,7 @@ Related entries: [duration](#duration), [node](#node),
 Describes how long InfluxDB keeps data (duration), how many copies of the data to store in the cluster (replication factor), and the time range covered by shard groups (shard group duration). RPs are unique per database and along with the measurement and tag set define a series.
 
 When you create a database, InfluxDB creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
-For more information, see [Retention policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+For more information, see [Retention policy management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
 
@@ -255,14 +255,14 @@ Related entries: [duration](#duration), [measurement](#measurement), [replicatio
 
 How the data are organized in InfluxDB.
 The fundamentals of the InfluxDB schema are databases, retention policies, series, measurements, tag keys, tag values, and field keys.
-See [Schema Design](/influxdb/v1.8/concepts/schema_and_data_layout/) for more information.
+See [Schema Design](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/) for more information.
 
 Related entries: [database](#database), [field key](#field-key), [measurement](#measurement), [retention policy](#retention-policy-rp), [series](#series), [tag key](#tag-key), [tag value](#tag-value)
 
 ## selector
 
 An InfluxQL function that returns a single point from the range of specified points.
-See [InfluxQL Functions](/influxdb/v1.8/query_language/functions/#selectors) for a complete list of the available and upcoming selectors.
+See [InfluxQL Functions](/enterprise_influxdb/v1.9/query_language/functions/#selectors) for a complete list of the available and upcoming selectors.
 
 Related entries: [aggregation](#aggregation), [function](#function), [transformation](#transformation)
 
@@ -307,7 +307,7 @@ It would remain unchanged at 6, as `firstname` is already scoped by the `email` 
 | cliff@influxdata.com  | start  | clifford  |
 | cliff@influxdata.com  | finish | clifford  |
 
-See [SHOW CARDINALITY](/influxdb/v1.8/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality.
+See [SHOW CARDINALITY](/enterprise_influxdb/v1.9/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality.
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
@@ -345,7 +345,7 @@ Related entries: [series](#series), [shard duration](#shard-duration), [shard gr
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-See [Retention Policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) for more information.
+See [Retention Policy management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -405,21 +405,21 @@ Related entries: [tag](#tag), [tag key](#tag-key), [tag set](#tag-set)
 The date and time associated with a point.
 All time in InfluxDB is UTC.
 
-For how to specify time when writing data, see [Write Syntax](/influxdb/v1.8/write_protocols/write_syntax/).
-For how to specify time when querying data, see [Data Exploration](/influxdb/v1.8/query_language/explore-data/#time-syntax).
+For how to specify time when writing data, see [Write Syntax](/enterprise_influxdb/v1.9/write_protocols/write_syntax/).
+For how to specify time when querying data, see [Data Exploration](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax).
 
 Related entries: [point](#point)
 
 ## transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL Functions](/influxdb/v1.8/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL Functions](/enterprise_influxdb/v1.9/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregation](#aggregation), [function](#function), [selector](#selector)
 
 ## TSM (Time Structured Merge tree)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/influxdb/v1.8/concepts/storage_engine/) for more.
+The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/enterprise_influxdb/v1.9/concepts/storage_engine/) for more.
 
 ## user
 
@@ -429,7 +429,7 @@ There are two kinds of users in InfluxDB:
 * *Non-admin users* have `READ`, `WRITE`, or `ALL` (both `READ` and `WRITE`) access per database.
 
 When authentication is enabled, InfluxDB only executes HTTP requests that are sent with a valid username and password.
-See [Authentication and Authorization](/influxdb/v1.8/administration/authentication_and_authorization/).
+See [Authentication and Authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/).
 
 ## values per second
 

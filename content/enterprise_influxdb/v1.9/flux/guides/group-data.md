@@ -9,7 +9,7 @@ menu:
     parent: Query with Flux
 weight: 2
 aliases:
-  - /influxdb/v1.8/flux/guides/grouping-data/
+  - /enterprise_influxdb/v1.9/flux/guides/grouping-data/
 list_query_example: group
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/group-data/
 v2: /influxdb/v2.0/query-data/flux/group-data/
@@ -21,8 +21,8 @@ This guide walks through grouping data in Flux and provides examples of how data
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v1.8/flux/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v1.8/flux/guides/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/enterprise_influxdb/v1.9/flux/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/enterprise_influxdb/v1.9/flux/guides/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys
 Every table has a **group key** – a list of columns which for which every row in the table has the same value.

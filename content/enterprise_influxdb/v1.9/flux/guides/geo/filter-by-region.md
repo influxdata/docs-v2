@@ -30,7 +30,7 @@ to filter geo-temporal data by geographic region:
 1. [Define a geographic region](#define-a-geographic-region)
 2. [Use strict or non-strict filtering](#strict-and-non-strict-filtering)
 
-The following example uses the [sample bird migration data](/influxdb/v1.8/flux/guides/geo/#sample-data)
+The following example uses the [sample bird migration data](/enterprise_influxdb/v1.9/flux/guides/geo/#sample-data)
 and queries data points **within 200km of Cairo, Egypt**:
 
 ```js

@@ -6,7 +6,7 @@ menu:
     weight: 30
     parent: Guides
 aliases:
-  - /influxdb/v1.8/guides/downsampling_and_retention/
+  - /enterprise_influxdb/v1.9/guides/downsampling_and_retention/
 v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 ---
 
@@ -27,16 +27,16 @@ A single database can have several RPs and RPs are unique per database.
 This guide doesn't go into detail about the syntax for creating and managing CQs and RPs or tasks.
 If you're new to these concepts, we recommend reviewing the following:
 
-- [CQ documentation](/influxdb/v1.8/query_language/continuous_queries/) and
-- [RP documentation](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+- [CQ documentation](/enterprise_influxdb/v1.9/query_language/continuous_queries/) and
+- [RP documentation](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
 ### Sample data
 
 This section uses fictional real-time data to track the number of food orders
 to a restaurant via phone and via website at ten second intervals.
-We store this data in a [database](/influxdb/v1.8/concepts/glossary/#database) or [bucket]() called `food_data`, in
-the [measurement](/influxdb/v1.8/concepts/glossary/#measurement) `orders`, and
-in the [fields](/influxdb/v1.8/concepts/glossary/#field) `phone` and `website`.
+We store this data in a [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) or [bucket]() called `food_data`, in
+the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) `orders`, and
+in the [fields](/enterprise_influxdb/v1.9/concepts/glossary/#field) `phone` and `website`.
 
 Sample:
 
@@ -82,7 +82,7 @@ We make the `DEFAULT` RP keep data for two hours, because we want InfluxDB to
 automatically write the incoming ten-second resolution data to that RP.
 
 Use the
-[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
+[`CREATE RETENTION POLICY`](/enterprise_influxdb/v1.9/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
 statement to create a `DEFAULT` RP:
 
 ```sql
@@ -113,7 +113,7 @@ Next we want to create another retention policy that keeps data for 52 weeks and
 Ultimately, the 30-minute rollup data will be stored in this RP.
 
 Use the
-[`CREATE RETENTION POLICY`](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
+[`CREATE RETENTION POLICY`](/enterprise_influxdb/v1.9/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
 statement to create a non-`DEFAULT` retention policy:
 
 ```sql
@@ -136,7 +136,7 @@ resolution, and then store those results in a different measurement with a diffe
 retention policy.
 
 Use the
-[`CREATE CONTINUOUS QUERY`](/influxdb/v1.8/query_language/continuous_queries/)
+[`CREATE CONTINUOUS QUERY`](/enterprise_influxdb/v1.9/query_language/continuous_queries/)
 statement to generate a CQ:
 
 ```sql
@@ -214,11 +214,11 @@ data that reside in an RP other than the `DEFAULT` RP.
 Between checks, `orders` may have data that are older than two hours.
 The rate at which InfluxDB checks to enforce an RP is a configurable setting,
 see
-[Database Configuration](/influxdb/v1.8/administration/config#check-interval-30m0s).
+[Database Configuration](/enterprise_influxdb/v1.9/administration/config#check-interval-30m0s).
 
 Using a combination of RPs and CQs, we've successfully set up our database to
 automatically keep the high precision raw data for a limited time, create lower
 precision data, and store that lower precision data for a longer period of time.
 Now that you have a general understanding of how these features can work
-together, check out the detailed documentation on [CQs](/influxdb/v1.8/query_language/continuous_queries/) and [RPs](/influxdb/v1.8/query_language/manage-database/#retention-policy-management)
+together, check out the detailed documentation on [CQs](/enterprise_influxdb/v1.9/query_language/continuous_queries/) and [RPs](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management)
 to see all that they can do for you.

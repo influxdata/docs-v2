@@ -16,7 +16,7 @@ Below is a list of some of those design insights that lead to tradeoffs:
 
 1. For the time series use case, we assume that if the same data is sent multiple times, it is the exact same data that a client just sent several times.
 
-    _**Pro:**_ Simplified [conflict resolution](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points) increases write performance.  
+    _**Pro:**_ Simplified [conflict resolution](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points) increases write performance.  
     _**Con:**_ Cannot store duplicate data; may overwrite data in rare circumstances.  
 
 2. Deletes are a rare occurrence.
@@ -47,7 +47,7 @@ Below is a list of some of those design insights that lead to tradeoffs:
     _**Pro:**_ Writing and querying the database can be done by multiple clients and at high loads.  
     _**Con:**_ Query returns may not include the most recent points if database is under heavy load.  
 
-7. Many time [series](/influxdb/v1.8/concepts/glossary/#series) are ephemeral.
+7. Many time [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) are ephemeral.
     There are often time series that appear only for a few hours and then go away, e.g.
     a new host that gets started and reports for a while and then gets shut down.
 

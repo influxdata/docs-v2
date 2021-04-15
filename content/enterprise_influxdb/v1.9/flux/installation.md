@@ -28,6 +28,6 @@ Enable Flux by setting the `flux-enabled` option to `true` under the `[http]` se
 ```
 
 > The default location of your `influxdb.conf` depends on your operating system.
-> More information is available in the [Configuring InfluxDB](/influxdb/v1.8/administration/config/#using-the-configuration-file) guide.
+> More information is available in the [Configuring InfluxDB](/enterprise_influxdb/v1.9/administration/config/#using-the-configuration-file) guide.
 
 When InfluxDB starts, the Flux daemon starts as well and data can be queried using Flux.

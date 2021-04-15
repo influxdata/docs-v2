@@ -40,7 +40,7 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
   Use [`map()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/) to add
   scalar values to output data.
-- The [Flux REPL](/influxdb/v1.8/flux/guides/execute-queries/#influx-cli) does not currently support
+- The [Flux REPL](/enterprise_influxdb/v1.9/flux/guides/execute-queries/#influx-cli) does not currently support
   Flux stream and table functions (also known as "dynamic queries").
   See [#15321](https://github.com/influxdata/influxdb/issues/15231).
 {{% /warn %}}
@@ -57,7 +57,7 @@ You still must extract that table from the stream.
 {{% /note %}}
 
 Use [`tableFind()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
-to extract the **first** table whose [group key](/influxdb/v1.8/flux/get-started/#group-keys)
+to extract the **first** table whose [group key](/enterprise_influxdb/v1.9/flux/get-started/#group-keys)
 values match the `fn` **predicate function**.
 The predicate function requires a `key` record, which represents the group key of
 each table.
@@ -153,7 +153,7 @@ sampleData
 ### Use an extracted row record
 Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot notation](/influxdb/v1.8/flux/get-started/syntax-basics/#records) to reference
+Use [dot notation](/enterprise_influxdb/v1.9/flux/get-started/syntax-basics/#records) to reference
 keys in the record.
 
 ```js

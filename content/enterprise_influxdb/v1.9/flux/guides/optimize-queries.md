@@ -71,5 +71,5 @@ For example, if you query data stored every second and request six months worth 
 results will include a minimum of ≈15.5 million points.
 Flux must store these points in memory to generate a response.
 
-To query data over large periods of time, create a [continuous query](/influxdb/v1.8/query_language/continuous_queries/)
+To query data over large periods of time, create a [continuous query](/enterprise_influxdb/v1.9/query_language/continuous_queries/)
 to downsample data, and then query the downsampled data instead.

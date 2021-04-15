@@ -7,11 +7,11 @@ menu:
     weight: 10
     parent: Guides
 aliases:
-  - /influxdb/v1.8/guides/writing_data/
+  - /enterprise_influxdb/v1.9/guides/writing_data/
 v2: /influxdb/v2.0/write-data/
 ---
 
-Write data into InfluxDB using the [command line interface](/influxdb/v1.8/tools/shell/), [client libraries](/influxdb/v1.8/clients/api/), and plugins for common data formats such as [Graphite](/influxdb/v1.8/write_protocols/graphite/).
+Write data into InfluxDB using the [command line interface](/enterprise_influxdb/v1.9/tools/shell/), [client libraries](/enterprise_influxdb/v1.9/clients/api/), and plugins for common data formats such as [Graphite](/enterprise_influxdb/v1.9/write_protocols/graphite/).
 
 > **Note**: The following examples use `curl`, a command line tool that transfers data using URLs. Learn the basics of `curl` with the [HTTP Scripting Guide](https://curl.haxx.se/docs/httpscripting.html).
 
@@ -29,14 +29,14 @@ curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE m
 The InfluxDB API is the primary means of writing data into InfluxDB.
 
 - To **write to a database using the InfluxDB 1.8 API**, send `POST` requests to the `/write` endpoint. For example, to write a single point to the `mydb` database.
-The data consists of the [measurement](/influxdb/v1.8/concepts/glossary/#measurement) `cpu_load_short`, the [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) `host` and `region` with the [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) `server01` and `us-west`, the [field key](/influxdb/v1.8/concepts/glossary/#field-key) `value` with a [field value](/influxdb/v1.8/concepts/glossary/#field-value) of `0.64`, and the [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp) `1434055562000000000`.
+The data consists of the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) `cpu_load_short`, the [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) `host` and `region` with the [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) `server01` and `us-west`, the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) `value` with a [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) of `0.64`, and the [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) `1434055562000000000`.
 
 ```bash
 curl -i -XPOST 'http://localhost:8086/write?db=mydb'
 --data-binary 'cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000'
 ```
 
-- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/influxdb/v1.8/tools/api/#api-v2-write-http-endpoint):
+- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/enterprise_influxdb/v1.9/tools/api/#api-v2-write-http-endpoint):
 
 ```bash
 curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
@@ -46,14 +46,14 @@ curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
 
 When writing points, you must specify an existing database in the `db` query parameter.
 Points will be written to `db`'s default retention policy if you do not supply a retention policy via the `rp` query parameter.
-See the [InfluxDB API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint) documentation for a complete list of the available query parameters.
+See the [InfluxDB API Reference](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint) documentation for a complete list of the available query parameters.
 
-The body of the POST or [InfluxDB line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) contains the time series data that you want to store. Data includes:
+The body of the POST or [InfluxDB line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) contains the time series data that you want to store. Data includes:
 
 - **Measurement (required)**
 - **Tags**: Strictly speaking, tags are optional but most series include tags to differentiate data sources and to make querying both easy and efficient.
 Both tag keys and tag values are strings.
-- **Fields (required)**: Field keys are required and are always strings, and, [by default](/influxdb/v1.8/write_protocols/line_protocol_reference/#data-types), field values are floats.
+- **Fields (required)**: Field keys are required and are always strings, and, [by default](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types), field values are floats.
 - **Timestamp**: Supplied at the end of the line in Unix time in nanoseconds since January 1, 1970 UTC - is optional. If you do not specify a timestamp, InfluxDB uses the server's local nanosecond timestamp in Unix epoch.
 Time in InfluxDB is in UTC format by default.
 
@@ -96,7 +96,7 @@ cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702
 ### Writing points from a file
 
 Write points from a file by passing `@filename` to `curl`.
-The data in the file should follow the [InfluxDB line protocol syntax](/influxdb/v1.8/write_protocols/write_syntax/).
+The data in the file should follow the [InfluxDB line protocol syntax](/enterprise_influxdb/v1.9/write_protocols/write_syntax/).
 
 Example of a properly-formatted file (`cpu_data.txt`):
 
@@ -133,7 +133,7 @@ This consistency is good for those developing and consuming the API: everyone in
 
 REST, however, is a convention.
 InfluxDB makes do with three API endpoints.
-This simple, easy to understand system uses HTTP as a transfer method for [InfluxQL](/influxdb/v1.8/query_language/spec/).
+This simple, easy to understand system uses HTTP as a transfer method for [InfluxQL](/enterprise_influxdb/v1.9/query_language/spec/).
 The InfluxDB API makes no attempt to be RESTful.
 
 ### HTTP response summary
@@ -186,5 +186,5 @@ Content-Length: 45
 
 ### Next steps
 
-Now that you know how to write data with the InfluxDB API, discover how to query them with the [Querying data](/influxdb/v1.8/guides/querying_data/) guide!
-For more information about writing data with the InfluxDB API, please see the [InfluxDB API reference](/influxdb/v1.8/tools/api/#write-http-endpoint).
+Now that you know how to write data with the InfluxDB API, discover how to query them with the [Querying data](/enterprise_influxdb/v1.9/guides/querying_data/) guide!
+For more information about writing data with the InfluxDB API, please see the [InfluxDB API reference](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint).

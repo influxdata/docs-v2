@@ -12,7 +12,7 @@ v2: /influxdb/v2.0/reference/cli/influxd/inspect/
 Influx Inspect is an InfluxDB disk utility that can be used to:
 
 * View detailed information about disk shards.
-* Export data from a shard to [InfluxDB line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) that can be inserted back into the database.
+* Export data from a shard to [InfluxDB line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) that can be inserted back into the database.
 * Convert TSM index shards to TSI index shards.
 
 ## `influx_inspect` utility
@@ -77,7 +77,7 @@ The size of the batches written to the index. Default value is `10000`.
 ##### `[ -concurrency ]`
 
 The number of workers to dedicate to shard index building.
-Defaults to [`GOMAXPROCS`](/influxdb/v1.8/administration/config#gomaxprocs-environment-variable) value.
+Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/config#gomaxprocs-environment-variable) value.
 
 ##### `[ -database <db_name> ]`
 
@@ -213,15 +213,15 @@ Dump raw series data.
 
 ##### [ `-measurements` ]
 
-Dump raw [measurement](/influxdb/v1.8/concepts/glossary/#measurement) data.
+Dump raw [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) data.
 
 ##### [ `-tag-keys` ]
 
-Dump raw [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key).
+Dump raw [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 
 ##### [ `-tag-values` ]
 
-Dump raw [tag values](/influxdb/v1.8/concepts/glossary/#tag-value).
+Dump raw [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value).
 
 ##### [ `-tag-value-series` ]
 
@@ -260,7 +260,7 @@ $ influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0 /
 
 ### `dumptsm`
 
-Dumps low-level details about [TSM](/influxdb/v1.8/concepts/glossary/#tsm-time-structured-merge-tree) files, including TSM (`.tsm`) files and WAL (`.wal`) files.
+Dumps low-level details about [TSM](/enterprise_influxdb/v1.9/concepts/glossary/#tsm-time-structured-merge-tree) files, including TSM (`.tsm`) files and WAL (`.wal`) files.
 
 #### Syntax
 
@@ -320,7 +320,7 @@ If a user writes points with timestamps set by the client, then multiple points 
 Exports all TSM files in InfluxDB line protocol data format.
 Writes all WAL file data for `_internal/monitor`.
 This output file can be imported using the
-[influx](/influxdb/v1.8/tools/shell/#import-data-from-a-file-with-import) command.
+[influx](/enterprise_influxdb/v1.9/tools/shell/#import-data-from-a-file-with-import) command.
 
 #### Syntax
 
@@ -381,7 +381,7 @@ Default value is `"$HOME/.influxdb/export"`.
 
 ##### [ `-retention <rp_name> ` ]
 
-The name of the [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) to export. Default value is `""`.
+The name of the [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to export. Default value is `""`.
 
 ##### [ `-start <timestamp>` ]
 
@@ -390,7 +390,7 @@ The timestamp string must be in [RFC3339 format](https://tools.ietf.org/html/rfc
 
 ##### [ `-waldir <wal_dir>` ]
 
-Path to the [WAL](/influxdb/v1.8/concepts/glossary/#wal-write-ahead-log) directory.
+Path to the [WAL](/enterprise_influxdb/v1.9/concepts/glossary/#wal-write-ahead-log) directory.
 Default value is `"$HOME/.influxdb/wal"`.
 
 #### Examples
@@ -580,5 +580,5 @@ Enables very very verbose logging. Displays progress for every series key and ti
 ## Caveats
 
 The system does not have access to the metastore when exporting TSM shards.
-As such, it always creates the [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) with infinite duration and replication factor of 1.  End users may want to change this prior to reimporting if they are importing to a cluster or want a different duration
+As such, it always creates the [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) with infinite duration and replication factor of 1.  End users may want to change this prior to reimporting if they are importing to a cluster or want a different duration
 for retention.

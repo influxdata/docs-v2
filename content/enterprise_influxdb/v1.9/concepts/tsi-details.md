@@ -34,7 +34,7 @@ index-version = "tsi1"
 
 ### InfluxDB OSS
 
-- For detail on configuration, see [Configuring InfluxDB OSS](/influxdb/v1.8/administration/config/).
+- For detail on configuration, see [Configuring InfluxDB OSS](/enterprise_influxdb/v1.9/administration/config/).
 
 ## Tooling
 
@@ -44,7 +44,7 @@ If you are troubleshooting an issue with an index, you can use the `influx_inspe
 This command allows you to print summary statistics on an index, file, or a set of files.
 This command only works on one index at a time.
 
-For details on this command, see [influx_inspect dumptsi](/influxdb/v1.8/tools/influx_inspect/#dumptsi).
+For details on this command, see [influx_inspect dumptsi](/enterprise_influxdb/v1.9/tools/influx_inspect/#dumptsi).
 
 ### `influx_inspect buildtsi`
 
@@ -53,7 +53,7 @@ If you have an existing TSI index that you want to rebuild, first delete the `in
 
 This command works at the server-level but you can optionally add database, retention policy and shard filters to only apply to a subset of shards.
 
-For details on this command, see [influx inspect buildtsi](/influxdb/v1.8/tools/influx_inspect/#buildtsi).
+For details on this command, see [influx inspect buildtsi](/enterprise_influxdb/v1.9/tools/influx_inspect/#buildtsi).
 
 
 ## Understanding TSI

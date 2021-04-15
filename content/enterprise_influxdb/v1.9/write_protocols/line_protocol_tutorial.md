@@ -2,7 +2,7 @@
 title: InfluxDB line protocol tutorial
 description: Tutorial for using InfluxDB line protocol.
 aliases:
-    - /influxdb/v1.8/write_protocols/line/
+    - /enterprise_influxdb/v1.9/write_protocols/line/
 menu:
   enterprise_influxdb_1_9:
     weight: 20
@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/reference/syntax/line-protocol/
 The InfluxDB line protocol is a text-based format for writing points to the
 database.
 Points must be in line protocol format for InfluxDB to successfully parse and
-write points (unless you're using a [service plugin](/influxdb/v1.8/supported_protocols/)).
+write points (unless you're using a [service plugin](/enterprise_influxdb/v1.9/supported_protocols/)).
 
 Using fictional temperature data, this page introduces InfluxDB line protocol.
 It covers:
@@ -53,7 +53,7 @@ Moving across each element in the diagram:
 
 ### Measurement
 
-The name of the [measurement](/influxdb/v1.8/concepts/glossary/#measurement)
+The name of the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement)
 that you want to write your data to.
 The measurement is required in line protocol.
 
@@ -61,7 +61,7 @@ In the example, the measurement name is `weather`.
 
 ### Tag set
 
-The [tag(s)](/influxdb/v1.8/concepts/glossary/#tag) that you want to include
+The [tag(s)](/enterprise_influxdb/v1.9/concepts/glossary/#tag) that you want to include
 with your data point.
 Tags are optional in line protocol.
 
@@ -107,7 +107,7 @@ weather temperature=82 1465839830100400200
 
 ### Field set
 
-The [field(s)](/influxdb/v1.8/concepts/glossary/#field) for your data point.
+The [field(s)](/enterprise_influxdb/v1.9/concepts/glossary/#field) for your data point.
 Every data point requires at least one field in line protocol.
 
 Separate field key-value pairs with an equals sign `=` and no spaces:
@@ -136,7 +136,7 @@ The whitespace is required in line protocol if you're including a timestamp.
 
 ### Timestamp
 
-The [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp) for your data
+The [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) for your data
 point in nanosecond-precision Unix time.
 The timestamp is optional in line protocol.
 If you do not specify a timestamp for your data point InfluxDB uses the server's
@@ -156,7 +156,7 @@ Use the InfluxDB API to specify timestamps with a precision other than nanosecon
 such as microseconds, milliseconds, or seconds.
 We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
-See the [API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint) for more information.
+See the [API Reference](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint) for more information.
 
 > #### Setup Tip:
 >
@@ -168,12 +168,12 @@ to InfluxDB can be inaccurate.
 ## Data types
 
 This section covers the data types of line protocol's major components:
-[measurements](/influxdb/v1.8/concepts/glossary/#measurement),
-[tag keys](/influxdb/v1.8/concepts/glossary/#tag-key),
-[tag values](/influxdb/v1.8/concepts/glossary/#tag-value),
-[field keys](/influxdb/v1.8/concepts/glossary/#field-key),
-[field values](/influxdb/v1.8/concepts/glossary/#field-value), and
-[timestamps](/influxdb/v1.8/concepts/glossary/#timestamp).
+[measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement),
+[tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key),
+[tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value),
+[field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key),
+[field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value), and
+[timestamps](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp).
 
 
 Measurements, tag keys, tag values, and field keys are always strings.
@@ -181,17 +181,17 @@ Measurements, tag keys, tag values, and field keys are always strings.
 > **Note:**
 Because InfluxDB stores tag values as strings, InfluxDB cannot perform math on
 tag values.
-In addition, InfluxQL [functions](/influxdb/v1.8/query_language/functions/)
+In addition, InfluxQL [functions](/enterprise_influxdb/v1.9/query_language/functions/)
 do not accept a tag value as a primary argument.
 It's a good idea to take into account that information when designing your
-[schema](/influxdb/v1.8/concepts/glossary/#schema).
+[schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 
 Timestamps are UNIX timestamps.
 The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`.
 The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`.
 As mentioned above, by default, InfluxDB assumes that timestamps have
 nanosecond precision.
-See the [API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint) for how to specify
+See the [API Reference](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint) for how to specify
 alternative precisions.
 
 Field values can be floats, integers, strings, or Booleans:
@@ -233,11 +233,11 @@ weather,location=us-midwest too_hot=true 1465839830100400200
 
     > **Note:** Acceptable Boolean syntax differs for data writes and data
     queries. See
-    [Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values)
+    [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values)
     for more information.
 
 Within a measurement, a field's type cannot differ within a
-[shard](/influxdb/v1.8/concepts/glossary/#shard), but it can differ across
+[shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard), but it can differ across
 shards. For example, writing an integer to a field that previously accepted
 floats fails if InfluxDB attempts to store the integer in the same shard as the
 floats:
@@ -258,7 +258,7 @@ InfluxDB stores the integer in a new shard:
 ```
 
 See
-[Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
+[Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
 for how field value type discrepancies can affect `SELECT *` queries.
 
 ## Quoting
@@ -427,25 +427,25 @@ time			              location	   temper🔥ture
 ### Keywords
 
 Line protocol accepts
-[InfluxQL keywords](/influxdb/v1.8/query_language/spec/#keywords)
-as [identifier](/influxdb/v1.8/concepts/glossary/#identifier) names.
+[InfluxQL keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
+as [identifier](/enterprise_influxdb/v1.9/concepts/glossary/#identifier) names.
 In general, we recommend avoiding using InfluxQL keywords in your schema as
 it can cause
-[confusion](/influxdb/v1.8/troubleshooting/errors/#error-parsing-query-found-expected-identifier-at-line-char) when querying the data.
+[confusion](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-found-expected-identifier-at-line-char) when querying the data.
 
 The keyword `time` is a special case.
 `time` can be a
-[continuous query](/influxdb/v1.8/concepts/glossary/#continuous-query-cq) name,
+[continuous query](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq) name,
 database name,
-[measurement](/influxdb/v1.8/concepts/glossary/#measurement) name,
-[retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name,
-[subscription](/influxdb/v1.8/concepts/glossary/#subscription) name, and
-[user](/influxdb/v1.8/concepts/glossary/#user) name.
+[measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name,
+[retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) name,
+[subscription](/enterprise_influxdb/v1.9/concepts/glossary/#subscription) name, and
+[user](/enterprise_influxdb/v1.9/concepts/glossary/#user) name.
 In those cases, `time` does not require double quotes in queries.
-`time` cannot be a [field key](/influxdb/v1.8/concepts/glossary/#field-key) or
-[tag key](/influxdb/v1.8/concepts/glossary/#tag-key);
+`time` cannot be a [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) or
+[tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-See [Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#time) for more information.
+See [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#time) for more information.
 
 ## Writing data to InfluxDB
 
@@ -454,7 +454,7 @@ See [Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked
 Now that you know all about the InfluxDB line protocol, how do you actually get the
 line protocol to InfluxDB?
 Here, we'll give two quick examples and then point you to the
-[Tools](/influxdb/v1.8/tools/) sections for further
+[Tools](/enterprise_influxdb/v1.9/tools/) sections for further
 information.
 
 #### InfluxDB API
@@ -468,12 +468,12 @@ curl -i -XPOST "http://localhost:8086/write?db=science_is_cool" --data-binary 'w
 ```
 
 For in-depth descriptions of query string parameters, status codes, responses,
-and more examples, see the [API Reference](/influxdb/v1.8/tools/api/#write-http-endpoint).
+and more examples, see the [API Reference](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint).
 
 #### CLI
 
 Write data to InfluxDB using the InfluxDB command line interface (CLI).
-[Launch](/influxdb/v1.8/tools/shell/#launch-influx) the CLI, use the relevant
+[Launch](/enterprise_influxdb/v1.9/tools/shell/#launch-influx) the CLI, use the relevant
 database, and put `INSERT` in
 front of your line protocol:
 
@@ -482,17 +482,17 @@ INSERT weather,location=us-midwest temperature=82 1465839830100400200
 ```
 
 You can also use the CLI to
-[import](/influxdb/v1.8/tools/shell/#import-data-from-a-file-with-import) Line
+[import](/enterprise_influxdb/v1.9/tools/shell/#import-data-from-a-file-with-import) Line
 Protocol from a file.
 
 There are several ways to write data to InfluxDB.
-See the [Tools](/influxdb/v1.8/tools/) section for more
-on the [InfluxDB API](/influxdb/v1.8/tools/api/#write-http-endpoint), the
-[CLI](/influxdb/v1.8/tools/shell/), and the available Service Plugins (
-[UDP](/influxdb/v1.8/tools/udp/),
-[Graphite](/influxdb/v1.8/tools/graphite/),
-[CollectD](/influxdb/v1.8/tools/collectd/), and
-[OpenTSDB](/influxdb/v1.8/tools/opentsdb/)).
+See the [Tools](/enterprise_influxdb/v1.9/tools/) section for more
+on the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint), the
+[CLI](/enterprise_influxdb/v1.9/tools/shell/), and the available Service Plugins (
+[UDP](/enterprise_influxdb/v1.9/tools/udp/),
+[Graphite](/enterprise_influxdb/v1.9/tools/graphite/),
+[CollectD](/enterprise_influxdb/v1.9/tools/collectd/), and
+[OpenTSDB](/enterprise_influxdb/v1.9/tools/opentsdb/)).
 
 ### Duplicate points
 
@@ -502,4 +502,4 @@ but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
 For a complete example of this behavior and how to avoid it, see
-[How does InfluxDB handle duplicate point?](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
+[How does InfluxDB handle duplicate point?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)

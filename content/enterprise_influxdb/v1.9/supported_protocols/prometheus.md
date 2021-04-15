@@ -23,7 +23,7 @@ HTTP endpoints to InfluxDB:
 * `/api/v1/prom/read`
 * `/api/v1/prom/write`
 
-Additionally, there is a [`/metrics` endpoint](/influxdb/v1.8/administration/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
+Additionally, there is a [`/metrics` endpoint](/enterprise_influxdb/v1.9/administration/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
 
 ### Create a target database
 
@@ -59,7 +59,7 @@ remote_read:
 
 #### Read and write URLs with authentication
 
-If [authentication is enabled on InfluxDB](/influxdb/v1.8/administration/authentication_and_authorization/),
+If [authentication is enabled on InfluxDB](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/),
 pass the `username` and `password` of an InfluxDB user with read and write privileges
 using the `u=` and `p=` query parameters respectively.
 
@@ -84,12 +84,12 @@ remote_read:
 As Prometheus data is brought into InfluxDB, the following transformations are
 made to match the InfluxDB data structure:
 
-* The Prometheus metric name becomes the InfluxDB [measurement](/influxdb/v1.8/concepts/key_concepts/#measurement) name.
+* The Prometheus metric name becomes the InfluxDB [measurement](/enterprise_influxdb/v1.9/concepts/key_concepts/#measurement) name.
 * The Prometheus sample (value) becomes an InfluxDB field using the `value` field key. It is always a float.
 * Prometheus labels become InfluxDB tags.
 * All `# HELP` and `# TYPE` lines are ignored.
 * [v1.8.6 and later] Prometheus remote write endpoint drops unsupported Prometheus values (`NaN`,`-Inf`, and `+Inf`) rather than reject the entire batch.
-  * If [write trace logging is enabled (`[http] write-tracing = true`)](/influxdb/v1.8/administration/config/#write-tracing-false), then summaries of dropped values are logged.
+  * If [write trace logging is enabled (`[http] write-tracing = true`)](/enterprise_influxdb/v1.9/administration/config/#write-tracing-false), then summaries of dropped values are logged.
   * If a batch of values contains values that are subsequently dropped, HTTP status code `204` is returned.
 
 ### Example: Parse Prometheus to InfluxDB

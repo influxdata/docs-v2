@@ -3,7 +3,7 @@ title: InfluxDB line protocol reference
 description: >
   InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 aliases:
-    - /influxdb/v1.8/write_protocols/write_syntax/
+    - /enterprise_influxdb/v1.9/write_protocols/write_syntax/
 menu:
   enterprise_influxdb_1_9:
     name: InfluxDB line protocol reference
@@ -31,16 +31,16 @@ InfluxDB line protocol informs InfluxDB of the data's measurement, tag set, fiel
 
 | Element | Optional/Required | Description | Type<br>(See [data types](#data-types) for more information.) |
 | :-------| :---------------- |:----------- |:----------------
-| [Measurement](/influxdb/v1.8/concepts/glossary/#measurement) | Required | The measurement name. InfluxDB accepts one measurement per point. | String
-| [Tag set](/influxdb/v1.8/concepts/glossary/#tag-set) | Optional | All tag key-value pairs for the point.  | [Tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) and [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) are both strings.
-| [Field set](/influxdb/v1.8/concepts/glossary/#field-set) | Required. Points must have at least one field. | All field key-value pairs for the point. | [Field keys](/influxdb/v1.8/concepts/glossary/#field-key) are strings. [Field values](/influxdb/v1.8/concepts/glossary/#field-value) can be floats, integers, strings, or Booleans.
-| [Timestamp](/influxdb/v1.8/concepts/glossary/#timestamp) | Optional. InfluxDB uses the server's local nanosecond timestamp in UTC if the timestamp is not included with the point. | The timestamp for the data point. InfluxDB accepts one timestamp per point. | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/influxdb/v1.8/tools/api/#write-http-endpoint).
+| [Measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) | Required | The measurement name. InfluxDB accepts one measurement per point. | String
+| [Tag set](/enterprise_influxdb/v1.9/concepts/glossary/#tag-set) | Optional | All tag key-value pairs for the point.  | [Tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) and [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) are both strings.
+| [Field set](/enterprise_influxdb/v1.9/concepts/glossary/#field-set) | Required. Points must have at least one field. | All field key-value pairs for the point. | [Field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) are strings. [Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) can be floats, integers, strings, or Booleans.
+| [Timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) | Optional. InfluxDB uses the server's local nanosecond timestamp in UTC if the timestamp is not included with the point. | The timestamp for the data point. InfluxDB accepts one timestamp per point. | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint).
 
 > #### Performance tips:
 >
 - Before sending data to InfluxDB, sort by tag key to match the results from the
 [Go bytes.Compare function](http://golang.org/pkg/bytes/#Compare).
-- To significantly improve compression, use the coarsest [precision](/influxdb/v1.8/tools/api/#write-http-endpoint) possible for timestamps.
+- To significantly improve compression, use the coarsest [precision](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint) possible for timestamps.
 - Use the Network Time Protocol (NTP) to synchronize time between hosts. InfluxDB uses a host's local time in UTC to assign timestamps to data. If a host's clock isn't synchronized with NTP, the data that the host writes to InfluxDB may have inaccurate timestamps.
 
 ## Data types
@@ -51,21 +51,21 @@ InfluxDB line protocol informs InfluxDB of the data's measurement, tag set, fiel
 | Integer | Field values | Signed 64-bit integers (-9223372036854775808 to 9223372036854775807). Specify an integer with a trailing `i` on the number. Example: `1i`. |
 | String | Measurements, tag keys, tag values, field keys, field values | Length limit 64KB. |
 | Boolean | Field values | Stores TRUE or FALSE values.<br><br>TRUE write syntax:`[t, T, true, True, TRUE]`.<br><br>FALSE write syntax:`[f, F, false, False, FALSE]` |
-| Timestamp | Timestamps | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/influxdb/v1.8/tools/api/#write-http-endpoint). The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`. The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`. |
+| Timestamp | Timestamps | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint). The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`. The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`. |
 
 #### Boolean syntax for writes and queries
 
 Acceptable Boolean syntax differs for data writes and data queries.
 For more information, see
-[Frequently asked questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values).
+[Frequently asked questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values).
 
 #### Field type discrepancies
 
-In a measurement, a field's type cannot differ in a [shard](/influxdb/v1.8/concepts/glossary/#shard), but can differ across
+In a measurement, a field's type cannot differ in a [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard), but can differ across
 shards.
 
 To learn how field value type discrepancies can affect `SELECT *` queries, see
-[How does InfluxDB handle field type discrepancies across shards?](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
+[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
 
 ### Examples
 
@@ -247,31 +247,31 @@ Measurement names, tag keys, tag values, field keys, and field values are
 case sensitive.
 
 InfluxDB line protocol accepts
-[InfluxQL keywords](/influxdb/v1.8/query_language/spec/#keywords)
-as [identifier](/influxdb/v1.8/concepts/glossary/#identifier) names.
+[InfluxQL keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
+as [identifier](/enterprise_influxdb/v1.9/concepts/glossary/#identifier) names.
 In general, we recommend avoiding using InfluxQL keywords in your schema as
 it can cause
-[confusion](/influxdb/v1.8/troubleshooting/errors/#error-parsing-query-found-expected-identifier-at-line-char) when querying the data.
+[confusion](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-found-expected-identifier-at-line-char) when querying the data.
 
 > **Note:** Avoid using the reserved keys `_field` and `_measurement`. If these keys are included as a tag or field key, the associated point is discarded.
 
 The keyword `time` is a special case.
 `time` can be a
-[continuous query](/influxdb/v1.8/concepts/glossary/#continuous-query-cq) name,
+[continuous query](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq) name,
 database name,
-[measurement](/influxdb/v1.8/concepts/glossary/#measurement) name,
-[retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name,
-[subscription](/influxdb/v1.8/concepts/glossary/#subscription) name, and
-[user](/influxdb/v1.8/concepts/glossary/#user) name.
+[measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name,
+[retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) name,
+[subscription](/enterprise_influxdb/v1.9/concepts/glossary/#subscription) name, and
+[user](/enterprise_influxdb/v1.9/concepts/glossary/#user) name.
 In those cases, `time` does not require double quotes in queries.
-`time` cannot be a [field key](/influxdb/v1.8/concepts/glossary/#field-key) or
-[tag key](/influxdb/v1.8/concepts/glossary/#tag-key);
+`time` cannot be a [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) or
+[tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-See [Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#time) for more information.
+See [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#time) for more information.
 
 ## InfluxDB line protocol in practice
 
-To learn how to write line protocol to the database, see [Tools](/influxdb/v1.8/tools/).
+To learn how to write line protocol to the database, see [Tools](/enterprise_influxdb/v1.9/tools/).
 
 ### Duplicate points
 
@@ -280,7 +280,7 @@ A point is uniquely identified by the measurement name, tag set, field set, and 
 If you write a point to a series with a timestamp that matches an existing point, the field set becomes a union of the old and new field set, and conflicts favor the new field set.
 
 For a complete example of this behavior and how to avoid it, see
-[How does InfluxDB handle duplicate points?](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
+[How does InfluxDB handle duplicate points?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
 
 ### Duplicate keys
 

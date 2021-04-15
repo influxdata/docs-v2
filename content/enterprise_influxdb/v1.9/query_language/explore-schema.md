@@ -7,12 +7,12 @@ menu:
     weight: 30
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/query_language/schema_exploration/
+  - /enterprise_influxdb/v1.9/query_language/schema_exploration/
 v2: /influxdb/v2.0/query-data/flux/explore-schema/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections cover useful query syntax for exploring your [schema](/influxdb/v1.8/concepts/glossary/#schema).
+The following sections cover useful query syntax for exploring your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 
 <table style="width:100%">
   <tr>
@@ -34,7 +34,7 @@ The following sections cover useful query syntax for exploring your [schema](/in
 
 **Sample data**
 
-The data used in this document are available for download on the [Sample Data](/influxdb/v1.8/query_language/data_download/) page.
+The data used in this document are available for download on the [Sample Data](/enterprise_influxdb/v1.9/query_language/data_download/) page.
 
 Before proceeding, login to the Influx CLI.
 
@@ -46,7 +46,7 @@ InfluxDB shell 1.4.x
 ```
 
 ## `SHOW DATABASES`
-Returns a list of all [databases](/influxdb/v1.8/concepts/glossary/#database) on your instance.
+Returns a list of all [databases](/enterprise_influxdb/v1.9/concepts/glossary/#database) on your instance.
 
 ### Syntax
 
@@ -73,7 +73,7 @@ This InfluxDB instance has two databases: `NOAA_water_database` and `_internal`.
 
 ## `SHOW RETENTION POLICIES`
 
-Returns a list of [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) for the specified [database](/influxdb/v1.8/concepts/glossary/#database).
+Returns a list of [retention policies](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) for the specified [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 
 ### Syntax
 
@@ -85,8 +85,8 @@ SHOW RETENTION POLICIES [ON <database_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 ### Examples
 
@@ -103,9 +103,9 @@ autogen   0s         168h0m0s             1          true
 The query returns the list of retention policies in the `NOAA_water_database`
 database in tabular format.
 The database has one retention policy called `autogen`.
-The `autogen` retention policy has an infinite [duration](/influxdb/v1.8/concepts/glossary/#duration),
-a seven-day [shard group duration](/influxdb/v1.8/concepts/glossary/#shard-group),
-a [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor)
+The `autogen` retention policy has an infinite [duration](/enterprise_influxdb/v1.9/concepts/glossary/#duration),
+a seven-day [shard group duration](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group),
+a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor)
 of one, and it is the `DEFAULT` retention policy for the database.
 
 #### Run a `SHOW RETENTION POLICIES` query without the `ON` clause
@@ -173,8 +173,8 @@ Specify the database with the `db` query string parameter:
 
 ## `SHOW SERIES`
 
-Returns a list of [series](/influxdb/v1.8/concepts/glossary/#series) for
-the specified [database](/influxdb/v1.8/concepts/glossary/#database).
+Returns a list of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) for
+the specified [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 
 ### Syntax
 
@@ -186,8 +186,8 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not
@@ -201,10 +201,10 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
+[`FROM` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -232,9 +232,9 @@ h2o_temperature,location=coyote_creek
 h2o_temperature,location=santa_monica
 ```
 
-The query's output is similar to the [line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) format.
-Everything before the first comma is the [measurement](/influxdb/v1.8/concepts/glossary/#measurement) name.
-Everything after the first comma is either a [tag key](/influxdb/v1.8/concepts/glossary/#tag-key) or a [tag value](/influxdb/v1.8/concepts/glossary/#tag-value).
+The query's output is similar to the [line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) format.
+Everything before the first comma is the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name.
+Everything after the first comma is either a [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) or a [tag value](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value).
 The `NOAA_water_database` has five different measurements and 14 different series.
 
 #### Run a `SHOW SERIES` query without the `ON` clause
@@ -406,8 +406,8 @@ Note, if the specified shard group duration is 7 days, the query above returns s
 
 ## `SHOW MEASUREMENTS`
 
-Returns a list of [measurements](/influxdb/v1.8/concepts/glossary/#measurement)
-for the specified [database](/influxdb/v1.8/concepts/glossary/#database).
+Returns a list of [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement)
+for the specified [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 
 ### Syntax
 
@@ -419,8 +419,8 @@ SHOW MEASUREMENTS [ON <database_name>] [WITH MEASUREMENT <operator> ['<measureme
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not valid for the `SHOW MEASUREMENTS` query.
@@ -433,9 +433,9 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
-and on [Regular expressions in queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
+[`LIMIT` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-clause),
+and on [Regular expressions in queries](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -565,8 +565,8 @@ with `h2o` and have values for the tag key `randtag` that include an integer.
 
 ## `SHOW TAG KEYS`
 
-Returns a list of [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key)
-associated with the specified [database](/influxdb/v1.8/concepts/glossary/#database).
+Returns a list of [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key)
+associated with the specified [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 
 ### Syntax
 
@@ -578,8 +578,8 @@ SHOW TAG KEYS [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> ['<
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause and the `WHERE` clause are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not
@@ -593,10 +593,10 @@ Supported operators in the `WHERE` clause:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
+[`FROM` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -780,8 +780,8 @@ and offsets the results by one.
 
 ## `SHOW TAG VALUES`
 
-Returns the list of [tag values](/influxdb/v1.8/concepts/glossary/#tag-value)
-for the specified [tag key(s)](/influxdb/v1.8/concepts/glossary/#tag-key) in the database.
+Returns the list of [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value)
+for the specified [tag key(s)](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the database.
 
 ### Syntax
 
@@ -793,7 +793,7 @@ SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_k
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH` clause is required.
 It supports specifying a single tag key, a regular expression, and multiple tag keys.
@@ -810,10 +810,10 @@ Supported operators in the `WITH` and `WHERE` clauses:
 `!~`&emsp;doesn't match against
 
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
-[`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
-[`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
-and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
+[`FROM` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement),
+[`LIMIT` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-clause),
+[`OFFSET` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-clause),
+and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 ### Examples
 
@@ -922,9 +922,9 @@ The `LIMIT` clause limits the number of tag values returned to three.
 
 ## `SHOW FIELD KEYS`
 
-Returns the [field keys](/influxdb/v1.8/concepts/glossary/#field-key) and the
-[data type](/influxdb/v1.8/write_protocols/line_protocol_reference/#data-types) of their
-[field values](/influxdb/v1.8/concepts/glossary/#field-value).
+Returns the [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) and the
+[data type](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types) of their
+[field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
 ### Syntax
 
@@ -936,15 +936,15 @@ SHOW FIELD KEYS [ON <database_name>] [FROM <measurement_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause is also optional.
 See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement).
+[`FROM` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement).
 
-> **Note:** A field's data type [can differ](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
-[shards](/influxdb/v1.8/concepts/glossary/#shard).
+> **Note:** A field's data type [can differ](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
+[shards](/enterprise_influxdb/v1.9/concepts/glossary/#shard).
 If your field has more than one type, `SHOW FIELD KEYS` returns the type that
 occurs first in the following list: float, integer, string, boolean.
 
@@ -1142,8 +1142,8 @@ measurement in the `NOAA_water_database` database.
 #### SHOW FIELD KEYS and field type discrepancies
 
 Field value
-[data types](/influxdb/v1.8/write_protocols/line_protocol_reference/#data-types)
-cannot differ within a [shard](/influxdb/v1.8/concepts/glossary/#shard) but they
+[data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types)
+cannot differ within a [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
 the field key.
@@ -1167,11 +1167,11 @@ all_the_types   boolean
 Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 `SELECT` statements.
 For more information, see the
-[How does InfluxDB handle field type discrepancies across shards?](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
+[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
 
 ### Filter meta queries by time
 
-When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/influxdb/v1.8/concepts/schema_and_data_layout/#shard-group-duration-recommendations).
+When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#shard-group-duration-recommendations).
 
 The example below shows how to filter `SHOW TAG KEYS` by approximately one hour using a 1h shard group duration. To filter other meta data, replace `SHOW TAG KEYS` with `SHOW TAG VALUES`, `SHOW SERIES`, `SHOW FIELD KEYS`, and so on.
 
@@ -1179,7 +1179,7 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
 
 #### Example filtering `SHOW TAG KEYS` by time
 
-1. Specify a shard duration on a new database or [alter an existing shard duration](/influxdb/v1.8/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy). To specify a 1h shard duration when creating a new database, run the following command:
+1. Specify a shard duration on a new database or [alter an existing shard duration](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy). To specify a 1h shard duration when creating a new database, run the following command:
 
     ```sh
     > CREATE database mydb with duration 7d REPLICATION 1 SHARD DURATION 1h name myRP;

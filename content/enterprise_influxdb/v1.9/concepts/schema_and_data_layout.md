@@ -9,7 +9,7 @@ menu:
     parent: Concepts
 ---
 
-Every InfluxDB use case is special and your [schema](/influxdb/v1.8/concepts/glossary/#schema) will reflect that uniqueness.
+Every InfluxDB use case is special and your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema) will reflect that uniqueness.
 There are, however, general guidelines to follow and pitfalls to avoid when designing your schema.
 
 <table style="width:100%">
@@ -32,15 +32,15 @@ We recommend that you:
 
 #### Encode meta data in tags
 
-[Tags](/influxdb/v1.8/concepts/glossary/#tag) are indexed and [fields](/influxdb/v1.8/concepts/glossary/#field) are not indexed.
+[Tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) are indexed and [fields](/enterprise_influxdb/v1.9/concepts/glossary/#field) are not indexed.
 This means that queries on tags are more performant than those on fields.
 
 In general, your queries should guide what gets stored as a tag and what gets stored as a field:
 
 - Store commonly-queried meta data in tags
 - Store data in tags if you plan to use them with the InfluxQL `GROUP BY` clause
-- Store data in fields if you plan to use them with an [InfluxQL](/influxdb/v1.8/query_language/functions/) function
-- Store numeric values as fields ([tag values](/influxdb/v1.8/concepts/glossary/#tag-value) only support string values)
+- Store data in fields if you plan to use them with an [InfluxQL](/enterprise_influxdb/v1.9/query_language/functions/) function
+- Store numeric values as fields ([tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) only support string values)
 
 #### Avoid using keywords as tag or field names
 
@@ -60,9 +60,9 @@ We recommend that you:
 
 #### Avoid too many series
 
-[Tags](/influxdb/v1.8/concepts/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/influxdb/v1.8/concepts/glossary/#series) in the database, also known as high series cardinality. High series cardinality is a primary driver of high memory usage for many database workloads.
+[Tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) containing highly variable information like UUIDs, hashes, and random strings lead to a large number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in the database, also known as high series cardinality. High series cardinality is a primary driver of high memory usage for many database workloads.
 
-See [Hardware sizing guidelines](/influxdb/v1.8/guides/hardware_sizing/) for [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+See [Hardware sizing guidelines](/enterprise_influxdb/v1.9/guides/hardware_sizing/) for [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality) recommendations based on your hardware. If the system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
 
 #### Avoid the same name for a tag and a field
 
@@ -70,12 +70,12 @@ Avoid using the same name for a tag and field key.
 This often results in unexpected behavior when querying data.
 
 If you inadvertently add the same name for a tag and field key, see
-[Frequently asked questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#tag-and-field-key-with-the-same-name)
+[Frequently asked questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#tag-and-field-key-with-the-same-name)
 for information about how to query the data predictably and how to fix the issue.
 
 #### Avoid encoding data in measurement names
 
-InfluxDB queries merge data that falls within the same [measurement](/influxdb/v1.8/concepts/glossary/#measurement); it's better to differentiate data with [tags](/influxdb/v1.8/concepts/glossary/#tag) than with detailed measurement names. If you encode data in a measurement name, you must use a regular expression to query the data, making some queries more complicated or impossible.
+InfluxDB queries merge data that falls within the same [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement); it's better to differentiate data with [tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) than with detailed measurement names. If you encode data in a measurement name, you must use a regular expression to query the data, making some queries more complicated or impossible.
 
 _Example:_
 
@@ -186,9 +186,9 @@ from(bucket:"<database>/<retention_policy>")
 ### Shard group duration overview
 
 InfluxDB stores data in shard groups.
-Shard groups are organized by [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) (RP) and store data with timestamps that fall within a specific time interval called the [shard duration](/influxdb/v1.8/concepts/glossary/#shard-duration).
+Shard groups are organized by [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) (RP) and store data with timestamps that fall within a specific time interval called the [shard duration](/enterprise_influxdb/v1.9/concepts/glossary/#shard-duration).
 
-If no shard group duration is provided, the shard group duration is determined by the RP [duration](/influxdb/v1.8/concepts/glossary/#duration) at the time the RP is created. The default values are:
+If no shard group duration is provided, the shard group duration is determined by the RP [duration](/enterprise_influxdb/v1.9/concepts/glossary/#duration) at the time the RP is created. The default values are:
 
 | RP Duration  | Shard Group Duration  |
 |---|---|
@@ -197,7 +197,7 @@ If no shard group duration is provided, the shard group duration is determined b
 | > 6 months  | 7 days  |
 
 The shard group duration is also configurable per RP.
-To configure the shard group duration, see [Retention Policy Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+To configure the shard group duration, see [Retention Policy Management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
 ### Shard group duration tradeoffs
 
@@ -219,7 +219,7 @@ A shard group will only be removed once a shard group's duration *end time* is o
 
 For example, if your RP has a duration of one day, InfluxDB will drop an hour's worth of data every hour and will always have 25 shard groups. One for each hour in the day and an extra shard group that is partially expiring, but isn't removed until the whole shard group is older than 24 hours.
 
->**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/influxdb/v1.8/query_language/explore-schema/#filter-meta-queries-by-time).
+>**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/enterprise_influxdb/v1.9/query_language/explore-schema/#filter-meta-queries-by-time).
 
 ### Shard group duration recommendations
 
@@ -234,14 +234,14 @@ Here are some recommendations for longer shard group durations:
 | > 3 months  | 30 days  |
 | infinite  | 52 weeks or longer  |
 
-> **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+> **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 In extreme cases where data covers decades and will never be deleted, a long shard group duration like `1040w` (20 years) is perfectly valid.
 
 Other factors to consider before setting shard group duration:
 
 * Shard groups should be twice as long as the longest time range of the most frequent queries
-* Shard groups should each contain more than 100,000 [points](/influxdb/v1.8/concepts/glossary/#point) per shard group
-* Shard groups should each contain more than 1,000 points per [series](/influxdb/v1.8/concepts/glossary/#series)
+* Shard groups should each contain more than 100,000 [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) per shard group
+* Shard groups should each contain more than 1,000 points per [series](/enterprise_influxdb/v1.9/concepts/glossary/#series)
 
 #### Shard group duration for backfilling
 

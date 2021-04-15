@@ -11,18 +11,18 @@ v2: /influxdb/v2.0/reference/key-concepts/
 
 Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:
 
-- [database](/influxdb/v1.8/concepts/glossary/#database)
-- [field key](/influxdb/v1.8/concepts/glossary/#field-key)
-- [field set](/influxdb/v1.8/concepts/glossary/#field-set)
-- [field value](/influxdb/v1.8/concepts/glossary/#field-value)
-- [measurement](/influxdb/v1.8/concepts/glossary/#measurement)
-- [point](/influxdb/v1.8/concepts/glossary/#point)
-- [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
-- [series](/influxdb/v1.8/concepts/glossary/#series)
-- [tag key](/influxdb/v1.8/concepts/glossary/#tag-key)
-- [tag set](/influxdb/v1.8/concepts/glossary/#tag-set)
-- [tag value](/influxdb/v1.8/concepts/glossary/#tag-value)
-- [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp)
+- [database](/enterprise_influxdb/v1.9/concepts/glossary/#database)
+- [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key)
+- [field set](/enterprise_influxdb/v1.9/concepts/glossary/#field-set)
+- [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value)
+- [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement)
+- [point](/enterprise_influxdb/v1.9/concepts/glossary/#point)
+- [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp)
+- [series](/enterprise_influxdb/v1.9/concepts/glossary/#series)
+- [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key)
+- [tag set](/enterprise_influxdb/v1.9/concepts/glossary/#tag-set)
+- [tag value](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value)
+- [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp)
 
 
 ### Sample data
@@ -87,7 +87,7 @@ Here are all eight field sets in the sample data:
 
 Fields are a required piece of the InfluxDB data structure - you cannot have data in InfluxDB without fields.
 It's also important to note that fields are not indexed.
-[Queries](/influxdb/v1.8/concepts/glossary/#query) that use field values as filters must scan all values that match the other conditions in the query.
+[Queries](/enterprise_influxdb/v1.9/concepts/glossary/#query) that use field values as filters must scan all values that match the other conditions in the query.
 As a result, those queries are not performant relative to queries on tags (more on tags below).
 In general, fields should not contain commonly-queried metadata.
 
@@ -127,7 +127,7 @@ If reserved keys are included as a tag or field key, the associated point is dis
 
 > Because fields aren't indexed, InfluxDB scans every value of `butterflies`  in the first query and every value of `honeybees` in the second query before it provides a response.
 That behavior can hurt query response times - especially on a much larger scale.
-To optimize your queries, it may be beneficial to rearrange your [schema](/influxdb/v1.8/concepts/glossary/#schema) such that the fields (`butterflies` and `honeybees`) become the tags and the tags (`location` and `scientist`) become the fields:
+To optimize your queries, it may be beneficial to rearrange your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema) such that the fields (`butterflies` and `honeybees`) become the tags and the tags (`location` and `scientist`) become the fields:
 
 > **name:** <span class="tooltip" data-tooltip-text="Measurement">census</span>  
 >
@@ -151,7 +151,7 @@ The name `census` tells us that the field values record the number of `butterfli
 
 A single measurement can belong to different retention policies.
 A <a name="retention-policy"></a>_**retention policy**_ describes how long InfluxDB keeps data (`DURATION`) and how many copies of this data is stored in the cluster (`REPLICATION`).
-If you're interested in reading more about retention policies, check out [Database Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+If you're interested in reading more about retention policies, check out [Database Management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
 {{% /warn %}}
@@ -174,7 +174,7 @@ The data above consist of eight series:
 | series 7                 | `census`    | `location = 1`,`scientist = perpetua`   | `honeybees`   |
 | series 8                 | `census`    | `location = 2`,`scientist = perpetua`   | `honeybees`   |
 
-Understanding the concept of a series is essential when designing your [schema](/influxdb/v1.8/concepts/glossary/#schema) and when working with your data in InfluxDB.
+Understanding the concept of a series is essential when designing your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema) and when working with your data in InfluxDB.
 
 A <a name="point"></a>_**point**_ represents a single data record that has four components: a measurement, tag set, field set, and a timestamp. A point is uniquely identified by its series and timestamp.
 
@@ -190,7 +190,7 @@ The point in this example is part of series 3 and 7 and defined by the measureme
 
 All of the stuff we've just covered is stored in a database - the sample data are in the database `my_database`.
 An InfluxDB <a name=database></a>_**database**_ is similar to traditional relational databases and serves as a logical container for users, retention policies, continuous queries, and, of course, your time series data.
-See [Authentication and Authorization](/influxdb/v1.8/administration/authentication_and_authorization/) and [Continuous Queries](/influxdb/v1.8/query_language/continuous_queries/) for more on those topics.
+See [Authentication and Authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) and [Continuous Queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/) for more on those topics.
 
 Databases can have several users, continuous queries, retention policies, and measurements.
 InfluxDB is a schemaless database which means it's easy to add new measurements, tags, and fields at any time.
@@ -198,5 +198,5 @@ It's designed to make working with time series data awesome.
 
 You made it!
 You've covered the fundamental concepts and terminology in InfluxDB.
-If you're just starting out, we recommend taking a look at [Getting Started](/influxdb/v1.8/introduction/getting_started/) and the [Writing Data](/influxdb/v1.8/guides/writing_data/) and [Querying Data](/influxdb/v1.8/guides/querying_data/) guides.
+If you're just starting out, we recommend taking a look at [Getting Started](/enterprise_influxdb/v1.9/introduction/getting_started/) and the [Writing Data](/enterprise_influxdb/v1.9/guides/writing_data/) and [Querying Data](/enterprise_influxdb/v1.9/guides/querying_data/) guides.
 May our time series database serve you well 🕔.

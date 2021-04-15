@@ -150,7 +150,7 @@ Sample sensor information is stored in PostgreSQL.
 `air-sensor-data.rb` is a script that generates air sensor data and stores the data in InfluxDB.
 To use `air-sensor-data.rb`:
 
-1. [Create a database](/influxdb/v1.8/introduction/get-started/#creating-a-database) to store the data.
+1. [Create a database](/enterprise_influxdb/v1.9/introduction/get-started/#creating-a-database) to store the data.
 2. Download the sample data generator. _This tool requires [Ruby](https://www.ruby-lang.org/en/)._
 
     <a class="btn download" style="color:#fff" href="/downloads/air-sensor-data.rb" download>Download Air Sensor Generator</a>

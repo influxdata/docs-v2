@@ -2,8 +2,8 @@
 title: UDP protocol support in InfluxDB
 description: Overview of support for UDP protocol in InfluxDB.
 aliases:
-  - /influxdb/v1.8/tools/udp/
-  - /influxdb/v1.8/write_protocols/udp/
+  - /enterprise_influxdb/v1.9/tools/udp/
+  - /enterprise_influxdb/v1.9/write_protocols/udp/
 menu:
   enterprise_influxdb_1_9:
     name: UDP

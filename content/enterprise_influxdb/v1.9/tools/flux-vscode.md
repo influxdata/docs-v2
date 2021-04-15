@@ -21,7 +21,7 @@ integration that lets you run Flux scripts natively and show results in VS Code.
 #### Enable Flux in InfluxDB 1.8
 To use the Flux VS Code extension with InfluxDB 1.8, ensure Flux is enabled in
 your InfluxDB configuration file.
-For more information, see [Enable Flux](/influxdb/v1.8/flux/installation/).
+For more information, see [Enable Flux](/enterprise_influxdb/v1.9/flux/installation/).
 {{% /note %}}
 
 ##### On this page

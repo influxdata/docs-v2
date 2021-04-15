@@ -7,7 +7,7 @@ menu:
     parent: Query with Flux
 weight: 1
 aliases:
-  - /influxdb/v1.8/flux/guides/executing-queries/
+  - /enterprise_influxdb/v1.9/flux/guides/executing-queries/
 v2: /influxdb/v2.0/query-data/execute-queries/
 ---
 
@@ -31,7 +31,7 @@ what type of interactive session to start.
 `-type=flux` will start an interactive read-eval-print-loop (REPL) that supports Flux.
 
 {{% note %}}
-If [authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization)
+If [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization)
 on your InfluxDB instance, use the `-username` flag to provide your InfluxDB username and
 the `-password` flag to provide your password.
 {{% /note %}}
@@ -106,7 +106,7 @@ In your request, set the following:
 
 - `Accept` header to `application/csv`
 - `Content-type` header to `application/vnd.flux`
-- If [authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization)
+- If [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization)
   on your InfluxDB instance, `Authorization` header to `Token <username>:<password>`
 
 This allows you to POST the Flux query in plain text and receive the annotated CSV response.

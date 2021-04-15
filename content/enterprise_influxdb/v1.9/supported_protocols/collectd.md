@@ -3,7 +3,7 @@ title: CollectD protocol support in InfluxDB
 description: >
   The collectd input allows InfluxDB to accept data transmitted in collectd native format.
 aliases:
-    - /influxdb/v1.8/tools/collectd/
+    - /enterprise_influxdb/v1.9/tools/collectd/
 menu:
   enterprise_influxdb_1_9:
     name: CollectD
@@ -15,7 +15,7 @@ The [collectd](https://collectd.org) input allows InfluxDB to accept data transm
 
 ## A note on UDP/IP buffer sizes
 
-If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/influxdb/v1.8/supported_protocols/udp/#a-note-on-udp-ip-os-buffer-sizes)
+If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/enterprise_influxdb/v1.9/supported_protocols/udp/#a-note-on-udp-ip-os-buffer-sizes)
 
 ## Configuration
 

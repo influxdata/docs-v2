@@ -8,7 +8,7 @@ menu:
     weight: 40
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/query_language/database_management/
+  - /enterprise_influxdb/v1.9/query_language/database_management/
 ---
 
 InfluxQL offers a full suite of administrative commands.
@@ -44,14 +44,14 @@ InfluxQL offers a full suite of administrative commands.
   </tr>
 </table>
 
-If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/influxdb/v1.8/query_language/explore-schema).
+If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema).
 
-The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/influxdb/v1.8/introduction/getting-started/).
+The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/enterprise_influxdb/v1.9/introduction/getting-started/).
 You can also execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
-For more on using the InfluxDB API, see [Querying data](/influxdb/v1.8/guides/querying_data/).
+For more on using the InfluxDB API, see [Querying data](/enterprise_influxdb/v1.9/guides/querying_data/).
 
 > **Note:** When authentication is enabled, only admin users can execute most of the commands listed on this page.
-> See the documentation on [authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/) for more information.
+> See the documentation on [authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) for more information.
 
 ## Data management
 
@@ -67,12 +67,12 @@ CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [S
 
 #### Description of syntax
 
-`CREATE DATABASE` requires a database [name](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
+`CREATE DATABASE` requires a database [name](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
 
-The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, and `NAME` clauses are optional and create a single [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) associated with the created database.
+The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, and `NAME` clauses are optional and create a single [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) associated with the created database.
 If you do not specify one of the clauses after `WITH`, the relevant behavior defaults to the `autogen` retention policy settings.
 The created retention policy automatically serves as the database's default retention policy.
-For more information about those clauses, see [Retention Policy Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
+For more information about those clauses, see [Retention Policy Management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
 A successful `CREATE DATABASE` query returns an empty result.
 If you attempt to create a database that already exists, InfluxDB does nothing and does not return an error.
@@ -87,7 +87,7 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 ```
 
 The query creates a database called `NOAA_water_database`.
-[By default](/influxdb/v1.8/administration/config/#retention-autocreate-true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
+[By default](/enterprise_influxdb/v1.9/administration/config/#retention-autocreate-true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
 
 ##### Create a database with a specific retention policy
 
@@ -97,7 +97,7 @@ The query creates a database called `NOAA_water_database`.
 ```
 
 The query creates a database called `NOAA_water_database`.
-It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) of one, a [shard group](/influxdb/v1.8/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`.
+It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`.
 
 ### Delete a database with DROP DATABASE
 
@@ -118,7 +118,7 @@ If you attempt to drop a database that does not exist, InfluxDB does not return 
 
 ### Drop series from the index with DROP SERIES
 
-The `DROP SERIES` query deletes all points from a [series](/influxdb/v1.8/concepts/glossary/#series) in a database,
+The `DROP SERIES` query deletes all points from a [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in a database,
 and it drops the series from the index.
 
 The query takes the following form, where you must specify either the `FROM` clause or the `WHERE` clause:
@@ -146,9 +146,9 @@ A successful `DROP SERIES` query returns an empty result.
 ### Delete series with DELETE
 
 The `DELETE` query deletes all points from a
-[series](/influxdb/v1.8/concepts/glossary/#series) in a database.
+[series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in a database.
 Unlike
-[`DROP SERIES`](/influxdb/v1.8/query_language/manage-database/#drop-series-from-the-index-with-drop-series), `DELETE` does not drop the series from the index.
+[`DROP SERIES`](/enterprise_influxdb/v1.9/query_language/manage-database/#drop-series-from-the-index-with-drop-series), `DELETE` does not drop the series from the index.
 
 You must include either the `FROM` clause, the `WHERE` clause, or both:
 
@@ -176,15 +176,15 @@ A successful `DELETE` query returns an empty result.
 Things to note about `DELETE`:
 
 * `DELETE` supports
-[regular expressions](/influxdb/v1.8/query_language/explore-data/#regular-expressions)
+[regular expressions](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
 in the `FROM` clause when specifying measurement names and in the `WHERE` clause
 when specifying tag values.
-* `DELETE` does not support [fields](/influxdb/v1.8/concepts/glossary/#field) in the `WHERE` clause.
+* `DELETE` does not support [fields](/enterprise_influxdb/v1.9/concepts/glossary/#field) in the `WHERE` clause.
 * If you need to delete points in the future, you must specify that time period as `DELETE SERIES` runs for `time < now()` by default. [Syntax](https://github.com/influxdata/influxdb/issues/8007)
 
 ### Delete measurements with DROP MEASUREMENT
 
-The `DROP MEASUREMENT` query deletes all data and series from the specified [measurement](/influxdb/v1.8/concepts/glossary/#measurement) and deletes the
+The `DROP MEASUREMENT` query deletes all data and series from the specified [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) and deletes the
 measurement from the index.
 
 The query takes the following form:
@@ -209,7 +209,7 @@ See GitHub Issue [#4275](https://github.com/influxdb/influxdb/issues/4275) for m
 ### Delete a shard with DROP SHARD
 
 The `DROP SHARD` query deletes a shard. It also drops the shard from the
-[metastore](/influxdb/v1.8/concepts/glossary/#metastore).
+[metastore](/enterprise_influxdb/v1.9/concepts/glossary/#metastore).
 The query takes the following form:
 ```sql
 DROP SHARD <shard_id_number>
@@ -229,7 +229,7 @@ exist.
 
 The following sections cover how to create, alter, and delete retention policies.
 Note that when you create a database, InfluxDB automatically creates a retention policy named `autogen` which has infinite retention.
-You may disable its auto-creation in the [configuration file](/influxdb/v1.8/administration/config/#metastore-settings).
+You may disable its auto-creation in the [configuration file](/enterprise_influxdb/v1.9/administration/config/#metastore-settings).
 
 ### Create retention policies with CREATE RETENTION POLICY
 
@@ -243,7 +243,7 @@ CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <dur
 ##### `DURATION`
 
 - The `DURATION` clause determines how long InfluxDB keeps the data.
-The `<duration>` is a [duration literal](/influxdb/v1.8/query_language/spec/#durations)
+The `<duration>` is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations)
 or `INF` (infinite).
 The minimum duration for a retention policy is one hour and the maximum
 duration is `INF`.
@@ -251,7 +251,7 @@ duration is `INF`.
 ##### `REPLICATION`
 
 - The `REPLICATION` clause determines how many independent copies of each point
-are stored in the [cluster](/influxdb/v1.8/high_availability/clusters/).
+are stored in the [cluster](/enterprise_influxdb/v1.9/high_availability/clusters/).
 
 - By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 3.
 
@@ -263,8 +263,8 @@ are stored in the [cluster](/influxdb/v1.8/high_availability/clusters/).
 
 ##### `SHARD DURATION`
 
-- Optional. The `SHARD DURATION` clause determines the time range covered by a [shard group](/influxdb/v1.8/concepts/glossary/#shard-group).
-- The `<duration>` is a [duration literal](/influxdb/v1.8/query_language/spec/#durations)
+- Optional. The `SHARD DURATION` clause determines the time range covered by a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group).
+- The `<duration>` is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations)
 and does not support an `INF` (infinite) duration.
 - By default, the shard group duration is determined by the retention policy's
 `DURATION`:
@@ -280,7 +280,7 @@ If the `CREATE RETENTION POLICY` query attempts to set the `SHARD GROUP DURATION
 If the `CREATE RETENTION POLICY` query attempts to set the `SHARD GROUP DURATION` to `0s`, InfluxDB automatically sets the `SHARD GROUP DURATION` according to the default settings listed above.
 
 See
-[Shard group duration management](/influxdb/v1.8/concepts/schema_and_data_layout/#shard-group-duration-management)
+[Shard group duration management](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#shard-group-duration-management)
 for recommended configurations.
 
 ##### `DEFAULT`
@@ -314,7 +314,7 @@ If you attempt to create a retention policy identical to one that already exists
 If you attempt to create a retention policy with the same name as an existing retention policy but with differing attributes, InfluxDB returns an error.
 
 > **Note:** You can also specify a new retention policy in the `CREATE DATABASE` query.
-See [Create a database with CREATE DATABASE](/influxdb/v1.8/query_language/manage-database/#create-database).
+See [Create a database with CREATE DATABASE](/enterprise_influxdb/v1.9/query_language/manage-database/#create-database).
 
 ### Modify retention policies with ALTER RETENTION POLICY
 

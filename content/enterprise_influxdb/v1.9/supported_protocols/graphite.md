@@ -3,8 +3,8 @@ title: Graphite protocol support in InfluxDB
 description: >
   Use the Graphite plugin to write data to InfluxDB using the Graphite protocol.
 aliases:
-    - /influxdb/v1.8/tools/graphite/
-    - /influxdb/v1.8/write_protocols/graphite/
+    - /enterprise_influxdb/v1.9/tools/graphite/
+    - /enterprise_influxdb/v1.9/write_protocols/graphite/
 menu:
   enterprise_influxdb_1_9:
     name: Graphite
@@ -17,7 +17,7 @@ menu:
 ## A Note On UDP/IP OS Buffer Sizes
 
 If you're using UDP input and running Linux or FreeBSD, please adjust your UDP buffer
-size limit, [see here for more details.](/influxdb/v1.8/supported_protocols/udp#a-note-on-udp-ip-os-buffer-sizes)
+size limit, [see here for more details.](/enterprise_influxdb/v1.9/supported_protocols/udp#a-note-on-udp-ip-os-buffer-sizes)
 
 ## Configuration
 

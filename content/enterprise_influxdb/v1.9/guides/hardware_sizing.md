@@ -26,7 +26,7 @@ If your InfluxDB performance requires any of the following, a single node (Influ
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))
-- more than 10,000,000 [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality)
+- more than 10,000,000 [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality)
 
 We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster) across multiple server cores.
 InfluxDB Enterprise distributes multiple copies of your data across a cluster,
@@ -59,7 +59,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 
 Run InfluxDB on locally attached solid state drives (SSDs). Other storage configurations have lower performance and may not be able to recover from small interruptions in normal processing.
 
-Estimated guidelines include writes per second, queries per second, and number of unique [series](/influxdb/v1.8/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
+Estimated guidelines include writes per second, queries per second, and number of unique [series](/enterprise_influxdb/v1.9/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
 
 | vCPU or CPU |   RAM   |   IOPS   | Writes per second | Queries* per second | Unique series |
 | ----------: | ------: | -------: | ----------------: | ------------------: | ------------: |
@@ -95,7 +95,7 @@ The InfluxDB Enterprise web server is primarily an HTTP server with similar load
 
 ### Data nodes
 
-A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
+A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
 
 >**Note:** For optimal data distribution within the cluster, use an even number of data nodes.
 
@@ -113,7 +113,7 @@ Guidelines vary by writes per second per node, moderate queries per second per n
 
 ## When do I need more RAM?
 
-In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/influxdb/v1.8/concepts/glossary/#schema).
+In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 
 
 ## Guidelines per cluster
@@ -464,7 +464,7 @@ See your cloud provider documentation for IOPS detail on your storage volumes.
 
 ### Bytes and compression
 
-Database names, [measurements](/influxdb/v1.8/concepts/glossary/#measurement), [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key), [field keys](/influxdb/v1.8/concepts/glossary/#field-key), and [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/influxdb/v1.8/concepts/glossary/#field-value) and [timestamps](/influxdb/v1.8/concepts/glossary/#timestamp) are stored for every point.
+Database names, [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement), [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key), [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key), and [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) and [timestamps](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) are stored for every point.
 
 Non-string values require approximately three bytes. String values require variable space, determined by string compression.
 

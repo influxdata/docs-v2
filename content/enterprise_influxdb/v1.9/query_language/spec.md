@@ -14,24 +14,24 @@ aliases:
 
 Find Influx Query Language (InfluxQL) definitions and details, including:
 
-* [Notation](/influxdb/v1.8/query_language/spec/#notation)
-* [Query representation](/influxdb/v1.8/query_language/spec/#query-representation)
-* [Identifiers](/influxdb/v1.8/query_language/spec/#identifiers)
-* [Keywords](/influxdb/v1.8/query_language/spec/#keywords)
-* [Literals](/influxdb/v1.8/query_language/spec/#literals)
-* [Queries](/influxdb/v1.8/query_language/spec/#queries)
-* [Statements](/influxdb/v1.8/query_language/spec/#statements)
-* [Clauses](/influxdb/v1.8/query_language/spec/#clauses)
-* [Expressions](/influxdb/v1.8/query_language/spec/#expressions)
-* [Other](/influxdb/v1.8/query_language/spec/#other)
-* [Query engine internals](/influxdb/v1.8/query_language/spec/#query-engine-internals)
+* [Notation](/enterprise_influxdb/v1.9/query_language/spec/#notation)
+* [Query representation](/enterprise_influxdb/v1.9/query_language/spec/#query-representation)
+* [Identifiers](/enterprise_influxdb/v1.9/query_language/spec/#identifiers)
+* [Keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
+* [Literals](/enterprise_influxdb/v1.9/query_language/spec/#literals)
+* [Queries](/enterprise_influxdb/v1.9/query_language/spec/#queries)
+* [Statements](/enterprise_influxdb/v1.9/query_language/spec/#statements)
+* [Clauses](/enterprise_influxdb/v1.9/query_language/spec/#clauses)
+* [Expressions](/enterprise_influxdb/v1.9/query_language/spec/#expressions)
+* [Other](/enterprise_influxdb/v1.9/query_language/spec/#other)
+* [Query engine internals](/enterprise_influxdb/v1.9/query_language/spec/#query-engine-internals)
 
 To learn more about InfluxQL, browse the following topics:
 
-* [Explore your data with InfluxQL](/influxdb/v1.8/query_language/explore-data/)
-* [Explore your schema with InfluxQL](/influxdb/v1.8/query_language/explore-schema/)
-* [Database management](/influxdb/v1.8/query_language/manage-database/)
-* [Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/).
+* [Explore your data with InfluxQL](/enterprise_influxdb/v1.9/query_language/explore-data/)
+* [Explore your schema with InfluxQL](/enterprise_influxdb/v1.9/query_language/explore-schema/)
+* [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/)
+* [Authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/).
 
 InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
 
@@ -85,13 +85,13 @@ digit               = "0" … "9" .
 
 ## Identifiers
 
-Identifiers are tokens which refer to [database](/influxdb/v1.8/concepts/glossary/#database) names, [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) names, [user](/influxdb/v1.8/concepts/glossary/#user) names, [measurement](/influxdb/v1.8/concepts/glossary/#measurement) names, [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key), and [field keys](/influxdb/v1.8/concepts/glossary/#field-key).
+Identifiers are tokens which refer to [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) names, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) names, [user](/enterprise_influxdb/v1.9/concepts/glossary/#user) names, [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) names, [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key), and [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
 
 The rules:
 
 - double quoted identifiers can contain any unicode character other than a new line
 - double quoted identifiers can contain escaped `"` characters (i.e., `\"`)
-- double quoted identifiers can contain InfluxQL [keywords](/influxdb/v1.8/query_language/spec/#keywords)
+- double quoted identifiers can contain InfluxQL [keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
 - unquoted identifiers must start with an upper or lowercase ASCII character or "_"
 - unquoted identifiers may contain only ASCII letters, decimal digits, and "_"
 
@@ -130,22 +130,22 @@ WRITE
 ```
 
 If you use an InfluxQL keywords as an
-[identifier](/influxdb/v1.8/concepts/glossary/#identifier) you will need to
+[identifier](/enterprise_influxdb/v1.9/concepts/glossary/#identifier) you will need to
 double quote that identifier in every query.
 
 The keyword `time` is a special case.
 `time` can be a
-[continuous query](/influxdb/v1.8/concepts/glossary/#continuous-query-cq) name,
+[continuous query](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq) name,
 database name,
-[measurement](/influxdb/v1.8/concepts/glossary/#measurement) name,
-[retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name,
-[subscription](/influxdb/v1.8/concepts/glossary/#subscription) name, and
-[user](/influxdb/v1.8/concepts/glossary/#user) name.
+[measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name,
+[retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) name,
+[subscription](/enterprise_influxdb/v1.9/concepts/glossary/#subscription) name, and
+[user](/enterprise_influxdb/v1.9/concepts/glossary/#user) name.
 In those cases, `time` does not require double quotes in queries.
-`time` cannot be a [field key](/influxdb/v1.8/concepts/glossary/#field-key) or
-[tag key](/influxdb/v1.8/concepts/glossary/#tag-key);
+`time` cannot be a [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) or
+[tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-See [Frequently Asked Questions](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#time) for more information.
+See [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#time) for more information.
 
 ## Literals
 
@@ -231,16 +231,16 @@ regex_lit           = "/" { unicode_char } "/" .
 
 > **Note:** InfluxQL supports using regular expressions when specifying:
 >
-* [field keys](/influxdb/v1.8/concepts/glossary/#field-key) and [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement)
-* [measurements](/influxdb/v1.8/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement)
-* [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) and string [field values](/influxdb/v1.8/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1.8/query_language/explore-data/#the-where-clause).
-* [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1.8/query_language/explore-data/#group-by-tags)
+* [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the [`SELECT` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement)
+* [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) in the [`FROM` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement)
+* [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) in the [`WHERE` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-where-clause).
+* [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags)
 >
 >Currently, InfluxQL does not support using regular expressions to match
 >non-string field values in the
 >`WHERE` clause,
->[databases](/influxdb/v1.8/concepts/glossary/#database), and
->[retention polices](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+>[databases](/enterprise_influxdb/v1.9/concepts/glossary/#database), and
+>[retention polices](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
 
 ## Queries
 
@@ -707,7 +707,7 @@ EXPLAIN ANALYZE separates storage block types, and reports the total number of b
 | `boolean`  | 1-bit, LSB encoded                    |
 | `string`   | UTF-8 string                          |
 
-For more information about storage blocks, see [TSM files](/influxdb/v1.8/concepts/storage_engine/#tsm-files).
+For more information about storage blocks, see [TSM files](/enterprise_influxdb/v1.9/concepts/storage_engine/#tsm-files).
 
 ### GRANT
 
@@ -735,7 +735,7 @@ Stop currently-running query.
 kill_query_statement = "KILL QUERY" query_id .
 ```
 
-Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/influxdb/v1.8/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
+Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/enterprise_influxdb/v1.9/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
 
 > ***InfluxDB Enterprise clusters:*** To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, `myhost:8088`),
 > available in the `SHOW QUERIES` output.
@@ -983,10 +983,10 @@ SHOW SERIES FROM "telegraf"."autogen"."cpu" WHERE cpu = 'cpu8'
 
 Estimates or counts exactly the cardinality of the series for the current database unless a database is specified using the `ON <database>` option.
 
-[Series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
+[Series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [When do I need more RAM?](/influxdb/v1.8/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/influxdb/v1.8/guides/hardware_sizing/)
-- [Don't have too many series](/influxdb/v1.8/concepts/schema_and_data_layout/#avoid-too-many-series)
+- [When do I need more RAM?](/enterprise_influxdb/v1.9/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1.9/guides/hardware_sizing/)
+- [Don't have too many series](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#avoid-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.

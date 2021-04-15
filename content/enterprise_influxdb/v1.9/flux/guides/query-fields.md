@@ -63,7 +63,7 @@ The combination of [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/std
 [`range()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/range),
 and `filter()` represent the most basic Flux query:
 
-1. Use `from()` to define your [bucket](/influxdb/v1.8/flux/get-started/#buckets).
+1. Use `from()` to define your [bucket](/enterprise_influxdb/v1.9/flux/get-started/#buckets).
 2. Use `range()` to limit query results by time.
 3. Use `filter()` to identify what rows of data to output.
 

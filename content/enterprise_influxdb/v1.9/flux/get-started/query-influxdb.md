@@ -7,14 +7,14 @@ menu:
     parent: get-started
     weight: 1
 aliases:
-  - /influxdb/v1.8/flux/getting-started/query-influxdb/
+  - /enterprise_influxdb/v1.9/flux/getting-started/query-influxdb/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/query-influxdb/
 v2: /influxdb/v2.0/query-data/get-started/query-influxdb/
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
-_**If you haven't already, make sure to install InfluxDB v1.8+, [enable Flux](/influxdb/v1.8/flux/installation),
-and choose a [tool for writing Flux queries](/influxdb/v1.8/flux/get-started#tools-for-working-with-flux).**_
+_**If you haven't already, make sure to install InfluxDB v1.8+, [enable Flux](/enterprise_influxdb/v1.9/flux/installation),
+and choose a [tool for writing Flux queries](/enterprise_influxdb/v1.9/flux/get-started#tools-for-working-with-flux).**_
 
 Every Flux query needs the following:
 
@@ -25,7 +25,7 @@ Every Flux query needs the following:
 
 ## 1. Define your data source
 Flux's [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
-It requires a [`bucket`](/influxdb/v1.8/flux/get-started/#buckets) parameter.
+It requires a [`bucket`](/enterprise_influxdb/v1.9/flux/get-started/#buckets) parameter.
 For this example, use `telegraf/autogen`, a combination of the default database and retention policy provided by the TICK stack.
 
 ```js
@@ -129,6 +129,6 @@ The query shown here is a barebones example.
 Flux queries can be extended in many ways to form powerful scripts.
 
 <div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v1.8/flux/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/influxdb/v1.8/flux/get-started/transform-data/">Transform your data</a>
+  <a class="btn prev" href="/enterprise_influxdb/v1.9/flux/get-started/">Get started with Flux</a>
+  <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/transform-data/">Transform your data</a>
 </div>

@@ -69,7 +69,7 @@ The Continuous Query (CQ) subsystem manages all InfluxDB CQs.
 The Announcer service announces a data node's status to meta nodes.
 
 ### Retention
-The Retention service enforces [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+The Retention service enforces [retention policies](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp)
 and drops data as it expires.
 
 ### Stats

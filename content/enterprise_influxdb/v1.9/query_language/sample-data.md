@@ -6,8 +6,8 @@ menu:
     weight: 10
     parent: InfluxQL
 aliases:
-  - /influxdb/v1.8/sample_data/data_download/
-  - /influxdb/v1.8/query_language/data_download/
+  - /enterprise_influxdb/v1.9/sample_data/data_download/
+  - /enterprise_influxdb/v1.9/query_language/data_download/
 v2: /influxdb/v2.0/reference/sample-data/
 ---
 
@@ -35,7 +35,7 @@ InfluxDB shell 1.4.x
 * The InfluxDB API runs on port `8086` by default.
 Therefore, `influx` will connect to port `8086` and `localhost` by default.
 If you need to alter these defaults, run `influx --help`.
-* The [`-precision` argument](/influxdb/v1.8/tools/shell/#influx-arguments) specifies the format/precision of any returned timestamps.
+* The [`-precision` argument](/enterprise_influxdb/v1.9/tools/shell/#influx-arguments) specifies the format/precision of any returned timestamps.
 In the example above, `rfc3339` tells InfluxDB to return timestamps in [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt) (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`).
 
 The command line is now ready to take input in the form of the Influx Query Language (a.k.a InfluxQL) statements.
@@ -58,7 +58,7 @@ Throughout the query language exploration, we'll use the database name `NOAA_wat
 
 ### Download and write the data to InfluxDB
 
-From your terminal, download the text file that contains the data in [line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) format:
+From your terminal, download the text file that contains the data in [line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) format:
 ```
 curl https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt -o NOAA_data.txt
 ```

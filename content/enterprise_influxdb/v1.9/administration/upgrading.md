@@ -176,7 +176,7 @@ Migrate any custom settings from your previous data node configuration file.
     |[`[anti-entropy]`](/enterprise_influxdb/v1.9/administration/config-data-nodes#anti-entropy)| <ul><li>Add `enabled = true` <li>Add `check-interval = "30s"` <li>Add `max-fetch = 10`|
     |`[admin]`| Remove entire section.|
 
-    For more information about TSI, see [TSI overview](/influxdb/v1.8/concepts/time-series-index/) and [TSI details](/influxdb/v1.8/concepts/tsi-details/).
+    For more information about TSI, see [TSI overview](/enterprise_influxdb/v1.9/concepts/time-series-index/) and [TSI details](/enterprise_influxdb/v1.9/concepts/tsi-details/).
 
 ### Rebuild TSI indexes
 
@@ -186,7 +186,7 @@ Complete the following steps for Time Series Index (TSI) only.
 
 2. Delete all TSM-based shard `index` directories (by default, located at `/data/<dbName/<rpName>/<shardID>/index`).
 
-3. Use the [`influx_inspect buildtsi`](/influxdb/v1.8/tools/influx_inspect#buildtsi) utility to rebuild the TSI index. For example, run the following command:
+3. Use the [`influx_inspect buildtsi`](/enterprise_influxdb/v1.9/tools/influx_inspect#buildtsi) utility to rebuild the TSI index. For example, run the following command:
 
     ```js
     influx_inspect buildtsi -datadir /yourDataDirectory -waldir /wal

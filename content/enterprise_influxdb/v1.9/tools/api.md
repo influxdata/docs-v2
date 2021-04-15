@@ -3,7 +3,7 @@ title: InfluxDB API reference
 description: >
   Use the InfluxDB API endpoints to run queries, write data, check server status, and troubleshoot by tracking HTTP client requests, collecting server statistics, and using Go "pprof" profiles.
 aliases:
-    - /influxdb/v1.8/concepts/api/
+    - /enterprise_influxdb/v1.9/concepts/api/
 menu:
   enterprise_influxdb_1_9:
     name: InfluxDB API reference
@@ -17,7 +17,7 @@ It uses HTTP response codes, HTTP authentication, JWT Tokens, and basic authenti
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
-Those settings [are configurable](/influxdb/v1.8/administration/config/#http-endpoints-settings).
+Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
 
 - [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
 - [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
@@ -27,13 +27,13 @@ Those settings [are configurable](/influxdb/v1.8/administration/config/#http-end
 InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.0.
 There are multiple reasons for introducing these:
 
-- The latest [InfluxDB client libraries](/influxdb/v1.8/tools/api_client_libraries/)
+- The latest [InfluxDB client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/)
   are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
 - InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the **latest** client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting
-the [latest client libraries](/influxdb/v1.8/tools/api_client_libraries/).
+the [latest client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/).
 They allow you to easily move from InfluxDB 1.x to InfluxDB 2.0 Cloud or open source,
 (when you are ready).
 
@@ -48,14 +48,14 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/influxdb/v1.8/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.9/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
 
 - `Accept: application/csv`
 - `Content-type: application/vnd.flux`
-- If [authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization),
+- If [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization),
   provide your InfluxDB username and password:  
   `Authorization: Token username:password`
 
@@ -360,10 +360,10 @@ POST http://localhost:8086/query
 
 | Verb  | Query Type |
 | :---- | :--------- |
-| GET   | Use for all queries that start with: <br><br> [`SELECT`](/influxdb/v1.8/query_language/spec/#select)* <br><br> [`SHOW`](/influxdb/v1.8/query_language/spec/#show-continuous-queries)   |
-| POST  | Use for all queries that start with: <br><br> [`ALTER`](/influxdb/v1.8/query_language/spec/#alter-retention-policy) <br><br> [`CREATE`](/influxdb/v1.8/query_language/spec/#create-continuous-query) <br><br> [`DELETE`](/influxdb/v1.8/query_language/spec/#delete) <br><br> [`DROP`](/influxdb/v1.8/query_language/spec/#drop-continuous-query) <br><br> [`GRANT`](/influxdb/v1.8/query_language/spec/#grant) <br><br> [`KILL`](/influxdb/v1.8/query_language/spec/#kill-query) <br><br> [`REVOKE`](/influxdb/v1.8/query_language/spec/#revoke) |
+| GET   | Use for all queries that start with: <br><br> [`SELECT`](/enterprise_influxdb/v1.9/query_language/spec/#select)* <br><br> [`SHOW`](/enterprise_influxdb/v1.9/query_language/spec/#show-continuous-queries)   |
+| POST  | Use for all queries that start with: <br><br> [`ALTER`](/enterprise_influxdb/v1.9/query_language/spec/#alter-retention-policy) <br><br> [`CREATE`](/enterprise_influxdb/v1.9/query_language/spec/#create-continuous-query) <br><br> [`DELETE`](/enterprise_influxdb/v1.9/query_language/spec/#delete) <br><br> [`DROP`](/enterprise_influxdb/v1.9/query_language/spec/#drop-continuous-query) <br><br> [`GRANT`](/enterprise_influxdb/v1.9/query_language/spec/#grant) <br><br> [`KILL`](/enterprise_influxdb/v1.9/query_language/spec/#kill-query) <br><br> [`REVOKE`](/enterprise_influxdb/v1.9/query_language/spec/#revoke) |
 
-\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause).
+\* The only exceptions are `SELECT` queries that include an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause).
 Those `SELECT` queries require a `POST` request.
 
 #### Examples
@@ -376,11 +376,11 @@ $ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FRO
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
-The `mymeas` [measurement](/influxdb/v1.8/concepts/glossary/#measurement) has two points.
-The first point has the [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp) `2017-03-01T00:16:18Z`, a `myfield` value of `33.1`, and no tag values for the `mytag1` and `mytag2` [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key).
+The `mymeas` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) has two points.
+The first point has the [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) `2017-03-01T00:16:18Z`, a `myfield` value of `33.1`, and no tag values for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 The second point has the timestamp `2017-03-01T00:17:18Z`, a `myfield` value of `12.4`, a `mytag1` value of `12`, and a `mytag2` value of `14`.
 
-The same query in the InfluxDB [Command Line Interface](/influxdb/v1.8/tools/shell/) (CLI) returns the following table:
+The same query in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/shell/) (CLI) returns the following table:
 
 ```sql
 name: mymeas
@@ -398,10 +398,10 @@ $ curl -XPOST 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *
 {"results":[{"statement_id":0,"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",2]]}]}]}
 ```
 
-`SELECT` queries that include and [`INTO` clause](/influxdb/v1.8/query_language/explore-data/#the-into-clause) require a `POST` request.
+`SELECT` queries that include and [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) require a `POST` request.
 
-The response shows that InfluxDB writes two points to the `newmeas` [measurement](/influxdb/v1.8/concepts/glossary/#measurement).
-Note that the system uses epoch 0 (`1970-01-01T00:00:00Z`) as a [null timestamp equivalent](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#why-does-my-query-return-epoch-0-as-the-timestamp).
+The response shows that InfluxDB writes two points to the `newmeas` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Note that the system uses epoch 0 (`1970-01-01T00:00:00Z`) as a [null timestamp equivalent](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-does-my-query-return-epoch-0-as-the-timestamp).
 
 ##### Create a database
 
@@ -411,25 +411,25 @@ $ curl -XPOST 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE 
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/manage-database/#create-database) returns no additional information.
 
 #### Query string parameters
 
 | Query String Parameter | Optional/Required | Definition |
 | :--------------------- | :---------------- |:---------- |
 | chunked=[true \| \<number_of_points>] | Optional | Returns points in streamed batches instead of in a single response. If set to `true`, InfluxDB chunks responses by series or by every 10,000 points, whichever occurs first. If set to a specific value, InfluxDB chunks responses by series or by that number of points.*  |
-| db=\<database_name> | Required for database-dependent queries (most [`SELECT`](/influxdb/v1.8/query_language/spec/#select) queries and [`SHOW`](/influxdb/v1.8/query_language/spec/#show-continuous-queries) queries require this parameter). | Sets the target [database](/influxdb/v1.8/concepts/glossary/#database) for the query. |
+| db=\<database_name> | Required for database-dependent queries (most [`SELECT`](/enterprise_influxdb/v1.9/query_language/spec/#select) queries and [`SHOW`](/enterprise_influxdb/v1.9/query_language/spec/#show-continuous-queries) queries require this parameter). | Sets the target [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) for the query. |
 | epoch=[ns,u,µ,ms,s,m,h] | Optional | Returns epoch timestamps with the specified precision. By default, InfluxDB returns timestamps in RFC3339 format with nanosecond precision. Both `u` and `µ` indicate microseconds. |
-| p=\<password> | Optional if you haven't [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.** | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
+| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.** | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
 | pretty=true | Optional | Enables pretty-printed JSON output. While this is useful for debugging it is not recommended for production use as it consumes unnecessary network bandwidth. |
-| q=\<query> | Required | InfluxQL string to execute.  See also [Request Body](/influxdb/v1.8/tools/api/#request-body). |
-| u=\<username> | Optional if you haven't [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
+| q=\<query> | Required | InfluxQL string to execute.  See also [Request Body](/enterprise_influxdb/v1.9/tools/api/#request-body). |
+| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
-That behavior is configurable; see the [`max-row-limit`](/influxdb/v1.8/administration/config/#max-row-limit-0) configuration option for more information.
+That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/config/#max-row-limit-0) configuration option for more information.
 
 \** The InfluxDB API also supports basic authentication.
-Use basic authentication if you've [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
 and aren't using the query string parameters `u` and `p`.
 See below for an [example](#create-a-database-using-basic-authentication) of basic authentication.
 
@@ -492,7 +492,7 @@ $ curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-url
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/manage-database/#create-database) returns no additional information.
 
 Invalid credentials:
 
@@ -512,7 +512,7 @@ $ curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urle
 {"results":[{"statement_id":0}]}
 ```
 
-A successful [`CREATE DATABASE` query](/influxdb/v1.8/query_language/manage-database/#create-database) returns no additional information.
+A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/manage-database/#create-database) returns no additional information.
 
 The following example uses invalid credentials.
 
@@ -529,7 +529,7 @@ $ curl -XPOST -u myusername:notmypassword 'http://localhost:8086/query' --data-u
 ```
 
 All queries must be URL encoded and follow
-[InfluxQL](/influxdb/v1.8/query_language/) syntax.
+[InfluxQL](/enterprise_influxdb/v1.9/query_language/) syntax.
 Our example shows the `--data-urlencode` parameter from `curl`, which we use in all examples on this page.
 
 #### Options
@@ -606,7 +606,7 @@ mymeas,,1488327378000000000,33.1,mytag1,mytag2
 mymeas,,1488327438000000000,12.4,12,14
 ```
 
-The first point has no [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) for the `mytag1` and `mytag2` [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key).
+The first point has no [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 
 ##### Submit queries from a file
 
@@ -630,7 +630,7 @@ $ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FRO
 ```
 
 The request maps `$tag_value` to `12`.
-InfluxDB stores [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) as strings they and must be double quoted in the request.
+InfluxDB stores [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) as strings they and must be double quoted in the request.
 
 ##### Bind a parameter in the `WHERE` clause to a numerical field value
 
@@ -641,7 +641,7 @@ $ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FRO
 ```
 
 The request maps `$field_value` to `30`.
-The value `30` does not require double quotes because `myfield` stores numerical [field values](/influxdb/v1.8/concepts/glossary/#field-value).
+The value `30` does not require double quotes because `myfield` stores numerical [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
 ##### Bind two parameters in the `WHERE` clause to a specific tag value and numerical field value
 
@@ -748,14 +748,14 @@ POST http://localhost:8086/write
 | Query String Parameter | Optional/Required | Description |
 | :--------------------- | :---------------- | :---------- |
 | consistency=[any,one,quorum,all] | Optional, available with [InfluxDB Enterprise clusters](/enterprise_influxdb/v1.6/) only. | Sets the write consistency for the point. InfluxDB assumes that the write consistency is `one` if you do not specify `consistency`. See the [InfluxDB Enterprise documentation](/enterprise_influxdb/v1.6/concepts/clustering#write-consistency) for detailed descriptions of each consistency option. |
-| db=\<database> | Required | Sets the target [database](/influxdb/v1.8/concepts/glossary/#database) for the write. |
-| p=\<password> | Optional if you haven't [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
+| db=\<database> | Required | Sets the target [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) for the write. |
+| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
 | precision=[ns,u,ms,s,m,h] | Optional | Sets the precision for the supplied Unix time values. InfluxDB assumes that timestamps are in nanoseconds if you do not specify `precision`.** |
-| rp=\<retention_policy_name> | Optional | Sets the target [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) for the write. InfluxDB writes to the `DEFAULT` retention policy if you do not specify a retention policy. |
-| u=\<username> | Optional if you haven't [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have write access to the database. Use with the query string parameter `p`. |
+| rp=\<retention_policy_name> | Optional | Sets the target [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) for the write. InfluxDB writes to the `DEFAULT` retention policy if you do not specify a retention policy. |
+| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have write access to the database. Use with the query string parameter `p`. |
 
 \* The InfluxDB API also supports basic authentication.
-Use basic authentication if you've [enabled authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
 and aren't using the query string parameters `u` and `p`.
 See below for an [example](#write-a-point-to-the-database-mydb-using-basic-authentication) of basic authentication.
 
@@ -855,7 +855,7 @@ Content-Length: 33
 ```
 
 All data must be binary encoded and in the
-[InfluxDB line protocol](/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol) format.
+[InfluxDB line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) format.
 Our example shows the `--data-binary` parameter from curl, which we will use in
 all examples on this page.
 Using any encoding method other than `--data-binary` will likely lead to issues;
@@ -949,7 +949,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/influxdb/v1.8/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/enterprise_influxdb/v1.9/administration/config/#max-body-size-25000000) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples

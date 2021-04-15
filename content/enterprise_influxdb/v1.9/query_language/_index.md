@@ -15,73 +15,73 @@ working with data in InfluxDB databases.
 The first seven documents in this section provide a tutorial-style introduction
 to InfluxQL.
 Feel free to download the dataset provided in
-[Sample Data](/influxdb/v1.8/query_language/data_download/) and follow along
+[Sample Data](/enterprise_influxdb/v1.9/query_language/data_download/) and follow along
 with the documentation.
 
 #### Data exploration
 
-[Data exploration](/influxdb/v1.8/query_language/explore-data/) covers the
+[Data exploration](/enterprise_influxdb/v1.9/query_language/explore-data/) covers the
 query language basics for InfluxQL, including the
-[`SELECT` statement](/influxdb/v1.8/query_language/explore-data/#the-basic-select-statement),
-[`GROUP BY` clauses](/influxdb/v1.8/query_language/explore-data/#the-group-by-clause),
-[`INTO` clauses](/influxdb/v1.8/query_language/explore-data/#the-into-clause), and more.
+[`SELECT` statement](/enterprise_influxdb/v1.9/query_language/explore-data/#the-basic-select-statement),
+[`GROUP BY` clauses](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause),
+[`INTO` clauses](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause), and more.
 See Data Exploration to learn about
-[time syntax](/influxdb/v1.8/query_language/explore-data/#time-syntax) and
-[regular expressions](/influxdb/v1.8/query_language/explore-data/#regular-expressions) in
+[time syntax](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) and
+[regular expressions](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions) in
 queries.
 
 #### Schema exploration
 
-[Schema exploration](/influxdb/v1.8/query_language/explore-schema/) covers
+[Schema exploration](/enterprise_influxdb/v1.9/query_language/explore-schema/) covers
 queries that are useful for viewing and exploring your
-[schema](/influxdb/v1.8/concepts/glossary/#schema).
+[schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 See Schema Exploration for syntax explanations and examples of InfluxQL's `SHOW`
 queries.
 
 #### Database management
 
-[Database management](/influxdb/v1.8/query_language/manage-database/) covers InfluxQL for managing
-[databases](/influxdb/v1.8/concepts/glossary/#database) and
-[retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) in
+[Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) covers InfluxQL for managing
+[databases](/enterprise_influxdb/v1.9/concepts/glossary/#database) and
+[retention policies](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) in
 InfluxDB.
 See Database Management for creating and dropping databases and retention
 policies as well as deleting and dropping data.
 
 #### InfluxQL functions
 
-Covers all [InfluxQL functions](/influxdb/v1.8/query_language/functions/).
+Covers all [InfluxQL functions](/enterprise_influxdb/v1.9/query_language/functions/).
 
 #### InfluxQL Continuous Queries
 
-[InfluxQL Continuous Queries](/influxdb/v1.8/query_language/continuous_queries/) covers the
-[basic syntax](/influxdb/v1.8/query_language/continuous_queries/#basic-syntax)
+[InfluxQL Continuous Queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/) covers the
+[basic syntax](/enterprise_influxdb/v1.9/query_language/continuous_queries/#basic-syntax)
 ,
-[advanced syntax](/influxdb/v1.8/query_language/continuous_queries/#advanced-syntax)
+[advanced syntax](/enterprise_influxdb/v1.9/query_language/continuous_queries/#advanced-syntax)
 ,
 and
-[common use cases](/influxdb/v1.8/query_language/continuous_queries/#continuous-query-use-cases)
+[common use cases](/enterprise_influxdb/v1.9/query_language/continuous_queries/#continuous-query-use-cases)
 for
-[Continuous Queries](/influxdb/v1.8/concepts/glossary/#continuous-query-cq).
+[Continuous Queries](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq).
 This page also describes how to
-[`SHOW`](/influxdb/v1.8/query_language/continuous_queries/#listing-continuous-queries) and
-[`DROP`](/influxdb/v1.8/query_language/continuous_queries/#deleting-continuous-queries)
+[`SHOW`](/enterprise_influxdb/v1.9/query_language/continuous_queries/#listing-continuous-queries) and
+[`DROP`](/enterprise_influxdb/v1.9/query_language/continuous_queries/#deleting-continuous-queries)
 Continuous Queries.
 
 #### InfluxQL mathematical operators
 
-[InfluxQL mathematical operators](/influxdb/v1.8/query_language/math_operators/)
+[InfluxQL mathematical operators](/enterprise_influxdb/v1.9/query_language/math_operators/)
 covers the use of mathematical operators in InfluxQL.
 
 #### Authentication and authorization
 
-[Authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/) covers how to
-[set up authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+[Authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) covers how to
+[set up authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
 and how to
-[authenticate requests](/influxdb/v1.8/administration/authentication_and_authorization/#authenticate-requests) in InfluxDB.
+[authenticate requests](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#authenticate-requests) in InfluxDB.
 This page also describes the different
-[user types](/influxdb/v1.8/administration/authentication_and_authorization/#user-types-and-privileges) and the InfluxQL for
-[managing database users](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands).
+[user types](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-types-and-privileges) and the InfluxQL for
+[managing database users](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-management-commands).
 
 ## InfluxQL reference
 
-The [reference documentation for InfluxQL](/influxdb/v1.8/query_language/spec/).
+The [reference documentation for InfluxQL](/enterprise_influxdb/v1.9/query_language/spec/).

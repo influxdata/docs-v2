@@ -9,7 +9,7 @@ menu:
     parent: Guides
     name: Calculate percentages
 aliases:
-  - /influxdb/v1.8/guides/calculating_percentages/
+  - /enterprise_influxdb/v1.9/guides/calculating_percentages/
 v2: /influxdb/v2.0/query-data/flux/calculate-percentages/
 ---
 
@@ -150,7 +150,7 @@ from(bucket:"apple_stand/autogen")
 
 {{% tab-content %}}
 
-[InfluxQL](/influxdb/v1.8/query_language/) lets you perform simple math equations
+[InfluxQL](/enterprise_influxdb/v1.9/query_language/) lets you perform simple math equations
 which makes calculating percentages using two fields in a measurement pretty simple.
 However there are some caveats of which you need to be aware.
 

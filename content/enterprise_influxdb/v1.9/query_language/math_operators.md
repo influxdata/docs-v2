@@ -211,7 +211,7 @@ SELECT * FROM "data" WHERE "bitfield" ^ 6 > 0
 ### Common Issues with Mathematical Operators
 
 #### Issue 1: Mathematical operators with wildcards and regular expressions
-InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/influxdb/v1.8/query_language/explore-data/#regular-expressions) in the `SELECT` clause.
+InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions) in the `SELECT` clause.
 The following queries are invalid and the system returns an error:
 
 Perform a mathematical operation on a wildcard.
@@ -254,8 +254,8 @@ SELECT mean(10 * "value") FROM "cpu"
 ```
 will yield a parse error.
 
-> InfluxQL supports [subqueries](/influxdb/v1.8/query_language/explore-data/#subqueries) which offer similar functionality to using mathematical operators inside a function call.
-See [Data Exploration](/influxdb/v1.8/query_language/explore-data/#subqueries) for more information.
+> InfluxQL supports [subqueries](/enterprise_influxdb/v1.9/query_language/explore-data/#subqueries) which offer similar functionality to using mathematical operators inside a function call.
+See [Data Exploration](/enterprise_influxdb/v1.9/query_language/explore-data/#subqueries) for more information.
 
 ## Unsupported Operators
 

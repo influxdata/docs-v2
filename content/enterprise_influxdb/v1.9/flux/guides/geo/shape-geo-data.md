@@ -57,7 +57,7 @@ Grid and S2 cell ID accuracy are defined by a [level](https://s2geometry.io/reso
 
 {{% note %}}
 To filter more quickly, use higher S2 Cell ID levels,
-but know that that higher levels increase [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality).
+but know that that higher levels increase [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality).
 {{% /note %}}
 
 The Geo package requires S2 cell IDs as tokens.

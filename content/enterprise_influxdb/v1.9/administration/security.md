@@ -17,7 +17,7 @@ Password protect your InfluxDB Enterprise instance to keep any unauthorized indi
 from accessing your data.
 
 Resources:
-[Set up Authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication)
+[Set up Authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
 
 ## Manage users and permissions
 
@@ -25,8 +25,8 @@ Restrict access by creating individual users and assigning them relevant
 read and/or write permissions.
 
 Resources:
-[User types and privileges](/influxdb/v1.8/administration/authentication_and_authorization/#user-types-and-privileges),
-[User management commands](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands),
+[User types and privileges](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-types-and-privileges),
+[User management commands](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-management-commands),
 [Fine-grained authorization](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/)
 
 ## Enable HTTPS

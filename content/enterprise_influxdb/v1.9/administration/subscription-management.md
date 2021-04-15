@@ -17,11 +17,11 @@ a copy of all data as it is written.
 ## How subscriptions work
 
 As data is written to InfluxDB, writes are duplicated to subscriber endpoints via
-HTTP, HTTPS, or UDP in [line protocol](/influxdb/v1.8/write_protocols/line_protocol_tutorial/).
+HTTP, HTTPS, or UDP in [line protocol](/enterprise_influxdb/v1.9/write_protocols/line_protocol_tutorial/).
 the InfluxDB subscriber service creates multiple "writers" ([goroutines](https://golangbot.com/goroutines/))
 which send writes to the subscription endpoints.
 
-_The number of writer goroutines is defined by the [`write-concurrency`](/influxdb/v1.8/administration/config#write-concurrency-40) configuration._
+_The number of writer goroutines is defined by the [`write-concurrency`](/enterprise_influxdb/v1.9/administration/config#write-concurrency-40) configuration._
 
 As writes occur in InfluxDB, each subscription writer sends the written data to the
 specified subscription endpoints.
@@ -180,7 +180,7 @@ Below is an example `influxdb.conf` subscriber configuration:
   write-buffer-size = 1000
 ```
 
-_**Descriptions of `[subscriber]` configuration options are available in the [Configuring InfluxDB](/influxdb/v1.8/administration/config#subscription-settings) documentation.**_
+_**Descriptions of `[subscriber]` configuration options are available in the [Configuring InfluxDB](/enterprise_influxdb/v1.9/administration/config#subscription-settings) documentation.**_
 
 ## Troubleshooting
 

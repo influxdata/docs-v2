@@ -2,8 +2,8 @@
 title: Monitor InfluxDB servers
 description: Troubleshoot and monitor InfluxDB OSS.
 aliases:
-    - /influxdb/v1.8/administration/statistics/
-    - /influxdb/v1.8/troubleshooting/statistics/
+    - /enterprise_influxdb/v1.9/administration/statistics/
+    - /enterprise_influxdb/v1.9/troubleshooting/statistics/
 menu:
   enterprise_influxdb_1_9:
     name: Monitor InfluxDB
@@ -26,7 +26,7 @@ This information can be very useful for troubleshooting and performance monitori
 ## SHOW STATS
 
 To see node statistics, execute the command `SHOW STATS`.
-For details on this command, see [`SHOW STATS`](/influxdb/v1.8/query_language/spec#show-stats) in the InfluxQL specification.
+For details on this command, see [`SHOW STATS`](/enterprise_influxdb/v1.9/query_language/spec#show-stats) in the InfluxQL specification.
 
 The statistics returned by `SHOW STATS` are stored in memory only, and are reset to zero when the node is restarted.
 
@@ -34,7 +34,7 @@ The statistics returned by `SHOW STATS` are stored in memory only, and are reset
 
 To see node diagnostic information, execute the command `SHOW DIAGNOSTICS`.
 This returns information such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
-For details on this command, see [`SHOW DIAGNOSTICS`](/influxdb/v1.8/query_language/spec#show-diagnostics) in the InfluxQL specification.
+For details on this command, see [`SHOW DIAGNOSTICS`](/enterprise_influxdb/v1.9/query_language/spec#show-diagnostics) in the InfluxQL specification.
 
 ## Internal monitoring
 InfluxDB also writes statistical and diagnostic information to database named `_internal`, which records metrics on the internal runtime and service performance.

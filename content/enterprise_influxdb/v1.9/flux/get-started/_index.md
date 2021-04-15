@@ -10,8 +10,8 @@ menu:
     parent: Flux
     weight: 2
 aliases:
-  - /influxdb/v1.8/flux/getting-started/
-  - /influxdb/v1.8/flux/introduction/getting-started/
+  - /enterprise_influxdb/v1.9/flux/getting-started/
+  - /enterprise_influxdb/v1.9/flux/introduction/getting-started/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/
 v2: /influxdb/v2.0/query-data/get-started/
 ---
@@ -31,7 +31,7 @@ interactive Flux Read-Eval-Print-Loop (REPL) allowing you to write and run Flux 
 
 ---
 
-_For information about downloading and installing InfluxDB, see [InfluxDB installation](/influxdb/v1.8/introduction/installation)._
+_For information about downloading and installing InfluxDB, see [InfluxDB installation](/enterprise_influxdb/v1.9/introduction/installation)._
 
 ---
 
@@ -99,7 +99,7 @@ are unique to each row.
 
 ## Tools for working with Flux
 
-You have multiple [options for writing and running Flux queries](/influxdb/v1.8/flux/guides/execute-queries/),
+You have multiple [options for writing and running Flux queries](/enterprise_influxdb/v1.9/flux/guides/execute-queries/),
 but as you're getting started, we recommend using the following:
 
 ### 1. Chronograf's Data Explorer
@@ -121,5 +121,5 @@ influx -type=flux
 ```
 
 <div class="page-nav-btns">
-  <a class="btn next" href="/influxdb/v1.8/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>
+  <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>
 </div>

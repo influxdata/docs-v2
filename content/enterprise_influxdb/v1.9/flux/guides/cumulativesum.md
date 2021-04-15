@@ -42,7 +42,7 @@ to calculate a running total of values.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/influxdb/v1.8/flux/guides/#example-data-variable).
+The examples below use the [example data variable](/enterprise_influxdb/v1.9/flux/guides/#example-data-variable).
 {{% /note %}}
 
 ##### Calculate the running total of values

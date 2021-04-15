@@ -20,8 +20,8 @@ to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v1.8/flux/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v1.8/flux/guides/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/enterprise_influxdb/v1.9/flux/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/enterprise_influxdb/v1.9/flux/guides/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Basic mathematic operations
 ```js
@@ -36,7 +36,7 @@ If you're just getting started with Flux queries, check out the following:
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v1.8/flux/guides/execute-queries/#influx-cli">Flux read-eval-print-loop (REPL)</a>.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/enterprise_influxdb/v1.9/flux/guides/execute-queries/#influx-cli">Flux read-eval-print-loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type
@@ -176,7 +176,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentates](/influxdb/v1.8/flux/guides/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentates](/enterprise_influxdb/v1.9/flux/guides/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

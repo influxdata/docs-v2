@@ -14,7 +14,7 @@ Manage your InfluxQL queries using the following:
 - [KILL QUERIES](#stop-currently-running-queries-with-kill-query) to stop queries overloading your system
 - [Configuration settings](#configuration-settings-for-query-management) to prevent and halt the execution of inefficient queries
 
-> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/influxdb/v1.8/flux/get-started/).
+> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/enterprise_influxdb/v1.9/flux/get-started/).
 
 ## List currently-running queries with `SHOW QUERIES`
 
@@ -91,7 +91,7 @@ A successful `KILL QUERY` query returns no results.
 ## Configuration settings for query management
 
 The following configuration settings are in the
-[coordinator](/influxdb/v1.8/administration/config/#query-management-settings) section of the
+[coordinator](/enterprise_influxdb/v1.9/administration/config/#query-management-settings) section of the
 configuration file.
 
 ### `max-concurrent-queries`
@@ -111,7 +111,7 @@ ERR: max concurrent queries reached
 The maximum time for which a query can run on your instance before InfluxDB
 kills the query.
 The default setting (`"0"`) allows queries to run with no time restrictions.
-This setting is a [duration literal](/influxdb/v1.8/query_language/spec/#durations).
+This setting is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations).
 
 If your query exceeds the query timeout, InfluxDB kills the query and outputs
 the following error:
@@ -125,7 +125,7 @@ ERR: query timeout reached
 The maximum time a query can run after which InfluxDB logs the query with a
 `Detected slow query` message.
 The default setting (`"0"`) will never tell InfluxDB to log the query.
-This setting is a [duration literal](/influxdb/v1.8/query_language/spec/#durations).
+This setting is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations).
 
 Example log output with `log-queries-after` set to `"1s"`:
 
@@ -134,13 +134,13 @@ Example log output with `log-queries-after` set to `"1s"`:
 ```
 
 `qid` is the id number of the query.
-Use this value with [`KILL QUERY`](/influxdb/v1.8/troubleshooting/query_management/#stop-currently-running-queries-with-kill-query).
+Use this value with [`KILL QUERY`](/enterprise_influxdb/v1.9/troubleshooting/query_management/#stop-currently-running-queries-with-kill-query).
 
 The default location for the log output file is `/var/log/influxdb/influxdb.log`. However on systems that use systemd (most modern Linux distributions) those logs are output to `journalctl`. You should be able to view the InfluxDB logs using the following command: `journalctl -u influxdb`
 
 ### `max-select-point`
 
-The maximum number of [points](/influxdb/v1.8/concepts/glossary/#point) that a
+The maximum number of [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) that a
 `SELECT` statement can process.
 The default setting (`0`) allows the `SELECT` statement to process an unlimited
 number of points.
@@ -154,7 +154,7 @@ ERR: max number of points reached
 
 ### `max-select-series`
 
-The maximum number of [series](/influxdb/v1.8/concepts/glossary/#series) that a
+The maximum number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) that a
 `SELECT` statement can process.
 The default setting (`0`) allows the `SELECT` statement to process an unlimited
 number of series.

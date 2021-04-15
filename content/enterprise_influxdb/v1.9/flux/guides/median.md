@@ -98,7 +98,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/influxdb/v1.8/flux/guides/#example-data-variable).
+The examples below use the [example data variable](/enterprise_influxdb/v1.9/flux/guides/#example-data-variable).
 {{% /note %}}
 
 ## Find the value that represents the median
