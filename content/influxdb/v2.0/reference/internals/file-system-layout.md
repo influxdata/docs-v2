@@ -13,7 +13,7 @@ influxdb/v2.0/tags: [storage, internals]
 
 The InfluxDB file system layout depends on the operating system, installation method,
 or containerization platform used to install InfluxDB.
-Anywhere InfluxDB is installed, it stores the following:
+Anywhere InfluxDB is installed, its files on disk consist of the following:
 
 - [Engine path](#engine-path)
 - [Bolt path](#bolt-path)
@@ -24,8 +24,8 @@ Anywhere InfluxDB is installed, it stores the following:
 The **engine path** (referring to the [*storage engine*](/{{< latest "influxdb" >}}/reference/internals/storage-engine/)) is the directory path where InfluxDB stores time series data on disk.
 The engine path contains the following directories:
 
-- **data**: time-structured merge tree (TSM) files
-- **wal**: write ahead log (WAL) files.
+- **data**: Time-Structured Merge Tree (TSM) files
+- **wal**: Write Ahead Log (WAL) files.
 
 Use the [engine-path](/influxdb/v2.0/reference/config-options/#engine-path)
 configuration option to customize the engine path.
