@@ -13,7 +13,7 @@ influxdb/v2.0/tags: [storage, internals]
 
 The InfluxDB file system layout depends on the operating system, installation method,
 or containerization platform used to install InfluxDB.
-Anywhere InfluxDB is installed, its files on disk consist of the following:
+Anywhere InfluxDB is installed, its on-disk structure consists of the following:
 
 - [Engine path](#engine-path)
 - [Bolt path](#bolt-path)
