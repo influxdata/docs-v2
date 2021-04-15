@@ -1,11 +1,11 @@
 ---
 title: Upgrade from InfluxDB OSS 2.x to InfluxDB Cloud
 description: >
-  To upgrade from Influx OSS 2.x to InfluxDB Cloud, create a new InfluxDB Cloud account,
+  To upgrade from Influx 2.x to InfluxDB Cloud, create a new InfluxDB Cloud account,
   migrate resources, time series data, and more.
 menu:
   influxdb_cloud:
-    name: OSS 2.x to Cloud
+    name: 2.x to Cloud
     parent: Upgrade to Cloud
 weight: 11
 ---
@@ -17,7 +17,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 3. [Set up influx CLI connection configurations](#set-up-influx-cli-connection-configurations)
 4. [Use templates to migrate InfluxDB resources](#use-templates-to-migrate-influxdb-resources)
 5. [Migrate DBRP mappings](#migrate-dbrp-mappings)
-6. [Dual write to InfluxDB OSS 2.x and InfluxDB Cloud](#dual-write-to-influxdb-oss-2x-and-influxdb-cloud)
+6. [Dual write to InfluxDB 2.x and InfluxDB Cloud](#dual-write-to-influxdb-2x-and-influxdb-cloud)
 7. [Migrate time series data](#migrate-time-series-data)
 8. [Collaborate with other users](#collaborate-with-other-users)
 
@@ -25,8 +25,11 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 #### Consider when upgrading
 - InfluxDB Cloud requires token authentication, and you must create all new authentication tokens.
 - InfluxDB Cloud does not support:
-   - Multiple [organizations](http://localhost:1313/influxdb/cloud/reference/glossary/#organization) per account. Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization. To upgrade multiple organizations, create a separate InfluxDB Cloud account for each organization.
-   - [InfluxDB scrapers](/{{< latest "influxdb" >}}/write-data/no-code/scrape-data/). To scrape Prometheus-formatted metrics, use the [Telegraf Prometheus input plugin](/{{< latest "telegraf" >}}/plugins/#prometheus).
+  - Multiple [organizations](http://localhost:1313/influxdb/cloud/reference/glossary/#organization) per account.
+    Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization.
+    To upgrade multiple organizations, create a separate InfluxDB Cloud account for each organization.
+  - [InfluxDB scrapers](/{{< latest "influxdb" >}}/write-data/no-code/scrape-data/).
+    To scrape Prometheus-formatted metrics, use the [Telegraf Prometheus input plugin](/{{< latest "telegraf" >}}/plugins/#prometheus).
   - [1.x compatible authorizations](/{{< latest "influxdb" >}}/reference/api/influxdb-1x/#authentication).
 {{% /note %}}
 
@@ -51,7 +54,7 @@ for the upgrade process.
 {{% note %}}
 If you've created other tokens in your InfluxDB 2.x instance for external libraries or
 integrations, create corresponding tokens for each in your InfluxDB Cloud instance.
-You cannot migrate tokens from InfluxDB OSS to InfluxDB Cloud.
+You cannot migrate tokens from InfluxDB 2.x to InfluxDB Cloud.
 {{% /note %}}
 
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
@@ -63,7 +66,7 @@ credentials to CLI commands.
 Use the `influx` CLI packaged with InfluxDB 2.x and the
 [`influx config create` command](/influxdb/cloud/reference/cli/influx/config/create/)
 to set up the connection configurations for both your InfluxDB Cloud instance and
-your InfluxDB OSS 2.x instance.
+your InfluxDB 2.x instance.
 
 Include the following flags for each configuration:
 
@@ -72,12 +75,12 @@ Include the following flags for each configuration:
   The examples below use `cloud` and `oss` respectively.
 - **-\-host-url**:
   [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or
-  [InfluxDB OSS URL](/{{< latest "influxdb" >}}/reference/urls/).
+  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/).
 - **-\-org**:
   InfluxDB organization name.
   The default organization name in InfluxDB Cloud is the email address associated with your account.
 - **-\-token**: Authentication token to use to connect to InfluxDB.
-  Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for OSS).
+  Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for 2.x).
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
@@ -89,10 +92,10 @@ influx config create \
   --token mY5uP3rS3cRe7Cl0uDt0K3n
 ```
 
-##### Create an InfluxDB OSS 2.x connection configuration
+##### Create an InfluxDB 2.x connection configuration
 {{< keep-url >}}
 ```sh
-# Example OSS connection configuration
+# Example 2.x connection configuration
 influx config create \
   --config-name oss \
   --host-url http://localhost:8086 \
@@ -104,7 +107,7 @@ influx config create \
 [InfluxDB templates](/influxdb/cloud/influxdb-templates/) let you export InfluxDB
 [resources](/influxdb/cloud/influxdb-templates/#template-resources) such as buckets,
 dashboards, labels, tasks, and more and import them into another InfluxDB instance.
-Export resources from your **InfluxDB OSS 2.x** instance and migrate them to
+Export resources from your **InfluxDB 2.x** instance and migrate them to
 your **InfluxDB Cloud** instance.
 
 {{% note %}}
@@ -114,7 +117,7 @@ you are only able to create a limited number of resources.
 If your exported template exceeds these limits, the resource migration will fail.
 {{% /note %}}
 
-- **To migrate _all resources_ from an InfluxDB OSS organization to an InfluxDB Cloud organization**:  
+- **To migrate _all resources_ from an InfluxDB 2.x organization to an InfluxDB Cloud organization**:  
   Use the [`influx export all` command](/influxdb/cloud/reference/cli/influx/export/all)
   and pipe the output into the [`influx apply` command](/influxdb/cloud/reference/cli/influx/apply/).
   Use the `--active-config` flag with each command to specify which connection configuration to use:
@@ -123,7 +126,7 @@ If your exported template exceeds these limits, the resource migration will fail
     influx export all --active-config oss | influx apply --active-config cloud
     ```
 
-- **To migrate _specific resources_ from an InfluxDB OSS organization to an InfluxDB Cloud organization**:  
+- **To migrate _specific resources_ from an InfluxDB 2.x organization to an InfluxDB Cloud organization**:  
   Use the [`influx export` command](/influxdb/cloud/reference/cli/influx/export/)
   with lists of specific resources to export or the [`influx export all` command](/influxdb/cloud/reference/cli/influx/export/all)
   **with filters**. Pipe the output into the [`influx apply` command](/influxdb/cloud/reference/cli/influx/apply/).
@@ -170,13 +173,13 @@ If any of your migrated resources contain hardcoded InfluxDB URLs (`http://local
 ## Migrate DBRP mappings
 InfluxDB database and retention policy (DBRP) mappings let you query InfluxDB Cloud
 buckets with InfluxQL and the InfluxDB 1.x DBRP convention.
-**If you have DBRP mappings in your InfluxDB OSS 2.x instance**, migrate them
+**If you have DBRP mappings in your InfluxDB 2.x instance**, migrate them
 to your InfluxDB Cloud instance.
 
 {{< expand-wrapper >}}
 {{% expand "Migrate DBRP mappings to InfluxDB Cloud"%}}
 1.  Use the [`influx v1 dbrp list` command](/influxdb/cloud/reference/cli/influx/influx/v1/dbrp/list/)
-    to view the list of DBRP mappings in your **InfluxDB OSS 2.x** instance.
+    to view the list of DBRP mappings in your **InfluxDB 2.x** instance.
 
     ```sh
     influx v1 dbrp list --active-config oss
@@ -203,10 +206,10 @@ to your InfluxDB Cloud instance.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## Dual write to InfluxDB OSS 2.x and InfluxDB Cloud
+## Dual write to InfluxDB 2.x and InfluxDB Cloud
 Update external
 clients to write to your InfluxDB Cloud instance.
-**We recommend writing data to both InfluxDB OSS 2.x and InfluxDB Cloud until you
+**We recommend writing data to both InfluxDB 2.x and InfluxDB Cloud until you
 finish [migrating your existing time series data](#migrate-time-series-data)**.
 
 Configure external clients with your InfluxDB Cloud **host**, **organization**,
@@ -215,14 +218,14 @@ and **authentication token**.
 ### Update Telegraf configurations
 If using Telegraf configurations migrated to or stored in InfluxDB Cloud,
 [update your Telegraf configurations](/influxdb/cloud/telegraf-configs/update/)
-**in InfluxDB Cloud** to write to both InfluxDB OSS 2.x and InfluxDB Cloud:
+**in InfluxDB Cloud** to write to both InfluxDB 2.x and InfluxDB Cloud:
 
 1.  [Update your Telegraf configuration](/influxdb/cloud/telegraf-configs/update/)
     with a second `influxdb_v2` output to write to your InfluxDB Cloud instance.
 
     ##### Example dual-write Telegraf configuration
     ```toml
-    # Write metrics to InfluxDB OSS 2.x
+    # Write metrics to InfluxDB 2.x
     [[outputs.influxdb_v2]]
       urls = ["https://localhost:8086"]
       token = "$INFLUX_TOKEN"
@@ -239,26 +242,26 @@ If using Telegraf configurations migrated to or stored in InfluxDB Cloud,
 
 2.  Add the following environment variables to your Telegraf environment(s):
 
-    - `INFLUX_TOKEN`: InfluxDB OSS 2.x authentication token
+    - `INFLUX_TOKEN`: InfluxDB 2.x authentication token
     - `INFLUX_CLOUD_TOKEN`: InfluxDB Cloud authentication token
 
 3.  Use the command provided in your [Telegraf Setup Instructions](/influxdb/cloud/telegraf-configs/#use-influxdb-telegraf-configurations)
     to restart Telegraf with the updated configuration and begin writing to both
-    InfluxDB OSS 2.x and InfluxDB Cloud.
+    InfluxDB 2.x and InfluxDB Cloud.
 
 ## Migrate time series data
-To migrate your time series data from your InfluxDB OSS 2.x instance to your
+To migrate your time series data from your InfluxDB 2.x instance to your
 InfluxDB Cloud instance, do the following:
 
 1.  Use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket/list/)
-    to view a list of your **InfluxDB OSS 2.x** buckets and their IDs.
+    to view a list of your **InfluxDB 2.x** buckets and their IDs.
 
     ```sh
     influx bucket list --active-config oss
     ```
 
 2.  Use the [`influxd inspect export-lp` command](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/)
-    to export data from a bucket in your **InfluxDB OSS** instance as line protocol.
+    to export data from a bucket in your **InfluxDB 2.x** instance as line protocol.
     Include the following flags:
 
     - **-\-bucket-id**: Bucket ID to export
@@ -333,7 +336,7 @@ rate limits track the payload size of the **uncompressed** line protocol.
 InfluxDB [system buckets](/influxdb/cloud/reference/internals/system-buckets/)
 contain data related to the InfluxDB monitoring and alerting system.
 Although the retention period for system buckets in both InfluxDB Cloud and
-InfluxDB OSS 2.x is only seven days, if you want to migrate this data,
+InfluxDB 2.x is only seven days, if you want to migrate this data,
 use the same method described above [to migrate time series data](#migrate-time-series-data).
 
 #### Export and write data in a single command
