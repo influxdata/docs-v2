@@ -26,6 +26,6 @@ Learn how to create, view, update, or delete an authentication token.
 Grants full read and write access to all resources in an organization.
 
 #### Read/Write token
-Grants read or write access to specific resources in an organization.
+Grants read access, write access, or both to specific resources in an organization.
 
 {{< children hlevel="h2" >}}

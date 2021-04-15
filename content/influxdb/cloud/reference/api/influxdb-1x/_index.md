@@ -14,4 +14,42 @@ related:
   - /influxdb/cloud/query-data/influxql
 ---
 
-{{< duplicate-oss >}}
+The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
+InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
+
+<a class="btn" href="/influxdb/cloud/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+
+## Authentication
+InfluxDB Cloud requires all query and write requests to be authenticated using
+**token authentication**.
+
+
+### Token Authentication
+Token authentication requires the following credential:
+
+- **token**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+
+Use the `Authorization` header with the `Token` scheme to provide your
+authentication token to InfluxDB.
+
+##### Token authentication with authorization header
+```sh
+# Header syntax
+Authorization: Token <token>
+
+# Header example
+Authorization: Token mYSuP3rs3cREtT0k3N
+```
+
+##### InfluxQL support
+
+The compatibility API supports InfluxQL, with the following caveats:
+
+- The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
+- With the exception of [`DELETE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-series-with-delete) and
+  [`DROP MEASUREMENT`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
+  InfluxQL database management commands are not supported.
+
+## Compatibility endpoints
+
+{{< children readmore=true >}}
