@@ -12,7 +12,7 @@ menu:
 weight: 103
 ---
 
-InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
+InfluxDB **authentication tokens** ensure secure interaction between users and data.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
 Learn how to create, view, update, or delete an authentication token.
@@ -29,4 +29,3 @@ Grants full read and write access to all resources in an organization.
 Grants read or write access to specific resources in an organization.
 
 {{< children hlevel="h2" >}}
-
