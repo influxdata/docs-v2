@@ -64,7 +64,7 @@ You cannot migrate tokens from InfluxDB OSS to InfluxDB Cloud.
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
 
 ## Set up influx CLI connection configurations
-The `influx` command line interface (CLI) lets you configure connection configurations
+The `influx` command line interface (CLI) lets you create connection configurations
 that automatically provides **host**, **organization**, and **authentication token**
 credentials to CLI commands.
 Use the `influx` CLI packaged with InfluxDB OSS 2.x and the
