@@ -2,7 +2,7 @@
 title: influxd config
 description: The `influxd config` command displays the default configuration.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: influxd config
     weight: 10
     parent: influxd

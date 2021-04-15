@@ -4,7 +4,7 @@ list_title: Histograms
 description: >
   Use the `histogram()` function to create cumulative histograms with Flux.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Histograms
     parent: Query with Flux
 weight: 10

@@ -3,7 +3,7 @@ title: Filter geo-temporal data by region
 description: >
   Use the `geo.filterRows` function to filter geo-temporal data by box-shaped, circular, or polygonal geographic regions.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Filter by region
     parent: Geo-temporal data
 weight: 302

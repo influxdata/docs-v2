@@ -6,7 +6,7 @@ description: >
   This guide describes how to use Flux conditional expressions, such as `if`,
   `else`, and `then`, to query and transform data. **Flux evaluates statements from left to right and stops evaluating once a condition matches.**
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Conditional logic
     parent: Query with Flux
 weight: 20

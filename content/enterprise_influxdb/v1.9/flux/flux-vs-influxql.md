@@ -2,7 +2,7 @@
 title: Flux vs InfluxQL
 description:
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Flux vs InfluxQL
     parent: Flux
     weight: 5

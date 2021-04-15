@@ -5,7 +5,7 @@ list_title: Transform data with math
 description: >
   Use the `map()` function to remap column values and apply mathematic operations.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Transform data with math
     parent: Query with Flux
 weight: 5

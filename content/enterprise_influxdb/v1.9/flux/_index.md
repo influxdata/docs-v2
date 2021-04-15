@@ -3,7 +3,7 @@ title: Flux data scripting language
 description: >
    Flux is a functional data scripting language designed for querying, analyzing, and acting on time series data.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Flux
     weight: 80
 v2: /influxdb/v2.0/query-data/get-started/

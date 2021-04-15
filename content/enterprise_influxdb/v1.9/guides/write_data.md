@@ -3,7 +3,7 @@ title: Write data with the InfluxDB API
 description: >
   Use the command line interface (CLI) to write data into InfluxDB with the API.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 10
     parent: Guides
 aliases:

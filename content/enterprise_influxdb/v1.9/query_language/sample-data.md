@@ -2,7 +2,7 @@
 title: Sample data
 description: Create a database, download, and write sample data.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 10
     parent: InfluxQL
 aliases:

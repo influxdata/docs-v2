@@ -3,7 +3,7 @@ title: InfluxQL functions
 description: >
   Aggregate, select, transform, and predict data with InfluxQL functions.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Functions
     weight: 60
     parent: InfluxQL

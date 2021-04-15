@@ -6,7 +6,7 @@ description: >
   Use the Flux `exists` operator to check if a record contains a key or if that
   key's value is `null`.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Exists
     parent: Query with Flux
 weight: 20

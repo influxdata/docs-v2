@@ -3,7 +3,7 @@ title: Influx Inspect disk utility
 description: >
   Use the `influx_inspect` commands to manage InfluxDB disks and shards.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 50
     parent: Tools
 v2: /influxdb/v2.0/reference/cli/influxd/inspect/

@@ -1,7 +1,7 @@
 ---
 title: influx - InfluxDB command line interface
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: influx
     weight: 10
     parent: Tools

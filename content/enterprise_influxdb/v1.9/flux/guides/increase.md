@@ -8,7 +8,7 @@ description: >
   wrap over time or periodically reset.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Increase
 list_query_example: increase

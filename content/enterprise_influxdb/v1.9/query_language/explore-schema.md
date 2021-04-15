@@ -2,7 +2,7 @@
 title: Explore your schema using InfluxQL
 description: Useful query syntax for exploring schema in InfluxQL.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Explore your schema
     weight: 30
     parent: InfluxQL

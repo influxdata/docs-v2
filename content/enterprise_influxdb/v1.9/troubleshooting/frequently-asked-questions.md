@@ -5,7 +5,7 @@ aliases:
   - /influxdb/v1.8/troubleshooting/frequently_encountered_issues/
 
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Frequently asked questions (FAQs)
     weight: 10
     parent: Troubleshoot

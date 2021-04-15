@@ -4,7 +4,7 @@ description: >
   Functions in the Flux Geo package require **lat** and **lon** fields and an **s2_cell_id** tag.
   Rename latitude and longitude fields and generate S2 cell ID tokens.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Shape geo-temporal data
     parent: Geo-temporal data
 weight: 301

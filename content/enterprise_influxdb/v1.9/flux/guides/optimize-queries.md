@@ -4,7 +4,7 @@ description: >
   Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 weight: 30
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Optimize queries
     parent: Query with Flux
 canonical: /influxdb/v2.0/query-data/optimize-queries/

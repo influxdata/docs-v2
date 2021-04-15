@@ -6,7 +6,7 @@ description: >
   Use the `cumulativeSum()` function to calculate a running total of values.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Cumulative sum
 list_query_example: cumulative_sum

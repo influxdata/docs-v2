@@ -7,7 +7,7 @@ description: >
   integration that lets you run Flux scripts natively and show results in VS Code.
 weight: 60
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Flux VS Code extension
     parent: Tools
 v2: /influxdb/v2.0/tools/flux-vscode/

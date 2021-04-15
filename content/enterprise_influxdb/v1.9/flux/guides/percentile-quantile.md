@@ -7,7 +7,7 @@ description: >
   percentile of input data.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Percentile & quantile
 list_query_example: quantile

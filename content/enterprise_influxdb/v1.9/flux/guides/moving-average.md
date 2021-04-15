@@ -6,7 +6,7 @@ description: >
   Use the `movingAverage()` or `timedMovingAverage()` functions to return the moving average of data.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Moving Average
 list_query_example: moving_average

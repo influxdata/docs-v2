@@ -3,7 +3,7 @@ title: InfluxDB inch tool
 description: >
   Use the InfluxDB inch tool to test InfluxDB performance. Adjust the number of points and tag values to test ingesting different tag cardinalities.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 50
     parent: Tools
 ---

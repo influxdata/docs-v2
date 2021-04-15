@@ -4,7 +4,7 @@ description: >
   Get started with Flux, InfluxData's new functional data scripting language.
   This step-by-step guide will walk you through the basics and get you on your way.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Get started with Flux
     identifier: get-started
     parent: Flux

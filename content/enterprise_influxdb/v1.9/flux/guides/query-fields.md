@@ -7,7 +7,7 @@ description: >
     clause in InfluxQL and other SQL-like query languages.
 weight: 1
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/query-fields/
 v2: /influxdb/v2.0/query-data/flux/query-fields/

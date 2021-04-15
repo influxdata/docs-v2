@@ -6,7 +6,7 @@ description: >
   Use the `first()` or `last()` functions to return the first or last point in an input table.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: First & last
 list_query_example: first_last

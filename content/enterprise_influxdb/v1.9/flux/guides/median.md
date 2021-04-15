@@ -6,7 +6,7 @@ description: >
   Use the `median()` function to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Median
 list_query_example: median

@@ -3,7 +3,7 @@ title: InfluxDB error messages
 description: >
   Covers InfluxDB error messages, their descriptions, and common resolutions.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Error messages
     weight: 30
     parent: Troubleshoot

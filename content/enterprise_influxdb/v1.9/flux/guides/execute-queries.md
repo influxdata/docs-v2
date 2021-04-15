@@ -2,7 +2,7 @@
 title: Execute Flux queries
 description: Use the InfluxDB CLI, API, and the Chronograf Data Explorer to execute Flux queries.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Execute Flux queries
     parent: Query with Flux
 weight: 1

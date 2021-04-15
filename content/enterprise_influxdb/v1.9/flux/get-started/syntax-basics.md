@@ -2,7 +2,7 @@
 title: Flux syntax basics
 description: An introduction to the basic elements of the Flux syntax with real-world application examples.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Syntax basics
     parent: get-started
     weight: 3

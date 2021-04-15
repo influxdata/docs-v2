@@ -6,7 +6,7 @@ description: >
   Use the `sort()`function to order records within each table by specific columns and the
   `limit()` function to limit the number of records in output tables to a fixed number, `n`.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Sort and limit
     parent: Query with Flux
 weight: 3

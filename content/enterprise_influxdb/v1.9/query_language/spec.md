@@ -2,7 +2,7 @@
 title: Influx Query Language (InfluxQL) reference
 description: List of resources for Influx Query Language (InfluxQL).
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: InfluxQL reference
     weight: 90
     parent: InfluxQL

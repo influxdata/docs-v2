@@ -3,7 +3,7 @@ title: Explore data using InfluxQL
 description: >
   Explore time series data using InfluxData's SQL-like query language. Understand how to use the SELECT statement to query data from measurements, tags, and fields.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Explore data
     weight: 20
     parent: InfluxQL

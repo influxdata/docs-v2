@@ -4,7 +4,7 @@ list_title: Manipulate timestamps
 description: >
   Use Flux to process and manipulate timestamps.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Manipulate timestamps
     parent: Query with Flux
 weight: 20

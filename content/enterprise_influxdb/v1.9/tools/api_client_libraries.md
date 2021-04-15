@@ -7,7 +7,7 @@ aliases:
     - /influxdb/v1.8/clients/
     - /influxdb/v1.8/clients/api
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 30
     parent: Tools
 v2: /influxdb/v2.0/tools/client-libraries/

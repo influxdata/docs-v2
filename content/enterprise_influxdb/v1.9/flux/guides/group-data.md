@@ -4,7 +4,7 @@ list_title: Group
 description: >
   Use the `group()` function to group data with common values in specific columns.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Group
     parent: Query with Flux
 weight: 2

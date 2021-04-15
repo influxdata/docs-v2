@@ -2,7 +2,7 @@
 title: Transform data with Flux
 description: Learn the basics of using Flux to transform data queried from InfluxDB.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Transform your data
     parent: get-started
     weight: 2

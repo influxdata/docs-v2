@@ -5,7 +5,7 @@ description: >
 aliases:
     - /influxdb/v1.8/concepts/api/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: InfluxDB API reference
     weight: 20
     parent: Tools

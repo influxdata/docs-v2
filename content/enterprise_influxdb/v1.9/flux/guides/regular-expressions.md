@@ -3,7 +3,7 @@ title: Use regular expressions in Flux
 list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Regular expressions
     parent: Query with Flux
 weight: 20

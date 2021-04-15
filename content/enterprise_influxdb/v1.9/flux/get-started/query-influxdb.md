@@ -2,7 +2,7 @@
 title: Query InfluxDB with Flux
 description: Learn the basics of using Flux to query data from InfluxDB.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Query InfluxDB
     parent: get-started
     weight: 1

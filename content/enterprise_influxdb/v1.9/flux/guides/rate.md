@@ -9,7 +9,7 @@ description: >
   making values easily comparable.
 weight: 10
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     parent: Query with Flux
     name: Rate
 list_query_example: rate_of_change

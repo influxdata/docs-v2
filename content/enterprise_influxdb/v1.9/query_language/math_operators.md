@@ -2,7 +2,7 @@
 title: InfluxQL mathematical operators
 descriptions: Query data with mathematical operators in InfluxQL.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Mathematical operators
     weight: 70
     parent: InfluxQL

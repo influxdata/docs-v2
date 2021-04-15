@@ -3,7 +3,7 @@ title: Influx Query Language (InfluxQL)
 description: >
   Influx Query Language (InfluxQL) is Influx DB's SQL-like query language.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 70
     identifier: InfluxQL
 ---

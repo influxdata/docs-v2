@@ -4,7 +4,7 @@ seotitle: Join data in InfluxDB with Flux
 list_title: Join
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Join
     parent: Query with Flux
 weight: 10

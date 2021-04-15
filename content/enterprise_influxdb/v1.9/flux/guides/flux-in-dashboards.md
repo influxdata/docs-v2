@@ -4,7 +4,7 @@ description: >
   This guide walks through using Flux queries in Chronograf dashboard cells,
   what template variables are available, and how to use them.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Use Flux in dashboards
     parent: Query with Flux
 weight: 30

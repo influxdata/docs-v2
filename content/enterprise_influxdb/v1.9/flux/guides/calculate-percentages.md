@@ -4,7 +4,7 @@ list_title: Calculate percentages
 description: >
   Use `pivot()` or `join()` and the `map()` function to align operand values into rows and calculate a percentage.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Calculate percentages
     identifier: flux-calc-perc
     parent: Query with Flux

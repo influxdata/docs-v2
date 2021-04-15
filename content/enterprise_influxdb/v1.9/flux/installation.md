@@ -2,7 +2,7 @@
 title: Enable Flux
 description: Instructions for enabling Flux in your InfluxDB configuration.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Enable Flux
     parent: Flux
     weight: 1

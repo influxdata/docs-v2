@@ -5,7 +5,7 @@ description: >
   Use Flux stream and table functions to extract scalar values from Flux query output.
   This lets you, for example, dynamically set variables using query results.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Extract scalar values
     parent:  Query with Flux
 weight: 20
