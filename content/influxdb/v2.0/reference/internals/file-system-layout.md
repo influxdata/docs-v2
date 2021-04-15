@@ -21,7 +21,7 @@ Anywhere InfluxDB is installed, it stores the following:
 - [InfluxDB configuration files](#influxdb-configuration-files)
 
 #### Engine path
-The **engine path** is the directory path where InfluxDB stores time series data on disk.
+The **engine path** (referring to the [*storage engine*](/{{< latest "influxdb" >}}/reference/internals/storage-engine/)) is the directory path where InfluxDB stores time series data on disk.
 The engine path contains the following directories:
 
 - **data**: time-structured merge tree (TSM) files
@@ -31,7 +31,7 @@ Use the [engine-path](/influxdb/v2.0/reference/config-options/#engine-path)
 configuration option to customize the engine path.
 
 #### Bolt path
-The **bolt path** is he file path where InfluxDB stores the [Boltdb](https://github.com/boltdb/bolt) database.
+The **bolt path** is the file path where InfluxDB stores the [Boltdb](https://github.com/boltdb/bolt) database.
 InfluxDB uses Boltdb as a file-based key-value store for non-time series data
 such as users, dashboards, tasks, etc.
 Use the [bolt-path](/influxdb/v2.0/reference/config-options/#bolt-path)
