@@ -112,7 +112,7 @@ Which installation method you use determines the file system layout.
 {{% /filesystem-diagram %}}
 
 ### Installed as a package
-InfluxDB OSS 2.0 supports [deb](#deb) and [rpm](#rpm) Linux package managers.
+InfluxDB 2.0 supports **.deb-** and **.rpm-based** Linux package managers.
 The file system layout is the same with each.
 
 #### Linux default paths (package)
