@@ -1,7 +1,7 @@
 ---
 title: Supported protocols in InfluxDB
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Supported protocols
     weight: 90
 

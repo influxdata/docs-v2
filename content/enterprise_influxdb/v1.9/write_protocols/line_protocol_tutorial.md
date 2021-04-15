@@ -4,7 +4,7 @@ description: Tutorial for using InfluxDB line protocol.
 aliases:
     - /influxdb/v1.8/write_protocols/line/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     weight: 20
     parent: Write protocols
 v2: /influxdb/v2.0/reference/syntax/line-protocol/

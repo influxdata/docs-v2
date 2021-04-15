@@ -2,7 +2,7 @@
 title: Prometheus endpoints support in InfluxDB
 description: Read and write Prometheus data in InfluxDB.
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Prometheus
     weight: 40
     parent: Supported protocols

@@ -5,7 +5,7 @@ description: >
 aliases:
     - /influxdb/v1.8/tools/opentsdb/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: OpenTSDB
     weight: 30
     parent: Supported protocols

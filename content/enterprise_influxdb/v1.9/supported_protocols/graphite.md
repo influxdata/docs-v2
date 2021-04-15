@@ -6,7 +6,7 @@ aliases:
     - /influxdb/v1.8/tools/graphite/
     - /influxdb/v1.8/write_protocols/graphite/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: Graphite
     weight: 20
     parent: Supported protocols

@@ -5,7 +5,7 @@ aliases:
   - /influxdb/v1.8/tools/udp/
   - /influxdb/v1.8/write_protocols/udp/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: UDP
     weight: 50
     parent: Supported protocols

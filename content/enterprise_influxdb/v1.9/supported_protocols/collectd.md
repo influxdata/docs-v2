@@ -5,7 +5,7 @@ description: >
 aliases:
     - /influxdb/v1.8/tools/collectd/
 menu:
-  influxdb_1_8:
+  enterprise_influxdb_1_9:
     name: CollectD
     weight: 10
     parent: Supported protocols
