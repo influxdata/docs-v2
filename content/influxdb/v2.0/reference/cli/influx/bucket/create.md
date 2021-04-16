@@ -52,6 +52,7 @@ milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and 
 - [Create a bucket with infinite data retention](#create-a-bucket-with-infinite-data-retention)
 - [Create a bucket that retains data for 30 days](#create-a-bucket-that-retains-data-for-30-days)
 - [Create a bucket with a description](#create-a-bucket-with-a-description)
+- [Create a bucket with a custom shard group duration](#create-a-bucket-with-a-custom-shard-group-duration)
 
 ##### Create a bucket with infinite data retention
 ```sh
@@ -72,7 +73,7 @@ influx bucket create \
   --description "Example bucket description"
 ```
 
-##### Create a custom shard group duration
+##### Create a bucket with a custom shard group duration
 Custom shard group durations are only supported in **InfluxDB OSS**.
 The shard group duration must be shorter than the bucket's retention period. For more information, see [InfluxDB shards and shard groups](/influxdb/v2.0/reference/internals/shards/).
 
