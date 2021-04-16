@@ -46,7 +46,7 @@ _For more information about managing tokens and token types, see [Manage tokens]
 ## Download and install the influx CLI
 Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
 and download the **InfluxDB Cloud CLI** (`influx`).
-Install the `influx` CLI in your system $PATH or execute the CLI commands from
+Place the `influx` binary in your system `PATH` or execute the CLI commands from
 the directory where the `influx` CLI exists.
 
 [Create a CLI connection configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials)
