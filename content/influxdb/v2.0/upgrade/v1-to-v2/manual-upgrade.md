@@ -160,7 +160,7 @@ _For more information about DBRP mapping, see
 
 2.  **Create a DBRP mapping**  
     Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
-    command to create a DBRP mapping.
+    to create a DBRP mapping.
     Provide the following:
 
     - database name

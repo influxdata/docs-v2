@@ -34,7 +34,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 {{% /note %}}
 
 ## Create an InfluxDB Cloud account
-To upgrade to InfluxDB Cloud, do one of the following to create an account:
+Do one of the following to create an InfluxDB Cloud account:
 
 - [Subscribe through InfluxData](/influxdb/cloud/get-started/#subscribe-through-influxdata) and
   [start for free](/influxdb/cloud/get-started/#start-for-free).
