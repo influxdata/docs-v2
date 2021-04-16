@@ -54,6 +54,7 @@ For more information about using InfluxDB configuration files, see
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
+[Windows](#)
 [Docker](#)
 [Kubernetes](#)
 {{% /tabs %}}
@@ -137,7 +138,31 @@ The file system layout is the same with each.
   - config.toml _<span style="opacity:.4">(influxd configuration file)</span>_
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
-<!---------------------------- BEGIN LINUX CONTENT ---------------------------->
+<!----------------------------- END LINUX CONTENT ----------------------------->
+
+<!--------------------------- BEGIN WINDOWS CONTENT --------------------------->
+{{% tab-content %}}
+
+#### Windows default paths
+| Path                          | Default                                  |
+|:----                          |:-------                                  |
+| [Engine path](#engine-path)   | `%USERPROFILE%\.influxdbv2\engine\`      |
+| [Bolt path](#bolt-path)       | `%USERPROFILE%\.influxdbv2\influxd.bolt` |
+| [Configs path](#configs-path) | `%USERPROFILE%\.influxdbv2\configs`      |
+
+#### Windows file system overview
+{{% filesystem-diagram %}}
+- %USERPROFILE%\\.influxdbv2\
+  - engine\
+    - data\
+      - _<span style="opacity:.4">TSM directories and files</span>_
+    - wal\
+      - _<span style="opacity:.4">WAL directories and files</span>_
+  - configs
+  - influxd.bolt
+{{% /filesystem-diagram %}}
+{{% /tab-content %}}
+<!---------------------------- END WINDOWS CONTENT ---------------------------->
 
 <!---------------------------- BEGIN DOCKER CONTENT --------------------------->
 {{% tab-content %}}
@@ -197,7 +222,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
   - influxd.bolt
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
-<!---------------------------- BEGIN DOCKER CONTENT --------------------------->
+<!----------------------------- END DOCKER CONTENT ---------------------------->
 
 <!-------------------------- BEGIN KUBERNETES CONTENT ------------------------->
 {{% tab-content %}}
@@ -221,5 +246,5 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
   - configs
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
-<!-------------------------- BEGIN KUBERNETES CONTENT ------------------------->
+<!--------------------------- END KUBERNETES CONTENT -------------------------->
 {{< /tabs-wrapper >}}
