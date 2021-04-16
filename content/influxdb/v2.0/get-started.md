@@ -393,10 +393,8 @@ To opt-out of sending telemetry data back to InfluxData, include the
 ```
 {{% /note %}}
 
-
 {{% /tab-content %}}
 <!-------------------------------- END Windows -------------------------------->
-
 
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
