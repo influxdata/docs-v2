@@ -16,7 +16,7 @@ To upgrade from **InfluxDB OSS 1.x** to **InfluxDB Cloud**:
 
 1. [Create an InfluxDB Cloud account](#create-an-influxdb-cloud-account)
 2. [Create an All-Access authentication token](#create-an-all-access-authentication-token)
-3. [Download and install the influx CLI](#download-and-install-the-influx-cli)
+3. [Download and install the `influx` CLI](#download-and-install-the-influx-cli)
 4. [Create DBRP mappings](#create-dbrp-mappings)
 5. [Dual write to InfluxDB 1.x and InfluxDB Cloud](#dual-write-to-influxdb-1x-and-influxdb-cloud)
 6. [Migrate time series data](#migrate-time-series-data)
@@ -50,7 +50,7 @@ Install the `influx` CLI in your system $PATH or execute the CLI commands from
 the directory where the `influx` CLI exists.
 
 [Create a CLI connection configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials)
-for your InfluxDB Cloud instance.
+for your InfluxDB Cloud account.
 Include the following flags:
 
 - **-\-config-name**:
@@ -82,7 +82,7 @@ All `influx` CLI examples below assume the required InfluxDB Cloud **host**,
 ## Create DBRP mappings
 InfluxDB database and retention policy (DBRP) mappings associate database and
 retention policy combinations with InfluxDB cloud [buckets](/influxdb/cloud/reference/glossary/#bucket).
-These mappings allow InfluxDB 1.x clients to successfully query and write to
+These mappings allow InfluxDB 1.x clients to query and write to
 InfluxDB Cloud buckets while using the 1.x DBRP convention.
 
 _For more information about DBRP mapping, see
