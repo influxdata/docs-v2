@@ -38,6 +38,6 @@ This helps to prevent accidental interactions across organizations.
 Grants full read and write access to all resources in an organization.
 
 #### Read/Write token
-Grants read access, write access, or both to specific resources in an organization.
+Grants read access, write access, or both to specific buckets in an organization.
 
 {{< children hlevel="h2" >}}

@@ -14,17 +14,21 @@ related:
   - /influxdb/cloud/query-data/influxql
 ---
 
-The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
-InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
+The InfluxDB v2 API includes InfluxDB 1.x compatibility `/write` and `/query`
+endpoints that work with InfluxDB 1.x client libraries and third-party integrations
+like [Grafana](https://grafana.com) and others.
 
 <a class="btn" href="/influxdb/cloud/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
-InfluxDB Cloud requires all query and write requests to be authenticated using
-**token authentication**.
+InfluxDB Cloud all query and write requests to be authenticated using
+[InfluxDB authentication tokens](/influxdb/cloud/security/tokens/).
+Use the following authenication methods:
 
+- [Token authentication](#token-authentication)
+- [Basic authentication](#basic-authentication)
 
-### Token Authentication
+### Token authentication
 Token authentication requires the following credential:
 
 - **token**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
@@ -41,7 +45,18 @@ Authorization: Token <token>
 Authorization: Token mYSuP3rs3cREtT0k3N
 ```
 
-##### InfluxQL support
+### Basic authentication
+Basic authentication requires the following credentials:
+
+- **username**: arbitrary username
+- **password**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+
+```sh
+# --user syntax
+<username>:<password>
+```
+
+## InfluxQL support
 
 The compatibility API supports InfluxQL, with the following caveats:
 
