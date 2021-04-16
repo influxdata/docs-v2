@@ -13,43 +13,39 @@ influxdb/v2.0/tags: [storage, internals]
 
 The InfluxDB file system layout depends on the operating system, installation method,
 or containerization platform used to install InfluxDB.
-Anywhere InfluxDB is installed, its on-disk structure consists of the following:
 
-- [Engine path](#engine-path)
-- [Bolt path](#bolt-path)
-- [Configs path](#configs-path)
-- [InfluxDB configuration files](#influxdb-configuration-files)
+- [InfluxDB file structure](#influxdb-file-structure)
+- [File system layout per OS](#file-system-layout-per-os)
+
+## InfluxDB file structure
+The InfluxDB file structure includes of the following:
 
 #### Engine path
-The **engine path** (referring to the [*storage engine*](/{{< latest "influxdb" >}}/reference/internals/storage-engine/)) is the directory path where InfluxDB stores time series data on disk.
-The engine path contains the following directories:
+Directory path to the [storage engine](/{{< latest "influxdb" >}}/reference/internals/storage-engine/),
+where InfluxDB stores time series data, includes the following directories:
 
-- **data**: Time-Structured Merge Tree (TSM) files
-- **wal**: Write Ahead Log (WAL) files.
+- **data**: stores Time-Structured Merge Tree (TSM) files
+- **wal**: stores Write Ahead Log (WAL) files.
 
-Use the [engine-path](/influxdb/v2.0/reference/config-options/#engine-path)
-configuration option to customize the engine path.
+To customize this path, use the [engine-path](/influxdb/v2.0/reference/config-options/#engine-path)
+configuration option.
 
 #### Bolt path
-The **bolt path** is the file path where InfluxDB stores the [Boltdb](https://github.com/boltdb/bolt) database.
-InfluxDB uses Boltdb as a file-based key-value store for non-time series data
-such as users, dashboards, tasks, etc.
-Use the [bolt-path](/influxdb/v2.0/reference/config-options/#bolt-path)
-configuration option to customize the bolt path.
+File path to the [Boltdb](https://github.com/boltdb/bolt) database, a file-based
+key-value store for non-time series data, such as InfluxDB users, dashboards, tasks, etc.
+To customize this path, use the [bolt-path](/influxdb/v2.0/reference/config-options/#bolt-path)
+configuration option.
 
 #### Configs path
-The **configs path** is the file path where InfluxDB stores
-[`influx` CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/) (configs).
-Use the `--configs-path` flag with `influx` CLI commands to set and use a custom
-configs path.
+File path to [`influx` CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/) (configs).
+To customize this path, use the `--configs-path` flag with `influx` CLI commands.
 
 #### InfluxDB configuration files
-Some operating systems and package managers store a default InfluxDB (`influxd`)
-configuration file on disk.
+Some operating systems and package managers store a default InfluxDB (`influxd`) configuration file on disk.
 For more information about using InfluxDB configuration files, see
 [Configuration options](/influxdb/v2.0/reference/config-options/).
 
-## File system layout per operating system
+## File system layout per OS
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
@@ -80,7 +76,7 @@ For more information about using InfluxDB configuration files, see
   - influxd.bolt
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
-<!---------------------------- BEGIN MACOS CONTENT ---------------------------->
+<!----------------------------- END MACOS CONTENT ----------------------------->
 
 <!---------------------------- BEGIN LINUX CONTENT ---------------------------->
 {{% tab-content %}}
