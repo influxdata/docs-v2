@@ -1,5 +1,5 @@
 ---
-title: Install the InfluxData 1.x platform
+title: Install the InfluxData platform
 description: Quickly install and configure the InfluxData platform to begin exploring time series data
 menu:
   platform:
@@ -9,7 +9,9 @@ menu:
     parent: install-and-deploy-platform
 ---
 
-Install and configure the InfluxData platform (TICK stack) using one of the following methods:
+To install and configure the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
+
+To get install and configure the **InfluxData 1.x** platform, use one of the following methods:
 
 - For **non-production** environments. The quickest way to install the InfluxData platform is to [deploy the InfluxData 1.x platform in Docker containers](/platform/install-and-deploy/deploying/sandbox-install).
 - For **production** environments. Do one of the following:

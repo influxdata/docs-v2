@@ -12,7 +12,7 @@ related:
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
-To send notifications about changes in your data, start by creating a notification endpoint to a third party service. After creating notification endpoints, [create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create) to send alerts to third party services on [check statuses](/influxdb/v2.0/monitor-alert/checks/create).
+To send notifications about changes in your data, start by creating a notification endpoint to a third-party service. After creating notification endpoints, [create notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create) to send alerts to third-party services on [check statuses](/influxdb/v2.0/monitor-alert/checks/create).
 
 ## Create a notification endpoint in the UI
 

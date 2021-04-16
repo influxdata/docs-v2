@@ -25,10 +25,10 @@ Use **1.x-compatible authorizations** or **token authentication** to authenticat
 requests to InfluxDB 1.x compatibility endpoints.
 
 ### 1.x-compatible authorizations
-1.x-compatible authorizations include the following credentials:
+Include the following credentials in your 1.x-compatible authorizations:
 
-- **username**: InfluxDB username
-- **password**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+- **username**: InfluxDB 1.x username
+- **password**: InfluxDB 1.x password
 
 For information about creating and managing 1.x-compatible authorizations, see:
 
@@ -36,13 +36,12 @@ For information about creating and managing 1.x-compatible authorizations, see:
 - [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 
 There are multiple ways to provide 1.x-compatible authorization credentials to InfluxDB 2.0.
-The example below uses the `Authorization` header with the `Basic` scheme to
-provide the required 1.x-compatible username and password:
+When providing the 1.x-compatible username and password, use the following syntax for basic authentication (or include the `-u` and `-p` parameters in your request).
 
 ##### Basic authentication
 ```sh
 # --user syntax
-<username>:<password
+<username>:<password>
 ```
 
 ### Token Authentication

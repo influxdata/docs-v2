@@ -8,6 +8,77 @@ menu:
     name: Flux
 ---
 
+## v0.112.1 [2021-04-12]
+
+### Bug fixes
+- Add `Comment` fields to Go AST structs to preserve comments in the AST.
+
+----
+
+## v0.112.0 [2021-04-06]
+
+### Features
+- Add [`testing.load`](/influxdb/v2.0/reference/flux/stdlib/testing/load/) for using raw tables in tests.
+- Add remaining experimental built-in types without column parameters.
+- Add [OEE (overall equipment effectiveness) package](/influxdb/v2.0/reference/flux/stdlib/experimental/oee/).
+
+### Bug fixes
+- Use new crate name in `buildinfo`.
+- Add bounded time ranges to fix test cases.
+- Move `derive` helper attribute after `derive` macro.
+
+---
+
+## v0.111.0 [2021-03-30]
+
+### Features
+- Use `FnvHasher` for hash maps.
+- Add [`tickscript` package](/influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/).
+
+### Bug fixes
+- When finding the parent directory's root, skip the current directory.
+- Fix `if else` statement in `aggregate.window()`.
+
+---
+
+## v0.109.1 [2021-03-24]
+
+### Bug fixes
+- Perform testing checks as part of query `done`.
+- Delimited multi-result encoder properly releases results before checking for errors.
+
+---
+
+## v0.109.0 [2021-03-23]
+
+### Features
+- Add support for null values in string interpolation.
+- Add support for all basic datatypes in string interpolation.
+- Add support for parsing CSV files without annotations.
+- Support formatting the AST from `libflux`.
+
+### Bug fixes
+- Add error handling for wrong number of fields for raw CSV.
+- Change Rust version to be updated manually.
+
+---
+
+## v0.108.1 [2021-03-15]
+- _Internal code cleanup._
+
+---
+
+## v0.108.0 [2021-03-15]
+
+### Features
+- Add [BigPanda notification support](/influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/).
+- Add [Zenoss notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/).
+- Add [VictorOps notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/victorops/).
+
+### Bug fixes
+- Classify "Option not found error" as internal.
+- Remove `as_user` parameter from `slack.message` payload.
+
 ## v0.107.0 [2021-03-09]
 
 ### Features

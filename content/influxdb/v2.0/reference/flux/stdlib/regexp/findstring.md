@@ -19,7 +19,7 @@ _**Output data type:** String_
 ```js
 import "regexp"
 
-findString(r: /foo.?/, v: "seafood fool")
+regexp.findString(r: /foo.?/, v: "seafood fool")
 
 // Returns "food"
 ```
