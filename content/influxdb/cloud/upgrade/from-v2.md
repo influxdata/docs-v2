@@ -264,7 +264,7 @@ InfluxDB Cloud instance, do the following:
     Include the following flags:
 
     - **-\-bucket-id**: Bucket ID to export
-    - **-\-engin-path**: InfluxDB [engine path](#)
+    - **-\-engine-path**: InfluxDB [engine path](/{{< latest "influxdb" >}}/reference/internals/file-system-layout/#engine-path)
     - **-\-output-path**: Output file path
     - **-\-compress**: _(Optional)_ Gzip the exported line protocol
     - **-\-start**: _(Optional)_ Earliest timestamp to export

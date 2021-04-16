@@ -477,6 +477,22 @@ flowchart TB
 {{< /diagram >}}
 ```
 
+### File system diagrams
+Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system
+diagram using a Markdown unordered list.
+
+##### Example filestsytem diagram shortcode
+```md
+{{< filesystem-diagram >}}
+- Dir1/
+- Dir2/
+  - ChildDir/
+    - Child
+  - Child
+- Dir3/
+{{< /filesystem-diagram >}}
+```
+
 ### High-resolution images
 In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
 Because of this, the actual pixel dimension is 2x larger than it needs to be and is rendered 2x bigger than it should be.
