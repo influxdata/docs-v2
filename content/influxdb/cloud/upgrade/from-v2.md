@@ -207,8 +207,7 @@ to your InfluxDB Cloud instance.
 {{< /expand-wrapper >}}
 
 ## Dual write to InfluxDB 2.x and InfluxDB Cloud
-Update external
-clients to write to your InfluxDB Cloud instance.
+Update external clients to write to your InfluxDB Cloud instance.
 **We recommend writing data to both InfluxDB 2.x and InfluxDB Cloud until you
 finish [migrating your existing time series data](#migrate-time-series-data)**.
 
@@ -286,12 +285,14 @@ InfluxDB Cloud instance, do the following:
     - **-\-bucket**: Target bucket name  
       _OR_  
       **-\-bucket-id**: Target bucket ID
+    - **-\-compression**: _(Optional)_ `gzip` if the exported line protocol is compressed
     - **-\-file**: Import file path
 
     ```sh
     influx write \
       --active-config cloud \
       --bucket example-bucket \
+      --compression gzip \
       --file path/to/bucket-export.lp
     ```
 
@@ -356,6 +357,7 @@ influxd inspect export-lp \
 influx write \
   --active-config cloud \  
   --bucket example-bucket \
+  --compression gzip \
   --rate-limit "5 MB / 5 min"
 ```
 {{% /expand %}}
