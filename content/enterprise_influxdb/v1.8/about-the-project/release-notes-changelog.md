@@ -9,11 +9,24 @@ menu:
     parent: About the project
 ---
 
+## v1.8.5 [2020-04-19]
+
+The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+
+### Bug fixes
+
+- Resolve TSM backup "snapshot in progress" error.
+- Make meta queries respect QueryTimeout values.
+- Add labels to verbose output.
+- Always forward repairs to next node.
+
 ## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v184-2021-02-01).
 
    > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
 
