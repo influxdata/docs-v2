@@ -22,11 +22,11 @@ For security and clarity, the endpoint has been removed.
 Use the `/metrics` endpoint to collect system statistics.
 
 #### `influx transpile` removed
-The `transpile` command has been retired. Users can send InfluxQL directly to the server via the `/api/v2/query`
+The `transpile` command has been removed. Send InfluxQL requests directly to the server via the `/api/v2/query`
 or `/query` HTTP endpoints.
 
 #### Default query concurrency changed
-The default setting for the max number of concurrent Flux queries has been changed from 10 to unlimited. Set the
+The default setting for the max number of concurrent Flux queries has been changed from 10 to unlimited (`0`). Set the
 `query-concurrency` config parameter to > 0 when running `influxd` to re-limit the maximum running query count,
 and the `query-queue-size` config parameter to > 0 to set the max number of queries that can be queued before the
 server starts rejecting requests.
@@ -54,7 +54,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
 - Update Telegraf plugins in the InfluxDB UI to include additions and changes from
   [Telegraf 1.18](/telegraf/v1.18/about_the_project/release-notes-changelog/#v118-2021-3-17).
 - Display task IDs in the InfluxDB UI.
-- Write to standard out when `--output-path -` is passed to [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/).
+- Write to standard output (`stdout`) when `--output-path -` is passed to [`influxd inspect export-lp`](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/).
 - Add `-p, --profilers` flag to [`influx query` command](/influxdb/v2.0/reference/cli/influx/query/)
   to enable [Flux profilers](/influxdb/v2.0/reference/flux/stdlib/profiler/) on
   a query executed from the `influx` CLI.
