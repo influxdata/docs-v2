@@ -44,12 +44,12 @@ for the upgrade process.
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
 
 ## Download and install the influx CLI
-Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
+1. Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
 and download the **InfluxDB Cloud CLI** (`influx`).
-Place the `influx` binary in your system `PATH` or execute the CLI commands from
+2. Place the `influx` binary in your system `PATH` or execute the CLI commands from
 the directory where the `influx` CLI exists.
 
-[Create a CLI connection configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials)
+3. [Create a CLI connection configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials)
 for your InfluxDB Cloud account.
 Include the following flags:
 
@@ -88,7 +88,7 @@ InfluxDB Cloud buckets while using the 1.x DBRP convention.
 _For more information about DBRP mapping, see
 [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
 
-**To map a DBRP combination to an InfluxDB Cloud bucket:**
+**To map a DBRP combination to an InfluxDB Cloud bucket**
 
 1.  **Create a bucket**  
     [Create an InfluxDB Cloud bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
@@ -229,7 +229,7 @@ To migrate time series data from your InfluxDB 1.x instance to InfluxDB Cloud:
       --file /path/to/example-db_example-rp.lp
     ```
 
-Repeat this process for each bucket.
+3. Repeat steps 1-2 for each bucket.
 
 {{% note %}}
 #### InfluxDB Cloud write rate limits
