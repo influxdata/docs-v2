@@ -556,6 +556,17 @@ Markdown content associated with label 2.
 {{< /expand-wrapper >}}
 ```
 
+### Captions
+Use the `{{% caption %}}` shortcode to add captions to images and code blocks.
+Captions are styled with a smaller font size, italic text, slight transparency,
+and appear directly under the previous image or code block.
+
+```md
+{{% caption %}}
+Markdown content for the caption.
+{{% /caption %}}
+```
+
 ### Generate a list of children articles
 Section landing pages often contain just a list of articles with links and descriptions for each.
 This can be cumbersome to maintain as content is added.
