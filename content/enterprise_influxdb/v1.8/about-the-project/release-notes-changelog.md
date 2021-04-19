@@ -18,9 +18,8 @@ For details on changes incorporated from the InfluxDB OSS release, see
 ### Bug fixes
 
 - Resolve TSM backup "snapshot in progress" error.
-- Make meta queries respect QueryTimeout values.
-- Add labels to verbose output.
-- Always forward repairs to next node.
+- Add labels to the values returned in SHOW SHARDS output to clarify the node ID and TCP address.
+- Always forward repairs to the next data node (even if the current data node does not have to take action for the repair).
 
 ## v1.8.4 [2020-02-08]
 
