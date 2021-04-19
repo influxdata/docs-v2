@@ -320,7 +320,7 @@ influxd --reporting-disabled
 <!------------------------------- BEGIN Windows ------------------------------->
 {{% tab-content %}}
 {{% warn %}}
-#### Experimental Windows support
+### Experimental Windows support
 InfluxDB 2.0 on Windows is currently considered experimental.
 If you experience issues, please [submit an issue](https://github.com/influxdata/influxdb/issues/new/choose)
 to the InfluxDB Github repository.
@@ -336,6 +336,15 @@ The command line examples in this documentation use `influx` and `influxd` as if
 installed on the system `PATH`.
 If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
 in the provided examples with `./influx` and `./influxd` respectively.
+
+##### Known issues
+- [`influx` CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/)
+  do not work on Windows. Use one of the following methods to provide your InfluxDB **host**,
+  **organization**, and **authentication token** to `influx` commands:
+
+  - Set the `INFLUX_HOST`, `INFLUX_ORG`, and `INFLUX_TOKEN` environmnet variables
+    environment variables in your Powershell session.
+  - Include the `--host`, `-o, --org`, and `-t, --token` flags with each `influx` command.
 {{% /warn %}}
 
 ### Download and install InfluxDB v2.0
@@ -363,12 +372,12 @@ available flags and options._
 
 {{% note %}}
 #### Grant network access
-When staring InfluxDB for the first time, **Windows Defender** will appear with
+When starting InfluxDB for the first time, **Windows Defender** will appear with
 the following message:
 
 > Windows Defender Firewall has blocked some features of this app.
 
-1. Select **Private networks, such as my home or work network**
+1. Select **Private networks, such as my home or work network**.
 2. Click **Allow access**.
 {{% /note %}}
 
@@ -580,13 +589,13 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
 1. In a terminal, run the following command:
 
     ```sh
-      # Set up a configuration profile
-      influx config create -n default \
-        -u http://localhost:8086 \
-        -o example-org \
-        -t mySuP3rS3cr3tT0keN \
-        -a
-      ```
+    # Set up a configuration profile
+    influx config create -n default \
+      -u http://localhost:8086 \
+      -o example-org \
+      -t mySuP3rS3cr3tT0keN \
+      -a
+    ```
     This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).
