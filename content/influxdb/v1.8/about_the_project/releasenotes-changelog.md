@@ -9,7 +9,7 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.5 [TBD]
+## v1.8.5 [2021-04-19]
 ### Features
 
 - Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
