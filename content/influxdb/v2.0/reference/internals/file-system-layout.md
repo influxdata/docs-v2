@@ -45,7 +45,7 @@ Some operating systems and package managers store a default InfluxDB (`influxd`)
 For more information about using InfluxDB configuration files, see
 [Configuration options](/influxdb/v2.0/reference/config-options/).
 
-## File system layout per OS
+## File system layout
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
