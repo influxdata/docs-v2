@@ -15,7 +15,7 @@ The InfluxDB file system layout depends on the operating system, installation me
 or containerization platform used to install InfluxDB.
 
 - [InfluxDB file structure](#influxdb-file-structure)
-- [File system layout per OS](#file-system-layout-per-os)
+- [File system layout](#file-system-layout)
 
 ## InfluxDB file structure
 The InfluxDB file structure includes of the following:
