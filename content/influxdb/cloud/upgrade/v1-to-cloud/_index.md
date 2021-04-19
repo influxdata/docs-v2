@@ -44,33 +44,33 @@ for the upgrade process.
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
 
 ## Download and install the influx CLI
-1. Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
-and download the **InfluxDB Cloud CLI** (`influx`).
-2. Place the `influx` binary in your system `PATH` or execute the CLI commands from
-the directory where the `influx` CLI exists.
+1.  Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
+    and download the **InfluxDB Cloud CLI** (`influx`).
+2.  Place the `influx` binary in your system `PATH` or execute the CLI commands from
+    the directory where the `influx` CLI exists.
 
 3. [Create a CLI connection configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials)
-for your InfluxDB Cloud account.
-Include the following flags:
+    for your InfluxDB Cloud account.
+      Include the following flags:
 
-- **-\-config-name**:
-  Unique name for the connection configuration.
-- **-\-host-url**:
-  [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/).
-- **-\-org**:
-  InfluxDB Cloud organization name.
-  The default organization name is the email address associated with your account.
-- **-\-token**:
-  InfluxDB Cloud **All-Access** token.
+    - **-\-config-name**:
+      Unique name for the connection configuration.
+    - **-\-host-url**:
+      [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/).
+    - **-\-org**:
+      InfluxDB Cloud organization name.
+      The default organization name is the email address associated with your account.
+    - **-\-token**:
+      InfluxDB Cloud **All-Access** token.
 
-```sh
-influx config create \
-  --config-name cloud \
-  --host-url https://cloud2.influxdata.com \
-  --org your.email@example.com \
-  --token mY5uP3rS3cRe7Cl0uDt0K3n \
-  --active
-```
+    ```sh
+    influx config create \
+      --config-name cloud \
+      --host-url https://cloud2.influxdata.com \
+      --org your.email@example.com \
+      --token mY5uP3rS3cRe7Cl0uDt0K3n \
+      --active
+    ```
 
 {{% note %}}
 #### Required InfluxDB Cloud credentials
@@ -149,6 +149,9 @@ influx v1 dbrp create \
 ```
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
+    {{% caption %}}
+See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)
+    {{% /caption %}}
 
 ## Dual write to InfluxDB 1.x and InfluxDB Cloud
 Update external clients to write to your InfluxDB Cloud instance.
@@ -228,6 +231,9 @@ To migrate time series data from your InfluxDB 1.x instance to InfluxDB Cloud:
       --bucket example-db/example-rp \
       --file /path/to/example-db_example-rp.lp
     ```
+    {{% caption %}}
+See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)
+    {{% /caption %}}
 
 3. Repeat steps 1-2 for each bucket.
 
@@ -244,6 +250,9 @@ influx write \
   --file /path/to/example-db_example-rp.lp \
   --rate-limit "5 MB / 5 min"
 ```
+{{% caption %}}
+See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)
+{{% /caption %}}
 
 To minimize network bandwidth usage, we recommend using gzip to compress exported line protocol.
 However, when writing to InfluxDB Cloud, **Data In** and **Ingest batch size**

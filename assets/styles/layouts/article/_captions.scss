@@ -1,0 +1,13 @@
+.caption {
+  margin: -2rem 0 2rem;
+  padding-left: .25rem;
+  font-size: .8rem;
+  font-style: italic;
+  opacity: .8;
+}
+
+.code-tabs-wrapper, .code-tab-content {
+  & + .caption {
+    margin-top: -2.75rem;
+  }
+}
