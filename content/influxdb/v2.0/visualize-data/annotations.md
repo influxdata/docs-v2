@@ -27,8 +27,6 @@ Add annotations to your dashboards to provide useful, contextual information abo
 
 5. Click **Save Annotation**. The annotation appears as a line at the specified start time in all dashboard cells.
 
-<!-->
-TBD not yet implemented
 #### Edit an annotation
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
@@ -37,7 +35,6 @@ TBD not yet implemented
 
 2. Open the dashboard with the annotation to edit, and then click the annotation to open it.
 3. Update the text (or timestamp?), and then click **Save Annotation**.
--->
 
 #### View or hide annotations
 
@@ -52,9 +49,6 @@ Select or clear the **Show Annotations** option to hide or show annotations.
    - To hide annotations, clear the **Show Annotations** option.
    - To show annotations, select the **Show Annotations** option.
 
-<!-->
-
-TBD not yet implemented
 #### Delete an annotation
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
@@ -63,4 +57,3 @@ TBD not yet implemented
 2. Open a dashboard with the annotation to delete, click **Annotations**, and select the **Show Annotations** option.
 3. Click the annotation line to delete, and then click **Delete**.
 
--->
