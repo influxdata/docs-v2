@@ -13,7 +13,7 @@ menu:
 
 The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-19).
 
 ### Bug fixes
 
