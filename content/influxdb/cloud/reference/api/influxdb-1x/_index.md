@@ -48,8 +48,8 @@ Authorization: Token mYSuP3rs3cREtT0k3N
 ### Basic authentication
 Basic authentication requires the following credentials:
 
-- **username**: arbitrary username
-- **password**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+- **username**: InfluxDB Cloud username
+- **password**: InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
 
 ```sh
 # --user syntax
