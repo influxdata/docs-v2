@@ -42,8 +42,8 @@ influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
     {{< keep-url >}}
     ```sh
     $ influx
-    Connected to http://localhost:8086 version 1.8.3
-    InfluxDB shell version: 1.8.3
+    Connected to http://localhost:8086 version 1.8.5
+    InfluxDB shell version: 1.8.5
     > show continuous queries
     ```
 
