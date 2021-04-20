@@ -10,7 +10,7 @@ menu:
 weight: 104
 ---
 
-Add annotations to your dashboards to provide useful, contextual information about single points in time.
+Add annotations to your dashboards to provide useful, contextual information about single points in time. Edit annotations to change information, including the text or timestamp.
 
 #### Create an annotation
 
@@ -20,12 +20,15 @@ Add annotations to your dashboards to provide useful, contextual information abo
 
 2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/).
 3. Click **Annotations**. The **Show Annotations** and **Enable 1-Click Annotations** options appear selected. To add an annotation, the **Enable 1-Click Annotations** option must be selected.
-4. In any dashboard cell, click the point in time to add the annotation.
+4. In any dashboard cell, click the point in time (within the selected graph range) to add the annotation.
+  {{% note %}}
+**Tip:** To move the annotation outside of the selected graph time range, you must first create the annotation, and then edit the annotation to update the timestamp as needed.
+{{% /note %}}
 5. On the **Add Annotation** page:
    - Verify the start time, and update if needed.
-   - Enter a message to associate with the selected start time.
+   - Enter a message (maximum of 255 characters) to associate with the selected start time.
 
-5. Click **Save Annotation**. The annotation appears as a line at the specified start time in all dashboard cells.
+5. Click **Save Annotation** (or press **Enter**). The annotation appears as a line at the specified start time in all dashboard cells.
 
 #### Edit an annotation
 
@@ -34,7 +37,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
     {{< nav-icon "dashboards" >}}
 
 2. Open the dashboard with the annotation to edit, and then click the annotation to open it.
-3. Update the text (or timestamp?), and then click **Save Annotation**.
+3. Update the text (maximum of 255 characters) or timestamp, and then click **Save Annotation** (or press **Enter**).
 
 #### View or hide annotations
 
@@ -56,4 +59,3 @@ Select or clear the **Show Annotations** option to hide or show annotations.
     {{< nav-icon "dashboards" >}}
 2. Open a dashboard with the annotation to delete, click **Annotations**, and select the **Show Annotations** option.
 3. Click the annotation line to delete, and then click **Delete**.
-
