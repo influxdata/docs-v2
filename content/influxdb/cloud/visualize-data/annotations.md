@@ -16,7 +16,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 - [Edit an annotation](#edit-an-annotation)
 - [Delete an annotation](#delete-an-annotation)
 
-#### Create an annotation
+## Create an annotation
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
@@ -34,7 +34,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 
 5. Click **Save Annotation** (or press **Enter**). The annotation appears as a line at the specified start time in all dashboard cells.
 
-#### Edit an annotation
+## Edit an annotation
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 
@@ -43,7 +43,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 2. Open the dashboard with the annotation to edit, and then click the annotation to open it.
 3. Update the text (maximum of 255 characters) or timestamp, and then click **Save Annotation** (or press **Enter**).
 
-#### View or hide annotations
+## View or hide annotations
 
 By default, annotations are visible.
 Select or clear the **Show Annotations** option to hide or show annotations.
@@ -56,7 +56,7 @@ Select or clear the **Show Annotations** option to hide or show annotations.
    - To hide annotations, clear the **Show Annotations** option.
    - To show annotations, select the **Show Annotations** option.
 
-#### Delete an annotation
+## Delete an annotation
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 
