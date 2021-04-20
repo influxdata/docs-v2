@@ -12,7 +12,6 @@ menu:
 weight: 201
 ---
 
-## Create a new dashboard
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
