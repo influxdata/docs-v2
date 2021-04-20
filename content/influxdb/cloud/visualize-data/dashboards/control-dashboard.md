@@ -10,7 +10,6 @@ menu:
 weight: 203
 ---
 
-
 Use dashboard controls in the upper left to update your dashboard.
 
 ### Add a cell
