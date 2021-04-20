@@ -9,11 +9,25 @@ menu:
     parent: About the project
 ---
 
+## v1.8.5 [2020-04-20]
+
+The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-20).
+
+### Bug fixes
+
+- Resolve TSM backup "snapshot in progress" error.
+- SHOW DATABASES now only shows databases that the user has either read or write access to
+- `influxd_ctl entropy show` now shows shard expiry times consistent with `influxd_ctl show-shards`
+- Add labels to the values returned in SHOW SHARDS output to clarify the node ID and TCP address.
+- Always forward repairs to the next data node (even if the current data node does not have to take action for the repair).
+
 ## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v184-2021-02-01).
 
    > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
 
