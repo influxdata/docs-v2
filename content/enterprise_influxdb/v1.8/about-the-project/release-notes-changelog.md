@@ -18,6 +18,8 @@ For details on changes incorporated from the InfluxDB OSS release, see
 ### Bug fixes
 
 - Resolve TSM backup "snapshot in progress" error.
+- SHOW DATABASES now only shows databases that the user has either read or write access to
+- `influxd_ctl entropy show` now shows shard expiry times consistent with `influxd_ctl show-shards`
 - Add labels to the values returned in SHOW SHARDS output to clarify the node ID and TCP address.
 - Always forward repairs to the next data node (even if the current data node does not have to take action for the repair).
 

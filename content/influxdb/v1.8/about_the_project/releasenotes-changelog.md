@@ -14,12 +14,12 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 
 - Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
 - Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends status messages to standard error (`stderr`).
-- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
 - Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1.8/administration/logs/#http-access-log-format).
 - Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
 
 ### Bug fixes
 
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
 -  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
 - Correct JSON marshalling error format.
 - Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
