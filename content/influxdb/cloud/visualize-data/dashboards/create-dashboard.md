@@ -20,7 +20,6 @@ weight: 201
 2. Click the **{{< icon "plus" >}} Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
-
 **To import an existing dashboard**:
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
@@ -29,8 +28,10 @@ weight: 201
 
 2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
 3. In the window that appears:
-  * Select **Upload File** to drag-and-drop or select a file.
-  * Select **Paste JSON** to paste in JSON.
+
+   - Select **Upload File** to drag-and-drop or select a file.
+   - Select **Paste JSON** to paste in JSON.
+   
 4. Click **Import JSON as Dashboard**.
 
 ## Create dashboards with templates
