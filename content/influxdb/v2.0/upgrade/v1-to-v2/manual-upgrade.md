@@ -332,7 +332,7 @@ To migrate time series data from your InfluxDB 1.x instance to InfluxDB 2.0:
       --file /path/to/example-db_example-rp.lp
     ```
 
-Repeat this process for each bucket.
+3. Repeat steps 1-2 for each bucket.
 
 ## Migrate continuous queries
 For information about migrating InfluxDB 1.x continuous queries to InfluxDB 2.0 tasks,
