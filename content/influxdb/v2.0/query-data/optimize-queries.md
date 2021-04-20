@@ -16,6 +16,7 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
 - [Balance time range and data precision](#balance-time-range-and-data-precision)
+- [Measure query performance with Flux profilers](#measure-query-performance-with-flux-profilers)
 
 ## Start queries with pushdowns
 Some Flux functions and function combinations can push their data manipulation down
@@ -64,12 +65,12 @@ subsequent operations there.
 ```js
 from(bucket: "example-bucket")
   |> range(start: -1h)                       //
-  |> filter(fn: (r) => r.sensor == "abc123") // Pushed to the data source
-  |> group(columns: ["_field", "host"])      //
-
+  |> filter(fn: (r) => r.sensor == "abc123") //
+  |> group(columns: ["_field", "host"])      // Pushed to the data source
   |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     // Run in memory
-  |> top(n: 10)                              //
+  |> filter(fn: (r) => r._value >= 90.0)     //
+
+  |> top(n: 10)                              // Run in memory
 ```
 
 ## Avoid short window durations
@@ -100,3 +101,23 @@ results would include ≈15.5 million points per series.  Depending on the numbe
 Flux must store these points in memory to generate a response.  Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how many points are stored in memory.
 
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
+
+## Measure query performance with Flux profilers
+Use the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/)
+to measure query performance and append performance metrics to your query output.
+The following Flux profilers are available:
+
+- **query**: provides statistics about the execution of an entire Flux script.
+- **operator**: provides statistics about each operation in a query.
+
+Import the `profiler` package and enable profilers with the `profile.enabledProfilers` option.
+
+```js
+import "profiler"
+
+option profiler.enabledProfilers = ["query", "operator"]
+
+// Query to profile
+```
+
+For more information about Flux profilers, see the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/).
