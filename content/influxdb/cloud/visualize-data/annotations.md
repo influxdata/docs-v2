@@ -10,7 +10,11 @@ menu:
 weight: 104
 ---
 
-Add annotations to your dashboards to provide useful, contextual information about single points in time. For example, highlight maintenance, such as sensor calibrations, or other operations for your team to reference. After an annotation is created, edit the annotation by updating the text or timestamp, or delete the annotation.
+Add annotations to your dashboards to provide useful, contextual information about single points in time. After an annotation is created, edit the annotation by updating the text or timestamp, or delete the annotation.
+
+{{% note %}}
+Annotations may be useful to highlight operations or anomalies for your team to reference.
+{{% /note %}}
 
 - [Create an annotation](#create-an-annotation)
 - [Edit an annotation](#edit-an-annotation)
