@@ -2,15 +2,19 @@
 title: Use annotations in dashboards
 description: >
   Add annotations to your dashboards to provide useful, contextual information about single points in time.
-influxdb/v2.0/tags: [labels]
+influxdb/cloud/tags: [labels]
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Use annotations
     parent: Visualize data
 weight: 104
 ---
 
-Add annotations to your dashboards to provide useful, contextual information about single points in time. Edit annotations to change information, including the text or timestamp.
+Add annotations to your dashboards to provide useful, contextual information about single points in time. For example, highlight maintenance, such as sensor calibrations, or other operations for your team to reference. After an annotation is created, edit the annotation by updating the text or timestamp, or delete the annotation.
+
+[Create an annotation](#create-an-annotation)
+[Edit an annotation](#edit-an-annotation)
+[Delete an annotation](#delete-an-annotation)
 
 #### Create an annotation
 
