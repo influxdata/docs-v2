@@ -10,14 +10,11 @@
 - id: v2-ga
   level: note
   scope:
-    - /
+    - /influxdb/v1
   message: |
     ### InfluxDB OSS 2.0 now generally available!
 
     **InfluxDB OSS 2.0** is now generally available and ready for production use.
     See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/).
 
-    For information about upgrading to InfluxDB OSS 2.0, see:
-
-    - [Upgrade from InfluxDB OSS 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
-    - [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2/)
+    For information about upgrading to InfluxDB OSS 2.0, see [Upgrade from InfluxDB OSS 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
