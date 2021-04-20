@@ -54,8 +54,8 @@ weight: 201
 
 2. Select the **Templates** tab.
 
-  - In the **Static Templates** tab, a list of pre-created templates appears.
-  - In the **User Templates** tab, a list of custom user-created templates appears.
+   - In the **Static Templates** tab, a list of pre-created templates appears.
+   - In the **User Templates** tab, a list of custom user-created templates appears.
 
 3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
 
