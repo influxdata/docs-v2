@@ -10,10 +10,9 @@ menu:
     parent: Introduction
 ---
 
-Now that you successfully [installed and set up](/enterprise_influxdb/v1.5/introduction/meta_node_installation/) InfluxDB Enterprise, you can configure Chronograf for [monitoring InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-cluster/monitoring-influxenterprise-cluster/monitoring-influxenterprise-cluster/).
+Now that you successfully [installed and set up](/enterprise_influxdb/v1.5/introduction/meta_node_installation/) InfluxDB Enterprise, you can configure Chronograf for [monitoring InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters).
 
 See [Getting started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) to learn more about using Chronograf with the InfluxData time series platform.
-
 
 ### Where to from here?
 

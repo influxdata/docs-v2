@@ -39,7 +39,7 @@ to query that bucket with the `/query` compatibility API.
 Use **basic authentication** or **token authentication**.
 
 {{% note %}}
-**Note:** If using basic authentication, include the `--user` option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
+**Note:** If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
 {{% /note %}}
 
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
@@ -49,6 +49,12 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 {{% note %}}
 **URL-encode** all query string parameters.
 {{% /note %}}
+
+### u
+(Optional) The 1.x **username** to authenticate the request.
+
+### p
+(Optional) The 1.x **password** to authenticate the request.
 
 ### db
 ({{< req >}}) The **database** to query data from.

@@ -1,5 +1,5 @@
 ---
-title: Considerations for monitoring the InfluxData Platform
+title: Considerations for monitoring the 1.x TICK stack
 description: An explanation of internal and external monitoring strategies for your Enterprise or OSS TICK stack with the pros and cons of each.
 aliases:
   - /platform/monitoring/internal-vs-external/

@@ -69,7 +69,7 @@ END
 
 ##### Equivalent Flux task
 ```js
-options task = {
+option task = {
   name: "downsample-daily",
   every: 1d
 }
@@ -306,7 +306,7 @@ GROUP BY time(1h)
 
 ###### Flux
 ```js
-options task = {
+option task = {
   name: "task-name",
   every: 1h
 }
@@ -345,7 +345,7 @@ END
 
 ###### Flux
 ```js
-options task = {
+option task = {
   name: "resample-example",
   every: 1m
 }

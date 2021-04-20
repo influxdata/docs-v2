@@ -9,7 +9,17 @@ menu:
 weight: 1
 ---
 
-**InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events. Explore both versions of our platform below--[**InfluxData 1.x**](#influxdata-1-x) and [**InfluxDB 2.0**](#influxdb-2-0).
+**InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events. Explore both versions of our platform below--[**InfluxDB 2.0**](#influxdb-2-0) and [**InfluxData 1.x**](#influxdata-1-x).
+
+## InfluxDB 2.0
+
+The **InfluxDB 2.0 platform** consolidates InfluxDB, Chronograf, and Kapacitor from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
+
+  - [InfluxDB OSS 2.0](/influxdb/v2.0/get-started/): open source platform solution in a single binary
+  - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
+  - [Telegraf](#telegraf): collect data
+
+InfluxDB Enterprise 2.0 is in development.
 
 ## InfluxData 1.x
 
@@ -25,15 +35,6 @@ The **InfluxData 1.x platform** includes the following open source components ([
   - [InfluxDB Enterprise](#influxdb-enterprise)
   - [Kapacitor Enterprise](#kapacitor-enterprise)
   - [InfluxCloud 1.x](https://help.influxcloud.net) (hosted cloud solution)
-
-## InfluxDB 2.0
-
-The **InfluxDB 2.0 platform** consolidates components from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
-
-  - [InfluxDB OSS 2.0](/influxdb/v2.0/get-started/): open source platform solution in a single binary
-  - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
-
-InfluxDB Enterprise 2.0 is in development.
 
 ## InfluxData 1.x TICK stack
 

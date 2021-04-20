@@ -126,7 +126,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc influxdb-meta-1.8.5_c1.8.5.x86_64.rpm
+    gpg --verify influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc influxdb-meta-1.8.5_c1.8.5.x86_64.r
     ```
 
     The output from this command should include the following:
@@ -228,6 +228,7 @@ The expected output is:
     Meta Nodes
     ==========
     TCP Address               Version
+
     enterprise-meta-01:8091   1.8.5-c1.8.5
     enterprise-meta-02:8091   1.8.5-c1.8.5
     enterprise-meta-03:8091   1.8.5-c1.8.5

@@ -73,7 +73,7 @@ task_data = from(bucket: "_tasks")
 check = {
 	_check_id: "0000000000000001",      // 16 characters, alphanumeric
 	_check_name: "Failed Tasks Check",  // string
-	_type: "custom",                    // can also use "threashold" or "deadman"
+	_type: "custom",                    // can also use "threshold" or "deadman"
 	tags: {},
 }
 ok = (r) =>
