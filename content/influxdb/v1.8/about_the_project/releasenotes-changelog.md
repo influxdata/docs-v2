@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ### Features
 
 - Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
-- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends status messages to standard error (`stderr`).
+- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends error and status messages to standard error (`stderr`).
 - Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1.8/administration/logs/#http-access-log-format).
 - Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
 
