@@ -10,7 +10,6 @@ menu:
 weight: 203
 ---
 
-## Control at the dashboard level
 
 Use dashboard controls in the upper left to update your dashboard.
 
