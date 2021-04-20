@@ -237,7 +237,8 @@ If you are replacing an existing data node with `influxd-ctl update-data`, skip 
 {{% /warn %}}
 
 On one and only one of the meta nodes that you set up in the
-[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run:
+[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run the `add-data` command once and only once for each data node you are joining
+to the cluster:
 
 ```bash
 influxd-ctl add-data enterprise-data-01:8088
@@ -250,9 +251,6 @@ The expected output is:
 ```bash
 Added data node y at enterprise-data-0x:8088
 ```
-
-Run the `add-data` command once and only once for each data node you are joining
-to the cluster.
 
    {{% note %}}
 **Verification steps:**
