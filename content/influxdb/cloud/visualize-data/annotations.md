@@ -14,6 +14,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 
 - [Create an annotation](#create-an-annotation)
 - [Edit an annotation](#edit-an-annotation)
+- [View or hide annotations](#view-or-hide-annotations)
 - [Delete an annotation](#delete-an-annotation)
 
 ## Create an annotation
