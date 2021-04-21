@@ -19,8 +19,8 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
 - [Measure query performance with Flux profilers](#measure-query-performance-with-flux-profilers)
 
 ## Start queries with pushdowns
-Some Flux functions and function combinations can push their data manipulation down
-to the underlying data source rather than storing and manipulating data in memory.
+Some Flux functions and function combinations can push their operation down
+to the underlying data source rather than storing and operating on data in memory.
 These are known as "pushdowns" and using them correctly can greatly improve query performance.
 
 #### Pushdown functions and function combinations
