@@ -24,7 +24,7 @@ to the underlying data source rather than storing and manipulating data in memor
 These are known as "pushdowns" and using them correctly can greatly improve query performance.
 
 #### Pushdown functions and function combinations
-Pushdown functionality depends on the queried data source.
+Support for pushdown functionality depends on the queried data source.
 
 | Functions                    | InfluxDB 2.0         | InfluxDB Cloud       |
 |:---------                    |:------------:        |:--------------:      |
