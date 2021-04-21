@@ -85,7 +85,6 @@ Consider their necessity in your data processing before using them:
 
 - [map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
 - [reduce()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
-- [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)
 - [join()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
 - [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
 - [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
