@@ -25,35 +25,36 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
 #### Pushdown functions and function combinations
 Most pushdowns are supported when querying an InfluxDB 2.0 or InfluxDB Cloud data source. As shown in the following table, a handful of pushdowns are not supported in InfluxDB 2.0.
 
-| Functions                    | InfluxDB 2.0         | InfluxDB Cloud       |
-|:---------                    |:------------:        |:--------------:      |
-| **range()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
+| Functions                      | InfluxDB 2.0         | InfluxDB Cloud       |
+|:---------                      |:------------:        |:--------------:      |
+| **count()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
+| **drop()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **duplicate()**                | {{< icon "check" >}} | {{< icon "check" >}} |
 | **filter()** {{% req " \*" %}} | {{< icon "check" >}} | {{< icon "check" >}} |
-| **count()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
-| **sum()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **first()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
-| **last()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **min()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **max()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **mean()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **fill()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **keep()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **drop()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **rename()**                 | {{< icon "check" >}} | {{< icon "check" >}} |
-| **duplicate()**              | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()**                 | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **count()** | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **sum()**   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **first()** | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **last()**  | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **min()**   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **max()**   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **group()** \|> **count()**  |                      | {{< icon "check" >}} |
-| **group()** \|> **sum()**    |                      | {{< icon "check" >}} |
-| **group()** \|> **first()**  |                      | {{< icon "check" >}} |
-| **group()** \|> **last()**   |                      | {{< icon "check" >}} |
-| **group()** \|> **min()**    |                      | {{< icon "check" >}} |
-| **group()** \|> **max()**    |                      | {{< icon "check" >}} |
+| **fill()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **first()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
+| **keep()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **last()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **max()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
+| **mean()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **min()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
+| **range()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
+| **rename()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
+| **sum()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
+| _Function combinations_ |||
+| **group()** \|> **count()**    |                      | {{< icon "check" >}} |
+| **group()** \|> **first()**    |                      | {{< icon "check" >}} |
+| **group()** \|> **last()**     |                      | {{< icon "check" >}} |
+| **group()** \|> **max()**      |                      | {{< icon "check" >}} |
+| **group()** \|> **min()**      |                      | {{< icon "check" >}} |
+| **group()** \|> **sum()**      |                      | {{< icon "check" >}} |
+| **window()** \|> **count()**   | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()** \|> **first()**   | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()** \|> **last()**    | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()** \|> **max()**     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()** \|> **min()**     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **window()** \|> **sum()**     | {{< icon "check" >}} | {{< icon "check" >}} |
 
 {{% caption %}}
 {{< req "\*" >}} **filter()** only pushes down when all parameter values are static.
