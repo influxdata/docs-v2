@@ -16,6 +16,7 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
   - [Avoid processing filters inline](#avoid-processing-filters-inline)
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
+- [Use set() instead of map() when possible](#use-set-instead-of-map-when-possible)
 - [Balance time range and data precision](#balance-time-range-and-data-precision)
 - [Measure query performance with Flux profilers](#measure-query-performance-with-flux-profilers)
 
@@ -126,6 +127,36 @@ Consider their necessity in your data processing before using them:
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.
 {{% /note %}}
+
+## Use set() instead of map() when possible
+[`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/),
+[`experimental.set()`](/influxdb/v2.0/reference/flux/stdlib/experimental/set/),
+and [`map`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+can each set columns value in data, however **set** functions have performance
+advantages over `map()`.
+
+Use the following guidelines to determine which to use:
+
+- If setting a column value to a predefined, static value, use `set()` or `experimetnal.set()`.
+- If dynamically setting a column value using **existing row data**, use `map()`.
+
+#### Set a column value to a static value
+The following queries are functionally the same, but using `set()` is more performant than using `map()`.
+
+```js
+data
+  |> map(fn: (r) => ({ r with foo: "bar" }))
+
+// Recommended
+data
+  |> set(key: "foo", as: "bar" }))
+```
+
+#### Dynamically set a column value using existing row data
+```js
+data
+  |> map(fn: (r) => ({ r with foo: r.bar }))
+```
 
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
