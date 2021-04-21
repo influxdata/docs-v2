@@ -8,6 +8,17 @@ menu:
     name: Flux
 ---
 
+## v0.113.0 [2021-04-21]
+
+### Features
+- Add ported table test.
+- Create `astutil` package for AST utilities such as formatting.
+
+### Bug fixes
+- Update expected output for acceptance test `group_no_agg_table`.
+
+---
+
 ## v0.112.1 [2021-04-12]
 
 ### Bug fixes
