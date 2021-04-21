@@ -21,12 +21,9 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
 - [Measure query performance with Flux profilers](#measure-query-performance-with-flux-profilers)
 
 ## Start queries with pushdowns
-Some Flux functions and function combinations can push their operation down
-to the underlying data source rather than storing and operating on data in memory.
-These are known as "pushdowns" and using them correctly can greatly improve query performance.
-
+**Pushdowns** are functions or function combinations that push data operations to the underlying data source rather than operating on data in memory. Start queries with pushdowns to improve query performance. Once a non-pushdown function runs, Flux pulls data into memory and runs all subsequent operations there.
 #### Pushdown functions and function combinations
-Support for pushdown functionality depends on the queried data source.
+Most pushdowns are supported when querying an InfluxDB 2.0 or InfluxDB Cloud data source. As shown in the following table, a handful of pushdowns are not supported in InfluxDB 2.0.
 
 | Functions                    | InfluxDB 2.0         | InfluxDB Cloud       |
 |:---------                    |:------------:        |:--------------:      |
@@ -82,8 +79,8 @@ from(bucket: "example-bucket")
 ### Avoid processing filters inline
 Avoid using mathematic operations or string manipulation inline to define data filters.
 Processing filter values inline prevents `filter()` from pushing its operation down
-to the underlying data source and forces Flux to load all data returned by the
-previous function into memory.
+to the underlying data source, so data returned by the
+previous function loads into memory.
 This often results in a significant performance hit.
 
 For example, the following query uses [dashboard variables](/influxdb/v2.0/visualize-data/variables/)
@@ -137,7 +134,7 @@ advantages over `map()`.
 
 Use the following guidelines to determine which to use:
 
-- If setting a column value to a predefined, static value, use `set()` or `experimetnal.set()`.
+- If setting a column value to a predefined, static value, use `set()` or `experimental.set()`.
 - If dynamically setting a column value using **existing row data**, use `map()`.
 
 #### Set a column value to a static value
@@ -162,7 +159,7 @@ data
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
 results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
-Flux must store these points in memory to generate a response.  Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how many points are stored in memory.
+Flux must store these points in memory to generate a response. Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how many points are stored in memory.
 
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
 
