@@ -13,6 +13,7 @@ influxdb/v2.0/tags: [query]
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 
 - [Start queries with pushdowns](#start-queries-with-pushdowns)
+  - [Avoid processing filters inline](#avoid-processing-filters-inline)
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
 - [Balance time range and data precision](#balance-time-range-and-data-precision)
@@ -29,7 +30,7 @@ Support for pushdown functionality depends on the queried data source.
 | Functions                    | InfluxDB 2.0         | InfluxDB Cloud       |
 |:---------                    |:------------:        |:--------------:      |
 | **range()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
-| **filter()**                 | {{< icon "check" >}} | {{< icon "check" >}} |
+| **filter()** {{% req " \*" %}} | {{< icon "check" >}} | {{< icon "check" >}} |
 | **count()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
 | **sum()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
 | **first()**                  | {{< icon "check" >}} | {{< icon "check" >}} |
@@ -56,6 +57,10 @@ Support for pushdown functionality depends on the queried data source.
 | **group()** \|> **min()**    |                      | {{< icon "check" >}} |
 | **group()** \|> **max()**    |                      | {{< icon "check" >}} |
 
+{{% caption %}}
+{{< req "\*" >}} **filter()** only pushes down when all parameter values are static.
+See [Avoid processing filters inline](#avoid-processing-filters-inline).
+{{% /caption %}}
 
 Use pushdown functions and function combinations at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
@@ -71,6 +76,35 @@ from(bucket: "example-bucket")
   |> filter(fn: (r) => r._value >= 90.0)     //
 
   |> top(n: 10)                              // Run in memory
+```
+
+### Avoid processing filters inline
+Avoid using mathematic operations or string manipulation inline to define data filters.
+Processing filter values inline prevents `filter()` from pushing its operation down
+to the underlying data source and forces Flux to load all data returned by the
+previous function into memory.
+This often results in a significant performance hit.
+
+For example, the following query uses [dashboard variables](/influxdb/v2.0/visualize-data/variables/)
+and string concatenation to define a region to filter by.
+Because `filter()` uses string concatenation inline, it can't push its operation
+to the underlying data source and loads all data returned from `range()` into memory.
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: -1h)                      
+  |> filter(fn: (r) => r.region == v.provider + v.region)
+```
+
+To dynamically set filters and maintain the pushdown ability of the `filter()` function,
+use variables to define filter values outside of `filter()`:
+
+```js
+region = v.provider + v.region
+
+from(bucket: "example-bucket")
+  |> range(start: -1h)                      
+  |> filter(fn: (r) => r.region == region)
 ```
 
 ## Avoid short window durations
