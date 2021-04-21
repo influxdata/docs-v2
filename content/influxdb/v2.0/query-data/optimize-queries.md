@@ -42,7 +42,7 @@ Most pushdowns are supported when querying an InfluxDB 2.0 or InfluxDB Cloud dat
 | **rename()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
 | **sum()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
 | **window()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| _Function combinations_ |||
+| _Function combinations_        |                      |                      |
 | **group()** \|> **count()**    |                      | {{< icon "check" >}} |
 | **group()** \|> **first()**    |                      | {{< icon "check" >}} |
 | **group()** \|> **last()**     |                      | {{< icon "check" >}} |
