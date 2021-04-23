@@ -57,9 +57,7 @@ nodes or they may not be sufficient.
 SSDs are strongly recommended, and we have had no reports of IOPS contention from any customers running on SSDs.
 
 #### Do not use NFS
-
-InfluxDB Enterprise does not support NFS (Network File System)-mounted devices.
-Only use block devices for disk storage.
+For disk storage, use block devices only. InfluxDB Enterprise does not support NFS (Network File System)-mounted devices.
 
 #### Disable swap
 
