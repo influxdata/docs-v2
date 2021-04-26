@@ -1,3 +1,4 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
 {{ $icon :=  .Get 0 | default "influx" }}
 
 {{ if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") }}
