@@ -62,7 +62,7 @@ and ensures the backup data matches the data on disk.
 
 ## Cloud infrastructure
 
-{{< img-hd src="/img/cloud-internals/cluster.png" alt="InfluxDB Cloud cluster architecture" />}}
+{{< img-hd src="/img/influxdb/cloud-internals-cluster.png" alt="InfluxDB Cloud cluster architecture" />}}
 
 InfluxDB Cloud is available on the following cloud providers:
 - Amazon Web Services (AWS)
@@ -201,7 +201,7 @@ We perform root cause analysis (RCA) as part of our incident response.
 ## Configurable security controls
 ### Access, authentication, and authorization
 
-{{< img-hd src="/img/cloud-internals/auth.png" alt="InfluxDB Cloud authentication and authorization" />}}
+{{< img-hd src="/img/influxdb/cloud-internals-auth.png" alt="InfluxDB Cloud authentication and authorization" />}}
 
 We use [Auth0](https://auth0.com/) for InfluxDB Cloud authentication.
 User accounts can be created directly on the InfluxDB Cloud system via Auth0.
