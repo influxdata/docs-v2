@@ -118,6 +118,8 @@ User managed encryption keys are not supported in InfluxDB Cloud at this time.
 
 ## Application and service security
 
+InfluxData maintains the following application and service security controls:
+
 ### Internal access controls
 
 - Administrative privileges are restricted to named groups of authorized users.
@@ -199,6 +201,9 @@ We maintain procedures for incident alerting and response, performance or downti
 We perform root cause analysis (RCA) as part of our incident response.
 
 ## Configurable security controls
+
+Users can configure the following security controls:
+
 ### Access, authentication, and authorization
 
 {{< img-hd src="/img/influxdb/cloud-internals-auth.png" alt="InfluxDB Cloud authentication and authorization" />}}
