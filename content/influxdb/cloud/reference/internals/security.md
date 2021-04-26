@@ -46,17 +46,17 @@ To protect data, InfluxDB Cloud includes the following:
 In the InfluxDB Cloud multi-tenant platform, access controls ensure that only valid authenticated and authorized requests access your account data.
 Access control includes:
 
-- A unique organization ID is assigned to an account when the account is created.
+- A unique organization ID assigned to an account when the account is created.
   All internal Cloud services require this organization ID to authenticate entities before accessing or operating on data.
 - All external requests must be authorized with a valid token or session.
-  This is enforced by every InfluxDB Cloud service, from individual API calls to UI interactions.
+  Every InfluxDB Cloud service, from individual API calls to user interface (UI) interactions, enforce this policy.
 
 ## Data integrity
 
 A dedicated internal service ensures data integrity
 by periodically creating, recording, and writing test data into test buckets.
-The service then periodically executes queries to ensure the data hasn't been lost or corrupted.
-A separate instance of this service lives within each cluster.
+The service periodically executes queries to ensure the data hasn't been lost or corrupted.
+A separate instance of this service lives within each InfluxDB Cloud cluster.
 Additionally, the service creates out-of-band backups in [line protocol](/influxdb/cloud/reference/syntax/line-protocol/),
 and ensures the backup data matches the data on disk.
 
@@ -109,9 +109,7 @@ For detail about physical security within Microsoft Azure data centers, see [Mic
 
 ### Data encryption
 
-InfluxDB Cloud enables TLS by default.
-TLS cannot be disabled.
-Data in transit to InfluxDB Cloud is encrypted using TLS from all clients, including Telegraf agents, browsers, and custom applications.
+InfluxDB Cloud enforces TLS encryption for data in transit from all clients, including Telegraf agents, browsers, and custom applications.
 Requests using TLS 1.2 or earlier are rejected.
 
 By default, data at rest is encrypted using strong encrypted methods (AES-256) within AWS, GCP, and Microsoft Azure.
@@ -125,9 +123,9 @@ User managed encryption keys are not supported in InfluxDB Cloud at this time.
 - Administrative privileges are restricted to named groups of authorized users.
 - Shared accounts are prohibited.
 - Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure),
-  for all members of our GitHub organization,
+  for all members of the InfluxData GitHub organization,
   and for other production systems with access to user information
-  (see ["InfluxData Subprocessors"](https://www.influxdata.com/legal/influxdata-subprocessors/)).
+  (see [InfluxData Subprocessors](https://www.influxdata.com/legal/influxdata-subprocessors/)).
 - InfluxDB Cloud access is logged and audited regularly.
 
 ### Configuration management
@@ -162,7 +160,8 @@ Production access is limited to authorized personnel based on the principles of 
 
 ### Monitoring, logging, and alerting
 
-- Continuous monitoring and metrics analysis of InfluxDB Cloud environments.
+InfluxData continuously monitors and analyzes metrics from InfluxDB Cloud environments.
+
 - Services are carefully monitored to ensure performance and availability, and to detect anomalies.
 - Application logging, performance, and observability data are gathered and used for event analysis, capacity planning, alerting, and instrumentation.
   Access to these logs and operator interfaces is controlled by group access permissions, and provided only to teams that require access to deliver InfluxDB Cloud services.
@@ -209,7 +208,7 @@ User accounts can be created directly on the InfluxDB Cloud system via Auth0.
 Users also have the option to use “social sign-on” with their existing Google or Microsoft accounts for authentication.
 API access within custom applications requires an authentication token.
 Tokens belong to an organization and are mapped to InfluxDB permissions within the organization as defined when the token is created.
-For more information on the types of tokens and ways to create them, please refer to our [documentation](/influxdb/cloud/security/tokens/).
+For more information on the types of tokens and ways to create them, see [Manage authentication tokens](/influxdb/cloud/security/tokens/).
 
 ### Role-based access controls (RBAC)
 
@@ -237,5 +236,5 @@ For users needing stricter security around data access and risk mitigation measu
 
 ## Compliance and auditing
 
-InfluxDB Cloud is SOC2 Type II certified.
+InfluxDB Cloud is **SOC2 Type II** certified.
 To request a copy of our SOC2 Type II report, please email <security@influxdata.com>.
