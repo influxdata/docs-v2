@@ -21,7 +21,7 @@ To protect data, InfluxDB Cloud includes the following:
   including [Amazon Web Services (AWS)](#amazon-web-services-aws),
   [Microsoft Azure](#microsoft-azure),
   and [Google Cloud Platform (GCP)](#google-cloud-platform-gcp),
-  building on [security controls of these cloud providers](#public-cloud-security),
+  building on security controls of these cloud providers,
   such as physical security, disk encryption, and key management services (KMS).
 - Comprehensive [application and service security](#application-and-service-security)
   covering both technical security measures and the people and processes that maintain the platform, including:
@@ -65,9 +65,9 @@ and ensures the backup data matches the data on disk.
 {{< img-hd src="/img/influxdb/cloud-internals-cluster.png" alt="InfluxDB Cloud cluster architecture" />}}
 
 InfluxDB Cloud is available on the following cloud providers:
-- Amazon Web Services (AWS)
-- Microsoft Azure
-- Google Cloud Platform (GCP)
+- [Amazon Web Services (AWS)](https://aws.amazon.com/)
+- [Microsoft Azure](https://azure.microsoft.com/en-us/)
+- [Google Cloud Platform (GCP)](https://cloud.google.com/)
 
 To ensure data security, availability, and durability:
 - Each instance is isolated and protected in its own virtual private cloud (VPC)
