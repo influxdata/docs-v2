@@ -328,23 +328,15 @@ to the InfluxDB Github repository.
 ##### System requirements
 - Windows 10
 - 64-bit AMD architecture
-- Powershell
+- [Powershell](https://docs.microsoft.com/powershell/) or
+  [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/)
 
 ##### Command line examples
-Use **Powershell** to execute `influx` and `influxd` commands.
+Use **Powershell** or **WSL** to execute `influx` and `influxd` commands.
 The command line examples in this documentation use `influx` and `influxd` as if
 installed on the system `PATH`.
 If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
 in the provided examples with `./influx` and `./influxd` respectively.
-
-##### Known issues
-- [`influx` CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/)
-  do not work on Windows. Use one of the following methods to provide your InfluxDB **host**,
-  **organization**, and **authentication token** to `influx` commands:
-
-  - Set the `INFLUX_HOST`, `INFLUX_ORG`, and `INFLUX_TOKEN` environmnet variables
-    environment variables in your Powershell session.
-  - Include the `--host`, `-o, --org`, and `-t, --token` flags with each `influx` command.
 {{% /warn %}}
 
 ### Download and install InfluxDB v2.0
