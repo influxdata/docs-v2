@@ -1,6 +1,8 @@
 ---
 title: Telegraf 1.18 release notes
 description: Important features and changes in the latest version of Telegraf.
+alias:
+  - /telegraf/v1.18/reference/release-notes/influxdb/
 menu:
   telegraf_1_18:
     name: Release notes

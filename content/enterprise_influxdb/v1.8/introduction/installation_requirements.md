@@ -27,6 +27,15 @@ Nodes attempt to download a new license file for the given key every four hours.
 
 The following are the most frequently overlooked requirements when installing a cluster.
 
+- [Ensure connectivity between machines](#ensure-connectivity-between-machines)
+- [Synchronize time between hosts](#synchronize-time-between-hosts)
+- [Use SSDs](#use-ssds)
+- [Do not use NFS](#do-not-use-nfs-mounts)
+- [Disable swap](#disable-swap)
+- [Use three and only three meta nodes](#use-three-and-only-three-meta-nodes)
+- [Meta and data nodes are fully independent](#meta-and-data-nodes-are-fully-independent)
+- [Install Chronograf last](#install-chronograf-last)
+
 #### Ensure connectivity between machines
 
 All nodes in the cluster must be able to resolve each other by hostname or IP,
@@ -46,6 +55,14 @@ Clusters require sustained availability of 1000-2000 IOPS from the attached stor
 SANs must guarantee at least 1000 IOPS is always available to InfluxDB Enterprise
 nodes or they may not be sufficient.
 SSDs are strongly recommended, and we have had no reports of IOPS contention from any customers running on SSDs.
+
+#### Do not use NFS
+For disk storage, use block devices only. InfluxDB Enterprise does not support NFS (Network File System)-mounted devices.
+
+#### Disable swap
+
+To avoid potential disk contention when InfluxDB is under high load,
+disable swap in your operating system settings.
 
 #### Use three and only three meta nodes
 
