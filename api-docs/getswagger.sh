@@ -4,7 +4,7 @@
 # from the influxdata/openapi repo.
 #
 # Specify a context to retrieve (cloud, oss, v1compat, all).
-# Optionally specify an OSS version to write the udpated swagger to.
+# Optionally specify an OSS version to write the updated swagger to.
 # The default version is the latest OSS version directory in the api-docs directory
 #
 # Syntax:
