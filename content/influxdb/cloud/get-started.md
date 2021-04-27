@@ -52,9 +52,7 @@ Next, we'll make it easier to visualize the raw data by viewing it in a graph.
 1. By default, a visualization cell appears below your initial metric selector cell showing the mean `response_time` values on a graph:
 {{< img-hd src="/img/influxdb/gs_response_time_mean.png" alt="Mean response time graph" />}}
 2. Use the function dropdown menu to view different functions to apply to your data. For this response time data, the mean function is a good fit.
-{{< img-hd src="/img/influxdb/gs_select_function.png" alt="Select function" />}}
 3. Use the visualization type dropdown to view different visualization types available.
-{{< img-hd src="/img/influxdb/gs_select_visualization.png" alt="Select visualization type" />}}
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
 4. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
 
