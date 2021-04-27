@@ -71,6 +71,13 @@ the visualization dropdown.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 
+###### Legend
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
+
 ## Scatter examples
 
 ### Cross-measurement correlation
