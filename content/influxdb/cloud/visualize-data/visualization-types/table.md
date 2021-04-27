@@ -5,7 +5,7 @@ list_image: /img/influxdb/2-0-visualizations-table-example.png
 description: >
   The Table option displays the results of queries in a tabular view, which is
   sometimes easier to analyze than graph views of data.
-weight: 207
+weight: 202
 menu:
   influxdb_cloud:
     name: Table
@@ -33,7 +33,7 @@ the visualization dropdown.
 - **Default Sort Field**: Select the default sort field. Default is **time**.
 - **Time Format**: Select the time format. Options include:
     {{< ui/timestamp-formats >}}
-    
+
 - **Decimal Places**: Enter the number of decimal places. Default (empty field) is **unlimited**.
     - **Auto** or **Custom**: Enable or disable auto-setting.
 

@@ -4,7 +4,7 @@ list_title: Scatter
 list_image: /img/influxdb/2-0-visualizations-scatter-example.png
 description: >
   The Scatter view uses a scatter plot to display time series data.
-weight: 208
+weight: 202
 menu:
   influxdb_cloud:
     name: Scatter
