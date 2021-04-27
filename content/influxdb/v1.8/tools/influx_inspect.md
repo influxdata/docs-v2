@@ -36,7 +36,8 @@ The `influx_inspect` commands are summarized here, with links to detailed inform
 * [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
 * [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
 * [`report`](#report): Displays a shard level report.
-* [`reporttsi`](#reporttsi): Reports on cardinality for measurements and shards.
+* [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
+* [`reporttsi`](#reporttsi): Reports on cardinality for shards and measurements.
 * [`verify`](#verify): Verifies the integrity of TSM files.
 * [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
 * [`verify-tombstone`](#verify-tombstone): Verifies the integrity of tombstones.
@@ -374,9 +375,10 @@ YYYY-MM-DDTHH:MM:SS+07:00
 Output data in line protocol format only.
 Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
 
-##### [ `-out <export_dir>` ]
+##### [ `-out <export_dir>` or `-out -`]
 
-The location for the export file.
+Location to export shard data. Specify an export directory to export a file, or add a hyphen after out (`-out -`) to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
+
 Default value is `"$HOME/.influxdb/export"`.
 
 ##### [ `-retention <rp_name> ` ]
@@ -451,6 +453,84 @@ Default value is `false`.
 The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
+
+### `report-disk`
+
+Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurements or shards are using the most space.
+
+Calculates the total disk  size (`total_tsm_size`) in bytes, the number of shards (`shards`), and the number of tsm files (`tsm_files`) for the specified directory. Also calculates the disk size (`size`) and number of tsm files (`tsm_files`) for each shard. Use the `-detailed` flag to report disk usage (`size`) by database (`db`), retention policy (`rp`), and measurement (`measurement`).
+
+{{% note %}}
+For new instances or instances with minimal data, the disk usage may appear blank until the first time that data is flushed from the WAL directory ([`wal-dir`](/enterprise_influxdb/v1.8/administration/config-data-nodes/#wal-dir--varlibinfluxdbwal)) to the TSM directory ([`dir`](/enterprise_influxdb/v1.8/administration/config-data-nodes/#dir--varlibinfluxdbdata)).
+{{% /note %}}
+
+#### Syntax
+
+```
+influx_inspect report-disk [ options ] <path>
+```
+
+##### `<path>`
+
+Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `"$HOME/.influxdb/data"`.
+
+When specifying the path, wildcards (`*`) can replace one or more characters.
+
+#### Options
+
+Optional arguments are in brackets.
+
+##### [ `-detailed` ]
+
+Include this flag to report disk usage by measurement.
+
+#### Examples
+
+##### Report on disk size by shard
+
+```bash
+influx_inspect report-disk ~/.influxdb/data/
+```
+
+##### Output
+
+```bash
+{
+  "Summary": {"shards": 2, "tsm_files": 8, "total_tsm_size": 149834637 },
+  "Shard": [
+    {"db": "stress", "rp": "autogen", "shard": "3", "tsm_files": 7, "size": 147022321},
+    {"db": "telegraf", "rp": "autogen", "shard": "2", "tsm_files": 1, "size": 2812316}
+  ]
+}
+```
+
+##### Report on disk size by measurement
+
+```bash
+influx_inspect report-disk -detailed ~/.influxdb/data/
+```
+
+##### Output
+
+```bash
+{
+  "Summary": {"shards": 2, "tsm_files": 8, "total_tsm_size": 149834637 },
+  "Shard": [
+    {"db": "stress", "rp": "autogen", "shard": "3", "tsm_files": 7, "size": 147022321},
+    {"db": "telegraf", "rp": "autogen", "shard": "2", "tsm_files": 1, "size": 2812316}
+  ],
+  "Measurement": [
+    {"db": "stress", "rp": "autogen", "measurement": "ctr", "size": 107900000},
+    {"db": "telegraf", "rp": "autogen", "measurement": "cpu", "size": 1784211},
+    {"db": "telegraf", "rp": "autogen", "measurement": "disk", "size": 374121},
+    {"db": "telegraf", "rp": "autogen", "measurement": "diskio", "size": 254453},
+    {"db": "telegraf", "rp": "autogen", "measurement": "mem", "size": 171120},
+    {"db": "telegraf", "rp": "autogen", "measurement": "processes", "size": 59691},
+    {"db": "telegraf", "rp": "autogen", "measurement": "swap", "size": 42310},
+    {"db": "telegraf", "rp": "autogen", "measurement": "system", "size": 59561}
+  ]
+}
+```
 
 ### `reporttsi`
 
