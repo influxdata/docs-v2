@@ -45,7 +45,7 @@ A list of measurements, fields, and tags for the Website Monitoring bucket appea
 {{< img-hd src="/img/influxdb/gs_select_bucket.png" alt="Preview table" />}}
 
 
-## Visualize your data
+## Visualize data
 
 Next, we'll make it easier to visualize the raw data by viewing it in a graph.
 
@@ -58,7 +58,7 @@ Next, we'll make it easier to visualize the raw data by viewing it in a graph.
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
 4. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
 
-## Process your data
+## Process data
 
 A common processing task is downsampling data to view it at different levels of granularity and reduce overall data disk usage over time. The following steps use a Flux script to downsample the website monitoring sample data to every 12 hours.
 
