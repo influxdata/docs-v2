@@ -67,8 +67,17 @@ The prefix used for Prometheus metrics from the query controller has changed fro
   cardinality of telemetry data.
 - Standardize HTTP server error log output.
 - Add the properties of a static legend for line graphs and band plots.
+- Enabled UI features:
+  - Band & mosaic vizualization types
+  - Axis tick mark configuration
+  - CSV file uploader
+  - Editable telegraf configurations
+  - Legend orientation options
+  - Dashboard single cell refresh
+- Upgrade to Flux v0.113.0.
 
 ### Bug Fixes
+- Prevent "do not have an execution context" error when parsing Flux options in tasks.
 - Fix swagger to match implementation of DBRPs type.
 - Fix use-after-free bug in series ID iterator.
 - Fix TSM and WAL segment size check to check against the local `SegmentSize`.
@@ -89,6 +98,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
 - Prevent concurrent access panic when gathering bolt metrics.
 - Fix race condition in Flux controller shutdown.
 - Reduce lock contention when adding new fields and measurements.
+- Escape dots in community templates hostname regular expression.
 
 ## v2.0.4 General Availability [2021-02-04]
 
