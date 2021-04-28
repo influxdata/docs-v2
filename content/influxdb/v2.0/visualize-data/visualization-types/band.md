@@ -1,22 +1,22 @@
 ---
-title: Band Plot visualization
+title: Band visualization
 list_title: Band
 list_image: /img/influxdb/2-0-visualizations-Band-example.png
 description:
-weight: 206
+weight: 201
 menu:
   influxdb_2_0:
-    name: Band Plot
+    name: Band
     parent: Visualization types
 ---
 
-The **Band Plot** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
+The **Band** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
 
-## Set up the Band Plot visualization
+## Set up the Band visualization
 
 To see bands (boundaries) in the **Band Plot** visualization, you must set up two or three boundaries for comparison.
 
-### Set up the band plot visualization in the Data Explorer
+### Set up the band visualization in the Data Explorer
 
 1. Click the **Data Explorer** icon in the navigation bar.
 
