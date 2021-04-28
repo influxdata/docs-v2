@@ -166,7 +166,7 @@ Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
 #### `retention-autocreate = true`
 
-Automatically creates a default [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) (RP) when the system creates a database.
+Automatically creates a default [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) (RP) when the system creates a database.
 The default RP (`autogen`) has an infinite duration, a shard group duration of seven days, and a replication factor set to the number of data nodes in the cluster.
 The system targets the `autogen` RP when a write or query does not specify an RP.
 Set this option to `false` to prevent the system from creating the `autogen` RP when the system creates a database.
@@ -189,7 +189,7 @@ Controls where the actual shard data for InfluxDB lives and how it is compacted 
 "dir" may need to be changed to a suitable place for your system.
 The defaults should work for most systems.
 
-For InfluxDB OSS, see the [OSS documentation](/influxdb/v1.8/administration/config/#data-settings).
+For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#data-settings).
 
 #### `dir = "/var/lib/influxdb/data"`
 
@@ -289,7 +289,7 @@ Environment variable: `INFLUXDB_DATA_INDEX_VERSION`
 
 #### `max-series-per-database = 1000000`
 
-The maximum number of [series](/influxdb/v1.8/concepts/glossary/#series) allowed per database before writes are dropped.
+The maximum number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) allowed per database before writes are dropped.
 The default setting is `1000000` (one million).
 Change the setting to `0` to allow an unlimited number of series per database.
 
@@ -309,7 +309,7 @@ Environment variable: `INFLUXDB_DATA_MAX_SERIES_PER_DATABASE`
 
 #### `max-values-per-tag = 100000`
 
-The maximum number of [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) allowed per [tag key](/influxdb/v1.8/concepts/glossary/#tag-key).
+The maximum number of [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) allowed per [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 The default value is `100000` (one hundred thousand).
 Change the setting to `0` to allow an unlimited number of tag values per tag
 key.
@@ -685,7 +685,7 @@ Environment variable: `INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD`
 By default, InfluxDB writes system monitoring data to the `_internal` database.
 If that database does not exist, InfluxDB creates it automatically.
 The `DEFAULT` retention policy on the `internal` database is seven days.
-To change the default seven-day retention policy, you must [create](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) it.
+To change the default seven-day retention policy, you must [create](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management) it.
 
 For InfluxDB Enterprise production systems, InfluxData recommends including a dedicated InfluxDB (OSS) monitoring instance for monitoring InfluxDB Enterprise cluster nodes.
 
@@ -724,7 +724,7 @@ Environment variable: `INFLUXDB_MONITOR_REMOTE_COLLECT_INTERVAL`
 
 Controls how the HTTP endpoints are configured. These are the primary mechanism for getting data into and out of InfluxDB.
 
-For InfluxDB OSS, see the [OSS documentation](/influxdb/v1.8/administration/config/#http-endpoint-settings-http).
+For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#http-endpoint-settings-http).
 
 #### `enabled = true`
 
@@ -968,7 +968,7 @@ Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
 ### `[[graphite]]`
 
 This section controls one or many listeners for Graphite data.
-For more information, see [Graphite protocol support in InfluxDB](/influxdb/v1.8/supported_protocols/graphite/).
+For more information, see [Graphite protocol support in InfluxDB](/enterprise_influxdb/v1.9/supported_protocols/graphite/).
 
 #### `enabled = false`
 
@@ -1032,7 +1032,7 @@ There can be only one default template.
 ## CollectD settings
 
 The `[[collectd]]` settings control the listener for `collectd` data.
-For more information, see [CollectD protocol support in InfluxDB](/influxdb/v1.8/supported_protocols/collectd/).
+For more information, see [CollectD protocol support in InfluxDB](/enterprise_influxdb/v1.9/supported_protocols/collectd/).
 
 ### `[[collectd]]`
 
@@ -1079,7 +1079,7 @@ UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS
 ## OpenTSDB settings
 
 Controls the listener for OpenTSDB data.
-For more information, see [OpenTSDB protocol support in InfluxDB](/influxdb/v1.8/supported_protocols/opentsdb/).
+For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_influxdb/v1.9/supported_protocols/opentsdb/).
 
 ### `[[opentsdb]]`
 
@@ -1120,7 +1120,7 @@ Flush at least this often even if we haven't hit buffer limit.
 ## UDP settings
 
 The `[[udp]]` settings control the listeners for InfluxDB line protocol data using UDP.
-For more information, see [UDP protocol support in InfluxDB](/influxdb/v1.8/supported_protocols/udp/).
+For more information, see [UDP protocol support in InfluxDB](/enterprise_influxdb/v1.9/supported_protocols/udp/).
 
 ### `[[udp]]`
 

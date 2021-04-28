@@ -19,7 +19,7 @@ to visualize data from your **InfluxDB Enterprise v1.8** instance.
 - The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
   For information about using InfluxDB with other versions of Grafana,
   see the [Grafana documentation](https://grafana.com/docs/grafana/v7.0/features/datasources/influxdb/).
-- To use **Flux**, use **InfluxDB Enterprise 1.8.1+** and [enable Flux](/influxdb/v1.8/flux/installation/)
+- To use **Flux**, use **InfluxDB Enterprise 1.8.1+** and [enable Flux](/enterprise_influxdb/v1.9/flux/installation/)
   in your InfluxDB data node configuration file.
 {{% /note %}}
 
@@ -59,10 +59,10 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 2. Under **InfluxDB Details**, enter the following:
 
     - **Database**: your database name
-    - **User**: your InfluxDB Enterprise username _(if [authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization/))_
-    - **Password**: your InfluxDB Enterprise password _(if [authentication is enabled](/influxdb/v1.8/administration/authentication_and_authorization/))_
+    - **User**: your InfluxDB Enterprise username _(if [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/))_
+    - **Password**: your InfluxDB Enterprise password _(if [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/))_
     - **HTTP Method**: select **GET** or **POST** _(for differences between the two,
-      see the [query HTTP endpoint documentation](/influxdb/v1.8/tools/api/#query-http-endpoint))_
+      see the [query HTTP endpoint documentation](/enterprise_influxdb/v1.9/tools/api/#query-http-endpoint))_
 
 3. Provide a **[Min time interval](https://grafana.com/docs/grafana/latest/datasources/influxdb/#min-time-interval)**
    (default is 10s).
@@ -80,7 +80,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 With **Flux** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 
-1. Ensure [Flux is enabled](/influxdb/v1.8/flux/installation/) in InfluxDB Enterprise data nodes.
+1. Ensure [Flux is enabled](/enterprise_influxdb/v1.9/flux/installation/) in InfluxDB Enterprise data nodes.
 
 2. Under **Connection**, enter the following:
 
@@ -101,7 +101,7 @@ configure your InfluxDB connection:
       johndoe:mY5uP3rS3crE7pA5Sw0Rd
       ```
 
-      We recommend [enabling authentication](/influxdb/v1.8/administration/authentication_and_authorization/)
+      We recommend [enabling authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/)
       on all InfluxDB Enterprise clusters. If you choose to leave authentication disabled,
       leave this field blank.
 

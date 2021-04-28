@@ -61,7 +61,7 @@ To authenticate your InfluxDB connection, run the following command, replacing `
 curl -u username:password -XPOST "http://localhost:8086/..."
 ```
 
-For more detail on authentication, see [Authentication and authorization in InfluxDB](/influxdb/v1.8/administration/authentication_and_authorization/).
+For more detail on authentication, see [Authentication and authorization in InfluxDB](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/).
 
 ### Create, verify, and upload the LDAP configuration file
 
