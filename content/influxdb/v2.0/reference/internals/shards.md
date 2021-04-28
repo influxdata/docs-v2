@@ -48,7 +48,7 @@ distributed across multiple data nodes.
 {{% /note %}}
 
 ### Shard group duration
-The **shard group duration** specifies the time range for each shard group and determines how often to create a new shard group. 
+The **shard group duration** specifies the time range for each shard group and determines how often to create a new shard group.
 By default, InfluxDB sets the shard group duration according to
 the [retention period](/influxdb/v2.0/reference/glossary/#retention-period)
 of the bucket:
@@ -135,7 +135,7 @@ In buckets with an infinite retention period, shards remain on disk indefinitely
 #### InfluxDB only deletes cold shards
 InfluxDB only deletes **cold** shards.
 If backfilling data beyond a bucket's retention period, the backfilled data will
-remain on disk until one of the following occurs:
+remain on disk until the following occurs:
 
 1. The shard returns to a cold state.
 2. The retention enforcement service deletes the shard group.
