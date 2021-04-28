@@ -3,9 +3,7 @@ title: Hardware sizing guidelines
 Description: >
   Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise.
 menu:
-  enterprise_influxdb_1_9:
-    weight: 40
-    parent: Guides
+  enterprise_influxdb_1_9_ref
 ---
 
 Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise:
