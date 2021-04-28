@@ -2,7 +2,7 @@
 title: Use annotations in dashboards
 description: >
   Add annotations to your InfluxDB dashboards to provide useful, contextual information about single points in time.
-influxdb/cloud/tags: [labels]
+influxdb/cloud/tags: [labels, annotations]
 menu:
   influxdb_cloud:
     name: Use annotations
