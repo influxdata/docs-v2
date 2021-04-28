@@ -235,8 +235,8 @@ Added meta node 3 at cluster-meta-node-03:8091
 
 ### `backup`
 
-Creates a backup of a cluster's [metastore](/influxdb/v1.8/concepts/glossary/#metastore)
-and [shard](/influxdb/v1.8/concepts/glossary/#shard) data at that point in time
+Creates a backup of a cluster's [metastore](/enterprise_influxdb/v1.9/concepts/glossary/#metastore)
+and [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) data at that point in time
 and stores the copy in the specified directory.
 To back up only the cluster metastore, use the `-strategy` flag with the `only-meta` option.
 Backups are incremental by default; they create a copy of the metastore and shard
@@ -267,7 +267,7 @@ Perform a [full backup](/enterprise_influxdb/v1.9/administration/backup-and-rest
 
 ###### [ `-rp <rp_name>` ]
 
-Name of the single [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) to back up (requires the `-db` flag).
+Name of the single [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to back up (requires the `-db` flag).
 
 ###### [ `-shard <shard_ID>` ]
 
@@ -338,7 +338,7 @@ Backed up to backup_dir in 51.388233ms, transferred 333793 bytes
 
 ### `copy-shard`
 
-Copies a [shard](/influxdb/v1.8/concepts/glossary/#shard) from a source data node to a destination data node.
+Copies a [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) from a source data node to a destination data node.
 
 #### Syntax
 
@@ -362,7 +362,7 @@ Copied shard 22 from cluster-data-node-01:8088 to cluster-data-node-02:8088
 
 ### `copy-shard-status`
 
-Shows all in-progress [copy shard](#copy-shard) operations, including the shard's source node, destination node, database, [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp), shard ID, total size, current size, and the operation's start time.
+Shows all in-progress [copy shard](#copy-shard) operations, including the shard's source node, destination node, database, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp), shard ID, total size, current size, and the operation's start time.
 
 #### Syntax
 
@@ -844,11 +844,11 @@ Name of the new database to restore to (must specify with `-db`).
 
 ###### [ `-newrf <newrf_integer>` ]
 
-Integer of the new [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) to restore to (this is capped to the number of data nodes in the cluster).
+Integer of the new [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) to restore to (this is capped to the number of data nodes in the cluster).
 
 ###### [ `-newrp <newrp_name>` ]
 
-Name of the new [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) to restore to (must specify with `-rp`).
+Name of the new [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to restore to (must specify with `-rp`).
 
 ###### [ `-rp <rp_name>` ]
 
@@ -856,7 +856,7 @@ Name of the single retention policy to restore.
 
 ###### [ `-shard <shard_ID>` ]
 
-Identifier of the [shard](/influxdb/v1.8/concepts/glossary/#shard) to restore.
+Identifier of the [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) to restore.
 
 Resources: [Backing up and restoring in InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/)
 
@@ -942,7 +942,7 @@ cluster-node-03:8091	1.3.x-c1.3.x
 
 ### `show-shards`
 
-Outputs details about existing [shards](/influxdb/v1.8/concepts/glossary/#shard) of the cluster, including shard ID, database, [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp), desired replicas, [shard group](/influxdb/v1.8/concepts/glossary/#shard-group), starting timestamp, ending timestamp, expiration timestamp, and [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) owners.
+Outputs details about existing [shards](/enterprise_influxdb/v1.9/concepts/glossary/#shard) of the cluster, including shard ID, database, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp), desired replicas, [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group), starting timestamp, ending timestamp, expiration timestamp, and [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) owners.
 
 #### Syntax
 
@@ -1163,7 +1163,7 @@ token: tokens can only be created when using bearer authentication
 
 ### `truncate-shards`
 
-Truncates hot [shards](/influxdb/v1.8/concepts/glossary/#shard), that is, shards that cover the time range that includes the current time ([`now()`](/influxdb/v1.8/concepts/glossary/#now)).
+Truncates hot [shards](/enterprise_influxdb/v1.9/concepts/glossary/#shard), that is, shards that cover the time range that includes the current time ([`now()`](/enterprise_influxdb/v1.9/concepts/glossary/#now)).
 The `truncate-shards` command creates a new shard and the system writes all new points to that shard.
 
 #### Syntax
@@ -1178,9 +1178,9 @@ Optional arguments are in brackets.
 
 ###### [ `-delay <duration>` ]
 
-Determines when to truncate shards after [`now()`](/influxdb/v1.8/concepts/glossary/#now).
+Determines when to truncate shards after [`now()`](/enterprise_influxdb/v1.9/concepts/glossary/#now).
 By default, the tool sets the delay to one minute.
-The `duration` is an integer followed by a [duration unit](/influxdb/v1.8/query_language/spec/#durations).
+The `duration` is an integer followed by a [duration unit](/enterprise_influxdb/v1.9/query_language/spec/#durations).
 
 Resources: [Cluster rebalancing](/enterprise_influxdb/v1.9/guides/rebalance/)
 
@@ -1227,4 +1227,4 @@ ID  Database             Retention Policy  Desired Replicas  Shard Group  Start 
 Use the `influx` command line interface (CLI) to write data to your cluster, query data interactively, and view query output in different formats.
 The `influx` CLI is available on all [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node).
 
-See [InfluxDB command line interface (CLI/shell)](/influxdb/v1.8/tools/shell/) in the InfluxDB OSS documentation for details on using the `influx` command line interface utility.
+See [InfluxDB command line interface (CLI/shell)](/enterprise_influxdb/v1.9/tools/shell/) in the InfluxDB OSS documentation for details on using the `influx` command line interface utility.

@@ -20,7 +20,7 @@ InfluxDB Enterprise clusters require a license. To use a license key, all nodes 
 
 Nodes attempt to download a new license file for the given key every four hours. If a node cannot connect to the server and retrieve a new license file, the node uses the existing license file. After a license expires, nodes have the following grace periods:
 
-- If [InfluxDB daemon (`influxd`)](/influxdb/v1.8/tools/influxd#sidebar) starts and fails to validate the license, the node has a 4-hour grace period.
+- If [InfluxDB daemon (`influxd`)](/enterprise_influxdb/v1.9/tools/influxd#sidebar) starts and fails to validate the license, the node has a 4-hour grace period.
 - If `influxd` starts and validates the license, and then a later license check fails, the node has a 14-day grace period.
 
 ### Frequently overlooked requirements

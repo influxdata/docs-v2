@@ -15,11 +15,11 @@ Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user acce
 
 > **Note:** InfluxDB OSS controls access at the database level only.
 
-You must have [admin permissions](/influxdb/v1.8/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
+You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
 
 ## Set up fine-grained authorization
 
-1. [Enable authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication) in your InfluxDB configuration file.
+1. [Enable authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication) in your InfluxDB configuration file.
 
 2. Create users through the InfluxDB query API.
 
@@ -27,7 +27,7 @@ You must have [admin permissions](/influxdb/v1.8/administration/authentication_a
     CREATE USER username WITH PASSWORD 'password'
     ```
 
-    For more information, see [User management commands](/influxdb/v1.8/administration/authentication_and_authorization/#user-management-commands).
+    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-management-commands).
 
 3. Ensure that you can access the **meta node** API (port 8091 by default).
 
@@ -585,7 +585,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   }'
 ```
 
-Grants for specific series also apply to [meta queries](/influxdb/v1.8/query_language/schema_exploration).
+Grants for specific series also apply to [meta queries](/enterprise_influxdb/v1.9/query_language/schema_exploration).
 Results from meta queries are restricted based on series-level permissions.
 For example, `SHOW TAG VALUES` only returns tag values that the user is authorized to see.
 
