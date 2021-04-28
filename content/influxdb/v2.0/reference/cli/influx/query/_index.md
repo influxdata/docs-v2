@@ -45,7 +45,6 @@ drop columns such as `_start` and `_stop` to optimize the download file size.
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     | `INFLUX_ORG`         |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     | `INFLUX_ORG_ID`      |
-| `-p` | `--profilers`     | Flux query profilers to enable (comma-separated)                      | string     |                      |
 | `-r` | `--raw`           | Output raw query results (annotated CSV)                              |            |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
 | `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
@@ -57,7 +56,6 @@ drop columns such as `_start` and `_stop` to optimize the download file size.
 - [Query InfluxDB with a Flux string](#query-influxdb-with-a-flux-string)
 - [Query InfluxDB using a Flux file](#query-influxdb-with-a-flux-file)
 - [Query InfluxDB and return annotated CSV](#query-influxdb-and-return-annotated-csv)
-- [Query InfluxDB and append query profile data to results](#query-influxdb-and-append-query-profile-data-to-results)
 
 ##### Query InfluxDB with a Flux string
 ```sh
@@ -72,13 +70,4 @@ influx query --file /path/to/example-query.flux
 ##### Query InfluxDB and return annotated CSV
 ```sh
 influx query 'from(bucket:"example-bucket") |> range(start:-1m)' --raw
-```
-
-##### Query InfluxDB and append query profile data to results
-_For more information about profilers, see [Flux profilers](/influxdb/v2.0/reference/flux/stdlib/profiler/#available-profilers)._
-
-```sh
-influx query \
-  --profilers operator,query \
-  'from(bucket:"example-bucket") |> range(start:-1m)'
 ```

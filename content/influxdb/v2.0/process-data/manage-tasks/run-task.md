@@ -10,8 +10,7 @@ menu:
 weight: 203
 related:
   - /influxdb/v2.0/reference/cli/influx/task/run
-  - /influxdb/v2.0/reference/cli/influx/task/run/retry
-  - /influxdb/v2.0/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.0/reference/cli/influx/task/retry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,
@@ -33,8 +32,6 @@ Use the `influx task run retry` command to run a task.
 To run a task from the `influx` CLI, the task must have already run at least once.
 {{% /note %}}
 
-{{< cli/influx-creds-note >}}
-
 ```sh
 # List all tasks to find the ID of the task to run
 influx task list
@@ -44,23 +41,4 @@ influx task run list --task-id=0000000000000000
 
 # Use the task ID and run ID to retry a run
 influx task run retry --task-id=0000000000000000 --run-id=0000000000000000
-```
-
-### Retry failed task runs
-Use the [`influx task retry-failed` command](/influxdb/v2.0/reference/cli/influx/task/retry-failed/)
-to retry failed task runs.
-
-```sh
-# Retry failed tasks for a specific task
-influx task retry-failed \
-  --id 0000000000000000
-
-# Print information about runs that will be retried
-influx task retry-failed \
-  --dry-run
-
-# Retry failed task runs that occurred in a specific time range
-influx task retry-failed \
-  --after 2021-01-01T00:00:00Z \
-  --before 2021-01-01T23:59:59Z
 ```

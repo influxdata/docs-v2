@@ -65,6 +65,7 @@ For more information about managing CLI configurations, see the
 | [task](/influxdb/v2.0/reference/cli/influx/task)             | Task management commands                             |
 | [telegrafs](/influxdb/v2.0/reference/cli/influx/telegrafs)   | Telegraf configuration management commands           |
 | [template](/influxdb/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
+| [transpile](/influxdb/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/influxdb/v2.0/reference/cli/influx/user)             | User management commands                             |
 | [v1](/influxdb/v2.0/reference/cli/influx/v1)                 | Work with the v1 compatibility API                   |
 | [version](/influxdb/v2.0/reference/cli/influx/version)       | Print the influx CLI version                         |

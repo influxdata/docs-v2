@@ -12,7 +12,7 @@ canonical: /influxdb/v2.0/query-data/optimize-queries/
 
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 
-- [Start queries with pushdown functions](#start-queries-with-pushdowns)
+- [Start queries with pushdown functions](#start-queries-with-pushdown-functions)
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
 - [Balance time range and data precision](#balance-time-range-and-data-precision)

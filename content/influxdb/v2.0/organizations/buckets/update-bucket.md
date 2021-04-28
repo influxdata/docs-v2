@@ -1,7 +1,7 @@
 ---
 title: Update a bucket
 seotitle: Update a bucket in InfluxDB
-description: Update a bucket's name or retention period in InfluxDB using the InfluxDB UI or the influx CLI.
+description: Update a bucket's name or retention policy in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   influxdb_2_0:
     name: Update a bucket
@@ -32,14 +32,14 @@ If you change a bucket name, be sure to update the bucket in the above places as
 3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
 4. Update the bucket's name and click **Change Bucket Name**.
 
-## Update a bucket's retention period in the InfluxDB UI
+## Update a bucket's retention policy in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
 2. Click **Settings** next to the bucket you want to update.
-3. In the window that appears, edit the bucket's retention period.
+3. In the window that appears, edit the bucket's retention policy.
 4. Click **Save Changes**.
 
 ## Update a bucket using the influx CLI
@@ -60,9 +60,9 @@ influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
 influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 ```
 
-##### Update a bucket's retention period
+##### Update a bucket's retention policy
 
-Valid retention period duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
+Valid retention policy duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
 
 ```sh
 # Syntax

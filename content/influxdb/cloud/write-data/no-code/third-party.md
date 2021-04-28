@@ -1,8 +1,10 @@
 ---
-title: Write data with no-code third-party technologies
+title: Third-party technologies
+seotitle: Write data with third-party technologies
+list_title: Write data with third-party technologies
 weight: 103
 description: >
-  Write data to InfluxDB using third-party technologies that do not require coding.
+  Write data to InfluxDB using third-party technologies.
 menu:
   influxdb_cloud:
     name: Third-party technologies

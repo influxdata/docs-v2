@@ -12,20 +12,4 @@ menu:
 weight: 103
 ---
 
-InfluxDB **authentication tokens** ensure secure interaction between users and data.
-A token belongs to an organization and identifies InfluxDB permissions within the organization.
-
-Learn how to create, view, update, or delete an authentication token.
-
-## Authentication token types
-
-- [All-Access token](#all-access-token)
-- [Read/Write token](#readwrite-token)
-
-#### All-Access token
-Grants full read and write access to all resources in an organization.
-
-#### Read/Write token
-Grants read access, write access, or both to specific buckets in an organization.
-
-{{< children hlevel="h2" >}}
+{{< duplicate-oss >}}

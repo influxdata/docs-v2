@@ -15,14 +15,12 @@ blockquote,
 }
 
 blockquote {
-  padding: 1rem 1rem 1rem 1.25rem;
   border-color: rgba($article-text, .25);
   p, li {
     font-size: 1.15rem;
     font-style: italic;
     color: rgba($article-text, .5);
   }
-  *:last-child {margin-bottom: 0;}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

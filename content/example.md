@@ -93,7 +93,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 #### Here's a title for this codeblock
-{{< code-tabs-wrapper >}}
+{{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [Flux](#)
 [InfluxQL](#)
@@ -115,7 +115,7 @@ FROM "telegraf"."autogen"."mem"
 WHERE time > now() - 15m
 ```
 {{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /code-tabs-wrapper %}}
 
 {{% enterprise %}}
 ### h3 This is a header3

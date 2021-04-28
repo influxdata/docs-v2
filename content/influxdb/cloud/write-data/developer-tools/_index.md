@@ -1,10 +1,10 @@
 ---
-title: Write data with developer tools
+title: Developer tools
 seotitle: Write data to InfluxDB with developer tools
 list_title: Use developer tools
 weight: 102
 description: >
-  Use developer tools such as the InfluxDB API and `influx` CLI to write data to InfluxDB.
+  Write data to InfluxDB with developer tools.
 menu:
   influxdb_cloud:
     name: Developer tools

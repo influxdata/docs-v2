@@ -1,7 +1,7 @@
 ---
 title: Update a bucket
 seotitle: Update a bucket in InfluxDB
-description: Update a bucket's name or retention period in InfluxDB using the InfluxDB UI or the influx CLI.
+description: Update a bucket's name or retention policy in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
   influxdb_cloud:
     name: Update a bucket
@@ -32,20 +32,20 @@ If you change a bucket name, be sure to update the bucket in the above places as
 3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
 4. Update the bucket's name and click **Change Bucket Name**.
 
-## Update a bucket's retention period in the InfluxDB UI
+## Update a bucket's retention policy in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
-
+    
 2. Click **Settings** next to the bucket you want to update.
 3. In the window that appears, under **Delete data**, select a retention period:
 
     - **Never**: data in the bucket is retained indefinitely.
     - **Older Than**: select a predefined retention period from the dropdown menu.
-
+    
     {{% note %}}
-Use the [`influx bucket update` command](#update-a-buckets-retention-period) to set a custom retention period.
+Use the [`influx bucket update` command](#update-a-buckets-retention-policy) to set a custom retention policy.
     {{% /note %}}
 5. Click **Save Changes**.
 
@@ -67,9 +67,9 @@ influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
 influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
 ```
 
-##### Update a bucket's retention period
+##### Update a bucket's retention policy
 
-Valid retention period duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
+Valid retention policy duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
 
 ```sh
 # Syntax

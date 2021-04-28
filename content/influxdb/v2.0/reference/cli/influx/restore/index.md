@@ -10,7 +10,6 @@ alias:
   - /influxdb/v2.0/reference/cli/influxd/restore/
 related:
   - /influxdb/v2.0/backup-restore/restore/
-  - /influxdb/v2.0/reference/cli/influx/backup/
   - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
@@ -25,14 +24,6 @@ If the restore process fails, InfluxDB preserves the data in the temporary locat
 
 _For information about recovering from a failed restore process, see
 [Restore data](/influxdb/v2.0/backup-restore/restore/#recover-from-a-failed-restore)._
-
-{{% note %}}
-#### Cannot restore to existing buckets
-The `influx restore` command cannot restore data to existing buckets.
-Use the `--new-bucket` flag to create a bucket with a new name and restore data into it.
-To restore data and retain bucket names, [delete existing buckets](/influxdb/v2.0/organizations/buckets/delete-bucket/)
-and then begin the restore process.
-{{% /note %}}
 
 ## Usage
 
@@ -65,30 +56,25 @@ influx restore [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Restore backup data](#restore-backup-data)
-- [Restore backup data for a specific bucket into a new bucket](#restore-backup-data-for-a-specific-bucket-into-a-new-bucket)
 - [Restore and replace all data](#restore-and-replace-all-data)
+- [Restore backup data to an existing bucket](#restore-backup-data-to-an-existing-bucket)
+- [Create a bucket and restore data to it](#create-a-bucket-and-restore-data-to-it)
 
-##### Restore backup data
+##### Restore and replace all data
 ```sh
-influx restore \
-  --input /path/to/backup/dir/
+influx restore --full --input /path/to/backup/dir/
 ```
 
-##### Restore backup data for a specific bucket into a new bucket
+##### Restore backup data to an existing bucket
 ```sh
 influx restore \
   --bucket example-bucket \
-  --new-bucket new-example-bucket \
   --input /path/to/backup/dir/
 ```
 
-##### Restore and replace all data
-{{% note %}}
-`influx restore --full` restores all time series data _and_ InfluxDB key-value
-data such as tokens, dashboards, users, etc.
-{{% /note %}}
-
+##### Create a bucket and restore data to it
 ```sh
-influx restore --full --input /path/to/backup/dir/
+influx restore \
+  --new-bucket new-example-bucket \
+  --input /path/to/backup/dir/
 ```

@@ -22,7 +22,6 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
-[Windows](#)
 [Docker](#)
 [Kubernetes](#)
 {{% /tabs %}}
@@ -47,7 +46,7 @@ brew install influxdb
 
 You can also download the InfluxDB v2.0 binaries for macOS directly:
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
 ##### (Optional) Verify the authenticity of downloaded binary
 
@@ -65,13 +64,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-darwin-amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-darwin-amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb2-2.0.5-darwin-amd64.tar.gz.asc influxdb2-2.0.5-darwin-amd64.tar.gz
+    gpg --verify influxdb2-2.0.4-darwin-amd64.tar.gz.asc influxdb2-2.0.4-darwin-amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -88,7 +87,7 @@ or run the following command in a macOS command prompt application such
 
 ```sh
 # Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-2.0.5-darwin-amd64.tar.gz
+tar zxvf ~/Downloads/influxdb2-2.0.4-darwin-amd64.tar.gz
 ```
 
 ##### (Optional) Place the binaries in your $PATH
@@ -98,7 +97,7 @@ prefix the executables with `./` to run then in place.
 
 ```sh
 # (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-2.0.5-darwin-amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.4-darwin-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -167,8 +166,8 @@ influxd --reporting-disabled
 
 Download InfluxDB v2.0 for Linux.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-linux-amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-linux-arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
 
 ### (Optional) Verify the authenticity of downloaded binary
 
@@ -186,13 +185,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-linux-amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb2-2.0.5-linux-amd64.tar.gz.asc influxdb2-2.0.5-linux-amd64.tar.gz
+    gpg --verify influxdb2-2.0.4-linux-amd64.tar.gz.asc influxdb2-2.0.4-linux-amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -209,10 +208,10 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvzf path/to/influxdb2-2.0.5-linux-amd64.tar.gz
+tar xvzf path/to/influxdb2-2.0.4-linux-amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-2.0.5-linux-amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-2.0.4-linux-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -317,80 +316,6 @@ influxd --reporting-disabled
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
 
-<!------------------------------- BEGIN Windows ------------------------------->
-{{% tab-content %}}
-{{% warn %}}
-### Experimental Windows support
-InfluxDB 2.0 on Windows is currently considered experimental.
-If you experience issues, please [submit an issue](https://github.com/influxdata/influxdb/issues/new/choose)
-to the InfluxDB Github repository.
-
-##### System requirements
-- Windows 10
-- 64-bit AMD architecture
-- [Powershell](https://docs.microsoft.com/powershell/) or
-  [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/)
-
-##### Command line examples
-Use **Powershell** or **WSL** to execute `influx` and `influxd` commands.
-The command line examples in this documentation use `influx` and `influxd` as if
-installed on the system `PATH`.
-If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
-in the provided examples with `./influx` and `./influxd` respectively.
-{{% /warn %}}
-
-### Download and install InfluxDB v2.0
-Download InfluxDB v2.0 for Windows.
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.5-windows-amd64.tar.gz" download >InfluxDB v2.0 (Windows)</a>
-
-Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
-
-### Networking ports
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
-
-### Start InfluxDB
-In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and start
-InfluxDB by running the `influxd` daemon:
-
-```powershell
-> cd -Path C:\Program Files\InfluxData\influxdb
-> ./influxd
-```
-
-_See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
-available flags and options._
-
-{{% note %}}
-#### Grant network access
-When starting InfluxDB for the first time, **Windows Defender** will appear with
-the following message:
-
-> Windows Defender Firewall has blocked some features of this app.
-
-1. Select **Private networks, such as my home or work network**.
-2. Click **Allow access**.
-{{% /note %}}
-
-{{% note %}}
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting `influxd`.
-
-```bash
-./influxd --reporting-disabled
-```
-{{% /note %}}
-
-{{% /tab-content %}}
-<!-------------------------------- END Windows -------------------------------->
-
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
 ### Download and run InfluxDB v2.0
@@ -400,7 +325,7 @@ Expose port `8086`, which InfluxDB uses for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ```sh
-docker run --name influxdb -p 8086:8086 influxdb:2.0.5
+docker run --name influxdb -p 8086:8086 influxdb:2.0.4
 ```
 _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -420,7 +345,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
        --name influxdb \
        -p 8086:8086 \
        --volume $PWD:/root/.influxdbv2 \
-       influxdb:2.0.5
+       influxdb:2.0.4
    ```
 
 ### Configure InfluxDB with Docker
@@ -433,7 +358,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
     ```sh
     docker run \
-      --rm influxdb:2.0.5 \
+      --rm influxdb:2.0.4 \
       influxd print-config > config.yml
     ```
 
@@ -444,7 +369,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
     ```sh
     docker run -p 8086:8086 \
       -v $PWD/config.yml:/etc/influxdb2/config.yml \
-      influxdb:2.0.5
+      influxdb:2.0.4
     ```
 
 (Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.0/reference/config-options/).)
@@ -468,7 +393,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 `--reporting-disabled` flag when starting the InfluxDB container.
 
 ```sh
-docker run -p 8086:8086 influxdb:2.0.5 --reporting-disabled
+docker run -p 8086:8086 influxdb:2.0.4 --reporting-disabled
 ```
 {{% /note %}}
 
@@ -542,11 +467,11 @@ The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
 
 {{% note %}}
-#### Operator token permissions
-The **Operator token** created in the InfluxDB setup process has
+#### Admin token permissions
+The **Admin token** created in the InfluxDB setup process has
 **full read and write access to all organizations** in the database.
 To prevent accidental interactions across organizations, we recommend
-[creating an All-Access token](/influxdb/v2.0/security/tokens/create-token/)
+[creating an All Access token](/influxdb/v2.0/security/tokens/create-token/)
 for each organization and using those to manage InfluxDB.
 {{% /note %}}
 
@@ -581,13 +506,13 @@ If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influx
 1. In a terminal, run the following command:
 
     ```sh
-    # Set up a configuration profile
-    influx config create -n default \
-      -u http://localhost:8086 \
-      -o example-org \
-      -t mySuP3rS3cr3tT0keN \
-      -a
-    ```
+      # Set up a configuration profile
+      influx config create -n default \
+        -u http://localhost:8086 \
+        -o example-org \
+        -t mySuP3rS3cr3tT0keN \
+        -a
+      ```
     This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance. For more detail, see [influx config](/influxdb/v2.0/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.0/reference/cli/influx/).
