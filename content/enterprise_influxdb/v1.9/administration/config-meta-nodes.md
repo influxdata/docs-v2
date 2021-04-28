@@ -228,7 +228,7 @@ The default duration of the leases that data nodes acquire from the meta nodes.
 Leases automatically expire after the `lease-duration` is met.
 
 Leases ensure that only one data node is running something at a given time.
-For example, [continuous queries](/influxdb/v1.8/concepts/glossary/#continuous-query-cq)
+For example, [continuous queries](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq)
 (CQs) use a lease so that all data nodes aren't running the same CQs at once.
 
 For more details about `lease-duration` and its impact on continuous queries, see
