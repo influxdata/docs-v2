@@ -33,7 +33,7 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 3. Click **Annotations**. The **Show Annotations** option is selected by default.
 4. Select the **Enable 1-Click Annotations** option, and then in any dashboard cell, click the point in time to add the annotation.
   {{% note %}}
-**Tip:** To move the annotation outside of the selected graph time range, you must first create the annotation, and then [edit the annotation](#edit-an-annotation) to update the timestamp as needed.
+**Tip:** To move the annotation outside of the selected graph time range, first create the annotation, and then [edit the annotation](#edit-an-annotation) to update the timestamp as needed.
   {{% /note %}}
 5. On the **Add Annotation** page:
 
