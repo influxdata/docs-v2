@@ -1,12 +1,12 @@
 ---
-title: Fine-grained authorization in InfluxDB Enterprise
+title: Use fine-grained authorization in InfluxDB Enterprise
 description: >
   Fine-grained authorization (FGA) in InfluxDB Enterprise controls user access at the database, measurement, and series levels.
 alias:
   -/docs/v1.5/administration/fga
 menu:
   enterprise_influxdb_1_9:
-    name: Fine-grained authorization
+    name: Use fine-grained authorization
     weight: 10
     parent: Guides
 ---
@@ -52,7 +52,7 @@ You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authe
 {{% note %}}
 #### Notes about examples
 The examples below use `curl`, a command line tool for transferring data, to send
-HTTP requests to the Meta API, and `jq`, a command line JSON processor,
+HTTP requests to the Meta API, and [`jq`](https://stedolan.github.io/jq/), a command line JSON processor,
 to make the JSON output easier to read.
 Alternatives for each are available, but are not covered in this documentation.
 
