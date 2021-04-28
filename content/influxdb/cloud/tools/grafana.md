@@ -90,10 +90,10 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
 
     ```sh
     influx config create \
+      --config-name example-config-name \
       --host-url https://cloud2.influxdata.com \
       --org example-org \
-      --token My5uP3rSeCr37t0k3n \
-      --name example-config-name
+      --token My5uP3rSeCr37t0k3n
     ```
 
     For more information about `influx` CLI configurations,

@@ -1,10 +1,8 @@
 ---
-title: No-code solutions
-seotitle: Write data to InfluxDB without coding
-list_title: Write data to InfluxDB without coding
+title: Write data to InfluxDB without coding
 weight: 101
 description: >
-  Write data to InfluxDB without writing code.
+  Use existing tools to write data to InfluxDB without writing code.
 aliases:
   - /influxdb/cloud/collect-data/advanced-telegraf
   - /influxdb/cloud/collect-data/use-telegraf
