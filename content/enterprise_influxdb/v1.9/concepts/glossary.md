@@ -4,7 +4,7 @@ description: Terms related to InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/concepts/glossary/
 menu:
-  enterprise_influxdb_1_9_ref:
+  enterprise_influxdb_1_9:
     weight: 20
     parent: Concepts
 ---
