@@ -7,7 +7,7 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Downloads
-    weight: 0
+    weight: 1
     parent: Introduction
 ---
 
