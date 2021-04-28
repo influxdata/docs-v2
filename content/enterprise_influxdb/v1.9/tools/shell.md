@@ -5,7 +5,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Using influx
     weight: 10
-    parent: Guides
+    parent: Tools
 ---
 
 InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
