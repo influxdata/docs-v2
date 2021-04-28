@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.5 General Availability [2021-04-??]
+## v2.0.5 General Availability [2021-04-27]
 
 ### Windows Support
 This release includes our initial Windows preview build.
@@ -66,7 +66,6 @@ The prefix used for Prometheus metrics from the query controller has changed fro
 - Replace unique resource IDs (UI assets, backup shards) with slugs to reduce
   cardinality of telemetry data.
 - Standardize HTTP server error log output.
-- Add the properties of a static legend for line graphs and band plots.
 - Enable InfluxDB user interface features:
   - [Band visualization type](/influxdb/v2.0/visualize-data/visualization-types/band/)
   - [Mosiac visualization type](/influxdb/v2.0/visualize-data/visualization-types/mosaic/)
