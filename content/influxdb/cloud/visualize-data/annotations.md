@@ -12,14 +12,16 @@ weight: 104
 
 Add annotations to your dashboards to provide useful, contextual information about single points in time. After an annotation is created, edit the annotation by updating the text or timestamp, or delete the annotation.
 
-{{% note %}}
-Annotations may be useful to highlight operations or anomalies for your team to reference.
-{{% /note %}}
-
 - [Create an annotation](#create-an-annotation)
 - [Edit an annotation](#edit-an-annotation)
 - [View or hide annotations](#view-or-hide-annotations)
 - [Delete an annotation](#delete-an-annotation)
+
+{{% note %}}
+Annotations may be useful to highlight operations or anomalies for your team to reference.
+{{% /note %}}
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5NEplCesNAc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Create an annotation
 
