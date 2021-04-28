@@ -14,7 +14,7 @@ Nodes in an InfluxDB Enterprise cluster may need to be replaced at some point du
 This guide outlines processes for replacing both meta nodes and data nodes in an InfluxDB Enterprise cluster.
 
 ## Concepts
-Meta nodes manage and monitor both the uptime of nodes in the cluster as well as distribution of [shards](/influxdb/v1.8/concepts/glossary/#shard) among nodes in the cluster.
+Meta nodes manage and monitor both the uptime of nodes in the cluster as well as distribution of [shards](/enterprise_influxdb/v1.9/concepts/glossary/#shard) among nodes in the cluster.
 They hold information about which data nodes own which shards; information on which the
 [anti-entropy](/enterprise_influxdb/v1.9/administration/anti-entropy/) (AE) process depends.
 

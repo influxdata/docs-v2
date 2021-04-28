@@ -40,7 +40,7 @@ Use the `backup` and `restore` utilities to back up and restore between `influxd
 
 ### Backup utility
 
-A backup creates a copy of the [metastore](/influxdb/v1.8/concepts/glossary/#metastore) and [shard](/influxdb/v1.8/concepts/glossary/#shard) data at that point in time and stores the copy in the specified directory.
+A backup creates a copy of the [metastore](/enterprise_influxdb/v1.9/concepts/glossary/#metastore) and [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) data at that point in time and stores the copy in the specified directory.
 
 Or, back up **only the cluster metastore** using the `-strategy only-meta` backup option. For more information, see [perform a metastore only backup](#perform-a-metastore-only-backup).
 
@@ -206,7 +206,7 @@ Backed up to backup_dir in 51.388233ms, transferred 481 bytes
 ##### Restore a backup
 
 Restore a backup to an existing cluster or a new cluster.
-By default, a restore writes to databases using the backed-up data's [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor).
+By default, a restore writes to databases using the backed-up data's [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor).
 An alternate replication factor can be specified with the `-newrf` flag when restoring a single database.
 Restore supports both `-full` backups and incremental backups; the syntax for
 a restore differs depending on the backup type.
@@ -214,12 +214,12 @@ a restore differs depending on the backup type.
 ##### Restores from an existing cluster to a new cluster
 
 Restores from an existing cluster to a new cluster restore the existing cluster's
-[users](/influxdb/v1.8/concepts/glossary/#user), roles,
-[databases](/influxdb/v1.8/concepts/glossary/#database), and
-[continuous queries](/influxdb/v1.8/concepts/glossary/#continuous-query-cq) to
+[users](/enterprise_influxdb/v1.9/concepts/glossary/#user), roles,
+[databases](/enterprise_influxdb/v1.9/concepts/glossary/#database), and
+[continuous queries](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq) to
 the new cluster.
 
-They do not restore Kapacitor [subscriptions](/influxdb/v1.8/concepts/glossary/#subscription).
+They do not restore Kapacitor [subscriptions](/enterprise_influxdb/v1.9/concepts/glossary/#subscription).
 In addition, restores to a new cluster drop any data in the new cluster's
 `_internal` database and begin writing to that database anew.
 The restore does not write the existing cluster's `_internal` database to
@@ -384,7 +384,7 @@ Copying data to <hostname>:8088... Copying data to <hostname>:8088... Done. Rest
 Restored from my-incremental-backup/ in 56.623615ms, transferred 588800 bytes
 ```
 
-Then, in the [`influx` client](/influxdb/v1.8/tools/shell/), use an [`INTO` query](/influxdb/v1.8/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
+Then, in the [`influx` client](/enterprise_influxdb/v1.9/tools/shell/), use an [`INTO` query](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
 
 ```bash
 $ influx
