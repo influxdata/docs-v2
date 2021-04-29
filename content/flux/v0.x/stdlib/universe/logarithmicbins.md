@@ -11,7 +11,6 @@ menu:
     name: logarithmicBins
     parent: universe
 weight: 102
-draft: true
 ---
 
 The `logarithmicBins()` function generates a list of exponentially separated floats.

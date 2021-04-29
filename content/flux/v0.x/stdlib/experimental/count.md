@@ -36,11 +36,11 @@ experimental.count()
 `experimental.count()` returns `0` for empty tables.
 To keep empty tables in your data, set the following parameters for the following functions:
 
-| Function                                                                                              | Parameter           |
-|:--------                                                                                              |:---------           |
-| [filter()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)                              | `onEmpty: "keep"`   |
-| [window()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/)                              | `createEmpty: true` |
-| [aggregateWindow()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/) | `createEmpty: true` |
+| Function                                                         | Parameter           |
+|:--------                                                         |:---------           |
+| [filter()](/flux/v0.x/stdlib/universe/filter/)                   | `onEmpty: "keep"`   |
+| [window()](/flux/v0.x/stdlib/universe/window/)                   | `createEmpty: true` |
+| [aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
 ## Examples

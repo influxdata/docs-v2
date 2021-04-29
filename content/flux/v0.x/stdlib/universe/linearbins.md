@@ -11,7 +11,6 @@ menu:
     name: linearBins
     parent: universe
 weight: 102
-draft: true
 ---
 
 The `linearBins()` function generates a list of linearly separated floats.

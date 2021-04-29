@@ -33,7 +33,7 @@ bigpanda.endpoint(
 
 ### url
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
-Default is the value of the [`bigpanda.defaultURL` option](/influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/#defaulturl).
+Default is the value of the [`bigpanda.defaultURL` option](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/#defaulturl).
 
 _**Data type:** String_
 

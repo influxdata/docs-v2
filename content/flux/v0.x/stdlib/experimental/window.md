@@ -40,7 +40,7 @@ window(
 
 {{% note %}}
 #### Calendar months and years
-`every`, `period`, and `offset` support all [valid duration units](/influxdb/v2.0/reference/flux/language/types/#duration-types),
+`every`, `period`, and `offset` support all [valid duration units](/flux/v0.x/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
