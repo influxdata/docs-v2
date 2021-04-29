@@ -11,9 +11,9 @@ weight: 101
 ## v2.0.6 General Availability [2021-04-29]
 
 ### Bug Fixes
-- Ensure query configuration written by `influxd upgrade `is valid.
-- Revert to nonzero defaults for `query-concurrency` and `query-queue-size`
-  configuration options to avoid validation failures when upgrading users.
+- Ensure query configuration written by `influxd upgrade` is valid.
+- Set `query-concurrency` and `query-queue-size` configuration option defaults
+  to `0` to avoid validation failures when upgrading users.
 - Correctly validate when `query-concurrency` is `0` and `query-queue-size` is
   greater than `0`.
 
