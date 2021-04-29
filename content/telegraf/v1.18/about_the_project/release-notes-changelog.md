@@ -10,6 +10,28 @@ menu:
     parent: About the project
 ---
 
+## v1.18.2 [2021-04-29]
+
+- Make JSON format compatible with nulls to ensure Telegraf successfully detects null values and returns an empty metric without error.
+- Update `common.shim` by changing `NewStreamParser` to accept larger inputs from scanner.
+### Input plugin updates
+
+- [APCUPSD Input](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/apcupsd/README.md) (`apcupsd`):
+   Resolve an 'ALARMDEL' bug in a forked repository. This fix ensures the plugin works when `no alarm` delay duration is set.
+- [NFS Client Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nfsclient) (`nfsclient`): Update to successfully collect metrics other than read and write.
+- [SNMP Input](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/snmp/README.md) (`snmp`): Update to log snmpv3 auth failures.
+- [VMware vSphere Input](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/vsphere/README.md) (`vsphere`): Add `MetricLookback` setting to handle reporting delays in vCenter 6.7 and later.
+- [OPC UA Client Input](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/opcua/README.md) (`opcua`): Fix error handling.
+
+### Output plugin updates
+
+-  [Sumo Logic Output](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/outputs/sumologic/README.md) (`sumologic`): Add support to [sanitize the metric name](https://github.com/influxdata/telegraf/tree/release-1.18/plugins/serializers/carbon2#metric-name-sanitization) in Carbon2 serializer.  
+
+### Processor plugin updates
+
+- [Converter Processor](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/processors/converter/README.md) (`converter`):
+   Add support for `float64` to support converting longer hexadecimal string values to a numeric type without losing in precision. Note, if a string number exceeds the size limit for `float64`, precison may be lost.
+
 ## v1.18.1 [2021-04-07]
 
 - Agent: Closes running outputs when agent reloads on SIGHUP.
