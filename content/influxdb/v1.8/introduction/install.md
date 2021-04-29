@@ -184,7 +184,7 @@ You can always run the desired version by specifying the full path:
 
 ```sh
 $ /usr/local/opt/influxdb/bin/influxd version
-InfluxDB 2.0.4 (git: none) build_date: 2021-04-01T17:55:08Z
+InfluxDB 2.0.5 (git: none) build_date: 2021-04-01T17:55:08Z
 $ /usr/local/opt/influxdb@1/bin/influxd version
 InfluxDB v1.8.4 (git: unknown unknown)
 ```
@@ -211,13 +211,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.3_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.5_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-1.8.3_linux_amd64.tar.gz.asc influxdb-1.8.3_linux_amd64.tar.gz
+    gpg --verify influxdb-1.8.5_linux_amd64.tar.gz.asc influxdb-1.8.5_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:

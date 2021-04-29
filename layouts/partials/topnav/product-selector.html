@@ -16,8 +16,11 @@
   {{ end }}
   <ul class="item-list products">
     {{ range sort .Site.Data.products "list_order" "desc" }}
+      {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
       {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
-      {{ if and $isCloud (eq .altname "InfluxDB OSS")}}
+      {{ if $isCurrentProduct }}
+        {{ $scratch.Set "link" "" }}
+      {{ else if and $isCloud (eq .altname "InfluxDB OSS")}}
         {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if gt (len $altOSSPage.Title) 0 }}
           {{ $scratch.Set "link" $altOSSPage.RelPermalink }}
@@ -31,7 +34,7 @@
       {{ $link := $scratch.Get "link" }}
       <li>
       <li {{ if eq .namespace "flux" }}class='flux'{{ end }}>
-        <a href='{{ $link }}' {{ if and (eq .namespace $product) (in .versions $currentVersion) }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
+        <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
       </li>
     {{ end }}
   </ul>

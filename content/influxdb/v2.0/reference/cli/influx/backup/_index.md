@@ -9,6 +9,7 @@ weight: 101
 influxdb/v2.0/tags: [backup]
 related:
   - /influxdb/v2.0/backup-restore/backup/
+  - /influxdb/v2.0/reference/cli/influx/restore/
   - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---

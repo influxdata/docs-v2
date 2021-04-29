@@ -74,7 +74,6 @@ Once your task is ready, see [Create a task](/influxdb/v2.0/process-data/manage-
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your
   task options long enough to account for late-data.
-- If running a task against a bucket with a finite retention policy, do not schedule
-  tasks to run too closely to the end of the retention policy.
-  Always provide a "cushion" for downsampling tasks to complete before the data
-  is dropped by the retention policy.
+- If running a task against a bucket with a finite retention period,
+  schedule tasks to run prior to the end of the retention period to let
+  downsampling tasks complete before data outside of the retention period is dropped.

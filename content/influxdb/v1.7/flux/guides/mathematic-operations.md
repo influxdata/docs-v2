@@ -176,7 +176,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentates](/influxdb/v1.7/flux/guides/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/v1.7/flux/guides/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

@@ -11,7 +11,7 @@ related:
   - /influxdb/v2.0/monitor-alert/checks/
 ---
 
-Send an alert email using a third party service, such as [SendGrid](https://sendgrid.com/), [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/), [Mailjet](https://www.mailjet.com/), or [Mailgun](https://www.mailgun.com/). To send an alert email, complete the following steps:
+Send an alert email using a third-party service, such as [SendGrid](https://sendgrid.com/), [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/), [Mailjet](https://www.mailjet.com/), or [Mailgun](https://www.mailgun.com/). To send an alert email, complete the following steps:
 
 1. [Create a check](/influxdb/v2.0/monitor-alert/checks/create/#create-a-check-in-the-influxdb-ui) to identify the data to monitor and the status to alert on.
 2. Set up your preferred email service (sign up, retrieve API credentials, and send test email):

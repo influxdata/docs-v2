@@ -37,14 +37,14 @@ influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
 
 **To manually output continuous queries:**
 
-1. Use the InfluxDB 1.x `influx` interactive shell to run `show continuous queries`:
+1. Use the **InfluxDB 1.x `influx` interactive shell** to run `SHOW CONTINUOUS QUERIES`:
 
     {{< keep-url >}}
     ```sh
     $ influx
-    Connected to http://localhost:8086 version 1.8.3
-    InfluxDB shell version: 1.8.3
-    > show continuous queries
+    Connected to http://localhost:8086 version 1.8.5
+    InfluxDB shell version: 1.8.5
+    > SHOW CONTINUOUS QUERIES
     ```
 
 2. Copy and save the displayed continuous queries.

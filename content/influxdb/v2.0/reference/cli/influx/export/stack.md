@@ -17,9 +17,9 @@ The `influx export stack` command exports all resources associated with a stack 
 All `metadata.name` fields remain the same.
 
 {{% note %}}
-To export resources as a template, you must use the **Admin token** created for
-the initial InfluxDB user or an **All Access token**.
-For information about creating an All Access token, see [Create an authentication token](/influxdb/v2.0/security/tokens/create-token/).
+To export resources as a template, you must use the **Operator token** created for
+the initial InfluxDB user or an **All-Access token**.
+For information about creating an All-Access token, see [Create an authentication token](/influxdb/v2.0/security/tokens/create-token/).
 {{% /note %}}
 
 ## Usage

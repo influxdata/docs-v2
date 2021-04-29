@@ -7,7 +7,7 @@ menu:
   influxdb_2_0_ref:
     name: System buckets
     parent: InfluxDB internals
-weight: 101
+weight: 103
 influxdb/v2.0/tags: [buckets]
 related:
   - /influxdb/v2.0/monitor-alert/

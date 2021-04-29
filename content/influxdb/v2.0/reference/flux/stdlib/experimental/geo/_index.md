@@ -164,7 +164,7 @@ Define a custom polygon region using a record containing the following propertie
 ```
 
 ## GIS geometry definitions
-Many functions in the Geo package manipulate data based on geographic information system (GIS) data.
+Many functions in the Geo package operate on data using geographic information system (GIS) data.
 Define GIS geometry using the following:
 
 - Any [region type](#region-definitions) _(typically [point](#point))_
