@@ -55,7 +55,7 @@ To view a summary of what's included in a template before applying the template,
 use the [`influx template` command](/influxdb/cloud/reference/cli/influx/template/).
 View a summary of a template stored in your local filesystem or from a URL.
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [From a file](#)
 [From a URL](#)
@@ -78,14 +78,14 @@ influx template -u <template-url>
 influx template -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 ## Validate a template
 To validate a template before you install it or troubleshoot a template, use
 the [`influx template validate` command](/influxdb/cloud/reference/cli/influx/template/validate/).
 Validate a template stored in your local filesystem or from a URL.
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [From a file](#)
 [From a URL](#)
@@ -108,7 +108,7 @@ influx template validate -u <template-url>
 influx template validate -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 ## Apply templates
 Use the [`influx apply` command](/influxdb/cloud/reference/cli/influx/apply/) to install templates

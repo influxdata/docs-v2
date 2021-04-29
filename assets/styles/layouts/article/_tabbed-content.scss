@@ -90,7 +90,7 @@
   margin: .75rem 0 3rem;
   width: 100%;
 
-  & > * {
+  & > :not(table, .fs-diagram) {
     width: 100%;
     margin-left: 0;
   }

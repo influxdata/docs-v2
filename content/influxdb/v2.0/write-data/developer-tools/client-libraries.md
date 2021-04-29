@@ -1,10 +1,8 @@
 ---
-title: Client libraries
-seotitle: Write data with client libraries
-list_title: Write data with client libraries
+title: Write data with client libraries
 weight: 204
 description: >
-  Write data to InfluxDB using client libraries.
+  Use client libraries to write data to InfluxDB.
 menu:
   influxdb_2_0:
     name: Client libraries
