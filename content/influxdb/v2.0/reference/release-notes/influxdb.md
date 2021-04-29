@@ -8,7 +8,24 @@ menu:
 weight: 101
 ---
 
+## v2.0.6 General Availability [2021-04-29]
+
+### Bug Fixes
+- Ensure query configuration written by `influxd upgrade `is valid.
+- Revert to nonzero defaults for `query-concurrency` and `query-queue-size`
+  configuration options to avoid validation failures when upgrading users.
+- Correctly validate when `query-concurrency` is `0` and `query-queue-size` is
+  greater than `0`.
+
 ## v2.0.5 General Availability [2021-04-27]
+
+{{% warn %}}
+InfluxDB v2.0.5 introduced a defect that prevents users from successfully upgrading
+from InfluxDB 1.x to 2.0 using the `influxd upgrade` command or Docker.
+To [automatically upgrade from 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/automatic-upgrade/)
+with the `influxd upgrade` command or [with Docker](/influxdb/v2.0/upgrade/v1-to-v2/docker/),
+use [InfluxDB v2.0.6](#v206-general-availability-2021-04-29).
+{{% /warn %}}
 
 ### Windows Support
 This release includes our initial Windows preview build.
