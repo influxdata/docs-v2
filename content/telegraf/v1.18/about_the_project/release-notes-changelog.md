@@ -14,6 +14,7 @@ menu:
 
 - Make JSON format compatible with nulls to ensure Telegraf successfully detects null values and returns an empty metric without error.
 - Update `common.shim` by changing `NewStreamParser` to accept larger inputs from scanner.
+
 ### Input plugin updates
 
 - [APCUPSD Input](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/apcupsd/README.md) (`apcupsd`):
