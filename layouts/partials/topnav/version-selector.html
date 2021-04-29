@@ -15,7 +15,7 @@
       {{ if gt (len $altVersionPage.Title) 0 }}
         {{ $scratch.Set "link" $altVersionPage.RelPermalink }}
       {{ else if eq . $currentVersion }}
-        {{ $scratch.Set "link" "#" }}
+        {{ $scratch.Set "link" "" }}
       {{ end }}
       {{ $link := $scratch.Get "link" }}
       <li>
