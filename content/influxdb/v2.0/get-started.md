@@ -419,7 +419,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
    docker run \
        --name influxdb \
        -p 8086:8086 \
-       --volume $PWD:/root/.influxdbv2 \
+       --volume $PWD:/var/lib/influxdb2 \
        influxdb:2.0.6
    ```
 
