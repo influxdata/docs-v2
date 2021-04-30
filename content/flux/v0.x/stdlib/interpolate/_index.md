@@ -9,6 +9,9 @@ menu:
   flux_0_x_ref:
     name: interpolate
     parent: Standard library
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/interpolate/
+  - /influxdb/cloud/reference/flux/stdlib/interpolate/
 weight: 11
 ---
 

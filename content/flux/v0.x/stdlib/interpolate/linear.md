@@ -8,6 +8,9 @@ menu:
     name: interpolate.linear
     parent: interpolate
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/interpolate/linear/
+  - /influxdb/cloud/reference/flux/stdlib/interpolate/linear/
 introduced: 0.87.0
 list_query_example: interpolate_linear
 ---
