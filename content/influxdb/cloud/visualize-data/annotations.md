@@ -21,7 +21,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 Annotations may be useful to highlight operations or anomalies for your team to reference.
 {{% /note %}}
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5NEplCesNAc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{< youtube 5NEplCesNAc >}}
 
 ## Create an annotation
 
