@@ -40,7 +40,7 @@ _**Data type:** Array of records_
 import "array"
 
 rows = [
-  {foo: "bar", baz: 21.2}
+  {foo: "bar", baz: 21.2},
   {foo: "bar", baz: 23.8}
 ]
 
