@@ -34,7 +34,7 @@ and get started!
 - Review key [concepts](/enterprise_influxdb/v1.9/concepts/)
 - [Get started](/enterprise_influxdb/v1.9/introduction/getting-started/)
 
-<!--- Monitor your cluster
+<!-- Monitor your cluster
 - Manage queries
 - Manage users
 - Explore and visualize your data
