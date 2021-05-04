@@ -57,7 +57,11 @@ setting in the meta node configuration file.
 
 #### User account
 
-The installation package creates an `influxdb` user used to run the influxdb meta service. The `influxdb` user also owns certain files needed to start the service. In some cases, local policies may prevent the local user account from being created and the service fails to start. Contact your systems administrator for assistance with this requirement.
+The installation package creates an `influxdb` user on the operating system.
+The `influxdb` user runs the InfluxDB meta service.
+The `influxdb` user also owns certain files needed to start the service.
+In some cases, local policies may prevent the local user account from being created and the service fails to start.
+Contact your systems administrator for assistance with this requirement.
 
 ## Meta node setup
 ### Step 1: Add appropriate DNS entries for each of your servers
@@ -66,22 +70,23 @@ Ensure that your servers' hostnames and IP addresses are added to your network's
 The addition of DNS entries and IP assignment is usually site and policy specific; contact your DNS administrator for assistance as necessary.
 Ultimately, use entries similar to the following (hostnames and domain IP addresses are representative).
 
-| Record Type |               Hostname                |                IP |
-|:------------|:-------------------------------------:|------------------:|
-| A           | ```enterprise-meta-01.mydomain.com``` | ```<Meta_1_IP>``` |
-| A           | ```enterprise-meta-02.mydomain.com``` | ```<Meta_2_IP>``` |
-| A           | ```enterprise-meta-03.mydomain.com``` | ```<Meta_3_IP>``` |
+| Record Type | Hostname                          |            IP |
+|:------------|:---------------------------------:|--------------:|
+| `A`         | `enterprise-meta-01.mydomain.com` | `<Meta_1_IP>` |
+| `A`         | `enterprise-meta-02.mydomain.com` | `<Meta_2_IP>` |
+| `A`         | `enterprise-meta-03.mydomain.com` | `<Meta_3_IP>` |
 
 
-> **Verification steps:**
->
+#### Step 1b: Verify DNS resolution
+
 Before proceeding with the installation, verify on each server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
-    ping -qc 1 enterprise-meta-01
-    ping -qc 1 enterprise-meta-02
-    ping -qc 1 enterprise-meta-03
->
+
+```
+ping -qc 1 enterprise-meta-01
+ping -qc 1 enterprise-meta-02
+ping -qc 1 enterprise-meta-03
+```
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -174,18 +179,18 @@ On systemd systems, enter:
 sudo systemctl start influxdb-meta
 ```
 
-> **Verification steps:**
->
+#### Step 2b: Verification steps
 Check to see that the process is running by entering:
->
-    ps aux | grep -v grep | grep influxdb-meta
->
+
+```
+ps aux | grep -v grep | grep influxdb-meta
+```
+
 You should see output similar to:
->
-    influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
 
-<br>
-
+```
+influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
+```
 
 > **Note:** It is possible to start the cluster with a single meta node but you
 must pass the `-single-server flag` when starting the single meta node.
@@ -196,11 +201,10 @@ production environments.
 
 From one and only one meta node, join all meta nodes including itself.
 In our example, from `enterprise-meta-01`, run:
+
 ```
 influxd-ctl add-meta enterprise-meta-01:8091
-
 influxd-ctl add-meta enterprise-meta-02:8091
-
 influxd-ctl add-meta enterprise-meta-03:8091
 ```
 
@@ -213,25 +217,28 @@ The expected output is:
 Added meta node x at enterprise-meta-0x:8091
 ```
 
-> **Verification steps:**
->
-Issue the following command on any meta node:
->
-    influxd-ctl show
->
-The expected output is:
->
-    Data Nodes
-    ==========
-    ID      TCP Address      Version
->
-    Meta Nodes
-    ==========
-    TCP Address               Version
-    enterprise-meta-01:8091   1.8.2-c1.8.2
-    enterprise-meta-02:8091   1.8.2-c1.8.2
-    enterprise-meta-03:8091   1.8.2-c1.8.2
+#### Step 3b: Verification steps
 
+Issue the following command on any meta node:
+
+```
+influxd-ctl show
+```
+
+The expected output is:
+
+```
+Data Nodes
+==========
+ID      TCP Address      Version
+
+Meta Nodes
+==========
+TCP Address               Version
+enterprise-meta-01:8091   1.8.2-c1.8.2
+enterprise-meta-02:8091   1.8.2-c1.8.2
+enterprise-meta-03:8091   1.8.2-c1.8.2
+```
 
 Note that your cluster must have at least three meta nodes.
 If you do not see your meta nodes in the output, please retry adding them to
