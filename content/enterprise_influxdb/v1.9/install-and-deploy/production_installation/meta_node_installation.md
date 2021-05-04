@@ -10,8 +10,8 @@ menu:
 ---
 
 InfluxDB Enterprise offers highly scalable clusters on your infrastructure
-and a management UI ([via Chronograf](/{{< latest "chronograf" >}}) for working with clusters.
-The Production Installation process is designed for users looking to
+and a management UI ([via Chronograf](/{{< latest "chronograf" >}})) for working with clusters.
+The production installation process is designed for users looking to
 deploy InfluxDB Enterprise in a production environment.
 The following steps will get you up and running with the first essential component of
 your InfluxDB Enterprise cluster: the meta nodes.
@@ -20,24 +20,26 @@ your InfluxDB Enterprise cluster: the meta nodes.
 
 The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
 <br>
-You **must** have a minimum of three meta nodes in a cluster.
-InfluxDB Enterprise clusters require at least three meta nodes and an __**odd number**__
-of meta nodes for high availability and redundancy.
+InfluxDB Enterprise clusters require an *odd number* of *at least three*
+meta nodes and for high availability and redundancy.
 InfluxData does not recommend having more than three meta nodes unless your servers
 or the communication between the servers have chronic reliability issues.
-<br>
-Note: Deploying multiple meta nodes on the same server is strongly discouraged since it creates a larger point of potential failure if that particular server is unresponsive.
-InfluxData recommends deploying meta nodes on relatively small footprint servers.
+In practice, this means you will almost use exactly three meta nodes.
+
+
+> **Note**: Deploying multiple meta nodes on the same server is strongly discouraged
+> since it creates a larger point of potential failure if that particular server is unresponsive.
+> InfluxData recommends deploying meta nodes on relatively small footprint servers.
 
 See the
-[Clustering Guide](/enterprise_influxdb/v1.9/concepts/clustering#optimal-server-counts)
+[Clustering guide](/enterprise_influxdb/v1.9/concepts/clustering#optimal-server-counts)
 for more on cluster architecture.
 
 ### Other requirements
 
 #### License key or file
 
-InfluxDB Enterprise requires a license key **OR** a license file to run.
+InfluxDB Enterprise requires a license key *or* a license file to run.
 Your license key is available at [InfluxPortal](https://portal.influxdata.com/licenses).
 Contact support at the email we provided at signup to receive a license file.
 License files are required only if the nodes in your cluster cannot reach
