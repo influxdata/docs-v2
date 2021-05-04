@@ -2,7 +2,7 @@
 title: Get started with InfluxDB Cloud
 description: Get started
 menu:
-  influxdb_2_0:
+  influxdb_cloud:
     name: Get started
 weight: 2
 influxdb/v2.0/tags: [get-started, install]
@@ -50,7 +50,6 @@ A list of measurements, fields, and tags for the Website Monitoring bucket appea
 Next, we'll make it easier to visualize the raw data by viewing it in a graph.
 
 1. By default, a visualization cell appears below your initial metric selector cell showing the mean `response_time` values on a graph:
-{{< img-hd src="/img/influxdb/gs_response_time_mean.png" alt="Mean response time graph" />}}
 2. Use the function dropdown menu to view different functions to apply to your data. For this response time data, the mean function is a good fit. <add link>
 3. Use the visualization type dropdown to view different visualization types available.
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
