@@ -907,13 +907,19 @@ Valid options are `auto`, `logfmt`, and `json`.
 A setting of `auto` will use a more a more user-friendly output format if the output terminal is a TTY, but the format is not as easily machine-readable.
 When the output is a non-TTY, `auto` will use `logfmt`.
 
+Environment variable: `INFLUXDB_LOGGING_FORMAT`
+
 #### `level = "info"`
 
 Determines which level of logs will be emitted.
 
+Environment variable: `INFLUXDB_LOGGING_LEVEL`
+
 #### `suppress-logo = false`
 
 Suppresses the logo output that is printed when the program is started.
+
+Environment variable: `INFLUXDB_LOGGING_SUPPRESS_LOGO`
 
 -----
 
