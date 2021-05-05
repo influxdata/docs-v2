@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Sign up
-weight: 2
+weight: 1
 influxdb/cloud/tags: [get-started, install]
 ---
 
