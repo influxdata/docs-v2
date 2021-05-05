@@ -2,7 +2,7 @@
 title: Flux Experimental InfluxDB package
 list_title: InfluxDB package
 description: >
-  The Flux experimental InfluxDB package provides ...
+  Flux experimental InfluxDB package provides tools for working with the InfluxDB API.
   Import the `experimental/influxdb` package.
 menu:
   influxdb_2_0_ref:
@@ -10,10 +10,10 @@ menu:
     identifier: InfluxDB-exp
     parent: Experimental
 weight: 301
-influxdb/v2.0/tags: [functions, json, package]
+influxdb/v2.0/tags: [functions, api, package]
 ---
 
-Flux experimental InfluxDB functions provide ...
+Flux experimental InfluxDB package provides tools for working with the InfluxDB API.
 Import the `experimental/influxdb` package:
 
 ```js

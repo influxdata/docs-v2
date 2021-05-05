@@ -9,7 +9,7 @@ menu:
     name: influxdb.api
     parent: InfluxDB-exp
 weight: 401
-influxdb/v2.0/tags: [functions, influxdb, api, package]
+influxdb/v2.0/tags: [functions, influxdb, api]
 ---
 
 The `influxdb.api()` function submits an HTTP request to the specified InfluxDB
