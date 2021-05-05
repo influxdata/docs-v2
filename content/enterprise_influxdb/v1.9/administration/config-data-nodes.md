@@ -1253,7 +1253,7 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
     > higher CPU load as new shard digest files are created.
     > The added load will drop off after shard digests are completed for existing shards. -->
 
-## Query controls
+## Flux query settings
 
 ### `[flux-controller]`
 
