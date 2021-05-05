@@ -20,8 +20,8 @@ your InfluxDB Enterprise cluster: the meta nodes.
 
 The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
 <br>
-InfluxDB Enterprise clusters require an *odd number* of *at least three*
-meta nodes and for high availability and redundancy.
+InfluxDB Enterprise clusters require an *odd number* of *at least three* meta nodes
+for high availability and redundancy.
 InfluxData does not recommend having more than three meta nodes unless your servers
 or the communication between the servers have chronic reliability issues.
 In practice, this means you will almost use exactly three meta nodes.
