@@ -29,6 +29,7 @@ menu:
   * [UDP [udp]](#udp-settings)
   * [Continuous queries [continuous-queries]](#continuous-queries-settings)
   * [TLS [tls]](#tls-settings)
+  * [Flux controller [flux-controller]](#flux-controller)
 
 ## Data node configuration settings
 
@@ -1251,3 +1252,14 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
     > If AE is left enabled while lowering your `max-fetch`, you will initially see
     > higher CPU load as new shard digest files are created.
     > The added load will drop off after shard digests are completed for existing shards. -->
+
+## Flux controller
+
+### `[flux-controller]`
+
+#### `query-concurrency = 0`
+#### `query-initial-memory-bytes = 0`
+#### `query-max-memory-bytes = 0`
+#### `total-max-memory-bytes = 0`
+#### `query-queue-size = 0`
+
