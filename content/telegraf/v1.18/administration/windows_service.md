@@ -19,8 +19,6 @@ The following commands are available:
 | `telegraf.exe --service start`     | Start the telegraf service    |
 | `telegraf.exe --service stop`      | Stop the telegraf service     |
 
-Outlined below are the general steps to install Telegraf as a Service.
-
 {{% note %}}
 Installing a Windows service requires administrative permissions.
 Be sure to [launch Powershell as administrator](
