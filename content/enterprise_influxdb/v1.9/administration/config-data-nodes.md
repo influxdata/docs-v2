@@ -1253,13 +1253,22 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
     > higher CPU load as new shard digest files are created.
     > The added load will drop off after shard digests are completed for existing shards. -->
 
-## Flux controller
+## Query controls
 
 ### `[flux-controller]`
 
 #### `query-concurrency = 0`
-#### `query-initial-memory-bytes = 0`
-#### `query-max-memory-bytes = 0`
-#### `total-max-memory-bytes = 0`
-#### `query-queue-size = 0`
+Number of queries allowed to execute concurrently.
 
+#### `query-initial-memory-bytes = 0`
+Initial bytes of memory allocated for a query.
+
+#### `query-max-memory-bytes = 0`
+Maximum total bytes of memory allowed for queries.
+
+#### `total-max-memory-bytes = 0`
+Maximum total bytes of memory allowed for queries.
+
+#### `query-queue-size = 0`
+Maximum number of queries allowed in execution queue.
+When queue limit is reached, new queries are rejected.
