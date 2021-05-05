@@ -10,6 +10,12 @@ menu:
 
 Telegraf natively supports running as a Windows service.
 
+{{% note %}}
+Installing a Windows service requires administrative permissions.
+Be sure to [launch Powershell as administrator](
+https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
+{{% /note %}}
+
 The following commands are available:
 
 | Command                            | Effect                        |
@@ -18,12 +24,6 @@ The following commands are available:
 | `telegraf.exe --service uninstall` | Remove the telegraf service   |
 | `telegraf.exe --service start`     | Start the telegraf service    |
 | `telegraf.exe --service stop`      | Stop the telegraf service     |
-
-{{% note %}}
-Installing a Windows service requires administrative permissions.
-Be sure to [launch Powershell as administrator](
-https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
-{{% /note %}}
 
 1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/) to download Telegraf to `C:\Program Files\InfluxData\telegraf\telegraf-<version>`. We recommend using this versioned directory as a backup copy, and copying its contents to C:\Program Files\InfluxData\telegraf\.
 2. In PowerShell, run the following as an administrator:
@@ -54,10 +54,7 @@ If you have multiple Telegraf configuration files, you can specify a `--config-d
    ```
    > C:\"Program Files"\Telegraf\telegraf.exe --service install --config C:\"Program Files"\Telegraf\telegraf.conf --config-directory C:\"Program Files"\Telegraf\telegraf.d
    ```
-
-{{% note %}}
 ## Logging and troubleshooting
 
 When Telegraf runs as a Windows service, Telegraf logs messages to Windows event logs.
 If the Telegraf service fails to start, view error logs by selecting **Event Viewer**→**Windows Logs**→**Application**.
-{{% /note %}}
