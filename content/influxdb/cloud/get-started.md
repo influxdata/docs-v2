@@ -27,7 +27,7 @@ This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add t
 
 ## Select metrics
 
-Now that we've added the demo data bucket, we're ready to create our notebook. The first notebook cell selects the bucket and metrics we'll work with.
+Now that we've added the demo data bucket, we're ready to create our notebook.
 
 1. In the navigation menu on the left, click **Notebooks**.
 
