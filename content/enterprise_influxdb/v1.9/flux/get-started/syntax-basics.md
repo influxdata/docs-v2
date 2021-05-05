@@ -16,29 +16,6 @@ v2: /influxdb/v2.0/query-data/get-started/syntax-basics/
 Flux, at its core, is a scripting language designed specifically for working with data.
 This guide walks through a handful of simple expressions and how they are handled in Flux.
 
-## Use the influx CLI
-Use the `influx` CLI in "Flux mode" as you follow this guide.
-When started with `-type=flux`, the `influx` CLI is an interactive read-eval-print-loop (REPL) that supports Flux syntax.
-
-##### Start in the influx CLI in Flux mode
-```bash
-influx -type=flux
-```
-
-> If using the [InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install), use the `./sandbox enter`
-> command to enter the `influxdb` container, where you can start the `influx` CLI in Flux mode.
-> You will also need to specify the `host` as `influxdb` to connect to InfluxDB over the Docker network.
->
-```bash
-./sandbox enter influxdb
-
-root@9bfc3c08579c:/# influx -host influxdb -type=flux
-```
-
-## Basic Flux syntax
-The code blocks below provide commands that illustrate the basic syntax of Flux.
-Run these commands in the `influx` CLI's Flux REPL.
-
 ### Simple expressions
 Flux is a scripting language that supports basic expressions.
 For example, simple addition:

@@ -25,36 +25,11 @@ This guide covers the different options:
 Chronograf v1.8+ supports Flux in its Data Explorer.
 Flux queries can be built, executed, and visualized from within the Chronograf user interface.
 
-## Influx CLI
-InfluxDB v1.8+'s `influx` CLI includes a `-type` option which allows you specify
-what type of interactive session to start.
-`-type=flux` will start an interactive read-eval-print-loop (REPL) that supports Flux.
-
 {{% note %}}
 If [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization)
 on your InfluxDB instance, use the `-username` flag to provide your InfluxDB username and
 the `-password` flag to provide your password.
 {{% /note %}}
-
-##### Enter an interactive Flux REPL
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[No Auth](#)
-[Auth Enabled](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```bash
-influx -type=flux
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```bash
-influx -type=flux -username myuser -password PasSw0rd
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-Any Flux query can be executed within the REPL.
 
 ### Submit a Flux query via parameter
 Flux queries can also be passed to the Flux REPL as a parameter using the `influx` CLI's `-type=flux` option and the `-execute` parameter.
