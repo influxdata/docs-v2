@@ -54,3 +54,9 @@ table {
     td:nth-child(2) code { margin-left: -2rem; }
   }
 }
+
+p.table-group-key {
+  margin: 1rem 0 -.75rem;
+  font-weight: $medium;
+  font-size: .87rem;
+}
