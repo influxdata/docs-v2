@@ -1,7 +1,7 @@
 ---
 title: Step 2 - Install InfluxDB Enterprise data nodes
 aliases:
-    - /enterprise_influxdb/v1.9/production_installation/data_node_installation/
+    - /enterprise_influxdb/v1.9/installation/data_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Step 2 - Install data nodes
@@ -15,13 +15,13 @@ The next steps will get you up and running with the second essential component o
 your InfluxDB Enterprise cluster: the data nodes.
 
 If you have not set up your meta nodes, please visit
-[Installing meta nodes](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/meta_node_installation/).
+[Installing meta nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 
 
 # Data node setup description and requirements
 
-The Production Installation process sets up two [data nodes](/enterprise_influxdb/v1.9/concepts/glossary#data-node)
+The installation process sets up two [data nodes](/enterprise_influxdb/v1.9/concepts/glossary#data-node)
 and each data node runs on its own server.
 You **must** have a minimum of two data nodes in a cluster.
 InfluxDB Enterprise clusters require at least two data nodes for high availability and redundancy.
@@ -283,4 +283,4 @@ If you do not see your data nodes in the output, please retry adding them
 to the cluster.
 
 Once your data nodes are part of your cluster move on to [the final step
-to set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/chrono_install).
+to set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install).

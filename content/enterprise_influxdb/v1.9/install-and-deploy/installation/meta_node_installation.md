@@ -1,7 +1,7 @@
 ---
 title: Step 1 - Install InfluxDB Enterprise meta nodes
 aliases:
-    - /enterprise_influxdb/v1.9/production_installation/meta_node_installation/
+    - /enterprise_influxdb/v1.9/installation/meta_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Step 1 - Install meta nodes
@@ -11,21 +11,19 @@ menu:
 
 InfluxDB Enterprise offers highly scalable clusters on your infrastructure
 and a management UI ([via Chronograf](/{{< latest "chronograf" >}})) for working with clusters.
-The production installation process is designed for users looking to
+The installation process is designed for users looking to
 deploy InfluxDB Enterprise in a production environment.
 The following steps will get you up and running with the first essential component of
 your InfluxDB Enterprise cluster: the meta nodes.
 
 ## Meta node setup description and requirements
 
-The Production Installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
-<br>
+The installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
+
 InfluxDB Enterprise clusters require an *odd number* of *at least three* meta nodes
 for high availability and redundancy.
-InfluxData does not recommend having more than three meta nodes unless your servers
-or the communication between the servers have chronic reliability issues.
-In practice, this means you will almost use exactly three meta nodes.
-
+We typically recommend three meta nodes.
+If your servers have communication problems chronic reliability issues, you can try adding nodes.
 
 > **Note**: Deploying multiple meta nodes on the same server is strongly discouraged
 > since it creates a larger point of potential failure if that particular server is unresponsive.
@@ -63,7 +61,7 @@ The `influxdb` user also owns certain files needed to start the service.
 In some cases, local policies may prevent the local user account from being created and the service fails to start.
 Contact your systems administrator for assistance with this requirement.
 
-## Meta node setup
+## Set up meta nodes
 ### Step 1: Add appropriate DNS entries for each of your servers
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
@@ -245,6 +243,6 @@ If you do not see your meta nodes in the output, please retry adding them to
 the cluster.
 
 Once your meta nodes are part of your cluster move on to [the next steps to
-set up your data nodes](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/data_node_installation/).
+set up your data nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/data_node_installation/).
 Please do not continue to the next steps if your meta nodes are not part of the
 cluster.
