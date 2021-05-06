@@ -11,6 +11,8 @@ menu:
     parent: Experimental
 weight: 301
 influxdb/v2.0/tags: [functions, api, package]
+cascade:
+  introduced: 0.114.0
 ---
 
 Flux experimental InfluxDB package provides tools for working with the InfluxDB API.

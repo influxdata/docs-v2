@@ -12,6 +12,8 @@ menu:
     parent: Experimental
 weight: 301
 influxdb/v2.0/tags: [functions, usage, package]
+cascade:
+  introduced: 0.114.0
 ---
 
 The Flux experimental usage package provides tools for collecting usage and usage
