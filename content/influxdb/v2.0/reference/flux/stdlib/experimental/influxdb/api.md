@@ -31,7 +31,8 @@ influxdb.api(
 )
 ```
 
-#### Response record schema
+{{< expand-wrapper >}}
+{{% expand "View response record schema" %}}
 ```js
 {
   statusCode: int,
@@ -39,6 +40,8 @@ influxdb.api(
   body: bytes
 }
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Parameters
 
@@ -55,12 +58,14 @@ _**Data type:** String_
 ### host
 InfluxDB host URL
 _(Required when executed outside of InfluxDB)_.
+Default is `""`.
 
 _**Data type:** String_
 
 ### token
-InfluxDB authentication token
+InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
+Default is `""`.
 
 _**Data type:** String_
 
@@ -81,7 +86,7 @@ Default is `30s`.
 _**Data type:** Duration_
 
 ### body
-HTTP request body.
+HTTP request body as [bytes](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bytes/).
 
 _**Data type:** Bytes_
 

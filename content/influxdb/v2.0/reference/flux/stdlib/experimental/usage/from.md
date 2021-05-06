@@ -79,7 +79,7 @@ Default is `""`.
 _**Data type:** String_
 
 ### token
-InfluxDB Cloud authentication token _(Required if executed outside of your InfluxDB Cloud organization or region)_.
+InfluxDB Cloud [authentication token](/influxdb/v2.0/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
 _**Data type:** String_
@@ -90,8 +90,7 @@ Default is `false`.
 
 _**Data type:** Boolean_
 
-Depending on the resolution of queried data, `usage.from()`
-can query the following time ranges:
+`usage.from()` can query the following time ranges:
 
 | Data resolution | Maximum time range |
 | :-------------- | -----------------: |
@@ -100,11 +99,11 @@ can query the following time ranges:
 
 ## Examples
 
-- [Query usage data for your InfluxDB Cloud organization](#query-usage-data-for-your-influxdb-cloud-organization)
+- [Query downsampled usage data for your InfluxDB Cloud organization](#query-downsampled-usage-data-for-your-influxdb-cloud-organization)
 - [Query raw usage data for your InfluxDB Cloud organization](#query-raw-usage-data-for-your-influxdb-cloud-organization)
-- [Query usage data for a different InfluxDB Cloud organization](#query-usage-data-for-a-different-influxdb-cloud-organization)
+- [Query downsampled usage data for a different InfluxDB Cloud organization](#query-downsampled-usage-data-for-a-different-influxdb-cloud-organization)
 
-##### Query usage data for your InfluxDB Cloud organization
+##### Query downsampled usage data for your InfluxDB Cloud organization
 ```js
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
@@ -131,7 +130,7 @@ usage.from(
 )
 ```
 
-##### Query usage data for a different InfluxDB Cloud organization
+##### Query downsampled usage data for a different InfluxDB Cloud organization
 ```js
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
