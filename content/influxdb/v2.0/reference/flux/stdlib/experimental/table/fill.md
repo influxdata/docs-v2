@@ -25,7 +25,9 @@ table.fill()
 ## Examples
 
 ##### Query
-```
+```js
+import "experimental/table"
+
 data
   |> table.fill()
 ```
