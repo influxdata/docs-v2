@@ -1,10 +1,10 @@
 ---
-title: Step 2 - Install InfluxDB Enterprise data nodes
+title: Install InfluxDB Enterprise data nodes
 aliases:
     - /enterprise_influxdb/v1.9/installation/data_node_installation/
 menu:
   enterprise_influxdb_1_9:
-    name: Step 2 - Install data nodes
+    name: Install data nodes
     weight: 20
     parent: Install in your environment
 ---
@@ -14,10 +14,11 @@ and a management UI for working with clusters.
 The next steps will get you up and running with the second essential component of
 your InfluxDB Enterprise cluster: the data nodes.
 
+{{% warn %}}
 If you have not set up your meta nodes, please visit
 [Installing meta nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
-
+{{% /warn %}}
 
 # Data node setup description and requirements
 

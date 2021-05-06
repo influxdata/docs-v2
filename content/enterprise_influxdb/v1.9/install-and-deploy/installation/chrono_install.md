@@ -1,10 +1,10 @@
 ---
-title: Step 3 - Install Chronograf
+title: Install Chronograf
 aliases:
     - /enterprise_influxdb/v1.9/installation/chrono_install/
 menu:
   enterprise_influxdb_1_9:
-    name: Step 3 - Install Chronograf
+    name: Install Chronograf
     weight: 30
     parent: Install in your environment
     identifier: chrono_install

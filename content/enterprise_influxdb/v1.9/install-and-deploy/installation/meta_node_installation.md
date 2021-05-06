@@ -1,10 +1,10 @@
 ---
-title: Step 1 - Install InfluxDB Enterprise meta nodes
+title: Install InfluxDB Enterprise meta nodes
 aliases:
     - /enterprise_influxdb/v1.9/installation/meta_node_installation/
 menu:
   enterprise_influxdb_1_9:
-    name: Step 1 - Install meta nodes
+    name: Install meta nodes
     weight: 10
     parent: Install in your environment
 ---
