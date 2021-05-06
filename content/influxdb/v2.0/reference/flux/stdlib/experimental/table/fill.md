@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     name: table.fill
     parent: table-exp
-weight: 301
+weight: 401
 influxdb/v2.0/tags: [functions, table, fill, package]
 ---
 
