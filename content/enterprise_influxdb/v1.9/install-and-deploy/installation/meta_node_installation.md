@@ -16,6 +16,15 @@ deploy InfluxDB Enterprise in a production environment.
 The following steps will get you up and running with the first essential component of
 your InfluxDB Enterprise cluster: the meta nodes.
 
+
+To install InfluxDB Enterprise meta nodes, do the following:
+
+1. Review [meta node requirements](#meta-node-setup-description-and-requirements)
+2. [Set up meta nodes](#set-up-meta-nodes):
+   1. [Add DNS entries](#add-dns-entries)
+   2. [Set up, configure, and start the meta services](#set-up-configure-and-start-the-meta-services)
+   3. [Join meta nodes to the cluster](#join-meta-nodes-to-the-cluster)
+
 ## Meta node setup description and requirements
 
 The installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
@@ -62,7 +71,7 @@ In some cases, local policies may prevent the local user account from being crea
 Contact your systems administrator for assistance with this requirement.
 
 ## Set up meta nodes
-### Step 1: Add appropriate DNS entries for each of your servers
+### Add DNS entries
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
 The addition of DNS entries and IP assignment is usually site and policy specific; contact your DNS administrator for assistance as necessary.
@@ -75,7 +84,7 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | `A`         | `enterprise-meta-03.mydomain.com` | `<Meta_3_IP>` |
 
 
-#### Step 1b: Verify DNS resolution
+#### Verify DNS resolution
 
 Before proceeding with the installation, verify on each server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
@@ -91,7 +100,7 @@ Resolve any connectivity issues before proceeding with the installation.
 A healthy cluster requires that every meta node can communicate with every other
 meta node.
 
-### Step 2: Set up, configure, and start the meta services
+### Set up, configure, and start the meta services
 
 Perform the following steps on each meta server.
 
@@ -195,7 +204,7 @@ must pass the `-single-server flag` when starting the single meta node.
 Please note that a cluster with only one meta node is **not** recommended for
 production environments.
 
-### Step 3: Join the meta nodes to the cluster
+### Join meta nodes to the cluster
 
 From one and only one meta node, join all meta nodes including itself.
 In our example, from `enterprise-meta-01`, run:
@@ -215,7 +224,7 @@ The expected output is:
 Added meta node x at enterprise-meta-0x:8091
 ```
 
-#### Step 3b: Verification steps
+#### Verification steps
 
 Issue the following command on any meta node:
 
