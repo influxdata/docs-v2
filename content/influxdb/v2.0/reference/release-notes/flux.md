@@ -20,7 +20,8 @@ menu:
 
 ### Features
 - Add `debug.slurp()` and `debug.sink()`.
-- Add `experimental/influxdb` and `experimental/usage` packages.
+- Add [`experimental/influxdb`](/influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/)
+  and [`experimental/usage`](/influxdb/v2.0/reference/flux/stdlib/experimental/usage/) packages.
 - Add `fmt` subcommand to the `flux` CLI to apply formatting to Flux files.
 
 ### Bug fixes
