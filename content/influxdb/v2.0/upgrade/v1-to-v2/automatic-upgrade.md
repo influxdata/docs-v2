@@ -49,8 +49,7 @@ Consider whether you need to address any of the following before upgrading.
 
 ### Available operating system, container, and platform support
 
-InfluxDB 2.0 is currently available for macOS and Linux.
-Windows builds are not currently available, but are planned for subsequent releases.
+InfluxDB 2.0 is currently available for macOS, Linux, and Windows.
 
 {{% note %}}
 InfluxDB 2.0 requires 64-bit operating systems.
