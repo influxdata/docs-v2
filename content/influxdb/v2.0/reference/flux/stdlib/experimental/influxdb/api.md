@@ -24,7 +24,7 @@ influxdb.api(
   path: "/example",
   host: "http://localhost:8086",
   token: "mySupeR53cre7t0k3n",
-  headers: ["header1": "header1Value", "header2", "header2Value"],
+  headers: ["header1": "header1Value", "header2": "header2Value"],
   query: ["ex1": "example1", "ex2": "example2"],
   timeout: 30s,
   body: bytes(v: "Example body")
@@ -80,7 +80,7 @@ URL query parameters.
 _**Data type:** Dictionary_
 
 ### timeout
-HTTP Request timeout.
+HTTP request timeout.
 Default is `30s`.
 
 _**Data type:** Duration_
