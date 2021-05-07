@@ -161,7 +161,7 @@ Error: authorization failed.
 
 Adds a data node to a cluster.
 By default, `influxd-ctl` adds the specified data node to the local meta node's cluster.
-Use `add-data` instead of the [`join` argument](#join) when [installing](/enterprise_influxdb/v1.9/installation/data_node_installation/) an InfluxDB Enterprise cluster.
+Use `add-data` instead of the [`join` argument](#join) when [installing a data node](/enterprise_influxdb/v1.9/installation/data_node_installation/) an InfluxDB Enterprise cluster.
 
 ##### Syntax
 
