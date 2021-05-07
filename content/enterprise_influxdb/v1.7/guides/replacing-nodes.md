@@ -8,10 +8,9 @@ menu:
     parent: Guides
 ---
 
-You may need to replace a node in your InfluxDB Enterprise cluster, for example, to update hardware. This guide describes how to replace both meta nodes and data nodes in a cluster:
+You may need to replace a node in your InfluxDB Enterprise cluster, for example, to update hardware.
 
-- [Concepts](#concepts)
-- [Scenarios]
+This guide describes how to replace both *meta* and *data* nodes in a cluster. [Review concepts](#concepts), and then select one of the following scenarios for specific steps to replace your nodes:
 
    - [Replace a node in a cluster with security enabled](#replace-a-node-in-a-cluster-with-security-enabled)
    - [Replace a meta node in a functional cluster](#replace-a-meta-node-in-a-functional-cluster)
