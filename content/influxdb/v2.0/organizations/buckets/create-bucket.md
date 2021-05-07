@@ -33,7 +33,7 @@ There are two places you can create a bucket in the UI.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ### Create a bucket in the Data Explorer
@@ -46,7 +46,7 @@ There are two places you can create a bucket in the UI.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI

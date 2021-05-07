@@ -96,7 +96,7 @@ boolean values are annotated with the `boolean` datatype.
 ### bucket
 
 A bucket is a named location where time series data is stored.
-All buckets have a retention policy, a duration of time that each data point persists.
+All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
 ## C
@@ -773,6 +773,12 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### retention period
+The duration of time that a bucket retains data.
+Points with timestamps older than their bucket's retention period are dropped.
+
+Related entries: [bucket](#bucket), [shard group duration](#shard-group-duration)
+
 <!--### replication factor
 
 The attribute of the retention policy that determines how many copies of the data are stored in the cluster. InfluxDB replicates data across N data nodes, where N is the replication factor.
@@ -782,16 +788,16 @@ To maintain data availability for queries, the replication factor should be less
 Data is fully available when the replication factor is greater than the number of unavailable data nodes.
 Data may be unavailable when the replication factor is less than the number of unavailable data nodes.
 Any replication factor greater than two gives you additional fault tolerance and query capacity within the cluster.
+-->
 
 ### retention policy (RP)
+Retention policy is an InfluxDB 1.x concept that represents the duration of time
+that each data point in the retention policy persists.
+The InfluxDB 2.x equivalent is [retention period](#retention-period).
+For more information about retention policies, see the
+[latest 1.x documentation](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 
-Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
-
-<!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
-
-Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
-
--->
+Related entries:  [retention period](#retention-period),
 
 ### RFC3339 timestamp
 A timestamp that uses the human readable DateTime format proposed in
@@ -903,36 +909,50 @@ Service input plugins listen on a socket for known protocol inputs, or apply the
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-<!--### shard
+### shard
 
-A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
-Every shard belongs to one and only one shard group.
-Multiple shards may exist in a single shard group.
-Each shard contains a specific set of series.
-All points falling on a given series in a given shard group will be stored in the same shard (TSM file) on disk.
+A shard contains encoded and compressed data for a specific set of [series](#series).
+A shard consists of one or more [TSM files](#tsm-time-structured-merge-tree) on disk.
+All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
+A shard belongs to a single [shard group](#shard-group).
 
-Related entries: [series](#series), [shard duration](#shard-duration), [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
-### shard duration
+Related entries: [series](#series), [shard duration](#shard-duration),
+[shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
 
-The shard duration determines how much time each shard group spans.
-The specific interval is determined by the `SHARD DURATION` of the retention policy.
+### shard group
+
+<<<<<<< HEAD
+Shard groups are logical containers for shards and contain all shards with data
+for a specified interval known as the [shard group duration](#shard-group-duration).
+Every bucket that contains data has at least one shard group.
+=======
+Shard groups are logical containers for shards organized by [bucket](#bucket).
+Every bucket with data has at least one shard group.
+A shard group contains all shards with data for the time interval covered by the shard group.
+The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
+>>>>>>> cb4186ba2075d97882bc5974623adbdd1e88934a
+
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
+
+Related entries: [bucket](#bucket), [retention period](#retention-period),
+[series](#series), [shard](#shard), [shard duration](#shard-duration)
+
+### shard group duration
+
+The duration of time or interval that each [shard group](#shard-group) covers. Set the `shard-group-duration` for each [bucket](#bucket).
+
+For more information, see:
+
+- [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/)
+- [Manage buckets](/influxdb/v2.0/organizations/buckets/)
+
 <!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
 Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard group](#shard-group)
-
-### shard group
-
-Shard groups are logical containers for shards.
-Shard groups are organized by time and retention policy.
-Every retention policy that contains data has at least one associated shard group.
-A given shard group contains all shards with data for the interval covered by the shard group.
-The interval spanned by each shard group is the shard duration.
-
-Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard duration](#shard-duration)
-
 -->
 
 ### Single Stat
@@ -1055,8 +1075,8 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
 There are different types of athentication tokens:
 
-- **Admin token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Admin tokens._
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
+  _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
 

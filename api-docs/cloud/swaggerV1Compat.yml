@@ -1,3 +1,4 @@
+# this is a manually maintained file for these old routes until oats#15 is resolved
 openapi: "3.0.0"
 info:
   title: Influx API Service (V1 compatible endpoints)
@@ -118,7 +119,7 @@ paths:
           name: Accept
           schema:
             type: string
-            description: Specifies how query results should be encoded in the response.
+            description: Specifies how query results should be encoded in the response. **Note:** With `application/csv`, query results include epoch timestamps instead of RFC3339 timestamps.
             default: application/json
             enum:
               - application/json
@@ -253,7 +254,6 @@ components:
         test_measurement,,1603740794286107366,1,tag_value
         test_measurement,,1603740870053205649,2,tag_value
         test_measurement,,1603741221085428881,3,tag_value
-
     Error:
       properties:
         code:
